@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 280" font-family="Georgia, serif" font-size="15">
+  <title>Page 5 — Standard QED: two electrons exchanging a single photon</title>
+
+  <!-- Two electron lines crossing through a shared vertex region -->
+  <!-- Left electron: bottom-left to top, then continues up-left -->
+  <line x1="60"  y1="240" x2="170" y2="140" stroke="black" stroke-width="1.6"/>
+  <line x1="170" y1="140" x2="80"  y2="40"  stroke="black" stroke-width="1.6"/>
+
+  <!-- Right electron: bottom-right to top, then continues up-right -->
+  <line x1="360" y1="240" x2="250" y2="140" stroke="black" stroke-width="1.6"/>
+  <line x1="250" y1="140" x2="340" y2="40"  stroke="black" stroke-width="1.6"/>
+
+  <!-- Photon: wavy line between the two vertices -->
+  <path d="M 170 140 Q 180 125, 190 140 T 210 140 T 230 140 T 250 140"
+        fill="none" stroke="black" stroke-width="1.5"/>
+
+  <!-- Vertex dots -->
+  <circle cx="170" cy="140" r="3" fill="black"/>
+  <circle cx="250" cy="140" r="3" fill="black"/>
+
+  <!-- Labels -->
+  <text x="40"  y="260" font-style="italic">e⁻</text>
+  <text x="365" y="260" font-style="italic">e⁻</text>
+  <text x="60"  y="35"  font-style="italic">e⁻</text>
+  <text x="345" y="35"  font-style="italic">e⁻</text>
+  <text x="200" y="125" font-style="italic">γ</text>
+
+  <text x="20" y="20" font-size="13" fill="#555">standard QED exchange</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" font-family="Georgia, serif" font-size="15">
+  <title>Page 5 — Spinor electrodynamics: two e⁻ exchanging a correlated pair of γ½</title>
+
+  <!-- Left electron line: bottom-left up to lower vertex, then up-left out -->
+  <line x1="40"  y1="280" x2="160" y2="200" stroke="black" stroke-width="1.6"/>
+  <line x1="160" y1="200" x2="160" y2="120" stroke="black" stroke-width="1.6"/>
+  <line x1="160" y1="120" x2="40"  y2="40"  stroke="black" stroke-width="1.6"/>
+
+  <!-- Right electron line: bottom-right to lower vertex, then up-right -->
+  <line x1="380" y1="280" x2="260" y2="200" stroke="black" stroke-width="1.6"/>
+  <line x1="260" y1="200" x2="260" y2="120" stroke="black" stroke-width="1.6"/>
+  <line x1="260" y1="120" x2="380" y2="40"  stroke="black" stroke-width="1.6"/>
+
+  <!-- The two γ½'s in an X — drawn as dashed/light lines crossing in the middle -->
+  <line x1="160" y1="200" x2="260" y2="120" stroke="black" stroke-width="1.2" stroke-dasharray="5,4"/>
+  <line x1="260" y1="200" x2="160" y2="120" stroke="black" stroke-width="1.2" stroke-dasharray="5,4"/>
+
+  <!-- Small arrowheads at midpoints of the γ½ lines to mark the spinor character -->
+  <polygon points="215,165 207,160 207,170" fill="black"/>
+  <polygon points="205,165 213,160 213,170" fill="black"/>
+
+  <!-- Vertex dots -->
+  <circle cx="160" cy="200" r="3" fill="black"/>
+  <circle cx="260" cy="200" r="3" fill="black"/>
+  <circle cx="160" cy="120" r="3" fill="black"/>
+  <circle cx="260" cy="120" r="3" fill="black"/>
+
+  <!-- Labels -->
+  <text x="20"  y="300" font-style="italic">e⁻</text>
+  <text x="385" y="300" font-style="italic">e⁻</text>
+  <text x="20"  y="35"  font-style="italic">e⁻</text>
+  <text x="385" y="35"  font-style="italic">e⁻</text>
+
+  <text x="170" y="175" font-style="italic">γ<tspan font-size="11" baseline-shift="sub">½</tspan></text>
+  <text x="230" y="175" font-style="italic">γ<tspan font-size="11" baseline-shift="sub">½</tspan></text>
+
+  <text x="20" y="20" font-size="13" fill="#555">spinor electrodynamics: correlated γ½ pair</text>
+</svg>

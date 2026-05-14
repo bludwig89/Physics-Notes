@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" font-family="Georgia, serif" font-size="13">
+  <title>Page 3 — Tetrahedron with 3 particle types: the two isomers</title>
+
+  <text x="20" y="25" font-size="14" font-style="italic">
+    Tetrahedron with 3 types of particles — only 2 isomers
+  </text>
+
+  <!-- ============ Isomer 1 ============ -->
+  <g transform="translate(120,160)">
+    <!-- vertices: top, front-left, front-right, back (hidden) -->
+    <!-- visible solid edges -->
+    <line x1="0"  y1="-80" x2="-70" y2="40"  stroke="black" stroke-width="1.4"/>
+    <line x1="0"  y1="-80" x2="70"  y2="40"  stroke="black" stroke-width="1.4"/>
+    <line x1="-70" y1="40" x2="70"  y2="40"  stroke="black" stroke-width="1.4"/>
+    <!-- hidden back vertex / dashed edges -->
+    <line x1="0"  y1="-80" x2="0"   y2="20"  stroke="black" stroke-width="1.0" stroke-dasharray="4,3"/>
+    <line x1="-70" y1="40" x2="0"   y2="20"  stroke="black" stroke-width="1.0" stroke-dasharray="4,3"/>
+    <line x1="70"  y1="40" x2="0"   y2="20"  stroke="black" stroke-width="1.0" stroke-dasharray="4,3"/>
+
+    <!-- particle labels at each vertex: A, B, C, A (one type repeats) -->
+    <circle cx="0"   cy="-80" r="9" fill="#222"/>
+    <circle cx="-70" cy="40"  r="9" fill="#fff" stroke="black" stroke-width="1.4"/>
+    <circle cx="70"  cy="40"  r="9" fill="#888"/>
+    <circle cx="0"   cy="20"  r="9" fill="#222"/>
+
+    <text x="0" y="125" text-anchor="middle" font-style="italic">isomer 1</text>
+  </g>
+
+  <!-- ============ Isomer 2 ============ -->
+  <g transform="translate(360,160)">
+    <line x1="0"  y1="-80" x2="-70" y2="40"  stroke="black" stroke-width="1.4"/>
+    <line x1="0"  y1="-80" x2="70"  y2="40"  stroke="black" stroke-width="1.4"/>
+    <line x1="-70" y1="40" x2="70"  y2="40"  stroke="black" stroke-width="1.4"/>
+    <line x1="0"  y1="-80" x2="0"   y2="20"  stroke="black" stroke-width="1.0" stroke-dasharray="4,3"/>
+    <line x1="-70" y1="40" x2="0"   y2="20"  stroke="black" stroke-width="1.0" stroke-dasharray="4,3"/>
+    <line x1="70"  y1="40" x2="0"   y2="20"  stroke="black" stroke-width="1.0" stroke-dasharray="4,3"/>
+
+    <!-- mirror arrangement: B and C swapped at the base -->
+    <circle cx="0"   cy="-80" r="9" fill="#222"/>
+    <circle cx="-70" cy="40"  r="9" fill="#888"/>
+    <circle cx="70"  cy="40"  r="9" fill="#fff" stroke="black" stroke-width="1.4"/>
+    <circle cx="0"   cy="20"  r="9" fill="#222"/>
+
+    <text x="0" y="125" text-anchor="middle" font-style="italic">isomer 2</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(480,160)" font-size="12">
+    <text x="0" y="-60" font-style="italic">3 types:</text>
+    <circle cx="6" cy="-40" r="6" fill="#222"/>            <text x="20" y="-36">A</text>
+    <circle cx="6" cy="-22" r="6" fill="#fff" stroke="black"/> <text x="20" y="-18">B</text>
+    <circle cx="6" cy="-4"  r="6" fill="#888"/>            <text x="20" y="0">C</text>
+  </g>
+
+  <text x="20" y="305" font-style="italic">
+    Cannot make anything else if every vertex must touch all three types.
+  </text>
+</svg>

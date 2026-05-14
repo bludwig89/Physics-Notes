@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" font-family="Georgia, serif" font-size="14">
+  <title>Page 3 — Photon vs Graviton line conventions</title>
+
+  <!-- Photon: wavy line -->
+  <path d="M 40 60 Q 60 40, 80 60 T 120 60 T 160 60 T 200 60 T 240 60 T 280 60 T 320 60"
+        fill="none" stroke="black" stroke-width="1.6"/>
+  <text x="340" y="65">photon  /  graviton</text>
+
+  <!-- Graviton: a series of arcs / bumps with parameter 'a' -->
+  <!-- baseline -->
+  <line x1="40" y1="150" x2="320" y2="150" stroke="black" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <!-- bumps -->
+  <path d="M 40 150 A 35 35 0 0 1 110 150" fill="none" stroke="black" stroke-width="1.6"/>
+  <path d="M 110 150 A 35 35 0 0 1 180 150" fill="none" stroke="black" stroke-width="1.6"/>
+  <path d="M 180 150 A 35 35 0 0 1 250 150" fill="none" stroke="black" stroke-width="1.6"/>
+  <path d="M 250 150 A 35 35 0 0 1 320 150" fill="none" stroke="black" stroke-width="1.6"/>
+
+  <!-- 'a' label on the bump width -->
+  <line x1="40" y1="170" x2="110" y2="170" stroke="black" stroke-width="0.8"/>
+  <line x1="40" y1="166" x2="40" y2="174" stroke="black" stroke-width="0.8"/>
+  <line x1="110" y1="166" x2="110" y2="174" stroke="black" stroke-width="0.8"/>
+  <text x="70" y="186" font-style="italic">a</text>
+
+  <!-- Caption -->
+  <text x="40" y="220" font-style="italic">Photon antisymmetric  /  Graviton symmetric</text>
+</svg>
