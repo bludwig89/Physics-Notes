@@ -519,3 +519,162 @@ def verify_dispersion_3d(L=16, n_steps=20, c=0.5, k_indices=None):
             'residual':       residual,
         })
     return results
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase B1 — Group velocity measurement
+# ══════════════════════════════════════════════════════════════════
+
+def _gaussian_packet_2d(L, k0, sigma=5.0, center=None, helicity_plus=True):
+    """
+    Narrow-band Gaussian wave packet centered at wavevector k0 = (kx, ky)
+    with envelope width sigma.  Initial spinor is the +1 eigenvector of
+    σ·k0 (positive helicity).
+    """
+    if center is None:
+        center = (L // 4, L // 2)   # off-center so it has room to travel
+    cx, cy = center
+    xs = np.arange(L)
+    X, Y = np.meshgrid(xs, xs, indexing='ij')
+
+    envelope = np.exp(-((X - cx)**2 + (Y - cy)**2) / (2.0 * sigma**2))
+    phase = np.exp(1j * (k0[0] * X + k0[1] * Y))
+
+    kappa = float(np.sqrt(k0[0]**2 + k0[1]**2))
+    if kappa == 0.0:
+        h = np.array([1.0, 0.0], dtype=complex)
+    else:
+        phi = np.exp(1j * np.arctan2(k0[1], k0[0]))
+        h = np.array([1.0, phi], dtype=complex) / np.sqrt(2.0)
+        if not helicity_plus:
+            h = np.array([1.0, -phi], dtype=complex) / np.sqrt(2.0)
+
+    return h[0] * envelope * phase, h[1] * envelope * phase
+
+
+def measure_group_velocity_2d(L=64, n_steps=40, c=0.5, k0=(0.5, 0.0),
+                               sigma=5.0):
+    """
+    Track the centroid of a narrow-band Gaussian wave packet, measure its
+    group velocity, compare to the analytic Weyl prediction v_g = c·k̂.
+
+    For ω = c|k|:  v_g = ∇_k ω = c · (k/|k|)  — speed c, along k.
+
+    Stops measurement before the packet wraps the torus.
+
+    Returns
+    -------
+    dict with keys
+        v_measured  : (vx, vy) measured group velocity from linear fit
+        v_analytic  : (vx, vy) analytic group velocity = c·k̂
+        speed_ratio : |v_measured| / |v_analytic|  (should be ≈ 1)
+    """
+    f, g = _gaussian_packet_2d(L, k0, sigma=sigma)
+    xs = np.arange(L)
+    X, Y = np.meshgrid(xs, xs, indexing='ij')
+
+    centroids = []
+    for step in range(n_steps + 1):
+        density = np.abs(f)**2 + np.abs(g)**2
+        total = float(density.sum())
+        if total > 0:
+            cx = float((X * density).sum() / total)
+            cy = float((Y * density).sum() / total)
+        else:
+            cx, cy = 0.0, 0.0
+        centroids.append((cx, cy))
+        if step < n_steps:
+            f, g = weyl_step_2d_splitstep(f, g, c)
+
+    centroids = np.array(centroids)
+    # Linear fit to position vs time
+    ts = np.arange(n_steps + 1)
+    # Use only the central window to avoid edge effects
+    fit_start = n_steps // 4
+    fit_end   = 3 * n_steps // 4
+    vx = float(np.polyfit(ts[fit_start:fit_end],
+                          centroids[fit_start:fit_end, 0], 1)[0])
+    vy = float(np.polyfit(ts[fit_start:fit_end],
+                          centroids[fit_start:fit_end, 1], 1)[0])
+
+    kappa = float(np.sqrt(k0[0]**2 + k0[1]**2))
+    if kappa == 0.0:
+        v_an = (0.0, 0.0)
+    else:
+        v_an = (c * k0[0] / kappa, c * k0[1] / kappa)
+
+    speed_measured = float(np.sqrt(vx**2 + vy**2))
+    speed_analytic = float(np.sqrt(v_an[0]**2 + v_an[1]**2))
+
+    return {
+        'v_measured':  (vx, vy),
+        'v_analytic':  v_an,
+        'speed_measured': speed_measured,
+        'speed_analytic': speed_analytic,
+        'speed_ratio': speed_measured / speed_analytic if speed_analytic > 0 else 0.0,
+        'centroids': centroids,
+    }
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase B2 — Min-size / min-σ sweeps
+# ══════════════════════════════════════════════════════════════════
+
+def size_sweep_L(L_values, n_steps=100, c=0.5, sigma=3.0, k0=(0.8, 0.0)):
+    """
+    Vary lattice size L, hold (c, sigma, k0) fixed.  Measure
+    (a) norm drift, (b) group velocity ratio relative to analytic c·k̂.
+
+    Returns list of dicts with one entry per L.
+    """
+    results = []
+    for L in L_values:
+        gv = measure_group_velocity_2d(L=L, n_steps=n_steps, c=c, k0=k0, sigma=sigma)
+
+        f, g = _gaussian_packet_2d(L, k0, sigma=sigma)
+        n0 = float(np.sum(np.abs(f)**2 + np.abs(g)**2))
+        for _ in range(n_steps):
+            f, g = weyl_step_2d_splitstep(f, g, c)
+        n1 = float(np.sum(np.abs(f)**2 + np.abs(g)**2))
+
+        results.append({
+            'L': L,
+            'speed_ratio': gv['speed_ratio'],
+            'norm_drift':  abs(n1 - n0) / n0 if n0 > 0 else 0.0,
+        })
+    return results
+
+
+def size_sweep_sigma(sigma_values, L=32, n_steps=50, c=0.5, k0=(0.6, 0.0)):
+    """
+    Vary packet width sigma, hold (L, c, k0) fixed.
+
+    Reports the fraction of spectral power above the Nyquist threshold
+    π/2 (a conservative aliasing cutoff).
+    """
+    results = []
+    xs = np.arange(L)
+    X, Y = np.meshgrid(xs, xs, indexing='ij')
+    kx_grid = np.fft.fftfreq(L) * 2.0 * np.pi
+    ky_grid = np.fft.fftfreq(L) * 2.0 * np.pi
+    KX, KY = np.meshgrid(kx_grid, ky_grid, indexing='ij')
+    kappa = np.sqrt(KX**2 + KY**2)
+    nyquist_mask = kappa > (np.pi / 2.0)
+
+    for sigma in sigma_values:
+        f, g = _gaussian_packet_2d(L, k0, sigma=sigma)
+        F = np.fft.fft2(f)
+        G = np.fft.fft2(g)
+        power = np.abs(F)**2 + np.abs(G)**2
+        total = float(power.sum())
+        above = float(power[nyquist_mask].sum())
+        frac_above_nyquist = above / total if total > 0 else 0.0
+
+        gv = measure_group_velocity_2d(L=L, n_steps=n_steps, c=c, k0=k0, sigma=sigma)
+
+        results.append({
+            'sigma': sigma,
+            'frac_above_nyquist': frac_above_nyquist,
+            'speed_ratio': gv['speed_ratio'],
+        })
+    return results

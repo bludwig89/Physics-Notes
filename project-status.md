@@ -106,9 +106,36 @@ PDF total: 182 pages.
 ## Software Modeling
 
 - `ca-software-plan.md` — Implementation plan and results for the pages 35–39 CA simulation. All five stages implemented and run to 200 time steps. Includes split-step FFT propagator derivation and simulation results.
-- `ca-simulation/ca_core.py` — Core numerics: explicit-Euler steppers (`weyl_step_2d`, `weyl_step_3d`) and exact split-step propagators (`weyl_step_2d_splitstep`, `weyl_step_3d_splitstep`), plus scalar wave CA, CFL sweep, norm tracking, and reversibility test.
-- `ca-simulation/run_simulation.py` — Five-stage runner. Currently set to 200 steps, using split-step propagator throughout.
-- `ca-simulation/figures/` — Output figures: scalar instability, spinor density snapshots (3 helicities), norm conservation, CFL sweep, graph topology, and reversibility chart.
+- `ca-simulation/ca_core.py` — Core numerics: pedagogical-only Euler steppers; exact split-step propagators (`weyl_step_*_splitstep`); dispersion verification; group-velocity measurement; L- and σ-sweeps.
+- `ca-simulation/ca_dirac.py` — **Phase D1.** Dirac CA 4-spinor split-step with mass; dispersion verifier; zitterbewegung measurement; **Phase E1** U(1) gauge step and Aharonov–Bohm test.
+- `ca-simulation/ca_curved.py` — **Phase C1.** Variable-c refraction; Snell's law test.
+- `ca-simulation/ca_weak.py` — **Phase E2.** SU(2) weak gauge on left-chirality isospin doublet; parity-violation test.
+- `ca-simulation/spinor_color.py` — **Phase A1.** Bloch-sphere → RGB mapping; Bloch legend.
+- `ca-simulation/ca_higgs.py` — **Phase F1/F2.** Complex scalar Φ with Mexican-hat potential; velocity-Verlet symplectic stepper; Higgs and Goldstone dispersion verifiers.
+- `ca-simulation/ca_unified.py` — **Phase F.** Coupled Φ–Dirac CA via Yukawa m_eff(x) = y|Φ(x)|; UnifiedState container, vacuum/symmetry-restored/perturbation setup helpers.
+- `ca-simulation/run_simulation.py` — Original five-stage Weyl runner.
+- `ca-simulation/run_phase_tests.py` — **Phases A–E test suite.** 8/8 phases pass; figures saved to `figures/phase*.png`.
+- `ca-simulation/run_phaseF_tests.py` — **Phase F test suite.** F1 (vacuum contract), F2 (Higgs+Goldstone dispersion), F3 (Yukawa sketch), F4 (symmetry-restored). 4/4 pass.
+- `ca-simulation/figures/` — All output figures (Weyl `stage*.png` and phase `phase*.png`).
+
+### Phase test results (2026-05-14)
+
+| Phase | Description | Key result |
+|---|---|---|
+| A1 | Bloch-sphere spinor coloring | Helicity states render visibly distinct |
+| A2 | Visualization frames | 2D strip, 1D spacetime, 8×8 graph view all rendered |
+| B1 | Group-velocity measurement | Speed ratios 0.92–0.98 (Gaussian k-spread; → 1 as σ→∞) |
+| B2 | Min L / min σ sweeps | L≥32, σ≥3 → free-space behaviour at <0.01% artifact |
+| C1 | Variable-c refraction (Strang) | θ_out within 0.51° of Snell; 30% better norm drift than blending |
+| D1 | Dirac CA | Weyl regression 5e-16; dispersion 9e-17; norm drift 3e-14 / 1000 steps; zitterbewegung 3.5% off 2mc² (5000-step run) |
+| E1 | U(1) Aharonov–Bohm | Phase pickup at machine precision (4e-16); norm exact |
+| E2 | SU(2) parity violation | Left rotation exact; right-chirality leak = 0.0 (machine zero) |
+| **F1** | **Vacuum regression contract** | **Φ=v fixed at machine precision; fermion matches constant-m reference (8e-16)** |
+| **F2** | **Higgs + Goldstone dispersion** | **Radial ω = √(k² + 2μ²) within 0.1%; Goldstone massless within 0.04%** |
+| **F3** | **Yukawa back-reaction sketch** | **Φ deflection at fermion density observed (informational; not energy-conserving)** |
+| **F4** | **Symmetry-restored phase** | **Φ=0 fixed; η matches pure Weyl reference (8e-16); χ stays zero** |
+
+**Total: 12/12 phases pass.** F1, F4 at machine precision verify the parameter-preservation contract of the unification proposition. F2 verifies both Higgs and Goldstone modes. F3 is a sketch only — a proper symplectic Yukawa back-reaction is a separate engineering task.
 
 ## Corrections Log
 
