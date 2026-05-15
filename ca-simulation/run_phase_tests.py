@@ -264,6 +264,12 @@ def test_C1():
                                     k_in=(0.5, 0.15), sigma=8.0,
                                     x_start_frac=0.25,
                                     method='blend')
+    # P3 (2026-05-15): exact-unitary Cayley/Crank–Nicolson stepper
+    res_c = cv.measure_refraction(L=128, n_steps=200,
+                                    c_left=0.5, c_right=0.3,
+                                    k_in=(0.5, 0.15), sigma=8.0,
+                                    x_start_frac=0.25,
+                                    method='cayley')
 
     print(f'  Strang split (n_sub=4):')
     print(f'    theta_in={res_s["theta_in_deg"]:.2f}°  theta_out={res_s["theta_out_deg"]:.2f}°  Snell={res_s["theta_out_pred_deg"]:.2f}°')
@@ -271,6 +277,9 @@ def test_C1():
     print(f'  Blending (comparison):')
     print(f'    theta_out={res_b["theta_out_deg"]:.2f}°')
     print(f'    norm drift over 200 steps = {res_b["norm_drift"]:.3e}')
+    print(f'  Cayley (exact-unitary, P3):')
+    print(f'    theta_out={res_c["theta_out_deg"]:.2f}°  Snell={res_c["theta_out_pred_deg"]:.2f}°')
+    print(f'    norm drift over 200 steps = {res_c["norm_drift"]:.3e}')
 
     err = abs(res_s['theta_out_deg'] - res_s['theta_out_pred_deg'])
     ok_refr = check('Strang refraction within 1.5° of Snell',
@@ -281,7 +290,23 @@ def test_C1():
                     res_s['norm_drift'] <= res_b['norm_drift'] * 1.05,
                     f'(strang={res_s["norm_drift"]:.2e}, blend={res_b["norm_drift"]:.2e})')
 
-    return ok_refr and ok_norm
+    # Cayley contract: norm conservation at machine precision is the headline.
+    # Refraction angle has lattice dispersion (centered first-diff ω(k)=c·sin(k)
+    # vs the FFT propagator's exact ω(k)=c·|k|) — refractive direction is
+    # right qualitatively but ~5° off vs the continuum Snell prediction at
+    # |k|≈0.5.  Higher-order spatial stencils would close this gap.
+    err_c = abs(res_c['theta_out_deg'] - res_c['theta_out_pred_deg'])
+    ok_refr_c = check('Cayley shows refraction (within 8° of Snell — lattice dispersion)',
+                      err_c < 8.0, f'(err = {err_c:.2f}°)')
+    ok_norm_c = check('Cayley norm drift at machine precision (exact-unitary)',
+                      res_c['norm_drift'] < 1e-10,
+                      f'(drift = {res_c["norm_drift"]:.2e})')
+    # Cayley should massively beat Strang on norm conservation
+    ok_norm_beat = check('Cayley norm drift ≥ 10¹⁰× better than Strang',
+                          res_s['norm_drift'] / max(res_c['norm_drift'], 1e-18) > 1e10,
+                          f'(strang={res_s["norm_drift"]:.2e}, cayley={res_c["norm_drift"]:.2e})')
+
+    return ok_refr and ok_norm and ok_refr_c and ok_norm_c and ok_norm_beat
 
 
 # ══════════════════════════════════════════════════════════════════

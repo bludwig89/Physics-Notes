@@ -19,6 +19,7 @@
 | — | Companion research (Fredkin correlation, p.35–39) | `fredkin-correlation.md` | 2026-05-13 |
 | — | Companion research (CA rules and the four forces) | `ca-forces-integration.md` | 2026-05-13 |
 | — | Reference for current CA project | `ca-reference.md` | 2026-05-14 |
+| — | External paper summary: Ostoma & Trushyk (1999), *Cellular Automata Theory* (108 pages) | `ostoma-trushyk-1999-summary.md` | 2026-05-15 |
 
 PDF total: 182 pages.
 
@@ -137,6 +138,46 @@ PDF total: 182 pages.
 
 **Total: 12/12 phases pass.** F1, F4 at machine precision verify the parameter-preservation contract of the unification proposition. F2 verifies both Higgs and Goldstone modes. F3 is a sketch only — a proper symplectic Yukawa back-reaction is a separate engineering task.
 
+### F3 proposition fixes landed (2026-05-15 / 2026-05-16)
+
+- **P4** — `m_eff = y·|Φ|` → `m_eff = y·Re(Φ)`. Resolves the non-analyticity at Φ=0.
+- **P2** — Yukawa promoted to complex bilinear `M(x) = y·Φ(x)`. New `dirac_step_2d_varm_complex_splitstep` in `ca_dirac.py`; exactly unitary, reduces bit-for-bit to the real-mass varm stepper when `Im(Φ) ≡ 0`.
+- **P1** — Symplectic Yukawa back-reaction via joint Hamiltonian. `unified_step(back_react=True)` Strang-wraps the Dirac step with Π half-kicks `Π −= dt/2·c²·y·χ†η`. The `c²` factor (matching the Dirac stepper's mass-Hamiltonian convention) is essential; without it the Strang split has a constant 1.85% energy offset independent of dt. With it, drift over 200 steps at dt=0.5 is **3 ppm** and scales as O(dt²) exactly. `total_energy(state, mu2, lam, y, c)` helper added. F3 now runs 200 steps without divergence; `max|Φ−v|=4.4e-2` bounded.
+- **P3** — Cayley/Crank–Nicolson exact-unitary variable-c stepper in `ca_curved.py`. `CayleyVarcSolver2D` factorises an LU once per c-field change; each subsequent step is one back-substitution. **Norm conservation 5.5e-15** (machine precision) vs **32.6%** drift in the existing Strang stepper — a 6×10¹³ improvement. C1 Snell test gains a Cayley arm; new **F3b** demonstrates Newtonian-gravity-analog deflection: a Weyl probe packet bends 6.6 cells *toward* a static |Φ| depression (norm drift 1.1e-15). Caveat: centered first-difference lattice dispersion makes the Cayley refraction angle 5.4° off Snell at |k|≈0.5; not a bug, the price of position-space exact-unitarity. Higher-order spatial stencils would close it.
+
+**Total 13/13 phases pass** (A1, A2, B1, B2, C1+cayley, D1, E1, E2, F1, F2, F3, F3b, F4). All earlier passes preserved at the same numerical residuals.
+
+### Double-precision regression (2026-05-14)
+
+Fresh run with explicit float64/complex128 (NumPy 2.2.6 default). All 12 phases + the six original Weyl stages re-executed from a clean `__pycache__`. Results compared against the table above:
+
+| Phase / Stage | Prior value | Fresh value | Variation |
+|---|---|---|---|
+| B1 group-velocity | 0.92–0.98 | 0.9158 / 0.9172 / 0.9694 / 0.9791 | none (bit-for-bit) |
+| B2 norm drift (split-step) | not previously tabulated | 8.8e-16 … 2.2e-14 across L | new data — within 1 ulp per step |
+| C1 Snell error | 0.51° | 0.51° | none |
+| C1 Strang vs blending norm drift | 30% better | 3.02e-1 vs 4.30e-1 | none |
+| D1 Weyl regression | 5e-16 | 5.10e-16 | none |
+| D1 norm drift / 1000 steps | 3e-14 | 3.42e-14 | none |
+| D1 dispersion residual | 9e-17 | 8.88e-17 | none |
+| D1 zitterbewegung | 3.5% / 2mc² | 3.53% / 2mc² | none |
+| E1 phase pickup | 4e-16 | 4.44e-16 | none |
+| E1 norm drift with A0 | (not recorded) | 3.58e-12 | new data point |
+| E2 right-leakage | 0.0 | 0.0 | none |
+| F1 Φ−v drift | machine ε | 1.11e-16 | none |
+| F1 fermion diff | 8e-16 | 8.41e-16 | none |
+| F2 radial dispersion | within 0.1% | max res 1.06e-3 (0.106%) | none |
+| F2 goldstone dispersion | within 0.04% | max res 4.42e-4 | none |
+| F3 |Φ−v| at center | "observed" | 6.95e-1 (sketch range 0.012–1.247) | first numeric value recorded |
+| F4 Φ at 0 | machine ε | 0.0 (exact) | none |
+| F4 η match | 8e-16 | 7.57e-16 | none |
+| Stage 5 reversibility residual | not tabulated | 1.5e-12 at n=2500 | linear-in-n, 6e-16/step → precision-bound, not a bug |
+| Stage 6 3D norm | not tabulated | 150.3449 (constant to 4 dp at t = 0, 1000, 2500, 5000) | conserved |
+
+**Conclusion: no variation.** The codebase is already running at native double precision (NumPy default complex128). Residuals at the 1e-16 level *are* the floor; the only stage that grows away from it is Stage 5, where the residual scales linearly at ~6e-16 per timestep — exactly the per-step round-off budget of a complex128 FFT. Upgrading to `longdouble` (80-bit, ~64-bit mantissa) would shave roughly 1 decimal of error per step but is not worth the slowdown for the current tests.
+
+F3 still passes its informational threshold (`|Φ−v|` is non-trivially nonzero and finite) but the new run captures `max|Φ−v|=6.95e-01` over 30 steps. That is the energy "borrowed from nowhere" by the non-symplectic hand-kick — the magnitude the proposed P1 fix in `ca-f3-propositions.md` needs to bound.
+
 ## Corrections Log
 
 | Date | Location | Issue | Resolution |
@@ -148,6 +189,8 @@ PDF total: 182 pages.
 
 - Continue OCR/transcription for pages 61 onward in batches of ~15.
 - Optional: cross-check the quantum-scalar derivation (pages 1–2) against a standard QFT reference (Peskin & Schroeder ch. 2, or similar) to flag any handwriting-OCR errors in signs/factors.
+- **F3 follow-up.** See `ca-f3-propositions.md` for ranked candidate fixes (P1 symplectic Yukawa via joint Hamiltonian is recommended). The double-precision rerun confirms the F3 sketch is not a precision artifact — it is an integrator-structure issue.
+- Other Research - Review Digital Mechanics in the Reference Research folder, create a markdown overviewing the significant derivations and ideas. From the previous step, review the digital mechanics research and make comparisons to the current CA model. Indicate if there are any tests or verifications that arise.
 
 ## Diagram files (page 3 & 5)
 

@@ -4,9 +4,23 @@
 
 ---
 
+## External cross-reference (added 2026-05-15)
+
+Ostoma & Trushyk (1999), *Cellular Automata Theory and Physics* — summary in `ostoma-trushyk-1999-summary.md`. Most directly relevant observations for the Weyl-spinor CA project:
+
+- **Neighbor count vs lattice dimension**: $C_N = 3 C_{N-1} + 2$, so 1D = 2, 2D = 8, 3D = 26 neighbors. Our 2D/3D simulations use 4 and 6 neighbors (axis-only); a 26-neighbor stencil would more closely match the EMQG ontology and is worth piloting if isotropy artifacts appear.
+- **Rule-space size**: $2^{2^{m+1}}$ for binary cells with $m$ neighbors → $2^{2^{27}}$ in 3D. Brute search for "the rule" is infeasible; targeted physics-motivated ansätze (Weyl/Dirac/Yukawa, our route) are the only practical path.
+- **Photon = 1 cell/clock**: in the EMQG framing the maximum information-propagation rate per step **is** the speed of light. Our `c` parameter is the same dimensionless quantity; the CFL-like upper bound on stable explicit stepping in `ca_core.py` is the numerical analog.
+- **Two-layer space-time**: the paper distinguishes absolute CA units (cell counts, clock-cycle counts) from measured units (meters, seconds). Our simulation is entirely in the absolute layer; relativistic effects (Lorentz transforms, dispersion measurements in B1) emerge from it as expected.
+- **Raw vs measured $c$**: $c_{\text{measured}} = c_{\text{raw}} / n$ where $n$ is a vacuum index of refraction from photon-virtual-particle scattering. Suggests an experiment: introduce a uniform scattering term in `ca_core.py` and verify dispersion velocity scales by $1/n$ — a Fizeau analog within the simulation.
+- **Equivalence-principle violation prediction**: at ~$10^{-40}$, far below any reachable simulation precision, but conceptually a falsifiable extension of GR. Not relevant to current Phase A–F tests.
+- **F3 (Yukawa back-reaction) thematic alignment**: Ostoma–Trushyk's "masseon" coupling to the vacuum is conceptually parallel to F3's Φ ↔ Dirac coupling, though our implementation is purely the Standard-Model Yukawa, not their masseon proposal.
+
+---
+
 ## What this CA is
 
-A **cellular automaton (CA)** is a grid of cells, each holding a value, updated simultaneously at every timestep by a fixed local rule. This CA propagates a two-component complex field (a **spinor**) on a regular lattice. The update rule is the discretized, massless **Weyl equation** — the equation governing massless spin-½ particles like neutrinos. Each timestep corresponds to one unit of discrete time; each cell corresponds to one unit of discrete space. The lattice is the spacetime.
+A **cellular automaton (CA)** is a grid of cells, each holding a value, updated simultaneously at every timestep by a fixed local rule. This CA propagates a two-component complex field (a **spinor**) on a regular lattice. The update rule is the discretized, massless **Weyl equation** — the equation governing massless spin-½ particles like neutrinos. Each timestep corresponds to one unit of discrete time; each cell corresponds to one unit of discrete space. The lattice is spacetime.
 
 The simulation has two modes: an explicit finite-difference scheme (from the notebook, unstable) and a split-step FFT propagator (derived from the same equations, exactly unitary and unconditionally stable). All production runs use the split-step propagator.
 
@@ -146,6 +160,18 @@ Measured residual after 5000 forward + 5000 backward steps:
 $$\frac{\|\psi_{\text{final}} - \psi_{\text{initial}}\|}{\|\psi_{\text{initial}}\|} \approx 6 \times 10^{-14}$$
 
 This is machine-precision. The CA is, within floating-point limits, perfectly reversible.
+
+A scaling sweep at $c = 0.43$ (2026-05-14 rerun, complex128) confirms the residual is **precision-bound, not algorithmic**:
+
+| $n$ steps (each direction) | Residual |
+|---|---|
+| 100 | $5.85 \times 10^{-14}$ |
+| 500 | $2.95 \times 10^{-13}$ |
+| 1000 | $5.92 \times 10^{-13}$ |
+| 2500 | $1.48 \times 10^{-12}$ |
+| 5000 | $2.96 \times 10^{-12}$ |
+
+The residual scales linearly in $n$ at roughly $6 \times 10^{-16}$ per timestep — exactly one ulp of complex128 per round-trip FFT. Upgrading the working type to `longdouble` (80-bit) would buy about one extra decimal per step but is not worth the slowdown.
 
 ### Weyl dispersion ω = c|k|
 

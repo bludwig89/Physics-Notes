@@ -23,6 +23,8 @@ sub-stepping).  That is left as a follow-up.
 """
 
 import numpy as np
+import scipy.sparse as sp
+import scipy.sparse.linalg as spla
 from ca_core import weyl_step_2d_splitstep
 
 
@@ -127,6 +129,154 @@ def _half_step_dH(f, g, dc, dt, use_fft=True):
     return f_new, g_new
 
 
+# ══════════════════════════════════════════════════════════════════
+#  P3 (2026-05-15) — Cayley / Crank–Nicolson exact-unitary stepper
+# ══════════════════════════════════════════════════════════════════
+#
+# Solves   (I + i·dt/2·H_disc)·ψ_new = (I − i·dt/2·H_disc)·ψ_old
+#
+# where H_disc is the *Hermitized* discrete Weyl operator with variable
+# c(x):  the centered first-difference is taken with the **face-averaged**
+# c — c_face(i+½, j) = (c(i,j) + c(i+1,j))/2 — to make the discrete
+# operator exactly Hermitian on the periodic lattice.  The Cayley
+# transform of a Hermitian operator is unitary at the discrete level:
+# norm is conserved to the linear-solver tolerance (1e-14 with LU).
+#
+# Cost: one sparse LU factorisation per c_field change (~5 ms for L=64);
+# each subsequent step is one back-substitution (~1 ms).  For static
+# c-field problems (Snell), factor once and reuse.  For dynamic c-field
+# problems (F3b — c sourced by Φ), refactor each step or every few steps.
+# ══════════════════════════════════════════════════════════════════
+
+def _build_cayley_matrix_2d(c_field, dt, sign=+1.0):
+    """
+    Build sparse  M = I + sign·i·dt/2·H_disc  for the 2D variable-c Weyl
+    operator on a periodic lattice with face-averaged c.
+
+    Vector layout: flat array of size 2·L² with the first L² entries
+    holding f (component 0) and the next L² holding g (component 1),
+    each in row-major order.
+
+    Returns scipy.sparse.csc_matrix of shape (2L², 2L²), complex.
+
+    Coefficient algebra
+    -------------------
+    For 2D, σ·k = σ_x·k_x + σ_y·k_y with σ_x = ((0,1),(1,0)), σ_y =
+    ((0,−i),(i,0)).  H_disc = c·σ·(−i·∇).  On f-row, H_f = −i·T_x·g −
+    T_y·g where T_h(c) is the Hermitized centred difference with face-
+    averaged c:
+
+        [T_h(c)·g](i,j) = (c_face(i+½)·g_{i+1} − c_face(i−½)·g_{i−1}) / 2
+
+    so [i·dt/2·H]_f = (dt/4)·(c_face_xp·g_xp − c_face_xm·g_xm) −
+                      (i·dt/4)·(c_face_yp·g_yp − c_face_ym·g_ym).
+    The g-row swaps σ_y's sign on the y term.
+    """
+    Lx, Ly = c_field.shape
+    N = Lx * Ly
+
+    # Face-averaged c at the +/-x, +/-y faces of each cell.
+    cxp = 0.5 * (c_field + np.roll(c_field, -1, axis=0))   # face at (i+½, j)
+    cxm = 0.5 * (c_field + np.roll(c_field, +1, axis=0))   # face at (i−½, j)
+    cyp = 0.5 * (c_field + np.roll(c_field, -1, axis=1))   # face at (i, j+½)
+    cym = 0.5 * (c_field + np.roll(c_field, +1, axis=1))   # face at (i, j−½)
+
+    coef = sign * dt * 0.25   # = sign·dt/4
+
+    # Flat indices for the cells and their 4 neighbours, vectorised.
+    ii, jj = np.indices((Lx, Ly))
+    idx_self = ii * Ly + jj                               # (Lx, Ly)
+    idx_xp = ((ii + 1) % Lx) * Ly + jj
+    idx_xm = ((ii - 1) % Lx) * Ly + jj
+    idx_yp = ii * Ly + ((jj + 1) % Ly)
+    idx_ym = ii * Ly + ((jj - 1) % Ly)
+
+    flat_self = idx_self.ravel()                          # (N,)
+    flat_xp = idx_xp.ravel(); flat_xm = idx_xm.ravel()
+    flat_yp = idx_yp.ravel(); flat_ym = idx_ym.ravel()
+    cxp_f = cxp.ravel(); cxm_f = cxm.ravel()
+    cyp_f = cyp.ravel(); cym_f = cym.ravel()
+
+    # Build COO triplets.  For each cell, 1 diagonal entry + 4 off-diag
+    # entries per spinor component, so 2·(1+4) = 10 nonzeros per cell.
+    rows = np.empty(10 * N, dtype=np.int64)
+    cols = np.empty(10 * N, dtype=np.int64)
+    vals = np.empty(10 * N, dtype=np.complex128)
+
+    # Row of f-component (index_self), columns 0..N-1 are f, N..2N-1 are g.
+    # Diagonal on (f, f)
+    rows[0*N:1*N] = flat_self;             cols[0*N:1*N] = flat_self;             vals[0*N:1*N] = 1.0
+    # f-row, off-diag on g-columns
+    rows[1*N:2*N] = flat_self;             cols[1*N:2*N] = flat_xp + N;           vals[1*N:2*N] = coef * cxp_f
+    rows[2*N:3*N] = flat_self;             cols[2*N:3*N] = flat_xm + N;           vals[2*N:3*N] = -coef * cxm_f
+    rows[3*N:4*N] = flat_self;             cols[3*N:4*N] = flat_yp + N;           vals[3*N:4*N] = -1j * coef * cyp_f
+    rows[4*N:5*N] = flat_self;             cols[4*N:5*N] = flat_ym + N;           vals[4*N:5*N] = +1j * coef * cym_f
+    # Diagonal on (g, g)
+    rows[5*N:6*N] = flat_self + N;         cols[5*N:6*N] = flat_self + N;         vals[5*N:6*N] = 1.0
+    # g-row, off-diag on f-columns (opposite y-sign vs f-row from σ_y)
+    rows[6*N:7*N] = flat_self + N;         cols[6*N:7*N] = flat_xp;               vals[6*N:7*N] = coef * cxp_f
+    rows[7*N:8*N] = flat_self + N;         cols[7*N:8*N] = flat_xm;               vals[7*N:8*N] = -coef * cxm_f
+    rows[8*N:9*N] = flat_self + N;         cols[8*N:9*N] = flat_yp;               vals[8*N:9*N] = +1j * coef * cyp_f
+    rows[9*N:10*N] = flat_self + N;        cols[9*N:10*N] = flat_ym;              vals[9*N:10*N] = -1j * coef * cym_f
+
+    return sp.csc_matrix((vals, (rows, cols)), shape=(2 * N, 2 * N), dtype=np.complex128)
+
+
+class CayleyVarcSolver2D:
+    """
+    Reusable variable-c Cayley solver.  Factorises the LHS matrix M once;
+    each subsequent .step(f, g) does `n_sub` back-substitutions to advance
+    one external timestep.
+
+    Why sub-step?  Cayley/Crank–Nicolson is exactly unitary at any dt, but
+    has O(dt²) numerical dispersion per micro-step.  For Snell-law-type
+    direction measurements, sub-stepping (n_sub≥4) keeps the phase error
+    below the angular resolution.  Norm conservation is unaffected by
+    sub-stepping (every micro-step is still exact-unitary).
+
+    Use when c(x, t) is static (Snell) or refactor when it changes (F3b)
+    via `.refactor(c_field, dt, n_sub)`.
+    """
+    __slots__ = ('Lx', 'Ly', 'N', 'dt_ext', 'dt_sub', 'n_sub',
+                 'M', 'N_mat', 'lu', '_c_field')
+
+    def __init__(self, c_field, dt=1.0, n_sub=4):
+        self.Lx, self.Ly = c_field.shape
+        self.N = self.Lx * self.Ly
+        self.refactor(c_field, dt, n_sub)
+
+    def refactor(self, c_field, dt=None, n_sub=None):
+        if dt is not None:
+            self.dt_ext = float(dt)
+        if n_sub is not None:
+            self.n_sub  = int(n_sub)
+        self._c_field = c_field
+        self.dt_sub  = self.dt_ext / self.n_sub
+        self.M       = _build_cayley_matrix_2d(c_field, self.dt_sub, sign=+1.0)
+        self.N_mat   = _build_cayley_matrix_2d(c_field, self.dt_sub, sign=-1.0)
+        self.lu      = spla.splu(self.M)
+
+    def step(self, f, g):
+        """Advance one *external* timestep (= n_sub Cayley micro-steps)."""
+        Lx, Ly, N = self.Lx, self.Ly, self.N
+        psi = np.empty(2 * N, dtype=np.complex128)
+        psi[:N] = f.ravel()
+        psi[N:] = g.ravel()
+        for _ in range(self.n_sub):
+            rhs = self.N_mat @ psi
+            psi = self.lu.solve(rhs)
+        return psi[:N].reshape(Lx, Ly), psi[N:].reshape(Lx, Ly)
+
+
+def weyl_step_2d_varc_cayley(f, g, c_field, dt=1.0, n_sub=4):
+    """
+    One external Cayley step (no caching).  For repeated calls with the
+    same c_field, use `CayleyVarcSolver2D` to amortise the LU factorisation.
+    """
+    solver = CayleyVarcSolver2D(c_field, dt=dt, n_sub=n_sub)
+    return solver.step(f, g)
+
+
 def weyl_step_2d_varc_strang(f, g, c_field, n_sub=4):
     """
     Variable-c Weyl propagator using proper Strang operator splitting.
@@ -204,6 +354,11 @@ def measure_refraction(L=128, n_steps=80, c_left=0.5, c_right=0.25,
 
     if method == 'strang':
         step_fn = lambda f_, g_: weyl_step_2d_varc_strang(f_, g_, c_field, n_sub=n_sub)
+    elif method == 'cayley':
+        # P3 (2026-05-15): exact-unitary Cayley/Crank–Nicolson stepper.
+        # Static c-field → factor LU once, reuse for every step.
+        solver = CayleyVarcSolver2D(c_field, dt=1.0)
+        step_fn = lambda f_, g_: solver.step(f_, g_)
     else:
         step_fn = lambda f_, g_: weyl_step_2d_varc(f_, g_, c_field)
 

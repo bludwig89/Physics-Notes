@@ -370,7 +370,7 @@ def dirac_step_u1_2d_splitstep(eta_u, eta_d, chi_u, chi_d,
 def _mix_eta_chi(eu, ed, xu, xd, theta):
     """
     Per-cell rotation exp(-iβ·θ) with β = [[0,I],[I,0]].
-    θ can be a scalar or per-cell array.
+    θ can be a scalar or per-cell array.  Real-mass version.
     """
     cos_t = np.cos(theta)
     sin_t = np.sin(theta)
@@ -378,6 +378,41 @@ def _mix_eta_chi(eu, ed, xu, xd, theta):
     ed_n = cos_t * ed - 1j * sin_t * xd
     xu_n = cos_t * xu - 1j * sin_t * eu
     xd_n = cos_t * xd - 1j * sin_t * ed
+    return eu_n, ed_n, xu_n, xd_n
+
+
+def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
+    """
+    Per-cell exact-unitary rotation for a *complex* mass.
+
+    Implements   U = exp(-i·factor·[[0, M·I],[M*·I, 0]])
+                with M = m_R + i·m_I  (real, real ndarrays),
+                     factor = c²·dt (scalar).
+
+    Derivation.  The 2×2 block [[0, M],[M*, 0]] has eigenvalues ±|M| with
+    eigenvectors v_± = (1, ±M*/|M|)/√2, so
+
+        U = cos(|M|·factor)·I  -  i·(sin(|M|·factor)/|M|)·[[0, M·I],[M*·I, 0]]
+
+    The combination sin(θ)/|M| (with θ = |M|·factor) is well-defined at
+    |M|=0 via L'Hôpital: sin(θ)/θ → 1, so sin(θ)/|M| → factor.  Since the
+    off-diagonal entries also carry M, the |M|=0 limit gives the identity.
+
+    Reduces to `_mix_eta_chi(theta = m_R·factor)` when m_I ≡ 0.
+    """
+    abs_M    = np.sqrt(m_R * m_R + m_I * m_I)
+    theta    = abs_M * factor
+    cos_t    = np.cos(theta)
+    abs_safe = np.where(abs_M == 0.0, 1.0, abs_M)
+    sinc_M   = np.sin(theta) / abs_safe
+    sinc_M   = np.where(abs_M == 0.0, factor, sinc_M)
+    # Off-diagonal coefficients
+    coeff_eta = -1j * sinc_M * (m_R + 1j * m_I)    # acts on χ to update η
+    coeff_chi = -1j * sinc_M * (m_R - 1j * m_I)    # acts on η to update χ
+    eu_n = cos_t * eu + coeff_eta * xu
+    ed_n = cos_t * ed + coeff_eta * xd
+    xu_n = cos_t * xu + coeff_chi * eu
+    xd_n = cos_t * xd + coeff_chi * ed
     return eu_n, ed_n, xu_n, xd_n
 
 
@@ -410,6 +445,55 @@ def dirac_step_2d_varm_splitstep(eta_u, eta_d, chi_u, chi_d,
                                               c=c, m=m0, dt=dt)
     # Second half-step β-mix
     eu, ed, xu, xd = _mix_eta_chi(eu, ed, xu, xd, theta_half)
+    return eu, ed, xu, xd
+
+
+def dirac_step_2d_varm_complex_splitstep(eta_u, eta_d, chi_u, chi_d,
+                                          m_R_field, m_I_field,
+                                          c=0.5, m0=None, dt=1.0):
+    """
+    Dirac CA step with *complex* position-dependent mass M(x) = m_R(x) + i·m_I(x).
+
+    Splits H_D = c·α·k + c²·[[0, M·I],[M*·I, 0]]  as:
+
+        H_0(k) = c·α·k + m_0·c²·β                     (real-mass kinetic)
+        δH(x) = c²·[[0, (M−m_0)·I],[(M*−m_0)·I, 0]]   (per-cell, complex)
+
+    where m_0 = mean(m_R_field) is the real baseline.  Each part is
+    exactly unitary by itself; Strang composition gives O(dt²) accuracy.
+
+    Contract.  When m_I_field ≡ 0 and m_R_field is uniform, the per-cell
+    mix is identity and the kinetic step matches the constant-m Dirac
+    propagator bit-for-bit — F1 regression preserved.  When the entire
+    mass field is zero, the kinetic step at m_0=0 is pure Weyl — F4
+    regression preserved.
+
+    Parameters
+    ----------
+    m_R_field, m_I_field : real ndarrays, shape (Lx, Ly)
+        Real and imaginary parts of the per-cell mass.  Standard-Model
+        Yukawa with scalar Φ gives M(x) = y·Φ(x), so
+        m_R = y·Re(Φ),  m_I = y·Im(Φ).
+
+    Returns
+    -------
+    eu, ed, xu, xd : updated arrays
+    """
+    if m0 is None:
+        m0 = float(m_R_field.mean())
+    dm_R   = m_R_field - m0        # real ndarray
+    dm_I   = m_I_field             # real ndarray
+    factor_half = c**2 * dt * 0.5
+
+    # Half-step complex β-mix
+    eu, ed, xu, xd = _mix_eta_chi_complex(eta_u, eta_d, chi_u, chi_d,
+                                           dm_R, dm_I, factor_half)
+    # Full kinetic step at real baseline m_0
+    eu, ed, xu, xd = dirac_step_2d_splitstep(eu, ed, xu, xd,
+                                              c=c, m=m0, dt=dt)
+    # Second half-step complex β-mix
+    eu, ed, xu, xd = _mix_eta_chi_complex(eu, ed, xu, xd,
+                                           dm_R, dm_I, factor_half)
     return eu, ed, xu, xd
 
 
