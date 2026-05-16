@@ -53,12 +53,14 @@ def check(name, ok, detail=''):
 
 def test_A1():
     section('Phase A1 — Bloch-sphere coloring')
-    L = 32
+    # 10× resolution bump (2026-05-16): 32 → 320.  Gaussian σ scales with L
+    # to preserve the visual feature size in proportion to the canvas.
+    L = 320
     shape = (L, L)
     # Three Gaussian helicity states
-    fL, gL = ca.gaussian_spinor_2d(shape, sigma=5.0, helicity='left')
-    fR, gR = ca.gaussian_spinor_2d(shape, sigma=5.0, helicity='right')
-    fM, gM = ca.gaussian_spinor_2d(shape, sigma=5.0, helicity='mixed')
+    fL, gL = ca.gaussian_spinor_2d(shape, sigma=50.0, helicity='left')
+    fR, gR = ca.gaussian_spinor_2d(shape, sigma=50.0, helicity='right')
+    fM, gM = ca.gaussian_spinor_2d(shape, sigma=50.0, helicity='mixed')
 
     peak = (np.abs(fL)**2 + np.abs(gL)**2).max()
     rgbL = sc.spinor_to_rgb(fL, gL, peak=peak)
@@ -103,10 +105,13 @@ def test_A1():
 
 def test_A2():
     section('Phase A2 — Visualization frames')
-    L = 64
-    sigma = 5.0
+    # 10× resolution bump (2026-05-16): 64 → 640.  σ and snapshot times
+    # scale with the lattice so the visualized propagation is the same
+    # *physical* event at 10× finer spacing.
+    L = 640
+    sigma = 50.0
     c = 0.5
-    snap_steps = [0, 60, 120, 180, 240]
+    snap_steps = [0, 600, 1200, 1800, 2400]
 
     f, g = ca.gaussian_spinor_2d((L, L), sigma=sigma, helicity='mixed')
     frames_2d = []
@@ -131,11 +136,11 @@ def test_A2():
     plt.savefig(out1, dpi=120, bbox_inches='tight'); plt.close()
     check('2D strip image written', os.path.exists(out1), f'-> {out1}')
 
-    # 1D spacetime coloring
-    N1 = 96
-    n_steps = 200
+    # 1D spacetime coloring (10× bump: N1=96→960, σ=4→40, n_steps=200→2000)
+    N1 = 960
+    n_steps = 2000
     x = np.arange(N1) - N1 // 2
-    f1 = np.exp(-x**2 / (2 * 4.0**2)).astype(complex)
+    f1 = np.exp(-x**2 / (2 * 40.0**2)).astype(complex)
     g1 = np.zeros(N1, dtype=complex)
 
     f_history = [f1.copy()]
@@ -156,7 +161,10 @@ def test_A2():
     plt.savefig(out2, dpi=120, bbox_inches='tight'); plt.close()
     check('1D spacetime image written', os.path.exists(out2), f'-> {out2}')
 
-    # NetworkX graph view (small lattice)
+    # NetworkX graph view (small lattice — graph plot becomes unreadable
+    # above ~32 nodes per side, so we keep this *display* lattice small
+    # rather than 10×-bump it.  This is a visualization scale, not a
+    # physics-resolution scale.)
     try:
         import networkx as nx
         Lg = 8
@@ -188,9 +196,10 @@ def test_B1():
     section('Phase B1 — Group-velocity measurement')
     all_ok = True
     fig, ax = plt.subplots(figsize=(8, 4.5))
+    # 10× bump (2026-05-16): L=128→1280, n_steps=60→600, σ=8→80
     for k0 in [(0.3, 0.0), (0.0, 0.3), (0.4, 0.3), (0.6, 0.0)]:
-        res = ca.measure_group_velocity_2d(L=128, n_steps=60, c=0.5,
-                                            k0=k0, sigma=8.0)
+        res = ca.measure_group_velocity_2d(L=1280, n_steps=600, c=0.5,
+                                            k0=k0, sigma=80.0)
         ok = abs(res['speed_ratio'] - 1.0) < 0.15
         all_ok = all_ok and ok
         check(f'k0={k0}', ok, f'speed_ratio={res["speed_ratio"]:.4f}')
@@ -210,25 +219,29 @@ def test_B1():
 
 def test_B2():
     section('Phase B2 — Size sweeps')
-    L_results = ca.size_sweep_L([8, 12, 16, 24, 32, 48, 64],
-                                  n_steps=40, c=0.5, sigma=3.0, k0=(0.6, 0.0))
-    sigma_results = ca.size_sweep_sigma([0.5, 1.0, 1.5, 2.0, 3.0, 5.0],
-                                          L=32, n_steps=30, c=0.5, k0=(0.6, 0.0))
+    # 10× bump (2026-05-16): sweep range, σ, and σ-sweep L all scaled up.
+    # The asymptotic-convergence claim of the L sweep is preserved: the
+    # smallest L still represents the coarsest resolution at which the
+    # propagator is run, just on a finer-spacing absolute lattice.
+    L_results = ca.size_sweep_L([80, 120, 160, 240, 320, 480, 640],
+                                  n_steps=400, c=0.5, sigma=30.0, k0=(0.6, 0.0))
+    sigma_results = ca.size_sweep_sigma([5.0, 10.0, 15.0, 20.0, 30.0, 50.0],
+                                          L=320, n_steps=300, c=0.5, k0=(0.6, 0.0))
 
     for r in L_results:
         print(f'  L={r["L"]:3d}  speed_ratio={r["speed_ratio"]:.4f}  norm_drift={r["norm_drift"]:.2e}')
     for r in sigma_results:
         print(f'  σ={r["sigma"]:.2f}  speed_ratio={r["speed_ratio"]:.4f}  frac_above_Nyq={r["frac_above_nyquist"]:.2e}')
 
-    # Check that L=32 and above give speed_ratio close to 1, and that
-    # σ=3+ gives near-zero Nyquist content.
-    ok_L = any(r['L'] >= 32 and r['speed_ratio'] > 0.9 for r in L_results)
-    ok_sigma = any(r['sigma'] >= 3.0 and r['frac_above_nyquist'] < 1e-3
+    # Check that L≥320 and σ≥30 give the expected convergence (10× bump).
+    ok_L = any(r['L'] >= 320 and r['speed_ratio'] > 0.9 for r in L_results)
+    ok_sigma = any(r['sigma'] >= 30.0 and r['frac_above_nyquist'] < 1e-3
                    for r in sigma_results)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.0))
     Ls = [r['L'] for r in L_results]; sr = [r['speed_ratio'] for r in L_results]
     ax1.plot(Ls, sr, 'o-'); ax1.axhline(1.0, color='gray', linestyle='--')
+    ax1.set_xscale('log')
     ax1.set_xlabel('L'); ax1.set_ylabel('speed_ratio')
     ax1.set_title('B2 — L sweep'); ax1.grid(alpha=0.3)
 
@@ -252,22 +265,32 @@ def test_B2():
 def test_C1():
     section('Phase C1 — Variable-c refraction (Snell\'s law)')
 
+    # 10× bump (2026-05-16): L=128→1280, σ=8→80, n_steps=200→2000.  k_in is
+    # dimensionless and unchanged.
+    # WARNING: the Cayley arm builds a sparse (2L²)×(2L²) LU at L=1280.
+    # SciPy SuperLU memory grows as O(L³) for 2D nested-dissection, ≈ 10 GB
+    # at L=1280.  If memory-bound, drop to L=384 or switch to a Krylov
+    # solver (CG/MINRES with a multigrid preconditioner).
+    L_c1 = 1280
+    sigma_c1 = 80.0
+    n_steps_c1 = 2000
+
     # Strang-split version (production)
-    res_s = cv.measure_refraction(L=128, n_steps=200,
+    res_s = cv.measure_refraction(L=L_c1, n_steps=n_steps_c1,
                                     c_left=0.5, c_right=0.3,
-                                    k_in=(0.5, 0.15), sigma=8.0,
+                                    k_in=(0.5, 0.15), sigma=sigma_c1,
                                     x_start_frac=0.25,
                                     method='strang', n_sub=4)
     # Blending (kept for comparison)
-    res_b = cv.measure_refraction(L=128, n_steps=200,
+    res_b = cv.measure_refraction(L=L_c1, n_steps=n_steps_c1,
                                     c_left=0.5, c_right=0.3,
-                                    k_in=(0.5, 0.15), sigma=8.0,
+                                    k_in=(0.5, 0.15), sigma=sigma_c1,
                                     x_start_frac=0.25,
                                     method='blend')
     # P3 (2026-05-15): exact-unitary Cayley/Crank–Nicolson stepper
-    res_c = cv.measure_refraction(L=128, n_steps=200,
+    res_c = cv.measure_refraction(L=L_c1, n_steps=n_steps_c1,
                                     c_left=0.5, c_right=0.3,
-                                    k_in=(0.5, 0.15), sigma=8.0,
+                                    k_in=(0.5, 0.15), sigma=sigma_c1,
                                     x_start_frac=0.25,
                                     method='cayley')
 
@@ -316,10 +339,10 @@ def test_C1():
 def test_D1():
     section('Phase D1 — Dirac CA')
 
-    # Weyl regression at m=0
-    L = 32; shape = (L, L)
-    f, g = ca.gaussian_spinor_2d(shape, sigma=3.0, helicity='left')
-    nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=3.0, chirality='left')
+    # Weyl regression at m=0   (10× bump 2026-05-16: 32 → 320, σ 3 → 30)
+    L = 320; shape = (L, L)
+    f, g = ca.gaussian_spinor_2d(shape, sigma=30.0, helicity='left')
+    nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=30.0, chirality='left')
     for _ in range(20):
         f, g = ca.weyl_step_2d_splitstep(f, g, c=0.5)
         nu, nd, xu, xd = dirac.dirac_step_2d_splitstep(
@@ -331,8 +354,8 @@ def test_D1():
     ok1 = check('Weyl regression at m=0', diff < 1e-13,
                 f'(max diff = {diff:.2e})')
 
-    # Norm conservation with mass
-    nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=3.0, chirality='mixed')
+    # Norm conservation with mass  (σ scaled with L)
+    nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=30.0, chirality='mixed')
     n0 = dirac.dirac_norm(nu, nd, xu, xd)
     for _ in range(1000):
         nu, nd, xu, xd = dirac.dirac_step_2d_splitstep(
@@ -342,16 +365,18 @@ def test_D1():
     ok2 = check('norm conservation (m=0.3, 1000 steps)',
                 drift < 1e-12, f'(drift = {drift:.2e})')
 
-    # Dispersion
-    r = dirac.verify_dirac_dispersion_2d(L=32, n_steps=20, c=0.5, m=0.3)
+    # Dispersion  (10× bump: L=32→320)
+    r = dirac.verify_dirac_dispersion_2d(L=320, n_steps=20, c=0.5, m=0.3)
     max_res = max(row['residual'] for row in r)
     ok3 = check('Dirac dispersion (machine precision)',
                 max_res < 1e-13, f'(max residual = {max_res:.2e})')
 
     # Zitterbewegung — 5000-step run with wider packet to tighten FFT
-    # bin resolution (Δω = 2π/(n·dt))
+    # bin resolution (Δω = 2π/(n·dt)).  10× bump: L=96→960, σ=14→140.
+    # n_steps unchanged — it controls *time* resolution (FFT bin width),
+    # not spatial resolution.  dt unchanged for the same reason.
     t, rho, fn, fa = dirac.measure_zitterbewegung_freq_2d(
-        L=96, n_steps=5000, c=0.5, m=0.5, dt=0.5, sigma=14.0)
+        L=960, n_steps=5000, c=0.5, m=0.5, dt=0.5, sigma=140.0)
     err = abs(fn - fa) / fa
     bin_width = 2.0 * np.pi / (len(t) * (t[1] - t[0]))
     ok4 = check('Zitterbewegung freq within FFT bin of 2mc²',
@@ -376,8 +401,10 @@ def test_D1():
 
 def test_E1():
     section('Phase E1 — U(1) EM gauge')
-    res = dirac.aharonov_bohm_test(L=64, n_steps=100, c=0.5, m=0.0,
-                                     q=1.0, dt=1.0, flux=np.pi, sigma=8.0)
+    # 10× bump (2026-05-16): L=64→640, σ=8→80.  Flux is a topological
+    # invariant (line integral of A) so it does NOT scale with L.
+    res = dirac.aharonov_bohm_test(L=640, n_steps=100, c=0.5, m=0.0,
+                                     q=1.0, dt=1.0, flux=np.pi, sigma=80.0)
     err = abs(res['measured_phase'] - res['analytic_phase'])
     ok1 = check('phase pickup at machine precision',
                 err < 1e-12, f'(err = {err:.2e})')
@@ -396,8 +423,10 @@ def test_E1():
 
 def test_E2():
     section('Phase E2 — SU(2) weak gauge (parity violation)')
-    res = wk.parity_violation_test(L=32, n_steps=63, c=0.0, m_e=0.0,
-                                     g_weak=1.0, dt=1.0, W3_value=0.1, sigma=4.0)
+    # 10× bump (2026-05-16): L=32→320, σ=4→40.  c=0 disables propagation
+    # so n_steps just measures isospin rotation; left unchanged.
+    res = wk.parity_violation_test(L=320, n_steps=63, c=0.0, m_e=0.0,
+                                     g_weak=1.0, dt=1.0, W3_value=0.1, sigma=40.0)
     pop_err = abs(res['left_e_pop_measured'] - res['left_e_pop_analytic'])
     pop_rel = pop_err / max(res['left_e_pop_analytic'], 1e-10)
     ok1 = check('left isospin rotation matches analytic',

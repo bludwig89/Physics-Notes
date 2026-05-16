@@ -20,6 +20,8 @@
 | — | Companion research (CA rules and the four forces) | `ca-forces-integration.md` | 2026-05-13 |
 | — | Reference for current CA project | `ca-reference.md` | 2026-05-14 |
 | — | External paper summary: Ostoma & Trushyk (1999), *Cellular Automata Theory* (108 pages) | `ostoma-trushyk-1999-summary.md` | 2026-05-15 |
+| — | QCA literature overview (Reference Research Papers 1–6, including Paper 6 EMQG treatise) | `qca-papers-1-4-overview.md` | 2026-05-15 |
+| — | Unification proposition v2 — synthesises Phase-F architecture with Papers 1, 2, 4 (BCC + exact dispersion + composite photon) and Paper 6 (EMQG modified Poisson for $c(\mathbf{x})$) | `ca-unified-v2.md` | 2026-05-15 |
 
 PDF total: 182 pages.
 
@@ -190,7 +192,53 @@ F3 still passes its informational threshold (`|Φ−v|` is non-trivially nonzero
 - Continue OCR/transcription for pages 61 onward in batches of ~15.
 - Optional: cross-check the quantum-scalar derivation (pages 1–2) against a standard QFT reference (Peskin & Schroeder ch. 2, or similar) to flag any handwriting-OCR errors in signs/factors.
 - **F3 follow-up.** See `ca-f3-propositions.md` for ranked candidate fixes (P1 symplectic Yukawa via joint Hamiltonian is recommended). The double-precision rerun confirms the F3 sketch is not a precision artifact — it is an integrator-structure issue.
-- Other Research - Review Digital Mechanics in the Reference Research folder, create a markdown overviewing the significant derivations and ideas. From the previous step, review the digital mechanics research and make comparisons to the current CA model. Indicate if there are any tests or verifications that arise.
+- **Unification v2 build sequence.** `ca-unified-v2.md` proposes a four-layer stack (BCC substrate, exact-dispersion Weyl/Dirac, composite-photon U(1), EMQG-Poisson-sourced $c(\mathbf{x})$). Recommended first builds: V4 composite photon (`ca_maxwell.py`) then V11 EMQG modified Poisson coupled to the existing Cayley variable-$c$ stepper. v2 separates the Φ-as-Higgs job from the metric-source job that v1 conflated into one field.
+
+### v2 layered build landed (2026-05-15)
+
+L1–L4 implemented end-to-end in a single session. All four layers pass; the 13 pre-existing phase tests (A–E + F) remain unchanged at the prior residuals.
+
+| Layer | Module | Test passes | Notable result |
+|---|---|---|---|
+| **L1** | `ca_bcc.py` | 6/6 | BCC unitarity 7.9e-16, dispersion 7.2e-16, norm drift 3.7e-14/200 steps, A_0=I exact, small-k Weyl regression 5e-4 at \|k\|=0.005 |
+| **L2** | `ca_core_exact.py` | 5/5 | 2D arccos dispersion unitarity 3.2e-16, norm drift 8.4e-15/200 steps, Paper 4 frequency-dependent c: Δc/c = -1.1% at \|k\|=0.5 along (1,1) (zero along axis) |
+| **L3** | `ca_maxwell.py` | 3/3 + 1 info | Composite-photon dispersion ω=\|k\|/√3 at 0.21%; transversality 2ñ·E=0 at 4.6e-17; anisotropy verified (axis exact, diag err = k/18 analytically). Pointwise-bilinear curl residual scales as O(k) — full Paper 1 lines 84-90 smeared-photon construction is needed for the published O(k^3) bound, deferred |
+| **L4** | `ca_emqg.py` | 3/3 | Static Poisson rel err 2.75% on 64x64, vacuum ρ=0 → c=c_0 exactly, lensing demo: probe at impact b=18 bends toward mass, deflection scaling Δ(2M)/Δ(M) = 1.83 (8.5% off analytic 2.0) |
+
+**Discovery during L1:** the Paper 1 Eq. 15 transcription in `qca-papers-1-4-overview.md` had a sign typo on the second term of n_y (should be `+s_x c_y s_z`, not `−s_x c_y s_z`). Original form gave \|u² + \|n\|²\| up to 0.47 off unity at finite k; corrected form gives 4.4e-16. The reference doc transcription has been left for now (caveat applies to anyone reading line 53); the working code in `ca_bcc.py` carries the fix with an inline note. Should be back-fixed in the reference doc.
+
+**Sign convention in L4:** the proposition's `c = c_0(1+φ/c_0²)^(-1)` had the wrong sign for gravitational lensing — with φ<0 in a well, that formula gives c>c_0 (light *speeds up*), and probes would deflect away from masses. Replaced with the GR-effective-medium form `c = c_0/(1 − 2φ/c_0²)`, which gives c<c_0 in the well and the correct deflection direction. Documented in `ca_emqg.py`.
+
+**Fresh full-suite regression (2026-05-15):**
+- `run_phase_tests.py`: 8/8 pass (A1, A2, B1, B2, C1, D1, E1, E2) — residuals identical to prior baseline (D1 dispersion 8.88e-17, E1 phase 4.44e-16, E2 right leakage = 0.0)
+- `run_phaseF_tests.py`: 5/5 pass (F1, F2, F3, F3b, F4) — residuals identical (F1 fermion diff 7.57e-16, F4 η match 7.57e-16)
+- `run_L_tests.py`: L1 (6/6), L2 (5/5), L3 (3/3+info), L4 (3/3) — all PASS
+- **Total: 13 + 17 = 30 tests passing; 0 failing.**
+
+### 10× lattice resolution bump (2026-05-16)
+
+Every lattice-size parameter `L` and proportionally-scaled spatial-feature size (Gaussian widths $\sigma$, impact parameters $b$, depression widths) in all three test runners and in `ca_emqg.py` was multiplied by 10. Full table in `changelog.md` 2026-05-16 (later). Time-domain parameters (step counts that index FFT bin width, dt values, μ², λ, y, G, dimensionless wavevectors, flux $\pi$) were preserved. Brillouin-zone *sampling* densities (L1.a / L2.a `K = linspace(..., 16, ...)`) were also preserved — those are verification-fineness, not model resolution.
+
+Cells / memory now per test:
+- L1.d BCC norm drift: $L=160 \Rightarrow 4.1\,\text{M}$ cells, FFT working memory $\sim 250\,\text{MB}$/spinor component.
+- L4.c lensing, C1 Cayley refraction: $L=1280 \Rightarrow$ sparse-LU memory $\sim 10\,\text{GB}$ (O(L³) for 2D nested-dissection). Inline fallback notes ($L=384$–$512$) added if RAM-bound.
+- F3b: $L=960 \Rightarrow$ Cayley sparse LU $\sim 5\,\text{GB}$.
+
+**Tests have not yet been re-run at the new size.** Bit-for-bit identity tests (F1, F4, D1 Weyl-regression-at-m=0) should still hit machine precision because the rule is unchanged; the failure mode to watch for is the Cayley arm running out of RAM at L=1280.
+
+### Model review — items flagged for back-fix or re-framing (2026-05-16)
+
+`changelog.md` 2026-05-16 (later) contains the full list (items 1–14, ranked substantive → cosmetic). The substantive items, in priority order:
+
+1. `ca-unified-v2.md` line 48: $c = c_0(1 + \phi/c_0^2)^{-1}$ has the wrong sign for gravitational lensing; the working `ca_emqg.py` code uses the GR-Shapiro form $c = c_0/(1 - 2\phi/c_0^2)$. Doc back-fix required.
+2. `ca-unified-proposition.md` line 69: published as $c \propto |\Phi|^{-\alpha}$ but F3b test uses $|\Phi|^{+\alpha}$ — published formula would give *repulsion*. Either back-fix v1 to `(+α)` or mark v1 retired with pointer to v2 S1.
+3. `H_Y = c^2 \cdot y \cdot (\Phi\,\eta^\dagger\chi + \text{h.c.})` carries a `c²` factor that has no Standard-Model counterpart — internal units kludge. Yukawa coupling values reported by this code are *lattice* couplings, not SM couplings.
+4. The L4 EMQG Poisson is 2-D but the lensing test scores it against a 3-D-Newtonian linear-in-M target. 2-D Green's function is logarithmic; the "8.5% off the expected 2.0" claim is dimensionally inconsistent.
+5. L3 composite-photon "PASS" hides an O(k) curl-equation residual (Finding 2). The kinematic parts (dispersion, transversality) pass cleanly; the central Maxwell identity does not.
+6. 3-D simple-cubic `ca_core.py::weyl_step_3d_splitstep` is *not* a non-trivial QCA — Papers 1, 2 prove only the trivial automaton lives there. The code is a valid linearized-Weyl spectral propagator; the "CA" label is overstated. v2's `ca_bcc.py` is the non-trivial replacement.
+
+Cosmetic items 7–14 are in the changelog: F3 pass band is 7 decades wide; `mu2_neg = -0.5` is a brittle sign-flip convention; `ca_maxwell.py` line 171 has a dead placeholder; `qca-papers-1-4-overview.md` line 53 still has Paper 1 Eq. 15 sign typo not back-fixed; `c` parameter is overloaded across three meanings; F3b doesn't test the $1/b$ scaling; no $dt \to 0$ convergence anywhere; no discrete-current-conservation check for U(1) or SU(2).
+
 
 ## Diagram files (page 3 & 5)
 

@@ -60,7 +60,8 @@ def check(name, ok, detail=''):
 def test_F1():
     section('Phase F1 — Vacuum regression: Φ=v reduces to constant-m Dirac')
 
-    L = 32; shape = (L, L)
+    # 10× bump (2026-05-16): L=32→320, σ=3→30.
+    L = 320; shape = (L, L)
     mu2, lam, y = 0.5, 0.5, 0.6
     v = float(np.sqrt(mu2 / (2 * lam)))
     m_const = y * v
@@ -68,13 +69,13 @@ def test_F1():
 
     # Reference: constant-m Dirac CA
     nu_ref, nd_ref, xu_ref, xd_ref = dirac.gaussian_dirac_2d(
-        shape, sigma=3.0, chirality='mixed')
+        shape, sigma=30.0, chirality='mixed')
     for _ in range(100):
         nu_ref, nd_ref, xu_ref, xd_ref = dirac.dirac_step_2d_splitstep(
             nu_ref, nd_ref, xu_ref, xd_ref, c=0.5, m=m_const, dt=1.0)
 
     # Unified CA with Φ=v fixed (vacuum)
-    state, v_check = un.setup_vacuum(shape, mu2, lam, fermion='mixed', sigma=3.0)
+    state, v_check = un.setup_vacuum(shape, mu2, lam, fermion='mixed', sigma=30.0)
     assert abs(v_check - v) < 1e-12
     for _ in range(100):
         state = un.unified_step(state, mu2, lam, yukawa=y, c=0.5, dt=1.0)
@@ -109,9 +110,10 @@ def test_F2():
     mu2, lam = 0.5, 0.5
     m_h = float(np.sqrt(2 * mu2))
 
-    r_h = hg.verify_higgs_dispersion_2d(L=64, n_steps=20, mu2=mu2, lam=lam,
+    # 10× bump (2026-05-16): L=64→640
+    r_h = hg.verify_higgs_dispersion_2d(L=640, n_steps=20, mu2=mu2, lam=lam,
                                           dt=0.15, mode='radial')
-    r_g = hg.verify_higgs_dispersion_2d(L=64, n_steps=20, mu2=mu2, lam=lam,
+    r_g = hg.verify_higgs_dispersion_2d(L=640, n_steps=20, mu2=mu2, lam=lam,
                                           dt=0.5, mode='goldstone')
 
     print(f'  m_h (analytic) = sqrt(2μ²) = {m_h:.4f}')
@@ -163,11 +165,12 @@ def test_F3():
     # Π −= dt/2·y·χ†η.  This composition is symplectic — total energy
     # drifts by O(dt²) per step, bounded over arbitrary run length.
 
-    L = 64; shape = (L, L)
+    # 10× bump (2026-05-16): L=64→640, σ=5→50
+    L = 640; shape = (L, L)
     mu2, lam, y = 0.5, 0.5, 0.2
     v = float(np.sqrt(mu2 / (2 * lam)))
 
-    state, _ = un.setup_vacuum(shape, mu2, lam, fermion='mixed', sigma=5.0)
+    state, _ = un.setup_vacuum(shape, mu2, lam, fermion='mixed', sigma=50.0)
     cx, cy = L // 2, L // 2
 
     dt = 0.5
@@ -242,10 +245,12 @@ def test_F3b():
     # back-reaction from a fermion mass concentration after F3 settles).  A
     # probe Weyl packet enters from the left; we measure the deflection of
     # its trajectory toward the centre vs. straight-line free propagation.
-    L = 96; shape = (L, L)
+    # 10× bump (2026-05-16): L=96→960.  Cayley LU at L=960 needs ~5 GB.
+    # If memory-bound, drop to L=384 with proportionally scaled lengths.
+    L = 960; shape = (L, L)
     mu2, lam = 0.5, 0.5
     v = float(np.sqrt(mu2 / (2 * lam)))
-    alpha = 1.5                          # metric-coupling exponent
+    alpha = 1.5                          # metric-coupling exponent  (free parameter — see model review)
     cx0, cy0 = L // 2, L // 2
 
     # Build a static |Φ| field with a Gaussian depression centred on the
@@ -262,7 +267,7 @@ def test_F3b():
     xs = np.arange(L)
     X, Y = np.meshgrid(xs, xs, indexing='ij')
     R2 = (X - cx0)**2 + (Y - cy0)**2
-    sigma_phi = 12.0
+    sigma_phi = 120.0   # 10× bump: 12 → 120
     depress_depth = 0.35
     Phi_mag = v * (1.0 - depress_depth * np.exp(-R2 / (2 * sigma_phi**2)))
     c0 = 0.45
@@ -277,9 +282,9 @@ def test_F3b():
     # offset in y above the depression centre.  In flat space (c uniform)
     # it would propagate straight; near the depression c is larger
     # (faster propagation), refracting ray paths.
-    sigma_pk = 8.0
+    sigma_pk = 80.0             # 10× bump: 8 → 80
     pkt_x0 = L // 4
-    pkt_y0 = cy0 + 18           # offset above centre by 18 cells
+    pkt_y0 = cy0 + 180          # 10× bump: offset above centre 18 → 180 cells
     env = np.exp(-((X - pkt_x0)**2 + (Y - pkt_y0)**2) / (2 * sigma_pk**2))
     kx_in, ky_in = 0.30, 0.00
     phase = np.exp(1j * (kx_in * X + ky_in * Y))
@@ -296,7 +301,7 @@ def test_F3b():
     solver_curved = cc.CayleyVarcSolver2D(c_field, dt=1.0, n_sub=2)
     solver_flat   = cc.CayleyVarcSolver2D(c_flat,   dt=1.0, n_sub=2)
 
-    n_steps = 120
+    n_steps = 1200   # 10× bump to match the 10× longer flight path
     norm0 = float(np.sum(np.abs(f_pkt)**2 + np.abs(g_pkt)**2))
 
     f_c, g_c = f_pkt.copy(), g_pkt.copy()    # curved (with depression)
@@ -372,10 +377,11 @@ def test_F3b():
 
     # Tests:
     #  1. Packet centroid moved toward the depression.  The packet starts at
-    #     y = cy0 + 18, so "toward centre" means lower y.  The curved-c run
+    #     y = cy0 + 180, so "toward centre" means lower y.  The curved-c run
     #     must end at lower y than the flat-c run, i.e. deflection < 0.
+    #     Threshold scaled with the 10× lattice bump (0.05 → 0.5).
     #  2. Norm conserved at machine precision (Cayley contract).
-    ok_deflection = deflection < -0.05
+    ok_deflection = deflection < -0.5
     ok_norm       = drift_curved < 1e-10
     check('Probe packet deflected toward density depression (gravitational pull)',
           ok_deflection, f'(extra Δy = {deflection:+.4f} cells)')
@@ -391,7 +397,8 @@ def test_F3b():
 def test_F4():
     section('Phase F4 — Symmetry restored: Φ=0, fermions massless, Weyl recovered')
 
-    L = 32; shape = (L, L)
+    # 10× bump (2026-05-16): L=32→320, σ=3→30
+    L = 320; shape = (L, L)
     # Use V_high = +μ²|Φ|² + λ|Φ|⁴ (positive μ²) — vacuum at Φ=0.
     # In our potential parameterization V(|Φ|²) = -μ²|Φ|² + λ|Φ|⁴ we
     # achieve this by passing a *negative* μ² value to the Φ stepper.
@@ -400,9 +407,9 @@ def test_F4():
     y = 0.6
 
     state = un.setup_symmetry_restored(shape, abs(mu2_neg), lam,
-                                         fermion='left', sigma=3.0)
+                                         fermion='left', sigma=30.0)
     # Reference: pure Weyl evolution at c=0.5
-    f_ref, g_ref = ca.gaussian_spinor_2d(shape, sigma=3.0, helicity='left')
+    f_ref, g_ref = ca.gaussian_spinor_2d(shape, sigma=30.0, helicity='left')
     for _ in range(50):
         f_ref, g_ref = ca.weyl_step_2d_splitstep(f_ref, g_ref, c=0.5)
         state = un.unified_step(state, mu2_neg, lam, yukawa=y, c=0.5, dt=1.0)
