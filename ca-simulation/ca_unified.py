@@ -110,8 +110,9 @@ def setup_symmetry_restored(shape, mu2_eff_positive, lam, fermion='left',
 # ══════════════════════════════════════════════════════════════════
 
 def unified_step(state, mu2, lam, yukawa=1.0,
-                  c=0.5, dt=1.0, dirac_dt=None, n_phi_sub=1,
-                  symmetric_phase=False, back_react=False):
+                  dt=1.0, dirac_dt=None, n_phi_sub=1,
+                  symmetric_phase=False, back_react=False,
+                  phase=None):
     """
     One timestep of the coupled Φ–Dirac CA.
 
@@ -138,10 +139,19 @@ def unified_step(state, mu2, lam, yukawa=1.0,
     state : UnifiedState
     mu2, lam : Mexican-hat V(|Φ|²) = -μ²|Φ|² + λ|Φ|⁴ parameters.
     yukawa : Yukawa coupling y in M(x) = y·Φ(x).
-    c, dt : Dirac kinetic speed and time step.
+    dt : Time step (shared by Φ and Dirac sub-steps unless `dirac_dt`
+        overrides).  The Dirac stepper no longer takes a `c` argument
+        — the exact-QCA admissibility constraint  n² + m² = 1  fixes
+        n = √(1 − m²) from the mass alone (Finding 9, 2026-05-17).
     dirac_dt : optional override (defaults to dt).
     n_phi_sub : sub-stepping for the Φ-free step.
-    symmetric_phase : if True, use V_high with positive μ² (high-T vacuum).
+    symmetric_phase : DEPRECATED.  Use `phase='symmetric'` instead.  Kept
+        for backward compatibility — if True and `phase` is not given,
+        it is mapped to phase='symmetric'.
+    phase : {'broken', 'symmetric', None}.  Selects the Higgs vacuum:
+        'broken'    → V = -μ²|Φ|² + λ|Φ|⁴, mu2 ≥ 0, vacuum at |Φ|=v.
+        'symmetric' → V = +μ²|Φ|² + λ|Φ|⁴, mu2 ≥ 0, vacuum at Φ=0.
+        If None, falls back to legacy behaviour (sign of `mu2` decides).
     back_react : if True, apply symplectic Yukawa back-reaction.  See above.
 
     Returns
@@ -151,20 +161,35 @@ def unified_step(state, mu2, lam, yukawa=1.0,
     if dirac_dt is None:
         dirac_dt = dt
 
+    # Resolve phase selection.  Explicit `phase` wins; otherwise honour
+    # the legacy `symmetric_phase` bool; otherwise leave it to mu2's sign.
+    if phase is None:
+        phase_resolved = 'symmetric' if symmetric_phase else 'broken'
+    else:
+        phase_resolved = phase
+    # If the caller passed a negative mu2 (legacy F4 convention) while
+    # also selecting phase='broken', treat that as the same symmetric-
+    # phase result the old code produced.  This keeps F4 working before
+    # it migrates to the explicit API.
+    mu2_abs = abs(mu2)
+    if mu2 < 0 and phase_resolved == 'broken' and phase is None:
+        phase_resolved = 'symmetric'
+
     # Half-step Φ-free (Strang first half of H_KG)
     state.Phi, state.Pi = hg.kg_step_strang(
-        state.Phi, state.Pi, mu2, lam, dt=dt * 0.5, n_sub=n_phi_sub)
+        state.Phi, state.Pi, mu2_abs, lam, dt=dt * 0.5,
+        n_sub=n_phi_sub, phase=phase_resolved)
 
     # P1: Yukawa half-kick on Π using pre-Dirac Ψ.
-    # The Dirac stepper rotates Ψ under H_D = c·α·k + M·c²·β with M = y·Φ,
-    # i.e. the Yukawa-mass Hamiltonian density is c²·y·(Φ·η†χ + Φ*·χ†η).
-    # Hamilton's equation gives  δΠ/δt = -∂H_Y/∂Φ* = -c²·y·χ†η.
-    # The c² factor is essential for energy bookkeeping consistency
-    # between Π evolution and Ψ rotation.
+    # Post-2026-05-16 Dirac mass-convention refactor: H_D = c·α·k + M·β
+    # with M = y·Φ (c only in the kinetic generator).  The Yukawa
+    # Hamiltonian density is then the clean SM form
+    #     H_Y = y · (Φ·η†χ + Φ*·χ†η)        -- no c² factor.
+    # Hamilton's equation gives  δΠ/δt = -∂H_Y/∂Φ* = -y·χ†η.
     if back_react:
         chi_dag_eta = (np.conj(state.chi_u) * state.eta_u +
                        np.conj(state.chi_d) * state.eta_d)
-        state.Pi = state.Pi - 0.5 * dt * yukawa * (c**2) * chi_dag_eta
+        state.Pi = state.Pi - 0.5 * dt * yukawa * chi_dag_eta
 
     # Build complex Yukawa mass M(x) = y·Φ(x).
     # P2 (2026-05-14): full Standard-Model Yukawa bilinear.  The Lagrangian
@@ -173,21 +198,24 @@ def unified_step(state, mu2, lam, yukawa=1.0,
     m_R = yukawa * state.Phi.real
     m_I = yukawa * state.Phi.imag
 
-    # Full Dirac step at variable complex mass
+    # Full Dirac step at variable complex mass (exact-QCA propagator —
+    # kinetic coefficient n = √(1 − m_0²) is derived inside; no `c`).
     state.eta_u, state.eta_d, state.chi_u, state.chi_d = \
         dirac.dirac_step_2d_varm_complex_splitstep(
             state.eta_u, state.eta_d, state.chi_u, state.chi_d,
-            m_R_field=m_R, m_I_field=m_I, c=c, dt=dirac_dt)
+            m_R_field=m_R, m_I_field=m_I, dt=dirac_dt)
 
-    # P1: Yukawa half-kick on Π using post-Dirac Ψ.
+    # P1: Yukawa half-kick on Π using post-Dirac Ψ.  No c² factor — see
+    # the symmetric kick above for the rationale.
     if back_react:
         chi_dag_eta = (np.conj(state.chi_u) * state.eta_u +
                        np.conj(state.chi_d) * state.eta_d)
-        state.Pi = state.Pi - 0.5 * dt * yukawa * (c**2) * chi_dag_eta
+        state.Pi = state.Pi - 0.5 * dt * yukawa * chi_dag_eta
 
     # Second half-step Φ-free
     state.Phi, state.Pi = hg.kg_step_strang(
-        state.Phi, state.Pi, mu2, lam, dt=dt * 0.5, n_sub=n_phi_sub)
+        state.Phi, state.Pi, mu2_abs, lam, dt=dt * 0.5,
+        n_sub=n_phi_sub, phase=phase_resolved)
 
     return state
 
@@ -232,27 +260,38 @@ def phi_energy(state, mu2, lam):
     return kinetic + grad2 + V
 
 
-def total_energy(state, mu2, lam, yukawa, c):
+def total_energy(state, mu2, lam, yukawa):
     """
     Joint Φ–Ψ Hamiltonian energy.
 
         H_total = H_KG + H_D_kin + H_Y
         H_KG    = ∫ (|Π|² + |∇Φ|² + V(|Φ|²)) dx     (existing phi_energy)
-        H_D_kin = ⟨Ψ| c·α·k |Ψ⟩                      (Dirac kinetic only)
+        H_D_kin = ⟨Ψ| n·α·k |Ψ⟩  with  n = √(1−m_0²),  m_0 = y·mean(Re Φ)
         H_Y     = ∫ y·(Φ·η†χ + Φ*·χ†η) dx           (Yukawa interaction)
 
+    The kinetic block coefficient is no longer a free `c` — under the
+    exact-QCA admissibility (Finding 9, 2026-05-17) it is fixed at
+    n = √(1 − m_0²) for the baseline mass m_0 = y·mean(Re Φ).  The
+    continuum bilinear ⟨Ψ|n·α·k|Ψ⟩ is used here as the small-k limit
+    of the exact-QCA Dirac kinetic energy — accurate enough for the F3
+    symplectic bound (5% drift tolerance) given the low-k packets and
+    small masses used in the regression tests.
+
     The mass term ∫ Ψ̄ m_eff Ψ is absorbed into H_Y (since m_eff = y·Φ);
-    no double-counting.  Under back_react=True, this quantity should drift
-    by no more than O(dt²) per timestep, bounded over arbitrary run length.
+    no double-counting.
     """
     # H_KG
     H_KG = phi_energy(state, mu2, lam)
 
-    # H_D_kin in Fourier space:
-    #   (c·α·k·Ψ)_{η↑} =  c·(kx-iky)·η_↓
-    #   (c·α·k·Ψ)_{η↓} =  c·(kx+iky)·η_↑
-    #   (c·α·k·Ψ)_{χ↑} = -c·(kx-iky)·χ_↓
-    #   (c·α·k·Ψ)_{χ↓} = -c·(kx+iky)·χ_↑
+    # Baseline mass and kinetic coefficient
+    m0 = float(yukawa * state.Phi.real.mean())
+    n0 = float(np.sqrt(max(0.0, 1.0 - m0 * m0)))
+
+    # H_D_kin in Fourier space, small-k continuum form with coefficient n0:
+    #   (n·α·k·Ψ)_{η↑} =  n·(kx−iky)·η_↓
+    #   (n·α·k·Ψ)_{η↓} =  n·(kx+iky)·η_↑
+    #   (n·α·k·Ψ)_{χ↑} = −n·(kx−iky)·χ_↓
+    #   (n·α·k·Ψ)_{χ↓} = −n·(kx+iky)·χ_↑
     # Parseval: ∫ |f|² dx = (1/N) ∑_k |F(k)|² for numpy fft conventions.
     Lx, Ly = state.Phi.shape
     kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
@@ -260,21 +299,20 @@ def total_energy(state, mu2, lam, yukawa, c):
     KX, KY = np.meshgrid(kx, ky, indexing='ij')
     EU = np.fft.fft2(state.eta_u);  ED = np.fft.fft2(state.eta_d)
     CU = np.fft.fft2(state.chi_u);  CD = np.fft.fft2(state.chi_d)
-    H_EU =  c * (KX - 1j * KY) * ED
-    H_ED =  c * (KX + 1j * KY) * EU
-    H_CU = -c * (KX - 1j * KY) * CD
-    H_CD = -c * (KX + 1j * KY) * CU
+    H_EU =  n0 * (KX - 1j * KY) * ED
+    H_ED =  n0 * (KX + 1j * KY) * EU
+    H_CU = -n0 * (KX - 1j * KY) * CD
+    H_CD = -n0 * (KX + 1j * KY) * CU
     H_D_kin = float(np.real(np.sum(
         np.conj(EU) * H_EU + np.conj(ED) * H_ED +
         np.conj(CU) * H_CU + np.conj(CD) * H_CD
     )) / (Lx * Ly))
 
-    # H_Y = c²·y·(Φ·η†χ + Φ*·χ†η) summed over cells (the c² factor matches
-    # the Dirac stepper's m·c²·β mass-Hamiltonian convention).
-    # Note η†χ = conj(η_u)·χ_u + conj(η_d)·χ_d.
+    # H_Y = y·(Φ·η†χ + Φ*·χ†η) summed over cells — clean SM Yukawa form.
+    # η†χ = conj(η_u)·χ_u + conj(η_d)·χ_d.
     eta_dag_chi = (np.conj(state.eta_u) * state.chi_u +
                    np.conj(state.eta_d) * state.chi_d)
     # Φ·η†χ + Φ*·χ†η = 2·Re(Φ·η†χ)  (since (Φ·η†χ)* = Φ*·χ†η)
-    H_Y = 2.0 * yukawa * (c**2) * float(np.real(np.sum(state.Phi * eta_dag_chi)))
+    H_Y = 2.0 * yukawa * float(np.real(np.sum(state.Phi * eta_dag_chi)))
 
     return H_KG + H_D_kin + H_Y

@@ -50,7 +50,9 @@ This is the paper's strongest single line: *no spacetime background is assumed; 
 For $G = \mathbb{Z}^3$ with isotropic embedding in $\mathbb{R}^3$, **only the body-centered cubic (BCC) lattice** admits a non-trivial $s=2$ unitary automaton. The two solutions (modulo unitary conjugation) are
 
 $$A^{\pm}_{\mathbf{k}} = I\,u^{\pm}_{\mathbf{k}} - i\boldsymbol\sigma \cdot \tilde{\mathbf{n}}^{\pm}_{\mathbf{k}}, \qquad
-\tilde{\mathbf{n}}^{\pm}_{\mathbf{k}} = \begin{pmatrix} s_x c_y c_z \mp c_x s_y s_z \\ \mp c_x s_y c_z - s_x c_y s_z \\ c_x c_y s_z \pm s_x s_y c_z \end{pmatrix}, \quad u^{\pm}_{\mathbf{k}} = c_x c_y c_z \pm s_x s_y s_z, \tag{Paper 1, Eq. 15}$$
+\tilde{\mathbf{n}}^{\pm}_{\mathbf{k}} = \begin{pmatrix} s_x c_y c_z \mp c_x s_y s_z \\ \mp c_x s_y c_z + s_x c_y s_z \\ c_x c_y s_z \pm s_x s_y c_z \end{pmatrix}, \quad u^{\pm}_{\mathbf{k}} = c_x c_y c_z \pm s_x s_y s_z, \tag{Paper 1, Eq. 15}$$
+
+The sign on the second term of $\tilde n_y$ is `+`, not `-` (the original Paper 1 transcription had a typo). Direct verification of $u^2 + |\tilde{\mathbf n}|^2 = 1$ on 100 random $\mathbf k$ gives residual $4.4\times 10^{-16}$ with the corrected sign vs $0.47$ with the literal Paper 1 sign. See `findings.md` Finding 1 and `ca_bcc.py::_bcc_uvec`.
 
 with $c_i := \cos(k_i/\sqrt 3)$, $s_i := \sin(k_i/\sqrt 3)$. The dispersion relation is
 

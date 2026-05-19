@@ -1,0 +1,26 @@
+{
+  "T1A_weyl": {
+    "max_diff": 0.0,
+    "vac_ticks": 0,
+    "pkt_ticks": 163840,
+    "eps": 1e-13
+  },
+  "T1A_higgs": {
+    "max_diff": 0.0,
+    "vac_ticks": 0,
+    "pkt_ticks": 75270,
+    "eps": 1e-13
+  },
+  "T1A_F1_unified": {
+    "max_diff": 0.0,
+    "vac_ticks": 0,
+    "pkt_ticks": 116310,
+    "eps": 1e-13
+  },
+  "T1A_eps_calibration": {
+    "floor_weyl_zero": 0.0,
+    "floor_higgs_vac": 1.1102230246251565e-16,
+    "floor_unified_vac": 1.1775693440128314e-16,
+    "eps_default": 1e-13
+  }
+}

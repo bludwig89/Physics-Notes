@@ -179,13 +179,25 @@ def gaussian_spinor_3d(shape, center=None, sigma=3.0, helicity='left'):
 #  Stage 2b — Split-Step (FFT) Weyl CA  (exact, unconditionally stable)
 # ══════════════════════════════════════════════════════════════════
 
-def weyl_step_2d_splitstep(f, g, c=0.5):
+def weyl_step_2d_splitstep(f, g, c=None, c_unitary=None):
     """
     Exact split-step (FFT) propagator for the 2D Weyl spinor CA.
 
     Each Fourier mode k = (kx, ky) is propagated by the exact 2×2 unitary:
 
         U(k) = cos(c·κ)·I  −  i·sin(c·κ)/κ · (σ·k)
+
+    Parameter `c` here is the **unitary-rotation magnitude per tick**
+    (dimensionless, free in [0, 1]) — NOT the macroscopic lattice light
+    speed and NOT an energy unit.  The alias `c_unitary` is accepted to
+    let call sites be explicit about which of the three overloaded "c"
+    meanings is intended (see `model-observations.md` item 11):
+
+      • weyl_step_2d_splitstep(..., c_unitary=…)  ← unitary rotation
+      • c_field_from_phi(..., c_macro=…)          ← macroscopic light-speed
+      • unified_step(..., c_energy_unit=…)        ← energy-unit in H_Y
+
+    Default 0.5 if neither is given.
 
     where κ = |k| = sqrt(kx² + ky²) and (with kz = 0 in 2D):
 
@@ -202,6 +214,13 @@ def weyl_step_2d_splitstep(f, g, c=0.5):
     This is exactly unitary for all c — norm is conserved to machine
     precision and the scheme is unconditionally stable.
     """
+    # Resolve the two overloaded keyword names.  c_unitary takes priority
+    # when both are given.  Default 0.5 preserves legacy behaviour.
+    if c_unitary is not None:
+        c = c_unitary
+    elif c is None:
+        c = 0.5
+
     Lx, Ly = f.shape
 
     kx = np.fft.fftfreq(Lx) * 2.0 * np.pi   # shape (Lx,)

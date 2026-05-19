@@ -168,7 +168,6 @@ def maxwell_curl_residual(k_mag=0.05, n_dirs=8, seed=0):
     for d in dirs:
         kx, ky, kz = (k_mag * d[0], k_mag * d[1], k_mag * d[2])
         kx_h, ky_h, kz_h = kx / 2, ky / 2, kz / 2
-        psi, phi_eig, omega_half = bcc.bcc_unitary(kx_h, ky_h, kz_h, sign='+'), 0, 0  # placeholder
         psi_p, psi_m, omega_half = weyl_eigenmodes_3d_bcc(kx_h, ky_h, kz_h, sign='+')
         psi = psi_p
         phi = psi_m

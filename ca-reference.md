@@ -12,7 +12,7 @@ Detailed comparison in `qca-papers-1-4-overview.md`. Most directly relevant obse
 
 - **The 2D square-lattice Weyl QCA in our split-step propagator is the small-$\mathbf{k}$ linearization** of the unique 2D QCA derived in Bisio *et al.* 2015 Eq. 16, $\omega = \arccos(c_x c_y)$ with $c_i = \cos(k_i/\sqrt 2)$. Our $\omega = c|\mathbf{k}|$ holds only for $|\mathbf{k}|\ll 1$; non-trivial QCA phenomenology (frequency-dependent $c$, Klein paradox shape, cosmic-ray spreading) lives in the higher-$|\mathbf{k}|$ corrections we have not yet measured.
 - **The 3D simple-cubic lattice in `ca_core.py` is not the unique non-trivial 3D QCA.** Papers 1 (Bisio *et al.* 2015) and 2 (Raynal 2017) prove that the unique $s=2$ 3D QCA satisfying linearity / unitarity / locality / homogeneity / isotropy lives on the **body-centred cubic (BCC) lattice** with 8 generators (regular tetrahedron + dual). On a simple-cubic 3D lattice only the trivial automaton is admitted. V6 in the overview document proposes a BCC implementation as a regression target.
-- **The Dirac coupling parameter satisfies $n^2 + m^2 = 1$.** Paper 1 Eq. 23 and Paper 2 Eq. 75 give the unique form $D_{\mathbf{k}} = \mathrm{diag}(nA_{\mathbf{k}}, nA_{\mathbf{k}}^*) + \mathrm{antidiag}(im I, im I)$ with $n^2 + m^2 = 1$, so the dimensionless mass is bounded by 1. Our `ca_dirac.py` should be audited to confirm this constraint is respected.
+- **The Dirac coupling parameter satisfies $n^2 + m^2 = 1$ — *landed in code 2026-05-18 per Finding 9*.** Paper 1 Eq. 23 and Paper 2 Eq. 75 give the unique form $D_{\mathbf{k}} = \mathrm{diag}(nA_{\mathbf{k}}, nA_{\mathbf{k}}^*) + \mathrm{antidiag}(im I, im I)$ with $n^2 + m^2 = 1$, so the dimensionless mass is bounded by 1.  `ca_dirac.py::dirac_step_2d_splitstep` now builds the exact single-tick 4×4 unitary with $W_k$ from `ca_core_exact.exact2d_unitary` on the upper-left block and $W_k^\dagger$ on the lower-right (the form forced by unitarity).  The `c` argument is removed everywhere; kinetic coefficient $n = \sqrt{1-m^2}$ is derived internally.  Dispersion $\omega_k = \arccos(\sqrt{1-m^2}\,c_x c_y)$ at machine precision; zitterbewegung target $2\arcsin(m)$ replaces the old linearized $2m$.
 - **The transition matrix at the centre of the primitive cell must vanish.** Paper 2's central result: $A_0 = 0$. Our split-step propagator should satisfy $U(\mathbf{k}=0) = I$ (no on-cell self-coupling); verify by inspection.
 - **The photon is composite, not elementary.** Paper 1's Maxwell sector is built as a bilinear of two correlated Weyl fields (the De Broglie neutrino theory of light), and the free Maxwell equations emerge in the $|\mathbf{k}|\ll 1$ limit. Our model has U(1) as an externally-imposed gauge phase; implementing the composite-photon construction (test V4) is the single biggest physics extension available.
 - **Lorentz covariance breaks at the Planck scale; DSR / deformed-Lorentz restores it.** Paper 4 Eq. 25: a non-linear representation $L_{\beta}^D = \mathcal D^{-1}\circ L_{\beta}\circ \mathcal D$ preserves the discrete dispersion $\omega(k) = \arccos(\sqrt{1-m^2}\cos k)$. Our 2D/3D lattices inherit the same Lorentz-breaking; no resolution is currently implemented.
@@ -264,6 +264,7 @@ This is consistent with Loop Quantum Gravity and Loop Quantum Cosmology (Bojowal
 - **No mass.** The Weyl equation is massless. Adding mass requires coupling $f$ and $g$ (the Dirac equation), which has not yet been implemented.
 - **No self-interaction.** The evolution is linear. Gravitational collapse requires nonlinearity, which the current equations do not have.
 - **Lorentz invariance is approximate.** The fixed regular lattice picks a preferred frame. The spinor-valued approach encodes Lorentz structure into the field values rather than the lattice, which partially mitigates this, but it is not fully resolved.
+- **SI identification of $(a, \tau)$ is currently undefined.** The lattice cell distance $a$ in metres and tick $\tau$ in seconds have not been pinned down. The naive choice $a = \ell_P$, $\tau = t_P$ predicts a measured speed of light $c_\text{physical} = c/\sqrt d$ — in 3D, $1.732 \times 10^{8}$ m/s, or 0.5774× the observed value. All dimensionless lattice tests are unaffected; only lattice-to-SI absolute-magnitude conversions need the choice. See `findings.md` Finding 10 and `changelog.md` 2026-05-17 for the three internally consistent resolutions.
 
 ---
 
@@ -327,3 +328,119 @@ Per CLAUDE.md's preference for distinguishing "exact" results (analytically deri
 | **Total** | **30 / 30** | 6 exact | 11 at ε | 12 published-target | 1 info |
 
 The "exact" column is the strongest claim available for a numerical lattice model: a result that comes out of the algebra without any floating-point contribution at all.
+
+---
+
+## 10× test execution — updates to the exactness inventory (2026-05-16, later)
+
+Following the fresh-test pass at 10× scaled parameters (full table in `changelog.md` 2026-05-16 entry "10× test execution pass" and detailed findings in `findings.md` Findings 3–6), two new rows are added to the **exact algebraic** column of the inventory:
+
+| Construct | Exactness | Where it lives |
+|---|---|---|
+| Goldstone dispersion $\omega = \|k\|$ on lattice (at $L\ge 640$) | **Exact algebraic** — residual / $(\|k\|\cdot\varepsilon_\text{double}) \le 0.88$ across measured modes | `ca_higgs.py::verify_higgs_dispersion_2d`; Finding 3 |
+| Curl-residual leading coefficient $1/\sqrt{2d}$ for composite-photon bilinear on dimension-$d$ Weyl QCA | **Exact algebraic** — $d=2$ measured to 10 decimals on 2D-square, $d=3$ to 7 figures on BCC | `ca_maxwell.py` (3D), `ca_maxwell_2d.py` (2D); Findings 2 update + Finding 7 resolution |
+
+And one row is added documenting a stability-bound match exposed by the 10× lattice:
+
+| Construct | Status | Where it lives |
+|---|---|---|
+| Higgs KG sub-step CFL bound $dt_\text{sub} < 2/\sqrt{8+2\mu^2}$ | **Standard explicit-Verlet bound on 5-point 2D Laplacian** — empirical critical dt = 0.85–0.95 at L=320, μ²=0.5; F1 needs `n_phi_sub≥2` at the 10× bump | `ca_higgs.py::kg_step_strang`; Finding 4 |
+
+The 10× pass also confirmed that the per-step FFT round-off floor is exactly 1 ulp of complex128, scaling as $\sqrt{N_\text{cells}}$ across the lattice and linearly in step count (Finding 5).
+
+**Updated total:** 8 exact algebraic results (6 prior + 2 added).
+
+---
+
+## SI identification of $(a, \tau)$ — exact $\sqrt d$ factor at the lattice-to-SI boundary (2026-05-17)
+
+Per `findings.md` Finding 10, the Weyl-QCA lattice light speed $c_\text{lat} = 1/\sqrt d$ is *dimensionless*. Converting it to SI requires a lattice spacing $a$ (metres) and tick $\tau$ (seconds):
+
+$$c_\text{physical} \;=\; \frac{a}{\tau}\cdot c_\text{lat} \;=\; \frac{a}{\tau}\cdot\frac{1}{\sqrt d}.$$
+
+Two new rows for the **exact algebraic** column:
+
+| Construct | Exactness | Where it lives |
+|---|---|---|
+| Weyl-QCA lattice light speed $c_\text{lat} = 1/\sqrt d$ | **Exact algebraic** — Bisio *et al.* 2015 uniqueness result; verified to 10 decimals at $d=2$ (`ca_maxwell_2d.py`) and 7 figures at $d=3$ (`ca_maxwell.py`) | Findings 2, 7 |
+| Lattice-to-SI mapping factor $\sqrt d$ from naive Planck identification $a = \ell_P,\,\tau = t_P$ | **Exact algebraic** — consequent of $\ell_P/t_P = c$ definitional identity; predicts $c_\text{physical} = c/\sqrt d$ in any $d > 1$ | Finding 10 |
+
+The second row is a *decision point*, not a measurement: the SI identification is currently undefined in the project. Any future lattice-to-SI absolute-magnitude calculation (e.g., the L4 lensing absolute-coefficient extension) must declare which of three resolutions is in force — full menu in `findings.md` Finding 10. The $\sqrt d$ factor itself is exact algebraic; the choice is what to do with it.
+
+**Updated total:** 9 exact algebraic results (8 prior + 1 added — the lattice-light-speed row formalises a result already implicit in Findings 2 and 7; the SI-mapping row is the new entry).
+
+---
+
+## Dirac stepper — exact-QCA form (2026-05-18, Finding 9)
+
+`ca_dirac.py` now implements Paper 1 Eq. 23 directly.  Single-tick unitary:
+
+$$D_k = \begin{pmatrix} n\,W_k & im\,I \\ im\,I & n\,W_k^\dagger \end{pmatrix},\qquad n^2 + m^2 = 1.$$
+
+Dispersion $\omega_k = \arccos(n\,c_x\,c_y)$ with $c_i = \cos(k_i/\sqrt 2)$.  Spectral interpolation for arbitrary $dt$: $U(dt) = \cos(\omega\,dt)\,I + (\sin(\omega\,dt)/\sin\omega)\,(D_k - \cos\omega\,I)$.
+
+New rows for the exactness inventory:
+
+| Construct | Exactness | Where it lives |
+|---|---|---|
+| Exact-QCA Dirac dispersion $\omega = \arccos(\sqrt{1-m^2}\,c_x c_y)$, 2D | **Machine ε** — residual $3.9\times 10^{-16}$ at $m=0.3$ (L=64, n_steps=20) | `ca_dirac.py::verify_dirac_dispersion_2d`; Finding 9 |
+| Zitterbewegung frequency $\omega_Z = 2\arcsin(m)$ | **Within FFT bin** — measured $1.04877$ vs $\pi/3 = 1.04720$ at $m=0.5$ (L=256, n_steps=2000, dt=0.5) | `ca_dirac.py::measure_zitterbewegung_freq_2d`; Finding 9 |
+| F1 vacuum regression at exact-QCA $\Phi=v$ (η_diff vs constant-m Dirac) | **Machine ε** — $1.43\times 10^{-15}$ | `run_phaseF_tests.py::test_F1` |
+| F4 symmetric regression at exact-QCA $\Phi=0$ (η vs `weyl_step_2d_arccos_splitstep`) | **Bit-for-bit zero** — exact-QCA Dirac at $m=0$ is diag$(W_k, W_k^\dagger)$, η-block equals the standalone 2D Weyl QCA exactly | `run_phaseF_tests.py::test_F4` |
+| Aharonov-Bohm π-flux phase pickup under exact-QCA kinetic | **Machine ε** — $4.4\times 10^{-16}$ at L=128 | `run_phase_tests.py::test_E1` |
+
+**API change.** The `c=` argument is removed from every Dirac stepper signature.  The kinetic coefficient is now $n = \sqrt{1-m^2}$ by the QCA admissibility constraint, derived internally from `m`.  Callers that previously passed `c=0.5, m=…` should now pass only `m=…`.  Variable-mass steppers (`*_varm_*`) take `m0` (baseline mass) instead.  See `changelog.md` 2026-05-18 entry for full call-site migration.
+
+**Note on `W'_k`.** Finding 9 paraphrased the QCA literature as "$W_k^* = W_k(-\mathbf{k})$ on the lower-right".  Element-wise complex conjugation of the explicit 2D Eq. 16 unitary differs from the Hermitian conjugate; the form that closes the unitarity algebra (off-diagonal $D^\dagger D$ blocks vanish) is $W' = W_k^\dagger$.  Confirmed numerically: $\|D^\dagger D - I\|_\infty = 1.11\times 10^{-16}$ across the BZ.
+
+**Does not yet close.** 3D-BCC Dirac stepper (no 3D code path); composite-photon derivation (V4); DSR / Paper 4 boost map (V8) — each is a separate piece of work tracked in `qca-papers-1-4-overview.md`.
+
+**Updated total:** 9 exact-algebraic results + 1 machine-ε exact-QCA dispersion + 1 FFT-bin zitterbewegung row.
+
+---
+
+## Emergent-time roadmap T1–T2, T5 — exactness inventory (2026-05-18)
+
+Rows added from the emergent-time gates (`ca-emergent-time-plan.md` §T1, §T2, §T5).
+
+| Construct | Exactness | Where it lives |
+|---|---|---|
+| T1.A — lazy-vs-sync max field residual (Weyl 2D free) | **Bit-for-bit zero** — the lazy wrapper does not modify propagator output; bookkeeping-only laziness | `test_emergent_time_T1.py::test_T1A_weyl` |
+| T1.A — lazy-vs-sync max field residual (Higgs Mexican-hat) | **Bit-for-bit zero** | `test_emergent_time_T1.py::test_T1A_higgs` |
+| T1.A — lazy-vs-sync max field residual (F1 unified step) | **Bit-for-bit zero** | `test_emergent_time_T1.py::test_T1A_F1_unified` |
+| T1.A — vacuum-cell residual floor (pure-vacuum Φ=v, Π=0 state) | **Machine ε** — $1.18\times 10^{-16}$ over 40 steps; ε=1e-13 sits 849× above the floor | `test_emergent_time_T1.py::test_T1A_eps_calibration` |
+| T2.A — group velocity agreement, n-reading vs τ-reading (flat metric) | **Machine ε** — relative diff $5.75\times 10^{-16}$ | `test_emergent_time_shapiro.py::test_T2A` |
+| T2.B — Shapiro tick-ratio, $N_{\text{phase, in}}/N_{\text{phase, out}}$ vs $c_{\text{in}}/c_{\text{out}}$ | **Exact algebraic** — algebraically follows from $\omega = c\cdot k$ and $c(\phi) = c_0/(1-2\phi/c_0^2)$; numerical residual $2.73\times 10^{-16}$ at L=128, k_mode=6 (on-grid) | `test_emergent_time_shapiro.py::test_T2B` |
+| T2.C — Gravitational redshift $z = -2\phi_s/c_0^2$ from tick reading | **Exact algebraic** — substitution $z_\text{tick} = 1/r_s - 1$ with $r_s = c_s/c_0$ collapses to $-2\phi_s/c_0^2$ exactly; numerical residual $4.7\times 10^{-16}$ | `test_emergent_time_shapiro.py::test_T2C` |
+| T5.A — vacuum-cell tick count exact zero (L=256, n=40) | **Bit-for-bit zero** — 80.4% of the lattice satisfies $N(\mathbf x) = 0$ exactly | `test_emergent_time_T5.py::test_T5A` |
+| T5.C — asymmetric tick-clock ratio equals c-ratio | **Exact algebraic** — same algebra as T2.B; numerical residual $2.73\times 10^{-16}$ | `test_emergent_time_T5.py::test_T5C` |
+
+And one row tracking implementation overhead:
+
+| Construct | Status | Where it lives |
+|---|---|---|
+| T5.B — lazy-wrapper wall-clock overhead | **Bounded constant factor** — 9.3% / 10.3% / 13.0% at L ∈ {64, 128, 256}; bookkeeping-only, FFT cost dominates | `test_emergent_time_T5.py::test_T5B` |
+
+**Updated total:** 13 exact-algebraic / bit-zero results (9 prior + 4 new: T1.A-Weyl, T1.A-Higgs, T1.A-F1-unified, T5.A), 2 machine-ε rows (T2.A, T2.B, T2.C, T5.C), 1 implementation-overhead row.
+
+**Open question — T2.B "binary tick" vs "phase tick" ambiguity** in the proposition.  Resolved in `findings.md` Finding 11: both forms satisfy the proposition's $\|U\psi - \psi\| > \varepsilon$ criterion; the binary form is load-bearing for vacuum freezing (T5.A), the phase form is load-bearing for the Shapiro / redshift / asymmetric-clock ratios (T2.B, T2.C, T5.C).  Implementation: `ca_lazy.py::TickCounter` is the binary form; phase-tick is computed inline.  Promoting phase-tick to a first-class `PhaseTickCounter` class is a deferred follow-up.
+
+**What did not match anything new:** every other 10× test reproduced the prior residual or improved monotonically with resolution; nothing in the new data resembled an approximation to an imaginary number, $\pi$, $e$, or any other transcendental constant. The matches that surfaced are all real-valued algebraic ($1/\sqrt 6$, $\varepsilon_\text{double}$, the CFL bound, $2mc^2$).
+
+---
+
+## Model-observations items 8–14 — new tests and what they measured (2026-05-16, later still)
+
+Cleanup pass to address the cosmetic-but-load-bearing flags in `model-observations.md`. New observations to fold into the reference:
+
+- **Strang composition of `unified_step` is empirically second-order in dt** (item 13).  Richardson ratio over $\Delta t \in \{1.0, 0.5, 0.25\}$ at fixed $T=8$ measured at $4.07$, exactly the $O(\Delta t^2)$ signature.  This is the first dt-scan in the suite; previously the unconditionally-stable propagator's exact-norm-preservation masked any order-of-accuracy bug.  Result: the Verlet-Strang composition behaves as advertised; no hidden first-order term.
+
+- **Discrete Noether $\partial_t \rho + \nabla\!\cdot\!J = 0$ holds at $O(\Delta t^2)$ for the U(1)-coupled Dirac CA** (item 14).  Residual ratios at $\Delta t = \{0.20, 0.10, 0.05\}$: $4.05$ and $4.01$.  The lattice current built from the chiral-basis bilinears
+  $$J^x = 2\,\mathrm{Re}(\eta_\uparrow^*\eta_\downarrow) - 2\,\mathrm{Re}(\chi_\uparrow^*\chi_\downarrow),\quad J^y = 2\,\mathrm{Im}(\eta_\uparrow^*\eta_\downarrow) - 2\,\mathrm{Im}(\chi_\uparrow^*\chi_\downarrow)$$
+  with central-difference divergence satisfies the discrete continuity equation at the integrator's order.  Adds the **local** Noether identity to the suite; previously only the **integrated** total norm was tested.
+
+- **SU(2) isospin rotation preserves $\rho$ at $4.4 \times 10^{-16}$ pointwise** (item 14b).  The per-cell unitary $\exp(-i g\,\boldsymbol{W}\!\cdot\!\boldsymbol{\tau}\,\Delta t)$ acts only on the doublet index, not on space; local density is preserved exactly by construction.  Documents the design contract.
+
+- **F3b-scan: $|\Delta y(b)|$ scales as $1/b$ in the far-field $b > 2\sigma_\Phi$** (item 12; pending full run).  Per-run sanity (L=192, $b=60$): $\Delta y = -0.376$ cells with norm drift $1.0\times 10^{-14}$.  Power-law fit across five $b$ values is the verification target; passes if slope $\in [-1.4, -0.6]$.
+
+These are additions to the exact-and-O(dt²) ledger; they do not change any of the prior-pass results.

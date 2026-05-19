@@ -64,17 +64,15 @@ giving $m_W = gv/2$. Same per-cell phase structure as the existing SU(2) gauge s
 
 ### Coupling 2 — Metric backreaction (per-cell phase, same field)
 
-Define the local propagation speed as a function of $|\Phi|$:
+> **⚠️ This section is RETIRED (2026-05-16).** The formula below — published with exponent $(-\alpha)$ — gives the wrong sign for gravitational attraction once it is paired with the F3 result that fermion density *depresses* $|\Phi|$ below $v$.  With $|\Phi|<v$ the $(-\alpha)$ form yields $c>c_0$ at the centre of the depression and a *repulsion* of probe rays away from matter, the opposite of Newtonian gravity.  The working F3b lensing test uses $(+\alpha)$ to recover the right sign (see `run_phaseF_tests.py::test_F3b`).  This is not a sign typo — the underlying physics route ($|\Phi|^\alpha$ metric ansatz with a *free* exponent $\alpha$) has been superseded entirely.
+>
+> The replacement is in `ca-unified-v2.md` §S1: a Poisson-sourced EMQG potential $\phi(\mathbf{x})$ feeding $c(\mathbf{x}) = c_0 / (1 - 2\phi/c_0^2)$ (GR-Shapiro form).  In v2 the Newton constant $G$ replaces the free exponent $\alpha$, the fermion stress-energy enters the source directly (not only through $\Phi$), and the sign is unambiguously attractive.  Anyone implementing from this document should use v2 §S1.
 
-$$c(\mathbf{x}, t) = c_0 \cdot \left(\frac{|\Phi(\mathbf{x}, t)|}{v}\right)^{-\alpha}$$
+For the historical record, the v1 formula was:
 
-for some coupling exponent $\alpha > 0$. In the vacuum limit $|\Phi| = v$, $c = c_0$ — the existing implementation, unchanged.
+$$c(\mathbf{x}, t) = c_0 \cdot \left(\frac{|\Phi(\mathbf{x}, t)|}{v}\right)^{-\alpha}, \qquad \text{[v1 — RETIRED, see }\textit{ca-unified-v2.md}\text{ §S1]}$$
 
-Where $|\Phi|$ is locally above $v$: $c < c_0$, the analog of a slower region (gravitational time dilation, redshift). Where $|\Phi|$ is below $v$: $c > c_0$, the analog of negative curvature.
-
-This is the same structure as the Phase C1 variable-c stepper that we just put on a proper Strang split. The CA implementation: at each timestep, build the c-field `c(x) = c_0 * (|Phi(x)| / v)^(-alpha)`, then call `weyl_step_2d_varc_strang(f, g, c_field)`. The implementation is already there.
-
-The dynamical backreaction is automatic: Φ evolves under its own Klein–Gordon CA, with the Φ stress-energy *also* sourced by the fermion fields via the Yukawa coupling. Where fermions concentrate, $|\Phi|$ shifts from $v$, $c$ changes, and the fermions feel curvature. This is the discrete analog of "matter tells geometry how to curve; geometry tells matter how to move."
+with $\alpha$ a free coupling exponent.  In the vacuum limit $|\Phi| = v$, $c = c_0$ — the only feature of this form that v2 preserves.
 
 ### Why both couplings to one field
 

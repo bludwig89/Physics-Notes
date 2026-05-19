@@ -153,29 +153,38 @@ def test_L2():
 #  L3 — Composite-photon Maxwell sector
 # ══════════════════════════════════════════════════════════════════
 
-def test_L3():
-    section('L3 — Composite photon (Paper 1 Eq. 35)')
+def test_L3a():
+    """
+    L3a — kinematic checks (dispersion, transversality, anisotropy).
+
+    These are the parts of the composite-photon construction that
+    *do* pass cleanly.  Split out from L3 per model-observations.md
+    item 5: bundling the O(k) curl-residual with these three made
+    L3 look like 3/3 PASS when the central Maxwell identity actually
+    fails.  L3a is the pass; L3b reports the curl-residual partial.
+    """
+    section('L3a — Composite photon kinematics (Paper 1 Eq. 35, dispersion + transversality)')
     try:
         import ca_maxwell as max_
     except ImportError:
-        print('  [SKIP]  ca_maxwell.py not present — L3 not yet implemented')
+        print('  [SKIP]  ca_maxwell.py not present — L3a not yet implemented')
         return None
 
     results = []
-    # L3.a — composite-photon dispersion ω_γ = |k|/√3 at small k
+    # L3a.1 — composite-photon dispersion ω_γ = |k|/√3 at small k
     # (Paper 1 line 36; the lattice analog of 2 ω(k/2) → |k|/√3)
     disp_err = max_.maxwell_dispersion_residual(k_mag=0.05)
     ok = disp_err < 1e-2
     results.append(check('composite-photon dispersion ω = |k|/√3 (Paper 1)', ok,
                          f'(rel err = {disp_err:.2e})'))
 
-    # L3.b — transversality: 2 ñ_{k/2} · E_G = 0, 2 ñ_{k/2} · B_G = 0
+    # L3a.2 — transversality: 2 ñ_{k/2} · E_G = 0, 2 ñ_{k/2} · B_G = 0
     # (Paper 1 Eq. 35, first two relations)
     trans = max_.maxwell_transversality(k_mag=0.05, n_dirs=8)
     ok = trans < 1e-12
     results.append(check('transversality (2ñ·E = 2ñ·B = 0)', ok, f'(max = {trans:.2e})'))
 
-    # L3.c — anisotropy check.  Paper 1 line 36-44 / Paper 4 Eq. 23: the
+    # L3a.3 — anisotropy check.  Paper 1 line 36-44 / Paper 4 Eq. 23: the
     # BCC dispersion is anisotropic; along (1,0,0) lattice-axis directions
     # there is no correction (k/√3 holds exactly), along (1,1,1) the
     # leading correction is O(k) from the sin·sin·sin term in u(k/2).
@@ -194,16 +203,45 @@ def test_L3():
     results.append(check('dispersion anisotropic: axis exact, diag ≈ k/18', ok,
                          f'(err_axis = {err_axis:.2e}, err_diag = {err_diag:.2e})'))
 
-    # L3.d — curl-equation residual (Paper 1 Eq. 35, third/fourth relations)
-    # The pointwise bilinear gives a residual that scales linearly in k —
-    # the full smeared-photon construction (Paper 1 lines 84-90, smearing
-    # function f_k(q)) is required for O(k^3).  Reported as informational.
+    return all(results)
+
+
+def test_L3b():
+    """
+    L3b — Maxwell curl-equation residual (Paper 1 Eq. 35, third/fourth
+    relations).  Status: **PARTIAL**.  The pointwise composite-photon
+    bilinear gives a curl residual that scales as O(k) rather than O(k³),
+    so the central Maxwell identity is not satisfied to leading order.
+    The full smeared-photon construction (Paper 1 lines 84-90, smearing
+    function f_k(q)) is required to reach O(k³).
+
+    Reported as INFO; not part of any PASS/FAIL totals until the smeared
+    construction lands.  Split out from L3 per model-observations.md
+    item 5 so the kinematic L3a no longer hides this partial.
+    """
+    section('L3b — Maxwell curl residual (PARTIAL: O(k) not O(k³); smeared construction pending)')
+    try:
+        import ca_maxwell as max_
+    except ImportError:
+        print('  [SKIP]  ca_maxwell.py not present — L3b not yet implemented')
+        return None
+
     err_E, err_B = max_.maxwell_curl_residual(k_mag=0.05, n_dirs=8)
     print(f'  [INFO]  Maxwell curl residual (pointwise bilinear, k=0.05): '
-          f'E={err_E:.2e}, B={err_B:.2e}  '
-          f'(scales as O(k); smeared construction needed for O(k^3))')
+          f'E={err_E:.2e}, B={err_B:.2e}')
+    print(f'  [INFO]  Leading-order curl/k coefficient is 1/√6 ≈ '
+          f'{1.0/np.sqrt(6.0):.6f} (see Findings 2 / ca-reference.md).')
+    print(f'  [INFO]  Smeared-photon construction (Paper 1 lines 84-90) '
+          f'needed to push residual to O(k³).')
+    print(f'  L3b status: PARTIAL — kinematic parts (L3a) pass; curl '
+          f'identity awaits the smeared construction.')
+    return None    # not a PASS/FAIL contributor
 
-    return all(results)
+
+# Legacy alias preserved so existing call sites continue to work.  Use
+# test_L3a and test_L3b directly for the split.
+def test_L3():
+    return test_L3a()
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -231,11 +269,28 @@ def test_L4():
     results.append(check('vacuum (ρ=0) → c = c_0 uniformly', ok,
                          f'(max |c−c_0| = {drift:.2e})'))
 
-    # L4.c — Gravitational deflection ∝ 1/b at leading order
-    rel = emqg.test_lensing_deflection()
-    ok = rel < 0.30
-    results.append(check('probe deflection ∝ 1/b (Newtonian lensing)', ok,
-                         f'(rel err vs 1/b: {rel:.2e})'))
+    # L4.c — Gravitational deflection in 2-D Poisson (legacy, log-potential).
+    # Kept as INFO since the 2-D Green's function is logarithmic and the
+    # "rel err vs 2.0" target is a 3-D Newtonian benchmark — dimensionally
+    # inconsistent (see model-observations.md item 4).  The 3-D test below
+    # is the dimensionally correct version.
+    rel_2d = emqg.test_lensing_deflection()
+    print(f'  [INFO]  2-D Poisson lensing rel err Δ(2M)/Δ(M) vs 2: '
+          f'{rel_2d:.2e}  (log-potential — kept for backward reference)')
+
+    # L4.d — 3-D Newtonian lensing (model-observations.md item 4).  Uses
+    # solve_poisson_3d to produce the true 1/r potential, slices at z=L/2,
+    # feeds into the 2-D Cayley stepper.  Linear-M scaling is the correct
+    # 3-D Newtonian benchmark at leading order.
+    rel_3d = emqg.test_lensing_deflection_3d(L=96)
+    ok = rel_3d < 0.10
+    results.append(check('3-D Newtonian lensing Δ(2M)/Δ(M) ≈ 2 (linear in M)',
+                         ok, f'(rel err = {rel_3d:.2e})'))
+
+    # L4.e — 3-D Poisson contract check: ∇²φ should equal 4πGρ on lattice.
+    rel_p = emqg.test_point_source_potential_3d()
+    results.append(check('3-D discrete Poisson contract (∇²φ=4πGρ)',
+                         rel_p < 0.05, f'(rel err = {rel_p:.2e})'))
 
     return all(results)
 
@@ -264,16 +319,23 @@ def main():
     if not L2_ok:
         return 1
 
-    L3_ok = test_L3()
-    if L3_ok is None:
-        print('\n  ⇒  L3 module not yet present — stopping at L2.')
+    L3a_ok = test_L3a()
+    if L3a_ok is None:
+        print('\n  ⇒  L3a module not yet present — stopping at L2.')
         return 0
     print()
     print('=' * 72)
-    print(f'  L3 STATUS: {"PASS" if L3_ok else "FAIL"}')
+    print(f'  L3a STATUS: {"PASS" if L3a_ok else "FAIL"}  (kinematic — dispersion + transversality)')
     print('=' * 72)
-    if not L3_ok:
+    if not L3a_ok:
         return 1
+    # L3b is an INFO-only reporter for the Maxwell curl residual.  Does
+    # not contribute to PASS/FAIL totals; the partial status is the point.
+    test_L3b()
+    print()
+    print('=' * 72)
+    print('  L3b STATUS: PARTIAL (Maxwell curl residual is O(k), not O(k³))')
+    print('=' * 72)
 
     L4_ok = test_L4()
     if L4_ok is None:

@@ -1,38 +1,142 @@
 """
-ca_dirac.py  —  Dirac CA on a flat lattice  (Phase D1)
-========================================================
+ca_dirac.py  —  Dirac CA on a flat lattice  (Phase D1) — exact-QCA form
+==========================================================================
 Massive 4-component Dirac spinor in the Weyl/chiral representation.
 
 State per cell: Ψ = (η_↑, η_↓, χ_↑, χ_↓) — four complex numbers.
   η = (η_↑, η_↓)   left-handed Weyl spinor
   χ = (χ_↑, χ_↓)   right-handed Weyl spinor
 
-Equation:  i ∂_t Ψ = H_D Ψ
-           H_D(k) = c·α·k + m·c²·β
+Refactor (Finding 9, 2026-05-17).  This module now implements the *exact*
+QCA Dirac propagator of Paper 1 Eq. 23 (single-tick unitary) combined with
+the unique non-trivial 2D Weyl QCA of Paper 1 Eq. 16 (see
+`ca_core_exact.exact2d_unitary`).  The previous linearized Hamiltonian
+form `H_D = c·α·k + m·β` is retired; the kinetic coefficient is no longer
+a free parameter — the QCA admissibility constraint n² + m² = 1 fixes
+n = √(1 − m²).  The `c` argument that used to live on every stepper
+signature has been removed everywhere.
 
-Dirac matrices (Weyl/chiral representation):
-    α_i = diag(σ_i, −σ_i),     β = [[0,I],[I,0]]
+Single-tick unitary
 
-In Fourier space H_D is a constant 4×4 matrix per mode k.  Its eigenvalues
-are ±E(k) with E(k) = √((c|k|)² + (mc²)²).
+    D_k = [[ n·W_k,    im·I    ],
+           [ im·I,     n·W'_k  ]]    with  n = √(1−m²),  n² + m² = 1.
 
-Propagator per timestep Δt:
-    U_D(k) = cos(E·Δt)·I_4  −  i·sin(E·Δt)/E · H_D(k)
+where W_k is the left-chirality Weyl QCA (`exact2d_unitary` at k) and
+W'_k = W_k† is the opposite-chirality block.  The W' = W† choice is
+*forced* by unitarity of D_k:
 
-This is exactly unitary, reduces to two decoupled Weyl propagators when
-m = 0, and reproduces the Dirac dispersion ω = E(k).
+    (D†D)_{12} = n W† (im I) + (−im I)(n W')  =  imn (W† − W'),
+
+and this off-diagonal must vanish, so W' = W†.  (Finding 9 paraphrased
+the QCA literature's "W_k* = W_k(−k)" statement, but element-wise complex
+conjugation of the explicit 2D Eq. 16 unitary differs from the Hermitian
+conjugate; the form that closes the unitarity algebra is W' = W†.)
+With that choice:
+
+    (D†D)_{11} = n² W†W + m² I = (n² + m²) I = I.
+
+Eigenvalues of D_k are e^{±iω_k}, each 2-fold degenerate, with
+
+    ω_k = arccos(n · c_x · c_y),       c_i = cos(k_i / √2).
+
+This is Paper 4's exact dispersion.  Small-(k, m) expansion:
+
+    ω_k² ≈ m² + (1 − m²)·|k|²/2,
+
+reproducing the continuum-Dirac dispersion E² = m² + (c·k)² with the
+identification c = 1/√2 (lattice unit) at leading order in k.
+
+Spectral interpolation for arbitrary dt:
+
+    U_D(k, dt) = cos(ω·dt)·I  +  (sin(ω·dt)/sin(ω)) · (D_k − cos(ω)·I).
+
+At ω → 0 the limit (L'Hôpital) sin(ω·dt)/sin(ω) → dt and
+D_k − cos(ω)·I → 0, so U_D → I bit-for-bit.  dt = 1 recovers D_k.
+
+Observable shift vs the old linearized convention (Finding 9):
+
+  - Zitterbewegung frequency:  ω_Z = 2·arcsin(m)   (was 2m).
+    At m = 0.5 the new target is π/3 ≈ 1.04720 (was 1.000).
+  - Dispersion at finite |k|:  ω = arccos(√(1−m²)·c_x·c_y),
+    BZ-periodic, bounded by π, vs the unbounded continuum √((c·k)² + m²).
 """
 
 import numpy as np
+import ca_core_exact as ce
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Dirac split-step propagator (2D, with kz = 0)
+#  Internal helpers — exact-QCA 4×4 propagator pieces
 # ══════════════════════════════════════════════════════════════════
 
-def dirac_step_2d_splitstep(eta_u, eta_d, chi_u, chi_d, c=0.5, m=0.0, dt=1.0):
+def _check_mass(m):
+    """Validate |m| ≤ 1 (the QCA admissibility constraint n²+m²=1)."""
+    if abs(float(m)) > 1.0 + 1e-15:
+        raise ValueError(
+            f"|m| must be ≤ 1 under the QCA admissibility constraint "
+            f"n² + m² = 1 (got m = {m}).  See Finding 9 / Paper 1 Eq. 23."
+        )
+
+
+def _kinetic_n(m):
+    """n = √(1 − m²), the kinetic-block coefficient.  Used to be `c`."""
+    return float(np.sqrt(max(0.0, 1.0 - m * m)))
+
+
+def _dirac_dispersion(KX, KY, m):
     """
-    One step of the 2D Dirac CA via Fourier-space split-step.
+    ω_k = arccos(n · c_x · c_y) on the 2D square lattice (Paper 1 Eq. 23
+    + Eq. 16).  Returns a real ndarray of the same shape as KX, KY.
+    """
+    n = _kinetic_n(m)
+    inv_root2 = 1.0 / np.sqrt(2.0)
+    cx = np.cos(KX * inv_root2)
+    cy = np.cos(KY * inv_root2)
+    return np.arccos(np.clip(n * cx * cy, -1.0, 1.0))
+
+
+def _weyl_blocks(KX, KY):
+    """
+    Return (W, W_prime) where each is the 4-tuple (ff, fg, gf, gg) of
+    2×2 Weyl-QCA unitary entries.  W is the Paper 1 Eq. 16 unitary at k;
+    W' = W† is the Hermitian conjugate (the choice forced by unitarity
+    of the full 4×4 D_k — see module docstring and Finding 9).
+
+    For a 2×2 matrix [[a, b],[c, d]] the Hermitian conjugate is
+    [[ā, c̄],[b̄, d̄]] — i.e. swap off-diagonals and conjugate.
+    """
+    W_ff, W_fg, W_gf, W_gg = ce.exact2d_unitary(KX, KY)
+    W  = (W_ff, W_fg, W_gf, W_gg)
+    Wp = (np.conj(W_ff), np.conj(W_gf), np.conj(W_fg), np.conj(W_gg))
+    return W, Wp
+
+
+def _apply_D_k(EU, ED, CU, CD, n, im_val, W, Wp):
+    """
+    Apply the single-tick D_k once in Fourier space.
+
+      D_k = [[n·W_k,   im·I  ],
+             [im·I,    n·W'_k]]
+
+    on Ψ = (η_↑, η_↓, χ_↑, χ_↓).
+    """
+    W_ff, W_fg, W_gf, W_gg = W
+    Wp_ff, Wp_fg, Wp_gf, Wp_gg = Wp
+
+    EU_new = n * W_ff * EU + n * W_fg * ED + im_val * CU
+    ED_new = n * W_gf * EU + n * W_gg * ED + im_val * CD
+    CU_new = im_val * EU + n * Wp_ff * CU + n * Wp_fg * CD
+    CD_new = im_val * ED + n * Wp_gf * CU + n * Wp_gg * CD
+    return EU_new, ED_new, CU_new, CD_new
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Dirac propagator (2D, with kz = 0)
+# ══════════════════════════════════════════════════════════════════
+
+def dirac_step_2d_splitstep(eta_u, eta_d, chi_u, chi_d, m=0.0, dt=1.0):
+    """
+    One step of the *exact-QCA* 2D Dirac CA in Fourier space.
 
     Parameters
     ----------
@@ -40,61 +144,51 @@ def dirac_step_2d_splitstep(eta_u, eta_d, chi_u, chi_d, c=0.5, m=0.0, dt=1.0):
         Left-handed Weyl spinor components (η_↑, η_↓).
     chi_u, chi_d : complex ndarrays  shape (Lx, Ly)
         Right-handed Weyl spinor components (χ_↑, χ_↓).
-    c : float
-        Lattice speed factor.
     m : float
-        Mass (in lattice units; mc² is dimensionless here).
+        Dimensionless mass with |m| ≤ 1.  The kinetic coefficient
+        n = √(1 − m²) is derived internally — n² + m² = 1 is the QCA
+        admissibility constraint (Paper 1 Eq. 23).
     dt : float
-        Time step.  Default 1.0 to match the Weyl CA convention.
+        Time step.  dt = 1 applies D_k once.  Other values use the
+        spectral interpolation U_D(dt) = cos(ω·dt)·I + sin(ω·dt)/sin(ω)
+        · (D_k − cos(ω)·I) at each Fourier mode.
 
     Returns
     -------
     eta_u_new, eta_d_new, chi_u_new, chi_d_new : updated arrays
     """
+    _check_mass(m)
     Lx, Ly = eta_u.shape
     kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
     ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
     KX, KY = np.meshgrid(kx, ky, indexing='ij')
 
-    kappa = np.sqrt(KX**2 + KY**2)
-    E = np.sqrt((c * kappa)**2 + (m * c**2)**2)
-    E_safe = np.where(E == 0.0, 1.0, E)
+    n     = _kinetic_n(m)
+    im_v  = 1j * m
+    W, Wp = _weyl_blocks(KX, KY)
 
-    cos_E = np.cos(E * dt)
-    sinc_E = np.sin(E * dt) / E_safe   # L'Hôpital at E=0: → dt
-    sinc_E = np.where(E == 0.0, dt, sinc_E)
-
-    # FFTs
     EU = np.fft.fft2(eta_u);  ED = np.fft.fft2(eta_d)
     CU = np.fft.fft2(chi_u);  CD = np.fft.fft2(chi_d)
 
-    # H_D = c·α·k + m·c²·β
-    # α_i = diag(σ_i, −σ_i):  acts within η as +σ·k, within χ as −σ·k
-    # β = [[0,I],[I,0]]:  couples η ↔ χ with mass mc²
-    #
-    # In block form, with σ·k = [[0, kx−iky],[kx+iky, 0]] (2D, kz=0):
-    #
-    # H_D Ψ = c·diag(σ·k, −σ·k)·Ψ  +  mc²·[[0,I],[I,0]]·Ψ
-    #
-    # On Ψ = (η_↑, η_↓, χ_↑, χ_↓):
-    #   (H_D Ψ)_{η↑} =  c·(kx−iky)·η_↓  +  mc²·χ_↑
-    #   (H_D Ψ)_{η↓} =  c·(kx+iky)·η_↑  +  mc²·χ_↓
-    #   (H_D Ψ)_{χ↑} = −c·(kx−iky)·χ_↓  +  mc²·η_↑
-    #   (H_D Ψ)_{χ↓} = −c·(kx+iky)·χ_↑  +  mc²·η_↓
+    # Apply D_k once → (D_k Ψ) in Fourier space
+    DEU, DED, DCU, DCD = _apply_D_k(EU, ED, CU, CD, n, im_v, W, Wp)
 
-    kp = c * (KX - 1j * KY)     # σ·k upper-right element × c
-    km = c * (KX + 1j * KY)     # σ·k lower-left element × c
-    mc2 = m * c**2
-
-    H_EU = kp * ED  +  mc2 * CU
-    H_ED = km * EU  +  mc2 * CD
-    H_CU = -kp * CD +  mc2 * EU
-    H_CD = -km * CU +  mc2 * ED
-
-    EU_new = cos_E * EU - 1j * sinc_E * H_EU
-    ED_new = cos_E * ED - 1j * sinc_E * H_ED
-    CU_new = cos_E * CU - 1j * sinc_E * H_CU
-    CD_new = cos_E * CD - 1j * sinc_E * H_CD
+    if dt == 1.0:
+        EU_new, ED_new, CU_new, CD_new = DEU, DED, DCU, DCD
+    else:
+        omega   = _dirac_dispersion(KX, KY, m)
+        cos_w   = np.cos(omega)
+        sin_w   = np.sin(omega)
+        cos_wdt = np.cos(omega * dt)
+        # scale = sin(ω·dt)/sin(ω);  L'Hôpital limit dt at ω → 0.
+        sin_safe = np.where(sin_w == 0.0, 1.0, sin_w)
+        scale    = np.sin(omega * dt) / sin_safe
+        scale    = np.where(sin_w == 0.0, dt, scale)
+        # U(dt) Ψ = cos(ω·dt) Ψ + scale · (D_k Ψ − cos(ω) Ψ)
+        EU_new = cos_wdt * EU + scale * (DEU - cos_w * EU)
+        ED_new = cos_wdt * ED + scale * (DED - cos_w * ED)
+        CU_new = cos_wdt * CU + scale * (DCU - cos_w * CU)
+        CD_new = cos_wdt * CD + scale * (DCD - cos_w * CD)
 
     return (np.fft.ifft2(EU_new), np.fft.ifft2(ED_new),
             np.fft.ifft2(CU_new), np.fft.ifft2(CD_new))
@@ -139,64 +233,49 @@ def dirac_norm(eta_u, eta_d, chi_u, chi_d):
 #  Dispersion verification
 # ══════════════════════════════════════════════════════════════════
 
-def _dirac_helicity_plus_eigenvector(kx, ky, c, m):
+def _dirac_4x4_at_k(kx, ky, m):
+    """Build the explicit 4×4 D_k as a dense matrix at a single scalar k."""
+    n = _kinetic_n(m)
+    KX = np.array([[kx]]); KY = np.array([[ky]])
+    W, Wp = _weyl_blocks(KX, KY)
+    W_ff, W_fg, W_gf, W_gg = (x[0, 0] for x in W)
+    Wp_ff, Wp_fg, Wp_gf, Wp_gg = (x[0, 0] for x in Wp)
+    im_v = 1j * m
+    D = np.array([
+        [n * W_ff,  n * W_fg,  im_v,      0.0      ],
+        [n * W_gf,  n * W_gg,  0.0,       im_v     ],
+        [im_v,      0.0,       n * Wp_ff, n * Wp_fg],
+        [0.0,       im_v,      n * Wp_gf, n * Wp_gg],
+    ], dtype=complex)
+    return D
+
+
+def _dirac_plus_eigenvector(kx, ky, m):
     """
-    Eigenvector of H_D(k) with eigenvalue +E(k), for k = (kx, ky, 0).
-
-    Construction:
-      H_D = c·α·k + mc²·β.  Working in 2D with kz = 0, σ·k = [[0,kp],[km,0]]
-      where kp = kx − iky.
-
-      Block: H_D = [[c·σ·k, mc²·I], [mc²·I, −c·σ·k]]
-
-      A +E eigenvector splits as Ψ = (u_η, u_χ) with each 2-component.
-      For a state aligned with +σ·k eigenvalue (helicity-+):
-         u_η = a · h_+,   u_χ = b · h_+
-      where h_+ is the +1 eigenvector of σ·k/|k|.
-
-      The reduced 2×2 problem in (a, b) is:
-         [[c·κ, mc²], [mc², −c·κ]] · (a,b) = E · (a,b)
-      with E = √((cκ)² + (mc²)²).
-
-      Solution:  a = cos(θ/2_E),  b = sin(θ/2_E)
-                where tan(θ_E) = mc² / (cκ).
+    + ω eigenvector of D_k at the scalar wavevector (kx, ky).  In the
+    Schrödinger convention D_k |ψ⟩ = e^{−iE·1} |ψ⟩, so the +ω state has
+    D_k eigenvalue e^{−iω_k}.  Returns a unit-norm 4-vector.
     """
-    kappa = float(np.sqrt(kx**2 + ky**2))
-    E = float(np.sqrt((c * kappa)**2 + (m * c**2)**2))
-    if E == 0.0:
-        return np.array([1.0, 0.0, 0.0, 0.0], dtype=complex)
-
-    # h_+ for σ·k (2D, kz=0):  (1/√2)(1, e^{iφ})  with φ = arg(kx+iky)
-    if kappa == 0.0:
-        h_plus = np.array([1.0, 0.0], dtype=complex)
-    else:
-        phi = np.exp(1j * np.arctan2(ky, kx))
-        h_plus = np.array([1.0, phi], dtype=complex) / np.sqrt(2.0)
-
-    # (a, b) for +E eigenvalue
-    if kappa == 0.0:
-        # Pure mass case; +E eigenvector of β = [[0,I],[I,0]] with eval +1 is (I, I)/√2
-        a, b = 1.0 / np.sqrt(2.0), 1.0 / np.sqrt(2.0)
-    else:
-        theta_E = np.arctan2(m * c**2, c * kappa)
-        a = np.cos(theta_E / 2.0)
-        b = np.sin(theta_E / 2.0)
-
-    psi = np.empty(4, dtype=complex)
-    psi[0:2] = a * h_plus
-    psi[2:4] = b * h_plus
-    return psi
+    D = _dirac_4x4_at_k(kx, ky, m)
+    evals, evecs = np.linalg.eig(D)
+    omega = float(_dirac_dispersion(np.array(kx), np.array(ky), m))
+    target = np.exp(-1j * omega)
+    idx = int(np.argmin(np.abs(evals - target)))
+    v = evecs[:, idx]
+    v = v / np.linalg.norm(v)
+    return v
 
 
-def verify_dirac_dispersion_2d(L=32, n_steps=20, c=0.5, m=0.3, dt=1.0,
+def verify_dirac_dispersion_2d(L=32, n_steps=20, m=0.3, dt=1.0,
                                 k_indices=None):
     """
-    Verify the 2D Dirac propagator reproduces the dispersion
-        ω = E(k) = √((c|k|)² + (mc²)²)
-    at machine precision.
+    Verify the exact-QCA 2D Dirac propagator reproduces the dispersion
+        ω = arccos(√(1−m²)·c_x·c_y),       c_i = cos(k_i/√2)
+    at machine precision (Finding 9).
 
-    Method: build a plane-wave Ψ with the +E eigenvector at wavevector k,
-    propagate n_steps, extract per-step phase from ⟨Ψ_0, Ψ_N⟩ / ⟨Ψ_0, Ψ_0⟩.
+    Method: build a plane-wave Ψ with the +ω eigenvector of D_k at
+    wavevector k, propagate n_steps, extract per-step phase from
+    ⟨Ψ_0, Ψ_N⟩ / ⟨Ψ_0, Ψ_0⟩.
     """
     if k_indices is None:
         k_indices = [(1, 0), (0, 1), (1, 1), (2, 1), (3, 2), (1, 4)]
@@ -209,9 +288,10 @@ def verify_dirac_dispersion_2d(L=32, n_steps=20, c=0.5, m=0.3, dt=1.0,
         kx = 2.0 * np.pi * ix / L
         ky = 2.0 * np.pi * iy / L
         kappa = float(np.sqrt(kx**2 + ky**2))
-        E_analytic = float(np.sqrt((c * kappa)**2 + (m * c**2)**2))
+        omega_analytic = float(_dirac_dispersion(
+            np.array(kx), np.array(ky), m))
 
-        psi = _dirac_helicity_plus_eigenvector(kx, ky, c, m)
+        psi = _dirac_plus_eigenvector(kx, ky, m)
         phase_field = np.exp(1j * (kx * X + ky * Y))
 
         eu0 = psi[0] * phase_field
@@ -225,44 +305,46 @@ def verify_dirac_dispersion_2d(L=32, n_steps=20, c=0.5, m=0.3, dt=1.0,
         eu, ed, cu, cd = eu0.copy(), ed0.copy(), cu0.copy(), cd0.copy()
         for _ in range(n_steps):
             eu, ed, cu, cd = dirac_step_2d_splitstep(
-                eu, ed, cu, cd, c=c, m=m, dt=dt)
+                eu, ed, cu, cd, m=m, dt=dt)
 
         ip = np.sum(np.conj(eu0)*eu + np.conj(ed0)*ed +
                     np.conj(cu0)*cu + np.conj(cd0)*cd) / ip0
 
-        ratio = ip * np.exp(1j * E_analytic * n_steps * dt)
+        ratio = ip * np.exp(1j * omega_analytic * n_steps * dt)
         delta_omega = float(np.angle(ratio) / (n_steps * dt))
-        omega_numeric = float(E_analytic + delta_omega)
+        omega_numeric = float(omega_analytic + delta_omega)
         residual = float(abs(delta_omega))
 
         results.append({
             'kx': kx, 'ky': ky, 'kappa': kappa,
             'omega_numeric':  omega_numeric,
-            'omega_analytic': E_analytic,
+            'omega_analytic': omega_analytic,
             'residual':       residual,
         })
     return results
 
 
-def measure_zitterbewegung_freq_2d(L=64, n_steps=400, c=0.5, m=0.5, dt=0.5,
+def measure_zitterbewegung_freq_2d(L=64, n_steps=400, m=0.5, dt=0.5,
                                     sigma=8.0):
     """
     Initialize a pure-η (left-chirality only) Dirac wave packet and track
     the chirality imbalance ρ_η(t) − ρ_χ(t) over time.
 
-    At each Fourier mode k, a pure-η state is a 50/50 superposition of
-    the +E(k) and −E(k) eigenstates of H_D.  Their interference produces
-    oscillation of the chirality population at angular frequency 2·E(k).
+    At each Fourier mode k, a pure-η state is split equally between the
+    +ω(k) and −ω(k) eigenstates of D_k.  Their interference produces
+    oscillation of the chirality population at angular frequency 2·ω(k).
 
-    For a wide (small-k) Gaussian packet, E(k) ≈ mc² for the dominant
-    modes, so the expected oscillation frequency is 2mc².
+    For a wide (small-k) Gaussian packet the dominant frequency is
+    2·ω(k=0) = 2·arccos(n) = 2·arcsin(m) — Paper 4's exact zitterbewegung
+    target (Finding 9).  This is *not* the same as the linearized 2m
+    target; at m = 0.5 the new value is π/3 ≈ 1.0472 (vs old 1.0000).
 
     Returns
     -------
     t : array of time values
     rho_diff : array of normalized chirality imbalance ρ_η − ρ_χ over time
     freq_numeric  : float — angular frequency of the dominant FFT peak
-    freq_analytic : float — 2·m·c² (zero-k limit)
+    freq_analytic : float — 2·arcsin(m) (zero-k limit, exact-QCA target)
     """
     shape = (L, L)
     nu, nd, xu, xd = gaussian_dirac_2d(shape, sigma=sigma, chirality='left')
@@ -275,7 +357,7 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, c=0.5, m=0.5, dt=0.5,
         rho_diff.append((n_eta - n_chi) / total if total > 0 else 0.0)
         if step < n_steps:
             nu, nd, xu, xd = dirac_step_2d_splitstep(nu, nd, xu, xd,
-                                                     c=c, m=m, dt=dt)
+                                                     m=m, dt=dt)
 
     rho_diff = np.array(rho_diff)
     t = np.arange(n_steps + 1) * dt
@@ -285,8 +367,8 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, c=0.5, m=0.5, dt=0.5,
     freqs = np.fft.fftfreq(len(sig), d=dt) * 2.0 * np.pi
     mag = np.abs(fft)
     pos = freqs > 0
-    freq_numeric = float(freqs[pos][np.argmax(mag[pos])])
-    freq_analytic = 2.0 * m * c**2
+    freq_numeric  = float(freqs[pos][np.argmax(mag[pos])])
+    freq_analytic = 2.0 * float(np.arcsin(m))
 
     return t, rho_diff, freq_numeric, freq_analytic
 
@@ -296,48 +378,40 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, c=0.5, m=0.5, dt=0.5,
 # ══════════════════════════════════════════════════════════════════
 #
 # Minimal coupling:  ∂_μ → ∂_μ − iq A_μ
-# On the lattice, this is a per-cell phase factor exp(-i·q·A_0·dt) applied
-# in position space after the kinetic propagator (Strang-symmetric split).
-# Spatial components of A_μ would modify the kinetic propagator itself;
-# for the static-field tests below (A_0 only, or pure-vector A_i), the
-# position-space phase is the dominant effect.
+# On the lattice, the scalar potential A_0 appears as a per-cell phase
+# factor exp(−i·q·A_0·dt) in position space, applied as a Strang-symmetric
+# half-step around the (exact-QCA) kinetic propagator.  Spatial components
+# of A_μ would require Peierls phases on the QCA hopping links; the
+# current static-A_0 tests rely on the half-step phase only.
 # ══════════════════════════════════════════════════════════════════
 
 def dirac_step_u1_2d_splitstep(eta_u, eta_d, chi_u, chi_d,
                                 A0, Ax=None, Ay=None,
-                                c=0.5, m=0.0, q=1.0, dt=1.0):
+                                m=0.0, q=1.0, dt=1.0):
     """
-    One step of the Dirac CA with U(1) gauge coupling.
+    One step of the exact-QCA Dirac CA with U(1) gauge coupling.
 
     A0 : real array (Lx, Ly) — scalar potential at each cell.
-    Ax, Ay : optional real arrays for the vector potential.  Implemented
-             via Peierls phase on the position-space step (small-A
-             approximation for the kinetic side).
+    Ax, Ay : optional vector potential components.  Implemented as a
+             uniform phase shift placeholder only; proper Peierls phases
+             on the QCA links are not yet in this stepper.
 
-    Symmetric Strang split:
-        half-step phase  →  kinetic full step  →  half-step phase
+    Strang split:  half-phase(dt/2)  →  kinetic(dt)  →  half-phase(dt/2)
     """
-    # Half-step phase from A_0
     phase_half = np.exp(-1j * q * A0 * dt * 0.5)
     eu = eta_u * phase_half
     ed = eta_d * phase_half
     xu = chi_u * phase_half
     xd = chi_d * phase_half
 
-    # Full-step kinetic (free Dirac).  Vector A_i is folded in as a
-    # uniform phase shift if provided — accurate when Ax, Ay vary slowly.
     if Ax is not None or Ay is not None:
-        Ax_arr = Ax if Ax is not None else 0.0
-        Ay_arr = Ay if Ay is not None else 0.0
-        peierls = np.exp(-1j * q * (Ax_arr + Ay_arr) * dt * 0.0)
-        # The proper Peierls treatment requires per-link phases on the
-        # kinetic step; for static-field tests below we use A0 only.
-        del peierls
+        # Placeholder for Peierls phases on the QCA hopping links.  Static
+        # A_0 tests don't exercise this; left as a no-op so the API stays
+        # stable for future work.
+        _ = (Ax, Ay)
 
-    eu, ed, xu, xd = dirac_step_2d_splitstep(eu, ed, xu, xd,
-                                              c=c, m=m, dt=dt)
+    eu, ed, xu, xd = dirac_step_2d_splitstep(eu, ed, xu, xd, m=m, dt=dt)
 
-    # Second half-step phase
     eu = eu * phase_half
     ed = ed * phase_half
     xu = xu * phase_half
@@ -350,26 +424,28 @@ def dirac_step_u1_2d_splitstep(eta_u, eta_d, chi_u, chi_d,
 #  Variable-mass Dirac stepper  (Phase F prerequisite)
 # ══════════════════════════════════════════════════════════════════
 #
-# For position-dependent mass m(x), split the Hamiltonian:
-#     H_D(x, k) = c·α·k  +  m(x)·c²·β
-#               = [c·α·k + m_0·c²·β]  +  [δm(x)·c²·β]
-#                  └ H_0(k), FFT-diag ┘  └ δH_m(x), per-cell ─┘
+# For position-dependent mass m(x), split the full Dirac generator:
 #
-# The δH_m piece is a *per-cell* unitary rotation in the (η, χ) chirality
-# subspace because β = [[0,I],[I,0]] in our chiral basis.  At each cell:
-#     exp(-i·β·δm·c²·dt) = cos(δm·c²·dt)·I_4 - i·sin(δm·c²·dt)·β
-# Applied to (η, χ):
-#     η → cos(θ)·η - i·sin(θ)·χ
-#     χ → cos(θ)·χ - i·sin(θ)·η      with θ = δm(x)·c²·dt
-# This is *exactly unitary* — no Strang error, no first-order Taylor.
-# Strang split for variable mass:
-#     ψ → mix(dt/2) → kinetic(m_0)(dt) → mix(dt/2) → ψ
+#     D_full(k, x; m(x)) ≈ Mix_half(δm(x))  ∘  Kinetic(m_0, dt)  ∘  Mix_half(δm(x))
+#
+# where  m_0 = mean(m_field)   and   δm(x) = m_field(x) − m_0.
+#
+# The per-cell Mix step is the exact unitary rotation  exp(−i·β·δm·dt)
+# on the (η, χ) chirality sub-block.  In the exact-QCA convention the
+# off-diagonal block of D_k carries `im` with *no* `c²` factor (the
+# kinetic block carries n = √(1−m²)), so the per-cell Strang generator
+# is the same  δm·dt  rotation as in the old linearized form — the only
+# change is that the kinetic baseline now uses  n_0 = √(1−m_0²).
+#
+# Leading Strang error  O(m_0²·δm·dt²)  (Finding 9 item 5) — for the
+# F1/F4 contracts where δm = 0 this is exactly zero, and the unified
+# evolution matches a constant-m Dirac reference bit-for-bit.
 # ══════════════════════════════════════════════════════════════════
 
 
 def _mix_eta_chi(eu, ed, xu, xd, theta):
     """
-    Per-cell rotation exp(-iβ·θ) with β = [[0,I],[I,0]].
+    Per-cell rotation exp(−i·β·θ) with β = [[0,I],[I,0]].
     θ can be a scalar or per-cell array.  Real-mass version.
     """
     cos_t = np.cos(theta)
@@ -385,18 +461,19 @@ def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
     """
     Per-cell exact-unitary rotation for a *complex* mass.
 
-    Implements   U = exp(-i·factor·[[0, M·I],[M*·I, 0]])
-                with M = m_R + i·m_I  (real, real ndarrays),
-                     factor = c²·dt (scalar).
+    Implements   U = exp(−i·factor·[[0, M·I],[M*·I, 0]])
+                with M = m_R + i·m_I (real, real ndarrays),
+                     factor = dt    (scalar; no c² under the exact-QCA
+                                     convention — Finding 9).
 
-    Derivation.  The 2×2 block [[0, M],[M*, 0]] has eigenvalues ±|M| with
-    eigenvectors v_± = (1, ±M*/|M|)/√2, so
+    Derivation.  The 2×2 block [[0, M],[M*, 0]] has eigenvalues ±|M|
+    with eigenvectors (1, ±M*/|M|)/√2, so
 
-        U = cos(|M|·factor)·I  -  i·(sin(|M|·factor)/|M|)·[[0, M·I],[M*·I, 0]]
+        U = cos(|M|·factor)·I  −  i·(sin(|M|·factor)/|M|)·[[0, M·I],[M*·I, 0]]
 
     The combination sin(θ)/|M| (with θ = |M|·factor) is well-defined at
-    |M|=0 via L'Hôpital: sin(θ)/θ → 1, so sin(θ)/|M| → factor.  Since the
-    off-diagonal entries also carry M, the |M|=0 limit gives the identity.
+    |M|=0 via L'Hôpital (sin(θ)/θ → 1, so sin(θ)/|M| → factor).  When
+    the entire mass field is zero the rotation is identity.
 
     Reduces to `_mix_eta_chi(theta = m_R·factor)` when m_I ≡ 0.
     """
@@ -406,7 +483,6 @@ def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
     abs_safe = np.where(abs_M == 0.0, 1.0, abs_M)
     sinc_M   = np.sin(theta) / abs_safe
     sinc_M   = np.where(abs_M == 0.0, factor, sinc_M)
-    # Off-diagonal coefficients
     coeff_eta = -1j * sinc_M * (m_R + 1j * m_I)    # acts on χ to update η
     coeff_chi = -1j * sinc_M * (m_R - 1j * m_I)    # acts on η to update χ
     eu_n = cos_t * eu + coeff_eta * xu
@@ -417,63 +493,65 @@ def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
 
 
 def dirac_step_2d_varm_splitstep(eta_u, eta_d, chi_u, chi_d,
-                                  m_field, c=0.5, m0=None, dt=1.0):
+                                  m_field, m0=None, dt=1.0):
     """
-    One step of the Dirac CA with position-dependent mass m(x).
+    One step of the exact-QCA Dirac CA with position-dependent (real)
+    mass m(x).  Strang split:
 
-    Strang split:
-        mix(dt/2)  →  kinetic m_0 (FFT, exact)  →  mix(dt/2)
+        Mix(δm, dt/2)  →  Kinetic(m_0, dt)  →  Mix(δm, dt/2)
 
-    where mix(t) is the per-cell exp(-i·β·δm·c²·t) rotation, and the
-    kinetic step uses the existing Fourier propagator with mass m_0
-    (default: mean of m_field).
+    where Mix is the per-cell exp(−i·β·δm·dt) rotation and the kinetic
+    step is the exact-QCA propagator at the baseline mass m_0 (default
+    mean(m_field)).  Each half is exactly unitary; the composition has
+    O(dt²) Strang error.
 
-    m_field : (Lx, Ly) real array — per-cell mass.
-
-    This stepper is exactly unitary (both half-steps and the FFT kinetic
-    step are exact).  Conservation: ‖Ψ‖² is preserved to machine precision.
+    Contract.  When m_field is uniform (δm = 0), the per-cell mix is
+    identity and the kinetic step matches dirac_step_2d_splitstep at
+    m = m_0 bit-for-bit — F1 vacuum regression preserved.
     """
     if m0 is None:
         m0 = float(m_field.mean())
-    dm = m_field - m0          # (Lx, Ly) real
-    theta_half = dm * c**2 * dt * 0.5
+    _check_mass(m0)
+    dm = m_field - m0
+    theta_half = dm * dt * 0.5     # no c² (exact-QCA convention)
 
-    # Half-step β-mix
     eu, ed, xu, xd = _mix_eta_chi(eta_u, eta_d, chi_u, chi_d, theta_half)
-    # Full kinetic step at m_0
     eu, ed, xu, xd = dirac_step_2d_splitstep(eu, ed, xu, xd,
-                                              c=c, m=m0, dt=dt)
-    # Second half-step β-mix
+                                              m=m0, dt=dt)
     eu, ed, xu, xd = _mix_eta_chi(eu, ed, xu, xd, theta_half)
     return eu, ed, xu, xd
 
 
 def dirac_step_2d_varm_complex_splitstep(eta_u, eta_d, chi_u, chi_d,
                                           m_R_field, m_I_field,
-                                          c=0.5, m0=None, dt=1.0):
+                                          m0=None, dt=1.0):
     """
-    Dirac CA step with *complex* position-dependent mass M(x) = m_R(x) + i·m_I(x).
+    Exact-QCA Dirac CA step with *complex* position-dependent mass
+    M(x) = m_R(x) + i·m_I(x).
 
-    Splits H_D = c·α·k + c²·[[0, M·I],[M*·I, 0]]  as:
+    Split as
 
-        H_0(k) = c·α·k + m_0·c²·β                     (real-mass kinetic)
-        δH(x) = c²·[[0, (M−m_0)·I],[(M*−m_0)·I, 0]]   (per-cell, complex)
+        D_full ≈ Mix_complex(δm, dt/2)  ∘  Kinetic(m_0, dt)  ∘  Mix_complex(δm, dt/2)
 
-    where m_0 = mean(m_R_field) is the real baseline.  Each part is
-    exactly unitary by itself; Strang composition gives O(dt²) accuracy.
+    where m_0 = mean(m_R_field) is the real baseline and δm(x) =
+    M(x) − m_0 is the per-cell complex residual.  The mass term in the
+    exact-QCA Dirac block has coefficient `im` (no c² factor — Finding 9
+    item 5), so the Mix generator is δm·dt with no c² either.
 
-    Contract.  When m_I_field ≡ 0 and m_R_field is uniform, the per-cell
-    mix is identity and the kinetic step matches the constant-m Dirac
-    propagator bit-for-bit — F1 regression preserved.  When the entire
-    mass field is zero, the kinetic step at m_0=0 is pure Weyl — F4
-    regression preserved.
+    Contracts.
+      F1 — When m_R_field is uniform and m_I_field ≡ 0, δm = 0, the mix
+           is identity, and the kinetic step matches the constant-m
+           reference bit-for-bit.
+      F4 — When the entire mass field is zero, m_0 = 0, n_0 = 1, the
+           kinetic step is the exact-QCA D_k(m=0) = diag(W_k, W'_k),
+           i.e. two decoupled exact-QCA Weyl propagators on η and χ.
 
     Parameters
     ----------
     m_R_field, m_I_field : real ndarrays, shape (Lx, Ly)
         Real and imaginary parts of the per-cell mass.  Standard-Model
-        Yukawa with scalar Φ gives M(x) = y·Φ(x), so
-        m_R = y·Re(Φ),  m_I = y·Im(Φ).
+        Yukawa with scalar Φ gives M(x) = y·Φ(x), so m_R = y·Re(Φ),
+        m_I = y·Im(Φ).
 
     Returns
     -------
@@ -481,57 +559,46 @@ def dirac_step_2d_varm_complex_splitstep(eta_u, eta_d, chi_u, chi_d,
     """
     if m0 is None:
         m0 = float(m_R_field.mean())
-    dm_R   = m_R_field - m0        # real ndarray
-    dm_I   = m_I_field             # real ndarray
-    factor_half = c**2 * dt * 0.5
+    _check_mass(m0)
+    dm_R = m_R_field - m0
+    dm_I = m_I_field
+    factor_half = dt * 0.5     # no c² (exact-QCA convention)
 
-    # Half-step complex β-mix
     eu, ed, xu, xd = _mix_eta_chi_complex(eta_u, eta_d, chi_u, chi_d,
                                            dm_R, dm_I, factor_half)
-    # Full kinetic step at real baseline m_0
     eu, ed, xu, xd = dirac_step_2d_splitstep(eu, ed, xu, xd,
-                                              c=c, m=m0, dt=dt)
-    # Second half-step complex β-mix
+                                              m=m0, dt=dt)
     eu, ed, xu, xd = _mix_eta_chi_complex(eu, ed, xu, xd,
                                            dm_R, dm_I, factor_half)
     return eu, ed, xu, xd
 
 
-def aharonov_bohm_test(L=64, n_steps=100, c=0.5, m=0.0, q=1.0, dt=1.0,
+def aharonov_bohm_test(L=64, n_steps=100, m=0.0, q=1.0, dt=1.0,
                         flux=np.pi, sigma=6.0):
     """
-    Run a Dirac plane wave through a region with a static A0 step.
+    Run a Dirac plane wave through a region with a static A_0 step.
 
     Compares the accumulated phase pickup against the analytic prediction
-    Δφ = -q · A0 · t.  Confirms minimal coupling implementation.
-
-    Returns
-    -------
-    dict with measured phase shift and analytic prediction.
+    Δφ = −q · A_0 · t.  Confirms the minimal-coupling implementation under
+    the exact-QCA kinetic step.
     """
     shape = (L, L)
-    # Uniform A0 over the whole lattice (simplest test).
     A0 = np.full(shape, flux / (q * n_steps * dt))   # so total phase = flux
 
-    # Initial state: pure-η plane wave with k near zero so the
-    # kinetic phase is small and the gauge phase dominates.
     nu0, nd0, xu0, xd0 = gaussian_dirac_2d(shape, sigma=sigma,
                                             chirality='left')
     n_initial = dirac_norm(nu0, nd0, xu0, xd0)
 
-    # Without A0
     nu_a, nd_a, xu_a, xd_a = nu0.copy(), nd0.copy(), xu0.copy(), xd0.copy()
     for _ in range(n_steps):
         nu_a, nd_a, xu_a, xd_a = dirac_step_2d_splitstep(
-            nu_a, nd_a, xu_a, xd_a, c=c, m=m, dt=dt)
+            nu_a, nd_a, xu_a, xd_a, m=m, dt=dt)
 
-    # With A0
     nu_b, nd_b, xu_b, xd_b = nu0.copy(), nd0.copy(), xu0.copy(), xd0.copy()
     for _ in range(n_steps):
         nu_b, nd_b, xu_b, xd_b = dirac_step_u1_2d_splitstep(
-            nu_b, nd_b, xu_b, xd_b, A0=A0, c=c, m=m, q=q, dt=dt)
+            nu_b, nd_b, xu_b, xd_b, A0=A0, m=m, q=q, dt=dt)
 
-    # Overlap between with-A0 and without-A0 states gives e^{-iΔφ}
     overlap = np.sum(np.conj(nu_a) * nu_b + np.conj(nd_a) * nd_b +
                      np.conj(xu_a) * xu_b + np.conj(xd_a) * xd_b)
     overlap /= n_initial

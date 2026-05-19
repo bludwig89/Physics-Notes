@@ -67,18 +67,19 @@ def test_F1():
     m_const = y * v
     print(f'  Setup: v = sqrt(mu²/2λ) = {v:.4f},  y = {y},  m_eff = yv = {m_const:.4f}')
 
-    # Reference: constant-m Dirac CA
+    # Reference: constant-m Dirac CA (exact-QCA — `c` argument removed,
+    # the kinetic coefficient n = √(1−m²) is derived from m internally).
     nu_ref, nd_ref, xu_ref, xd_ref = dirac.gaussian_dirac_2d(
         shape, sigma=30.0, chirality='mixed')
     for _ in range(100):
         nu_ref, nd_ref, xu_ref, xd_ref = dirac.dirac_step_2d_splitstep(
-            nu_ref, nd_ref, xu_ref, xd_ref, c=0.5, m=m_const, dt=1.0)
+            nu_ref, nd_ref, xu_ref, xd_ref, m=m_const, dt=1.0)
 
     # Unified CA with Φ=v fixed (vacuum)
     state, v_check = un.setup_vacuum(shape, mu2, lam, fermion='mixed', sigma=30.0)
     assert abs(v_check - v) < 1e-12
     for _ in range(100):
-        state = un.unified_step(state, mu2, lam, yukawa=y, c=0.5, dt=1.0)
+        state = un.unified_step(state, mu2, lam, yukawa=y, dt=1.0)
 
     # Φ should still be exactly v
     phi_drift = float(np.max(np.abs(state.Phi - v)))
@@ -174,23 +175,22 @@ def test_F3():
     cx, cy = L // 2, L // 2
 
     dt = 0.5
-    c_dirac = 0.5
     n_steps = 200
 
-    H0 = un.total_energy(state, mu2, lam, y, c_dirac)
+    H0 = un.total_energy(state, mu2, lam, y)
     phi_centers = [float(np.abs(state.Phi[cx, cy]))]
     H_trace     = [H0]
     times       = [0.0]
     diverged = False
 
     for step in range(n_steps):
-        state = un.unified_step(state, mu2, lam, yukawa=y, c=c_dirac,
+        state = un.unified_step(state, mu2, lam, yukawa=y,
                                   dt=dt, back_react=True)
         val = float(np.abs(state.Phi[cx, cy]))
         if not np.isfinite(val) or val > 100.0:
             diverged = True
             break
-        H_trace.append(un.total_energy(state, mu2, lam, y, c_dirac))
+        H_trace.append(un.total_energy(state, mu2, lam, y))
         phi_centers.append(val)
         times.append((step + 1) * dt)
 
@@ -391,6 +391,230 @@ def test_F3b():
 
 
 # ══════════════════════════════════════════════════════════════════
+#  F3b-scan — Newtonian 1/b scaling check (model-observations item 12)
+# ══════════════════════════════════════════════════════════════════
+
+def _f3b_run_at_offset(L, b_offset, n_steps,
+                        sigma_phi, depress_depth, alpha,
+                        c0, sigma_pk, kx_in=0.30):
+    """
+    Run a single F3b-style deflection measurement at impact parameter
+    `b_offset` (probe packet enters offset by this many cells in y above
+    the depression centre).
+
+    Returns dict(b, deflection, dy_curved, dy_flat, drift_curved).
+    """
+    shape = (L, L)
+    mu2, lam = 0.5, 0.5
+    v = float(np.sqrt(mu2 / (2 * lam)))
+    cx0, cy0 = L // 2, L // 2
+
+    xs = np.arange(L)
+    X, Y = np.meshgrid(xs, xs, indexing='ij')
+    R2 = (X - cx0)**2 + (Y - cy0)**2
+    Phi_mag = v * (1.0 - depress_depth * np.exp(-R2 / (2 * sigma_phi**2)))
+    ratio = Phi_mag / v
+    c_field = c0 * (ratio ** alpha)
+
+    pkt_x0 = L // 4
+    pkt_y0 = cy0 + b_offset
+    env = np.exp(-((X - pkt_x0)**2 + (Y - pkt_y0)**2) / (2 * sigma_pk**2))
+    ky_in = 0.0
+    phase = np.exp(1j * (kx_in * X + ky_in * Y))
+    phi = np.exp(1j * np.arctan2(ky_in, kx_in))
+    h = np.array([1.0, phi], dtype=complex) / np.sqrt(2.0)
+    f_pkt = h[0] * env * phase
+    g_pkt = h[1] * env * phase
+    c_flat = np.full(shape, c0)
+
+    solver_curved = cc.CayleyVarcSolver2D(c_field, dt=1.0, n_sub=2)
+    solver_flat   = cc.CayleyVarcSolver2D(c_flat,   dt=1.0, n_sub=2)
+
+    norm0 = float(np.sum(np.abs(f_pkt)**2 + np.abs(g_pkt)**2))
+    f_c, g_c = f_pkt.copy(), g_pkt.copy()
+    f_f, g_f = f_pkt.copy(), g_pkt.copy()
+    cy_c_init = pkt_y0
+    cy_f_init = pkt_y0
+    for _ in range(n_steps):
+        f_c, g_c = solver_curved.step(f_c, g_c)
+        f_f, g_f = solver_flat.step(f_f, g_f)
+    dens_c = np.abs(f_c)**2 + np.abs(g_c)**2
+    dens_f = np.abs(f_f)**2 + np.abs(g_f)**2
+    cy_c_final = float((Y * dens_c).sum() / dens_c.sum())
+    cy_f_final = float((Y * dens_f).sum() / dens_f.sum())
+    dy_curved = cy_c_final - cy_c_init
+    dy_flat   = cy_f_final - cy_f_init
+    deflection = dy_curved - dy_flat
+
+    norm_c_final = float(np.sum(dens_c))
+    drift_curved = abs(norm_c_final - norm0) / norm0
+
+    return {
+        'b': b_offset,
+        'deflection': deflection,
+        'dy_curved': dy_curved,
+        'dy_flat': dy_flat,
+        'drift_curved': drift_curved,
+    }
+
+
+def test_F3b_scan():
+    """
+    F3b-scan — verify Δy(b) ∝ 1/b for the Newtonian gravity analog
+    (model-observations.md item 12).  Uses a smaller lattice than F3b
+    (L=480) to keep total runtime manageable across the 5 b values.
+
+    Pass criteria:
+      • All five b values give deflection < 0 (toward depression).
+      • Power-law fit slope in log|deflection| vs log b is within ±0.4
+        of the expected −1 (Newtonian).
+      • All five runs preserve norm to machine precision.
+    """
+    section('Phase F3b-scan — 1/b scaling of Newtonian deflection')
+
+    # Lean scan lattice: L=192, σ_phi=15 so the source is compact relative
+    # to b.  Pick b ∈ {40, 60, 80, 110, 150}, all > 2·σ_phi so the
+    # far-field 1/b regime applies.  Per-run cost ≈ 15s on a laptop;
+    # 5 runs ≈ 75s total (proportional to L²·n_steps).
+    L = 192; n_steps = 160
+    sigma_phi = 15.0; sigma_pk = 14.0
+    alpha = 1.5; c0 = 0.45; depress_depth = 0.35
+    bs = [40, 60, 80, 110, 150]
+
+    print(f'  Setup: L={L}, n_steps={n_steps}, σ_phi={sigma_phi}, b∈{bs}')
+    results = []
+    for b in bs:
+        r = _f3b_run_at_offset(L=L, b_offset=b, n_steps=n_steps,
+                                sigma_phi=sigma_phi,
+                                depress_depth=depress_depth,
+                                alpha=alpha, c0=c0, sigma_pk=sigma_pk)
+        results.append(r)
+        print(f'    b={b:>3d}  Δy_curved={r["dy_curved"]:+8.3f}  '
+              f'Δy_flat={r["dy_flat"]:+8.3f}  '
+              f'deflection={r["deflection"]:+8.3f}  '
+              f'norm drift={r["drift_curved"]:.2e}')
+
+    deflections = np.array([r['deflection'] for r in results])
+    norms       = np.array([r['drift_curved'] for r in results])
+
+    # Power-law fit: log|deflection| = m · log(b) + k.  Expect m ≈ -1.
+    if np.all(deflections < 0):
+        log_b   = np.log(np.array(bs, dtype=float))
+        log_def = np.log(-deflections)
+        # least-squares slope
+        m, k = np.polyfit(log_b, log_def, 1)
+        print(f'  Power-law fit log|Δy|=m·log(b)+k  →  m = {m:+.3f} '
+              f'(Newtonian expectation: −1)')
+    else:
+        m = float('nan')
+        print('  WARNING: some deflections non-negative; cannot fit log-log')
+
+    # Save figure
+    fig, ax = plt.subplots(1, 1, figsize=(6, 4))
+    if np.all(deflections < 0):
+        ax.loglog(bs, -deflections, 'o-', label='measured')
+        b_arr = np.array(bs, dtype=float)
+        c_fit = np.exp(np.mean(log_def + log_b))   # |Δy|·b ≈ const
+        ax.loglog(b_arr, c_fit / b_arr, 'k--',
+                   label=f'fit m=−1 (Newtonian)')
+        ax.set_xlabel('b (impact parameter, cells)')
+        ax.set_ylabel('|deflection|  (cells)')
+        ax.set_title('F3b-scan: deflection vs impact parameter')
+        ax.legend(); ax.grid(alpha=0.3, which='both')
+    plt.tight_layout()
+    out = os.path.join(FIGURES_DIR, 'phaseF3b_scan.png')
+    plt.savefig(out, dpi=120, bbox_inches='tight'); plt.close()
+
+    ok_sign  = bool(np.all(deflections < 0))
+    ok_slope = bool(abs(m + 1.0) < 0.4)
+    ok_norm  = bool(np.all(norms < 1e-10))
+    check('All b values give deflection toward depression (Δy<0)',
+          ok_sign, f'(min Δy={deflections.max():+.3f}, max |Δy|={(-deflections).max():.3f})')
+    check('Newtonian 1/b scaling: power-law slope within ±0.4 of −1',
+          ok_slope, f'(slope m = {m:+.3f})')
+    check('Norm conserved at machine precision across all b runs',
+          ok_norm, f'(max drift = {norms.max():.2e})')
+    return ok_sign and ok_slope and ok_norm
+
+
+# ══════════════════════════════════════════════════════════════════
+#  F-dt — Strang-composition dt→0 convergence  (model-observations 13)
+# ══════════════════════════════════════════════════════════════════
+
+def test_dt_convergence():
+    """
+    Verify that the Strang-composed `unified_step` exhibits the expected
+    O(dt²) convergence as dt is halved.
+
+    Method: run the same initial state for fixed total time T with
+    dt ∈ {dt0, dt0/2, dt0/4}; compute pairwise differences of the
+    final states.  The ratio
+
+        ratio = ‖Ψ(dt0) − Ψ(dt0/2)‖ /  ‖Ψ(dt0/2) − Ψ(dt0/4)‖
+
+    should be ≈ 4 for a second-order method (the dominant error term
+    A·dt² gives a Richardson factor of 4).  Pass if 3.0 ≤ ratio ≤ 5.5.
+
+    This is the missing dt-scan that `model-observations.md` item 13
+    flags: the unconditionally-stable split-step propagator can mask
+    order-of-accuracy bugs, since norm is preserved exactly regardless
+    of dt.  This test specifically targets the Strang composition.
+    """
+    section('Phase F-dt — Strang composition O(dt²) convergence')
+    L = 64; shape = (L, L)
+    mu2, lam, y = 0.5, 0.5, 0.6
+    v = float(np.sqrt(mu2 / (2 * lam)))
+
+    # Initial state: small radial perturbation around vacuum + Gaussian fermion.
+    xs = np.arange(L)
+    X, Y = np.meshgrid(xs, xs, indexing='ij')
+    cx0, cy0 = L // 2, L // 2
+    perturb = 1e-3 * np.cos(2 * np.pi * X / L)
+    Phi_init = (v + perturb).astype(complex)
+    Pi_init  = np.zeros_like(Phi_init)
+
+    nu0, nd0, xu0, xd0 = dirac.gaussian_dirac_2d(shape, sigma=4.0,
+                                                   chirality='mixed')
+
+    def run(dt, n_steps):
+        st = un.UnifiedState(Phi_init.copy(), Pi_init.copy(),
+                              nu0.copy(), nd0.copy(),
+                              xu0.copy(), xd0.copy())
+        for _ in range(n_steps):
+            un.unified_step(st, mu2, lam, yukawa=y, dt=dt,
+                             n_phi_sub=1)
+        return st
+
+    T = 8.0
+    # Three runs over the same total time, halving dt each time.
+    states = {}
+    for dt in (1.0, 0.5, 0.25):
+        n = int(round(T / dt))
+        states[dt] = run(dt, n)
+        print(f'  dt={dt:<5}  n_steps={n}')
+
+    def diff(s1, s2):
+        d_Phi = float(np.max(np.abs(s1.Phi - s2.Phi)))
+        d_eta = float(np.max(np.abs(s1.eta_u - s2.eta_u) +
+                               np.abs(s1.eta_d - s2.eta_d)))
+        d_chi = float(np.max(np.abs(s1.chi_u - s2.chi_u) +
+                               np.abs(s1.chi_d - s2.chi_d)))
+        return max(d_Phi, d_eta, d_chi)
+
+    d_coarse = diff(states[1.0],  states[0.5])
+    d_fine   = diff(states[0.5],  states[0.25])
+    ratio = d_coarse / d_fine if d_fine > 0 else float('inf')
+
+    print(f'  ‖Ψ(dt=1.0) − Ψ(dt=0.5)‖  = {d_coarse:.3e}')
+    print(f'  ‖Ψ(dt=0.5) − Ψ(dt=0.25)‖ = {d_fine:.3e}')
+    print(f'  Richardson ratio          = {ratio:.2f}   (expect ≈ 4 for O(dt²))')
+
+    ok = (3.0 <= ratio <= 5.5)
+    return check('Strang composition convergence ratio ∈ [3.0, 5.5] (O(dt²))',
+                  ok, f'(ratio = {ratio:.2f})')
+
+
+# ══════════════════════════════════════════════════════════════════
 #  F4 — Symmetry-restored phase: massless fermions
 # ══════════════════════════════════════════════════════════════════
 
@@ -399,20 +623,25 @@ def test_F4():
 
     # 10× bump (2026-05-16): L=32→320, σ=3→30
     L = 320; shape = (L, L)
-    # Use V_high = +μ²|Φ|² + λ|Φ|⁴ (positive μ²) — vacuum at Φ=0.
-    # In our potential parameterization V(|Φ|²) = -μ²|Φ|² + λ|Φ|⁴ we
-    # achieve this by passing a *negative* μ² value to the Φ stepper.
-    mu2_neg = -0.5    # → effective V = +0.5|Φ|² + λ|Φ|⁴, minimum at Φ=0
+    # Symmetric (high-T) phase: V = +μ²|Φ|² + λ|Φ|⁴, vacuum at Φ=0.
+    # Selected via the explicit phase='symmetric' API on unified_step;
+    # `mu2` is the positive magnitude.  (2026-05-16 refactor: replaces
+    # the legacy mu2=-0.5 sign-flip kludge.)
+    mu2 = 0.5
     lam = 0.5
     y = 0.6
 
-    state = un.setup_symmetry_restored(shape, abs(mu2_neg), lam,
+    state = un.setup_symmetry_restored(shape, mu2, lam,
                                          fermion='left', sigma=30.0)
-    # Reference: pure Weyl evolution at c=0.5
+    # Reference: pure exact-QCA Weyl evolution (Paper 1 Eq. 16).  At
+    # m=0 the exact-QCA Dirac reduces to diag(W_k, W'_k); the η-block
+    # matches `weyl_step_2d_arccos_splitstep` bit-for-bit (Finding 9).
+    import ca_core_exact as ce
     f_ref, g_ref = ca.gaussian_spinor_2d(shape, sigma=30.0, helicity='left')
     for _ in range(50):
-        f_ref, g_ref = ca.weyl_step_2d_splitstep(f_ref, g_ref, c=0.5)
-        state = un.unified_step(state, mu2_neg, lam, yukawa=y, c=0.5, dt=1.0)
+        f_ref, g_ref = ce.weyl_step_2d_arccos_splitstep(f_ref, g_ref)
+        state = un.unified_step(state, mu2, lam, yukawa=y, dt=1.0,
+                                  phase='symmetric')
 
     phi_drift = float(np.max(np.abs(state.Phi)))
     pi_drift  = float(np.max(np.abs(state.Pi)))
@@ -442,6 +671,8 @@ def main():
     results['F2']  = test_F2()
     results['F3']  = test_F3()
     results['F3b'] = test_F3b()
+    results['F3b-scan'] = test_F3b_scan()
+    results['F-dt']     = test_dt_convergence()
     results['F4']  = test_F4()
 
     print()

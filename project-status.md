@@ -22,6 +22,10 @@
 | — | External paper summary: Ostoma & Trushyk (1999), *Cellular Automata Theory* (108 pages) | `ostoma-trushyk-1999-summary.md` | 2026-05-15 |
 | — | QCA literature overview (Reference Research Papers 1–6, including Paper 6 EMQG treatise) | `qca-papers-1-4-overview.md` | 2026-05-15 |
 | — | Unification proposition v2 — synthesises Phase-F architecture with Papers 1, 2, 4 (BCC + exact dispersion + composite photon) and Paper 6 (EMQG modified Poisson for $c(\mathbf{x})$) | `ca-unified-v2.md` | 2026-05-15 |
+| — | Electroweak mass-generation design — pulls the three mass-relevant paths (Yukawa, EMQG-$\phi$ sourcing, composite-photon $E/c^2$) out of v2 and compares to Ostoma–Trushyk's three mass definitions | `ca-electroweak-design.md` | 2026-05-17 |
+| — | Dirac stepper exact-QCA refactor — `ca_dirac.py` switched from linearized Hamiltonian to Paper 1 Eq. 23 with `n² + m² = 1` enforced; `c` argument removed everywhere; zitterbewegung target = $2\arcsin(m)$ | `ca_dirac.py`, `ca_unified.py`, `run_phase_tests.py`, `run_phaseF_tests.py` | 2026-05-18 |
+| — | Emergent-time roadmap T0–T2, T4, T5 landed (T3 skipped per direction).  Lazy-update wrapper + tick heatmap + T1.A/B/T2.A/B/C/T5.A/B/C all PASS (10/10 gates).  T2.B Shapiro tick-ratio at $2.7\times 10^{-16}$ (gate $10^{-12}$).  T5.A: 80% of L=256 lattice has $N(\mathbf x) = 0$ exactly. | `ca-emergent-time-proposition.md`, `ca_lazy.py`, `tick_heatmap.py`, `test_emergent_time_T1.py`, `test_emergent_time_shapiro.py`, `test_emergent_time_T5.py` | 2026-05-18 |
+| — | Full-sweep test roadmap (SR/GR/QM/QFT/QG/cosmology) + tier-sorted exactness inventory (14 exact algebraic, 6 machine-precision, 14 quantitative, 7 open). Top-10 priority ranking: GR-1 (absolute Eddington), QM-1 (CHSH Bell), SR-2 (moving-clock time dilation). | `lattice-vs-spacetime-tests.md`, `exactness-inventory.md` | 2026-05-18 |
 
 PDF total: 182 pages.
 
@@ -226,18 +230,42 @@ Cells / memory now per test:
 
 **Tests have not yet been re-run at the new size.** Bit-for-bit identity tests (F1, F4, D1 Weyl-regression-at-m=0) should still hit machine precision because the rule is unchanged; the failure mode to watch for is the Cayley arm running out of RAM at L=1280.
 
-### Model review — items flagged for back-fix or re-framing (2026-05-16)
+### 10× test execution pass — what actually happened when the bumped tests were run (2026-05-16, later)
 
-`changelog.md` 2026-05-16 (later) contains the full list (items 1–14, ranked substantive → cosmetic). The substantive items, in priority order:
+Detailed entry: `changelog.md` 2026-05-16 ("10× test execution pass"). Detailed per-finding writeups: `findings.md` Findings 3–6 plus the Finding 2 update.
 
-1. `ca-unified-v2.md` line 48: $c = c_0(1 + \phi/c_0^2)^{-1}$ has the wrong sign for gravitational lensing; the working `ca_emqg.py` code uses the GR-Shapiro form $c = c_0/(1 - 2\phi/c_0^2)$. Doc back-fix required.
-2. `ca-unified-proposition.md` line 69: published as $c \propto |\Phi|^{-\alpha}$ but F3b test uses $|\Phi|^{+\alpha}$ — published formula would give *repulsion*. Either back-fix v1 to `(+α)` or mark v1 retired with pointer to v2 S1.
-3. `H_Y = c^2 \cdot y \cdot (\Phi\,\eta^\dagger\chi + \text{h.c.})` carries a `c²` factor that has no Standard-Model counterpart — internal units kludge. Yukawa coupling values reported by this code are *lattice* couplings, not SM couplings.
-4. The L4 EMQG Poisson is 2-D but the lensing test scores it against a 3-D-Newtonian linear-in-M target. 2-D Green's function is logarithmic; the "8.5% off the expected 2.0" claim is dimensionally inconsistent.
-5. L3 composite-photon "PASS" hides an O(k) curl-equation residual (Finding 2). The kinematic parts (dispersion, transversality) pass cleanly; the central Maxwell identity does not.
-6. 3-D simple-cubic `ca_core.py::weyl_step_3d_splitstep` is *not* a non-trivial QCA — Papers 1, 2 prove only the trivial automaton lives there. The code is a valid linearized-Weyl spectral propagator; the "CA" label is overstated. v2's `ca_bcc.py` is the non-trivial replacement.
+**Summary table:**
 
-Cosmetic items 7–14 are in the changelog: F3 pass band is 7 decades wide; `mu2_neg = -0.5` is a brittle sign-flip convention; `ca_maxwell.py` line 171 has a dead placeholder; `qca-papers-1-4-overview.md` line 53 still has Paper 1 Eq. 15 sign typo not back-fixed; `c` parameter is overloaded across three meanings; F3b doesn't test the $1/b$ scaling; no $dt \to 0$ convergence anywhere; no discrete-current-conservation check for U(1) or SU(2).
+| Test | What changed at 10× | Match to existing formula |
+|---|---|---|
+| L1 BCC unitarity / dispersion / A_0 | unchanged, machine precision | — |
+| L1.d norm drift | scanned at L=40, 80, 120; all at the FFT floor; full $L=160$ run incomplete (wall time) | — |
+| L2 norm drift, 200 vs 2000 steps at L=320 | ratio = 9.985, exact 10× per-step | 1 ulp of complex128 per step |
+| L3 curl residual k-scan ($10^{-5}$ to $10^{-2}$) | curl/k → $1/\sqrt 6 = 0.408248290\ldots$ to 7 sig figs at $k=10^{-5}$ | **$1/\sqrt 6$, exact algebraic from BCC geometry** |
+| L4.a static Poisson rel err | 2.75% → 1.39% at L=640 | finer k-grid; modest 2× |
+| L4.c lensing at L=1280 | not executed (Cayley LU ≈ 10 GB exceeds sandbox memory) | — |
+| D1 Weyl regression m=0 | $5\times 10^{-16}$ → $1.55\times 10^{-15}$ | $\sqrt{N_\text{cells}}$ FFT roundoff |
+| D1 norm drift 1000 steps | $3.4\times 10^{-14}$ → $4.0\times 10^{-13}$ | $\sqrt N$ per step (11.6× vs predicted 10×) |
+| D1 dispersion | $8.88\times 10^{-17}$ → $1.28\times 10^{-17}$ | machine zero |
+| D1 zitterbewegung at 10× n_steps | 3.53% → 0.026% (135× improvement) | FFT-bin-limited; $2mc^2$ holds within resolution |
+| B1 speed_ratio at L=640 | 0.92–0.98 → 0.9995–0.9999 | $v_g = c\hat k$ holds tighter as σ grows |
+| E1 phase err | $4.44\times 10^{-16}$ unchanged | eigenvalue-phase floor |
+| E1 norm drift with A0 | $3.6\times 10^{-12}$ → $4.3\times 10^{-10}$ | $\sqrt N$ over 100 steps (120× vs predicted ~100×) |
+| E2 parity violation | 8-decimal agreement, right leakage = 0.0 exact | unchanged |
+| F1 vacuum regression | **DIVERGES at default n_phi_sub=1**; PASSES at machine precision with n_phi_sub=2 | **CFL bound: $dt_\text{sub} < 2/\sqrt{8+2\mu^2}$** (Finding 4) |
+| F2 Higgs radial dispersion | $1.06\times 10^{-3}$ → $1.00\times 10^{-3}$ | O(dt²) Verlet, not L-limited |
+| F2 Goldstone dispersion | $4.4\times 10^{-4}$ → res/(\|k\|·ε) ≤ 0.88 | **Exactly massless** (Finding 3) |
+| F3 symplectic Yukawa at L=320 (sub-scaled) | $H_\text{rel}$ = 0.0002%, same shape as prior L=64 | symplectic contract preserved |
+| F3b at L=960 | not executed (Cayley LU ≈ 5 GB exceeds sandbox memory) | — |
+| F4 symmetry restored | $|\Phi|=0$ exact, η match $2.3\times 10^{-15}$ | bit-for-bit identity survives |
+
+**Updated exactness count:** 8 exact algebraic results (6 prior + Goldstone-massless + curl-residual-leading-1/√6).
+
+**Tests with hidden CFL bugs surfaced by the 10× bump:** F1 (Finding 4). The empirical critical dt at L=320 lies between 0.85 and 0.95; the safe theoretical CFL bound is 0.667. `n_phi_sub=2` is needed at L=320 with `dt=1.0`.
+
+**Tests not executed at the 10× size due to sandbox memory limits:** F3b (L=960 → ~5 GB), L4.c lensing (L=1280 → ~10 GB), C1 Cayley arm (L=1280 → ~10 GB). Fallback values (L=384–512) noted in the test files; not run here.
+
+**No data matched an imaginary-number approximation** in the sense suggested by the user prompt example. All formula matches that surfaced are real-valued algebraic constants ($1/\sqrt 6$, $\varepsilon_\text{double}$, the CFL bound, $2mc^2$).
 
 
 ## Diagram files (page 3 & 5)

@@ -142,7 +142,8 @@ def step_weak_2d(eta_nu, eta_e, chi_e,
 
     if m_e != 0.0:
         # Mass mixing between left-electron and right-electron components.
-        mphase = m_e * c**2 * dt
+        # Post-2026-05-16 mass-convention refactor: m_e is rest energy; no c² factor.
+        mphase = m_e * dt
         cos_m, sin_m = np.cos(mphase), np.sin(mphase)
         new_e_up = cos_m * eta_e[0] - 1j * sin_m * chi_e[0]
         new_x_up = -1j * sin_m * eta_e[0] + cos_m * chi_e[0]

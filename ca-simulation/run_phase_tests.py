@@ -337,21 +337,26 @@ def test_C1():
 # ══════════════════════════════════════════════════════════════════
 
 def test_D1():
-    section('Phase D1 — Dirac CA')
+    section('Phase D1 — Dirac CA (exact-QCA, Paper 1 Eq. 23 / Finding 9)')
 
-    # Weyl regression at m=0   (10× bump 2026-05-16: 32 → 320, σ 3 → 30)
+    import ca_core_exact as ce
+
+    # Weyl regression at m=0.  The exact-QCA Dirac at m=0 reduces to
+    # diag(W_k, W'_k) — two decoupled exact-QCA Weyl propagators (Paper 1
+    # Eq. 16).  Reference therefore uses `weyl_step_2d_arccos_splitstep`,
+    # not the linearised `weyl_step_2d_splitstep` (Finding 9).
     L = 320; shape = (L, L)
     f, g = ca.gaussian_spinor_2d(shape, sigma=30.0, helicity='left')
     nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=30.0, chirality='left')
     for _ in range(20):
-        f, g = ca.weyl_step_2d_splitstep(f, g, c=0.5)
+        f, g = ce.weyl_step_2d_arccos_splitstep(f, g)
         nu, nd, xu, xd = dirac.dirac_step_2d_splitstep(
-            nu, nd, xu, xd, c=0.5, m=0.0, dt=1.0)
+            nu, nd, xu, xd, m=0.0, dt=1.0)
     diff = max(float(np.max(np.abs(nu - f))),
                float(np.max(np.abs(nd - g))),
                float(np.max(np.abs(xu))),
                float(np.max(np.abs(xd))))
-    ok1 = check('Weyl regression at m=0', diff < 1e-13,
+    ok1 = check('Weyl regression at m=0 (vs exact-QCA Weyl)', diff < 1e-13,
                 f'(max diff = {diff:.2e})')
 
     # Norm conservation with mass  (σ scaled with L)
@@ -359,27 +364,25 @@ def test_D1():
     n0 = dirac.dirac_norm(nu, nd, xu, xd)
     for _ in range(1000):
         nu, nd, xu, xd = dirac.dirac_step_2d_splitstep(
-            nu, nd, xu, xd, c=0.5, m=0.3, dt=1.0)
+            nu, nd, xu, xd, m=0.3, dt=1.0)
     n1 = dirac.dirac_norm(nu, nd, xu, xd)
     drift = abs(n1 - n0) / n0
     ok2 = check('norm conservation (m=0.3, 1000 steps)',
                 drift < 1e-12, f'(drift = {drift:.2e})')
 
-    # Dispersion  (10× bump: L=32→320)
-    r = dirac.verify_dirac_dispersion_2d(L=320, n_steps=20, c=0.5, m=0.3)
+    # Dispersion — exact-QCA target ω = arccos(√(1−m²)·c_x·c_y).
+    r = dirac.verify_dirac_dispersion_2d(L=320, n_steps=20, m=0.3)
     max_res = max(row['residual'] for row in r)
-    ok3 = check('Dirac dispersion (machine precision)',
+    ok3 = check('Dirac dispersion (exact-QCA, machine precision)',
                 max_res < 1e-13, f'(max residual = {max_res:.2e})')
 
-    # Zitterbewegung — 5000-step run with wider packet to tighten FFT
-    # bin resolution (Δω = 2π/(n·dt)).  10× bump: L=96→960, σ=14→140.
-    # n_steps unchanged — it controls *time* resolution (FFT bin width),
-    # not spatial resolution.  dt unchanged for the same reason.
+    # Zitterbewegung — exact-QCA target is 2·arcsin(m), not 2m (Finding 9).
+    # At m=0.5 the new target is π/3 ≈ 1.04720 (vs the old 1.000).
     t, rho, fn, fa = dirac.measure_zitterbewegung_freq_2d(
-        L=960, n_steps=5000, c=0.5, m=0.5, dt=0.5, sigma=140.0)
+        L=960, n_steps=5000, m=0.5, dt=0.5, sigma=140.0)
     err = abs(fn - fa) / fa
     bin_width = 2.0 * np.pi / (len(t) * (t[1] - t[0]))
-    ok4 = check('Zitterbewegung freq within FFT bin of 2mc²',
+    ok4 = check('Zitterbewegung freq within FFT bin of 2·arcsin(m)',
                 err < 0.05,
                 f'(measured={fn:.5f}, analytic={fa:.5f}, err={err*100:.2f}%, FFT bin={bin_width:.5f})')
 
@@ -388,7 +391,7 @@ def test_D1():
     ax.axhline(0.0, color='gray', linestyle='--', alpha=0.5)
     ax.set_xlabel('time'); ax.set_ylabel('ρ_η − ρ_χ')
     ax.set_title(f'Phase D1 — Zitterbewegung: chirality oscillation\n'
-                 f'measured ω={fn:.3f}, 2mc²={fa:.3f}')
+                 f'measured ω={fn:.4f}, 2·arcsin(m)={fa:.4f}')
     out = os.path.join(FIGURES_DIR, 'phaseD1_zitterbewegung.png')
     plt.savefig(out, dpi=120, bbox_inches='tight'); plt.close()
 
@@ -403,7 +406,7 @@ def test_E1():
     section('Phase E1 — U(1) EM gauge')
     # 10× bump (2026-05-16): L=64→640, σ=8→80.  Flux is a topological
     # invariant (line integral of A) so it does NOT scale with L.
-    res = dirac.aharonov_bohm_test(L=640, n_steps=100, c=0.5, m=0.0,
+    res = dirac.aharonov_bohm_test(L=640, n_steps=100, m=0.0,
                                      q=1.0, dt=1.0, flux=np.pi, sigma=80.0)
     err = abs(res['measured_phase'] - res['analytic_phase'])
     ok1 = check('phase pickup at machine precision',
@@ -444,6 +447,148 @@ def test_E2():
 
 
 # ══════════════════════════════════════════════════════════════════
+#  Phase E3 — Discrete current conservation (model-observations 14)
+# ══════════════════════════════════════════════════════════════════
+
+def _rho_J_dirac(eta_u, eta_d, chi_u, chi_d):
+    """
+    Probability density and 2-current for a 2D Dirac field in the chiral
+    basis used by ca_dirac.py.  With α^i = diag(σ^i, −σ^i):
+
+      ρ      = |η_↑|² + |η_↓|² + |χ_↑|² + |χ_↓|²
+      J^x    = 2·Re(η_↑* η_↓)  −  2·Re(χ_↑* χ_↓)
+      J^y    = 2·Im(η_↑* η_↓)  −  2·Im(χ_↑* χ_↓)
+
+    The physical current is c·J^i (probability·velocity); ∇·J^i in the
+    continuity equation is multiplied by c outside this helper.
+    """
+    rho = (np.abs(eta_u)**2 + np.abs(eta_d)**2 +
+           np.abs(chi_u)**2 + np.abs(chi_d)**2)
+    Jx = (2 * np.real(np.conj(eta_u) * eta_d) -
+          2 * np.real(np.conj(chi_u) * chi_d))
+    Jy = (2 * np.imag(np.conj(eta_u) * eta_d) -
+          2 * np.imag(np.conj(chi_u) * chi_d))
+    return rho, Jx, Jy
+
+
+def test_E3_continuity():
+    """
+    Discrete Noether identity ∂_t ρ + ∇·J = 0 on the lattice (item 14
+    of model-observations.md).  Two checks:
+
+      (a) U(1)-coupled stepper: the gauge sub-step is a per-cell phase
+          and preserves ρ exactly; the kinetic sub-step should obey the
+          lattice continuity equation to O(dt²).  Verified by halving dt
+          and checking the residual ratio.
+
+      (b) SU(2)-coupled stepper (Phase E2 path): isospin rotation does
+          not move charge, so the total Dirac ρ over an isospin doublet
+          obeys the same discrete identity.
+
+    Pass if the Richardson ratio
+        ‖residual(dt)‖ / ‖residual(dt/2)‖
+    is between 2.5 and 5.5, confirming residual = O(dt²).
+    """
+    section('Phase E3 — Discrete current conservation (∂_t ρ + ∇·J = 0)')
+    import ca_dirac as dirac
+
+    L = 64; shape = (L, L)
+    # Kinetic coefficient n = √(1−m²) for m=0 → n = 1.  Used to be `c`
+    # under the linearized Hamiltonian; under the exact-QCA convention
+    # (Finding 9) the kinetic coefficient is fixed by the QCA admissibility.
+    n_kin = 1.0
+    q = 1.0
+    xs = np.arange(L); X, Y = np.meshgrid(xs, xs, indexing='ij')
+
+    # ---- (a) U(1) ----
+    A0_uniform = np.full(shape, 0.1)        # uniform scalar potential
+
+    def residual(dt):
+        # Fresh Dirac packet with a small phase ramp → nonzero current.
+        nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=6.0,
+                                                  chirality='mixed')
+        kx_init = 0.30
+        plane = np.exp(1j * kx_init * X)
+        nu = nu * plane; nd = nd * plane
+        xu = xu * plane; xd = xd * plane
+
+        rho0, Jx0, Jy0 = _rho_J_dirac(nu, nd, xu, xd)
+
+        nu1, nd1, xu1, xd1 = dirac.dirac_step_u1_2d_splitstep(
+            nu, nd, xu, xd, A0=A0_uniform, m=0.0, q=q, dt=dt)
+
+        rho1, Jx1, Jy1 = _rho_J_dirac(nu1, nd1, xu1, xd1)
+
+        # Mid-time current (trapezoid):
+        Jx_m = 0.5 * (Jx0 + Jx1)
+        Jy_m = 0.5 * (Jy0 + Jy1)
+
+        # Central-difference divergence (∂_x f ≈ (f_{+1} − f_{−1})/2)
+        divJ = ((np.roll(Jx_m, -1, axis=0) - np.roll(Jx_m, +1, axis=0)) / 2
+              + (np.roll(Jy_m, -1, axis=1) - np.roll(Jy_m, +1, axis=1)) / 2)
+
+        # NOTE (Finding 9): under the exact-QCA kinetic step the bilinear
+        # current Ψ†α^i Ψ is no longer the QCA's conserved current — the
+        # exact conserved current involves QCA-link bilinears.  The check
+        # below uses the continuum bilinear and the small-k coefficient n.
+        # At m=0 the small-k group velocity is n/√2 = 1/√2; if the residual
+        # is no longer O(dt²) the Richardson ratios will flag it for follow-up.
+        res = rho1 - rho0 + dt * n_kin * divJ
+        return float(np.max(np.abs(res))), float(np.max(rho0))
+
+    r_dt,    rho_scale = residual(0.20)
+    r_dt2,   _         = residual(0.10)
+    r_dt4,   _         = residual(0.05)
+
+    rel_dt  = r_dt  / rho_scale
+    rel_dt2 = r_dt2 / rho_scale
+    rel_dt4 = r_dt4 / rho_scale
+    ratio_a = r_dt / r_dt2 if r_dt2 > 0 else float('inf')
+    ratio_b = r_dt2 / r_dt4 if r_dt4 > 0 else float('inf')
+
+    print(f'  U(1)  dt=0.20  rel residual = {rel_dt:.3e}')
+    print(f'  U(1)  dt=0.10  rel residual = {rel_dt2:.3e}')
+    print(f'  U(1)  dt=0.05  rel residual = {rel_dt4:.3e}')
+    print(f'  U(1)  Richardson ratios = {ratio_a:.2f}, {ratio_b:.2f}   '
+          f'(expect ≈ 4 for O(dt²))')
+
+    ok_u1 = (2.5 <= ratio_a <= 5.5) and (2.5 <= ratio_b <= 5.5)
+    ok_a = check('U(1) lattice continuity ∂_t ρ + c·∇·J = 0  → O(dt²)',
+                  ok_u1, f'(ratios {ratio_a:.2f}, {ratio_b:.2f})')
+
+    # ---- (b) SU(2): isospin doublet (η_ν, η_e) total charge ----
+    # The SU(2) stepper rotates between ν and e isospin components but
+    # preserves the total |η_ν|² + |η_e|² at every cell.  Verify directly.
+    import ca_weak as wk
+    L2 = 32; shape2 = (L2, L2)
+    # Build a flat doublet  (η_ν=G, η_e=0) and apply one SU(2) step at
+    # nonzero W^3.  The total local density should be invariant.
+    G = np.exp(-((np.arange(L2)[:, None] - L2/2)**2 +
+                  (np.arange(L2)[None, :] - L2/2)**2) /
+                  (2 * 4.0**2)).astype(complex)
+    z = np.zeros_like(G)
+    # step_weak_2d expects 2-element lists of (Lx, Ly) arrays for ν, e, χ_e.
+    eta_nu = [G.copy(), z.copy()]            # isospin up = G, down = 0
+    eta_e  = [z.copy(), z.copy()]
+    chi_e  = [z.copy(), z.copy()]
+    rho_before = np.abs(eta_nu[0])**2 + np.abs(eta_nu[1])**2 + \
+                  np.abs(eta_e[0])**2  + np.abs(eta_e[1])**2
+
+    W3 = np.full(shape2, 0.5)
+    W0 = np.zeros(shape2)
+    eta_nu_n, eta_e_n, chi_e_n = wk.step_weak_2d(
+        eta_nu, eta_e, chi_e, W1=W0, W2=W0, W3=W3,
+        c=0.0, m_e=0.0, g_weak=1.0, dt=1.0)
+    rho_after = np.abs(eta_nu_n[0])**2 + np.abs(eta_nu_n[1])**2 + \
+                 np.abs(eta_e_n[0])**2  + np.abs(eta_e_n[1])**2
+    drift = float(np.max(np.abs(rho_after - rho_before)))
+    ok_b = check('SU(2) isospin rotation preserves local ρ pointwise',
+                  drift < 1e-12, f'(max drift = {drift:.2e})')
+
+    return ok_a and ok_b
+
+
+# ══════════════════════════════════════════════════════════════════
 #  Main
 # ══════════════════════════════════════════════════════════════════
 
@@ -457,6 +602,7 @@ def main():
     results['D1'] = test_D1()
     results['E1'] = test_E1()
     results['E2'] = test_E2()
+    results['E3'] = test_E3_continuity()
 
     print()
     print('=' * 72)

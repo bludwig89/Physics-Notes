@@ -45,9 +45,11 @@ $$\nabla^2 \phi(\mathbf{x}, t) - \frac{1}{c_0^2}\frac{\partial^2 \phi}{\partial 
 
 with $\rho_{\text{tot}} = \rho_{\Phi} + \rho_{\Psi}$ — the sum of the Φ stress-energy $T_{00}^\Phi = \tfrac{1}{2}|\Pi|^2 + \tfrac{1}{2}|\nabla\Phi|^2 + V(|\Phi|)$ and the Dirac stress-energy $T_{00}^\Psi = c \cdot \Psi^\dagger(\boldsymbol\alpha\cdot\hat{\mathbf{k}})\Psi + m_{\text{eff}}c^2\Psi^\dagger\beta\Psi$. Then
 
-$$c(\mathbf{x}, t) = c_0 \left(1 + \frac{\phi(\mathbf{x}, t)}{c_0^2}\right)^{-1}, \tag{Paper 6, Eq. 18.31 reduction}$$
+$$c(\mathbf{x}, t) = \frac{c_0}{1 - 2\phi(\mathbf{x}, t)/c_0^2}, \tag{GR-Shapiro reduction}$$
 
-in the weak-field limit. In the vacuum limit ($\rho_{\text{tot}} = 0$), $\phi$ relaxes to zero and $c = c_0$ — the v1 vacuum contract is preserved.
+in the weak-field limit. For $\phi<0$ inside a gravitational well this gives $c(\mathbf{x}) < c_0$ — light *slows down* near a mass, which is the sign required for ray attraction and matches the GR Shapiro-delay expression. At $|\phi|\ll c_0^2$ this expands to $c \approx c_0\,(1 + 2\phi/c_0^2)$, reproducing the standard $4GM/(bc^2)$ deflection. In the vacuum limit ($\rho_{\text{tot}} = 0$), $\phi$ relaxes to zero and $c = c_0$ — the v1 vacuum contract is preserved.
+
+> **Back-fix (2026-05-16):** This box previously published $c = c_0(1+\phi/c_0^2)^{-1}$ "Paper 6, Eq. 18.31 reduction." That form has the wrong sign for $\phi<0$ in a gravitational well (it gives $c>c_0$, i.e. light speeds up near a mass), and the Paper-6 citation was wrong on top of that — Eq. 18.31 is the Fizeau additive-velocity expression for a *moving* refractive medium, not the static gravity case (the static case is closer to Eqs. 18.51–18.52, $c(t) = c_0(1 \pm gt/c_0)$). The working implementation in `ca_emqg.py::c_field_from_phi` already used the GR-Shapiro form above; this document is being brought into line with it.  See `model-observations.md` item 1 and `changelog.md` 2026-05-15.
 
 This is a strict improvement over v1 because:
 

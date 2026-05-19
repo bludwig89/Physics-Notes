@@ -17,7 +17,7 @@ with
 
     u^±(k)  = c_x c_y c_z  ±  s_x s_y s_z
     ñ_x^±   =  s_x c_y c_z  ∓  c_x s_y s_z
-    ñ_y^±   =  ∓ c_x s_y c_z  -  s_x c_y s_z
+    ñ_y^±   =  ∓ c_x s_y c_z  +  s_x c_y s_z      (sign corrected — see _bcc_uvec)
     ñ_z^±   =  c_x c_y s_z   ±  s_x s_y c_z
 
     c_i := cos(k_i / √3)

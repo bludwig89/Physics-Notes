@@ -74,13 +74,37 @@ def kg_step_free_2d_splitstep(Phi, Pi, m, dt=1.0):
 #  Mexican-hat self-interaction (nonlinear position-space step)
 # ══════════════════════════════════════════════════════════════════
 
-def kg_nonlinear_kick(Phi, Pi, mu2, lam, m0_sq, dt):
+def _resolve_phase_sign(phase):
+    """
+    Resolve the broken/symmetric phase keyword into the sign multiplier
+    that the V' formula applies to mu2.
+
+      phase='broken'    →  V = -mu2|Φ|² + λ|Φ|⁴      (μ²>0, vacuum at |Φ|=v)
+      phase='symmetric' →  V = +mu2|Φ|² + λ|Φ|⁴      (μ²>0, vacuum at Φ=0)
+
+    `mu2` is always a non-negative magnitude in the new API.  The legacy
+    convention of passing a *negative* mu2 to flip the quadratic term
+    still works (phase='broken' with mu2<0 reproduces the old behaviour),
+    so existing callers do not break.
+    """
+    if phase == 'broken':
+        return +1.0
+    if phase == 'symmetric':
+        return -1.0
+    raise ValueError(
+        f"phase must be 'broken' or 'symmetric', got {phase!r}")
+
+
+def kg_nonlinear_kick(Phi, Pi, mu2, lam, m0_sq, dt, phase='broken'):
     """
     Apply the nonlinear residual of V'(|Φ|²) for time dt:
 
         Π → Π − dt · [V'_full(|Φ|²) − m_0²]·Φ
-           = Π − dt · [(−μ² + 2λ|Φ|²) − m_0²]·Φ
-           = Π − dt · (−μ² − m_0² + 2λ|Φ|²)·Φ
+           = Π − dt · [(−s·μ² + 2λ|Φ|²) − m_0²]·Φ
+           = Π − dt · (−s·μ² − m_0² + 2λ|Φ|²)·Φ
+
+    where s = +1 for phase='broken' (V = -μ²|Φ|²+λ|Φ|⁴) and s = -1 for
+    phase='symmetric' (V = +μ²|Φ|²+λ|Φ|⁴).  `mu2` is the *magnitude* μ²≥0.
 
     The "kick" is a single per-cell update to Π.  Exact for the
     nonlinear piece; Strang composition with the free K-G step gives
@@ -90,14 +114,15 @@ def kg_nonlinear_kick(Phi, Pi, mu2, lam, m0_sq, dt):
     linear step.  At |Φ|² = v² = μ²/(2λ), the residual is exactly
     zero — vacuum is a fixed point of the full update.
     """
+    s = _resolve_phase_sign(phase)
+    mu2_eff = s * mu2
     abs2 = (Phi * np.conj(Phi)).real
-    V_prime_full = -mu2 + 2.0 * lam * abs2     # = dV/d|Φ|² · 2 ... oh wait
-    # V(|Φ|²) = -μ²|Φ|² + λ|Φ|⁴.  ∂V/∂Φ* = (-μ² + 2λ|Φ|²)·Φ.
+    V_prime_full = -mu2_eff + 2.0 * lam * abs2
+    # V(|Φ|²) = -s·μ²|Φ|² + λ|Φ|⁴.  ∂V/∂Φ* = (-s·μ² + 2λ|Φ|²)·Φ.
     # Equation of motion: □Φ + ∂V/∂Φ* = 0.
-    # ∂_t Π = ∇²Φ - (-μ² + 2λ|Φ|²)·Φ
-    # So the "force" on Π from the potential is -(-μ² + 2λ|Φ|²)·Φ.
+    # ∂_t Π = ∇²Φ - (-s·μ² + 2λ|Φ|²)·Φ
     # In the linear step we already included -m_0²·Φ in the force.
-    # The residual is the difference: -[(-μ²+2λ|Φ|²) - m_0²]·Φ
+    # The residual is the difference: -[(-s·μ²+2λ|Φ|²) - m_0²]·Φ
     force = -(V_prime_full - m0_sq) * Phi
     Pi_new = Pi + dt * force
     return Phi.copy(), Pi_new
@@ -113,20 +138,32 @@ def _laplacian_2d(Phi):
     return np.fft.ifft2(k2 * np.fft.fft2(Phi))
 
 
-def _force(Phi, mu2, lam):
+def _force(Phi, mu2, lam, phase='broken'):
     """
     Force on Π:  F(Φ) = ∇²Φ − V'_total(|Φ|²)·Φ
-                       = ∇²Φ − (−μ² + 2λ|Φ|²)·Φ
+                       = ∇²Φ − (−s·μ² + 2λ|Φ|²)·Φ
 
-    At vacuum |Φ|² = μ²/(2λ) = v² (constant in space), ∇²Φ = 0 and
-    (−μ² + 2λv²) = 0, so F = 0 — Φ = v is an exact fixed point.
+    where s = _resolve_phase_sign(phase).
+
+      phase='broken'    (s=+1): V = -μ²|Φ|² + λ|Φ|⁴  →  vacuum |Φ|=v.
+      phase='symmetric' (s=-1): V = +μ²|Φ|² + λ|Φ|⁴  →  vacuum Φ=0.
+
+    `mu2` is always a non-negative magnitude μ²≥0 in the new API.  The
+    legacy convention (negative mu2, phase='broken') is still honoured.
+
+    At broken-phase vacuum |Φ|² = μ²/(2λ) = v² (constant in space),
+    ∇²Φ = 0 and (−μ² + 2λv²) = 0, so F = 0.  At symmetric-phase vacuum
+    Φ = 0, F = 0 trivially.
     """
+    s = _resolve_phase_sign(phase)
+    mu2_eff = s * mu2
     abs2 = (Phi * np.conj(Phi)).real
-    V_prime = -mu2 + 2.0 * lam * abs2
+    V_prime = -mu2_eff + 2.0 * lam * abs2
     return _laplacian_2d(Phi) - V_prime * Phi
 
 
-def kg_step_strang(Phi, Pi, mu2, lam, dt=1.0, n_sub=1, **kwargs):
+def kg_step_strang(Phi, Pi, mu2, lam, dt=1.0, n_sub=1, phase='broken',
+                    **kwargs):
     """
     Symplectic velocity-Verlet integrator for the full nonlinear K-G CA.
 
@@ -135,16 +172,28 @@ def kg_step_strang(Phi, Pi, mu2, lam, dt=1.0, n_sub=1, **kwargs):
         Φ_{n+1}   = Φ_n  +  dt·Π_{n+1/2}
         Π_{n+1}   = Π_{n+1/2}  +  (dt/2)·F(Φ_{n+1})
 
-    Symplectic: conserves energy to O(dt²) over arbitrary time.  Vacuum
-    (Φ=v, Π=0) is a fixed point exactly because F(Φ=v)=0.
-    The `n_sub` parameter sub-divides the timestep for stiffer regimes.
+    Symplectic: conserves energy to O(dt²) over arbitrary time.
+
+    Parameters
+    ----------
+    mu2 : float
+        Magnitude μ² ≥ 0.  Sign convention is set by `phase`.
+    lam : float
+        Quartic coefficient λ > 0.
+    phase : {'broken', 'symmetric'}
+        'broken' (default) uses V = -μ²|Φ|² + λ|Φ|⁴; vacuum (Φ=v, Π=0)
+        is a fixed point because F(Φ=v)=0.
+        'symmetric' uses V = +μ²|Φ|² + λ|Φ|⁴; vacuum (Φ=0, Π=0) is the
+        fixed point.  This replaces the old kludge of passing mu2 < 0.
+    n_sub : int
+        Sub-divide the timestep for stiffer regimes.
     """
     dt_sub = dt / n_sub
     for _ in range(n_sub):
-        F = _force(Phi, mu2, lam)
+        F = _force(Phi, mu2, lam, phase=phase)
         Pi_half = Pi + 0.5 * dt_sub * F
         Phi_new = Phi + dt_sub * Pi_half
-        F_new = _force(Phi_new, mu2, lam)
+        F_new = _force(Phi_new, mu2, lam, phase=phase)
         Pi_new = Pi_half + 0.5 * dt_sub * F_new
         Phi, Pi = Phi_new, Pi_new
     return Phi, Pi
