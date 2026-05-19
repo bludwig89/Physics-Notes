@@ -751,7 +751,7 @@ The lattice's analog of $1/\gamma$ is the ratio $\omega_\text{moving}/\omega_\te
 
 At small $(k, m)$ the residual $|\text{ratio}_\text{QCA} - 1/\gamma_\text{SR}|$ scales cleanly as $\mathcal O(k^2)$:
 
-| $m$ | $k_x$ | $v_g/c_\text{lat}$ | $\text{ratio}_\text{QCA}$ | $1/\gamma_\text{SR}$ | $|\Delta|$ |
+| $m$ | $k_x$ | $v_g/c_\text{lat}$ | $\text{ratio}_\text{QCA}$ | $1/\gamma_\text{SR}$ | $abs(\Delta)$ |
 |---|---|---|---|---|---|
 | 0.10 | 0.001 | 0.0070 | 0.99997517 | 0.99997525 | $8.31\times 10^{-8}$ |
 | 0.10 | 0.010 | 0.0702 | 0.99752590 | 0.99753419 | $8.29\times 10^{-6}$ |
@@ -834,6 +834,6 @@ This is a direct measurement of the dispersion that QG-2 (Planck-scale Lorentz-v
 
 ### Bottom line for the emergent-time proposition
 
-SR-2 is the cleanest Lorentz analog of T2.B (Shapiro). T2.B passed at $2.7\times 10^{-16}$ on the gravitational side because the proper-time tick ratio $c_\text{in}/c_\text{out}$ is *algebraically* tied to the propagator via $\omega = c\cdot k$. SR-2 passes at $4.4\times 10^{-15}$ on the Lorentz side because $\omega_\text{moving}/\omega_\text{static}$ is *algebraically* tied to the propagator via $\omega_k - k\cdot v_g$. Both are dispersion-identity tests; both are exact at the lattice's own dispersion. The proposition's two-reading rule (§2 of `ca-emergent-time-proposition.md`) survives the Lorentz translation.
+SR-2 is the cleanest Lorentz analog of T2.B (Shapiro). T2.B passed at $2.7\times 10^{-16}$ on the gravitational side because the proper-time tick ratio $c_\text{in}/c_\text{out}$ is *algebraically* tied to the propagator via $\omega = c\cdot k$. SR-2 passes at $4.4\times 10^{-15}$ on the Lorentz side because $\omega_\text{moving}/\omega_\text{static}$ is *algebraically* tied to the propagator via $\omega_k - k\cdot v_g$. Both are dispersion-identity tests; both are exact at the lattice's own dispersion. The proposition's two-reading rule (§2 of `reference-research\ca-emergent-time-proposition.md`) survives the Lorentz translation.
 
 
