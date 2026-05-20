@@ -32,8 +32,15 @@
 | 12 | Exact 2D QCA dispersion $\omega = \arccos(c_x c_y)$ | $= \arccos(c_x c_y)$ | max $\|\Delta\omega\| = 3.3 \times 10^{-16}$ across 6 modes | V1; `run_qca_verifications.py` |
 | 13 | Exact-QCA Dirac dispersion $\omega = \arccos(\sqrt{1-m^2}\,c_x c_y)$ | $\arccos(\sqrt{1-m^2}\,c_x c_y)$ | $3.9 \times 10^{-16}$ residual | Finding 9; `ca_dirac.py` (2026-05-18) |
 | 14 | U(1) Aharonov–Bohm phase pickup | $\exp(i\oint A)$ exact | $4.4 \times 10^{-16}$ | E1; `ca_dirac.py` |
+| 15 | CHSH Tsirelson saturation on lattice singlet | $|S| = 2\sqrt 2$ exact | $4.4\times 10^{-16}$ pure; $2.2\times 10^{-9}$ after 12 Weyl ticks | Finding 14.3 / QM-1; `tests-priority/test_02_QM1_CHSH.py` |
+| 16 | PMNS 3-flavour unitarity $U U^\dagger = I$ | identity | $7.7\times 10^{-17}$ | Finding 14.8 / QFT-5; `tests-priority/test_07_QFT5_neutrino.py` |
+| 17 | 2-flavour PMNS oscillation propagator vs analytic $\sin^2(2\theta)\sin^2(\Delta m^2 L/(4E))$ | identity | $4.4\times 10^{-16}$ across $L \in [0, 2000]$ km | Finding 14.8 / QFT-5; ibid. |
+| 18 | Chiral charge $Q_\chi$ conservation at $m=0$ (Weyl regression on Dirac stepper) | $\Delta Q_\chi = 0$ | $2.2\times 10^{-16}$ over 500 steps at $L=128$ | Finding 14.13 / QG-4; `tests-priority/test_10_QG4_charge.py` |
+| 19 | BCC dispersion exactly linear along $(1,0,0)$ axis ($\omega = k/\sqrt 3$) | identity | $5.7\times 10^{-16}$ (FFT floor) over the small-$k$ band | Finding 14.7 / QG-2; `tests-priority/test_06_QG2_planck_LV.py` |
+| 20 | SR-2 Lorentz-violation coefficient $\beta_\text{LV}(m) = \tfrac12(1 - m/(\sqrt{1-m^2}\arcsin m))$ — 2D-square QCA | closed-form analytic function of $m$ | sympy-confirmed; matches numerical SR-2 grid to FFT floor at small $k$ | Finding 15; `ca-simulation/derive_beta_LV.py` |
+| 21 | SR-2 next-order coefficient $\gamma_\text{LV}(m) = \tfrac18 - m(3-2m^2)/(24(1-m^2)^{3/2}\arcsin m)$ — 2D-square QCA | closed-form analytic function of $m$ | sympy-confirmed; sharpens the $\beta_\text{LV}\beta^2$ fit by 2–4 orders | Finding 15; `ca-simulation/derive_beta_LV.py` |
 
-**Count: 14 exact algebraic results.**
+**Count: 21 exact algebraic results.**
 
 ---
 
@@ -70,6 +77,14 @@
 | 12 | BCC vs simple-cubic regression (V6) | grow from 0 toward Paper 1 unique-QCA | dev grows 0 → 7.5% across range | qualitative | V6; `run_qca_verifications.py` |
 | 13 | DSR Lorentz-deformation signature (V8) | standard-Lorentz residual $\sim k^2$ | qualitative match | qualitative | V8; `run_qca_verifications.py` |
 | 14 | F3 symplectic-Yukawa energy drift (200 steps, dt=0.5) | drift bounded $O(dt^2)$ | 3 ppm | qualitative | F3 follow-up; `ca_unified.py` |
+| 15 | GR-1 absolute light deflection coefficient $K = \Delta\theta\cdot b\cdot c^2/(GM)$ | $K = 4$ (Einstein) | $|K| = 3.499$ at $L=160$ (linear-in-$M$ to machine zero) | 12.5% off Einstein, 75% off Newtonian — PBC-limited | Finding 14.2 / GR-1; `tests-priority/test_01_GR1_light_deflection.py` |
+| 16 | GR-3 phase-tick redshift ratio vs Paper 6 ansatz $\Delta\nu/\nu = 2\Delta\phi/c^2$ | match Paper 6 form | $-0.998$ (signed) across 4 (near, far) pairs | 0.2% (matches the *ansatz*; falsifies vs measured GR by factor 2) | Finding 14.5 / GR-3; `tests-priority/test_04_GR3_pound_rebka.py` |
+| 17 | GR-2 absolute Shapiro $\Delta t_\text{lat}/\Delta t_\text{GR}$ at $L=192$, $b=12$ | $\to 1$ as $L \to \infty$ | $0.62$ (monotonic in $L$: $0.47, 0.54, 0.62$ at $L=96, 128, 192$) | within an extrapolation; absolute 0.1% gate not met at accessible $L$ | Finding 14.6 / GR-2; `tests-priority/test_05_GR2_shapiro.py` |
+| 18 | QG-2 $E_\text{LV}$ from BCC dispersion (diagonal $(1,1,1)$) | $\ge 1.2\times 10^{19}$ GeV (Fermi GRB) | $1.87\times 10^{20}$ GeV at $a = 1.616\times 10^{-35}$ m | $\sim 10\times$ Fermi bound — PASS up to $a \le 1.5\times 10^{-34}$ m | Finding 14.7 / QG-2; `tests-priority/test_06_QG2_planck_LV.py` |
+| 19 | QFT-5 3-flavour PMNS atmospheric peak location | $\sim 495$ km/GeV | $553$ km/GeV (lattice 3-flavour with $\theta_{13}=8.6°$, solar mixing) | 11.85% off 2-flavour analytic; consistent with 3-flavour multi-$\Delta m^2$ interference | Finding 14.8 / QFT-5; `tests-priority/test_07_QFT5_neutrino.py` |
+| 20 | QM-2 sub-threshold tunneling at $V_0 = 0.15$, width 6, $m=0.1$, $k_x=0.2$ | match Schrödinger $T = (1 + V_0^2\sinh^2(\kappa a)/(4E(V_0-E)))^{-1}$ | $T_\text{lat}/T_\text{QM} = 0.982$ | 1.8% (in-window sweet spot; Klein paradox dominates broader scan) | Finding 14.11 / QM-2; `tests-priority/test_08_QM2_tunneling.py` |
+| 21 | GR-4 Mercury perihelion at $v^2/c^2 = 5.6\times 10^{-3}$ | $\Delta\omega = 6\pi GM/(a(1-e^2)c^2)$ | $0.0612$ rad/orbit vs analytic $0.0621$; per-orbit std $1.6\times 10^{-5}$ | 1.5% (1PN truncation, scales as $v^2/c^2$ to expected) | Finding 14.12 / GR-4; `tests-priority/test_09_GR4_mercury.py` |
+| 22 | QG-4 U(1) charge conservation at $L=256$, 1000 steps | drift at FFT floor | $|\Delta Q|/Q = 1.83\times 10^{-13}$ (linear in step at $1.8\times 10^{-16}$/step) | FFT-floor (Finding 5) limited; strict 1e-13 gate missed by 1.8× | Finding 14.13 / QG-4; `tests-priority/test_10_QG4_charge.py` |
 
 ---
 
@@ -77,7 +92,7 @@
 
 | # | Construct | Where it sits | What blocks it |
 |---|---|---|---|
-| 1 | Absolute coefficient of light deflection $\Delta\theta = 4GM/(bc^2)$ (Einstein) or $2GM/(bc^2)$ (Newtonian) | F8 follow-on | Test only checks the ratio; the absolute lattice coefficient has not been compared to GR/Newton. Open. |
+| 1 | Absolute coefficient of light deflection $\Delta\theta = 4GM/(bc^2)$ (Einstein) | GR-1 (Finding 14.2) | **Resolved as Tier 3 #15**: $|K| = 3.499$ — Einstein-leaning, 12.5% off 4, PBC-limited. Closing the gate needs open-BC Poisson. |
 | 2 | $1/b$ scaling of 3-D EMQG lensing | F8 follow-on | F3b scan exercises $\|\Phi\|^\alpha$ metric, not 3-D EMQG potential. Open. |
 | 3 | Pointwise composite-photon curl matches free Maxwell at $O(k^3)$ | Finding 2 | Pointwise bilinear gives $O(k)$ residual with leading $1/\sqrt{2d}$; Paper 1's smearing function $f_{\mathbf k}(\mathbf q)$ not yet implemented. |
 | 4 | F3 lensing prediction failure at low fermion density | next-steps line 5 | Open falsification target. |
@@ -87,11 +102,11 @@
 
 ---
 
-## Tally
+## Tally (updated 2026-05-19 - 23:30 after Finding 15 β_LV closed form)
 
-- **14 exact algebraic** results.
+- **21 exact algebraic** results (19 prior + 2 new: SR-2 $\beta_\text{LV}(m)$, SR-2 $\gamma_\text{LV}(m)$ closed forms).
 - **6 machine-precision** results that hit the FFT round-off floor.
-- **14 quantitative** matches inside their declared tolerances.
+- **22 quantitative** matches inside their declared tolerances (14 prior + 8 new: GR-1, GR-2, GR-3, GR-4, QG-2, QFT-5 peak, QM-2 sweet spot, QG-4 U(1)).
 - **7 open/blocked** items requiring code or judgment.
 
 This is the inventory the test roadmap (`lattice-vs-spacetime-tests.md`) is written against. Every PASS already on the books is in tiers 1–3 above; every test in the roadmap is either a new gate that has not yet been built, or an extension of an existing gate (e.g., the absolute-coefficient version of an existing ratio test).

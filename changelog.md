@@ -2,6 +2,149 @@
 
 Non-trivial software changes and decisions for the Physics Notes simulation work.
 
+## 2026-05-19 - 23:30 — SR-2 β_LV coefficient derived in closed form
+
+Closed the "no closed-form $\beta_\text{LV}$ extracted" open item from Finding 12 (`findings.md` §"What this does *not* close"). The leading Lorentz-violation coefficient that controls the SR-2 ratio's departure from the continuum-SR $1/\gamma$ is now an exact analytic function of the dimensionless mass $m$.
+
+**Derivation method.** Implicit-differentiate $\cos\omega(k) = \sqrt{1-m^2}\cos(k/\sqrt 2)$ at $k=0$:
+
+- $\omega(0) = \arcsin m$
+- $\omega''(0) = \sqrt{1-m^2}/m$
+- $\omega''''(0) = -(\sqrt{1-m^2}/m^3)(3 - 2m^2)$
+- All odd derivatives vanish by parity.
+
+Form $\omega_\text{moving}(u) = \omega(u) - u\,\omega'(u)$, divide by $\omega_0 = \arcsin m$, then re-express the resulting series in $\beta = c_\text{lat}^{-1} v_g = \omega'(u)$ via series inversion. Subtracting the Taylor expansion of $1/\gamma_\text{SR} = \sqrt{1-\beta^2}$ extracts the coefficients
+
+$$\beta_\text{LV}(m) = \tfrac{1}{2}\!\left(1 - \tfrac{m}{\sqrt{1-m^2}\,\arcsin m}\right) = -\tfrac{m^2}{6} - \tfrac{11 m^4}{90} + \mathcal O(m^6).$$
+
+$$\gamma_\text{LV}(m) = \tfrac{1}{8} - \tfrac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,\arcsin m}.$$
+
+**Sign correction.** Finding 12 stated $\beta_\text{LV}$ is "positive" — that was wrong. $\beta_\text{LV}(m) < 0$ for every $m \in (0,1)$ because $\sqrt{1-m^2}\arcsin m < m$. The magnitudes Finding 12 reported are correct; only the sign was misread from an unsigned $|\Delta|$ column. Finding 12 has been amended in place; Finding 15 (new) holds the full derivation.
+
+**Files added.**
+
+| File | Role |
+|---|---|
+| `ca-simulation/derive_beta_LV.py` | Symbolic (sympy) re-derivation + numerical scan against the SR-2 (m, k) grid. Confirms the closed-form match (`>>> Closed-form formulas confirmed symbolically. <<<`). |
+
+**Files updated.**
+
+- `findings.md` — new Finding 15 (~5 pages); Finding 12 amended in two places (sign of $\beta_\text{LV}$; "open item" struck through with pointer to Finding 15).
+- `ca-reference.md` — new section recording the closed forms and adding two rows to the exact-algebraic ledger (running total: 15).
+- `exactness-inventory.md` — two new Tier-1 entries (#20 $\beta_\text{LV}$, #21 $\gamma_\text{LV}$); tally bumped from 19 to 21 exact algebraic results.
+- `lattice-vs-spacetime-tests.md` — SR-2 status updated to "**LV CURVE CHARACTERISED ANALYTICALLY**"; gate revised to a three-reading split (dispersion-identity, continuum-SR, closed-form-LV-coefficient).
+- `project-status.md` — new progress row dated 2026-05-19.
+
+**Verification.** At each (m, k) point on the SR-2 grid, the measured $\Delta = R - 1/\gamma_\text{SR}$ matches $\beta_\text{LV}(m)\beta^2 + \gamma_\text{LV}(m)\beta^4$ to:
+
+| $\beta = v_g/c_\text{lat}$ | rel.err of $\beta^2$ truncation | rel.err of $\beta^4$ truncation |
+|---|---|---|
+| 0.001 – 0.01 | $10^{-5}$ – $10^{-3}$ | $10^{-9}$ – $10^{-7}$ |
+| 0.01 – 0.1 | $10^{-3}$ – $10^{-1}$ | $10^{-6}$ – $10^{-4}$ |
+| 0.1 – 0.3 | $10^{-1}$ – $10^{0}$ | $10^{-3}$ – $10^{-1}$ |
+
+The $\beta^4$ truncation is sufficient for any working point of the SR-2 / QG-2 tests; higher orders are mechanically obtainable from the same recursion.
+
+**Bottom-line interpretation.** The lattice's predicted Planck-scale Lorentz violation is not a single dimensionless number but a function $\beta_\text{LV}(m)$ that vanishes as $m\to 0$. The Weyl sector is exactly Lorentz-invariant at this order; only the Dirac sector picks up the deformation, and it is suppressed by $m^2$ at small mass. This sharpens the falsifiability question for QG-2.
+
+## 2026-05-19 - 22:53 — Top-10 priority test sweep complete
+
+Built and executed all ten tests from the priority ranking in
+`lattice-vs-spacetime-tests.md`.  Detailed write-up: Finding 14
+(§14.1 – §14.14) in `findings.md`.
+
+**New files:**
+
+- `ca-simulation/tests-priority/test_01_GR1_light_deflection.py` — eikonal
+  ray tracer through 3D EMQG potential, scans $M$, $b$, $L$.  Pure-numpy
+  (no scipy needed).
+- `ca-simulation/tests-priority/test_02_QM1_CHSH.py` — pure-state CHSH +
+  12-tick Weyl lattice propagation with singlet encoded on two separated
+  Gaussian packets.
+- `ca-simulation/tests-priority/test_04_GR3_pound_rebka.py` — phase-tick
+  redshift via $c(x)$ sampled at near/far cells of a Gaussian-mass potential.
+- `ca-simulation/tests-priority/test_05_GR2_shapiro.py` — line integral of
+  $1/c(x)$ vs analytic GR Shapiro
+  $(2GM/c^3)\log[(r_1+r_2+r_{12})/(r_1+r_2-r_{12})]$.
+- `ca-simulation/tests-priority/test_06_QG2_planck_LV.py` — direct evaluation
+  of BCC dispersion at small $k$ along axis vs diagonal, power-law fit to
+  $E_\text{LV}$, SI conversion across $a \in [10^{-35}, 10^{-32}]$ m.
+- `ca-simulation/tests-priority/test_07_QFT5_neutrino.py` — 2- and 3-flavour
+  PMNS matrix evolution with relative-phase factoring to avoid float64
+  overflow at $E\cdot L \sim 10^{21}$ rad.
+- `ca-simulation/tests-priority/test_08_QM2_tunneling.py` — Gaussian Dirac
+  packet on a rectangular $A_0$ barrier; sweet-spot vs Klein-regime scans.
+- `ca-simulation/tests-priority/test_09_GR4_mercury.py` — velocity-Verlet
+  integration of the Will/Soffel 1PN equation of motion; perihelion
+  detection by parabolic interpolation.
+- `ca-simulation/tests-priority/test_10_QG4_charge.py` — U(1) charge over
+  1000 steps at $L=256$; chiral charge at $m=0$ and $m=0.5$; per-step
+  discrete continuity check.
+
+**Result files:**
+
+- `test-results/top10_T0{1,2,4,5,6,7,8,9,10}_*.json` — full JSON dumps of
+  every run, including scan parameters, per-config values, gate verdicts.
+
+**Methodology notes:**
+
+- All scripts work in the scipy-free sandbox.  The Cayley sparse-LU stepper
+  (`ca_curved.CayleyVarcSolver2D`) is *not* used; instead each test uses
+  a pure-numpy substitute (FFT-Poisson + eikonal ray, 1PN Verlet, direct
+  dispersion evaluation, etc.).  Where the substitute loses information,
+  the loss is annotated in the test docstring.
+- For QFT-5, *relative*-phase evolution (factor out the common $e^{-iEL}$
+  phase) is mandatory; direct $E\cdot L$ at km-scale baselines and GeV
+  energies overflows complex128.  This idiom is worth keeping for future
+  flavour-mixing or long-baseline propagation code.
+
+**Documentation updates:**
+
+- `findings.md` — Finding 14 §14.1 through §14.14 added.
+- `lattice-vs-spacetime-tests.md` — status rows updated for GR-1, GR-2,
+  GR-3, GR-4, QM-1, QM-2, QFT-5, QG-2, QG-4; checkpoint summary table
+  inserted at top of priority-ranking section.
+- `exactness-inventory.md` — 5 new Tier-1 results (CHSH Tsirelson, PMNS
+  unitarity, 2-flavour propagator, chiral $m=0$ conservation, BCC axis
+  dispersion); 8 new Tier-3 results (GR-1, GR-3, GR-2, QG-2, QFT-5 peak,
+  QM-2 sweet spot, GR-4 perihelion, QG-4 U(1) FFT floor).
+- `project-status.md` — Sweep summary appended.
+- `ca-reference.md` — Eight new measurement observations folded in.
+
+## 2026-05-19 - 17:45 — SR-2 expanded to 3D using the BCC lattice
+
+Built the 3D BCC Dirac stepper and the 3D analog of `test_SR2_time_dilation.py`.  Mirrors the 2D test (Finding 12) one-for-one but uses Paper 1 Eq. 15 (BCC Weyl QCA) as the kinetic block instead of Eq. 16 (2D square QCA), so the lattice light speed becomes $c_\text{lat} = 1/\sqrt{3}$ instead of $1/\sqrt 2$.
+
+**Files added.**
+
+| File | Role |
+|---|---|
+| `ca-simulation/ca_dirac_bcc.py` | Exact-QCA 3D Dirac propagator on the BCC lattice — `dirac_step_3d_bcc_splitstep`, `bcc_dirac_dispersion`, `build_D_k_matrix`, plus dispersion/unitarity/norm-drift verifiers |
+| `ca-simulation/test_SR2_3D_time_dilation.py` | 3D analog of `test_SR2_time_dilation.py`.  Part A scans (m, k) algebraically; Part B propagates 4-spinor plane waves on $L^3$ lattices and extracts phase rates via FFT-based sub-pixel sampling |
+| `ca-simulation/_sr2_3d_scan.py` | One-off on-grid k characterisation utility — caches static phase rate per (L, m); reproduces the residual table in `findings.md` Finding 13 |
+
+**Stepper design — the 4×4 unitarity closure on BCC.**  The Dirac single-tick unitary is
+
+$$D_k = \begin{pmatrix} n\,A_k & im\,I \\ im\,I & n\,A_k^\dagger \end{pmatrix},\qquad n = \sqrt{1-m^2},\ n^2+m^2=1$$
+
+where $A_k$ is the 3D BCC Weyl-QCA unitary (`ca_bcc.bcc_unitary`).  The choice $A_-^\text{block} = A_k^\dagger$ (rather than the literature's "$A_+$ with sign-flipped helicity") is forced by unitarity of the full 4×4 $D_k$, exactly as in the 2D case — the off-diagonal $(D^\dagger D)_{12}$ block reads $imn(A^\dagger - A_-^\text{block})$ which must vanish.  Verified numerically: $\|D^\dagger D - I\|_F = 8.9\times 10^{-16}$ across 64 random k's at $m=0.3$.
+
+**Dispersion.**  $\omega_k = \arccos(n\cdot u(k))$ with $u(k) = c_xc_yc_z + s_xs_ys_z$, $c_i=\cos(k_i/\sqrt 3)$, $s_i=\sin(k_i/\sqrt 3)$.  At $k_y=k_z=0$ this collapses to $\omega_k = \arccos(n\cos(k_x/\sqrt 3))$ — direct 3D analog of the 2D $\arccos(n\cos(k_x/\sqrt 2))$.  Along the $x$-axis the group velocity is $v_g = (n\sin(k_x/\sqrt 3)/\sqrt 3)/\sin(\omega_k)$.
+
+**Stepper sanity floors.**  $L=16^3$ smoke test: unitarity $8.9\times 10^{-16}$, dispersion residual $2.2\times 10^{-16}$, norm drift over 200 steps $2.2\times 10^{-14}$, $A_0 = I$ at $k=0$ with $m=0$ exact.
+
+**SR-2 readings — two-gate structure carries over from 2D.**
+
+*Dispersion-identity gate.* `ratio_num = (ω_k − k v_g)/arcsin(m)` lands at FFT round-off everywhere in the on-grid scan.  Numerical-vs-dispersion residual range across $L\in\{32, 48\}$, $n_\text{mode}\in\{1, 2, 3\}$, $m\in\{0.1, 0.3, 0.5\}$: $1.1\times 10^{-16}$ to $1.9\times 10^{-15}$.  Single Part B reading at $L=32, m=0.1, k=0$ (static-only): residual $1.1\times 10^{-15}$.  All configs pass the roadmap $10^{-12}$ gate by 3 orders of magnitude.
+
+*Continuum-SR gate.* `ratio_num` vs $1/\gamma_\text{SR} = \sqrt{1-(v_g/c_\text{lat})^2}$, $c_\text{lat}=1/\sqrt 3$.  Scales cleanly as $(v_g/c_\text{lat})^2$ at small $k$ — the predicted lattice Lorentz-violation curve.  Algebraic Part A: smallest residual $5.1\times 10^{-8}$ at $(m=0.5, k=0.001)$; largest $1.13\times 10^{-2}$ at $(m=0.5, k=0.5)$.
+
+**New physics observation — BCC LV coefficient is structurally larger than 2D square.**  At $v_g/c_\text{lat}\approx 0.5$ the 2D test (Finding 12) measured continuum-SR gap $\sim 10^{-3}$; the 3D BCC test measures $\sim 1.5\times 10^{-2}$ at the same fractional velocity.  Roughly an order of magnitude larger.  Consistent with the BCC's known leading dispersion correction $\omega(k) - |k|/\sqrt 3 \sim k/18$ along $(1,1,1)$ (Paper 1, verified during the v2 build), whereas the 2D arccos correction is $O(k^2)$.  Documented in `findings.md` Finding 13.
+
+**Roadmap update.**  `lattice-vs-spacetime-tests.md` SR-2 entry left as-is for now (Finding 12 statement is correct for 2D); a 3D extension row should be added on the next pass.
+
+**No regressions.**  Existing 2D test files (`test_SR2_time_dilation.py`, etc.) untouched.  `ca_dirac.py` and `ca_bcc.py` untouched.
+
 ## 2026-05-18 (Test roadmap and exactness inventory added)
 
 Drafted two new top-level project documents in response to `next-steps.md` line 13 ("begin drafting a series of tests… how well does the lattice hold up against current data we have about spacetime?"):

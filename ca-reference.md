@@ -425,6 +425,24 @@ And one row tracking implementation overhead:
 
 **Open question — T2.B "binary tick" vs "phase tick" ambiguity** in the proposition.  Resolved in `findings.md` Finding 11: both forms satisfy the proposition's $\|U\psi - \psi\| > \varepsilon$ criterion; the binary form is load-bearing for vacuum freezing (T5.A), the phase form is load-bearing for the Shapiro / redshift / asymmetric-clock ratios (T2.B, T2.C, T5.C).  Implementation: `ca_lazy.py::TickCounter` is the binary form; phase-tick is computed inline.  Promoting phase-tick to a first-class `PhaseTickCounter` class is a deferred follow-up.
 
+---
+
+## SR-2 expansion to 3D BCC — exactness inventory (2026-05-19 - 17:45)
+
+Rows added from the 3D-BCC Dirac stepper and the 3D SR-2 test (`ca_dirac_bcc.py`, `test_SR2_3D_time_dilation.py`).  The exact-QCA structural identities carry over from the 2D test; new entries record the BCC-specific machine-precision floors and the quantitative match against continuum SR.
+
+| Construct | Exactness | Where it lives |
+|---|---|---|
+| 4×4 Dirac unitarity closure on BCC, $\|D_k^\dagger D_k - I\|_F$ | **Machine ε** — $8.9\times 10^{-16}$ across 64 random k's at $m=0.3$.  Follows from $A_k^\dagger A_k = I$ (BCC unitarity) and $n^2+m^2=1$, with $A_-^\text{block} = A_k^\dagger$ closing the off-diagonal | `ca_dirac_bcc.py::verify_unitarity_3d_bcc` |
+| Exact-QCA Dirac dispersion $\omega = \arccos(\sqrt{1-m^2}\,u(k))$ on BCC, 3D | **Machine ε** — residual $2.2\times 10^{-16}$ at $m=0.3$ (random k's, eigen-decomposition of explicit $D_k$) | `ca_dirac_bcc.py::verify_dirac_dispersion_3d_bcc` |
+| 3D BCC Dirac norm drift (L=16, 200 steps) | **Machine ε** — $2.2\times 10^{-14}$, $\sqrt{N}$ accumulating FFT round-off | `ca_dirac_bcc.py::norm_drift_3d_bcc` |
+| $A_0 = I$ at $k=0, m=0$ on BCC Dirac | **Bit-for-bit zero** — collapses to BCC Weyl $A_0=I$ on both 2×2 blocks with zero off-diagonals | `ca_dirac_bcc.build_D_k_matrix(0,0,0,0.0)` |
+| SR-2 3D dispersion-identity, $\text{ratio}_\text{num} = (\omega_k - kv_g)/\arcsin(m)$ | **FFT floor** — $1.1\times 10^{-16}$ to $1.9\times 10^{-15}$ across scan ($L\in\{32,48\}$, on-grid $k$, $m\in\{0.1,0.3,0.5\}$).  Passes the $10^{-12}$ roadmap gate by $\ge 3$ orders | `test_SR2_3D_time_dilation.py::part_B_propagation` / `_sr2_3d_scan.py` |
+| 3D BCC static phase rate $\omega_0 = \arcsin(m)$ | **Machine ε** — abs error $5.6\times 10^{-17}$ at $m=0.1, L=32$ | same |
+| 3D BCC SR-2 continuum-SR gap | **Quantitative, $\mathcal O((v_g/c_\text{lat})^2)$** — smallest residual $5.1\times 10^{-8}$ at $(m=0.5, k=0.001)$, largest $1.13\times 10^{-2}$ at $(m=0.5, k=0.5)$.  Coefficient $\sim 10\times$ larger than the 2D square-lattice case (Finding 13) | `test_SR2_3D_time_dilation.py::part_A_scan`; `findings.md` Finding 13 |
+
+**Updated total:** 13 exact-algebraic / bit-zero results unchanged; 5 new machine-ε rows; 1 new quantitative-$\mathcal O(k^2)$ row.
+
 **What did not match anything new:** every other 10× test reproduced the prior residual or improved monotonically with resolution; nothing in the new data resembled an approximation to an imaginary number, $\pi$, $e$, or any other transcendental constant. The matches that surfaced are all real-valued algebraic ($1/\sqrt 6$, $\varepsilon_\text{double}$, the CFL bound, $2mc^2$).
 
 ---
@@ -444,3 +462,84 @@ Cleanup pass to address the cosmetic-but-load-bearing flags in `model-observatio
 - **F3b-scan: $|\Delta y(b)|$ scales as $1/b$ in the far-field $b > 2\sigma_\Phi$** (item 12; pending full run).  Per-run sanity (L=192, $b=60$): $\Delta y = -0.376$ cells with norm drift $1.0\times 10^{-14}$.  Power-law fit across five $b$ values is the verification target; passes if slope $\in [-1.4, -0.6]$.
 
 These are additions to the exact-and-O(dt²) ledger; they do not change any of the prior-pass results.
+
+## 2026-05-19 - 22:53 — Top-10 priority test sweep observations
+
+Eight new measurements (Finding 14, GR-1 through QG-4) inform the reference:
+
+- **GR-1 light deflection coefficient $|K| = 3.499$** under the Paper 6
+  $c(x) = c_0/(1 - 2\phi/c_0^2)$ ansatz, eikonal ray tracer on 3D Poisson.
+  Linear-in-$M$ across $M \in \{0.5, 1, 2, 4\}$ to machine zero.  12.5% off the
+  GR target of 4; 75% off the Newtonian 2.  Convergence with $L$ trends *down*
+  toward $\sim 3.49$, consistent with periodic-Poisson kernel suppressing the
+  far-field $1/r$ contribution.
+
+- **GR-3 redshift factor anomaly.**  The $c(x)$ effective-medium form gives
+  $\Delta\nu/\nu = 2\,\Delta\phi/c^2$ (factor 2) instead of the standard GR
+  factor 1.  Lattice matches its own ansatz to 0.2%; falsifies vs measured
+  Pound–Rebka by exactly factor 2.  This is the **same scalar-$c$ feature**
+  that delivers the GR factor-4 in deflection: $c(x)$ touches both $g_{00}$ and
+  $g_{xx}$ uniformly.
+
+- **GR-4 Mercury 1PN perihelion at 1.5%.**  Will/Soffel equation of motion
+  $\ddot{\mathbf r} = -GM\hat r/r^2 + (GM/(c^2 r^2))[(4GM/r - v^2)\hat r + 4(\hat r\cdot\mathbf v)\mathbf v]$
+  with velocity-Verlet at $GM=0.003$, $a=1$, $e=0.3$ gives $\Delta\omega_\text{lat} =
+  0.0612$ rad/orbit vs analytic $0.0621$.  Per-orbit std $1.6\times 10^{-5}$ rad.
+
+- **QG-2 Lorentz-violation bracket.**  BCC axis dispersion is **exactly linear**
+  in $k$ to FFT floor; diagonal $(1,1,1)$ has $\omega - k c_\text{lat} \propto k^2$
+  with $\beta_\text{diag} = 6.5\times 10^{-2}$.  At Planck $a$, $E_\text{LV}^{(\text{diag})} =
+  1.87\times 10^{20}$ GeV.  Numerical bracket on Finding 10:
+  $a \lesssim 1.5\times 10^{-34}$ m is the largest spacing consistent with
+  Fermi GRB bound $E_\text{LV} \ge 1.2\times 10^{19}$ GeV.
+
+- **CHSH Tsirelson on lattice singlet at machine precision.**  $|S| = 2\sqrt 2$
+  to $4.4\times 10^{-16}$ pure-state; to $2.2\times 10^{-9}$ after 12 free
+  Weyl-propagation ticks.  Separable / mixed sanity controls give $|S| \in
+  \{\sqrt 2, 0\}$.
+
+- **QFT-5 PMNS exact.**  3-flavour unitarity $7.7\times 10^{-17}$; probability
+  conservation $2.2\times 10^{-16}$; 2-flavour propagator vs analytic
+  $\sin^2(2\theta)\sin^2(\Delta m^2 L / 4E)$ at $4.4\times 10^{-16}$.  Float64
+  overflow at $E\cdot L \sim 10^{21}$ rad is avoided by *relative*-phase
+  evolution — record this idiom for future flavour-mixing code.
+
+- **QM-2 sub-threshold tunneling narrow-window match.**  At one "sweet-spot"
+  ($m=0.10$, $k_x=0.20$, $V_0=0.15$, width 6), $T_\text{lat}/T_\text{QM} = 0.982$.
+  In Klein regime ($V_0 = 1.5 \gg 2m$), $T_\text{lat} = 0.376$ vs Schrödinger
+  $7.9\times 10^{-8}$ — V2 Klein paradox PASS.
+
+- **QG-4 Noether at FFT floor.**  U(1) charge drift is *linear in step* at
+  $1.8\times 10^{-16}$/step at $L=256$ — exactly Finding 5's complex128 ulp.
+  Chiral $m=0$ conservation: $2.2\times 10^{-16}$ over 500 steps (machine zero).
+  Chiral $m=0.5$ swings $\pm 0.5\,Q_\text{tot}$ (expected zitterbewegung).
+  Discrete continuity $\Sigma\Delta\rho = 2.25\times 10^{-16}$/step.
+
+---
+
+## SR-2 Lorentz-violation coefficient $\beta_\text{LV}(m)$ — closed form (2026-05-19, Finding 15)
+
+The SR-2 ratio $R(\beta) = \omega_\text{moving}/\omega_\text{static}$ from Finding 12 decomposes as
+
+$$R(\beta) = \frac{1}{\gamma_\text{SR}} + \beta_\text{LV}(m)\,\beta^2 + \gamma_\text{LV}(m)\,\beta^4 + \mathcal O(\beta^6),\quad \beta = v_g/c_\text{lat},$$
+
+with closed-form coefficients (2D-square Eq. 16 QCA, $c_\text{lat} = 1/\sqrt 2$):
+
+$$\beta_\text{LV}(m) = \tfrac{1}{2}\!\left(1 - \tfrac{m}{\sqrt{1-m^2}\,\arcsin m}\right) = -\tfrac{m^2}{6} - \tfrac{11 m^4}{90} + \mathcal O(m^6).$$
+
+$$\gamma_\text{LV}(m) = \tfrac{1}{8} - \tfrac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,\arcsin m}.$$
+
+**Sign.** $\beta_\text{LV}(m) < 0$ for every $m \in (0,1)$ (corrects Finding 12's parenthetical "positive"). The lattice ratio sits below $1/\gamma_\text{SR}$ at finite $\beta$ — the QCA over-dilates relative to continuum SR.
+
+**Derivation.** Implicit differentiation of $\cos\omega = n\cos(ka)$ at $k=0$ gives $\omega''(0) = n/m$, $\omega''''(0) = -(n/m^3)(3-2m^2)$; all odd derivatives vanish by parity. Forming $\omega(k) - k\,v_g(k)$ and dividing by $\arcsin m$, then re-expressing the result in $\beta = a\,\omega'(u)$ via series inversion, yields the formulas above. Full derivation: `findings.md` Finding 15.
+
+**Exactness ledger entry.**
+
+| Construct | Exactness | Where it lives |
+|---|---|---|
+| SR-2 $\beta_\text{LV}(m)$ closed form (2D-square QCA) | **Exact algebraic** — closed-form analytic function of $m$, no fitted constants; sympy-confirmed; numerical match to FFT floor at small $k$ | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 15 |
+| SR-2 $\gamma_\text{LV}(m)$ closed form (2D-square QCA, $\beta^4$ coefficient) | **Exact algebraic** — same | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 15 |
+
+**Updated total:** 15 exact-algebraic / bit-zero results (13 prior + 2 new: $\beta_\text{LV}$, $\gamma_\text{LV}$).
+
+**Open follow-ups.** (a) 3D-BCC analog $\beta_\text{LV}^{(3\text{D})}(m, \hat k)$ — same implicit-differentiation method, BCC $\omega_k = \arccos(n\,(c_xc_yc_z \pm s_xs_ys_z))$; Finding 13 already showed the BCC numerical $\beta_\text{LV}$ is $\sim 10\times$ the 2D-square value at matched $v_g/c_\text{lat}$. (b) Higher-order coefficients ($\beta^6$ and beyond) are mechanically obtainable from the same recursion if QG-2 ever needs them.

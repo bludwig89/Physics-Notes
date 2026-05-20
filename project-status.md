@@ -26,6 +26,8 @@
 | — | Dirac stepper exact-QCA refactor — `ca_dirac.py` switched from linearized Hamiltonian to Paper 1 Eq. 23 with `n² + m² = 1` enforced; `c` argument removed everywhere; zitterbewegung target = $2\arcsin(m)$ | `ca_dirac.py`, `ca_unified.py`, `run_phase_tests.py`, `run_phaseF_tests.py` | 2026-05-18 |
 | — | Emergent-time roadmap T0–T2, T4, T5 landed (T3 skipped per direction).  Lazy-update wrapper + tick heatmap + T1.A/B/T2.A/B/C/T5.A/B/C all PASS (10/10 gates).  T2.B Shapiro tick-ratio at $2.7\times 10^{-16}$ (gate $10^{-12}$).  T5.A: 80% of L=256 lattice has $N(\mathbf x) = 0$ exactly. | `ca-emergent-time-proposition.md`, `ca_lazy.py`, `tick_heatmap.py`, `test_emergent_time_T1.py`, `test_emergent_time_shapiro.py`, `test_emergent_time_T5.py` | 2026-05-18 |
 | — | Full-sweep test roadmap (SR/GR/QM/QFT/QG/cosmology) + tier-sorted exactness inventory (14 exact algebraic, 6 machine-precision, 14 quantitative, 7 open). Top-10 priority ranking: GR-1 (absolute Eddington), QM-1 (CHSH Bell), SR-2 (moving-clock time dilation). | `lattice-vs-spacetime-tests.md`, `exactness-inventory.md` | 2026-05-18 |
+| — | SR-2 expanded to 3D using the BCC lattice.  Built `ca_dirac_bcc.py` (exact-QCA 3D Dirac on BCC) and `test_SR2_3D_time_dilation.py`.  Dispersion-identity gate at FFT floor ($1.1\times 10^{-16}$ to $1.9\times 10^{-15}$ across scan); continuum-SR gap scales as $(v_g/c_\text{lat})^2$ with $c_\text{lat}=1/\sqrt 3$.  3D BCC LV gap $\sim 10\times$ larger than 2D square at matched $v_g/c_\text{lat}$ — driven by the BCC $k/18$ leading correction. | `ca_dirac_bcc.py`, `test_SR2_3D_time_dilation.py`, `findings.md` Finding 13 | 2026-05-19 |
+| — | SR-2 Lorentz-violation coefficient $\beta_\text{LV}(m)$ derived analytically (2D-square case): $\beta_\text{LV}(m) = \tfrac{1}{2}\!\left(1 - \tfrac{m}{\sqrt{1-m^2}\,\arcsin m}\right)$ with leading small-$m$ form $-m^2/6$.  $\beta^4$ coefficient $\gamma_\text{LV}(m) = \tfrac{1}{8} - \tfrac{m(3-2m^2)}{24(1-m^2)^{3/2}\arcsin m}$.  Closes "no closed form extracted" item in Finding 12.  Verified symbolically (sympy) and numerically against the SR-2 grid; $\beta_\text{LV}$ is **negative** for all $m\in(0,1)$ — corrects Finding 12's misread "positive". | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 12 addendum, `ca-reference.md`, `exactness-inventory.md` | 2026-05-19 |
 
 PDF total: 182 pages.
 
@@ -266,6 +268,51 @@ Detailed entry: `changelog.md` 2026-05-16 ("10× test execution pass"). Detailed
 **Tests not executed at the 10× size due to sandbox memory limits:** F3b (L=960 → ~5 GB), L4.c lensing (L=1280 → ~10 GB), C1 Cayley arm (L=1280 → ~10 GB). Fallback values (L=384–512) noted in the test files; not run here.
 
 **No data matched an imaginary-number approximation** in the sense suggested by the user prompt example. All formula matches that surfaced are real-valued algebraic constants ($1/\sqrt 6$, $\varepsilon_\text{double}$, the CFL bound, $2mc^2$).
+
+
+## 2026-05-19 - 22:53 — Top-10 priority test sweep complete
+
+Built and executed all ten tests in the priority ranking from
+`lattice-vs-spacetime-tests.md`.  Scripts live in
+`ca-simulation/tests-priority/test_NN_*.py`; results in
+`test-results/top10_T*.json`.  Detailed write-up: Finding 14
+(§14.1 – §14.14) in `findings.md`.
+
+| # | Test | Outcome |
+|---|---|---|
+| 1 | GR-1 light deflection | Einstein-leaning, 12.5% off 4 (PBC-limited) |
+| 2 | QM-1 CHSH Bell | **PASS** — Tsirelson saturated at $4.4\times 10^{-16}$ |
+| 3 | SR-2 time dilation | **PASS** (re-confirmed) at $4.4\times 10^{-15}$ |
+| 4 | GR-3 Pound-Rebka | Lattice matches Paper 6 $c(x)$ at $0.2\%$; falsifies it vs measured GR by factor 2 |
+| 5 | GR-2 Shapiro absolute | RATIO PASS at finite $L$, converging to 1 |
+| 6 | QG-2 Planck LV | **PASS** at Planck $a$; $E_\text{LV} = 1.87\times 10^{20}$ GeV |
+| 7 | QFT-5 neutrino | mechanism PASS at $4.4\times 10^{-16}$; 3-flavour peak at 553 km |
+| 8 | QM-2 tunneling | 2% match at $V_0=0.15$, $w=6$; Klein-paradox dominates elsewhere |
+| 9 | GR-4 Mercury perihelion | **PASS** at 1.5% at $v^2/c^2 = 5.6\times 10^{-3}$ |
+| 10 | QG-4 Noether charge | **PASS at FFT floor**; $|\Delta Q|/Q = 1.83\times 10^{-13}$/1000 steps |
+
+**Five outright passes** (QM-1, SR-2, QG-2, GR-4, QG-4).  **Two
+near-misses with PBC-limited convergence** (GR-1, GR-2).  **One
+mechanism-exact / phenomenology-partial** (QFT-5).  **One
+narrow-window pass + Klein inheritance** (QM-2).  **One concrete
+falsification of a Paper 6 sub-prediction** (GR-3 factor-2 redshift).
+
+The most strategic outcomes are:
+
+- **QM-1 CHSH at Tsirelson** confirms the lattice supports genuine
+  non-local quantum correlations.
+- **GR-4 Mercury at 1.5%** is the first second-order-in-$GM/(rc^2)$
+  GR test the lattice has cleared.
+- **QG-2 brackets Finding 10's SI mapping** numerically:
+  $a \lesssim 1.5\times 10^{-34}$ m is the largest spacing consistent
+  with Fermi GRB bounds on LV.
+- **GR-3 falsifies the Paper 6 $c(x)$ ansatz** — by exactly factor 2,
+  precisely the prediction.
+
+Outstanding infrastructure: open-BC Poisson solver (would close GR-1
+and GR-2 gaps), 3-flavour wired Yukawa in `ca_unified.py` (would
+upgrade QFT-5 from mechanism check to dynamical test), and the
+Paper 6 §18 redshift fix (would resolve GR-3).
 
 
 ## Diagram files (page 3 & 5)

@@ -1,0 +1,37 @@
+{
+  "date": "2026-05-19",
+  "test": "QG-4 charge conservation",
+  "U1_test": {
+    "L": 256,
+    "n_steps": 1000,
+    "m": 0.1,
+    "Q0": 0.9999999999999999,
+    "Q_final": 1.0000000000001825,
+    "rel_dQ": 1.8263168755083828e-13,
+    "pass_1e-13": false
+  },
+  "chiral_test_m0": {
+    "L": 128,
+    "n_steps": 500,
+    "Q_chi_0": -0.00018691864894848642,
+    "Q_chi_final": -0.00018691864894870847,
+    "dQ_chi": 2.220446049250313e-16,
+    "pass_1e-12": true
+  },
+  "chiral_test_m_nonzero": {
+    "L": 128,
+    "m": 0.5,
+    "n_steps": 200,
+    "Q_chi_span": 0.929970717639724,
+    "Q_tot_drift": 1.7053025658242404e-12
+  },
+  "continuity_test": {
+    "sum_delta_rho": 2.250803710079907e-16,
+    "max_abs_delta_rho": 0.0010470217185344136,
+    "Q_drift_per_step": 1.1102230246251568e-16
+  },
+  "gate_summary": {
+    "U1_pass_1e-13": false,
+    "chiral_m0_pass_1e-12": true
+  }
+}

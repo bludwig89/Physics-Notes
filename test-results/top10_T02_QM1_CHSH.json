@@ -1,0 +1,41 @@
+{
+  "date": "2026-05-19",
+  "test": "QM-1 CHSH",
+  "part1": {
+    "angles_deg": {
+      "a": 0,
+      "ap": 90,
+      "b": 45,
+      "bp": 135
+    },
+    "E_ab": -0.7071067811865475,
+    "E_abp": 0.7071067811865474,
+    "E_apb": -0.7071067811865474,
+    "E_apbp": -0.7071067811865474,
+    "S": -2.82842712474619,
+    "absS": 2.82842712474619,
+    "S_target": 2.8284271247461903,
+    "residual": 4.440892098500626e-16
+  },
+  "part2": {
+    "S_separable_pure": -1.414213562373095,
+    "S_max_mixed": 0.0,
+    "classical_bound": 2.0
+  },
+  "part3": {
+    "n_steps": 12,
+    "L": 64,
+    "S_lat": -2.828427122548609,
+    "absS_lat": 2.828427122548609,
+    "S_target_Tsirelson": 2.8284271247461903,
+    "leakage_uu": 1.6173105264514324e-06,
+    "leakage_dd": 1.617310526488935e-06,
+    "residual": 2.197581228102763e-09
+  },
+  "gate": {
+    "pure_pass": true,
+    "lattice_pass": true,
+    "Tsirelson_residual_pure": 4.440892098500626e-16,
+    "Tsirelson_residual_lattice": 2.197581228102763e-09
+  }
+}

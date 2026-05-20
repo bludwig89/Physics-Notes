@@ -1,0 +1,17 @@
+{
+  "date": "2026-05-19",
+  "test": "GR-4 Mercury perihelion",
+  "GM": 0.003,
+  "a": 1.0,
+  "e": 0.3,
+  "c": 1.0,
+  "T_kepler": 114.71474419090953,
+  "v_peri": 0.0746420027292179,
+  "domega_GR_pred": 0.06214139314792997,
+  "domega_newton": -1.3147388758440344e-06,
+  "domega_gr_measured": 0.06120976325714747,
+  "domega_gr_std": 1.6124541476329425e-05,
+  "peri_count": 7,
+  "rel_err": 0.014992098560853293,
+  "gate_5pct": true
+}
