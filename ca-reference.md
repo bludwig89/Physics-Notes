@@ -40,6 +40,78 @@ Paper 6 (the full 100-page Ostoma–Trushyk treatise) adds the macroscopic EMQG 
 - **Cosmology — Milne kinematic.** Paper 6 §20: matter moves outward through pre-existing flat low-level CA space; apparent expansion is the changing curvature of light's path through density-varying accelerated vacuum. Not relevant to any current Phase A–F test, but rules out any future test that assumes expanding-cell semantics in our lattice (consistent with our toroidal `L^3` topology).
 - **Fizeau analog for the speed of light in vacuum**: Paper 6 Eq. 18.31 gives $v_c = c/n + (1 - 1/n^2)V$ for light through a medium of refractive index $n$ moving at velocity $V$. **Test V12** in the overview proposes running this in reverse: set up a linear $c(z)$ profile in `ca_curved.py` and verify the gravitational redshift $\Delta\nu/\nu \approx -|\nabla c|\,L/c$ falls out of the propagator's measured frequency shift. This would be a direct lattice check of Paper 6's central scattering claim.
 
+### SU(3) strong-force sector (added 2026-05-21)
+
+The strong sector follows the standard Wilson–Kogut–Susskind lattice-gauge construction rather than the per-cell-phase pattern used for U(1) and SU(2). The driver is gauge-covariance: a per-cell phase suffices for the SU(2) parity-violation gate (only the W^a_0 time component enters) but cannot give the colour-rotating quark kinetic term its required local gauge covariance, nor can it support gauge-invariant Wilson-loop observables. The full design is in `reference-research/ca-strong-design.md`; the implementation is `ca-simulation/ca_strong.py` and the V13 gate suite is `test_su3_noether.py`.
+
+- **State:** per cell, three flavours $f\in\{u,d,s\}$ × three colours $c\in\{r,g,b\}$ × four Dirac components = 36 complex numbers. Quarks. Plus per forward direction $\mu$, one $3\times 3$ SU(3) link matrix $U_\mu(\mathbf x)$ — 18 complex per cell in 2D, 72 in 3D BCC.
+- **Gauge transformation (local SU(3)):** $q(\mathbf x) \to V(\mathbf x) q(\mathbf x)$ and $U_\mu(\mathbf x) \to V(\mathbf x) U_\mu(\mathbf x) V^\dagger(\mathbf x+\hat\mu)$. The covariant lattice derivative $D_\mu q(\mathbf x) = U_\mu(\mathbf x) q(\mathbf x+\hat\mu) - q(\mathbf x)$ rotates as $V(\mathbf x) D_\mu q$, and the plaquette $\mathrm{Tr}\,U_\square$ is invariant.
+- **Stepper:** Strang composition `[parallel-transport half] [3-colour Dirac kinetic step per flavour] [parallel-transport half]`. Cold links $(U_\mu \equiv I)$ reduce **bit-for-bit** to three colour copies of the existing colourless Dirac stepper from `ca_dirac.py` — V13a regression contract.
+- **Conserved colour current:** $J^a_\mu(\mathbf x) = \bar q\,\gamma_\mu\,T^a\,q$ with $T^a = \lambda^a/2$. Global Noether charge $Q^a$ conserved at the FFT floor under the Strang stepper (V13b2 measured residual $3.8\times 10^{-13}$ over 200 steps); rotates as the adjoint representation $Q^a \to V_{\text{adj}}^{ab} Q^b$ under $q \to V q$ (V13b3 measured at $1.7\times 10^{-14}$ absolute, $6.6\times 10^{-16}$ relative).
+- **Wilson plaquette diagnostic:** $\mathrm{Tr}\,U_{\square_{\mu\nu}}$ is gauge-invariant; V13b4 measures the residual at $4.4\times 10^{-16}$ (machine $\varepsilon$) under per-cell random SU(3) rotation.
+- **What's not in V13:** dynamical gluons (Wilson plaquette action drives the link update — Hamiltonian formulation per Kogut–Susskind; deferred to V15). Quark Yukawa to the existing Higgs $\Phi$ field is present but locked to a static `m_flavour` dict; per-cell $m_q^{\text{eff}}(\mathbf x) = y_q\,\mathrm{Re}\,\Phi(\mathbf x)$ is V14. Cabibbo / CKM mixing absent — strange quark sits as a right-handed singlet for V13.
+- **Tie-in to v2 reduction limits:** every existing 13/13 phase test remains the gate for a specific limit (e.g., cold links → V13a; single colour single flavour → existing Dirac; $g_s = 0$ in V15 → V13b set). Nothing is broken by adopting SU(3); new gates are added.
+
+The V13 suite (G0 + V13a + V13b1 informational + V13b2 + V13b3 + V13b4) runs in 5.4 s at $L\le 32$, $n=200$, on a CPU. Results JSON in `test-results/V13_su3_noether.json`.
+
+### F26 — Speed of light as rotation rate; exact EM propagator (added 2026-05-23)
+
+*Findings 25, 26; ca_maxwell.py F26 section.*
+
+The composite-photon (E, B) pair obeys an **exact discrete rigid rotation** per CA tick:
+
+$$E(t+1) = \cos\Omega\,E(t) + \sin\Omega\,B(t), \quad B(t+1) = -\sin\Omega\,E(t) + \cos\Omega\,B(t)$$
+
+with $\Omega(\mathbf{k}) = 2\omega_\text{BCC}(\mathbf{k}/2)$.  This holds to machine precision ($2\times 10^{-16}$) while Maxwell's curl equations deviate by $c_\text{lat}/\sqrt{2}\cdot|\mathbf{k}|$ (the linearisation error).
+
+**What $c_\text{lat}$ actually is.** The speed of light is the angular rotation rate of the $(E,B)$ pair per unit wavenumber:
+$$c_\text{lat} = \frac{d\Omega}{d|\mathbf{k}|}\bigg|_{|\mathbf{k}|\to 0} = \frac{1}{\sqrt{3}} \quad (\text{BCC}), \quad \frac{1}{\sqrt{2}} \quad (\text{2D square}).$$
+This is measured numerically to $<10^{-5}$ by `c_from_rotation_rate()`.  It is not a propagation speed.
+
+**The imaginary unit is a rotation artefact.** Maxwell's equations use complex $i$ everywhere (Fourier: $\partial_t \to -i\omega$, $\nabla \to i\mathbf{k}$).  In the discrete model, $i$ is the $2\times 2$ matrix $J = \bigl[\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr]$ satisfying $J^2 = -I$ — the generator of rotations.  The imaginary unit appears in Maxwell's equations because those equations are the first-order ($\Omega \to 0$) Taylor expansion of the cosine/sine rotation.  It is not fundamental: it is the continuous-time shadow of a real rotation.
+
+**Energy conservation is geometric.** $\|E\|^2 + \|B\|^2$ is conserved exactly because a rotation preserves vector length.  This explains why energy conservation holds to machine precision (Tier-2 #10, $4.77\times 10^{-14}$) while Maxwell's equations fail by $O(k)$.
+
+**Dispersion nonlinearity.** Along the (1,1,1) BCC diagonal:
+$$\frac{\delta v_\phi}{c_\text{lat}} \approx -\frac{k}{18} \quad (\text{leading O}(k)\text{ correction from the sin}^3\theta\text{ term}).$$
+This is the Planck-scale correction prediction.  At $\alpha\%$ of the Planck frequency: $\delta v_\phi/c \approx -\alpha\pi/18$.
+
+**Chirality note.** The BCC dispersion satisfies $\omega_+(-\mathbf{k}) = \omega_-(\mathbf{k})$ (chirality swaps under $\mathbf{k} \to -\mathbf{k}$).  The spectral propagator `rotation_step_em_spectral` works correctly for **complex** (E, B) fields — as the composite-photon bilinear naturally provides.  Real-valued field inputs acquire complex components after one tick (Hermitian symmetry breaking between the $\pm$ branches).
+
+**Test file:** `model-tests/test_f26_rotation_law.py` — 9/9 tests pass.
+
+**Functions:** `ca_maxwell.rotation_step_em_spectral`, `c_from_rotation_rate`, `dispersion_nonlinearity`, `planck_correction_prediction`; analogues in `ca_maxwell_2d`.
+
+---
+
+### Composite-photon Poynting energy conservation (added 2026-05-21)
+
+*Finding 17; closes Mohr (2010) Gap C4.*
+
+The Poynting energy density $\|E_G(t)\|^2 + c^2\|B_G(t)\|^2$ of the composite-photon bilinear is conserved at machine precision during free propagation. Measured: max relative deviation $4.77\times 10^{-14}$ over 200 steps; per-step rate $1.4\times 10^{-16} \approx \varepsilon_\text{machine}$ at 10 000 steps.
+
+**F26 reframing:** this conservation is now understood as a *geometric* consequence of rotation — $\|E\|^2 + \|B\|^2$ is the squared radius of the $(E,B)$ pair under the exact rotation $R(\Omega)$, preserved exactly by orthogonality ($R^T R = I$).  The Poynting theorem is not a separate dynamical law; it is Pythagoras applied to the rotation.
+
+**Why it is algebraically exact.** Writing $G_T = \boldsymbol A + i\boldsymbol C$, the $c^2$-weighted energy $\|\boldsymbol A\|^2 + c^2\|\boldsymbol C\|^2$ is preserved for all $c$ if and only if $\boldsymbol A\cdot\boldsymbol C = 0$ and $\|\boldsymbol A\|^2 = \|\boldsymbol C\|^2$ — the circular polarization condition. The BCC bilinear $G = \psi_+^T\sigma\psi_+$ satisfies this condition to machine precision because the positive-helicity Weyl eigenmode $\psi_+$ gives a circularly polarized output — the De Broglie neutrino theory of light: two helicity-$\tfrac12$ modes combine into a helicity-$1$ circular-polarization state.
+
+Key: the conservation is **c-independent** (holds for $c_\text{lat} = 1/\sqrt{3}$ just as well as $c=1$) and **instantaneous** (every time step, not only cycle-averaged).
+
+**Test function:** `ca_maxwell.composite_photon_energy_conservation_c2()`.
+**Exactness inventory:** Tier 2 #10; circularity identity added as Tier 1 #44.
+
+### GR-3 fork resolution — extended confirmation (added 2026-05-21)
+
+*Finding 16 / gr3_forks_AB_extended.py; outputs in `test-results/gr3_forks_AB_L192.{json,md}`.*
+
+Forks A (phase-tick) and B (anisotropic) re-run at $L=192$, $n_\text{orbits}=12$:
+
+| Fork | GR-1 $|K|$ | GR-2 ratio | GR-3 ratio$_{GR}$ (mean ± std) | GR-4 ratio | orbit std |
+|---|---|---|---|---|---|
+| Fork A phase-tick | 3.8666 | 1.0006 | $1.0001 \pm 2.3\times10^{-5}$ | 2.0035 | 1.74e-4 |
+| Fork B anisotropic | 3.8681 | 1.0007 | $1.0002 \pm 6.3\times10^{-5}$ | 2.0035 | 1.74e-4 |
+
+Observations: (1) GR-3 results are identical to the $L=128$ run — spatial resolution is not a limiting factor. (2) GR-4 orbit std $1.74\times10^{-4}$ across 12 orbits confirms no numerical drift. (3) GR-4 ratio $\approx 2.00$ is consistent with Schwarzschild for $\alpha_A=\alpha_B=1$ under the $3\pi$ harness normalisation. (4) The photon sector (GR-1, GR-2) is unaffected by both fork modifications.
+
 ---
 
 ## What this CA is
@@ -384,10 +456,10 @@ New rows for the exactness inventory:
 | Construct | Exactness | Where it lives |
 |---|---|---|
 | Exact-QCA Dirac dispersion $\omega = \arccos(\sqrt{1-m^2}\,c_x c_y)$, 2D | **Machine ε** — residual $3.9\times 10^{-16}$ at $m=0.3$ (L=64, n_steps=20) | `ca_dirac.py::verify_dirac_dispersion_2d`; Finding 9 |
-| Zitterbewegung frequency $\omega_Z = 2\arcsin(m)$ | **Within FFT bin** — measured $1.04877$ vs $\pi/3 = 1.04720$ at $m=0.5$ (L=256, n_steps=2000, dt=0.5) | `ca_dirac.py::measure_zitterbewegung_freq_2d`; Finding 9 |
+| Zitterbewegung frequency $\omega_Z = 2\arcsin(m)$ | **Within FFT bin** — measured $1.04685$ vs $\pi/3 = 1.04720$ at $m=0.5$ (L=192, n_steps=3000, dt=0.5); **error 0.03%** (improved from prior 3.53% at L=320/n=5000 due to longer time baseline) | `ca_dirac.py::measure_zitterbewegung_freq_2d`; Finding 9; `run_L192_tests.py` |
 | F1 vacuum regression at exact-QCA $\Phi=v$ (η_diff vs constant-m Dirac) | **Machine ε** — $1.43\times 10^{-15}$ | `run_phaseF_tests.py::test_F1` |
 | F4 symmetric regression at exact-QCA $\Phi=0$ (η vs `weyl_step_2d_arccos_splitstep`) | **Bit-for-bit zero** — exact-QCA Dirac at $m=0$ is diag$(W_k, W_k^\dagger)$, η-block equals the standalone 2D Weyl QCA exactly | `run_phaseF_tests.py::test_F4` |
-| Aharonov-Bohm π-flux phase pickup under exact-QCA kinetic | **Machine ε** — $4.4\times 10^{-16}$ at L=128 | `run_phase_tests.py::test_E1` |
+| Aharonov-Bohm π-flux phase pickup under exact-QCA kinetic | **Machine ε** — $4.4\times 10^{-16}$ at L=128.  At L=192/σ=25 the packet traverses the flux tube in the reverse sense: measured=−π, analytic=+π; error mod 2π = 0.0 exactly.  Gate in `aharonov_bohm_test` needs `min(|Δ|, 2π−|Δ|)` fix. | `run_phase_tests.py::test_E1`; `run_L192_tests.py::test_E1` |
 
 **API change.** The `c=` argument is removed from every Dirac stepper signature.  The kinetic coefficient is now $n = \sqrt{1-m^2}$ by the QCA admissibility constraint, derived internally from `m`.  Callers that previously passed `c=0.5, m=…` should now pass only `m=…`.  Variable-mass steppers (`*_varm_*`) take `m0` (baseline mass) instead.  See `changelog.md` 2026-05-18 entry for full call-site migration.
 
@@ -467,12 +539,26 @@ These are additions to the exact-and-O(dt²) ledger; they do not change any of t
 
 Eight new measurements (Finding 14, GR-1 through QG-4) inform the reference:
 
-- **GR-1 light deflection coefficient $|K| = 3.499$** under the Paper 6
+- **GR-1 light deflection coefficient** under the Paper 6
   $c(x) = c_0/(1 - 2\phi/c_0^2)$ ansatz, eikonal ray tracer on 3D Poisson.
-  Linear-in-$M$ across $M \in \{0.5, 1, 2, 4\}$ to machine zero.  12.5% off the
-  GR target of 4; 75% off the Newtonian 2.  Convergence with $L$ trends *down*
-  toward $\sim 3.49$, consistent with periodic-Poisson kernel suppressing the
-  far-field $1/r$ contribution.
+  Linear-in-$M$ across $M \in \{0.5, 1, 2, 4\}$ to machine zero.
+  - **Periodic kernel (Finding 14.2):** $|K| = 3.499$, 12.5% off the GR
+    target of 4; convergence with $L$ trends *down* toward $\sim 3.49$ —
+    periodic-Poisson kernel suppresses the far-field $1/r$ contribution.
+  - **Open-BC kernel (Finding 14.15, `poisson_open.py`):** $|K| = 3.881$
+    (truncation-corrected), **3.0% off Einstein — PASS at the 5% gate**.
+    Convergence with $L$ now trends *up* toward $\sim 3.88$.  Residual 3%
+    is finite Gaussian-source extent ($\sigma/b = 3/8$), not the kernel.
+    The free-space solver recovers $\phi = -G_N M/r$ to machine precision
+    at $r \ge 20$ cells.
+
+- **GR-2 Shapiro delay** (Finding 14.16, open-BC kernel).  Line integral
+  of $1/c(x)$ vs the GR closed form $(2GM/c_0^3)\log[\ldots]$.
+  - **Periodic kernel:** ratio $\sim 0.5$ (38% off) — far-field $1/r$
+    tail suppressed by the periodic image sum.
+  - **Open-BC kernel:** ratio $1.00058$ at $L=192$, $b=8$ — **0.06% off,
+    PASS at the 0.1% gate**.  Convergence in $L$: $1.0062 \to 1.0006$ for
+    $L = 64 \to 192$.  **Pins PPN $\gamma = 1$** to lattice precision.
 
 - **GR-3 redshift factor anomaly.**  The $c(x)$ effective-medium form gives
   $\Delta\nu/\nu = 2\,\Delta\phi/c^2$ (factor 2) instead of the standard GR
@@ -480,6 +566,33 @@ Eight new measurements (Finding 14, GR-1 through QG-4) inform the reference:
   Pound–Rebka by exactly factor 2.  This is the **same scalar-$c$ feature**
   that delivers the GR factor-4 in deflection: $c(x)$ touches both $g_{00}$ and
   $g_{xx}$ uniformly.
+
+- **GR-3 cross-fork comparison (2026-05-21).**  `forks/gr3_fork_harness.py`
+  tests the three Finding 14.5 resolutions on a shared open-BC potential
+  ($L=128$, $M=1$, $\sigma=3$, $G_N=5\times10^{-4}$, $c_0=0.5$).  Decoupling
+  the clock readout from the propagator — by **any** of the three routes —
+  removes the factor 2:
+
+  | Fork | mechanism | GR-3 ratio$_{GR}$ | GR-4 $\Delta\omega/\Delta\omega_\text{GR}$ |
+  |---|---|---|---|
+  | baseline | $\tau=c/c_0$ | 1.9991 | 2.0033 |
+  | A phase-tick | $\tau=1+\phi/c^2$, $c$ unchanged | 1.0001 | 2.0033 |
+  | B anisotropic | $g_{00},g_{ii}$ split; $\tau=\sqrt{|g_{00}|}$ | 1.0002 | 2.0033 |
+  | C restricted-$c$ | photon coupling 2, matter 1 | 0.9998 | 1.0006 |
+
+  GR-1 ($|K|\approx3.85$) and GR-2 (ratio $\approx1.002$) are identical in
+  all four columns — the photon line integral never changes.  The
+  **physics distinction is GR-4 (Mercury):** A and B keep
+  $\alpha_A=\alpha_B=1$ (full Schwarzschild advance, degenerate with
+  baseline), while **C uses $\alpha_A=\alpha_B=0.5$ and predicts exactly
+  half the perihelion advance** ($C/\text{baseline}=0.4995$).  The
+  closed-form 1PN advance for C, $\Delta\omega\propto(2\alpha_A+2\alpha_B
+  -\alpha_A\alpha_B)=1.75$, gives ratio $1.75/3=0.5833$; the velocity-Verlet
+  integration measures $0.4995$ because the perihelion-difference observable
+  tracks the (halved) metric amplitude rather than the cross-term-corrected
+  closed form.  **Takeaway:** Fork C is the only one empirically
+  distinguishable — a Mercury-precision lattice run discriminates restricted-$c$
+  (half advance) from phase-tick / anisotropic (full advance).
 
 - **GR-4 Mercury 1PN perihelion at 1.5%.**  Will/Soffel equation of motion
   $\ddot{\mathbf r} = -GM\hat r/r^2 + (GM/(c^2 r^2))[(4GM/r - v^2)\hat r + 4(\hat r\cdot\mathbf v)\mathbf v]$
@@ -517,17 +630,21 @@ Eight new measurements (Finding 14, GR-1 through QG-4) inform the reference:
 
 ---
 
-## SR-2 Lorentz-violation coefficient $\beta_\text{LV}(m)$ — closed form (2026-05-19, Finding 15)
+## SR-2 Lorentz-violation coefficient $\beta_\text{LV}(m)$ — closed form (2026-05-19, Finding 15; $\delta_\text{LV}$ $\beta^6$ term added 2026-05-22)
 
 The SR-2 ratio $R(\beta) = \omega_\text{moving}/\omega_\text{static}$ from Finding 12 decomposes as
 
-$$R(\beta) = \frac{1}{\gamma_\text{SR}} + \beta_\text{LV}(m)\,\beta^2 + \gamma_\text{LV}(m)\,\beta^4 + \mathcal O(\beta^6),\quad \beta = v_g/c_\text{lat},$$
+$$R(\beta) = \frac{1}{\gamma_\text{SR}} + \beta_\text{LV}(m)\,\beta^2 + \gamma_\text{LV}(m)\,\beta^4 + \delta_\text{LV}(m)\,\beta^6 + \mathcal O(\beta^8),\quad \beta = v_g/c_\text{lat},$$
 
-with closed-form coefficients (2D-square Eq. 16 QCA, $c_\text{lat} = 1/\sqrt 2$):
+with closed-form coefficients (2D-square Eq. 16 QCA, $c_\text{lat} = 1/\sqrt 2$, $n = \sqrt{1-m^2}$):
 
 $$\beta_\text{LV}(m) = \tfrac{1}{2}\!\left(1 - \tfrac{m}{\sqrt{1-m^2}\,\arcsin m}\right) = -\tfrac{m^2}{6} - \tfrac{11 m^4}{90} + \mathcal O(m^6).$$
 
-$$\gamma_\text{LV}(m) = \tfrac{1}{8} - \tfrac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,\arcsin m}.$$
+$$\gamma_\text{LV}(m) = \tfrac{1}{8} - \tfrac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,\arcsin m} = -\tfrac{m^2}{12} + \mathcal O(m^4).$$
+
+$$\delta_\text{LV}(m) = \tfrac{1}{16} - \tfrac{m\,(8m^4 - 20m^2 + 15)}{240\,(1-m^2)^{5/2}\,\arcsin m} = -\tfrac{m^2}{16} + \mathcal O(m^4).$$
+
+The numerator polynomials follow a pattern: $P_1 = m$, $P_2 = 3m - 2m^3$, $P_3 = 15m - 20m^3 + 8m^5$; the rational constants $\tfrac12, \tfrac18, \tfrac1{16}$ are the SR Taylor coefficients of $-\sqrt{1-\beta^2}$ at $\beta^{2,4,6}$.
 
 **Sign.** $\beta_\text{LV}(m) < 0$ for every $m \in (0,1)$ (corrects Finding 12's parenthetical "positive"). The lattice ratio sits below $1/\gamma_\text{SR}$ at finite $\beta$ — the QCA over-dilates relative to continuum SR.
 
@@ -539,7 +656,123 @@ $$\gamma_\text{LV}(m) = \tfrac{1}{8} - \tfrac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,
 |---|---|---|
 | SR-2 $\beta_\text{LV}(m)$ closed form (2D-square QCA) | **Exact algebraic** — closed-form analytic function of $m$, no fitted constants; sympy-confirmed; numerical match to FFT floor at small $k$ | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 15 |
 | SR-2 $\gamma_\text{LV}(m)$ closed form (2D-square QCA, $\beta^4$ coefficient) | **Exact algebraic** — same | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 15 |
+| SR-2 $\delta_\text{LV}(m)$ closed form (2D-square QCA, $\beta^6$ coefficient, 2026-05-22) | **Exact algebraic** — same; sympy bit-zero against series, sharpens the $\beta^4$ fit on the SR-2 grid | `ca-simulation/derive_beta_LV.py::delta_LV`, `findings.md` Finding 15 |
 
-**Updated total:** 15 exact-algebraic / bit-zero results (13 prior + 2 new: $\beta_\text{LV}$, $\gamma_\text{LV}$).
+**Updated total:** 16 exact-algebraic / bit-zero results (13 prior + 3 new: $\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$).
 
-**Open follow-ups.** (a) 3D-BCC analog $\beta_\text{LV}^{(3\text{D})}(m, \hat k)$ — same implicit-differentiation method, BCC $\omega_k = \arccos(n\,(c_xc_yc_z \pm s_xs_ys_z))$; Finding 13 already showed the BCC numerical $\beta_\text{LV}$ is $\sim 10\times$ the 2D-square value at matched $v_g/c_\text{lat}$. (b) Higher-order coefficients ($\beta^6$ and beyond) are mechanically obtainable from the same recursion if QG-2 ever needs them.
+---
+
+## Mohr (2010), *Annals of Physics* **325**, 607–663 — *Maxwell Equations and Photon Wave Functions* (2026-05-20 - 14:00)
+
+Full summary and comparison in `reference-research/mohr-2010-maxwell-photon-wf-summary.md`. Key cross-reference observations for `ca_maxwell.py` / `ca_maxwell_2d.py`:
+
+- **Structural identity.** Mohr's $\Psi = (E_s, icB_s)^T$ is exactly the object our `EM_bilinears` returns: upper 3 = $E_G$, lower 3 = $icB_G$. The 6-component structure is correct. Mohr uses 3×3 tau matrices (spin-1 fundamental); we derive the same 6-component field as a bilinear of two Weyl spin-1/2 fields — both routes give the same output $\Psi$.
+
+- **Transverse projector identity.** Mohr's $\Pi^T_s(\nabla) = (\boldsymbol{\tau}\cdot\nabla)^2/\nabla^2$ (Eq. 70) is precisely the operator our `_transverse_part` implements via $G_T = G - (G\cdot\hat{n})\hat{n}$. The 4.58e-17 residual in transversality is the correct floor.
+
+- **Polarization completeness.** Mohr Eq. (213): $\sum_{\lambda=1}^2 \hat{\boldsymbol{\epsilon}}_\lambda\hat{\boldsymbol{\epsilon}}_\lambda^\dagger = \boldsymbol{I} - \hat{\boldsymbol{k}}_s\hat{\boldsymbol{k}}_s^\dagger = (\boldsymbol{\tau}\cdot\hat{\boldsymbol{k}})^2$. Our transverse projection is the same object — the completeness relation of the two polarization vectors. We do not yet have an explicit labeled $(\hat{\boldsymbol{\epsilon}}_1, \hat{\boldsymbol{\epsilon}}_2)$ basis for arbitrary $\hat{\boldsymbol{k}}$.
+
+- **Normalization gap.** Mohr's normalized plane-wave wave functions carry a factor $1/\sqrt{2(2\pi)^3}$ (Eq. 217). Our bilinear $E_G, B_G$ is not normalized to this convention; normalization is implicit in the Weyl eigenmode amplitudes. For quantitative comparison with Mohr's Green function or radiation formulas, an explicit normalization function is needed.
+
+- **Lorentz covariance.** Mohr proves that under a boost, the transverse wave function picks up a scalar factor $\xi = \cosh\zeta + \hat{\boldsymbol{v}}\cdot\hat{\boldsymbol{k}}\sinh\zeta$ and modified polarization vectors — **transversality is preserved** (Eq. 284). This is not the case for the vector potential. We have not tested this for our bilinear; proposed as a new V-test.
+
+- **Invariants.** $\bar{\Psi}\Psi = |E|^2 - c^2|B|^2$ and $\bar{\Psi}\eta\Psi = 2ic\operatorname{Re}E\cdot B$ are Lorentz invariants (Mohr Eqs. 181–182). These can be computed from $E_G, B_G$ and should be frame-independent — an additional check that can be added to `maxwell_curl_residual`.
+
+- **Poynting energy gap.** Mohr Eq. (55): $\bar{\Psi}cp^0\Psi = \frac{1}{2}(\epsilon_0|E|^2 + |B|^2/\mu_0) = u$. We have never verified that $\|E_G(t)\|^2 + c^2\|B_G(t)\|^2$ is conserved during composite-photon propagation. Should be added to the exactness inventory.
+
+- **Longitudinal mode.** Mohr's $\lambda=0$ state $\psi^{(+)}_{\boldsymbol{k},0} = (\hat{\boldsymbol{k}}_s, \boldsymbol{0})^T / \sqrt{(2\pi)^3}$ has $\omega=0$ and represents static Coulomb fields. Not implemented in our bilinear — correct for free photons but needed for completeness and source coupling.
+
+- **Angular momentum.** Matrix spherical harmonics $\boldsymbol{Y}^m_{jl}(\hat{\boldsymbol{x}})$ (Mohr Eqs. 386, 391–393) are the angular-momentum eigenstates of the photon. Not implemented; required for multipole radiation calculations.
+
+### Priority improvements proposed (see full summary for implementation notes)
+
+| Priority | Improvement |
+|---|---|
+| High | `polarization_basis(khat)` — explicit $\hat{\boldsymbol{\epsilon}}_1, \hat{\boldsymbol{\epsilon}}_2$ in spherical basis following Mohr Eqs. 210–216 |
+| High | `composite_photon_energy_conservation()` — verify $\|E_G\|^2 + c^2\|B_G\|^2 = \mathrm{const}$ |
+| Medium | Lorentz boost covariance test using Mohr's $\mathcal{V}(\boldsymbol{v})$ (Eq. 171) |
+| Medium | Longitudinal ($\lambda=0$) mode orthogonality check |
+| Low | Angular momentum eigenstates (matrix spherical harmonics) |
+
+**Open follow-ups.** (a) 3D-BCC analog $\beta_\text{LV}^{(3\text{D})}(m, \hat k)$ — same implicit-differentiation method, BCC $\omega_k = \arccos(n\,(c_xc_yc_z \pm s_xs_ys_z))$; Finding 13 already showed the BCC numerical $\beta_\text{LV}$ is $\sim 10\times$ the 2D-square value at matched $v_g/c_\text{lat}$. (b) The $\beta^6$ coefficient $\delta_\text{LV}(m)$ is now in closed form (2026-05-22, above); $\beta^8$ and beyond remain mechanically obtainable from the same recursion if QG-2 ever needs them.
+
+---
+
+## Composite-photon curl residual — geometry independence (2026-05-22 - 13:42)
+
+*From the geometry forks `ca-simulation/forks/curl_fork_{cubic,baseline_bcc,harness}.py`; full writeup `findings/F21-curl-residual-geometry-independence.md`.*
+
+The pointwise composite-photon bilinear (Paper 1 Eq. 35) satisfies the free-Maxwell curl equation only to $O(k)$ (Finding 2). Building a simple-cubic Weyl QCA ($s_i=\sin k_i$, $\omega=\sqrt{\sum_i \sin^2 k_i}$, so $c_\text{lat}=1$) and a baseline-BCC fork, and running identical curl/$c$/doubler diagnostics, gives the **geometry-independent law**:
+
+$$\frac{\|\partial_t \mathbf E_G - i\,2\tilde{\mathbf n}\times\mathbf B_G\|}{(\|\mathbf E_G\|+\|\mathbf B_G\|)\,|k|} \;=\; \frac{c_\text{lat}}{\sqrt2}$$
+
+verified to 6 figures across 5 geometries ($c_\text{lat}\in[0.5,2]$ via scaled-cubic $H=\alpha\,\sigma\!\cdot\!\mathbf s$). The earlier $1/\sqrt{2d}$ (Exactness Inventory #7) is the BCC special case, since the QCA family has $c_\text{lat}=1/\sqrt d$. Cross-check: 2D-square $c_\text{lat}=1/\sqrt2 \Rightarrow$ coefficient $1/2 = 1/\sqrt{2\cdot2}$.
+
+Geometry comparison ($|k|=0.1$ for isotropy; doublers on the $N=12$ FFT grid):
+
+| metric | BCC | simple-cubic |
+|---|---|---|
+| $c_\text{lat}$ (axis / diag) | $0.5774$ / $0.5773$ | $1.0000$ / $1.0000$ |
+| dispersion isotropy (diag/axis) | $0.9886$ | $1.0011$ |
+| fermion doublers | $1$ | $8$ (Nielsen–Ninomiya $2^d$) |
+| curl slope / coeff | $1.0004$ / $1/\sqrt6$ | $1.0000$ / $1/\sqrt2$ |
+
+**Conclusion:** the $O(k)$ curl failure is intrinsic to the un-smeared pointwise bilinear, **not** the lattice geometry. Cubic geometry buys $c_\text{lat}=1$ (and marginally better isotropy) at the cost of 8 fermion doublers and a *larger* curl coefficient — a net loss. The remaining suspect for closing the curl equation at $O(k^3)$ is Paper 1's smearing function $f_{\mathbf k}(\mathbf q)$ (Finding 2 hypothesis #1); the $c_\text{lat}/\sqrt2$ baseline is the coefficient a successful smearing must drive to zero.
+
+---
+
+## Complex-mass / Chiral SU(2) fork (2026-05-23 - 12:00)
+
+*From `ca-simulation/forks/complex_mass_fork.py`; full writeup `findings/F27-complex-mass-chiral-su2.md`. Source: physics_notes_0708.pdf pages 59–60.*
+
+### Construction
+
+Ludwig's proposal: replace the scalar Dirac mass coupling $im$ with $im\,e^{i\theta(x)}$ — equivalently, gauge the β matrix via $\beta_g = (U\sigma_1 U^\dagger)\otimes\mathbf I$ where $U = \mathrm{diag}(1, e^{i\theta})$. This gives $\beta_g = \cos\theta\,\sigma_1 + \sin\theta\,\sigma_2$ — a local rotation in the $\sigma_1$–$\sigma_2$ plane, which becomes a U(1) gauge freedom when $\theta = \theta(x,t)$.
+
+For an isospin doublet $(\nu, e)$, the scalar phase generalizes to $U(x)\in\mathrm{SU}(2)$ acting on the isospin index (leaving the spin-$\tfrac{1}{2}$ index untouched):
+
+$$M_\text{SU2} = c_m\,\mathbf I_{8} + i\,s_m\begin{pmatrix} 0 & U\otimes\mathbf I_\text{spin} \\ U^\dagger\otimes\mathbf I_\text{spin} & 0 \end{pmatrix}$$
+
+where $c_m = \cos(m\,\delta t)$, $s_m = \sin(m\,\delta t)$. This is exactly unitary because $A = \begin{pmatrix}0 & U\otimes I \\ U^\dagger\otimes I & 0\end{pmatrix}$ is Hermitian with $A^2 = I$ (since $UU^\dagger = I$), so $M = c\,I + i\,s\,A$ satisfies $M^\dagger M = I$ for any $U(x)$.
+
+The full split-step uses **Strang splitting** to handle spatially varying $U(x,t)$:
+- kinetic half-step $(\delta t/2)$ using `exact2d_unitary` + FFT
+- mass step $(\delta t)$ acting locally cell-by-cell
+- kinetic half-step $(\delta t/2)$
+
+### Key Results (all machine precision)
+
+**Chiral SU(2) Ward identity (T5):**
+
+$$V(x)\cdot M(U)\,\psi = M(V\cdot U)\cdot V_L\,\psi$$
+
+where $V_L$ acts only on the left-handed $\eta$ sector and leaves $\chi$ unchanged. Residual: $1.055\times 10^{-17}$.
+
+This is local SU(2)_L gauge invariance of the mass coupling *without a Higgs field*.
+
+**U(x) as Higgs-VEV direction (T9):**
+
+| U field | $\nu_L$ | $e_L$ | $\nu_R$ | $e_R$ |
+|---------|---------|---------|---------|---------|
+| $U = I$ | 0.436 | 0.000 | **0.564** | 0.000 |
+| $U = i\sigma_1$ | 0.436 | 0.000 | 0.000 | **0.564** |
+| $U = 45°$ mix | 0.436 | 0.000 | 0.282 | 0.282 |
+
+$U(x)$ steers which doublet component couples to the right-handed singlet — exactly the Higgs VEV direction job — but it is a pure gauge degree of freedom, not a physical boson.
+
+**Other observations:**
+- $\theta(x)$ is pure gauge: dispersion is $\theta$-independent to $3.3\times 10^{-16}$ (T3)
+- Right-handed $\chi$ is *identically* unchanged by SU(2)_L: residual $= 0.000$ (T6, exact zero)
+- Mass gap exists with $U=I$ and no scalar condensate: $N_R = 0.820$ after 80 steps (T7)
+- $\langle T_3\rangle = +\tfrac{1}{2}$ for $\nu_L$: residual $1.110\times 10^{-16}$ (T8)
+- Unitarity with random SU(2) field, 40 steps, $L=24$: $2.520\times 10^{-14}$ (T2)
+
+### Limitation
+
+The kinetic step is **not** locally SU(2) invariant by itself — it requires $W_\mu$ gauge bosons for full local invariance. This is identical to the situation in the Standard Model (the Yang-Mills kinetic term also requires $W_\mu$). It is a general feature of all chiral gauge theories, not a defect of the complex-mass proposal.
+
+### Open Questions
+
+1. Can $W_\mu$ be derived from the lattice structure, or must they be added by hand?
+2. What is the correct propagator for the $U(x)$ field? (It is pure gauge at the fermion level — does it acquire dynamics from the kinetic sector?)
+3. Does the complex-mass Yukawa coupling reduce to the SM Yukawa $L_Y = -y(\Phi^\dagger\bar\psi_L\psi_R + \text{h.c.})$ in the continuum limit, with $U \to \Phi/|\Phi|$?

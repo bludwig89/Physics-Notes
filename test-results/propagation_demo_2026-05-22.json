@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "casim_dir": "/sessions/blissful-epic-faraday/mnt/Physics Notes/ca-simulation",
+    "date": "2026-05-22 13:39",
+    "wall_seconds": 7.453516960144043
+  },
+  "weyl_fermion": {
+    "measured_vg_cells_per_step": 0.575200387246309,
+    "predicted_vg": 0.5773502691896258,
+    "rel_err": 0.003723704756099765,
+    "centroid_start": 14.004803110392851,
+    "centroid_end": 39.25126427527542,
+    "cells_traversed": 25.246461164882568
+  },
+  "dirac_fermion": {
+    "mass_m": 0.3,
+    "measured_vg_cells_per_step": 0.46673254042763357,
+    "predicted_vg_dwdk": 0.4717157000860839,
+    "rel_err": 0.01056390460936731,
+    "c_lat": 0.5773502691896258,
+    "vg_over_clat": 0.8084044735663563,
+    "centroid_start": 14.004803110392853,
+    "centroid_end": 34.53496193678766,
+    "cells_traversed": 20.530158826394807
+  },
+  "composite_photon": {
+    "measured_vg_cells_per_step": 0.5530258723673788,
+    "predicted_vg": 0.5773502691896258,
+    "rel_err": 0.04213109115959887,
+    "photon_mean_k": 0.8,
+    "centroid_start": 14.000009133000804,
+    "centroid_end": 38.396067182751764,
+    "cells_traversed": 24.396058049750962
+  },
+  "photon_momentum_space_gates": {
+    "dispersion_residual_rel": 0.00211795109947464,
+    "transversality_residual": 4.5810364522587704e-17,
+    "poynting_energy_drift_200steps": 4.768883184475404e-14
+  }
+}

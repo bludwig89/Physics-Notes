@@ -1,0 +1,38 @@
+{
+  "G0_generator_algebra": {
+    "norm_residual": 1.1102230246251565e-16,
+    "hermiticity_residual": 0.0,
+    "su3_unitarity_residual": 9.992150879362355e-16,
+    "su3_determinant_residual": 7.771920525871112e-16,
+    "passed": true
+  },
+  "V13a_cold_link_regression": {
+    "max_diff_vs_dirac": 0.0,
+    "other_channels_max": 0.0,
+    "passed": true
+  },
+  "V13b1_per_cell_divergence": {
+    "div_max": 0.032452065681045056,
+    "div_mean": 0.00025621864653998865,
+    "J0_scale": 0.3798075880506675,
+    "ratio": 0.08544343689288232,
+    "passed": true,
+    "gate_type": "informational"
+  },
+  "V13b2_global_charge": {
+    "charge_drift_max": 3.836930773104541e-13,
+    "norm_drift_max": 7.673861546209082e-13,
+    "Q_initial_scale": 28.274333882303182,
+    "passed": true
+  },
+  "V13b3_global_adjoint": {
+    "adjoint_residual": 1.7319479184152442e-14,
+    "Q_scale": 26.132442568801554,
+    "passed": true
+  },
+  "V13b4_local_invariance": {
+    "norm_diff_max": 4.263256414560601e-14,
+    "plaq_diff_max": 4.440892098500626e-16,
+    "passed": true
+  }
+}

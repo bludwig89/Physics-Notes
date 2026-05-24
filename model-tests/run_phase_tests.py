@@ -1,0 +1,622 @@
+"""
+run_phase_tests.py  —  End-to-end test suite for all implemented phases
+========================================================================
+Runs every phase added in the Next-Steps implementation pass and reports
+pass/fail with measured residuals.  Saves figures to ./figures/phase_*.png.
+
+Phases covered:
+  A1  Bloch-sphere coloring
+  A2  Static visualization frames (strip, spacetime, graph)
+  B1  Group-velocity measurement
+  B2  Min-size / min-σ sweeps
+  C1  Variable-c (refraction)
+  D1  Dirac CA (mass, dispersion, zitterbewegung)
+  E1  U(1) electromagnetic gauge (Aharonov-Bohm phase)
+  E2  SU(2) weak gauge (parity violation)
+"""
+
+import os
+import sys
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'ca-simulation'))
+
+import ca_core as ca
+import ca_dirac as dirac
+import ca_curved as cv
+import ca_weak as wk
+import spinor_color as sc
+
+FIGURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'figures')
+os.makedirs(FIGURES_DIR, exist_ok=True)
+
+
+def section(title):
+    print()
+    print('=' * 72)
+    print('  ' + title)
+    print('=' * 72)
+
+
+def check(name, ok, detail=''):
+    status = 'PASS' if ok else 'FAIL'
+    print(f'  [{status}]  {name}  {detail}')
+    return ok
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase A1 — Bloch-sphere coloring
+# ══════════════════════════════════════════════════════════════════
+
+def test_A1():
+    section('Phase A1 — Bloch-sphere coloring')
+    # 10× resolution bump (2026-05-16): 32 → 320.  Gaussian σ scales with L
+    # to preserve the visual feature size in proportion to the canvas.
+    L = 320
+    shape = (L, L)
+    # Three Gaussian helicity states
+    fL, gL = ca.gaussian_spinor_2d(shape, sigma=50.0, helicity='left')
+    fR, gR = ca.gaussian_spinor_2d(shape, sigma=50.0, helicity='right')
+    fM, gM = ca.gaussian_spinor_2d(shape, sigma=50.0, helicity='mixed')
+
+    peak = (np.abs(fL)**2 + np.abs(gL)**2).max()
+    rgbL = sc.spinor_to_rgb(fL, gL, peak=peak)
+    rgbR = sc.spinor_to_rgb(fR, gR, peak=peak)
+    rgbM = sc.spinor_to_rgb(fM, gM, peak=peak)
+    legend = sc.make_bloch_legend(size=128)
+
+    # Center pixel of each state should match the analytic mapping
+    cL = rgbL[L//2, L//2]
+    cR = rgbR[L//2, L//2]
+    cM = rgbM[L//2, L//2]
+
+    # left  (f=G, g=0):     θ=0  → lightness 0.85 (bright)
+    # right (f=0, g=G):     θ=π  → lightness 0.15 (dark)
+    # The center pixel of left should be lighter than right.
+    avg_L = float(np.mean(cL))
+    avg_R = float(np.mean(cR))
+    ok1 = check('left center brighter than right center',
+                avg_L > avg_R,
+                f'(left avg={avg_L:.3f}, right avg={avg_R:.3f})')
+
+    # Render strip image
+    fig, axes = plt.subplots(1, 4, figsize=(12, 3.2))
+    axes[0].imshow(rgbL, origin='lower'); axes[0].set_title('left helicity')
+    axes[1].imshow(rgbR, origin='lower'); axes[1].set_title('right helicity')
+    axes[2].imshow(rgbM, origin='lower'); axes[2].set_title('mixed (G/√2, G/√2)')
+    axes[3].imshow(legend, origin='lower'); axes[3].set_title('Bloch legend')
+    for ax in axes:
+        ax.set_xticks([]); ax.set_yticks([])
+    plt.suptitle('Phase A1 — Bloch-sphere spinor coloring')
+    plt.tight_layout()
+    out = os.path.join(FIGURES_DIR, 'phaseA1_bloch_coloring.png')
+    plt.savefig(out, dpi=120, bbox_inches='tight'); plt.close()
+    check('strip image written', os.path.exists(out), f'-> {out}')
+
+    return ok1
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase A2 — Visualization frames
+# ══════════════════════════════════════════════════════════════════
+
+def test_A2():
+    section('Phase A2 — Visualization frames')
+    # 10× resolution bump (2026-05-16): 64 → 640.  σ and snapshot times
+    # scale with the lattice so the visualized propagation is the same
+    # *physical* event at 10× finer spacing.
+    L = 640
+    sigma = 50.0
+    c = 0.5
+    snap_steps = [0, 600, 1200, 1800, 2400]
+
+    f, g = ca.gaussian_spinor_2d((L, L), sigma=sigma, helicity='mixed')
+    frames_2d = []
+    for step in range(max(snap_steps) + 1):
+        if step in snap_steps:
+            frames_2d.append((f.copy(), g.copy()))
+        if step < max(snap_steps):
+            f, g = ca.weyl_step_2d_splitstep(f, g, c)
+
+    # peak across all snapshots for consistent saturation
+    peak = max((np.abs(f0)**2 + np.abs(g0)**2).max() for f0, g0 in frames_2d)
+
+    fig, axes = plt.subplots(1, len(frames_2d), figsize=(15, 3.2))
+    for ax, t_step, (f0, g0) in zip(axes, snap_steps, frames_2d):
+        rgb = sc.spinor_to_rgb(f0, g0, peak=peak)
+        ax.imshow(rgb, origin='lower')
+        ax.set_title(f't = {t_step}')
+        ax.set_xticks([]); ax.set_yticks([])
+    plt.suptitle('Phase A2 — Weyl CA Bloch-colored propagation (mixed helicity)')
+    plt.tight_layout()
+    out1 = os.path.join(FIGURES_DIR, 'phaseA2_bloch_strip.png')
+    plt.savefig(out1, dpi=120, bbox_inches='tight'); plt.close()
+    check('2D strip image written', os.path.exists(out1), f'-> {out1}')
+
+    # 1D spacetime coloring (10× bump: N1=96→960, σ=4→40, n_steps=200→2000)
+    N1 = 960
+    n_steps = 2000
+    x = np.arange(N1) - N1 // 2
+    f1 = np.exp(-x**2 / (2 * 40.0**2)).astype(complex)
+    g1 = np.zeros(N1, dtype=complex)
+
+    f_history = [f1.copy()]
+    g_history = [g1.copy()]
+    for _ in range(n_steps):
+        f1, g1 = ca.weyl_step_2d_splitstep(f1.reshape(N1, 1),
+                                            g1.reshape(N1, 1), c=0.5)
+        f1 = f1.reshape(N1); g1 = g1.reshape(N1)
+        f_history.append(f1.copy()); g_history.append(g1.copy())
+    f_arr = np.array(f_history); g_arr = np.array(g_history)
+    rgb_st = sc.spinor_to_rgb(f_arr, g_arr)
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    ax.imshow(rgb_st, origin='lower', aspect='auto')
+    ax.set_xlabel('cell index'); ax.set_ylabel('time step')
+    ax.set_title('Phase A2 — 1D spacetime, Bloch-colored\n'
+                 '(left-helicity Gaussian on a ring)')
+    out2 = os.path.join(FIGURES_DIR, 'phaseA2_spacetime_color.png')
+    plt.savefig(out2, dpi=120, bbox_inches='tight'); plt.close()
+    check('1D spacetime image written', os.path.exists(out2), f'-> {out2}')
+
+    # NetworkX graph view (small lattice — graph plot becomes unreadable
+    # above ~32 nodes per side, so we keep this *display* lattice small
+    # rather than 10×-bump it.  This is a visualization scale, not a
+    # physics-resolution scale.)
+    try:
+        import networkx as nx
+        Lg = 8
+        f, g = ca.gaussian_spinor_2d((Lg, Lg), sigma=2.0, helicity='left')
+        for _ in range(3):
+            f, g = ca.weyl_step_2d_splitstep(f, g, c=0.5)
+        rgb = sc.spinor_to_rgb(f, g)
+        G = nx.grid_2d_graph(Lg, Lg, periodic=True)
+        pos = {(i, j): (j, i) for i, j in G.nodes()}
+        node_colors = [rgb[i, j] for i, j in G.nodes()]
+        fig, ax = plt.subplots(figsize=(6, 6))
+        nx.draw(G, pos=pos, node_color=node_colors, node_size=300,
+                edge_color='lightgray', with_labels=False, ax=ax)
+        ax.set_title('Phase A2 — 8×8 lattice as a graph (t=3)')
+        out3 = os.path.join(FIGURES_DIR, 'phaseA2_graph_view.png')
+        plt.savefig(out3, dpi=120, bbox_inches='tight'); plt.close()
+        check('graph view written', os.path.exists(out3), f'-> {out3}')
+    except ImportError:
+        print('  [SKIP]  NetworkX not available')
+
+    return True
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase B1 — Group velocity
+# ══════════════════════════════════════════════════════════════════
+
+def test_B1():
+    section('Phase B1 — Group-velocity measurement')
+    all_ok = True
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    # 10× bump (2026-05-16): L=128→1280, n_steps=60→600, σ=8→80
+    for k0 in [(0.3, 0.0), (0.0, 0.3), (0.4, 0.3), (0.6, 0.0)]:
+        res = ca.measure_group_velocity_2d(L=1280, n_steps=600, c=0.5,
+                                            k0=k0, sigma=80.0)
+        ok = abs(res['speed_ratio'] - 1.0) < 0.15
+        all_ok = all_ok and ok
+        check(f'k0={k0}', ok, f'speed_ratio={res["speed_ratio"]:.4f}')
+        c = res['centroids']
+        ax.plot(c[:, 0], c[:, 1], '-', label=f'k0={k0}')
+    ax.set_xlabel('x centroid'); ax.set_ylabel('y centroid')
+    ax.set_title('Phase B1 — wave-packet centroid trajectories')
+    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    out = os.path.join(FIGURES_DIR, 'phaseB1_group_velocity.png')
+    plt.savefig(out, dpi=120, bbox_inches='tight'); plt.close()
+    return all_ok
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase B2 — Min-size sweeps
+# ══════════════════════════════════════════════════════════════════
+
+def test_B2():
+    section('Phase B2 — Size sweeps')
+    # 10× bump (2026-05-16): sweep range, σ, and σ-sweep L all scaled up.
+    # The asymptotic-convergence claim of the L sweep is preserved: the
+    # smallest L still represents the coarsest resolution at which the
+    # propagator is run, just on a finer-spacing absolute lattice.
+    L_results = ca.size_sweep_L([80, 120, 160, 240, 320, 480, 640],
+                                  n_steps=400, c=0.5, sigma=30.0, k0=(0.6, 0.0))
+    sigma_results = ca.size_sweep_sigma([5.0, 10.0, 15.0, 20.0, 30.0, 50.0],
+                                          L=320, n_steps=300, c=0.5, k0=(0.6, 0.0))
+
+    for r in L_results:
+        print(f'  L={r["L"]:3d}  speed_ratio={r["speed_ratio"]:.4f}  norm_drift={r["norm_drift"]:.2e}')
+    for r in sigma_results:
+        print(f'  σ={r["sigma"]:.2f}  speed_ratio={r["speed_ratio"]:.4f}  frac_above_Nyq={r["frac_above_nyquist"]:.2e}')
+
+    # Check that L≥320 and σ≥30 give the expected convergence (10× bump).
+    ok_L = any(r['L'] >= 320 and r['speed_ratio'] > 0.9 for r in L_results)
+    ok_sigma = any(r['sigma'] >= 30.0 and r['frac_above_nyquist'] < 1e-3
+                   for r in sigma_results)
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.0))
+    Ls = [r['L'] for r in L_results]; sr = [r['speed_ratio'] for r in L_results]
+    ax1.plot(Ls, sr, 'o-'); ax1.axhline(1.0, color='gray', linestyle='--')
+    ax1.set_xscale('log')
+    ax1.set_xlabel('L'); ax1.set_ylabel('speed_ratio')
+    ax1.set_title('B2 — L sweep'); ax1.grid(alpha=0.3)
+
+    sigmas = [r['sigma'] for r in sigma_results]
+    nyq    = [r['frac_above_nyquist'] for r in sigma_results]
+    ax2.semilogy(sigmas, nyq, 's-'); ax2.set_xlabel('σ')
+    ax2.set_ylabel('fraction of power above Nyquist/2')
+    ax2.set_title('B2 — σ sweep'); ax2.grid(alpha=0.3, which='both')
+    out = os.path.join(FIGURES_DIR, 'phaseB2_size_sweeps.png')
+    plt.savefig(out, dpi=120, bbox_inches='tight'); plt.close()
+
+    check('L>=32 → speed_ratio>0.9', ok_L)
+    check('σ>=3 → <0.1% above Nyquist', ok_sigma)
+    return ok_L and ok_sigma
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase C1 — Variable-c refraction
+# ══════════════════════════════════════════════════════════════════
+
+def test_C1():
+    section('Phase C1 — Variable-c refraction (Snell\'s law)')
+
+    # 10× bump (2026-05-16): L=128→1280, σ=8→80, n_steps=200→2000.  k_in is
+    # dimensionless and unchanged.
+    # WARNING: the Cayley arm builds a sparse (2L²)×(2L²) LU at L=1280.
+    # SciPy SuperLU memory grows as O(L³) for 2D nested-dissection, ≈ 10 GB
+    # at L=1280.  If memory-bound, drop to L=384 or switch to a Krylov
+    # solver (CG/MINRES with a multigrid preconditioner).
+    L_c1 = 1280
+    sigma_c1 = 80.0
+    n_steps_c1 = 2000
+
+    # Strang-split version (production)
+    res_s = cv.measure_refraction(L=L_c1, n_steps=n_steps_c1,
+                                    c_left=0.5, c_right=0.3,
+                                    k_in=(0.5, 0.15), sigma=sigma_c1,
+                                    x_start_frac=0.25,
+                                    method='strang', n_sub=4)
+    # Blending (kept for comparison)
+    res_b = cv.measure_refraction(L=L_c1, n_steps=n_steps_c1,
+                                    c_left=0.5, c_right=0.3,
+                                    k_in=(0.5, 0.15), sigma=sigma_c1,
+                                    x_start_frac=0.25,
+                                    method='blend')
+    # P3 (2026-05-15): exact-unitary Cayley/Crank–Nicolson stepper
+    res_c = cv.measure_refraction(L=L_c1, n_steps=n_steps_c1,
+                                    c_left=0.5, c_right=0.3,
+                                    k_in=(0.5, 0.15), sigma=sigma_c1,
+                                    x_start_frac=0.25,
+                                    method='cayley')
+
+    print(f'  Strang split (n_sub=4):')
+    print(f'    theta_in={res_s["theta_in_deg"]:.2f}°  theta_out={res_s["theta_out_deg"]:.2f}°  Snell={res_s["theta_out_pred_deg"]:.2f}°')
+    print(f'    norm drift over 200 steps = {res_s["norm_drift"]:.3e}')
+    print(f'  Blending (comparison):')
+    print(f'    theta_out={res_b["theta_out_deg"]:.2f}°')
+    print(f'    norm drift over 200 steps = {res_b["norm_drift"]:.3e}')
+    print(f'  Cayley (exact-unitary, P3):')
+    print(f'    theta_out={res_c["theta_out_deg"]:.2f}°  Snell={res_c["theta_out_pred_deg"]:.2f}°')
+    print(f'    norm drift over 200 steps = {res_c["norm_drift"]:.3e}')
+
+    err = abs(res_s['theta_out_deg'] - res_s['theta_out_pred_deg'])
+    ok_refr = check('Strang refraction within 1.5° of Snell',
+                    err < 1.5, f'(err = {err:.2f}°)')
+
+    # Strang should improve norm drift over blending (in long-time regime).
+    ok_norm = check('Strang norm drift ≤ blending',
+                    res_s['norm_drift'] <= res_b['norm_drift'] * 1.05,
+                    f'(strang={res_s["norm_drift"]:.2e}, blend={res_b["norm_drift"]:.2e})')
+
+    # Cayley contract: norm conservation at machine precision is the headline.
+    # Refraction angle has lattice dispersion (centered first-diff ω(k)=c·sin(k)
+    # vs the FFT propagator's exact ω(k)=c·|k|) — refractive direction is
+    # right qualitatively but ~5° off vs the continuum Snell prediction at
+    # |k|≈0.5.  Higher-order spatial stencils would close this gap.
+    err_c = abs(res_c['theta_out_deg'] - res_c['theta_out_pred_deg'])
+    ok_refr_c = check('Cayley shows refraction (within 8° of Snell — lattice dispersion)',
+                      err_c < 8.0, f'(err = {err_c:.2f}°)')
+    ok_norm_c = check('Cayley norm drift at machine precision (exact-unitary)',
+                      res_c['norm_drift'] < 1e-10,
+                      f'(drift = {res_c["norm_drift"]:.2e})')
+    # Cayley should massively beat Strang on norm conservation
+    ok_norm_beat = check('Cayley norm drift ≥ 10¹⁰× better than Strang',
+                          res_s['norm_drift'] / max(res_c['norm_drift'], 1e-18) > 1e10,
+                          f'(strang={res_s["norm_drift"]:.2e}, cayley={res_c["norm_drift"]:.2e})')
+
+    return ok_refr and ok_norm and ok_refr_c and ok_norm_c and ok_norm_beat
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase D1 — Dirac CA
+# ══════════════════════════════════════════════════════════════════
+
+def test_D1():
+    section('Phase D1 — Dirac CA (exact-QCA, Paper 1 Eq. 23 / Finding 9)')
+
+    import ca_core_exact as ce
+
+    # Weyl regression at m=0.  The exact-QCA Dirac at m=0 reduces to
+    # diag(W_k, W'_k) — two decoupled exact-QCA Weyl propagators (Paper 1
+    # Eq. 16).  Reference therefore uses `weyl_step_2d_arccos_splitstep`,
+    # not the linearised `weyl_step_2d_splitstep` (Finding 9).
+    L = 320; shape = (L, L)
+    f, g = ca.gaussian_spinor_2d(shape, sigma=30.0, helicity='left')
+    nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=30.0, chirality='left')
+    for _ in range(20):
+        f, g = ce.weyl_step_2d_arccos_splitstep(f, g)
+        nu, nd, xu, xd = dirac.dirac_step_2d_splitstep(
+            nu, nd, xu, xd, m=0.0, dt=1.0)
+    diff = max(float(np.max(np.abs(nu - f))),
+               float(np.max(np.abs(nd - g))),
+               float(np.max(np.abs(xu))),
+               float(np.max(np.abs(xd))))
+    ok1 = check('Weyl regression at m=0 (vs exact-QCA Weyl)', diff < 1e-13,
+                f'(max diff = {diff:.2e})')
+
+    # Norm conservation with mass  (σ scaled with L)
+    nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=30.0, chirality='mixed')
+    n0 = dirac.dirac_norm(nu, nd, xu, xd)
+    for _ in range(1000):
+        nu, nd, xu, xd = dirac.dirac_step_2d_splitstep(
+            nu, nd, xu, xd, m=0.3, dt=1.0)
+    n1 = dirac.dirac_norm(nu, nd, xu, xd)
+    drift = abs(n1 - n0) / n0
+    ok2 = check('norm conservation (m=0.3, 1000 steps)',
+                drift < 1e-12, f'(drift = {drift:.2e})')
+
+    # Dispersion — exact-QCA target ω = arccos(√(1−m²)·c_x·c_y).
+    r = dirac.verify_dirac_dispersion_2d(L=320, n_steps=20, m=0.3)
+    max_res = max(row['residual'] for row in r)
+    ok3 = check('Dirac dispersion (exact-QCA, machine precision)',
+                max_res < 1e-13, f'(max residual = {max_res:.2e})')
+
+    # Zitterbewegung — exact-QCA target is 2·arcsin(m), not 2m (Finding 9).
+    # At m=0.5 the new target is π/3 ≈ 1.04720 (vs the old 1.000).
+    t, rho, fn, fa = dirac.measure_zitterbewegung_freq_2d(
+        L=960, n_steps=5000, m=0.5, dt=0.5, sigma=140.0)
+    err = abs(fn - fa) / fa
+    bin_width = 2.0 * np.pi / (len(t) * (t[1] - t[0]))
+    ok4 = check('Zitterbewegung freq within FFT bin of 2·arcsin(m)',
+                err < 0.05,
+                f'(measured={fn:.5f}, analytic={fa:.5f}, err={err*100:.2f}%, FFT bin={bin_width:.5f})')
+
+    fig, ax = plt.subplots(figsize=(8, 4.0))
+    ax.plot(t, rho, '-')
+    ax.axhline(0.0, color='gray', linestyle='--', alpha=0.5)
+    ax.set_xlabel('time'); ax.set_ylabel('ρ_η − ρ_χ')
+    ax.set_title(f'Phase D1 — Zitterbewegung: chirality oscillation\n'
+                 f'measured ω={fn:.4f}, 2·arcsin(m)={fa:.4f}')
+    out = os.path.join(FIGURES_DIR, 'phaseD1_zitterbewegung.png')
+    plt.savefig(out, dpi=120, bbox_inches='tight'); plt.close()
+
+    return ok1 and ok2 and ok3 and ok4
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase E1 — U(1)
+# ══════════════════════════════════════════════════════════════════
+
+def test_E1():
+    section('Phase E1 — U(1) EM gauge')
+    # 10× bump (2026-05-16): L=64→640, σ=8→80.  Flux is a topological
+    # invariant (line integral of A) so it does NOT scale with L.
+    res = dirac.aharonov_bohm_test(L=640, n_steps=100, m=0.0,
+                                     q=1.0, dt=1.0, flux=np.pi, sigma=80.0)
+    err = abs(res['measured_phase'] - res['analytic_phase'])
+    ok1 = check('phase pickup at machine precision',
+                err < 1e-12, f'(err = {err:.2e})')
+    ok2 = check('overlap magnitude = 1.0',
+                abs(res['overlap_magnitude'] - 1.0) < 1e-12,
+                f'(|overlap|={res["overlap_magnitude"]:.10f})')
+    ok3 = check('norm exactly preserved with A0',
+                abs(res['norm_with_A0'] - res['initial_norm']) < 1e-10,
+                f'(drift={abs(res["norm_with_A0"]-res["initial_norm"]):.2e})')
+    return ok1 and ok2 and ok3
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase E2 — SU(2)
+# ══════════════════════════════════════════════════════════════════
+
+def test_E2():
+    section('Phase E2 — SU(2) weak gauge (parity violation)')
+    # 10× bump (2026-05-16): L=32→320, σ=4→40.  c=0 disables propagation
+    # so n_steps just measures isospin rotation; left unchanged.
+    res = wk.parity_violation_test(L=320, n_steps=63, c=0.0, m_e=0.0,
+                                     g_weak=1.0, dt=1.0, W3_value=0.1, sigma=40.0)
+    pop_err = abs(res['left_e_pop_measured'] - res['left_e_pop_analytic'])
+    pop_rel = pop_err / max(res['left_e_pop_analytic'], 1e-10)
+    ok1 = check('left isospin rotation matches analytic',
+                pop_rel < 0.05,
+                f'(measured={res["left_e_pop_measured"]:.6f}, analytic={res["left_e_pop_analytic"]:.6f})')
+
+    chi_drift = abs(res['right_chi_pop_final'] - res['right_chi_pop_initial'])
+    ok2 = check('right chirality immune to W (parity violation)',
+                chi_drift < 1e-10,
+                f'(drift={chi_drift:.2e})')
+    ok3 = check('zero leakage from right to left',
+                res['right_leakage_to_left'] < 1e-12,
+                f'(leakage={res["right_leakage_to_left"]:.2e})')
+    return ok1 and ok2 and ok3
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase E3 — Discrete current conservation (model-observations 14)
+# ══════════════════════════════════════════════════════════════════
+
+def _rho_J_dirac(eta_u, eta_d, chi_u, chi_d):
+    """
+    Probability density and 2-current for a 2D Dirac field in the chiral
+    basis used by ca_dirac.py.  With α^i = diag(σ^i, −σ^i):
+
+      ρ      = |η_↑|² + |η_↓|² + |χ_↑|² + |χ_↓|²
+      J^x    = 2·Re(η_↑* η_↓)  −  2·Re(χ_↑* χ_↓)
+      J^y    = 2·Im(η_↑* η_↓)  −  2·Im(χ_↑* χ_↓)
+
+    The physical current is c·J^i (probability·velocity); ∇·J^i in the
+    continuity equation is multiplied by c outside this helper.
+    """
+    rho = (np.abs(eta_u)**2 + np.abs(eta_d)**2 +
+           np.abs(chi_u)**2 + np.abs(chi_d)**2)
+    Jx = (2 * np.real(np.conj(eta_u) * eta_d) -
+          2 * np.real(np.conj(chi_u) * chi_d))
+    Jy = (2 * np.imag(np.conj(eta_u) * eta_d) -
+          2 * np.imag(np.conj(chi_u) * chi_d))
+    return rho, Jx, Jy
+
+
+def test_E3_continuity():
+    """
+    Discrete Noether identity ∂_t ρ + ∇·J = 0 on the lattice (item 14
+    of model-observations.md).  Two checks:
+
+      (a) U(1)-coupled stepper: the gauge sub-step is a per-cell phase
+          and preserves ρ exactly; the kinetic sub-step should obey the
+          lattice continuity equation to O(dt²).  Verified by halving dt
+          and checking the residual ratio.
+
+      (b) SU(2)-coupled stepper (Phase E2 path): isospin rotation does
+          not move charge, so the total Dirac ρ over an isospin doublet
+          obeys the same discrete identity.
+
+    Pass if the Richardson ratio
+        ‖residual(dt)‖ / ‖residual(dt/2)‖
+    is between 2.5 and 5.5, confirming residual = O(dt²).
+    """
+    section('Phase E3 — Discrete current conservation (∂_t ρ + ∇·J = 0)')
+    import ca_dirac as dirac
+
+    L = 64; shape = (L, L)
+    # Kinetic coefficient n = √(1−m²) for m=0 → n = 1.  Used to be `c`
+    # under the linearized Hamiltonian; under the exact-QCA convention
+    # (Finding 9) the kinetic coefficient is fixed by the QCA admissibility.
+    n_kin = 1.0
+    q = 1.0
+    xs = np.arange(L); X, Y = np.meshgrid(xs, xs, indexing='ij')
+
+    # ---- (a) U(1) ----
+    A0_uniform = np.full(shape, 0.1)        # uniform scalar potential
+
+    def residual(dt):
+        # Fresh Dirac packet with a small phase ramp → nonzero current.
+        nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=6.0,
+                                                  chirality='mixed')
+        kx_init = 0.30
+        plane = np.exp(1j * kx_init * X)
+        nu = nu * plane; nd = nd * plane
+        xu = xu * plane; xd = xd * plane
+
+        rho0, Jx0, Jy0 = _rho_J_dirac(nu, nd, xu, xd)
+
+        nu1, nd1, xu1, xd1 = dirac.dirac_step_u1_2d_splitstep(
+            nu, nd, xu, xd, A0=A0_uniform, m=0.0, q=q, dt=dt)
+
+        rho1, Jx1, Jy1 = _rho_J_dirac(nu1, nd1, xu1, xd1)
+
+        # Mid-time current (trapezoid):
+        Jx_m = 0.5 * (Jx0 + Jx1)
+        Jy_m = 0.5 * (Jy0 + Jy1)
+
+        # Central-difference divergence (∂_x f ≈ (f_{+1} − f_{−1})/2)
+        divJ = ((np.roll(Jx_m, -1, axis=0) - np.roll(Jx_m, +1, axis=0)) / 2
+              + (np.roll(Jy_m, -1, axis=1) - np.roll(Jy_m, +1, axis=1)) / 2)
+
+        # NOTE (Finding 9): under the exact-QCA kinetic step the bilinear
+        # current Ψ†α^i Ψ is no longer the QCA's conserved current — the
+        # exact conserved current involves QCA-link bilinears.  The check
+        # below uses the continuum bilinear and the small-k coefficient n.
+        # At m=0 the small-k group velocity is n/√2 = 1/√2; if the residual
+        # is no longer O(dt²) the Richardson ratios will flag it for follow-up.
+        res = rho1 - rho0 + dt * n_kin * divJ
+        return float(np.max(np.abs(res))), float(np.max(rho0))
+
+    r_dt,    rho_scale = residual(0.20)
+    r_dt2,   _         = residual(0.10)
+    r_dt4,   _         = residual(0.05)
+
+    rel_dt  = r_dt  / rho_scale
+    rel_dt2 = r_dt2 / rho_scale
+    rel_dt4 = r_dt4 / rho_scale
+    ratio_a = r_dt / r_dt2 if r_dt2 > 0 else float('inf')
+    ratio_b = r_dt2 / r_dt4 if r_dt4 > 0 else float('inf')
+
+    print(f'  U(1)  dt=0.20  rel residual = {rel_dt:.3e}')
+    print(f'  U(1)  dt=0.10  rel residual = {rel_dt2:.3e}')
+    print(f'  U(1)  dt=0.05  rel residual = {rel_dt4:.3e}')
+    print(f'  U(1)  Richardson ratios = {ratio_a:.2f}, {ratio_b:.2f}   '
+          f'(expect ≈ 4 for O(dt²))')
+
+    ok_u1 = (2.5 <= ratio_a <= 5.5) and (2.5 <= ratio_b <= 5.5)
+    ok_a = check('U(1) lattice continuity ∂_t ρ + c·∇·J = 0  → O(dt²)',
+                  ok_u1, f'(ratios {ratio_a:.2f}, {ratio_b:.2f})')
+
+    # ---- (b) SU(2): isospin doublet (η_ν, η_e) total charge ----
+    # The SU(2) stepper rotates between ν and e isospin components but
+    # preserves the total |η_ν|² + |η_e|² at every cell.  Verify directly.
+    import ca_weak as wk
+    L2 = 32; shape2 = (L2, L2)
+    # Build a flat doublet  (η_ν=G, η_e=0) and apply one SU(2) step at
+    # nonzero W^3.  The total local density should be invariant.
+    G = np.exp(-((np.arange(L2)[:, None] - L2/2)**2 +
+                  (np.arange(L2)[None, :] - L2/2)**2) /
+                  (2 * 4.0**2)).astype(complex)
+    z = np.zeros_like(G)
+    # step_weak_2d expects 2-element lists of (Lx, Ly) arrays for ν, e, χ_e.
+    eta_nu = [G.copy(), z.copy()]            # isospin up = G, down = 0
+    eta_e  = [z.copy(), z.copy()]
+    chi_e  = [z.copy(), z.copy()]
+    rho_before = np.abs(eta_nu[0])**2 + np.abs(eta_nu[1])**2 + \
+                  np.abs(eta_e[0])**2  + np.abs(eta_e[1])**2
+
+    W3 = np.full(shape2, 0.5)
+    W0 = np.zeros(shape2)
+    eta_nu_n, eta_e_n, chi_e_n = wk.step_weak_2d(
+        eta_nu, eta_e, chi_e, W1=W0, W2=W0, W3=W3,
+        c=0.0, m_e=0.0, g_weak=1.0, dt=1.0)
+    rho_after = np.abs(eta_nu_n[0])**2 + np.abs(eta_nu_n[1])**2 + \
+                 np.abs(eta_e_n[0])**2  + np.abs(eta_e_n[1])**2
+    drift = float(np.max(np.abs(rho_after - rho_before)))
+    ok_b = check('SU(2) isospin rotation preserves local ρ pointwise',
+                  drift < 1e-12, f'(max drift = {drift:.2e})')
+
+    return ok_a and ok_b
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Main
+# ══════════════════════════════════════════════════════════════════
+
+def main():
+    results = {}
+    results['A1'] = test_A1()
+    results['A2'] = test_A2()
+    results['B1'] = test_B1()
+    results['B2'] = test_B2()
+    results['C1'] = test_C1()
+    results['D1'] = test_D1()
+    results['E1'] = test_E1()
+    results['E2'] = test_E2()
+    results['E3'] = test_E3_continuity()
+
+    print()
+    print('=' * 72)
+    print('  SUMMARY')
+    print('=' * 72)
+    for phase, ok in results.items():
+        status = 'PASS' if ok else 'FAIL'
+        print(f'  [{status}]  Phase {phase}')
+    total_ok = sum(results.values())
+    print(f'\n  {total_ok} / {len(results)} phases passed')
+    print(f'  Figures: {FIGURES_DIR}/phase*.png')
+
+    return 0 if all(results.values()) else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

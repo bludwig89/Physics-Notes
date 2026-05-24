@@ -123,7 +123,7 @@ where $N_{\text{path}}$ is the tick count at a clock cell co-moving with the pul
 **Predicted outcome.** The two numbers are equal to FFT round-off. Specifically: $c(\mathbf{x}) < c_0$ in the well means the pulse traverses fewer lattice cells per global tick, equivalently the cell at its location accumulates fewer state changes per global tick — these are the same statement.
 
 **Deliverable.**
-- New script `ca-simulation/test_emergent_time_shapiro.py` running F3b in both readings, outputting the two $\Delta\tau$ values and their relative residual.
+- New script `model-tests/test_emergent_time_shapiro.py` running F3b in both readings, outputting the two $\Delta\tau$ values and their relative residual.
 - Findings entry in `findings.md` recording the residual.
 
 **Effort.** Medium. ~100 lines + careful path tracing.

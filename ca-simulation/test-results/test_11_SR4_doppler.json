@@ -1,0 +1,12 @@
+{
+  "test": "SR-4",
+  "omega_actual": 0.09815505385859039,
+  "k_lat": 0.19631010771718077,
+  "ok1_lab_doppler": true,
+  "ok2_gamma": true,
+  "ok_long": true,
+  "ok_trans": true,
+  "best_longitudinal_residual": 0.0,
+  "max_transverse_delta": 0.0,
+  "overall": true
+}

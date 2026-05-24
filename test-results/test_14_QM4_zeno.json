@@ -1,0 +1,10 @@
+{
+  "test": "QM-4",
+  "ok1_quadratic": true,
+  "slope": 1.9960153974571164,
+  "ok2_zeno": true,
+  "max_delta_analytic": 9.43689570931383e-15,
+  "ok3_formula": true,
+  "max_formula_err": 5.062616992290714e-14,
+  "overall": true
+}

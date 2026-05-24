@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-05-22 - 01:04",
+  "all_pass": false,
+  "beta": 0.6,
+  "gamma": 1.25,
+  "c_lat": 0.7071067811865475,
+  "gates": {
+    "G1": {
+      "label": "On-axis phase velocity (rest frame): \u03c9/|k| = c_lat",
+      "c_phase": 0.7071067811865478,
+      "c_lat": 0.7071067811865475,
+      "residual": 4.710277376051326e-16,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G2": {
+      "label": "On-axis phase velocity (boosted frame, Lorentz algebra): \u03c9'/|k'| = c_lat",
+      "kx_b": 0.14999999999999988,
+      "ky_b": 0.0,
+      "omega_b": 0.10606601717798225,
+      "k_mag_b": 0.14999999999999988,
+      "c_phase": 0.7071067811865489,
+      "residual": 2.041120196288908e-15,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G2b": {
+      "label": "QCA dispersion at boosted k equals Lorentz-transformed \u03c9 (on-axis exactness)",
+      "omega_lorentz": 0.10606601717798225,
+      "omega_qca": 0.10606601717798249,
+      "residual": 2.224297649802012e-15,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G3": {
+      "label": "4-vector Minkowski norm invariant: p\u00b2_rest \u2248 p\u00b2_boost \u2248 0",
+      "p2_rest": -9.71445146547012e-17,
+      "p2_boost": -9.367506770274758e-17,
+      "abs_diff": 3.469446951953614e-18,
+      "residual": 3.854941057726238e-17,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G4": {
+      "label": "Doppler ruler: \u03bb'/\u03bb = 1/D = 1/[\u03b3(1\u2212\u03b2)]",
+      "lambda_rest": 20.943951023931955,
+      "lambda_boost": 41.88790204786394,
+      "ratio": 2.0000000000000013,
+      "expected_1_D": 2.0,
+      "residual": 6.661338147750939e-16,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G5": {
+      "label": "Doppler clock: T'/T = 1/D = 1/[\u03b3(1\u2212\u03b2)]",
+      "T_rest": 29.61921958772243,
+      "T_boost": 59.23843917544481,
+      "ratio": 1.9999999999999982,
+      "expected_1_D": 2.0,
+      "residual": 8.881784197001252e-16,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G6": {
+      "label": "c = \u03bb/T invariant: c_rest = c_boost",
+      "c_ruler_rest": 0.7071067811865478,
+      "c_ruler_boost": 0.7071067811865489,
+      "residual": 1.5700924586837745e-15,
+      "gate": 1e-14,
+      "passed": true
+    },
+    "G7": {
+      "label": "Wavepacket group velocity (rest frame, FFT): |v_g| = c_lat",
+      "peak_x": 69.8067931181479,
+      "peak_y": -1.679297424171129e-10,
+      "predicted_x": 70.71067811865474,
+      "speed": 0.6980679311814789,
+      "c_lat": 0.7071067811865475,
+      "residual": 0.012782864265424054,
+      "gate": 1e-10,
+      "passed": false
+    },
+    "G8": {
+      "label": "Wavepacket group velocity (boosted frame, FFT): |v_g'| = c_lat",
+      "peak_x_b": 66.84056337860515,
+      "peak_y_b": -0.0002776686134508418,
+      "speed": 0.668405633791819,
+      "c_lat": 0.7071067811865475,
+      "residual": 0.054731687525025094,
+      "gate": 1e-10,
+      "passed": false
+    },
+    "G9": {
+      "label": "Off-axis (\u03b8=45\u00b0) phase velocity LV gap (informational, non-zero expected)",
+      "k_mag": 0.3,
+      "omega_45": 0.2117327177378029,
+      "c_phase_45": 0.7057757257926763,
+      "c_lat": 0.7071067811865475,
+      "lv_gap": 0.001882396590282411,
+      "note": "Non-zero at finite k by design (QCA anisotropy / Lorentz violation).",
+      "gate": null,
+      "passed": true
+    }
+  }
+}

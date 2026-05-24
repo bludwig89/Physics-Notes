@@ -1,6 +1,520 @@
 # Changelog
 
+## 2026-05-23 - 16:35 — Add F28: GRB/AGN photon-dispersion test of F26
+
+- **Files added:**
+  - `model-tests/test_F28_grb_dispersion.py` — confronts F26's group-velocity correction against published n=2 subluminal LIV limits from Fermi-LAT (GRB 090510), LHAASO (GRB 221009A), and MAGIC (Mrk 501).
+  - `test-results/F28_grb_dispersion.json` — numerical results.
+  - `test-results/F28_grb_dispersion_summary.md` — markdown summary.
+  - `findings/F28-grb-dispersion-test.md` — formal finding.
+
+- **Test method:** Compute $\Delta t = \tfrac{3}{2}(E_h^2 - E_l^2)/E_{QG}^2 \cdot (1/H_0) \cdot \kappa_2(z)$ for each source, with $E_{QG}^{F26} = \sqrt{2}\,E_\text{Planck}$ (subluminal n=2, group velocity). Compare against published 95% CL experimental bounds.
+
+- **Result:** F26 not excluded by any current experiment. Best constraint (LHAASO GRB 221009A) sits ~15 decades below F26's predicted $\Delta t$. The prediction is real and falsifiable in principle, but requires $\gtrsim 10^{20}$ eV photons from $z \sim 1$ (above GZK cutoff) under the Planck-tick assumption.
+
+- **Falsifiability:** F26 forbids any *linear* (n=1) LIV correction — only quadratic at Planck scale. Current bounds already exclude linear LIV at $\gtrsim 10\,E_\text{Planck}$, consistent with F26.
+
+- **Implied side bound:** Current photon LIV limits constrain the lattice tick duration to $\tau_\text{lat} \lesssim 9 \times 10^{-37}$ s.
+
+- **Index updates:** `findings.md` (Finding 28 entry appended), `project-status.md` (run log entry appended).
+
+---
+
+## 2026-05-23 - 16:00 — Adopt F26: rotation-law EM propagator (3D BCC + 2D square)
+
+- **Files changed:**
+  - `ca-simulation/ca_maxwell.py` — module docstring rewritten (rotation law PRIMARY, Maxwell DERIVED); 4 new functions added in "F26 — Exact rotation-law EM propagator" section.
+  - `ca-simulation/ca_maxwell_2d.py` — 4 new functions added (parallel to 3D); `__main__` block extended with F26 output.
+  - `roadmap-f26-rotation.md` — new roadmap document listing completed and pending F26 adoption work (Phases 1–5).
+  - `exactness-inventory.md` — Tier-1 rows #59–60 (c_lat from rotation rate, 3D and 2D); Tier-2 rows #16–17 (full-lattice rotation law, machine precision). Count updated to 61.
+
+- **New public API in ca_maxwell.py:**
+  - `rotation_omega_bcc(KX, KY, KZ, sign='+')` — $\Omega(\mathbf{k}) = 2\,\omega_\text{BCC}(\mathbf{k}/2)$ on a k-grid.
+  - `rotation_step_em_spectral(E_field, B_field, sign='+')` — full-lattice exact EM propagator via FFT; shape `(Lx, Ly, Lz, 3)`.
+  - `c_from_rotation_rate(eps, n_dirs, sign)` — finite-difference measurement of $c_\text{lat}$; confirms $1/\sqrt{3}$ to $<10^{-7}$.
+  - `rotation_law_consistency(k_mag, n_dirs, n_steps, seed, sign)` — live Weyl-state test; rotation residual $2.8\times 10^{-16}$, Maxwell curl $2.0\times 10^{-2}$.
+
+- **New public API in ca_maxwell_2d.py:**
+  - `rotation_omega_2d(KX, KY)` — $\Omega(\mathbf{k}) = 2\,\omega_\text{2D}(\mathbf{k}/2)$ using `exact2d_dispersion`.
+  - `rotation_step_em_spectral_2d(E_field, B_field)` — full-lattice exact EM propagator; shape `(Lx, Ly, 3)`.
+  - `c_from_rotation_rate_2d(eps, n_dirs, seed)` — confirms $c_\text{lat} = 1/\sqrt{2}$ to residual $2.93\times 10^{-8}$.
+  - `rotation_law_consistency_2d(k_mag, n_dirs, n_steps, seed)` — rotation residual $2.2\times 10^{-15}$, Maxwell curl $1.8\times 10^{-2}$.
+
+- **Key bug caught and fixed:** `c_from_rotation_rate` initially passed $\mathbf{k}$ (not $\mathbf{k}/2$) to `bcc_dispersion`, giving $c_\text{lat} = 2/\sqrt{3}$. Fixed by dividing by 2 before the call. Since $\Omega(\mathbf{k}) = 2\,\omega_\text{BCC}(\mathbf{k}/2)$, the finite-difference estimate must evaluate at $\mathbf{k}/2$.
+
+- **Physical reframing:** Maxwell's curl equations are now documented as the $\Delta t\to 0$ (first-order Taylor in $\Omega$) limit of the exact discrete real rotation. The $O(k)$ curl residual $c_\text{lat}/\sqrt{2}\cdot|\mathbf{k}|$ (Finding 2) is the linearisation error, not an open problem.
+
+---
+
+## 2026-05-23 - 14:00 — Merge SU(2) complex-mass into ca_dirac.py (F27)
+
+- **Files changed:**
+  - `ca-simulation/ca_dirac.py` — new section "SU(2) complex-mass coupling (Ludwig 2007, Finding F27)" appended after the variable-mass steppers, before the Aharonov-Bohm test.
+  - `model-tests/test_complex_mass_chiral.py` — import updated from fork (`complex_mass_fork`) to main model (`ca_dirac`); compatibility shim `_cmf` maps old fork names to merged names; 9/9 tests pass with identical residuals.
+
+- **New public API in ca_dirac.py:**
+  - `_weyl_half_step_2c(f, g, dt_half)` — exact-QCA Weyl kinetic half-step for one 2-component spinor (internal; used by split-step)
+  - `mass_step_1flavor_u1(eta_u, eta_d, chi_u, chi_d, theta, m, dt)` — local U(1) complex-mass step
+  - `dirac_step_complex_mass_1flavor(…, theta, m, dt)` — Strang split-step for 1-flavor
+  - `make_su2_field(Lx, Ly, mode)` — SU(2) isospin field initializer
+  - `mass_step_doublet_su2(…, U_a, U_b, m, dt)` — local SU(2) doublet mass step
+  - `dirac_step_complex_mass_doublet(…, U_a, U_b, m, dt)` — Strang split-step for doublet
+  - `su2_gauge_transform_chiral(…, U_a, U_b, V_a, V_b)` — chiral SU(2)_L gauge transform
+  - `gaussian_doublet(shape, sigma, kind, center)` — doublet initial conditions
+  - `norm_doublet(…)` — 8-component doublet norm
+  - `chirality_split_doublet(…)` — (N_left, N_right) chirality observable
+  - `isospin_t3_doublet(…)` — (⟨T₃⟩_L, ⟨T₃⟩_R) isospin observable
+  - `su2_casimir_left(…)` — ⟨T²⟩ on left sector
+
+- **Why merged (not kept as fork):** the SU(2) complex-mass coupling is now a first-class element of the model — it generates chiral SU(2)_L as a local gauge symmetry of the mass sector without a Higgs field (F27 T5: 1.055×10⁻¹⁷). It belongs alongside the other Dirac steppers in `ca_dirac.py`, not in a fork.
+
+- **Backward compatibility:** all existing `dirac_step_2d_splitstep`, `dirac_step_u1_2d_splitstep`, `dirac_step_2d_varm_splitstep`, and `dirac_step_2d_varm_complex_splitstep` functions are unchanged. The fork `forks/complex_mass_fork.py` is retained for reference but is no longer the canonical implementation.
+
+---
+
+## 2026-05-23 - 12:00 — Complex-mass / Chiral SU(2) fork — F27 (Ludwig 2007 pages 59–60)
+
+- **Files added:**
+  - `ca-simulation/forks/complex_mass_fork.py` — fork implementing Ludwig's β-gauging proposal
+  - `model-tests/test_complex_mass_chiral.py` — 9-test suite; **9/9 PASS, 1.02 s**
+  - `findings/F27-complex-mass-chiral-su2.md` — full writeup
+
+- **Key finding (T5):** Ward identity V·mass_step(ψ;U) = mass_step(V·ψ;V·U) holds to **1.055×10⁻¹⁷** (machine precision), where V ∈ SU(2) acts only on left-handed η. This is local SU(2)_L gauge invariance of the mass coupling without a Higgs field.
+
+- **Other verified results:** unitarity (T1/T2), dispersion θ-independence (T3, 3.3e-16), U(1) Ward identity (T4, 1.4e-17), chiral selectivity (T6, exact 0), mass gap without Higgs VEV (T7, N_R=0.820), T₃=+½ for ν_L (T8, 1.1e-16), U steers isospin coupling (T9, Δ=0.564).
+
+- **Design:** Strang splitting for spatially varying U(x,t); SU(2) as [[a,-b*],[b,a*]]; mass step local (no FFT); kinetic step via existing `exact2d_unitary`. Known limitation: kinetic step requires W_μ for full local SU(2) invariance (expected).
+
+---
+
+## 2026-05-23 — BCC spin axis n̂(k) and scalar contamination |ψᵀψ|² = 1 − n̂_y² (C9 / F26)
+
+**Motivation:** F24 identified that the (1,0) bilinear scalar contamination $|\psi^T\psi| \approx 0.67$
+is not arbitrary — it is fully determined by the wavevector $\hat{k}$ through the BCC spin axis $\hat{n}(\hat{k})$.
+Goal: derive $\hat{n}(\hat{k})$ in closed form and lock down the contamination magnitude with no free parameters.
+
+**New code (`ca-simulation/ca_bcc.py`):**
+- `bcc_spin_axis(kx, ky, kz, sign)` — returns the normalised Bloch vector $\hat{n} = \mathbf{n}/\sin\omega$
+  of the positive-helicity BCC eigenmode.  Continuum limit: $\hat{n} \to (k_x, -k_y, k_z)/|k|$ (sign flip
+  on $k_y$ is an intrinsic BCC chirality convention, not an error).
+
+**New code (`ca-simulation/ca_maxwell.py`, Section C9):**
+- `psi_scalar_bilinear_analytic(kx, ky, kz, sign)` — computes $\psi^T\psi$ analytically from $\hat{n}$
+  using numerically stable Bloch-angle form ($\cos^2(\Theta/2) + \sin^2(\Theta/2)\,e^{2i\Phi}$ via
+  arccos + arctan2).  The rational form $1 - \hat{n}_y(\hat{n}_y - i\hat{n}_x)/(1+\hat{n}_z)$ was found
+  unstable near the south pole ($\hat{n}_z \approx -1$) — dropped.
+- `weyl_spin_axis_scalar_contamination(k_mag, n_dirs, seed)` — two-track verification:
+  Track A algebraic ($|\psi^T\psi|^2 + \hat{n}_y^2 = 1$ from the analytic formula) and
+  Track B numerical (comparing analytic $|\psi^T\psi|$ against eigenmode from `np.linalg.eig`).
+
+**Key identity established:**
+
+$$|\psi^T\psi|^2 = 1 - \hat{n}_y(\hat{k})^2$$
+
+**Test results (12 random directions, $k = 0.3$):**
+- Track A (algebraic identity): $2.84 \times 10^{-14}$ (formula is algebraically exact)
+- Track B (vs. np.linalg.eig eigenmode): $6.20 \times 10^{-14}$ (eig-solver precision)
+- mean $|\psi^T\psi| = 0.6898$ (continuum limit $\pi/4 \approx 0.7854$)
+
+**Significance:** The (1,0) bilinear scalar contamination is now **fully locked down** — no free parameters.
+Given $(\hat{k}, \hat{v}, \zeta)$, contamination magnitude $= |\sinh\zeta| \cdot \sqrt{1 - \hat{n}_y(\hat{k})^2}$.
+The $\approx 0.67$ figure from F24 was the mean of $\sqrt{1 - \hat{n}_y^2}$ over 12 specific directions at $k=0.3$.
+
+**Finding:** F26 (`findings/F26-bcc-spin-axis-scalar-contamination.md`)
+
+---
+
+## 2026-05-23 — Real-rotation vs Maxwell curl test (C8 / F25)
+
+**Motivation:** F23 established the O(k) curl residual is a π/2 phase lock, not a smearing artefact.
+The natural follow-up: assume Maxwell is the $\Delta t \to 0$ limit and test the exact discrete-time
+evolution law directly.
+
+**New code (`ca-simulation/ca_maxwell.py`, Section C8):**
+- `real_rotation_vs_maxwell_curl(k_mag, n_dirs, seed)` — for each of `n_dirs` random BCC directions,
+  evolves the composite-photon bilinear one tick ($\psi \to e^{-i\omega}\psi$) and compares
+  $E(t+1)$ against (A) the real-rotation prediction $\cos\Omega\,E + \sin\Omega\,B$ and (B) the
+  Maxwell curl prediction $E + i(2n)\times B$.  Returns max residuals over all directions.
+- `real_rotation_k_scan(k_values, n_dirs, seed)` — sweeps $|k|$ over a decade and records
+  curl\_E/k and rot\_E/k per $k$ for O(k) slope analysis.
+- Updated `__main__` block with C8 output section.
+
+**Key fix during development:** initial code used $\hat k \times B$ in the rotation prediction.
+Correct formula uses $B$ directly (no cross product). Derivation: $G_T = A + iC$ gives
+$E = 2|n|A$, $B = 2|n|C$; one-tick advance of $e^{-i\Omega}(A+iC)$ yields
+$E(t+1) = \cos\Omega\cdot E + \sin\Omega\cdot B$ exactly.
+
+**Test results:**
+- Real-rotation residual: $2.0 \times 10^{-16}$ (machine precision)
+- Maxwell curl residual: $2.0 \times 10^{-2}$ (~$0.408 \times k$ at $k=0.05$)
+- k-scan: curl\_E/k flat at $0.4082 \approx c_\text{lat}/\sqrt{2}$; rot\_E/k at noise floor $< 10^{-13}$
+
+**Finding:** F25 (`findings/F25-real-rotation-exact-discrete-time-maxwell.md`)
+
+---
+
+## 2026-05-23 — Weyl SL(2,ℂ) boost: 4-current Lorentz covariance (C7 / F24)
+
+**Motivation:** Prior implementation of `weyl_sl2c_boost_vs_v6` was failing with large
+residuals (direction sin²-residual 5.99×10⁻¹, Doppler-scale residual 1.65×10¹).
+
+**Root cause:** The Paper 1 bilinear $G^i = \psi^T\sigma^i\psi$ (TRANSPOSE) lives in the
+self-dual **(1,0)** Lorentz representation.  Under $\psi \to A\psi$ it transforms as
+$G'^i = \Lambda_{(1,0)}^{ij}G^j - \sinh\zeta\,\hat v^i(\psi^T\psi)$, with a scalar
+contamination $-\sinh\zeta(\psi^T\psi)$ pointing along $\hat v$ that is non-zero for
+BCC eigenmodes ($|\psi^T\psi|\approx 0.67$) and survives transverse projection when
+$\hat v \not\perp \hat k'$.  Mohr's V6 boost acts on the **(½,½)** vector representation.
+These are different Lorentz irreps; direct comparison is ill-posed.
+
+**Fix:**
+- Deleted `weyl_sl2c_boost_vs_v6` (ill-posed test)
+- Added `weyl_sl2c_4current_covariance` — tests the algebraically correct identity
+  $j'^\mu = \Lambda^\mu{}_\nu j^\nu$ where $j^\mu = (\psi^\dagger\psi,\,\psi^\dagger\boldsymbol\sigma\psi)$
+  (DAGGER, not transpose).  This is the **(½,½)** Weyl 4-current, directly comparable to V6.
+- Updated `sl2c_boost` docstring with representation-theory note
+- Updated `__main__` block
+
+**Test result:** `max |j' − Λj| / |Λj| = 3.7074×10⁻¹⁶` (machine precision, 12 directions)
+
+**Finding:** F24 (`findings/F24-sl2c-boost-4current-covariance.md`)
+
+---
+
+## 2026-05-23 — Smearing fork harness (F23)
+
+**Added:** `ca-simulation/forks/smearing_fork_harness.py` — tests Bisio et al. Paper 1
+smearing function f_k(q) as a cure for the O(k) composite-photon curl residual.
+Implements three smearing classes (fixed Gaussian, k-proportional Gaussian, BCC-shell);
+matched eigenmode convention (φ=psi_minus at k/2−q, ψ=psi_plus at k/2+q) for exact
+self-check against Finding 21 baseline (c_lat/√2 reproduced to rel err 4.6×10⁻⁵).
+
+**Result:** Smearing Hypothesis H1 ruled out.  All variants maintain slope 1.0 and
+coefficient ≈ c_lat/√2.  Analytic explanation: the residual is a fixed π/2 phase lock
+between real dE and imaginary i(2n)×B at O(k²); coefficient = c_lat/√2 algebraically.
+See Finding 23 (`findings/F23-smearing-ruled-out-curl-residual-is-phase-locked.md`).
+
+No changes to ca_maxwell.py, ca_bcc.py, or any test files.
+
+---
+
+## 2026-05-22 — Quark Yukawa wiring: per-cell Higgs mass in ca_strong.py (V13c)
+
+**Motivation:** `step_strong_2d` accepted only a static `{flavour: float}` mass dict. The goal was to mirror the `ca_unified.py` pattern where `m_q(x) = y_q · Re Φ(x)` is derived from the per-cell Higgs field and passed to the varm complex splitstep stepper.
+
+**New code / changes:**
+- `ca-simulation/ca_strong.py` — added `yukawa_mass_field(phi, yukawa_couplings)` helper; extended `step_strong_2d` signature with `phi_field=None, yukawa=None` (fully backward-compatible). When `phi_field` is provided, calls `cdir.dirac_step_2d_varm_complex_splitstep` per (flavour, colour); otherwise falls through to the existing `dirac_step_2d_splitstep` scalar path.
+- `model-tests/test_su3_noether.py` — added gate `V13c_yukawa_wiring` (sub-gates V13c.1 and V13c.2); added to `main()`.
+
+**Test results (7/7 gates pass, 8.4 s wall time):**
+- V13c.1 uniform-Φ regression: `max|q_scalar − q_yukawa| = 0.000e+00` — **bit-exact** (δm = 0 path confirmed)
+- V13c.2 charge conservation with spatially varying Φ: `max|ΔQ^a| = 1.78e−14` over 50 steps (tol 5e−9) — machine precision
+
+**Key contracts preserved:**
+- V13a cold-link regression: still PASS (scalar path unchanged)
+- Colour-blind Higgs: same m_q(x) per flavour across all colours; Yukawa does not mix colour indices
+
+---
+
+## 2026-05-22 - Finding 22 — QCA velocity-addition deformed formula derived
+
+**Motivation:** The proposed test was: derive velocity addition from $\omega=\arccos(\sqrt{1-m^2}\,c_x c_y)$ symbolically, compare to $u'=(u+v)/(1+uv/c^2)$ in the continuum limit, and quantify the LV residue at higher $k$ (extension of Finding 15).
+
+**New code / changes:**
+- `ca-simulation/derive_velocity_addition.py` — fixed missing `sr_velocity_subtraction` function; added `deformed_velocity_sub`; cleaned Step 4 column labels and baseline comparison.
+
+**Key result:**
+- The 4-momentum velocity $u_p = k/(2\omega)$ satisfies $u_p = \rho(m)\,u_g$ at $k\to 0$ with $\rho(m) = m/(\sqrt{1-m^2}\arcsin m)$.
+- SR Lorentz boost is **exact** on $(ω, k)$ → yields the closed-form deformed group-velocity addition:
+  $$u'_\text{QCA} = \frac{u+v}{1+2\rho^2 uv}, \qquad \delta u' = \frac{2(1-\rho^2)uv(u+v)}{(1+2\rho^2 uv)(1+2uv)} \approx 8\beta_\text{LV}\cdot uv(u+v)$$
+- Three sympy checks: residual = **0** (bit-exact). $\rho$ confirmed to machine precision vs numerical $u_p/u_g$ at $k=10^{-6}$.
+- Key physical insight from Step 4: the mismatch between $v_g^\text{boost}$ and $u'_\text{SR}$ is dominated by a **k-independent** term $v\cdot(1-1/\rho)$ even at $k\to 0$. The SR-compatible kinematic observable is $u_p$, not $u_g$.
+- Adds Exactness Inventory entries #45–48 (Tier 1) and #13 (Tier 2).
+
+**New file:** `Findings/F22-velocity-addition-deformed-formula.md`
+
+---
+
+## 2026-05-22 - 13:42 — Propagation demo + curl-residual geometry forks
+
+**Motivation:** Answer two physics questions directly — (a) does a photon/fermion *exist and move across* the lattice in real space, and (b) why does the composite-photon curl equation only close to $O(k)$ (Finding 2)? User proposed testing whether simple-cubic geometry (which should give $c_\text{lat}=1$) also fixes the curl residual.
+
+**New code:**
+- `model-tests/run_propagation_demo.py` — launches a massless Weyl packet, a massive Dirac packet ($m=0.3$), and a composite-photon packet on a $64^3$ BCC lattice; measures group velocity from the energy-density centroid. Results: Weyl $v_g=0.5752$ (0.37% off $1/\sqrt3$), Dirac $v_g=0.4667$ (1.06% off $d\omega/dk$, i.e. $0.81\,c_\text{lat}$ — correctly subluminal), photon $v_g=0.5530$ (4.2% off $1/\sqrt3$; deficit is a finite-packet transverse-$k$ artifact, shrinks with wider transverse envelope). Momentum-space gates re-confirmed (transversality $4.6\times10^{-17}$, Poynting drift $4.8\times10^{-14}$). See `findings/F20-photon-fermion-propagation-demo.md`.
+- `ca-simulation/forks/curl_fork_cubic.py`, `forks/curl_fork_baseline_bcc.py`, `forks/curl_fork_harness.py` — geometry forks (GR-3 fork pattern) probing the curl-$O(k)$ question.
+
+**Key finding (F21):** The normalized curl residual is **$c_\text{lat}/\sqrt2$ per unit $|k|$ on every geometry tested** (BCC, simple-cubic, scaled-cubic $\alpha\in\{0.5,1,2\}$) — six-figure agreement across $c_\text{lat}\in[0.5,2]$. Consequences:
+- Simple-cubic *does* give $c_\text{lat}=1$ (user's intuition correct) and is slightly more isotropic — **but** the curl residual stays $O(k)$ (coefficient $1/\sqrt2$, *worse* than BCC's $1/\sqrt6$), **and** it reintroduces 8 Nielsen–Ninomiya fermion doublers vs the BCC single Weyl point.
+- The previously-recorded $1/\sqrt{2d}$ (Exactness Inventory #7) is the BCC special case of $c_\text{lat}/\sqrt2$ (since BCC has $c_\text{lat}=1/\sqrt d$). Decoupling $c_\text{lat}$ from $d$ proves the $\sqrt2$ is geometry- and dimension-independent — the residual is intrinsic to the **pointwise un-smeared bilinear**, not the lattice.
+- **Geometry is ruled out as the cause.** Next fork target: the smearing function $f_{\mathbf k}(\mathbf q)$ (Finding 2 hypothesis #1), with the $c_\text{lat}/\sqrt2$ baseline as the coefficient to drive toward 0.
+
+**Self-check:** BCC arm reproduces Finding 2's $1/\sqrt6$ to rel err $4.6\times10^{-7}$.
+
+## 2026-05-22 - 01:14 — SR-2 $\beta^6$ coefficient ($\delta_\text{LV}$) propagated to the derived closed form across the docs
+
+**Motivation:** The $\beta^6$ Lorentz-violation coefficient $\delta_\text{LV}(m)$ was derived on 2026-05-21 - 20:30 and landed in `derive_beta_LV.py` and `exactness-inventory.md`, but the rest of the documentation still described $\beta^6$ as "not yet derived / mechanically obtainable but not pursued," and `findings.md` Finding 15 listed only $\beta_\text{LV}$ and $\gamma_\text{LV}$. This change brings every reference into agreement with the derived closed forms.
+
+**Derived closed forms** (2D-square QCA, $n=\sqrt{1-m^2}$, $\omega_0=\arcsin m$):
+
+$$\beta_\text{LV}=\tfrac12\!\left(1-\tfrac{m}{n\,\omega_0}\right),\quad \gamma_\text{LV}=\tfrac18-\tfrac{m(3-2m^2)}{24\,n^3\omega_0},\quad \delta_\text{LV}=\tfrac1{16}-\tfrac{m(8m^4-20m^2+15)}{240\,n^5\omega_0}.$$
+
+Leading small-$m$ behaviour $-m^2/6,\,-m^2/12,\,-m^2/16$ for $\beta^2,\beta^4,\beta^6$; numerator polynomials $P_1=m$, $P_2=3m-2m^3$, $P_3=15m-20m^3+8m^5$.
+
+**Verification (no code change needed — already correct):** `python3 derive_beta_LV.py` confirms all three closed forms are bit-zero against the sympy series ("All three closed-form formulas confirmed symbolically") and match the numerical SR-2 grid. Adding $\delta_\text{LV}\beta^6$ sharpens the fit at the larger-$\beta$ rows ($m=0.5$, $k=0.05$: rel.err $6.3\times10^{-6}\to2.2\times10^{-8}$), saturating against the FFT/round-off floor ($\sim10^{-8}$) at the smallest-$\beta$ rows.
+
+**Correctness fix:** the $\gamma_\text{LV}(m)$ *numeric* column tabulated in `findings.md` Finding 15 had been carried over from a superseded expression (e.g. it listed $-1.110\times10^{-1}$ at $m=0.5$). It is corrected to the derived-formula values ($\gamma_\text{LV}(0.5)=-2.8147\times10^{-2}$, etc.). The $\gamma_\text{LV}$ *formula* stated in the prose/ledger was already the derived one; only the numeric table was stale.
+
+**Files updated:**
+- `findings.md` Finding 15 — $R(\beta)$ and $1/\gamma_\text{SR}$ expansions extended to $\beta^6$; $\delta_\text{LV}$ closed form added; small-$m$ leading coefficients noted; numerical table gains a $+\delta_\text{LV}\beta^6$ column; tabulated-values $\gamma_\text{LV}$ column corrected and a $\delta_\text{LV}$ column added; symbolic-check snippet, status, higher-orders, and references updated.
+- `ca-reference.md` — $R(\beta)$ decomposition extended to $\beta^6$; $\delta_\text{LV}$ closed form + numerator-polynomial pattern added; new exactness-ledger row; local total $15\to16$; open follow-up (b) now marks $\beta^6$ done with $\beta^8$+ remaining open.
+- `next-steps.md` — the "Derive $\beta^6$ mechanically" item marked Complete with the $\delta_\text{LV}$ result.
+
+**No physics or core-code changes:** `derive_beta_LV.py` and `derive_velocity_addition.py` already computed the derived closed forms; this entry is documentation alignment plus the $\gamma_\text{LV}$ numeric-table correction.
+
+## 2026-05-21 - 15:08 — GR-3 candidate-fix cross-fork harness run (Finding 14.5 resolution)
+
+**Motivation:** Finding 14.5 left the GR-3 Pound–Rebka factor-of-2 problem with three proposed resolutions but no head-to-head numerical comparison. Ran `ca-simulation/forks/gr3_fork_harness.py` to evaluate all three on a single shared potential and identify the discriminating observable.
+
+**What ran:** GR-1 (eikonal deflection $K$), GR-2 (Shapiro ratio), GR-3 (Pound–Rebka ratio$_{GR}$), GR-4 (1PN Mercury perihelion advance) on {baseline_paper6, fork_A_phase_tick, fork_B_anisotropic, fork_C_restricted_c}. Shared params: $L=128$, $M=1$, $\sigma=3$, $G_N=5\times10^{-4}$, $c_0=0.5$; GR-3 (near,far) pairs $\{(6,16),(8,22),(10,28),(12,30)\}$; GR-4 $GM=0.003$, $a=1$, $e=0.3$, 6 orbits, $dt=10^{-3}$.
+
+**Results (no physics changes — measurement only):**
+
+| Fork | GR-1 $K$ | GR-2 ratio | GR-3 ratio$_{GR}$ | GR-4 $\Delta\omega_\text{lat}/\Delta\omega_\text{GR}$ | $\alpha_A,\alpha_B$ |
+|---|---|---|---|---|---|
+| baseline_paper6 | −3.8495 | 1.0016 | 1.9991 ± 2.3e-4 | 2.0033 | 1.0, 1.0 |
+| fork_A_phase_tick | −3.8495 | 1.0016 | 1.0001 ± 2.3e-5 | 2.0033 | 1.0, 1.0 |
+| fork_B_anisotropic | −3.8511 | 1.0018 | 1.0002 ± 6.3e-5 | 2.0033 | 1.0, 1.0 |
+| fork_C_restricted_c | −3.8495 | 1.0016 | 0.9998 ± 5.7e-5 | 1.0006 | 0.5, 0.5 |
+
+- **All three forks fix GR-3** (ratio$_{GR}\to1$); baseline reproduces the factor-2 (1.9991).
+- **GR-1 and GR-2 unchanged across all forks** — the photon sector is untouched (Fork B's $c_\gamma=c_0\sqrt{A/B}$ matches the Paper-6 form to leading order; tiny $|K|$ shift −3.8511 vs −3.8495 from the 2nd-order $B$ term).
+- **GR-4 is the discriminator.** A and B are observationally degenerate with baseline; **Fork C predicts half the Mercury perihelion advance** ($C/\text{baseline}=0.4995$). The closed-form 1PN advance for C is ratio$_\text{pred/GR}=0.5833$ ($=1.75/3$, including the $\alpha_A\alpha_B$ cross term) vs the velocity-Verlet measurement $0.4995$ — the integration scales ≈ linearly with the (halved) metric amplitude while the closed form carries the cross term; the discrepancy is the recordable caveat.
+
+**Note on GR-4 absolute scale:** baseline reads 2.0033 rather than ≈1 because `gr4_mercury_advance` uses the per-half-orbit ×2 integration convention noted in the harness header. The meaningful result is relative: C is exactly half of A/B/baseline.
+
+**New/updated files:**
+- `test-results/gr3_fork_comparison.json` — full per-fork dump (incl. per-pair GR-3 rows, GR-4 orbit advances).
+- `test-results/gr3_fork_comparison.md` — side-by-side summary table generated by the harness.
+
+**Run mechanics:** the GR-4 orbit integration is ~18 s/fork (pure-Python velocity-Verlet, ~700k steps to 7 perihelia), so the four-fork single-shot run exceeds the 45 s sandbox shell limit. Ran one fork per process and assembled the final JSON/MD with the harness's own `write_markdown` — output is identical to a single `main()` call. GR-1/GR-2/GR-3 and the open-BC Poisson solve are all sub-second.
+
+## 2026-05-21 - 14:08 — SU(3) strong-force gauge sector drafted, implemented, and gated (V13)
+
+**Motivation:** `ca-unified-v2.md` and `ca-electroweak-design.md` both explicitly leave the strong sector out of scope; the latter names QCD binding energy (~99% of nucleon mass) as the largest mass-source v2 misses. This change closes the architectural gap at the design + code + test level. Also closes the long-pending "discrete Noether current conservation" item flagged in `next-steps.md` line 7 (the SU(3) machinery generalises trivially to U(1) and SU(2)).
+
+**Design decisions:**
+- **Link-variable formulation** (per-edge SU(3) matrices `U_μ(x)`), not per-cell phase. Per-cell phase works for the SU(2) weak sector because only the $W^a_0$ time-component enters the parity-violation gate; SU(3) needs gauge-covariant spatial transport, which requires links. Wilson plaquette is in scope; dynamical gluon update (V15) is deferred.
+- **Three flavours (u, d, s) in colour triplets** — full light-quark sector for tying into future hadron-mass tests; quark masses imported from Yukawa per flavour (no derivation, same status as lepton masses).
+- **Strange quark as right-handed singlet** for V13; Cabibbo / CKM mixing deferred. ($u_L$,$d_L$) preserved as a left-handed weak doublet so the existing SU(2)_weak machinery in `ca_weak.py` attaches to quarks the same way it does to leptons.
+- **First gate is the Noether-current conservation test (V13)**, not a Wilson loop, because Wilson loops require dynamical link updates while V13 stresses the new code path (link multiplication on the quark step) with frozen links.
+
+**New files:**
+- `reference-research/ca-strong-design.md` — 10-section design document. Sections: (1) motivation, (2) why link variables, (3) state layout, (4) Gell-Mann conventions and gauge transformations, (5) Strang-symmetric stepper composition, (6) Noether current and the V13 test plan, (7) build sequence + v2 reduction-limit extension, (8) honest caveats, (9) cross-references, (10) takeaway.
+- `ca-simulation/ca_strong.py` — link-variable SU(3) implementation. Provides: Gell-Mann generators (`gell_mann`, `T`, `verify_normalization`), SU(3) exponential via Hermitian eigendecomposition (`su3_exp`), Haar-random sampling (`su3_haar`), quark state container (`zero_quark_field`, `gaussian_quark`, `quark_norm`), link containers (`cold_links_2d`, `random_su3_links_2d`), gauge transformations (`gauge_transform_quark`, `gauge_transform_links`), parallel transport (`parallel_transport`, `covariant_shift`), full Strang stepper (`step_strong_2d`), Noether currents (`noether_charge_density`, `noether_charge_total`, `noether_current_spatial`, `lattice_3divergence`), adjoint representation (`adjoint_rotation`), and Wilson plaquette diagnostics (`plaquette_trace`, `wilson_action`).
+- `model-tests/test_su3_noether.py` — V13 gate suite. Six gates, all PASS:
+  - **G0 generator algebra:** Tr(T^a T^b) − ½δ^ab residual 1.1e-16; T^a Hermiticity 0.0; exp(iθ·T) ∈ SU(3) at 1e-15; 5/5 Haar draws ∈ SU(3).
+  - **V13a cold-link vacuum regression:** `step_strong_2d` with U_μ ≡ I matches three colour copies of `dirac_step_2d_splitstep` *exactly* — `max|q_strong − dirac_ref| = 0.0` (bit-for-bit), other (flavour,colour) channels stay at 0.0. **Tier-1 exact algebraic.**
+  - **V13b1 per-cell 4-divergence:** centred-difference residual max 3.2e-2 (informational; QCA dispersion's exact conservation is global, centred differences carry O(k²) truncation as expected).
+  - **V13b2 global charge conservation:** max|Q^a(t) − Q^a(0)| = 3.8e-13 over 200 steps at L=32; norm drift 7.7e-13. FFT round-off floor.
+  - **V13b3 global SU(3) adjoint rotation of Q^a:** measured Q after q → Vq matches V_adj · Q to 1.7e-14 absolute (6.6e-16 relative). Verifies the adjoint-representation identity V_adj^{ab} = 2 Tr(T^a V T^b V†) on a real lattice state. **Tier-1 exact algebraic.**
+  - **V13b4 local SU(3) gauge invariance:** under per-cell random V(x), `norm(q)` matches `norm(V q)` to 4.3e-14 over 20 evolution steps; plaquette trace `Σ Re Tr U_□` matches to 4.4e-16 (machine ε). **Tier-1 exact algebraic** for the plaquette trace identity.
+- `test-results/V13_su3_noether.json` — machine-readable result dump.
+
+**Implementation notes:**
+- `scipy` is not in the sandbox; `su3_exp` uses `numpy.linalg.eigh` on the Hermitian $H = Σ θ^a T^a$ and re-assembles $V = U (e^{iλ}) U†$. Unitary by construction.
+- The kinetic step is left untouched — each (flavour, colour) copy uses the existing `dirac_step_2d_splitstep` from `ca_dirac.py`. All colour structure rides on the parallel-transport step. This is what makes V13a a bit-for-bit regression rather than a tolerance check.
+- `random_su3_links_2d` uses an explicit Python loop over cells (one `su3_haar` per link). At L=16 the V13b4 setup takes ≪1 s; at L≥128 the loop becomes the bottleneck and would want vectorisation (deferred — V13b4 is not the hot path).
+- `noether_charge_density` is real to machine precision by Hermiticity of T^a; we return `np.real(J0)` rather than carrying the imaginary part through round-off.
+
+**Reduction-limit contract additions (extend `ca-unified-v2.md` §"What v2 preserves"):**
+
+| Limit | Reduces v2+SU(3) to | Gate |
+|---|---|---|
+| U_μ(x) ≡ I everywhere | 3 colour copies of `dirac_step_2d_splitstep` | V13a (bit-for-bit) |
+| Single colour + single flavour | Existing Dirac stepper | V13a-subcase |
+| Frozen non-trivial U_μ | Quark propagation with parallel transport, no gluon dynamics | V13b2, V13b3, V13b4 |
+| g_s = 0 in V15 | V13b set | Future |
+
+**Open follow-ups (additive, not blocking):**
+1. Add U(1) and SU(2) specialisations of `noether_charge_density` to close the corresponding `next-steps.md` line-7 items.
+2. Add the BCC 3D analog of `cold_links_2d` and `random_su3_links_2d` (8 forward directions instead of 2; `ca_bcc.py` neighbour graph).
+3. Wire quark Yukawa: per-flavour `m_q = y_q Re Φ` — current stepper takes `m_flavour` as a static dict, but should accept a per-cell Φ-derived mass field, mirroring `ca_unified.py`. V14 gate.
+4. V15 dynamical gluons (Kogut–Susskind link update + Wilson loop area-law diagnostic). Largest single follow-up; estimated 2 weeks.
+5. V16 colour-current → EMQG `ρ_tot` cross-layer hookup; sketch only at this stage.
+
+Total wall time for V13 suite: 5.4 s at L≤32, n=200 steps.
+
+No existing test broken. All prior 13/13 phase + 7/10 priority + 14/14 lattice tests preserved.
+
+---
+
+## 2026-05-21 - 01:05 — 't Hooft (2015) CAI summarised and compared to v2 model
+
+**Motivation:** Per project instructions to maintain a literature-comparison record for any reference paper that bears on the current model. The arXiv:1405.1548v3 monograph (259 pp.) is the canonical Cellular Automaton Interpretation of QM and was not yet in the reference inventory.
+
+**New file:**
+- `reference-research/t-hooft-2015-cai-summary.md` — six-section summary + match/differences comparison against `ca-unified-v2.md`. Sections: (1) book overview, (2) core claim, (3) key constructions (beable/changeable/superimposable, templates, ontological basis, CA evolution, Hilbert-space packaging, Bell/CHSH response, other constructions), (4) what the book delivers vs does not, (5) comparison to our model (matches table, differences table, mutual-information section), (6) concrete takeaways for the project.
+
+**Key takeaways (full text in the new summary):**
+- The CAI is an *interpretation*; our model is an *implementation*. They sit at different levels of the same research programme and do not conflict at the practical level.
+- 't Hooft leaves the lattice geometry open; the QCA uniqueness theorem (Papers 1, 2) closes it to BCC in 3D / square in 2D. This is information the CAI does not yet have available.
+- The CAI flags the Maxwell sector and gravity as the two largest open problems. We have a concrete composite-photon construction (Paper 1 Eq. 35; Findings 2, 7; exactness items 22–30) and a concrete gravity sector (Paper 6 Eq. 19.7; `ca_emqg.py`; tested at 0.35% Newtonian lensing and 0.06% Shapiro).
+- The book's Hamiltonian-positivity / locality / additivity problem (CAI §9.1) is the same observation as our arccos dispersion's mod-$2\pi$ structure; documenting the bridge would tighten the exactness inventory.
+- The only foundational *incompatibility* is the CAI's "the universe is in a single ontological basis element at all times" axiom: our QCA evolves the templates themselves and produces QM directly. Either reading is consistent with the simulation data we have.
+
+**Open follow-ups (additive, not blocking):**
+1. Adopt beable/changeable/superimposable vocabulary in `ca-reference.md`.
+2. Add a cogwheel-model test as a regression / pedagogical target.
+3. Document the CAI-vs-QCA reading of our CHSH result in `findings.md`.
+4. Decide whether information-loss / equivalence-class machinery (CAI ch. 7) is worth implementing — currently out of scope because all our automata are exact-unitary by construction.
+5. Re-read CAI §9.4 alongside `ca-emergent-time-plan.md` Phase T5 (vacuum freezing) to assess whether the surface-vs-bulk pattern is a hint or a coincidence.
+
+No code changes, no test changes.
+
+---
+
+## 2026-05-20 - 23:55 — Full regression at L=192 post-engine-rebuild; new runner scripts
+
+**Motivation:** After the 2026-05-20 21:30 engine rebuild (`ca_fft.py`, `ca_lattice.py`, `ca_propagator.py`), run every phase and priority test at maximum resolution permitted by sandbox RAM (~3.4 GB).
+
+**New files:**
+- `model-tests/run_L192_tests.py` — Phases A1, A2, B1, B2, C1, D1, E1, E2, E3 at L=192 (was 320–1280 at 10× bump). All σ and n_steps scaled proportionally.
+- `model-tests/run_L192_phaseF_tests.py` — Phases F1–F4, F3b at L=192. Uses `setup_symmetry_restored` + `phase='symmetric'` API for F4 (replaces stale `mu2=-0.5` kludge).
+- `test-results/phaseAE_L192.json`, `test-results/phaseF_L192.json` — machine-readable results.
+
+**Key decisions:**
+- L1.d BCC norm drift: reduced from L=160³ to L=64³ (wall-time limit); physics identical, FFT floor 6e-14.
+- L4.c 2D Cayley lensing: skipped (L=1280 OOM, confirmed INFO-only test — logarithmic 2D Green's function is dimensionally inconsistent anyway).
+- SR-2 Part B: reduced from L=128/n=4000 to L=64/n=800 (32s fit within 44s bash timeout); num-vs-pred = 2.9e-15 unchanged.
+- E1 phase-wrap: `abs(measured−analytic)` reports 2π when smaller σ causes packet to traverse flux tube in reverse sense. Physics correct — error mod 2π = 0.0 exactly. Gate fix pending: use `min(|Δ|, 2π−|Δ|)`.
+
+**All results:** 9/9 Phase A–E, 5/5 Phase F, 14/14 L-layer (+ 1 partial INFO, 1 OOM skip), 7/10 Top-10 priority — unchanged from prior baseline. The two known failures (GR-3 factor-2, QM-2 Klein) and one mechanism-pass/period-fail (QFT-5) are unchanged and expected.
+
 Non-trivial software changes and decisions for the Physics Notes simulation work.
+
+## 2026-05-20 - 14:30 — Mohr (2010) photon wave-function improvements to `ca_maxwell.py`
+
+**Motivation:** Reference paper (Mohr, *Ann. Phys.* 325, 607-663, 2010) identified four gaps in the composite-photon Maxwell implementation. All four were implemented and verified to pass.
+
+**New functions added to `ca_maxwell.py`:**
+
+- `tau_dot(v_c)` — spin-1 τ·v operator (Mohr Eq. 19), Cartesian input, acts on spherical-basis vectors. Satisfies τ·a a_s = 0 (Eq. 25) to 5.5e-17.
+- `polarization_basis(khat_c, circular=True)` — explicit ε₁, ε₂ in spherical basis (Mohr Eqs. 210-216). Circular mode reproduces Mohr Eq. 216 exactly for k̂=ẑ. Linear mode gives Eq. 215.
+- `test_polarization_basis()` — verifies transversality (1.6e-16), orthonormality (5.6e-16), completeness (4.4e-16).
+- `composite_photon_energy_conservation()` — verifies ‖E_G‖² + ‖B_G‖² = const (Mohr Eq. 55): 4.5e-14 over 200 steps, consistent with N·ε accumulation.
+- `_lorentz_boost_6x6(v_hat_c, zeta)` — 6×6 Lorentz boost matrix V(v) = exp(ζ K·v̂) (Mohr Eq. 171) using tau matrices.
+- `_boost_4momentum(k_c, v_hat_c, zeta)` — 4-vector boost for massless photon.
+- `lorentz_boost_covariance()` — verifies transversality preserved under boost (Eq. 284: 1.3e-15), wave-function form (Eq. 285: 5.1e-16), scalar factor ξ (Eq. 287: 6.7e-16).
+- `longitudinal_mode(khat_c)` — λ=0 longitudinal spinor (k̂_s, 0)^T (Mohr Eq. 237).
+- `longitudinal_transverse_orthogonality()` — verifies H ψ_L=0 (5.5e-17), ψ_T† ψ_L=0 (1.1e-16), Π^T ψ_L=0 (3.7e-17).
+
+**Module-level constants added:** `_M` (Cartesian→spherical basis, Mohr Eq. 23), `_TAU1/2/3` (spin-1 tau matrices, Mohr Eqs. 15-17).
+
+**Decision:** Circular (helicity) polarization is the default for `polarization_basis` because it has cleaner Lorentz transformation behavior — transversality is manifestly preserved under boosts (Eq. 284), unlike linear polarization.
+
+**Exactness inventory:** 9 new exact-algebraic results added (entries 22-30), 1 new machine-precision result (entry 7). Total: 30 exact-algebraic.
+
+## 2026-05-20 - 21:30 — Simulation rebuilt for 10× scalability; FFT floor improvement
+
+**Motivation:** Prepare the simulation to scale lattice density and test-pool size by another factor of 10 without artificial bottlenecks.
+
+**New modules:**
+
+- `ca_fft.py` — FFT backend selector.  Auto-picks scipy.fft (multi-worker, `workers=-1` = all CPUs) over numpy.fft.  Exposes `fftn/ifftn/fft2/ifft2/fft/ifft` wrappers + `memory_estimate()` + `fft_floor_estimate()`.  Fallback to numpy if scipy not installed; optional pyfftw tier (install separately).
+- `ca_lattice.py` — Central k-grid construction.  `make_kgrid_2d/3d`, `LatticeConfig` dataclass with `.memory()`, `.propagator_cache_memory()`, `.scaled(factor)`.  `good_fft_sizes()` / `next_good_fft_size()` helpers for choosing FFT-optimal lattice dimensions.  `print_scaling_table()` for planning.
+- `ca_propagator.py` — Cached spectral propagator objects: `BccWeylPropagator`, `BccDiracPropagator`, `Exact2DPropagator`, `Linear2DPropagator`.  Each precomputes U(k) once on construction (no trig per step).  At L=64 this is 3–4× faster per step vs the old path; gap widens with L.  Also provides `phase_rate_lsq`, `phase_rate_zeropad`, `compare_phase_methods` — zero-padded DFT gives 8–32× finer effective frequency resolution for no extra propagation cost.
+
+**Refactored modules:**
+
+- `ca_bcc.py` — `weyl_step_3d_bcc` now calls `ca_fft.fftn/ifftn` and `ca_lattice.make_kgrid_3d`.  All existing function signatures preserved.
+- `ca_dirac_bcc.py` — `dirac_step_3d_bcc_splitstep` uses same ca_fft + ca_lattice path.
+- `ca_core_exact.py` — `weyl_step_2d_arccos_splitstep` upgraded to ca_fft.
+
+**Updated tests:**
+
+- `test_SR2_3D_time_dilation.py` — `measure_plane_wave_phase_rate_3d_exact` accepts optional `BccDiracPropagator` argument.  `part_B_propagation` builds one propagator and reuses it for both static/moving runs.  `part_B_scan` caches one propagator per unique mass.  New `show_fft_floor` flag triggers `compare_phase_methods` report after each run.
+
+**FFT floor resolution:**
+
+- Hard limit for complex128 is ε_mach × log₂(N) per transform (e.g. ~2e-12 for L=64³).  Cannot be improved by library choice.
+- To improve *frequency* resolution: (a) larger L → Δk = 2π/L shrinks; (b) more timesteps → Δω = 2π/N_t shrinks; (c) zero-padded DFT (`phase_rate_zeropad`, pad_factor=8) gives 8× finer effective bin width for free.  The lsq method (`phase_rate_lsq`) saturates at ~ε_mach/n_steps and is still preferred for precision measurements; zero-padded DFT is useful for diagnostics.
+
+**Verified:**
+
+- `ca_bcc` / `ca_dirac_bcc` smoke tests: norm drift ≤ 2.2e-14, dispersion ≤ 2.2e-16, unitarity ≤ 8.9e-16 — identical to pre-refactor.
+- SR-2 Part A algebraic scan: unchanged results.
+- SR-2 Part B propagation with cached propagator: num-vs-pred = 1.1e-15 (matches FFT floor).
+
+**Scaling reality check:**
+
+| Scale | L   | 4-spinor RAM | Prop cache (8 blk) | FFT floor |
+|-------|-----|--------------|--------------------|-----------|
+| 1×    |  64 | 0.02 GB      | 0.03 GB            | 2.0e-12   |
+| 2×    | 128 | 0.13 GB      | 0.27 GB            | 6.8e-12   |
+| 4×    | 256 | 1.07 GB      | 2.15 GB            | 2.2e-11   |
+| 5×    | 320 | 2.10 GB      | 4.19 GB            | 3.2e-11   |
+| 10×   | 640 | 16.78 GB     | 33.55 GB           | 1.0e-10   |
+
+True 10× (L=640) requires ~50 GB RAM for the propagator cache.  The practical sweet spot for a 16 GB workstation is L=256–320 (4–5×), which is achievable with the cached propagator + scipy multi-core backend.
+
+
+
+## 2026-05-20 - 18:09 — GR-2 Shapiro re-test with open-BC kernel passes 0.1% gate
+
+Applied the new `poisson_open.py` free-space kernel to GR-2.
+
+**New test:** `model-tests/tests-priority/test_05b_GR2_openBC.py`.
+
+- $L=192$, $b=8$: ratio $\Delta t_\text{lat}/\Delta t_\text{GR} = 1.00058$
+  (0.06% off the GR closed form).
+- Convergence in $L$ at fixed $b=8$: $1.0062 \to 1.0029 \to 1.0016 \to
+  1.0010 \to 1.0006$ for $L = 64 \to 192$ — monotonic to 1.
+- $b$ scan at $L=128$ holds $1.003$–$1.005$.
+- **0.1% gate: PASS** (periodic kernel was ~38% off, RATIO PASS only).
+- **Pins PPN $\gamma = 1$** to lattice precision.
+
+**Result file:** `test-results/top10_T05b_GR2_openBC.json`.
+
+**Documentation:** Finding 14.16 in `findings.md`; GR-2 rows updated in
+`lattice-vs-spacetime-tests.md` and `exactness-inventory.md` (Tier-3 #17).
+
+## 2026-05-20 - 18:09 — Open-boundary 3D Poisson solver; GR-1 re-test passes 5% gate
+
+Built the free-space Poisson solver that Finding 14.9 flagged as the
+single largest accuracy limit on the GR-domain tests.
+
+**New file:** `ca-simulation/poisson_open.py` — James/Hockney
+zero-padded FFT Poisson solver.
+
+- `green_freespace_3d(L_pad, r_min)` — free-space Green's function
+  $G(r) = -1/(4\pi r)$ on a doubled grid, half-cell self-regularisation.
+- `solve_poisson_3d_open(rho, G_N, r_min)` — zero-pads $\rho$ to
+  $(2L)^3$, convolves with $G$ via `rfftn`, crops back to $(L)^3$.
+  Convention: $\phi_k = 4\pi G_N\,\rho_k\,G_k$ (sign verified against the
+  attractive $\phi = -G_N M/r$).
+- Verification (`__main__`): far-field $1/r$ recovered to machine
+  precision ($2.2\times 10^{-16}$ at $r \ge 20$, $L=96$); near-source
+  residual $9.4\times 10^{-4}$ at $r = 10 \approx 3\sigma$ is the
+  finite-source effect, not solver error.
+
+**New test:** `model-tests/tests-priority/test_01b_GR1_openBC.py` —
+GR-1 light-deflection eikonal with the open-BC kernel.
+
+- $L=192$, $b=8$, $\sigma=3$: $|K| = 3.868$ (3.30% off Einstein 4.0).
+- Truncation-corrected (analytic $R/\sqrt{R^2+b^2}$ factor):
+  $|K| = 3.881$ — 2.96% off Einstein.
+- Convergence in $L$ at fixed $(b,\sigma)$: $|K|$ rises $3.76 \to 3.87$
+  for $L = 64 \to 192$ (PBC version *fell* to 3.49 — opposite trend).
+- **5% Einstein gate: PASS** (PBC version was FAIL at 12.5%).
+
+**Result file:** `test-results/top10_T01b_GR1_openBC.json`.
+
+**Memory note:** the doubled-grid FFT caps the sandbox at $L \le 192$
+($L_\text{pad}=384$, $\sim$450 MB/array); $L=256$ ($512^3 \approx 1$ GB)
+times out.  Use $L=192$ as the working ceiling.
+
+**Documentation:** Finding 14.15 in `findings.md`; GR-1 rows updated in
+`lattice-vs-spacetime-tests.md` and `exactness-inventory.md`
+(Tier-3 #15 and the "Currently failing" item #1 retired).
 
 ## 2026-05-19 - 23:30 — SR-2 β_LV coefficient derived in closed form
 
@@ -55,29 +569,29 @@ Built and executed all ten tests from the priority ranking in
 
 **New files:**
 
-- `ca-simulation/tests-priority/test_01_GR1_light_deflection.py` — eikonal
+- `model-tests/tests-priority/test_01_GR1_light_deflection.py` — eikonal
   ray tracer through 3D EMQG potential, scans $M$, $b$, $L$.  Pure-numpy
   (no scipy needed).
-- `ca-simulation/tests-priority/test_02_QM1_CHSH.py` — pure-state CHSH +
+- `model-tests/tests-priority/test_02_QM1_CHSH.py` — pure-state CHSH +
   12-tick Weyl lattice propagation with singlet encoded on two separated
   Gaussian packets.
-- `ca-simulation/tests-priority/test_04_GR3_pound_rebka.py` — phase-tick
+- `model-tests/tests-priority/test_04_GR3_pound_rebka.py` — phase-tick
   redshift via $c(x)$ sampled at near/far cells of a Gaussian-mass potential.
-- `ca-simulation/tests-priority/test_05_GR2_shapiro.py` — line integral of
+- `model-tests/tests-priority/test_05_GR2_shapiro.py` — line integral of
   $1/c(x)$ vs analytic GR Shapiro
   $(2GM/c^3)\log[(r_1+r_2+r_{12})/(r_1+r_2-r_{12})]$.
-- `ca-simulation/tests-priority/test_06_QG2_planck_LV.py` — direct evaluation
+- `model-tests/tests-priority/test_06_QG2_planck_LV.py` — direct evaluation
   of BCC dispersion at small $k$ along axis vs diagonal, power-law fit to
   $E_\text{LV}$, SI conversion across $a \in [10^{-35}, 10^{-32}]$ m.
-- `ca-simulation/tests-priority/test_07_QFT5_neutrino.py` — 2- and 3-flavour
+- `model-tests/tests-priority/test_07_QFT5_neutrino.py` — 2- and 3-flavour
   PMNS matrix evolution with relative-phase factoring to avoid float64
   overflow at $E\cdot L \sim 10^{21}$ rad.
-- `ca-simulation/tests-priority/test_08_QM2_tunneling.py` — Gaussian Dirac
+- `model-tests/tests-priority/test_08_QM2_tunneling.py` — Gaussian Dirac
   packet on a rectangular $A_0$ barrier; sweet-spot vs Klein-regime scans.
-- `ca-simulation/tests-priority/test_09_GR4_mercury.py` — velocity-Verlet
+- `model-tests/tests-priority/test_09_GR4_mercury.py` — velocity-Verlet
   integration of the Will/Soffel 1PN equation of motion; perihelion
   detection by parabolic interpolation.
-- `ca-simulation/tests-priority/test_10_QG4_charge.py` — U(1) charge over
+- `model-tests/tests-priority/test_10_QG4_charge.py` — U(1) charge over
   1000 steps at $L=256$; chiral charge at $m=0$ and $m=0.5$; per-step
   discrete continuity check.
 
@@ -120,8 +634,8 @@ Built the 3D BCC Dirac stepper and the 3D analog of `test_SR2_time_dilation.py`.
 | File | Role |
 |---|---|
 | `ca-simulation/ca_dirac_bcc.py` | Exact-QCA 3D Dirac propagator on the BCC lattice — `dirac_step_3d_bcc_splitstep`, `bcc_dirac_dispersion`, `build_D_k_matrix`, plus dispersion/unitarity/norm-drift verifiers |
-| `ca-simulation/test_SR2_3D_time_dilation.py` | 3D analog of `test_SR2_time_dilation.py`.  Part A scans (m, k) algebraically; Part B propagates 4-spinor plane waves on $L^3$ lattices and extracts phase rates via FFT-based sub-pixel sampling |
-| `ca-simulation/_sr2_3d_scan.py` | One-off on-grid k characterisation utility — caches static phase rate per (L, m); reproduces the residual table in `findings.md` Finding 13 |
+| `model-tests/test_SR2_3D_time_dilation.py` | 3D analog of `test_SR2_time_dilation.py`.  Part A scans (m, k) algebraically; Part B propagates 4-spinor plane waves on $L^3$ lattices and extracts phase rates via FFT-based sub-pixel sampling |
+| `model-tests/_sr2_3d_scan.py` | One-off on-grid k characterisation utility — caches static phase rate per (L, m); reproduces the residual table in `findings.md` Finding 13 |
 
 **Stepper design — the 4×4 unitarity closure on BCC.**  The Dirac single-tick unitary is
 
@@ -166,9 +680,9 @@ Implemented Phases T0, T1, T2, T4, and T5 of `ca-emergent-time-plan.md`.  T3 (pa
 |---|---|
 | `ca-simulation/ca_lazy.py` | T1.A wrapper — `TickCounter`, `lazy_step`, sync-vs-lazy regression utility |
 | `ca-simulation/tick_heatmap.py` | T1.B visualization — `tick_heatmap`, `tick_heatmap_with_phi` |
-| `ca-simulation/test_emergent_time_T1.py` | T1 regression tests (4/4 PASS) |
-| `ca-simulation/test_emergent_time_shapiro.py` | T2.A/B/C tests (3/3 PASS) — Shapiro / redshift / group velocity in ticks |
-| `ca-simulation/test_emergent_time_T5.py` | T5.A/B/C tests (3/3 PASS) — vacuum cells exact, lazy benchmark, asymmetric tick clocks |
+| `model-tests/test_emergent_time_T1.py` | T1 regression tests (4/4 PASS) |
+| `model-tests/test_emergent_time_shapiro.py` | T2.A/B/C tests (3/3 PASS) — Shapiro / redshift / group velocity in ticks |
+| `model-tests/test_emergent_time_T5.py` | T5.A/B/C tests (3/3 PASS) — vacuum cells exact, lazy benchmark, asymmetric tick clocks |
 
 **T1.A — lazy-update propagator.**  Wraps any v2 propagator step and increments a per-cell `int64` counter at cells whose pre/post residual exceeds $\varepsilon = 10^{-13}$.  Bookkeeping-only laziness: FFT-based propagators touch every cell by construction, so the lazy run is bit-for-bit identical to the synchronous run (verified at max diff = 0.00e+00 for Weyl free, Higgs Mexican-hat, and unified F1 step).  Vacuum-cell ε calibration: max per-step residual on $\Phi = v$ pure-vacuum state is $1.18\times 10^{-16}$ (Higgs $1.11\times 10^{-16}$; Weyl $\psi = 0$ exactly zero); $\varepsilon = 10^{-13}$ sits 849× above the floor.
 
@@ -251,7 +765,7 @@ where $W_k$ is `ca_core_exact.exact2d_unitary` and the lower-right block is $W_k
 
 **Does *not* close.**  3D-BCC Dirac stepper (no 3D code path touched).  Composite-photon / Paper 1 Eq. 35 derivation (V4).  DSR / Paper 4 boost map (V8) — that needs the deformation map $\mathcal D$ in addition to the exact dispersion that this refactor lands.
 
-**Files changed.**  `ca-simulation/ca_dirac.py` (full rewrite), `ca-simulation/ca_unified.py` (drop `c` / `c_energy_unit` from `unified_step`; rebuild `total_energy` with $n_0$ derived from $m_0$), `ca-simulation/run_phase_tests.py` (D1, E1, E3), `ca-simulation/run_phaseF_tests.py` (F1, F3, F-dt, F4).
+**Files changed.**  `ca-simulation/ca_dirac.py` (full rewrite), `ca-simulation/ca_unified.py` (drop `c` / `c_energy_unit` from `unified_step`; rebuild `total_energy` with $n_0$ derived from $m_0$), `model-tests/run_phase_tests.py` (D1, E1, E3), `model-tests/run_phaseF_tests.py` (F1, F3, F-dt, F4).
 
 ## 2026-05-17 (new design note — emergent-time roadmap)
 
@@ -471,7 +985,7 @@ No data matched an imaginary-number approximation in the sense suggested by the 
 ## 2026-05-15 (v2 layered build)
 
 ### L1–L4 v2 layered build implemented and tested
-- **New files:** `ca-simulation/ca_bcc.py` (L1, ~210 lines), `ca-simulation/ca_core_exact.py` (L2, ~150 lines), `ca-simulation/ca_maxwell.py` (L3, ~220 lines), `ca-simulation/ca_emqg.py` (L4, ~165 lines), `ca-simulation/run_L_tests.py` (~210 lines, gates between layers).
+- **New files:** `ca-simulation/ca_bcc.py` (L1, ~210 lines), `ca-simulation/ca_core_exact.py` (L2, ~150 lines), `ca-simulation/ca_maxwell.py` (L3, ~220 lines), `ca-simulation/ca_emqg.py` (L4, ~165 lines), `model-tests/run_L_tests.py` (~210 lines, gates between layers).
 - **What:** the four-layer v2 stack from `ca-unified-v2.md` landed end-to-end in one session, with explicit pass gates between layers.
 
 #### L1 — BCC + exact arccos dispersion (Paper 1 Eq. 15)
@@ -582,13 +1096,13 @@ Every test runner had its lattice-spacing parameters scaled up by a factor of te
 ## 2026-05-16
 
 ### P1 — symplectic Yukawa back-reaction (corrected c² factor)
-- **Files:** `ca-simulation/ca_unified.py` (`unified_step` gains `back_react=True` Strang-symmetric half-kicks; new `total_energy` helper); `ca-simulation/run_phaseF_tests.py::test_F3` rewritten to use the symplectic API and a 200-step run with a bounded-energy check.
+- **Files:** `ca-simulation/ca_unified.py` (`unified_step` gains `back_react=True` Strang-symmetric half-kicks; new `total_energy` helper); `model-tests/run_phaseF_tests.py::test_F3` rewritten to use the symplectic API and a 200-step run with a bounded-energy check.
 - **Derivation:** the Yukawa Hamiltonian density is `H_Y = c²·y·(Φ·η†χ + Φ*·χ†η)`. The factor `c²` is essential because the Dirac stepper uses `m·c²·β` for the mass-Hamiltonian — without it, the Π update is too small to balance the Ψ rotation, leaving a constant Strang offset (1.85% drift independent of dt). With `c²` included, Hamilton's equation `δΠ/δt = -∂H_Y/∂Φ* = -c²·y·χ†η` matches the Ψ rotation generator and the symplectic split is exact.
 - **Test result:** `max|H − H₀| / |H₀|` over 200 steps with dt=0.5 is **3 ppm** (was 1.85% before the correction). Drift scales as O(dt²) exactly: dt=0.5 → 3.0e-6, dt=0.25 → 7.4e-7, dt=0.125 → 1.8e-7, dt=0.0625 → 4.6e-8 (every factor-2 dt drop reduces drift by 4×).
 - **|Φ−v| range** dropped from 0.012–1.247 (old divergent sketch, 30 steps) to 0.66–0.73 (200 steps), confirming the back-reaction stays in a bounded oscillation around vacuum instead of running away. F1/F2/F4 unchanged with the default `back_react=False`.
 
 ### P3 — Cayley/Crank–Nicolson exact-unitary variable-c kinetic step
-- **Files:** `ca-simulation/ca_curved.py` (added `_build_cayley_matrix_2d`, `CayleyVarcSolver2D`, `weyl_step_2d_varc_cayley`, `method='cayley'` option in `measure_refraction`); `ca-simulation/run_phase_tests.py::test_C1` extended with a Cayley arm; new `test_F3b` Newtonian-gravity demo in `run_phaseF_tests.py`.
+- **Files:** `ca-simulation/ca_curved.py` (added `_build_cayley_matrix_2d`, `CayleyVarcSolver2D`, `weyl_step_2d_varc_cayley`, `method='cayley'` option in `measure_refraction`); `model-tests/run_phase_tests.py::test_C1` extended with a Cayley arm; new `test_F3b` Newtonian-gravity demo in `run_phaseF_tests.py`.
 - **What:** solves `(I + i·dt/2·H_disc)·ψ_new = (I − i·dt/2·H_disc)·ψ_old` where `H_disc` is the Hermitized variable-c Weyl operator with face-averaged c (`c_face(i+½,j) = (c(i,j)+c(i+1,j))/2`). Sparse 10-nonzero/row matrix; LU-factored once per c-field change via `scipy.sparse.linalg.splu`. Sub-stepping (`n_sub`) inside the solver reduces O(dt²) Crank–Nicolson dispersion without giving up exact unitarity.
 - **Norm conservation:** drift 5.5e-15 over 200 steps on variable c (range 0.2–0.6) vs **32.6%** for the existing Strang-split stepper. That's a 6×10¹³ improvement — Cayley is at the complex128 machine-precision floor.
 - **C1 refraction:** Cayley measures the right qualitative refraction direction but is 5.4° off the continuum Snell prediction at |k|≈0.5. This is the **lattice dispersion** of centered first-differences (ω(k)=c·sin(k) instead of c·|k|), not a bug. The existing Strang+FFT path avoids it for the c₀ baseline because the FFT propagator gives exact-k dispersion. Closing the gap requires a higher-order spatial stencil — flagged as future work.

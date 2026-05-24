@@ -1,0 +1,9 @@
+{
+  "test": "QFT-8",
+  "ok1_algebraic": true,
+  "ok2_numerical": true,
+  "ok3_norm": true,
+  "overall": true,
+  "max_algebraic_delta": 0.0,
+  "max_numerical_rel": 0.0
+}

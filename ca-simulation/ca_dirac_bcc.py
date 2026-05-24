@@ -56,6 +56,8 @@ Observable shifts vs the 2D square-lattice Dirac:
 
 import numpy as np
 import ca_bcc as bcc
+import ca_fft as _fft          # multi-core FFT backend
+from ca_lattice import make_kgrid_3d as _kgrid3d
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -156,18 +158,14 @@ def dirac_step_3d_bcc_splitstep(eta_u, eta_d, chi_u, chi_d,
     eta_u_new, eta_d_new, chi_u_new, chi_d_new : updated arrays
     """
     _check_mass(m)
-    Lx, Ly, Lz = eta_u.shape
-    kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
-    ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
-    kz = np.fft.fftfreq(Lz) * 2.0 * np.pi
-    KX, KY, KZ = np.meshgrid(kx, ky, kz, indexing='ij')
+    KX, KY, KZ = _kgrid3d(*eta_u.shape)
 
     n     = _kinetic_n(m)
     im_v  = 1j * m
     A, Ap = _bcc_weyl_blocks(KX, KY, KZ, sign=sign)
 
-    EU = np.fft.fftn(eta_u);  ED = np.fft.fftn(eta_d)
-    CU = np.fft.fftn(chi_u);  CD = np.fft.fftn(chi_d)
+    EU = _fft.fftn(eta_u);  ED = _fft.fftn(eta_d)
+    CU = _fft.fftn(chi_u);  CD = _fft.fftn(chi_d)
 
     # Apply D_k once → (D_k Ψ) in Fourier space
     DEU, DED, DCU, DCD = _apply_D_k(EU, ED, CU, CD, n, im_v, A, Ap)
@@ -189,8 +187,8 @@ def dirac_step_3d_bcc_splitstep(eta_u, eta_d, chi_u, chi_d,
         CU_new = cos_wdt * CU + scale * (DCU - cos_w * CU)
         CD_new = cos_wdt * CD + scale * (DCD - cos_w * CD)
 
-    return (np.fft.ifftn(EU_new), np.fft.ifftn(ED_new),
-            np.fft.ifftn(CU_new), np.fft.ifftn(CD_new))
+    return (_fft.ifftn(EU_new), _fft.ifftn(ED_new),
+            _fft.ifftn(CU_new), _fft.ifftn(CD_new))
 
 
 # ══════════════════════════════════════════════════════════════════

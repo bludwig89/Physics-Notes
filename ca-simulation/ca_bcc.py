@@ -34,8 +34,19 @@ of the above reduces to the **Weyl Hamiltonian in 3D**:
 
 i.e. the lattice speed of light is 1/√3 (the QCA analog of the CFL bound).
 
-The two signs ± correspond to the two helicity-handed Weyl equations. The
-'+' sign is the left-helicity Weyl, the '-' sign is the right-helicity.
+Finding 26 (rotation reinterpretation): the composite-photon rotation angle
+per tick is Ω(k) = 2 ω_+(k/2).  The speed of light
+
+    c_lat = dΩ/d|k||_{k→0} = 1/√3
+
+is not a propagation speed but the *angular rotation rate* of the (E,B)
+field pair per unit wavenumber.  The imaginary unit i that appears in
+Maxwell's equations is the 2×2 real rotation J = [[0,1],[-1,0]] —
+the algebraic artefact of linearising the exact cosine rotation at Δt → 0.
+
+The two signs ± correspond to the two chirality-handed Weyl equations.
+Note: ω_+(−k) = ω_−(k) (chirality maps k → −k between branches).
+The '+' sign is the left-helicity Weyl, the '-' sign is the right-helicity.
 
 This module exposes:
   weyl_step_3d_bcc(f, g, c=1.0/√3, sign='+')   one BCC step on 2-spinors
@@ -50,6 +61,8 @@ construction (FFT round-off is the only floor).
 """
 
 import numpy as np
+import ca_fft as _fft          # multi-core FFT backend (scipy/pyfftw/numpy)
+from ca_lattice import make_kgrid_3d as _kgrid3d
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -106,6 +119,37 @@ def bcc_dispersion(kx, ky, kz, sign='+'):
     return np.arccos(np.clip(u, -1.0, 1.0))
 
 
+def bcc_spin_axis(kx, ky, kz, sign='+'):
+    """
+    Return the normalised BCC spin-quantisation axis n̂(k) = n(k)/sin ω(k).
+
+    This is the Bloch vector of the Weyl eigenmode: the positive-helicity
+    eigenstate ψ₊ satisfies (n̂·σ)ψ₊ = +ψ₊, i.e. n̂ is the spin axis of ψ₊.
+
+    Derivation (Finding F26):
+        U(k) = u·I − i·(n·σ)  with u² + |n|² = 1 (unitarity).
+        Eigenvalue equation  U ψ₊ = e^{−iω} ψ₊  gives
+            (n·σ) ψ₊ = sin ω · ψ₊  ⟹  (n̂·σ) ψ₊ = +ψ₊.
+
+    Continuum limit |k| → 0  (using cᵢ → 1, sᵢ → kᵢ/√3):
+        n̂ → (k_x, −k_y, k_z) / |k|.
+    The sign flip on the y-component is an intrinsic chirality convention
+    of the Bisio BCC walk; the spin–momentum locking is exact.
+
+    Returns:
+        n_hat : ndarray, shape (3,) or (3, ...)  — unit vector, float64.
+            Row 0 = n̂_x, row 1 = n̂_y, row 2 = n̂_z.
+    """
+    u, nx, ny, nz = _bcc_uvec(kx, ky, kz, sign=sign)
+    sin_omega = np.sqrt(np.clip(1.0 - u**2, 0.0, None))
+    # At k=0, sin_omega=0; return ẑ = (0,0,1) as the degenerate limit.
+    safe = sin_omega > 0.0
+    nh_x = np.where(safe, nx / np.where(safe, sin_omega, 1.0), 0.0)
+    nh_y = np.where(safe, ny / np.where(safe, sin_omega, 1.0), 0.0)
+    nh_z = np.where(safe, nz / np.where(safe, sin_omega, 1.0), 1.0)
+    return np.stack([nh_x, nh_y, nh_z], axis=0)
+
+
 def bcc_unitary(kx, ky, kz, sign='+'):
     """
     The 2×2 unitary U^±(k) per Paper 1 Eq. 15:
@@ -151,21 +195,16 @@ def weyl_step_3d_bcc(f, g, sign='+'):
     Exactly unitary by construction — every FFT mode is rotated by a
     2×2 unitary matrix, so total norm is conserved to FFT round-off.
     """
-    Lx, Ly, Lz = f.shape
-    kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
-    ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
-    kz = np.fft.fftfreq(Lz) * 2.0 * np.pi
-    KX, KY, KZ = np.meshgrid(kx, ky, kz, indexing='ij')
-
+    KX, KY, KZ = _kgrid3d(*f.shape)
     U_ff, U_fg, U_gf, U_gg = bcc_unitary(KX, KY, KZ, sign=sign)
 
-    F = np.fft.fftn(f)
-    G = np.fft.fftn(g)
+    F = _fft.fftn(f)
+    G = _fft.fftn(g)
 
     F_new = U_ff * F + U_fg * G
     G_new = U_gf * F + U_gg * G
 
-    return np.fft.ifftn(F_new), np.fft.ifftn(G_new)
+    return _fft.ifftn(F_new), _fft.ifftn(G_new)
 
 
 # ══════════════════════════════════════════════════════════════════

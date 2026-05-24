@@ -139,7 +139,7 @@ Either way, the linear-in-k residual is a concrete data point about how well the
 ### Where the test lives
 
 - `ca-simulation/ca_maxwell.py::maxwell_curl_residual` — the test implementation.
-- `ca-simulation/run_L_tests.py::test_L3` — reports the residual as INFO (not a pass/fail gate) so the L3 suite passes on dispersion + transversality alone.
+- `model-tests/run_L_tests.py::test_L3` — reports the residual as INFO (not a pass/fail gate) so the L3 suite passes on dispersion + transversality alone.
 - `changelog.md` 2026-05-15 (v2 layered build) — entry documenting the residual scaling and the decision to defer the smeared-photon implementation.
 
 ### Update 2026-05-16 — 10× k-scan confirms 1/√6 to 7 significant figures
@@ -196,7 +196,7 @@ A third bona-fide "exact" result, alongside Finding 1 (BCC unitarity) and the F1
 ### Where the test lives
 
 - `ca-simulation/ca_higgs.py::verify_higgs_dispersion_2d`.
-- `ca-simulation/run_phaseF_tests.py::test_F2` — passes at the prior 0.5% threshold; the new exact result holds when L is bumped from 64 to 640.
+- `model-tests/run_phaseF_tests.py::test_F2` — passes at the prior 0.5% threshold; the new exact result holds when L is bumped from 64 to 640.
 
 ---
 
@@ -239,7 +239,7 @@ Consequences:
 ### Where the test lives
 
 - `ca-simulation/ca_higgs.py::kg_step_strang` — the KG stepper. The current API allows the unsafe configuration.
-- `ca-simulation/run_phaseF_tests.py::test_F1` — needs `n_phi_sub=2` passed through `un.unified_step` to be stable at L=320.
+- `model-tests/run_phaseF_tests.py::test_F1` — needs `n_phi_sub=2` passed through `un.unified_step` to be stable at L=320.
 
 ---
 
@@ -625,7 +625,7 @@ A reference contract: with $m=0.5, dt=0.5, L=48, \sigma=10, n_\text{steps}=50000
 ### Where this should live in code
 
 - `ca-simulation/ca_dirac.py` — refactor `dirac_step_2d_splitstep` to take only `m` (and optionally `m0` for the variable-mass case), build the kinetic block from `ca_core_exact.py`'s Paper-1-Eq.-16 unitary, and use $\omega_k = \arccos(\sqrt{1-m^2}\,c_x c_y)$ as the propagator eigenvalue.
-- `ca-simulation/run_phase_tests.py::test_D1` — update the zitterbewegung analytic prediction to $2\arcsin(m)$.
+- `model-tests/run_phase_tests.py::test_D1` — update the zitterbewegung analytic prediction to $2\arcsin(m)$.
 - `ca-reference.md` — update the Dirac-stepper section to record the exact-QCA dispersion alongside the current linearization, and flag the convention choice explicitly.
 - `qca-papers-1-4-overview.md` — close V1 (Dirac sector) and V3 in the verification list after the refactor lands and the new D1 zitterbewegung result matches $2\arcsin(m)$ to FFT-bin-width.
 
@@ -821,7 +821,7 @@ This is a direct measurement of the dispersion that QG-2 (Planck-scale Lorentz-v
 
 ### Where the test lives
 
-- `ca-simulation/test_SR2_time_dilation.py` — full implementation (Part A algebraic scan, Part B single-point numerical, Part B scan).
+- `model-tests/test_SR2_time_dilation.py` — full implementation (Part A algebraic scan, Part B single-point numerical, Part B scan).
 - Part A produces the closed-form $\mathcal O(k^2)$ scaling table.
 - Part B uses sub-pixel spectral sampling (`numpy.fft` phase-shift) to read the plane-wave amplitude on a fractional-cell worldline, eliminating integer-rounding noise.
 - Plane-wave eigenmodes built from `ca_core_exact.exact2d_unitary` + 4×4 `numpy.linalg.eig` of $D_k$.
@@ -854,7 +854,7 @@ Two new modules, mirroring the 2D infrastructure that landed under Finding 12:
 
   where $A_k$ is the BCC Weyl-QCA unitary (`ca_bcc.bcc_unitary`, Paper 1 Eq. 15).  The off-diagonal closure $A_-^\text{block} = A_k^\dagger$ is *forced* by unitarity of the full 4×4 $D_k$ — same Hermitian-conjugate-vs-helicity-conjugate distinction surfaced for 2D in Finding 9.  Spectral interpolation for arbitrary $dt$ is the same arccos form as the 2D case.  Stepper sanity at $L=16^3, m=0.3$: unitarity $8.9\times 10^{-16}$, dispersion residual $2.2\times 10^{-16}$, norm drift over 200 steps $2.2\times 10^{-14}$.
 
-- `ca-simulation/test_SR2_3D_time_dilation.py` — direct port of the 2D test.  Part A scans $(m, k_x)$ algebraically using the BCC dispersion; Part B propagates 4-spinor plane waves on $L^3$ lattices and reads phase rates via FFT-based sub-pixel sampling at the worldline $x(t) = v_g t$.  Lattice light speed is now $c_\text{lat} = 1/\sqrt 3$ (vs $1/\sqrt 2$ in 2D).
+- `model-tests/test_SR2_3D_time_dilation.py` — direct port of the 2D test.  Part A scans $(m, k_x)$ algebraically using the BCC dispersion; Part B propagates 4-spinor plane waves on $L^3$ lattices and reads phase rates via FFT-based sub-pixel sampling at the worldline $x(t) = v_g t$.  Lattice light speed is now $c_\text{lat} = 1/\sqrt 3$ (vs $1/\sqrt 2$ in 2D).
 
 ### Dispersion-identity reading — still exact
 
@@ -933,7 +933,7 @@ This finding documents the first seven entries of the top-10 priority sweep
 from `lattice-vs-spacetime-tests.md`.  Tests 8–10 (QM-2 tunneling, GR-4 Mercury
 perihelion, QG-4 Noether charge conservation) are pending and will get their
 own write-up.  Each numbered test below points at a self-contained script
-under `ca-simulation/tests-priority/` and a JSON dump under `test-results/`.
+under `model-tests/tests-priority/` and a JSON dump under `test-results/`.
 
 The sweep is being run on a sandbox without `scipy`, so anything that requires
 the Cayley sparse-LU stepper (`ca_curved.CayleyVarcSolver2D`) was substituted
@@ -1613,10 +1613,84 @@ off"** with the open-BC kernel.  The companion GR-2 (Shapiro) test
 should also benefit from the same kernel; that re-test is the natural
 next step (would close the 0.47–0.62 PBC ratio toward 1).
 
+### 14.16 — GR-2 Shapiro retest with open-boundary Poisson kernel
+
+*2026-05-20 - 18:09 (follow-up to 14.15)*
+
+Applied the same `poisson_open.py` free-space kernel to the GR-2
+absolute Shapiro test.  The result is the cleanest GR-domain pass of
+the whole sweep.
+
+**Method.**  Identical to Finding 14.6 except the periodic
+`solve_poisson_3d` is replaced by `solve_poisson_3d_open`.  The photon
+travel-time excess
+$$\Delta t_\text{excess} = \int \Big(\tfrac{1}{c(x)} - \tfrac{1}{c_0}\Big)\,d\ell,
+   \qquad c(x) = \frac{c_0}{1 - 2\phi/c_0^2}$$
+is integrated along a straight ray of impact parameter $b$ and compared
+to the closed-form GR Shapiro
+$\Delta t_\text{GR} = (2GM/c_0^3)\log[(r_1+r_2+r_{12})/(r_1+r_2-r_{12})]$,
+with the *same* finite ray endpoints feeding both the lattice integral
+and the analytic $r_1, r_2, r_{12}$.
+
+**Stage 1 — $b$ scan at $L=128$** ($M=1$, $\sigma=3$, $G=5\times 10^{-4}$,
+$c_0=0.5$, full-box ray):
+
+| $b$ | $\Delta t_\text{lat}$ | $\Delta t_\text{GR}$ | ratio | rel resid |
+|---|---|---|---|---|
+| 6  | $4.821\times 10^{-2}$ | $4.849\times 10^{-2}$ | 0.99424 | $5.8\times 10^{-3}$ |
+| 10 | $4.051\times 10^{-2}$ | $4.039\times 10^{-2}$ | 1.00301 | $3.0\times 10^{-3}$ |
+| 16 | $3.315\times 10^{-2}$ | $3.302\times 10^{-2}$ | 1.00377 | $3.8\times 10^{-3}$ |
+| 24 | $2.696\times 10^{-2}$ | $2.684\times 10^{-2}$ | 1.00447 | $4.5\times 10^{-3}$ |
+
+Mean ratio 1.00138 — already within 0.14% across all impact parameters.
+
+**Stage 2 — convergence in $L$ at fixed $b=8$:**
+
+| $L$ | ratio |
+|---|---|
+| 64  | 1.00618 |
+| 96  | 1.00294 |
+| 128 | 1.00164 |
+| 160 | 1.00097 |
+| 192 | **1.00058** |
+
+Monotonic convergence to 1 from above.  The $1/L$-like decay of the
+residual ($0.62\% \to 0.06\%$ as $L$ doubles roughly twice) is the
+discrete-integration error of the line integral, vanishing as the grid
+refines.
+
+**Comparison vs PBC.**
+
+| Quantity | Periodic kernel (Finding 14.6) | Open-BC kernel (this finding) |
+|---|---|---|
+| ratio at $L=192$ | $\sim 0.62$ | **1.00058** |
+| trend with $L$ | rising slowly from 0.47 | converging to 1 from 1.006 |
+| % off GR | $\sim 38\%$ | **0.06%** |
+| 0.1% gate | FAIL | **PASS** |
+
+**What this resolves.**  GR-2 was the last GR-domain test still limited
+by the periodic Poisson kernel.  The free-space kernel takes it from a
+38%-off RATIO PASS to a **0.06% absolute PASS** — comfortably inside
+the roadmap's 0.1% gate.  This **pins the PPN parameter $\gamma = 1$ to
+lattice precision**: the lattice's effective metric reproduces the
+Schwarzschild Shapiro delay, not a $\gamma \ne 1$ deformation.
+
+Together with GR-1 (factor-4 deflection, 3% off) and GR-4 (Schwarzschild
+1PN perihelion, 1.5% off), the lattice now clears three independent
+GR observables once the periodic-kernel artefact is removed.  The only
+remaining GR-domain mismatch is GR-3 (Pound–Rebka factor-2 redshift),
+which is a genuine Paper 6 $c(x)$-ansatz issue, **not** a kernel
+artefact — and is therefore unaffected by the open-BC upgrade.
+
+**Roadmap update.**  GR-2 row moves from "RATIO PASS, PBC-limited" to
+**"PASS at 0.1% gate; PPN $\gamma = 1$"**.
+
 
 ## Finding 15 — Closed-form $\beta_\text{LV}(m)$: SR-2 Lorentz-violation coefficient derived analytically
 
 *2026-05-19 - 23:30*
+
+*Amended 2026-05-22 - 01:14 — added the $\beta^6$ coefficient $\delta_\text{LV}(m)$ (closed form, sympy-confirmed bit-zero against the series) and corrected the tabulated $\gamma_\text{LV}$ values, which had been carried over from a superseded expression, to the derived closed form.*
 
 This finding closes the "**Does not derive $\beta_\text{LV}$ analytically**" item flagged at the end of Finding 12 (§"What this does *not* close"). The leading Lorentz-violation coefficient that controls the SR-2 ratio's departure from the continuum-SR $1/\gamma$ is now a closed-form function of the dimensionless mass $m$.
 
@@ -1658,13 +1732,13 @@ $$u(\beta) = \frac{m}{n}\beta + \frac{m(3-2m^2)}{6\,n^3}\beta^3 + \mathcal O(\be
 
 Substituting $u(\beta)$ into $R(u) = \omega_\text{moving}/\omega_0$ and expanding:
 
-$$R(\beta) = 1 - \frac{m}{2\,n\,\omega_0}\beta^2 - \frac{m(3-2m^2)}{24\,n^3\,\omega_0}\beta^4 + \mathcal O(\beta^6).$$
+$$R(\beta) = 1 - \frac{m}{2\,n\,\omega_0}\beta^2 - \frac{m(3-2m^2)}{24\,n^3\,\omega_0}\beta^4 - \frac{m(8m^4-20m^2+15)}{240\,n^5\,\omega_0}\beta^6 + \mathcal O(\beta^8).$$
 
 ### Step 4 — Subtract $1/\gamma_\text{SR}$ Taylor expansion
 
-$1/\gamma_\text{SR} = \sqrt{1-\beta^2} = 1 - \beta^2/2 - \beta^4/8 - \mathcal O(\beta^6)$. Subtracting:
+$1/\gamma_\text{SR} = \sqrt{1-\beta^2} = 1 - \beta^2/2 - \beta^4/8 - \beta^6/16 - \mathcal O(\beta^8)$. Subtracting:
 
-$$R(\beta) - \frac{1}{\gamma_\text{SR}} = \beta_\text{LV}(m)\,\beta^2 + \gamma_\text{LV}(m)\,\beta^4 + \mathcal O(\beta^6),$$
+$$R(\beta) - \frac{1}{\gamma_\text{SR}} = \beta_\text{LV}(m)\,\beta^2 + \gamma_\text{LV}(m)\,\beta^4 + \delta_\text{LV}(m)\,\beta^6 + \mathcal O(\beta^8),$$
 
 with
 
@@ -1673,6 +1747,12 @@ $$\boxed{\;\beta_\text{LV}(m) = \frac{1}{2}\left(1 - \frac{m}{\sqrt{1-m^2}\,\arc
 and
 
 $$\gamma_\text{LV}(m) = \frac{1}{8} - \frac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,\arcsin m}.$$
+
+The same implicit-function recursion, carried one order further (series of $\omega(u)$ to $u^8$, $v_g(u)\to u(\beta)$ inverted through $\beta^7$), gives the $\beta^6$ coefficient (added 2026-05-21; `derive_beta_LV.py::delta_LV`)
+
+$$\delta_\text{LV}(m) = \frac{1}{16} - \frac{m\,(8m^4 - 20m^2 + 15)}{240\,(1-m^2)^{5/2}\,\arcsin m}.$$
+
+The rational constant $1/16$ is the SR Taylor coefficient of $-\sqrt{1-\beta^2}$ at $\beta^6$; the numerator polynomial is $P_3(m) = 15m - 20m^3 + 8m^5$, matching the $\beta_\text{LV}$ ($P_1 = m$) and $\gamma_\text{LV}$ ($P_2 = 3m - 2m^3$) pattern.
 
 ### Step 5 — Sign and small-$m$ expansion
 
@@ -1686,43 +1766,46 @@ Small-$m$ expansion: $\arcsin m = m + m^3/6 + 3m^5/40 + \dots$ and $\sqrt{1-m^2}
 
 $$\beta_\text{LV}(m) = -\frac{m^2}{6} - \frac{11\,m^4}{90} + \mathcal O(m^6).$$
 
-The leading $-m^2/6$ is the *only* place where $m$ enters at this order — the lattice's deformation of SR vanishes in the massless limit, consistent with the Weyl sector being a fixed point of the Lorentz group on the lattice.
+The leading $-m^2/6$ is the *only* place where $m$ enters at this order — the lattice's deformation of SR vanishes in the massless limit, consistent with the Weyl sector being a fixed point of the Lorentz group on the lattice. The two higher coefficients share the same $m^2$ suppression: $\gamma_\text{LV}(m) = -\tfrac{m^2}{12} + \mathcal O(m^4)$ and $\delta_\text{LV}(m) = -\tfrac{m^2}{16} + \mathcal O(m^4)$ (leading coefficients $-\tfrac16, -\tfrac1{12}, -\tfrac1{16}$ for $\beta^2, \beta^4, \beta^6$), so the entire LV tower vanishes as $m\to 0$.
 
 ### Step 6 — Numerical verification
 
 `ca-simulation/derive_beta_LV.py` does the symbolic check (sympy) and a numerical scan. Highlights:
 
-| $m$ | $k_x$ | $\beta = v_g/c_\text{lat}$ | $\Delta_\text{meas} = R - 1/\gamma_\text{SR}$ | $\beta_\text{LV}\beta^2$ | $+\,\gamma_\text{LV}\beta^4$ | rel.err β² | rel.err β⁴ |
+| $m$ | $k_x$ | $\beta = v_g/c_\text{lat}$ | $\Delta_\text{meas} = R - 1/\gamma_\text{SR}$ | $+\,\gamma_\text{LV}\beta^4$ | $+\,\delta_\text{LV}\beta^6$ | rel.err β⁴ | rel.err β⁶ |
 |---|---|---|---|---|---|---|---|
-| 0.05 | 0.0010 | 0.01412 | $-8.327\times 10^{-8}$ | $-8.326\times 10^{-8}$ | $-8.327\times 10^{-8}$ | $1.0\times 10^{-4}$ | $8.7\times 10^{-8}$ |
-| 0.10 | 0.0010 | 0.00704 | $-8.311\times 10^{-8}$ | $-8.311\times 10^{-8}$ | $-8.311\times 10^{-8}$ | $2.5\times 10^{-5}$ | $3.3\times 10^{-8}$ |
-| 0.20 | 0.0010 | 0.00346 | $-8.243\times 10^{-8}$ | $-8.243\times 10^{-8}$ | $-8.243\times 10^{-8}$ | $6.1\times 10^{-6}$ | $2.6\times 10^{-8}$ |
-| 0.50 | 0.0010 | 0.00122 | $-7.699\times 10^{-8}$ | $-7.699\times 10^{-8}$ | $-7.699\times 10^{-8}$ | $8.2\times 10^{-7}$ | $3.6\times 10^{-9}$ |
-| 0.50 | 0.0500 | 0.06111 | $-1.921\times 10^{-4}$ | $-1.917\times 10^{-4}$ | $-1.921\times 10^{-4}$ | $2.0\times 10^{-3}$ | $6.3\times 10^{-6}$ |
+| 0.05 | 0.0010 | 0.01412 | $-8.327\times 10^{-8}$ | $-8.327\times 10^{-8}$ | $-8.327\times 10^{-8}$ | $8.7\times 10^{-8}$ | $1.0\times 10^{-7}$ |
+| 0.10 | 0.0010 | 0.00704 | $-8.311\times 10^{-8}$ | $-8.311\times 10^{-8}$ | $-8.311\times 10^{-8}$ | $3.3\times 10^{-8}$ | $3.2\times 10^{-8}$ |
+| 0.20 | 0.0010 | 0.00346 | $-8.243\times 10^{-8}$ | $-8.243\times 10^{-8}$ | $-8.243\times 10^{-8}$ | $2.6\times 10^{-8}$ | $2.6\times 10^{-8}$ |
+| 0.50 | 0.0010 | 0.00122 | $-7.699\times 10^{-8}$ | $-7.699\times 10^{-8}$ | $-7.699\times 10^{-8}$ | $3.6\times 10^{-9}$ | $3.6\times 10^{-9}$ |
+| 0.50 | 0.0500 | 0.06111 | $-1.921\times 10^{-4}$ | $-1.921\times 10^{-4}$ | $-1.921\times 10^{-4}$ | $6.3\times 10^{-6}$ | $2.2\times 10^{-8}$ |
 
-The $\beta^2$ truncation matches the measured residual to $\sim 10^{-3}$ relative at the working SR-2 grid points; adding the $\gamma_\text{LV}\beta^4$ term sharpens the match by another two to four orders of magnitude. At the smallest residual point in Finding 12's scan ($m=0.5$, $k=0.001$, $|\Delta|=7.7\times 10^{-8}$) the analytic prediction is correct to nine significant figures.
+The $\beta^2$ truncation matches the measured residual to $\sim 10^{-3}$ relative at the working SR-2 grid points; adding the $\gamma_\text{LV}\beta^4$ term sharpens the match by another two to four orders of magnitude, and the $\delta_\text{LV}\beta^6$ term sharpens it again at the larger-$\beta$ rows (e.g. $m=0.5$, $k=0.05$: $6.3\times10^{-6}\to2.2\times10^{-8}$). At the very smallest residual rows the $\beta^6$ improvement saturates against the FFT/round-off floor ($\sim 10^{-8}$), so rel.err β⁶ tracks rel.err β⁴ there rather than improving further. At the smallest residual point in Finding 12's scan ($m=0.5$, $k=0.001$, $|\Delta|=7.7\times 10^{-8}$) the analytic prediction is correct to nine significant figures.
 
 The sympy half of `derive_beta_LV.py` expands the symbolic series of $\omega(u)$, inverts $v_g(u)\to u(\beta)$ algebraically, and emits
 
 ```
-β_LV(symbolic) − β_LV(closed form) simplifies to: 0
-γ_LV(symbolic) − γ_LV(closed form) simplifies to: 0
->>> Closed-form formulas confirmed symbolically. <<<
+β_LV(symbolic) − β_LV(closed form): 0
+γ_LV(symbolic) − γ_LV(closed form): 0
+δ_LV(symbolic) − δ_LV(closed form): 0
+>>> All three closed-form formulas confirmed symbolically. <<<
 ```
 
 ### Tabulated values
 
-| $m$ | $\beta_\text{LV}(m)$ | $\gamma_\text{LV}(m)$ |
-|---|---|---|
-| 0.01 | $-1.6668\times 10^{-5}$ | $-3.704\times 10^{-5}$ |
-| 0.05 | $-4.1743\times 10^{-4}$ | $-9.265\times 10^{-4}$ |
-| 0.10 | $-1.6790\times 10^{-3}$ | $-3.726\times 10^{-3}$ |
-| 0.20 | $-6.8689\times 10^{-3}$ | $-1.522\times 10^{-2}$ |
-| 0.50 | $-5.1329\times 10^{-2}$ | $-1.110\times 10^{-1}$ |
+| $m$ | $\beta_\text{LV}(m)$ | $\gamma_\text{LV}(m)$ | $\delta_\text{LV}(m)$ |
+|---|---|---|---|
+| 0.01 | $-1.6668\times 10^{-5}$ | $-8.3342\times 10^{-6}$ | $-6.2508\times 10^{-6}$ |
+| 0.05 | $-4.1743\times 10^{-4}$ | $-2.0887\times 10^{-4}$ | $-1.5677\times 10^{-4}$ |
+| 0.10 | $-1.6790\times 10^{-3}$ | $-8.4204\times 10^{-4}$ | $-6.3344\times 10^{-4}$ |
+| 0.20 | $-6.8689\times 10^{-3}$ | $-3.4772\times 10^{-3}$ | $-2.6406\times 10^{-3}$ |
+| 0.50 | $-5.1329\times 10^{-2}$ | $-2.8147\times 10^{-2}$ | $-2.3262\times 10^{-2}$ |
+
+*The $\gamma_\text{LV}$ column was corrected on 2026-05-22 to the derived closed form $\tfrac18 - m(3-2m^2)/(24\,n^3\arcsin m)$; the previous column (e.g. $-1.110\times10^{-1}$ at $m=0.5$) came from a superseded expression. All values above are reproduced by `derive_beta_LV.py`'s `beta_LV`, `gamma_LV`, `delta_LV`.*
 
 ### Status — exactness inventory
 
-This is an **exact algebraic result** in the same sense as the dispersion identity (Finding 12 Part A): both $\beta_\text{LV}$ and $\gamma_\text{LV}$ are closed-form analytic functions of $m$, derived without invoking any approximation other than the small-$\beta$ Taylor expansion that defines the coefficient. The leading $-m^2/6$ is exact (no fitted constants); the $-11 m^4/90$ next-order term is exact.
+This is an **exact algebraic result** in the same sense as the dispersion identity (Finding 12 Part A): $\beta_\text{LV}$, $\gamma_\text{LV}$, and $\delta_\text{LV}$ are all closed-form analytic functions of $m$, derived without invoking any approximation other than the small-$\beta$ Taylor expansion that defines the coefficient. The leading $-m^2/6$ is exact (no fitted constants); the $-11 m^4/90$ next-order term is exact. All three closed forms reduce the symbolic-minus-closed-form residual to bit-zero in sympy.
 
 ### Connection to QG-2 (Planck-scale Lorentz violation)
 
@@ -1738,14 +1821,80 @@ The interpretation is sharper than what Finding 12 stated: SR-2's "predicted Pla
 - `ca-simulation/derive_beta_LV.py` — symbolic + numerical derivation script.
 - `findings.md` Finding 12 (the open item that this closure resolves).
 - `ca-reference.md` — closed-form formulas now in the exact-algebraic ledger.
-- `exactness-inventory.md` — two new rows ($\beta_\text{LV}$ exact analytic, $\gamma_\text{LV}$ exact analytic).
+- `exactness-inventory.md` — three rows ($\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$ exact analytic).
 
 ### What this does *not* close
 
 - **Sign of $\gamma_\text{LV}$ for large $m$.** $\gamma_\text{LV}(m)$ is negative throughout $m \in (0, m_\star)$ for some $m_\star$ that depends on whether the $\arcsin$-denominator wins or the constant $1/8$ does. A separate calculation would confirm whether $\gamma_\text{LV}$ ever flips sign as $m \to 1$, but at the working SR-2 mass range ($m \le 0.5$) both coefficients are negative.
 - **3D BCC analog.** The derivation above is for the 2D-square dispersion $\omega = \arccos(\sqrt{1-m^2}\cos(ka))$. The BCC analog uses $\omega = \arccos(\sqrt{1-m^2}(c_xc_yc_z \pm s_xs_ys_z))$ and has different leading-order coefficients (Finding 13's $\sim 10\times$ larger numerical $\beta_\text{LV}$ at matched $v_g/c_\text{lat}$ already suggested this). Deriving the 3D-BCC $\beta_\text{LV}^\text{(3D)}(m, \hat k)$ closed form is a clean follow-up: the same implicit-differentiation method applies; only the $\omega''(0)$ value changes, and it now carries a $\hat k$-dependent piece.
-- **Higher orders.** The pattern $\omega(u) = \sum_{n\ge 0} a_{2n}(m) u^{2n}$ with $a_{2n}$ a rational function of $\arcsin m$ and $\sqrt{1-m^2}$ continues indefinitely; the recursion is the implicit-function expansion of $\arccos(n \cos u)$. We have $\beta_\text{LV}$ and $\gamma_\text{LV}$ in closed form; the $\beta^6$ coefficient is mechanically obtainable but not pursued here.
+- **Higher orders.** The pattern $\omega(u) = \sum_{n\ge 0} a_{2n}(m) u^{2n}$ with $a_{2n}$ a rational function of $\arcsin m$ and $\sqrt{1-m^2}$ continues indefinitely; the recursion is the implicit-function expansion of $\arccos(n \cos u)$. We now have $\beta_\text{LV}$, $\gamma_\text{LV}$, and $\delta_\text{LV}$ (the $\beta^6$ coefficient, added 2026-05-21) in closed form; $\beta^8$ and beyond are mechanically obtainable from the same recursion (raise the series order and add $c_9$ to the $u(\beta)$ ansatz) but not pursued here.
 
 ### Cross-reference to memory
 
 The "no closed form extracted" hedge in Finding 12 is now retired; future SR-2 / QG-2 work can use the boxed formula above. The sign flip relative to Finding 12's parenthetical "positive" is recorded in [[finding-12-correction]] for the memory layer.
+
+---
+
+## F27 — Chiral SU(2) from β-gauging: Higgs-free mass coupling
+
+**Date:** 2026-05-23 - 12:00  
+**Source:** physics_notes_0708.pdf pages 59–60 ("Complex mass", dated 9/6/2007)  
+**Files:** `ca-simulation/forks/complex_mass_fork.py`, `model-tests/test_complex_mass_chiral.py`  
+**Full writeup:** `findings/F27-complex-mass-chiral-su2.md`
+
+### Summary
+
+Ludwig's 2007 proposal: replace the scalar Dirac mass coupling `im` with a local
+complex phase `im·e^{iθ(x)}` (gauging the β matrix). For an isospin doublet, the
+scalar phase generalizes to U(x) ∈ SU(2). This was tested as a CA fork with a
+9-test suite (all pass).
+
+**Key result (T5):** The Ward identity
+
+$$V(x) \cdot \mathrm{mass\_step}(\psi;\, U) = \mathrm{mass\_step}(V(x)\cdot\psi;\; V(x)\cdot U)$$
+
+holds to **1.055×10⁻¹⁷** (machine precision), where V(x) ∈ SU(2) acts only on
+left-handed η — right-handed χ is unchanged. This is chiral SU(2)_L gauge invariance
+of the mass coupling, without a Higgs field.
+
+Additional confirmed results:
+- Mass gap exists with U=I and no scalar condensate (N_R = 0.820 after 80 steps)
+- U(x) steers which doublet component couples to the right-handed singlet (ν_R=0.564 for U=I; e_R=0.564 for U=iσ₁) — the Higgs VEV direction job, but pure gauge
+- T₃ = +½ for ν_L emerges correctly (1.110×10⁻¹⁶ residual)
+- θ(x) is pure gauge — dispersion completely invariant (3.331×10⁻¹⁶)
+
+**Known limitation:** the kinetic step still requires W_μ for full local SU(2) invariance
+(same as SM — not a defect of the proposal, but a general feature of chiral gauge theories).
+
+---
+
+## Finding 28 — F26 photon-dispersion prediction is consistent with all current LIV bounds (n=2 subluminal), but ~15 decades below sensitivity
+
+**Date:** 2026-05-23 — 16:35
+**Status:** Confirmed via `model-tests/test_F28_grb_dispersion.py`; full write-up in `findings/F28-grb-dispersion-test.md`.
+
+### What was tested
+
+F26's group-velocity correction is:
+
+$$\frac{v_g(E)}{c} = 1 - \frac{1}{2}\left(\frac{E}{E_\text{Planck}}\right)^2$$
+
+corresponding to an equivalent quadratic LIV scale $E_{\text{QG},2}^{F26} = \sqrt{2}\,E_\text{Planck} \approx 1.73 \times 10^{19}$ GeV (subluminal, $n=2$).
+
+### Result
+
+Confronted against three best current bounds (Fermi-LAT GRB 090510, LHAASO GRB 221009A, MAGIC Mrk 501):
+
+| Experiment | $E_{\text{QG},2}$ 95% CL bound | Δt sensitivity | Δt(F26) | Verdict |
+|---|---|---|---|---|
+| Fermi-LAT GRB 090510 | $1.3 \times 10^{11}$ GeV | $5.7 \times 10^{-2}$ s | $3.2 \times 10^{-18}$ s | not excluded, 16.2 dec below |
+| LHAASO GRB 221009A | $7.0 \times 10^{11}$ GeV | $4.0 \times 10^{1}$ s | $6.5 \times 10^{-14}$ s | not excluded, 14.8 dec below |
+| MAGIC Mrk 501 | $5.7 \times 10^{10}$ GeV | $7.4 \times 10^{2}$ s | $8.0 \times 10^{-15}$ s | not excluded, 17.0 dec below |
+
+### Implications
+
+- F26 passes every current photon LIV constraint.
+- Linear LIV is *forbidden* by F26 — if a linear effect were ever observed, F26 would be falsified. Currently no linear effect is seen at $\gtrsim 10\,E_\text{Planck}$ from GRB 090510.
+- Confirmation/exclusion of the quadratic prediction requires either photons at $\sim 10^{20}$ eV (above GZK cutoff — impractical) or a coarser lattice tick than Planck (which would shift $E_{\text{QG},2}$ down into testable range).
+- Current LIV bounds place an upper limit on the lattice tick duration: $\tau_\text{lat} \lesssim 9 \times 10^{-37}$ s (allowing anywhere between Planck time and $\sim 10^7\,t_P$).
+

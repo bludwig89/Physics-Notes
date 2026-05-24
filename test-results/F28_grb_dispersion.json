@@ -1,0 +1,80 @@
+{
+  "test": "F27 GRB/AGN photon dispersion vs F26",
+  "date": "2026-05-23",
+  "F26_prediction": {
+    "v_g_form": "v_g/c = 1 \u2212 \u00bd (E/E_Planck)\u00b2",
+    "equivalent_E_QG_GeV": 1.7265991961656881e+19,
+    "sign": "subluminal",
+    "coefficient": "1/2 (group velocity); 1/6 (phase velocity)"
+  },
+  "cosmology": {
+    "H0_km_s_Mpc": 67.4,
+    "Omega_m": 0.315,
+    "Omega_L": 0.685,
+    "t_Hubble_s": 4.578189910979228e+17
+  },
+  "sources": [
+    {
+      "name": "GRB 090510 (Fermi-LAT)",
+      "z": 0.903,
+      "E_high_GeV": 31.0,
+      "E_low_GeV": 0.0001,
+      "kappa_2_z": 1.4601518498993724,
+      "dt_F26_s": 3.2323873980126808e-18,
+      "dt_experimental_limit_s": 0.05701902267514387,
+      "ratio_F26_over_limit": 5.668963174673574e-17,
+      "verdict": "below sens. (16.2 dec)",
+      "E_QG_limit_GeV": 130000000000.0,
+      "E_QG_F26_over_limit": 132815322.78197601,
+      "reference": "Vasileiou et al. 2013, PRD 87, 122001 (arXiv:1305.3463)"
+    },
+    {
+      "name": "GRB 221009A (LHAASO)",
+      "z": 0.151,
+      "E_high_GeV": 13000.0,
+      "E_low_GeV": 200.0,
+      "kappa_2_z": 0.16826006999780702,
+      "dt_F26_s": 6.548878910701709e-14,
+      "dt_experimental_limit_s": 39.84317593264445,
+      "ratio_F26_over_limit": 1.6436638790473675e-15,
+      "verdict": "below sens. (14.8 dec)",
+      "E_QG_limit_GeV": 700000000000.0,
+      "E_QG_F26_over_limit": 24665702.802366972,
+      "reference": "Piran & Ouyang 2024 (arXiv:2308.03031); LHAASO Collab. 2024"
+    },
+    {
+      "name": "Mrk 501 flare (MAGIC 2005)",
+      "z": 0.034,
+      "E_high_GeV": 10000.0,
+      "E_low_GeV": 250.0,
+      "kappa_2_z": 0.03488164900378927,
+      "dt_F26_s": 8.03022072937464e-15,
+      "dt_experimental_limit_s": 736.819041038779,
+      "ratio_F26_over_limit": 1.0898497842907953e-17,
+      "verdict": "below sens. (17.0 dec)",
+      "E_QG_limit_GeV": 57000000000.0,
+      "E_QG_F26_over_limit": 302912139.6781909,
+      "reference": "MAGIC Collab. 2008, Phys. Lett. B 668, 253"
+    }
+  ],
+  "energy_threshold_to_test": [
+    {
+      "source": "GRB 090510 (Fermi-LAT)",
+      "E_required_GeV": 4117275006.241256
+    },
+    {
+      "source": "GRB 221009A (LHAASO)",
+      "E_required_GeV": 320654136430.7706
+    },
+    {
+      "source": "Mrk 501 flare (MAGIC 2005)",
+      "E_required_GeV": 3029121396781.9087
+    }
+  ],
+  "summary": {
+    "best_margin_decades_in_dt": 14.784186988742189,
+    "best_E_QG_limit_GeV": 700000000000.0,
+    "F26_scale_above_best_limit": 24665702.802366972,
+    "verdict": "not excluded; below current \u0394t sensitivity"
+  }
+}

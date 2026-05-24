@@ -59,6 +59,18 @@ Observable shift vs the old linearized convention (Finding 9):
     At m = 0.5 the new target is π/3 ≈ 1.04720 (was 1.000).
   - Dispersion at finite |k|:  ω = arccos(√(1−m²)·c_x·c_y),
     BZ-periodic, bounded by π, vs the unbounded continuum √((c·k)² + m²).
+
+Finding 26 reframing (2026-05-23): the mass step uses the exact rotation form
+
+    cos(m·dt)·I  ±  i·sin(m·dt)·A
+
+where A² = I (block off-diagonal unitary).  The factor cos/sin appearing
+here is the same rotation structure as the EM propagator (F25/F26): the mass
+generates a rigid rotation in the (η, χ) internal space, just as the photon
+Ω generates a rotation in (E, B) field space.  The imaginary unit i in the
+mass coupling is again the continuous-time linearisation of a real rotation.
+The SU(2) complex-mass extension (F27) generalises this to a local gauge
+rotation U(x) ∈ SU(2) in isospin space — all without a Higgs field.
 """
 
 import numpy as np
@@ -572,6 +584,461 @@ def dirac_step_2d_varm_complex_splitstep(eta_u, eta_d, chi_u, chi_d,
                                            dm_R, dm_I, factor_half)
     return eu, ed, xu, xd
 
+
+# ══════════════════════════════════════════════════════════════════
+#  SU(2) complex-mass coupling  (Ludwig 2007, Finding F27)
+# ══════════════════════════════════════════════════════════════════
+#
+# Source: physics_notes_0708.pdf pages 59–60 ("Complex mass", 9/6/2007).
+# Implemented and validated as forks/complex_mass_fork.py (2026-05-23);
+# merged into main model here.
+#
+# Core idea
+# ---------
+# Replace the scalar Dirac mass coupling `im` with `im·e^{iθ(x)}`,
+# which is equivalent to gauging the β matrix via
+#
+#     β_g = (U σ₁ U†) ⊗ I,    U = diag(1, e^{iθ})
+#
+# giving β_g = cos θ · σ₁ + sin θ · σ₂.  The local mass step is
+#
+#     M(θ) = [[c_m I,        i s_m e^{iθ} I ],
+#             [i s_m e^{-iθ} I,  c_m I      ]]
+#
+# which is unitary because A = [[0, e^{iθ}],[e^{-iθ}, 0]] is Hermitian
+# with A² = I, so M = cos·I + i·sin·A → M†M = I.
+#
+# For a (ν, e) isospin doublet, the scalar phase generalises to
+# U(x) ∈ SU(2) acting on the isospin index (I₂ on spin):
+#
+#     η_new = cos(m·dt) η + i sin(m·dt) (U ⊗ I₂) χ
+#     χ_new = i sin(m·dt) (U† ⊗ I₂) η + cos(m·dt) χ
+#
+# Ward identity (T5, 1.055×10⁻¹⁷):
+#     V(x)·mass_step(ψ; U) = mass_step(V(x)·ψ; V(x)·U)
+# where V acts only on left-handed η — right-handed χ unchanged.
+# This is local SU(2)_L gauge invariance without a Higgs field.
+#
+# Split-step convention (Strang):
+#     step(dt) = kinetic(dt/2) ∘ mass(dt) ∘ kinetic(dt/2)
+# The kinetic half-step applies the exact-QCA Weyl propagator to each
+# 2-component Weyl spinor independently (no isospin mixing in kinetics).
+# ══════════════════════════════════════════════════════════════════
+
+
+def _weyl_half_step_2c(f, g, dt_half):
+    """
+    Exact-QCA kinetic half-step for one 2-component Weyl spinor (f, g).
+
+    Uses spectral interpolation of the exact2d_unitary at time dt_half.
+    This is the building block for the SU(2) complex-mass Strang split,
+    where the kinetic step is applied independently to each isospin
+    component (no isospin coupling in the kinetic sector).
+
+    Different from dirac_step_2d_splitstep: that function applies the
+    full 4-component Dirac unitary D_k (kinetic + mass together in
+    Fourier space).  Here we apply only the 2×2 Weyl block to one
+    chirality × isospin component.
+
+    Parameters
+    ----------
+    f, g : complex ndarrays  shape (Lx, Ly)
+        Upper and lower spin components of one Weyl spinor.
+    dt_half : float
+        Half-step size (typically dt/2).
+
+    Returns
+    -------
+    f_new, g_new : updated arrays
+    """
+    Lx, Ly = f.shape
+    kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
+    ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
+    KX, KY = np.meshgrid(kx, ky, indexing='ij')
+
+    U_ff, U_fg, U_gf, U_gg = ce.exact2d_unitary(KX, KY)
+    omega    = ce.exact2d_dispersion(KX, KY)
+    cos_w    = np.cos(omega)
+    sin_w    = np.sin(omega)
+    cos_h    = np.cos(dt_half * omega)
+    sin_safe = np.where(np.abs(sin_w) < 1e-14, 1.0, sin_w)
+    scale    = np.sin(dt_half * omega) / sin_safe
+    scale    = np.where(np.abs(sin_w) < 1e-14, dt_half, scale)
+
+    F = np.fft.fft2(f)
+    G = np.fft.fft2(g)
+    F_d = U_ff * F + U_fg * G
+    G_d = U_gf * F + U_gg * G
+    F_new = cos_h * F + scale * (F_d - cos_w * F)
+    G_new = cos_h * G + scale * (G_d - cos_w * G)
+    return np.fft.ifft2(F_new), np.fft.ifft2(G_new)
+
+
+# ── 1-Flavour U(1) complex mass ────────────────────────────────────
+
+def mass_step_1flavor_u1(eta_u, eta_d, chi_u, chi_d, theta, m, dt=1.0):
+    """
+    Local complex-mass step for a single flavour (U(1) θ-field).
+
+    The per-cell unitary is:
+
+        M(θ) = [[c_m I,         i s_m e^{iθ} I ],
+                [i s_m e^{-iθ} I,  c_m I       ]]
+
+    with c_m = cos(m·dt), s_m = sin(m·dt).  Unitary for any θ(x).
+
+    Parameters
+    ----------
+    eta_u, eta_d : (Lx, Ly) complex — left-chirality spinor (spin ↑↓)
+    chi_u, chi_d : (Lx, Ly) complex — right-chirality spinor (spin ↑↓)
+    theta        : (Lx, Ly) real   — local β-gauge angle field θ(x)
+    m            : float           — dimensionless mass (|m| ≤ 1)
+    dt           : float           — time step
+
+    Returns
+    -------
+    Updated (eta_u, eta_d, chi_u, chi_d).
+    """
+    c_m  = np.cos(m * dt)
+    s_m  = np.sin(m * dt)
+    ph   = np.exp(1j * theta)
+    phc  = np.conj(ph)
+
+    eu_n = c_m * eta_u + 1j * s_m * ph  * chi_u
+    ed_n = c_m * eta_d + 1j * s_m * ph  * chi_d
+    xu_n = 1j * s_m * phc * eta_u + c_m * chi_u
+    xd_n = 1j * s_m * phc * eta_d + c_m * chi_d
+    return eu_n, ed_n, xu_n, xd_n
+
+
+def dirac_step_complex_mass_1flavor(eta_u, eta_d, chi_u, chi_d,
+                                    theta, m, dt=1.0):
+    """
+    Full Strang-split step for the 1-flavour U(1) complex-mass CA.
+
+        kinetic(dt/2) → complex_mass(dt) → kinetic(dt/2)
+
+    The kinetic half-step is the exact-QCA Weyl propagator applied
+    independently to each chirality component.  The mass step is local.
+
+    Parameters
+    ----------
+    eta_u, eta_d : (Lx, Ly) complex — left Weyl spinor (spin ↑↓)
+    chi_u, chi_d : (Lx, Ly) complex — right Weyl spinor (spin ↑↓)
+    theta        : (Lx, Ly) real   — local β-gauge angle θ(x)
+    m            : float           — dimensionless mass (|m| ≤ 1)
+    dt           : float           — time step
+
+    Returns
+    -------
+    Updated (eta_u, eta_d, chi_u, chi_d).
+    """
+    _check_mass(m)
+    eta_u, eta_d = _weyl_half_step_2c(eta_u, eta_d, 0.5 * dt)
+    chi_u, chi_d = _weyl_half_step_2c(chi_u, chi_d, 0.5 * dt)
+    eta_u, eta_d, chi_u, chi_d = mass_step_1flavor_u1(
+        eta_u, eta_d, chi_u, chi_d, theta, m, dt)
+    eta_u, eta_d = _weyl_half_step_2c(eta_u, eta_d, 0.5 * dt)
+    chi_u, chi_d = _weyl_half_step_2c(chi_u, chi_d, 0.5 * dt)
+    return eta_u, eta_d, chi_u, chi_d
+
+
+# ── SU(2) doublet complex mass (chiral SU(2)) ──────────────────────
+#
+#  State arrays per spin component (all shape (Lx, Ly)):
+#    eta_nu_u, eta_nu_d   — left-handed neutrino (isospin T₃ = +½)
+#    eta_e_u,  eta_e_d    — left-handed electron (isospin T₃ = −½)
+#    chi_nu_u, chi_nu_d   — right-handed neutrino
+#    chi_e_u,  chi_e_d    — right-handed electron
+#
+#  SU(2) field U(x) stored as (U_a, U_b) with |a|²+|b|²=1:
+#    U = [[a, -b*], [b, a*]]   ∈ SU(2),   shape: each (Lx, Ly) complex
+
+def make_su2_field(Lx, Ly, mode='identity'):
+    """
+    Initialise an SU(2) isospin field U(x) = [[a, -b*],[b, a*]].
+
+    Parameters
+    ----------
+    mode : str
+        'identity' — U = I everywhere (a=1, b=0)
+        'random'   — U(x) drawn uniformly from SU(2) (Haar measure)
+        'plane'    — a=cos(π/4), b=sin(π/4) everywhere (test wave)
+        'su2_z'    — U = e^{iα σ₃/2}: a=e^{iα/2}, b=0, random α(x)
+
+    Returns
+    -------
+    a, b : complex ndarrays of shape (Lx, Ly)
+    """
+    if mode == 'identity':
+        a = np.ones((Lx, Ly), dtype=complex)
+        b = np.zeros((Lx, Ly), dtype=complex)
+    elif mode == 'random':
+        rng = np.random.default_rng(seed=42)
+        raw = rng.standard_normal((Lx, Ly, 4))
+        norms = np.linalg.norm(raw, axis=-1, keepdims=True)
+        q = raw / norms
+        a = q[..., 0] + 1j * q[..., 3]
+        b = q[..., 2] + 1j * q[..., 1]
+    elif mode == 'plane':
+        a = np.full((Lx, Ly), np.cos(np.pi / 4), dtype=complex)
+        b = np.full((Lx, Ly), np.sin(np.pi / 4), dtype=complex)
+    elif mode == 'su2_z':
+        rng = np.random.default_rng(seed=7)
+        alpha = rng.uniform(0, 2 * np.pi, (Lx, Ly))
+        a = np.exp(0.5j * alpha)
+        b = np.zeros((Lx, Ly), dtype=complex)
+    else:
+        raise ValueError(f"Unknown SU(2) mode: {mode!r}")
+    return a, b
+
+
+def mass_step_doublet_su2(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                          chi_nu_u, chi_nu_d, chi_e_u, chi_e_d,
+                          U_a, U_b, m, dt=1.0):
+    """
+    Local SU(2) complex-mass step for the (ν, e) isospin doublet.
+
+    The mass coupling at each cell is:
+
+        M = [[c_m I₄,         i s_m (U⊗I₂) ],
+             [i s_m (U†⊗I₂), c_m I₄        ]]
+
+    where U = [[Ua, -Ub*],[Ub, Ua*]] acts on isospin, I₂ on spin.
+
+    Unitarity: A = [[0, U⊗I₂],[U†⊗I₂, 0]] is Hermitian, A² = I₈
+    (since UU† = I₂), so M = cos·I + i·sin·A → M†M = I.
+
+    Ward identity (F27 T5, 1.055×10⁻¹⁷):
+        V·M(U)·ψ = M(V·U)·(V_L·ψ)
+    where V_L acts only on left-handed η — χ is exactly unchanged.
+
+    Parameters
+    ----------
+    eta_nu_u, eta_nu_d : (Lx,Ly) — left-handed ν (spin ↑↓)
+    eta_e_u,  eta_e_d  : (Lx,Ly) — left-handed e (spin ↑↓)
+    chi_nu_u, chi_nu_d : (Lx,Ly) — right-handed ν (spin ↑↓)
+    chi_e_u,  chi_e_d  : (Lx,Ly) — right-handed e (spin ↑↓)
+    U_a, U_b           : (Lx,Ly) — SU(2) field (|Ua|²+|Ub|²=1)
+    m                  : float   — mass (|m| ≤ 1)
+    dt                 : float   — timestep
+
+    Returns
+    -------
+    Updated 8-tuple of spinor arrays.
+    """
+    c_m = np.cos(m * dt)
+    s_m = np.sin(m * dt)
+    Ua  = U_a;  Ub  = U_b
+    Uac = np.conj(Ua);  Ubc = np.conj(Ub)
+
+    # η_new = c η + i s (U⊗I₂) χ
+    #   U·χ_isospin: [Ua, -Ub*; Ub, Ua*]·[χ_ν, χ_e]
+    eu_nu_n = c_m * eta_nu_u + 1j * s_m * (Ua * chi_nu_u - Ubc * chi_e_u)
+    ed_nu_n = c_m * eta_nu_d + 1j * s_m * (Ua * chi_nu_d - Ubc * chi_e_d)
+    eu_e_n  = c_m * eta_e_u  + 1j * s_m * (Ub * chi_nu_u + Uac * chi_e_u)
+    ed_e_n  = c_m * eta_e_d  + 1j * s_m * (Ub * chi_nu_d + Uac * chi_e_d)
+
+    # χ_new = i s (U†⊗I₂) η + c χ
+    #   U†·η_isospin: [Ua*, Ub*; -Ub, Ua]·[η_ν, η_e]
+    xu_nu_n = 1j * s_m * (Uac * eta_nu_u + Ubc * eta_e_u) + c_m * chi_nu_u
+    xd_nu_n = 1j * s_m * (Uac * eta_nu_d + Ubc * eta_e_d) + c_m * chi_nu_d
+    xu_e_n  = 1j * s_m * (-Ub * eta_nu_u + Ua  * eta_e_u) + c_m * chi_e_u
+    xd_e_n  = 1j * s_m * (-Ub * eta_nu_d + Ua  * eta_e_d) + c_m * chi_e_d
+
+    return (eu_nu_n, ed_nu_n, eu_e_n, ed_e_n,
+            xu_nu_n, xd_nu_n, xu_e_n, xd_e_n)
+
+
+def dirac_step_complex_mass_doublet(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                                    chi_nu_u, chi_nu_d, chi_e_u, chi_e_d,
+                                    U_a, U_b, m, dt=1.0):
+    """
+    Full Strang-split step for the SU(2) doublet complex-mass CA.
+
+        kinetic(dt/2) → SU(2)-mass(dt) → kinetic(dt/2)
+
+    The kinetic step is applied independently to each isospin component
+    (ν and e decouple in the kinetic sector — only the mass step mixes
+    them via U).  Full local SU(2) invariance of the kinetic sector
+    requires W_μ gauge bosons, as in the Standard Model.
+
+    Parameters
+    ----------
+    (same as mass_step_doublet_su2)
+    U_a, U_b : SU(2) field held fixed during this step (static or pure gauge)
+
+    Returns
+    -------
+    Updated 8-tuple of spinor arrays.
+    """
+    _check_mass(m)
+
+    # — kinetic half-step (each isospin component independently) ——
+    eta_nu_u, eta_nu_d = _weyl_half_step_2c(eta_nu_u, eta_nu_d, 0.5 * dt)
+    eta_e_u,  eta_e_d  = _weyl_half_step_2c(eta_e_u,  eta_e_d,  0.5 * dt)
+    chi_nu_u, chi_nu_d = _weyl_half_step_2c(chi_nu_u, chi_nu_d, 0.5 * dt)
+    chi_e_u,  chi_e_d  = _weyl_half_step_2c(chi_e_u,  chi_e_d,  0.5 * dt)
+
+    # — SU(2) complex-mass full step ——————————————————————————————
+    (eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+     chi_nu_u, chi_nu_d, chi_e_u, chi_e_d) = mass_step_doublet_su2(
+        eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+        chi_nu_u, chi_nu_d, chi_e_u, chi_e_d,
+        U_a, U_b, m, dt)
+
+    # — kinetic half-step ——————————————————————————————————————————
+    eta_nu_u, eta_nu_d = _weyl_half_step_2c(eta_nu_u, eta_nu_d, 0.5 * dt)
+    eta_e_u,  eta_e_d  = _weyl_half_step_2c(eta_e_u,  eta_e_d,  0.5 * dt)
+    chi_nu_u, chi_nu_d = _weyl_half_step_2c(chi_nu_u, chi_nu_d, 0.5 * dt)
+    chi_e_u,  chi_e_d  = _weyl_half_step_2c(chi_e_u,  chi_e_d,  0.5 * dt)
+
+    return (eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+            chi_nu_u, chi_nu_d, chi_e_u, chi_e_d)
+
+
+def su2_gauge_transform_chiral(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                               chi_nu_u, chi_nu_d, chi_e_u, chi_e_d,
+                               U_a, U_b, V_a, V_b):
+    """
+    Apply chiral SU(2)_L gauge transformation:
+
+        η_doublet → V(x) · η_doublet    (left sector transforms)
+        χ_doublet → χ_doublet           (right sector UNCHANGED)
+        U         → V · U               (coupling compensates)
+
+    where V = [[Va, -Vb*],[Vb, Va*]] and U = [[Ua, -Ub*],[Ub, Ua*]].
+
+    This is the exact symmetry of mass_step_doublet_su2 (Ward identity
+    V·mass(ψ;U) = mass(V·ψ; V·U), T5 residual 1.055×10⁻¹⁷).
+
+    Returns
+    -------
+    Transformed 8-tuple of spinor arrays + updated (U_a_new, U_b_new).
+    """
+    Va  = V_a;  Vbc = np.conj(V_b)
+    Vac = np.conj(V_a)
+
+    eu_nu_n = Va  * eta_nu_u - Vbc * eta_e_u
+    ed_nu_n = Va  * eta_nu_d - Vbc * eta_e_d
+    eu_e_n  = V_b * eta_nu_u + Vac * eta_e_u
+    ed_e_n  = V_b * eta_nu_d + Vac * eta_e_d
+
+    # χ unchanged (chiral)
+    xu_nu_n, xd_nu_n = chi_nu_u.copy(), chi_nu_d.copy()
+    xu_e_n,  xd_e_n  = chi_e_u.copy(),  chi_e_d.copy()
+
+    # U' = V·U  (SU(2) product: a'' = Va·Ua − Vb*·Ub, b'' = Vb·Ua + Va*·Ub)
+    U_a_new = Va  * U_a - Vbc * U_b
+    U_b_new = V_b * U_a + Vac * U_b
+
+    return (eu_nu_n, ed_nu_n, eu_e_n, ed_e_n,
+            xu_nu_n, xd_nu_n, xu_e_n, xd_e_n,
+            U_a_new, U_b_new)
+
+
+# ── SU(2) doublet initial conditions & observables ─────────────────
+
+def gaussian_doublet(shape, sigma=4.0, kind='left_nu', center=None):
+    """
+    Gaussian initial conditions for the SU(2) doublet.
+
+    kind:
+      'left_nu'   — pure η_ν↑ (ν left-handed, spin-up)
+      'left_e'    — pure η_e↑ (e left-handed, spin-up)
+      'left_both' — equal mix η_ν = η_e = G/√2
+      'right_nu'  — pure χ_ν↑ (ν right-handed)
+      'right_e'   — pure χ_e↑ (e right-handed)
+
+    Returns
+    -------
+    8-tuple: (eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+              chi_nu_u, chi_nu_d, chi_e_u, chi_e_d)
+    """
+    Lx, Ly = shape
+    cx, cy = center if center is not None else (Lx // 2, Ly // 2)
+    x = np.arange(Lx) - cx;  y = np.arange(Ly) - cy
+    X, Y = np.meshgrid(x, y, indexing='ij')
+    G = np.exp(-(X**2 + Y**2) / (2.0 * sigma**2)).astype(complex)
+    z = np.zeros_like(G)
+
+    eu_nu = z.copy();  ed_nu = z.copy()
+    eu_e  = z.copy();  ed_e  = z.copy()
+    xu_nu = z.copy();  xd_nu = z.copy()
+    xu_e  = z.copy();  xd_e  = z.copy()
+
+    if kind == 'left_nu':
+        eu_nu = G.copy()
+    elif kind == 'left_e':
+        eu_e = G.copy()
+    elif kind == 'left_both':
+        eu_nu = G / np.sqrt(2.0);  eu_e = G / np.sqrt(2.0)
+    elif kind == 'right_nu':
+        xu_nu = G.copy()
+    elif kind == 'right_e':
+        xu_e = G.copy()
+    else:
+        raise ValueError(f"Unknown doublet kind: {kind!r}")
+
+    return eu_nu, ed_nu, eu_e, ed_e, xu_nu, xd_nu, xu_e, xd_e
+
+
+def norm_doublet(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                 chi_nu_u, chi_nu_d, chi_e_u, chi_e_d):
+    """Total probability norm for the 8-component doublet spinor."""
+    return float(sum(
+        np.sum(np.abs(arr)**2)
+        for arr in (eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                    chi_nu_u, chi_nu_d, chi_e_u, chi_e_d)))
+
+
+def chirality_split_doublet(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                            chi_nu_u, chi_nu_d, chi_e_u, chi_e_d):
+    """Return (N_left, N_right) total probability in each chirality sector."""
+    N_L = float(sum(np.sum(np.abs(a)**2)
+                    for a in (eta_nu_u, eta_nu_d, eta_e_u, eta_e_d)))
+    N_R = float(sum(np.sum(np.abs(a)**2)
+                    for a in (chi_nu_u, chi_nu_d, chi_e_u, chi_e_d)))
+    return N_L, N_R
+
+
+def isospin_t3_doublet(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
+                       chi_nu_u, chi_nu_d, chi_e_u, chi_e_d):
+    """
+    Return (⟨T₃⟩_left, ⟨T₃⟩_right) = (N_ν − N_e)/2 in each sector.
+
+    ν carries T₃ = +½, e carries T₃ = −½.
+    """
+    N_nu_L = float(sum(np.sum(np.abs(a)**2) for a in (eta_nu_u, eta_nu_d)))
+    N_e_L  = float(sum(np.sum(np.abs(a)**2) for a in (eta_e_u,  eta_e_d)))
+    N_nu_R = float(sum(np.sum(np.abs(a)**2) for a in (chi_nu_u, chi_nu_d)))
+    N_e_R  = float(sum(np.sum(np.abs(a)**2) for a in (chi_e_u,  chi_e_d)))
+    return 0.5 * (N_nu_L - N_e_L), 0.5 * (N_nu_R - N_e_R)
+
+
+def su2_casimir_left(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d):
+    """
+    ⟨T²⟩ on the left-handed doublet sector.
+
+    For a pure SU(2) doublet state |T=½, T₃=m⟩ the Casimir eigenvalue
+    is T(T+1) = ¾.  Returns the expectation value (a real float).
+
+    ⟨T²⟩ = T₃² + |T₊|²,  where T₊ = Σ η_ν* η_e / N_total.
+    """
+    N_nu = float(sum(np.sum(np.abs(a)**2) for a in (eta_nu_u, eta_nu_d)))
+    N_e  = float(sum(np.sum(np.abs(a)**2) for a in (eta_e_u,  eta_e_d)))
+    N_total = N_nu + N_e
+    if N_total < 1e-30:
+        return 0.0
+    T3     = 0.5 * (N_nu - N_e) / N_total
+    T_plus = (np.sum(np.conj(eta_nu_u) * eta_e_u)
+              + np.sum(np.conj(eta_nu_d) * eta_e_d)) / N_total
+    return T3**2 + float(np.abs(T_plus)**2)
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Aharonov-Bohm / gauge tests
+# ══════════════════════════════════════════════════════════════════
 
 def aharonov_bohm_test(L=64, n_steps=100, m=0.0, q=1.0, dt=1.0,
                         flux=np.pi, sigma=6.0):

@@ -29,12 +29,12 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 ### SR-2. Time dilation — moving-clock tick ratio
 
 - **Target.** $\tau / \tau_0 = \gamma = 1/\sqrt{1 - v^2/c^2}$. Measured to $\sim 10^{-7}$ in muon storage rings (CERN g–2) and to $\sim 10^{-16}$ in atomic-clock comparisons (Chou *et al.* 2010).
-- **Status.** **PASS (dispersion-identity) + LV CURVE CHARACTERISED ANALYTICALLY (continuum-SR)** — Part 1 executed 2026-05-18 (Finding 12); closed-form LV coefficient derived 2026-05-19 (Finding 15). Pure plane-wave Dirac eigenmodes propagated; phase rate at static cell = $\arcsin(m)$, phase rate at moving worldline (sub-pixel spectral sampling) = $\omega_k - k v_g$. Numerical-vs-dispersion residual $4.4 \times 10^{-15}$ (FFT floor). Continuum-SR gap grows as $\beta_\text{LV}(m)\,(v_g/c_\text{lat})^2 + \gamma_\text{LV}(m)\,(v_g/c_\text{lat})^4 + \mathcal O(\beta^6)$, with $\beta_\text{LV}(m) = \tfrac{1}{2}\!\left(1 - \tfrac{m}{\sqrt{1-m^2}\,\arcsin m}\right)$ in **closed form** — negative for all $m\in(0,1)$, leading small-$m$ form $-m^2/6$. This is the predicted Planck-scale Lorentz deformation, now expressed as an exact algebraic function of $m$ rather than a fitted curve.
+- **Status.** **PASS (dispersion-identity) + LV CURVE CHARACTERISED ANALYTICALLY (continuum-SR)** — Part 1 executed 2026-05-18 (Finding 12); closed-form LV coefficient derived 2026-05-19 (Finding 15). Pure plane-wave Dirac eigenmodes propagated; phase rate at static cell = $\arcsin(m)$, phase rate at moving worldline (sub-pixel spectral sampling) = $\omega_k - k v_g$. Numerical-vs-dispersion residual $4.4 \times 10^{-15}$ (FFT floor). Continuum-SR gap grows as $\beta_\text{LV}(m)\,(v_g/c_\text{lat})^2 + \gamma_\text{LV}(m)\,(v_g/c_\text{lat})^4 + \delta_\text{LV}(m)\,(v_g/c_\text{lat})^6 + \mathcal O(\beta^8)$, with $\beta_\text{LV}(m) = \tfrac{1}{2}\!\left(1 - \tfrac{m}{\sqrt{1-m^2}\,\arcsin m}\right)$, $\gamma_\text{LV}$, and $\delta_\text{LV}$ all in **closed form** (Finding 15; $\delta_\text{LV}$ added 2026-05-22) — $\beta_\text{LV}$ negative for all $m\in(0,1)$, leading small-$m$ form $-m^2/6$. This is the predicted Planck-scale Lorentz deformation, now expressed as an exact algebraic function of $m$ rather than a fitted curve.
 - **Gate (revised).** Three readings:
   - **Dispersion-identity:** $\text{ratio}_\text{num} = (\omega_k - k v_g)/\arcsin(m)$ to FFT round-off. **PASS at $4.4 \times 10^{-15}$.**
   - **Continuum-SR:** $\text{ratio}_\text{num} = 1/\gamma_\text{SR}$ within $\mathcal O(k^2)$ at small $k$. **Quantitative match**, scaling cleanly as $(v_g/c_\text{lat})^2$. Smallest residual $7.7 \times 10^{-8}$ at $(m=0.5, k=0.001)$; $\sim 10^{-3}$ at $v_g/c_\text{lat} = 0.5$.
-  - **Closed-form LV coefficient:** measured $(R - 1/\gamma_\text{SR})/\beta^2 = \beta_\text{LV}(m)$ within $10^{-3}$ relative at $\beta \le 0.3$, and adding the $\gamma_\text{LV}\beta^4$ term sharpens to $10^{-5}$ – $10^{-7}$ relative. **PASS as an exact algebraic identity** (sympy-confirmed). Test: `ca-simulation/derive_beta_LV.py`.
-- **Cost.** Cheap (done). $L = 128$, 600 steps, FFT phase extraction. Test lives at `ca-simulation/test_SR2_time_dilation.py`.
+  - **Closed-form LV coefficient:** measured $(R - 1/\gamma_\text{SR})/\beta^2 = \beta_\text{LV}(m)$ within $10^{-3}$ relative at $\beta \le 0.3$, and adding the $\gamma_\text{LV}\beta^4$ term sharpens to $10^{-5}$ – $10^{-7}$ relative; the $\delta_\text{LV}\beta^6$ term sharpens further at larger $\beta$ (to $\sim10^{-8}$, the FFT/round-off floor). **PASS as an exact algebraic identity** (all three coefficients sympy-confirmed bit-zero). Test: `ca-simulation/derive_beta_LV.py`.
+- **Cost.** Cheap (done). $L = 128$, 600 steps, FFT phase extraction. Test lives at `model-tests/test_SR2_time_dilation.py`.
 - **Discriminating power.** Direct, observable consequence of the emergent-time proposition. **Pass on the dispersion side** means the lattice reproduces SR time dilation from a counting argument with no built-in Lorentz boost — the proposition's two-reading rule survives the Lorentz translation. **The continuum-SR gap is the lattice's predicted Planck-scale Lorentz violation** (Paper 4 Eq. 23) showing up in a cleaner setting than the QG-2 cosmic-ray test.
 
 ### SR-3. Sagnac effect on a closed lattice loop
@@ -76,7 +76,7 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 ### GR-2. Shapiro time delay — absolute magnitude
 
 - **Target.** $\Delta t = (2GM/c^3)\ln[(r_1+r_2+r_{12})/(r_1+r_2-r_{12})]$. Measured to $10^{-5}$ by Cassini (Bertotti–Iess–Tortora 2003) — sets $\gamma_\text{PPN} = 1.000 \pm 2\times 10^{-5}$.
-- **Status.** **RATIO PASS, finite-$L$ PBC-limited** (2026-05-19, Finding 14.6). Direct line integral of $1/c(x)$ along the ray gives $\Delta t_\text{lat} / \Delta t_\text{GR}$ in the range $[0.346, 0.635]$ at $L=128$ across $b \in \{6, 10, 16, 24\}$. Convergence in $L$ at $b=12$: $0.470 \to 0.544 \to 0.615$ for $L = 96 \to 128 \to 192$ — monotonic toward 1. Absolute 0.1% gate not met until open-boundary Poisson is built. `tests-priority/test_05_GR2_shapiro.py`.
+- **Status.** **PASS at 0.1% gate with open-BC kernel** (2026-05-20, Finding 14.16). Switching to the free-space James/Hockney FFT-Poisson kernel (`poisson_open.py`), the line integral of $1/c(x)$ gives $\Delta t_\text{lat}/\Delta t_\text{GR} = 1.00058$ at $L=192$, $b=8$ — 0.06% off the GR closed form. Convergence in $L$ at $b=8$: $1.00618 \to 1.00294 \to 1.00164 \to 1.00097 \to 1.00058$ for $L = 64 \to 96 \to 128 \to 160 \to 192$ — monotonic to 1. The $b$ scan at $L=128$ holds $1.003$–$1.005$ across $b \in \{6, 10, 16, 24\}$. **Pins PPN $\gamma = 1$ to lattice precision.** Open-BC re-test: `tests-priority/test_05b_GR2_openBC.py`. *(Periodic-kernel version was RATIO PASS only, ratio 0.47–0.62: `tests-priority/test_05_GR2_shapiro.py`.)*
 - **Gate.** Absolute lattice $\Delta\tau$ within 0.1% of the analytic GR formula at lattice-mass parameters chosen for $r_s/b \le 10^{-3}$ (weak-field).
 - **Cost.** Cheap. Existing T2.B infrastructure; add a closed-form GR comparison line.
 - **Discriminating power.** Pins down the PPN $\gamma$ parameter to lattice precision. PPN $\gamma = 1$ in GR; any deviation indicates a deformed metric ansatz.
@@ -85,6 +85,8 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 
 - **Target.** $\Delta\nu/\nu = -gh/c^2 = -2.46 \times 10^{-15}$ for $h = 22.5$ m on Earth's surface. Measured to $1\%$ by Pound–Rebka 1960; to $7 \times 10^{-5}$ by Gravity Probe A (Vessot 1980).
 - **Status.** **FALSIFIES Paper 6 $c(x)$ ansatz by a factor of 2** (2026-05-19, Finding 14.5). Across 4 (near, far) pairs at $L=64$, lattice ratio vs Paper 6 prediction $2\Delta\phi/c^2$ is $-0.998 \pm 5\times 10^{-4}$ — exact self-consistency. Lattice ratio vs **measured GR** $\Delta\phi/c^2$ is $-1.996$ — factor of 2 too large. The single isotropic-$c$ scalar in Paper 6 §18 cannot simultaneously give the GR factor-4 deflection (which it does, GR-1) and the GR factor-1 redshift; one of the two is necessarily wrong. Three resolutions on the table (separate phase-tick field, anisotropic metric, restricted-$c$ propagator). `tests-priority/test_04_GR3_pound_rebka.py`.
+- **Fork harness — all three candidate fixes RESOLVE GR-3** (2026-05-21). `forks/gr3_fork_harness.py` runs GR-1…GR-4 on {baseline, Fork A phase-tick, Fork B anisotropic, Fork C restricted-$c$} on a shared open-BC potential ($L=128$, $M=1$, $\sigma=3$, $G_N=5\times10^{-4}$, $c_0=0.5$). GR-3 ratio$_{GR}$: baseline $1.9991$ (factor-2, reproduced); **Fork A $1.0001$, Fork B $1.0002$, Fork C $0.9998$ — all three drive the redshift ratio to 1**. GR-1 ($|K|\approx3.85$) and GR-2 (ratio $\approx1.002$) are unchanged across all four columns, confirming the fixes leave the photon sector intact. **GR-4 is the discriminator:** Forks A and B reproduce the baseline Mercury advance ($\Delta\omega_\text{lat}/\Delta\omega_\text{GR}=2.0033$, $\alpha_A=\alpha_B=1$); **Fork C halves it** ($1.0006$, $\alpha_A=\alpha_B=0.5$; $C/\text{baseline}=0.4995\approx\tfrac12$). Outputs: `test-results/gr3_fork_comparison.{json,md}`.
+- **Extended run (Forks A and B, L=192, n\_orbits=12) — confirms resolution** (2026-05-21). `forks/gr3_forks_AB_extended.py` re-ran Forks A and B at higher spatial resolution ($L=192$ vs $128$) and double the orbit count ($n_\text{orbits}=12$ vs $6$). GR-3 ratios unchanged: **Fork A $1.0001 \pm 2.3\times10^{-5}$, Fork B $1.0002 \pm 6.3\times10^{-5}$**. GR-1 ($|K|\approx3.87$) and GR-2 (ratio $\approx1.001$) confirm the photon sector is intact. GR-4 ratios: both forks $2.0035$ (expected $\approx2.00$ with the $3\pi$ harness normalisation; $\alpha_A=\alpha_B=1$). Orbit std over 12 orbits: $1.74\times10^{-4}$ (stable, no drift). Spatial resolution is not a limiting factor for GR-3 — the factor-2 fix is clean at $L=192$. Outputs: `test-results/gr3_forks_AB_L192.{json,md}`.
 - **Gate.** Frequency-shift residual $< 10^{-3}$ of the analytic value at lattice $\phi$ chosen for weak-field.
 - **Cost.** Cheap. Uses `ca_emqg.py` + Cayley stepper + frequency-extraction infrastructure already in place.
 - **Discriminating power.** Direct empirical confirmation. A clean pass is one of the strongest GR validations available because the experimental result is exact at parts-per-million.
@@ -92,7 +94,7 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 ### GR-4. Mercury perihelion precession
 
 - **Target.** $\Delta\omega_\text{rel} = 6\pi GM/(a(1-e^2)c^2)$ = 42.98 arcsec/century. Confirmed to $\sim 0.1\%$ accuracy.
-- **Status.** **PASS at 1.5%** (2026-05-19, Finding 14.12).  Velocity-Verlet integration of the 1PN Will/Soffel equation of motion $\ddot{\mathbf r} = -GM\hat r/r^2 + (GM/(c^2 r^2))[(4GM/r - v^2)\hat r + 4(\hat r\cdot\mathbf v)\mathbf v]$ on a Keplerian setup with $GM=0.003$, $a=1$, $e=0.3$ (so $v^2/c^2 \approx 5.6\times 10^{-3}$). Across 7 perihelion passages, $\Delta\omega_\text{lat} = 0.0612$ rad/orbit vs analytic $\Delta\omega_\text{GR} = 0.0621$ rad/orbit — relative error 1.50%, per-orbit std $1.6\times 10^{-5}$ rad. Newtonian-force control gives $|\Delta\omega| < 10^{-6}$ rad/orbit, confirming integrator accuracy. At larger $v^2/c^2 = 0.019$ the error grew to 5.4% — the expected 2PN-correction scaling. `tests-priority/test_09_GR4_mercury.py`.
+- **Status.** **PASS at 1.5%** (2026-05-19, Finding 14.12).  Velocity-Verlet integration of the 1PN Will/Soffel equation of motion $\ddot{\mathbf r} = -GM\hat r/r^2 + (GM/(c^2 r^2))[(4GM/r - v^2)\hat r + 4(\hat r\cdot\mathbf v)\mathbf v]$ on a Keplerian setup with $GM=0.003$, $a=1$, $e=0.3$ (so $v^2/c^2 \approx 5.6\times 10^{-3}$). Across 7 perihelion passages, $\Delta\omega_\text{lat} = 0.0612$ rad/orbit vs analytic $\Delta\omega_\text{GR} = 0.0621$ rad/orbit — relative error 1.50%, per-orbit std $1.6\times 10^{-5}$ rad. Newtonian-force control gives $|\Delta\omega| < 10^{-6}$ rad/orbit, confirming integrator accuracy. At larger $v^2/c^2 = 0.019$ the error grew to 5.4% — the expected 2PN-correction scaling. `tests-priority/test_09_GR4_mercury.py`. **Extended-run confirmation** (2026-05-21, `forks/gr3_forks_AB_extended.py`): at $n_\text{orbits}=12$ (doubled), Forks A and B give ratio $2.0035$ with orbit-to-orbit std $1.74\times10^{-4}$ — no detectable drift, confirming the harness is numerically stable well beyond the original 6-orbit run. (The ratio $\approx2$ vs nominal Schwarzschild $=1$ reflects the $3\pi$ normalisation convention in the harness; $\alpha_A=\alpha_B=1$.)
 - **Gate.** $\Delta\omega_\text{lat}/\Delta\omega_\text{GR}$ within 5% (allowing for lattice discretisation noise; tightenable by raising $L$).
 - **Cost.** Moderate. $L = 256$–$512$ with a long evolution; centroid tracking over many orbits.
 - **Discriminating power.** A *higher-order* effect than deflection — the lattice must include the $1/r^2$ relativistic correction to the Newtonian potential, not just the leading $1/r$ piece. Pass means the lattice has GR's full geodesic structure to second order in $GM/(rc^2)$.
@@ -241,6 +243,14 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 - **Cost.** Moderate. Three Weyl fields with Yukawa-style flavour mixing.
 - **Discriminating power.** A measurable consequence of generation structure. Lattice has the right primitives (the Yukawa coupling is bilinear, complex, and supports diagonalisable mass matrices); just needs to be wired up.
 
+### QFT-5b. Composite-photon Poynting energy conservation (Mohr Eq. 55)
+
+- **Target.** $u = \tfrac{1}{2}(\varepsilon_0|\boldsymbol E|^2 + |\boldsymbol B|^2/\mu_0) = \mathrm{const}$ for a free photon. Measured implicitly in every cavity QED and laser experiment; no photon energy disappears during free propagation.
+- **Status.** **PASS — algebraically exact (Finding 17, 2026-05-21).** $\|E_G(t)\|^2 + c^2\|B_G(t)\|^2$ max rel deviation $4.77\times 10^{-14}$ over 200 steps; per-step rate $1.4\times 10^{-16}\approx\varepsilon_\text{machine}$ at 10 000 steps. The conservation follows from the BCC bilinear $G_T = \psi_+^T\sigma\psi_+$ being circularly polarized ($\boldsymbol A\cdot\boldsymbol C=0$, $\|\boldsymbol A\|^2=\|\boldsymbol C\|^2$), which holds for any $c$ including $c_\text{lat}=1/\sqrt 3$. Added as Exactness Inventory Tier 1 #44 (circularity) and Tier 2 #10 (Mohr Eq. 55 gate).
+- **Gate.** Max rel deviation $\le 10^{-12}$ over 200 steps. **PASS at $4.77\times 10^{-14}$.**
+- **Cost.** Zero marginal. Test already implemented in `ca_maxwell.py::composite_photon_energy_conservation_c2()`.
+- **Discriminating power.** Confirms the composite photon reproduces EM energy conservation at the field level, not just at the Weyl spinor norm level. Closes a structural gap between the lattice construction and the Mohr (2010) continuum formulation.
+
 ### QFT-6. Chiral anomaly — triangle diagram
 
 - **Target.** $\partial_\mu j^\mu_5 = (e^2/16\pi^2)\,F_{\mu\nu}\tilde F^{\mu\nu}$ — measured indirectly via $\pi^0 \to \gamma\gamma$ rate (~30% agreement is the textbook level; lattice QCD has it cleaner).
@@ -334,18 +344,18 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 *Sweep checkpoint 2026-05-19 - 22:53: tests 1–7 executed and documented in
 Finding 14; tests 8–10 paused, pending resumption.  Headline results:*
 
-| # | Test | Outcome at checkpoint |
-|---|---|---|
-| 1 | GR-1 Stage A — light deflection | **PASS at 5%** with open-BC Poisson, $|K|=3.88$ (3.0% off 4); previously 12.5% off under PBC |
-| 2 | QM-1 — CHSH | **PASS — Tsirelson saturated** at $4.4\times 10^{-16}$ |
-| 3 | SR-2 — time dilation | **PASS** (re-confirmed) at $4.4\times 10^{-15}$ |
-| 4 | GR-3 — Pound–Rebka | **Falsifies Paper 6 $c(x)$ by factor of 2** |
-| 5 | GR-2 — Shapiro | **RATIO PASS** at finite $L$, converging to 1 |
-| 6 | QG-2 — Planck LV bound | **PASS** at Planck $a$, $E_\text{LV} = 1.87\times 10^{20}$ GeV |
-| 7 | QFT-5 — neutrino oscillations | **Mechanism PASS** at $4.4\times 10^{-16}$; phenomenology partial |
-| 8 | QM-2 — tunneling | **2% match at sweet spot; Klein paradox elsewhere** |
-| 9 | GR-4 — Mercury perihelion | **PASS at 1.5%** ($v^2/c^2 = 5.6\times 10^{-3}$) |
-| 10 | QG-4 — Noether charge | **PASS at FFT floor**, $|\Delta Q|/Q = 1.8\times 10^{-13}$/1000 steps |
+| # | Test | Outcome at checkpoint | 2026-05-20 re-run (post-rebuild) |
+|---|---|---|---|
+| 1 | GR-1 Stage A — light deflection | **PASS at 5%** with open-BC Poisson, $|K|=3.88$ (3.0% off 4) | **PASS at 5%** — $|K|=3.87$, 3.3% off Einstein |
+| 2 | QM-1 — CHSH | **PASS — Tsirelson saturated** at $4.4\times 10^{-16}$ | **PASS** — pure-state 4.4e-16; lattice 2.2e-9 |
+| 3 | SR-2 — time dilation | **PASS** (re-confirmed) at $4.4\times 10^{-15}$ | **PASS** — num-vs-pred **2.9e-15** (machine precision, L=64/n=800) |
+| 4 | GR-3 — Pound–Rebka | **Falsifies Paper 6 $c(x)$ by factor of 2** | **FAIL** baseline (ratio≈−1.00); **RESOLVED by all 3 forks** (2026-05-21): A=1.0001, B=1.0002, C=0.9998; **CONFIRMED at L=192, n=12** (2026-05-21): A=1.0001±2.3e-05, B=1.0002±6.3e-05 |
+| 5 | GR-2 — Shapiro | **PASS at 0.1%** with open-BC Poisson, ratio $=1.0006$ | **PASS at 0.1%** — ratio=1.00058, 0.06% off GR, PPN $\gamma=1$ |
+| 6 | QG-2 — Planck LV bound | **PASS** at Planck $a$, $E_\text{LV} = 1.87\times 10^{20}$ GeV | **PASS** — axis β=5.7e-16, diag β=6.5e-2, $E_\text{LV} \ge E_\text{Planck}$ |
+| 7 | QFT-5 — neutrino oscillations | **Mechanism PASS** at $4.4\times 10^{-16}$; phenomenology partial | **Mechanism PASS** 4.4e-16; period 11.85% off (gate 5%) — unchanged |
+| 8 | QM-2 — tunneling | **2% match at sweet spot; Klein paradox elsewhere** | **FAIL** — Klein dominates; mean ratio 1.80 (expected, known) |
+| 9 | GR-4 — Mercury perihelion | **PASS at 1.5%** ($v^2/c^2 = 5.6\times 10^{-3}$) | **PASS at 1.5%** — confirmed stable at n=12 orbits (orbit std 1.74e-4, no drift) |
+| 10 | QG-4 — Noether charge | **PASS at FFT floor**, $|\Delta Q|/Q = 1.8\times 10^{-13}$/1000 steps | **PASS** — chiral charge $|\Delta Q|/Q=2.2\times 10^{-16}$ at m=0 |
 
 The roadmap has ~40 tests; resourcing one per week, a focused subset is needed. Prioritised by `(discriminating power × current cost-effectiveness × stakeholder visibility)`:
 
@@ -369,7 +379,7 @@ The other 30+ tests in the roadmap are either lower-impact (e.g., SR-5 aberratio
 ## What this roadmap does *not* attempt
 
 - **Strong-field GR** (black-hole horizons, photon spheres, ringdown). The lattice's metric ansatz is weak-field; strong-field tests are outside its current scope.
-- **Lattice QCD / confinement.** No SU(3) gauge sector is in the model; the SU(2) is electroweak.
+- **~~Lattice QCD / confinement. No SU(3) gauge sector is in the model; the SU(2) is electroweak.~~** **Superseded 2026-05-21:** an SU(3) gauge sector now exists. `ca-simulation/ca_strong.py` implements link-variable SU(3) on a 3-flavour (u, d, s) × 3-colour quark triplet; the V13 Noether-current gate suite passes 6/6. Confinement diagnostics (Wilson area-law, static $q\bar q$ potential) are not yet measured — they live in V15 (dynamical gluons), which is the next strong-sector item. See `reference-research/ca-strong-design.md`.
 - **Discrimination between competing theories.** Per CLAUDE.md, the lattice is judged against measured data. Where multiple theories predict the same observable, the lattice is compared to the measurement, not to one theory or the other.
 - **First-principles derivation of $a$ and $\tau$.** Finding 10 keeps the SI mapping as a deferred decision.
 

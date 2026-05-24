@@ -1,6 +1,6 @@
 # QCA Verifications V1–V10 — Results
 
-*Run 2026-05-15. Implementation in `ca-simulation/run_qca_verifications.py`. Proposed in `qca-papers-1-4-overview.md`.*
+*Run 2026-05-15. Implementation in `model-tests/run_qca_verifications.py`. Proposed in `qca-papers-1-4-overview.md`.*
 
 | ID  | Test                                                  | Result | Key number                                |
 |---|---|---|---|
@@ -199,4 +199,4 @@ These results don't change any existing Phase A–F test; they characterise wher
 
 ---
 
-*Script: `ca-simulation/run_qca_verifications.py`. To re-run: `python3 run_qca_verifications.py` from that directory.*
+*Script: `model-tests/run_qca_verifications.py`. To re-run: `python3 run_qca_verifications.py` from that directory.*

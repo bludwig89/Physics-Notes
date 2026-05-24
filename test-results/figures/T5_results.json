@@ -1,0 +1,52 @@
+{
+  "T5A_vacuum": {
+    "L": 256,
+    "n_steps": 40,
+    "sigma": 4.0,
+    "eps": 1e-13,
+    "vacuum_fraction": 0.8038787841796875,
+    "N_max_vacuum": 0,
+    "N_sum_vacuum": 0,
+    "N_max_matter": 40,
+    "exactly_zero": true
+  },
+  "T5B_benchmark": [
+    {
+      "L": 64,
+      "t_sync": 0.00725816599879181,
+      "t_lazy": 0.008061583001108374,
+      "overhead": 0.11069146151387288,
+      "occupied_cells": 4096,
+      "lattice_size": 4096,
+      "fraction_occupied": 1.0
+    },
+    {
+      "L": 128,
+      "t_sync": 0.022101751004811376,
+      "t_lazy": 0.025361958003486507,
+      "overhead": 0.14750899139011245,
+      "occupied_cells": 14567,
+      "lattice_size": 16384,
+      "fraction_occupied": 0.88909912109375
+    },
+    {
+      "L": 256,
+      "t_sync": 0.09076545800053282,
+      "t_lazy": 0.09924299999693176,
+      "overhead": 0.09340053124999573,
+      "occupied_cells": 15593,
+      "lattice_size": 65536,
+      "fraction_occupied": 0.2379302978515625
+    }
+  ],
+  "T5C_asymmetric_clocks": {
+    "phi_in": -0.014163618848021548,
+    "c_in": 0.33983400799036245,
+    "c_out": 0.41740221929507526,
+    "ratio_tick": 0.8141643534245868,
+    "ratio_c": 0.8141643534245866,
+    "ratio_gr_sqrt": 1.0849171561000726,
+    "rel_diff_vs_c": 2.727270040638037e-16,
+    "gate": "EXACT \u2014 ratio_tick = c_in/c_out algebraically"
+  }
+}

@@ -1,0 +1,40 @@
+=== Original Maxwell tests ===
+  Curl residuals (k=0.05):      (0.020458521122618836, 0.020458521122618912)
+  Transversality (k=0.05):      4.5810e-17
+  Dispersion residual (k=0.05): 2.1180e-03
+
+=== Improvement 1: Polarization basis (Mohr Eqs. 211-213) ===
+  Transversality error:  1.6124e-16
+  Orthonormality error:  5.5548e-16
+  Completeness error:    4.4410e-16
+
+=== Improvement 2: Poynting energy conservation (Mohr Eq. 55) ===
+  Max relative energy variation (200 steps): 4.5024e-14
+
+=== Improvement 3: Lorentz boost covariance (Mohr Eqs. 284-287) ===
+  Transversality error (Eq. 284): 1.3110e-15
+  Form error           (Eq. 285): 5.0701e-16
+  xi magnitude error   (Eq. 287): 6.6613e-16
+
+=== Improvement 4: Longitudinal mode (Mohr Eqs. 241, 249) ===
+  H ψ_L = 0 residual (Eq. 241):    5.4610e-17
+  ψ_T† ψ_L overlap   (Eq. 249):    1.0733e-16
+  Π^T ψ_L = 0 residual (Eq. 240):  3.6749e-17
+
+=== C1–C4 refinements (Mohr §C, 2026-05-21) ===
+  Poynting ||E||²+c²||B||² drift (200 steps): 4.7689e-14
+  Bilinear ε_G V6 transversality at k'_s:    2.9225e-15
+
+=== C5: Photon angular-momentum eigenstates (Mohr §8) ===
+  VSH orthonormality residual (j ≤ 2):       1.5994e-15
+  Y^M transversality residual (j ≤ 2):       3.7258e-17
+  Y^E transversality residual (j ≤ 2):       1.6715e-16
+  J_z eigenvalue residual (finite-diff):     1.1184e-08
+
+=== C6: Maxwell Green function + Dirac source coupling ===
+  (H − ω) · G = I residual:                  5.1707e-16
+  Weyl current J^0 = 1 residual:             4.4409e-16
+  Weyl current |J⃗| = 1 residual:              2.2204e-16
+  Weyl current J⃗ = n̂ alignment residual:      1.5263e-15
+  Ξ lower-half = 0 residual:                 0.0000e+00
+  Ξ upper-half = −μ₀c M·J residual:           0.0000e+00

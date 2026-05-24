@@ -28,6 +28,8 @@ Coexistence with the existing `weyl_step_2d_splitstep`:
 """
 
 import numpy as np
+import ca_fft as _fft
+from ca_lattice import make_kgrid_2d as _kgrid2d
 
 
 SQRT2 = np.sqrt(2.0)
@@ -68,17 +70,13 @@ def weyl_step_2d_arccos_splitstep(f, g):
     One CA tick is one application of U(k).  Diagonal in Fourier space,
     so norm is conserved by construction.
     """
-    Lx, Ly = f.shape
-    kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
-    ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
-    KX, KY = np.meshgrid(kx, ky, indexing='ij')
-
+    KX, KY = _kgrid2d(*f.shape)
     U_ff, U_fg, U_gf, U_gg = exact2d_unitary(KX, KY)
-    F = np.fft.fft2(f)
-    G = np.fft.fft2(g)
+    F = _fft.fft2(f)
+    G = _fft.fft2(g)
     F_new = U_ff * F + U_fg * G
     G_new = U_gf * F + U_gg * G
-    return np.fft.ifft2(F_new), np.fft.ifft2(G_new)
+    return _fft.ifft2(F_new), _fft.ifft2(G_new)
 
 
 # ══════════════════════════════════════════════════════════════════
