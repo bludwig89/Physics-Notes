@@ -39,28 +39,75 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
   - Proposed test - Apply a constant "external" force pulse to a Dirac wavepacket on the BCC lattice. Measure (a) the change in group velocity as $v \to c$ and (b) the energy delivered at a downstream collision site. Compare to both Einstein-mass and CA-flux predictions. **Expected exactness tier.** Quantitative match within FFT round-off floor.
   - Proposed test - Build a small test that, for a series of photon momenta on the lattice, evaluates each of the four identities and the composite relation $E = mc^2$ ⟺ $c/\nu = h/(mc)$. **Expected exactness tier.** Tier 1 (exact algebraic). Should hold to ε per quantity.
   - **Running** - Proposed Test - Initialize a 2D-square QCA photon pulse at the origin, propagate, then perform two distinct "measurements" — one in the lattice-rest frame, one in a Lorentz-boosted frame (re-using the boost machinery already verified in Tier 1 #25–27). Compare measured $c$ in both, plus the contracted-ruler / dilated-clock readings. **Expected exactness tier.** Machine precision via FFT.
-  - ***Complete*** - Proposed Test - Symbolic derivation (sympy) of velocity addition from $\omega = \arccos(\sqrt{1-m^2}\, c_x c_y)$, then compare to $u' = (u + v)/(1 + uv/c^2)$ in the continuum limit. **Expected exactness tier.** Closed-form algebraic match in the small-$k$ continuum limit; quantifiable LV residue at higher $k$ (extension of Finding 15).
-- ***Complete*** (2026-05-22) - Addition - Derive $\beta^6$ mechanically from the pattern $\omega(u) = \sum_{n\ge 0} a_{2n}(m) u^{2n}$ with $a_{2n}$ a rational function of $\arcsin m$ and $\sqrt{1-m^2}$ continues indefinitely; the recursion is the implicit-function expansion of $\arccos(n \cos u)$. We have $\beta_\text{LV}$ and $\gamma_\text{LV}$ in closed form already. 
+  - ~~***Complete*** - Proposed Test - Symbolic derivation (sympy) of velocity addition from $\omega = \arccos(\sqrt{1-m^2}\, c_x c_y)$, then compare to $u' = (u + v)/(1 + uv/c^2)$ in the continuum limit. **Expected exactness tier.** Closed-form algebraic match in the small-$k$ continuum limit; quantifiable LV residue at higher $k$ (extension of Finding 15).~~
+- ~~***Complete*** (2026-05-22) - Addition - Derive $\beta^6$ mechanically from the pattern $\omega(u) = \sum_{n\ge 0} a_{2n}(m) u^{2n}$ with $a_{2n}$ a rational function of $\arcsin m$ and $\sqrt{1-m^2}$ continues indefinitely; the recursion is the implicit-function expansion of $\arccos(n \cos u)$. We have $\beta_\text{LV}$ and $\gamma_\text{LV}$ in closed form already. ~~
 - ***Complete*** - Overview - conduct a complete review of the project to date and write four things:
   - Summary of the physics used. Include all equations.
   - Summary of the model and its structure.
   - Summary of all findings.
   - Summary of all tests and test exactness results.
 - We are trying to convert the model from what it is now to a working universal theory model as a standalone program that we can run tests on or with, draft a road-map proposition.
-- ***Complete*** - Consider the rules of Conways game of life, and how that might have some possible correlation to our model.
+- ~~***Complete*** - Consider the rules of Conways game of life, and how that might have some possible correlation to our model.~~
 - execute the roadmap defined by ca-per-cell-yukawa-design.md.
-  - ***Complete*** - Next fork target - the smearing function $f_{\mathbf k}(\mathbf q)$ (Finding 2 hypothesis #1), with the $c_\text{lat}/\sqrt2$ baseline as the coefficient to drive toward 0.
-  - ***Complete*** - Wire quark Yukawa - per-flavour `m_q = y_q Re Φ` — current stepper takes `m_flavour` as a static dict, but should accept a per-cell Φ-derived mass field, mirroring `ca_unified.py`.
-  - ***Complete*** - Proposed test - implement the Weyl SL(2,$\mathbb C$) boost and verify it produces the same boosted bilinear as the verified $V6$ which preserves transversality on bilinear-derived polarization vectors.
-  - ***Complete*** - proposed test - assume the maxwell curl equation is incorrect theory, and our measurement of c_lat is correct. What impact does that have?
-  - ***Complete*** - if we use the mohr six-component $\psi$ photon wave instead of the pointwise bilinear does that resolve the maxwell curl equation problem?
-  - Search the web for any of gerard t'hooft's papers. Read and add summaries of them to our reference-research folder.
-  - ***Complete*** - proposed test - implement Ludwig's derivation of complex mass as a fork and test to see if it holds up. If the model can produce the chiral SU(2) from gauging the dirac matrices directly, without a separate Higgs field, that would be a real divergence from the SM presentation worth testing.
-    - **Running** - Explore the QFT consequences and predictions if the imaginary unit is a real rotation as proposed in finding 26. 
+  - ~~***Complete*** - Next fork target - the smearing function $f_{\mathbf k}(\mathbf q)$ (Finding 2 hypothesis #1), with the $c_\text{lat}/\sqrt2$ baseline as the coefficient to drive toward 0.~~
+  - ~~***Complete*** - Wire quark Yukawa - per-flavour `m_q = y_q Re Φ` — current stepper takes `m_flavour` as a static dict, but should accept a per-cell Φ-derived mass field, mirroring `ca_unified.py`.~~
+  - ~~***Complete*** - Proposed test - implement the Weyl SL(2,$\mathbb C$) boost and verify it produces the same boosted bilinear as the verified $V6$ which preserves transversality on bilinear-derived polarization vectors.~~
+  - ~~***Complete*** - proposed test - assume the maxwell curl equation is incorrect theory, and our measurement of c_lat is correct. What impact does that have?~~
+  
+  - ~~***Complete*** - if we use the mohr six-component $\psi$ photon wave instead of the pointwise bilinear does that resolve the maxwell curl equation problem?~~
+
+  - ~~***Complete*** - proposed test - implement Ludwig's derivation of complex mass as a fork and test to see if it holds up. If the model can produce the chiral SU(2) from gauging the dirac matrices directly, without a separate Higgs field, that would be a real divergence from the SM presentation worth testing.~~
+  
+    - ~~**Running** - Explore the QFT consequences and predictions if the imaginary unit is a real rotation as proposed in finding 26.~~
+  
     - What are the implications of the speed of light being rotation rate? If a photon wave turns instead of moves through the lattice, what can we predict and what can we test?
-    - if $O(k)$ is the actual curl residual, what does that affect?
+  
+    - ~~***Complete*** - update - construct phase 2 from roadmap-f26-rotation.md and run all tests again.~~
+    ~~- Based on integrating Ludwig's SU(2) derivation go back through the entire model and retire any code that is replaced by his work. do ca_higgs and ca_strong get removed?~~
+
+    - ~~***Complete*** - run all affected tests again using ludwigs su(2) structure.~~
+  
+    - Addition: consider, build a link-covariant FFT that incorporates the gauge field directly into the Fourier transform, outline and confirm with user before building.
+  
+    - ~~***Complete*** - proposed test - run a test of the bcc dispersion code to test if n=1 or n=2 by evaluating $\Omega(k)=2\omega_{BCC}(k/2)$~~
+  
+    - proposed test - extend the bilinear construction to both branches, see how the two polarisations pick up $\Omega^\pm$, then confront the predicted birefringence with polarisation bounds.
+
+    - If the composite BCC plaquette has structural O(ε) cross-direction contributions. What could be the cause and what could be a transform modification that reduces the Blanchi residual to zero?
+  
+    - ~~***Complete*** - review and build a markdown for each of the axial-kinetic-theory, quantum-kinetic-theory, and stueckelberg-field papers in reference-research and determine if they can help our model with mass coupling and kinetic steps without w_mu or the higgs field.~~
+  
+
+- ~~**Running** - Review Finding 37 and verify that  `w_propagation_step_spectral` with the split-basis version is implemented and tested as proposed in the finding.~~
+
+- do a complete review of the physics involved in the entire model and explain it as straightforwardly as possible, document in physics-simple.md.
+
+  - ~~based on the current model and what it can show us, what scientific findings does it explain that the standard model does not?~~
+
+- ~~examine first-gen-completeness.md and update it with the elements now in the model.~~
+
+- ~~merge the hypercharge fork with the rest of the main model, keeping it in its own file.~~
+
+- Bring the colour sector up to the level the $W$ reached: dynamical gluon propagation (rotation-law analog), gluon self-coupling dynamics, and a confinement diagnostic.
+
+-promote the right-handed singlets ($e_R, u_R, d_R$) to dynamical hypercharge-coupled fields *in the kinetic step* and extend F41's mass-step Y-coupling to the quark sector
+
+- ~~are the hypercharge fields affected by our decision to abandon Higgs? Will it still work with the chiral SU(2) mass model? If not, implement the hypercharge field coupling to fermions as a fork, verify that the su(2) lepton field is not affected, and test.~~
+
+- ~~The F29 bilinear only uses `sign='+'`.  A complete two-helicity photon state requires both Weyl branches, construct and test.~~
+
+- ~~Done - Run the FG-1 anomaly cancellation test from the first gen completeness review and update that file with the test results.~~
+
+- ~~Conduct a full project audit detailing the additional findings since F22 in review-findings-v2.md, complete technical review of the model in review-model-v2.md, comprehensive details on all the physics involved in review-physics-v2.md.~~
+
+- ~~**Running** - conduct a rigorous review of the model and determine what elements need to be added for a complete first-generation particle model, and outline tests that still need to be conducted. if there are files no longer being used indicate them for the user to move to a ca-simulation\retired folder.~~
+ 
+-  Proposed test - Apply a full spectral-propagation test (analogous to T51 for the photon) on a real-space $(E^a, B^a)$ field.
+  
+- ~~***Complete*** - proposed fork - if we use the mohr six-component photon wave function instead of the composite bilinear photon of de broglie, what are the results? *(Already doing this just in different language)*~~
+
 - Proposed fork - consider the global tick speed as the base speed that only massless particles can travel at, (100% of $c$), anything massive, relative to the empty vacuum part of the field, travels at a slower percentage (for this thought experiment, most likely is a function of mass). The top limit of this being a black hole where tick rate is 0% relative to the vacuum.
-- 
+
 
 
 ## Software Changes

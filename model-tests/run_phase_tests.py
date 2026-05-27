@@ -403,21 +403,14 @@ def test_D1():
 # ══════════════════════════════════════════════════════════════════
 
 def test_E1():
-    section('Phase E1 — U(1) EM gauge')
-    # 10× bump (2026-05-16): L=64→640, σ=8→80.  Flux is a topological
-    # invariant (line integral of A) so it does NOT scale with L.
-    res = dirac.aharonov_bohm_test(L=640, n_steps=100, m=0.0,
-                                     q=1.0, dt=1.0, flux=np.pi, sigma=80.0)
-    err = abs(res['measured_phase'] - res['analytic_phase'])
-    ok1 = check('phase pickup at machine precision',
-                err < 1e-12, f'(err = {err:.2e})')
-    ok2 = check('overlap magnitude = 1.0',
-                abs(res['overlap_magnitude'] - 1.0) < 1e-12,
-                f'(|overlap|={res["overlap_magnitude"]:.10f})')
-    ok3 = check('norm exactly preserved with A0',
-                abs(res['norm_with_A0'] - res['initial_norm']) < 1e-10,
-                f'(drift={abs(res["norm_with_A0"]-res["initial_norm"]):.2e})')
-    return ok1 and ok2 and ok3
+    # RETIRED 2026-05-26 — the U(1)-gauge-photon coupling that this
+    # phase exercised (`dirac.aharonov_bohm_test` / `dirac_step_u1_2d_splitstep`)
+    # was removed from ca_dirac.py in the F41 cleanup. The adopted photon
+    # is the composite bilinear (F39 two-helicity composite photon); any
+    # future AB-phase demonstration should be built from that machinery.
+    section('Phase E1 — U(1) EM gauge   [RETIRED]')
+    print('  [SKIP]  Aharonov–Bohm test retired with the U(1)-gauge photon.')
+    return True
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -500,61 +493,16 @@ def test_E3_continuity():
     q = 1.0
     xs = np.arange(L); X, Y = np.meshgrid(xs, xs, indexing='ij')
 
-    # ---- (a) U(1) ----
-    A0_uniform = np.full(shape, 0.1)        # uniform scalar potential
-
-    def residual(dt):
-        # Fresh Dirac packet with a small phase ramp → nonzero current.
-        nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=6.0,
-                                                  chirality='mixed')
-        kx_init = 0.30
-        plane = np.exp(1j * kx_init * X)
-        nu = nu * plane; nd = nd * plane
-        xu = xu * plane; xd = xd * plane
-
-        rho0, Jx0, Jy0 = _rho_J_dirac(nu, nd, xu, xd)
-
-        nu1, nd1, xu1, xd1 = dirac.dirac_step_u1_2d_splitstep(
-            nu, nd, xu, xd, A0=A0_uniform, m=0.0, q=q, dt=dt)
-
-        rho1, Jx1, Jy1 = _rho_J_dirac(nu1, nd1, xu1, xd1)
-
-        # Mid-time current (trapezoid):
-        Jx_m = 0.5 * (Jx0 + Jx1)
-        Jy_m = 0.5 * (Jy0 + Jy1)
-
-        # Central-difference divergence (∂_x f ≈ (f_{+1} − f_{−1})/2)
-        divJ = ((np.roll(Jx_m, -1, axis=0) - np.roll(Jx_m, +1, axis=0)) / 2
-              + (np.roll(Jy_m, -1, axis=1) - np.roll(Jy_m, +1, axis=1)) / 2)
-
-        # NOTE (Finding 9): under the exact-QCA kinetic step the bilinear
-        # current Ψ†α^i Ψ is no longer the QCA's conserved current — the
-        # exact conserved current involves QCA-link bilinears.  The check
-        # below uses the continuum bilinear and the small-k coefficient n.
-        # At m=0 the small-k group velocity is n/√2 = 1/√2; if the residual
-        # is no longer O(dt²) the Richardson ratios will flag it for follow-up.
-        res = rho1 - rho0 + dt * n_kin * divJ
-        return float(np.max(np.abs(res))), float(np.max(rho0))
-
-    r_dt,    rho_scale = residual(0.20)
-    r_dt2,   _         = residual(0.10)
-    r_dt4,   _         = residual(0.05)
-
-    rel_dt  = r_dt  / rho_scale
-    rel_dt2 = r_dt2 / rho_scale
-    rel_dt4 = r_dt4 / rho_scale
-    ratio_a = r_dt / r_dt2 if r_dt2 > 0 else float('inf')
-    ratio_b = r_dt2 / r_dt4 if r_dt4 > 0 else float('inf')
-
-    print(f'  U(1)  dt=0.20  rel residual = {rel_dt:.3e}')
-    print(f'  U(1)  dt=0.10  rel residual = {rel_dt2:.3e}')
-    print(f'  U(1)  dt=0.05  rel residual = {rel_dt4:.3e}')
-    print(f'  U(1)  Richardson ratios = {ratio_a:.2f}, {ratio_b:.2f}   '
-          f'(expect ≈ 4 for O(dt²))')
-
-    ok_u1 = (2.5 <= ratio_a <= 5.5) and (2.5 <= ratio_b <= 5.5)
-    ok_a = check('U(1) lattice continuity ∂_t ρ + c·∇·J = 0  → O(dt²)',
-                  ok_u1, f'(ratios {ratio_a:.2f}, {ratio_b:.2f})')
+    # ---- (a) U(1) ----  [RETIRED 2026-05-26]
+    # The U(1)-coupled discrete-continuity sub-test was driven by
+    # `dirac_step_u1_2d_splitstep`, which was removed from ca_dirac.py
+    # in the F41 cleanup. The pure-Dirac continuity check at m=0 is still
+    # available via the F27 / F40 machinery; build that from the new
+    # complex-mass step if needed. This block is skipped to keep the
+    # phase runner green.
+    print('  U(1) continuity sub-test  [SKIP — retired with the U(1)-gauge photon]')
+    ok_a = True
+    _ = (shape, X, q, n_kin)  # silence unused-locals; remove if E3 is rewritten
 
     # ---- (b) SU(2): isospin doublet (η_ν, η_e) total charge ----
     # The SU(2) stepper rotates between ν and e isospin components but

@@ -177,7 +177,13 @@ def maxwell_transversality_2d(k_mag=0.05, n_dirs=8, seed=1):
 
 
 def maxwell_dispersion_residual_2d(k_mag=0.05):
-    """Composite-photon dispersion Ω_γ = 2·ω(k/2), expected → |k|/√2 at small k."""
+    """Nonlinear dispersion correction |Ω(k) − c_lat·|k|| / (c_lat·|k|) at finite k (2D).
+
+    F26 reframing: Ω(k) = 2·ω_2D(k/2) is the exact rotation angle per tick.
+    The returned value is the BCC lattice's nonlinear dispersion at finite k,
+    NOT a model error.  As k → 0 it vanishes (Maxwell limit, c_lat = 1/√2).
+    See `rotation_omega_2d` and `rotation_step_em_spectral_2d` for the exact law.
+    """
     dirs = _random_dirs_2d(8, seed=2)
     errs = []
     for d in dirs:

@@ -1,0 +1,52 @@
+{
+  "name": "FG-3 quark electroweak wiring (Phase 4)",
+  "date": "2026-05-26",
+  "lattice": "2D-square (ca_strong + new W_\u03bc link field)",
+  "modules": [
+    "ca_strong (Phase 4 additions)",
+    "ca_dirac (F27 reused)"
+  ],
+  "mirrors": [
+    "F31 (covariant hopping)",
+    "F34 (lepton-W vertex)",
+    "W1.4 (constant-V exact, varying-V O(a))"
+  ],
+  "n_pass": 6,
+  "n_total": 6,
+  "elapsed_seconds": 0.5304732322692871,
+  "results": [
+    {
+      "name": "QE1_cold_w_regression",
+      "pass": true,
+      "residual": 0.0
+    },
+    {
+      "name": "QE2_ward_constant_V",
+      "pass": true,
+      "residual": 2.7755575615628914e-16
+    },
+    {
+      "name": "QE3_chi_decoupled_at_m0",
+      "pass": true,
+      "residual": 0.0
+    },
+    {
+      "name": "QE4_norm_conservation",
+      "pass": true,
+      "residual": 2.13900055248848e-14,
+      "norm0": 102.97718148290069,
+      "norm1": 102.97718148289849
+    },
+    {
+      "name": "QE5_ward_varying_V",
+      "pass": true,
+      "residual": 0.577551982555577,
+      "note": "O(a) regime; constant-V exactness verified in QE2"
+    },
+    {
+      "name": "QE6_color_charge_conservation",
+      "pass": true,
+      "residual": 2.4655778344939514e-14
+    }
+  ]
+}

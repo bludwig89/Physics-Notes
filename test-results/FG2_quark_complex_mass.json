@@ -1,0 +1,125 @@
+{
+  "name": "FG-2 quark F27 complex-mass adoption",
+  "date": "2026-05-26",
+  "lattice": "2D-square (ca_strong)",
+  "modules": [
+    "ca_strong (additions)",
+    "ca_dirac (F27 reused)"
+  ],
+  "n_pass": 11,
+  "n_total": 11,
+  "elapsed_seconds": 2.5638675689697266,
+  "results": [
+    {
+      "name": "Q1_unitarity",
+      "pass": true,
+      "residual": 5.406686498728908e-15,
+      "L": 16,
+      "n_steps": 20,
+      "norm0": 183.98696323487678,
+      "norm1": 183.98696323487778
+    },
+    {
+      "name": "Q2_u1_ward",
+      "pass": true,
+      "residual": 1.1857187100668868e-16,
+      "L": 16,
+      "phi_const": {
+        "u": 0.44345532039056373,
+        "d": 0.9479375692569203,
+        "s": 0.9095712333398721
+      }
+    },
+    {
+      "name": "Q3_mass_gap",
+      "pass": true,
+      "N_L0": 49.75370084156535,
+      "N_R0": 0.0,
+      "N_L1": 34.625024128480895,
+      "N_R1": 15.128676713084749,
+      "ratio_NR_over_NL0": 0.3040713847852282,
+      "m": 0.4,
+      "n_steps": 80
+    },
+    {
+      "name": "Q4_mass_splitting",
+      "pass": true,
+      "m_flavour": {
+        "u": 0.01,
+        "d": 0.02,
+        "s": 0.04
+      },
+      "r_u": 0.009966711079379187,
+      "r_d": 0.03946950299855744,
+      "r_s": 0.15164664532641733,
+      "ratio_d_over_u": 3.9601331556824806,
+      "ratio_s_over_u": 15.215314672878348,
+      "expected_d_over_u": 4.0,
+      "expected_s_over_u": 16.0,
+      "ordered": true
+    },
+    {
+      "name": "Q5_theta_pure_gauge",
+      "pass": true,
+      "residual": 2.842170943040401e-14,
+      "norms": [
+        184.51851935924324,
+        184.51851935924327,
+        184.51851935924324
+      ]
+    },
+    {
+      "name": "Q6_color_neutrality",
+      "pass": true,
+      "residual": 1.1443916996305594e-16
+    },
+    {
+      "name": "Q7_cold_link_regression",
+      "pass": true,
+      "residual": 0.0
+    },
+    {
+      "name": "Q8_color_charge_conservation",
+      "pass": true,
+      "residual": 1.7096612837070204e-14,
+      "abs_drift": 1.509903313490213e-14,
+      "Q0": [
+        -0.3078413546481137,
+        0.535282071124093,
+        -0.5838774662903379,
+        0.8831593297921114,
+        -0.26719588238785524,
+        0.09440477670238279,
+        -0.5343664873936954,
+        0.08749899013010976
+      ],
+      "Q1": [
+        -0.30784135464811246,
+        0.5352820711240847,
+        -0.5838774662903228,
+        0.8831593297921011,
+        -0.2671958823878483,
+        0.09440477670237934,
+        -0.5343664873936886,
+        0.08749899013010262
+      ]
+    },
+    {
+      "name": "Q9_doublet_su2_ward",
+      "pass": true,
+      "residual": 8.355534721610418e-17
+    },
+    {
+      "name": "Q10_split_mass_breaks_su2",
+      "pass": true,
+      "residual": 0.2434809292772516,
+      "diagnostic_meaning": "large residual confirms that explicit mass splitting breaks SU(2)_L at the mass-step level. Phase-4 EW wiring (separate u_R, d_R singlets coupling through the two columns of U) restores SU(2)_L while keeping m_u \u2260 m_d."
+    },
+    {
+      "name": "Q11_kinetic_breaks_local_su2",
+      "pass": true,
+      "residual": 0.5708120087809313,
+      "diagnostic_meaning": "large residual confirms that the spectral kinetic step does not satisfy local SU(2)_L Ward identity without a W_\u03bc link field. Phase-4 EW wiring closes this."
+    }
+  ]
+}

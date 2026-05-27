@@ -1,0 +1,76 @@
+{
+  "FG6.1_per_branch_nonzero_and_transverse": {
+    "ok": true,
+    "time_s": 0.008035421371459961,
+    "residual": 3.3645469011445413e-17,
+    "worst_transversality_plus": 3.1481202607541624e-17,
+    "worst_transversality_minus": 3.3645469011445413e-17,
+    "min_branch_E_norm": 0.0015194480100512557,
+    "note": "Transversality is exact-by-construction (projection in EM_bilinears); the F29-B4 c_lat\u00b7|k| scaling lives on the raw W-triplet, tested by FG6.9."
+  },
+  "FG6.2_two_helicity_linearity": {
+    "ok": true,
+    "time_s": 0.0019283294677734375,
+    "residual": 0.0
+  },
+  "FG6.3_both_helicities_present": {
+    "ok": true,
+    "time_s": 0.0019214153289794922,
+    "min_helicity_ratio_min(|F+|,|F-|)/max(|F+|,|F-|)": 1.0,
+    "expected": "O(1) \u2014 single-branch bilinears yield |F+|=|F-| (linear pol), and combined inherits both helicities."
+  },
+  "FG6.4_singlet_SU2_invariance_per_branch": {
+    "ok": true,
+    "time_s": 0.0032601356506347656,
+    "residual_plus_branch": 3.366257611991156e-16,
+    "residual_minus_branch": 2.424500306476223e-16
+  },
+  "FG6.5_chiral_propagation_per_helicity": {
+    "ok": true,
+    "time_s": 0.25489187240600586,
+    "worst_Fp_residual_rel": 1.5127672420539402e-15,
+    "worst_Fm_residual_rel": 1.0073898915248348e-15,
+    "target": 1e-10,
+    "n_cases": 12,
+    "note": "Tested over single-branch + combined initial states; both helicities tracked independently."
+  },
+  "FG6.6_birefringence_vs_F30": {
+    "ok": true,
+    "time_s": 0.005856990814208984,
+    "fit_coeff_meas": -0.06415289253272184,
+    "fit_coeff_exact": -0.06415002990995841,
+    "fit_relative_error": 4.462387262248226e-05,
+    "n_points_fit": 65,
+    "note": "Direct BCC-dispersion evaluation along (1,1,1); reproduces F30 closed form \u2212\u221a3/27 = -6.4150029910e-02"
+  },
+  "FG6.7_triplet_adjoint_rotation_per_branch": {
+    "ok": true,
+    "time_s": 0.008035659790039062,
+    "residual_plus_branch": 2.1036539947654227e-16,
+    "residual_minus_branch": 2.57064876091938e-16
+  },
+  "FG6.8_triplet_magnitude_SU2_invariance_combined": {
+    "ok": true,
+    "time_s": 0.00543975830078125,
+    "residual": 4.440892098500626e-16
+  },
+  "FG6.9_triplet_per_branch_transversality": {
+    "ok": true,
+    "time_s": 0.004748106002807617,
+    "residual": 0.02894473584468809,
+    "worst_plus_branch": 0.02894473584468809,
+    "worst_minus_branch": 0.02891244380289569,
+    "expected_scaling": "O(c_lat \u00b7 |k|) = 2.8868e-02"
+  },
+  "FG6.10_riemann_silberstein_decomposition": {
+    "ok": true,
+    "time_s": 0.002849578857421875,
+    "residual": 0.0
+  },
+  "_meta": {
+    "total_time_s": 0.29697704315185547,
+    "date": "2026-05-26 - 23:12",
+    "C_LAT_analytic": 0.5773502691896258,
+    "F30_birefringence_coeff_exact": -0.06415002990995841
+  }
+}

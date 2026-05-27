@@ -1,0 +1,54 @@
+{
+  "A1_dispersion_invariance_under_SU2": {
+    "ok": true,
+    "time_s": 0.006777286529541016,
+    "residual": 5.588030951422441e-15,
+    "Omega_analytic": 0.1750464184891551
+  },
+  "B1_singlet_H_SU2_invariance": {
+    "ok": true,
+    "time_s": 0.0015997886657714844,
+    "residual": 2.23799498695195e-16
+  },
+  "B2_triplet_adjoint_rotation": {
+    "ok": true,
+    "time_s": 0.0036559104919433594,
+    "residual": 3.0778347850903613e-16
+  },
+  "B3_triplet_magnitude_SU2_invariance": {
+    "ok": true,
+    "time_s": 0.0027391910552978516,
+    "residual": 6.661338147750936e-16
+  },
+  "B4_triplet_transversality_smallk": {
+    "ok": true,
+    "time_s": 0.0017762184143066406,
+    "residual": 0.02890532529909373
+  },
+  "B5_per_component_rotation_law_consistency": {
+    "ok": true,
+    "time_s": 0.0018317699432373047,
+    "residual": 0.0,
+    "Omega_min": 0.02879686837186625,
+    "Omega_max": 0.028937640133083538,
+    "Omega_lin": 0.02886751345948129
+  },
+  "B5b_triplet_rotation_under_SU2": {
+    "ok": true,
+    "time_s": 0.003357410430908203,
+    "residual_before": 7.181717836170464e-16,
+    "residual_after": 1.4481269127382832e-16
+  },
+  "Extra_transpose_form_NOT_SU2_invariant": {
+    "ok": true,
+    "time_s": 0.001516103744506836,
+    "max_deviation": 4.182951796244989,
+    "mean_deviation": 1.751640093609221,
+    "note": "expected to be O(1), confirming transpose form is not SU(2)-clean"
+  },
+  "_meta": {
+    "total_time_s": 0.023259639739990234,
+    "date": "2026-05-23",
+    "C_LAT_analytic": 0.5773502691896258
+  }
+}

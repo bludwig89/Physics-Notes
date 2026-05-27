@@ -1,0 +1,70 @@
+{
+  "c_lat": 0.5773502691896258,
+  "directions": {
+    "(1,0,0) axis": {
+      "nhat": [
+        1,
+        0,
+        0
+      ],
+      "Omega_plus_series": "sqrt(3)*k/3",
+      "c1 (==c_lat)": "sqrt(3)/3",
+      "leading_corr_power_in_Omega": null,
+      "leading_corr_coeff_in_Omega": "0",
+      "single_chirality_dv_power_in_k (== n_LIV)": null,
+      "single_chirality_dv_coeff": "0",
+      "loglog_slope_residual": -0.7083,
+      "birefringence_leading_power": null,
+      "birefringence_leading_coeff": "0",
+      "unpol_timeofflight_dv_power (n_LIV)": null,
+      "unpol_timeofflight_dv_coeff": "0",
+      "birefringence_dv_power (n_LIV)": null,
+      "birefringence_dv_coeff": "0"
+    },
+    "(1,1,0) face-diagonal": {
+      "nhat": [
+        1,
+        1,
+        0
+      ],
+      "Omega_plus_series": "-7*sqrt(3)*k**5/829440 - sqrt(3)*k**3/864 + sqrt(3)*k/3",
+      "c1 (==c_lat)": "sqrt(3)/3",
+      "leading_corr_power_in_Omega": 3,
+      "leading_corr_coeff_in_Omega": "-sqrt(3)/864",
+      "single_chirality_dv_power_in_k (== n_LIV)": 2,
+      "single_chirality_dv_coeff": "-1/288",
+      "loglog_slope_residual": 3.0,
+      "birefringence_leading_power": null,
+      "birefringence_leading_coeff": "0",
+      "unpol_timeofflight_dv_power (n_LIV)": 2,
+      "unpol_timeofflight_dv_coeff": "-1/288",
+      "birefringence_dv_power (n_LIV)": null,
+      "birefringence_dv_coeff": "0"
+    },
+    "(1,1,1) body-diagonal": {
+      "nhat": [
+        1,
+        1,
+        1
+      ],
+      "Omega_plus_series": "-sqrt(3)*k**5/787320 - sqrt(3)*k**4/8748 - sqrt(3)*k**3/486 - sqrt(3)*k**2/54 + sqrt(3)*k/3",
+      "c1 (==c_lat)": "sqrt(3)/3",
+      "leading_corr_power_in_Omega": 2,
+      "leading_corr_coeff_in_Omega": "-sqrt(3)/54",
+      "single_chirality_dv_power_in_k (== n_LIV)": 1,
+      "single_chirality_dv_coeff": "-1/18",
+      "loglog_slope_residual": 2.002,
+      "birefringence_leading_power": 2,
+      "birefringence_leading_coeff": "-sqrt(3)/27",
+      "unpol_timeofflight_dv_power (n_LIV)": 2,
+      "unpol_timeofflight_dv_coeff": "-1/162",
+      "birefringence_dv_power (n_LIV)": 1,
+      "birefringence_dv_coeff": "-1/18"
+    }
+  },
+  "planck_tick_mapping": {
+    "k_to_E_over_EP": "k = sqrt(3) * E/E_P",
+    "dv_g_over_c_along_111": "-0.192450 * (E/E_P)",
+    "E_QG1_along_111_in_EP": 5.196152422706632
+  }
+}

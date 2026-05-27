@@ -254,10 +254,10 @@ The CLAUDE.md guidance is followed: the lattice is judged against measured data,
 ### QFT-6. Chiral anomaly — triangle diagram
 
 - **Target.** $\partial_\mu j^\mu_5 = (e^2/16\pi^2)\,F_{\mu\nu}\tilde F^{\mu\nu}$ — measured indirectly via $\pi^0 \to \gamma\gamma$ rate (~30% agreement is the textbook level; lattice QCD has it cleaner).
-- **Status.** PROPOSED. Requires a finite-density chiral current + electromagnetic source on the BCC.
-- **Gate.** Numerical divergence of $j^\mu_5$ matches $E\cdot B$ to 10% in a uniform-field background.
-- **Cost.** High.
-- **Discriminating power.** A *topological* QFT effect. Lattice fermion theories famously have to work for the anomaly to appear; a clean pass would be a notable result.
+- **Status.** SPLIT (2026-05-26). The **algebraic half** — anomaly *cancellation* across one chiral generation — is now closed by FG-1 (`test_FG1_anomaly_cancellation.py`, all six traces zero over $\mathbb Q$; see [F38](findings/F38-fg1-anomaly-cancellation.md) and [first-gen-completeness-review.md](first-gen-completeness-review.md) §5.1). The **dynamical half** — verifying that $\partial_\mu j^\mu_5$ actually matches $E\cdot B$ on the lattice in a uniform-field background — remains PROPOSED and requires a finite-density chiral current + EM source on the BCC.
+- **Gate.** (Dynamical half) numerical divergence of $j^\mu_5$ matches $E\cdot B$ to 10% in a uniform-field background.
+- **Cost.** High (dynamical half). Algebraic half: zero marginal, already run.
+- **Discriminating power.** A *topological* QFT effect. Lattice fermion theories famously have to work for the anomaly to appear; a clean pass would be a notable result. The algebraic cancellation is the necessary precondition for the dynamical anomaly equation to reproduce the SM value rather than an inconsistent one.
 
 ### QFT-7. Vacuum polarisation — running coupling $\alpha(Q^2)$
 

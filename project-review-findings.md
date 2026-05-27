@@ -80,7 +80,7 @@ On a $10\times$-oversampled lattice ($L=640$ for a nominal $L=64$ test), the gro
 
 The leading curl residual coefficient on the BCC lattice is $1/\sqrt{6}$ (the $d=3$ special case of $1/\sqrt{2d}$). Verified to 10 decimal places in 2D ($d=2$: coefficient $1/\sqrt{4} = 1/2$) and 7 figures in 3D BCC.
 
-This is an exact result of the bilinear construction: the smearing function $f_\mathbf{k}(\mathbf{q})$ from Paper 1 is required to push the residual toward $O(k^3)$.
+This is an exact result of the bilinear construction: the smearing function $f_\mathbf{k}(\mathbf{q})$ from Paper 1 is required to push the residual toward $O(k^3)$. *(Tested and confirmed incorrect, the difference is geometry-based)*
 
 ---
 
@@ -104,16 +104,16 @@ The zitterbewegung frequency is $2\arcsin(m)$ at $m=0.5$: predicted $\pi/3 = 1.0
 
 ---
 
-## F10 — SI Unit Identification: $c_\text{physical} = c/\sqrt{d}$
+## F10 — SI Unit Identification: $c_\text{physical} = c/\sqrt{2}$
 
 **Date:** 2026-05-16  
 **Status:** Open — project has not committed to a resolution.
 
-Setting $a = \ell_P$, $\tau = t_P$ gives $c_\text{physical} = a/(\tau\sqrt{d}) = c/\sqrt{d}$ — off by $\sqrt{d}$ from the physical speed of light. Three internally consistent resolutions are identified:
+Setting $a = \ell_P$, $\tau = t_P$ gives $c_\text{physical} = a/(\tau\sqrt{2}) = c/\sqrt{2}$ — off by $\sqrt{2}$ from the physical speed of light. Three internally consistent resolutions are identified:
 
-1. Adjust $\tau$ downward by $\sqrt{d}$ (absorb into the time unit).
-2. Adjust $a$ upward by $\sqrt{d}$ (non-Planck lattice spacing).
-3. Reinterpret $a/\tau$ (not $a/(\tau\sqrt{d})$) as the lightcone speed.
+1. Adjust $\tau$ downward by $\sqrt{2}$ (absorb into the time unit).
+2. Adjust $a$ upward by $\sqrt{2}$ (non-Planck lattice spacing).
+3. Reinterpret $a/\tau$ (not $a/(\tau\sqrt{2})$) as the lightcone speed.
 
 This remains an open foundational question before absolute-magnitude GR tests can be made.
 

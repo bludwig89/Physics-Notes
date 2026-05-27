@@ -34,13 +34,5 @@
     "norm_diff_max": 4.263256414560601e-14,
     "plaq_diff_max": 4.440892098500626e-16,
     "passed": true
-  },
-  "V13c_yukawa_wiring": {
-    "passed": true,
-    "v13c1_max_dev": 0.0,
-    "v13c1_pass": true,
-    "v13c2_max_charge_drift": 1.7763568394002505e-14,
-    "v13c2_tol": 5e-09,
-    "v13c2_pass": true
   }
 }

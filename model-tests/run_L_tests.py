@@ -244,6 +244,46 @@ def test_L3():
     return test_L3a()
 
 
+def test_L3c():
+    """
+    L3c — F26 rotation propagator as default EM propagator (Phase 2).
+
+    roadmap-f26-rotation.md Phase 2: rotation_step_em_spectral replaces per-step
+    Weyl/Maxwell-curl evolution as the default for EM-only simulation loops.
+    It is exact (machine precision) and faster (single FFT pair per tick).
+
+    Two checks on the full 3D BCC lattice (L=16):
+      L3c.1 — Energy conservation over 100 ticks (8 random modes, complex fields).
+      L3c.2 — Per-mode rotation accuracy: each Fourier mode rotates by exactly
+               Ω(k) = 2 ω_BCC(k/2) per tick (machine-precision residual).
+    """
+    section('L3c — F26 rotation propagator: full-lattice EM default (Phase 2)')
+    try:
+        import ca_maxwell as max_
+    except ImportError:
+        print('  [SKIP]  ca_maxwell.py not present')
+        return None
+
+    results = []
+
+    r = max_.composite_photon_propagation_full_lattice(
+        n_steps=100, L=16, n_modes=8, seed=77)
+
+    # L3c.1 — energy conservation
+    ok1 = r['energy_drift'] < 1e-12
+    results.append(check(
+        'L3c.1  energy conservation, 100 ticks (L=16, 8 modes)',
+        ok1, f'(max drift = {r["energy_drift"]:.2e})'))
+
+    # L3c.2 — per-mode rotation accuracy
+    ok2 = r['max_mode_error'] < 1e-12
+    results.append(check(
+        'L3c.2  per-mode rotation residual ≤ machine precision',
+        ok2, f'(max = {r["max_mode_error"]:.2e})'))
+
+    return all(results)
+
+
 # ══════════════════════════════════════════════════════════════════
 #  L4 — EMQG modified Poisson sourcing c(x)
 # ══════════════════════════════════════════════════════════════════
@@ -336,6 +376,17 @@ def main():
     print('=' * 72)
     print('  L3b STATUS: PARTIAL (Maxwell curl residual is O(k), not O(k³))')
     print('=' * 72)
+
+    L3c_ok = test_L3c()
+    if L3c_ok is None:
+        print('\n  ⇒  L3c: rotation propagator not available — continuing to L4.')
+    else:
+        print()
+        print('=' * 72)
+        print(f'  L3c STATUS: {"PASS" if L3c_ok else "FAIL"}  (F26 rotation propagator default)')
+        print('=' * 72)
+        if not L3c_ok:
+            return 1
 
     L4_ok = test_L4()
     if L4_ok is None:

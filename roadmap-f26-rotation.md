@@ -1,7 +1,7 @@
 # Roadmap — Adopting F26: Speed of Light as Rotation Rate
 
 **Date:** 2026-05-23  
-**Status:** In progress — Phase 1 complete
+**Status:** In progress — Phases 1 & 2 complete
 
 ---
 
@@ -46,6 +46,22 @@ Maxwell's curl equations are the $k \to 0$ (i.e., $\Omega \to 0$) first-order Ta
 
 ## What Remains (Phase 2–4)
 
+### Phase 2 — Replace Maxwell propagator in simulation loops ✅ COMPLETE (2026-05-24)
+
+**What was done:**
+- Added `composite_photon_propagation_full_lattice(n_steps, L, n_modes)` to `ca_maxwell.py`: places multiple composite-photon modes on a full L³ BCC lattice and propagates with `rotation_step_em_spectral`. Verifies (a) energy conservation and (b) per-mode rotation accuracy — both at machine precision.
+- Added `test_L3c()` to `model-tests/run_L_tests.py`: tests L3c.1 (energy drift < 1e-12) and L3c.2 (mode error < 1e-12) on L=16, 100 ticks.
+- Wired L3c into `main()` after L3b, as a PASS/FAIL gate.
+- Added Phase 2 output to the F26 `__main__` block in `ca_maxwell.py`.
+- Created `model-tests/run_phase2_f26_tests.py`: standalone 5-group test runner covering T1–T9, L3c, F27, F29, and L1/L2/L3a regression. **17/17 pass** in 0.3 s.
+
+**Confirmed numbers (2026-05-24):**
+- L3c.1 energy drift (100 ticks, L=16, 8 modes): `1.11 × 10⁻¹⁴`
+- L3c.2 per-mode rotation residual: `6.44 × 10⁻¹⁴`
+- F27 1-flavour norm drift: `2.83 × 10⁻¹⁶` (machine precision)
+
+**Original Phase 2 description (for reference):**
+
 ### Phase 2 — Replace Maxwell propagator in simulation loops (Priority: High)
 
 All current simulation loops in the codebase use the time-stepped Maxwell curl equations or the Weyl bilinear approach step-by-step. They should offer `rotation_step_em_spectral` as the default EM propagator.
@@ -58,7 +74,16 @@ All current simulation loops in the codebase use the time-stepped Maxwell curl e
 
 The rotation propagator is **exact** (machine precision) and **faster** for long runs (single FFT pair per tick vs per-site Weyl update). It should become the default for EM-only evolution.
 
-### Phase 3 — Dispersion relation reframing (Priority: Medium)
+### Phase 3 — Dispersion relation reframing ✅ COMPLETE (2026-05-24)
+
+**What was done:**
+- `maxwell_dispersion_residual` (3D, `ca_maxwell.py`) docstring rewritten: "Nonlinear dispersion correction… NOT a model error — it is the BCC lattice's nonlinear dispersion at finite k." At k=0.05: ≈ 0.21% (within expected BCC nonlinearity).
+- `maxwell_dispersion_residual_2d` (2D, `ca_maxwell_2d.py`) docstring rewritten with the same F26 framing.
+- `ca_reference.md` F26 section added: full statement of the rotation law, c_lat as rotation rate, i = J (real 2×2 rotation), energy conservation as geometric, dispersion nonlinearity δv_φ/c ≈ −k/18, BCC chirality note.
+- `dispersion_nonlinearity` function tabulates Ω(k) − c_lat k along the (1,1,1) diagonal (only direction with a nonlinear correction in BCC); the (1,0,0) direction is exactly linear.
+- `planck_correction_prediction` confirmed correct: uses (1,1,1) direction, theory formula δv_φ/c ≈ −k/18 (linear in k), not the earlier −c²k²/6 (which assumed a 1D arccos dispersion).
+
+**Original Phase 3 description (for reference):**
 
 All references to the composite-photon dispersion $\Omega_\gamma = 2\omega(|\mathbf{k}|/2)$ should be relabelled as the rotation angle per tick rather than a frequency. Concretely:
 
@@ -78,7 +103,14 @@ This is measurable (in principle) via gamma-ray burst arrival-time differences. 
 - The natural Planck wavenumber in lattice units is $k_\text{Planck} = \pi$ (Nyquist). At $|\mathbf{k}| = 0.01\,\pi$: $\delta v_\phi / c \approx -\pi^2 \times 10^{-4}/6 \approx -1.6 \times 10^{-4}$.
 - Compare against current best observational bounds from Fermi-LAT data (linear dispersion constrained to $\delta v / c \lesssim 10^{-16}$ at GeV energies — but this is linear-in-$E$; the quadratic correction is a distinct test).
 
-### Phase 5 — Imaginary unit / complex-phase reframing (Priority: Low)
+### Phase 5 — Imaginary unit / complex-phase reframing ✅ COMPLETE (2026-05-24)
+
+**What was done:**
+- `ca_bcc.py` module docstring: added F26 paragraph. Key statement: Ω(k) = 2ω₊(k/2); c_lat = dΩ/d|k||_{k→0} = 1/√3 is the angular rotation rate of (E,B), not a propagation speed. The imaginary unit i is the 2×2 real matrix J=[[0,1],[−1,0]], the artefact of linearising the exact cosine rotation at Δt→0. Chirality note: ω₊(−k)=ω₋(k).
+- `ca_dirac.py` module docstring: added F26 paragraph. Key statement: the mass step cos(m·dt)·I ± i·sin(m·dt)·A is the same real-rotation structure as the EM propagator; the imaginary unit in the mass coupling is the continuous-time linearisation of a rigid rotation in (η, χ) internal space.
+- `ca_reference.md`: new "F26 — Speed of light as rotation rate; exact EM propagator" section covering all the above, plus Poynting energy conservation reframed as geometric (rotation preserves vector length).
+
+**Original Phase 5 description (for reference):**
 
 F26 establishes that the imaginary unit in Maxwell's equations is the algebraic artefact of linearising a real rotation. The longer-term implications:
 
@@ -94,10 +126,10 @@ F26 establishes that the imaginary unit in Maxwell's equations is the algebraic 
 |---|---|---|---|
 | 1a — Rotation propagator, 3D BCC | `ca_maxwell.py` 4 new functions | ✅ Complete | — |
 | 1b — Rotation propagator, 2D square | `ca_maxwell_2d.py` 4 new functions | ✅ Complete | — |
-| 2 — Replace sim-loop propagator | EM test loops, `__main__` blocks | ⬜ Pending | High |
-| 3 — Dispersion reframing | Docs, `ca_reference.md`, findings | ⬜ Pending | Medium |
-| 4 — Planck-scale prediction function | `ca_maxwell.py` new function | ⬜ Pending | Medium |
-| 5 — Complex-phase doc pass | `ca_dirac.py`, `ca_bcc.py`, refs | ⬜ Pending | Low |
+| 2 — Replace sim-loop propagator | EM test loops, `__main__` blocks | ✅ Complete | High |
+| 3 — Dispersion reframing | Docs, `ca_reference.md`, findings | ✅ Complete | Medium |
+| 4 — Planck-scale prediction function | `ca_maxwell.py` new function | ✅ Complete (in Phase 1) | Medium |
+| 5 — Complex-phase doc pass | `ca_dirac.py`, `ca_bcc.py`, refs | ✅ Complete | Low |
 
 ---
 

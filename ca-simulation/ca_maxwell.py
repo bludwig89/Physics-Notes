@@ -208,6 +208,223 @@ def EM_bilinears(psi, phi, n_half):
 
 
 # ══════════════════════════════════════════════════════════════════
+#  Two-helicity (both Weyl branches) photon construction  (FG-6, 2026-05-26)
+# ══════════════════════════════════════════════════════════════════
+#
+# The F29 bilinear bridge (test_su2_photon_bridge.py) used `sign='+'`
+# eigenmodes only — a single BCC chirality branch.  F37 established
+# that the BCC walk carries TWO branches Ω⁺(k) = 2·ω_+(k/2) and
+# Ω⁻(k) = 2·ω_-(k/2), which at the (E, B) field level correspond to
+# the two photon helicities F^± = E ± i·B.  F30 gave the analytical
+# birefringence on the body diagonal:  Ω⁺ − Ω⁻ = −(√3/27) k² + O(k⁴).
+#
+# A complete two-helicity photon state therefore requires the bilinear
+# to be built from BOTH branches.  The construction below provides
+# per-branch helpers (`EM_bilinears_branch`, `triplet_bilinear_branch`)
+# and an explicit two-helicity assembler (`EM_bilinears_two_helicity`,
+# `triplet_bilinear_two_helicity`).  The Riemann-Silberstein decomp
+# (`riemann_silberstein_decomp`) projects an (E, B) pair onto F^±.
+#
+# Key facts demonstrated in test_FG6_two_helicity_photon.py:
+#   - Each branch's bilinear gives a NONZERO (E, B), transverse to its
+#     own  2·n_half_±  (per-branch transversality).
+#   - Both branches contribute to BOTH helicities F^± of a single (E, B)
+#     mode — a single-branch state is generically linearly polarized.
+#   - Under the chiral propagation (ca_wmu.w_propagation_step_spectral),
+#     the F^+ Fourier amplitude rotates at exactly Ω^+(k) and F^- at
+#     Ω^-(k), regardless of which branch the bilinear was built from —
+#     the chiral propagator decouples helicities at the field level.
+#   - The (1,1,1)-diagonal birefringence ΔΩ = Ω^+ − Ω^- matches F30's
+#     −(√3/27) k² coefficient to machine precision via direct dispersion
+#     evaluation, and to ≲ 1e-4 relative via the propagated bilinear.
+#   - SU(2)-invariance of the singlet and adjoint rotation of the triplet
+#     (F29 B1–B3) hold IDENTICALLY per branch and for the combined state.
+
+
+def EM_bilinears_branch(psi, phi, kx, ky, kz, sign='+'):
+    """Branch-aware composite photon bilinear: returns (E, B) and n_half(k/2, sign).
+
+    Identical to `EM_bilinears` but takes the lattice momentum (kx, ky, kz)
+    and the branch label `sign` and computes the BCC spin axis n_half
+    internally, so the same call site can be reused for sign='+' and
+    sign='-' bilinears without duplicating the `_bcc_uvec` lookup.
+
+    Returns
+    -------
+    E : (3,) complex
+    B : (3,) complex
+    n_half : (3,) float
+        The BCC vector n(k/2, sign) used in the construction.
+    """
+    _, nx, ny, nz = bcc._bcc_uvec(kx / 2.0, ky / 2.0, kz / 2.0, sign=sign)
+    n_half = np.array([nx, ny, nz], dtype=float)
+    E, B = EM_bilinears(psi, phi, n_half)
+    return E, B, n_half
+
+
+def EM_bilinears_two_helicity(psi_pl, phi_pl, psi_mn, phi_mn,
+                              kx, ky, kz,
+                              alpha_pl=1.0, alpha_mn=1.0):
+    """Compose a two-helicity composite-photon (E, B) from BOTH Weyl branches.
+
+    Parameters
+    ----------
+    psi_pl, phi_pl : (2,) complex
+        Weyl 2-spinors at k/2 from the sign='+' BCC branch.
+    psi_mn, phi_mn : (2,) complex
+        Weyl 2-spinors at k/2 from the sign='-' branch.
+    kx, ky, kz : float
+        Lattice momentum components (so k/2 = (kx/2, ky/2, kz/2)).
+    alpha_pl, alpha_mn : complex
+        Optional complex weights for each branch (default 1.0).
+
+    Returns
+    -------
+    E, B : (3,) complex
+        Combined photon (E, B) = α₊ (E₊, B₊) + α₋ (E₋, B₋).
+    branch_data : dict
+        Dictionary with the per-branch (E, B, n_half) under keys '+' and '-'
+        (so tests can inspect helicity decomposition).
+    """
+    E_pl, B_pl, n_pl = EM_bilinears_branch(psi_pl, phi_pl, kx, ky, kz, sign='+')
+    E_mn, B_mn, n_mn = EM_bilinears_branch(psi_mn, phi_mn, kx, ky, kz, sign='-')
+    E = alpha_pl * E_pl + alpha_mn * E_mn
+    B = alpha_pl * B_pl + alpha_mn * B_mn
+    return E, B, {
+        '+': {'E': E_pl, 'B': B_pl, 'n_half': n_pl},
+        '-': {'E': E_mn, 'B': B_mn, 'n_half': n_mn},
+    }
+
+
+def riemann_silberstein_decomp(E, B):
+    """Project an (E, B) pair onto its Riemann-Silberstein helicity components.
+
+        F^+ = E + i·B   (right-circular / RCP eigenstate of the (E,B) rotation)
+        F^- = E - i·B   (left-circular / LCP eigenstate)
+
+    Inverse:  E = (F^+ + F^-)/2 ,   B = (F^+ - F^-)/(2i).
+
+    Under the BCC chiral propagation (F37 / `w_propagation_step_spectral`),
+    F^+(k) acquires phase  exp(−i Ω^+(k))  per tick and F^-(k) acquires
+    phase  exp(+i Ω^-(k))  per tick.  At k along the (1,1,1) body diagonal,
+    Ω^+ ≠ Ω^- — this is the F30 vacuum birefringence.
+    """
+    F_plus = np.asarray(E) + 1j * np.asarray(B)
+    F_minus = np.asarray(E) - 1j * np.asarray(B)
+    return F_plus, F_minus
+
+
+# Isospin Pauli matrices (acting on the SU(2)_L doublet).  Defined locally
+# so the two-helicity W-triplet helpers below do not import from the test.
+_TAU_ISO_X = np.array([[0,  1 ], [ 1, 0 ]], dtype=complex)
+_TAU_ISO_Y = np.array([[0, -1j], [1j, 0 ]], dtype=complex)
+_TAU_ISO_Z = np.array([[1,  0 ], [ 0,-1 ]], dtype=complex)
+_TAU_ISO = (_TAU_ISO_X, _TAU_ISO_Y, _TAU_ISO_Z)
+
+
+def _singlet_bilinear_H(phi_iso, psi_iso):
+    """Hermitian singlet G_H^i = Σ_α (φ^α)† σ^i ψ^α on a (2, 2) doublet."""
+    G = np.zeros(3, dtype=complex)
+    for i, S in enumerate(_PAULIS):
+        s = 0.0 + 0.0j
+        for alpha in range(2):
+            s += np.conj(phi_iso[alpha]) @ S @ psi_iso[alpha]
+        G[i] = s
+    return G
+
+
+def _triplet_bilinear_H(phi_iso, psi_iso):
+    """Hermitian triplet W_H^{a,i} = Σ_{αβ} (τ^a)_{αβ} (φ^α)† σ^i ψ^β."""
+    W = np.zeros((3, 3), dtype=complex)
+    for a, T in enumerate(_TAU_ISO):
+        for i, S in enumerate(_PAULIS):
+            s = 0.0 + 0.0j
+            for alpha in range(2):
+                for beta in range(2):
+                    c = T[alpha, beta]
+                    if c == 0:
+                        continue
+                    s += c * (np.conj(phi_iso[alpha]) @ S @ psi_iso[beta])
+            W[a, i] = s
+    return W
+
+
+def _W_fields_from_W_triplet(W, n_half):
+    """Promote each W^a triplet component to (E^a, B^a) per Paper-1 Eq. 35 form.
+
+    W : (3, 3) complex  ‒ (a, i) indices.
+    n_half : (3,) float.
+
+    Returns
+    -------
+    E_W : (3, 3) complex  ‒ E^{a,i}, the SU(2) triplet of "E" fields.
+    B_W : (3, 3) complex  ‒ B^{a,i}.
+    """
+    nmag = float(np.linalg.norm(n_half))
+    if nmag < 1e-15:
+        return np.zeros((3, 3), dtype=complex), np.zeros((3, 3), dtype=complex)
+    n_hat = n_half / nmag
+    E_out = np.zeros((3, 3), dtype=complex)
+    B_out = np.zeros((3, 3), dtype=complex)
+    for a in range(3):
+        W_T = _transverse_part(W[a], n_hat)
+        W_T_dag = np.conj(W_T)
+        E_out[a] = nmag * (W_T + W_T_dag)
+        B_out[a] = 1j * nmag * (W_T_dag - W_T)
+    return E_out, B_out
+
+
+def triplet_bilinear_branch(psi_iso, phi_iso, kx, ky, kz, sign='+'):
+    """Branch-aware W-triplet bilinear: returns (E^a, B^a) for each isospin a.
+
+    Parameters
+    ----------
+    psi_iso, phi_iso : (2, 2) complex
+        Doublet spinors at k/2 from the chosen BCC branch — rows index
+        isospin (ν, e), columns index spin.
+    kx, ky, kz, sign
+        Lattice momentum and branch label.
+
+    Returns
+    -------
+    E_W, B_W : (3, 3) complex
+        (E^{a,i}, B^{a,i}) — the SU(2)-triplet of photon-like fields.
+    W : (3, 3) complex
+        The raw W_H^{a,i} bilinear (pre-projection).
+    n_half : (3,) float
+        BCC spin-axis vector used.
+    """
+    _, nx, ny, nz = bcc._bcc_uvec(kx / 2.0, ky / 2.0, kz / 2.0, sign=sign)
+    n_half = np.array([nx, ny, nz], dtype=float)
+    W = _triplet_bilinear_H(phi_iso, psi_iso)
+    E_W, B_W = _W_fields_from_W_triplet(W, n_half)
+    return E_W, B_W, W, n_half
+
+
+def triplet_bilinear_two_helicity(psi_iso_pl, phi_iso_pl,
+                                  psi_iso_mn, phi_iso_mn,
+                                  kx, ky, kz,
+                                  alpha_pl=1.0, alpha_mn=1.0):
+    """Compose a two-helicity W-triplet (E^a, B^a) from both BCC branches.
+
+    Parallel to `EM_bilinears_two_helicity`: each branch contributes its
+    own (E^a, B^a, W) and they are summed component-wise with the given
+    complex weights.  Returns the combined fields and a per-branch dict
+    so tests can inspect each helicity sector.
+    """
+    EW_pl, BW_pl, W_pl, n_pl = triplet_bilinear_branch(
+        psi_iso_pl, phi_iso_pl, kx, ky, kz, sign='+')
+    EW_mn, BW_mn, W_mn, n_mn = triplet_bilinear_branch(
+        psi_iso_mn, phi_iso_mn, kx, ky, kz, sign='-')
+    E_W = alpha_pl * EW_pl + alpha_mn * EW_mn
+    B_W = alpha_pl * BW_pl + alpha_mn * BW_mn
+    return E_W, B_W, {
+        '+': {'E': EW_pl, 'B': BW_pl, 'W': W_pl, 'n_half': n_pl},
+        '-': {'E': EW_mn, 'B': BW_mn, 'W': W_mn, 'n_half': n_mn},
+    }
+
+
+# ══════════════════════════════════════════════════════════════════
 #  Tests
 # ══════════════════════════════════════════════════════════════════
 
@@ -299,9 +516,20 @@ def maxwell_transversality(k_mag=0.05, n_dirs=8, seed=1):
 
 
 def maxwell_dispersion_residual(k_mag=0.05):
-    """
-    Photon frequency Ω_γ = 2 ω(k/2), which → |k|/√3 at small |k|.
-    Returns rel err |Ω_γ − |k|/√3| / (|k|/√3).
+    """Nonlinear dispersion correction |Ω(k) − c_lat·|k|| / (c_lat·|k|) at finite k.
+
+    F26 reframing: Ω(k) = 2·ω_BCC(k/2) is the exact rotation angle per tick.
+    The linear approximation c_lat·|k| is the k→0 (Maxwell) limit.  The
+    quantity returned here is NOT a model error — it is the BCC lattice's
+    nonlinear dispersion at finite k:
+
+        |Ω(k) − c_lat·|k|| / (c_lat·|k|) → 0 as |k| → 0   (Maxwell limit)
+
+    At finite k this grows due to lattice anisotropy and the arccos nonlinearity.
+    Along (1,1,1): leading term ≈ k/18 (see `dispersion_nonlinearity`).
+
+    Returns the max relative deviation over 8 random directions.
+    At k=0.05: ≈ 0.21% (within expected BCC nonlinearity; not a defect).
     """
     # Average over a few directions (the BCC dispersion is anisotropic).
     dirs = _random_dirs(8, seed=2)
@@ -1963,6 +2191,101 @@ def rotation_law_consistency(k_mag=0.05, n_dirs=12, n_steps=20, seed=60,
     }
 
 
+# ══════════════════════════════════════════════════════════════════
+#  Phase 2 — Full-lattice composite-photon propagation (F26 default)
+# ══════════════════════════════════════════════════════════════════
+
+def composite_photon_propagation_full_lattice(n_steps=100, L=16, n_modes=8, seed=77):
+    """
+    Full-lattice composite-photon propagation using rotation_step_em_spectral.
+
+    Phase 2 of roadmap-f26-rotation.md: validates rotation_step_em_spectral as
+    the default EM propagator for simulation loops by placing n_modes independent
+    (E, B) plane-wave modes on an L³ BCC lattice, propagating n_steps ticks with
+    the exact spectral rotation, and verifying two things:
+
+    1. Energy conservation: ‖E‖² + ‖B‖² constant to machine precision.
+    2. Per-mode rotation: each Fourier mode is rotated by exactly Ω(k) per tick.
+
+    Both checks are algebraically forced by the rotation's unitarity — any failure
+    would indicate an implementation error in rotation_step_em_spectral.
+
+    Returns
+    -------
+    dict with keys:
+      energy_drift    — max relative energy drift over all steps
+      max_mode_error  — max |rotation residual| across all modes and sampled steps
+      n_steps, L, n_modes
+    """
+    rng = np.random.default_rng(seed)
+
+    # k-grid (radians / cell) matching rotation_step_em_spectral convention
+    kx_grid = np.fft.fftfreq(L) * 2.0 * np.pi
+    ky_grid = np.fft.fftfreq(L) * 2.0 * np.pi
+    kz_grid = np.fft.fftfreq(L) * 2.0 * np.pi
+
+    # Choose n_modes distinct k-bins; avoid bin 0 (k=0 ↔ DC, Ω=0)
+    bins = set()
+    while len(bins) < n_modes:
+        ix = int(rng.integers(1, L))
+        iy = int(rng.integers(0, L))
+        iz = int(rng.integers(0, L))
+        bins.add((ix, iy, iz))
+
+    # Build initial k-space field: random complex (E, B) at each chosen bin
+    E_k0 = np.zeros((L, L, L, 3), dtype=complex)
+    B_k0 = np.zeros((L, L, L, 3), dtype=complex)
+    mode_info = []
+
+    for (ix, iy, iz) in bins:
+        E_vec = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        B_vec = rng.standard_normal(3) + 1j * rng.standard_normal(3)
+        E_k0[ix, iy, iz] = E_vec
+        B_k0[ix, iy, iz] = B_vec
+        # Rotation angle at this k-bin (same formula as rotation_step_em_spectral)
+        kx = kx_grid[ix]; ky = ky_grid[iy]; kz = kz_grid[iz]
+        Omega = float(rotation_omega_bcc(
+            np.array([[[kx]]]), np.array([[[ky]]]), np.array([[[kz]]]))[0, 0, 0])
+        mode_info.append((ix, iy, iz, E_vec.copy(), B_vec.copy(), Omega))
+
+    # Transform to position space
+    axes = (0, 1, 2)
+    E_field = np.fft.ifftn(E_k0, axes=axes)
+    B_field = np.fft.ifftn(B_k0, axes=axes)
+
+    energy0 = float(np.sum(np.abs(E_field)**2) + np.sum(np.abs(B_field)**2))
+    max_energy_drift = 0.0
+    max_mode_error   = 0.0
+
+    for step in range(n_steps):
+        E_field, B_field = rotation_step_em_spectral(E_field, B_field)
+        t = step + 1
+
+        # Energy conservation check at every step
+        energy_t = float(np.sum(np.abs(E_field)**2) + np.sum(np.abs(B_field)**2))
+        drift = abs(energy_t - energy0) / max(energy0, 1e-30)
+        max_energy_drift = max(max_energy_drift, drift)
+
+        # Per-mode rotation check every 10 steps (and at step 1)
+        if t == 1 or t % 10 == 0:
+            E_k = np.fft.fftn(E_field, axes=axes)
+            B_k = np.fft.fftn(B_field, axes=axes)
+            for (ix, iy, iz, E0, B0, Omega) in mode_info:
+                E_pred = np.cos(Omega * t) * E0 + np.sin(Omega * t) * B0
+                B_pred = -np.sin(Omega * t) * E0 + np.cos(Omega * t) * B0
+                err = float(np.max(np.abs(E_k[ix, iy, iz] - E_pred))
+                            + np.max(np.abs(B_k[ix, iy, iz] - B_pred)))
+                max_mode_error = max(max_mode_error, err)
+
+    return {
+        'energy_drift':  max_energy_drift,
+        'max_mode_error': max_mode_error,
+        'n_steps': n_steps,
+        'L': L,
+        'n_modes': n_modes,
+    }
+
+
 # F26 __main__ block — runs after all function definitions above
 if __name__ == '__main__':
     print()
@@ -1994,3 +2317,10 @@ if __name__ == '__main__':
         pc = planck_correction_prediction(alpha)
         print(f'  {alpha:8.3f}  {pc["k"]:8.4f}  {pc["delta_vph_exact"]:16.4e}'
               f'  {pc["delta_vph_theory"]:14.4e}')
+    print()
+    print('  — Phase 2: Full-lattice rotation propagator (default EM evolution) —')
+    pl = composite_photon_propagation_full_lattice(n_steps=100, L=16, n_modes=8)
+    print(f'  Energy drift (100 ticks, L=16, 8 modes): {pl["energy_drift"]:.2e}'
+          f'  (expect < 1e-12)')
+    print(f'  Per-mode rotation residual:               {pl["max_mode_error"]:.2e}'
+          f'  (expect < 1e-12)')

@@ -156,8 +156,8 @@ This confirms θ(x) carries no physical information — it is a pure gauge artif
 
 ## What This Does NOT Show (Known Limitations)
 
-1. **Kinetic step is not SU(2) invariant alone.** The Weyl kinetic step (D_k) breaks
-   local SU(2) symmetry without W_μ gauge bosons. This is identical to the situation
+1. **Kinetic step is not SU(2) invariant alone.** The Weyl kinetic step ($D_k$) breaks
+   local SU(2) symmetry without $W_μ$ gauge bosons. This is identical to the situation
    in SM — the kinetic term also requires $W_μ$ for local SU(2) invariance. This is
    not a defect of the complex-mass proposal; it is a general feature of all chiral
    gauge theories.

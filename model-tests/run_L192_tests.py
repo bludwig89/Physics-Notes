@@ -262,17 +262,11 @@ def test_D1():
 #  Phase E1  L=192, n_steps=100
 # ─────────────────────────────────────────────────────────────────
 def test_E1():
-    section('Phase E1 — U(1) Aharonov–Bohm  (L=192)')
-    res = dirac.aharonov_bohm_test(L=192, n_steps=100, m=0.0,
-                                    q=1.0, dt=1.0, flux=np.pi, sigma=25.0)
-    err = abs(res['measured_phase'] - res['analytic_phase'])
-    ok1 = check('phase pickup at machine precision', err < 1e-12, f'(err={err:.2e})')
-    ok2 = check('|overlap| = 1.0', abs(res['overlap_magnitude']-1.0) < 1e-12,
-                f'(|olap|={res["overlap_magnitude"]:.10f})')
-    ok3 = check('norm exactly preserved with A0',
-                abs(res['norm_with_A0']-res['initial_norm']) < 1e-10,
-                f'(drift={abs(res["norm_with_A0"]-res["initial_norm"]):.2e})')
-    return ok1 and ok2 and ok3
+    # RETIRED 2026-05-26 — see run_phase_tests.test_E1 for context.
+    # The U(1)-gauge photon was removed from ca_dirac.py in F41.
+    section('Phase E1 — U(1) Aharonov–Bohm   [RETIRED]')
+    print('  [SKIP]  Aharonov–Bohm test retired with the U(1)-gauge photon.')
+    return True
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -297,42 +291,9 @@ def test_E2():
 # ─────────────────────────────────────────────────────────────────
 def test_E3():
     section('Phase E3 — Discrete current conservation  (L=64)')
-    L = 64; shape = (L, L)
-    n_kin = 1.0; q = 1.0
-    xs = np.arange(L); X, Y = np.meshgrid(xs, xs, indexing='ij')
-    A0_uniform = np.full(shape, 0.1)
-
-    def _rho_J(eu, ed, cu, cd):
-        rho = np.abs(eu)**2 + np.abs(ed)**2 + np.abs(cu)**2 + np.abs(cd)**2
-        Jx = 2*np.real(np.conj(eu)*ed) - 2*np.real(np.conj(cu)*cd)
-        Jy = 2*np.imag(np.conj(eu)*ed) - 2*np.imag(np.conj(cu)*cd)
-        return rho, Jx, Jy
-
-    def residual(dt):
-        nu, nd, xu, xd = dirac.gaussian_dirac_2d(shape, sigma=6.0, chirality='mixed')
-        plane = np.exp(1j*0.30*X)
-        nu = nu*plane; nd = nd*plane; xu = xu*plane; xd = xd*plane
-        rho0, Jx0, Jy0 = _rho_J(nu, nd, xu, xd)
-        nu1, nd1, xu1, xd1 = dirac.dirac_step_u1_2d_splitstep(
-            nu, nd, xu, xd, A0=A0_uniform, m=0.0, q=q, dt=dt)
-        rho1, Jx1, Jy1 = _rho_J(nu1, nd1, xu1, xd1)
-        Jx_m = 0.5*(Jx0+Jx1); Jy_m = 0.5*(Jy0+Jy1)
-        divJ = ((np.roll(Jx_m,-1,0)-np.roll(Jx_m,+1,0))/2 +
-                (np.roll(Jy_m,-1,1)-np.roll(Jy_m,+1,1))/2)
-        res = rho1 - rho0 + dt*n_kin*divJ
-        return float(np.max(np.abs(res))), float(np.max(rho0))
-
-    r1, rho_scale = residual(0.20)
-    r2, _         = residual(0.10)
-    r3, _         = residual(0.05)
-    rat1 = r1/r2 if r2>0 else float('inf')
-    rat2 = r2/r3 if r3>0 else float('inf')
-    print(f'  U(1)  dt=0.20  rel={r1/rho_scale:.3e}')
-    print(f'  U(1)  dt=0.10  rel={r2/rho_scale:.3e}')
-    print(f'  U(1)  dt=0.05  rel={r3/rho_scale:.3e}')
-    print(f'  Richardson ratios = {rat1:.2f}, {rat2:.2f}  (expect ~4 for O(dt^2))')
-    ok_a = check('U(1) continuity O(dt^2)', 2.5<=rat1<=5.5 and 2.5<=rat2<=5.5,
-                 f'(ratios {rat1:.2f}, {rat2:.2f})')
+    # U(1) sub-test retired 2026-05-26 with the U(1)-gauge photon (F41).
+    print('  U(1) continuity sub-test  [SKIP — retired with the U(1)-gauge photon]')
+    ok_a = True
 
     # SU(2) local density invariance
     L2 = 32; shape2 = (L2, L2)

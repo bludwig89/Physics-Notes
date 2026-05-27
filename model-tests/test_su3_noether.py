@@ -404,119 +404,15 @@ def gate_V13b4_local_su3_invariance(L=32, n_steps=20, m=0.3):
 #  Gate V13c — Yukawa per-cell mass wiring
 # ══════════════════════════════════════════════════════════════════
 
-def gate_V13c_yukawa_wiring(L=32, n_steps=50, y=0.3, v=0.7):
-    """
-    V13c — Quark Yukawa wiring via per-cell Higgs field.
-
-    V13c.1 (uniform Φ regression):
-        For a spatially uniform Φ(x) = v (real), the phi_field path
-        must reproduce the scalar m_flavour path bit-for-bit:
-            step_strong_2d(..., phi_field=v_array, yukawa={'u': y, ...})
-              ≡  step_strong_2d(..., m_flavour={'u': y*v, ...})
-        Max absolute deviation must be 0 (double-precision bit identity).
-
-    V13c.2 (charge conservation with spatially varying Φ):
-        For phi_field drawn from a smooth random field, the total
-        colour charge Q^a must be conserved to FFT-floor precision
-        over n_steps steps.  Tolerance 1e-10 per step.
-
-    Parameters
-    ----------
-    L       : lattice side (default 32)
-    n_steps : steps for V13c.2 conservation run (default 50)
-    y       : Yukawa coupling used for both sub-tests (default 0.3)
-    v       : uniform VEV used in V13c.1 (default 0.7)
-    """
-    print("─" * 70)
-    print("V13c Yukawa per-cell mass wiring")
-    print("─" * 70)
-
-    shape = (L, L)
-    rng = np.random.default_rng(seed=99)
-    U_cold = cs.cold_links_2d(shape)
-    q0 = cs.gaussian_quark(shape, flavour='u', colour='r', sigma=4.0)
-    yukawa_dict = {'u': y, 'd': y * 0.9, 's': y * 0.8}
-
-    # ──────────────────────────────────────────────
-    # V13c.1  Uniform-Φ regression
-    # ──────────────────────────────────────────────
-    print("  V13c.1  uniform-Φ regression")
-
-    # Scalar reference
-    m_flat = {f: yukawa_dict[f] * v for f in cs.FLAVOURS}
-    q_scalar = cs.step_strong_2d(
-        {k: arr.copy() for k, arr in q0.items()},
-        U_cold,
-        m_flavour=m_flat,
-        dt=1.0,
-    )
-
-    # Yukawa path with uniform Phi = v (real)
-    phi_uniform = np.full(shape, v, dtype=complex)
-    q_yukawa = cs.step_strong_2d(
-        {k: arr.copy() for k, arr in q0.items()},
-        U_cold,
-        phi_field=phi_uniform,
-        yukawa=yukawa_dict,
-        dt=1.0,
-    )
-
-    max_dev_v13c1 = max(
-        float(np.max(np.abs(q_scalar[k] - q_yukawa[k])))
-        for k in q0.keys()
-    )
-    tol_v13c1 = 0.0   # must be bit-exact (δm = 0 path)
-    pass_v13c1 = (max_dev_v13c1 == tol_v13c1)
-    print(f"    max|q_scalar − q_yukawa|         = {max_dev_v13c1:.3e}  "
-          f"{'PASS' if pass_v13c1 else 'FAIL'}")
-
-    # ──────────────────────────────────────────────
-    # V13c.2  Charge conservation with varying Φ
-    # ──────────────────────────────────────────────
-    print("  V13c.2  charge conservation, varying Φ")
-
-    # Smooth random Phi: low-k Fourier modes only (wavelength ≥ L/4)
-    # Build in k-space and transform back.
-    k_cutoff = L // 4
-    phi_k = np.zeros(shape, dtype=complex)
-    for kx in range(-k_cutoff, k_cutoff + 1):
-        for ky in range(-k_cutoff, k_cutoff + 1):
-            phi_k[kx % L, ky % L] += (rng.standard_normal() +
-                                       1j * rng.standard_normal())
-    phi_var = np.fft.ifft2(phi_k).real.astype(complex)
-    # Scale so |Re Φ| ≤ 0.9 (stay inside QCA admissibility)
-    phi_var = phi_var * (0.9 / np.max(np.abs(phi_var.real)))
-
-    q_c2 = {k: arr.copy() for k, arr in q0.items()}
-    Q0 = cs.noether_charge_total(q_c2)
-
-    max_drift = 0.0
-    for _ in range(n_steps):
-        q_c2 = cs.step_strong_2d(
-            q_c2, U_cold,
-            phi_field=phi_var,
-            yukawa=yukawa_dict,
-            dt=1.0,
-        )
-        dQ = np.max(np.abs(cs.noether_charge_total(q_c2) - Q0))
-        if dQ > max_drift:
-            max_drift = dQ
-
-    tol_v13c2 = 1e-10 * n_steps
-    pass_v13c2 = (max_drift <= tol_v13c2)
-    print(f"    max|ΔQ^a| over {n_steps} steps            = {max_drift:.3e}  "
-          f"(tol {tol_v13c2:.0e})  {'PASS' if pass_v13c2 else 'FAIL'}")
-
-    passed = pass_v13c1 and pass_v13c2
-    print(f"  V13c overall: {'PASS' if passed else 'FAIL'}")
-    return {
-        'passed': passed,
-        'v13c1_max_dev': max_dev_v13c1,
-        'v13c1_pass': pass_v13c1,
-        'v13c2_max_charge_drift': max_drift,
-        'v13c2_tol': tol_v13c2,
-        'v13c2_pass': pass_v13c2,
-    }
+#
+# V13c (Yukawa per-cell mass wiring) was REMOVED 2026-05-26 together
+# with the Higgs–Yukawa path in `ca_strong.step_strong_2d`. The quark
+# mass story is now Ludwig's F27 chiral SU(2) complex mass, tested in
+# `test_FG2_quark_complex_mass.py`. The V13c.1 uniform-Φ regression
+# and V13c.2 charge-conservation-with-Φ results are superseded by
+# F40-Q7 (cold-link θ=0 bit-for-bit, $0.0$ exact) and F40-Q8
+# (colour-charge conservation under the F27 quark step, $1.7\times10^{-14}$).
+#
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -541,9 +437,8 @@ def main():
     results['V13b4_local_invariance'] = gate_V13b4_local_su3_invariance(
         L=16, n_steps=20, m=0.3
     )
-    results['V13c_yukawa_wiring'] = gate_V13c_yukawa_wiring(
-        L=32, n_steps=50, y=0.3, v=0.7
-    )
+    # V13c_yukawa_wiring retired 2026-05-26 (F41 Higgs–Yukawa removal);
+    # superseded by F40-Q7/Q8 in test_FG2_quark_complex_mass.py.
 
     elapsed = time.time() - t0
     print("─" * 70)

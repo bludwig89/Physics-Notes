@@ -1,0 +1,87 @@
+{
+  "phase": 6,
+  "results": [
+    {
+      "test": "W6.1",
+      "residual": 8.881784197001252e-16,
+      "target": 1e-14,
+      "passed": true,
+      "description": "weinberg_mix \u2218 weinberg_unmix = I: max|\u0394| = 8.88e-16"
+    },
+    {
+      "test": "W6.2",
+      "residual": 1.5543122344752192e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "mix \u2218 propagate = propagate \u2218 mix: max|\u0394| = 1.55e-15"
+    },
+    {
+      "test": "W6.3",
+      "residual": 0.0,
+      "target": 1e-14,
+      "passed": true,
+      "description": "m_Z/m_W = 1/cos(\u03b8_W) algebraically: max err = 0.00e+00"
+    },
+    {
+      "test": "W6.4",
+      "residual": 5.551115123125783e-17,
+      "target": 1e-15,
+      "passed": true,
+      "charges": {
+        "\u03bd_L": {
+          "Q_calc": 0.0,
+          "Q_exp": 0.0,
+          "err": 0.0
+        },
+        "e_L": {
+          "Q_calc": -1.0,
+          "Q_exp": -1.0,
+          "err": 0.0
+        },
+        "u_L": {
+          "Q_calc": 0.6666666666666666,
+          "Q_exp": 0.6666666666666666,
+          "err": 0.0
+        },
+        "d_L": {
+          "Q_calc": -0.33333333333333337,
+          "Q_exp": -0.3333333333333333,
+          "err": 5.551115123125783e-17
+        },
+        "e_R": {
+          "Q_calc": -1.0,
+          "Q_exp": -1.0,
+          "err": 0.0
+        },
+        "u_R": {
+          "Q_calc": 0.6666666666666666,
+          "Q_exp": 0.6666666666666666,
+          "err": 0.0
+        },
+        "d_R": {
+          "Q_calc": -0.3333333333333333,
+          "Q_exp": -0.3333333333333333,
+          "err": 0.0
+        }
+      },
+      "description": "Q = T\u00b3+Y/2 for 7 particles: max err = 5.55e-17"
+    },
+    {
+      "test": "W6.5",
+      "residual": 2.220446049250313e-15,
+      "target": 1e-13,
+      "errors_by_theta": {
+        "theta=0.1000": 1.7763568394002505e-15,
+        "theta=0.3000": 1.3322676295501878e-15,
+        "theta=0.4916": 1.5543122344752192e-15,
+        "theta=0.7000": 2.220446049250313e-15,
+        "theta=1.4000": 1.7763568394002505e-15
+      },
+      "passed": true,
+      "description": "[mix,propagate]=0 for all \u03b8_W: max|\u0394| = 2.22e-15"
+    }
+  ],
+  "elapsed": 0.015996694564819336,
+  "n_pass": 5,
+  "n_total": 5
+}

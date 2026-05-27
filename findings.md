@@ -4,6 +4,36 @@ This file documents new physics observations or possible new finds that arise du
 
 ---
 
+## Finding 41 — Hypercharge $U(1)_Y$ is exactly compatible with the Higgs-free F27 chiral SU(2) mass model
+
+**Date:** 2026-05-26 - 17:45
+**Status:** Confirmed — 7/7 tests PASS — full writeup [findings/F41-hypercharge-higgs-free-su2.md](findings/F41-hypercharge-higgs-free-su2.md)
+**Module:** `ca-simulation/ca_hypercharge.py` (promoted from `forks/hypercharge_fork.py`)
+**Tests:** `model-tests/test_hypercharge.py` (Y1–Y7); results `test-results/hypercharge_fork.json`
+
+### Question
+After F27 (chiral SU(2) mass from β-gauging — no Yukawa) and F34b (W mass from Stueckelberg — no Higgs VEV), does the bare F27 mass step survive $U(1)_Y$? The η_L ↔ χ_R coupling carries a hypercharge mismatch $Y_R - Y_L = -1$ (for e_R) or $+1$ (for ν_R), which the SM Higgs absorbs via $Y_\Phi = +1$.
+
+### Answer
+Yes, exactly — provided the pure-gauge field $U(x)$ inside the F27 mass step is extended to carry the Higgs-equivalent hypercharge:
+
+$$U(x) \;\to\; U(x)\,\cdot\,\mathrm{diag}(e^{+i\alpha(x)\,\Delta Y_\nu/2},\,e^{+i\alpha(x)\,\Delta Y_e/2})$$
+
+with $\Delta Y_e = Y_L - Y_{e_R} = +1$ (SM Higgs) and $\Delta Y_\nu = Y_L - Y_{\nu_R} = -1$ (conjugate-Higgs, the $i\sigma_2\Phi^*$ trick). No physical scalar is introduced; the extra phase d.o.f. is eaten by the Z under Stueckelberg.
+
+### What the tests confirmed
+- **U(1)_Y Ward identity** holds at machine precision for the e-branch ($9.04\times10^{-16}$, Y1) and ν-branch ($9.16\times10^{-16}$, Y2).
+- **F27 reduction is bit-for-bit** at $\alpha\equiv 0$ ($0.0$, Y3) — the existing F27 test suite still passes when run against the extended step.
+- **F27 SU(2)_L Ward identity survives** with arbitrary $\alpha(x)$ ($9.16\times10^{-16}$, Y4): the Y-phase commutes with SU(2)_L on the isospin index because both doublet components share $Y_L = -1$.
+- **No isospin leakage** under U(1)_Y when $U=I$ ($0.0$, Y5): the Higgs-equivalent diagonal stays diagonal.
+- **Unitarity preserved** over 50 random $(U,\alpha)$ steps ($4.5\times10^{-15}$, Y6).
+- **Gell-Mann–Nishijima algebra** ($Q = T_3 + Y/2$) and the Higgs-Y identity ($\Delta Y_e = +1$, $\Delta Y_\nu = -1$) are symbolically exact (Y7).
+
+### Physics interpretation
+$Y_\Phi = +1$ is **not** a property of any physical Higgs scalar in this model — it is the hypercharge that the F27 pure-gauge field $U(x)$ must carry so that the chiral mass step commutes with $U(1)_Y$. The SM's "two different Higgs operators for up vs. down (i.e., $\Phi$ vs. $i\sigma_2\Phi^*$)" appears here as a *single* extended $U(x)$ with two diagonal phase eigenvalues. New Tier-1 entries #102–104 and Tier-2 entries #34–37 in [exactness-inventory.md](exactness-inventory.md). Total tally: **104 exact algebraic / 37 machine-precision**.
+
+---
+
 ## Finding 1 — Sign typo in Paper 1 Eq. 15 (BCC ñ_y component)
 
 **Status:** Confirmed transcription error, not a new physics result. Documented here because it is a *correction* to a published-paper formula as reproduced in this project's reference material, and because the corrected formula is what the v2 BCC implementation uses.
@@ -1898,3 +1928,143 @@ Confronted against three best current bounds (Fermi-LAT GRB 090510, LHAASO GRB 2
 - Confirmation/exclusion of the quadratic prediction requires either photons at $\sim 10^{20}$ eV (above GZK cutoff — impractical) or a coarser lattice tick than Planck (which would shift $E_{\text{QG},2}$ down into testable range).
 - Current LIV bounds place an upper limit on the lattice tick duration: $\tau_\text{lat} \lesssim 9 \times 10^{-37}$ s (allowing anywhere between Planck time and $\sim 10^7\,t_P$).
 
+---
+
+## Finding 29 — W-triplet bilinear bridges F26 (photon rotation law) to F27 (chiral SU(2))
+
+**Date:** 2026-05-23 - 19:30
+**Status:** Confirmed via `model-tests/test_su2_photon_bridge.py` (8/8 PASS, 0.025 s); full write-up in `findings/F29-w-triplet-bilinear-su2-bridge.md`.
+
+### What was tested
+
+Bridge between two previously orthogonal sectors: F26 (photon rotation law on the BCC singlet Weyl spinors) and F27 (chiral SU(2)$_L$ from $\beta$-gauging on the isospin doublet). Constructed:
+
+$$G_H^i(k) = \sum_\alpha (\phi^\alpha)^\dagger \sigma^i \psi^\alpha \quad\text{(singlet)},\qquad W_H^{a,i}(k) = \sum_{\alpha\beta} (\tau^a)_{\alpha\beta} (\phi^\alpha)^\dagger \sigma^i \psi^\beta \quad\text{(triplet)}$$
+
+on doublet Weyl spinors at $k/2$ on the BCC lattice, then tested SU(2) action, transversality, and rotation-law energy conservation.
+
+### Result (8/8 PASS)
+
+| Test | Residual | Status |
+|------|----------|--------|
+| A1 — $\Omega(k)$ invariant under SU(2) on doublet | $5.59\times 10^{-15}$ | Machine ε |
+| B1 — Hermitian singlet $G_H^i$ SU(2)-invariant | $2.24\times 10^{-16}$ | Exact |
+| B2 — Triplet adjoint rotation $W^a \to R^{ab}(V) W^b$ | $3.08\times 10^{-16}$ | Exact |
+| B3 — $\sum_a \|W^a\|^2$ SU(2)-invariant | $6.66\times 10^{-16}$ | Exact |
+| B4 — Triplet transversality at small $k$ | $c_\text{lat}\,k$ | Same as photon |
+| B5 — Per-component rotation-law energy conservation | $0.0$ | Exact |
+| B5b — Triplet rotation energy conserved under SU(2) | $1.45\times 10^{-16}$ | Exact |
+| Extra — Transpose form NOT SU(2)-invariant | max dev $4.18$ | Structural |
+
+### Implications
+
+- **The bridge holds.** Each $W^a$ component obeys F26's rotation law $(E^a,B^a) \to R(\Omega) (E^a,B^a)$ with $\Omega(k) = 2\omega_\text{BCC}(k/2)$ and exactly conserved magnitude. F26's photon construction extends to the SU(2)-doublet sector without modification.
+- **SU(2) acts cleanly.** $W^a$ transforms as the adjoint of $V\in\mathrm{SU}(2)$ via $R^{ab}(V) = \tfrac{1}{2}\mathrm{tr}(\tau^a V \tau^b V^\dagger)$; total triplet magnitude is SU(2)-invariant.
+- **F26's $c_\text{lat} = 1/\sqrt 3$ survives the SU(2) transform.** $\Omega(k)$ on the underlying Weyl spinors is exactly preserved.
+- **Hermitian variant identified as SU(2)-clean.** Paper 1's transpose form $\phi^T \sigma^i \psi$ fails SU(2) invariance (since $V^T V \ne I$); switching to $\phi^\dagger$ makes both singlet and triplet sectors SU(2)-clean. This is a structural finding independent of the W-triplet test.
+
+### Known limitations
+
+- Kinematic tests at the bilinear level — $W_\mu$ as a dynamical gauge boson is not introduced.
+- SU(2) kinetic-step invariance still requires $W_\mu$ (same as F27).
+- Weinberg mixing with $U(1)_Y$ hypercharge is not addressed.
+
+---
+
+## Finding 30 — BCC photon-dispersion LIV order is anisotropic; the linear term is chiral (birefringent)
+
+**Date:** 2026-05-24 - 17:31  
+**Status:** Confirmed via `model-tests/test_F30_dispersion_order.py`; full write-up in `findings/F30-photon-dispersion-order-anisotropy-birefringence.md`.
+
+Exact sympy series expansion of $\Omega^\pm = 2\omega^\pm_\text{BCC}(\mathbf{k}/2)$ shows the BCC vacuum is anisotropic: the dispersion is exactly linear along cube axes (no LIV); leading correction is $n=2$ along $(1,1,0)$ ($\delta v/c \sim k^2$) and $n=1$ ($-k/18$) along $(1,1,1)$. The linear term cancels between the two chirality branches, leaving unpolarised time-of-flight at $n=2$ and vacuum birefringence $\Omega^+-\Omega^- = -\sqrt3\,k^2/27$ along $(1,1,1)$. Tier-1 entries #68–#69 added to exactness-inventory.
+
+---
+
+## Finding 31 — W_μ Phase 1: Link Variables and Covariant BCC Hopping
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 6/6 tests PASS; full write-up in `findings/F31-wmu-covariant-hopping.md`.
+
+Established SU(2) link variables in Cayley–Klein $(a,b)$ representation on the BCC lattice, the covariant BCC Weyl step, and the Ward identity. The exact k-space covariant step satisfies $V\cdot\mathrm{step}(\psi;U) = \mathrm{step}(V\psi;VUV^\dagger)$ to $1.21\times10^{-17}$ for constant $V$. Mass Ward identity from F27 holds at $6.99\times10^{-18}$.
+
+---
+
+## Finding 32 — W_μ Phase 2: Free W Propagation — F26 Rotation Law per Isospin Component
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 4/4 tests PASS; full write-up in `findings/F32-wmu-free-propagation.md`.
+
+Free W propagation uses the symmetrized even dispersion $\Omega_\text{even}(k) = \omega_+(k/2)+\omega_-(k/2)$ to preserve Hermitian symmetry of the real W field. Superposition is exact (0.0 residual); zero-seepage between isospin components is exact (0.0).
+
+---
+
+## Finding 33 — W_μ Phase 3: Yang–Mills Self-Coupling on the BCC Lattice
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 5/5 tests PASS; full write-up in `findings/F33-wmu-yang-mills.md`.
+
+Wilson plaquette field strength $F^a_{\mu\nu}$ is zero for identity links (exact), non-trivial for random links, and gauge-invariant under constant SU(2) rotation ($5.9\times10^{-16}$). Link unitarity preserved after self-coupling steps ($\le10^{-13}$). Non-Abelian commutator term captured automatically by plaquette product. Tier-1 entries #70–71 added.
+
+---
+
+## Finding 34 — W_μ Phase 4: Covariant Dirac Doublet — Fermion-W Vertex
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 5/5 tests PASS; full write-up in `findings/F34-wmu-fermion-vertex.md`.
+
+Covariant Strang-split Dirac doublet step wires dynamical W links into $\eta = (\nu_L, e_L)$ sector. Ward identity holds at $1.687\times10^{-17}$. Right-handed $\chi$ is exactly decoupled at $m=0$ (residual 0.0). Closes F27 Limitations 1 and 2. Tier-1 entries #72–73 added.
+
+---
+
+## Finding 34b — W_μ Phase 5B: Stueckelberg W-Boson Mass Generation
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 5/5 tests PASS; full write-up in `findings/F34b-wmu-mass-stueckelberg.md`.
+
+Stueckelberg/nonlinear-sigma mechanism generates W mass $m_W = gf$ from kinetic term of the scalar SU(2) field $U_\text{st}$. Mass invariant under constant left-multiplication (exact, 0.0). Gradient flow reduces $E_\text{kin}$ by 79.5% in 5 steps. All 3 SU(2) components of the mass field are non-zero, confirming the longitudinal degree of freedom. Tier-1 entry #74 added.
+
+---
+
+## Finding 35 — W_μ Phase 6: Electroweak Mixing — Weinberg Angle, Z Boson, Gell-Mann–Nishijima
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 5/5 tests PASS; full write-up in `findings/F35-electroweak-mixing.md`.
+
+Weinberg-angle $O(2)$ rotation mixes $W^3$ and $B$ into $A$ (photon) and $Z$. Mass ratio $m_Z/m_W = 1/\cos\theta_W$ holds algebraically (exact, 0.0). Gell-Mann–Nishijima $Q = T_3 + Y/2$ verified for all 7 fundamental particles ($5.6\times10^{-17}$). Commutator $[\text{mix}, \text{propagate}] = 0$ confirmed at machine precision — Weinberg mixing commutes exactly with the F26 rotation-law propagator. Phase-wrapping fix: replaced dispersion phase measurement with the algebraic commutator test. Tier-1 entries #75–77 added; Tier-2 entries #22–23 added.
+
+---
+
+## Finding 36 — W_μ Phase 7: Yang-Mills Back-Reaction and Proca Massive W Dispersion
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — 5/5 tests PASS; full write-up in `findings/F36-wmu-backreaction.md`.
+
+Closes the fermion↔gauge-field loop. `fermion_isospin_current` computes $J^a = \psi_L^\dagger(\tau^a/2)\psi_L$ exactly for pure states (residual 0.0) and to $1.8\times10^{-15}$ for superpositions. `w_sourced_propagation_step` implements the linearized Yang-Mills source term $\partial_t E^a = \Omega B^a + gJ^a$ — diagonal in isospin, source-kick to W^3 is exact (0.0 residual), no cross-isospin leakage to W^1, W^2. `w_massive_propagation_step_spectral` gives the BCC Proca dispersion $\omega^2 = m_W^2 + \Omega_\text{even}^2(k)$; residual vs. closed-form prediction $\leq 1.4\times10^{-13}$ for $m_W \in \{0.1, 0.3, 0.8\}$. Massless limit exact to 0.0 — strict generalization of massless F26. Tier-1 entries #78–81 added; Tier-2 entries #24–25 added.
+
+---
+
+## Finding 37 — Riemann–Silberstein Eigenstates Correspond Exactly to BCC Chirality Branches
+
+**Date:** 2026-05-24  
+**Status:** Confirmed — pure algebraic derivation; no code required. Full write-up in `findings/F37-rs-bcc-chirality-helicity.md`.
+
+The two physical photon helicities ($\mathbf{F}_\pm = \mathbf{E}\pm i\mathbf{B}$, RCP/LCP) correspond exactly and uniquely to the BCC branches $\Omega^\pm(k) = 2\omega_\pm(k/2)$. Proof via two independent algebraic constraints: (1) the rotation matrix $R(\Omega)$ has eigenstates $(1,\mp i)^T$ with eigenvalues $e^{\mp i\Omega}$, which are exactly the RS combinations $E_k \pm iB_k$; (2) Hermitian symmetry $\mathbf{F}_+(-k)=\mathbf{F}_-^*(k)$ for real fields forces the unique assignment $\phi^+(-k)=\phi^-(k)$, satisfied exactly by $\Omega^+(-k)=\Omega^-(k)$ (BCC parity). Physical consequence: the BCC lattice predicts **vacuum birefringence** $\Delta\Omega \approx -\sqrt{3}k^2/27$ (from F30) between RCP and LCP photons along the body diagonal. The current $\Omega_\text{even}$ implementation is the approximation that averages both helicities to the same speed; a chirally-faithful split-basis law recovers the birefringence while preserving Hermitian symmetry. Tier-1 entries #82–85 added.
+
+## Finding 38 — FG-1 First-Generation Anomaly Cancellation: All Six Traces Exactly Zero
+
+**Date:** 2026-05-26 - 02:02  
+**Status:** Confirmed — Tier-1 algebraic, computed with `fractions.Fraction` so residuals are integer zeros, not floating-point near-zeros. Full write-up in `findings/F38-fg1-anomaly-cancellation.md`.
+
+The L-handed Weyl content of one Standard-Model generation in the project's $Q = T_3 + Y/2$ convention — $L=(\nu,e)_L$, $e^c_L$, $Q=(u,d)_L$, $u^c_L$, $d^c_L$ — satisfies all six anomaly-cancellation conditions exactly over $\mathbb Q$: (A) mixed gravitational $\sum n_i Y_i = -2+2+2-4+2 = 0$; (B) $U(1)_Y^3$, $\sum n_i Y_i^3 = -2 + 8 + \tfrac{6-192+24}{27} = 6-6 = 0$; (C) $[SU(2)_L]^2\!\cdot\!Y = -\tfrac12+\tfrac12 = 0$; (D) $[SU(3)_c]^2\!\cdot\!Y = \tfrac13-\tfrac23+\tfrac13 = 0$; (E) $[SU(3)_c]^3 = 2-1-1 = 0$ (vector-like colour); (F) $[SU(2)_L]^3 = 0$ identically (pseudo-real). Gell-Mann–Nishijima $Q = T_3 + Y/2$ also reproduced exactly per particle. Closes [first-gen-completeness-review.md](first-gen-completeness-review.md) §5.1's FG-1 row and supersedes [F27](findings/F27-complex-mass-chiral-su2.md)'s "anomaly cancellation … not tested" note; QFT-6 in `lattice-vs-spacetime-tests.md` now closed. Six Tier-1 exact entries added (#86–91); tally now 91 exact.
+
+## Finding 39 — FG-6 Two-Helicity Composite Photon at the Bilinear Level
+
+**Date:** 2026-05-26 - 03:15  
+**Status:** Confirmed — bilinear construction extended to both BCC chirality branches; 10/10 tests pass. Full write-up in `findings/F39-two-helicity-photon-bilinear.md`.
+
+Closed the structural gap in F29's W-triplet bridge by adding `EM_bilinears_branch`, `EM_bilinears_two_helicity`, `riemann_silberstein_decomp`, and the matching W-triplet pair to `ca_maxwell.py`. The composite photon is now built from BOTH `sign='+'` and `sign='-'` Weyl branches; under chiral propagation `w_propagation_step_spectral`, $F^+(k) = E + iB$ tracks $\Omega^+(k) = 2\omega_+(k/2)$ and $F^-(k) = E - iB$ tracks $\Omega^-(k) = 2\omega_-(k/2)$ to $1.5\times10^{-15}$ over 10 ticks (12 cases including single-branch and combined initial states). The (1,1,1) body-diagonal birefringence reproduces F30's closed form $\Delta\Omega = -(\sqrt3/27)k^2 + O(k^4)$ to $4.5\times10^{-5}$ relative (65-point LSQ fit). Per-branch singlet SU(2) invariance, triplet adjoint $W^a\!\to\!R^{ab}W^b$, and combined triplet $\sum_a\|W^a\|^2$ invariance all hold to machine precision ($\le 4\times10^{-16}$); the assembler linearity and the Riemann-Silberstein identity $E=(F^++F^-)/2$ are exact algebraically. F29-B4 raw triplet transversality scaling $c_\text{lat}\!\cdot\!|k|$ holds per branch ($2.9\times10^{-2}$ at $k=0.05$). Four Tier-1 exact entries added (#92–95); tally now 95 exact. Closes FG-6 in [first-gen-completeness-review.md](first-gen-completeness-review.md) §5.1 and item 4 of §3. The composite-vs-U(1) photon unification and the experimental confrontation with vacuum-birefringence bounds remain open as separate items.
+
+
+---
+
+Further findings are aldo documented in their own files in the Findings folder.

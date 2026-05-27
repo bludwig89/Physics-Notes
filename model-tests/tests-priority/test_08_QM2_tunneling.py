@@ -1,4 +1,26 @@
 """
+Top-10 priority Test #8 — QM-2: Quantum tunneling   [RETIRED 2026-05-26]
+==========================================================================
+
+This test was driven by `ca_dirac.dirac_step_u1_2d_splitstep`, which was
+removed in the F41 U(1)-gauge-photon cleanup. The barrier here was
+encoded as a static scalar potential A0(x) via the (now-gone) minimal-
+coupling phase step. Running this file as-is will raise AttributeError
+on import-time use of the missing function.
+
+The Klein-paradox / sub-threshold tunneling physics it tested is not
+lost — it can be re-built on the variable-mass primitive
+`cdir.dirac_step_2d_varm_complex_splitstep`, encoding the barrier as a
+position-dependent mass profile m(x). That is a *different* lattice
+realisation than the V(x) potential barrier used here (Klein-paradox
+specifically arises in the V(x) > 2m regime and is not exactly
+mirrored by a mass step), so a port is a small new test rather than a
+mechanical rewrite. Left in tree for reference; result file
+`test-results/top10_T08_QM2_tunneling.json` records the prior PASS.
+
+Original docstring below.
+==========================================================================
+
 Top-10 priority Test #8 — QM-2: Quantum tunneling
 ==================================================
 Date: 2026-05-19

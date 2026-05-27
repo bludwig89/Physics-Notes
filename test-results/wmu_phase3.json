@@ -1,0 +1,45 @@
+{
+  "phase": 3,
+  "results": [
+    {
+      "test": "W3.1",
+      "residual": 0.0,
+      "target": 1e-13,
+      "passed": true,
+      "description": "Identity links \u2192 F = 0: max|F| = 0.00e+00"
+    },
+    {
+      "test": "W3.2",
+      "residual": 0.08233760649393078,
+      "target": 0.1,
+      "slope": 1.0105989763250631,
+      "passed": true,
+      "description": "Bianchi residual O(eps): res=8.23e-02 \u2264 1.00e-01; slope=1.01 \u2248 1.0 (structural BCC lattice artifact)"
+    },
+    {
+      "test": "W3.3",
+      "residual": 5.926884324153736e-16,
+      "target": 1e-10,
+      "passed": true,
+      "description": "\u2016F\u2016\u00b2 gauge-invariant: rel change 5.93e-16"
+    },
+    {
+      "test": "W3.4",
+      "residual": 1.7763568394002505e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "Link unitarity after 10 self-coupling steps: 1.78e-15"
+    },
+    {
+      "test": "W3.5",
+      "residual": 0.0,
+      "ym_action": 11.703422910401915,
+      "target": "S\u22650, S_identity\u22641e-12",
+      "passed": true,
+      "description": "S_YM=1.1703e+01 (>0), S_identity=0.00e+00 (\u22480)"
+    }
+  ],
+  "elapsed": 0.017522335052490234,
+  "n_pass": 5,
+  "n_total": 5
+}

@@ -127,7 +127,7 @@ This is a quadratic-in-frequency correction to the photon dispersion relation.  
 
 | Concept | Standard view | Rotation view |
 |---|---|---|
-| What is $c$? | Phase velocity $\omega/|\mathbf{k}|$ | Angular rotation rate $d\Omega/d|\mathbf{k}|$ |
+| What is $c$? | Phase velocity $\omega/abs(\mathbf{k})$ | Angular rotation rate $d\Omega/d abs(\mathbf{k})$ |
 | What propagates? | Complex phase through space | $(\mathbf{E},\mathbf{B})$ angle through time |
 | Why does $i$ appear in Maxwell? | Fundamental — fields are complex | Artifact of linearizing a real rotation |
 | Energy conservation | Dynamical (Poynting theorem) | Geometric (rotation preserves length) |

@@ -170,6 +170,62 @@ def bcc_unitary(kx, ky, kz, sign='+'):
 
 
 # ══════════════════════════════════════════════════════════════════
+#  BCC fractional-shift utility
+# ══════════════════════════════════════════════════════════════════
+
+def bcc_fractional_shift(field_k: np.ndarray,
+                         kx: np.ndarray, ky: np.ndarray, kz: np.ndarray,
+                         dx: int, dy: int, dz: int) -> np.ndarray:
+    """
+    Apply a BCC fractional-hop phase shift in k-space.
+
+    The BCC nearest-neighbour hop in direction d = (dx, dy, dz) ∈ {±1}³
+    has physical length |d| = √3 in cubic-cell units, so each Cartesian
+    component contributes a phase e^{i·d_i·k_i / √3}.  The total phase is:
+
+        e^{i·k·d/√3}  =  exp( i (dx·kx + dy·ky + dz·kz) / √3 )
+
+    This is the phase the BCC QCA propagator U(k) uses.  It is NOT the
+    same as integer np.roll shifts, which give e^{i·k·d} (i.e. a full
+    one-site hop per axis).  Any real-space BCC implementation using
+    np.roll implements a *different* automaton with c_lat = 1 instead of
+    1/√3.
+
+    Parameters
+    ----------
+    field_k : complex ndarray, shape (Lx, Ly, Lz)
+        Fourier-space field — output of ca_fft.fftn or np.fft.fftn.
+    kx, ky, kz : ndarrays of shape (Lx, Ly, Lz)
+        k-space grids from make_kgrid_3d; values in (-π, π].
+    dx, dy, dz : int  ∈ {+1, -1}
+        BCC hop direction components.
+
+    Returns
+    -------
+    shifted_k : complex ndarray, same shape as field_k
+        field_k element-wise multiplied by the fractional-hop phase.
+
+    Notes
+    -----
+    For efficiency when shifting the same field in all 8 BCC directions,
+    FFT field once, then call this 8 times, then IFFT each result.
+    That costs 1 forward FFT + 8 phase multiplications + 8 inverse FFTs,
+    rather than 8 np.roll calls which would give the wrong operator anyway.
+
+    Example
+    -------
+    >>> from ca_lattice import make_kgrid_3d
+    >>> KX, KY, KZ = make_kgrid_3d(32, 32, 32)
+    >>> F_k = np.fft.fftn(field)
+    >>> F_shifted_k = bcc_fractional_shift(F_k, KX, KY, KZ, +1, +1, +1)
+    >>> field_shifted = np.fft.ifftn(F_shifted_k).real
+    """
+    inv_sqrt3 = 1.0 / np.sqrt(3.0)
+    phase = np.exp(1j * (dx * kx + dy * ky + dz * kz) * inv_sqrt3)
+    return field_k * phase
+
+
+# ══════════════════════════════════════════════════════════════════
 #  BCC Weyl stepper
 # ══════════════════════════════════════════════════════════════════
 

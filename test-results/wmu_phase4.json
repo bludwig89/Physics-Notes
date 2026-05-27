@@ -1,0 +1,55 @@
+{
+  "phase": 4,
+  "results": [
+    {
+      "test": "W4.1",
+      "residual": 1.6869015159370135e-17,
+      "target": 1e-14,
+      "passed": true,
+      "description": "SU(2)_L Ward identity: full step (const V): 1.69e-17"
+    },
+    {
+      "test": "W4.2",
+      "residual": 2.7414175663544553e-17,
+      "target": 1e-13,
+      "Q_before": [
+        -0.0023482228901763524,
+        -0.01245340937018775,
+        -0.0012827237632641272
+      ],
+      "Q_after": [
+        -0.0023482228901763407,
+        -0.012453409370187723,
+        -0.0012827237632641155
+      ],
+      "passed": true,
+      "description": "Isospin charges conserved (g=0, identity links): 2.74e-17"
+    },
+    {
+      "test": "W4.3",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "\u03c7 decoupled from W_\u03bc (parity): max|\u0394\u03c7| = 0.00e+00"
+    },
+    {
+      "test": "W4.4",
+      "residual": 0.494288764334852,
+      "target": "e_L population > 0",
+      "nu_before": 1.0,
+      "e_after": 0.494288764334852,
+      "passed": true,
+      "description": "W\u00b1 vertex: e_L population = 0.4943 (structural; \u2265 1e-6 means vertex active)"
+    },
+    {
+      "test": "W4.5",
+      "residual": 1.8540724511240114e-13,
+      "target": 1e-12,
+      "passed": true,
+      "description": "Norm conserved over 100 full steps: drift = 1.85e-13"
+    }
+  ],
+  "elapsed": 0.3879697322845459,
+  "n_pass": 5,
+  "n_total": 5
+}

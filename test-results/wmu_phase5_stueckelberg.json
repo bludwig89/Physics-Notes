@@ -1,0 +1,55 @@
+{
+  "phase": "5B",
+  "results": [
+    {
+      "test": "W5.1",
+      "residual": 0.0,
+      "target": "identity\u21920, random>0",
+      "m_W_identity": 0.0,
+      "m_W_random": 3.1609558283985932,
+      "passed": true,
+      "description": "Identity m_W=0.00e+00\u22480; random m_W=3.1610>0"
+    },
+    {
+      "test": "W5.2",
+      "residual": 1.7763568394002505e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "Link unitarity after 10 mass steps: 1.78e-15"
+    },
+    {
+      "test": "W5.3",
+      "residual": 0.0,
+      "target": 1e-14,
+      "m_W_before": 3.1584422052405148,
+      "m_W_after": 3.1584422052405148,
+      "passed": true,
+      "description": "m_W gauge-invariant (const V): rel change 0.00e+00"
+    },
+    {
+      "test": "W5.4",
+      "residual": 0.20525642758722962,
+      "target": "\u2264 1.0 (decreasing)",
+      "E_kin_before": 2680911.5615193686,
+      "E_kin_after": 550274.329794767,
+      "passed": true,
+      "description": "Gradient flow decreases E_kin: 2.681e+06 \u2192 5.503e+05"
+    },
+    {
+      "test": "W5.5",
+      "residual": 0.0,
+      "target": "all 3 components > 1e-6; identity \u2192 0",
+      "component_norms": [
+        0.9699076894654597,
+        0.9809251377998236,
+        0.9768415602650143
+      ],
+      "identity_max": 0.0,
+      "passed": true,
+      "description": "Long. d.o.f.: |F^1|=9.70e-01, |F^2|=9.81e-01, |F^3|=9.77e-01; id\u21920.00e+00"
+    }
+  ],
+  "elapsed": 0.014056682586669922,
+  "n_pass": 5,
+  "n_total": 5
+}

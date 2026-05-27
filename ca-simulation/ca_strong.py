@@ -165,41 +165,14 @@ COLOURS = ('r', 'g', 'b')
 DIRAC = ('eu', 'ed', 'cu', 'cd')   # η_↑, η_↓, χ_↑, χ_↓
 
 
-def yukawa_mass_field(phi, yukawa_couplings):
-    """
-    Compute per-cell quark mass fields from the Higgs field Φ via Yukawa coupling.
-
-    m_q(x) = y_q · Re Φ(x)       (real part only; imaginary part → CP phase)
-    m̃_q(x) = y_q · Im Φ(x)       (complex mass field for varm stepper)
-
-    Parameters
-    ----------
-    phi : complex ndarray of shape (Lx, Ly)
-        Higgs field Φ(x).  Typically `state.Phi` from `ca_unified.py`.
-    yukawa_couplings : dict {flavour: y_q}  with real y_q ≥ 0.
-        Coupling constants per flavour.  Missing flavours default to 0.
-
-    Returns
-    -------
-    dict {flavour: (m_R_field, m_I_field)}
-        m_R_field = y_q * Re(Φ),  m_I_field = y_q * Im(Φ), both real
-        ndarrays of shape (Lx, Ly).
-
-    Notes
-    -----
-    - Coupling is colour-blind: the same m_q(x) is used for all colours
-      of a given flavour.  Higgs/Yukawa does not mix colour indices.
-    - When Φ is spatially uniform (Re Φ = v, Im Φ = 0), m_R_field = y_q·v
-      and m_I_field = 0, so `dirac_step_2d_varm_complex_splitstep` reduces
-      to `dirac_step_2d_splitstep` bit-for-bit (δm = 0 path).
-    """
-    phi_r = np.real(phi)
-    phi_i = np.imag(phi)
-    result = {}
-    for f in FLAVOURS:
-        y = float(yukawa_couplings.get(f, 0.0))
-        result[f] = (y * phi_r, y * phi_i)
-    return result
+# yukawa_mass_field was REMOVED 2026-05-26 together with the
+# Higgs-driven per-cell mass field. The adopted quark mass mechanism
+# is now the F27 chiral-SU(2) complex mass via `quark_mass_step_f27` /
+# `step_strong_2d_complex_mass` (see F40 / FG-2). The variable-mass
+# Dirac primitive `dirac_step_2d_varm_complex_splitstep` in ca_dirac.py
+# remains available for any future per-cell mass usage (e.g. Klein-
+# paradox-style mass barriers) but is no longer wired to a Higgs Φ
+# field at the quark-sector level.
 
 
 def zero_quark_field(shape, dtype=complex):
@@ -413,7 +386,7 @@ def covariant_shift(q, U, mu, direction='+'):
 #  Strong-sector stepper (cold and frozen-link cases)
 # ══════════════════════════════════════════════════════════════════
 
-def step_strong_2d(q, U, m_flavour=None, dt=1.0, phi_field=None, yukawa=None):
+def step_strong_2d(q, U, m_flavour=None, dt=1.0):
     """
     One full strong-sector tick on a 3-flavour, 3-colour quark field.
 
@@ -423,88 +396,53 @@ def step_strong_2d(q, U, m_flavour=None, dt=1.0, phi_field=None, yukawa=None):
     U : link field of shape (2, Lx, Ly, 3, 3)
     m_flavour : dict {flavour: m_q}  with |m_q| ≤ 1 (QCA admissibility).
         Default: massless ({'u': 0, 'd': 0, 's': 0}).
-        Ignored when phi_field is provided.
     dt : time step, passed straight through to the Dirac stepper.
-    phi_field : complex ndarray of shape (Lx, Ly), optional.
-        Higgs field Φ(x).  When provided, the per-cell Yukawa mass
-            m_q(x) = yukawa[f] · Re Φ(x),
-            m̃_q(x) = yukawa[f] · Im Φ(x)
-        is computed via `yukawa_mass_field` and passed to
-        `dirac_step_2d_varm_complex_splitstep` for each (flavour, colour).
-        The Strang split is: Mix(δm, dt/2) → Kinetic(m0, dt) → Mix(δm, dt/2),
-        which is O(dt²) accurate and exact at δm = 0.
-    yukawa : dict {flavour: y_q}, optional.
-        Yukawa coupling constants.  Required when phi_field is not None.
-        Missing flavours default to y_q = 0 (massless).
 
     Algorithm (Strang-symmetric, cold-link reducible):
 
         1. Half-step parallel transport: q → P_½ q with P_½ from link avg.
         2. Kinetic step on each (flavour, colour) copy:
-              Scalar path (phi_field=None):
                 (η, χ) ← dirac_step_2d_splitstep(η, χ, m = m_flavour[f])
-              Yukawa path (phi_field given):
-                (η, χ) ← dirac_step_2d_varm_complex_splitstep(
-                              η, χ, m_R_field, m_I_field)
         3. Half-step parallel transport again.
 
     Cold-link limit (U_μ ≡ I): step 1 and step 3 are the identity; the
     result is bit-for-bit 9 independent (per-flavour, per-colour) Dirac
-    steps.  This is the V13a regression contract.
-
-    Uniform-Φ regression (V13c.1): when phi_field is spatially uniform
-    (Re Φ = v everywhere, Im Φ = 0), δm = 0 for every cell, the
-    `dirac_step_2d_varm_complex_splitstep` reduces to
-    `dirac_step_2d_splitstep(m = y*v)` bit-for-bit.
+    steps. This is the V13a regression contract.
 
     Note: this is the *frozen-link* stepper — the links do NOT update.
     Dynamical gluons live in V15 (separate routine).
+
+    History — Higgs–Yukawa path removed 2026-05-26
+    -----------------------------------------------
+    The `phi_field` / `yukawa` per-cell-mass branch that previously
+    sat inside this function was retired in the F40/F41 cleanup. The
+    project's adopted quark mass mechanism is now Ludwig's F27 chiral
+    complex mass via `quark_mass_step_f27` / `step_strong_2d_complex_mass`
+    (see F40 / FG-2). For any test that needs a position-dependent
+    mass profile (e.g. a Klein-paradox-style mass barrier), call the
+    primitive `cdir.dirac_step_2d_varm_complex_splitstep` directly.
     """
-    if phi_field is not None:
-        # ── Yukawa path: per-cell mass from Higgs field ────────────
-        if yukawa is None:
-            yukawa = {}
-        mass_fields = yukawa_mass_field(phi_field, yukawa)
-    else:
-        # ── Scalar path: static dict of per-flavour masses ─────────
-        if m_flavour is None:
-            m_flavour = {'u': 0.0, 'd': 0.0, 's': 0.0}
+    if m_flavour is None:
+        m_flavour = {'u': 0.0, 'd': 0.0, 's': 0.0}
 
     # ── Half-step parallel transport ───────────────────────────────
     q = parallel_transport(q, U)
 
     # ── Kinetic step on each (flavour, colour) copy ────────────────
     for f in FLAVOURS:
-        if phi_field is not None:
-            m_R_field, m_I_field = mass_fields[f]
-            for c in COLOURS:
-                eu = q[(f, c, 'eu')]
-                ed = q[(f, c, 'ed')]
-                cu = q[(f, c, 'cu')]
-                cd = q[(f, c, 'cd')]
-                eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_2d_varm_complex_splitstep(
-                    eu, ed, cu, cd,
-                    m_R_field=m_R_field, m_I_field=m_I_field,
-                    dt=dt
-                )
-                q[(f, c, 'eu')] = eu_n
-                q[(f, c, 'ed')] = ed_n
-                q[(f, c, 'cu')] = cu_n
-                q[(f, c, 'cd')] = cd_n
-        else:
-            m = m_flavour.get(f, 0.0)
-            for c in COLOURS:
-                eu = q[(f, c, 'eu')]
-                ed = q[(f, c, 'ed')]
-                cu = q[(f, c, 'cu')]
-                cd = q[(f, c, 'cd')]
-                eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_2d_splitstep(
-                    eu, ed, cu, cd, m=m, dt=dt
-                )
-                q[(f, c, 'eu')] = eu_n
-                q[(f, c, 'ed')] = ed_n
-                q[(f, c, 'cu')] = cu_n
-                q[(f, c, 'cd')] = cd_n
+        m = m_flavour.get(f, 0.0)
+        for c in COLOURS:
+            eu = q[(f, c, 'eu')]
+            ed = q[(f, c, 'ed')]
+            cu = q[(f, c, 'cu')]
+            cd = q[(f, c, 'cd')]
+            eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_2d_splitstep(
+                eu, ed, cu, cd, m=m, dt=dt
+            )
+            q[(f, c, 'eu')] = eu_n
+            q[(f, c, 'ed')] = ed_n
+            q[(f, c, 'cu')] = cu_n
+            q[(f, c, 'cd')] = cd_n
 
     # ── Second half-step parallel transport ────────────────────────
     q = parallel_transport(q, U)
@@ -695,3 +633,532 @@ def wilson_action(U, beta_s=6.0, n_c=3):
             P = plaquette_trace(U, mu=mu, nu=nu)
             S += np.sum(1.0 - np.real(P) / n_c)
     return float(beta_s * S)
+
+
+# ══════════════════════════════════════════════════════════════════
+#  F27 complex-mass adoption for the quark sector
+#  (added 2026-05-26; mirrors the F27 lepton structure in ca_dirac.py)
+# ══════════════════════════════════════════════════════════════════
+#
+# Motivation (from first-gen-completeness-review.md §2.1 / §3 item 2):
+# the project's adopted mass mechanism is Ludwig's chiral-SU(2) complex
+# mass (F27 / Kunimasa–Goto Stueckelberg), but `step_strong_2d` still
+# carries the Higgs–Yukawa path through `dirac_step_2d_varm_complex_splitstep`.
+# This section adds the F27 mass mechanism per flavour, per colour, with
+# natural up/down/strange mass splitting via per-flavour m_f and θ_f(x).
+#
+# Public API
+# ----------
+#   chirality_split_quark(q, flavour=None)
+#   make_theta_field_quark(shape, mode='zero', seed=42)
+#   quark_mass_step_f27(q, theta_flavour, m_flavour, dt=1.0)
+#   step_strong_2d_complex_mass(q, U, theta_flavour=None, m_flavour=None, dt=1.0)
+#   quark_u1_gauge_transform_f27(q, phi_chi, flavour)
+#   quark_doublet_mass_step_su2(q, U_a, U_b, m_doublet, dt=1.0)
+#   quark_doublet_su2_transform_chiral(q, V_a, V_b, U_a, U_b)
+
+
+def chirality_split_quark(q, flavour=None):
+    """
+    Return (N_L, N_R) total probability in each chirality sector.
+
+    If `flavour` is given, restrict the sum to that flavour. Otherwise
+    sum over all flavours and colours.
+
+    η ↔ left-handed = (eu, ed); χ ↔ right-handed = (cu, cd).
+    """
+    flavours = (flavour,) if flavour is not None else FLAVOURS
+    N_L = 0.0
+    N_R = 0.0
+    for f in flavours:
+        for c in COLOURS:
+            N_L += float(np.sum(np.abs(q[(f, c, 'eu')]) ** 2))
+            N_L += float(np.sum(np.abs(q[(f, c, 'ed')]) ** 2))
+            N_R += float(np.sum(np.abs(q[(f, c, 'cu')]) ** 2))
+            N_R += float(np.sum(np.abs(q[(f, c, 'cd')]) ** 2))
+    return N_L, N_R
+
+
+def make_theta_field_quark(shape, mode='zero', seed=42):
+    """
+    Per-flavour β-gauge θ(x) field used by the F27 1-flavour mass step.
+
+    mode = 'zero'   →  θ ≡ 0
+    mode = 'random' →  θ uniform in [0, 2π)
+    mode = 'plane'  →  θ ≡ π/3 (constant non-zero)
+    """
+    Lx, Ly = shape
+    if mode == 'zero':
+        return np.zeros((Lx, Ly), dtype=float)
+    if mode == 'random':
+        rng = np.random.default_rng(seed=seed)
+        return rng.uniform(0.0, 2.0 * np.pi, size=(Lx, Ly))
+    if mode == 'plane':
+        return np.full((Lx, Ly), np.pi / 3.0, dtype=float)
+    raise ValueError(f"Unknown θ mode: {mode!r}")
+
+
+def quark_mass_step_f27(q, theta_flavour, m_flavour, dt=1.0):
+    """
+    F27 1-flavour β-gauge complex-mass step on the quark field — per
+    (flavour, colour), apply `ca_dirac.mass_step_1flavor_u1`.
+
+    For each flavour f the per-cell unitary is
+
+        M(θ_f) = [[c_m I,            i s_m e^{iθ_f} I ],
+                  [i s_m e^{-iθ_f} I,  c_m I          ]]
+
+    with c_m = cos(m_f·dt), s_m = sin(m_f·dt). Color is preserved: the
+    mass term is proportional to I_3 in colour space (SM-faithful — only
+    the SU(3) gauge link mixes colours).
+
+    Parameters
+    ----------
+    q              : quark field dict
+    theta_flavour  : dict {flavour: (Lx,Ly) real} — β-gauge θ_f(x)
+    m_flavour      : dict {flavour: float}        — mass m_f (|m| ≤ 1)
+    dt             : float
+
+    Returns
+    -------
+    Updated quark field dict (new arrays).
+    """
+    q_out = {k: v.copy() for k, v in q.items()}
+    sample = next(iter(q.values()))
+    zero_theta = np.zeros(sample.shape, dtype=float)
+    for f in FLAVOURS:
+        m = float(m_flavour.get(f, 0.0))
+        theta = theta_flavour.get(f, zero_theta) if isinstance(theta_flavour, dict) else theta_flavour
+        for c in COLOURS:
+            eu_n, ed_n, cu_n, cd_n = cdir.mass_step_1flavor_u1(
+                q[(f, c, 'eu')], q[(f, c, 'ed')],
+                q[(f, c, 'cu')], q[(f, c, 'cd')],
+                theta, m, dt)
+            q_out[(f, c, 'eu')] = eu_n
+            q_out[(f, c, 'ed')] = ed_n
+            q_out[(f, c, 'cu')] = cu_n
+            q_out[(f, c, 'cd')] = cd_n
+    return q_out
+
+
+def step_strong_2d_complex_mass(q, U, theta_flavour=None, m_flavour=None, dt=1.0):
+    """
+    One full strong-sector tick using the F27 complex-mass kinetic step.
+
+    Strang split (per flavour, per colour):
+
+        parallel_transport(U)
+        → ca_dirac.dirac_step_complex_mass_1flavor(θ_f, m_f, dt)
+        → parallel_transport(U)
+
+    The kinetic step is the exact-QCA Weyl half-step from
+    `ca_dirac._weyl_half_step_2c`, applied per (flavour, colour);
+    the mass step is the F27 1-flavour β-gauge mixing.
+
+    Compared to `step_strong_2d`, this replaces the Higgs–Yukawa /
+    constant-mass Dirac unitary with the F27 chiral complex-mass
+    mechanism. Up/down/strange mass splitting is intrinsic (each
+    flavour has its own m_f).
+
+    Cold-link, θ ≡ 0 regression: reduces bit-for-bit to N_F × N_C
+    independent copies of `dirac_step_complex_mass_1flavor` — i.e. the
+    F27 mechanism is color-blind and flavour-independent at the mass
+    level, exactly as required.
+    """
+    if m_flavour is None:
+        m_flavour = {'u': 0.0, 'd': 0.0, 's': 0.0}
+    if theta_flavour is None:
+        sample = next(iter(q.values()))
+        zero_theta = np.zeros(sample.shape, dtype=float)
+        theta_flavour = {f: zero_theta for f in FLAVOURS}
+
+    # Half-step SU(3) parallel transport
+    q = parallel_transport(q, U)
+
+    # F27 complex-mass kinetic step per (flavour, colour)
+    sample = next(iter(q.values()))
+    zero_theta = np.zeros(sample.shape, dtype=float)
+    for f in FLAVOURS:
+        m = float(m_flavour.get(f, 0.0))
+        theta = theta_flavour.get(f, zero_theta)
+        for c in COLOURS:
+            eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_complex_mass_1flavor(
+                q[(f, c, 'eu')], q[(f, c, 'ed')],
+                q[(f, c, 'cu')], q[(f, c, 'cd')],
+                theta, m, dt)
+            q[(f, c, 'eu')] = eu_n
+            q[(f, c, 'ed')] = ed_n
+            q[(f, c, 'cu')] = cu_n
+            q[(f, c, 'cd')] = cd_n
+
+    # Half-step SU(3) parallel transport
+    q = parallel_transport(q, U)
+    return q
+
+
+def quark_u1_gauge_transform_f27(q, phi_chi, flavour):
+    """
+    F27 1-flavour β-gauge U(1) transform on the χ sector of one flavour:
+
+        (η_f, χ_f, θ_f) → (η_f, e^{iφ} χ_f, θ_f − φ)
+
+    This is the U(1) Ward identity of the F27 mass step (Tier-1 #56 in
+    the lepton sector). Only the χ components of the given flavour are
+    transformed; the caller is responsible for the θ_f shift.
+
+    Note: the χ sector here is the FULL right-handed Dirac sector for
+    that flavour — i.e. (cu, cd). The mass step T4 identity is
+
+        mass(η, e^{iφ} χ, θ − φ) = (η_new, e^{iφ} χ_new)
+
+    so applying U(1)·χ in / U(1)·χ out + the θ shift maps the mass step
+    to itself bit-for-bit.
+    """
+    q_out = {k: v.copy() for k, v in q.items()}
+    ph = np.exp(1j * phi_chi).astype(complex)
+    for c in COLOURS:
+        q_out[(flavour, c, 'cu')] = ph * q[(flavour, c, 'cu')]
+        q_out[(flavour, c, 'cd')] = ph * q[(flavour, c, 'cd')]
+    return q_out
+
+
+def quark_doublet_mass_step_su2(q, U_a, U_b, m_doublet, dt=1.0):
+    """
+    F27 SU(2)_L doublet complex-mass step applied to the (u, d) quark
+    doublet, per colour. Strange (s) is left untouched.
+
+    Treats (u_L, d_L) as the upper / lower components of an SU(2)_L
+    isospin doublet, with a SHARED mass m_doublet (degenerate doublet).
+    For each colour c, this is `ca_dirac.mass_step_doublet_su2` applied
+    to:
+
+        (u → ν,  d → e)  in the lepton-named slots.
+
+    Used to verify the F27 SU(2)_L Ward identity in the quark sector
+    (Q9). The physical mass splitting m_u ≠ m_d is intentionally not
+    supported here — it explicitly breaks SU(2)_L at the mass level
+    (Q10). The proper splitting requires the Stueckelberg-column
+    structure with separate u_R, d_R singlets, which lives in the
+    electroweak wiring (Phase 4).
+    """
+    q_out = {k: v.copy() for k, v in q.items()}
+    for c in COLOURS:
+        eu_u, ed_u = q[('u', c, 'eu')], q[('u', c, 'ed')]
+        eu_d, ed_d = q[('d', c, 'eu')], q[('d', c, 'ed')]
+        cu_u, cd_u = q[('u', c, 'cu')], q[('u', c, 'cd')]
+        cu_d, cd_d = q[('d', c, 'cu')], q[('d', c, 'cd')]
+        (eu_u_n, ed_u_n, eu_d_n, ed_d_n,
+         cu_u_n, cd_u_n, cu_d_n, cd_d_n) = cdir.mass_step_doublet_su2(
+            eu_u, ed_u, eu_d, ed_d,
+            cu_u, cd_u, cu_d, cd_d,
+            U_a, U_b, m_doublet, dt)
+        q_out[('u', c, 'eu')] = eu_u_n
+        q_out[('u', c, 'ed')] = ed_u_n
+        q_out[('d', c, 'eu')] = eu_d_n
+        q_out[('d', c, 'ed')] = ed_d_n
+        q_out[('u', c, 'cu')] = cu_u_n
+        q_out[('u', c, 'cd')] = cd_u_n
+        q_out[('d', c, 'cu')] = cu_d_n
+        q_out[('d', c, 'cd')] = cd_d_n
+    return q_out
+
+
+def quark_doublet_su2_transform_chiral(q, V_a, V_b, U_a, U_b):
+    """
+    Apply chiral SU(2)_L gauge transformation to the (u, d) quark doublet.
+
+        (η_u, η_d) → V · (η_u, η_d)           [left-handed transforms]
+        (χ_u, χ_d) → (χ_u, χ_d)               [right-handed unchanged]
+        U          → V · U                    [Stueckelberg field compensates]
+
+    where V = [[Va, -Vb*],[Vb, Va*]] ∈ SU(2). Strange (s) is unchanged.
+    Acts identically on every colour (V is colour-blind).
+
+    Returns
+    -------
+    (q_new, U_a_new, U_b_new).
+    """
+    q_out = {k: v.copy() for k, v in q.items()}
+    Vbc = np.conj(V_b)
+    Vac = np.conj(V_a)
+
+    for c in COLOURS:
+        eu_u = q[('u', c, 'eu')]; ed_u = q[('u', c, 'ed')]
+        eu_d = q[('d', c, 'eu')]; ed_d = q[('d', c, 'ed')]
+        q_out[('u', c, 'eu')] = V_a * eu_u - Vbc * eu_d
+        q_out[('u', c, 'ed')] = V_a * ed_u - Vbc * ed_d
+        q_out[('d', c, 'eu')] = V_b * eu_u + Vac * eu_d
+        q_out[('d', c, 'ed')] = V_b * ed_u + Vac * ed_d
+        # χ unchanged (chiral SU(2)_L)
+
+    U_a_new = V_a * U_a - Vbc * U_b
+    U_b_new = V_b * U_a + Vac * U_b
+    return q_out, U_a_new, U_b_new
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Phase 4 — Electroweak wiring of the quark doublet (2D analog of F34)
+#  (added 2026-05-26)
+#
+#  Triggered by FG-2 Q11: the spectral kinetic step on the (u, d) quark
+#  doublet does not satisfy local SU(2)_L Ward identity without a W_μ
+#  link field. This section adds the 2D-square analog of F31 / F34:
+#
+#    • W-link field W_μ(x) ∈ SU(2) on the 2D square lattice (2 dirs)
+#    • Site-centred U_eff(x) from the link average (mirrors ca_wmu)
+#    • Covariant quark doublet kinetic step that rotates the (u_L, d_L)
+#      isospin index by U_eff(x) before the spectral 2D Weyl step
+#    • Full covariant doublet step (kinetic ½ → mass → kinetic ½)
+#    • W-link gauge transformation U_μ → V(x)·U_μ·V†(x+μ̂)
+#
+#  Properties (mirror W1 / F34):
+#    • Cold W-links: reduces bit-for-bit to (F27 mass step) ∘ (per-(f,c)
+#      free Weyl kinetic half-steps).
+#    • Constant V(x): SU(2)_L Ward identity exact to machine ε
+#      (V commutes with the spectral kinetic step since V acts on isospin).
+#    • Varying V(x): O(a)·|∇V|·L residual (W1.4 status).
+#    • Right-handed χ at m=0: bit-for-bit decoupled from W_μ (F34 W4.3).
+# ══════════════════════════════════════════════════════════════════
+
+
+def make_w_link_field_2d(shape, mode='identity', seed=42):
+    """
+    Initialise an SU(2) W_μ(x) link field on a 2D-square lattice.
+
+    Returns
+    -------
+    W_links : list of 2 elements (μ = x, y); each is (W_a, W_b) with
+              W_μ(x) = [[W_a, −conj(W_b)],[W_b, conj(W_a)]] ∈ SU(2),
+              W_a, W_b complex arrays of shape (Lx, Ly).
+    """
+    Lx, Ly = shape
+    rng = np.random.default_rng(seed=seed)
+
+    if mode == 'identity':
+        W_links = [(np.ones(shape, dtype=complex),
+                    np.zeros(shape, dtype=complex))
+                   for _ in range(2)]
+    elif mode == 'random':
+        W_links = []
+        for _ in range(2):
+            raw = rng.standard_normal(shape + (4,))
+            raw /= np.linalg.norm(raw, axis=-1, keepdims=True)
+            Wa = raw[..., 0] + 1j * raw[..., 3]
+            Wb = raw[..., 2] + 1j * raw[..., 1]
+            W_links.append((Wa, Wb))
+    elif mode == 'pure_gauge':
+        raw = rng.standard_normal(shape + (4,))
+        raw /= np.linalg.norm(raw, axis=-1, keepdims=True)
+        Va = raw[..., 0] + 1j * raw[..., 3]
+        Vb = raw[..., 2] + 1j * raw[..., 1]
+        W_links = []
+        for mu in range(2):
+            Va_shift = np.roll(Va, -1, axis=mu)
+            Vb_shift = np.roll(Vb, -1, axis=mu)
+            # U_μ(x) = V(x+μ̂) · V(x)†
+            Wa_pg = Va_shift * np.conj(Va) + np.conj(Vb_shift) * Vb
+            Wb_pg = Vb_shift * np.conj(Va) - np.conj(Va_shift) * Vb
+            W_links.append((Wa_pg, Wb_pg))
+    else:
+        raise ValueError(f"Unknown W-link mode: {mode!r}")
+    return W_links
+
+
+def w_link_unitarity_residual_2d(W_links):
+    """max_{μ,x} | |W_a|² + |W_b|² − 1 |."""
+    return float(max(np.max(np.abs(np.abs(Wa) ** 2 + np.abs(Wb) ** 2 - 1.0))
+                     for (Wa, Wb) in W_links))
+
+
+def u_eff_from_w_links_2d(W_links):
+    """
+    Site-centred SU(2) effective gauge field from the 2D W-link field —
+    average over the two link directions at each site, then re-unitarise.
+
+    Mirrors ca_wmu._u_eff_from_links. For W_links = identity → U_eff = I
+    bit-for-bit (cold-link regression).
+    """
+    Wa_sum = sum(Wa for (Wa, _) in W_links)
+    Wb_sum = sum(Wb for (_, Wb) in W_links)
+    norm = np.sqrt(np.abs(Wa_sum) ** 2 + np.abs(Wb_sum) ** 2)
+    norm = np.where(norm > 1e-14, norm, 1.0)
+    return Wa_sum / norm, Wb_sum / norm
+
+
+def w_link_gauge_transform_2d(W_links, V_a, V_b):
+    """
+    Apply local SU(2) gauge transformation to the W-link field:
+
+        W_μ(x) → V(x) · W_μ(x) · V†(x + μ̂)
+
+    SU(2) product formula: (a1, b1) · (a2, b2) =
+        (a1·a2 − conj(b1)·b2,  b1·a2 + conj(a1)·b2).
+
+    The inverse of an SU(2) element (a, b) is (conj(a), −b), so
+        V†(x + μ̂) ↔ (conj(V_a_shift), −V_b_shift).
+
+    Returns a new W_links list (does not mutate the input).
+    """
+    Vbc = np.conj(V_b)
+    Vac = np.conj(V_a)
+    out = []
+    for mu, (Wa, Wb) in enumerate(W_links):
+        Va_shift = np.roll(V_a, -1, axis=mu)
+        Vb_shift = np.roll(V_b, -1, axis=mu)
+        Va_shift_c = np.conj(Va_shift)
+        # Step 1:  A = V(x) · W
+        A_a = V_a * Wa - Vbc * Wb
+        A_b = V_b * Wa + Vac * Wb
+        # Step 2:  result = A · V†(x+μ̂)
+        # B = V†(x+μ̂) has (a, b) = (Va_shift_c, −Vb_shift)
+        B_a = Va_shift_c
+        B_b = -Vb_shift
+        Wa_new = A_a * B_a - np.conj(A_b) * B_b
+        Wb_new = A_b * B_a + np.conj(A_a) * B_b
+        out.append((Wa_new, Wb_new))
+    return out
+
+
+def covariant_quark_doublet_step_2d(q, U_color, W_links,
+                                    U_a_mass, U_b_mass,
+                                    m_doublet, dt=1.0,
+                                    m_strange=0.0,
+                                    theta_strange=None):
+    """
+    Full SU(2)_L-covariant Dirac doublet step for the (u, d) quarks on
+    the 2D-square lattice with colour SU(3) parallel transport, W_μ
+    SU(2)_L link field, and F27 SU(2) doublet complex-mass coupling.
+
+    Strang split per colour:
+        K_W(dt/2)  →  M_F27(dt)  →  K_W(dt/2)
+
+    where K_W is the W-covariant kinetic half-step:
+        η_doublet → U_eff_W · η_doublet  (isospin rotation, left-handed only)
+        χ_doublet → χ_doublet            (right-handed: SU(2)_L singlet)
+        each (flavour × isospin) component → _weyl_half_step_2c (spectral)
+
+    and M_F27 is `quark_doublet_mass_step_su2` (SU(2) Stueckelberg mass).
+
+    Strange (s) is treated as an SU(2)_L singlet and gets the F27
+    1-flavour mass step (m_strange, optional θ_s field) plus a colour
+    parallel transport. This keeps strange propagating without polluting
+    the (u, d) Ward-identity tests.
+
+    Properties (verified in test_FG3_quark_electroweak.py):
+        • W = I, U = I, m_strange = 0: bit-for-bit equivalent to
+          (free Weyl half-steps per (f,c)) ∘ (doublet mass) ∘ (half-steps).
+        • Constant V(x) for both ψ and W: SU(2)_L Ward identity exact
+          to machine ε (V commutes with FFT and U_eff at each site).
+        • Varying V(x): O(a) Ward residual — W1.4 status.
+        • m_doublet = 0: right-handed χ exactly decoupled from W (F34 W4.3).
+    """
+    # ─ Helper: build site-centred U_eff_W once per call ─
+    UWa, UWb = u_eff_from_w_links_2d(W_links)
+    UWa_c = np.conj(UWa)
+    UWb_c = np.conj(UWb)
+
+    # ─ Half kinetic step ─────────────────────────────────────────────
+    def apply_kinetic_half(q_in, dt_half):
+        q_o = {k: v.copy() for k, v in q_in.items()}
+        for c in COLOURS:
+            # (u, d) left-handed doublet: rotate isospin by U_eff_W, then
+            # per-component spectral half-step.
+            for spin in ('eu', 'ed'):
+                eu = q_in[('u', c, spin)]
+                ed = q_in[('d', c, spin)]
+                # U_eff_W · (eu, ed)
+                eu_rot = UWa * eu - UWb_c * ed
+                ed_rot = UWb * eu + UWa_c * ed
+                # Spectral half-step per flavour: needs a (f, g) pair —
+                # here we use a "spinor-up" trick: pair (eu, ed) is
+                # actually (spin-↑, spin-↓) of one isospin component, not
+                # two components of one Weyl. So we must apply the half
+                # step to (η_u_↑, η_u_↓) and (η_d_↑, η_d_↓) separately,
+                # NOT to (η_u, η_d). Loop over flavour, not spin.
+                # → fall back to a flavour-major loop below.
+                pass
+        # Flavour-major loop: rotate isospin per spin, then half-step per
+        # (flavour, colour) using the 2-component (↑, ↓) pair.
+        for c in COLOURS:
+            # Apply U_eff_W to isospin index of left-handed (η_u, η_d)
+            # for each spin component, then half-step each spinor (η_↑, η_↓)
+            eu_u = q_in[('u', c, 'eu')]
+            ed_u = q_in[('u', c, 'ed')]
+            eu_d = q_in[('d', c, 'eu')]
+            ed_d = q_in[('d', c, 'ed')]
+            # Isospin rotate at fixed spin
+            eu_u_r = UWa * eu_u - UWb_c * eu_d
+            eu_d_r = UWb * eu_u + UWa_c * eu_d
+            ed_u_r = UWa * ed_u - UWb_c * ed_d
+            ed_d_r = UWb * ed_u + UWa_c * ed_d
+            # Spectral 2D half-step on each flavour (Weyl 2-component)
+            u_eu_new, u_ed_new = cdir._weyl_half_step_2c(eu_u_r, ed_u_r, dt_half)
+            d_eu_new, d_ed_new = cdir._weyl_half_step_2c(eu_d_r, ed_d_r, dt_half)
+            q_o[('u', c, 'eu')] = u_eu_new
+            q_o[('u', c, 'ed')] = u_ed_new
+            q_o[('d', c, 'eu')] = d_eu_new
+            q_o[('d', c, 'ed')] = d_ed_new
+
+            # Right-handed (χ_u, χ_d): SU(2)_L singlet — identity isospin
+            # → just per-flavour spectral half-step, no rotation.
+            cu_u_new, cd_u_new = cdir._weyl_half_step_2c(
+                q_in[('u', c, 'cu')], q_in[('u', c, 'cd')], dt_half)
+            cu_d_new, cd_d_new = cdir._weyl_half_step_2c(
+                q_in[('d', c, 'cu')], q_in[('d', c, 'cd')], dt_half)
+            q_o[('u', c, 'cu')] = cu_u_new
+            q_o[('u', c, 'cd')] = cd_u_new
+            q_o[('d', c, 'cu')] = cu_d_new
+            q_o[('d', c, 'cd')] = cd_d_new
+        # Strange — full 4-component complex-mass-1flavor step (kinetic+mass
+        # together; m_strange may be zero). Keeps s propagating but as an
+        # SU(2)_L singlet. Performed once (not split) inside the kinetic
+        # half if dt_half is the FULL step; here we use a half-step trick:
+        # apply the kinetic half-step to each chirality independently.
+        for c in COLOURS:
+            s_eu_new, s_ed_new = cdir._weyl_half_step_2c(
+                q_in[('s', c, 'eu')], q_in[('s', c, 'ed')], dt_half)
+            s_cu_new, s_cd_new = cdir._weyl_half_step_2c(
+                q_in[('s', c, 'cu')], q_in[('s', c, 'cd')], dt_half)
+            q_o[('s', c, 'eu')] = s_eu_new
+            q_o[('s', c, 'ed')] = s_ed_new
+            q_o[('s', c, 'cu')] = s_cu_new
+            q_o[('s', c, 'cd')] = s_cd_new
+        return q_o
+
+    # ─ Mass step ─────────────────────────────────────────────────────
+    def apply_mass(q_in, dt_full):
+        # Doublet mass on (u, d)
+        q_o = quark_doublet_mass_step_su2(q_in, U_a_mass, U_b_mass,
+                                          m_doublet, dt=dt_full)
+        # F27 1-flavour mass on strange (SU(2)_L singlet)
+        if theta_strange is None:
+            sample = next(iter(q_in.values()))
+            theta_s = np.zeros(sample.shape, dtype=float)
+        else:
+            theta_s = theta_strange
+        for c in COLOURS:
+            eu_n, ed_n, cu_n, cd_n = cdir.mass_step_1flavor_u1(
+                q_o[('s', c, 'eu')], q_o[('s', c, 'ed')],
+                q_o[('s', c, 'cu')], q_o[('s', c, 'cd')],
+                theta_s, m_strange, dt_full)
+            q_o[('s', c, 'eu')] = eu_n
+            q_o[('s', c, 'ed')] = ed_n
+            q_o[('s', c, 'cu')] = cu_n
+            q_o[('s', c, 'cd')] = cd_n
+        return q_o
+
+    # ─ Optional colour parallel transport at the start/end ──────────
+    # The SU(3) and SU(2)_L gauge sectors are independent; we apply the
+    # SU(3) transport before/after the doublet step exactly as in
+    # step_strong_2d.
+    if U_color is not None:
+        q = parallel_transport(q, U_color)
+
+    # ─ Strang: K(dt/2) → M(dt) → K(dt/2) ─
+    q = apply_kinetic_half(q, 0.5 * dt)
+    q = apply_mass(q, dt)
+    q = apply_kinetic_half(q, 0.5 * dt)
+
+    if U_color is not None:
+        q = parallel_transport(q, U_color)
+    return q

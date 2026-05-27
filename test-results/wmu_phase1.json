@@ -1,0 +1,52 @@
+{
+  "phase": 1,
+  "results": [
+    {
+      "test": "W1.1",
+      "residual": 6.661338147750939e-16,
+      "target": 1e-15,
+      "passed": true,
+      "description": "Link unitarity |a|\u00b2+|b|\u00b2=1"
+    },
+    {
+      "test": "W1.2",
+      "residual": 0.0,
+      "target": 1e-15,
+      "passed": true,
+      "description": "Identity links \u2192 standard BCC step"
+    },
+    {
+      "test": "W1.3",
+      "residual": 1.865174681370263e-14,
+      "target": 1e-13,
+      "passed": true,
+      "description": "Norm conserved over 100 steps, random links"
+    },
+    {
+      "test": "W1.4",
+      "residual": 1.2049774363595734e-17,
+      "target": 1e-14,
+      "aliasing_random_V": 0.03302824115045222,
+      "passed": true,
+      "description": "Ward identity: constant-V=1.20e-17 [exact]; random-V aliasing=3.30e-02 [Nyquist artifact]"
+    },
+    {
+      "test": "W1.5",
+      "residual": 6.992893892674703e-18,
+      "target": 1e-14,
+      "passed": true,
+      "description": "F27 mass Ward identity: V_\u03b7\u00b7mass(\u03c8;U_m)=mass(V\u00b7\u03b7,\u03c7;V\u00b7U_m) [exact]"
+    },
+    {
+      "test": "W1.6",
+      "residual": 9.796293115313137e-18,
+      "decomp_err": 4.079219866531555e-16,
+      "target": 1e-14,
+      "passed": true,
+      "description": "Exact step: identity links == weyl_step_3d_bcc [step=9.8e-18, decomp=4.1e-16]"
+    }
+  ],
+  "elapsed": 0.3428001403808594,
+  "n_pass": 6,
+  "n_total": 6
+}

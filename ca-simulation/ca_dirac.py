@@ -386,50 +386,31 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, m=0.5, dt=0.5,
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Phase E1 — U(1) electromagnetic gauge
+#  Phase E1 — U(1) electromagnetic gauge   [REMOVED 2026-05-26]
 # ══════════════════════════════════════════════════════════════════
 #
-# Minimal coupling:  ∂_μ → ∂_μ − iq A_μ
-# On the lattice, the scalar potential A_0 appears as a per-cell phase
-# factor exp(−i·q·A_0·dt) in position space, applied as a Strang-symmetric
-# half-step around the (exact-QCA) kinetic propagator.  Spatial components
-# of A_μ would require Peierls phases on the QCA hopping links; the
-# current static-A_0 tests rely on the half-step phase only.
+# The old SM-style U(1)-gauge photon coupling that lived here
+# (`dirac_step_u1_2d_splitstep` plus the `aharonov_bohm_test` driver)
+# has been retired in service of the project's adopted photon: the
+# composite bilinear in `ca_maxwell.py` (now a genuine two-helicity
+# field, F39). The composite photon arises naturally from the BCC
+# Weyl QCA structure and does NOT require a separate U(1)-gauge boson
+# on top of the fermion sector (key-decisions.md).
+#
+# Consequences of the removal:
+#   • Tier-1 #14 (Aharonov-Bohm phase pickup, $4.4\times10^{-16}$) is
+#     retired in the inventory.
+#   • The lattice Klein-paradox / tunneling test (QM-2, Tier-3 #20)
+#     also used this minimal-coupling step to encode the barrier as a
+#     static potential and is retired with it. The underlying physics
+#     is preserved in principle by the variable-mass stepper
+#     `dirac_step_2d_varm_complex_splitstep`, which is a different
+#     (and arguably more faithful) lattice realisation of "Dirac in a
+#     spatial energy gap".
+#
+# See changelog 2026-05-26 - 18:00 for the full removal record and
+# first-gen-completeness-review.md §6 for the deprecation history.
 # ══════════════════════════════════════════════════════════════════
-
-def dirac_step_u1_2d_splitstep(eta_u, eta_d, chi_u, chi_d,
-                                A0, Ax=None, Ay=None,
-                                m=0.0, q=1.0, dt=1.0):
-    """
-    One step of the exact-QCA Dirac CA with U(1) gauge coupling.
-
-    A0 : real array (Lx, Ly) — scalar potential at each cell.
-    Ax, Ay : optional vector potential components.  Implemented as a
-             uniform phase shift placeholder only; proper Peierls phases
-             on the QCA links are not yet in this stepper.
-
-    Strang split:  half-phase(dt/2)  →  kinetic(dt)  →  half-phase(dt/2)
-    """
-    phase_half = np.exp(-1j * q * A0 * dt * 0.5)
-    eu = eta_u * phase_half
-    ed = eta_d * phase_half
-    xu = chi_u * phase_half
-    xd = chi_d * phase_half
-
-    if Ax is not None or Ay is not None:
-        # Placeholder for Peierls phases on the QCA hopping links.  Static
-        # A_0 tests don't exercise this; left as a no-op so the API stays
-        # stable for future work.
-        _ = (Ax, Ay)
-
-    eu, ed, xu, xd = dirac_step_2d_splitstep(eu, ed, xu, xd, m=m, dt=dt)
-
-    eu = eu * phase_half
-    ed = ed * phase_half
-    xu = xu * phase_half
-    xd = xd * phase_half
-
-    return eu, ed, xu, xd
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -1037,46 +1018,16 @@ def su2_casimir_left(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d):
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Aharonov-Bohm / gauge tests
+#  Aharonov-Bohm / gauge tests   [REMOVED 2026-05-26]
 # ══════════════════════════════════════════════════════════════════
-
-def aharonov_bohm_test(L=64, n_steps=100, m=0.0, q=1.0, dt=1.0,
-                        flux=np.pi, sigma=6.0):
-    """
-    Run a Dirac plane wave through a region with a static A_0 step.
-
-    Compares the accumulated phase pickup against the analytic prediction
-    Δφ = −q · A_0 · t.  Confirms the minimal-coupling implementation under
-    the exact-QCA kinetic step.
-    """
-    shape = (L, L)
-    A0 = np.full(shape, flux / (q * n_steps * dt))   # so total phase = flux
-
-    nu0, nd0, xu0, xd0 = gaussian_dirac_2d(shape, sigma=sigma,
-                                            chirality='left')
-    n_initial = dirac_norm(nu0, nd0, xu0, xd0)
-
-    nu_a, nd_a, xu_a, xd_a = nu0.copy(), nd0.copy(), xu0.copy(), xd0.copy()
-    for _ in range(n_steps):
-        nu_a, nd_a, xu_a, xd_a = dirac_step_2d_splitstep(
-            nu_a, nd_a, xu_a, xd_a, m=m, dt=dt)
-
-    nu_b, nd_b, xu_b, xd_b = nu0.copy(), nd0.copy(), xu0.copy(), xd0.copy()
-    for _ in range(n_steps):
-        nu_b, nd_b, xu_b, xd_b = dirac_step_u1_2d_splitstep(
-            nu_b, nd_b, xu_b, xd_b, A0=A0, m=m, q=q, dt=dt)
-
-    overlap = np.sum(np.conj(nu_a) * nu_b + np.conj(nd_a) * nd_b +
-                     np.conj(xu_a) * xu_b + np.conj(xd_a) * xd_b)
-    overlap /= n_initial
-    measured_phase = float(-np.angle(overlap))
-    analytic_phase = q * A0[0, 0] * n_steps * dt
-
-    return {
-        'measured_phase': measured_phase,
-        'analytic_phase': float(analytic_phase),
-        'overlap_magnitude': float(np.abs(overlap)),
-        'norm_with_A0': float(dirac_norm(nu_b, nd_b, xu_b, xd_b)),
-        'norm_no_A0':   float(dirac_norm(nu_a, nd_a, xu_a, xd_a)),
-        'initial_norm': float(n_initial),
-    }
+#
+# The `aharonov_bohm_test` driver was retired together with
+# `dirac_step_u1_2d_splitstep` (see top of file, "Phase E1" notice).
+# The AB demonstration of U(1) minimal coupling is a feature of the
+# OLD photon-as-gauge-boson formulation that the project replaced
+# with the composite bilinear (F39 two-helicity composite photon).
+#
+# If the AB phase pickup is needed as a future test, build it from
+# the composite-photon machinery in `ca_maxwell.py`, not from a
+# stand-alone external A_μ field.
+# ══════════════════════════════════════════════════════════════════
