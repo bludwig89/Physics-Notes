@@ -1,8 +1,8 @@
 {
   "suite": "Phase 7 \u2014 Back-reaction and Massive W",
-  "n_pass": 5,
+  "n_pass": 4,
   "n_total": 5,
-  "elapsed_s": 0.48898744583129883,
+  "elapsed_s": 0.3737926483154297,
   "results": [
     {
       "test": "WB.1",
@@ -55,10 +55,10 @@
     {
       "test": "WB.5",
       "name": "massless limit: massive step \u2192 free step (m_W=0)",
-      "E_err": 0.0,
-      "B_err": 0.0,
+      "E_err": 0.6539534882267156,
+      "B_err": 0.6614198498352932,
       "threshold": 1e-12,
-      "passed": true
+      "passed": false
     }
   ]
 }

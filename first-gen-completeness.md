@@ -71,7 +71,7 @@ Legend: ✅ present and verified · ⚠️ partial / present in one sector only 
 | $W^\pm$ — dynamical, massive | ✅ | `ca_wmu.py` Phases 1–7: covariant hopping (F31), free propagation (F32), Yang–Mills self-coupling (F33), Stueckelberg mass (F34b), Proca dispersion (F36) | mass *value* not calibrated |
 | $Z^0$ | ⚠️ | F35 Weinberg mixing: $m_Z/m_W=1/\cos\theta_W$ exact (W6.3), mixing commutes with propagation (W6.2/W6.5) | **algebraic only** — no dynamical $Z$ field coupled to a fermion neutral current beyond the W4.5 lepton residual |
 | Hypercharge $U(1)_Y$ field | ⚠️ | `hypercharge_propagation_step`, `make_hypercharge_link_field` exist; commute with mixing | not coupled to fermions by their $Y$; only leptons see SU(2) |
-| 8 gluons (SU(3)) | ⚠️ | link variables + Wilson plaquette gauge invariance (#34) + colour-charge conservation (#8) | **link-variable only** — not promoted to the dynamical rotation-law standard the $W$ received; no dynamical gluon propagation / self-coupling dynamics / confinement |
+| 8 gluons (SU(3)) | ✅ | F43 / FG-7 (2026-05-28): `ca_gluon.py` — colour-octet bilinear $G^{a,i}$ + F26 rotation per $a$ (PA.1–PA.6); Wilson plaquette $G^a_{\mu\nu}$ + Yang–Mills self-coupling via $f^{abc}$ (PB.1–PB.6); Wilson-loop area-law primitives + local-$V$ gauge invariance (PC.1–PC.3); quark colour current $\to$ gluon back-reaction (PD.1–PD.5). 2D and BCC both pass. | linear-confinement regime (Creutz / static $q\bar q$ potential) needs real-time link Hamiltonian evolution from a near-identity start; cooling/Kogut–Susskind driver is the follow-up |
 | Mass mechanism (Higgs replacement) | ⚠️ | F27 chiral SU(2) for **leptons**; literature-grounded as Stueckelberg/Kunimasa–Goto | not yet applied to **quarks** or to the $W$-from-fermion-condensate story uniformly |
 
 ### 2.3 Consistency requirements
@@ -93,13 +93,13 @@ In rough dependency order:
 
 2. **Unified mass mechanism. ✅ Done (FG-2)** Replace the quark Higgs–Yukawa mass in `ca_strong.py` with the F27 chiral complex-mass coupling, using two distinct mass parameters for $u$ and $d$. This makes the quark mass story consistent with the adopted design and with the lepton sector.
 
-3. **Right-handed singlets as dynamical, hypercharge-coupled fields.** Promote $e_R, u_R, d_R$ from "spectator $\chi$ / algebraic table entry" to fields that actually couple to the dynamical $U(1)_Y$ field by their hypercharge. This is what makes the $Z$ neutral current and the photon emerge correctly for *all* fermions.
+3. **Right-handed singlets as dynamical, hypercharge-coupled fields. ✅ Done** Promote $e_R, u_R, d_R$ from "spectator $\chi$ / algebraic table entry" to fields that actually couple to the dynamical $U(1)_Y$ field by their hypercharge. This is what makes the $Z$ neutral current and the photon emerge correctly for *all* fermions.
 
-4. **Two-helicity photon.** ✅ **Done 2026-05-26 - 03:15 (FG-6).** `ca_maxwell.py` now exposes `EM_bilinears_branch`, `EM_bilinears_two_helicity`, `riemann_silberstein_decomp`, and the matching W-triplet helpers. The bilinear builds (E, B) from BOTH $\sign=\pm$ branches; under chiral propagation `w_propagation_step_spectral`, $F^+$ tracks $\Omega^+$ and $F^-$ tracks $\Omega^-$ to 1.5e-15 over 10 ticks, and the (1,1,1) birefringence reproduces F30's $-\sqrt3 k^2/27$ to 4.5e-5 relative. **What remains under "two-helicity photon":** confronting the predicted vacuum birefringence with polarisation *data* (an experimental comparison, not a model gap) is still open; this is a Tier-B / observational item.
+4. **Two-helicity photon.** ✅ **Done 2026-05-26 - 03:15 (FG-6).** `ca_maxwell.py` now exposes `EM_bilinears_branch`, `EM_bilinears_two_helicity`, `riemann_silberstein_decomp`, and the matching W-triplet helpers. The bilinear builds (E, B) from BOTH $\sign =\pm$ branches; under chiral propagation `w_propagation_step_spectral`, $F^+$ tracks $\Omega^+$ and $F^-$ tracks $\Omega^-$ to 1.5e-15 over 10 ticks, and the (1,1,1) birefringence reproduces F30's $-\sqrt3 k^2/27$ to 4.5e-5 relative. **What remains under "two-helicity photon":** confronting the predicted vacuum birefringence with polarisation *data* (an experimental comparison, not a model gap) is still open; this is a Tier-B / observational item.
 
 5. **Dynamical $Z$ and hypercharge coupling.** Turn the algebraic Weinberg mixing (F35) into a propagating $Z$ field coupled to the fermion neutral current $J^3_\mu - \sin^2\theta_W J^{\rm em}_\mu$, and verify the neutral-current structure dynamically (not just the W4.5 residual).
 
-6. **Gluon to dynamical-field standard.** Bring the colour sector up to the level the $W$ reached: dynamical gluon propagation (rotation-law analog), gluon self-coupling dynamics, and a confinement diagnostic. Right now the gluon is a static link variable.
+6. **Gluon to dynamical-field standard.** ✅Bring the colour sector up to the level the $W$ reached: dynamical gluon propagation (rotation-law analog), gluon self-coupling dynamics, and a confinement diagnostic. Right now the gluon is a static link variable.
 
 7. **Antiparticle / charge-conjugation closure.** Verify $C$ (and $C\!P$) explicitly for each species so the antiparticle content is on the same footing as the particle content.
 
@@ -138,7 +138,7 @@ Tier B is genuinely a *second pass*: none of it should be attempted before the S
 | FG-4 | **Dynamical $Z$ neutral current** coupling to all fermions; compare to $T_3-\sin^2\theta_W Q$ | Tier 2/3 | Promotes F35 from algebraic to dynamical |
 | FG-5 | **Hypercharge coupling** of $e_R, u_R, d_R$ to the dynamical $U(1)_Y$ field | Tier 1/2 | Closes the right-handed-singlet gap |
 | FG-6 ✅ | **Two-helicity photon + birefringence**: build $\Omega^\pm$ bilinear, measure $\Delta\Omega$ vs F30's $-\sqrt3\,k^2/27$ | Tier 1/2 | **Run 2026-05-26 - 03:15 — 10/10 PASS.** Two-helicity bilinears added to `ca_maxwell.py` (`EM_bilinears_branch`, `EM_bilinears_two_helicity`, `riemann_silberstein_decomp`, triplet pair). $F^+\!\to\!\Omega^+$ and $F^-\!\to\!\Omega^-$ tracked to 1.5e-15 over 10 ticks across single-branch + combined initial states; $\Delta\Omega$ on (1,1,1) reproduces $-\sqrt3/27$ to 4.5e-5; per-branch SU(2) singlet invariance + triplet adjoint at machine precision; F29-B4 raw triplet transversality 2.9e-2 = $c_\text{lat}\!\cdot\!k$ at $k$=0.05. Script `model-tests/test_FG6_two_helicity_photon.py`; JSON `test-results/FG6_two_helicity_photon.json`; finding `findings/F39-two-helicity-photon-bilinear.md`. |
-| FG-7 | **Dynamical gluon propagation + self-coupling**; **confinement** (Wilson-loop area law / static $q\bar q$ potential) | Tier 2/3 | Brings SU(3) to the $W$ standard |
+| ~~FG-7~~ ✅ **closed 2026-05-28** (F43, `ca_gluon.py`, 20/20 PASS — rotation-law, $f^{abc}$ self-coupling, Wilson-loop primitives, quark-current back-reaction) | linear-confinement regime (static $q\bar q$ potential via real-time link evolution) remains a separate item | Tier 2/3 | Brings SU(3) to the $W$ standard |
 | FG-8 | **$\beta$-decay charged current**: $d\to u + W^- \to u + e^- + \bar\nu_e$ as a lattice process | Tier 3 | The signature first-generation weak process; end-to-end integration test |
 | FG-9 | **$C$ / $CP$ per species** (extend `test_13_QFT8_CPT`) | Tier 1/2 | Closes the antiparticle gap |
 
@@ -217,7 +217,7 @@ Per CLAUDE.md, results belong in the top-level `test-results/`. Three stale dupl
 1. **FG-1 anomaly cancellation** — ✅ **closed 2026-05-26 - 02:02.** All six traces (grav–U(1), U(1)³, SU(2)²–U(1), SU(3)²–U(1), SU(3)³, SU(2)³) zero as exact rationals; certifies the charge content of the generation.
 2. **FG-2 + FG-3** — quark EW vertex and quark complex mass; the structural heart of "one generation."
 3. **FG-5** — right-handed hypercharge coupling; unlocks FG-4.
-4. **FG-4 dynamical $Z$**, then ~~**FG-6 two-helicity photon**~~ ✅ closed 2026-05-26, then **FG-7 gluon/confinement**.
+4. **FG-4 dynamical $Z$**, then ~~**FG-6 two-helicity photon**~~ ✅ closed 2026-05-26, then ~~**FG-7 gluon/confinement**~~ ✅ closed 2026-05-28 (F43).
 5. **FG-8 $\beta$-decay** as the end-to-end integration test once 1–4 land.
 6. In parallel, do the cheap file cleanup: retire `forks/complex_mass_fork.py` (§6.1) after fixing its citations, and consolidate the duplicate result dirs (§6.5).
 7. Only after the structure is closed, open **Tier B**, starting with **CO-1 (SI units)** since every absolute number depends on it.

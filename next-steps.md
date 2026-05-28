@@ -88,9 +88,35 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~merge the hypercharge fork with the rest of the main model, keeping it in its own file.~~
 
-- Bring the colour sector up to the level the $W$ reached: dynamical gluon propagation (rotation-law analog), gluon self-coupling dynamics, and a confinement diagnostic.
+- ~~Bring the colour sector up to the level the $W$ reached: dynamical gluon propagation (rotation-law analog), gluon self-coupling dynamics, and a confinement diagnostic.~~
 
--promote the right-handed singlets ($e_R, u_R, d_R$) to dynamical hypercharge-coupled fields *in the kinetic step* and extend F41's mass-step Y-coupling to the quark sector
+- ~~conduct a careful review of `reference-research/physics-notes-complete.md` and determine if there are more elements that support or damage the model as well as if there are improvements that can be made.~~
+  
+  - ~~attempt to derive $\sin^2\theta_W$ directly from the $\sigma \leftrightarrow \tau$ swap geometry on the BCC lattice~~ — done 2026-05-27: F45 derives $\sin^2\theta_W = 1/4$ (bare), $m_Z/m_W = 2/\sqrt 3$ within 1.77 % of PDG.
+
+  - ~~Add to f38 a section that records the 8-state lepton vector + neutral-state correspondence and identifies the four "neutral" states with the missing channels of (right-handed weak, magnetic monopole). This may also tighten F37's RS-BCC chirality/helicity bookkeeping by giving a single 8-state object to gauge.~~
+
+  - ~~(Work)The notebook records: "What if coupling to $W^\pm = 3e$ exactly? Then $\sqrt2/\sin\theta_W = 3 \Rightarrow \sin\theta_W = \sqrt 2/3$, $\sin^2\theta_W = 2/9 = 0.222\overline 2$." Experimental value is $0.232 \pm 0.009$; $2/9$ is $\sim 1.1\sigma$ low. This is a specific algebraic-rational prediction that could be tested. Either (i) derive $\sin^2\theta_W = 2/9$ from the F35 mixing geometry, or (ii) prove $\sin^2\theta_W$ is *not* fixed by the BCC geometry and is a free parameter.~~
+
+  - ~~(Work) add a Majorana branch to `ca-simulation/forks/hypercharge_fork.py` and test (a) that the bare $\nu_R$ Majorana mass step is unitary and gauge-invariant; (b) whether the see-saw $m_\nu \approx M_D^2/M_R$ scaling is reproduced. If yes, this is the natural Higgs-free explanation for the smallness of neutrino mass~~
+
+  - ~~Suggest a new finding that proves the $m_A = 0$ requirement is consistent with the F34b Stueckelberg masses and shows where the cross term is absorbed (probably into the off-diagonal of the W6.1 rotation, which is why mix∘unmix = identity).~~
+
+  -(Work)add a short note to F41 or F42, that records: (i) the bare additive Lagrangian double-counts $e_L$; (ii) the resolution adopted in `ca_dirac.py`/`ca_wmu.py` is to label each Weyl field by its full $(SU(2)_L, SU(2)_R\!\sim\!I, U(1)_Y)$ identity and apply *one* kinetic step that carries the appropriate covariant derivatives. Build a unit test that recomputes the kinetic energy from the notebook's naive sum and from the implementation, and shows the implementation's value is consistent with $E^2 = p^2 + m^2$ for each Weyl species.
+
+- review first-gen-completeness.md and update it with any current improvements the model has and close any tests and/or items that have been completed since last audit including recent hypercharge field updates and weinberg angle derivations. 
+
+- review finding 10 and the current status and findings of the model, draft a short overview of our options for adopting a SI unit of measurement, the lattice constraints, and any derivations that may affect the decision.
+
+- (Personal) review the ca_wmu.pu:weinberg_mix function and modify it so it uses the theta_w=pi/6 as the default value as per f45's derivation.
+
+- (Personal) can the "$W_\plusmn$  = 3e exactly" be derived from the bcc lattice as the notebook hints?
+
+- based on finding 46, and this statement: "In a curved tetrad background, $\Omega_\text{kin}$ becomes site-dependent. F46 then predicts that gravitational redshift enters Dirac as a site-dependent renormalisation of the kinetic leg of the spherical triangle." investigate implementation of a gravity fork. reference physics-notes-complete.md and ca-dirac-gravity-plan.md.
+
+- ~~Does the gluon rotation-law analog arise naturally in the model? Is there a need to include quark self-coupling dynamics?~~
+
+-~~promote the right-handed singlets ($e_R, u_R, d_R$) to dynamical hypercharge-coupled fields in the kinetic step and extend F41's mass-step Y-coupling to the quark sector~~
 
 - ~~are the hypercharge fields affected by our decision to abandon Higgs? Will it still work with the chiral SU(2) mass model? If not, implement the hypercharge field coupling to fermions as a fork, verify that the su(2) lepton field is not affected, and test.~~
 

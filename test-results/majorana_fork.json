@@ -1,0 +1,213 @@
+{
+  "L": 16,
+  "pass_count": 6,
+  "total_count": 6,
+  "overall_pass": true,
+  "elapsed_s": 0.0079,
+  "results": [
+    {
+      "name": "M1_majorana_unitary",
+      "residual": 2.2509993868879974e-11,
+      "target": 1e-09,
+      "pass": true,
+      "elapsed_s": 0.006,
+      "description": "Bare Majorana step preserves |chi_u|^2 + |chi_d|^2."
+    },
+    {
+      "name": "M2_u1y_invariance_y_nuR_zero",
+      "residual": 0.0,
+      "target": 1e-12,
+      "pass": true,
+      "elapsed_s": 0.0001,
+      "description": "Majorana step invariant under U(1)_Y at Y_nuR = 0."
+    },
+    {
+      "name": "M3_u1y_selection_rule",
+      "residual": 0.0,
+      "target": 1e-12,
+      "extras": {
+        "r_Y0": 0.0,
+        "r_Y_minus2": 1.836861060367168,
+        "r_Y_plus_4_3": 1.266832416765518,
+        "bound_4_s_M_norm": 59.3079757345194,
+        "witness_Y_minus2_pass": true,
+        "witness_Y_plus_4_3_pass": true
+      },
+      "pass": true,
+      "elapsed_s": 0.0002,
+      "description": "U(1)_Y selection rule witness: residual is machine zero at Y=0 and clearly non-zero for Y in {-2, +4/3}."
+    },
+    {
+      "name": "M4_bdg_infinitesimal_match",
+      "residual": 4.107825191113079e-08,
+      "target": 0.0001,
+      "pass": true,
+      "elapsed_s": 0.0004,
+      "description": "Numerical Jacobian of mass_step_dirac_majorana_nu at dt=1e-7 equals bdg_hamiltonian_nu(M_D, M_R)."
+    },
+    {
+      "name": "M5_seesaw_closed_form",
+      "residual": 1.8189894035458565e-12,
+      "target": 1e-09,
+      "pass": true,
+      "elapsed_s": 0.001,
+      "description": "Closed-form seesaw_eigenvalues = numpy.linalg.eigvalsh(seesaw_2x2_matrix) over a random (M_D, M_R) sweep."
+    },
+    {
+      "name": "M6_seesaw_scaling",
+      "residual": 0.0,
+      "target": 0.0,
+      "extras": {
+        "max_scaling_excess_over_bound": 0.0,
+        "max_bdg_relative_resid": 5.551115123125783e-05,
+        "per_ratio": [
+          {
+            "ratio_M_R_over_M_D": 3.0,
+            "m_nu_closed_form": 0.3027756377319946,
+            "m_nu_approx_MD2_MR": 0.3333333333333333,
+            "scale_m_nu_MR_over_MD2": 0.9083269131959839,
+            "deviation_from_1": 0.09167308680401609,
+            "next_order_bound": 0.12222222222222223,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.30277563773199445,
+            "bdg_vs_closed_form_resid": 1.6653345369377348e-16,
+            "bdg_match_tol": 3e-12,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 3.302775637731995
+          },
+          {
+            "ratio_M_R_over_M_D": 10.0,
+            "m_nu_closed_form": 0.09901951359278484,
+            "m_nu_approx_MD2_MR": 0.1,
+            "scale_m_nu_MR_over_MD2": 0.9901951359278484,
+            "deviation_from_1": 0.009804864072151642,
+            "next_order_bound": 0.011000000000000003,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.09901951359278481,
+            "bdg_vs_closed_form_resid": 2.7755575615628914e-17,
+            "bdg_match_tol": 1e-11,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 10.099019513592784
+          },
+          {
+            "ratio_M_R_over_M_D": 30.0,
+            "m_nu_closed_form": 0.03329637837290827,
+            "m_nu_approx_MD2_MR": 0.03333333333333333,
+            "scale_m_nu_MR_over_MD2": 0.998891351187248,
+            "deviation_from_1": 0.0011086488127519667,
+            "next_order_bound": 0.0012222222222222224,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.03329637837290827,
+            "bdg_vs_closed_form_resid": 0.0,
+            "bdg_match_tol": 3e-11,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 30.03329637837291
+          },
+          {
+            "ratio_M_R_over_M_D": 100.0,
+            "m_nu_closed_form": 0.009999000199950016,
+            "m_nu_approx_MD2_MR": 0.01,
+            "scale_m_nu_MR_over_MD2": 0.9999000199950016,
+            "deviation_from_1": 9.998000499844562e-05,
+            "next_order_bound": 0.00011000000000000002,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.009999000199949992,
+            "bdg_vs_closed_form_resid": 2.42861286636753e-17,
+            "bdg_match_tol": 1e-10,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 100.00999900019994
+          },
+          {
+            "ratio_M_R_over_M_D": 300.0,
+            "m_nu_closed_form": 0.0033332962971193186,
+            "m_nu_approx_MD2_MR": 0.0033333333333333335,
+            "scale_m_nu_MR_over_MD2": 0.9999888891357956,
+            "deviation_from_1": 1.1110864204355586e-05,
+            "next_order_bound": 1.2222222222222226e-05,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.0033332962971193117,
+            "bdg_vs_closed_form_resid": 6.938893903907228e-18,
+            "bdg_match_tol": 3e-10,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 300.0033332962971
+          },
+          {
+            "ratio_M_R_over_M_D": 1000.0,
+            "m_nu_closed_form": 0.000999999000002,
+            "m_nu_approx_MD2_MR": 0.001,
+            "scale_m_nu_MR_over_MD2": 0.999999000002,
+            "deviation_from_1": 9.999979999619768e-07,
+            "next_order_bound": 1.1e-06,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.0009999990000019595,
+            "bdg_vs_closed_form_resid": 4.0549161250957866e-17,
+            "bdg_match_tol": 1e-09,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 1000.000999999
+          },
+          {
+            "ratio_M_R_over_M_D": 3000.0,
+            "m_nu_closed_form": 0.00033333329629630455,
+            "m_nu_approx_MD2_MR": 0.0003333333333333333,
+            "scale_m_nu_MR_over_MD2": 0.9999998888889137,
+            "deviation_from_1": 1.1111108633166111e-07,
+            "next_order_bound": 1.2222222222222222e-07,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 0.0003333332962962816,
+            "bdg_vs_closed_form_resid": 2.293087594806842e-17,
+            "bdg_match_tol": 3e-09,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 3000.000333333296
+          },
+          {
+            "ratio_M_R_over_M_D": 10000.0,
+            "m_nu_closed_form": 9.999999900000002e-05,
+            "m_nu_approx_MD2_MR": 0.0001,
+            "scale_m_nu_MR_over_MD2": 0.9999999900000002,
+            "deviation_from_1": 9.999999828202988e-09,
+            "next_order_bound": 1.1000000000000001e-08,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 9.999999899997182e-05,
+            "bdg_vs_closed_form_resid": 2.8202809011779184e-17,
+            "bdg_match_tol": 1e-08,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 10000.0001
+          },
+          {
+            "ratio_M_R_over_M_D": 30000.0,
+            "m_nu_closed_form": 3.33333332962963e-05,
+            "m_nu_approx_MD2_MR": 3.3333333333333335e-05,
+            "scale_m_nu_MR_over_MD2": 0.9999999988888889,
+            "deviation_from_1": 1.1111110920225542e-09,
+            "next_order_bound": 1.2222222222222225e-09,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 3.3333333296285164e-05,
+            "bdg_vs_closed_form_resid": 1.1133401058710524e-17,
+            "bdg_match_tol": 3e-08,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 30000.000033333334
+          },
+          {
+            "ratio_M_R_over_M_D": 100000.0,
+            "m_nu_closed_form": 9.999999999e-06,
+            "m_nu_approx_MD2_MR": 1e-05,
+            "scale_m_nu_MR_over_MD2": 0.9999999999000001,
+            "deviation_from_1": 9.999989725173464e-11,
+            "next_order_bound": 1.1000000000000002e-10,
+            "scaling_pass": true,
+            "bdg_light_eigenval": 9.999999998991706e-06,
+            "bdg_vs_closed_form_resid": 8.294146619514109e-18,
+            "bdg_match_tol": 1e-07,
+            "bdg_match_pass": true,
+            "heavy_eigenvalue": 100000.00001
+          }
+        ],
+        "overall_scaling_pass": true,
+        "overall_bdg_match_pass": true
+      },
+      "pass": true,
+      "elapsed_s": 0.0003,
+      "description": "See-saw scaling: m_nu * M_R / M_D^2 -> 1 with residual bounded by 1.1 * (M_D/M_R)^2 at every sampled ratio; BdG smallest |eigenvalue| matches closed-form light mass to <1e-10."
+    }
+  ]
+}

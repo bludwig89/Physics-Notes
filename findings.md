@@ -4,6 +4,149 @@ This file documents new physics observations or possible new finds that arise du
 
 ---
 
+## Finding 46 — Spherical Pythagorean identity for lattice mass: $\cos\Omega_\text{Dirac} = \cos\Omega_\text{rest}\cdot\cos\Omega_\text{kin}$ — a geometric derivation of $E^2 = p^2c^2 + m^2c^4$
+
+**Date:** 2026-05-28 - 22:50
+**Status:** Confirmed — 8/8 tests PASS at machine precision (Tier 1 algebraic + Tier 2 machine-ε); full writeup [findings/F46-pythagorean-lattice-mass.md](findings/F46-pythagorean-lattice-mass.md)
+**Module:** No new module — analytical identity on existing `ca_dirac.py` + `ca_bcc.py`
+**Tests:** `model-tests/test_F46_pythagorean_mass.py`; results `test-results/F46_pythagorean_mass.json`
+
+### What changed
+
+The F27 chiral-SU(2) mass step (rotation rate $\Omega_\text{rest}(m) = \arcsin m$ at $\mathbf k = 0$) and the F25/F26 massless Weyl kinetic step (rotation rate $\Omega_\text{kin}(\mathbf k)$, with $c_\text{lat} = d\Omega_\text{kin}/d|\mathbf k|\big|_{0}$) **combine by the spherical law of cosines**:
+
+$$\boxed{\;\cos\Omega_\text{Dirac}(\mathbf k, m) \;=\; \cos\Omega_\text{rest}(m)\cdot\cos\Omega_\text{kin}(\mathbf k).\;}$$
+
+This is the spherical Pythagorean theorem ($\cos c = \cos a\cdot\cos b$) on the right spherical triangle whose hypotenuse is the full Dirac dispersion and whose legs are the photon and mass rotation rates. **Einstein's $E^2 = p^2 c^2 + m^2 c^4$ is the small-angle limit** of this exact discrete identity ($1 - c^2/2 \approx (1 - a^2/2)(1 - b^2/2)$ ⟹ $c^2 \approx a^2 + b^2$).
+
+The identity holds for both the 2D-square QCA and the 3D-BCC walk (both helicity branches), holds bit-for-bit at the algebraic level (Tier 1), and holds under explicit eigenvalue decomposition and under actual time-stepping via `dirac_step_2d_splitstep` (Tier 2). Verified across 200 random $(\mathbf k, m)$ samples in 2D, 160 in BCC, and 36 time-evolved plane-wave modes.
+
+### Why this matters
+
+Before F46, the photon ($c_\text{lat}$ = rotation rate, F26) and the fermion mass ($\arcsin m$ = rotation rate, F27) were two separate "rotation-rate" statements that were not visibly linked. F46 shows they **compose by a single spherical-trig identity**, and that Einstein's relativistic dispersion is the continuum limit of that identity. The Einstein relation is therefore *geometric* on the CA lattice, not algebraic. The lattice "has" $E^2 = p^2 c^2 + m^2 c^4$ because every per-tick rotation lives on $S^1$, and on $S^1$ orthogonal rotations compose by spherical Pythagoras.
+
+This closes §4.4 / §6 row 2 of `reference-research/physics-notes-complete-review.md` and discharges the page-73 / page-74 notebook entry: Richard McPhee's 2007 helical-motion intuition was correct — only his small-angle (Euclidean) approximation hid the spherical structure that makes the exact identity bit-for-bit exact.
+
+### Test residuals (8/8 PASS, 0.30 s)
+
+| # | Test | Residual | Target |
+|---|---|---|---|
+| P1 | Closed-form identity, 200 samples, 2D | $3.33\times10^{-16}$ | $10^{-15}$ |
+| P2 | Explicit 4×4 $D_k$ eigenvalues, 80 samples, 2D | $3.33\times10^{-16}$ | $10^{-14}$ |
+| P3 | Time-evolved eigenstate via QCA, 36 modes × 25 steps | $6.23\times10^{-16}$ | $10^{-12}$ |
+| P4 | BCC extension, both helicities, 160 samples | $3.33\times10^{-16}$ | $10^{-14}$ |
+| P5 | Photon limit ($m=0$): $\Omega_\text{Dirac} = \Omega_\text{kin}$ | $\le 9.4\times10^{-16}$ | $10^{-13}$ |
+| P6 | Rest limit ($\mathbf k=0$): $\Omega_\text{Dirac}(0,m) = \arcsin m$ | $\le 2.2\times10^{-16}$ | $10^{-14}$ |
+| P7 | Continuum slope of $\|\Omega^2 - m^2 - \omega_\text{kin}^2\|$ vs scale | slope $4.0055$ | $4.0$ |
+| P8 | $c_\text{lat}$ recovery from $d\Omega/d k$ at $\mathbf k\to 0^+$ | qualitative | — |
+
+### Inventory impact
+
+Tier-1: +4 (P1, P2, P4, P6 → #129–132); Tier-2: +3 (P3, P5, P7 → #48–50).
+
+---
+
+## Finding 43 — FG-7: dynamical SU(3) gluon sector brought to the level of the W
+
+**Date:** 2026-05-28 - 01:30
+**Status:** Confirmed — 20/20 tests PASS (8 bit-for-bit exact), full writeup [findings/F43-fg7-dynamical-gluons.md](findings/F43-fg7-dynamical-gluons.md)
+**Module:** `ca-simulation/ca_gluon.py` (new, additive — no edits to `ca_strong.py` or `ca_wmu.py`)
+**Tests:** `model-tests/test_FG7_gluon_dynamics.py`; results `test-results/FG7_gluon_dynamics.json`
+
+### What changed
+
+Until now SU(3)$_C$ lived as a link-variable layer in `ca_strong.py` (parallel transport on the quark colour triplet, Wilson plaquette as a static diagnostic). F43 promotes it to a first-class dynamical field on both 2D-square and 3D BCC lattices using the SU(2) sector's F29/F33/F36 stack as the template, with $\tau^a \to T^a$ and $\epsilon^{abc} \to f^{abc}$.
+
+### Four phases
+
+1. **Free gluon (Phase A — F29 / F26 analog).** Colour-octet bilinear $G^{a,i}(x) = \sum_f q_f^\dagger\,\sigma^i\,T^a\,q_f$ (Hermitian form; transpose form fails SU(3) by the same argument F29 used to retire it for SU(2)). Each $a$-component rotates by $\Omega(k) = 2\,\omega(k/2)$ per tick, independently of the other seven — verified at exact zero / $\le 2.6\times 10^{-15}$ across 20 ticks on both lattices.
+2. **Yang–Mills self-coupling (Phase B — F33 analog).** Wilson plaquette $G^a_{\mu\nu} = (2/g a^2)\,\mathrm{Im}\,\mathrm{Tr}[T^a U_\square]$ is bit-for-bit zero on cold links (PB.1, PB.2). The self-coupling tick $\delta W^a = g\,\Delta t\,f^{abc}\,W^b\,G^c$ preserves SU(3) link unitarity at machine $\varepsilon$ on both lattices.
+3. **Confinement diagnostic (Phase C).** Rectangular Wilson loops via the new `wilson_loop_2d_{rect, avg, gauge_residual, area_law_data}` primitives. Cold-link baseline $\langle\mathrm{Re}\,\mathrm{Tr}\,W(r,t)\rangle = N_c = 3$ exactly for all $r,t \in \{1,2,3\}$; local SU(3) gauge invariance at $4.6\times 10^{-16}$; Haar-random links decorrelate to $|W|/N_c \approx 4\%$ (strong-coupling-expansion regime).
+4. **Quark-current back-reaction (Phase D — F36 analog).** Sourced step $\partial_t E^a = \Omega B^a + gJ^a$ where $J^a$ wraps `ca_strong.noether_charge_density`. Diagonal in colour (PD.2, PD.5 at exact zero across all 8 octet components); massless step bit-for-bit equals free step (PD.3 — F36 WB.5 SU(3) analog); free-gluon BCC dispersion matches $\Omega^+(k)$ to $1.7\times 10^{-13}$ over 50 ticks.
+
+### What this closes
+
+The colour sector is now at the dynamical-field standard the $W$ received in F33/F36. First-gen-completeness review §3 item 6 ("gluon to dynamical-field standard") is closed; the §5.1 FG-7 row goes from ⚠ to ✓.
+
+### What remains
+
+Linear-confinement measurement (Creutz ratios, static $q\bar q$ potential at large separation) requires real-time link Hamiltonian evolution from a near-identity start. The `wilson_loop_2d_*` primitives are now in place; the cooling / Kogut–Susskind driver is the natural follow-up. The only first-generation item still open is FG-4 (dynamical $Z$).
+
+### Exactness inventory additions
+
+Tier 1: #116–#128 (13 entries — eight bit-for-bit exact, five at machine $\varepsilon$).
+Tier 2: #43–#47 (5 entries — propagation magnitude conservation, link unitarity under self-coupling, free-gluon dispersion).
+
+---
+
+## Finding 45 — $\sin^2\theta_W = 1/4$ derived from σ ↔ τ swap geometry on the BCC lattice
+
+**Date:** 2026-05-27 - 14:30
+**Status:** Algebraic prediction — bare/tree-level — full writeup [findings/F45-sigma-tau-swap-weinberg-angle.md](findings/F45-sigma-tau-swap-weinberg-angle.md)
+**Module:** (analysis only — no code change to `ca_wmu.py`)
+**Tests:** `model-tests/test_f45_sigma_tau_weinberg.py` (F45.1–F45.6, all PASS); results `test-results/F45_sigma_tau_weinberg.json`
+
+### Question
+F35 currently consumes the Weinberg angle as an input parameter. The notebook pp.67/71 σ↔τ duality ($A_\mu$ acts on isospin as $W$ acts on spin) suggested $\theta_W$ might be derivable from BCC swap geometry rather than fit. Can it?
+
+### Answer
+Yes — at bare/tree-level. On the BCC L-doublet $\mathbb{C}^2_\sigma\otimes\mathbb{C}^2_\tau$, the σ↔τ swap decomposes the 4D space into a 1D antisymmetric singlet (identified with $U(1)_Y$, generator $Y/2\cdot I$) and a 3D symmetric triplet (identified with $SU(2)_L$, generators $T^1,T^2,T^3$). Demanding equal per-direction bare coupling gives $g'^2/g^2 = 1/3$, hence
+
+$$\sin^2\theta_W = \tfrac{1}{4},\qquad \cos^2\theta_W = \tfrac{3}{4},\qquad \theta_W = \pi/6,\qquad m_Z/m_W = 2/\sqrt 3.$$
+
+Independently confirmed by the Casimir ratio on the L-doublet: $C_2(U(1)_Y)/C_2(SU(2)_L) = (1/4)/(3/4) = 1/3$ (F45.5).
+
+### What the tests confirmed (all exact or 1-ulp machine precision)
+- **F45.1** $g'^2/g^2 = 1/3$ (rational, residual $0$).
+- **F45.2** $\sin^2\theta_W = 1/4$ (rational, residual $0$).
+- **F45.3** $\cos^2\theta_W = 3/4$ (rational, residual $0$).
+- **F45.4** $m_Z/m_W = 2/\sqrt 3$ at $\theta_W = \pi/6$ (residual $2.2\times 10^{-16}$).
+- **F45.5** Casimir cross-check $C_2(U(1)_Y)/C_2(SU(2)_L) = 1/3$ (rational, residual $0$).
+- **F45.6** Informational: PDG on-shell $\sin^2\theta_W = 0.2232$ (pred $0.25$, $+12.0\%$); $m_Z/m_W = 1.1346$ (pred $1.1547$, $+1.77\%$).
+
+### Physics interpretation
+This is the project's first algebraic prediction of an SM gauge-sector input from the BCC structure alone. The bare mass-ratio prediction $m_Z/m_W = 2/\sqrt 3$ lands within 2% of experiment with no fit parameters — closer than the canonical SU(5) GUT tree-level $\sin^2\theta_W = 3/8$. The 12% gap on $\sin^2\theta_W$ itself is the room left for RG running and lattice loop corrections, neither of which the model currently includes. The notebook's p.104 hypothesis $\sin^2\theta_W = 2/9$ is left as an open question — possibly a finite-$k$ BCC refinement of the bare $1/4$.
+
+### Next action
+Optional: change `ca_wmu.weinberg_mix(..., theta_W)` signature to default $\theta_W = \pi/6$, making the σ↔τ-symmetric value the implicit choice and any deviation explicit.
+
+---
+
+## Finding 42 — Hypercharge $U(1)_Y$ extended to the quark sector AND right-handed singlets promoted to dynamical $Y$-coupled fields in the kinetic step
+
+**Date:** 2026-05-27 - 09:00
+**Status:** Confirmed — 8/8 tests PASS — full writeup [findings/F42-hypercharge-quark-extension-and-dynamical-chi-kinetic.md](findings/F42-hypercharge-quark-extension-and-dynamical-chi-kinetic.md)
+**Module:** `ca-simulation/ca_hypercharge.py` (F42 block; F41 surface unchanged)
+**Tests:** `model-tests/test_hypercharge_extension.py` (Y8–Y15); results `test-results/hypercharge_extension.json`
+
+### Question
+F41 closed $U(1)_Y$ on the lepton mass step. Two follow-ups remained: (i) does the same Y-extended $U(x)$ trick port to the quark mass step with $\Delta Y_u = -1$, $\Delta Y_d = +1$? (ii) Can the right-handed singlets ($e_R, u_R, d_R$), which F41 left as algebraic spectators, be promoted to **dynamical** $U(1)_Y$-coupled fields in the kinetic step?
+
+### Answer
+Yes to both, at machine precision.
+
+(i) **Quark mass step.** SM gives $\Delta Y_u = Y_{Q_L} - Y_{u_R} = -1$ and $\Delta Y_d = Y_{Q_L} - Y_{d_R} = +1$ — *numerically identical* to the lepton $(\Delta Y_\nu, \Delta Y_e)$. So the same diagonal $D(\alpha) = \mathrm{diag}(e^{+i\alpha\Delta Y_u/2}, e^{+i\alpha\Delta Y_d/2})$ absorbed into $U(x)$ services both sectors. A single extended $U(x)$ replaces the SM's pair of Higgs operators ($\Phi$ and $i\sigma_2\Phi^*$) for both leptons and quarks.
+
+(ii) **Dynamical $\chi$ kinetic step** (Stueckelberg-form wrap):
+$$\chi(x) \xrightarrow{e^{-i\alpha(x)Y/2}} \tilde\chi(x) \xrightarrow{U_W(k,\,\Delta t/2)} \tilde\chi'(x) \xrightarrow{e^{+i\alpha(x)Y/2}} \chi'(x).$$
+This is **exactly** $U(1)_Y$-gauge-covariant for arbitrary $\alpha(x), \beta(x)$: $S[\alpha+\beta](e^{i\beta Y/2}\chi) = e^{i\beta Y/2}S[\alpha](\chi)$. At $\alpha\equiv 0$ it is bit-for-bit equal to `ca_dirac._weyl_half_step_2c` (Y14), so no F27/F41 test regresses.
+
+### What the tests confirmed
+- **Quark Ward identities** ($8.9\times 10^{-16}$, d-branch Y8; $8.95\times 10^{-16}$, u-branch Y9).
+- **Bit-for-bit reduction** to `mass_step_doublet_su2` at $\alpha=0$ (Y10, $0.0$).
+- **F27 SU(2)$_L$ Ward identity** preserved with random $\alpha(x)$ on the quark side (Y11, $9.93\times 10^{-16}$).
+- **Mass-step unitarity** over 50 random $(U,\alpha)$ steps (Y12, $4.43\times 10^{-15}$).
+- **Exact gauge covariance** of the $\chi$ kinetic step for each of $e_R$, $u_R$, $d_R$ + constant-$\alpha$ sanity (Y13, $1.78\times 10^{-15}$).
+- **$\chi$ kinetic step bit-for-bit reduction** to bare `_weyl_half_step_2c` at $\alpha=0$ (Y14, $0.0$).
+- **Gell-Mann–Nishijima algebra** on the quark side (Y15, $5.55\times 10^{-17}$).
+
+F41 (Y1–Y7) re-run after the extension: still 7/7 PASS unchanged. Total tally updated: see [exactness-inventory.md](exactness-inventory.md).
+
+### Physics interpretation
+First-generation closure point 3 of the completeness review is now resolved: the right-handed singlets are no longer spectators — they carry dynamical hypercharge through a spectral Stueckelberg wrap that is the Abelian analog of F31/F34's link-based $W_\mu$ covariantisation. The fact that $(\Delta Y_u, \Delta Y_d) = (\Delta Y_\nu, \Delta Y_e)$ in the SM is exactly the statement that one Higgs field gives mass to both leptons and quarks (via $\Phi$ for down-type and $i\sigma_2\Phi^*$ for up-type); in this Higgs-free CA it is the statement that one extended $U(x)$ with two diagonal phase eigenvalues services all four mass branches. The next item is **dynamical $Z$ coupled to the neutral current** — F42's gauge-covariant $\chi$ kinetic step is the prerequisite.
+
+---
+
 ## Finding 41 — Hypercharge $U(1)_Y$ is exactly compatible with the Higgs-free F27 chiral SU(2) mass model
 
 **Date:** 2026-05-26 - 17:45

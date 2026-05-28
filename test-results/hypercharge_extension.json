@@ -1,0 +1,65 @@
+{
+  "L": 24,
+  "m": 0.3,
+  "pass_count": 8,
+  "total_count": 8,
+  "elapsed_s": 0.0159,
+  "results": [
+    {
+      "name": "Y8_quark_u1y_ward_d_branch",
+      "residual": 8.891536662303994e-16,
+      "target": 1e-12,
+      "pass": true,
+      "elapsed_s": 0.0053
+    },
+    {
+      "name": "Y9_quark_u1y_ward_u_branch",
+      "residual": 8.95090418262362e-16,
+      "target": 1e-12,
+      "pass": true,
+      "elapsed_s": 0.0004
+    },
+    {
+      "name": "Y10_quark_alpha_zero_reduces_to_F40",
+      "residual": 0.0,
+      "target": 1e-30,
+      "pass": true,
+      "elapsed_s": 0.0003
+    },
+    {
+      "name": "Y11_quark_su2_L_ward_with_alpha",
+      "residual": 9.930136612989092e-16,
+      "target": 1e-12,
+      "pass": true,
+      "elapsed_s": 0.0004
+    },
+    {
+      "name": "Y12_quark_mass_unitarity_50_steps",
+      "residual": 4.433004768992355e-15,
+      "target": 1e-12,
+      "pass": true,
+      "elapsed_s": 0.0046
+    },
+    {
+      "name": "Y13_chi_kinetic_gauge_covariance",
+      "residual": 2.3714374201337737e-15,
+      "target": 1e-10,
+      "pass": true,
+      "elapsed_s": 0.0024
+    },
+    {
+      "name": "Y14_chi_kinetic_alpha_zero_bitwise",
+      "residual": 0.0,
+      "target": 1e-30,
+      "pass": true,
+      "elapsed_s": 0.0023
+    },
+    {
+      "name": "Y15_quark_GMN_algebra",
+      "residual": 5.551115123125783e-17,
+      "target": 1e-15,
+      "pass": true,
+      "elapsed_s": 0.0
+    }
+  ]
+}

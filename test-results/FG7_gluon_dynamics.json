@@ -1,0 +1,203 @@
+{
+  "suite": "FG-7 \u2014 dynamical SU(3) gluon sector",
+  "date": "2026-05-27",
+  "n_tests": 20,
+  "n_passed": 20,
+  "total_elapsed_s": 0.44731295800005455,
+  "results": [
+    {
+      "test": "PA.1",
+      "name": "Jacobi identity for f^abc",
+      "residual": 1.1102230246251565e-16,
+      "target": 1e-13,
+      "passed": true,
+      "description": "algebraic identity, machine precision",
+      "elapsed_s": 0.036349207999990085
+    },
+    {
+      "test": "PA.2",
+      "name": "2D rotation magnitude conservation (20 ticks)",
+      "residual": 2.0022166570578267e-15,
+      "target": 1e-12,
+      "passed": true,
+      "description": "F26 rotation per a \u2014 energy preserved geometrically",
+      "elapsed_s": 0.03740437499999416
+    },
+    {
+      "test": "PA.3",
+      "name": "BCC rotation magnitude conservation (10 ticks)",
+      "residual": 2.5739930256855892e-15,
+      "target": 1e-12,
+      "passed": true,
+      "description": "F26 rotation per a on the BCC lattice",
+      "elapsed_s": 0.021714125000016793
+    },
+    {
+      "test": "PA.4",
+      "name": "G^a transforms as SU(3) adjoint (2D bilinear)",
+      "residual": 6.664399996941194e-16,
+      "target": 1e-13,
+      "passed": true,
+      "description": "F29 B2 SU(3) analog",
+      "elapsed_s": 0.008738790999984758
+    },
+    {
+      "test": "PA.5",
+      "name": "\u03a3_a \u2016G^a\u2016\u00b2 SU(3) Casimir invariance",
+      "residual": 0.0,
+      "target": 1e-12,
+      "passed": true,
+      "description": "F29 B3 SU(3) analog",
+      "elapsed_s": 0.0030102499999884458
+    },
+    {
+      "test": "PA.6",
+      "name": "G^a transforms as SU(3) adjoint (BCC bilinear)",
+      "residual": 7.773339493591366e-16,
+      "target": 1e-12,
+      "passed": true,
+      "description": "F29 B2 SU(3) analog on BCC",
+      "elapsed_s": 0.003630541000006815
+    },
+    {
+      "test": "PB.1",
+      "name": "2D cold links \u2192 G^a = 0",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "bit-for-bit identity, Tr(T^a \u00b7 I) = 0",
+      "elapsed_s": 0.0003210830000170972
+    },
+    {
+      "test": "PB.2",
+      "name": "BCC cold links \u2192 G^a_{\u03bc\u03bd} = 0",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "all three composite plaquettes vanish exactly",
+      "elapsed_s": 0.0008747079999693597
+    },
+    {
+      "test": "PB.3",
+      "name": "2D random links \u2192 G^a non-zero",
+      "residual": 1.6472810948818288,
+      "target": 0.1,
+      "passed": true,
+      "description": "non-Abelian plaquette captures U_\u03bc U_\u03bd \u2260 U_\u03bd U_\u03bc",
+      "elapsed_s": 0.0054647080000336246
+    },
+    {
+      "test": "PB.4",
+      "name": "\u2016G^a_{xy}\u2016\u00b2 constant-V SU(3) invariance",
+      "residual": 5.428672489988735e-15,
+      "target": 1e-12,
+      "passed": true,
+      "description": "F33 W3.3 SU(3) analog",
+      "elapsed_s": 0.00434362499998997
+    },
+    {
+      "test": "PB.5",
+      "name": "2D self-coupling preserves link unitarity (5 ticks)",
+      "residual": 5.329070518200751e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "F33 W3.4 SU(3) analog \u2014 \u03b4U = exp(iH)\u00b7U is SU(3)",
+      "elapsed_s": 0.016790040999978828
+    },
+    {
+      "test": "PB.6",
+      "name": "BCC self-coupling preserves link unitarity (5 ticks)",
+      "residual": 7.105427357601002e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "F33 W3.4 SU(3) analog on BCC",
+      "elapsed_s": 0.09562816700002941
+    },
+    {
+      "test": "PC.1",
+      "name": "Cold-link Wilson loop = N_c = 3 (9 sizes)",
+      "residual": 0.0,
+      "target": 1e-13,
+      "passed": true,
+      "description": "every product term is I\u00b7I\u00b7...\u00b7I = I; Tr I = 3",
+      "elapsed_s": 0.008778624999990825
+    },
+    {
+      "test": "PC.2",
+      "name": "Wilson loop local SU(3) gauge invariance",
+      "residual": 4.579669976578771e-16,
+      "target": 1e-12,
+      "passed": true,
+      "description": "V cancels at the closed-loop start/end corner exactly",
+      "elapsed_s": 0.00751933399999416
+    },
+    {
+      "test": "PC.3",
+      "name": "Random-link Wilson loops bounded \u226a N_c",
+      "residual": 0.11917131059998028,
+      "target": 0.5,
+      "loop_traces": {
+        "1x1": 0.02712622332974706,
+        "1x2": -0.10288704434780137,
+        "1x3": 0.018320256505557783,
+        "2x1": 0.04030358551219458,
+        "2x2": -0.06836624275109869,
+        "2x3": 0.09166176476090979,
+        "3x1": -0.11917131059998028,
+        "3x2": -0.014726410436814165,
+        "3x3": -0.041209391943865574
+      },
+      "cold_baseline": 3.0,
+      "passed": true,
+      "description": "strong-coupling decorrelation: |W(r,t)| \u226a N_c=3",
+      "elapsed_s": 0.019722374999957992
+    },
+    {
+      "test": "PD.1",
+      "name": "Octet charge density wraps Noether current",
+      "residual": 0.0,
+      "target": 1e-14,
+      "passed": true,
+      "description": "wrapper consistency, machine \u03b5",
+      "elapsed_s": 0.0029203329999631933
+    },
+    {
+      "test": "PD.2",
+      "name": "Diagonal source coupling (all 8 octet components)",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "on_diagonal_max": 2.820021048148159,
+      "description": "F36 WB.3 SU(3) analog \u2014 exact zero off-diagonal",
+      "elapsed_s": 0.007588124999983847
+    },
+    {
+      "test": "PD.3",
+      "name": "Massive step at m_g=0 reduces to free step",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "F36 WB.5 SU(3) analog \u2014 exact bit-for-bit",
+      "elapsed_s": 0.0033950000000118052
+    },
+    {
+      "test": "PD.4",
+      "name": "Free-gluon BCC dispersion residual (50 ticks)",
+      "residual": 1.6989711727157926e-13,
+      "target": 1e-12,
+      "passed": true,
+      "description": "C_n(k) = C_0(k)\u00b7exp(\u2212i\u03a9\u207a(k)\u00b7n) per a-component",
+      "elapsed_s": 0.13560816699998668
+    },
+    {
+      "test": "PD.5",
+      "name": "20-tick sourced-step on BCC, off-diagonal stays zero",
+      "residual": 0.0,
+      "target": 0.0,
+      "on_diagonal_max": 4.4957381952159325,
+      "passed": true,
+      "description": "no leakage between a-components at linear order",
+      "elapsed_s": 0.027299167000023772
+    }
+  ]
+}

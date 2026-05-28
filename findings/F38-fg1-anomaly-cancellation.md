@@ -152,7 +152,59 @@ This is one of the few places in the project where the distinction between "Tier
 
 ---
 
-## 7. Files
+## 7. The 8-state lepton vector and the (right-handed weak ↔ magnetic monopole) correspondence
+
+*2026-05-28 - 02:44 — Organising-principle addendum to FG-1. Records the notebook's L/R-symmetric lepton octet (pp.89–97; cross-checked in [physics-notes-complete-review.md](../physics-notes-complete-review.md) §4.1) as a single 8-state object and identifies its four EM-neutral states with the two gauge channels that are absent in nature: right-handed weak SU(2)$_R$ and magnetic monopole U(1)$_{em}^\star$. Also tightens [F37](F37-rs-bcc-chirality-helicity.md)'s RS-BCC chirality/helicity bookkeeping by giving that section's 4-state photon split a matching 8-state lepton target.*
+
+### 7.1 The lepton octet
+
+Arrange the L- and R-chirality Weyl content for one lepton generation — keeping $\nu_R$ and $\bar\nu_L$ even though they are SM-sterile (§6 item 3 above) — as
+
+$$
+\Psi_{\text{lep}} \;=\; \bigl(\,
+\underbrace{e_R^{-},\ e_L^{+},\ e_R^{+},\ e_L^{-}}_{\text{EM-charged (4)}}\;,\;
+\underbrace{\nu_R,\ \bar\nu_L,\ \bar\nu_R,\ \nu_L}_{\text{EM-neutral (4)}}\,
+\bigr).
+$$
+
+The eight components partition $2\times 2\times 2$ as (chirality L/R) $\times$ (C-conjugation particle/antiparticle) $\times$ (isospin $t_3=\pm\tfrac12$, electron/neutrino). EM-charge tracks isospin alone; weak-charge tracks the L/R label.
+
+### 7.2 The (EM-charge, W-charge) classification
+
+| Pair | EM-charge | $W$-charge | SM status | Missing-channel identification |
+|------|-----------|------------|-----------|--------------------------------|
+| $e_R^{-},\ e_L^{+}$ | yes | no | SM (singlet sector) | — |
+| $e_R^{+},\ e_L^{-}$ | yes | yes | SM (L-doublet member) | — |
+| $\bar\nu_R,\ \nu_L$ | no | yes | SM (L-doublet partner of $e_L^{-}$) | magnetic monopole U(1)$_{em}^\star$ |
+| $\nu_R,\ \bar\nu_L$ | no | no | SM-absent | right-handed weak SU(2)$_R$ |
+
+The four EM-charged states populate both ($W$, no-$W$) entries — exactly the structure gauged in the SM by $\{$U(1)$_Y$, SU(2)$_L\}$. The four EM-neutral states populate the *same* two entries with neither of the corresponding gauge interactions present in nature.
+
+### 7.3 Structural identity
+
+The notebook's observation on pp.94–95 — "the right-handed weak interaction does not exist, and neither does the magnetic monopole" — is the statement that
+
+> the absence of SU(2)$_R$ and the absence of U(1)$_{em}^\star$ are **the same fact** in the L/R-symmetric octet: both express that the four EM-neutral lepton states sit in the kernel of every gauge operator that is realised in nature, rather than in the image of right-handed or dual gauge channels.
+
+So the missing magnetic monopole and the missing $W_R$ are not two independent omissions but a single structural choice — the EM-neutral half of $\Psi_{\text{lep}}$ is gauge-sterile under everything the SM gauges.
+
+### 7.4 Consequence for the FG-1 traces
+
+Within the §3 traces, the SM-absent states $\nu_R$ and $\bar\nu_L$ contribute exactly $0$ to (A)–(F): they carry $Y=0$, no SU(2)$_L$, no SU(3)$_c$, and $A(\mathbf 1)=0$. Adding them to the octet therefore does not perturb any of FG-1's six rationals. This is the §6 item 3 footnote made constructive — the *reason* the right-handed neutrino can be appended without re-running the anomaly arithmetic is that it sits in the missing-channel sector defined by §7.2.
+
+### 7.5 Tightening the F37 bookkeeping
+
+[F37](F37-rs-bcc-chirality-helicity.md) splits the BCC photon into a $2\times 2$ object: two RS eigenstates $\mathbf F_\pm = \mathbf E \pm i\mathbf B$ on two BCC chirality branches $\Omega^\pm$, giving 4 propagating modes per wavevector. Gauged minimally by U(1)$_{em}$, those 4 modes couple to only 4 of $\Psi_{\text{lep}}$'s 8 components — the EM-charged half. Two observations follow once the L/R-symmetric extension of §7.1 is adopted:
+
+1. **One vector, two ledgers.** F37's helicity/chirality bookkeeping and the §3 anomaly bookkeeping become bookkeeping over a *single* 8-state object. F37's $(\mathbf F_+, \Omega^+)$ / $(\mathbf F_-, \Omega^-)$ pairing acts on the 4 EM-charged components of $\Psi_{\text{lep}}$; the 4 EM-neutral components are the would-be targets for the dual $\mathbf F_\pm^{\star}$ (magnetic-monopole) and the SU(2)$_R$ partner of the W. The latter are absent precisely by §7.3, so the photon-side count (4 modes) matches the lepton-side count of *gauged* channels (4 states) exactly. The L/R-symmetric octet is therefore the smallest closed system in which the F37 split and the FG-1 traces operate on the same vector space.
+
+2. **No birefringent neutrino channel.** F37's predicted vacuum birefringence $\Delta v_\phi/c \approx -k/18$ along $(1,1,1)$ is a property of the EM-charged sector's coupling to the BCC chirality branches. The EM-neutral half — carrying no U(1)$_{em}$ charge — sees no analogous chirality-branch splitting, and §7.3 rules out a parallel "neutrino magnetic-monopole birefringence" channel by the same structural fact that rules out SU(2)$_R$.
+
+Neither observation modifies FG-1 (six exact zeros stand) or F37's algebraic identities (RS ↔ BCC chirality correspondence stands). They reorganise the two findings around one 8-state object rather than two disjoint 4-state ledgers.
+
+---
+
+## 8. Files
 
 - Test script: [`model-tests/test_FG1_anomaly_cancellation.py`](../model-tests/test_FG1_anomaly_cancellation.py)
 - Results JSON: [`test-results/FG1_anomaly_cancellation.json`](../test-results/FG1_anomaly_cancellation.json)

@@ -1319,6 +1319,235 @@ def measure_w_dispersion(E_W, B_W, n_steps=100, mass_correction=0.0):
 
 
 # ═══════════════════════════════════════════════════════════════════
+#  Phase 5C — Covariant Stueckelberg kinetic (SU(2)_L × U(1)_Y)
+#  2026-05-28
+# ═══════════════════════════════════════════════════════════════════
+#
+# Promotes the inline operator originally written in
+# `model-tests/test_wmu_phase6_rank1.py` (W6.9) into the main module so
+# other tests / live runs can reuse it.  This implements the lattice
+# version of
+#
+#     L_st = f² · Σ_{x,μ} tr[(D_μ U_st)†(D_μ U_st)]
+#
+#     D_μ U_st(x) = (1/a) [ W_μ(x) · U_st(x+μ̂) · V_μ†(x) - U_st(x) ]
+#
+# where W_μ(x) ∈ SU(2)_L is the parallel transporter for the SU(2)_L
+# gauge field W^a, V_μ(x) = exp(i a (g'/2) B_μ(x) τ³) ∈ U(1)_Y is the
+# parallel transporter for the hypercharge gauge field B (acting on the
+# Stueckelberg field's right index — F41's Y_U = +1 doublet embedding),
+# and a is the lattice spacing.
+#
+# F44 (rank-1 mass block) is the second variation of L_st in
+# (W^1, W^2, W^3, B) at U_st = I.  W6.9 in the rank-1 test driver uses
+# this operator to confirm det M²_{(W^3,B)} = 0 and the W^1/W^2 block
+# is bit-for-bit decoupled at the lattice level.
+#
+# Convention notes
+# ----------------
+# * SU(2) Cayley-Klein form U = [[a, -b*], [b, a*]] — same as ca_wmu
+#   throughout (matches make_w_link_field, _su2_product, ...).
+# * Hypercharge link is stored as a single complex phase per site/dir
+#   (|V| = 1), interpreted as the (0,0) entry of V_μ in the σ³ basis;
+#   the (1,1) entry is its conjugate.  This matches the make_hypercharge_link_field
+#   convention.
+# * Generators T^a = τ^a/2 on the SU(2)_L side (standard SM); the U(1)_Y
+#   side uses Y_U = +1 in the doublet representation, embedded as τ³ on
+#   the right.  These are the conventions for which the F44 mass matrix
+#   reduces to f²[[g², -g g'], [-g g', g'²]] with m_W = g·f, m_Z² =
+#   f²(g²+g'²), and f = v/2 matches W6.3 / `stueckelberg_mass_term`
+#   bit-for-bit at the SM physical point (80.415 / 91.226 GeV).
+#
+# Public API
+# ----------
+#   make_su2_link_uniform(W123, g, a_lat, shape)  → (W_a, W_b)
+#   make_u1y_link_uniform(B,    gp, a_lat, shape) → V_phase
+#   covariant_stueckelberg_difference(U_st_a, U_st_b, W_a, W_b, V_phase,
+#                                     dx, dy, dz, a_lat)
+#       → (DU_a, DU_b)  for a single link direction
+#   covariant_stueckelberg_lagrangian(U_st_a, U_st_b,
+#                                     W_links, V_links, f, a_lat)
+#       → real, total Σ_{x,μ} contribution
+#   covariant_stueckelberg_lagrangian_uniform(W123, B, g, gp, f, a_lat,
+#                                             L, link_dirs)
+#       → convenience wrapper for constant-field, U_st=I configurations
+
+def _su2_right_mult_by_diag(M_a, M_b, p0):
+    """
+    Right-multiply SU(2) (in Cayley-Klein form [[a,-b*],[b,a*]]) by the
+    diagonal matrix diag(p0, conj(p0)).  Returns (M'_a, M'_b) such that
+
+        M' = [[a·p0, -b*·conj(p0)], [b·p0, a*·conj(p0)]]
+           = [[A, -B*], [B, A*]]   with   A = a·p0,  B = b·p0.
+
+    Used for the V_μ† right multiplication where V_μ = diag(p0*, p0)
+    (so V_μ† = diag(p0, p0*)).
+    """
+    return M_a * p0, M_b * p0
+
+
+def make_su2_link_uniform(W123, g, a_lat, shape):
+    """
+    Build a *uniform* SU(2)_L link field W_μ(x) = exp(i a (g/2) W^a τ^a)
+    for a constant 3-vector W123 = (W^1, W^2, W^3).
+
+    Returns (W_a, W_b) of shape `shape`, in Cayley-Klein form.
+    """
+    W1, W2, W3 = W123
+    Wmag = float(np.sqrt(W1 * W1 + W2 * W2 + W3 * W3))
+    theta = a_lat * (g / 2.0) * Wmag
+    if Wmag < 1e-30:
+        return (np.ones(shape, dtype=complex), np.zeros(shape, dtype=complex))
+    nx, ny, nz = W1 / Wmag, W2 / Wmag, W3 / Wmag
+    # exp(i θ (σ·n)) = cos θ · I + i sin θ · (σ·n)
+    # Cayley-Klein:  a = cosθ + i sinθ · nz
+    #                b = i sinθ · nx − sinθ · ny  =  sinθ·(i nx − ny)
+    c, s = float(np.cos(theta)), float(np.sin(theta))
+    W_a = (c + 1j * s * nz) * np.ones(shape, dtype=complex)
+    W_b = (s * (1j * nx - ny)) * np.ones(shape, dtype=complex)
+    return W_a, W_b
+
+
+def make_u1y_link_uniform(B, gp, a_lat, shape):
+    """
+    Build a *uniform* U(1)_Y link phase V_μ(x) = exp(i a (g'/2) B · τ³)
+    for constant B, returned as the (0,0) entry e^{+i a (g'/2) B} on each
+    site (the (1,1) entry is its complex conjugate).
+    """
+    phase = complex(np.exp(1j * a_lat * (gp / 2.0) * B))
+    return phase * np.ones(shape, dtype=complex)
+
+
+def covariant_stueckelberg_difference(U_st_a, U_st_b, W_a, W_b, V_phase,
+                                      dx, dy, dz, a_lat):
+    """
+    One-direction lattice covariant difference
+
+        D_μ U_st(x) = (1/a) [ W_μ(x) · U_st(x+μ̂) · V_μ†(x) − U_st(x) ]
+
+    in SU(2) Cayley-Klein form.  Returns (DU_a, DU_b) — the same parameter-
+    isation, but representing a general 2×2 complex matrix (not necessarily
+    in SU(2); the *difference* of two SU(2) matrices is generally not unitary).
+
+    Parameters
+    ----------
+    U_st_a, U_st_b : (Lx, Ly, Lz) complex — Stueckelberg field at site x.
+    W_a, W_b : (Lx, Ly, Lz) complex — SU(2)_L link variable for direction μ̂.
+    V_phase  : (Lx, Ly, Lz) complex — U(1)_Y link phase for direction μ̂
+                  (the (0,0) entry of V_μ; (1,1) entry = conj).
+    dx, dy, dz : ints — link-direction offset.
+    a_lat : float — lattice spacing.
+
+    Returns
+    -------
+    DU_a, DU_b : (Lx, Ly, Lz) complex — Cayley-Klein components of D_μ U_st.
+    """
+    # Forward shift of U_st: site x sees U_st(x + d).  np.roll(arr, -d) maps
+    # arr[x] = arr[x+d].
+    Ust_a_sh = np.roll(np.roll(np.roll(U_st_a, -dx, 0), -dy, 1), -dz, 2)
+    Ust_b_sh = np.roll(np.roll(np.roll(U_st_b, -dx, 0), -dy, 1), -dz, 2)
+
+    # SU(2)_L parallel transport: W_μ(x) · U_st(x+d)
+    inner_a, inner_b = _su2_product(W_a, W_b, Ust_a_sh, Ust_b_sh)
+
+    # U(1)_Y right multiplication: ... · V_μ†(x).
+    # `V_phase` stores the (0,0) entry of V_μ itself:
+    #     V_μ = diag(V_phase, conj(V_phase))   with V_phase = e^{+i a (g'/2) B}
+    # so V_μ† = diag(conj(V_phase), V_phase), and the diagonal entry that
+    # multiplies the LEFT column of the SU(2) matrix is p0 = conj(V_phase).
+    full_a, full_b = _su2_right_mult_by_diag(
+        inner_a, inner_b, np.conj(V_phase)
+    )
+
+    DU_a = (full_a - U_st_a) / a_lat
+    DU_b = (full_b - U_st_b) / a_lat
+    return DU_a, DU_b
+
+
+def covariant_stueckelberg_lagrangian(U_st_a, U_st_b, W_links, V_links,
+                                      f=1.0, a_lat=1.0, link_dirs=None):
+    """
+    Lattice covariant Stueckelberg mass Lagrangian.
+
+        L_st = f² · Σ_{x,μ} tr[(D_μ U_st)† D_μ U_st]
+
+    For a 2×2 matrix M = [[A, -B*], [B, A*]] (the Cayley-Klein parameterisation
+    used by D_μ U_st), tr(M† M) = 2(|A|² + |B|²).
+
+    Parameters
+    ----------
+    U_st_a, U_st_b : (Lx, Ly, Lz) complex — Stueckelberg field.
+    W_links : list of N_dir tuples (W_a, W_b) — SU(2)_L link variables for
+              each link direction.
+    V_links : list of N_dir complex arrays — U(1)_Y link phases (|V| = 1).
+    f, a_lat : Stueckelberg decay constant and lattice spacing.
+    link_dirs : optional (N_dir, 3) int array of link offsets.  Defaults to
+                BCC_DIRS (the 8 BCC nearest neighbours).  Pass a different
+                array for cubic / other lattices.
+
+    Returns
+    -------
+    L_real : float — real Lagrangian value (sum over sites and link dirs).
+    """
+    if link_dirs is None:
+        link_dirs = BCC_DIRS
+
+    if len(W_links) != len(link_dirs) or len(V_links) != len(link_dirs):
+        raise ValueError(
+            f"W_links ({len(W_links)}) / V_links ({len(V_links)}) length "
+            f"must match link_dirs ({len(link_dirs)})"
+        )
+
+    total = 0.0
+    for ((W_a, W_b), V_phase, (dx, dy, dz)) in zip(W_links, V_links, link_dirs):
+        DU_a, DU_b = covariant_stueckelberg_difference(
+            U_st_a, U_st_b, W_a, W_b, V_phase, int(dx), int(dy), int(dz), a_lat
+        )
+        total += float(np.sum(2.0 * (np.abs(DU_a) ** 2 + np.abs(DU_b) ** 2)))
+    return f * f * total
+
+
+def covariant_stueckelberg_lagrangian_uniform(W123, B, g, gp, f=1.0,
+                                              a_lat=1.0, L=4, link_dirs=None):
+    """
+    Convenience wrapper: evaluate covariant_stueckelberg_lagrangian with
+    U_st = I uniform on an L³ cubic lattice and uniform gauge fields
+    W123 = (W^1, W^2, W^3) and B.
+
+    Used by W6.9 (model-tests/test_wmu_phase6_rank1.py) to extract the
+    Hessian H_ij = ∂²L_st/∂ξ^i∂ξ^j at ξ = 0 in (W^1, W^2, W^3, B).
+
+    Parameters
+    ----------
+    W123 : sequence of 3 floats — uniform (W^1, W^2, W^3) values.
+    B    : float — uniform B value.
+    g, gp, f, a_lat : SU(2)_L coupling, U(1)_Y coupling, Stueckelberg constant,
+                      lattice spacing.
+    L : int — cubic lattice edge length.
+    link_dirs : optional link-direction set; defaults to BCC_DIRS (8 dirs).
+
+    Returns
+    -------
+    L_real : float — total Lagrangian Σ_{x,μ} L_st-density.
+    """
+    if link_dirs is None:
+        link_dirs = BCC_DIRS
+    shape = (L, L, L)
+    # U_st = I uniform
+    U_st_a = np.ones(shape, dtype=complex)
+    U_st_b = np.zeros(shape, dtype=complex)
+    # Uniform links — same link variable for every BCC direction (constant
+    # gauge field, every link sees the same parallel transport).
+    W_a, W_b = make_su2_link_uniform(W123, g, a_lat, shape)
+    V_phase = make_u1y_link_uniform(B, gp, a_lat, shape)
+    W_links = [(W_a, W_b) for _ in range(len(link_dirs))]
+    V_links = [V_phase for _ in range(len(link_dirs))]
+    return covariant_stueckelberg_lagrangian(
+        U_st_a, U_st_b, W_links, V_links, f=f, a_lat=a_lat, link_dirs=link_dirs
+    )
+
+
+# ═══════════════════════════════════════════════════════════════════
 #  Phase 6 — Electroweak mixing (W³ ↔ B ↔ γ)
 # ═══════════════════════════════════════════════════════════════════
 

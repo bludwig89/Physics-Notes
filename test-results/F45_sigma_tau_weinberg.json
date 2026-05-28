@@ -1,0 +1,49 @@
+{
+  "date": "2026-05-27 - 14:30",
+  "finding": "F45",
+  "all_pass": true,
+  "tests": [
+    {
+      "tag": "F45.1",
+      "description": "g'^2 / g^2 = 1/3 from swap dim. counting",
+      "pass": true,
+      "residual": 0.0,
+      "msg": "g'^2/g^2 = 1/3 (target 1/3)"
+    },
+    {
+      "tag": "F45.2",
+      "description": "sin\u00b2 \u03b8_W = 1/4",
+      "pass": true,
+      "residual": 0.0,
+      "msg": "sin^2 \u03b8_W = 1/4 (target 1/4)"
+    },
+    {
+      "tag": "F45.3",
+      "description": "cos\u00b2 \u03b8_W = 3/4",
+      "pass": true,
+      "residual": 0.0,
+      "msg": "cos^2 \u03b8_W = 3/4 (target 3/4)"
+    },
+    {
+      "tag": "F45.4",
+      "description": "m_Z/m_W = 2/\u221a3 at \u03b8_W = \u03c0/6",
+      "pass": true,
+      "residual": 2.220446049250313e-16,
+      "msg": "m_Z/m_W = 1.1547005383792515 (target 1.1547005383792517)"
+    },
+    {
+      "tag": "F45.5",
+      "description": "Casimir cross-check C2(U(1)_Y)/C2(SU(2)_L) = 1/3",
+      "pass": true,
+      "residual": 0.0,
+      "msg": "C2(U(1)_Y)/C2(SU(2)_L) = 1/3 (target 1/3)"
+    },
+    {
+      "tag": "F45.6",
+      "description": "Bare prediction vs. PDG on-shell (informational)",
+      "pass": true,
+      "residual": 0.02008678087015614,
+      "msg": "PDG sin\u00b2\u03b8_W=0.22321 (pred 0.25, +12.00%); PDG cos\u00b2\u03b8_W=0.77679 (pred 0.75, -3.45%); PDG m_Z/m_W=1.13461 (pred 1.15470, +1.77%)"
+    }
+  ]
+}

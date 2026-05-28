@@ -3,14 +3,14 @@
   "m": 0.3,
   "pass_count": 7,
   "total_count": 7,
-  "elapsed_s": 0.0132,
+  "elapsed_s": 0.0131,
   "results": [
     {
       "name": "Y1_u1y_ward_e_branch",
       "residual": 9.036560719766055e-16,
       "target": 1e-12,
       "pass": true,
-      "elapsed_s": 0.0057
+      "elapsed_s": 0.0064
     },
     {
       "name": "Y2_u1y_ward_nu_branch",
@@ -24,7 +24,7 @@
       "residual": 0.0,
       "target": 1e-30,
       "pass": true,
-      "elapsed_s": 0.0004
+      "elapsed_s": 0.0003
     },
     {
       "name": "Y4_su2_L_ward_with_alpha",
@@ -38,14 +38,14 @@
       "residual": 0.0,
       "target": 1e-12,
       "pass": true,
-      "elapsed_s": 0.0003
+      "elapsed_s": 0.0004
     },
     {
       "name": "Y6_unitarity_50_steps",
       "residual": 4.528508616752491e-15,
       "target": 1e-12,
       "pass": true,
-      "elapsed_s": 0.0056
+      "elapsed_s": 0.0051
     },
     {
       "name": "Y7_GMN_charge_algebra",

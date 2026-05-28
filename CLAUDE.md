@@ -27,11 +27,8 @@ Include these files in your research context.
 - reference-research/mohr-2010-maxwell-photon-wf-summary.md
 - reference-research/ostoma-trushyk-1999-summary.md
 - reference-research/qca-papers-1-4-overview.md
-- reference-research/physics_notes_pages_01-15.md
-- reference-research/physics_notes_pages_16-30.md
-- reference-research/physics_notes_pages_31-45.md
-- reference-research/physics_notes_pages_46-60.md
-- reference-research/physics_notes_pages_61-90.md
+- reference-research/physics-notes-complete.md
+
 
 Model & Software Context
 - changelog.md

@@ -1,0 +1,329 @@
+{
+  "finding": "F46",
+  "title": "Spherical Pythagorean lattice-mass identity",
+  "identity": "cos \u03a9_Dirac = cos \u03a9_rest \u00b7 cos \u03a9_kin",
+  "date_utc": "2026-05-28 - 19:22",
+  "elapsed_sec": 0.2929680347442627,
+  "all_passed": true,
+  "tests": [
+    {
+      "name": "P1_closed_form_2d",
+      "n_samples": 200,
+      "max_residual": 3.3306690738754696e-16,
+      "mean_residual": 6.519090822720841e-17,
+      "target": 1e-15,
+      "passed": true
+    },
+    {
+      "name": "P2_eigenvalues_2d",
+      "n_samples": 80,
+      "max_residual": 3.3306690738754696e-16,
+      "mean_residual": 9.818534874028728e-17,
+      "target": 1e-14,
+      "passed": true
+    },
+    {
+      "name": "P3_time_evolution_2d",
+      "n_modes": 36,
+      "max_residual": 6.228351168147143e-16,
+      "target": 1e-12,
+      "passed": true,
+      "sample_rows": [
+        {
+          "m": 0.0,
+          "kx": 0.19634954084936207,
+          "ky": 0.0,
+          "omega_numeric": 0.13884009181744894,
+          "omega_predicted": 0.13884009181744922,
+          "residual": 2.88657986402541e-16
+        },
+        {
+          "m": 0.0,
+          "kx": 0.0,
+          "ky": 0.19634954084936207,
+          "omega_numeric": 0.1388400918174489,
+          "omega_predicted": 0.13884009181744922,
+          "residual": 3.019806626980429e-16
+        },
+        {
+          "m": 0.0,
+          "kx": 0.19634954084936207,
+          "ky": 0.19634954084936207,
+          "omega_numeric": 0.19603306297868148,
+          "omega_predicted": 0.1960330629786821,
+          "residual": 6.228351168147143e-16
+        },
+        {
+          "m": 0.0,
+          "kx": 0.39269908169872414,
+          "ky": 0.19634954084936207,
+          "omega_numeric": 0.30965176131110334,
+          "omega_predicted": 0.3096517613111034,
+          "residual": 7.938094626069871e-17
+        },
+        {
+          "m": 0.0,
+          "kx": 0.5890486225480862,
+          "ky": 0.39269908169872414,
+          "omega_numeric": 0.49604603465179364,
+          "omega_predicted": 0.4960460346517937,
+          "residual": 7.216449660063523e-17
+        },
+        {
+          "m": 0.0,
+          "kx": 0.19634954084936207,
+          "ky": 0.7853981633974483,
+          "omega_numeric": 0.5706798958237247,
+          "omega_predicted": 0.5706798958237247,
+          "residual": 7.771561172376089e-18
+        }
+      ]
+    },
+    {
+      "name": "P4_bcc_extension",
+      "n_samples": 160,
+      "max_residual": 3.3306690738754696e-16,
+      "mean_residual": 7.45931094670027e-17,
+      "target": 1e-14,
+      "passed": true,
+      "sample_rows": [
+        {
+          "sign": "+",
+          "kx": -0.45418988492690193,
+          "ky": -0.38392593556003374,
+          "kz": 0.5986804425307769,
+          "m": -0.7753597099433158,
+          "cos_omega_eig": 0.5720117522219124,
+          "cos_omega_pred": 0.5720117522219125,
+          "residual": 1.1102230246251565e-16
+        },
+        {
+          "sign": "+",
+          "kx": 0.19071711652056844,
+          "ky": 0.4354662895470106,
+          "kz": -0.5946283177084297,
+          "m": -0.8452214080671704,
+          "cos_omega_eig": 0.4795404525162868,
+          "cos_omega_pred": 0.4795404525162868,
+          "residual": 0.0
+        },
+        {
+          "sign": "+",
+          "kx": -0.4287409368506898,
+          "ky": 0.2999501786086006,
+          "kz": 0.11863202065291689,
+          "m": -0.6648816997198613,
+          "cos_omega_eig": 0.7095186105026675,
+          "cos_omega_pred": 0.7095186105026676,
+          "residual": 1.1102230246251565e-16
+        },
+        {
+          "sign": "+",
+          "kx": -0.12835558251102952,
+          "ky": 0.32255467498674995,
+          "kz": -0.1471149559210868,
+          "m": 0.25305035862082126,
+          "cos_omega_eig": 0.9458234577740517,
+          "cos_omega_pred": 0.9458234577740519,
+          "residual": 1.1102230246251565e-16
+        },
+        {
+          "sign": "+",
+          "kx": 0.8905851009037401,
+          "ky": 0.3487853306507235,
+          "kz": -0.20648242492256785,
+          "m": -0.5942201175318136,
+          "cos_omega_eig": 0.6718728289250412,
+          "cos_omega_pred": 0.6718728289250412,
+          "residual": 0.0
+        },
+        {
+          "sign": "+",
+          "kx": -0.2934843489532373,
+          "ky": 0.02108351130349395,
+          "kz": 0.7453540310194239,
+          "m": 0.5235714906981099,
+          "cos_omega_eig": 0.7624297807308368,
+          "cos_omega_pred": 0.7624297807308368,
+          "residual": 0.0
+        }
+      ]
+    },
+    {
+      "name": "P5_photon_limit",
+      "max_residual_2d": 2.7755575615628914e-16,
+      "max_residual_bcc": 9.43689570931383e-16,
+      "target": 1e-13,
+      "passed": true
+    },
+    {
+      "name": "P6_rest_limit",
+      "max_residual_2d": 1.1102230246251565e-16,
+      "max_residual_bcc": 2.220446049250313e-16,
+      "target": 1e-14,
+      "passed": true,
+      "rows": [
+        {
+          "m": 0.0,
+          "omega_dirac_2d": 0.0,
+          "omega_dirac_bcc": 0.0,
+          "omega_rest": 0.0,
+          "res_2d": 0.0,
+          "res_bcc": 0.0
+        },
+        {
+          "m": 0.05,
+          "omega_dirac_2d": 0.05002085680576997,
+          "omega_dirac_bcc": 0.05002085680577006,
+          "omega_rest": 0.050020856805770016,
+          "res_2d": 4.85722573273506e-17,
+          "res_bcc": 4.163336342344337e-17
+        },
+        {
+          "m": 0.1,
+          "omega_dirac_2d": 0.10016742116155969,
+          "omega_dirac_bcc": 0.10016742116155981,
+          "omega_rest": 0.1001674211615598,
+          "res_2d": 1.1102230246251565e-16,
+          "res_bcc": 1.3877787807814457e-17
+        },
+        {
+          "m": 0.3,
+          "omega_dirac_2d": 0.30469265401539747,
+          "omega_dirac_bcc": 0.3046926540153975,
+          "omega_rest": 0.3046926540153975,
+          "res_2d": 5.551115123125783e-17,
+          "res_bcc": 0.0
+        },
+        {
+          "m": 0.5,
+          "omega_dirac_2d": 0.5235987755982989,
+          "omega_dirac_bcc": 0.5235987755982989,
+          "omega_rest": 0.5235987755982989,
+          "res_2d": 0.0,
+          "res_bcc": 0.0
+        },
+        {
+          "m": 0.7,
+          "omega_dirac_2d": 0.7753974966107531,
+          "omega_dirac_bcc": 0.7753974966107531,
+          "omega_rest": 0.775397496610753,
+          "res_2d": 1.1102230246251565e-16,
+          "res_bcc": 1.1102230246251565e-16
+        },
+        {
+          "m": 0.9,
+          "omega_dirac_2d": 1.1197695149986342,
+          "omega_dirac_bcc": 1.1197695149986344,
+          "omega_rest": 1.1197695149986342,
+          "res_2d": 0.0,
+          "res_bcc": 2.220446049250313e-16
+        },
+        {
+          "m": 0.99,
+          "omega_dirac_2d": 1.4292568534704693,
+          "omega_dirac_bcc": 1.4292568534704693,
+          "omega_rest": 1.4292568534704693,
+          "res_2d": 0.0,
+          "res_bcc": 0.0
+        }
+      ]
+    },
+    {
+      "name": "P7_continuum_limit",
+      "rows": [
+        {
+          "s": 1.0,
+          "m": 0.3,
+          "kx": 1.0,
+          "ky": 0.7,
+          "omega_dirac": 0.8786567343231583,
+          "omega_kin": 0.8379329989773338,
+          "pythagorean_residual": -0.020094054003711226
+        },
+        {
+          "s": 0.5,
+          "m": 0.15,
+          "kx": 0.5,
+          "ky": 0.35,
+          "omega_dirac": 0.4526916176618599,
+          "omega_kin": 0.4285629142409431,
+          "pythagorean_residual": -0.001236470761378422
+        },
+        {
+          "s": 0.25,
+          "m": 0.075,
+          "kx": 0.25,
+          "ky": 0.175,
+          "omega_dirac": 0.2279267566683947,
+          "omega_kin": 0.2154123938224405,
+          "pythagorean_residual": -7.689300694059542e-05
+        },
+        {
+          "s": 0.125,
+          "m": 0.0375,
+          "kx": 0.125,
+          "ky": 0.0875,
+          "omega_dirac": 0.11415821780896936,
+          "omega_kin": 0.10784548292378647,
+          "pythagorean_residual": -4.799493744631761e-06
+        },
+        {
+          "s": 0.0625,
+          "m": 0.01875,
+          "kx": 0.0625,
+          "ky": 0.04375,
+          "omega_dirac": 0.057103377249782476,
+          "omega_kin": 0.053940087707515634,
+          "pythagorean_residual": -2.9986856350415134e-07
+        },
+        {
+          "s": 0.03125,
+          "m": 0.009375,
+          "kx": 0.03125,
+          "ky": 0.021875,
+          "omega_dirac": 0.028554719464358485,
+          "omega_kin": 0.026972210122825562,
+          "pythagorean_residual": -1.874022164034296e-08
+        }
+      ],
+      "loglog_slope": 4.0054778563950375,
+      "slope_target": 4.0,
+      "passed": true
+    },
+    {
+      "name": "P8_c_lat_recovery",
+      "rows": [
+        {
+          "m": 0.0,
+          "dOmega_dk_2d": 0.707106779185151,
+          "expected_2d": 0.7071067811865475,
+          "dOmega_dk_bcc": 0.5773502691901534,
+          "expected_bcc": 0.5773502691896258,
+          "ok_2d": true,
+          "ok_bcc": true
+        },
+        {
+          "m": 0.1,
+          "dOmega_dk_2d": 0.00024874682563735817,
+          "expected_2d": 0.0,
+          "dOmega_dk_bcc": 0.0001658312259733563,
+          "expected_bcc": 0.0,
+          "ok_2d": true,
+          "ok_bcc": true
+        },
+        {
+          "m": 0.3,
+          "dOmega_dk_2d": 7.949493174841393e-05,
+          "expected_2d": 0.0,
+          "dOmega_dk_bcc": 5.299662375612968e-05,
+          "expected_bcc": 0.0,
+          "ok_2d": true,
+          "ok_bcc": true
+        }
+      ],
+      "notes": "Forward difference (not central, because \u03a9(\u2212k) = \u03a9(+k)). m=0 \u21d2 kink in \u03a9 at 0 with slope c_lat; m>0 \u21d2 smooth, slope 0.",
+      "passed": true
+    }
+  ]
+}
