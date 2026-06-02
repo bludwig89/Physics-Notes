@@ -1,0 +1,93 @@
+{
+  "G1_group_orders": {
+    "pass": true,
+    "|O|": 24,
+    "|O_h|": 48,
+    "expected": "24, 48"
+  },
+  "G2_ten_classes": {
+    "pass": true,
+    "n_classes": 10,
+    "expected": 10,
+    "sizes": {
+      "3sigma_h": 3,
+      "6S4": 6,
+      "8C3": 8,
+      "8S6": 8,
+      "6C2p": 6,
+      "6C4": 6,
+      "6sigma_d": 6,
+      "i": 1,
+      "3C2": 3,
+      "E": 1
+    }
+  },
+  "G3_perm_character_shell": {
+    "pass": true,
+    "note": "# cube vertices fixed by a representative of each class"
+  },
+  "G4_character_table_orthonormal": {
+    "pass": true,
+    "note": "embedded O_h table passes <chi_a,chi_b>=48 delta_ab exactly"
+  },
+  "T1_max_single_valued_irrep_dim": {
+    "pass": true,
+    "max_irrep_dim": 3,
+    "irrep_dims_squared_sum": 48,
+    "expected_sum": 48,
+    "claim": "no 4-dim single-valued irrep exists -> 4th degenerate partner forbidden (Schur)"
+  },
+  "T2_shell_decomposition": {
+    "pass": true,
+    "decomposition": {
+      "A1g": 1,
+      "A2u": 1,
+      "T1u": 1,
+      "T2g": 1
+    },
+    "expected": {
+      "A1g": 1,
+      "A2u": 1,
+      "T1u": 1,
+      "T2g": 1
+    },
+    "sum_of_dims": 8,
+    "contains_triplet": true
+  },
+  "T3_parity_selected_triplet": {
+    "pass": true,
+    "odd_parity_shell_content": [
+      "A2u",
+      "T1u"
+    ],
+    "odd_triplets": [
+      "T1u"
+    ],
+    "selected_generation_multiplet": "T1u (dim 3)",
+    "n_generations": 3
+  },
+  "T4_schur_degeneracies": {
+    "pass": true,
+    "commutator_with_group": 4.440892098500626e-16,
+    "eigenvalue_degeneracies": [
+      1,
+      1,
+      3,
+      3
+    ],
+    "expected": [
+      1,
+      1,
+      3,
+      3
+    ],
+    "max_protected_degeneracy": 3,
+    "note": "max symmetry-protected degeneracy is 3 -> no stable 4-fold (4th-generation) multiplet"
+  },
+  "T4b_four_fold_breaks_symmetry": {
+    "pass": true,
+    "commutator_of_4block_with_group": 1.0,
+    "note": "any 4-dim degenerate block fails to commute with O_h (symmetry-breaking) -> 4th generation not symmetry-stable"
+  },
+  "_overall": "PASS"
+}

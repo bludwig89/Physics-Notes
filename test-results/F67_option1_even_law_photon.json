@@ -1,0 +1,32 @@
+{
+  "S1": {
+    "k_per_axis": 0.2617993877991494,
+    "Omega_plus": 0.25486354633783304,
+    "Omega_minus": 0.26807057513272275,
+    "dOmega": -0.01320702879488972,
+    "N_ticks": 6,
+    "S_chiral_measured": 0.07924217276933732,
+    "S_chiral_predicted": 0.0792421727693382,
+    "chiral_resid": 8.881784197001252e-16,
+    "S_even_measured": -8.881784197001252e-16,
+    "even_birefringence_resid": 8.881784197001252e-16
+  },
+  "S2": {
+    "group_vel_even_mean": 0.5773496520745682,
+    "group_vel_even_max_abs_err_vs_inv_sqrt3": 7.715684477660467e-06,
+    "c_lat_target": 0.5773502691896258,
+    "real_field_max_imag_50steps": 6.612863511723025e-16,
+    "norm_drift_rel_50steps": 6.7778613134077724e-15
+  },
+  "S3": {
+    "override_equals_half_dOmega_resid": 1.3877787807814457e-17,
+    "branch_half_phase_plus": 0.12743177316891652,
+    "branch_half_phase_minus": 0.13403528756636138,
+    "even_half_phase_demanded": 0.13073353036763896,
+    "gap_plus_branch_vs_even": 0.0033017571987224437,
+    "gap_minus_branch_vs_even": 0.003301757198722416,
+    "override_bodydiag_measured": 0.00513706301305801,
+    "override_bodydiag_closed_sqrt3_over_54_k2": 0.005132002392796674,
+    "override_bd_resid": 5.060620261336524e-06
+  }
+}

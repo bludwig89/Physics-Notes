@@ -1,0 +1,70 @@
+{
+  "finding": "F52",
+  "title": "Gravity as a self-consistent rest-leg (clock-rate) field",
+  "date": "2026-05-29",
+  "C0": 0.5,
+  "metric_mode": "exact_isotropic",
+  "G": 1.0,
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "H1_loop_closure_spectral",
+      "M_input": 1.0,
+      "M_eff_from_fit": 0.9731422043148147,
+      "M_eff_over_M": 0.9731422043148147,
+      "fit_r2": 0.9999361626845623,
+      "note": "\u03a6_sc sourced by \u03c1 reproduces the \u2212GM/r that F50 imports",
+      "tol_M": 0.05,
+      "tol_r2": 0.999,
+      "status": "PASS"
+    },
+    {
+      "name": "H1b_loop_closure_fixed_point",
+      "M_eff_over_M": 0.9994526197550464,
+      "fit_r2": 0.9977067159085349,
+      "relax_residual": 9.992489391486004e-09,
+      "relax_iters": 4315,
+      "note": "hand-rolled Jacobi fixed point reproduces the 1/r amplitude",
+      "status": "PASS"
+    },
+    {
+      "name": "H2_redshift_factor1",
+      "mean_ratio_GR": 0.9970384322310739,
+      "std_ratio_GR": 0.0007929636850536612,
+      "baseline_factor2": 2.0,
+      "max_rest_leg_residual": 0.0,
+      "target_ratio": 1.0,
+      "status": "PASS"
+    },
+    {
+      "name": "H3_deflection_discriminator",
+      "K_rest_only_mean": 1.9986770262098423,
+      "K_full_mean": 4.014647415175319,
+      "K_ratio_full_over_rest_mean": 2.0086327766805594,
+      "K_rest_per_b": [
+        2.0187174250770323,
+        1.9976854691296841,
+        1.9796281844228103
+      ],
+      "K_full_per_b": [
+        4.061571480810288,
+        4.011263760953626,
+        3.971107003762042
+      ],
+      "target_rest": 2.0,
+      "target_full": 4.0,
+      "target_ratio": 2.0,
+      "note": "rest-leg-only is Newtonian factor-1; Einstein factor-2 requires the spatial metric B to be sourced too",
+      "status": "PASS"
+    },
+    {
+      "name": "H3b_deflection_ratio_selfconsistent",
+      "alpha_rest": 0.016043237471624838,
+      "alpha_full": 0.03219367303293519,
+      "ratio_full_over_rest": 2.0066818240317836,
+      "target_ratio": 2.0,
+      "note": "discriminator holds on the mass-sourced lattice field",
+      "status": "PASS"
+    }
+  ]
+}

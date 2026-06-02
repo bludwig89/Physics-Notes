@@ -1,0 +1,62 @@
+{
+  "A1_m_equals_y2_reproduces_koide": {
+    "pass": true,
+    "Q_in_y_language": 0.666660511465522,
+    "2/3": 0.6666666666666666,
+    "premise": "m_a = y_a^2 (pair condensate bilinear in constituent amplitude); y_a = T1u vector component",
+    "consequence": "sqrt(m) is the cubic vector, Koide is about y"
+  },
+  "A2_power_one_half_is_special": {
+    "pass": true,
+    "1/Q at s=1/2 (target 1.5)": 1.500014,
+    "1/Q at s=1/3": 1.8336,
+    "1/Q at s=1.0": 1.1191,
+    "dist_to_1.5_at_half": 1.4e-05,
+    "min_dist_neighbors": 0.3336,
+    "reading": "only the bilinear variable m=y^2 (s=1/2) hits the clean rational -> supports the Cooper-pair origin of sqrt(m)"
+  },
+  "B1_two_thirds_is_range_midpoint": {
+    "pass": true,
+    "Q_min_democratic": 0.333333,
+    "Q_max_hierarchical": 1.0,
+    "midpoint_(1/3+1)/2": 0.6666666666666666,
+    "Q_leptons": 0.6666605,
+    "reading": "Q=2/3 is the exact midpoint between the fully-democratic floor (1/3) and the single-axis ceiling (1); leptons sit at maximal democratic<->hierarchical balance"
+  },
+  "B2_equipartition_identity": {
+    "pass": true,
+    "|A1g|^2/|T1u|^2": 1.00002,
+    "coefficient_of_variation_CV": 0.99999,
+    "angle_to_(1,1,1)_deg": 44.99974,
+    "three_equivalent_forms": "Q=2/3  <=>  |A1g|=|T1u|  <=>  CV=1  <=>  45deg"
+  },
+  "B3_symmetric_gap_is_degenerate": {
+    "pass": true,
+    "gap_masses": [
+      0.007414,
+      0.007414,
+      0.007414
+    ],
+    "relative_spread": 0.0,
+    "Q_of_gap_solution": 0.33333,
+    "verdict": "a flavour-blind (O_h-symmetric) gap drives all three to a common value (degenerate, Q->1/3); it CANNOT produce the observed hierarchy or Q=2/3 -> equipartition is a large explicit symmetry-breaking, NOT supplied by symmetric dynamics. sqrt(2) is therefore NOT derived here."
+  },
+  "B4_C3v_forces_two_fold_degeneracy": {
+    "pass": true,
+    "nu/mu giving Q=2/3": 0.7071,
+    "1/sqrt2": 0.70711,
+    "sqrt_masses_at_that_point": [
+      2.4142,
+      0.2929,
+      0.2929
+    ],
+    "two_equal": "True",
+    "reading": "the cube's natural body-diagonal site symmetry (C3v) hits Q=2/3 only at nu/mu=1/sqrt2 but with two masses EQUAL; the 3 distinct leptons need the lower (orthorhombic) symmetry of F76-C1, where sqrt2 is no longer fixed by symmetry"
+  },
+  "_overall": "PASS",
+  "_summary": {
+    "derived": "m = y^2 (sqrt m is the T1u amplitude) GIVEN the Cooper-pair bilinear premise; data pick s=1/2 (A2)",
+    "exact_characterisation": "Q=2/3 = midpoint of [1/3,1] = |A1g|=|T1u| = CV(y)=1 = 45deg (B1,B2)",
+    "NOT_derived": "the value sqrt(2) (Q=2/3): symmetric cube dynamics give Q=1/3 (degenerate, B3) and C3v forces [2,1] (B4); equipartition is a critical/maximally-broken condition the symmetric model does not supply"
+  }
+}

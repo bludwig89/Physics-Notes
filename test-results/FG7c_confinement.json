@@ -1,0 +1,133 @@
+{
+  "suite": "FG-7c \u2014 static quark potential / string tension / confinement",
+  "date": "2026-06-01",
+  "n_tests": 8,
+  "n_passed": 8,
+  "total_elapsed_s": 15.530818215999716,
+  "results": [
+    {
+      "test": "CF1",
+      "name": "w(\u03b2) limits and monotonicity",
+      "residual": 1.5296406117057715e-17,
+      "target": 1e-12,
+      "w0": -1.5296406117057715e-17,
+      "w_table": {
+        "0.5": 0.02893167279912286,
+        "1.0": 0.060126554833564744,
+        "2.0": 0.12862778532208338,
+        "4.0": 0.2796191494093044,
+        "8.0": 0.5357539902135647,
+        "16.0": 0.7553703585602346
+      },
+      "w_40": 0.9007008921617745,
+      "monotone": true,
+      "bounded": true,
+      "passed": true,
+      "description": "w(0)=\u27e8Tr U\u27e9_Haar=0; w\u2191 to 1 as \u03b2\u2192\u221e",
+      "elapsed_s": 0.022920333000001847
+    },
+    {
+      "test": "CF2",
+      "name": "w(\u03b2) quadrature converges (n_grid 160\u2192320)",
+      "residual": 2.7755575615628914e-17,
+      "target": 1e-12,
+      "passed": true,
+      "description": "periodic rectangle rule is spectrally accurate",
+      "elapsed_s": 0.018303790999652847
+    },
+    {
+      "test": "CF3",
+      "name": "String tension \u03c3(\u03b2)>0 for all finite \u03b2",
+      "residual": 0.21915940265547687,
+      "target": 0.0,
+      "sigma_table": {
+        "0.25": 4.256061959833359,
+        "0.5": 3.542818339366296,
+        "1.0": 2.8113036908728675,
+        "2.0": 2.050832430468924,
+        "4.0": 1.274326782379362,
+        "8.0": 0.6240801967540588,
+        "20.0": 0.21915940265547687
+      },
+      "positive": true,
+      "decreasing": true,
+      "passed": true,
+      "description": "2D SU(3) confines at all couplings \u2014 no free quark",
+      "elapsed_s": 0.019433208000009472
+    },
+    {
+      "test": "CF4",
+      "name": "Creutz ratio \u03c7(R,T)=\u03c3 \u2200(R,T) (exact area law)",
+      "residual": 2.220446049250313e-16,
+      "target": 1e-12,
+      "detail": {
+        "beta=1.0": {
+          "sigma": 2.8113036908728675,
+          "chi(3,3)": 2.8113036908728675
+        },
+        "beta=3.0": {
+          "sigma": 1.594179663681891,
+          "chi(3,3)": 1.594179663681891
+        }
+      },
+      "passed": true,
+      "description": "size-independent \u03c7 \u21d2 strict area law \u21d2 confinement",
+      "elapsed_s": 0.005523667000034038
+    },
+    {
+      "test": "CF5",
+      "name": "Static potential V(R)=\u03c3R linear, T-independent",
+      "residual": 8.881784197001252e-16,
+      "target": 1e-12,
+      "V_over_R": [
+        2.050832430468924,
+        2.050832430468924,
+        2.050832430468924,
+        2.050832430468924,
+        2.050832430468924
+      ],
+      "sigma": 2.050832430468924,
+      "passed": true,
+      "description": "constant force dV/dR=\u03c3 \u21d2 infinite energy to isolate a quark",
+      "elapsed_s": 0.002840375000232598
+    },
+    {
+      "test": "CF6",
+      "name": "MC mean plaquette \u2194 quadrature w(\u03b2)",
+      "residual": 0.004790781505457425,
+      "target": 0.05,
+      "w_quad": 0.12862778532208338,
+      "plaq_mc": 0.1280115577070744,
+      "n_meas": 100,
+      "passed": true,
+      "description": "independent MC validates the deterministic w(\u03b2)",
+      "elapsed_s": 5.426859502999832
+    },
+    {
+      "test": "CF7",
+      "name": "Gradient flow smooths disorder \u2192 \u03c3_eff decreases",
+      "residual": -2.6172802866291582,
+      "target": 0.0,
+      "plaq_before": 0.07019313542347631,
+      "plaq_after": 0.961534847180197,
+      "sigma_before": 2.6565047587220993,
+      "sigma_after": 0.03922447209294123,
+      "passed": true,
+      "description": "confinement lives in the disordered ensemble, not the cooled one",
+      "elapsed_s": 8.145251379000001
+    },
+    {
+      "test": "CF8",
+      "name": "Schur: \u27e8U\u27e9 = w\u00b7I for the single plaquette",
+      "residual": 1.2907105088303072e-18,
+      "target": 1e-12,
+      "Im[<TrU>/N]": 1.2907105088303072e-18,
+      "Re_match_w": 0.0,
+      "mc_offdiag": 0.017918162248460916,
+      "w_quad": 0.12862778532208338,
+      "passed": true,
+      "description": "\u27e8(1/N)Tr U\u27e9 real = w (exact) + MC off-diag\u21920 \u21d2 \u27e8W\u27e9=w^{RT}",
+      "elapsed_s": 1.8895700840002974
+    }
+  ]
+}

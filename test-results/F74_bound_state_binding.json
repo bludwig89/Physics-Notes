@@ -1,0 +1,113 @@
+{
+  "finding": "F74",
+  "title": "two-constituent bound-state binding depth",
+  "checks": {
+    "A  g_c matches Watson integral": {
+      "residual": 1.6755341885348723e-07,
+      "target": 0.0001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "B1 E_b increases monotonically with g": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "B2 E_b -> 0 at threshold g=g_c": {
+      "residual": 0.0,
+      "target": 0.001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "C  dense diag == secular root (L=12)": {
+      "residual": 1.3322676295501878e-15,
+      "target": 1e-09,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "D  ceiling M=2m_c recovered at threshold": {
+      "residual": 0.0,
+      "target": 0.001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E  gauge binding << required (ceiling robust)": {
+      "residual": 6.656419226066107e-06,
+      "target": 0.6371037839717216,
+      "tier": "quantitative",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "g_c": 3.956775359858283,
+    "g_c_watson": 3.9567760228296334,
+    "E0_dense_L12": -2.7896190631556084,
+    "E0_secular_L12": -2.789619063155607,
+    "m_lat_sample": 3.935e-17,
+    "criticality_tuning_for_physical_binding": 1.5484225e-33
+  },
+  "curve": {
+    "columns": [
+      "g_over_gc",
+      "g_in_t",
+      "E_b_in_t"
+    ],
+    "rows": [
+      [
+        1.0,
+        3.956775359858283,
+        0.0
+      ],
+      [
+        1.05,
+        4.154614127851198,
+        0.021987906686716206
+      ],
+      [
+        1.2,
+        4.7481304318299395,
+        0.25651652423185123
+      ],
+      [
+        1.5,
+        5.935163039787424,
+        1.054020831011273
+      ],
+      [
+        2.0,
+        7.913550719716566,
+        2.7127882260831093
+      ],
+      [
+        3.0,
+        11.870326079574848,
+        6.387135751639594
+      ],
+      [
+        5.0,
+        19.783876799291416,
+        14.089522857071884
+      ],
+      [
+        10.0,
+        39.56775359858283,
+        33.71968416464634
+      ]
+    ]
+  },
+  "confrontation": {
+    "beta_required_ttbar": 0.6371037839717216,
+    "beta_from_gauge_exchange": 6.656419226066107e-06,
+    "shortfall_factor": 95712.68911021476
+  },
+  "notes": [
+    "RIGOROUS CORE: a 3D lattice contact attraction has a finite binding threshold g_c=3.957t (=2t/Watson); below it NO bound state. Verified vs Watson and by dense-vs-secular agreement to <1e-9.",
+    "Binding depth E_b(g) rises continuously from 0 at g_c; at threshold the composite sits at M=2m_c, dynamically reproducing the F73 kinematic ceiling.",
+    "INTERPRETATION (flagged): with the Planck-scale cell (F46 mapping), a PHYSICAL sub-threshold binding (0<beta<1) needs the coupling tuned to within ~m_lat^2 of critical -- the hierarchy problem surfacing in the model's language; the binding scale is UV-sensitive.",
+    "The model's own gauge sector binds only at beta~alpha^2/8~7e-6 -- ~1e5 too weak to deform M from 2m_c. So a naturally-bound pair stays at the ceiling.",
+    "VERDICT: the binding machinery is built and E_b(g) produced; the derivation is complete UP TO one external number -- the contact coupling -- which the model's gauge sector does not supply. 125 GeV requires either criticality fine-tuning or strong new contact dynamics + a relativistic deep-binding (Bethe-Salpeter) treatment, which is the precise remaining gap.",
+    "SCOPE: the NR contact solver is quantitative near threshold (beta<<1); the deep-binding regime (beta~0.6 for t-tbar) is relativistic and beyond NR validity -- flagged as the next build."
+  ],
+  "overall": "PASS"
+}

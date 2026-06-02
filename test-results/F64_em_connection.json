@@ -1,0 +1,395 @@
+{
+  "finding": "F64",
+  "title": "Electromagnetic-connection gravity \u2014 single lattice dielectric K(x)",
+  "timestamp": "2026-05-31 - 16:00",
+  "module": "ca-simulation/forks/gr_fork_F64_em_connection.py",
+  "n_pass": 16,
+  "n_implemented": 16,
+  "n_total": 16,
+  "total_seconds": 42.11,
+  "tests": {
+    "D-EM1_eikonal_viability": {
+      "pass": true,
+      "verdict": "VIABLE",
+      "dielectric_Z": "1",
+      "dielectric_K_bend": "4",
+      "dielectric_n_of_u": "(u - 1)**(-2)",
+      "dielectric_impedance": "1",
+      "dielectric_impedance_constant": true,
+      "clock_only_Z": "1",
+      "clock_only_K_bend": "2",
+      "refractive_only_Z": "0",
+      "refractive_only_K_bend": "2",
+      "full_deflection_guard": {
+        "1e-02": -4.031684970928584,
+        "1e-03": -4.003144261678586,
+        "1e-04": -4.000314185934382
+      },
+      "guard_ok": true,
+      "redshift_target": 1,
+      "bend_target": 4,
+      "newtonian_bend": 2,
+      "_seconds": 0.27,
+      "_desc": "single scalar: factor-1 redshift AND factor-2 bend? (exact, algebraic)"
+    },
+    "D-EM2_single_field_deflection": {
+      "pass": true,
+      "K_dielectric": 3.8987812532767174,
+      "K_full_GR": 3.898808242589401,
+      "K_rest_only": 1.9493906266383685,
+      "ratio_dielectric_over_rest": 1.99999999999999,
+      "K_dielectric_by_b": {
+        "6": 3.993183512554894,
+        "8": 3.9369588467868946,
+        "10": 3.873076256983236,
+        "12": 3.7919063967818456
+      },
+      "K_rest_only_by_b": {
+        "6": 1.9965917562775848,
+        "8": 1.968479423393165,
+        "10": 1.9365381284916034,
+        "12": 1.8959531983911206
+      },
+      "weak_field_u_at_probe": 0.0024528736016734033,
+      "lattice": {
+        "L": 64,
+        "M": 0.02,
+        "sigma": 1.0,
+        "b_list": [
+          6,
+          8,
+          10,
+          12
+        ]
+      },
+      "note": "one dielectric field reproduces factor-2 (\u22484); the rest leg on the same field is factor-1 (\u22482); ratio\u22482 cancels lattice error.",
+      "_seconds": 0.14,
+      "_desc": "single dielectric K(x) on lattice: K_bend\u22484 (no 2nd field eqn); rest leg\u22482"
+    },
+    "D-EM3_radiation_as_source": {
+      "pass": true,
+      "K_bend_mass_emconn": 3.7837707513226086,
+      "K_bend_radiation_emconn": 3.783828423031515,
+      "ratio_radiation_over_mass_emconn": 1.0000152418612798,
+      "restleg_radiation_deflection_fraction": 0.0,
+      "energy_mass": 0.02,
+      "energy_radiation": 0.02,
+      "energy_match": 0.0,
+      "note": "equal energy \u21d2 equal gravity under EM-connection (ratio\u21921); rest-leg coupling sources nothing from massless field energy (fraction\u21920). This is the physical fork.",
+      "_seconds": 0.05,
+      "_desc": "standing (E,B) energy shell deflects like equal-energy rest mass (the fork)"
+    },
+    "D-EM-D1_flat_regression": {
+      "pass": true,
+      "residual_max_abs": 0.0,
+      "flat_AB_ok": true,
+      "note": "dielectric stepper \u2261 two free Weyl walks at zero field (= F62 D1).",
+      "_seconds": 0.21,
+      "_desc": "flat dielectric stepper \u2261 two free Weyl walks bit-for-bit (= F62 D1)"
+    },
+    "D-EM-D2a_dielectric_freefall": {
+      "pass": true,
+      "g_meas_abs": 0.002730147557009507,
+      "g_pred": 0.003,
+      "coeff_ratio": 0.9100491856698357,
+      "falls_toward_low_lapse": true,
+      "final_displacement": -16.528340841589696,
+      "final_disp_by_mass": {
+        "0.2": -16.780063559170458,
+        "0.35": -16.528340841589696,
+        "0.5": -15.4017710837323
+      },
+      "universality_spread": 0.0848873440751793,
+      "norm_drift": 2.8271597168564592e-14,
+      "c_lat_sq": 0.5,
+      "params": {
+        "L": 220,
+        "a": 0.006,
+        "m": 0.35,
+        "n_steps": 110,
+        "masses": [
+          0.2,
+          0.35,
+          0.5
+        ]
+      },
+      "note": "EP carried by rest leg \u221aA; dielectric B=1/A is the locked partner.",
+      "_seconds": 5.66,
+      "_desc": "equivalence principle on a dielectric Rindler frame (= F62 D2a)"
+    },
+    "D-EM-D2b_dynamical_redshift": {
+      "pass": true,
+      "freq_near": 0.9050571633610485,
+      "freq_far": 1.0094868360565539,
+      "ratio_meas": 0.8965517241379312,
+      "ratio_pred_sqrtA": 0.9048374180359595,
+      "ratio_pred_exact_arcsin": 0.8966324008494728,
+      "redshift_detected": true,
+      "A_near": 0.8187307530779818,
+      "A_far": 1.0,
+      "params": {
+        "L": 96,
+        "m": 0.5,
+        "c0": 0.5,
+        "n_steps": 360,
+        "u_near": 0.1,
+        "u_far": 0.0
+      },
+      "note": "deep dielectric clock runs slow at rate \u221aA=e^{-u}; canonical exp form.",
+      "_seconds": 4.48,
+      "_desc": "dielectric clock rate \u221d \u221aA=(1\u2212u), measured from zitterbewegung (= F62 D2b)"
+    },
+    "D-EM-D2c_dielectric_deflection": {
+      "pass": true,
+      "dtheta_meas": -0.5711188308648931,
+      "dtheta_eikonal": -0.5536054730628908,
+      "K_meas": -3.807458872432621,
+      "K_eikonal": -3.6907031537526054,
+      "ratio_meas_eik": 1.0316350878995244,
+      "params": {
+        "L": 160,
+        "GM": 0.6,
+        "c0": 0.5,
+        "k_in": 0.5,
+        "b": 16,
+        "n_steps": 260,
+        "m": 0.0
+      },
+      "note": "one dielectric field (B=1/A) gives Einstein factor-2 K_eik\u22484; F62 needs a separately-sourced second leg B=1\u22122\u03a6/c\u00b2.",
+      "_seconds": 16.41,
+      "_desc": "fast packet past a dielectric mass: K_bend\u22484 from ONE field (cf F62 two-leg)"
+    },
+    "D-EM-D3a_backreaction_norm": {
+      "pass": true,
+      "norm_initial": 113.09733552921944,
+      "norm_final": 113.09733552921955,
+      "norm_drift": 1.0052123437713022e-15,
+      "phi_min": -6.147956488256327,
+      "phi_max": 1.5053907440390466,
+      "params": {
+        "L": 64,
+        "m": 0.4,
+        "c0": 0.5,
+        "G": 0.02,
+        "n_steps": 60
+      },
+      "note": "self-sourced dielectric metric evolves; matter norm conserved.",
+      "_seconds": 1.62,
+      "_desc": "self-gravitating dielectric packet: norm conserved as its own K(x) evolves"
+    },
+    "D-EM4_redshift_bend_consistency": {
+      "pass": true,
+      "freq_near": 0.8606101690145458,
+      "freq_far": 1.0173352940206684,
+      "A_near": 0.740818220681718,
+      "A_far": 1.0359019712747395,
+      "redshift_ratio_meas": 0.8459454558125863,
+      "redshift_ratio_pred_exact": 0.8332703698416778,
+      "redshift_detected": true,
+      "redshift_ok": true,
+      "bend_dielectric_slope_integral": 3.003208832907709,
+      "bend_rest_only_slope_integral": 1.5016044164538531,
+      "bend_ratio_dielectric_over_rest": 2.0000000000000018,
+      "bend_factor2_ok": true,
+      "params": {
+        "L": 96,
+        "m": 0.5,
+        "c0": 0.5,
+        "well_depth": 0.3,
+        "n_steps": 300,
+        "dt": 0.5,
+        "sigma_src": 12.0
+      },
+      "note": "ONE self-sourced dielectric K: factor-1 redshift (deep clock slow, matches \u221aA=(1\u2212u) to <4%) AND factor-2 bend (index slope exactly 2\u00d7 rest-leg) \u2014 the dynamical close of the D-EM1 loop, the F64 counterpart of F62-D3a self-redshift.",
+      "_seconds": 3.67,
+      "_desc": "ONE self-sourced K: factor-1 redshift AND factor-2 bend together (closes D-EM1)"
+    },
+    "D-EM5_derive_dielectric": {
+      "pass": true,
+      "derived": "epsilon = mu = K  (=> A=1/K, B=K, AB=1)",
+      "plebanski_eps_mu_dielectric_rep": "K",
+      "plebanski_eps_mu_refractive_rep": "K",
+      "plebanski_ok": true,
+      "conformal_weyl_factor": "K",
+      "conformal_uniform_ok": true,
+      "eikonal_index_both_reps": [
+        "K",
+        "K"
+      ],
+      "index_equal_ok": true,
+      "impedance_index_solution": {
+        "epsilon": "K",
+        "mu": "K"
+      },
+      "impedance_match_forces_eps_eq_mu_eq_K": true,
+      "AB_from_factor1_redshift": "1",
+      "reciprocal_lock_ok": true,
+      "fdtd_reflection": {
+        "matched": 0.009262141662347859,
+        "refractive_only": 0.1349043086153865,
+        "clock_only": 0.05580248479160685,
+        "fresnel_pred_mismatched": 0.1111111111111111,
+        "note": "matched \u2248 grid floor (reflectionless proper rotation); mismatched \u2248 Fresnel (scalar contamination)."
+      },
+      "lattice_proper_rotation_ok": true,
+      "note": "\u03b5=\u03bc=K is DERIVED (proper rotation \u21d2 impedance match \u21d2 \u03b5=\u03bc; index \u21d2 =K; factor-1 redshift \u21d2 conformal factor \u21d2 AB=1). The EM sector (conformally invariant) carries BOTH metric legs as one scalar; only the clock/redshift selects the conformal representative. Impedance-matched placement is reflectionless on the lattice; the non-dielectric placements (refractive-only, clock-only) reflect \u2014 that reflected wave IS the F26 scalar contamination.",
+      "_seconds": 0.14,
+      "_desc": "DERIVE \u03b5=\u03bc=K (\u21d2A=1/K,B=K) from proper (E,B) rotation: impedance+conformal+redshift"
+    },
+    "D-EM6_light_bends_light": {
+      "pass": true,
+      "lens_is_pure_field_energy": true,
+      "rest_mass_density_of_lens": 0.0,
+      "restleg_deflection_of_lens": 0.0,
+      "K_min": 0.9595213157920667,
+      "K_max": 1.311234621426322,
+      "dtheta_meas": -0.24116470713170604,
+      "dtheta_eikonal": -0.3194133499717645,
+      "fraction_of_eikonal_realised": 0.7550238809774998,
+      "bends_toward_mass": true,
+      "factor2_ratio_dielectric_over_restleg": 2.0,
+      "factor2_ok": true,
+      "beam_track_cx": [
+        39.021406976556705,
+        270.33185864906335
+      ],
+      "params": {
+        "L": 300,
+        "E_total": 0.03,
+        "c0": 1.0,
+        "b": 16,
+        "n_steps": 560,
+        "sigma_src": 8.0
+      },
+      "note": "A propagating Maxwell pulse deflects toward a lens made of pure (E,B) field energy \u2014 light bends light, dynamically. Factor-2 ratio = 2 (Einstein, not Newton). The lens has zero rest mass, so the rest-leg route (F50/F52) sources nothing from it (0): the decisive fork, now on a real wave rather than an eikonal probe.",
+      "_seconds": 0.72,
+      "_desc": "dynamical Maxwell pulse deflected by a pure-EM-energy lens (light bends light)"
+    },
+    "D-EM7_absolute_deflection_3d": {
+      "pass": true,
+      "K_bend_dielectric_by_field": {
+        "1e-02": 4.164998724003365,
+        "1e-03": 4.015739843104893,
+        "1e-04": 4.001528436583285
+      },
+      "K_bend_exp_by_field": {
+        "1e-02": 4.130713643096598,
+        "1e-03": 4.012571491630541,
+        "1e-04": 4.001214020366162
+      },
+      "K_bend_weak_limit": 4.001528436583285,
+      "approaches_from_above": true,
+      "newtonian_would_be": 2,
+      "note": "absolute Einstein factor-2 (K_bend\u21924) on a genuine 3-D ray through the true-1/r dielectric; finite-field approach from above. Removes the 2-D logarithmic-Poisson caveat (Finding 8) of D-EM6.",
+      "_seconds": 0.85,
+      "_desc": "absolute K_bend\u21924 on a genuine 3-D ray (true 1/r; removes the 2-D log caveat)"
+    },
+    "D-EM8_dynamical_field": {
+      "pass": true,
+      "static_fixedpoint_rel_dev": 0.0008797925597615053,
+      "wavefront_speed": 1.0139167490242837,
+      "c_g": 1.0,
+      "speed_ratio": 1.0139167490242837,
+      "free_field_energy_drift": 0.005316903207813413,
+      "fixed_ok": true,
+      "speed_ok": true,
+      "energy_ok": true,
+      "note": "\u03a6 is a dynamical field: static limit = the Poisson well that sources K; disturbances propagate at finite c_g (causal gravity, vs the instantaneous Poisson of F52/F62); free field conserves energy (a kinetic term \u21d2 Lagrangian element + dielectric GWs).",
+      "_seconds": 0.42,
+      "_desc": "\u03a6 as a dynamical field: static=Poisson well, finite c_g (causal), energy conserved"
+    },
+    "D-EM9_strong_field_ppn": {
+      "pass": true,
+      "ppn": {
+        "F64_dielectric_(1-u)^-2": {
+          "beta": "1/2",
+          "gamma": "1",
+          "light_bending_vs_GR": "1",
+          "perihelion_vs_GR": "7/6",
+          "mercury_arcsec_per_century": 50.14
+        },
+        "Puthoff_exp_e^{2u}": {
+          "beta": "1",
+          "gamma": "1",
+          "light_bending_vs_GR": "1",
+          "perihelion_vs_GR": "1",
+          "mercury_arcsec_per_century": 42.98
+        },
+        "Schwarzschild_isotropic": {
+          "beta": "1",
+          "gamma": "1",
+          "light_bending_vs_GR": "1",
+          "perihelion_vs_GR": "1",
+          "mercury_arcsec_per_century": 42.98
+        }
+      },
+      "mercury_gr_baseline_arcsec_century": 42.98,
+      "mercury_observed_arcsec_century": "42.98 \u00b1 0.04",
+      "messenger_bound_beta_minus_1": "(0.2 \u00b1 2.5)e-5",
+      "verdict": "F64's redshift-fixed K=(1\u2212u)^-2 matches GR at 1st order (\u03b3=1, light bending 4GM/bc\u00b2) but has \u03b2=1/2 \u21d2 Mercury 50.1\u2033/cy (16.7% excess) \u2014 EXCLUDED by MESSENGER. The impedance-matched exponential K=e^{2u} (agreeing with the linear fix at O(u)) restores \u03b2=1 \u21d2 GR-identical. The 2nd-PPN order selects the nonlinear completion D-EM5's linear derivation left open.",
+      "note": "The classic tests: light bending depends only on \u03b3 (=1 for the dielectric \u21d2 passes); perihelion depends on \u03b2 too (=1/2 \u21d2 fails unless K is completed to e^{2u}). A concrete falsifiable prediction and a correction to the model's nonlinear sector.",
+      "_seconds": 0.05,
+      "_desc": "PPN vs Schwarzschild: \u03b3=1 (light OK) but \u03b2=\u00bd for (1\u2212u)\u207b\u00b2; e^{2u} restores GR"
+    },
+    "D-EM10_pin_G_to_cell_scale": {
+      "pass": true,
+      "four_pi_normalisation_GM_recovered": 0.9875703363121665,
+      "four_pi_ok": true,
+      "eta_weyl": 0.08333333333333333,
+      "g_star_one_generation": 16,
+      "cell_scale_a_over_lP": 3.809251227455829,
+      "cell_scale_table_pred": {
+        "2": 1.3467736870885982,
+        "15": 3.6882916413641462,
+        "16": 3.809251227455829,
+        "48": 6.597816664747605
+      },
+      "cell_scale_table_F61": {
+        "2": 1.347,
+        "15": 3.688,
+        "16": 3.809,
+        "48": 6.598
+      },
+      "cell_scale_ok": true,
+      "one_over_G_check_planck_units": 1.0000000000000002,
+      "invG_scaling_clat_factor": [
+        1.4142135623730951,
+        1.7320508075688774,
+        2.0
+      ],
+      "invG_scaling_sqrt_d": [
+        1.4142135623730951,
+        1.7320508075688772,
+        2.0
+      ],
+      "sqrt_d_scaling_ok": true,
+      "note": "4\u03c0G is NOT free: the 4\u03c0 is the exact lattice Green's function (F58), and G is the Sakharov-induced value pinned by the cell scale a=\u221a(2\u03c0\u03b7 g_*)d^{1/4}\u2113_P=3.81 \u2113_P (\u03b7=1/12 F61, g_*=16) with 1/G\u221d\u221ad (F59). The dielectric inherits the induced coupling the rest-leg route (F52) left posited. Residual freedom: the gauge sector's contribution to g_* (flagged in F61).",
+      "_seconds": 0.11,
+      "_desc": "4\u03c0G not free: 4\u03c0 lattice-exact, G induced (a=3.81 \u2113_P, 1/G\u221d\u221ad) per F58/F59/F61"
+    },
+    "D-EM11_coevolving_self_redshift": {
+      "pass": true,
+      "freq_near": 0.935234823010969,
+      "freq_far": 1.0042832794320944,
+      "A_near": 0.7806776621537203,
+      "A_far": 1.0297105374720334,
+      "ratio_meas": 0.9312460360186708,
+      "ratio_pred_local_arcsin": 0.8598995409681103,
+      "rel_error": 0.0829707328023872,
+      "redshift_detected": true,
+      "clock_estimator": "hilbert_instantaneous_frequency (resolution-free)",
+      "params": {
+        "L": 120,
+        "m": 0.5,
+        "c0": 0.5,
+        "n_steps": 220,
+        "sigma_src": 16.0,
+        "sigma_probe": 4.0,
+        "well_depth": 0.25
+      },
+      "note": "fully co-evolving packets (spreading through the real gradient) \u2014 no fixed-A workaround; deep clock slower, Hilbert-measured. Residual ~10% is the finite packet sampling the well curvature (the precise coefficient is D-EM4's localized clock). F64 counterpart of F62-D3a self-redshift.",
+      "_seconds": 7.29,
+      "_desc": "fully co-evolving self-redshift (Hilbert clock, no fixed-radius workaround)"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "suite": "FG-7b \u2014 SU(3) Wilson gradient flow / cooling driver",
+  "date": "2026-06-01",
+  "n_tests": 6,
+  "n_passed": 6,
+  "total_elapsed_s": 0.322148499999912,
+  "results": [
+    {
+      "test": "GF1",
+      "name": "Cold configuration is a flow/cooling fixed point",
+      "residual": 0.0,
+      "target": 0.0,
+      "force_res": 0.0,
+      "flow_step_res": 0.0,
+      "cool_res": 0.0,
+      "passed": true,
+      "description": "staples = 2I \u2192 TA(2I)=0 bit-for-bit; cooling projects I\u2192I",
+      "elapsed_s": 0.003904165999756515
+    },
+    {
+      "test": "GF2",
+      "name": "SU(3) unitarity + det=1 preserved (flow & cooling)",
+      "residual": 2.5091040356528538e-14,
+      "target": 1e-12,
+      "flow_unitarity": 2.5091040356528538e-14,
+      "flow_det": 1.7102497116405274e-14,
+      "cool_unitarity": 1.3322676295501878e-15,
+      "cool_det": 6.885279791348024e-16,
+      "passed": true,
+      "description": "exp of su(3) and SU(3)-projection stay in the group",
+      "elapsed_s": 0.07206983300011416
+    },
+    {
+      "test": "GF3",
+      "name": "Wilson action monotonically non-increasing",
+      "residual": -0.004922166022964247,
+      "target": 1e-09,
+      "S0": 146.63522845908392,
+      "S_final_rk3": 11.072687330443866,
+      "S_final_cool": 0.0894114684844195,
+      "max_step_increase": -0.004922166022964247,
+      "passed": true,
+      "description": "gradient descent on S_W: dS/dt = -\u03a3\u2016Z\u2016\u00b2 \u2264 0",
+      "elapsed_s": 0.2056832499997654
+    },
+    {
+      "test": "GF4",
+      "name": "Flow force Z \u2208 su(3) (anti-Hermitian, traceless)",
+      "residual": 5.551115123125783e-16,
+      "target": 1e-13,
+      "antiherm_res": 0.0,
+      "traceless_res": 5.551115123125783e-16,
+      "passed": true,
+      "description": "TA projection yields a Lie-algebra-valued force",
+      "elapsed_s": 0.006309916999725829
+    },
+    {
+      "test": "GF5",
+      "name": "Flow is gauge-covariant: flow(U^g) = flow(U)^g",
+      "residual": 7.847321480213184e-15,
+      "target": 1e-11,
+      "passed": true,
+      "description": "the central correctness certificate for the integrator",
+      "elapsed_s": 0.02930541599971548
+    },
+    {
+      "test": "GF6",
+      "name": "Flow acts as lattice Laplacian (decay rate \u221d k\u0302\u00b2)",
+      "residual": 4.941845545721456e-10,
+      "target": 0.001,
+      "delta_over_khat2": [
+        0.0009999999999527824,
+        0.000999999999817213,
+        0.0009999999996143315,
+        0.0009999999991358631
+      ],
+      "mean_ratio": 0.0009999999996300477,
+      "all_decaying": true,
+      "passed": true,
+      "description": "diffusive smoothing: rate proportional to k\u0302\u00b2 across modes",
+      "elapsed_s": 0.0048161669997170975
+    }
+  ]
+}

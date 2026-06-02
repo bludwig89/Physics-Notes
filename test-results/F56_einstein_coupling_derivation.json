@@ -1,0 +1,39 @@
+{
+  "finding": "F56",
+  "title": "Deriving the Einstein coupling 16piG/c4 from the lattice + F25/F26",
+  "date": "2026-05-29",
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "C1_coupling_lock_4pi_implies_16pi",
+      "xi_over_(G/c4)": 50.26548245743669,
+      "target_16pi": 50.26548245743669,
+      "einstein_tensor_over_(G/c4)": 25.132741228718345,
+      "target_8pi": 25.132741228718345,
+      "max_abs_err": 0.0,
+      "note": "given Newton 4\u03c0 + trace reversal, tensor coupling is forced",
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "name": "C2_fourpi_lattice_solid_angle_plus_isotropy",
+      "four_pi_C": 1.00017552664399,
+      "green_fit_r2": 0.9999880855641702,
+      "c_lat_mean": 0.5773442528857284,
+      "c_lat_target": 0.5773502691896258,
+      "c_lat_isotropy_spread": 2.4066223958119082e-05,
+      "note": "4\u03c0C\u21921 (no 4\u03c0 inserted) and isotropic c_lat are one lattice fact",
+      "status": "PASS"
+    },
+    {
+      "name": "C3_sakharov_Lambda2_scaling",
+      "exponent_p": 2.0008264548045775,
+      "target_exponent": 2.0,
+      "I_smallest_Lambda": 0.00043858679970451147,
+      "continuum_estimate_sqrt_d_Lam2_over_4pi2": 0.0004387335948788643,
+      "coefficient_ratio": 0.9996654115935815,
+      "note": "1/(16\u03c0G_ind) \u221d \u039b\u00b2/c_lat \u21d2 G \u221d \u2113\u00b2; c_lat=1/\u221ad enters the coefficient. Lattice spacing in metres is the one free input.",
+      "status": "PASS"
+    }
+  ]
+}

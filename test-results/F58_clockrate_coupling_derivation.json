@@ -1,0 +1,97 @@
+{
+  "finding": "F58",
+  "title": "Does the clock-rate <-> rest-mass coupling 4piG follow from the neighbour rule?",
+  "date": "2026-05-30",
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "Q0_universality_clock_slowing_mass_independent",
+      "max_spread_over_mass": 2.220446049250313e-16,
+      "weak_field_check": [
+        {
+          "A": 0.999,
+          "deficit_exact": 0.0005001250625390474,
+          "deficit_linear_(1-A)/2": 0.0005000000000000004
+        },
+        {
+          "A": 0.99,
+          "deficit_exact": 0.005012562893380035,
+          "deficit_linear_(1-A)/2": 0.0050000000000000044
+        }
+      ],
+      "note": "1-sqrt(A) independent of m (common factor) = weak equivalence principle",
+      "tol": 1e-15,
+      "status": "PASS"
+    },
+    {
+      "name": "Q1_fourpi_is_lattice_solid_angle",
+      "four_pi_hopping_C": 1.0004189814228706,
+      "target": 1.0,
+      "fit_r2": 0.9999382855780472,
+      "note": "point mass -> clock-rate field -1/(4pi r); 4pi is bare-lattice geometry",
+      "tol": 0.005,
+      "status": "PASS"
+    },
+    {
+      "name": "Q2_laplacian_is_unique_isotropic_local_operator",
+      "anisotropy_spread": 5.633650292988866e-08,
+      "stiffness_per_dir": {
+        "100": 0.9999999154952494,
+        "110": 0.999999957747624,
+        "111": 0.9999999718317494
+      },
+      "note": "isotropic |k|^2 leading order \u21d2 field equation must be \u2207\u00b2\u03a6 \u221d \u03c1",
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "name": "Q3a_coupling_stiffness_locked_to_clat_F25F26",
+      "stiffness_over_clat2_spread": 1.1102230246251565e-16,
+      "stiffness_over_clat2_mean": 1.0,
+      "rows": [
+        {
+          "J": 0.5,
+          "stiffness": 0.49999998622469083,
+          "c_lat": 0.7071067714459329,
+          "stiffness_over_clat2": 1.0
+        },
+        {
+          "J": 1.0,
+          "stiffness": 0.9999999724493817,
+          "c_lat": 0.9999999862246908,
+          "stiffness_over_clat2": 0.9999999999999999
+        },
+        {
+          "J": 2.0,
+          "stiffness": 1.9999999448987633,
+          "c_lat": 1.4142135428918658,
+          "stiffness_over_clat2": 1.0
+        },
+        {
+          "J": 4.0,
+          "stiffness": 3.9999998897975266,
+          "c_lat": 1.9999999724493815,
+          "stiffness_over_clat2": 0.9999999999999999
+        }
+      ],
+      "measured_bcc_c_lat": 0.5773262081319979,
+      "target_1_over_sqrt3": 0.5773502691896258,
+      "note": "c_lat \u221d J, stiffness \u221d J\u00b2 \u21d2 1/G \u221d stiffness \u221d c_lat\u00b2 (carries \u221ad)",
+      "status": "PASS"
+    },
+    {
+      "name": "Q3b_dimensionful_G_locked_to_lattice_spacing",
+      "sakharov_exponent_p": 2.013673183224865,
+      "target": 2.0,
+      "I_values": [
+        0.010965377428270166,
+        0.0215338326515937,
+        0.04413131140738778,
+        0.08720801601039381
+      ],
+      "note": "1/G \u221d \u039b\u00b2 \u21d2 G \u221d \u2113\u00b2 (Planck length); \u2113 in metres is irreducible input",
+      "tol": 0.05,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1589,7 +1589,7 @@ def hypercharge_propagation_step(E_B, B_B):
     return _fft.ifftn(Ek_new).real, _fft.ifftn(Bk_new).real
 
 
-def weinberg_mix(W3_E, W3_B, B_E, B_B, theta_W):
+def weinberg_mix(W3_E, W3_B, B_E, B_B, theta_W=np.pi / 6):
     """
     Diagonalise the W³–B system at Weinberg angle θ_W to produce
     the massless photon A and massive Z eigenstates.
@@ -1602,7 +1602,9 @@ def weinberg_mix(W3_E, W3_B, B_E, B_B, theta_W):
     W3_E, W3_B : (Lx,Ly,Lz) — W³ electric/magnetic fields
     B_E,  B_B  : (Lx,Ly,Lz) — B (hypercharge) electric/magnetic fields
     theta_W    : float — Weinberg angle (radians).
-                 SM value: θ_W ≈ 0.4916 rad (sin²θ_W ≈ 0.231).
+                 Default: θ_W = π/6 (sin²θ_W = 1/4), the bare lattice
+                 value derived from the σ↔τ swap geometry (F45).
+                 SM on-shell value: θ_W ≈ 0.4916 rad (sin²θ_W ≈ 0.231).
 
     Returns
     -------
@@ -1618,8 +1620,12 @@ def weinberg_mix(W3_E, W3_B, B_E, B_B, theta_W):
     return A_E, A_B, Z_E, Z_B
 
 
-def weinberg_unmix(A_E, A_B, Z_E, Z_B, theta_W):
-    """Inverse of weinberg_mix: recover (W³, B) from (A, Z)."""
+def weinberg_unmix(A_E, A_B, Z_E, Z_B, theta_W=np.pi / 6):
+    """Inverse of weinberg_mix: recover (W³, B) from (A, Z).
+
+    theta_W defaults to π/6 (sin²θ_W = 1/4, the F45 σ↔τ swap value),
+    matching weinberg_mix; pass the same angle used in the forward mix.
+    """
     cw = np.cos(theta_W)
     sw = np.sin(theta_W)
     B_E = cw * A_E - sw * Z_E

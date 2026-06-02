@@ -1,0 +1,39 @@
+{
+  "finding": "F70",
+  "sections": {
+    "C1_U1_identity_commutes": {
+      "max_||[e^{i.theta}I, U^pm]||": 1.7554167342883506e-16,
+      "verdict": "commutes -> helicity-blind -> EVEN law forced (F68)",
+      "pass": true
+    },
+    "C2_sigma_vector_channel": {
+      "min_||[sigma^i, n.sigma]|| (over W/gluon bilinear channel)": 0.0015783953784066012,
+      "verdict": "does NOT commute -> branch-split intrinsic -> CHIRAL faithful; even law would be a sourceless override (F67 S3)",
+      "pass": true
+    },
+    "C3_branch_split_is_O_k2": {
+      "linear_coef_a1 (speed-of-light split, expect ~0)": -2.3818785545473848e-05,
+      "quadratic_coef_a2 (birefringence coef, nonzero)": -0.06396858509832236,
+      "dOmega/k at k=1e-3 (expect ~0)": -6.415003657878754e-05,
+      "max|dOmega| over k<=0.6": 0.023145147586494996,
+      "verdict": "even and chiral laws share the linear (c=1/sqrt3) term (a1~0); they differ only at O(k^2) (a2!=0) -> the quantity the even law discards is exactly the vacuum birefringence",
+      "pass": true
+    },
+    "C4_even_erases_W_branch_content": {
+      "S_chiral (keeps branch split)": 0.07924217276933643,
+      "S_chiral_pred_-dOmega*N": 0.0792421727693382,
+      "S_even (paired law, erases it)": -1.7763568394002505e-15,
+      "verdict": "chiral law gives S = -dOmega*N (the two W helicities ride Omega^+/Omega^- -> branch content present); the even/paired law gives S~0 -> that helicity-distinguishing content is discarded. For the W this content carries its parity violation, so the even law is not a free swap.",
+      "pass": true
+    },
+    "C5_current_code_map": {
+      "photon  (ca_photon_pair.photon_step_spectral)": "EVEN  (_f26_rotation_step)  [F69]",
+      "Z       (ca_z_field.z_propagation_step_spectral)": "EVEN  (_f26_rotation_step)",
+      "hyperch.(ca_wmu.hypercharge_propagation_step)": "EVEN  (_f26_rotation_step)",
+      "W       (ca_wmu.w_propagation_step_chiral)": "CHIRAL (Omega^+/Omega^- split) [F37]",
+      "gluon   (ca_gluon.gluon_rotation_step_spectral_bcc)": "CHIRAL (reuses W chiral step) [F43]"
+    }
+  },
+  "all_pass": true,
+  "wall_seconds": 0.48
+}

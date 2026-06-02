@@ -2,7 +2,7 @@
 
 Source: `physics_notes_0708.pdf`
 Transcribed: 2026-05-13
-Author of original notes: Richard McPhee
+Author of original notes: Mark Ludwig
 
 ---
 

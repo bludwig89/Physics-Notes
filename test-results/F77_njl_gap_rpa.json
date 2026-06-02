@@ -1,0 +1,233 @@
+{
+  "finding": "F77",
+  "title": "self-consistent NJL gap + RPA: one coupling fixes m_c and E_b",
+  "checks": {
+    "A1 I1 closed form == quadrature": {
+      "residual": 5.900421810857999e-12,
+      "target": 1e-06,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "A2 K(0) closed form == quadrature": {
+      "residual": 1.0908055858617306e-12,
+      "target": 1e-06,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "B  G_c Lam^2 = pi^2/(Nc Nf)": {
+      "residual": 0.0,
+      "target": 1e-12,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "C1 Goldstone: m_pi = 0 (1-2G Pi_PS(0)=0)": {
+      "residual": 2.2648549702353193e-14,
+      "target": 1e-10,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "C2 NJL theorem: m_sigma = 2 m_c": {
+      "residual": 2.2648549702353193e-14,
+      "target": 1e-10,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "C3 split: Pi_S-Pi_PS = -8NcNf M^2 K": {
+      "residual": 1.7768938712031345e-16,
+      "target": 1e-12,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "D1 M ~= 325 MeV": {
+      "residual": 0.04241654479464665,
+      "target": 0.05,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D2 f_pi ~= 92 MeV": {
+      "residual": 0.0019854524661496375,
+      "target": 0.06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D3 m_pi ~= 135 MeV": {
+      "residual": 0.040892885748684465,
+      "target": 0.08,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D4 <qbar q>^1/3 ~= -250 MeV": {
+      "residual": 0.003795314274911865,
+      "target": 0.06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D5 GMOR m_pi^2 f_pi^2 = -m0<qq>": {
+      "residual": 0.003934402096827787,
+      "target": 0.05,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D6 Goldberger-Treiman g_piqq f_pi = M": {
+      "residual": 0.010827397292286368,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E1 m_sigma/(2 m_c) >= 1 for ALL G (E_b <= 0)": {
+      "residual": 0.0,
+      "target": 1e-06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E2 EW ratio 0.363 below NJL floor of 1": {
+      "residual": 0.6371037839717216,
+      "target": 0.0,
+      "tier": "quantitative",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "I1_test": 0.00814703148075496,
+    "K0_test": 0.006976707845787396,
+    "Gc_Lam2": 1.6449340668482264,
+    "M_chiral": 0.2951082647536317,
+    "m_sigma_over_2mc_chiral": 1.0,
+    "ew_target_ratio_mH_over_2mt": 0.3628962160282784
+  },
+  "fit": {
+    "M_GeV": 0.31121462294173985,
+    "f_pi_GeV": 0.09258345580787222,
+    "m_pi_GeV": 0.1405205395760724,
+    "qbarq_root_GeV": -0.24905117143127203,
+    "m_sigma_GeV": 0.6224292458834797,
+    "g_piqq": 3.325053875876223
+  },
+  "scan": {
+    "chiral": [
+      [
+        1.02,
+        0.056062049662114165,
+        0.11212409932422833,
+        1.0,
+        0.0
+      ],
+      [
+        1.1,
+        0.15210346764796684,
+        0.3042069352959337,
+        1.0,
+        0.0
+      ],
+      [
+        1.3,
+        0.3114817908058651,
+        0.6229635816117302,
+        1.0,
+        0.0
+      ],
+      [
+        1.6,
+        0.4989285481772563,
+        0.9978570963545126,
+        1.0,
+        0.0
+      ],
+      [
+        2.0,
+        0.7160703761619138,
+        1.4321407523238276,
+        1.0,
+        0.0
+      ],
+      [
+        3.0,
+        1.2036197421680381,
+        2.4072394843360763,
+        1.0,
+        0.0
+      ],
+      [
+        5.0,
+        2.1126861265982972,
+        4.2253722531965945,
+        1.0,
+        0.0
+      ],
+      [
+        10.0,
+        4.3139732345077535,
+        8.627946469015507,
+        1.0,
+        0.0
+      ]
+    ],
+    "m0_5.5MeV": [
+      [
+        1.02,
+        0.12014382837767705,
+        0.2402876567553541,
+        1.0,
+        0.0
+      ],
+      [
+        1.1,
+        0.18353073446982326,
+        0.36706146893964653,
+        1.0,
+        0.0
+      ],
+      [
+        1.3,
+        0.3267497552159536,
+        0.6534995104319072,
+        1.0,
+        0.0
+      ],
+      [
+        1.6,
+        0.5089763335553769,
+        1.0179526671107537,
+        1.0,
+        0.0
+      ],
+      [
+        2.0,
+        0.723981935972698,
+        1.447963871945396,
+        1.0,
+        0.0
+      ],
+      [
+        3.0,
+        1.2100368036039852,
+        2.4200736072079705,
+        1.0,
+        0.0
+      ],
+      [
+        5.0,
+        2.118493793390593,
+        4.236987586781186,
+        1.0,
+        0.0
+      ],
+      [
+        10.0,
+        4.319548062868227,
+        8.639096125736454,
+        1.0,
+        0.0
+      ]
+    ]
+  },
+  "notes": [
+    "ONE coupling G does both jobs: the gap equation M=m0+4G Nc Nf M I1(M) dynamically generates the constituent mass m_c (chi-SB), and the SAME G in the q-qbar ladder (1-2G Pi=0) fixes the meson poles. This is the self-consistent replacement for F74's external-m_c contact solver.",
+    "Critical coupling G_c Lam^2 = pi^2/(Nc Nf) = pi^2/6 = 1.6449 (chi-SB onset) \u2014 the NJL analogue of F74's g_c=3.957t binding threshold; below it M=m0 (no constituent mass).",
+    "THEOREMS reproduced with no fitting: chiral-limit Goldstone (m_pi=0) and the NJL mean-field theorem m_sigma=2 m_c, both to machine precision; the exact polarization split Pi_S-Pi_PS=-8NcNf M^2 K.",
+    "VALIDATED against the real world: the canonical SU(2) fit (Lam=651.5, G Lam^2=2.10, m0=5.5 MeV) reproduces M=325, f_pi=92, m_pi=135 MeV and <qbar q>^(1/3)=-250 MeV, plus GMOR and Goldberger-Treiman \u2014 so the prefactors/normalisation are the physical ones.",
+    "F74 FOLLOW-UP RESULT: for EVERY coupling G>G_c, the self-consistent scalar has m_sigma/(2 m_c) >= 1 (chiral: =1 exactly; m0>0: >1). Hence the binding E_b = 2 m_c - m_sigma <= 0: the NJL scalar is a THRESHOLD RESONANCE, not a sub-threshold deep-bound state. Criticality (G->G_c) sends m_c->0 and m_sigma->0 TOGETHER at fixed ratio 1, so it never lands at the EW ratio either.",
+    "VERDICT: the EW target m_H/(2 m_t)=0.363 sits in the region m_sigma/(2m_c)<1 that NJL cannot reach with a single self-consistent coupling. This CONFIRMS F74's near-no-go and removes its one external input (the contact coupling): a 125 GeV composite scalar from a 2 m_t pair needs sub-threshold binding the dynamical-mass mechanism structurally does not provide. A relativistic Bethe-Salpeter ladder beyond the mean-field/RPA pole is the only remaining place such binding could hide."
+  ],
+  "overall": "PASS"
+}

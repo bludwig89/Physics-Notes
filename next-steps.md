@@ -80,8 +80,10 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~**Running** - Review Finding 37 and verify that  `w_propagation_step_spectral` with the split-basis version is implemented and tested as proposed in the finding.~~
 
-- do a complete review of the physics involved in the entire model and explain it as straightforwardly as possible, document in physics-simple.md.
+- ~~do a complete review of the physics involved in the entire model and explain it as straightforwardly as possible, document in physics-simple.md.~~
 
+- ~~review and implement ca-dirac-gravity-plan.md as a project fork and test.~~
+  
   - ~~based on the current model and what it can show us, what scientific findings does it explain that the standard model does not?~~
 
 - ~~examine first-gen-completeness.md and update it with the elements now in the model.~~
@@ -104,15 +106,29 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
   -(Work)add a short note to F41 or F42, that records: (i) the bare additive Lagrangian double-counts $e_L$; (ii) the resolution adopted in `ca_dirac.py`/`ca_wmu.py` is to label each Weyl field by its full $(SU(2)_L, SU(2)_R\!\sim\!I, U(1)_Y)$ identity and apply *one* kinetic step that carries the appropriate covariant derivatives. Build a unit test that recomputes the kinetic energy from the notebook's naive sum and from the implementation, and shows the implementation's value is consistent with $E^2 = p^2 + m^2$ for each Weyl species.
 
-- review first-gen-completeness.md and update it with any current improvements the model has and close any tests and/or items that have been completed since last audit including recent hypercharge field updates and weinberg angle derivations. 
+- ~~(personal) review first-gen-completeness.md and update it with any current improvements the model has and close any tests and/or items that have been completed since last audit including recent hypercharge field updates and weinberg angle derivations. ~~
 
-- review finding 10 and the current status and findings of the model, draft a short overview of our options for adopting a SI unit of measurement, the lattice constraints, and any derivations that may affect the decision.
+- ~~(work)attempt to show that the bipartite sublattice DOF carries hypercharge as a matter of representation theory on the BCC walk.~~
 
-- (Personal) review the ca_wmu.pu:weinberg_mix function and modify it so it uses the theta_w=pi/6 as the default value as per f45's derivation.
+- look at whether F46's Dirac rest-leg geometry has any route to an absolute dimensionless mass 
 
-- (Personal) can the "$W_\plusmn$  = 3e exactly" be derived from the bcc lattice as the notebook hints?
+- if gravity has a fundamental kinetic term instead of being strictly emergent, what does that change?
+  
+-  ~~build out the f64 em-connection fork as a complete dynamic field, conduct a full battery of tests as comprehensive as we have for the emergent-gravity module and compare the results with those of emergent-gravity.~~
+  
+- document the em-connection gravity fork physics in the same format as phyics-simple.md
+  
+- ~~also compare with the f50/f52 gravity construct.~~
+  
+- ~~review finding 10 and the current status and findings of the model, draft a short overview of our options for adopting a SI unit of measurement, the lattice constraints, and any derivations that may affect the decision.~~
 
-- based on finding 46, and this statement: "In a curved tetrad background, $\Omega_\text{kin}$ becomes site-dependent. F46 then predicts that gravitational redshift enters Dirac as a site-dependent renormalisation of the kinetic leg of the spherical triangle." investigate implementation of a gravity fork. reference physics-notes-complete.md and ca-dirac-gravity-plan.md.
+- ~~(Personal) review the ca_wmu.pu:weinberg_mix function and modify it so it uses the theta_w=pi/6 as the default value as per f45's derivation.~~
+
+- ~~can the "$W_\plusmn$  = 3e exactly" be derived from the bcc lattice as the notebook hints?~~
+
+- ~~(Work)based on finding 46, and this statement: "In a curved tetrad background, $\Omega_\text{kin}$ becomes site-dependent. F46 then predicts that gravitational redshift enters Dirac as a site-dependent renormalisation of the kinetic leg of the spherical triangle." investigate implementation of a gravity fork. reference physics-notes-complete.md and ca-dirac-gravity-plan.md.~~
+
+- ~~verify the absolute L4 lensing coefficient $\Delta\theta=4GM/(bc^2)$ against the lattice value~~
 
 - ~~Does the gluon rotation-law analog arise naturally in the model? Is there a need to include quark self-coupling dynamics?~~
 
@@ -128,8 +144,22 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~**Running** - conduct a rigorous review of the model and determine what elements need to be added for a complete first-generation particle model, and outline tests that still need to be conducted. if there are files no longer being used indicate them for the user to move to a ca-simulation\retired folder.~~
  
--  Proposed test - Apply a full spectral-propagation test (analogous to T51 for the photon) on a real-space $(E^a, B^a)$ field.
+- ~~attempt to show if the chiral mass step (F27) or the lattice's discrete symmetry admits exactly three independent stable mass eigen-solutions, with a fourth being forbidden or unstable.~~
+
+- ~~attempt to use a self-consistent NJL gap + RPA implementation rather than f74's method for coupling m_c and E_b.~~
+
+-  ~~Proposed test - Apply a full spectral-propagation test (analogous to T51 for the photon) on a real-space $(E^a, B^a)$ field.~~
   
+   -  ~~since our model promotes the Koide relation to a geometric relation, would this model be of interest to him as well as professor T'hooft considering his work on cellular automata? Help me draft a short email to professor Koide and t'hooft briefly highlighting the model's key elements and deviations from SM.~~
+
+- ~~with the 3-generation predictions from f75,f76 and f77, how does that prediction modify g* and as a result a?~~
+
+- with all of the additions and modifications, especially to the dual-spinor photon, a full test rerun is warranted. Conduct a fresh run of the entire test suite that has not been deprecated or superceded.
+  
+  - attempt to fix $a$ from a **measured fermion mass** through the F46/F12 lattice-mass
+map
+- ~~can we free the gravity sector from the sakarov premise, verify the choice of loop channel is correct, and derive newtons constant G?~~
+
 - ~~***Complete*** - proposed fork - if we use the mohr six-component photon wave function instead of the composite bilinear photon of de broglie, what are the results? *(Already doing this just in different language)*~~
 
 - Proposed fork - consider the global tick speed as the base speed that only massless particles can travel at, (100% of $c$), anything massive, relative to the empty vacuum part of the field, travels at a slower percentage (for this thought experiment, most likely is a function of mass). The top limit of this being a black hole where tick rate is 0% relative to the vacuum.
@@ -138,3 +168,7 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 ## Software Changes
 - how would we convert this model from single-run to a sofware modelling standalone program?
+
+P.S. Disclaimer and personal information - I am a physicist only by proximity, my father had a PhD in theoretical physics and made such problems his hobby, just recently I was able to transcribe one of his notebooks which had a section on the idea of universal structure as cellular automata, so with the help of AI I began interpreting some of it into a model. I'm a computer guy, not a physicist, but I know enough that this could be interesting to you, and the CA idea is a school of thought you at least entertain.
+
+As a result, if the physics is nonsensical, or if this is "old news", I plead ignorance and profusely apologize for wasting your time and wish you the absolute best in your studies! 

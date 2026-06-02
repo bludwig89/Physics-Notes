@@ -1,0 +1,15 @@
+{
+  "T1": {
+    "max_comm_phase_with_U": 1.1102230246251565e-16,
+    "max_comm_sigma_x_with_nsigma": 1.9936447119294758
+  },
+  "T2": {
+    "max_phase_diff_between_helicities": 0.0,
+    "interpretation": "gauge phase is identical on both spin/helicity channels"
+  },
+  "T3": {
+    "even_channel_helicity_gap": 0.0,
+    "chiral_channel_helicity_gap_max": 0.010253995159362123,
+    "chiral_gap_bodydiag_k0p4": 0.01027412602611602
+  }
+}

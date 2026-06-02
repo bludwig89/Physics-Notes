@@ -1,0 +1,95 @@
+{
+  "date": "2026-05-28",
+  "step1_finite_k_weights": {
+    "L": 20,
+    "w_triplet_BZ_avg": 0.7378338302241699,
+    "w_singlet_BZ_avg": 1.5485521360113847,
+    "ratio_singlet_to_triplet": 2.098781693895631,
+    "F45_leading_ratio": 0.3333333333333333,
+    "comment": "Triplet weight is the BZ-average of |n(k)|^2 = sin^2 omega(k). Singlet weight is the BZ-average of (omega^2 - |n|^2): the deviation of the actual BCC dispersion from the leading-order Weyl form.  At leading order both are O(k^2)/3 and equal, but the singlet picks up O(k^4) corrections that the triplet does not."
+  },
+  "step2_bond_axis_counting": {
+    "nn_bonds_total": 8,
+    "nn_unique_axes": 4,
+    "nnn_bonds_total": 6,
+    "nnn_unique_axes": 3,
+    "total_unique_bond_axes_to_2nd_shell": 7,
+    "n_sublattices": 2,
+    "candidate_gprime2_over_g2": "2/7",
+    "candidate_sin2_thetaW": "2/9",
+    "candidate_sin2_thetaW_float": 0.2222222222222222,
+    "PDG_diff_pct": -0.442532941076915,
+    "interpretation": "IF SU(2)_L kinetic terms distribute one independent coupling per unique BCC bond axis (4 body-diagonal + 3 face = 7 axes) AND U(1)_Y kinetic term distributes one per sublattice (2 sublattices in BCC), THEN g'^2/g^2 = 2/7 and sin^2 theta_W = 2/9 exactly. This matches the notebook's W^pm = 3e hypothesis (p. 104) and lands within 0.4% of PDG (0.2232). HOWEVER the physical reason for distributing the couplings *this way* is not derived from BCC structure alone -- it requires choosing this assignment by hand."
+  },
+  "step3_numerical_verify": {
+    "L_probe": 64,
+    "c_lat_leading": 0.5773502691896258,
+    "body_diagonal_+_a1": 0.5672597138336394,
+    "body_diagonal_+_a3": -0.10776560211326612,
+    "body_diagonal_-_a1": 0.587441723553958,
+    "body_diagonal_-_a3": 0.07923714962862198,
+    "face_axis_a1": 0.5773502691896257,
+    "face_axis_a3": 1.6127443245700934e-16,
+    "body_diagonal_slowdown_at_k=0.5": 0.03583682605744809,
+    "face_axis_slowdown_at_k=0.5": 1.1102230246251565e-16,
+    "interpretation": "Along the cube face axes, omega(k) = k/sqrt(3) exactly with no cubic correction.  Along the body diagonals there is a nonzero a3.  This is the F30/F37 anisotropy.  If g^2 is the sum over bond-axis hopping weights, the 7 unique axes (4 body diagonal + 3 face) contribute UNEQUALLY at finite k.  The naive 7-fold equality used in Step 2 is therefore broken by the BCC anisotropy itself."
+  },
+  "synthesis_candidates": [
+    {
+      "name": "F45 leading (1 singlet : 3 triplet)",
+      "gprime2_over_g2": "1/3",
+      "gprime2_over_g2_float": 0.3333333333333333,
+      "sin2_thetaW": "1/4",
+      "sin2_thetaW_float": 0.25,
+      "PDG_diff_pct": 12.002150441288476
+    },
+    {
+      "name": "Notebook W\u00b1 = 3e (target)",
+      "gprime2_over_g2": "2/7",
+      "gprime2_over_g2_float": 0.2857142857142857,
+      "sin2_thetaW": "2/9",
+      "sin2_thetaW_float": 0.2222222222222222,
+      "PDG_diff_pct": -0.442532941076915
+    },
+    {
+      "name": "2 sublattices : 7 bond axes (Step 2 hypothesis)",
+      "gprime2_over_g2": "2/7",
+      "gprime2_over_g2_float": 0.2857142857142857,
+      "sin2_thetaW": "2/9",
+      "sin2_thetaW_float": 0.2222222222222222,
+      "PDG_diff_pct": -0.442532941076915
+    },
+    {
+      "name": "2 sublattices : 8 NN bonds",
+      "gprime2_over_g2": "1/4",
+      "gprime2_over_g2_float": 0.25,
+      "sin2_thetaW": "1/5",
+      "sin2_thetaW_float": 0.2,
+      "PDG_diff_pct": -10.398279646969213
+    },
+    {
+      "name": "2 chirality branches : 7 axes",
+      "gprime2_over_g2": "2/7",
+      "gprime2_over_g2_float": 0.2857142857142857,
+      "sin2_thetaW": "2/9",
+      "sin2_thetaW_float": 0.2222222222222222,
+      "PDG_diff_pct": -0.442532941076915
+    },
+    {
+      "name": "SU(5) GUT tree",
+      "gprime2_over_g2": "3/5",
+      "gprime2_over_g2_float": 0.6,
+      "sin2_thetaW": "3/8",
+      "sin2_thetaW_float": 0.375,
+      "PDG_diff_pct": 68.00322566193272
+    },
+    {
+      "name": "6 face : 8 body diagonal",
+      "gprime2_over_g2": "3/4",
+      "gprime2_over_g2_float": 0.75,
+      "sin2_thetaW": "3/7",
+      "sin2_thetaW_float": 0.42857142857142855,
+      "PDG_diff_pct": 92.00368647078024
+    }
+  ]
+}

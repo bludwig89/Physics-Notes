@@ -1,0 +1,76 @@
+{
+  "finding": "F50",
+  "title": "Gravity fork via F46 spherical triangle (tetrad Dirac / Fork E3)",
+  "date": "2026-05-28",
+  "C0": 0.5,
+  "metric_mode": "exact_isotropic",
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "G1_continuum_slope4",
+      "slope": 4.000835996124237,
+      "target": 4.0,
+      "tol": 0.1,
+      "status": "PASS"
+    },
+    {
+      "name": "G2_static_redshift_rest_leg",
+      "mean_ratio_GR": 0.9970384322310739,
+      "std_ratio_GR": 0.0007929636850536612,
+      "baseline_ratio_GR": 2.0,
+      "max_rest_leg_residual": 1.6653345369377348e-16,
+      "target_ratio": 1.0,
+      "status": "PASS"
+    },
+    {
+      "name": "G3_photon_limit",
+      "max_c_eff_minus_forkE_cgamma": 0.0,
+      "max_omega_minus_kinetic_leg": 5.551115123125783e-17,
+      "tol": 1e-13,
+      "status": "PASS"
+    },
+    {
+      "name": "G4_kinetic_only_negative_control",
+      "omega_spread_across_sites": 0.0,
+      "omega_value": 0.30469265401539747,
+      "arcsin_m": 0.3046926540153975,
+      "note": "spread\u22480 proves kinetic-leg-only yields no static redshift",
+      "status": "PASS"
+    },
+    {
+      "name": "G5_prototype_stepper_norm",
+      "norm_initial": 50.265482457436676,
+      "norm_final": 50.265482457436676,
+      "relative_drift": 0.0,
+      "n_steps": 12,
+      "tol": 1e-10,
+      "status": "PASS"
+    },
+    {
+      "name": "G6_flat_reduces_to_F46",
+      "max_residual_vs_F46": 4.440892098500626e-16,
+      "n_samples": 200,
+      "tol": 1e-14,
+      "status": "PASS"
+    },
+    {
+      "name": "G7_bounded_and_slope",
+      "omega_in_band_0_pi": true,
+      "kinetic_slope": 0.6931223393827383,
+      "slope_target_r_over_sqrt2": 0.6931223413445532,
+      "slope_abs_err": 1.9618149327271794e-09,
+      "tol_slope": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "name": "G8_qca_stepper_phase_match",
+      "r_kin": 0.9841429823633356,
+      "omega0_flat_qca": 0.4960460346517937,
+      "measured_per_tick_phase": 0.48818022393172267,
+      "predicted_r_times_omega0": 0.4881802239317228,
+      "abs_err": 0.0,
+      "tol": 1e-12,
+      "status": "PASS"
+    }
+  ]
+}

@@ -2,8 +2,8 @@
   "finding": "F46",
   "title": "Spherical Pythagorean lattice-mass identity",
   "identity": "cos \u03a9_Dirac = cos \u03a9_rest \u00b7 cos \u03a9_kin",
-  "date_utc": "2026-05-28 - 19:22",
-  "elapsed_sec": 0.2929680347442627,
+  "date_utc": "2026-06-02 - 12:09",
+  "elapsed_sec": 0.3833446502685547,
   "all_passed": true,
   "tests": [
     {

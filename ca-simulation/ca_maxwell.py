@@ -1,6 +1,26 @@
 """
 ca_maxwell.py  —  Composite-photon EM sector (Paper 1 Eq. 35)
 ==============================================================
+
+╔══════════════════════════════════════════════════════════════════╗
+║  RETIRED AS THE PHOTON (2026-06-01, F69).                          ║
+║  The composite σ-bilinear photon built here assigns each helicity  ║
+║  F^± = E ± iB to its own BCC chiral branch (Ω^+, Ω^-), so a        ║
+║  generic linear polarization splits → linear vacuum BIREFRINGENCE  ║
+║  (ΔΩ), which GRB/AGN polarimetry excludes at the F64 cell size     ║
+║  (F65/F66/F67).  The physical electromagnetic photon is now the    ║
+║  PAIRED-spinor photon of `ca_photon_pair.py`: a bound (+,−) pair   ║
+║  ("two γ_{1/2}, only occurs as a pair", McPhee pp.5–6) whose rate  ║
+║  is the helicity-symmetric Ω_pair = ω⁺(k/2)+ω⁻(k/2) = Ω_even —     ║
+║  non-birefringent (F69), and the identity-channel object forced by ║
+║  U(1) minimal coupling (F68).                                      ║
+║                                                                    ║
+║  This module is KEPT for the massive / non-Abelian sectors only    ║
+║  (W, Z, gluon — `ca_wmu`, `ca_z_field`, `ca_gluon`), which use the ║
+║  σ-bilinear / chiral propagator and are NOT under the photon       ║
+║  polarimetry bound.  Do NOT use these helpers as the U(1) photon.  ║
+╚══════════════════════════════════════════════════════════════════╝
+
 Construct the photon as a correlated bilinear of two Weyl fields on
 the BCC lattice (the de Broglie "neutrino theory of light" made
 rigorous in Bisio et al. 2015).  Paper 1 Eq. 35:

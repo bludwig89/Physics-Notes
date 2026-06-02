@@ -1,0 +1,72 @@
+{
+  "finding": "F73",
+  "title": "spin-0 bound-pair scalar",
+  "checks": {
+    "BP1 sin(asin m1+asin m2)=m1 n2+m2 n1": {
+      "residual": 1.3363823550460978e-51,
+      "target": 1e-45,
+      "tier": "exact-algebraic",
+      "status": "PASS",
+      "n_pairs": 121
+    },
+    "BP2 equal-mass closed form": {
+      "residual": 4.0091470651382935e-51,
+      "target": 1e-45,
+      "tier": "exact-algebraic",
+      "status": "PASS"
+    },
+    "BP3 deficit leading order d~mc^2/2": {
+      "residual": 2.50000000000125e-13,
+      "target": 1e-06,
+      "tier": "quantitative",
+      "status": "PASS",
+      "composite_below_free_sum": true
+    },
+    "BP4 saturation at mc=1/sqrt2 -> m_H=1": {
+      "residual": 2.6727647100921956e-51,
+      "target": 1e-45,
+      "tier": "exact-algebraic",
+      "status": "PASS",
+      "mc_star": 0.7071067811865476,
+      "omega_star": 1.5707963267948966
+    },
+    "BP5 deficit << 1 at EW scale": {
+      "residual": 1.4699786988890265e-33,
+      "target": 1e-30,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "BP6 confrontation numbers self-consistent": {
+      "residual": 0.0,
+      "target": 1e-09,
+      "tier": "bookkeeping",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "deficit_fraction_formula": "1 - sqrt(1-mc^2)  (~ mc^2/2)",
+    "stability_bound": "mc <= 1/sqrt(2); m_H saturates at 1",
+    "m_lat_top": 5.4221373993823257e-17,
+    "m_lat_higgs": 3.935346290042511e-17,
+    "deficit_fraction_top_pair": 1.4699786988890265e-33
+  },
+  "confrontation": {
+    "equal_constituent_threshold_GeV": 62.625,
+    "ttbar_free_sum_GeV": 345.14,
+    "ttbar_required_binding_GeV": 219.89,
+    "ttbar_required_binding_fraction": 0.6371037839717216,
+    "m_H_over_(v/2)": 1.017382828364877,
+    "lambda_observed": 0.12938347743146458,
+    "lambda_if_mH_eq_v_over_2": 0.125,
+    "lambda_fractional_gap": 0.03387973115644959
+  },
+  "notes": [
+    "m_H = sin(asin m1 + asin m2) is exact lattice kinematics (F46+F69), no new input.",
+    "Lattice composition is strictly sub-additive: m_H <= m1+m2, deficit ~ mc^2/2.",
+    "At a=6.2e-35 m all EW masses have m_lat<<1 so deficit ~1e-42: SI prediction is the free sum.",
+    "Free-sum kinematics alone CANNOT hit 125.25 GeV: equal constituents need mc=62.6 GeV (no SM match); t-tbar overshoots to 346 GeV needing 64% binding.",
+    "Therefore the missing model input is the BINDING DYNAMICS (the SM quartic lambda in disguise); the model predicts only the kinematic ceiling.",
+    "FLAGGED, NOT DERIVED: m_H ~ f = v/2 (123.1 GeV) to 1.7%, equivalently quartic lambda ~ 1/8 = 0.125 vs observed 0.129 (3%). Recorded as a numerical coincidence pending a binding-scale derivation."
+  ],
+  "overall": "PASS"
+}

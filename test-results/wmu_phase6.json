@@ -81,7 +81,7 @@
       "description": "[mix,propagate]=0 for all \u03b8_W: max|\u0394| = 2.22e-15"
     }
   ],
-  "elapsed": 0.013632535934448242,
+  "elapsed": 0.016059398651123047,
   "n_pass": 5,
   "n_total": 5
 }

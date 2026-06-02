@@ -4,6 +4,316 @@ This file documents new physics observations or possible new finds that arise du
 
 ---
 
+## Finding 80 — One 45°: the charged-lepton Koide point and the F73 bound-pair cap are the same SO(2) equipartition, selected by electromagnetism
+
+**Date:** 2026-06-02 - 11:57
+**Status:** Partial — 4/4 PASS + 1 honest residual. Closes the open question posed by F78. (Numbered **F80** — built concurrently with the structural-Newton-constant finding that took F79.) Full writeup [findings/F80-one-45deg-em-saturation-koide.md](findings/F80-one-45deg-em-saturation-koide.md). **Test:** `model-tests/test_F80_em_saturation_45deg.py`; results `test-results/F80_em_saturation_45deg.json`.
+
+### Answered (exact)
+
+(D1) The amplitude-rotation→Koide map $Q(\phi)=1/(3\cos^2\phi)$, $\mathbf y=\sqrt m=R[\cos\phi\,\hat n+\sin\phi\,\hat u]$ off the democratic axis $\hat n=(1,1,1)/\sqrt3$: $\phi=0°\to\tfrac13$ (democratic), $\phi=45°\to\tfrac23$ (equipartition), $\phi=54.74°\to1$ (single-axis). (D2) **SO(2) unification:** F73's constituent $(n_c,m_c)=(\cos t,\sin t)$ with pair phase $\Omega=2t$ saturating at $\pi/2$ when $t=45°$ ($m_c=1/\sqrt2$, rest=kinetic), and the generation $(\text{common},\text{diff})=(\cos\phi,\sin\phi)$ with Koide equipartition at $\phi=45°$, are the **identical 45°-rotated unit vector** $(1/\sqrt2,1/\sqrt2)$. The constituent (F73/F74/F77) and generation (F76/F78) 45°'s are one and the same — mass is an SO(2) rotation and 45° is its equal-split point at each level. (D3) the measured leptons sit at $\phi=44.99974°=$ the F73 cap.
+
+### Answered (mechanism = selection rule; the user's EM insight)
+
+(D4) **Electric charge selects the sector.** Only the EM-coupled, colour-free charged leptons land on $Q=2/3$: up-type quarks $0.85$, down-type $0.73$ (QCD-dominated, off and unequal), neutrinos (neutral, Majorana/seesaw F47) unpinned ($Q=0.34$–$0.59$, ordering-dependent). Large PMNS vs small CKM mixing is the independent neutral-sector democratic signature.
+
+### Still open (honest residual)
+
+(D5) Perturbative EM supplies only $\alpha/\pi\approx0.13°$ — ~340× too weak to *drive* the full $45°$ democratic→equipartition rotation. So **EM explains *which* sector, not the *magnitude***; $45°$ ($Q=2/3$) is a non-perturbative *critical* condition pinned by data. Two hints toward deriving it: the $1/\sqrt2$/45° recurs at both levels (genuine pairing criticality), and the Cooper pair is itself a spin-singlet $1/\sqrt2$ (45°) state — the generation equipartition may be the image of the pair's internal structure. The sharpened open line: *why the charged-lepton EM criticality falls exactly at $45°$.*
+
+---
+
+## Finding 78 — Why $\sqrt m$: the Cooper-pair bilinear, and the equipartition amplitude as the democratic–hierarchical midpoint
+
+**Date:** 2026-06-01 - 21:14
+**Status:** Partial — 6/6 PASS. **Part A derives** why the cubic vector is $\sqrt m$ (resolving F76's open puzzle); **Part B** sharply characterises the equipartition amplitude $\sqrt2$ but shows it is **not** derived from the cube's symmetric dynamics. (Numbered **F78** — built concurrently with the NJL-gap finding that took F77.) Full writeup [findings/F78-koide-amplitude-from-cooper-pair.md](findings/F78-koide-amplitude-from-cooper-pair.md). **Test:** `model-tests/test_F78_koide_amplitude_pairing.py`; results `test-results/F78_koide_amplitude_pairing.json`.
+
+### Part A — why $\sqrt m$ (derived)
+
+Applying the model's own Cooper-pair premise (F69/F73/F74: "the Higgs is the Cooper pair") to fermion mass generation: generation $a$'s mass is a **pair condensate bilinear** in the constituent amplitude, $m_a\propto\langle y_a y_a\rangle=y_a^2$, where $y_a$ is the $T_{1u}$ vector component (one per orthorhombic axis, F76-C1). Hence $\sqrt{m_a}=y_a$ is the fundamental vector amplitude and **Koide is a statement about $y$** — because mass is *quadratic* in the pairing amplitude. (A1) $m=y^2$ reproduces $Q=0.666661$; (A2) the data independently select the bilinear power: the participation ratio $1/Q(s)=(\sum m^s)^2/\sum m^{2s}$ hits the clean $3/2$ **only at $s=\tfrac12$** ($1.500014$ vs $1.834,1.119$ at $s=\tfrac13,1$).
+
+### Part B — the equipartition amplitude (characterised; $\sqrt2$ not derived)
+
+(B1, new exact framing) $Q=\sum y^2/(\sum y)^2\in[\tfrac13,1]$ with $\tfrac13$=fully democratic (degenerate) and $1$=fully hierarchical (one mass); the leptons sit at $Q=\tfrac23=\tfrac12(\tfrac13+1)$, the **exact midpoint** — maximal democratic↔hierarchical balance. (B2) equivalently $|A_{1g}|=|T_{1u}|$, CV$(y)=1$, $45^\circ$. (B3, honest negative) a flavour-symmetric NJL gap drives all three masses to a common value (spread $<10^{-8}$, $Q\to\tfrac13$) — symmetric cube dynamics **cannot** make the hierarchy. (B4) the cube's $C_{3v}$ body-diagonal site symmetry forces a $[2,1]$ degeneracy, reaching $Q=2/3$ only at $\nu/\mu=1/\sqrt2$ but with two masses equal $(2.414,0.293,0.293)$ — not three distinct leptons; three distinct masses need the orthorhombic symmetry where $\sqrt2$ is unconstrained.
+
+### Verdict & sharpened open problem
+
+Derived: *why $\sqrt m$* (the bilinear). Exactly characterised: $Q=2/3$ = range midpoint / equipartition / 45°. Not derived: $\sqrt2$ itself — it is a *critical, maximally-broken* condition the symmetric model does not supply. A suggestive parallel: F73's bound-pair stability also saturates at $45^\circ$ ($m_c=1/\sqrt2$, constituent equipartition), and $\sqrt2$ recurs in B4 — hinting the lepton amplitude sits at a pairing-criticality point. The open problem, sharpened: show the lepton condensate is driven to the critical midpoint $Q=\tfrac23$ by the same dynamics that cap the F73 pair at $\arcsin m_c=45^\circ$, and explain why only charged leptons sit there ($Q_\text{up}=0.85$, $Q_\text{down}=0.73$ do not).
+
+---
+
+## Finding 76 — The generation mass hierarchy: a crystal-field splitting of the F75 $T_{1u}$ triplet, and Koide $Q=2/3$ as its cubic-vector signature
+
+**Date:** 2026-06-01 - 20:41
+**Status:** Candidate — 6/6 PASS, with the structural and numerical claims kept strictly separate. Full writeup [findings/F76-generation-mass-hierarchy-crystal-field.md](findings/F76-generation-mass-hierarchy-crystal-field.md). **Test:** `model-tests/test_F76_generation_hierarchy.py`; results `test-results/F76_generation_hierarchy.json`.
+
+### What it claims
+
+The F75 $T_{1u}$ generation triplet is degenerate at the $O_h$-symmetric point; the hierarchy needs a symmetry-lowering (crystal-field) split. **Exact structure:** (C1) three *distinct* masses require an **orthorhombic** $D_{2h}$ break, $T_{1u}\to B_{1u}\oplus B_{2u}\oplus B_{3u}$ — the three generations are the three inequivalent axes (cubic/tetragonal give $[3]$/$[2,1]$, only orthorhombic gives $[1,1,1]$); (C2) a crystal field *linear in $m$* is excluded — the fit needs $\max|\Delta|/\overline m=1.83>1$, non-perturbative. **The working variable is $\sqrt m$:** (C4, exact identity) Koide's $Q=\sum m/(\sum\sqrt m)^2=2/3$ is *exactly equipartition* — $\sqrt m$ splits into an $A_{1g}$ cubic scalar along $(1,1,1)$ and a traceless $T_{1u}$ triplet of **equal length** ($\cos^2\theta=1/(3Q)=1/2$, $\theta=45^\circ$). **Data:** (C3) charged leptons give $Q=0.6666605$, $0.91\sigma$ from $2/3$, $\theta=44.99974^\circ$; (C5) enforcing $Q=2/3$ predicts $m_\tau=1776.97$ MeV vs PDG $1776.86\pm0.12$ ($6.1\times10^{-5}$); (C6) the $Z_3$ cube parametrisation $\sqrt{m_a}=M_0[1+\sqrt2\cos(\delta+2\pi a/3)]$ reconstructs $m_\tau$ to $4.4\times10^{-5}$.
+
+### Interpretation & honesty
+
+The cubic geometry dictates the **form** of the hierarchy ($\sqrt m$ = cubic vector = $A_{1g}$ scalar + $T_{1u}$ triplet with $Z_3$ phases), reducing three masses to **one scale + one amplitude + one phase**, and the charged leptons obey it to $10^{-5}$ — Koide's $m_\tau$ prediction reappears as the cubic-vector consistency condition. **Not derived:** the amplitude $\sqrt2$ ($\Leftrightarrow Q=2/3$, the lone unexplained pure number) and the phase $\delta$ (fixed by a second mass). $\sqrt m$ as the vector coordinate is *motivated* (bound-pair fermion: $m\propto$amplitude$^2$, cf. F69/F73) but not proven. **Fails/open:** up- ($Q=0.849$) and down-type ($Q=0.731$) quarks do **not** equipartition; only the charged leptons are clean. Why only they, and deriving $\sqrt2$ from pairing dynamics, are the sharpened open problems.
+
+---
+
+## Finding 75 — Exactly three generations from BCC point-group selection of the F27 chiral mass step
+
+**Date:** 2026-06-01 - 20:08
+**Status:** Candidate — 8/8 checks PASS (group data built from generators; multiplicities exact rationals; $O_h$ character table cross-checked orthonormal over $\mathbb Z$). The group theory is exact; the physical identification (generation index = orbital shell irrep) is a stated hypothesis. Full writeup [findings/F75-three-generations-from-bcc-irrep-selection.md](findings/F75-three-generations-from-bcc-irrep-selection.md).
+**Module:** none new — analytic result on `ca_bcc.py`'s nearest-neighbour shell + the F27 mass step. **Test:** `model-tests/test_F75_three_generations_irrep.py`; results `test-results/F75_three_generations_irrep.json`.
+
+### What it claims
+
+Defining a *generation multiplet* operationally as a set of states that are (i) gauge-identical copies, (ii) related by an exact vacuum symmetry (hence degenerate), and (iii) mutually independent — i.e. a single irrep of the BCC point group $O_h$ — the generation count is fixed by representation theory:
+
+$$\text{generations} = \dim(T_{1u}) = 3,\qquad\text{and }O_h\text{ has no 4-dim single-valued irrep.}$$
+
+A four-step chain, each exact: (1) the maximal single-valued irrep of $O_h$ is 3-dimensional ($\sum d^2=48$), so Schur caps any protected multiplet at three and **forbids a fourth**; (2) the 8 body-diagonal BCC neighbours (cube vertices) decompose as $A_{1g}\oplus A_{2u}\oplus T_{1u}\oplus T_{2g}$ — the lattice *realises* a triplet; (3) the F27 mass is a **scalar** (required by F46's $\arcsin m$ rest-rotation), so it joins the $A_{1g}$ s-wave $\eta$ to an **odd-parity** $\chi$ orbital; the only odd-parity *triplet* is $T_{1u}$ → exactly **three**, with $T_{2g}$ excluded by parity and $A_{2u}$ a lone singlet; (4) a group-averaged $O_h$-invariant mass operator has Schur degeneracies $[1,1,3,3]$ (commutator $4.4\times10^{-16}$), and any 4-fold-degenerate block fails to commute with $O_h$ (commutator $1.0$) — the fourth is split off / unstable.
+
+### Interpretation
+
+The **lattice discrete symmetry carries the result** (it both caps the count at 3 and furnishes the $T_{1u}$ triplet); the **F27 mass step is the selector** — its scalar/opposite-parity structure picks the unique odd triplet, collapsing the shell's two triplets to one. The three generations are predicted to transform as a **cubic vector** $T_{1u}$ (the same "3" as the three spatial dimensions), and a sequential fourth generation is **representation-theoretically impossible** for $O_h$ — consistent with the experimental $N_\nu=2.984\pm0.008$ and the LHC fourth-generation exclusion, but as a theorem about the vacuum point group rather than a fit.
+
+### Limitations (see §7 of the writeup)
+
+Mass *hierarchy* is not derived (the triplet is degenerate at the symmetric point; ratios await a crystal-field $T_{1u}\to A\oplus E$ splitting calculation). The "generation = orbital shell irrep" bridge is a hypothesis, not derived from the QCA rule. The "no fourth" rests on counting generations as a **single-valued** (spin-scalar) multiplicity — fermions' double group $O_h'$ does have a 4-dim spinor irrep ($G_{3/2}$), but the family label is taken to factorise from spin (all generations are spin-½). The single-triplet selection assumes the scalar (not pseudoscalar) mass channel is the physical one (F46/F53).
+
+---
+
+## Finding 63 — The cost of the torsion-free assumption: Einstein–Cartan spin-torsion is ≲0.3% at F62 densities, O(1) only above ~3 quanta per cell
+
+**Date:** 2026-05-30 - 21:06
+**Status:** Confirmed — 5/5 checks PASS (EC coefficient exact-rational; ratio + Cartan density real-arithmetic). A bounded magnitude estimate, not a dynamical torsion sim (that is plan item D3b, open). Full writeup [findings/F63-spin-torsion-magnitude-estimate.md](findings/F63-spin-torsion-magnitude-estimate.md).
+**Module:** new `ca-simulation/forks/gr_fork_F63_spin_torsion_estimate.py`. **Tests:** `model-tests/test_F63_spin_torsion_estimate.py`; results `test-results/F63_spin_torsion_estimate.json`.
+
+### What changed
+
+The `page34-eom-derivation.md` reconciliation flagged that page 34's first-order variation w.r.t. the independent connection $\Omega_\mu$ (EOM 3) generates Einstein–Cartan torsion — the one genuinely new piece absent from the project's torsion-free emergent gravity. Eliminating the algebraic torsion leaves the axial-axial four-fermion term $\mathcal{L}_{4f}=-\tfrac{3}{16}\kappa\,j_5^2$, $\kappa=8\pi G/c^4$. F63 estimates its magnitude vs the Dirac energy density at the model's lattice scale, using the conservative polarised bound $j_5\le n$ (so no chiral bilinear is contracted — numpy-safe per CLAUDE.md) and F61's pinned cell $a=3.81\,\ell_P$.
+
+### Results
+
+- **Closed form:** $r_\text{cutoff}(f)=u_{4f}/u_\text{Dirac}=\tfrac{3\pi}{2}f(\ell_P/a)^2=\tfrac{3f}{4\eta g_*\sqrt d}$ — linear in occupation $f$ (torsion $\propto n^2$, Dirac $\propto n$).
+- **At F62 densities:** all four D2/D3a packets ($f_\text{peak}=1/(\pi\sigma^2)\approx10^{-3}$) give worst-case $r=2.9\times10^{-3}$ — two orders below F62's tolerances. The torsion-free assumption costs F62 nothing measurable.
+- **Cartan density:** $r=1$ only at $f^*=3.08$ quanta/cell — near-Planck packing into a $\sim3.8\,\ell_P$ cell. EC coefficient $3/16$ exact (rational).
+
+### Interpretation
+
+Quantifies and *vindicates* the project's choice to drop torsion: the EC four-fermion term is suppressed by $f(\ell_P/a)^2$, negligible across the entire sparse-fermion regime and O(1) only at trans-Planckian occupancy — consistent with the continuum Einstein–Cartan result (torsion matters only near $\rho_\text{Cartan}$). It pre-screens plan item D3b: a dynamical torsion sector is safely ignorable until the model is pushed to near-Planck density.
+
+---
+
+## Finding 61 — The Weyl heat-kernel coefficient $\eta=1/12$ and the mode count $g_*$: the prefactor becomes a number ($a\approx3.8\,\ell_P$, $\tau\approx2.2\,t_P$)
+
+**Date:** 2026-05-30 - 15:55
+**Status:** Confirmed (fermionic sector) — $\eta_\text{Weyl}=1/12$ derived exactly (Seeley–DeWitt + Lichnerowicz + statistics, rational arithmetic); $g_*$ fixed from the model's first-gen content; $P_\text{pre}$ and $(a,\tau)$ produced as numbers. Gauge-boson $g_*$ contribution flagged, not yet included. 4/4 PASS. Full writeup [findings/F61-weyl-eta-and-gstar-prefactor.md](findings/F61-weyl-eta-and-gstar-prefactor.md).
+**Module:** new `ca-simulation/forks/gr_fork_F61_weyl_eta_gstar.py`. **Tests:** `model-tests/test_F61_weyl_eta_gstar.py`; results `test-results/F61_weyl_eta_gstar.json`.
+
+### What changed
+
+F59 left $P_\text{pre}=\sqrt{2\pi\eta g_*}$ with $\eta,g_*$ assumed. F61 derives both. **$\eta_\text{Weyl}=1/12$ exactly:** with $\eta_\text{dof}=c_\text{dof}/2$ and the Seeley–DeWitt $a_1=\tfrac16R\,\mathrm{tr}\mathbb1-\mathrm{tr}E$, a minimal scalar gives $c_0=1/6$; the Dirac (Lichnerowicz $\slashed D^2=-\Box+\tfrac R4$, $\mathrm{tr}\mathbb1_4=4$, fermion sign) gives $a_1/R=-1/3$, $c_\text{Dirac}=+1/3$; the 2-component Weyl is half a Dirac, $c_\text{Weyl}=1/6$, $\eta_\text{Weyl}=1/12$ — F59's placeholder was the exact per-Weyl value. The phase-space factor is spin-independent (BCC eigenphases $\pm\omega$ equal-magnitude, residual $4.4\times10^{-16}$). **$g_*$:** counting 2-component Weyl in one generation (Higgs-free SU(2) content) gives $15$ (charged + active $\nu$) $+1$ sterile $\nu_R=16$; three generations $48$.
+
+### Interpretation
+
+$P_\text{pre}=\sqrt{\pi g_*/6}$, so for one full generation ($g_*=16$): $P_\text{pre}=2.894$, $a=3.81\,\ell_P$, $\tau=2.20\,t_P$, invariant $\sqrt{a\,c\tau}=2.89\,\ell_P$ ($d=3$). The clean "$a\approx\ell_P$" of F59's minimal $g_*=2$ case was a coincidence of minimal content; realistic content puts the cell at several Planck lengths. The $d^{1/4}$ split (F59/F60) is unchanged — only the scale $P_\text{pre}$ is now pinned for the fermionic sector. Open: the gauge sector (photon, $W$, $Z$, gluons) gravitates with spin-1 coefficients and adds to $\sum\eta$ (a $\sqrt{\cdot}$ correction that raises $a/\ell_P$); and the Lichnerowicz $E=R/4$ term is imported (the flat lattice sees only the spin-independence of phase space, not the curvature coupling).
+
+---
+
+## Finding 60 — Reconciling the two induced-$G$ channels: F58's $c_\text{lat}^2$ is tree-level, F59's $1/c_\text{lat}$ is loop-induced, gap $=c_\text{lat}^3$
+
+**Date:** 2026-05-30 - 15:25
+**Status:** Confirmed — 4/4 checks, three at machine precision (exponents $2.0000$, $-1.0000$, $-3.0000$; lock spread $1.1\times10^{-16}$). Resolves the F58↔F59 fork; the project's emergent-gravity ontology selects the loop channel ⇒ $1/G\propto\sqrt d$ ⇒ F59's $d^{1/4}$ stands. Full writeup [findings/F60-induced-G-channel-reconciliation.md](findings/F60-induced-G-channel-reconciliation.md).
+**Module:** new `ca-simulation/forks/gr_fork_F60_channel_reconciliation.py`. **Tests:** `model-tests/test_F60_channel_reconciliation.py`; results `test-results/F60_channel_reconciliation.json`.
+
+### What changed
+
+F59 flagged that F58-Q3a ($1/G\propto c_\text{lat}^2=1/d$) and F56/F59 ($1/G\propto1/c_\text{lat}=\sqrt d$) carry opposite light-cone-speed powers. F60 shows they are different objects: F58's $S_\text{bare}=c_\text{lat}^2$ is the kinematic identity $\omega^2=c_\text{lat}^2|\mathbf k|^2$ of a **tree-level** wave operator; F59's $B=\frac{1}{16\pi G}\propto1/c_\text{lat}$ is the **loop-induced** graviton stiffness. On a common $c_\text{lat}$ footing: $S_\text{bare}\propto c_\text{lat}^{2.0000}$, $B\propto c_\text{lat}^{-1.0000}$, gap $B/S_\text{bare}\propto c_\text{lat}^{-3.0000}$ — the universal tree-vs-loop $c_\text{lat}^3$.
+
+### Interpretation
+
+The project uses emergent gravity (F52 mass-sourced rest leg, F57 EH term *generated* by back-reaction, no fundamental graviton kinetic term), so the physical stiffness is the induced $B\propto\sqrt d$. F58-Q3a's $c_\text{lat}^2$ is the bare Poisson *operator* stiffness, not the physical coupling: F58 correctly derives the field-equation **form** ($4\pi$, $\nabla^2$, the $c_\text{lat}$-lock), F56/F57/F59 supply the **magnitude** $1/G$ whose $c_\text{lat}$-power is the loop's. The induced channel computes the convention-free $\ell_P/a$ directly, so the selection power is $d^{+1/4}$ (if gravity were fundamental instead, F58's $c_\text{lat}^2$ would be physical and it would flip to $d^{-1/4}$). Open: the prefactor $P_\text{pre}=\sqrt{2\pi\eta g_*}$ still needs the Weyl $\eta$, $g_*$ (→ F61).
+
+---
+
+## Finding 59 — The induced-EH prefactor, and the $(a,\tau)$ convention it selects: Sakharov $G\propto\ell^2$ + $c_\text{lat}=1/\sqrt d$ pick the geometric-mean resolution $a\approx d^{1/4}\ell_P$
+
+**Date:** 2026-05-30 - 14:55
+**Status:** Partial — the **$d^{1/4}$ selection is derived and lattice-confirmed (exact-algebraic origin)**; the absolute O(1) prefactor is reduced to two standard inputs ($\eta$, $g_*$) and $\approx1$ for minimal Weyl content (suggestive). 6/6 tests PASS. Full writeup [findings/F59-induced-eh-prefactor-and-f10-selection.md](findings/F59-induced-eh-prefactor-and-f10-selection.md).
+**Module:** new `ca-simulation/forks/gr_fork_F59_induced_eh_prefactor.py` (self-contained; mirrors `ca_bcc` F26 dispersion, real arithmetic only).
+**Tests:** `model-tests/test_F59_induced_eh_prefactor.py`; results `test-results/F59_induced_eh_prefactor.json`.
+
+### What changed
+
+Answers the F56/F57 follow-up — does Sakharov $G\propto\ell^2$ with $c_\text{lat}=1/\sqrt d$ select a Finding-10 $(a,\tau)$ resolution? Yes: it lands on a quantitative version of resolution 3.
+
+- **Which BZ integral is $1/G$ (settles F56↔F57, dimensionally).** $1/G\sim\Lambda^2$, CC $\sim\Lambda^4$. Measured: $\int d^3k/(2\omega)\sim\Lambda^{2.085}$ (Newton) vs $\int d^3k\,\omega/2\sim\Lambda^{3.919}$ (CC). So F56's $\int 1/(2\omega)$ (full-BZ $0.44666$, = F57's $\Pi(0)$) **is** the $\Lambda^2$ Newton object; F57's $\Pi_2$ log-running is a subleading Adler–Zee correction, not a replacement. The naive spatial-stress $q^2$ bubble scales as $\Lambda^{5.57}$ (BZ-edge junk) — ruled out as the route.
+- **$1/G\propto1/c_\text{lat}=\sqrt d$ is exact.** Linear-dispersion control: $I\cdot c_\text{lat}$ is $c$-independent to machine precision ($0.080035$ for $d=1,2,3$).
+- **The selection (exact-algebraic).** With $B=c^3/(16\pi G\hbar)=I_\text{lat}/a^2$ and the universal $a/\tau=c\sqrt d$, $\;a=\sqrt{2\pi\eta g_*}\,d^{1/4}\ell_P$, $\;\tau=\sqrt{2\pi\eta g_*}\,d^{-1/4}t_P$, $\;\sqrt{a\,c\tau}=\sqrt{2\pi\eta g_*}\,\ell_P$. The $d^{1/4}$ is forced; the prefactor $P_\text{pre}=\sqrt{2\pi\eta g_*}$.
+- **The number.** $\eta=1/12$ (minimal-scalar heat kernel), $g_*=2$ (Weyl branches) ⇒ $P_\text{pre}=\sqrt{\pi/3}=1.023$, so $a\approx d^{1/4}\ell_P=1.347\ell_P$, $\tau\approx d^{-1/4}t_P=0.778\,t_P$ ($d=3$): the clean geometric-mean convention, with $\ell_P=\sqrt{a\,c\tau}$ the $d$-independent invariant.
+
+### Interpretation
+
+Finding 10 left the three resolutions free because nothing tied $G$ to the lattice. Sakharov closes that loop, adding the self-consistency condition that picks the symmetric (resolution-3 / lightcone) choice: cell stretched by $d^{1/4}$, tick compressed by $d^{1/4}$, about the Planck-length invariant. The $d^{1/4}$ power is robust; the $\approx1$ prefactor depends on $\eta,g_*$ (open, as in F57). **Channel caveat:** this is the Sakharov channel ($1/G\propto\sqrt d$); F58 Q3a's clock-rate-stiffness channel gives $1/G\propto c_\text{lat}^2=1/d$, which would flip the $d$-sign — reconciling the two induced-$G$ channels is the open item this exposes.
+
+---
+
+## Finding 57 — Reducing the Einstein–Hilbert term from leg-field back-reaction: the EH term emerges from the matter loop; F56's Λ² was the wrong sector
+
+**Date:** 2026-05-29 - 19:05
+**Status:** Partial — back-reaction *generates* the metric kinetic term (EH emerges, correct sign, finite on the lattice); absolute coefficient reduced to a BZ integral + mode count + IR scale, not a pure number. 3/3 PASS. Full writeup [findings/F57-induced-eh-term-from-leg-field-backreaction.md](findings/F57-induced-eh-term-from-leg-field-backreaction.md).
+**Module:** new `ca-simulation/forks/gr_fork_F57_induced_eh_from_backreaction.py` (reuses `ca_bcc` F26 dispersion).
+**Tests:** `model-tests/test_F57_induced_eh_from_backreaction.py`; results `test-results/F57_induced_eh_from_backreaction.json`.
+
+### What changed
+
+F56 *assumed* the Sakharov induced Einstein–Hilbert term. F57 exhibits it: integrating out the F26 modes (coupled to the rest-leg potential $\Phi$ via the F52 density coupling $\int\Phi\rho$) gives the vacuum static polarization $\Pi(q)=\int_\text{BZ}\frac{d^3k}{(2\pi)^3}\frac{1}{\omega(\mathbf k)+\omega(\mathbf k+\mathbf q)}$, whose $q^2$ gradient piece $\Pi_2$ is the induced graviton kinetic (EH) term: $S_\text{eff}\supset\tfrac12\Pi_2(\nabla\Phi)^2$.
+
+### Results
+
+- **K1 — finiteness.** $\Pi(0)\to0.4466$ (converges to $8\times10^{-4}$); $\Pi_2$ bounded over the compact BZ. The lattice is a physical cutoff — no regulator freedom; the coefficient F56 called scheme-dependent is definite.
+- **K2 — the EH term emerges.** $\Pi_2=+0.061>0$: the back-reaction induces a positive $(\nabla\Phi)^2$ stiffness ⇒ a propagating, attractive gravitational potential. **Gravity is dynamical, derived not assumed.**
+- **K3 — F56's sector was wrong.** $\Pi(0)\propto\Lambda^{2.02}$ is the vacuum-energy / cosmological-constant sector (what F56 used); the true Newton coefficient $\Pi_2\propto\Lambda^{0.25}$ runs **logarithmically** (Adler–Zee running $G$). F56's $\Lambda^2$ was the right scaling for the wrong object.
+
+### Interpretation
+
+The Sakharov mechanism is no longer assumed — the matter loop is shown to generate a finite, correctly-signed EH kinetic term. The honest residual: the absolute $1/G$ still needs the gravitating mode count $g_*$, an IR scale (the log running is physical), and — crucially — the **spatial-stress (kinetic-leg, F55) channel** of the full $T_{\mu\nu}T_{\alpha\beta}$ correlator, which supplies the quadratic Sakharov piece the density channel alone misses. This maps onto the F52/F55 two-leg split: rest leg → Newtonian/running-$G$ sector; kinetic leg → quadratic Sakharov sector (next step).
+
+---
+
+## Finding 56 — Deriving the Einstein coupling 16πG/c⁴ from the lattice + F25/F26: the 16π is geometry, G is the lattice spacing
+
+**Date:** 2026-05-29 - 18:20
+**Status:** Partial — derivation attempt; 3/3 tests PASS (C1 exact). The geometric $16\pi$ is derived; the dimensionful $G$ reduces to the lattice spacing (Sakharov). Full writeup [findings/F56-einstein-coupling-from-lattice-phase-matching.md](findings/F56-einstein-coupling-from-lattice-phase-matching.md).
+**Module:** new `ca-simulation/forks/gr_fork_F56_einstein_coupling_derivation.py` (reuses `ca_bcc` F26 dispersion).
+**Tests:** `model-tests/test_F56_einstein_coupling_derivation.py`; results `test-results/F56_einstein_coupling_derivation.json`.
+
+### What changed
+
+F55 posited the coupling $16\pi G/c^4$. F56 factors it as $(16\pi)\times G\times c^{-4}$ and asks what the lattice fixes.
+
+- **The $4\pi$ is the lattice solid angle (derived).** The *bare* simple-cubic Laplacian — no $4\pi$ inserted — has Green's function $G(r)\to-1/(4\pi r)$; measured $4\pi C=1.0002$ ($r^2=0.99999$). This is the **same** small-$k$ isotropy F25/F26 used for the light cone: measured $c_\text{lat}=0.57734$ ($=1/\sqrt3$) with isotropy spread $2.4\times10^{-5}$ across four directions.
+- **The $4\pi\to16\pi$ step is forced (exact).** Given Newton's $4\pi$ + the F55 static-dust trace reversal, the tensor coupling is uniquely $\xi=16\pi G/c^4$ and $G_{\mu\nu}$ gets $8\pi G/c^4$ (C1, residual $0.0$).
+- **$G$ is the lattice spacing (Sakharov).** The induced $1/(16\pi G)$ = BZ integral $\int d^3k/(2\pi)^3\,\omega(k)^{-1}$ over the F26 dispersion scales as $\Lambda^2$ (measured exponent $2.0008$) ⇒ $G\propto\ell^2$, and its coefficient matches $\sqrt d\,\Lambda^2/(4\pi^2)$ to $0.03\%$ — so the phase-matching $c_\text{lat}=1/\sqrt d$ enters the coupling, and $\ell=\ell_P\sqrt d$ (Finding 10).
+
+### Interpretation
+
+Everything in $16\pi G/c^4$ except the choice of lattice spacing is derivable: the $16\pi$ from lattice isotropy (F25/F26) + trace reversal (F55) exactly, and the $\ell^2$-scaling of $G$ (with its $c_\text{lat}$ coefficient) from the F26 dispersion via Sakharov. The model does not produce Newton's constant as a pure number — a dimensionless lattice cannot — but it shows $G$ is locked to $c$ and $\ell$ by $G=\ell^2c^3/\hbar$. Posited (not derived): the Sakharov induced-EH mechanism itself and its absolute O(1) prefactor. Next: derive that induced term from the CA back-reaction of the F52/F55 leg-fields.
+
+---
+
+## Finding 55 — Spatial metric from trace reversal: Einstein's factor-2 deflection from mass (completes F52)
+
+**Date:** 2026-05-29 - 17:40
+**Status:** Confirmed — 5/5 tests PASS (J1, J5 bit-for-bit exact). Full writeup [findings/F55-spatial-metric-trace-reversal-einstein-factor2.md](findings/F55-spatial-metric-trace-reversal-einstein-factor2.md).
+**Module:** new `ca-simulation/forks/gr_fork_F55_spatial_metric_backreaction.py` (additive; reuses F52 Poisson + `gr_fork_E_tensor`).
+**Tests:** `model-tests/test_F55_spatial_metric_backreaction.py`; results `test-results/F55_spatial_metric_backreaction.json`.
+**Numbering note:** F53 (FG-9 C/CP) and F54 (FG-8 β-decay) were taken by concurrent work; this is F55.
+
+### What changed
+
+F52 showed the rest leg sourced by mass gives factor-1 (Newtonian) deflection; recovering Einstein's factor-2 needs the spatial metric $B$ sourced too. F53 sources $B$ from the **same** mass density via the linearised-Einstein **trace reversal**. A static dust source has $T_{ij}=0$, yet trace-reversing $\Box\bar h_{\mu\nu}=-(16\pi G/c^4)T_{\mu\nu}$ feeds the temporal source into the spatial components and forces
+
+$$h_{ij}=h_{00}=-2\phi/c^2\;\Rightarrow\;A=1-2u,\ B=1+2u,\quad u=GM/rc^2,$$
+
+so $|B-1|=|A-1|$ — the extra factor-1 that turns Newton into Einstein — is *derived* from one mass-sourced scalar plus the trace reversal, not posited.
+
+### Results
+
+- **J1 — trace-reversal identity (exact).** $h_{ij}=h_{00}$ for static dust to bit-for-bit $0.0$, although $T_{ij}=0$.
+- **J2 — redshift unchanged.** Factor-1 preserved (mean ratio $1.010$); sourcing $B$ does not touch the rest leg.
+- **J3 — deflection → factor-2.** Eikonal $K\equiv\alpha bc^2/GM$ gives $K_\text{full}=4.02$ (Einstein) vs $K_\text{rest}=2.02$ (Newtonian); self-consistent lattice ratio $1.99$.
+- **J4 — uniqueness.** Sweeping the spatial fraction $\lambda$ gives $K(\lambda)=2(1+\lambda)$ (slope $1.99$, intercept $2.02$, $K(1)=4.02$): **only** the trace-reversal value $\lambda=1$ yields factor-2. Factor-2 is selected, not tunable.
+- **J5 — consistency (exact).** Trace-reversed $(A,B)\equiv$ `gr_fork_E_tensor` linearised, bit-for-bit $0.0$.
+
+### Interpretation
+
+Together F52+F53 answer the original question end to end: gravity is an effect of the mass/time element; the rest leg alone gives Newton; the trace-reversed spatial metric, sourced by the same mass, supplies the second half of the bending and yields Einstein. Posited: linearised Einstein with the $16\pi G/c^4$ coupling (F53 does not derive GR). Open: derive that coupling from the F25/F26 phase-matching (analogue of F52's open $4\pi G$), promote to the non-linear isotropic $B=(1+u/2)^4$, and co-evolve both leg-fields dynamically with the Dirac matter.
+
+---
+
+## Finding 52 — Gravity as a self-consistent rest-leg (clock-rate) field: closing the F50 loop — and why the rest leg alone gives Newton, not Einstein
+
+**Date:** 2026-05-29 - 17:05
+**Status:** Confirmed — 5/5 tests PASS. Full writeup [findings/F52-gravity-from-rest-leg-backreaction.md](findings/F52-gravity-from-rest-leg-backreaction.md).
+**Module:** new `ca-simulation/forks/gr_fork_F52_restleg_backreaction.py` (additive; reuses `gr_fork_E_tensor` + `ca_emqg.solve_poisson_3d`).
+**Tests:** `model-tests/test_F52_restleg_backreaction.py`; results `test-results/F52_restleg_backreaction.json`.
+
+### What changed
+
+F50 showed gravity enters the F46 spherical triangle entirely through the **rest leg** ($\Omega_\text{rest}(x)=\sqrt{A(x)}\,\arcsin m$, the lapse carrying the redshift), but it *imported* the lapse via an analytic $\phi=-GM/r$. F52 tests whether the lapse is instead a **result of mass**: posit a local lattice field equation in which the rest-leg (clock-rate) deficit is sourced directly by rest-mass density,
+
+$$\nabla^2_\text{lat}\,\Phi(x)=4\pi G\,\rho(x),\qquad s(x)\equiv\sqrt{A(\Phi(x))}=\text{clock-rate field},$$
+
+with no imported $-GM/r$ — recalling that in F46 the rest leg *is* both the mass term and the proper-time clock, so "gravity from mass" and "gravity from time" are one hypothesis here, not two.
+
+### Results
+
+- **H1 / H1b — the loop closes.** The mass-sourced field reproduces the very $-GM/r$ F50 imports, solved both spectrally ($M_\text{eff}/M=0.973$, fit $r^2=0.99994$) and as a literal hand-rolled Jacobi **fixed point** ($M_\text{eff}/M=0.9995$, $r^2=0.998$, residual $10^{-8}$ in 4315 iters). Gravitational time dilation is genuinely an effect of the rest/mass element.
+- **H2 — factor-1 redshift.** The rest leg on the self-consistent field gives $\Delta\nu/\nu=\Delta\phi/c^2$ (mean ratio $0.997$, not baseline 2), reproducing F50-G2 with no imported potential.
+- **H3 / H3b — the discriminator.** Eikonal deflection coefficient $K\equiv\alpha bc^2/GM$: sourcing **only** the rest/clock leg ($B=1$) gives $K=1.999$ — the Newtonian $2GM/(bc^2)$, **factor 1**; sourcing the spatial metric too gives $K=4.015$ — Einstein's $4GM/(bc^2)$, **factor 2**. The clean ratio $K_\text{full}/K_\text{rest}=2.01$ holds on both the analytic and the self-consistent lattice field.
+
+### Interpretation
+
+Gravity *can* be an effect of the mass/time element: the rest leg, sourced by mass, reproduces F50's lapse and the correct factor-1 redshift. But the rest leg **by itself is necessarily Newtonian** — recovering Einstein's factor-2 light bending *requires the spatial metric $B$ (the kinetic leg) to also be sourced by mass*. The missing half of the deflection is exactly the part of the metric the rest leg never touches.
+
+### What is derived vs posited
+
+Posited: the $4\pi G$ coupling between clock-rate deficit and $\rho$ (Newton's constant by hand). Derived/tested: loop closure (two solvers), factor-1 redshift, and that a rest-leg-only source is *provably* factor-1 in deflection — pinpointing the sourced-$B$ structure Einstein's factor-2 demands. Follow-ups: a companion mass-sourced field equation for $B$; deriving $4\pi G$ from the F25/F26 phase-matching; dynamical (time-dependent) back-reaction co-evolving with the Dirac matter.
+
+---
+
+## Finding 50 — Gravity fork from F46: gravitational redshift lives on the rest leg, not the kinetic leg
+
+**Date:** 2026-05-28 - 23:58
+**Status:** Confirmed — 5/5 tests PASS (G1 slope-4; G2–G4 algebraic/machine-ε; G5 exactly norm-conserving stepper). Full writeup [findings/F50-gravity-fork-f46-tetrad-dirac.md](findings/F50-gravity-fork-f46-tetrad-dirac.md).
+**Module:** new `ca-simulation/forks/gr_fork_F46_dirac.py`; reuses `gr_fork_E_tensor.py`, `ca_dirac.py`, `ca_curved.py`
+**Tests:** `model-tests/test_F50_gravity_fork_dirac.py`; results `test-results/F50_gravity_fork_dirac.json`
+
+### What changed
+
+F46 §9.3 conjectured that in a curved tetrad background gravitational redshift "enters Dirac as a site-dependent renormalisation of the *kinetic* leg." The tetrad reduction of the static diagonal-metric Dirac equation gives the coordinate Hamiltonian $H = c_0\sqrt{A/B}\,\boldsymbol\alpha\cdot\hat{\mathbf p} + \sqrt A\,m c_0^2\,\beta$, so **both** F46 legs are gravitationally renormalised — kinetic by $c_\text{eff}=c_0\sqrt{A/B}$, rest by the lapse $\sqrt A$ — with covariant identity
+
+$$\cos\Omega^\text{coord}_\text{Dirac}(x,\mathbf k,m)=\cos\!\big(\sqrt{A(x)}\,\arcsin m\big)\cdot\cos\omega_\text{kin}\big(\mathbf k;c_\text{eff}(x)\big).$$
+
+The correction: a **static** clock has $\mathbf k=0$, so the kinetic leg vanishes and $\Omega=\arcsin m$ at every site — a kinetic-leg-only scheme gives *no* redshift (test G4, spread $=0$). The redshift is carried by the **rest** leg, $\Omega(\mathbf k=0)=\sqrt A\arcsin m$, yielding the GR factor-1 result $\Delta\nu/\nu=\Delta\phi/c_0^2$ (G2). This derives the F16 Fork-A/B clock ($\tau=\sqrt A$) / propagator ($c_\text{eff}$) split from the F46 triangle + tetrad, with no hand-imposed patch, and discharges Fork E's "E3 — tetrad Dirac" promise. The photon sector ($m=0$) reduces to Fork-E/B $c_\gamma$ bit-for-bit (G3). A prototype Strang stepper (rest $\sqrt A$ rotation + exactly-unitary Cayley kinetic step) conserves norm to the FP floor (G5).
+
+---
+
+## Finding 49 — BCC bond/sublattice counting reproduces $\sin^2\theta_W = 2/9$ (the notebook's "$W^\pm = 3e$ exactly")
+
+**Date:** 2026-05-28 - 23:55
+**Status:** Partial — exact rational answer 2/9 emerges from BCC structure under a specific assignment of $U(1)_Y$ to sublattices and $SU(2)_L$ to bond axes; the assignment itself is not yet derived from first principles. Full writeup [findings/F49-bcc-finite-k-weinberg-angle.md](findings/F49-bcc-finite-k-weinberg-angle.md).
+**Module:** No new module — analytical + numerical study only on existing `ca_bcc.py`
+**Tests:** `model-tests/test_F49_bcc_weinberg_2over9.py`; results `test-results/F49_bcc_weinberg_2over9.json`
+
+### What changed
+
+The notebook's p. 104 hypothesis "coupling to $W^\pm = 3e$ exactly" was previously logged as a numerical coincidence by F45 ($\sin^2\theta_W = 2/9$ is within 0.44% of PDG 0.22321, vs F45's σ↔τ swap value $1/4$ which is 12% off). F49 traces the $2/9$ to two integer counts intrinsic to the BCC lattice:
+
+$$\sin^2\theta_W \;=\; \frac{n_{\text{sublattice}}}{n_{\text{sublattice}} + n_{\text{bond axis}}} \;=\; \frac{2}{2 + 7} \;=\; \frac{2}{9},\qquad \frac{g'^2}{g^2} \;=\; \frac{2}{7}.$$
+
+Here $n_{\text{sublattice}} = 2$ (BCC's two interpenetrating SC sublattices) and $n_{\text{bond axis}} = 4 + 3 = 7$ (4 unique body-diagonal NN axes plus 3 unique face NNN axes).
+
+### Three-step verification
+
+**Step 1** (finite-$k$ F45 extension): BZ-averaged kinetic weights of singlet vs triplet do *not* deform $1/3 \to 2/7$ — the singlet "scalar excess" of the BCC dispersion grows, pushing the ratio above $1/3$, not below. The $2/9$ value is not reachable by continuous deformation of F45.
+
+**Step 2** (bond-axis / sublattice counting): An exact rational $2/7 = g'^2/g^2$ emerges when $U(1)_Y$ couples one generator per sublattice and $SU(2)_L$ couples one per unique BCC bond axis through the second shell.
+
+**Step 3** (numerical `bcc_dispersion` verification): The 7-fold equality is *exact at leading order in $k$* — face axes give $\omega = k/\sqrt{3}$ to machine precision ($a_3 = 1.6\times 10^{-16}$), and body diagonals (averaged over the two F37 chirality branches) also give $a_1 = 1/\sqrt{3}$. Cubic corrections distinguish body diagonals from face axes at higher orders — analogous to RG running.
+
+### What is derived and what is not
+
+Derived: the two BCC integers ($2$, $7$); the leading-order 7-axis equality (combined with F37 chirality averaging); the rational $2/9$ from those counts.
+
+Not derived: *why* $U(1)_Y$ should be the sublattice-staggered $U(1)$ of BCC; *why* $SU(2)_L$ should distribute uniformly across all 7 bond axes. These are the assignments that turn the integer counts into the gauge-coupling ratio.
+
+### Relation to other findings
+
+F45 (σ↔τ swap, $1/4$) is an *internal* representation count; F49 (bond/sublattice, $2/9$) is an *external* lattice count. They are complementary and apply to different aspects of the same gauge structure. F37's chirality split is essential to the 7-axis equality at leading order. F38's anomaly cancellation must be checked for consistency with the sublattice-staggered $U(1)_Y$ identification.
+
+---
+
 ## Finding 46 — Spherical Pythagorean identity for lattice mass: $\cos\Omega_\text{Dirac} = \cos\Omega_\text{rest}\cdot\cos\Omega_\text{kin}$ — a geometric derivation of $E^2 = p^2c^2 + m^2c^4$
 
 **Date:** 2026-05-28 - 22:50

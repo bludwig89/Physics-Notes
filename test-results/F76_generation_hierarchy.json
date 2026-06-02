@@ -1,0 +1,73 @@
+{
+  "C1_splitting_pattern": {
+    "pass": true,
+    "O_h_cubic": [
+      3
+    ],
+    "D4h_tetragonal": [
+      1,
+      2
+    ],
+    "D2h_orthorhombic": [
+      1,
+      1,
+      1
+    ],
+    "conclusion": "3 distinct masses require orthorhombic (3 inequivalent axes): T1u -> B1u+B2u+B3u; generations <-> axes x,y,z"
+  },
+  "C2_linear_crystal_field_ruled_out": {
+    "pass": true,
+    "mean_mass_MeV": 627.6764581502299,
+    "splits_MeV": [
+      -627.165,
+      -522.018,
+      1149.184
+    ],
+    "max_|split|/mean": 1.8309,
+    "verdict": "splitting >= mean -> NOT a perturbation; linear (in m) crystal field cannot produce the observed ratios"
+  },
+  "C3_koide_two_thirds": {
+    "pass": true,
+    "Q": 0.666660511465522,
+    "2/3": 0.6666666666666666,
+    "|Q-2/3|": 6.1552011446641686e-06,
+    "Q_uncertainty_from_m_tau": 6.774888273160359e-06,
+    "n_sigma_from_2/3": 0.9085317567595668
+  },
+  "C4_equipartition_45deg": {
+    "pass": true,
+    "angle_sqrt_m_to_(1,1,1)_deg": 44.99974,
+    "cos^2 (=1/(3Q))": 0.50000462,
+    "|A1g|^2 / |T1u-triplet|^2 (=1 at Q=2/3)": 1.000018,
+    "reading": "the cubic-scalar (A1g) and symmetry-breaking (T1u) parts of sqrt(m) carry EQUAL weight"
+  },
+  "C5_mass_prediction": {
+    "pass": true,
+    "m_tau_predicted_MeV": 1776.969,
+    "m_tau_PDG_MeV": 1776.86,
+    "m_tau_rel_error": 6.1e-05,
+    "m_tau_PDG_uncertainty_MeV": 0.12,
+    "m_e_predicted_MeV": 0.510641,
+    "m_e_PDG_MeV": 0.51099895069,
+    "m_e_rel_error": 0.0007
+  },
+  "C6_Z3_cube_parametrisation": {
+    "pass": true,
+    "M0_fit": 17.715847,
+    "delta_fit_rad": 4.411016,
+    "reconstructed_masses_MeV": [
+      0.5109,
+      105.6585,
+      1776.9381
+    ],
+    "m_tau_reconstructed_MeV": 1776.938,
+    "m_tau_rel_error": 4.4e-05,
+    "note": "sqrt(m) = M0[1 + sqrt2 cos(delta+2pi a/3)] -- the cube's threefold (Z3 body-diagonal) phase structure; sqrt2<=>Q=2/3"
+  },
+  "context_quark_Q": {
+    "Q_up_type": 0.8489807776610612,
+    "Q_down_type": 0.7314276514329372,
+    "note": "not 2/3 -> charged leptons are the special clean case; quark/neutrino fit is OPEN"
+  },
+  "_overall": "PASS"
+}

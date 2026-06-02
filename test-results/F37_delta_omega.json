@@ -3,17 +3,17 @@
   "results": [
     {
       "test": "F37.1",
-      "residual": 2.905960469335011e-14,
+      "residual": 2.1293867961173264e-14,
       "target": 1e-10,
       "passed": true,
-      "description": "F+ tracks \u03a9\u207a=2\u03c9_+(k/2): max rel err = 2.906e-14"
+      "description": "F+ tracks \u03a9\u207a=2\u03c9_+(k/2): max rel err = 2.129e-14"
     },
     {
       "test": "F37.2",
-      "residual": 2.2757134799389713e-14,
+      "residual": 8.935226370193775e-15,
       "target": 1e-10,
       "passed": true,
-      "description": "F- tracks \u03a9\u207b=2\u03c9_-(k/2): max rel err = 2.276e-14"
+      "description": "F- tracks \u03a9\u207b=2\u03c9_-(k/2): max rel err = 8.935e-15"
     },
     {
       "test": "F37.3",
@@ -24,20 +24,20 @@
       "c_exact_F30": -0.06415002990995841,
       "rel_err_coeff": 0.00039473618221069317,
       "dOmega_analytic_at_111": -0.007424846785372613,
-      "dOmega_meas_at_111": -0.007424846785372696,
+      "dOmega_meas_at_111": -0.007424846785372641,
       "dOmega_F30_approx_at_111": -0.007419555674171946,
-      "rel_err_propagation": 1.1214605399121112e-14,
+      "rel_err_propagation": 3.738201799707037e-15,
       "rel_err_F30_approx": 0.0007126222740502446,
-      "res_Fp_vs_analytic": 1.4528658640935888e-15,
-      "res_Fm_vs_analytic": 7.550332863779066e-16,
-      "description": "\u0394\u03a9 coeff: meas=-0.064175 exact=-0.064150 (rel 3.95e-04); propagation rel err=1.12e-14"
+      "res_Fp_vs_analytic": 4.742874840267547e-16,
+      "res_Fm_vs_analytic": 4.47545209131181e-16,
+      "description": "\u0394\u03a9 coeff: meas=-0.064175 exact=-0.064150 (rel 3.95e-04); propagation rel err=3.74e-15"
     },
     {
       "test": "F37.4",
-      "residual": 4.5754018057926167e-14,
+      "residual": 3.996518852261677e-14,
       "target": 1e-13,
       "passed": true,
-      "description": "Energy conserved / 300 steps (rel drift=4.58e-14)"
+      "description": "Energy conserved / 300 steps (rel drift=4.00e-14)"
     },
     {
       "test": "F37.5",
@@ -47,7 +47,7 @@
       "description": "Hermitian symmetry (max imag part = 0.00e+00)"
     }
   ],
-  "elapsed": 7.4832282066345215,
+  "elapsed": 14.771123170852661,
   "n_pass": 5,
   "n_total": 5
 }

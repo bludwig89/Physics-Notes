@@ -1,0 +1,143 @@
+{
+  "test_suite": "FG8_beta_decay",
+  "process": "d -> u + W- -> u + e- + nubar_e",
+  "n_pass": 10,
+  "n_total": 10,
+  "runtime_s": 0.4766974449157715,
+  "tests": {
+    "CC1 SU(2) raising/lowering algebra": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 1e-15,
+      "note": "[T3,T\u00b1]=\u00b1T\u00b1, [T+,T-]=2T3 exact",
+      "detail": {
+        "[T3,T+]-T+": 0.0,
+        "[T3,T-]+T-": 0.0,
+        "[T+,T-]-2T3": 0.0,
+        "T+ def": 0.0
+      }
+    },
+    "CC2 d->u raising; \u0394Q=+1=-Q(W-)": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 0.0,
+      "note": "T+|d>=|u>; \u0394Q=1, Q(W-)=-1",
+      "detail": {
+        "dQ": "1",
+        "Q_Wminus": "-1"
+      }
+    },
+    "CC3 vertex charge conservation": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 0.0,
+      "note": "emit dQ=0; absorb dQ=0, dL=0",
+      "detail": {
+        "emit": {
+          "dQ": "0",
+          "dB": "0",
+          "dL": "0",
+          "dB-L": "0"
+        },
+        "absorb": {
+          "dQ": "0",
+          "dB": "0",
+          "dL": "0",
+          "dB-L": "0"
+        }
+      }
+    },
+    "CC4 V-A vertex kills right-handed": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 1e-15,
+      "note": "P_L \u03c8_R = 0 (0.0e+00); P_L \u03c8_L = \u03c8_L (0.0e+00)"
+    },
+    "CC5 quark-lepton universality of J+": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 1e-13,
+      "note": "same J+=f_up* f_down for both doublets; matches J1+iJ2"
+    },
+    "CC6 W- emission = (g/\u221a2) J+ dt": {
+      "pass": true,
+      "residual": 9.155133597044475e-16,
+      "target": 1e-13,
+      "note": "\u0394E(W-) sourced by raising quark current J+ exactly"
+    },
+    "CC7 Proca W- dispersion \u03c9\u00b2=m_W\u00b2+\u03a9\u00b2": {
+      "pass": true,
+      "residual": 3.1466885116116605e-13,
+      "target": 1e-10,
+      "note": "\u03c9\u00b2=m_W\u00b2+\u03a9_even\u00b2(k) across 3 masses \u00d7 3 isospin comps, 30 ticks",
+      "detail": {
+        "m_W=0.0,a=0": 3.1466885116116605e-13,
+        "m_W=0.0,a=1": 1.38770695239564e-13,
+        "m_W=0.0,a=2": 5.5756062454802006e-14,
+        "m_W=0.3,a=0": 2.360990132300104e-13,
+        "m_W=0.3,a=1": 9.190377891156041e-14,
+        "m_W=0.3,a=2": 6.151167988365374e-14,
+        "m_W=0.6,a=0": 1.6600107298149724e-13,
+        "m_W=0.6,a=1": 9.452057999193657e-14,
+        "m_W=0.6,a=2": 5.865378497039574e-14
+      }
+    },
+    "CC8 heavy-W Fermi limit G_F/\u221a2=g\u00b2/8m_W\u00b2": {
+      "pass": true,
+      "residual": 4.163336342344337e-17,
+      "target": 1e-15,
+      "note": "A(0)-G_F/\u221a2=0.0e+00 (exact); dev rate matches -q\u00b2/(m_W\u00b2+q\u00b2)",
+      "detail": {
+        "G_F_over_sqrt2": 8.251953125000001e-06,
+        "A0": 8.251953125000001e-06,
+        "rel_dev_q2_1": -0.00015622558975164294
+      }
+    },
+    "CC9 full process d->u e- \u03bd\u0304 conservation": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 0.0,
+      "note": "\u0394Q=0 \u0394B=0 \u0394L=0 \u0394(B-L)=0",
+      "detail": {
+        "dQ": "0",
+        "dB": "0",
+        "dL": "0",
+        "dB-L": "0"
+      }
+    },
+    "CC10 end-to-end d\u2192u+W-\u2192u+e-+\u03bd\u0304 pipeline": {
+      "pass": true,
+      "residual": 0.0,
+      "target": 0.0,
+      "note": "W@A=3.564e-01, W@B(emit)=1.6e-13, W@B(final)=2.912e-03, \u0394Q=0.0",
+      "detail": {
+        "L": 16,
+        "m_W": 0.6,
+        "g_lat": 0.8,
+        "n_prop": 24,
+        "site_A": [
+          4,
+          8,
+          8
+        ],
+        "site_B": [
+          12,
+          8,
+          8
+        ],
+        "quark_norm0": 24.431039119344028,
+        "cc_injected_sum|J+|^2": 2.637387480496245,
+        "dE_Wminus_expected_maxabs": 0.35638181771801986,
+        "w_at_A_on_emit": 0.35638181771801986,
+        "w_at_B_on_emit": 1.5799752198670075e-13,
+        "w_at_B_final": 0.0029116309648893075,
+        "w_at_B_max_over_trace": 0.028653161323034002,
+        "lepton_cc_response_at_B": 0.0016470671996687677,
+        "dQ": 0.0,
+        "dB": 0.0,
+        "dL": 0.0,
+        "dB-L": 0.0
+      }
+    }
+  }
+}

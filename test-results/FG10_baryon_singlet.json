@@ -1,0 +1,110 @@
+{
+  "suite": "FG-10 \u2014 colour-singlet three-quark (proton) construction",
+  "date": "2026-06-01",
+  "n_tests": 8,
+  "n_passed": 8,
+  "total_elapsed_s": 0.01669604199969399,
+  "results": [
+    {
+      "test": "BS1",
+      "name": "\u03b5_{abc} totally antisymmetric",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "colour wavefunction antisymmetry \u2014 exact",
+      "elapsed_s": 5.8041000102093676e-05
+    },
+    {
+      "test": "BS2",
+      "name": "det V = 1 for SU(3) (source of invariance)",
+      "residual": 3.1665640055614284e-15,
+      "target": 1e-12,
+      "passed": true,
+      "description": "B \u2192 det(V)\u00b7B; det V=1 makes B invariant",
+      "elapsed_s": 0.005493374999787193
+    },
+    {
+      "test": "BS3",
+      "name": "Colour-singlet gauge invariance B\u2192det(V)B=B",
+      "residual": 1.2219363254673044e-15,
+      "target": 1e-12,
+      "abs_residual": 2.5121479338940402e-14,
+      "field_scale": 20.558746651003446,
+      "passed": true,
+      "description": "the proton is colourless \u2014 exact under local SU(3)",
+      "elapsed_s": 0.0021226250000836444
+    },
+    {
+      "test": "BS4",
+      "name": "Zero colour charge: G^a|S\u27e9=0, C\u2082|S\u27e9=0",
+      "residual": 1.3597399555105185e-16,
+      "target": 1e-12,
+      "charge_residual": 0.0,
+      "casimir": -1.3597399555105185e-16,
+      "passed": true,
+      "description": "antisymmetric \u03b5 is the unique SU(3) singlet of 3\u22973\u22973",
+      "elapsed_s": 0.0014886250000927248
+    },
+    {
+      "test": "BS5",
+      "name": "Proton uud quantum numbers (exact rational)",
+      "residual": 0.0,
+      "target": 0.0,
+      "Q": "1",
+      "B": "1",
+      "T3": "1/2",
+      "gmn_consistent": true,
+      "passed": true,
+      "description": "Q=2/3+2/3\u22121/3=1, B=1; fractions.Fraction exact",
+      "elapsed_s": 4.254199984643492e-05
+    },
+    {
+      "test": "BS6",
+      "name": "Proton spin-flavour wavefunction S\u2083-symmetric",
+      "residual": 0.0,
+      "target": 1e-12,
+      "n_terms": 9,
+      "norm": 1.0,
+      "passed": true,
+      "description": "SU(6) 56-plet symmetric combination, \u2016\u00b7\u2016\u00b2=18",
+      "elapsed_s": 4.795799986823113e-05
+    },
+    {
+      "test": "BS7",
+      "name": "Total wavefunction antisymmetric (Fermi statistics)",
+      "residual": 0.0,
+      "target": 1e-12,
+      "colour_sign": {
+        "01": -1.0,
+        "02": -1.0,
+        "12": -1.0
+      },
+      "total_exchange_sign": {
+        "01": -1.0,
+        "02": -1.0,
+        "12": -1.0
+      },
+      "passed": true,
+      "description": "colour(\u22121) \u00d7 spin-flavour(+1) \u00d7 space(+1) = \u22121",
+      "elapsed_s": 7.570899970232858e-05
+    },
+    {
+      "test": "BS8",
+      "name": "Energetic binding V(R)=\u03c3R \u2192 \u221e (no free quark)",
+      "residual": 0.0,
+      "target": 1e-12,
+      "sigma": 2.050832430468924,
+      "energies": {
+        "1": 2.050832430468924,
+        "2": 4.101664860937848,
+        "4": 8.203329721875695,
+        "8": 16.40665944375139,
+        "16": 32.81331888750278,
+        "32": 65.62663777500556
+      },
+      "passed": true,
+      "description": "exact 2D string tension binds the colour singlet",
+      "elapsed_s": 0.007290334000117582
+    }
+  ]
+}

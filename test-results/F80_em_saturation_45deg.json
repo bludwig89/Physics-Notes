@@ -1,0 +1,66 @@
+{
+  "D1_rotation_to_koide_map": {
+    "pass": true,
+    "Q(phi)=1/(3cos^2 phi)": {
+      "0deg_democratic": {
+        "Q_formula": 0.33333333,
+        "Q_constructed": 0.33333333,
+        "target": 0.33333333
+      },
+      "45deg_equipartition": {
+        "Q_formula": 0.66666667,
+        "Q_constructed": 0.66666667,
+        "target": 0.66666667
+      },
+      "54.7356deg_single_axis": {
+        "Q_formula": 1.0,
+        "Q_constructed": 1.0,
+        "target": 1.0
+      }
+    },
+    "note": "phi=45deg gives Q=2/3 EXACTLY"
+  },
+  "D2_so2_unification": {
+    "pass": true,
+    "F73_constituent_(n_c,m_c)_at_cap": [
+      0.707107,
+      0.707107
+    ],
+    "F73_pair_phase_Omega": 1.570796,
+    "pi/2": 1.570796,
+    "F73_rest=kinetic_equipartition(1/sqrt2)": "True",
+    "generation_(common,diff)_at_45": [
+      0.707107,
+      0.707107
+    ],
+    "identical_45deg_rotated_unit_vector": "True",
+    "reading": "F73 (rest,kinetic) and generation (common,differential) are the SAME SO(2) rotation; 45deg is the equal-split point of both -- one thread"
+  },
+  "D3_leptons_at_the_45deg_saturation": {
+    "pass": true,
+    "Q_leptons": 0.6666605,
+    "phi_lepton_deg": 44.99974,
+    "F73_cap_deg": 45.0,
+    "reading": "the charged-lepton amplitude is AT the EM-rotation saturation = the F73 bound-pair stability cap"
+  },
+  "D4_em_selection_rule": {
+    "pass": true,
+    "Q_charged_leptons": 0.66666,
+    "Q_up_type_quarks": 0.849,
+    "Q_down_type_quarks": 0.7314,
+    "Q_neutrino_scan_(normal_ordering)": {
+      "m1=0.0eV": 0.585,
+      "m1=0.001eV": 0.4914,
+      "m1=0.01eV": 0.3819,
+      "m1=0.05eV": 0.3356
+    },
+    "verdict": "only the clean EM-coupled charged leptons sit at 2/3; quarks are QCD-contaminated (off, and unequal); neutrinos (neutral, Majorana/seesaw F47) are not EM-pinned and their Q is ordering/scale-dependent. Charge is the selector."
+  },
+  "D5_honest_residual": {
+    "perturbative_EM_rotation_deg (~alpha/pi)": 0.13309,
+    "rotation_needed_democratic_to_equipartition_deg": 45.0,
+    "shortfall_factor": 338.1,
+    "statement": "EM explains the SELECTION (which sector sits at the critical point: only charged leptons couple to the clean abelian rotation) but NOT the magnitude: perturbative EM is ~340x too weak to rotate democratic(1/3)->equipartition(2/3). The value 45deg is a critical/saturation condition pinned by data; deriving it from the non-perturbative EM-driven gap (and the Cooper-pair singlet's own 1/sqrt2 structure) is the residual open question."
+  },
+  "_overall": "PASS"
+}

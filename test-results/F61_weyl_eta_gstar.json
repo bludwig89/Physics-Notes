@@ -1,0 +1,81 @@
+{
+  "heat_kernel": {
+    "scalar_min": {
+      "a1_over_R": "1/6",
+      "c": "1/6",
+      "eta": "1/12"
+    },
+    "dirac": {
+      "a1_over_R": "-1/3",
+      "c": "1/3",
+      "eta": "1/6"
+    },
+    "weyl": {
+      "a1_over_R": "-1/6",
+      "c": "1/6",
+      "eta": "1/12"
+    }
+  },
+  "phase_space": {
+    "available": true,
+    "eigenphase_abs_diff_max": 4.440892098500626e-16,
+    "intphase_per_component_BCC": 0.14700518512833738
+  },
+  "gstar": {
+    "per_field": [
+      {
+        "field": "L=(nu,e)_L",
+        "weyl": 2
+      },
+      {
+        "field": "e_R",
+        "weyl": 1
+      },
+      {
+        "field": "Q=(u,d)_L",
+        "weyl": 6
+      },
+      {
+        "field": "u_R",
+        "weyl": 3
+      },
+      {
+        "field": "d_R",
+        "weyl": 3
+      }
+    ],
+    "g_charged_15": 15,
+    "g_with_nuR_16": 16,
+    "g_three_gen_48": 48
+  },
+  "assembly": {
+    "minimal_2": {
+      "g_star": 2,
+      "P_pre": 1.0233267079464885,
+      "a_over_ellP": 1.3467736870885982,
+      "tau_over_tP": 0.777560150778107,
+      "invariant_over_ellP": 1.0233267079464885
+    },
+    "one_gen_15": {
+      "g_star": 15,
+      "P_pre": 2.802495608198964,
+      "a_over_ellP": 3.6882916413641462,
+      "tau_over_tP": 2.1294361719914368,
+      "invariant_over_ellP": 2.802495608198964
+    },
+    "one_gen_nuR_16": {
+      "g_star": 16,
+      "P_pre": 2.8944050182330705,
+      "a_over_ellP": 3.809251227455829,
+      "tau_over_tP": 2.1992722215825355,
+      "invariant_over_ellP": 2.8944050182330705
+    },
+    "three_gen_48": {
+      "g_star": 48,
+      "P_pre": 5.0132565492620005,
+      "a_over_ellP": 6.597816664747605,
+      "tau_over_tP": 3.809251227455829,
+      "invariant_over_ellP": 5.0132565492620005
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "finding": "F57",
+  "title": "Induced Einstein-Hilbert term from matter leg-field back-reaction",
+  "date": "2026-05-29",
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "K1_finiteness_convergence",
+      "grids": [
+        48,
+        72,
+        96
+      ],
+      "Pi0": [
+        0.44628129548039136,
+        0.4462793897183608,
+        0.4466576712911484
+      ],
+      "Pi2": [
+        0.057523841477579774,
+        0.058849119534884975,
+        0.06150722369182902
+      ],
+      "rel_change_Pi0": 0.0008476339743727756,
+      "rel_change_Pi2": 0.04516812108579388,
+      "note": "\u03a0(0) UV-finite (converges <1%); \u03a0\u2082 bounded over the compact BZ, residual drift is the logarithmic running of G, not a divergence",
+      "status": "PASS"
+    },
+    {
+      "name": "K2_eh_kinetic_term_emerges",
+      "Pi2_gradient_stiffness": 0.06058147301588175,
+      "Pi0_for_reference": 0.446266405825152,
+      "note": "\u03a0\u2082>0 \u21d2 back-reaction generates a (\u2207\u03a6)\u00b2 term = induced EH kinetic term; gravity is dynamical, not assumed",
+      "status": "PASS"
+    },
+    {
+      "name": "K3_sector_scaling_corrects_F56",
+      "Pi0_exponent": 2.016671975903623,
+      "target_Pi0_exponent": 2.0,
+      "Pi2_exponent": 0.254773298584017,
+      "Pi2_log_slope": 0.003439441815820242,
+      "Pi0_values": [
+        0.0035161979627726624,
+        0.007924179858054508,
+        0.017895080240951683,
+        0.03761499329185777,
+        0.07312150401723382
+      ],
+      "Pi2_values": [
+        0.011046257126674874,
+        0.012522180858394166,
+        0.013968416796413096,
+        0.015215560907698187,
+        0.01619223866167045
+      ],
+      "note": "\u03a0(0)\u221d\u039b\u00b2 is the \u039b/vacuum-energy sector (what F56 used); the EH coefficient \u03a0\u2082 runs ~log (Adler\u2013Zee), a distinct sector",
+      "status": "PASS"
+    }
+  ]
+}

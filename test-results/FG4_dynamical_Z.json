@@ -1,0 +1,134 @@
+{
+  "test_suite": "FG4_dynamical_Z",
+  "results": [
+    {
+      "test": "Z1",
+      "residual": 0.0,
+      "target": 1e-15,
+      "passed": true,
+      "rows_count": 21,
+      "description": "per-species (gL,gR) match SM table at 3 angles, 7 species each: max|\u0394| = 0.00e+00"
+    },
+    {
+      "test": "Z2",
+      "residual": 2.6645352591003757e-15,
+      "target": 1e-14,
+      "sub_residuals": [
+        8.881784197001252e-16,
+        1.7763568394002505e-15,
+        8.881784197001252e-16,
+        2.6645352591003757e-15,
+        1.7763568394002505e-15,
+        1.7763568394002505e-15,
+        1.7763568394002505e-15,
+        2.6645352591003757e-15
+      ],
+      "passed": true,
+      "description": "source-basis identity (W3,B)\u2194(A,Z) and J^Z decomposition: max|\u0394| = 2.66e-15"
+    },
+    {
+      "test": "Z3",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "m_Z = m_W/cos \u03b8_W (5 angles \u00d7 3 masses): max|\u0394| = 0.00e+00"
+    },
+    {
+      "test": "Z4",
+      "residual": 1.0431825530177401e-13,
+      "target": 1e-12,
+      "n_steps": 40,
+      "passed": true,
+      "description": "free massless Z dispersion = \u03a9_even(k) over 40 ticks: max rel err = 1.04e-13"
+    },
+    {
+      "test": "Z5",
+      "residual": 1.4804845114145166e-13,
+      "target": 1e-12,
+      "rels_by_mZ": {
+        "mZ=0.0": 1.0247173675759076e-13,
+        "mZ=0.1": 1.1136125640464606e-13,
+        "mZ=0.3": 1.4804845114145166e-13,
+        "mZ=0.5": 1.0580331209386758e-13
+      },
+      "passed": true,
+      "description": "massive Z (Proca) \u03c9\u00b2=m\u00b2+\u03a9_even\u00b2 over 30 ticks at 4 masses: max rel = 1.48e-13"
+    },
+    {
+      "test": "Z6",
+      "residual": 6.994405055138486e-15,
+      "target": 1e-12,
+      "n_steps": 25,
+      "passed": true,
+      "description": "[mix, z_propagate] = 0 over 25 ticks at \u03b8_W=\u03c0/6: max|\u0394| = 6.99e-15"
+    },
+    {
+      "test": "Z7",
+      "residual": 8.881784197001252e-16,
+      "target": 1e-14,
+      "sub_residuals": [
+        8.881784197001252e-16,
+        0.0,
+        2.220446049250313e-16,
+        0.0,
+        4.440892098500626e-16,
+        0.0,
+        2.220446049250313e-16,
+        0.0
+      ],
+      "passed": true,
+      "description": "source kick additive in E, B unchanged, 2 masses \u00d7 2 dt: max|\u0394| = 8.88e-16"
+    },
+    {
+      "test": "Z8",
+      "residual": 0.0,
+      "target": 0.0,
+      "n_angles": 20,
+      "passed": true,
+      "description": "\u03bd_L Z coupling (gL,gR,gV,gA)=(1/2,0,1/2,1/2) \u2200\u03b8_W: max|\u0394| = 0.00e+00"
+    },
+    {
+      "test": "Z9",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "photon does not couple to \u03bd (J^em on \u03bd density): max|\u0394| = 0.00e+00"
+    },
+    {
+      "test": "Z10",
+      "residual": 2.7755575615628914e-17,
+      "target": 1e-15,
+      "rows_count": 28,
+      "passed": true,
+      "description": "(gV,gA) match SM formula, 4 angles \u00d7 7 species: max|\u0394| = 2.78e-17"
+    },
+    {
+      "test": "Z11",
+      "residual": 1.1102230246251565e-16,
+      "target": 1e-15,
+      "residuals": {
+        "sin2theta_W - 1/4": 5.551115123125783e-17,
+        "gV^e_L (should be 0)": 1.1102230246251565e-16,
+        "gV^nu_L (should be 1/2)": 0.0,
+        "gV^u_L (should be 1/6)": 8.326672684688674e-17,
+        "gV^d_L (should be -1/3)": 5.551115123125783e-17
+      },
+      "gV^e_L at F45 (\u03c0/6)": -1.1102230246251565e-16,
+      "gV^e_L at W6.3 (0.4916 rad)": -0.054362107763257866,
+      "counter_check_visibly_nonzero": true,
+      "passed": true,
+      "description": "F45 prediction: g_V^e_L = 0 at sin\u00b2\u03b8_W = 1/4 exact; nonzero at PDG angle"
+    },
+    {
+      "test": "Z12",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "massive step at m_Z=0 reduces bit-for-bit to massless step: max|\u0394| = 0.00e+00"
+    }
+  ],
+  "elapsed": 0.2491285800933838,
+  "n_pass": 12,
+  "n_total": 12,
+  "overall": "PASS"
+}

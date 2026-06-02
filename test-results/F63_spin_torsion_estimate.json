@@ -1,0 +1,59 @@
+{
+  "coefficient": {
+    "prefactor_3_16": "3/16",
+    "kappa_over_G": 25.132741228718345
+  },
+  "cell": {
+    "a_over_ellP": 3.809251227455829,
+    "P_pre": 2.8944050182330705,
+    "eta": "1/12",
+    "g_star": 16,
+    "d": 3
+  },
+  "ratio_formula": "r_cutoff(f) = (3 pi/2) f (ellP/a)^2 ; r_rest = r_cutoff/m",
+  "f62_densities": {
+    "available": true,
+    "D2a_rindler": {
+      "f_peak": 0.0012433979929054322,
+      "sigma": 16.0,
+      "m": 0.35,
+      "f_analytic_1_over_pi_sig2": 0.0012433979929054324,
+      "r_cutoff": 0.0004038053433265079,
+      "r_rest_mass": 0.001153729552361451
+    },
+    "D2b_redshift": {
+      "f_peak": 0.00649612012619981,
+      "sigma": 7.0,
+      "m": 0.5,
+      "f_analytic_1_over_pi_sig2": 0.00649612012619981,
+      "r_cutoff": 0.002109676895746654,
+      "r_rest_mass": 0.004219353791493308
+    },
+    "D2c_deflection": {
+      "f_peak": 0.008841941282883074,
+      "sigma": 6.0,
+      "m": 0.0,
+      "f_analytic_1_over_pi_sig2": 0.008841941282883075,
+      "r_cutoff": 0.0028715046636551677,
+      "r_rest_mass": 0.014357523318275838
+    },
+    "D3a_backreact": {
+      "f_peak": 0.008841941282884097,
+      "sigma": 6.0,
+      "m": 0.4,
+      "f_analytic_1_over_pi_sig2": 0.008841941282883075,
+      "r_cutoff": 0.0028715046636555,
+      "r_rest_mass": 0.007178761659138749
+    }
+  },
+  "worst_f62_ratio": 0.0028715046636555,
+  "n_f62_configs_evaluated": 4,
+  "cartan": {
+    "f_star_cartan": 3.0792014356780033,
+    "a_over_ellP": 3.809251227455829
+  },
+  "verdict": {
+    "f62_torsion_negligible": true,
+    "cartan_above_one_per_cell": true
+  }
+}

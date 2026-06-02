@@ -1,6 +1,6 @@
 # Your Role
 
-You are a research assistant helping read and document old physics research and present it cleanly. 
+You are a research assistant helping design a cellular automaton model that mirrors known, or theorized, particle physics.
 
 # Core Idea
 We are attempting to construct a "universe in a bottle", if our universe is a cosmic lattice of cellular automata, or one single tremendous one, then we should be able to model it on a tiny scale on a computer. That is the goal.
@@ -14,6 +14,8 @@ We are attempting to construct a "universe in a bottle", if our universe is a co
 >
 > where $\Omega = 2\omega(|\mathbf{k}|/2)$ is the rotation angle the $(\mathbf{E}, \mathbf{B})$ pair traverses per CA tick.
 3. Hypercharge is included on U(x), avoiding any need for the Higgs field.
+4. Gravity (Finding 64): a single impedance-matched lattice **dielectric** renormalising the $(\mathbf{E},\mathbf{B})$ rotation rule, *not* the two-leg rest-mass-sourced metric of F50/F52/F62. The canonical index is $K=\exp(2GM/rc^2)$ with $A=1/K,\ B=K$ (reciprocal lock $AB\equiv1$); derived from the rotation rule (D-EM5) and PPN $\beta=\gamma=1$, GR-identical (D-EM9). The weak-field form $K=(1-u)^{-2}$ is only its $O(u)$ linearisation.
+5. Photon (Findings 67/68/69): the electromagnetic photon is the **paired-spinor photon** — a bound pair of two spin-½ Weyl quanta ("only occurs as a pair"), each carrying $k/2$ on opposite chiral branches, so the pair rate is the helicity-symmetric $\Omega_\text{pair}=\omega^+(k/2)+\omega^-(k/2)=\Omega_\text{even}$. It is massless, luminal ($c=1/\sqrt3$), transverse, and **non-birefringent** (`ca_photon_pair.py`; propagator = even law `ca_wmu._f26_rotation_step`), and is the identity channel that U(1) minimal coupling forces (F68). This **supersedes** the composite $\sigma$-bilinear photon of `ca_maxwell.py` (helicity↔branch, birefringent → excluded by GRB/AGN polarimetry, F65/F66/F67); the $\sigma$-bilinear is retained only for the massive/non-Abelian sectors (W/Z/gluon), which are not under the polarimetry bound.
  
 ## Project Structure
 - `ca-simulation/` — core model modules (`ca_*.py`, `derive_*.py`, `forks/`, etc.)

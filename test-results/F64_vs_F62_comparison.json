@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-05-31 - 16:00",
+  "cached": true,
+  "f62_module": "ca-simulation/forks/dirac_gravity_fork.py",
+  "f64_module": "ca-simulation/forks/gr_fork_F64_em_connection.py",
+  "shared_observables": [
+    {
+      "observable": "flat regression residual (\u21920)",
+      "F62_rest_two_leg": 0.0,
+      "F64_dielectric": 0.0,
+      "GR_target": "0",
+      "note": "both reduce to two free Weyl walks bit-for-bit"
+    },
+    {
+      "observable": "free-fall coeff g_meas/g_pred (\u21921)",
+      "F62_rest_two_leg": 0.9100491856698357,
+      "F64_dielectric": 0.9100491856698357,
+      "GR_target": "1",
+      "note": "EP carried by the rest leg \u221aA \u2014 shared exactly"
+    },
+    {
+      "observable": "free-fall mass-universality spread (\u21920)",
+      "F62_rest_two_leg": 0.0848873440751793,
+      "F64_dielectric": 0.0848873440751793,
+      "GR_target": "0",
+      "note": "trajectory mass-independent in both"
+    },
+    {
+      "observable": "dynamical redshift f_near/f_far",
+      "F62_rest_two_leg": 0.8965517241379312,
+      "F64_dielectric": 0.8965517241379312,
+      "GR_target": 0.8914561316801002,
+      "note": "clock rate \u221d \u221aA in both (rest leg)"
+    },
+    {
+      "observable": "deflection K_meas (\u2192 \u22124)",
+      "F62_rest_two_leg": -3.4320906143235947,
+      "F64_dielectric": -3.807458872432621,
+      "GR_target": "\u22124",
+      "note": "F64: ONE field; F62: two legs"
+    },
+    {
+      "observable": "deflection K_eikonal (\u2192 \u22124)",
+      "F62_rest_two_leg": -3.9203668164857453,
+      "F64_dielectric": -3.6907031537526054,
+      "GR_target": "\u22124",
+      "note": "finite-field: dielectric approaches 4 from above"
+    },
+    {
+      "observable": "backreaction norm drift (\u21920)",
+      "F62_rest_two_leg": 2.5130308594282553e-15,
+      "F64_dielectric": 1.0052123437713022e-15,
+      "GR_target": "0",
+      "note": "each tick exactly unitary in both"
+    },
+    {
+      "observable": "self-sourced redshift ratio (<1)",
+      "F62_rest_two_leg": 0.9032258064516128,
+      "F64_dielectric": 0.8459454558125863,
+      "GR_target": "<1 (deep clock slow)",
+      "note": "F62-D3a vs F64-D-EM4; both close the loop"
+    }
+  ],
+  "structural_differences": [
+    {
+      "axis": "field equations for factor-2 bend",
+      "F62_rest_two_leg": "2  (A and B sourced independently)",
+      "F64_dielectric": "1  (B = 1/A locked by impedance, AB\u22611)",
+      "verdict": "F64 strictly more parsimonious"
+    },
+    {
+      "axis": "source of gravity",
+      "F62_rest_two_leg": "rest-mass density \u03c1 = |\u03a8|\u00b2",
+      "F64_dielectric": "total field energy u (incl. massless (E,B))",
+      "verdict": "different physics \u2014 testable"
+    },
+    {
+      "axis": "does massless (E,B) field energy gravitate?",
+      "F62_rest_two_leg": "no (\u03c1_rest = 0 \u21d2 \u03a6 = 0 \u21d2 0 deflection)",
+      "F64_dielectric": "yes \u2014 radiation/mass deflection ratio 1.0",
+      "verdict": "the empirical fork (D-EM3): 0 vs 1"
+    },
+    {
+      "axis": "one self-sourced field gives BOTH GR coefficients",
+      "F62_rest_two_leg": "redshift yes; factor-2 bend needs the 2nd leg",
+      "F64_dielectric": "yes \u2014 redshift 0.8459 AND bend-slope ratio 2.0 (\u22482)",
+      "verdict": "F64 closes D-EM1 on one field (D-EM4)"
+    }
+  ]
+}

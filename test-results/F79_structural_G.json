@@ -1,0 +1,131 @@
+{
+  "finding": "F79",
+  "title": "Newton's constant from the lattice structure (Sakharov-free)",
+  "timestamp": "2026-06-02 - 02:35",
+  "checks": [
+    {
+      "name": "S1 I*c c-independent (1/G ~ 1/c_lat = sqrt d)",
+      "passed": true,
+      "detail": "spread=1.73e-18, c_lat(d=3)=0.577350"
+    },
+    {
+      "name": "S2 eta_Weyl = 1/12 exact (rational)",
+      "passed": true,
+      "detail": "eta_weyl=(1, 12), eta_dirac=(1, 6)"
+    },
+    {
+      "name": "S3 EM stress traceless => zero tree K-stiffness",
+      "passed": true,
+      "detail": "|trT|_max=3.55e-15, massive-scalar trace=0.492>0"
+    },
+    {
+      "name": "S4 channel gap c_lat^3 (tree 2, loop -1, gap -3); loop forced",
+      "passed": true,
+      "detail": "tree=2.0000, loop=-1.0000, gap=-3.0000"
+    },
+    {
+      "name": "S5 g_* = 48 structural (16/gen x dim T_1u=3; no 4th)",
+      "passed": true,
+      "detail": "16 x 3 = 48"
+    },
+    {
+      "name": "S6 a/ell_P = sqrt(8 pi) 3^1/4 = 6.5978; G closed form consistent",
+      "passed": true,
+      "detail": "a/ellP=6.597817, coeff=43.5312, G_resid=2.96e-08"
+    }
+  ],
+  "n_passed": 6,
+  "n_total": 6,
+  "all_passed": true,
+  "results": {
+    "S1_clat_invG_scaling": {
+      "Ic_values": [
+        0.012665147955292222,
+        0.012665147955292222,
+        0.012665147955292222,
+        0.012665147955292222,
+        0.01266514795529222,
+        0.012665147955292222
+      ],
+      "Ic_spread": 1.734723475976807e-18,
+      "Ic_analytic": 0.012665147955292222,
+      "Ic_match": 0.0,
+      "c_lat_BCC": {
+        "1": 1.0,
+        "2": 0.7071067811865475,
+        "3": 0.5773502691896258,
+        "4": 0.5
+      },
+      "invG_scaling_sqrt_d": {
+        "1": 1.0,
+        "2": 1.4142135623730951,
+        "3": 1.7320508075688772,
+        "4": 2.0
+      },
+      "passed": true
+    },
+    "S2_eta_weyl_exact": {
+      "eta_scalar": [
+        1,
+        12
+      ],
+      "eta_dirac": [
+        1,
+        6
+      ],
+      "eta_weyl": [
+        1,
+        12
+      ],
+      "eta_weyl_float": 0.08333333333333333,
+      "passed": true
+    },
+    "S3_em_traceless_zero_tree": {
+      "EM_trace_max_abs": 3.552713678800501e-15,
+      "EM_traceless": true,
+      "massive_scalar_trace_mean": 0.49206066790671843,
+      "massive_scalar_sources_K": true,
+      "tree_stiffness_of_K_from_EM": 0.0,
+      "passed": true
+    },
+    "S4_channel_gap": {
+      "tree_exponent": 1.9999999999999991,
+      "loop_exponent": -0.9999999999999996,
+      "gap_exponent": -2.9999999999999987,
+      "physical_channel": "loop",
+      "reason": "K is a reparametrization (conformal factor); no tree action (S3)",
+      "passed": "True"
+    },
+    "S5_gstar_structural": {
+      "per_generation_content": {
+        "L": 2,
+        "e_R": 1,
+        "Q": 6,
+        "u_R": 3,
+        "d_R": 3,
+        "nu_R": 1
+      },
+      "weyl_per_generation": 16,
+      "n_generations_dim_T1u": 3,
+      "max_single_valued_irrep_dim_O_h": 3,
+      "fourth_generation_forbidden": true,
+      "g_star": 48,
+      "passed": true
+    },
+    "S6_assemble_G": {
+      "P_pre": 5.0132565492620005,
+      "invG_coefficient_2pi_eta_gstar_sqrt_d": 43.531184741621225,
+      "a_over_ellP_PREDICTION": 6.597816664747605,
+      "ellP_over_a": 0.15156529058211626,
+      "tau_over_tP": 3.809251227455829,
+      "invariant_sqrt_a_ctau_over_ellP": 5.0132565492620005,
+      "a_SI_m": 1.0663754173481642e-34,
+      "tau_SI_s": 2.0536614252267557e-43,
+      "G_closed_form": "G = a^2 c^3 / (2 pi eta g_* sqrt(d) * hbar)",
+      "G_from_cell_SI": 6.67429980237485e-11,
+      "G_consistency_residual": 2.960986906000282e-08,
+      "passed": true
+    },
+    "all_passed": true
+  }
+}

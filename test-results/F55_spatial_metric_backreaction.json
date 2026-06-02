@@ -1,0 +1,68 @@
+{
+  "finding": "F55",
+  "title": "Spatial metric from trace reversal: Einstein factor-2 from mass",
+  "date": "2026-05-29",
+  "C0": 0.5,
+  "G": 1.0,
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "J1_trace_reversal_identity",
+      "max_abs_hij_minus_h00": 0.0,
+      "max_abs_h00_minus_(-2phi/c2)": 0.0,
+      "note": "static dust T_ij=0 yet h_ij=h00 \u2014 the extra factor-1",
+      "tol": 1e-15,
+      "status": "PASS"
+    },
+    {
+      "name": "J2_redshift_unchanged_factor1",
+      "mean_ratio_GR": 1.0101793167401267,
+      "target_ratio": 1.0,
+      "note": "sourcing B leaves the rest-leg redshift at factor-1",
+      "status": "PASS"
+    },
+    {
+      "name": "J3_deflection_factor2",
+      "K_full_mean": 4.0210800283827135,
+      "K_rest_mean": 2.0221103270322303,
+      "K_full_per_b": [
+        4.07081418434152,
+        4.017079953690672,
+        3.975345947115949
+      ],
+      "selfconsistent_ratio_full_over_rest": 1.991147512862688,
+      "target_full": 4.0,
+      "target_rest": 2.0,
+      "note": "trace-reversed B gives Einstein 4GM/bc\u00b2; emerges from \u03c1",
+      "status": "PASS"
+    },
+    {
+      "name": "J4_uniqueness_K_of_lambda",
+      "lambdas": [
+        0.0,
+        0.5,
+        1.0,
+        1.5
+      ],
+      "K_values": [
+        2.019166980708531,
+        3.0207463140614177,
+        4.017079953690672,
+        5.008234055437683
+      ],
+      "fit_slope": 1.9927069727633426,
+      "fit_intercept": 2.0217765964020686,
+      "K_at_lambda1": 4.017079953690672,
+      "expected": "K(\u03bb)=2(1+\u03bb); \u03bb=1 (trace reversal) \u2192 4",
+      "status": "PASS"
+    },
+    {
+      "name": "J5_consistency_forkE_linearized",
+      "max_abs_dA": 0.0,
+      "max_abs_dB": 0.0,
+      "note": "trace-reversed metric == gr_fork_E_tensor linearised, bit-for-bit",
+      "tol": 1e-15,
+      "status": "PASS"
+    }
+  ]
+}
