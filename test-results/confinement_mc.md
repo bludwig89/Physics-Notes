@@ -1,4 +1,4 @@
-# Confinement MC — 2026-06-01 - 12:04
+# Confinement MC — 2026-06-02 - 20:44
 
 β = 2.2, L = 12, configs = 500
 w (quadrature) = 0.143148, σ_exact = −ln w = 1.943873

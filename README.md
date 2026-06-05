@@ -5,7 +5,7 @@ Build a universe-in-a-bottle, or in a computer.
 
 ***DISCLAIMER***
 
-*I am not by any means a physicist. All I know about physics are my dad's excited ramblings about quantum gravity and his ideas on complex mass and dirac equations. I'm currently leaning on Claude to convert to plainer english and help quantify the results we're getting. We may get nowhere and it's a closed circle. But we also may get somewhere and if I can build up a good body of research, models, and predictions, I hope to maybe find me a theoretical physicist who doesn't hava massive stick up their butt who can take a look at the science, and the data, and maybe we all can learn something cool.*
+*I am not by any means a physicist. All I know about physics are my dad's excited ramblings about quantum gravity and his ideas on complex mass and dirac equations. I'm currently leaning on Claude to convert to plainer english and help quantify the results we're getting. We may get nowhere and it's a closed circle. But we also may get somewhere and if I can build up a good body of research, models, and predictions, I hope to maybe find me a theoretical physicist who can take a look at the science, and the data, and maybe we all can learn something cool.*
 
 *From what I know, there are few physicists with the money, resources, time, and/or interest, in this particular field to work in this area, and none that are using our current AI systems to hypothesize, model, or test any of their work.* 
 
@@ -55,8 +55,8 @@ The exact law is the full trigonometric rotation; Maxwell is its linearization.
 
 ---
 
-- Use Ludwig's SU(2) chiral gauge transform instead of the Standard Model (See [Finding F27](findings/F27-complex-mass-chiral-su2.md)).
-  - *Rasoning - It achieves the transform without the use of the Higgs field, which is interesting by itself, but also because it doesn't break our prevous choice of the $O(k)$ curl and speed-of-light interpretation.*
+- Use Mark Ludwig's SU(2) chiral gauge transform instead of the Standard Model (See [Finding F27](findings/F27-complex-mass-chiral-su2.md)).
+  - *Reasoning - It achieves the transform without the use of the Higgs field, which is interesting by itself, but also because it doesn't break our prevous choice of the $O(k)$ curl and speed-of-light interpretation.*
 
 ## What we got so far:
 
@@ -68,6 +68,33 @@ The exact law is the full trigonometric rotation; Maxwell is its linearization.
 - `changelog.md` is our software model change log.
 - `model-observations.md` is our pre-emergent-time observations on the BCC lattice model.
 - `project-status.md` is a somewhat-disorganized file where I'm having Claude keep track of stuff we do.
+
+## Running the program (`casim`)
+
+The single-run `ca_*.py` modules and ~95 scripts are now wrapped by **`casim`**, an installable program with a simulation engine, YAML scenarios, checkpoint/resume, a CLI, and an interactive viewer. The original kernels are untouched — `casim` reuses them — so every old script still runs. (Full details in [`src/casim/README.md`](src/casim/README.md), scenario list in [`scenarios/README.md`](scenarios/README.md).)
+
+Install (needs `setuptools>=64`):
+
+```bash
+pip install -e .            # core (numpy, scipy, matplotlib, pyyaml)
+pip install -e .[gui]       # + vispy/PyQt6 for the interactive viewer
+```
+
+If you'd rather not install, prefix any command with `PYTHONPATH=src` and use `python -m casim.cli …` in place of `casim`.
+
+Common commands:
+
+```bash
+casim list-channels                              # field channels + F91 propagator class
+casim run scenarios/photon_pair.yaml             # run a scenario, write JSON results
+casim run scenarios/bcc_weyl.yaml --ticks 500 --seed 1
+casim resume checkpoints/gluon_bcc_t50.npz       # continue a long/interrupted run
+casim analyze test-results/casim_bcc_weyl.json --table
+casim inventory                                  # run all checks, regenerate the exactness table
+casim gui scenarios/photon_pair.yaml             # interactive 3-D viewer (needs the [gui] extra)
+```
+
+A scenario is a small YAML file (lattice size/topology, seed, ticks, channels, observers); one driver reproduces a run from a committed config + seed. Ten channels are available — photon, Weyl, W, Z, gluon, gravity, and the Tier-2 coupled sectors (fermion↔W back-reaction, β-decay, charge→field). Every channel is verified **bit-identical** to its underlying kernel (`casim inventory`, or `PYTHONPATH=src python tests/test_casim_exactness.py`).
 
 ## Next Steps
 

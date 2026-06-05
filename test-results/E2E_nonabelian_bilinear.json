@@ -1,0 +1,141 @@
+{
+  "test_suite": "E2E_nonabelian_bilinear",
+  "date": "2026-06-04",
+  "results": [
+    {
+      "test": "W1",
+      "residual": 4.440892098500626e-16,
+      "target": 1e-15,
+      "passed": true,
+      "description": "sourced \u2212 free == g\u00b7J\u00b7dt (bit-for-bit)"
+    },
+    {
+      "test": "W2",
+      "residual": 3.9898639947466563e-17,
+      "target": 1e-13,
+      "passed": true,
+      "description": "\u0394U_field per tick == g\u00b7dt\u00b7\u03a3J\u00b7E_rot + \u00bdg\u00b2dt\u00b2\u03a3|J|\u00b2 over 30 ticks (machine)"
+    },
+    {
+      "test": "W3",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "causal W front: |W|@B(emit)=0.0e+00 < 1e-9, @B(t=16\u226513.9)=3.32e-02 > 1e-6",
+      "sig_emit": 0.0,
+      "sig_final": 0.03317142934134035,
+      "light_time": 13.856406460551016
+    },
+    {
+      "test": "W4",
+      "residual": 2.7994370369696236e-13,
+      "target": 1e-12,
+      "passed": true,
+      "description": "Proca: even-m0==even-free, chiral-m0==chiral-free (machine), \u0394\u03c9_eff closed form + mass-suppressed birefringence (\u0394\u03c9: 1.03e-02\u21921.18e-03)",
+      "res_even_m0": 0.0,
+      "res_chiral_m0": 1.7763568394002505e-15,
+      "res_closed_form": 2.7994370369696236e-13,
+      "birefringence_vs_mass": {
+        "0.0": 0.01027412602611602,
+        "0.2": 0.007762747290021743,
+        "0.5": 0.004304421748987708,
+        "1.0": 0.0023096634256316584,
+        "2.0": 0.0011773705072948282
+      }
+    },
+    {
+      "test": "W5",
+      "residual": 8.881784197001252e-16,
+      "target": 1e-13,
+      "passed": true,
+      "description": "self-coupling: identity links fixed point + unitarity preserved on random links",
+      "res_fixed_point": 0.0,
+      "res_unitarity": 8.881784197001252e-16
+    },
+    {
+      "test": "Z1",
+      "residual": 2.216109240560371e-16,
+      "target": 1e-14,
+      "passed": true,
+      "description": "massive-Z kick exact + per-species identity + causal front (emit 0.0e+00, t=18: 5.13e-03)",
+      "res_kick": 2.216109240560371e-16,
+      "res_species": 1.734723475976807e-18,
+      "sig_emit": 0.0,
+      "sig_final": 0.005125930634984615,
+      "m_Z": 0.4618802153517006
+    },
+    {
+      "test": "Z2",
+      "residual": 1.7763568394002505e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "source-basis identity gW\u00b3J\u00b3+g'B(Jem\u2212J3) == eAJem+g_Z\u00b7Z\u00b7J_Z (g' = g\u00b7tan\u03b8_W)"
+    },
+    {
+      "test": "G1",
+      "residual": 2.220446049250313e-16,
+      "target": 1e-15,
+      "passed": true,
+      "description": "colour kick from real Noether current exact + colour-diagonal (a=3 drives only a=3)",
+      "res_kick": 2.220446049250313e-16,
+      "res_diag": 0.0
+    },
+    {
+      "test": "G2",
+      "residual": 3.1086244689504383e-15,
+      "target": 1e-13,
+      "passed": true,
+      "description": "global SU(3): J(Vq)==R_adj\u00b7J(q) + sourced step commutes with adjoint rotation",
+      "res_current": 1.2212453270876722e-15,
+      "res_step": 3.1086244689504383e-15
+    },
+    {
+      "test": "G3",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "causal gluon front: emit 0.0e+00 < 1e-9, t=12\u22658.7: 1.46e-02 > 1e-6",
+      "sig_emit": 0.0,
+      "sig_final": 0.01460531501837287
+    },
+    {
+      "test": "G4",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "m_g=0 massive gluon step == free step (bit-for-bit)"
+    },
+    {
+      "test": "G5",
+      "residual": 1.1102230246251565e-16,
+      "target": 1e-14,
+      "passed": true,
+      "description": "SU(3) f^abc Jacobi identity (exact)"
+    },
+    {
+      "test": "B1",
+      "residual": 6.439293542825908e-15,
+      "target": 1e-12,
+      "passed": true,
+      "description": "closed fermion\u2194W loop (20 ticks): norm 6.4e-15, ledger 6.9e-18, g=0 control 0.0e+00, back-action 3.25e-03",
+      "norm_res": 6.439293542825908e-15,
+      "ledger_res": 6.938893903907228e-18,
+      "res_control": 0.0,
+      "back_action": 0.003250352406450631,
+      "field_energy_final": 0.059361315005864786
+    },
+    {
+      "test": "B2",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true,
+      "description": "radiation: field energy 0 \u2192 3.883e-02 under fermion current; zero-current control stays 0.0e+00",
+      "field_energy": 0.03882563334994558,
+      "res_zero_control": 0.0
+    }
+  ],
+  "elapsed": 0.3674602508544922,
+  "n_pass": 14,
+  "n_total": 14,
+  "overall": "PASS"
+}

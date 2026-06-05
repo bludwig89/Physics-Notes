@@ -1,0 +1,112 @@
+{
+  "suite": "FG-7d \u2014 confinement as colour-dielectric / dual superconductor (P1 Option C)",
+  "date": "2026-06-03",
+  "n_tests": 6,
+  "n_passed": 6,
+  "total_elapsed_s": 3.397596294002142,
+  "results": [
+    {
+      "test": "CD1",
+      "name": "Bogomolny completion -> sigma=2 pi v^2 n (BPS, exact)",
+      "passed": true,
+      "residual": 0.0,
+      "tier": 1,
+      "detail": {
+        "density_completes_to_squares": true,
+        "topological_value_correct": true,
+        "sigma_BPS": "2*pi*v**2*n"
+      },
+      "elapsed_s": 0.9682004589994904
+    },
+    {
+      "test": "CD2",
+      "name": "ANO profile BCs + quantised colour-electric flux",
+      "passed": true,
+      "residual": 0.00014671242409182566,
+      "tier": 3,
+      "detail": {
+        "f0": 8.531777076086656e-05,
+        "f_inf": 1.0000000187512936,
+        "a0": 5e-09,
+        "a_inf": 0.9998532875759082,
+        "monotone_f": true,
+        "monotone_a": true,
+        "flux": 6.282263485832152,
+        "flux_expected": 6.283185307179586,
+        "shoot_c": 0.8531777076086655
+      },
+      "elapsed_s": 0.548002749994339
+    },
+    {
+      "test": "CD3",
+      "name": "numeric sigma matches BPS 2 pi v^2 n",
+      "passed": true,
+      "residual": 4.617621819203551e-06,
+      "tier": 3,
+      "detail": {
+        "n=1": {
+          "numeric": 6.283214320553155,
+          "exact": 6.283185307179586,
+          "rel": 4.617621819203551e-06
+        },
+        "n=2": {
+          "numeric": 12.566398223036906,
+          "exact": 12.566370614359172,
+          "rel": 2.197028766745005e-06
+        }
+      },
+      "elapsed_s": 1.2484134170008474
+    },
+    {
+      "test": "CD4",
+      "name": "dielectric gluon step: free-reduction + c renorm",
+      "passed": true,
+      "residual": 0.0,
+      "tier": 1,
+      "detail": {
+        "bit_exact_reduction": 0.0,
+        "field_changes_at_eps0.25": true,
+        "c_eff(0.25)": 0.2886751345948129,
+        "c_eff_expected": 0.2886751345948129,
+        "c_eff_residual": 0.0
+      },
+      "elapsed_s": 0.009422333998372778
+    },
+    {
+      "test": "CD5",
+      "name": "dual Meissner penetration depth lambda=1/(e v)",
+      "passed": true,
+      "residual": 0.0132225901235421,
+      "tier": 3,
+      "detail": {
+        "lambda_fit": 2.026445180247084,
+        "lambda_expected": 2.0,
+        "lambda_formula": 2.0,
+        "m": 0.5
+      },
+      "elapsed_s": 0.0005118330009281635
+    },
+    {
+      "test": "CD6",
+      "name": "constant cross-section -> linear V(R)=sigma R",
+      "passed": true,
+      "residual": 1.029684719932502e-14,
+      "tier": 1,
+      "detail": {
+        "sigma": 6.283214320553155,
+        "fit_slope": 6.283214320553156,
+        "slope_residual": 1.413573331081173e-16,
+        "linearity_residual": 1.029684719932502e-14,
+        "tube_rms_radius_mV": 0.9999978342336102,
+        "E(R)": [
+          6.283214320553155,
+          12.56642864110631,
+          25.13285728221262,
+          50.26571456442524,
+          100.53142912885048
+        ]
+      },
+      "elapsed_s": 0.6229692079941742
+    }
+  ]
+}

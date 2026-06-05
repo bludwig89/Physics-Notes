@@ -1,0 +1,102 @@
+{
+  "suite": "FA \u2014 Option A SU(3) lattice-gauge MC engine correctness",
+  "date": "2026-06-04",
+  "n_tests": 6,
+  "n_passed": 6,
+  "total_elapsed_s": 8.299025878999998,
+  "results": [
+    {
+      "test": "FA1",
+      "name": "heat-bath+OR preserve SU(3)",
+      "passed": true,
+      "residual": 1.1102230246251565e-15,
+      "tier": 2,
+      "detail": {
+        "unitarity": 1.1102230246251565e-15,
+        "det": 8.925587349040472e-16
+      },
+      "elapsed_s": 0.48998508300002186
+    },
+    {
+      "test": "FA2",
+      "name": "over-relaxation preserves Wilson action",
+      "passed": true,
+      "residual": 1.230360004444957e-16,
+      "tier": 1,
+      "detail": {
+        "S_before": 3696.051149611376,
+        "S_after": 3696.0511496113754
+      },
+      "elapsed_s": 0.18977987499999927
+    },
+    {
+      "test": "FA3",
+      "name": "staple/action-gradient identity (ratio=4)",
+      "passed": true,
+      "residual": 8.881784197001252e-16,
+      "tier": 1,
+      "detail": {
+        "ratio": 3.999999999999999
+      },
+      "elapsed_s": 0.03521520800001099
+    },
+    {
+      "test": "FA4",
+      "name": "mean plaquette matches known SU(3) \u27e8P\u27e9",
+      "passed": true,
+      "residual": 0.01720147229655926,
+      "tier": 3,
+      "detail": {
+        "beta=5.7": {
+          "plaq": 0.5588504888797297,
+          "known": 0.5494,
+          "rel": 0.01720147229655926
+        },
+        "beta=6.0": {
+          "plaq": 0.5969336679530698,
+          "known": 0.5937,
+          "rel": 0.0054466362692770515
+        }
+      },
+      "elapsed_s": 4.93754050199999
+    },
+    {
+      "test": "FA5",
+      "name": "strong-coupling \u27e8plaq\u27e9 \u2192 \u03b2/18",
+      "passed": true,
+      "residual": 0.14450651042725646,
+      "tier": 3,
+      "detail": {
+        "beta=0.5": {
+          "plaq": 0.02766127436617386,
+          "beta/18": 0.027777777777777776,
+          "rel": 0.004194122817740925
+        },
+        "beta=1.0": {
+          "plaq": 0.06358369502373647,
+          "beta/18": 0.05555555555555555,
+          "rel": 0.14450651042725646
+        }
+      },
+      "elapsed_s": 1.7906306259999951
+    },
+    {
+      "test": "FA6",
+      "name": "multilevel agrees with & sharpens direct correlator",
+      "passed": true,
+      "residual": 0.009086612527545238,
+      "tier": 3,
+      "detail": {
+        "direct_mean": -0.012959829968919988,
+        "direct_err": 0.0617237856387803,
+        "twolevel_mean": -0.00387321744137475,
+        "twolevel_err": 0.013436919628977253,
+        "agree_within_4sigma": true,
+        "variance_reduction_factor": 84.40451155536907,
+        "direct_var": 0.07619651427164204,
+        "twolevel_var": 0.0009027540455779711
+      },
+      "elapsed_s": 0.8557865829999969
+    }
+  ]
+}

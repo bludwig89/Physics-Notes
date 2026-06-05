@@ -1,0 +1,96 @@
+{
+  "O1_Eg_is_the_unique_nonmixing_splitter": {
+    "pass": true,
+    "sym(T1u x T1u) Schur degeneracies": [
+      1,
+      2,
+      3
+    ],
+    "expected": "[1,2,3] = A1g(trace) + E_g(diag-traceless) + T2g(off-diag)",
+    "diagonal sector exactly O_h-invariant": true,
+    "statement": "three distinct masses without axis mixing <=> a nonzero E_g (diagonal-traceless) field; T2g only mixes axes, A1g only shifts the trace"
+  },
+  "O2_Eg_lives_on_second_shell": {
+    "pass": true,
+    "shell1 (8 vertices) degeneracies": [
+      1,
+      1,
+      3,
+      3
+    ],
+    "shell2 (6 cube axes) degeneracies": [
+      1,
+      2,
+      3
+    ],
+    "2-dim block invariant": true,
+    "2-dim block inversion-even (g)": true,
+    "statement": "no E_g in the first (mass-step) shell; the orthorhombic field's minimal home is the SECOND (cube-axis) shell \u2014 F49's shell"
+  },
+  "O3_stabilizer_D2h_S3_broken": {
+    "pass": true,
+    "generic delta=12.7deg": {
+      "|stab|": 8,
+      "axis-permuting": 0,
+      "three distinct": true
+    },
+    "delta=0 (tetragonal)": {
+      "|stab|": 16,
+      "axis-permuting": 8,
+      "[2,1] degenerate": true
+    },
+    "delta=30deg (max ortho)": {
+      "|stab|": 8,
+      "axis-permuting": 0,
+      "three distinct": true
+    },
+    "statement": "generic E_g angle leaves D_2h with NO residual axis permutation: S_3 completely broken, so no symmetry can generate the democratic stiffness kappa (F84's kappa-removal as a stabilizer theorem); delta=0 keeps a swap -> [2,1] and a protected kappa"
+  },
+  "O4_Eg_equals_Z3_parametrization": {
+    "pass": true,
+    "residuals": [
+      "0",
+      "0",
+      "0"
+    ],
+    "statement": "diag of the E_g doublet at angle delta is exactly sqrt(2/3) cos(delta - 2pi a/3): F76-C6's Z3 form IS an A1g background + E_g condensate; F76's fitted phase is the condensate angle"
+  },
+  "O5_landau_phase_diagram": {
+    "pass": true,
+    "grid": "b in [-1.5,1.5] x w in [0,3], 13x13",
+    "numeric vs analytic mismatches": 0,
+    "orthorhombic points found": 114,
+    "quartic-only (w=0) orthorhombic points": 0,
+    "b=0,w>0 minimizer cos3d": -0.0,
+    "statement": "orthorhombic (three distinct masses) wins iff C>0 and |B|<2C, with cos3delta* = -B/(2C); the quartic theory can NEVER do it (sextic invariant required); b=0 gives the maximal point delta*=30deg"
+  },
+  "O5b_T1u_quartic_cannot_orthorhombify": {
+    "pass": true,
+    "v>0 minimizer |components|": [
+      0.5773502691896248,
+      0.5773502691896263,
+      0.5773502691896263
+    ],
+    "v<0 minimizer |components|": [
+      3.817217496896967e-145,
+      5.3868178771788424e-145,
+      1.0
+    ],
+    "statement": "a vector (T1u) condensate at quartic order points along (111) or (100) only \u2014 it cannot supply a generic three-distinct-axis direction; the E_g channel is structurally required"
+  },
+  "O6_dispersion_Oh_symmetric_no_explicit_Eg": {
+    "pass": true,
+    "max |spectrum(Rk) - spectrum(k)| over 48 ops x 10 k": 4.718447854656915e-16,
+    "statement": "the vacuum dispersion (incl. the F30 anisotropy) is exactly O_h-symmetric: it carries zero E_g component, so the orthorhombic field CANNOT be inherited from the dispersion \u2014 it must be spontaneous (O5) or external"
+  },
+  "O7_data_condensate_angle": {
+    "pass": true,
+    "delta_data_deg (mod 120)": 12.7328,
+    "dist to nearest 60deg multiple": 12.7328,
+    "A/ybar": "1.414201",
+    "sqrt(2)": "1.414214",
+    "mass reconstruction rel err": 1.8033013775055313e-14,
+    "cos(3 delta) = -B/(2C) required": 0.785874,
+    "statement": "the lepton condensate angle is GENERIC (orthorhombic confirmed, far from tetragonal), amplitude ratio = sqrt2 (the 45deg equipartition), and the one number the Landau theory leaves free is cos(3 delta) = -B/(2C) \u2014 F76's phase, now a ratio of two Landau coefficients"
+  }
+}

@@ -385,12 +385,12 @@ def test_PD3_massless_limit():
 
 
 def test_PD4_free_gluon_dispersion():
-    """D4 — Free-gluon dispersion ω(k) = Ω⁺(k) on BCC matches F26 to machine ε."""
+    """D4 — Free-gluon dispersion ω(k) = Ω_even(k) on BCC matches F26 to machine ε (F91 even-law migration)."""
     err = cg.free_gluon_dispersion_residual_bcc(L=12, n_steps=50, a_comp=0, seed=11)
-    return {'test': 'PD.4', 'name': 'Free-gluon BCC dispersion residual (50 ticks)',
+    return {'test': 'PD.4', 'name': 'Free-gluon BCC dispersion residual (50 ticks, even law)',
             'residual': err, 'target': 1e-12,
             'passed': bool(err < 1e-12),
-            'description': 'C_n(k) = C_0(k)·exp(−iΩ⁺(k)·n) per a-component'}
+            'description': 'C_n(k) = C_0(k)·exp(−iΩ_even(k)·n) per a-component'}
 
 
 def test_PD5_sourced_step_diagonal_iterates():

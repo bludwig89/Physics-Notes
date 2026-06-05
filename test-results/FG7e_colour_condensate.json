@@ -1,0 +1,169 @@
+{
+  "suite": "FG7e_colour_condensate",
+  "date": "2026-06-04",
+  "n_pass": 8,
+  "n_total": 8,
+  "elapsed_s": 2.4034199714660645,
+  "results": {
+    "CC1": {
+      "pass": true,
+      "aligned_gamma2_gB_exact": true,
+      "wrong_dispersion_fails": true,
+      "anti_aligned_does_not_grow": true,
+      "scalar_control_omega2_pos_gB": true,
+      "tier": 1
+    },
+    "CC2": {
+      "pass": true,
+      "zeta_sum_-11/6": true,
+      "log_coeff_11/96pi2": true,
+      "B_min_closed_form": true,
+      "V_min_negative": true,
+      "Im_V_g2B2_16pi": true,
+      "B_min": "mu**2*exp(-1/(2*c*g**2))/g",
+      "V_min": "-c*mu**4*exp(-1/(c*g**2))/2",
+      "tier": 1
+    },
+    "CC3": {
+      "pass": true,
+      "plaquette_uniformity_residual": 7.424616477180734e-16,
+      "all_min_Omega2_negative": true,
+      "ratio_err_L12": 0.0048097879369928265,
+      "ratio_err_L32": 0.0007542447746884395,
+      "rows": [
+        {
+          "L": 12,
+          "q": 1,
+          "phi": 0.04363323129985824,
+          "min_Omega2": -0.04384309788941631,
+          "ratio_to_minus_phi": -1.0048097879369928
+        },
+        {
+          "L": 16,
+          "q": 1,
+          "phi": 0.02454369260617026,
+          "min_Omega2": -0.024613987015534418,
+          "ratio_to_minus_phi": -1.00286405189684
+        },
+        {
+          "L": 24,
+          "q": 1,
+          "phi": 0.01090830782496456,
+          "min_Omega2": -0.010922742318937313,
+          "ratio_to_minus_phi": -1.0013232569344732
+        },
+        {
+          "L": 32,
+          "q": 1,
+          "phi": 0.006135923151542565,
+          "min_Omega2": -0.006140551139517505,
+          "ratio_to_minus_phi": -1.0007542447746884
+        },
+        {
+          "L": 16,
+          "q": 2,
+          "phi": 0.04908738521234052,
+          "min_Omega2": -0.04934855146572568,
+          "ratio_to_minus_phi": -1.005320435224965
+        }
+      ],
+      "tier": 3
+    },
+    "CC4": {
+      "pass": true,
+      "all_dE_negative": true,
+      "monotone_in_B": true,
+      "rows": [
+        {
+          "q": 1,
+          "B": 0.01090830782496456,
+          "dE_per_site": -7.466999034644317e-06
+        },
+        {
+          "q": 2,
+          "B": 0.02181661564992912,
+          "dE_per_site": -3.9509342113053236e-05
+        },
+        {
+          "q": 3,
+          "B": 0.032724923474893676,
+          "dE_per_site": -9.126569795014916e-05
+        },
+        {
+          "q": 4,
+          "B": 0.04363323129985824,
+          "dE_per_site": -0.00016338509298652326
+        },
+        {
+          "q": 6,
+          "B": 0.06544984694978735,
+          "dE_per_site": -0.00038474188321035996
+        },
+        {
+          "q": 8,
+          "B": 0.08726646259971647,
+          "dE_per_site": -0.0006596271260157494
+        }
+      ],
+      "tier": 3
+    },
+    "CC5": {
+      "pass": true,
+      "integer_residual": 0.0,
+      "total_charge": 0.0,
+      "gauge_invariance_residual": 0.0,
+      "dirac_pair_charges_pm1": true,
+      "dirac_pair_located": true,
+      "tier": 1
+    },
+    "CC6": {
+      "pass": true,
+      "villain_poisson_residual": 2.663360954448449e-16,
+      "coulomb_gas_residual_3site": 1.1102230246251565e-16,
+      "coulomb_gas_residual_4site": 3.3329792733702113e-16,
+      "tier": 2
+    },
+    "CC7": {
+      "pass": true,
+      "su3_unitarity_residual": 9.992007221626409e-16,
+      "integer_residual": 0.0,
+      "rho_cartan1": 0.48828125,
+      "rho_cartan2": 0.4609375,
+      "tier": 1
+    },
+    "CC8": {
+      "pass": true,
+      "rho_vs_beta": [
+        [
+          0.6,
+          0.328125
+        ],
+        [
+          1.0,
+          0.212890625
+        ],
+        [
+          1.4,
+          0.08046875
+        ],
+        [
+          1.8,
+          0.012890625
+        ],
+        [
+          2.2,
+          0.0046875
+        ]
+      ],
+      "all_positive": true,
+      "monotone_decreasing": true,
+      "log_linear_corr": -0.9797892748391199,
+      "handoff_beta": 1.8,
+      "handoff_rho": 0.012890625,
+      "debye_mass_mD": 0.5317170701976183,
+      "f86_vev_v": 0.7133733082553412,
+      "sigma_F86_2piv2": 3.197522282655919,
+      "tier": 3
+    }
+  }
+}

@@ -4,7 +4,7 @@
   "tier": "Tier 1 (algebraic, exact rationals)",
   "spec_source": "first-gen-completeness-review.md  Section 5.1 / Section 2.3",
   "convention": "Q = T_3 + Y/2  (review Section 1 table)",
-  "date": "2026-05-26 - 23:12",
+  "date": "2026-06-02 - 19:18",
   "all_anomalies_cancel_exactly": true,
   "anomalies": {
     "grav^2_U1": {

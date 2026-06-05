@@ -39,7 +39,7 @@
       "description": "S_YM=1.1703e+01 (>0), S_identity=0.00e+00 (\u22480)"
     }
   ],
-  "elapsed": 0.013814687728881836,
+  "elapsed": 0.021848440170288086,
   "n_pass": 5,
   "n_total": 5
 }

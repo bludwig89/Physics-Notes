@@ -15,7 +15,8 @@ We are attempting to construct a "universe in a bottle", if our universe is a co
 > where $\Omega = 2\omega(|\mathbf{k}|/2)$ is the rotation angle the $(\mathbf{E}, \mathbf{B})$ pair traverses per CA tick.
 3. Hypercharge is included on U(x), avoiding any need for the Higgs field.
 4. Gravity (Finding 64): a single impedance-matched lattice **dielectric** renormalising the $(\mathbf{E},\mathbf{B})$ rotation rule, *not* the two-leg rest-mass-sourced metric of F50/F52/F62. The canonical index is $K=\exp(2GM/rc^2)$ with $A=1/K,\ B=K$ (reciprocal lock $AB\equiv1$); derived from the rotation rule (D-EM5) and PPN $\beta=\gamma=1$, GR-identical (D-EM9). The weak-field form $K=(1-u)^{-2}$ is only its $O(u)$ linearisation.
-5. Photon (Findings 67/68/69): the electromagnetic photon is the **paired-spinor photon** — a bound pair of two spin-½ Weyl quanta ("only occurs as a pair"), each carrying $k/2$ on opposite chiral branches, so the pair rate is the helicity-symmetric $\Omega_\text{pair}=\omega^+(k/2)+\omega^-(k/2)=\Omega_\text{even}$. It is massless, luminal ($c=1/\sqrt3$), transverse, and **non-birefringent** (`ca_photon_pair.py`; propagator = even law `ca_wmu._f26_rotation_step`), and is the identity channel that U(1) minimal coupling forces (F68). This **supersedes** the composite $\sigma$-bilinear photon of `ca_maxwell.py` (helicity↔branch, birefringent → excluded by GRB/AGN polarimetry, F65/F66/F67); the $\sigma$-bilinear is retained only for the massive/non-Abelian sectors (W/Z/gluon), which are not under the polarimetry bound.
+5. Photon (Findings 67/68/69): the electromagnetic photon is the **paired-spinor photon** — a bound pair of two spin-½ Weyl quanta ("only occurs as a pair"), each carrying $k/2$ on opposite chiral branches, so the pair rate is the helicity-symmetric $\Omega_\text{pair}=\omega^+(k/2)+\omega^-(k/2)=\Omega_\text{even}$. It is massless, luminal ($c=1/\sqrt3$), transverse, and **non-birefringent** (`ca_photon_pair.py`; propagator = even law `ca_wmu._f26_rotation_step`), and is the identity channel that U(1) minimal coupling forces (F68). This **supersedes** the composite $\sigma$-bilinear photon of `ca_maxwell.py` (helicity↔branch, birefringent → excluded by GRB/AGN polarimetry, F65/F66/F67); the $\sigma$-bilinear *field construction* is retained only for the massive/non-Abelian sectors (W/Z/gluon), which are not under the polarimetry bound. **Propagator classification (F91, 2026-06-04):** the even-vs-chiral rotation law is set by the branch structure of each coupling — γ even (forced), W± chiral (forced; left-projector coupling, right-branch weight ≡ 0), Z even for its vector part with a mass-suppressed axial split, gluon **even** (forced; colour coupling is branch-blind). The BCC gluon propagator was migrated chiral→even on 2026-06-04 (`gluon_rotation_step_spectral_bcc`; the old chiral step retained as `gluon_rotation_step_spectral_bcc_chiral`).
+6. We are operating under the philosophy of elegant design, that the universe can both be completely understood, and is elegant and simple in it's construction. 
  
 ## Project Structure
 - `ca-simulation/` — core model modules (`ca_*.py`, `derive_*.py`, `forks/`, etc.)
@@ -31,19 +32,18 @@ Include these files in your research context.
 - reference-research/qca-papers-1-4-overview.md
 - reference-research/physics-notes-complete.md
 
-
 Model & Software Context
 - changelog.md
 - findings.md
 - project-status.md
+- src/casim/README.md - CASIM readme and documentation
+- scenarios/RUN-GUIDE.md - Casim Scenario run guide with handles and benchmark speeds. 
   
 ## Practices
 
 Use the important elements of a new theory, it must explain existing scientific measurements (not necessarily other theories), and either explain them better or extend beyond them. Our strong preference is for equations and predictions to be to algebraic exactness, then machine-precision exactness.
 
-- Extend the sandbox timeout to be 90 seconds when applicable.
-
-If tests take longer than the sandbox timeout limit, write a script that the user can run that creates a claude-readable result.
+- Use CASIM now when possible, when sandbox timeout is exceeded, give the user a script or run parameters for CASIM to return a json or result file for Claude to read.
 
 - Be aware that using numpy or scipy on chiral transforms may not produce desired results. Check them first when troubleshooting. If they are returning wrong results or droping the real or imaginary elements, begin writing our own library of functions from scratch so we know what they are doing.
 - Use Markdown math to translate equations. 

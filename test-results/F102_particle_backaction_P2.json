@@ -1,0 +1,19 @@
+{
+  "finding": "F102",
+  "title": "EM and SU(3) back-action on the particle layer (roadmap P2)",
+  "date": "2026-06-05",
+  "gate": "Ward identities at the F40/FG-3 level",
+  "results": {
+    "u1_alpha0_bit_identical_maxdiff": 0.0,
+    "u1_gauge_covariance_residual": 6.455875440461582e-17,
+    "u1_unitarity_drift_50ticks": 7.105427357601002e-15,
+    "bloch_force_law_residual_qminus": 1.0020538183672154e-15,
+    "bloch_force_law_residual_qplus": 8.016430546937724e-16,
+    "su3_A0_bit_identical_maxdiff": 0.0,
+    "su3_unitarity_drift_20ticks": 2.4424906541753444e-15,
+    "su3_haar_unitarity": 4.441781540249328e-16,
+    "su3_haar_det_minus1": 4.538898734768096e-16,
+    "su3_global_ward_residual": 3.0673227259102453e-16
+  },
+  "status": "6 exact/machine-precision gate checks PASS"
+}

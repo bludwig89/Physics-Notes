@@ -1,0 +1,18 @@
+# Tier-3 lattice-gauge Monte-Carlo (F94, Option A). 3+1D SU(3) Wilson theory
+# updated by heat-bath sweeps (a "tick" = one sweep, NON-unitary/stochastic,
+# drawing from the engine's checkpointed RNG). Checkpoint every 20 sweeps so a
+# long thermalisation can be resumed — the Markov chain continues bit-identically.
+# A real production run uses larger L and hundreds of sweeps on Ben's machine.
+name: gauge_mc
+lattice: {L: 6, dims: 4, topology: cubic, c_lat: 1.0}
+seed: 1234
+ticks: 40
+channels:
+  - {type: gauge_mc, D: 4, beta: 5.8, start: cold, n_or: 1}
+observers:
+  - {type: field_snapshot, every: 10}   # mean plaquette / Wilson action trace
+checkpoint:
+  every: 20
+  dir: checkpoints
+output:
+  json: test-results/casim_gauge_mc.json

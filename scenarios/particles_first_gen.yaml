@@ -1,0 +1,35 @@
+# Particle layer pilot (roadmap-particle-layer.md P1): typed particles
+# stacked on one BCC lattice, interacting through the four force channels.
+#   electron doublet — weak (coupled, E2E loop) + em (source-only) + gravity (background)
+#   u quark          — strong (source-only) + em (source-only) + gravity (background)
+#   nu_e is the upper component of the electron doublet (weak + gravity only,
+#   enforced by the derived applicability matrix).
+name: particles_first_gen
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 60
+channels:
+  # static F64 dielectric background (topology-agnostic Poisson K)
+  - {type: gravity_dielectric, name: gmass, M: 2.0, sigma: 3.0}
+  # weak field, sourced by the electron doublet's isospin current
+  - {type: w_sourced, name: w_field, fermion: electron}
+  # the particles
+  - type: particle
+    name: electron
+    species: lepton_doublet_L
+    init: {center: [8, 8, 8], width: 1.5, k0: [0.5, 0.0, 0.0]}
+    couplings: {weak: w_field, em: photon_field, gravity: gmass}
+  - type: particle
+    name: u_quark
+    species: u_L
+    colour: r
+    init: {center: [4, 8, 8], width: 1.5, k0: [0.0, 0.5, 0.0]}
+    couplings: {strong: gluon_field, em: photon_field, gravity: gmass}
+  # sourced force fields (read particle currents published this tick)
+  - {type: photon_sourced, name: photon_field, sources: [electron, u_quark], dt: 0.1}
+  - {type: gluon_sourced, name: gluon_field, sources: [u_quark], g_lat: 0.5}
+observers:
+  - {type: norm_conservation, every: 10, channels: [electron, u_quark]}
+  - {type: energy_trace, every: 10}
+  - {type: particle_readout, every: 10}
+output: {json: test-results/casim_particles_first_gen.json}

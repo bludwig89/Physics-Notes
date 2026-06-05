@@ -67,17 +67,49 @@ def run(beta=2.2, L=12, n_therm=400, n_meas=2000, measure_every=4,
                      'W_pred_wRT': pred,
                      'sigma_dev': abs(mean - pred)})
 
-    # Creutz ratios from the MC loops
-    mc_loops = {(r, t): np.mean(loops[(r, t)]) for (r, t) in loops}
+    # Creutz ratios from the MC loops.
+    #
+    # NOTE (exponential signal-to-noise wall): the area law makes a loop decay
+    # as ⟨W(R,T)⟩ = w^{R·T}.  The plain-Metropolis statistical error on ⟨W⟩ is
+    # ~ σ_W/√N_cfg ≈ 1/√N_cfg, INDEPENDENT of loop size, so a loop is only
+    # resolved while w^{R·T} ≳ a few/√N_cfg.  At β={beta} (w≈{w:.3f}) that wall
+    # is hit almost immediately (RT≳2), so larger loops fluctuate through zero
+    # and their Creutz ratio −ln(num/den) is NaN.  We therefore (i) report each
+    # loop's resolution status and (ii) only quote a Creutz ratio when all four
+    # constituent loops sit above the noise floor.  Resolving the large loops
+    # needs a multilevel / Lüscher–Weisz estimator (future P1 work), not more
+    # brute-force sweeps.
+    noise_floor = 3.0 / np.sqrt(max(n_done, 1))   # ~3σ on ⟨W⟩
+    mc_loops = {(r, t): float(np.mean(loops[(r, t)])) for (r, t) in loops}
+    mc_err = {(r, t): float(np.std(loops[(r, t)]) / np.sqrt(max(n_done, 1)))
+              for (r, t) in loops}
+    resolved = {(r, t): (mc_loops[(r, t)] > noise_floor and
+                         mc_loops[(r, t)] > 2 * mc_err[(r, t)])
+                for (r, t) in loops}
     creutz = {}
+    creutz_status = {}
     for r in range(2, r_max + 1):
         for t in range(2, t_max + 1):
-            try:
-                creutz[f'{r}x{t}'] = cf.creutz_ratio(mc_loops, r, t)
-            except Exception:
-                pass
+            corners = [(r, t), (r - 1, t - 1), (r - 1, t), (r, t - 1)]
+            if not all(resolved[c] for c in corners):
+                creutz_status[f'{r}x{t}'] = 'under-resolved (below MC noise floor)'
+                continue
+            val = cf.creutz_ratio(mc_loops, r, t)
+            if np.isfinite(val):
+                creutz[f'{r}x{t}'] = val
+                creutz_status[f'{r}x{t}'] = 'ok'
+            else:
+                creutz_status[f'{r}x{t}'] = 'NaN (non-positive loop combination)'
+
+    n_resolved = sum(resolved.values())
+    print(f"  resolved {n_resolved}/{len(resolved)} loops above the "
+          f"~3σ noise floor ({noise_floor:.3f}); "
+          f"{len(creutz)} Creutz ratio(s) computable.")
 
     result = {
+        'noise_floor_3sigma': noise_floor,
+        'loops_resolved': {f'{r}x{t}': resolved[(r, t)] for (r, t) in loops},
+        'creutz_status': creutz_status,
         'suite': 'confinement MC (production)',
         'date': time.strftime('%Y-%m-%d - %H:%M'),
         'beta': beta, 'L': L, 'n_therm': n_therm, 'n_meas': n_meas,

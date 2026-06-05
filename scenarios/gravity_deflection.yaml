@@ -1,0 +1,14 @@
+# F64 dielectric gravity — canonical index K = exp(2GM/rc²), A=1/K, B=K.
+# A Gaussian mass sources an open-boundary Poisson potential (pure numpy);
+# the eikonal light deflection is compared to GR's 4GM/(c²b) (the factor-2,
+# Einstein bend — F64 D-EM2 go/no-go). Static background, so ticks=0.
+name: gravity_deflection
+lattice: {L: 64, dims: 3, topology: cubic, c_lat: 1.0}
+seed: 0
+ticks: 0
+channels:
+  - {type: gravity_dielectric, M: 50.0, sigma: 3.0, G: 1.0, impact_parameter: 10}
+observers:
+  - {type: field_snapshot, every: 1}
+output:
+  json: test-results/casim_gravity_deflection.json

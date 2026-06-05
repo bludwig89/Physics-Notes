@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-22 - 01:04",
+  "timestamp": "2026-06-02 - 19:20",
   "all_pass": false,
   "beta": 0.6,
   "gamma": 1.25,
@@ -72,7 +72,7 @@
     "G7": {
       "label": "Wavepacket group velocity (rest frame, FFT): |v_g| = c_lat",
       "peak_x": 69.8067931181479,
-      "peak_y": -1.679297424171129e-10,
+      "peak_y": -1.679295631751274e-10,
       "predicted_x": 70.71067811865474,
       "speed": 0.6980679311814789,
       "c_lat": 0.7071067811865475,
@@ -83,7 +83,7 @@
     "G8": {
       "label": "Wavepacket group velocity (boosted frame, FFT): |v_g'| = c_lat",
       "peak_x_b": 66.84056337860515,
-      "peak_y_b": -0.0002776686134508418,
+      "peak_y_b": -0.00027766861345146916,
       "speed": 0.668405633791819,
       "c_lat": 0.7071067811865475,
       "residual": 0.054731687525025094,

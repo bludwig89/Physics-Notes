@@ -221,30 +221,59 @@ def test_WB4_massive_dispersion():
 # ---------------------------------------------------------------------------
 def test_WB5_massless_limit():
     """
-    At m_W=0, dt=1, w_massive_propagation_step_spectral must produce
-    identically the same result as w_propagation_step_spectral.
+    At m_W=0, dt=1, w_massive_propagation_step_spectral must reproduce
+    the EVEN-law (F26) free step it is built on.
 
-    Residual = max |E_massive − E_free| + max |B_massive − B_free|
+    Repaired 2026-06-04: the original comparison target was
+    w_propagation_step_spectral, which F37 (2026-05-24) re-aliased to the
+    chirally-faithful step (F⁺ on Ω⁺, F⁻ on Ω⁻).  The massive Proca step
+    uses the even dispersion Ω_even = ω₊(k/2)+ω₋(k/2), so its m=0 limit
+    equals the even-law step bit-for-bit but differs from the chiral step
+    by exactly the vacuum birefringence ΔΩ (F30/F37).  The stale
+    comparison made WB.5 report FAIL (gap ≈ 1.3) in the 2026-06-02 full
+    rerun.  The chiral gap is now reported informationally; the
+    chirally-faithful massive variant is exercised in
+    test_E2E_nonabelian_bilinear.py (W4b).
+
+    Residual = max |E_massive − E_even| + max |B_massive − B_even|
     Expected: residual ≤ machine precision (~1e-14)
     """
+    from ca_wmu import _f26_rotation_step, _kgrid3d
+    import ca_fft as _fft
+
     rng = np.random.default_rng(99)
     L = 12
     E_W = rng.standard_normal((3, L, L, L))
     B_W = rng.standard_normal((3, L, L, L))
 
-    E_free, B_free = w_propagation_step_spectral(E_W, B_W)
+    # even-law (F26) reference — the propagator the massive step is built on
+    KX, KY, KZ = _kgrid3d(L, L, L)
+    E_even = np.zeros_like(E_W)
+    B_even = np.zeros_like(B_W)
+    for a in range(3):
+        Ek, Bk = _f26_rotation_step(_fft.fftn(E_W[a]), _fft.fftn(B_W[a]),
+                                    KX, KY, KZ)
+        E_even[a] = _fft.ifftn(Ek).real
+        B_even[a] = _fft.ifftn(Bk).real
+
     E_mass, B_mass = w_massive_propagation_step_spectral(E_W, B_W, m_W=0.0, dt=1.0)
 
-    E_err = float(np.max(np.abs(E_mass - E_free)))
-    B_err = float(np.max(np.abs(B_mass - B_free)))
+    E_err = float(np.max(np.abs(E_mass - E_even)))
+    B_err = float(np.max(np.abs(B_mass - B_even)))
+
+    # informational: gap to the (chiral) free alias = birefringence, expected O(1)
+    E_chi, B_chi = w_propagation_step_spectral(E_W, B_W)
+    chiral_gap = float(np.max(np.abs(E_mass - E_chi))
+                       + np.max(np.abs(B_mass - B_chi)))
 
     tol = 1e-12
     passed = (E_err < tol) and (B_err < tol)
     return {
         'test': 'WB.5',
-        'name': 'massless limit: massive step → free step (m_W=0)',
+        'name': 'massless limit: massive step → even-law free step (m_W=0)',
         'E_err': E_err,
         'B_err': B_err,
+        'chiral_gap_info': chiral_gap,
         'threshold': tol,
         'passed': passed,
     }

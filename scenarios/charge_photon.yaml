@@ -1,0 +1,14 @@
+# Tier-2 F87 charge→field: sourced paired-photon Maxwell curl driven by a
+# divergence-free charge current (built with the model's BCC curl symbol so
+# C·J ≡ 0 exactly). Odd L avoids the Nyquist-bin artifact (the F87 odd-L
+# gotcha). The field_snapshot observer reports the Gauss/continuity diagnostic.
+name: charge_photon
+lattice: {L: 13, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
+seed: 0
+ticks: 30
+channels:
+  - {type: charge_photon, amp: 0.2, sigma: 2.0, dt: 0.1}
+observers:
+  - {type: field_snapshot, every: 30}
+output:
+  json: test-results/casim_charge_photon.json

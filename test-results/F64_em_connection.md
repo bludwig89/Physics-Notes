@@ -38,7 +38,7 @@ Ratio dielectric / rest-leg = **2.0000** (target 2; cancels common lattice/box e
 
 ## D-EM3 — radiation-as-source (the physical fork)
 
-**pass = True.** Equal-energy rest-mass blob vs standing (E,B) field-energy shell (energy match 0.0e+00), rays outside both:
+**pass = True.** Equal-energy rest-mass blob vs standing (E,B) field-energy shell (energy match 1.7e-16), rays outside both:
 
 | source (EM-connection coupling) | K_bend |
 |---|---|

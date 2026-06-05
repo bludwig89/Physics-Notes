@@ -1,0 +1,16 @@
+# Gluon — even law on the BCC lattice (forced, F91). Colour-octet (8,L,L,L).
+# Includes a checkpoint every 50 ticks to exercise resume on a longer run.
+name: gluon_bcc
+lattice: {L: 12, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 150
+channels:
+  - {type: gluon_bcc}
+observers:
+  - {type: norm_conservation, every: 25}
+  - {type: energy_trace, every: 50}
+checkpoint:
+  every: 50
+  dir: checkpoints
+output:
+  json: test-results/casim_gluon_bcc.json

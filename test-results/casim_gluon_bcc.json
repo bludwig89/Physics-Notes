@@ -1,0 +1,130 @@
+{
+  "name": "gluon_bcc",
+  "seed": 7,
+  "ticks": 150,
+  "lattice": {
+    "L": 12,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "gluon_bcc": {
+      "name": "gluon_bcc",
+      "type": "gluon_bcc",
+      "propagator": "even",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "exactness": "machine-precision",
+      "every": 25,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.69827143256,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.69827143195,
+              "rel_drift": 2.2351784075599644e-14
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.698271431334,
+              "rel_drift": 4.4836614484982615e-14
+            }
+          }
+        },
+        {
+          "tick": 75,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.698271430723,
+              "rel_drift": 6.718839856058226e-14
+            }
+          }
+        },
+        {
+          "tick": 100,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.69827143011,
+              "rel_drift": 8.967322896996523e-14
+            }
+          }
+        },
+        {
+          "tick": 125,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.698271429494,
+              "rel_drift": 1.121580593793482e-13
+            }
+          }
+        },
+        {
+          "tick": 150,
+          "channels": {
+            "gluon_bcc": {
+              "energy": 27343.698271428882,
+              "rel_drift": 1.3450984345494786e-13
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "gluon_bcc": 1.3450984345494786e-13
+        }
+      }
+    },
+    "energy_trace": {
+      "type": "energy_trace",
+      "exactness": "quantitative",
+      "every": 50,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "gluon_bcc": 27343.69827143256
+          }
+        },
+        {
+          "tick": 50,
+          "energy": {
+            "gluon_bcc": 27343.698271431334
+          }
+        },
+        {
+          "tick": 100,
+          "energy": {
+            "gluon_bcc": 27343.69827143011
+          }
+        },
+        {
+          "tick": 150,
+          "energy": {
+            "gluon_bcc": 27343.698271428882
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

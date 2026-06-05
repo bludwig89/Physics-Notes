@@ -1,0 +1,18 @@
+# Tier-2 closed fermion↔W back-reaction loop (E2E B1).
+# The doublet current sources the W field; the W potential (exponentiated into
+# SU(2) links) acts back on the doublet — within one tick.
+# Channel ORDER matters: w_sourced must come before fermion_doublet so the
+# field consumes the pre-tick current and publishes the updated potential A
+# for the fermion's covariant step this tick.
+name: fermion_w_backreaction
+lattice: {L: 8, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
+seed: 0
+ticks: 20
+channels:
+  - {type: w_sourced, name: w_sourced, fermion: fermion_doublet, g_lat: 0.5}
+  - {type: fermion_doublet, name: fermion_doublet, w_field: w_sourced, eps: 0.05}
+observers:
+  - {type: norm_conservation, every: 5, channels: [fermion_doublet]}  # unitary
+  - {type: energy_trace, every: 5}        # W field energy growth (radiation)
+output:
+  json: test-results/casim_fermion_w_backreaction.json

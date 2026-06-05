@@ -1,0 +1,172 @@
+{
+  "AB1_coulomb_gauge": {
+    "curl_minus_B_max": 1.3877787807814457e-17,
+    "div_A_max": 1.0787811616230769e-17,
+    "tier": "machine"
+  },
+  "AB2_holonomy_stokes": {
+    "holo_minus_flux_loopA": 1.1102230246251565e-16,
+    "holo_minus_flux_loopB": 4.440892098500626e-16,
+    "path_independence_A_vs_B": 5.551115123125783e-16,
+    "holo_both_tubes_netzero": 2.8557885223268187e-16,
+    "holo_no_tube": 4.0549161250957866e-17,
+    "holo_value": 0.7000000000000002,
+    "tier": "exact/machine"
+  },
+  "AB3_field_free_path": {
+    "holo": 0.9999999999450305,
+    "flux": 0.9999999999450305,
+    "peak_B": 0.062169899645271615,
+    "field_on_path": 2.047698756979448e-10,
+    "path_to_peak_ratio": 3.2937141103060917e-09,
+    "tier": "quant"
+  },
+  "AB4_helicity_blind": {
+    "max_helicity_phase_split": 3.3306690738754696e-16,
+    "max_commutator_P_U": 1.1102230246251565e-16,
+    "tier": "machine"
+  },
+  "AB5_charge_linearity": {
+    "q2_minus_2q1": 0.0,
+    "q3_minus_3q1": 0.0,
+    "tier": "exact"
+  },
+  "MX1_luminal_curl": {
+    "max_err_C_over_k_vs_inv_sqrt3": 1.8310908345142707e-12,
+    "c_lat": 0.5773502691896258,
+    "tier": "quant"
+  },
+  "MX2_curl_no_charge": {
+    "max_C_dot_C_cross_B": 5.273559366969494e-16,
+    "tier": "machine"
+  },
+  "MX3_charge_conservation": {
+    "gauss_residual_max_100steps": 1.984488747071907e-12,
+    "tier": "machine"
+  },
+  "MX4_magnetic_gauss": {
+    "magnetic_gauss_max_50steps": 2.022009447180084e-11,
+    "tier": "machine"
+  },
+  "MX5_magnetostatics": {
+    "ampere_residual_resolved": 1.4293480589476097e-15,
+    "longitudinal_fraction": 0.4652612569393129,
+    "tier": "machine/quant"
+  },
+  "E2E_charge_to_phase": {
+    "curl_minus_B_max": 7.771561172376096e-16,
+    "ampere_curlB_minus_J": 0.0,
+    "holo_minus_flux": 3.552713678800501e-15,
+    "holo_value": 15.861341445169895,
+    "enclosed_flux": 15.861341445169899,
+    "field_on_path_ratio": 0.011394030081966142,
+    "tier": "machine"
+  },
+  "_summary": {
+    "pass": 20,
+    "total": 20,
+    "checks": [
+      {
+        "name": "AB1 curl(A)=B",
+        "ok": true,
+        "val": 1.3877787807814457e-17
+      },
+      {
+        "name": "AB1 div(A)=0",
+        "ok": true,
+        "val": 1.0787811616230769e-17
+      },
+      {
+        "name": "AB2 holonomy=flux (Stokes)",
+        "ok": true,
+        "val": 1.1102230246251565e-16
+      },
+      {
+        "name": "AB2 path independence",
+        "ok": true,
+        "val": 5.551115123125783e-16
+      },
+      {
+        "name": "AB2 both-tubes loop ~0",
+        "ok": true,
+        "val": 2.8557885223268187e-16
+      },
+      {
+        "name": "AB2 no-tube loop ~0",
+        "ok": true,
+        "val": 4.0549161250957866e-17
+      },
+      {
+        "name": "AB3 field-free path (<5%)",
+        "ok": true,
+        "val": 3.2937141103060917e-09
+      },
+      {
+        "name": "AB3 holonomy nonzero",
+        "ok": true,
+        "val": 0.9999999999450305
+      },
+      {
+        "name": "AB4 helicity split=0",
+        "ok": true,
+        "val": 3.3306690738754696e-16
+      },
+      {
+        "name": "AB4 [P,U]=0",
+        "ok": true,
+        "val": 1.1102230246251565e-16
+      },
+      {
+        "name": "AB5 q-linearity",
+        "ok": true,
+        "val": 0.0
+      },
+      {
+        "name": "MX1 |C|/k -> 1/sqrt3",
+        "ok": true,
+        "val": 1.8310908345142707e-12
+      },
+      {
+        "name": "MX2 C.(CxB)=0",
+        "ok": true,
+        "val": 5.273559366969494e-16
+      },
+      {
+        "name": "MX3 Gauss conserved 100 steps",
+        "ok": true,
+        "val": 1.984488747071907e-12
+      },
+      {
+        "name": "MX4 div B=0",
+        "ok": true,
+        "val": 2.022009447180084e-11
+      },
+      {
+        "name": "MX5 Ampere residual (resolved)",
+        "ok": true,
+        "val": 1.4293480589476097e-15
+      },
+      {
+        "name": "E2E curl(A)=B",
+        "ok": true,
+        "val": 7.771561172376096e-16
+      },
+      {
+        "name": "E2E Ampere \u2207\u00d7B=J",
+        "ok": true,
+        "val": 0.0
+      },
+      {
+        "name": "E2E holonomy=flux",
+        "ok": true,
+        "val": 3.552713678800501e-15
+      },
+      {
+        "name": "E2E flux nonzero",
+        "ok": true,
+        "val": 15.861341445169899
+      }
+    ],
+    "runtime_s": 0.43502020835876465
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "finding": "F97",
+  "date": "2026-06-05 - 13:30",
+  "checks": {
+    "P1": {
+      "statement": "N=2: unique fixed point {pi/4}; unitarity cap == wrap cap",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "P2": {
+      "statement": "caps coincide iff N in {1,2}; strict split for N>=3 (sin x < x and pi/(2N) < N^(-1/2) for N > pi^2/4)",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "P3": {
+      "statement": "N=3 trilinear fixed point sin^2 t*=(9sqrt3-12)/11, t*=34.831134 deg, 3t*=104.49340 deg > 90 (over-wrap)",
+      "residual": "0.e-160",
+      "status": "PASS"
+    },
+    "P4": {
+      "statement": "N=3 bilinear fixed point s*=(sqrt57-3)/8, t*=34.661664 deg, 3t*=103.98499 deg > 90 (over-wrap)",
+      "residual": "0.e-160",
+      "status": "PASS"
+    },
+    "P5": {
+      "statement": "both fixed points inside the forbidden gap (30 deg, 35.264 deg); stable-triple cap m_c <= 1/2 exact",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "P6": {
+      "statement": "Z3 closure: qqq -> 0, q qbar -> 0, qq -> 4pi/3 != 0 (exact)",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "P7": {
+      "statement": "PDG quark-sum/proton = 0.9581% (phase kinematics cannot supply the baryon mass; confinement must)",
+      "residual": "0.009581",
+      "status": "PASS"
+    }
+  },
+  "runtime_s": 0.312,
+  "summary": "7/7 PASS"
+}

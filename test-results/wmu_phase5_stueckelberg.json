@@ -28,10 +28,10 @@
     },
     {
       "test": "W5.4",
-      "residual": 0.20525642758722962,
+      "residual": 0.2052564275872296,
       "target": "\u2264 1.0 (decreasing)",
       "E_kin_before": 2680911.5615193686,
-      "E_kin_after": 550274.329794767,
+      "E_kin_after": 550274.3297947668,
       "passed": true,
       "description": "Gradient flow decreases E_kin: 2.681e+06 \u2192 5.503e+05"
     },
@@ -49,7 +49,7 @@
       "description": "Long. d.o.f.: |F^1|=9.70e-01, |F^2|=9.81e-01, |F^3|=9.77e-01; id\u21920.00e+00"
     }
   ],
-  "elapsed": 0.011185407638549805,
+  "elapsed": 0.0565493106842041,
   "n_pass": 5,
   "n_total": 5
 }

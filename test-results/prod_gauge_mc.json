@@ -1,0 +1,482 @@
+{
+  "name": "gauge_mc",
+  "seed": 1234,
+  "ticks": 400,
+  "lattice": {
+    "L": 12,
+    "dims": 4,
+    "topology": "cubic",
+    "c_lat": 1.0
+  },
+  "channels": {
+    "gauge_mc": {
+      "name": "gauge_mc",
+      "type": "gauge_mc",
+      "propagator": "monte-carlo",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "exactness": "quantitative",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "gauge_mc": {
+              "energy": 1.0,
+              "mean_plaquette": 1.0,
+              "wilson_action": 0.0,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5713338307093704,
+              "mean_plaquette": 0.5713338307093704,
+              "wilson_action": 309330.9946870852,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5693831561569397,
+              "mean_plaquette": 0.5693831561569397,
+              "wilson_action": 310738.6264127535,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5679827757494671,
+              "mean_plaquette": 0.5679827757494671,
+              "wilson_action": 311749.15883965493,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5685699647181348,
+              "mean_plaquette": 0.5685699647181348,
+              "wilson_action": 311325.4357638455,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5680715795862841,
+              "mean_plaquette": 0.5680715795862841,
+              "wilson_action": 311685.0768543187,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5671360585522613,
+              "mean_plaquette": 0.5671360585522613,
+              "wilson_action": 312360.1608071387,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 70,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5656731914862326,
+              "mean_plaquette": 0.5656731914862326,
+              "wilson_action": 313415.78440668347,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 80,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5650496300783279,
+              "mean_plaquette": 0.5650496300783279,
+              "wilson_action": 313865.7543002137,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 90,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5670631801571349,
+              "mean_plaquette": 0.5670631801571349,
+              "wilson_action": 312412.75078990543,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 100,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5682951049822705,
+              "mean_plaquette": 0.5682951049822705,
+              "wilson_action": 311523.7780674498,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 110,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5665249102012692,
+              "mean_plaquette": 0.5665249102012692,
+              "wilson_action": 312801.17327991355,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 120,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5673148744456272,
+              "mean_plaquette": 0.5673148744456272,
+              "wilson_action": 312231.12496964255,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 130,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5677255879387483,
+              "mean_plaquette": 0.5677255879387483,
+              "wilson_action": 311934.74885587365,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 140,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5659755027425992,
+              "mean_plaquette": 0.5659755027425992,
+              "wilson_action": 313197.6327345053,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 150,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.56785280281833,
+              "mean_plaquette": 0.56785280281833,
+              "wilson_action": 311842.94897041697,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 160,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5686146262090884,
+              "mean_plaquette": 0.5686146262090884,
+              "wilson_action": 311293.2074603064,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 170,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.568481808688139,
+              "mean_plaquette": 0.568481808688139,
+              "wilson_action": 311389.0502834876,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 180,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5671117623472423,
+              "mean_plaquette": 0.5671117623472423,
+              "wilson_action": 312377.69325967197,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 190,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5702436529553475,
+              "mean_plaquette": 0.5702436529553475,
+              "wilson_action": 310117.68090866343,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 200,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.568911976078798,
+              "mean_plaquette": 0.568911976078798,
+              "wilson_action": 311078.6359882456,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 210,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5674948541931576,
+              "mean_plaquette": 0.5674948541931576,
+              "wilson_action": 312101.2492800838,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 220,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5672114945488737,
+              "mean_plaquette": 0.5672114945488737,
+              "wilson_action": 312305.7252264025,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 230,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.56667887520151,
+              "mean_plaquette": 0.56667887520151,
+              "wilson_action": 312690.0701649878,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 240,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5671132885115421,
+              "mean_plaquette": 0.5671132885115421,
+              "wilson_action": 312376.59195997834,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 250,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5697834999818849,
+              "mean_plaquette": 0.5697834999818849,
+              "wilson_action": 310449.7331842721,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 260,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5674207360759682,
+              "mean_plaquette": 0.5674207360759682,
+              "wilson_action": 312154.73386215954,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 270,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5678869452512463,
+              "mean_plaquette": 0.5678869452512463,
+              "wilson_action": 311818.3113538015,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 280,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.567352335241906,
+              "mean_plaquette": 0.567352335241906,
+              "wilson_action": 312204.09277954954,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 290,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5671985847878931,
+              "mean_plaquette": 0.5671985847878931,
+              "wilson_action": 312315.041075171,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 300,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5674742107174652,
+              "mean_plaquette": 0.5674742107174652,
+              "wilson_action": 312116.14587637986,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 310,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5680042968105153,
+              "mean_plaquette": 0.5680042968105153,
+              "wilson_action": 311733.6289665329,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 320,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5684600185116664,
+              "mean_plaquette": 0.5684600185116664,
+              "wilson_action": 311404.7743537446,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 330,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5666050015627191,
+              "mean_plaquette": 0.5666050015627191,
+              "wilson_action": 312743.3783283218,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 340,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5676689481454122,
+              "mean_plaquette": 0.5676689481454122,
+              "wilson_action": 311975.62085573433,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 350,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5646984806551754,
+              "mean_plaquette": 0.5646984806551754,
+              "wilson_action": 314119.148218673,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 360,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5664098201819625,
+              "mean_plaquette": 0.5664098201819625,
+              "wilson_action": 312884.2237109975,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 370,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5669594326045241,
+              "mean_plaquette": 0.5669594326045241,
+              "wilson_action": 312487.61635183793,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 380,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5670811949568337,
+              "mean_plaquette": 0.5670811949568337,
+              "wilson_action": 312399.7510798534,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 390,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5668233832531001,
+              "mean_plaquette": 0.5668233832531001,
+              "wilson_action": 312585.7913052573,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 400,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5688247548575901,
+              "mean_plaquette": 0.5688247548575901,
+              "wilson_action": 311141.5759379008,
+              "beta": 5.8
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

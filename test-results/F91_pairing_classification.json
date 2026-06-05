@@ -1,0 +1,62 @@
+{
+  "finding": "F91",
+  "title": "Pairing classification \u2014 \u03b3 even (forced), W chiral (forced), Z mixed, gluon even (forced; chiral BCC assignment unforced)",
+  "date": "2026-06-04",
+  "checks": {
+    "A1_photon_axial_zero_Q": {
+      "pass": true,
+      "table_resid": 0.0
+    },
+    "W1_right_T3_zero_and_PL_kills_R": {
+      "pass": true,
+      "kill": 0.0
+    },
+    "W2_single_branch_rides_Omega_s": {
+      "residual": 2.1229545899004165e-14,
+      "pass": true
+    },
+    "W2_even_excluded_by_F67_separation": {
+      "residual": 1.3877787807814457e-17,
+      "min_separation": 0.005137063013057996,
+      "pass": true
+    },
+    "W3_reality_maps_branch_to_chiral": {
+      "residual": 0.0,
+      "pass": true
+    },
+    "W3_chiral_step_Fpm_at_Omega_pm": {
+      "residual": 0.0,
+      "pass": true
+    },
+    "Z1_neither_identity_nor_projector_Q": {
+      "pass": true,
+      "float_table_resid": 5.551115123125783e-17
+    },
+    "Z2_photon_unique_identity_channel_Q": {
+      "pass": true
+    },
+    "Z3_massive_Z_split_suppression": {
+      "rel_correction": 0.0008591150027655284,
+      "pass": true
+    },
+    "G1_colour_coupling_branch_blind": {
+      "residual": 1.1102230246251565e-16,
+      "pass": true
+    },
+    "G2_colour_phase_split_zero": {
+      "residual": 0.0,
+      "pass": true
+    },
+    "G3_even_octet_step_clean": {
+      "S_even": 0.0,
+      "norm_drift": 6.797297100180627e-15,
+      "pass": true
+    },
+    "G3_chiral_gluon_unforced_contrast": {
+      "S_chiral": 0.5677920570117889,
+      "pred_minus_dOmega_N": 0.5677920570117889,
+      "pass": true
+    }
+  },
+  "verdict": "PASS"
+}

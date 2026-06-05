@@ -1,0 +1,98 @@
+{
+  "name": "z_even",
+  "seed": 2,
+  "ticks": 60,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "z_even": {
+      "name": "z_even",
+      "type": "z_even",
+      "propagator": "even",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "exactness": "machine-precision",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "z_even": {
+              "energy": 8165.009078995072,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "z_even": {
+              "energy": 8165.009078995085,
+              "rel_drift": 1.5594502959680886e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "z_even": {
+              "energy": 8165.009078995097,
+              "rel_drift": 3.118900591936177e-15
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "z_even": {
+              "energy": 8165.009078995111,
+              "rel_drift": 4.7897401947591296e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "z_even": {
+              "energy": 8165.009078995124,
+              "rel_drift": 6.349190490727218e-15
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "z_even": {
+              "energy": 8165.0090789951355,
+              "rel_drift": 7.797251479840443e-15
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "z_even": {
+              "energy": 8165.009078995148,
+              "rel_drift": 9.356701775808532e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "z_even": 9.356701775808532e-15
+        }
+      }
+    }
+  }
+}

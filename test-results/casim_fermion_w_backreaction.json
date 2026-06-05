@@ -1,0 +1,131 @@
+{
+  "name": "fermion_w_backreaction",
+  "seed": 0,
+  "ticks": 20,
+  "lattice": {
+    "L": 8,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "w_sourced": {
+      "name": "w_sourced",
+      "type": "w_sourced",
+      "propagator": "chiral",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "fermion_doublet": {
+      "name": "fermion_doublet",
+      "type": "fermion_doublet",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.0,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.0000000000000036,
+              "rel_drift": 1.7763568394002505e-15
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.000000000000007,
+              "rel_drift": 3.552713678800501e-15
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.0000000000000107,
+              "rel_drift": 5.329070518200751e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.000000000000013,
+              "rel_drift": 6.439293542825908e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "fermion_doublet": 6.439293542825908e-15
+        }
+      }
+    },
+    "energy_trace": {
+      "type": "energy_trace",
+      "exactness": "quantitative",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "w_sourced": 0.0,
+            "fermion_doublet": 2.0
+          }
+        },
+        {
+          "tick": 5,
+          "energy": {
+            "w_sourced": 0.009955248695515569,
+            "fermion_doublet": 2.0000000000000036
+          }
+        },
+        {
+          "tick": 10,
+          "energy": {
+            "w_sourced": 0.022308146583342084,
+            "fermion_doublet": 2.000000000000007
+          }
+        },
+        {
+          "tick": 15,
+          "energy": {
+            "w_sourced": 0.03882563334994558,
+            "fermion_doublet": 2.0000000000000107
+          }
+        },
+        {
+          "tick": 20,
+          "energy": {
+            "w_sourced": 0.059361315005864786,
+            "fermion_doublet": 2.000000000000013
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

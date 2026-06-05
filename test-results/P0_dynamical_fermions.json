@@ -1,0 +1,150 @@
+{
+  "suite": "P0_dynamical_fermions",
+  "n_pass": 16,
+  "n_total": 16,
+  "seconds": 7.934396028518677,
+  "masses": {
+    "e": 0.05,
+    "u": 0.1,
+    "d": 0.4
+  },
+  "checks": [
+    {
+      "name": "A1-disp-e",
+      "residual": 3.3306690738754696e-16,
+      "target": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "A1-disp-u",
+      "residual": 2.220446049250313e-16,
+      "target": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "A1-disp-d",
+      "residual": 2.220446049250313e-16,
+      "target": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "A2-groupvel-weyl",
+      "residual": 0.00011103907583217091,
+      "target": 0.02,
+      "passed": true
+    },
+    {
+      "name": "B-norm-e",
+      "residual": 2.5557334026871104e-13,
+      "target": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "B-norm-u",
+      "residual": 2.657873920952625e-13,
+      "target": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "B-norm-d",
+      "residual": 2.402522625288839e-13,
+      "target": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "C-zitter-e",
+      "residual": 0.0012163026039612008,
+      "target": 0.005,
+      "passed": true
+    },
+    {
+      "name": "C-zitter-u",
+      "residual": 0.0008973665230418979,
+      "target": 0.005,
+      "passed": true
+    },
+    {
+      "name": "C-zitter-d",
+      "residual": 5.032888938839932e-05,
+      "target": 0.005,
+      "passed": true
+    },
+    {
+      "name": "D-charge-e",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true
+    },
+    {
+      "name": "D-charge-u",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true
+    },
+    {
+      "name": "D-charge-d",
+      "residual": 0.0,
+      "target": 0.0,
+      "passed": true
+    },
+    {
+      "name": "E1-colour-charge-conserved",
+      "residual": 1.2079226507921703e-13,
+      "target": 1e-10,
+      "passed": true
+    },
+    {
+      "name": "E2-su3-density-casimir-invariant",
+      "residual": 1.3322676295501875e-15,
+      "target": 1e-12,
+      "passed": true
+    },
+    {
+      "name": "E3-quark-norm-conserved",
+      "residual": 1.021405182655144e-14,
+      "target": 1e-10,
+      "passed": true
+    }
+  ],
+  "results": {
+    "A2": {
+      "v_meas": 0.57741437763058,
+      "v_ana": 0.5773502691902577,
+      "c_lat": 0.5773502691896258,
+      "rel": 0.00011103907583217091
+    },
+    "B_e": 2.5557334026871104e-13,
+    "B_u": 2.657873920952625e-13,
+    "B_d": 2.402522625288839e-13,
+    "C_e": {
+      "w_meas": 0.10016339460831049,
+      "w_ana": 0.10004171361154003,
+      "rel": 0.0012163026039612008
+    },
+    "C_u": {
+      "w_meas": 0.20051461610401924,
+      "w_ana": 0.2003348423231196,
+      "rel": 0.0008973665230418979
+    },
+    "C_d": {
+      "w_meas": 0.8229922697633217,
+      "w_ana": 0.8230336921349761,
+      "rel": 5.032888938839932e-05
+    },
+    "D_e": {
+      "T3": "-1/2",
+      "Y": "-1",
+      "Q": "-1"
+    },
+    "D_u": {
+      "T3": "1/2",
+      "Y": "1/3",
+      "Q": "2/3"
+    },
+    "D_d": {
+      "T3": "-1/2",
+      "Y": "1/3",
+      "Q": "-1/3"
+    }
+  }
+}

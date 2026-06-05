@@ -1,0 +1,11 @@
+# Z boson — even law (same rotation as γ). Single real (E_Z, B_Z) pair.
+name: z_even
+lattice: {L: 16, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
+seed: 2
+ticks: 60
+channels:
+  - {type: z_even}
+observers:
+  - {type: norm_conservation, every: 10}
+output:
+  json: test-results/casim_z_even.json

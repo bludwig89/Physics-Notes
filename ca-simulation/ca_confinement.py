@@ -136,7 +136,28 @@ def creutz_ratio(loops, r, t):
     """
     num = loops[(r, t)] * loops[(r - 1, t - 1)]
     den = loops[(r - 1, t)] * loops[(r, t - 1)]
-    return float(-np.log(num / den))
+    # Numerical-safety guard.  For an EXACT area law num/den = w² > 0 always.
+    # But a *Monte-Carlo* estimate of a large loop sits below the noise floor
+    # (⟨W⟩ ~ w^{RT} ≪ 1/√N_cfg) and can come out ≤ 0, making −ln(num/den) NaN
+    # ("invalid value encountered in log").  That is an under-resolved-
+    # statistics signal, not a defect — return NaN cleanly instead of warning.
+    ratio = _safe_real_ratio(num, den)
+    if not np.isfinite(ratio) or ratio <= 0.0:
+        return float('nan')   # loop(s) below MC noise floor — needs more stats
+    return float(-np.log(ratio))
+
+
+def _safe_real_ratio(num, den):
+    """Real part of num/den, or NaN if den==0 or the ratio is not real-positive
+    enough to log.  Centralises the MC noise-floor guard used by the loop
+    estimators."""
+    num, den = complex(num), complex(den)
+    if den == 0:
+        return float('nan')
+    r = num / den
+    if abs(r.imag) > 1e-12 * (abs(r.real) + 1e-300):
+        return float('nan')
+    return r.real
 
 
 def static_potential_from_loops(loops, r, t):
@@ -144,8 +165,14 @@ def static_potential_from_loops(loops, r, t):
     V(R) from the temporal decay of the Wilson loop:
         V(R) = −(1/T) ln[ W(R,T) / W(R,T−1) ]   (one-step estimator).
     For the exact area law this equals σ·R for every T (T-independent).
+
+    Same MC noise-floor guard as `creutz_ratio`: a non-positive ratio (large
+    loop below the statistical floor) returns NaN rather than raising.
     """
-    return float(-np.log(loops[(r, t)] / loops[(r, t - 1)]))
+    ratio = _safe_real_ratio(loops[(r, t)], loops[(r, t - 1)])
+    if not np.isfinite(ratio) or ratio <= 0.0:
+        return float('nan')
+    return float(-np.log(ratio))
 
 
 def static_potential_linear(w, r):

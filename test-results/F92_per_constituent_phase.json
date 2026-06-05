@@ -1,0 +1,51 @@
+{
+  "P1_allocation_is_unit_rotation": {
+    "pass": true,
+    "code_step_residual": 0.0,
+    "Dk_block_residual": 1.1102230246251565e-16,
+    "statement": "(stay, transfer) = (cos t, sin t) exactly; mass amplitude = sine of the rest phase"
+  },
+  "P2_fock_pair_factor": {
+    "pass": true,
+    "residual": "0",
+    "statement": "(a^dag)^2 |0> = sqrt(2)|2> exactly: the normalized two-quantum amplitude is sqrt(2) x single"
+  },
+  "P3_consistency_unique_45deg": {
+    "pass": true,
+    "solutions_on_(0,pi/2)": "{pi/4}",
+    "Q(pi/4)": "2/3",
+    "statement": "L1 (m=sin2t, F73 pair sum) and L2 (m=y^2, F78 bilinear with y=sqrt(2) sin t) are jointly satisfiable ONLY at t=45deg; Q=2/3 follows"
+  },
+  "P4_unitarity_saturation_equals_F73_cap": {
+    "pass": true,
+    "y=1 boundary": "{pi/4}",
+    "m_c at cap": "sqrt(2)/2",
+    "m_comp at cap": "1",
+    "statement": "F73 stability cap m_c<=1/sqrt2 == unitarity of the pair amplitude y=sqrt(2)m_c<=1; y, m_comp saturate simultaneously at 45deg"
+  },
+  "P5_data_pin_c2_equals_2": {
+    "pass": true,
+    "t*(c) table": {
+      "c^2=1": {
+        "t*_deg": 63.4349,
+        "Q*": 1.666667
+      },
+      "c^2=2": {
+        "t*_deg": 45.0,
+        "Q*": 0.666667
+      },
+      "c^2=3": {
+        "t*_deg": 33.6901,
+        "Q*": 0.481481
+      },
+      "c^2=4": {
+        "t*_deg": 26.5651,
+        "Q*": 0.416667
+      }
+    },
+    "phi_lepton_deg": 44.99974,
+    "c^2_data = 2*cot(phi)": "2.000018",
+    "|c^2-2|": "1.85e-05",
+    "statement": "only the Fock value c^2=2 gives 45deg; the measured lepton masses pin c^2 to 2 at the 1e-5 level"
+  }
+}

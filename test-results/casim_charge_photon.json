@@ -1,0 +1,51 @@
+{
+  "name": "charge_photon",
+  "seed": 0,
+  "ticks": 30,
+  "lattice": {
+    "L": 13,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "charge_photon": {
+      "name": "charge_photon",
+      "type": "charge_photon",
+      "propagator": "even",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "exactness": "quantitative",
+      "every": 30,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "charge_photon": {
+              "energy": 0.0,
+              "div_J_max": 8.057893119216958e-16,
+              "field_energy": 0.0
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "charge_photon": {
+              "energy": 1.4365098215204628,
+              "div_J_max": 8.057893119216958e-16,
+              "field_energy": 1.4365098215204628
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "finding": "F98",
+  "date": "2026-06-05",
+  "title": "enforcer of the phase budget is itself the binder",
+  "checks": {
+    "E1": {
+      "statement": "budget = Z3 centre phase: closes (N-ality 0) for qqq, q-qbar, pentaquark, gluon; OPEN for q, qq, qqqq",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "E2": {
+      "statement": "Option C: sigma_BPS = 2 pi v^2 |n|, n = centre charge; sigma = 0 EXACTLY iff budget closes; multiplier = N-ality (sigma(2) = 2 sigma(1))",
+      "residual": "0.0",
+      "status": "PASS"
+    },
+    "E3": {
+      "statement": "Option A: asymptotic sigma_k = k(N-k)/(N-1) sigma_1 depends ONLY on N-ality; centre-periodic (sigma_0 = sigma_N = 0); adjoint screened, fundamental confined; k <-> N-k degenerate",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "E4": {
+      "statement": "A<->C bridge: v* = sqrt(sigma_A/2pi) maps gauge-MC tension to the condensate scale; round-trip sigma_C(v*) = sigma_A; both give sigma(closed budget) = 0",
+      "residual": "0.0",
+      "status": "PASS"
+    },
+    "E5": {
+      "statement": "sigma is the Lagrange price of non-closure: E_iso(closed)=0 (finite, free), E_iso(open)=sigma R -> infinity (confined); linear in R",
+      "residual": "0",
+      "status": "PASS"
+    }
+  },
+  "triality_table": {
+    "q  (single quark)": {
+      "N-ality": 1,
+      "budget_closes": false
+    },
+    "qq (diquark)": {
+      "N-ality": 2,
+      "budget_closes": false
+    },
+    "qqq (baryon)": {
+      "N-ality": 0,
+      "budget_closes": true
+    },
+    "q-qbar (meson)": {
+      "N-ality": 0,
+      "budget_closes": true
+    },
+    "qqqq": {
+      "N-ality": 1,
+      "budget_closes": false
+    },
+    "qqqq-qbar (pentaquark)": {
+      "N-ality": 0,
+      "budget_closes": true
+    },
+    "g (adjoint/gluon)": {
+      "N-ality": 0,
+      "budget_closes": true
+    }
+  },
+  "runtime_s": 0.084,
+  "summary": "5/5 PASS"
+}

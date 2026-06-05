@@ -3,14 +3,14 @@
   "pass_count": 6,
   "total_count": 6,
   "overall_pass": true,
-  "elapsed_s": 0.0079,
+  "elapsed_s": 0.0054,
   "results": [
     {
       "name": "M1_majorana_unitary",
       "residual": 2.2509993868879974e-11,
       "target": 1e-09,
       "pass": true,
-      "elapsed_s": 0.006,
+      "elapsed_s": 0.0031,
       "description": "Bare Majorana step preserves |chi_u|^2 + |chi_d|^2."
     },
     {
@@ -50,7 +50,7 @@
       "residual": 1.8189894035458565e-12,
       "target": 1e-09,
       "pass": true,
-      "elapsed_s": 0.001,
+      "elapsed_s": 0.0012,
       "description": "Closed-form seesaw_eigenvalues = numpy.linalg.eigvalsh(seesaw_2x2_matrix) over a random (M_D, M_R) sweep."
     },
     {
@@ -206,7 +206,7 @@
         "overall_bdg_match_pass": true
       },
       "pass": true,
-      "elapsed_s": 0.0003,
+      "elapsed_s": 0.0002,
       "description": "See-saw scaling: m_nu * M_R / M_D^2 -> 1 with residual bounded by 1.1 * (M_D/M_R)^2 at every sampled ratio; BdG smallest |eigenvalue| matches closed-form light mass to <1e-10."
     }
   ]

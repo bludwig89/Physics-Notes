@@ -1,0 +1,38 @@
+{
+  "finding": "F100",
+  "date": "2026-06-05",
+  "title": "gamma(Omega) from the QCA rule transfer operator",
+  "checks": {
+    "T1": {
+      "statement": "rule tick = oscillator phase rotation R(Omega) (orthogonal, det 1); transfer-operator vacuum <phi^2> = 1/(2 Omega) per mode (number-basis diagonalisation)",
+      "residual": "orth 2.1e-17, det 0.0e+00, osc 3.3e-16",
+      "status": "PASS"
+    },
+    "T2": {
+      "statement": "vacuum flux variance from the rule: sigma_phi^2 = <1/(2 Omega)>_BZ -> 0.40297 (Richardson, r=0.499); sigma_1 = sigma_phi^2/2 = (1/4)<1/Omega>_BZ = 0.20148",
+      "residual": "diffs ['1.40e-02', '6.94e-03', '3.45e-03', '1.72e-03', '8.58e-04']",
+      "status": "PASS"
+    },
+    "T3": {
+      "statement": "gamma(Omega) = clock^{-1}(exp(-sigma_phi^2/2)) = 1.78000 for the 2D rule (s_1 = 0.81752); clock round-trip exact; monotone in dispersion stiffness (1.302<1.780<2.252)",
+      "residual": "roundtrip 1.1e-16",
+      "status": "PASS"
+    },
+    "T4": {
+      "statement": "limits recover F99 D4 from the rule: stiff Omega -> gamma->inf, sigma->0 (deconfined); soft Omega -> gamma->0, sigma->inf (confining)",
+      "residual": "stiff(gamma=11.0, sigma=2.0e-07); soft(gamma=1.0e-08, sigma=19.1)",
+      "status": "PASS"
+    },
+    "T5": {
+      "statement": "reconciliation: sigma_1=0.2015 same order & same BZ-inverse-dispersion origin as F70 floor sigma(20)=0.2192 and F95 I_2=0.2202 (consistency, not an identity: F70 sigma(60)=0.0687<sigma(20))",
+      "residual": "|sigma_1 - sigma_F70(20)|=0.0177",
+      "status": "PASS"
+    }
+  },
+  "sigma_phi2_inf": 0.402967,
+  "sigma_1": 0.201484,
+  "gamma_star": 1.779996,
+  "s1": 0.817517,
+  "runtime_s": 0.068,
+  "summary": "5/5 PASS"
+}

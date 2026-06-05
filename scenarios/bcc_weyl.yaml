@@ -1,0 +1,15 @@
+# BCC Weyl walk (exact unitary QCA) — per-branch propagator.
+# Propagates a random 2-spinor field; checks norm conservation (FFT floor),
+# unitarity ||U†U−I||=0 (exact), and the measured-vs-analytic dispersion.
+name: bcc_weyl
+lattice: {L: 16, dims: 3, topology: bcc, c_lat: 0.5773502691896258}  # 1/√3
+seed: 0
+ticks: 200
+channels:
+  - {type: weyl_bcc, sign: "+", n_modes: 12}
+observers:
+  - {type: norm_conservation, every: 20}
+  - {type: unitarity_residual, every: 200}
+  - {type: dispersion_fit, every: 200}
+output:
+  json: test-results/casim_bcc_weyl.json

@@ -3,7 +3,7 @@
   "process": "d -> u + W- -> u + e- + nubar_e",
   "n_pass": 10,
   "n_total": 10,
-  "runtime_s": 0.4766974449157715,
+  "runtime_s": 0.36769580841064453,
   "tests": {
     "CC1 SU(2) raising/lowering algebra": {
       "pass": true,

@@ -152,28 +152,66 @@ def gluon_rotation_step_spectral_2d(E_G, B_G):
 
 def gluon_rotation_step_spectral_bcc(E_G, B_G):
     """
-    One tick of free gluon propagation on the BCC lattice.
+    One tick of free gluon propagation on the BCC lattice — EVEN LAW (F91).
 
     E_G, B_G : (8, L, L, L) real — colour-octet (E^a, B^a) fields.
-    Uses `ca_wmu.w_propagation_step_spectral` (the F37 chirally-faithful
-    branch step) per a-component.  Each a is decoupled at the free-field
-    level; SU(3) acts adjointly on the 'a' label only, which the rotation
-    does not see.
+    Applies the chirality-even rotation `ca_wmu._f26_rotation_step`
+    (Ω_even = ω_+(k/2) + ω_-(k/2)) independently to each a-component —
+    the same propagator the photon (F69) and Z use.
+
+    Why even, not chiral (F91 pairing-classification theorem)
+    --------------------------------------------------------
+    The colour coupling V = exp(iθ·T) acts on the colour index only and is
+    the identity in BCC-branch (chirality) space, so it commutes with the
+    Weyl walk on both branches ([diag(U⁺,U⁻)⊗I₃, I₄⊗V] = 0, F91 G1, residual
+    1.1e-16) and advances both branches by an identical colour phase (F91 G2,
+    split = 0).  By the F68 argument this branch-blind (vector-like) coupling
+    can source only the helicity-symmetric — even — dispersion.  The previous
+    implementation reused the W's *chiral* step (F37/F43); that was UNFORCED
+    (gluons are confined, so the resulting vacuum birefringence is
+    unobservable) and contrary to the forcing principle.  Migrated 2026-06-04.
+    The retired chiral behaviour is preserved verbatim as
+    `gluon_rotation_step_spectral_bcc_chiral` for historical comparison.
+
+    Coherence note: the massive step `gluon_massive_step_spectral_bcc`
+    already uses the even law (ω_eff = √(m² + Ω_even²)); this migration makes
+    the m→0 free limit consistent with it (no longer needs the special-case
+    shortcut to agree — though the shortcut is retained for exactness).
     """
     if E_G.shape[0] != 8 or B_G.shape[0] != 8:
         raise ValueError("E_G, B_G must have first axis size 8 (SU(3) octet)")
-    # Reuse the W's per-tick chiral step.  It expects shape (3,L,L,L), so
-    # we loop over a-components in pairs of 3 (and handle the leftover 2).
+    shape = E_G.shape[1:]
+    KX, KY, KZ = cwmu._kgrid3d(*shape)
     E_new = np.zeros_like(E_G)
     B_new = np.zeros_like(B_G)
-    # Process in chunks of 3 to reuse the (3,L,L,L) interface verbatim.
+    for a in range(8):
+        Ek = np.fft.fftn(E_G[a])
+        Bk = np.fft.fftn(B_G[a])
+        Ek2, Bk2 = cwmu._f26_rotation_step(Ek, Bk, KX, KY, KZ)
+        E_new[a] = np.fft.ifftn(Ek2).real
+        B_new[a] = np.fft.ifftn(Bk2).real
+    return E_new, B_new
+
+
+def gluon_rotation_step_spectral_bcc_chiral(E_G, B_G):
+    """RETIRED (F91, 2026-06-04): the pre-migration chiral BCC gluon step.
+
+    Reuses the W's chirally-faithful branch step (F37) per a-component, so
+    F^± ride Ω^± = 2ω_±(k/2) and a generic linear polarization splits by ΔΩ
+    (vacuum birefringence).  Kept ONLY for historical comparison and for the
+    F91 contrast test; NOT the gluon propagator (see
+    `gluon_rotation_step_spectral_bcc` for why the even law is forced).
+    """
+    if E_G.shape[0] != 8 or B_G.shape[0] != 8:
+        raise ValueError("E_G, B_G must have first axis size 8 (SU(3) octet)")
+    E_new = np.zeros_like(E_G)
+    B_new = np.zeros_like(B_G)
     for start in range(0, 8, 3):
         end = min(start + 3, 8)
         size = end - start
         if size == 3:
             En, Bn = cwmu.w_propagation_step_spectral(E_G[start:end], B_G[start:end])
         else:
-            # Pad to 3, propagate, slice back
             shp = E_G.shape[1:]
             E_pad = np.zeros((3,) + shp)
             B_pad = np.zeros((3,) + shp)
@@ -703,9 +741,12 @@ def gluon_sourced_step_bcc(E_G, B_G, J_a, dt=1.0, g_lat=1.0):
 
 def free_gluon_dispersion_residual_bcc(L=12, n_steps=50, a_comp=0, seed=11):
     """
-    Verify free-gluon dispersion ω(k) = Ω⁺(k) = 2·ω_+(k/2) per a-component
-    on the BCC lattice.  Direct port of `ca_wmu.w_free_dispersion_check`
-    to the 8-component octet.
+    Verify free-gluon dispersion ω(k) = Ω_even(k) = ω_+(k/2) + ω_-(k/2) per
+    a-component on the BCC lattice (EVEN law, F91 migration 2026-06-04 —
+    previously compared against the chiral Ω⁺).
+
+    Under the even rotation `_f26_rotation_step`, C = E + iB advances as
+    C → e^{-iΩ_even}C per tick, so C_n = C_0·exp(-iΩ_even·n).
 
     Returns max relative error over significant Fourier modes.
     """
@@ -716,7 +757,7 @@ def free_gluon_dispersion_residual_bcc(L=12, n_steps=50, a_comp=0, seed=11):
     B[a_comp] = rng.standard_normal((L, L, L))
 
     KX, KY, KZ = cwmu._kgrid3d(L, L, L)
-    Omega_pred, _ = cwmu._chiral_dispersions((L, L, L))
+    Omega_pred = cwmu._omega_even(KX, KY, KZ)
 
     E0 = np.fft.fftn(E[a_comp])
     B0 = np.fft.fftn(B[a_comp])

@@ -193,7 +193,7 @@ def main():
         "Z       (ca_z_field.z_propagation_step_spectral)": "EVEN  (_f26_rotation_step)",
         "hyperch.(ca_wmu.hypercharge_propagation_step)": "EVEN  (_f26_rotation_step)",
         "W       (ca_wmu.w_propagation_step_chiral)": "CHIRAL (Omega^+/Omega^- split) [F37]",
-        "gluon   (ca_gluon.gluon_rotation_step_spectral_bcc)": "CHIRAL (reuses W chiral step) [F43]",
+        "gluon   (ca_gluon.gluon_rotation_step_spectral_bcc)": "EVEN  (_f26_rotation_step) [F91 migration 2026-06-04; chiral step retained as ..._bcc_chiral]",
     }
 
     secs = out["sections"]

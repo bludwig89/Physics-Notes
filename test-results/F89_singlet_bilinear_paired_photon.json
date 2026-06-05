@@ -1,0 +1,56 @@
+{
+  "finding": "F89",
+  "title": "Singlet bilinear is the paired photon \u2014 one entity, two channels",
+  "date": "2026-06-03",
+  "claim": "2\u22972 of the same Weyl constituents: singlet/\u03b5 channel rides \u03a9_pair = \u03a9_even (photon); \u03c3-vector channel rides \u03a9\u00b1 (W/Z/gluon). Same machinery, channel distinction only.",
+  "checks": {
+    "T1a_singlet_rate_eq_pair_dispersion": {
+      "residual": 4.872213743567499e-13,
+      "pass": true
+    },
+    "T1b_all_channels_ride_pair_rate": {
+      "residual": 4.872213743567499e-13,
+      "pass": true
+    },
+    "T2_rate_eq_f26_rotation_step": {
+      "residual": 4.872213743567499e-13,
+      "pass": true
+    },
+    "T3_branch_swap_symmetric": {
+      "residual": 1.1546319456101628e-13,
+      "pass": true
+    },
+    "T4_same_branch_plus_rate": {
+      "residual": 1.9546864127306662e-14,
+      "pass": true
+    },
+    "T4_same_branch_minus_rate": {
+      "residual": 1.865174681370263e-14,
+      "pass": true
+    },
+    "T4_split_eq_pair_birefringence": {
+      "residual": 0.0,
+      "pass": true
+    },
+    "T4_chiral_split_nonzero_body_diag": {
+      "value": -0.01027412602611602,
+      "pass": true
+    },
+    "T5_sigma0_invariant": {
+      "residual": 2.8435583831733384e-15,
+      "pass": true
+    },
+    "T5_sigma_vector_adjoint_2omega": {
+      "residual": 6.115071734596043e-14,
+      "pass": true
+    }
+  },
+  "verdict": "PASS",
+  "params": {
+    "n_k_T123": 2000,
+    "n_ticks": 8,
+    "n_k_T4": 2000,
+    "n_k_T5": 500,
+    "machine_threshold": 5e-13
+  }
+}

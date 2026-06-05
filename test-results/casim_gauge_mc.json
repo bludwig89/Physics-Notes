@@ -1,0 +1,86 @@
+{
+  "name": "gauge_mc",
+  "seed": 1234,
+  "ticks": 40,
+  "lattice": {
+    "L": 6,
+    "dims": 4,
+    "topology": "cubic",
+    "c_lat": 1.0
+  },
+  "channels": {
+    "gauge_mc": {
+      "name": "gauge_mc",
+      "type": "gauge_mc",
+      "propagator": "monte-carlo",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "exactness": "quantitative",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "gauge_mc": {
+              "energy": 1.0,
+              "mean_plaquette": 1.0,
+              "wilson_action": 0.0,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5670345394030565,
+              "mean_plaquette": 0.5670345394030565,
+              "wilson_action": 19527.08864529063,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5665885618318658,
+              "mean_plaquette": 0.5665885618318658,
+              "wilson_action": 19547.202590533387,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5759141827222815,
+              "mean_plaquette": 0.5759141827222815,
+              "wilson_action": 19126.60962787893,
+              "beta": 5.8
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "gauge_mc": {
+              "energy": 0.5732056881125538,
+              "mean_plaquette": 0.5732056881125538,
+              "wilson_action": 19248.764901573333,
+              "beta": 5.8
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

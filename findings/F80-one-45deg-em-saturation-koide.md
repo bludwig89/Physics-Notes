@@ -5,7 +5,7 @@
 **Script:** `model-tests/test_F80_em_saturation_45deg.py` (<1 s)
 **Results:** `test-results/F80_em_saturation_45deg.json`
 **Numbering note:** built concurrently with the structural-Newton-constant finding that took **F79**; this 45°/EM-selection finding is **F80**.
-**Cross-references:** [[F78-koide-amplitude-from-cooper-pair]] (the $\sqrt m$ amplitude and the equipartition characterisation this closes), [[F77-njl-gap-rpa-selfconsistent]] (the dynamical-mass / gap machinery), [[F73-spin0-bound-pair-scalar]] (the 45° stability cap $\arcsin m_c=\pi/4$), [[F76-generation-mass-hierarchy-crystal-field]], [[F75-three-generations-from-bcc-irrep-selection]], [[F47-majorana-seesaw-higgs-free]] (the neutral-lepton mass route that lacks the EM rotation).
+**Cross-references:** [[F78-koide-amplitude-from-cooper-pair]] (the $\sqrt m$ amplitude and the equipartition characterisation this closes), [[F77-njl-gap-rpa-selfconsistent]] (the dynamical-mass / gap machinery), [[F73-spin0-bound-pair-scalar]] (the 45° stability cap $\arcsin m_c=\pi/4$), [[F76-generation-mass-hierarchy-crystal-field]], [[F75-three-generations-from-bcc-irrep-selection]], [[F47-majorana-seesaw-higgs-free]] (the neutral-lepton mass route that lacks the EM rotation), [[F81-why-45deg-pair-phase-saturation]] (answers the value-level open question below: 45° is the two-constituent pair's half of the $\pi/2$ phase budget).
 
 ---
 

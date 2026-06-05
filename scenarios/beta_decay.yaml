@@ -1,0 +1,13 @@
+# Tier-2 F54 β-decay: d → u + W⁻. A localized left-handed quark doublet emits
+# a W⁻ via the charged current on the first tick (the vertex), then the W⁻
+# propagates as a massive Proca field.
+name: beta_decay
+lattice: {L: 16, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
+seed: 0
+ticks: 24
+channels:
+  - {type: beta_decay, g_lat: 0.8, m_W: 0.6, sigma: 1.5}
+observers:
+  - {type: energy_trace, every: 6}
+output:
+  json: test-results/casim_beta_decay.json

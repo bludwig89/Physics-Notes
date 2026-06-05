@@ -1,0 +1,56 @@
+{
+  "G1_composite_mass_peaks_at_45": {
+    "pass": true,
+    "argmax_phi_deg": 45.0,
+    "m_H_max": 1.0,
+    "note": "m_H = sin(2 phi) is maximal exactly at the saturation edge 2 phi = pi/2"
+  },
+  "G2_minimum_location_coupling_independent": {
+    "pass": true,
+    "argmin_phi_deg_vs_lambda": {
+      "lambda=1e-06": 45.0,
+      "lambda=0.001": 45.0,
+      "lambda=1": 45.0,
+      "lambda=1000": 45.0,
+      "lambda=1e+06": 45.0
+    },
+    "analytic": "dE/dphi=-2 lambda cos(2 phi)=0 -> phi=45 ; d2E/dphi2=4 lambda sin(2 phi)=4 lambda>0 -> minimum",
+    "payoff": "the 45deg LOCATION does not depend on the coupling strength -> F80-D5's '340x too weak' sets the DEPTH, not the location; even infinitesimal binding lands at 45deg"
+  },
+  "G3_exact_45_iff_flat_direction": {
+    "pass": true,
+    "argmin_phi_deg_vs_kappa(lambda=1)": {
+      "kappa=0": 45.0,
+      "kappa=0.25": 42.349,
+      "kappa=0.5": 39.977,
+      "kappa=1": 35.877,
+      "kappa=2": 29.503,
+      "kappa=5": 18.367
+    },
+    "reading": "any stiffness kappa>0 favouring the democratic point pulls the minimum BELOW 45deg; the observed EXACT 45deg is evidence that phi is a flat direction (kappa=0) -- a free lattice background (F76), not a paid-for distortion"
+  },
+  "G4_Q_monotonic_in_binding": {
+    "pass": true,
+    "Q(m_H)_curve": {
+      "m_H=0.0": 0.33333,
+      "m_H=0.25": 0.33871,
+      "m_H=0.5": 0.35727,
+      "m_H=0.75": 0.40126,
+      "m_H=0.9": 0.46429,
+      "m_H=1.0": 0.66667
+    },
+    "massless->democratic": 0.33333,
+    "maximally_bound->equipartition": 0.66667,
+    "clean_two_body_bound": "Q in [1/3, 2/3]; charged leptons saturate at 2/3",
+    "Q_leptons": 0.66666,
+    "Q_up_quarks": 0.849,
+    "Q_down_quarks": 0.731,
+    "quark_note": "Q_quark > 2/3 lies OUTSIDE the clean-pair band -> quarks are not clean two-body pairs (QCD/confinement), as expected"
+  },
+  "G5_honest_residual": {
+    "answered": "WHY at saturation: the composite mass m_H=sin(2 phi) peaks at the saturation edge, and a binding energy E0 - lambda*m_H is minimised there for ANY lambda>0. The lepton sits where its own mass is maximal; coupling strength sets the depth, not the 45deg location -> the F80-D5 weakness objection dissolves.",
+    "remaining_assumption": "phi is a FLAT direction (no stiffness kappa>0 favouring the democratic point). Supported by the data sitting at EXACTLY 45deg (G3: any kappa>0 would put it below). Plausibly the orthorhombic lattice anisotropy (F76) is a free background.",
+    "net": "the residual is now 'why is the generation-rotation a flat modulus' -- a structural lattice question -- rather than 'why criticality' or 'why isn't EM too weak'."
+  },
+  "_overall": "PASS"
+}

@@ -1,0 +1,46 @@
+{
+  "name": "gravity_deflection",
+  "seed": 0,
+  "ticks": 0,
+  "lattice": {
+    "L": 64,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 1.0
+  },
+  "channels": {
+    "gravity_dielectric": {
+      "name": "gravity_dielectric",
+      "type": "gravity_dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "exactness": "quantitative",
+      "every": 1,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "gravity_dielectric": {
+              "energy": 5638828045189.577,
+              "impact_parameter": 10,
+              "deflection_measured": 19.053477475007043,
+              "deflection_GR_4GM_over_c2b": 20.0,
+              "deflection_GR_finite_aperture": 19.089599560700595,
+              "aperture_factor": 0.9544799780350297,
+              "rel_error": 0.0018922390476915154,
+              "K_max": 292798319168.2001
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

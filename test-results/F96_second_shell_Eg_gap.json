@@ -1,0 +1,163 @@
+{
+  "S1_channels_separability": {
+    "pass": true,
+    "sum y^2 = 3ybar^2 + e^2": true,
+    "(sum y)^2 pure A1g": true,
+    "r=1 separable": true,
+    "statement": "hierarchy requires r = kappa_E/kappa0 != 1 \u2014 an inter-generation interaction (sharpens F78-B3)"
+  },
+  "S2_sea_tables": {
+    "pass": true,
+    "g(0)/g(1) canonical": [
+      -1.40332,
+      -1.5708
+    ],
+    "g(0)/g(1) pair": [
+      -1.40332,
+      -1.5708
+    ],
+    "statement": "g(y)=f(m(y)); pair law reaches the full sea gain already at y=1 (mass peak) with m ~ sqrt2*y at small y \u2014 quadratic gain, vs the canonical quartic"
+  },
+  "T1_stationarity_theorem": {
+    "pass": true,
+    "dE/dy_a = kappa_E y_a + lam + g'(y_a), lam=(kappa0-kappa_E)ybar": true,
+    "statement": "one scalar equation for all flavors: distinct interior values = distinct stable roots of a 1-D equation"
+  },
+  "T2_texture_algebra": {
+    "pass": true,
+    "Q=2/3 <=> u =": "{2 - sqrt(3)}",
+    "tan(delta)": "sqrt3*u/(2-u)",
+    "u* = 2-sqrt3 = tan(15deg)": true,
+    "delta(u*) = 15 deg, cos(3delta) = 1/sqrt2 (3delta=45deg)": true,
+    "statement": "scale-free and map-independent: ANY (m_h, m_mid, 0) texture lies on the curve (Q(u), delta(u)); Koide Q=2/3 forces delta=15deg exactly \u2014 a new exact 45deg (=3delta) in the chain"
+  },
+  "T3_two_value_theorem": {
+    "pass": true,
+    "max simultaneously available distinct stable values": 2,
+    "statement": "corner (lam>0) excludes the small stable root (reaching h=-lam<0 from h(0)=0 requires the falling branch); lam<0 releases the corner but offers only {small root, upper root}. Either way AT MOST TWO distinct flavor values exist simultaneously: a strictly quadratic-cost gap theory CANNOT produce three distinct generation masses on this sea \u2014 for ANY amplitude->mass map tested. (F93-O5's 'quartic Landau theory can never orthorhombify', realized dynamically and nonperturbatively.)"
+  },
+  "T4_phase_map_W0": {
+    "pass": true,
+    "canonical": {
+      "counts": {
+        "cubic": 39,
+        "degenerate": 109,
+        "tetra": 21,
+        "ortho0": 0,
+        "ortho+": 0
+      },
+      "min y_heavy among strong splits (m_h>0.5)": 1.0
+    },
+    "pair": {
+      "counts": {
+        "cubic": 28,
+        "degenerate": 113,
+        "tetra": 28,
+        "ortho0": 0,
+        "ortho+": 0
+      },
+      "min y_heavy among strong splits (m_h>0.5)": 0.4413
+    },
+    "note": "canonical strong splits sit exactly on the wall (y_heavy=1.0); the pair law reaches heavy masses already at mid amplitude (its m(y) is steep), so its splits sit at the upper stable root rather than the literal wall \u2014 recorded, not asserted",
+    "statement": "at W=0 NO three-distinct-mass phase exists anywhere on the (kappa0, r) map, for either map \u2014 the two-value theorem realized dynamically"
+  },
+  "T5_three_masses_require_C": {
+    "pass": true,
+    "data": {
+      "Q": 0.666661,
+      "delta_deg": 12.733,
+      "three distinct masses": true
+    },
+    "quadratic theory": "max two distinct masses (T3/T4)",
+    "conclusion": "the observed e\u2013mu\u2013tau spectrum EXCLUDES the strictly quadratic gap theory. The non-quadratic E_g self-term (F95's C) is now required for THREE independent reasons: (i) the angle brake cos3delta=0.786 (F95), (ii) m_e > 0, (iii) the very existence of three distinct masses. One localized object carries all three jobs.",
+    "T2 corollary": "in the small-m_e limit the unlocked theory's textures approach the exact curve (Q(u), delta(u)); at Q=2/3 it gives delta=15deg (cos3delta=1/sqrt2) vs measured 12.73deg \u2014 the residual displacement carries m_e"
+  },
+  "T6_constructive_unlock": {
+    "pass": true,
+    "three-distinct minimizers found": 30,
+    "best (W, kappa0, r, class, Q, delta, m_light/m_h)": [
+      8.0,
+      0.318,
+      0.65,
+      "ortho0",
+      0.5051,
+      50.06,
+      0.0
+    ],
+    "sample": [
+      [
+        0.5,
+        0.318,
+        0.1,
+        "ortho0",
+        0.5013,
+        54.95,
+        0.0
+      ],
+      [
+        0.5,
+        0.318,
+        0.145,
+        "ortho0",
+        0.5015,
+        54.59,
+        0.0
+      ],
+      [
+        0.5,
+        0.318,
+        0.211,
+        "ortho0",
+        0.5017,
+        54.17,
+        0.0
+      ],
+      [
+        0.5,
+        0.318,
+        0.308,
+        "ortho0",
+        0.502,
+        53.69,
+        0.0
+      ],
+      [
+        0.5,
+        0.318,
+        0.447,
+        "ortho0",
+        0.5024,
+        53.15,
+        0.0
+      ],
+      [
+        0.5,
+        0.318,
+        0.65,
+        "ortho0",
+        0.5028,
+        52.6,
+        0.0
+      ],
+      [
+        1.0,
+        0.318,
+        0.1,
+        "ortho0",
+        0.5036,
+        51.67,
+        0.0
+      ],
+      [
+        1.0,
+        0.318,
+        0.145,
+        "ortho0",
+        0.5036,
+        51.63,
+        0.0
+      ]
+    ],
+    "statement": "adding the single invariant W*(sum_a p_a^3)^2 \u2014 the e^6 cos^2(3delta) sextic in flavor variables (its sqrt is F95's derived cubic) \u2014 unlocks a three-distinct-mass phase: the localized term is SUFFICIENT as well as necessary. Fitting its strength to the lepton point is the now-posable closing computation."
+  }
+}

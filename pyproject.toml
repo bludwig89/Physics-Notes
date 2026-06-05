@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "casim"
+version = "0.1.0"
+description = "Cellular-automaton particle-physics model (universe-in-a-bottle): SU(2) lattice, F91 propagator classification, F64 dielectric gravity."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Ben Ludwig" }]
+dependencies = [
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+    "pyyaml>=6.0",
+    "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+gui = ["vispy", "PyQt6"]
+
+[project.scripts]
+casim = "casim.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "exact: result is algebraically exact (residual == 0)",
+    "machine_precision: result holds to FFT/float round-off (<1e-12)",
+    "slow: long run, excluded from default selection",
+]
+testpaths = ["tests"]

@@ -1,0 +1,13 @@
+# W± gauge field — chiral law (forced, F91). Birefringent but massive,
+# so not under the polarimetry bound. Checks norm conservation under the
+# chirally-faithful F37 propagation.
+name: w_chiral
+lattice: {L: 16, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 60
+channels:
+  - {type: w_chiral}
+observers:
+  - {type: norm_conservation, every: 10}
+output:
+  json: test-results/casim_w_chiral.json

@@ -1,0 +1,312 @@
+{
+  "finding": "F83",
+  "title": "Attempt to fix lattice spacing a from a measured fermion mass via F46/F12 map",
+  "date_utc": "2026-06-03 - 00:29",
+  "constants": {
+    "c_m_s": 299792458.0,
+    "hbar_Js": 1.054571817e-34,
+    "ell_P_m": 1.616255e-35,
+    "hbarc_MeV_fm": 197.3269804,
+    "d": 3,
+    "P_pre_F61": 2.8944050182330705,
+    "a_F61_m": 6.156721342631621e-35,
+    "a_F61_over_ellP": 3.809251227455829
+  },
+  "tests": [
+    {
+      "name": "T1_roundtrip_machine_precision",
+      "desc": "a -> m_lat=sin(a/(sqrt(d) lc)) -> a = sqrt(d) arcsin(m_lat) lc",
+      "max_rel_residual": 2.4762745918355983e-16,
+      "target": 1e-14,
+      "passed": true,
+      "rows": [
+        {
+          "fermion": "electron",
+          "m_lat": 2.325651253564714e-06,
+          "arcsin_arg": 2.3256512535668104e-06,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409308e-18,
+          "rel_residual": 2.4762745918355983e-16,
+          "valid": true
+        },
+        {
+          "fermion": "muon",
+          "m_lat": 0.00048087089799561016,
+          "arcsin_arg": 0.0004808709165281217,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409312e-18,
+          "rel_residual": 0.0,
+          "valid": true
+        },
+        {
+          "fermion": "tau",
+          "m_lat": 0.008086732166808957,
+          "arcsin_arg": 0.008086820308364084,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.555505961040931e-18,
+          "rel_residual": 1.2381372959177992e-16,
+          "valid": true
+        },
+        {
+          "fermion": "up",
+          "m_lat": 9.830561701982757e-06,
+          "arcsin_arg": 9.830561702141094e-06,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409312e-18,
+          "rel_residual": 0.0,
+          "valid": true
+        },
+        {
+          "fermion": "down",
+          "m_lat": 2.1254038493306707e-05,
+          "arcsin_arg": 2.12540384949069e-05,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409312e-18,
+          "rel_residual": 0.0,
+          "valid": true
+        },
+        {
+          "fermion": "strange",
+          "m_lat": 0.0004250807570965714,
+          "arcsin_arg": 0.000425080769898138,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409314e-18,
+          "rel_residual": 1.2381372959177992e-16,
+          "valid": true
+        },
+        {
+          "fermion": "charm",
+          "m_lat": 0.005779974002506202,
+          "arcsin_arg": 0.005780006185981107,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409314e-18,
+          "rel_residual": 1.2381372959177992e-16,
+          "valid": true
+        },
+        {
+          "fermion": "bottom",
+          "m_lat": 0.01902280989237023,
+          "arcsin_arg": 0.0190239573680323,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.555505961040931e-18,
+          "rel_residual": 1.2381372959177992e-16,
+          "valid": true
+        },
+        {
+          "fermion": "top",
+          "m_lat": 0.7071067811865476,
+          "arcsin_arg": 0.7853981633974484,
+          "a_test_m": 1.5555059610409312e-18,
+          "a_back_m": 1.5555059610409314e-18,
+          "rel_residual": 1.2381372959177992e-16,
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "T2_a_ceiling_per_fermion",
+      "desc": "a <= sqrt(d)*(pi/2)*lambdabar_C ; tightest from heaviest fermion",
+      "tightest_fermion": "top",
+      "tightest_a_ceiling_m": 3.1110119220818624e-18,
+      "tightest_a_ceiling_over_ellP": 1.924827407854492e+17,
+      "rows": [
+        {
+          "fermion": "top",
+          "mass_MeV": 172570.0,
+          "lambdabar_C_m": 1.1434605110969464e-18,
+          "a_ceiling_m": 3.1110119220818624e-18,
+          "a_ceiling_over_ellP": 1.924827407854492e+17
+        },
+        {
+          "fermion": "bottom",
+          "mass_MeV": 4180.0,
+          "lambdabar_C_m": 4.720741157894737e-17,
+          "a_ceiling_m": 1.2843715966355668e-16,
+          "a_ceiling_over_ellP": 7.946590090273916e+18
+        },
+        {
+          "fermion": "tau",
+          "mass_MeV": 1776.86,
+          "lambdabar_C_m": 1.1105375797755592e-16,
+          "a_ceiling_m": 3.0214385342326743e-16,
+          "a_ceiling_over_ellP": 1.869407076378835e+19
+        },
+        {
+          "fermion": "charm",
+          "mass_MeV": 1270.0,
+          "lambdabar_C_m": 1.5537557511811023e-16,
+          "a_ceiling_m": 4.227301790501314e-16,
+          "a_ceiling_over_ellP": 2.6154918564838556e+19
+        },
+        {
+          "fermion": "muon",
+          "mass_MeV": 105.6583755,
+          "lambdabar_C_m": 1.867594305384716e-15,
+          "a_ceiling_m": 5.081162045631365e-15,
+          "a_ceiling_over_ellP": 3.143787363770794e+20
+        },
+        {
+          "fermion": "strange",
+          "mass_MeV": 93.4,
+          "lambdabar_C_m": 2.112708569593148e-15,
+          "a_ceiling_m": 5.748044190510353e-15,
+          "a_ceiling_over_ellP": 3.556396849822802e+20
+        },
+        {
+          "fermion": "down",
+          "mass_MeV": 4.67,
+          "lambdabar_C_m": 4.225417139186296e-14,
+          "a_ceiling_m": 1.1496088381020705e-13,
+          "a_ceiling_over_ellP": 7.112793699645603e+21
+        },
+        {
+          "fermion": "up",
+          "mass_MeV": 2.16,
+          "lambdabar_C_m": 9.135508351851852e-14,
+          "a_ceiling_m": 2.4854968860817913e-13,
+          "a_ceiling_over_ellP": 1.5378123415437485e+22
+        },
+        {
+          "fermion": "electron",
+          "mass_MeV": 0.51099895,
+          "lambdabar_C_m": 3.8615926784193984e-13,
+          "a_ceiling_m": 1.0506231517572921e-12,
+          "a_ceiling_over_ellP": 6.500355152852069e+22
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "T3_m_lat_at_F61_pinned_a",
+      "desc": "a = a_F61 = 3.81 ell_P ; m_lat = sin(a/(sqrt(d) lambdabar_C))",
+      "a_used_m": 6.156721342631621e-35,
+      "a_used_over_ellP": 3.809251227455829,
+      "all_fermions_m_lat_le_1": true,
+      "rows": [
+        {
+          "fermion": "electron",
+          "mass_MeV": 0.51099895,
+          "m_lat_exact": 9.204970644259715e-23,
+          "m_lat_linear": 9.204970644259715e-23,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "muon",
+          "mass_MeV": 105.6583755,
+          "m_lat_exact": 1.9032959750654478e-20,
+          "m_lat_linear": 1.9032959750654478e-20,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "tau",
+          "mass_MeV": 1776.86,
+          "m_lat_exact": 3.200778424096433e-19,
+          "m_lat_linear": 3.200778424096433e-19,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "up",
+          "mass_MeV": 2.16,
+          "m_lat_exact": 3.8909544905329037e-22,
+          "m_lat_linear": 3.8909544905329037e-22,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "down",
+          "mass_MeV": 4.67,
+          "m_lat_exact": 8.412387717957714e-22,
+          "m_lat_linear": 8.412387717957714e-22,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "strange",
+          "mass_MeV": 93.4,
+          "m_lat_exact": 1.6824775435915425e-20,
+          "m_lat_linear": 1.6824775435915425e-20,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "charm",
+          "mass_MeV": 1270.0,
+          "m_lat_exact": 2.287737131007772e-19,
+          "m_lat_linear": 2.287737131007772e-19,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "bottom",
+          "mass_MeV": 4180.0,
+          "m_lat_exact": 7.529717486309045e-19,
+          "m_lat_linear": 7.529717486309045e-19,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        },
+        {
+          "fermion": "top",
+          "mass_MeV": 172570.0,
+          "m_lat_exact": 3.108620446441033e-17,
+          "m_lat_linear": 3.108620446441033e-17,
+          "rel_diff_exact_vs_lin": 0.0,
+          "valid_m_lat_le_1": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "T4_electron_estimate_and_sqrt_d_flag",
+      "desc": "si-units sec.3.3 used m_lat=m c a/hbar with a=ell_P, no sqrt(d) factor",
+      "electron_lambdabar_C_m": 3.8615926784193984e-13,
+      "m_lat_siunits_a=ellP_no_sqrtd": 4.1854621514912204e-23,
+      "m_lat_exact_a=ellP_optionC": 2.4164776998464465e-23,
+      "m_lat_exact_a=aF61_optionC": 9.204970644259715e-23,
+      "siunits_quoted": 4e-23,
+      "ratio_siunits_to_exact_ellP": 1.7320508075688772,
+      "note": "ratio ~ sqrt(d)=1.732: the missing lightcone factor in si-units sec.3.3",
+      "passed": true
+    },
+    {
+      "name": "T5_degeneracy_one_eqn_two_unknowns",
+      "desc": "many (a, m_lat) reproduce the same electron mass; a not fixed by mass alone",
+      "rows": [
+        {
+          "m_lat": 1e-30,
+          "a_solution_m": 6.688474717158382e-43,
+          "a_over_ellP": 4.138254617717119e-08,
+          "recovered_mass_MeV": 0.5109989498404711
+        },
+        {
+          "m_lat": 1e-23,
+          "a_solution_m": 6.688474717158381e-36,
+          "a_over_ellP": 0.4138254617717118,
+          "recovered_mass_MeV": 0.5109989498404711
+        },
+        {
+          "m_lat": 1e-10,
+          "a_solution_m": 6.688474717158382e-23,
+          "a_over_ellP": 4138254617717.119,
+          "recovered_mass_MeV": 0.510998949840471
+        },
+        {
+          "m_lat": 0.5,
+          "a_solution_m": 3.5020771725243077e-13,
+          "a_over_ellP": 2.16678505095069e+22,
+          "recovered_mass_MeV": 0.5109989498404711
+        },
+        {
+          "m_lat": 0.999,
+          "a_solution_m": 1.0207088902822143e-12,
+          "a_over_ellP": 6.315271354348257e+22,
+          "recovered_mass_MeV": 0.5109989498404711
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

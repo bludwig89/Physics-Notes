@@ -3,22 +3,22 @@
   "results": [
     {
       "test": "W2.1",
-      "residual": 5.100235355121729e-13,
+      "residual": 3.7919575736418433e-13,
       "per_component": [
-        1.8501035154295232e-13,
-        5.100235355121729e-13,
-        1.2816616663334685e-13
+        2.770072210416845e-13,
+        3.7919575736418433e-13,
+        2.427788864381694e-13
       ],
       "target": 1e-10,
       "passed": true,
-      "description": "\u03a9_W(k)=\u03c9_+(k/2)+\u03c9_-(k/2): a=0 1.85e-13, a=1 5.10e-13, a=2 1.28e-13"
+      "description": "\u03a9_W(k)=\u03c9_+(k/2)+\u03c9_-(k/2): a=0 2.77e-13, a=1 3.79e-13, a=2 2.43e-13"
     },
     {
       "test": "W2.2",
-      "residual": 3.020070929915915e-14,
+      "residual": 2.661939320581827e-14,
       "target": 1e-13,
       "passed": true,
-      "description": "Energy conserved / 200 steps (rel drift=3.02e-14)"
+      "description": "Energy conserved / 200 steps (rel drift=2.66e-14)"
     },
     {
       "test": "W2.3",
@@ -36,7 +36,7 @@
       "description": "Decoupled abelian: superposition residual 0.00e+00, zero-seepage residual 0.00e+00"
     }
   ],
-  "elapsed": 2.112375259399414,
+  "elapsed": 4.112179756164551,
   "n_pass": 4,
   "n_total": 4
 }

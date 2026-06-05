@@ -136,6 +136,14 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~are the hypercharge fields affected by our decision to abandon Higgs? Will it still work with the chiral SU(2) mass model? If not, implement the hypercharge field coupling to fermions as a fork, verify that the su(2) lepton field is not affected, and test.~~
 
+- ~~outline the next project elements to execute in order to bring the model up to being able to model dynamic electrons, up, and down quarks, along with their binding dynamics to form protons, neutrons, and atoms.~~
+
+- attempt to combine ($\triangle$) with the absolute lensing coefficient $\Delta\theta=4GM/(bc^2)$ (F55/L4, carries an explicit $\sqrt d$, Finding 10) to pin $a$ independently of any mass.
+
+- ~~f76 points towards an orthorhombic vaccum structure, is that still in keeping with a bcc lattice?~~
+
+- ~~execute p0 in roadmap-matter-binding.md, once that is done and tests complete, then review the model and physics-notes-complete.md for any leads to building p1 (binding force). String theory is problematic, avoid it's use for now. Give outlines for options/forks and prompt user before building. Side note: after 500 configs, the run_confinement_mc.py returned an error on line 139: "invalid value entered in log return float(-np.log(num/den))".~~
+
 - ~~The F29 bilinear only uses `sign='+'`.  A complete two-helicity photon state requires both Weyl branches, construct and test.~~
 
 - ~~Done - Run the FG-1 anomaly cancellation test from the first gen completeness review and update that file with the test results.~~
@@ -154,21 +162,67 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~with the 3-generation predictions from f75,f76 and f77, how does that prediction modify g* and as a result a?~~
 
-- with all of the additions and modifications, especially to the dual-spinor photon, a full test rerun is warranted. Conduct a fresh run of the entire test suite that has not been deprecated or superceded.
+- ~~with all of the additions and modifications, especially to the dual-spinor photon, a full test rerun is warranted. Conduct a fresh run of the entire test suite that has not been deprecated or superceded.~~
   
-  - attempt to fix $a$ from a **measured fermion mass** through the F46/F12 lattice-mass
-map
+  - ~~attempt to fix a from a measured fermion mass through the F46/F12 lattice-mass map~~
 - ~~can we free the gravity sector from the sakarov premise, verify the choice of loop channel is correct, and derive newtons constant G?~~
 
 - ~~***Complete*** - proposed fork - if we use the mohr six-component photon wave function instead of the composite bilinear photon of de broglie, what are the results? *(Already doing this just in different language)*~~
 
-- Proposed fork - consider the global tick speed as the base speed that only massless particles can travel at, (100% of $c$), anything massive, relative to the empty vacuum part of the field, travels at a slower percentage (for this thought experiment, most likely is a function of mass). The top limit of this being a black hole where tick rate is 0% relative to the vacuum.
+- ~~the charge-coupling path should be re-verified end-to-end on the paired-photon field (Aharonov–Bohm and the sourced Maxwell curl together)~~ 
 
+- ~~execute an end-to-end test of the non-abelian w/z/gluon couplings still on the bilinear. also verify the full fermion + radiation back-reaction.~~
 
+- ~~if possible demonstrate the color-condensate required for the binding force (f86) as arising within the model physics.~~
 
-## Software Changes
-- how would we convert this model from single-run to a sofware modelling standalone program?
+- ~~execute construction of option b in p1-binding-force-options and in relation to f86 and test. also compare with f86.~~
 
-P.S. Disclaimer and personal information - I am a physicist only by proximity, my father had a PhD in theoretical physics and made such problems his hobby, just recently I was able to transcribe one of his notebooks which had a section on the idea of universal structure as cellular automata, so with the help of AI I began interpreting some of it into a model. I'm a computer guy, not a physicist, but I know enough that this could be interesting to you, and the CA idea is a school of thought you at least entertain.
+- ~~review lgt_confinement.{json,md} as per f94 and determine the result.~~
+
+- for options a and c of the binding force construction, can they be combined to include the beneficial elements of both? does that cause any problems with the physics? or can something else be derived by the combination?
+
+- 
+
+- ~~review f92 and theorize if a similar law holds true to be both the binding force and the "stability point" colour-neutral quark combinations (the baryon sector).~~
+
+- ~~within the casim program GUI, add gui-adjustable scales for the bcc lattice so we have a larger test space, make it a drop-down scale with rough memory allocations in GB next to it. (e.g. Lattice Size -> 500 x 500 x 500 (~4GB); 10k x 10k x 10k (~90GB)) also change scenarios to be a drop-down gui menu.~~
+  
+  - ~~within the visualizer, can we build the lattice as an observable medium which each scenario runs on with each field as a checkbox-selectable addition? (may be very resource heavy, optimize as is possible)~~
+
+- ~~getting this warning from casim: WARNING: Populating font family aliases took 117 ms. Replace uses of missing font family "Monospace" with one that exists to avoid this cost.~~
+
+ -~~can we test for this part of f97: stability = exact closure of a phase budget, and the enforcer of the budget is itself the binder. possibly using options a and c from p1-binding-force-options.md?~~
+
+- ~~review test-results/prod_gauge_mc.json for any new information.~~
+
+- are we yet able to construct phase 3 of roadmap-matter-binding? if so, then construct it, and review phase 4 for viability and if workable, construct after requesting user verification.
+
+- what are we seeing in the CASIM lattice? what do the colors represent?
+  
+- can we review .npz files? can we get casim to do a "dump/results export" of a checkpoint to a json file for claude to read? I ran a particle field first gen to t13160 and want you to review it.
+
+## CASIM Structure
+
+- update scenarios to have a clear name with a short description for each and what it is doing/testing.
+
+- write a series of scenarios that are simple photon beams along an axis to observe propagation.
+
+- we want the base lattice construct, along with each of the four fundamental fields built in/on it. (EM, Strong nuclear, weak nuclear, gravity)
+  - particles, depending on their type, should interact via each force when applicable (e.g. quarks are affected by all four, but leptons have no color-charge so the strong force does not affect them)
+  - we want the program structure to allow particle construction to stack on the lattice, with the fundamental fields as the particle-interaction methods. This way building particles and tests are more modular.
+  - basically, we want to be able to see particles on the lattice interacting with others through the fields, with readouts of test values, field and particle data along the sidebar.
+
+## Email Disclaimer
+P.S. Disclaimer and personal information - I am a physicist only by proximity, my father had a PhD in theoretical physics and made such problems his hobby, just recently I was able to transcribe one of his notebooks which had a section on the idea of universal structure as cellular automata, so with the help of AI I began interpreting some of it into a model. I'm a computer guy, not a physicist, but I know enough that this could be interesting to you.
 
 As a result, if the physics is nonsensical, or if this is "old news", I plead ignorance and profusely apologize for wasting your time and wish you the absolute best in your studies! 
+
+## Papers
+- Write a series of files documenting the model. Write them as scientific papers being published for peer review, write each end-to-end with as much detail as possible such that another reasearcher could replicate the work, leaving nothing out (derivations, connections to previous paper, external references, etc.). Break it out into:
+  - The base structure of the model.
+  - One paper for the photon, its structure, and connection to the core model.
+  - One paper for mass derivation without the Higgs field. 
+  - One paper each for each of the fundamental fields, electromagnetism, strong nuclear force, weak nuclear force, and gravitational force.
+  - One paper for the fermion sector, its structure, derivations, and connection to the core model.
+  - One for the lepton sector and its structure, derivations, and connection to the model. 
+  - One for the baryon sector and its structure, derivations, and connection to the model. 

@@ -1,0 +1,171 @@
+{
+  "A0_cliff_forces_wall": {
+    "pass": true,
+    "sea slope toward the wall": {
+      "g'(0.9)": -0.41,
+      "g'(0.99)": -1.502,
+      "g'(0.999)": -4.982,
+      "g'(1.0)": -13.625
+    },
+    "interior-heavy (s=0.9) min Hessian eig": -1.9412,
+    "statement": "f'(m) diverges at m->1 (arccos edge): the sea near saturation is a cliff, every interior-heavy fit is a saddle \u2014 the heavy generation MUST sit exactly ON the wall. y_tau = 1: the tau mass IS the saturation scale (sharpens F96)"
+  },
+  "A1_wall_pinned_fit": {
+    "pass": true,
+    "admissible W window": [
+      0.0964,
+      21.6099
+    ],
+    "n admissible / total": "34/40",
+    "sample (mid-window)": {
+      "W": 1.5664,
+      "kappa_E": 0.7023,
+      "mu": 0.01031,
+      "kappa0": 0.71261,
+      "r": 0.98553,
+      "wall_grad0": -12.73296,
+      "minHess2x2": 0.12712,
+      "admissible": true
+    },
+    "statement": "with the tau pinned at the wall, the two light-flavor stationarity equations give (kappa_E, mu) in closed form per W: the exact lepton spectrum is a KKT point of the W-completed gap theory along a one-parameter family"
+  },
+  "A2_metastability_quantified": {
+    "pass": true,
+    "checks": [
+      {
+        "W": 0.0964,
+        "ground state": "(1,1,1) all-saturated",
+        "E(lepton)-E(ground)": "2.691e-01",
+        "lepton global": false
+      },
+      {
+        "W": 0.1576,
+        "ground state": "(1,1,1) all-saturated",
+        "E(lepton)-E(ground)": "2.439e-01",
+        "lepton global": false
+      },
+      {
+        "W": 0.2578,
+        "ground state": "(1,1,1) all-saturated",
+        "E(lepton)-E(ground)": "2.027e-01",
+        "lepton global": false
+      },
+      {
+        "W": 0.4217,
+        "ground state": "(1,1,1) all-saturated",
+        "E(lepton)-E(ground)": "1.353e-01",
+        "lepton global": false
+      },
+      {
+        "W": 0.6898,
+        "ground state": "(1,1,1) all-saturated",
+        "E(lepton)-E(ground)": "2.501e-02",
+        "lepton global": false
+      },
+      {
+        "W": 1.1283,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "1.235e-01",
+        "lepton global": false
+      },
+      {
+        "W": 1.8456,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "2.995e-01",
+        "lepton global": false
+      },
+      {
+        "W": 3.0188,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "5.873e-01",
+        "lepton global": false
+      },
+      {
+        "W": 4.9379,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "1.058e+00",
+        "lepton global": false
+      },
+      {
+        "W": 8.0769,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "1.828e+00",
+        "lepton global": false
+      },
+      {
+        "W": 13.2114,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "3.088e+00",
+        "lepton global": false
+      },
+      {
+        "W": 21.6099,
+        "ground state": "(0,0,0) empty",
+        "E(lepton)-E(ground)": "5.148e+00",
+        "lepton global": false
+      }
+    ],
+    "lepton point ever global": false,
+    "closest approach": {
+      "E gap": "2.501e-02",
+      "at W": 0.6898
+    },
+    "statement": "along the minimal 3-coupling family the exact lepton point is a genuine KKT LOCAL minimum but never the GLOBAL one: it is squeezed between the all-saturated (1,1,1) vacuum (small W) and the empty (0,0,0) vacuum (large W), with closest approach recorded. Promoting it to the true ground state needs one more invariant in the democratic sector (e.g. quartic ybar cost penalizing (1,1,1)) \u2014 flagged, deliberately NOT added here (derive, don't decorate)"
+  },
+  "B_F95_consistency_picks_W": {
+    "pass": true,
+    "B_sea at the lepton (ybar, e)": "-5.6896e-02",
+    "C_req = 0.636|B_sea|": "3.6186e-02",
+    "W* = 6 C_req / e^6": 1.46,
+    "KKT-admissible window": [
+      0.0964,
+      21.6099
+    ],
+    "fit at W*": {
+      "W": 1.46,
+      "kappa_E": 0.6565,
+      "mu": 0.00954,
+      "kappa0": 0.66603,
+      "r": 0.98568,
+      "wall_grad0": -12.79169,
+      "minHess2x2": 0.11919,
+      "admissible": true
+    },
+    "statement": "two INDEPENDENT routes meet: F95's Landau localization (C = 0.636|B|) selects W* ~ 1.5, and the wall-pinned KKT fit independently admits exactly that W (positive couplings, PD constrained Hessian, wall KKT). The brake size demanded by the angle and the brake size that stabilizes the spectrum are the same number"
+  },
+  "C_static_RPA_wrong_sign": {
+    "pass": true,
+    "rows": [
+      {
+        "e_probe": 0.2,
+        "W_RPA (sign is the content)": "-1.337e+02"
+      },
+      {
+        "e_probe": 0.25,
+        "W_RPA (sign is the content)": "-2.188e+02"
+      },
+      {
+        "e_probe": 0.3,
+        "W_RPA (sign is the content)": "-5.422e+02"
+      },
+      {
+        "e_probe": 0.35,
+        "note": "fluct. operator not PD (cliff curvature) \u2014 Gaussian treatment invalid near the wall"
+      }
+    ],
+    "all computed W_RPA negative": true,
+    "statement": "the static, uniform-mode one-loop fluctuation energy gives a NEGATIVE sextic coefficient \u2014 an anti-brake (fluctuations soften where one flavor is heavy) \u2014 and its operator loses positivity near the wall (the cliff curvature). W is therefore NOT derivable at static one-loop: an honest negative that rules out the simplest derivation route. The precisely-posed remaining computation is the momentum-resolved E_g-channel bubble (and/or the second-shell bond self-energy), which must produce C = 0.636|B|, i.e. W ~ 1.5"
+  },
+  "D_verdict": {
+    "pass": true,
+    "tau at the saturation wall": "FORCED by the sea cliff (A0) \u2014 the sharpest scale statement in the chain",
+    "branch located": "yes, as an exact KKT LOCAL vacuum (A1), with W > 0 emergent",
+    "fit": "closed-form one-parameter family (kappa_E, mu)(W); r = kappa_E/kappa0 ~ 0.99 (near-pure per-flavor contact)",
+    "two routes meet": "F95's C = 0.636|B| selects W* = 1.46, inside the KKT window (B)",
+    "honest negatives": [
+      "lepton point metastable in the minimal 3-coupling form (A2; closest gap 2.5e-02)",
+      "static RPA gives the WRONG SIGN for W (C)"
+    ],
+    "remaining": "momentum-resolved bubble for W; one democratic invariant for global stability; the two may be the same physics"
+  }
+}

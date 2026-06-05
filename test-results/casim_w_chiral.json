@@ -1,0 +1,98 @@
+{
+  "name": "w_chiral",
+  "seed": 11,
+  "ticks": 60,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "w_chiral": {
+      "name": "w_chiral",
+      "type": "w_chiral",
+      "propagator": "chiral",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "exactness": "machine-precision",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.14858975358,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.14858975362,
+              "rel_drift": 1.6299753444003943e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.148589753655,
+              "rel_drift": 3.1117711120371164e-15
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.14858975369,
+              "rel_drift": 4.593566879673838e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.148589753728,
+              "rel_drift": 6.075362647310561e-15
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.148589753764,
+              "rel_drift": 7.557158414947283e-15
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "w_chiral": {
+              "energy": 24551.1485897538,
+              "rel_drift": 9.038954182584005e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "w_chiral": 9.038954182584005e-15
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "name": "bcc_weyl",
+  "seed": 0,
+  "ticks": 200,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "weyl_bcc": {
+      "name": "weyl_bcc",
+      "type": "weyl_bcc",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "exactness": "machine-precision",
+      "every": 20,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530028,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530088,
+              "rel_drift": 3.692197166720662e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.70445253015,
+              "rel_drift": 7.496279096069223e-15
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530208,
+              "rel_drift": 1.1076591500161986e-14
+            }
+          }
+        },
+        {
+          "tick": 80,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.70445253027,
+              "rel_drift": 1.488067342951055e-14
+            }
+          }
+        },
+        {
+          "tick": 100,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.70445253033,
+              "rel_drift": 1.8572870596231208e-14
+            }
+          }
+        },
+        {
+          "tick": 120,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.70445253039,
+              "rel_drift": 2.226506776295187e-14
+            }
+          }
+        },
+        {
+          "tick": 140,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530452,
+              "rel_drift": 2.6069149692300432e-14
+            }
+          }
+        },
+        {
+          "tick": 160,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.70445253051,
+              "rel_drift": 2.96494620963932e-14
+            }
+          }
+        },
+        {
+          "tick": 180,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530572,
+              "rel_drift": 3.345354402574176e-14
+            }
+          }
+        },
+        {
+          "tick": 200,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530634,
+              "rel_drift": 3.725762595509032e-14
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "weyl_bcc": 3.725762595509032e-14
+        }
+      }
+    },
+    "unitarity_residual": {
+      "type": "unitarity_residual",
+      "exactness": "exact",
+      "every": 200,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl_bcc": 6.345356856892221e-16
+          }
+        },
+        {
+          "tick": 200,
+          "channels": {
+            "weyl_bcc": 6.345356856892221e-16
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "dispersion_fit": {
+      "type": "dispersion_fit",
+      "exactness": "machine-precision",
+      "every": 200,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl_bcc": 4.996003610813204e-16
+          }
+        },
+        {
+          "tick": 200,
+          "channels": {
+            "weyl_bcc": 2.7755575615628914e-16
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

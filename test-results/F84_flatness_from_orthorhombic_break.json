@@ -1,0 +1,95 @@
+{
+  "H1_Q_interpolates_with_democratic_stiffness": {
+    "pass": true,
+    "Q_vs_kappa": {
+      "kappa=0": {
+        "phi_deg": 45.0,
+        "Q": 0.66667
+      },
+      "kappa=0.5": {
+        "phi_deg": 39.977,
+        "Q": 0.56765
+      },
+      "kappa=1": {
+        "phi_deg": 35.877,
+        "Q": 0.50771
+      },
+      "kappa=3": {
+        "phi_deg": 24.778,
+        "Q": 0.40436
+      },
+      "kappa=10": {
+        "phi_deg": 10.673,
+        "Q": 0.34517
+      },
+      "kappa=100": {
+        "phi_deg": 1.145,
+        "Q": 0.33347
+      },
+      "kappa=10000": {
+        "phi_deg": 0.011,
+        "Q": 0.33333
+      }
+    },
+    "kappa": "residual democratic (S3) restoring stiffness",
+    "reading": "Q runs from 2/3 (kappa=0, no democratic symmetry) to 1/3 (kappa->inf, full democratic symmetry)"
+  },
+  "H2_endpoints_are_F75_and_F76": {
+    "pass": true,
+    "cubic_vacuum_full_S3 -> Q": 0.33333,
+    "F75_degenerate_triplet_Q": 0.33333,
+    "orthorhombic_vacuum_no_S3 -> Q": 0.66667,
+    "F76_F82_equipartition_Q": 0.66667,
+    "reading": "the kappa->inf limit reproduces F75's cubic degenerate triplet (Q=1/3); the kappa=0 limit reproduces F76/F82's orthorhombic equipartition (Q=2/3)"
+  },
+  "H3_one_order_parameter_two_thresholds": {
+    "pass": true,
+    "vacuum_scan": {
+      "s=0": {
+        "three_distinct": false,
+        "kappa": "inf",
+        "Q": 0.3333
+      },
+      "s=0.3": {
+        "three_distinct": true,
+        "kappa": 11.1111,
+        "Q": 0.3431
+      },
+      "s=1": {
+        "three_distinct": true,
+        "kappa": 1.0,
+        "Q": 0.5077
+      },
+      "s=5": {
+        "three_distinct": true,
+        "kappa": 0.04,
+        "Q": 0.6565
+      },
+      "s=50": {
+        "three_distinct": true,
+        "kappa": 0.0004,
+        "Q": 0.6666
+      }
+    },
+    "distinctness_onset": "any s>0 (F76-C1 threshold)",
+    "equipartition_needs": "s large / kappa->0 (complete break)",
+    "reading": "ONE orthorhombicity order parameter s drives both: three-distinct-masses turns on at s>0, and Q climbs 1/3->2/3 as the break completes (kappa->0). Charged leptons at Q=2/3 => an essentially COMPLETE orthorhombic break."
+  },
+  "H4_residual_stiffness_bounded": {
+    "pass": true,
+    "|Q_obs - 2/3|": "6.16e-06",
+    "note_significance": "0.91 sigma (F76-C3) -- consistent with EXACT 2/3",
+    "implied_eps_rad": "4.62e-06",
+    "kappa/lambda upper bound": "2.35e-05",
+    "reading": "the residual democratic stiffness is <~1e-5 -- the orthorhombic break is essentially complete; Q=2/3 is robust, not tuned"
+  },
+  "H5_closure": {
+    "chain": "F75 count(3) -> F76 hierarchy(orthorhombic) -> F78 sqrt(m) (pair bilinear) -> F76/F80 equipartition Q=2/3 -> F80/F81 45deg (SO(2), N=2 pair) -> F82 saturation (mass peak) -> F83 flatness (orthorhombic break removes the democratic restoring force)",
+    "irreducible_inputs": [
+      "(b) the generation polar angle phi is the per-constituent rest-phase (=> composite mass m_H = sin(2 phi)); strongly supported by the N=2 readout (F81-E2)",
+      "the ORTHORHOMBIC vacuum: the lattice ground state has three inequivalent axes (F76). This single fact supplies the three generations (F75/F76), their distinctness (F76-C1), AND the flat phi (kappa=0) that the binding saturates at 45deg (F82/F83)."
+    ],
+    "net": "the charged-lepton Koide value Q=2/3 follows from: a two-constituent pair (F73) on an orthorhombic vacuum (F76) with the per-constituent-phase identification (b). 'Why these' = 'why this lattice vacuum' -- the model's deepest primitive."
+  },
+  "_overall": "PASS"
+}

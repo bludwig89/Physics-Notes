@@ -4,7 +4,7 @@
   "total": 17,
   "passed": 17,
   "failed": 0,
-  "elapsed_s": 0.55,
+  "elapsed_s": 0.67,
   "results": [
     {
       "name": "T1  c_lat=1/\u221a3 (BCC, d\u03a9/d|k|)",

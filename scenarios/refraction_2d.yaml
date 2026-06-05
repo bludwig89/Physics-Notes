@@ -1,0 +1,14 @@
+# Tier-3 dynamical variable-c refraction (F64 time-domain, ca_curved).
+# A 2-D Weyl wave packet crosses a c(x) step (c_left → c_right) and refracts by
+# Snell's law. Exact-unitary (Strang) but SciPy-dependent, so this runs where
+# SciPy is installed (verify with tools/verify_tier3_gravity.py).
+name: refraction_2d
+lattice: {L: 128, dims: 2, topology: cubic, c_lat: 0.5}
+seed: 0
+ticks: 80
+channels:
+  - {type: refraction_2d, c_left: 0.5, c_right: 0.25, k_in: [0.4, 0.2], sigma: 6.0, n_sub: 4}
+observers:
+  - {type: norm_conservation, every: 20}   # exact-unitary → drift at float floor
+output:
+  json: test-results/casim_refraction_2d.json

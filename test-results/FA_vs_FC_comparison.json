@@ -1,0 +1,76 @@
+{
+  "suite": "Option A (lattice-gauge MC) vs Option C (colour-dielectric) \u2014 P1 head-to-head",
+  "date": "2026-06-04",
+  "n_tests": 4,
+  "n_passed": 4,
+  "sigma_A_source": "production_json",
+  "total_elapsed_s": 0.016661166000005778,
+  "results": [
+    {
+      "test": "CMP1",
+      "name": "both options confine (V rises, sigma>0)",
+      "passed": true,
+      "residual": 0.0,
+      "tier": 3,
+      "detail": {
+        "V_A": {
+          "1": 0.43503560760409915,
+          "2": 0.6663023699773438,
+          "3": 0.7810070617163175
+        },
+        "V_A_rising": true,
+        "sigma_A_slope": 0.0564236564218382,
+        "sigma_C(v=0.1)": 0.06283185307179587,
+        "sigma_A_source": "production_json"
+      },
+      "elapsed_s": 0.004500709000012648
+    },
+    {
+      "test": "CMP2",
+      "name": "sigma_A fixes dual-SC condensate v*=sqrt(sigma_A/2pi)",
+      "passed": true,
+      "residual": 1.2297845166272494e-16,
+      "tier": 1,
+      "detail": {
+        "sigma_A": 0.0564236564218382,
+        "v_star": 0.094763409746876,
+        "sigma_C(v*)": 0.05642365642183819,
+        "v_star_sensible": true
+      },
+      "elapsed_s": 8.624999964013114e-06
+    },
+    {
+      "test": "CMP3",
+      "name": "shared large-R slope + Coulomb gap = -e/R (C omits it)",
+      "passed": true,
+      "residual": 0.01702144012768716,
+      "tier": 1,
+      "detail": {
+        "sigma": 0.0564236564218382,
+        "coulomb_e_recovered": 0.2617993877991494,
+        "gap_is_exactly_1overR": 2.502447041094485e-15,
+        "largeR_rel_gap(R>=10)": 0.01702144012768716,
+        "smallR_Coulomb_gap_R1": 0.26179938779914935
+      },
+      "elapsed_s": 0.00011354199995139425
+    },
+    {
+      "test": "CMP4",
+      "name": "sigma_A>0 and F70 2D sigma>0 & decreasing (cross-anchor)",
+      "passed": true,
+      "residual": 0.0,
+      "tier": 2,
+      "detail": {
+        "sigma_A": 0.0564236564218382,
+        "F70_sigma(beta=2,4,8)": [
+          2.050832430468924,
+          1.274326782379362,
+          0.6240801967540588
+        ],
+        "F70_positive": true,
+        "F70_decreasing": true
+      },
+      "elapsed_s": 0.012000624999984666
+    }
+  ]
+}

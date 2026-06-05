@@ -1,0 +1,42 @@
+{
+  "finding": "F99",
+  "date": "2026-06-05",
+  "title": "sigma as the centre-twist Lagrange multiplier of Z_N non-closure",
+  "checks": {
+    "D1": {
+      "statement": "centre projection: sigma_k = -ln s_k, s_k = z(2pi k/N)/z(0); s_0 = 1 (sigma_0 = 0) exact, periodic mod N, k<->N-k degenerate, 0<s_k<1 off closure",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "D2": {
+      "statement": "Lagrange/twist: theta_k = 2pi k/N is the multiplier conjugate to centre charge (stationarity c = -i z'/z); sigma_k = f(theta_k) = -ln s_k; f(theta_0) = 0 (no price on closure)",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "D3": {
+      "statement": "real SU(3) rule is centre-covariant: slice twist z*I sends Polyakov -> z*Polyakov and leaves contractible Wilson loops invariant (observables organise by N-ality)",
+      "residual": "poly 4.97e-16, wilson 0.00e+00",
+      "status": "PASS"
+    },
+    "D4": {
+      "statement": "rule->weight: centre weight p(n)~exp(gamma cos(2pi n/N)) from rule disorder; sigma_1(gamma->oo)=0 (ordered/deconfined), sigma_1(gamma->0)=oo (max disorder); monotone decreasing in order",
+      "residual": "0",
+      "status": "PASS"
+    },
+    "D5": {
+      "statement": "reconciliation: F70 sigma(beta)=-ln w(beta) is the same -ln(weight) law (positive, monotone, ->0 ordered); F86 sigma_k=2pi v^2 k is the small-sigma Abelian-BPS limit with 2pi v^2 := sigma_1, sigma_0=0",
+      "residual": "f70 sigma(0.5..20)=[3.543, 2.811, 2.051, 1.274, 0.624, 0.219]",
+      "status": "PASS"
+    }
+  },
+  "sigma_f70_table": {
+    "0.5": 3.5428,
+    "1.0": 2.8113,
+    "2.0": 2.0508,
+    "4.0": 1.2743,
+    "8.0": 0.6241,
+    "20.0": 0.2192
+  },
+  "runtime_s": 0.483,
+  "summary": "5/5 PASS"
+}
