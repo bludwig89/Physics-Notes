@@ -8,16 +8,26 @@ kernels; this module is wiring, not physics:
                    ``ca_wmu.covariant_weyl_step_3d_bcc`` (weak links)
   * weak loop    — ``ca_wmu.fermion_isospin_current`` + the existing
                    ``w_sourced`` channel + ``su2_expmap`` links (E2E B1)
-  * EM source    — Noether U(1) Weyl current Q·ψ†σψ feeding
-                   ``ca_charge_coupling.maxwell_curl_step`` (``photon_sourced``)
+  * EM source    — Noether U(1) Weyl current Q·ψ†σψ feeding the even
+                   rotation-law photon ``ca_photon_pair.photon_step_spectral``
+                   + source kick (``photon_sourced``)
   * strong source— colour density q†T^a q (audited ``ca_strong.T_GEN``
                    generators) feeding ``ca_gluon.gluon_sourced_step_bcc``
                    (``gluon_sourced``)
-  * gravity      — background F64 dielectric readout (potential energy,
-                   local K at the packet centroid)
+  * gravity      — F64 dielectric, **two-way** since the mainlining
+                   (2026-06-06, audit B.2 #1): massive Dirac singlets read the
+                   field through the F62 rest-leg lapse mix (√A(x)·m around
+                   the audited spectral step, ``ca_gravity.lapse_mix_half``)
+                   and source it per F106 via the dynamic
+                   ``gravity_dielectric`` channel's ``sources:`` map; scalar
+                   readouts (potential energy, local K at the packet centroid)
+                   remain for all species.  Kinetic-leg c_eff variation
+                   (massless deflection) stays fork-level — the spectral BCC
+                   kernels are homogeneous.
 
 Coupling fidelity tiers (P2, 2026-06-05, see ``roadmap-particle-layer.md``):
-weak / em / strong = coupled (two-way) · gravity = background.
+weak / em / strong = coupled (two-way) · gravity = coupled (massive Dirac
+singlets, rest leg; background readout otherwise).
 P2 back-action kernels live in ``ca-simulation/ca_minimal_coupling.py``:
 the U(1) Stueckelberg-form wrap (3D port of the audited F41/F42
 ``kinetic_half_step_chi_u1y`` architecture; exact gauge covariance, exact
@@ -44,8 +54,10 @@ from .spec import ParticleSpec, get_spec, doublet_specs, DOUBLETS
 
 # P2 (2026-06-05): em and strong promoted from source-only to coupled —
 # U(1) Stueckelberg wrap / SU(3) rotate-then-step (ca_minimal_coupling).
+# F64-mainline (2026-06-06): gravity promoted background → coupled (massive
+# Dirac singlets: F62 lapse mix back-read + F106 T⁰⁰ sourcing).
 _TIERS = {"weak": "coupled", "em": "coupled",
-          "strong": "coupled", "gravity": "background"}
+          "strong": "coupled", "gravity": "coupled"}
 
 
 # ----------------------------------------------------------------------
@@ -116,6 +128,7 @@ class ParticleChannel(Channel):
     against the spec's derived ``couples_to()`` matrix at build time.
     """
     type_name = "particle"
+    label = "Particle"
     propagator = "per-branch"
     topologies = ("bcc",)
 
@@ -232,17 +245,27 @@ class ParticleChannel(Channel):
         if self.is_dirac:
             q = float(self.specs[0].Q)
             a = alpha if alpha is not None else 0.0
+            # F64/F62 two-way gravity (massive singlets): rest-leg lapse mix
+            # √A(x)·m around the audited spectral step (Strang; exactly
+            # unitary; bit-identical when no gravity partner / K ≡ 1).
+            sqrtA = self._grav_sqrtA(context)
+            eu, ed, xu, xd = (state["eta_u"], state["eta_d"],
+                              state["chi_u"], state["chi_d"])
+            if sqrtA is not None:
+                from casim.gravity import lapse_mix_half
+                eu, ed, xu, xd = lapse_mix_half(eu, ed, xu, xd,
+                                                sqrtA, self.mass)
             if alpha is not None and q:
                 eu, ed, xu, xd = mc.u1_wrap_dirac_step_3d_bcc(
-                    state["eta_u"], state["eta_d"],
-                    state["chi_u"], state["chi_d"],
-                    a, q, m=self.mass, sign=sign)
+                    eu, ed, xu, xd, a, q, m=self.mass, sign=sign)
             else:
                 from ca_dirac_bcc import dirac_step_3d_bcc_splitstep
                 eu, ed, xu, xd = dirac_step_3d_bcc_splitstep(
-                    state["eta_u"], state["eta_d"],
-                    state["chi_u"], state["chi_d"],
-                    m=self.mass, sign=sign)
+                    eu, ed, xu, xd, m=self.mass, sign=sign)
+            if sqrtA is not None:
+                from casim.gravity import lapse_mix_half
+                eu, ed, xu, xd = lapse_mix_half(eu, ed, xu, xd,
+                                                sqrtA, self.mass)
             new = {"eta_u": eu, "eta_d": ed, "chi_u": xu, "chi_d": xd}
         elif self.is_doublet:
             # Optional U(1) wrap per isospin member (member charges differ);
@@ -342,6 +365,23 @@ class ParticleChannel(Channel):
         if "strong" in self.couplings:
             state["J_colour"] = colour_charge_density(state["f"], state["g"])
 
+    def _grav_sqrtA(self, context):
+        """Lapse field √A = K^{-1/2} from the gravity partner, or None.
+
+        Used by the massive-Dirac two-way coupling (F62 rest-leg mix).  Returns
+        None when no gravity partner is wired, the partner has no K yet, or
+        the field is exactly flat (K ≡ 1) — keeping the no-gravity path
+        bit-identical."""
+        if "gravity" not in self.couplings or not self.mass or not context:
+            return None
+        gs = context.get(self.couplings["gravity"])
+        if not gs or "K" not in gs:
+            return None
+        K = gs["K"]
+        if np.all(K == 1.0):
+            return None
+        return 1.0 / np.sqrt(K)
+
     def _grav_readout(self, state, context) -> None:
         """Background F64 gravity: cache scalar readouts in state."""
         if "gravity" not in self.couplings or not context:
@@ -401,6 +441,7 @@ class CompositeParticleChannel(Channel):
     bound state (confining binding) is a later phase — flagged in the readout.
     """
     type_name = "composite"
+    label = "Composite Particle"
     propagator = "per-branch"
     topologies = ("bcc",)
 
@@ -470,13 +511,24 @@ class CompositeParticleChannel(Channel):
 class PhotonSourcedChannel(Channel):
     """Paired-photon (E,B) sourced by particle EM currents.
 
-    Per tick: ``ca_charge_coupling.maxwell_curl_step(E, B, J=Σ J_em, dt)``
-    where the sum runs over the particle channels named in ``sources``.
-    The curl symbol is the model's BCC curl on the cubic FFT grid (same
-    kernel and grid as the audited ``charge_photon`` channel), so this
-    channel is registered for both topologies.
+    Per tick: the **even rotation-law** propagator
+    ``ca_photon_pair.photon_step_spectral`` (F67/F68/F69, exactly unitary /
+    norm-conserving) followed by a real-space source kick ``E += g·J·dt`` —
+    the same rotation+kick structure the ``w_sourced`` and ``gluon_sourced``
+    channels use.  The sum over ``J_em`` runs over the particle channels named
+    in ``sources``.
+
+    History: this channel originally propagated with
+    ``ca_charge_coupling.maxwell_curl_step`` (the explicit linearized-Maxwell
+    curl).  Per F25/F26 the curl equation is only the first-order Taylor
+    expansion of this rotation law and the explicit scheme is only
+    conditionally stable — under sustained sourcing it diverges (observed:
+    photon energy ∝ 10^{0.0096·t}, reaching 1e119 by t=13k while the matter
+    norms stayed exact).  The even rotation law is unconditionally stable;
+    ``test_P5_*`` regression-locks photon energy boundedness over a long run.
     """
     type_name = "photon_sourced"
+    label = "Photon Sourced"
     propagator = "even"
     topologies = ("cubic", "bcc")
 
@@ -486,7 +538,7 @@ class PhotonSourcedChannel(Channel):
                 "alpha": np.zeros((L, L, L))}
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_charge_coupling as cc
+        from casim.fields.photon import photon_step_spectral
         dt = float(self.config.get("dt", 0.1))
         g_em = float(self.config.get("g_em", 1.0))
         J, rho = None, None
@@ -496,9 +548,10 @@ class PhotonSourcedChannel(Channel):
                 J = ps["J_em"] if J is None else J + ps["J_em"]
             if ps is not None and "rho_em" in ps:
                 rho = ps["rho_em"] if rho is None else rho + ps["rho_em"]
+        # Free even-law rotation (exactly unitary), then source kick.
+        E, B = photon_step_spectral(state["E"], state["B"])
         if J is not None:
-            J = g_em * J
-        E, B = cc.maxwell_curl_step(state["E"], state["B"], J=J, dt=dt)
+            E = E + g_em * J * dt
         # P2: Coulomb sector — accumulate the A₀ Wilson-line angle α(x).
         # φ_em = −φ_Poisson(ρ) so a positive charge sits in φ_em > 0 (like
         # charges repel under the wrap phase e^{-iqφdt}); the open-boundary
@@ -532,6 +585,7 @@ class GluonSourcedChannel(Channel):
     (F91: colour coupling is branch-blind).
     """
     type_name = "gluon_sourced"
+    label = "Gluon Sourced"
     propagator = "even"
     topologies = ("bcc",)
 
@@ -574,6 +628,7 @@ class ParticleReadout(Observer):
     exact charges, active couplings + tier, gravity readouts).  This is the
     data feed for the GUI sidebar (roadmap P3)."""
     name = "particle_readout"
+    label = "Particle Readout"
     exactness = "quantitative"
 
     def observe(self, sim) -> None:

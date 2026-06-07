@@ -2,6 +2,8 @@
 # Propagates a random 2-spinor field; checks norm conservation (FFT floor),
 # unitarity ||U†U−I||=0 (exact), and the measured-vs-analytic dispersion.
 name: bcc_weyl
+title: "BCC Weyl Walk"
+description: "Exact-unitary Weyl walk on the BCC lattice: checks norm conservation (FFT floor), unitarity ||U†U−I||=0 (exact), and measured-vs-analytic dispersion (F49 substrate)."
 lattice: {L: 16, dims: 3, topology: bcc, c_lat: 0.5773502691896258}  # 1/√3
 seed: 0
 ticks: 200

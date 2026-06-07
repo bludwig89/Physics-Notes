@@ -35,6 +35,88 @@ def density_to_rgba(values: np.ndarray, vmax: float) -> np.ndarray:
     return rgba
 
 
+def bloch_rgb(f: np.ndarray, g: np.ndarray, amp: np.ndarray | None = None,
+              vmax: float | None = None) -> np.ndarray:
+    """Bloch-sphere colouring of a 2-spinor (f, g) → RGBA (float32).
+
+    Mirrors ``ca-simulation/spinor_color.py``: a spinor ψ=(f,g) up to overall
+    phase/amplitude is a point on ℂP¹≅S² (the Bloch sphere), mapped to colour so
+    *orientation* and *phase* are visible rather than just |ψ|².
+
+        θ = 2·atan2(|g|, |f|)  ∈ [0,π]   polar angle (helicity): f-pole vs g-pole
+        φ = arg(g) − arg(f)    ∈ [−π,π]  relative phase
+
+        hue        ← φ        (full colour wheel)
+        lightness  ← cos θ    (f-pole bright, g-pole dark; mid-grey for mixed)
+        saturation ← 1        (orientation always reads as a hue)
+        opacity    ← √(amp/vmax)  amplitude, so faint sites stay faint
+
+    ``amp`` defaults to the spinor density |f|²+|g|²; ``vmax`` to its max.  All
+    inputs are flattened together, so pass the values at the *selected* voxels.
+    Pure numpy (no colorsys), so this stays headless-testable.
+    """
+    f = np.asarray(f, dtype=complex).ravel()
+    g = np.asarray(g, dtype=complex).ravel()
+    if f.size == 0:
+        return np.zeros((0, 4), dtype=np.float32)
+    abs_f, abs_g = np.abs(f), np.abs(g)
+    theta = 2.0 * np.arctan2(abs_g, abs_f)            # [0, π]
+    phi = np.angle(g) - np.angle(f)                   # [-π, π]
+    hue = (phi % (2.0 * np.pi)) / (2.0 * np.pi)       # [0, 1)
+    # lightness in [0.12, 0.88] so both poles stay visible
+    lightness = 0.5 + 0.38 * np.cos(theta)
+    sat = np.ones_like(hue)
+    rgb = _hls_to_rgb(hue, lightness, sat)
+    if amp is None:
+        amp = abs_f ** 2 + abs_g ** 2
+    else:
+        amp = np.asarray(amp, dtype=np.float64).ravel()
+    if vmax is None:
+        vmax = float(amp.max()) if amp.size else 0.0
+    rgba = np.empty((f.size, 4), dtype=np.float32)
+    rgba[:, :3] = rgb
+    if vmax < 1e-12:
+        rgba[:, 3] = 0.1
+    else:
+        rgba[:, 3] = np.clip(np.sqrt(np.clip(amp / vmax, 0.0, 1.0)), 0.1, 1.0)
+    return rgba
+
+
+def _hls_to_rgb(h: np.ndarray, l: np.ndarray, s: np.ndarray) -> np.ndarray:
+    """Vectorised HLS→RGB (arrays in [0,1]); returns (N,3) float64."""
+    def chan(n):
+        k = (n + h * 12.0) % 12.0
+        a = s * np.minimum(l, 1.0 - l)
+        return l - a * np.clip(np.minimum(k - 3.0, 9.0 - k), -1.0, 1.0)
+    return np.stack([chan(0.0), chan(8.0), chan(4.0)], axis=-1)
+
+
+def point_cloud_spinor(f_vol: np.ndarray, g_vol: np.ndarray,
+                       pctile: float) -> Tuple[np.ndarray, np.ndarray, float, float]:
+    """Spinor (f,g) volumes → (coords, Bloch RGBA, max density, total density).
+
+    Voxel *selection* uses the same density-percentile cut as ``point_cloud`` —
+    you still draw only active regions — but the *colour* carries Bloch
+    orientation (helicity) and relative phase instead of a density ramp.
+    ``f_vol``/``g_vol`` are (L,L,L) complex arrays (the channel's ``f``/``g``).
+    """
+    f_vol = np.asarray(f_vol)
+    g_vol = np.asarray(g_vol)
+    density = np.abs(f_vol) ** 2 + np.abs(g_vol) ** 2
+    density = np.asarray(density.real if np.iscomplexobj(density) else density)
+    flat = density.ravel()
+    if flat.size > 2 ** 22:
+        stride = max(1, flat.size // 2 ** 21)
+        threshold = np.percentile(flat[::stride], pctile)
+    else:
+        threshold = np.percentile(flat, pctile)
+    mask = density > threshold
+    coords = np.argwhere(mask).astype(np.float32)
+    dmax = float(density.max()) if density.size else 0.0
+    colours = bloch_rgb(f_vol[mask], g_vol[mask], amp=density[mask], vmax=dmax)
+    return coords, colours, dmax, float(density.sum())
+
+
 #: distinct per-channel tints (RGB in [0,1]) for overlaid field clouds.
 CHANNEL_TINTS = [
     (0.25, 0.65, 1.00),   # blue

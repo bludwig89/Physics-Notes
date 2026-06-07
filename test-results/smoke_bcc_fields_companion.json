@@ -1,0 +1,439 @@
+{
+  "name": "bcc_fields_companion",
+  "title": "",
+  "description": "",
+  "seed": 11,
+  "ticks": 60,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "weyl": {
+      "name": "weyl",
+      "type": "weyl_bcc",
+      "label": "Weyl BCC",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "gluon": {
+      "name": "gluon",
+      "type": "gluon_bcc",
+      "label": "Gluon BCC",
+      "propagator": "even",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "gravity": {
+      "name": "gravity",
+      "type": "gravity_dielectric",
+      "label": "Gravity Dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098543,
+              "rel_drift": 0.0
+            },
+            "gluon": {
+              "energy": 65715.7712625747,
+              "rel_drift": 0.0
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098557,
+              "rel_drift": 8.871210088127277e-16
+            },
+            "gluon": {
+              "energy": 65715.77126257475,
+              "rel_drift": 8.857487296450072e-16
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "weyl": {
+              "energy": 16403.52903809857,
+              "rel_drift": 1.7742420176254554e-15
+            },
+            "gluon": {
+              "energy": 65715.7712625748,
+              "rel_drift": 1.5500602768787627e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "weyl": {
+              "energy": 16403.52903809859,
+              "rel_drift": 2.883143278641365e-15
+            },
+            "gluon": {
+              "energy": 65715.77126257485,
+              "rel_drift": 2.43580900652377e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098604,
+              "rel_drift": 3.7702642874540925e-15
+            },
+            "gluon": {
+              "energy": 65715.7712625749,
+              "rel_drift": 3.1001205537575254e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "weyl": {
+              "energy": 16403.52903809862,
+              "rel_drift": 4.6573852962668205e-15
+            },
+            "gluon": {
+              "energy": 65715.77126257496,
+              "rel_drift": 3.9858692834025326e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098637,
+              "rel_drift": 5.76628655728273e-15
+            },
+            "gluon": {
+              "energy": 65715.771262575,
+              "rel_drift": 4.650180830636288e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 35,
+          "channels": {
+            "weyl": {
+              "energy": 16403.52903809865,
+              "rel_drift": 6.653407566095458e-15
+            },
+            "gluon": {
+              "energy": 65715.77126257506,
+              "rel_drift": 5.535929560281295e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098666,
+              "rel_drift": 7.540528574908185e-15
+            },
+            "gluon": {
+              "energy": 65715.7712625751,
+              "rel_drift": 6.200241107515051e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 45,
+          "channels": {
+            "weyl": {
+              "energy": 16403.52903809868,
+              "rel_drift": 8.427649583720914e-15
+            },
+            "gluon": {
+              "energy": 65715.77126257514,
+              "rel_drift": 6.8645526547488056e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "weyl": {
+              "energy": 16403.5290380987,
+              "rel_drift": 9.536550844736823e-15
+            },
+            "gluon": {
+              "energy": 65715.7712625752,
+              "rel_drift": 7.750301384393813e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 55,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098713,
+              "rel_drift": 1.042367185354955e-14
+            },
+            "gluon": {
+              "energy": 65715.77126257526,
+              "rel_drift": 8.63605011403882e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098728,
+              "rel_drift": 1.1310792862362278e-14
+            },
+            "gluon": {
+              "energy": 65715.7712625753,
+              "rel_drift": 9.300361661272576e-15
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "rel_drift": 0.0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "weyl": 1.1310792862362278e-14,
+          "gluon": 9.300361661272576e-15,
+          "gravity": 0.0
+        }
+      }
+    },
+    "unitarity_residual": {
+      "type": "unitarity_residual",
+      "label": "Unitarity Residual",
+      "exactness": "exact",
+      "every": 60,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl": 6.345356856892221e-16
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "weyl": 6.345356856892221e-16
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "dispersion_fit": {
+      "type": "dispersion_fit",
+      "label": "Dispersion Fit",
+      "exactness": "machine-precision",
+      "every": 60,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl": 3.3306690738754696e-16
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "weyl": 4.440892098500626e-16
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "energy_trace": {
+      "type": "energy_trace",
+      "label": "Energy Trace",
+      "exactness": "quantitative",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "weyl": 16403.529038098543,
+            "gluon": 65715.7712625747,
+            "gravity": 5398.313583730805
+          }
+        },
+        {
+          "tick": 10,
+          "energy": {
+            "weyl": 16403.52903809857,
+            "gluon": 65715.7712625748,
+            "gravity": 5398.313583730805
+          }
+        },
+        {
+          "tick": 20,
+          "energy": {
+            "weyl": 16403.529038098604,
+            "gluon": 65715.7712625749,
+            "gravity": 5398.313583730805
+          }
+        },
+        {
+          "tick": 30,
+          "energy": {
+            "weyl": 16403.529038098637,
+            "gluon": 65715.771262575,
+            "gravity": 5398.313583730805
+          }
+        },
+        {
+          "tick": 40,
+          "energy": {
+            "weyl": 16403.529038098666,
+            "gluon": 65715.7712625751,
+            "gravity": 5398.313583730805
+          }
+        },
+        {
+          "tick": 50,
+          "energy": {
+            "weyl": 16403.5290380987,
+            "gluon": 65715.7712625752,
+            "gravity": 5398.313583730805
+          }
+        },
+        {
+          "tick": 60,
+          "energy": {
+            "weyl": 16403.529038098728,
+            "gluon": 65715.7712625753,
+            "gravity": 5398.313583730805
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 60,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098543
+            },
+            "gluon": {
+              "energy": 65715.7712625747
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "impact_parameter": 4,
+              "deflection_measured": 1.448083545383004,
+              "deflection_GR_4GM_over_c2b": 2.999999999999999,
+              "deflection_GR_finite_aperture": 2.683281572999747,
+              "aperture_factor": 0.8944271909999159,
+              "rel_error": 0.4603311259041167,
+              "K_max": 4.993599978703764
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "weyl": {
+              "energy": 16403.529038098728
+            },
+            "gluon": {
+              "energy": 65715.7712625753
+            },
+            "gravity": {
+              "energy": 5398.313583730805,
+              "impact_parameter": 4,
+              "deflection_measured": 1.448083545383004,
+              "deflection_GR_4GM_over_c2b": 2.999999999999999,
+              "deflection_GR_finite_aperture": 2.683281572999747,
+              "aperture_factor": 0.8944271909999159,
+              "rel_error": 0.4603311259041167,
+              "K_max": 4.993599978703764
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

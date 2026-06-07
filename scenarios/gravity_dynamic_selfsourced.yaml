@@ -1,0 +1,32 @@
+# The gravity field element, mainlined (F64 → production, 2026-06-06).
+# A massive electron-singlet packet sources its OWN dielectric per the F106
+# law (∇²lnK = −T⁰⁰ in lattice units, structural coupling 1; here scaled by
+# the packet mass weight), the Φ field evolves dynamically (D-EM8 leapfrog,
+# causal at c_g = c_lat), and the packet reads the field back through the
+# F62 rest-leg lapse mix (√A(x)·m) — the full two-way ψ ↔ K loop in the
+# production engine.  Watch: a well forms at the packet (K > 1), the deep
+# clock runs slow, and the field front spreads causally.
+name: gravity_dynamic_selfsourced
+title: "Gravity Dynamic Self-Sourced"
+description: "Two-way ψ↔K loop in the production engine: a massive Dirac packet sources its own dynamical dielectric (F106 law, D-EM8 causal Φ) and free-falls in it (F62 lapse mix). The F64 fork mainlined — audit B.2 #1."
+lattice: {L: 24, dims: 3, topology: bcc}
+seed: 7
+ticks: 60
+channels:
+  - type: particle
+    name: electron
+    species: e_R
+    mass: 0.5
+    init: {center: [12, 12, 12], width: 2.0}
+    couplings: {gravity: gfield}
+  - type: gravity_dielectric
+    name: gfield
+    M: 0.0              # start flat — the matter digs the well itself
+    dynamic: true
+    dt: 1.0
+    sources: {electron: 0.5}    # F106-E5: T⁰⁰ = m·|Ψ|², weight = m
+observers:
+  - {type: norm_conservation, every: 10}
+  - {type: field_snapshot, every: 20}
+output:
+  json: test-results/casim_gravity_dynamic_selfsourced.json

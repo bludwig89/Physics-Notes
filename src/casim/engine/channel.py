@@ -27,6 +27,10 @@ class Channel:
 
     #: scenario key, e.g. "photon_pair"
     type_name: str = "channel"
+    #: clean display name for GUI/CLI surfaces, e.g. "Photon Pair".  The
+    #: ``type_name`` key stays the stable scenario/JSON identifier; ``label``
+    #: is presentation only and never participates in registry lookups.
+    label: str = ""
     #: F91 propagator class: "even" | "chiral" | "even+axial" | "per-branch" | "dielectric"
     propagator: str = "even"
     #: lattice topologies this channel supports
@@ -67,10 +71,16 @@ class Channel:
     # def dispersion_residual(self, lattice, rng) -> float: ...
     # def observables(self, state, lattice) -> dict: ...
 
+    @property
+    def display_label(self) -> str:
+        """Clean display name; falls back to ``type_name`` if unset."""
+        return self.label or self.type_name
+
     def describe(self) -> Dict[str, Any]:
         return {
             "name": self.name,
             "type": self.type_name,
+            "label": self.display_label,
             "propagator": self.propagator,
             "topologies": list(self.topologies),
         }
@@ -102,6 +112,19 @@ class Channel:
                 a = np.abs(v) ** 2
                 return a.sum(axis=0) if a.ndim == 4 else a
         raise ValueError("no renderable array in channel state")
+
+    def spinor_field(self, state):
+        """Return ``(f, g)`` complex volumes for Bloch-sphere colouring, or None.
+
+        The GUI's "spinor" colour mode uses this to colour points by orientation
+        (helicity) and relative phase instead of density.  Default returns the
+        ``f``/``g`` pair for spinor channels (e.g. ``weyl_bcc``) and ``None`` for
+        channels with no 2-spinor state (gauge, dielectric, …), which the GUI
+        falls back to density for.
+        """
+        if "f" in state and "g" in state:
+            return np.asarray(state["f"]), np.asarray(state["g"])
+        return None
 
 
 # --------------------------------------------------------------------------

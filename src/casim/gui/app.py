@@ -58,11 +58,30 @@ def _scenario_dir() -> Optional[Path]:
 
 
 def discover_scenarios() -> Dict[str, str]:
-    """Return ``{label: path}`` for every scenario YAML found."""
+    """Return ``{label: path}`` for every scenario YAML found.
+
+    The dropdown label is the scenario's ``title:`` field when present
+    (e.g. "BCC Weyl Walk"), falling back to the file stem.  Paths are still
+    keyed by whatever label is shown, so ``_set_scenario`` lookup is unchanged.
+    """
     d = _scenario_dir()
     if d is None:
         return {}
-    return {p.stem: str(p) for p in sorted(d.glob("*.yaml"))}
+    import yaml
+    out: Dict[str, str] = {}
+    for p in sorted(d.glob("*.yaml")):
+        label = p.stem
+        try:
+            with open(p, "r") as fh:
+                data = yaml.safe_load(fh)
+            if isinstance(data, dict) and data.get("title"):
+                label = str(data["title"])
+        except Exception:
+            pass                      # unparseable YAML → stem label
+        if label in out:              # duplicate titles → disambiguate
+            label = f"{label} ({p.stem})"
+        out[label] = str(p)
+    return out
 
 
 def estimate_bytes_per_site(channel_specs: List[Dict[str, Any]],
@@ -158,6 +177,10 @@ class Viewer:
         self.steps_per_frame = steps_per_frame
         self.pctile = pctile
         self.point_size = point_size
+        #: "density" (per-channel density ramp) or "spinor" (Bloch hue=phase,
+        #: lightness=helicity).  Spinor channels colour by orientation; channels
+        #: with no 2-spinor state fall back to density automatically.
+        self.color_mode = "density"
         self.running = False
         self.run_to: Optional[int] = None
         #: fields drawn as overlay clouds — every channel starts visible
@@ -264,6 +287,14 @@ class Viewer:
         self.chan_boxes: Dict[str, Any] = {}
         lay.addLayout(self.chan_box_lay)
         self._build_channel_boxes(QtWidgets)
+
+        # colour mode: density ramp vs spinor Bloch (orientation + phase)
+        lay.addWidget(QtWidgets.QLabel("colour mode"))
+        self.combo_color = QtWidgets.QComboBox()
+        self.combo_color.addItem("density", "density")
+        self.combo_color.addItem("spinor (phase + helicity)", "spinor")
+        self.combo_color.currentIndexChanged.connect(self._set_color_mode)
+        lay.addWidget(self.combo_color)
 
         # density threshold
         lay.addWidget(QtWidgets.QLabel("density threshold (pctile)"))
@@ -412,23 +443,35 @@ class Viewer:
         self.medium.visible = self.show_medium
 
     def _refresh_channel(self, name):
-        """Recompute one field's overlay cloud.  Returns (dmax, npts) or None."""
+        """Recompute one field's overlay cloud.  Returns (dmax, npts) or None.
+
+        In "spinor" colour mode, channels exposing a 2-spinor (f,g) are coloured
+        by Bloch orientation (hue=relative phase, lightness=helicity) instead of
+        the per-channel density ramp; channels with no spinor state fall back to
+        density so mixed scenes still render.
+        """
         ch = self.sim.channels[name]
-        try:
-            vol = ch.density_field(self.sim.states[name])
-        except Exception:
-            # channel has no 3-D scalar density (e.g. gauge_mc) — disable it
-            self.visible_channels.discard(name)
-            box = self.chan_boxes.get(name)
-            if box is not None:
-                box.blockSignals(True)
-                box.setChecked(False)
-                box.setEnabled(False)
-                box.setToolTip("channel has no 3-D density field")
-                box.blockSignals(False)
-            return None
-        coords, colours, dmax, _total = render.point_cloud(
-            vol, self.pctile, tint=self._chan_tint(name))
+        state = self.sim.states[name]
+        fg = ch.spinor_field(state) if self.color_mode == "spinor" else None
+        if fg is not None:
+            coords, colours, dmax, _total = render.point_cloud_spinor(
+                fg[0], fg[1], self.pctile)
+        else:
+            try:
+                vol = ch.density_field(state)
+            except Exception:
+                # channel has no 3-D scalar density (e.g. gauge_mc) — disable it
+                self.visible_channels.discard(name)
+                box = self.chan_boxes.get(name)
+                if box is not None:
+                    box.blockSignals(True)
+                    box.setChecked(False)
+                    box.setEnabled(False)
+                    box.setToolTip("channel has no 3-D density field")
+                    box.blockSignals(False)
+                return None
+            coords, colours, dmax, _total = render.point_cloud(
+                vol, self.pctile, tint=self._chan_tint(name))
         mk = self._chan_markers.get(name)
         if mk is None:
             mk = self._scene.visuals.Markers(parent=self.view.scene)
@@ -460,6 +503,10 @@ class Viewer:
 
     def _set_pctile(self, v):
         self.pctile = float(v)
+        self._refresh_markers()
+
+    def _set_color_mode(self, idx):
+        self.color_mode = self.combo_color.itemData(idx) or "density"
         self._refresh_markers()
 
     def _save_checkpoint(self):

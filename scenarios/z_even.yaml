@@ -1,5 +1,7 @@
 # Z boson — even law (same rotation as γ). Single real (E_Z, B_Z) pair.
 name: z_even
+title: "Z Even Propagation"
+description: "Massless Z propagated by the even γ-law on a single real (E_Z, B_Z) pair; checks norm conservation."
 lattice: {L: 16, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
 seed: 2
 ticks: 60

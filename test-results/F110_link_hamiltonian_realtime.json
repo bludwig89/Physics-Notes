@@ -1,0 +1,72 @@
+{
+  "finding": "F110",
+  "date": "2026-06-06",
+  "title": "real-time Kogut-Susskind link Hamiltonian evolution (dual height representation, Z3 + U(1))",
+  "checks": {
+    "C1": {
+      "statement": "direct link-basis KS Hamiltonian on the Gauss sector == dual height Hamiltonian (full spectra, vacuum + charged)",
+      "residual": "ladder 2x1 vacuum: dim 9, max|dE| 2.22e-15; ladder 2x1 charged R=1: dim 9, max|dE| 3.11e-15; grid 2x2 vacuum: dim 81, max|dE| 1.15e-14; grid 2x2 charged R=2: dim 81, max|dE| 1.87e-14",
+      "status": "PASS"
+    },
+    "C2": {
+      "statement": "lambda=0 static potential exact: V(R) = (g^2/2) R (Z3 ladder R=1..6, U1 ladder R=1..4; integer arithmetic)",
+      "residual": "max |V - g^2 R/2| = 0.0e+00",
+      "status": "PASS"
+    },
+    "C3": {
+      "statement": "linear static potential from real ground states (Z3 ladder 10x1, R=1..5): increment estimator V(R)-V(R-1) converges (Cauchy < 1%), sigma monotone-decreasing in lambda, all positive (confining)",
+      "residual": "sigma {0.2: 0.49228, 0.5: 0.43026, 1.0: 0.23542}, max increment Cauchy 3.8e-03",
+      "status": "PASS"
+    },
+    "C4": {
+      "statement": "strong-coupling PT cross-check (asymptotic): sigma(lambda) = g^2/2 - c2 lambda^2 + O(lambda^3), c2 from programmatic 2nd-order PT; the O(lambda^3) Z3 winding term Richardson-extrapolates away",
+      "residual": "c2 = 0.166667; ratios [1.01601, 1.03283, 1.06936] (lam=(0.025, 0.05, 0.1)); Richardson -> [0.99918, 0.99631]",
+      "status": "PASS"
+    },
+    "C7": {
+      "statement": "F101 rotor contact: 1-plaquette dual U(1) Hamiltonian IS the compact rotor with chi=1/(4g^2) (matrix identity); sigma_1(lam=1,chi=1) reproduces the F101 table 0.29551; truncation-converged",
+      "residual": "matrix resid 0.0e+00, sigma_1 0.29551 (table resid 3.6e-06, rotor cross 1.6e-15), trunc 3.3e-14",
+      "status": "PASS"
+    },
+    "C5": {
+      "statement": "real-time evolution is unitary and conserves <H> (Z3 4x2 grid, dim 6561, t=0..20); Krylov path certified against dense eigendecomposition",
+      "residual": "norm drift 3.3e-15, energy drift 1.7e-14, |Krylov - dense| 4.9e-13",
+      "status": "PASS"
+    },
+    "C6": {
+      "statement": "real-time flux tube: ground-state excess flux localised on the string row at confining coupling and delocalised at weak coupling; quenched bare string PERSISTS as a positive flux excess (>1.8x uniform share) at lam=0.5 but MELTS below the vacuum fluctuation level at lam=4.0 (uniform share 0.182)",
+      "residual": "GS excess frac lam=0.5: 0.6077, lam=4.0: 0.3115; quench frac lam=0.5: 0.3613 (min total excess +4.819); lam=4.0 min total excess -7.970",
+      "status": "PASS"
+    }
+  },
+  "summary": "7/7 PASS (7 total)",
+  "runtime_s": 30.062,
+  "tables": {
+    "sigma_vs_lambda_Z3": {
+      "0.2": 0.49228177459291667,
+      "0.5": 0.43025554675901767,
+      "1.0": 0.2354179433678505
+    },
+    "string_fraction": {
+      "0.5": 0.3395932455239357,
+      "4.0": 0.23689679176801196
+    },
+    "flux_tube": {
+      "gs_excess_fraction": {
+        "0.5": 0.6077278971334132,
+        "4.0": 0.311515544927342
+      },
+      "quench": {
+        "0.5": {
+          "frac": 0.3613128076755269,
+          "min_total_excess": 4.818990504964072
+        },
+        "4.0": {
+          "frac": -0.47855070617829915,
+          "min_total_excess": -7.970089277435443
+        }
+      },
+      "uniform_share": 0.18181818181818182
+    }
+  }
+}

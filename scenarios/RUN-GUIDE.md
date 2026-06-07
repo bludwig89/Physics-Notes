@@ -41,6 +41,9 @@ shipped YAMLs are effectively the dev/smoke tier.
 | charge_photon | 13 / 30 | 0.5 s | odd L required |
 | refraction_2d | 128 / 80 | 1.3 s | needs SciPy |
 | gauge_mc | 6 / 40 | 6.0 s | Tier-3 stochastic; L⁴ |
+| photon_beam_all_fields | 32 / 60 | 3.0 s | γ beam + W + Z + gravity (added 2026-06-06) |
+| bcc_fields_companion | 16 / 60 | 0.7 s | weyl + gluon + gravity (added 2026-06-06) |
+| gravity_dynamic_selfsourced | 24 / 60 | 2.5 s | two-way ψ↔K loop: massive packet sources its own dynamical dielectric (F106) and free-falls in it (F62 mix); F64 mainlined (added 2026-06-06) |
 
 ## gauge_mc scaling (the only one that hits the cap)
 

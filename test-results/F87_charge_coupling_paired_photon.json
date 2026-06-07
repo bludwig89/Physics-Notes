@@ -41,11 +41,11 @@
     "tier": "machine"
   },
   "MX3_charge_conservation": {
-    "gauss_residual_max_100steps": 1.984488747071907e-12,
+    "gauss_residual_max_100steps": 2.0314067629958446e-12,
     "tier": "machine"
   },
   "MX4_magnetic_gauss": {
-    "magnetic_gauss_max_50steps": 2.022009447180084e-11,
+    "magnetic_gauss_max_50steps": 2.5786421533986723e-11,
     "tier": "machine"
   },
   "MX5_magnetostatics": {
@@ -134,12 +134,12 @@
       {
         "name": "MX3 Gauss conserved 100 steps",
         "ok": true,
-        "val": 1.984488747071907e-12
+        "val": 2.0314067629958446e-12
       },
       {
         "name": "MX4 div B=0",
         "ok": true,
-        "val": 2.022009447180084e-11
+        "val": 2.5786421533986723e-11
       },
       {
         "name": "MX5 Ampere residual (resolved)",
@@ -167,6 +167,6 @@
         "val": 15.861341445169899
       }
     ],
-    "runtime_s": 0.43502020835876465
+    "runtime_s": 0.5989205837249756
   }
 }

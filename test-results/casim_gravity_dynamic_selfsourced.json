@@ -1,0 +1,342 @@
+{
+  "name": "gravity_dynamic_selfsourced",
+  "title": "Gravity Dynamic Self-Sourced",
+  "description": "Two-way \u03c8\u2194K loop in the production engine: a massive Dirac packet sources its own dynamical dielectric (F106 law, D-EM8 causal \u03a6) and free-falls in it (F62 lapse mix). The F64 fork mainlined \u2014 audit B.2 #1.",
+  "seed": 7,
+  "ticks": 60,
+  "lattice": {
+    "L": 24,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "electron": {
+      "name": "electron",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "gfield": {
+      "name": "gfield",
+      "type": "gravity_dielectric",
+      "label": "Gravity Dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999996,
+              "rel_drift": 0.0
+            },
+            "gfield": {
+              "energy": 0.0,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999898,
+              "rel_drift": 9.769962616701382e-15
+            },
+            "gfield": {
+              "energy": 5.7578674283039475e-05,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999806,
+              "rel_drift": 1.8984813721090186e-14
+            },
+            "gfield": {
+              "energy": 5.5124409410105965e-05,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999716,
+              "rel_drift": 2.7977620220553957e-14
+            },
+            "gfield": {
+              "energy": 5.543040650070743e-05,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999629,
+              "rel_drift": 3.6637359812630185e-14
+            },
+            "gfield": {
+              "energy": 7.239722920906336e-05,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999546,
+              "rel_drift": 4.496403249731886e-14
+            },
+            "gfield": {
+              "energy": 9.671111655712629e-05,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999465,
+              "rel_drift": 5.306866057708251e-14
+            },
+            "gfield": {
+              "energy": 0.00012725518914750598,
+              "rel_drift": 0.0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "electron": 5.306866057708251e-14,
+          "gfield": 0.0
+        }
+      }
+    },
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 20,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999996,
+              "species": "e_R",
+              "norm": 0.9999999999999996,
+              "centroid": [
+                12.0,
+                12.0,
+                12.0
+              ],
+              "velocity_per_tick": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "charges": [
+                {
+                  "Q": "-1",
+                  "T3": "0",
+                  "Y": "-2",
+                  "B": "0",
+                  "L": "1",
+                  "colour": false,
+                  "chirality": "R"
+                }
+              ],
+              "couplings": {
+                "gravity": {
+                  "partner": "gfield",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": 0.0,
+              "grav_K_centroid": 1.0
+            },
+            "gfield": {
+              "energy": 0.0,
+              "dynamic": true,
+              "phi_min": 0.0,
+              "phi_max": 0.0,
+              "K_max": 1.0,
+              "K_min": 1.0,
+              "field_energy": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999806,
+              "species": "e_R",
+              "norm": 0.9999999999999806,
+              "centroid": [
+                11.999999999999956,
+                11.999999999999982,
+                12.774169433005722
+              ],
+              "velocity_per_tick": [
+                -4.440892098500626e-14,
+                -7.105427357601002e-15,
+                -0.08592981788871867
+              ],
+              "charges": [
+                {
+                  "Q": "-1",
+                  "T3": "0",
+                  "Y": "-2",
+                  "B": "0",
+                  "L": "1",
+                  "colour": false,
+                  "chirality": "R"
+                }
+              ],
+              "couplings": {
+                "gravity": {
+                  "partner": "gfield",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.001097610447275473,
+              "grav_K_centroid": 1.0088639354472224
+            },
+            "gfield": {
+              "energy": 5.5124409410105965e-05,
+              "dynamic": true,
+              "phi_min": -0.0014092834473034964,
+              "phi_max": -6.016028163797274e-12,
+              "K_max": 1.0084915510963923,
+              "K_min": 1.0000000000360962,
+              "field_energy": 5.5124409410105965e-05
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999629,
+              "species": "e_R",
+              "norm": 0.9999999999999629,
+              "centroid": [
+                12.000000000000561,
+                12.00000000000009,
+                14.310920722336643
+              ],
+              "velocity_per_tick": [
+                -9.237055564881302e-14,
+                -1.580957587066223e-13,
+                0.3040872796322063
+              ],
+              "charges": [
+                {
+                  "Q": "-1",
+                  "T3": "0",
+                  "Y": "-2",
+                  "B": "0",
+                  "L": "1",
+                  "colour": false,
+                  "chirality": "R"
+                }
+              ],
+              "couplings": {
+                "gravity": {
+                  "partner": "gfield",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.0014900904223466645,
+              "grav_K_centroid": 1.0073521590460235
+            },
+            "gfield": {
+              "energy": 7.239722920906336e-05,
+              "dynamic": true,
+              "phi_min": -0.002753056983876223,
+              "phi_max": -0.0011598160180875383,
+              "K_max": 1.0166555240123096,
+              "K_min": 1.0069831654894217,
+              "field_energy": 7.239722920906336e-05
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "electron": {
+              "energy": 0.9999999999999465,
+              "species": "e_R",
+              "norm": 0.9999999999999465,
+              "centroid": [
+                23.999999999997726,
+                23.99999999999873,
+                23.214183599427333
+              ],
+              "velocity_per_tick": [
+                5.755396159656812e-13,
+                -6.785683126508957e-13,
+                1.0465715151914097
+              ],
+              "charges": [
+                {
+                  "Q": "-1",
+                  "T3": "0",
+                  "Y": "-2",
+                  "B": "0",
+                  "L": "1",
+                  "colour": false,
+                  "chirality": "R"
+                }
+              ],
+              "couplings": {
+                "gravity": {
+                  "partner": "gfield",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.003538332228582437,
+              "grav_K_centroid": 1.016581429373319
+            },
+            "gfield": {
+              "energy": 0.00012725518914750598,
+              "dynamic": true,
+              "phi_min": -0.004150372646381203,
+              "phi_max": -0.002746441340424604,
+              "K_max": 1.0252148863919228,
+              "K_min": 1.0166151698304617,
+              "field_energy": 0.00012725518914750598
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

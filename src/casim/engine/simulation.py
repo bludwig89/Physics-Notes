@@ -54,9 +54,15 @@ class Simulation:
         checkpoint_every: int = 0,
         checkpoint_dir: str = "checkpoints",
         target_ticks: int = 0,
+        title: str = "",
+        description: str = "",
     ):
         self.lattice = lattice
         self.name = name
+        #: presentation-only scenario metadata (YAML title:/description:);
+        #: ``name`` remains the stable run identifier.
+        self.title = str(title or "")
+        self.description = str(description or "")
         self.seed = int(seed)
         self.rng = np.random.default_rng(self.seed)
         self.tick = 0
@@ -101,6 +107,8 @@ class Simulation:
             checkpoint_every=int(ckpt.get("every", 0)),
             checkpoint_dir=str(ckpt.get("dir", "checkpoints")),
             target_ticks=int(scenario.get("ticks", 0)),
+            title=str(scenario.get("title", "")),
+            description=str(scenario.get("description", "")),
         )
 
     # ------------------------------------------------------------------
@@ -135,6 +143,8 @@ class Simulation:
     def collect_results(self) -> Dict[str, Any]:
         self.results = {
             "name": self.name,
+            "title": self.title,
+            "description": self.description,
             "seed": self.seed,
             "ticks": self.tick,
             "lattice": self.lattice.to_dict(),
@@ -174,6 +184,8 @@ class Simulation:
         meta = {
             "version": CHECKPOINT_VERSION,
             "name": self.name,
+            "title": self.title,
+            "description": self.description,
             "seed": self.seed,
             "tick": self.tick,
             "target_ticks": self.target_ticks,
@@ -212,6 +224,8 @@ class Simulation:
                 checkpoint_every=int(meta.get("checkpoint_every", 0)),
                 checkpoint_dir=str(meta.get("checkpoint_dir", "checkpoints")),
                 target_ticks=int(meta.get("target_ticks", 0)),
+                title=str(meta.get("title", "")),
+                description=str(meta.get("description", "")),
             )
             # Restore exact state (overwriting the fresh init_state above).
             layout = meta["state_layout"]

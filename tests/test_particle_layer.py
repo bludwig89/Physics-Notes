@@ -218,7 +218,10 @@ def test_P1_8_gravity_background_readout():
     obs = sim.channels["e"].observables(sim.states["e"], sim.lattice)
     assert obs["grav_potential"] < 0.0          # Newtonian well
     assert obs["grav_K_centroid"] > 1.0         # K = exp(-2φ/c²) > 1
-    assert obs["couplings"]["gravity"]["tier"] == "background"
+    # F64-mainline (2026-06-06): gravity promoted background → coupled
+    # (massive Dirac singlets get the F62 lapse mix back-read; massless e_R
+    # here still only reads the scalar background).
+    assert obs["couplings"]["gravity"]["tier"] == "coupled"
 
 
 @mark.exact
@@ -576,6 +579,46 @@ def test_P4_4_beta_decay_conservation_exact():
     assert comp["dQ"] == Fraction(0)
     assert comp["dB"] == Fraction(0)
     assert comp["dL"] == Fraction(0)
+
+
+@mark.machine_precision
+def test_P5_1_sourced_photon_long_run_bounded():
+    """Regression lock for the t13k blow-up: the even rotation-law
+    ``photon_sourced`` propagator stays bounded under sustained current
+    sourcing, where the old explicit ``maxwell_curl_step`` diverged
+    (energy ∝ 10^{0.0096·t}, ~1.1%/tick).
+
+    A charged electron doublet continuously drives the photon for 2000 ticks.
+    Acceptance: photon energy never exceeds a few × its peak — no exponential
+    runaway — and the matter norm stays exact.  (The retired curl step reached
+    >1e6 by 2000 ticks at these settings; the rotation law stays O(1).)
+    """
+    lat = _lattice(8)
+    sim = Simulation(lattice=lat, channels=[
+        build_channel({"type": "particle", "name": "electron",
+                       "species": "lepton_doublet_L",
+                       "init": {"center": [4, 4, 4], "width": 1.5,
+                                "k0": [0.5, 0.0, 0.0]},
+                       "couplings": {"em": "photon_field"}}),
+        build_channel({"type": "photon_sourced", "name": "photon_field",
+                       "sources": ["electron"], "dt": 0.1}),
+    ], seed=1)
+    peak = 0.0
+    energies = []
+    for _ in range(2000):
+        sim.step(1)
+        e = sim.state_norms()["photon_field"]
+        peak = max(peak, e)
+        energies.append(e)
+    final = energies[-1]
+    tail_max = max(energies[1500:])
+    # No exponential runaway: a stable driven field saturates; the final and
+    # late-window energies must stay within a small factor of the running peak.
+    assert np.isfinite(final)
+    assert peak < 1e3, f"photon energy peak {peak:.3e} — looks like runaway"
+    assert tail_max <= 2.0 * peak
+    # Matter unitarity preserved throughout.
+    assert abs(sim.state_norms()["electron"] - 2.0) < 1e-9
 
 
 # ----------------------------------------------------------------------

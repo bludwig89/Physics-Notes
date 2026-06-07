@@ -18,6 +18,8 @@ scenario is verified bit-identical to its raw `ca-simulation` kernel in
 | `charge_photon.yaml` | `charge_photon` | even (Tier-2) | cubic | F87 sourced paired-photon Maxwell curl, divergence-free charge current (odd L) |
 | `gauge_mc.yaml` | `gauge_mc` | monte-carlo (Tier-3) | cubic (4D) | F94 SU(3) lattice-gauge heat-bath MC; tick=sweep; thermalises, checkpoints |
 | `refraction_2d.yaml` | `refraction_2d` | variable-c (Tier-3) | cubic (2D) | F64 time-domain variable-c packet refraction (Snell); **needs SciPy** |
+| `photon_beam_all_fields.yaml` | `photon_pair` (init: beam) + `w_chiral` + `z_even` + `gravity_dielectric` | even (forced) | cubic | travelling γ beam along +x through all live cubic fields: beam speed = dΩ_pair/dk\|k0 (− diffraction ≈ 1/(2(k0σ⊥)²)), per-channel norm conservation, Tier-1 non-interaction (bit-identical to γ-only run) |
+| `bcc_fields_companion.yaml` | `weyl_bcc` + `gluon_bcc` + `gravity_dielectric` | per-branch / even | bcc | companion: the BCC-only fields (can't share the photon's cubic lattice) coexisting — norms, exact Weyl unitarity, dispersion |
 
 **Tier-3 channels** are non-unitary or heavy. `gauge_mc` is stochastic — a tick
 is one Monte-Carlo sweep drawing from the engine's (checkpointed) RNG, so a long

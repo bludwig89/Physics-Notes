@@ -73,6 +73,7 @@ class WSourcedChannel(Channel):
     publishes the *updated* A for the fermion's covariant step this tick.
     """
     type_name = "w_sourced"
+    label = "W Sourced"
     propagator = "chiral"          # W law (F37/F91)
     topologies = ("bcc",)
 
@@ -104,6 +105,7 @@ class FermionDoubletChannel(Channel):
 
     Register this AFTER the W channel so it reads the A updated this tick."""
     type_name = "fermion_doublet"
+    label = "Fermion Doublet"
     propagator = "per-branch"
     topologies = ("bcc",)
 
@@ -147,6 +149,7 @@ class ChargePhotonChannel(Channel):
     via ``ca_charge_coupling.maxwell_curl_step``.  Self-coupled to its own
     fixed source (stored in state); a Gauss-law observable tracks ∇·E−ρ."""
     type_name = "charge_photon"
+    label = "Charge Photon"
     propagator = "even"            # paired photon (F69)
     topologies = ("cubic",)
 
@@ -204,6 +207,7 @@ class BetaDecayChannel(Channel):
     first tick, after which the W⁻ propagates as a massive Proca field.
     Reproduces the field trajectory of ``run_beta_decay_pipeline``."""
     type_name = "beta_decay"
+    label = "Beta Decay"
     propagator = "chiral"
     topologies = ("bcc",)
 

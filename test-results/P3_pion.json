@@ -1,0 +1,148 @@
+{
+  "phase": "P3",
+  "title": "dynamical pion (chiral pseudoscalar Goldstone)",
+  "checks": {
+    "A1 1-2G Pi_PS(0)=0 IS the gap eq (m_pi=0)": {
+      "residual": 2.2648549702353193e-14,
+      "target": 1e-10,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "A2 pseudoscalar pole at m_pi=0 (chiral)": {
+      "residual": 1.5529222149097973e-07,
+      "target": 1e-05,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "B  split identity exact": {
+      "residual": 1.7768938712031345e-16,
+      "target": 1e-12,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "C1 m_c ~= 325 MeV": {
+      "residual": 0.04241654479464665,
+      "target": 0.05,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "C2 m_pi ~= 135 MeV": {
+      "residual": 0.040892885748684465,
+      "target": 0.08,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "C3 f_pi ~= 92 MeV": {
+      "residual": 0.0019854524661496375,
+      "target": 0.06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "C4 <qq>^1/3 ~= -250 MeV": {
+      "residual": 0.003795314274911865,
+      "target": 0.06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "C5 m_sigma ~= 2 m_c (chiral partner)": {
+      "residual": 0.0,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D  GMOR holds": {
+      "residual": 0.003934402096827787,
+      "target": 0.05,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E  m_pi^2/m0 constant (linear Goldstone)": {
+      "residual": 0.008584488762244774,
+      "target": 0.05,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "F1 m_pi << m_sigma (chiral partner)": {
+      "residual": 0.22576146687422557,
+      "target": 0.3,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "F2 m_pi << m_rho (vector)": {
+      "residual": 0.17887109808695206,
+      "target": 0.25,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "G  dense diag == secular root (L=12)": {
+      "residual": 1.3322676295501878e-15,
+      "target": 1e-09,
+      "tier": "machine",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "M_chiral": 0.2951082647536317,
+    "relcoord_g_c": 3.9567760228296334,
+    "relcoord_E0_secular": -2.789619063155607,
+    "relcoord_E0_dense": -2.7896190631556084
+  },
+  "spectrum": {
+    "m_c": 0.31121462294173985,
+    "m_pi": 0.1405205395760724,
+    "m_sigma": 0.6224292458834797,
+    "m_rho": 0.785596673129178,
+    "f_pi": 0.09258345580787222,
+    "condensate_perflavour": -0.01544776899589587,
+    "condensate_root": -0.24905117143127203,
+    "m_sigma_over_2mc": 1.0,
+    "m_pi_over_m_rho": 0.17887109808695206,
+    "sigma_sub_threshold": 0.0,
+    "gmor_rel": 0.003934402096827787,
+    "gmor_lhs": 0.00016925690387283816,
+    "gmor_rhs": 0.00016992545895485456
+  },
+  "scaling": {
+    "columns": [
+      "m0",
+      "M",
+      "m_pi",
+      "m_pi2_over_m0"
+    ],
+    "rows": [
+      [
+        0.002,
+        0.3011373482638036,
+        0.08496658184273762,
+        3.6096600150193145
+      ],
+      [
+        0.004,
+        0.30696415723160364,
+        0.11996629384705539,
+        3.5979779148495097
+      ],
+      [
+        0.006,
+        0.3126102382759504,
+        0.14671925739878372,
+        3.587756748608425
+      ],
+      [
+        0.008,
+        0.31809362321707024,
+        0.1692054659349841,
+        3.5788112127843825
+      ]
+    ]
+  },
+  "notes": [
+    "The pion is the q-qbar pseudoscalar Goldstone: in the chiral limit 1-2G Pi_PS(0)=0 is IDENTICALLY the gap equation, so m_pi=0 to machine precision (A). With m0>0 the GMOR slope m_pi^2 \u221d m0 reproduces the physical 140.5 MeV (C2,D) and m_pi^2/m0 is constant as m0->0 (E) \u2014 the sharp Goldstone signature the roadmap demanded.",
+    "Single coupling G, no extra input: the SAME G that breaks chiral symmetry (gap) and binds the pion (RPA) puts the scalar chiral partner sigma at the 2 m_c threshold (C5). The pion is therefore anomalously light vs both its chiral partner (m_pi/m_sigma=0.23) and the vector (m_pi/m_rho=0.18, F).",
+    "The vector rho uses the KSRF relation m_rho^2=2 g_rhopipi^2 f_pi^2 tying it to the MODEL OUTPUT f_pi; the only external number is the empirical g_rhopipi~6 \u2014 flagged Tier-3, used only for the light/heavy contrast.",
+    "F74-engine cross-check (G): the relative-coordinate q-qbar bound state from the secular Koster-Slater root agrees with dense diagonalisation to <1e-9, certifying the bound state as a real-space dynamical object, not only a continuum pole.",
+    "Calibration inherited verbatim from F77 (validated against measured m_c, f_pi, m_pi, <qbar q>); P3 adds the Goldstone-scaling and relcoord certifications and the explicit light/heavy contrast. GMOR confirms the F77 numbers as the roadmap asked.",
+    "Scope: m_sigma is the RPA threshold pole (broad resonance above 2 m_c for m0>0); its width via Im K(q2>4M^2) is a small extension. The OPEP coupling g_piNN for P4 (deuteron) is set by Goldberger-Treiman (g_piqq f_pi=M, F77 1.1%) lifted to the nucleon \u2014 the input P4 consumes."
+  ],
+  "overall": "PASS"
+}

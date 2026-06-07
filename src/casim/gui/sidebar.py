@@ -47,6 +47,8 @@ def sidebar_model(sim) -> Dict[str, Any]:
         entry = {
             "name": name,
             "type": getattr(ch, "type_name", "?"),
+            "label": getattr(ch, "display_label", None)
+                     or getattr(ch, "type_name", "?"),
             "propagator": getattr(ch, "propagator", "?"),
             "observables": _channel_observables(sim, name, ch),
         }
@@ -100,7 +102,8 @@ def _particle_lines(p) -> List[str]:
 
 def _field_lines(fld) -> List[str]:
     o = fld["observables"]
-    lines = [f"▢ {fld['name']}  [{fld['type']} · {fld['propagator']}]"]
+    label = fld.get("label") or fld["type"]
+    lines = [f"▢ {fld['name']}  [{label} · {fld['propagator']}]"]
     if "field_energy" in o:
         lines.append(f"    energy   {o['field_energy']:.5g}")
     if "alpha_max" in o:

@@ -2,6 +2,8 @@
 # a W⁻ via the charged current on the first tick (the vertex), then the W⁻
 # propagates as a massive Proca field.
 name: beta_decay
+title: "Beta Decay"
+description: "F54 d→u+W⁻: a localized left-handed quark doublet emits a W⁻ via the charged current on the first tick, then the W⁻ propagates as a massive Proca field."
 lattice: {L: 16, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
 seed: 0
 ticks: 24

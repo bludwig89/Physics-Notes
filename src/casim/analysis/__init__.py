@@ -24,6 +24,8 @@ def summarize(results: Dict[str, Any]) -> Dict[str, Any]:
     """Produce a compact, human-readable summary of a results dict."""
     out: Dict[str, Any] = {
         "name": results.get("name"),
+        "title": results.get("title", ""),
+        "description": results.get("description", ""),
         "ticks": results.get("ticks"),
         "lattice": results.get("lattice"),
         "channels": results.get("channels"),
@@ -31,6 +33,7 @@ def summarize(results: Dict[str, Any]) -> Dict[str, Any]:
     }
     for oname, ores in results.get("observers", {}).items():
         out["observers"][oname] = {
+            "label": ores.get("label", oname),
             "exactness": ores.get("exactness"),
             "summary": ores.get("summary", {}),
             "n_records": len(ores.get("records", [])),
@@ -41,8 +44,10 @@ def summarize(results: Dict[str, Any]) -> Dict[str, Any]:
 def exactness_rows(results: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Rows for an exactness table: (observer, channel, exactness, value, tol, pass)."""
     rows: List[Dict[str, Any]] = []
+    ch_meta = results.get("channels", {}) or {}
     for oname, ores in results.get("observers", {}).items():
         cls = ores.get("exactness", "quantitative")
+        olabel = ores.get("label", oname)
         tol = TOL.get(cls)
         recs = ores.get("records", [])
         if not recs:
@@ -52,8 +57,10 @@ def exactness_rows(results: Dict[str, Any]) -> List[Dict[str, Any]]:
         if isinstance(chans, dict):
             for cname, val in chans.items():
                 v = _scalarize(val)
+                clabel = (ch_meta.get(cname, {}) or {}).get("label", cname)
                 rows.append({
                     "observer": oname, "channel": cname, "exactness": cls,
+                    "observer_label": olabel, "channel_label": clabel,
                     "value": v, "tol": tol,
                     "pass": (tol is None) or (v is not None and v <= tol),
                 })
@@ -79,7 +86,9 @@ def format_table(rows: List[Dict[str, Any]]) -> str:
     for r in rows:
         v = "n/a" if r["value"] is None else f"{r['value']:.3e}"
         ok = "—" if r["tol"] is None else ("PASS" if r["pass"] else "FAIL")
-        lines.append(f"{r['observer']:22s} {r['channel']:16s} "
+        obs = r.get("observer_label") or r["observer"]
+        chan = r.get("channel_label") or r["channel"]
+        lines.append(f"{obs:22s} {chan:16s} "
                      f"{r['exactness']:18s} {v:>12s}  {ok}")
     return "\n".join(lines)
 

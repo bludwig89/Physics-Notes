@@ -15,11 +15,14 @@ from ca_photon_pair import (  # noqa: E402
     pair_birefringence,
     photon_step_spectral,
     build_pair_mode,
+    build_beam_packet,
     group_velocity,
+    group_velocity_at,
 )
 
 __all__ = [
     "ca_photon_pair",
     "pair_dispersion", "pair_birefringence", "photon_step_spectral",
-    "build_pair_mode", "group_velocity",
+    "build_pair_mode", "build_beam_packet",
+    "group_velocity", "group_velocity_at",
 ]

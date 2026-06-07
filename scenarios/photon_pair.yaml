@@ -2,6 +2,8 @@
 # Propagates a random (E,B) field and checks it stays real, norm-conserving,
 # and that the pair dispersion equals the even-law rate (PP1/PP5 of F69).
 name: photon_pair
+title: "Paired-Spinor Photon"
+description: "Even-law (E,B) rotation of the F69 paired-spinor photon: checks the field stays real and norm-conserving, and that the pair dispersion equals the even-law rate (PP1/PP5)."
 lattice: {L: 16, dims: 3, topology: cubic, c_lat: 0.5773502691896258}  # 1/√3
 seed: 5
 ticks: 40

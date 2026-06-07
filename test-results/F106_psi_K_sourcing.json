@@ -1,0 +1,36 @@
+{
+  "finding": "F106",
+  "title": "psi -> K sourcing derivation",
+  "checks": [
+    {
+      "name": "E1 coefficient identity 8piG/c^4 = a^2 c_lat/(hbar c)",
+      "residual": "0",
+      "pass": true
+    },
+    {
+      "name": "E2 far-field ln K vs 2GM/rc^2 (rel residual)",
+      "rel_residual": 0.023420105183647295,
+      "pass": true
+    },
+    {
+      "name": "E3 slope <lnK*r> = 2GM/c^2",
+      "measured": 0.04002507452379093,
+      "predicted": 0.04,
+      "rel_err": 0.0006268630947732223,
+      "pass": true
+    },
+    {
+      "name": "E4 nonrel: D-PK == 4piG/c^2 * (2/c^2) T00, T00=mc^2|psi|^2",
+      "identity_holds": true,
+      "G_eff_over_G": "2*m  (factor 2 = AB=1 dielectric two-leg lock)",
+      "pass": true
+    },
+    {
+      "name": "E5 rest-eigenstate T00 = m|psi|^2 (energy is the source)",
+      "T00_total_over_m": 1.0,
+      "pass": true
+    }
+  ],
+  "n_pass": 5,
+  "n_total": 5
+}

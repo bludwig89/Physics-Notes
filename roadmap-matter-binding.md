@@ -77,7 +77,10 @@ P6 scale & SI units  ── cross-cutting, gates every absolute number in P2–P
 
 ---
 
-### P3 — The pion (chiral pseudoscalar) — force carrier for nuclei
+### P3 — The pion (chiral pseudoscalar) — force carrier for nuclei  ✅ DONE 2026-06-06 (F103)
+
+*Built: `ca-simulation/ca_meson.py` + `model-tests/test_P3_pion.py` (13/13 PASS). Pion delivered as the q̄q pseudoscalar Goldstone (chiral-limit m_π=0 exact; GMOR 0.39%; m_π²∝m₀ flat to 0.86%); σ chiral partner at 2m_c from the same single coupling; ρ contrast via KSRF; real-space relcoord bound state secular==dense to 1.3e-15. See F103.*
+
 
 **Goal.** The residual nuclear force that binds nucleons is, at long range, **pion exchange**. The pion is the pseudoscalar Goldstone of chiral-symmetry breaking — the **spin-0 antisymmetric partner** of the F69 photon pairing, and the chiral partner already named in F73/F74. NJL (F77) *already* reproduces $m_\pi, f_\pi, \langle\bar qq\rangle$ self-consistently, so the calibration exists; this phase makes the pion a **dynamical** $q\bar q$ state.
 
@@ -92,7 +95,10 @@ P6 scale & SI units  ── cross-cutting, gates every absolute number in P2–P
 
 ---
 
-### P4 — Nuclei: bind a proton + neutron → deuteron
+### P4 — Nuclei: bind a proton + neutron → deuteron  ✅ DONE 2026-06-06 (F104, full ³S₁–³D₁ tensor)
+
+*Built: `ca-simulation/ca_nuclear.py` + `model-tests/test_P4_deuteron.py` (11/11 PASS). Full coupled-channel OPEP with the pion tensor force: tensor ⟨S₁₂⟩ matrix = Rarita-Schwinger [[0,2√2],[2√2,−2]] to 9.8e-15; the deuteron binds ONLY via the tensor coupling (central-only unbound); single shallow J^P=1⁺ I=0 state, P_D≈7%, tuned to E_b=2.224 MeV / κ=0.2316 fm⁻¹. m_π/f_π from P3; g_A + short-range core are the flagged external/phenomenological inputs (the core is the roadmap-anticipated missing ingredient). See F104.*
+
 
 **Goal.** The first **nucleus**. Residual strong force from P3 pion exchange (one-pion-exchange Yukawa potential $\propto e^{-m_\pi r}/r$), bind $p+n\to{}^2$H, measure the binding energy (physical target $\approx 2.2$ MeV — shallow, just-bound).
 

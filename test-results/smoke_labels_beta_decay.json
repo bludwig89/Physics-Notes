@@ -1,0 +1,65 @@
+{
+  "name": "beta_decay",
+  "title": "Beta Decay",
+  "description": "F54 d\u2192u+W\u207b: a localized left-handed quark doublet emits a W\u207b via the charged current on the first tick, then the W\u207b propagates as a massive Proca field.",
+  "seed": 0,
+  "ticks": 24,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "beta_decay": {
+      "name": "beta_decay",
+      "type": "beta_decay",
+      "label": "Beta Decay",
+      "propagator": "chiral",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "energy_trace": {
+      "type": "energy_trace",
+      "label": "Energy Trace",
+      "exactness": "quantitative",
+      "every": 6,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "beta_decay": 0.0
+          }
+        },
+        {
+          "tick": 6,
+          "energy": {
+            "beta_decay": 1.7967991300735338
+          }
+        },
+        {
+          "tick": 12,
+          "energy": {
+            "beta_decay": 1.7967991300735353
+          }
+        },
+        {
+          "tick": 18,
+          "energy": {
+            "beta_decay": 1.7967991300735373
+          }
+        },
+        {
+          "tick": 24,
+          "energy": {
+            "beta_decay": 1.7967991300735386
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

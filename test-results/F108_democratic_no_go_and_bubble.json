@@ -1,0 +1,321 @@
+{
+  "G1_quasienergy_PT_formula": {
+    "pass": true,
+    "rel err": "6.81e-08",
+    "statement": "phi^(2) = (1/2) sum |W_ab|^2 cot((phi_a-phi_b)/2) for U' = e^{i eps W} U \u2014 verified on random unitaries"
+  },
+  "G2_trace_formula": {
+    "pass": true,
+    "max abs err": "1.1e-15"
+  },
+  "G3_PT_vs_exact_diagonalization": {
+    "pass": true,
+    "q": "(2pi/L,0,0)",
+    "m": 0.4,
+    "exact": "-1.499986e-01",
+    "PT": "-1.499983e-01",
+    "rel": "1.86e-06",
+    "statement": "the full Pi assembly reproduces exact diagonalization of the mass-modulated walk (residual = delta^4 term)"
+  },
+  "G4_q0_limit_matches_gpp": {
+    "pass": true,
+    "rows": {
+      "y=0.2": {
+        "Pi_y(q=0)": -0.05225,
+        "g''": -0.0526,
+        "rel": "6.5e-03"
+      },
+      "y=0.4": {
+        "Pi_y(q=0)": -0.20369,
+        "g''": -0.20515,
+        "rel": "7.1e-03"
+      },
+      "y=0.6": {
+        "Pi_y(q=0)": -0.46097,
+        "g''": -0.46414,
+        "rel": "6.8e-03"
+      },
+      "y=0.8": {
+        "Pi_y(q=0)": -1.12773,
+        "g''": -1.13587,
+        "rel": "7.2e-03"
+      }
+    },
+    "note": "<=1%: L=16 bubble vs L=24 mean-field table"
+  },
+  "T1_refit_identities_exact": {
+    "pass": true,
+    "rows": {
+      "lambda*ybar^4 (lambda=3)": {
+        "d_kappa_E": "2.2e-16",
+        "d_mu - prediction": "-2.2e-16",
+        "d_wall_margin": "0.0e+00"
+      },
+      "2*sin(5 ybar)": {
+        "d_kappa_E": "-6.7e-16",
+        "d_mu - prediction": "8.9e-16",
+        "d_wall_margin": "-1.8e-15"
+      }
+    },
+    "statement": "adding ANY w(ybar): kappa_E and the wall-KKT margin are invariant; mu -> mu - w'(ybar*)/(3 ybar*) exactly"
+  },
+  "T2_democratic_no_go_theorem": {
+    "pass": true,
+    "Delta_inf": 0.038627,
+    "decomposition": {
+      "(kE/2) e*^2": 0.1739,
+      "W S3*^2": 0.0224,
+      "sum g - 3 g(ybar)": -0.1577
+    },
+    "scan": [
+      {
+        "lambda": 0.0,
+        "kappa0": 0.666,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.20489
+      },
+      {
+        "lambda": 2.0,
+        "kappa0": 0.195,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.14249
+      },
+      {
+        "lambda": 6.0,
+        "kappa0": -0.747,
+        "ground": [
+          0.314,
+          0.314,
+          0.314
+        ],
+        "gap": 0.07305
+      },
+      {
+        "lambda": 12.0,
+        "kappa0": -2.16,
+        "ground": [
+          0.373,
+          0.373,
+          0.372
+        ],
+        "gap": 0.05537
+      },
+      {
+        "lambda": 30.0,
+        "kappa0": -6.399,
+        "ground": [
+          0.402,
+          0.402,
+          0.402
+        ],
+        "gap": 0.04522
+      }
+    ],
+    "theorem": "for EVERY added democratic invariant w(ybar): the shadow (ybar*,ybar*,ybar*) shares ybar with the lepton point, so w + refit cancel identically in the energy difference; Gap >= Delta_inf = the lepton point's splitting cost = +0.0386 > 0.  F101-A2's flagged candidate (quartic ybar cost) cannot exist at any strength.  Verified: gap monotone, -> Delta_inf, ground state -> the shadow"
+  },
+  "T3_single_invariants_fail": {
+    "pass": true,
+    "per-axis v*sum y^4": [
+      {
+        "c": -0.3,
+        "ground": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "gap": 0.23661
+      },
+      {
+        "c": -0.19,
+        "ground": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "gap": 0.04288
+      },
+      {
+        "c": -0.18,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.04813
+      },
+      {
+        "c": -0.15,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.07426
+      },
+      {
+        "c": 0.15,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.33551
+      }
+    ],
+    "E_g c*e^4": [
+      {
+        "c": -0.3,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.28911
+      },
+      {
+        "c": -0.137,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.24335
+      },
+      {
+        "c": 0.05,
+        "ground": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "gap": 0.19085
+      }
+    ],
+    "best single-invariant gap": 0.04288,
+    "statement": "no single quartic invariant (either sign, refit-consistent) makes the lepton point global; the best (per-axis attraction near the (0,0,0)/(1,1,1) crossover) leaves gap ~ 0.048"
+  },
+  "T4_two_invariant_sufficiency": {
+    "pass": true,
+    "rows": [
+      {
+        "v": -0.175,
+        "c": 0.25,
+        "kappa_E": 0.1714,
+        "wall_KKT": -13.45,
+        "H2_min": 0.2667,
+        "ground": [
+          1.0,
+          0.244,
+          0.017
+        ],
+        "gap": "1.41e-12",
+        "lepton_global": true
+      },
+      {
+        "v": -0.175,
+        "c": 0.27,
+        "kappa_E": 0.129,
+        "wall_KKT": -13.45,
+        "H2_min": 0.2737,
+        "ground": [
+          1.0,
+          0.244,
+          0.017
+        ],
+        "gap": "1.41e-12",
+        "lepton_global": true
+      },
+      {
+        "v": -0.18,
+        "c": 0.3,
+        "kappa_E": 0.0667,
+        "wall_KKT": -13.47,
+        "H2_min": 0.2837,
+        "ground": [
+          1.0,
+          0.244,
+          0.017
+        ],
+        "gap": "1.40e-12",
+        "lepton_global": true
+      }
+    ],
+    "statement": "{v sum y^4 (v<0), c e^4 (c>0)} at fixed W*=1.46 has an open region where the EXACT lepton point is the GLOBAL ground state with wall KKT and PD constrained Hessian \u2014 existence established; the invariant geometry is localized: reduce the splitting cost (quartic-for-quadratic swap in the E_g sector) and pay a per-axis quartic attraction"
+  },
+  "T5_self_consistency_tension": {
+    "pass": true,
+    "B_eff(v=-0.175)": "-1.0048e-01",
+    "W*(v=-0.175)": 2.578,
+    "gap at shifted W*": 0.25103,
+    "ground": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "statement": "v*sum y^4 feeds the cubic (F95-D2: sum y^4 has 3 ybar A^3 cos3delta content), so the F95 angle requirement moves W* (1.46 -> 2.58 at v=-0.175) and the T4 stability is lost there: no self-consistent (W, v, c) found in the scanned region with kE>0. With kE<0 allowed (Mexican-hat E_g), the gap shrinks along the self-consistent line (4e-3 at v=0.15, c=0.85) against a NEW one-heavy competitor (s,0,0) \u2014 closure not established.  The completion exists at fixed W; its self-consistent derivation remains open"
+  },
+  "M1_momentum_resolved_bubble_honest_negatives": {
+    "pass": true,
+    "democratic fit (a0,a2,a4,a6)": [
+      -0.593,
+      -4.75,
+      16.509,
+      -49.608
+    ],
+    "a4 (induced democratic quartic)": 16.51,
+    "fit residual (NOT Landau-controlled)": "7.94e-02",
+    "E_g sextic rows": [
+      {
+        "e": 0.2,
+        "W_ind": -134.91
+      },
+      {
+        "e": 0.25,
+        "W_ind": -223.44
+      },
+      {
+        "e": 0.3,
+        "W_ind": -565.61
+      },
+      {
+        "e": 0.35,
+        "note": "not PD (positivity NOT restored by momentum resolution)"
+      }
+    ],
+    "splitting stiffness dE_fl/de^2 at shadow": -3.024,
+    "softest-mode violation min_q[Pi(q)-Pi(0)] per m-node": [
+      -0.019,
+      -0.0139,
+      -0.0109,
+      -0.0071,
+      -0.0025,
+      0.0,
+      -0.0003,
+      -0.0037,
+      -0.0106,
+      -0.0151,
+      -0.0172,
+      -0.0172,
+      -0.0156,
+      -0.0129,
+      -0.0098,
+      -0.0074
+    ],
+    "statement": "the prescribed momentum-resolved bubble at the W*-fit couplings: machinery exact (G1-G4) but the E_g sextic stays WRONG-SIGN (W_ind<0, PD-boundary dominated), positivity is NOT restored (fails e>~0.35), and the loop is strongly coupled (kappa+Pi~0 over much of the BZ) \u2014 C.2/C.3 do NOT close at one loop.  New structure: the softest sea mode is NOT q=0 (staggered (pi,pi,pi) mass mode softer by ~0.019 at small m); fluctuations REWARD splitting (dE_fl/de^2 = -3.0): right direction for Delta_inf, not quantifiable at one loop"
+  },
+  "V_verdict": {
+    "pass": true,
+    "audit C.3 (democratic quartic ybar cost)": "EXCLUDED exactly \u2014 the no-go theorem kills the whole w(ybar) class (T1/T2); Delta_inf = +0.0386",
+    "what CAN work": "two-invariant quartic completion {v sum y^4 <0, c e^4 >0} \u2014 global stability of the exact lepton point demonstrated at fixed W* (T4)",
+    "open": "self-consistency with the F95 angle requirement (T5); derivation of (v,c) from the second-shell condensate self-interaction \u2014 same localization as F95's C",
+    "audit C.2 (momentum-resolved bubble)": "built+verified, honest negative at one loop (M1): wrong-sign sextic persists, positivity not restored, strongly coupled"
+  }
+}

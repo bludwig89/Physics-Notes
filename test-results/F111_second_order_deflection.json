@@ -1,0 +1,56 @@
+{
+  "finding": "F111",
+  "date": "2026-06-07",
+  "checks": {
+    "D1_general_closed_form": {
+      "pass": true,
+      "alpha": "4*eps + pi*(2+sigma)*eps^2",
+      "c1": "4",
+      "c2": "pi*(sigma + 2)"
+    },
+    "D2_GR_crosscheck_15pi4": {
+      "pass": true,
+      "sigma_GR": "7/4",
+      "alpha2": "15*pi/4"
+    },
+    "D3_lattice_4pi_excess_pi4": {
+      "pass": true,
+      "sigma_lat": "2",
+      "alpha2": "4*pi",
+      "excess_over_GR": "pi/4"
+    },
+    "D4_deprecated_map_info": {
+      "pass": true,
+      "sigma": "3",
+      "alpha2": "5*pi"
+    },
+    "N1_numeric_full_exponential": {
+      "pass": true,
+      "rows": [
+        {
+          "eps": "0.001",
+          "alpha2_coeff": "12.6145725693"
+        },
+        {
+          "eps": "0.0001",
+          "alpha2_coeff": "12.5711726259"
+        },
+        {
+          "eps": "1.0e-5",
+          "alpha2_coeff": "12.5668506345"
+        }
+      ],
+      "target": "12.5663706144",
+      "rel_resid_at_eps_1e5": "3.82e-5"
+    },
+    "N2_solar_limb_uas": {
+      "pass": true,
+      "eps_sun": "2.1225026e-6",
+      "first_order_uas": "1751190.3",
+      "second_order_GR_uas": "10.9472",
+      "second_order_lattice_uas": "11.677",
+      "lattice_minus_GR_uas": "0.729813"
+    }
+  },
+  "overall_pass": true
+}

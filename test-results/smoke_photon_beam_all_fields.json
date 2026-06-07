@@ -1,0 +1,857 @@
+{
+  "name": "photon_beam_all_fields",
+  "title": "Photon Beam Through All Cubic Fields",
+  "description": "A travelling Gaussian photon beam (one-sided F = E + iB packet) crosses a lattice carrying live W, Z, and F64 gravity channels: tracks beam speed vs d\u03a9_pair/dk|k0, per-channel norm conservation, and Tier-1 non-interaction.",
+  "seed": 11,
+  "ticks": 60,
+  "lattice": {
+    "L": 32,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 0.5773502691896258
+  },
+  "channels": {
+    "photon_beam": {
+      "name": "photon_beam",
+      "type": "photon_pair",
+      "label": "Photon Pair",
+      "propagator": "even",
+      "topologies": [
+        "cubic"
+      ]
+    },
+    "w_field": {
+      "name": "w_field",
+      "type": "w_chiral",
+      "label": "W Chiral",
+      "propagator": "chiral",
+      "topologies": [
+        "cubic"
+      ]
+    },
+    "z_field": {
+      "name": "z_field",
+      "type": "z_even",
+      "label": "Z Even",
+      "propagator": "even",
+      "topologies": [
+        "cubic"
+      ]
+    },
+    "gravity": {
+      "name": "gravity",
+      "type": "gravity_dielectric",
+      "label": "Gravity Dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "beam_track": {
+      "type": "beam_track",
+      "label": "Beam Track",
+      "exactness": "quantitative",
+      "every": 1,
+      "records": [
+        {
+          "tick": 0,
+          "centroid": 8.0,
+          "spread": 2.828426199997859,
+          "energy": 801.5606948907289
+        },
+        {
+          "tick": 1,
+          "centroid": 8.562707847514316,
+          "spread": 2.8284860164957077,
+          "energy": 801.5606948907289
+        },
+        {
+          "tick": 2,
+          "centroid": 9.125416565041597,
+          "spread": 2.8286655126370874,
+          "energy": 801.560694890729
+        },
+        {
+          "tick": 3,
+          "centroid": 9.68812701872756,
+          "spread": 2.8289646021739436,
+          "energy": 801.5606948907291
+        },
+        {
+          "tick": 4,
+          "centroid": 10.250840067106605,
+          "spread": 2.8293832610506597,
+          "energy": 801.5606948907291
+        },
+        {
+          "tick": 5,
+          "centroid": 10.8135565575985,
+          "spread": 2.8299213862084205,
+          "energy": 801.5606948907292
+        },
+        {
+          "tick": 6,
+          "centroid": 11.37627732335244,
+          "spread": 2.8305788463627346,
+          "energy": 801.5606948907293
+        },
+        {
+          "tick": 7,
+          "centroid": 11.939003180529326,
+          "spread": 2.831355557897904,
+          "energy": 801.5606948907293
+        },
+        {
+          "tick": 8,
+          "centroid": 12.501734926093393,
+          "spread": 2.8322512743153583,
+          "energy": 801.5606948907295
+        },
+        {
+          "tick": 9,
+          "centroid": 13.064473336161207,
+          "spread": 2.8332659372062,
+          "energy": 801.5606948907296
+        },
+        {
+          "tick": 10,
+          "centroid": 13.627219164931384,
+          "spread": 2.834399237483094,
+          "energy": 801.5606948907296
+        },
+        {
+          "tick": 11,
+          "centroid": 14.189973144192445,
+          "spread": 2.835651075349913,
+          "energy": 801.5606948907298
+        },
+        {
+          "tick": 12,
+          "centroid": 14.752735983381028,
+          "spread": 2.8370211654039577,
+          "energy": 801.5606948907297
+        },
+        {
+          "tick": 13,
+          "centroid": 15.315508370139039,
+          "spread": 2.838509302485223,
+          "energy": 801.5606948907298
+        },
+        {
+          "tick": 14,
+          "centroid": 15.878290971297272,
+          "spread": 2.8401152598910686,
+          "energy": 801.5606948907298
+        },
+        {
+          "tick": 15,
+          "centroid": 16.441084434195982,
+          "spread": 2.8418387031326464,
+          "energy": 801.5606948907299
+        },
+        {
+          "tick": 16,
+          "centroid": 17.003889388240204,
+          "spread": 2.84367950086855,
+          "energy": 801.56069489073
+        },
+        {
+          "tick": 17,
+          "centroid": 17.566706446580035,
+          "spread": 2.8456371260779125,
+          "energy": 801.5606948907301
+        },
+        {
+          "tick": 18,
+          "centroid": 18.129536207804136,
+          "spread": 2.8477115163026205,
+          "energy": 801.5606948907302
+        },
+        {
+          "tick": 19,
+          "centroid": 18.692379257538,
+          "spread": 2.849902135823561,
+          "energy": 801.5606948907302
+        },
+        {
+          "tick": 20,
+          "centroid": 19.255236169847343,
+          "spread": 2.8522087225190416,
+          "energy": 801.5606948907304
+        },
+        {
+          "tick": 21,
+          "centroid": 19.818107508360434,
+          "spread": 2.8546309378432024,
+          "energy": 801.5606948907304
+        },
+        {
+          "tick": 22,
+          "centroid": 20.380993827040886,
+          "spread": 2.8571680604581156,
+          "energy": 801.5606948907305
+        },
+        {
+          "tick": 23,
+          "centroid": 20.943895670563244,
+          "spread": 2.8598202947488076,
+          "energy": 801.5606948907305
+        },
+        {
+          "tick": 24,
+          "centroid": 21.506813574266722,
+          "spread": 2.8625859688961337,
+          "energy": 801.5606948907305
+        },
+        {
+          "tick": 25,
+          "centroid": 22.069748063686482,
+          "spread": 2.8654660790503224,
+          "energy": 801.5606948907306
+        },
+        {
+          "tick": 26,
+          "centroid": 22.632699653685684,
+          "spread": 2.868458326565779,
+          "energy": 801.5606948907307
+        },
+        {
+          "tick": 27,
+          "centroid": 23.19566884723376,
+          "spread": 2.8715635971857854,
+          "energy": 801.5606948907307
+        },
+        {
+          "tick": 28,
+          "centroid": 23.75865613389667,
+          "spread": 2.8747804655479468,
+          "energy": 801.5606948907309
+        },
+        {
+          "tick": 29,
+          "centroid": 24.321661988120763,
+          "spread": 2.8781079265207996,
+          "energy": 801.5606948907309
+        },
+        {
+          "tick": 30,
+          "centroid": 24.884686867404625,
+          "spread": 2.881546604318566,
+          "energy": 801.5606948907309
+        },
+        {
+          "tick": 31,
+          "centroid": 25.44773121046,
+          "spread": 2.885092341535178,
+          "energy": 801.5606948907309
+        },
+        {
+          "tick": 32,
+          "centroid": 26.010795435465248,
+          "spread": 2.8887500437000018,
+          "energy": 801.560694890731
+        },
+        {
+          "tick": 33,
+          "centroid": 26.573879938511396,
+          "spread": 2.8925108074806025,
+          "energy": 801.5606948907312
+        },
+        {
+          "tick": 34,
+          "centroid": 27.136985092332495,
+          "spread": 2.8963821388794626,
+          "energy": 801.5606948907312
+        },
+        {
+          "tick": 35,
+          "centroid": 27.70011124539886,
+          "spread": 2.9003570737691797,
+          "energy": 801.5606948907312
+        },
+        {
+          "tick": 36,
+          "centroid": 28.26325872143485,
+          "spread": 2.9044381167371154,
+          "energy": 801.5606948907313
+        },
+        {
+          "tick": 37,
+          "centroid": 28.82642781940257,
+          "spread": 2.908624598706653,
+          "energy": 801.5606948907314
+        },
+        {
+          "tick": 38,
+          "centroid": 29.3896188139706,
+          "spread": 2.9129112944601965,
+          "energy": 801.5606948907315
+        },
+        {
+          "tick": 39,
+          "centroid": 29.952831956463648,
+          "spread": 2.917306818706776,
+          "energy": 801.5606948907315
+        },
+        {
+          "tick": 40,
+          "centroid": 30.51606747626609,
+          "spread": 2.92179506155481,
+          "energy": 801.5606948907315
+        },
+        {
+          "tick": 41,
+          "centroid": 31.079325582630602,
+          "spread": 2.926393173970047,
+          "energy": 801.5606948907316
+        },
+        {
+          "tick": 42,
+          "centroid": 31.642606466823977,
+          "spread": 2.9310829572694725,
+          "energy": 801.5606948907316
+        },
+        {
+          "tick": 43,
+          "centroid": 0.2059103045266545,
+          "spread": 2.9358774101727705,
+          "energy": 801.5606948907316
+        },
+        {
+          "tick": 44,
+          "centroid": 0.7692372583908172,
+          "spread": 2.9407686085583995,
+          "energy": 801.5606948907317
+        },
+        {
+          "tick": 45,
+          "centroid": 1.3325874806554354,
+          "spread": 2.945755087040709,
+          "energy": 801.5606948907317
+        },
+        {
+          "tick": 46,
+          "centroid": 1.8959611157150682,
+          "spread": 2.9508455442856314,
+          "energy": 801.560694890732
+        },
+        {
+          "tick": 47,
+          "centroid": 2.4593583025429555,
+          "spread": 2.9560193943798234,
+          "energy": 801.5606948907318
+        },
+        {
+          "tick": 48,
+          "centroid": 3.0227791768776884,
+          "spread": 2.9613048031491753,
+          "energy": 801.560694890732
+        },
+        {
+          "tick": 49,
+          "centroid": 3.586223873096039,
+          "spread": 2.9666630206534017,
+          "energy": 801.5606948907321
+        },
+        {
+          "tick": 50,
+          "centroid": 4.149692525711713,
+          "spread": 2.9721294081712997,
+          "energy": 801.5606948907321
+        },
+        {
+          "tick": 51,
+          "centroid": 4.7131852704600075,
+          "spread": 2.9776779936364286,
+          "energy": 801.5606948907322
+        },
+        {
+          "tick": 52,
+          "centroid": 5.276702244950468,
+          "spread": 2.9833193633738873,
+          "energy": 801.5606948907323
+        },
+        {
+          "tick": 53,
+          "centroid": 5.840243588892651,
+          "spread": 2.9890556767934258,
+          "energy": 801.5606948907325
+        },
+        {
+          "tick": 54,
+          "centroid": 6.403809443922688,
+          "spread": 2.994865471852859,
+          "energy": 801.5606948907324
+        },
+        {
+          "tick": 55,
+          "centroid": 6.967399953079433,
+          "spread": 3.0007869339007334,
+          "energy": 801.5606948907325
+        },
+        {
+          "tick": 56,
+          "centroid": 7.531015259997479,
+          "spread": 3.0067581644240557,
+          "energy": 801.5606948907325
+        },
+        {
+          "tick": 57,
+          "centroid": 8.094655507899144,
+          "spread": 3.0128453235848713,
+          "energy": 801.5606948907327
+        },
+        {
+          "tick": 58,
+          "centroid": 8.658320838478115,
+          "spread": 3.0189893183440923,
+          "energy": 801.5606948907326
+        },
+        {
+          "tick": 59,
+          "centroid": 9.222011390772943,
+          "spread": 3.0252298107201323,
+          "energy": 801.5606948907327
+        },
+        {
+          "tick": 60,
+          "centroid": 9.785727300129027,
+          "spread": 3.0315484642024537,
+          "energy": 801.5606948907327
+        }
+      ],
+      "summary": {
+        "channel": "photon_beam",
+        "axis": 0,
+        "speed_measured": 0.5630723981253998,
+        "c_lat": 0.5773502691896258,
+        "distance_travelled": 33.78572730012903,
+        "spread_initial": 2.828426199997859,
+        "spread_final": 3.0315484642024537,
+        "speed_group_analytic": 0.5773502691847066,
+        "rel_error_vs_group": 0.024729998098847315
+      }
+    },
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907289,
+              "rel_drift": 0.0
+            },
+            "w_field": {
+              "energy": 196204.3193229864,
+              "rel_drift": 0.0
+            },
+            "z_field": {
+              "energy": 65125.75296879957,
+              "rel_drift": 0.0
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907293,
+              "rel_drift": 5.673274073755034e-16
+            },
+            "w_field": {
+              "energy": 196204.31932298647,
+              "rel_drift": 2.966686009478083e-16
+            },
+            "z_field": {
+              "energy": 65125.7529687996,
+              "rel_drift": 4.468866635703507e-16
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907297,
+              "rel_drift": 9.92822962907131e-16
+            },
+            "w_field": {
+              "energy": 196204.31932298653,
+              "rel_drift": 5.933372018956166e-16
+            },
+            "z_field": {
+              "energy": 65125.75296879963,
+              "rel_drift": 8.937733271407014e-16
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.56069489073,
+              "rel_drift": 1.4183185184387585e-15
+            },
+            "w_field": {
+              "energy": 196204.31932298662,
+              "rel_drift": 1.038340103317329e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879965,
+              "rel_drift": 1.2289383248184645e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907302,
+              "rel_drift": 1.7019822221265101e-15
+            },
+            "w_field": {
+              "energy": 196204.3193229867,
+              "rel_drift": 1.4833430047390415e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879968,
+              "rel_drift": 1.6758249883888153e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907305,
+              "rel_drift": 1.985645925814262e-15
+            },
+            "w_field": {
+              "energy": 196204.31932298676,
+              "rel_drift": 1.7800116056868498e-15
+            },
+            "z_field": {
+              "energy": 65125.752968799694,
+              "rel_drift": 1.8992683201739905e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907309,
+              "rel_drift": 2.5529733331897653e-15
+            },
+            "w_field": {
+              "energy": 196204.31932298682,
+              "rel_drift": 2.076680206634658e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879973,
+              "rel_drift": 2.457876649636929e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 35,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907312,
+              "rel_drift": 2.836637036877517e-15
+            },
+            "w_field": {
+              "energy": 196204.31932298696,
+              "rel_drift": 2.818351709004179e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879976,
+              "rel_drift": 2.9047633132072798e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907314,
+              "rel_drift": 3.1203007405652686e-15
+            },
+            "w_field": {
+              "energy": 196204.319322987,
+              "rel_drift": 2.966686009478083e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879978,
+              "rel_drift": 3.239928310885043e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 45,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907317,
+              "rel_drift": 3.545796296096896e-15
+            },
+            "w_field": {
+              "energy": 196204.3193229871,
+              "rel_drift": 3.5600232113736995e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879981,
+              "rel_drift": 3.686814974455394e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907321,
+              "rel_drift": 3.971291851628524e-15
+            },
+            "w_field": {
+              "energy": 196204.31932298717,
+              "rel_drift": 3.856691812321508e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879984,
+              "rel_drift": 4.1337016380257444e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 55,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907324,
+              "rel_drift": 4.396787407160151e-15
+            },
+            "w_field": {
+              "energy": 196204.31932298728,
+              "rel_drift": 4.450029014217125e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879986,
+              "rel_drift": 4.468866635703507e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.560694890733,
+              "rel_drift": 5.105946666379531e-15
+            },
+            "w_field": {
+              "energy": 196204.3193229873,
+              "rel_drift": 4.598363314691029e-15
+            },
+            "z_field": {
+              "energy": 65125.75296879988,
+              "rel_drift": 4.804031633381271e-15
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "rel_drift": 0.0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "photon_beam": 5.105946666379531e-15,
+          "w_field": 4.598363314691029e-15,
+          "z_field": 4.804031633381271e-15,
+          "gravity": 0.0
+        }
+      }
+    },
+    "energy_trace": {
+      "type": "energy_trace",
+      "label": "Energy Trace",
+      "exactness": "quantitative",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "photon_beam": 801.5606948907289,
+            "w_field": 196204.3193229864,
+            "z_field": 65125.75296879957,
+            "gravity": 18864.476788410146
+          }
+        },
+        {
+          "tick": 10,
+          "energy": {
+            "photon_beam": 801.5606948907297,
+            "w_field": 196204.31932298653,
+            "z_field": 65125.75296879963,
+            "gravity": 18864.476788410146
+          }
+        },
+        {
+          "tick": 20,
+          "energy": {
+            "photon_beam": 801.5606948907302,
+            "w_field": 196204.3193229867,
+            "z_field": 65125.75296879968,
+            "gravity": 18864.476788410146
+          }
+        },
+        {
+          "tick": 30,
+          "energy": {
+            "photon_beam": 801.5606948907309,
+            "w_field": 196204.31932298682,
+            "z_field": 65125.75296879973,
+            "gravity": 18864.476788410146
+          }
+        },
+        {
+          "tick": 40,
+          "energy": {
+            "photon_beam": 801.5606948907314,
+            "w_field": 196204.319322987,
+            "z_field": 65125.75296879978,
+            "gravity": 18864.476788410146
+          }
+        },
+        {
+          "tick": 50,
+          "energy": {
+            "photon_beam": 801.5606948907321,
+            "w_field": 196204.31932298717,
+            "z_field": 65125.75296879984,
+            "gravity": 18864.476788410146
+          }
+        },
+        {
+          "tick": 60,
+          "energy": {
+            "photon_beam": 801.560694890733,
+            "w_field": 196204.3193229873,
+            "z_field": 65125.75296879988,
+            "gravity": 18864.476788410146
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 60,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.5606948907289
+            },
+            "w_field": {
+              "energy": 196204.3193229864
+            },
+            "z_field": {
+              "energy": 65125.75296879957
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "impact_parameter": 5,
+              "deflection_measured": 1.6623843701154293,
+              "deflection_GR_4GM_over_c2b": 2.3999999999999995,
+              "deflection_GR_finite_aperture": 2.290751947284071,
+              "aperture_factor": 0.9544799780350297,
+              "rel_error": 0.2743062503618683,
+              "K_max": 4.875221016130407
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "photon_beam": {
+              "energy": 801.560694890733
+            },
+            "w_field": {
+              "energy": 196204.3193229873
+            },
+            "z_field": {
+              "energy": 65125.75296879988
+            },
+            "gravity": {
+              "energy": 18864.476788410146,
+              "impact_parameter": 5,
+              "deflection_measured": 1.6623843701154293,
+              "deflection_GR_4GM_over_c2b": 2.3999999999999995,
+              "deflection_GR_finite_aperture": 2.290751947284071,
+              "aperture_factor": 0.9544799780350297,
+              "rel_error": 0.2743062503618683,
+              "K_max": 4.875221016130407
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

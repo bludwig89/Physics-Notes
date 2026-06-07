@@ -1,6 +1,8 @@
 """casim.cli — command-line entry point.
 
     casim run scenarios/photon_pair.yaml [--ticks N] [--seed S] [--out PATH]
+    casim resume checkpoints/run_t1000.npz [--ticks N] [--out PATH]
+    casim export checkpoints/run_t1000.npz [--out PATH] [--stride N]
     casim analyze test-results/photon_pair.json [--table]
     casim list-channels
     casim gui [scenario.yaml]            # Phase E (not yet implemented)
@@ -15,7 +17,7 @@ from . import __version__
 from .engine import (
     Simulation, registered_channels, registered_observers,
 )
-from .io import load_scenario, write_results, read_results
+from .io import load_scenario, write_results, read_results, export_checkpoint
 from . import analysis
 
 
@@ -28,6 +30,10 @@ def _cmd_run(args) -> int:
     if args.L is not None:
         scenario.setdefault("lattice", {})["L"] = args.L
     sim = Simulation.from_scenario(scenario)
+    if sim.title:
+        print(f"[casim] {sim.title}")
+    if sim.description:
+        print(f"[casim] {sim.description}")
     print(f"[casim] running {sim.name!r}: lattice={sim.lattice.to_dict()} "
           f"seed={sim.seed} ticks={scenario['ticks']}")
     results = sim.run(int(scenario["ticks"]))
@@ -55,13 +61,32 @@ def _cmd_resume(args) -> int:
     return 0
 
 
+def _cmd_export(args) -> int:
+    path = export_checkpoint(args.checkpoint, out=args.out, stride=args.stride)
+    print(f"[casim] exported {args.checkpoint} → {path}")
+    # Echo a one-line headline per channel so the terminal is useful too.
+    results = read_results(path)
+    print(f"[casim] {results['name']}  tick={results['tick']}  "
+          f"lattice={results['lattice']}")
+    for cname, c in results["channels"].items():
+        drift = c.get("rel_drift")
+        drift_s = f" drift={drift:.2e}" if isinstance(drift, float) else ""
+        print(f"  {cname:16s} {c.get('label', c['type']):18s} "
+              f"energy={c['energy']:.6g}{drift_s}")
+    return 0
+
+
 def _cmd_analyze(args) -> int:
     results = read_results(args.results)
     summ = analysis.summarize(results)
+    if summ.get("title"):
+        print(f"[casim] {summ['title']}")
+    if summ.get("description"):
+        print(f"[casim] {summ['description']}")
     print(f"[casim] {summ['name']}  ticks={summ['ticks']}  "
           f"lattice={summ['lattice']}")
     for oname, o in summ["observers"].items():
-        print(f"  {oname:22s} [{o['exactness']}]  "
+        print(f"  {o.get('label') or oname:22s} [{o['exactness']}]  "
               f"records={o['n_records']}  summary={o['summary']}")
     if args.table:
         print()
@@ -70,12 +95,15 @@ def _cmd_analyze(args) -> int:
 
 
 def _cmd_list_channels(args) -> int:
-    print("Channels (type → propagator class, topologies):")
+    print("Channels (type → label, propagator class, topologies):")
     for name, cls in sorted(registered_channels().items()):
-        print(f"  {name:20s} {cls.propagator:14s} {list(cls.topologies)}")
-    print("\nObservers (type → exactness):")
+        label = cls.label or name
+        print(f"  {name:20s} {label:20s} {cls.propagator:14s} "
+              f"{list(cls.topologies)}")
+    print("\nObservers (type → label, exactness):")
     for name, cls in sorted(registered_observers().items()):
-        print(f"  {name:20s} {cls.exactness}")
+        label = cls.label or name
+        print(f"  {name:20s} {label:20s} {cls.exactness}")
     return 0
 
 
@@ -124,6 +152,15 @@ def build_parser() -> argparse.ArgumentParser:
                     help="target total tick count (default: scenario's)")
     rs.add_argument("--out", default=None, help="JSON output path")
     rs.set_defaults(func=_cmd_resume)
+
+    ex = sub.add_parser("export",
+                        help="dump a checkpoint NPZ to a compact readable JSON")
+    ex.add_argument("checkpoint")
+    ex.add_argument("--out", default=None,
+                    help="JSON output path (default test-results/export_<name>.json)")
+    ex.add_argument("--stride", type=int, default=1,
+                    help="keep every Nth observer record (thin long time series)")
+    ex.set_defaults(func=_cmd_export)
 
     a = sub.add_parser("analyze", help="summarise a results JSON")
     a.add_argument("results")

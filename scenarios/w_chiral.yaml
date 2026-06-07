@@ -2,6 +2,8 @@
 # so not under the polarimetry bound. Checks norm conservation under the
 # chirally-faithful F37 propagation.
 name: w_chiral
+title: "W Chiral Propagation"
+description: "W± gauge field under the chirally-faithful F37 law (chiral forced, F91); birefringent but massive, so not under the polarimetry bound. Checks norm conservation."
 lattice: {L: 16, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
 seed: 11
 ticks: 60

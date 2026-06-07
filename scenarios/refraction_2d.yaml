@@ -3,6 +3,8 @@
 # Snell's law. Exact-unitary (Strang) but SciPy-dependent, so this runs where
 # SciPy is installed (verify with tools/verify_tier3_gravity.py).
 name: refraction_2d
+title: "Refraction 2D"
+description: "Tier-3 F64 time-domain variable-c propagation: a 2-D Weyl packet crosses a c(x) step and refracts by Snell's law (exact-unitary Strang stepper; needs SciPy)."
 lattice: {L: 128, dims: 2, topology: cubic, c_lat: 0.5}
 seed: 0
 ticks: 80

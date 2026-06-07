@@ -181,8 +181,6 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - for options a and c of the binding force construction, can they be combined to include the beneficial elements of both? does that cause any problems with the physics? or can something else be derived by the combination?
 
-- 
-
 - ~~review f92 and theorize if a similar law holds true to be both the binding force and the "stability point" colour-neutral quark combinations (the baryon sector).~~
 
 - ~~within the casim program GUI, add gui-adjustable scales for the bcc lattice so we have a larger test space, make it a drop-down scale with rough memory allocations in GB next to it. (e.g. Lattice Size -> 500 x 500 x 500 (~4GB); 10k x 10k x 10k (~90GB)) also change scenarios to be a drop-down gui menu.~~
@@ -195,17 +193,43 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~review test-results/prod_gauge_mc.json for any new information.~~
 
-- are we yet able to construct phase 3 of roadmap-matter-binding? if so, then construct it, and review phase 4 for viability and if workable, construct after requesting user verification.
-
-- what are we seeing in the CASIM lattice? what do the colors represent?
+- ~~are we yet able to construct phase 3 of roadmap-matter-binding? if so, then construct it, and review phase 4 for viability and if workable, construct after requesting user verification.~~
   
-- can we review .npz files? can we get casim to do a "dump/results export" of a checkpoint to a json file for claude to read? I ran a particle field first gen to t13160 and want you to review it.
+- now that the si units have been locked in, what predictions and measurements can be made? do we need to build a scenario to run?
+
+- review dynamic_gravity_selfsourced_2062.npz for any new information or variations. also while watching the scenario I noticed an interesting field oscillation that would focus in one corner, then disperse to another, then back after a few hundred ticks. explain the oscillation.
+
+### Deriving Inputs 
+
+All from project-audit-inputs-dynamism
+  - ~~attempt to construct a ψ→K sourcing derivation from the model structure.~~
+  - ~~move the f64 em-gravity fork into the main model structure as the gravity field element.~~
+  - ~~attempt to execute construction of the f92 bridge construction keeping the flavour vector constrained as detailed in project-audit-inputs-dynamism~~
+  - ~~attempt to derive the global stability invariant from the model as detailed in project-audit-inputs-dynamism~~
+  - attempt to derive the gauge coupling magnitudes e, g, and g_s from the model as detailed in project-audit-inputs-dynamism.
+  - attempt to derive the short-range deuteron repulsion r_c from the model as detailed in project-audit-inputs-dynamism.
+  - ~~attempt to build in the real-time link Hamiltonian evolution for the confinement element of the model as detailed in project-audit-inputs-dynamism.~~
+
+- ~~within the bcc lattice, how close together are quarks allowed? can we only have 1 quark existing at one node at a time? Does a quark's information consume 2 or more nodes?~~
+
+- the proton composite scenario causes a crash: TypeError: 'CompositeSpec' object is not callable
+
+- ~~review photon_beam_all_fields_t1360.npz and see if any new information arises from a longer run.~~
+
+- ~~review the src/casim/checkpoints/charge_photon_t3718.npz, the energy had reached 10x16 order by that point indicating an instability. Determine where it comes from.~~
+
+- ~~can we review .npz files? can we get casim to do a "dump/results export" of a checkpoint to a json file for claude to read? I ran a particle field first gen to t13160 and want you to review it.~~
+
+- ~~conduct a project audit and verify that: ~~
+  - ~~we do not have any "input" values that are not derived within the system.~~
+  - ~~every field is fully dynamical and particle interaction is correctly functioning.~~
+  - ~~if there are still input values that aren't derived, provide a detailed outline for each and what avenue is needed to source them.~~
 
 ## CASIM Structure
 
-- update scenarios to have a clear name with a short description for each and what it is doing/testing.
+- ~~update scenarios to have a clear name with a short description for each and what it is doing/testing.~~
 
-- write a series of scenarios that are simple photon beams along an axis to observe propagation.
+- ~~write a series of scenarios that are simple photon beams through all fields along an axis to observe propagation.~~
 
 - we want the base lattice construct, along with each of the four fundamental fields built in/on it. (EM, Strong nuclear, weak nuclear, gravity)
   - particles, depending on their type, should interact via each force when applicable (e.g. quarks are affected by all four, but leptons have no color-charge so the strong force does not affect them)

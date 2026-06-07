@@ -1,0 +1,106 @@
+{
+  "phase": "P4",
+  "title": "deuteron \u2014 \u00b3S\u2081\u2013\u00b3D\u2081 coupled-channel OPEP (tensor force)",
+  "checks": {
+    "A  <S12> = [[0,2\u221a2],[2\u221a2,-2]] (CG)": {
+      "residual": 9.769962616701378e-15,
+      "target": 1e-10,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "B  full bound AND central-only unbound": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
+    },
+    "C1 deuteron is bound (E_b>0)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
+    },
+    "C2 shallow E_b/M_N < 1e-2": {
+      "residual": 0.0021267768515883085,
+      "target": 0.01,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D  single bound state (E1 >= 0)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
+    },
+    "E1 P_D in (2%,12%) nonzero": {
+      "residual": 0.018055698043265858,
+      "target": 0.07,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E2 P_D -> 0 without tensor": {
+      "residual": 0.0,
+      "target": 1e-06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "F  tail slope matches \u03ba": {
+      "residual": 0.0033624136349574875,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "G1 tuned E_b = 2.224 MeV": {
+      "residual": 3.616618116097925e-11,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "G2 physical \u03ba \u2248 0.2316 /fm": {
+      "residual": 2.335662167729513e-05,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "H  E_b grid-converged": {
+      "residual": 0.006446491492516915,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "m_pi": 140.52053957607242,
+    "f_pi": 92.58345580787223,
+    "g_A": 1.2723,
+    "f2_over_4pi": 0.07418601477558867,
+    "S12_matrix": [
+      [
+        6.112731848473274e-15,
+        2.8284271247461814
+      ],
+      [
+        2.828427124746182,
+        -1.9999999999999902
+      ]
+    ],
+    "E_full_rc045": -1.9968690679395915,
+    "E_central_rc045": 0.6559536924914767,
+    "P_D": 0.06805569804326586,
+    "kappa": 0.21943310986347198,
+    "tail_slope": 0.22017093474403804,
+    "rc_tuned": 0.44771804048623376,
+    "Eb_tuned": 2.223999999963834,
+    "P_D_tuned": 0.07087428351271353,
+    "kappa_tuned": 0.2315766433783227
+  },
+  "notes": [
+    "HEADLINE (B): the deuteron binds ONLY through the pion TENSOR force. At a fixed core radius the full \u00b3S\u2081\u2013\u00b3D\u2081 OPEP is bound while central-only OPEP is not \u2014 central OPEP is below the Yukawa binding threshold (2\u03bcV0a\u00b2/\u0127\u00b2\u22480.5<1.68); the tensor L=0\u2194L=2 coupling supplies the missing attraction. This is the textbook reason the deuteron exists and the model reproduces it.",
+    "TENSOR STRENGTH CERTIFIED (A): the spin-angular <S12> matrix built from Clebsch-Gordan equals the Rarita-Schwinger [[0,2\u221a2],[2\u221a2,-2]] to machine precision \u2014 the off-diagonal 2\u221a2 is exactly the mixing that does the binding.",
+    "STRUCTURE: a single shallow bound state (D), J^P=1^+ (both waves parity +, spin triplet), isospin-0, with a few-percent tensor-induced D-state (E, P_D\u22487%; P_D=0 with the tensor off). The \u00b3S\u2081 tail matches \u03ba=\u221a(M_N E_b)/\u0127c independently (F).",
+    "CALIBRATION (honest): m_pi and f_pi are P3/F77 model outputs; the \u03c0NN coupling f\u00b2/4\u03c0\u22480.074 follows from Goldberger-Treiman with the one external number g_A=1.272 (the deuteron analogue of P3's external g_rhopipi). M_N=938.9 MeV is an external input (P2 not built; absolute scale is P6). The hard-core radius r_c is the one tuned knob (G, r_c\u22480.45 fm -> E_b=2.224 MeV, \u03ba=0.2316/fm both physical).",
+    "PREDICTION vs INPUT: the prediction is the binding MECHANISM and structure (tensor essential; single shallow 1^+ I=0 state; few-% D-wave; \u03ba\u2194E_b), not an absolute MeV from first principles. The short-range repulsive core is phenomenological \u2014 the 'missing ingredient' the roadmap flagged; deriving it (heavy-meson \u03c9/\u03c3 exchange or a lattice contact) is the open follow-up.",
+    "ENGINE: ca_nuclear.py is the F74 two-body solver generalised contact->2-channel (S,D) coupled OPEP; real symmetric 2N\u00d72N Hamiltonian, lowest eigenpair by dense diagonalisation; grid-converged (H)."
+  ],
+  "overall": "PASS"
+}

@@ -4,6 +4,8 @@
 # long thermalisation can be resumed — the Markov chain continues bit-identically.
 # A real production run uses larger L and hundreds of sweeps on Ben's machine.
 name: gauge_mc
+title: "Gauge Monte Carlo"
+description: "Tier-3 F94 SU(3) Wilson lattice gauge theory in 3+1D updated by heat-bath sweeps (tick = one sweep, stochastic); thermalises with bit-identical checkpoint/resume."
 lattice: {L: 6, dims: 4, topology: cubic, c_lat: 1.0}
 seed: 1234
 ticks: 40

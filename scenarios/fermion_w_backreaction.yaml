@@ -5,6 +5,8 @@
 # field consumes the pre-tick current and publishes the updated potential A
 # for the fermion's covariant step this tick.
 name: fermion_w_backreaction
+title: "Fermion-W Back-Reaction"
+description: "Closed Tier-2 loop (E2E B1): the doublet current sources the W field and the W potential, exponentiated into SU(2) links, acts back on the doublet within the same tick."
 lattice: {L: 8, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
 seed: 0
 ticks: 20

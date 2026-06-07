@@ -3,6 +3,8 @@
 # the eikonal light deflection is compared to GR's 4GM/(c²b) (the factor-2,
 # Einstein bend — F64 D-EM2 go/no-go). Static background, so ticks=0.
 name: gravity_deflection
+title: "Gravity Light Deflection"
+description: "Static F64 dielectric lens K=exp(2GM/rc²) built from an open-boundary Poisson mass; compares the eikonal light bend to GR's 4GM/(c²b) (finite-aperture, D-EM2 go/no-go)."
 lattice: {L: 64, dims: 3, topology: cubic, c_lat: 1.0}
 seed: 0
 ticks: 0

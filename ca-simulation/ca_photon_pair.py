@@ -137,6 +137,75 @@ def group_velocity(nhat, h=1e-5):
     return float(pair_dispersion(kx, ky, kz) / h)
 
 
+def group_velocity_at(k0vec, nhat, h=1e-5):
+    """dΩ_pair/dk along nhat evaluated AT a finite carrier k0vec (central
+    difference).  This is the speed a beam packet centred on k0 travels at —
+    at finite k it lies slightly below the k→0 limit 1/√3 (lattice
+    dispersion), so the beam tracker compares against this, not c_lat."""
+    k0vec = np.asarray(k0vec, float)
+    nhat = np.asarray(nhat, float); nhat = nhat / np.linalg.norm(nhat)
+    wp = pair_dispersion(*(k0vec + h * nhat))
+    wm = pair_dispersion(*(k0vec - h * nhat))
+    return float((wp - wm) / (2.0 * h))
+
+
+# ----------------------------------------------------------------------
+# Beam construction: a localized, axis-aligned travelling Gaussian packet.
+# (2026-06-06) Added for the photon_beam scenarios — a *moving* beam you can
+# track, in contrast to build_pair_mode's single standing Fourier mode.
+# ----------------------------------------------------------------------
+def build_beam_packet(L, m_index, axis=0, pol_axis=None, sigma=4.0,
+                      center=None):
+    """Build a travelling Gaussian photon beam on an L³ cubic lattice.
+
+    Construction: the RS analytic field F = E + iB is taken one-sided in k,
+
+        F_pol(x) = exp(−|x−x0|² / 2σ²) · exp(i k0 (x_axis − x0_axis)),
+
+    with carrier k0 = 2π·m_index/L along ``axis`` and polarization along
+    ``pol_axis`` (transverse).  Under the even pair law F_k → e^{−iΩ_pair}F_k,
+    so a one-sided F is a packet travelling in +axis at dΩ_pair/dk|_{k0}.
+    E = Re F, B = Im F — B is the exact quadrature of E within the same
+    Cartesian component, which is what makes the packet one-sided (the
+    backward −k0 content is suppressed by exp(−(k0σ)²); keep k0·σ_axis ≳ 3).
+
+    ``sigma`` may be a scalar or a length-3 sequence (per-axis widths).  A
+    finite transverse width σ⊥ gives the beam an angular spectrum, so its
+    axial speed sits below dΩ/dk|k0 by the diffraction deficit ≈ 1/(2(k0σ⊥)²)
+    — physical beam optics, vanishing as σ⊥ → ∞.  Along a cubic axis
+    Ω_pair(k x̂) = |k|/√3 exactly, so an ideal plane wave is dispersionless.
+
+    Bonus: |F|² = E² + B² is the smooth envelope² (no carrier ripple), so the
+    energy-centroid track is clean.
+
+    Returns (E, B, k0vec) with E, B shaped (3, L, L, L).
+    """
+    axis = int(axis)
+    if pol_axis is None:
+        pol_axis = (axis + 1) % 3
+    pol_axis = int(pol_axis)
+    if pol_axis == axis:
+        raise ValueError("beam polarization must be transverse (pol_axis != axis)")
+    k0 = 2.0 * np.pi * float(m_index) / float(L)
+    if center is None:
+        center = [L / 4.0 if a == axis else L / 2.0 for a in range(3)]
+    sig = np.broadcast_to(np.asarray(sigma, float), (3,))
+    x = [np.arange(L, dtype=float) for _ in range(3)]
+    X = np.meshgrid(*x, indexing="ij")
+    # periodic (minimum-image) displacement from the packet centre
+    d = [np.remainder(X[a] - center[a] + L / 2.0, L) - L / 2.0 for a in range(3)]
+    r2 = sum((d[a] / sig[a]) ** 2 for a in range(3))
+    envelope = np.exp(-r2 / 2.0)
+    F = envelope * np.exp(1j * k0 * d[axis])
+    E = np.zeros((3, L, L, L))
+    B = np.zeros((3, L, L, L))
+    E[pol_axis] = F.real
+    B[pol_axis] = F.imag
+    k0vec = np.zeros(3)
+    k0vec[axis] = k0
+    return E, B, k0vec
+
+
 if __name__ == '__main__':
     # quick self-check
     n = np.array([1, 1, 1.]) / ROOT3

@@ -36,6 +36,7 @@ class GaugeMonteCarloChannel(Channel):
     RNG, so checkpoint/resume reproduces a Markov chain exactly.
     """
     type_name = "gauge_mc"
+    label = "Gauge Monte Carlo"
     propagator = "monte-carlo"        # non-unitary, stochastic
     topologies = ("cubic",)
 
@@ -92,6 +93,7 @@ class DynamicalRefractionChannel(Channel):
     The c-field is the F64 dielectric in the time domain; a packet crossing the
     boundary refracts by Snell's law.  SciPy-dependent (lazy import)."""
     type_name = "refraction_2d"
+    label = "Refraction 2D"
     propagator = "variable-c"
     topologies = ("cubic",)
 

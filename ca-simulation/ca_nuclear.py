@@ -1,0 +1,297 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+ca_nuclear.py
+=============
+
+P4 of roadmap-matter-binding.md — the first NUCLEUS: the deuteron, a proton and
+a neutron bound by the residual strong force.  Full ³S₁–³D₁ coupled-channel
+treatment with the pion TENSOR force (the user-selected faithful scope).
+
+PHYSICS
+-------
+The long-range nucleon-nucleon force is one-pion exchange (OPEP).  In the
+deuteron channel (total spin S=1, isospin T=0, J^P=1^+) the static OPEP is
+
+    V_pi(r) = -(f^2/4pi) m_pi [ (sigma1.sigma2) Y(x) + S12 T(x) ],   x = m_pi r/hbar c
+
+    Y(x) = e^{-x}/x ,   T(x) = (1 + 3/x + 3/x^2) e^{-x}/x
+
+with sigma1.sigma2 = +1 (triplet) and the tensor operator
+S12 = 3 (sigma1.n)(sigma2.n) - sigma1.sigma2.  S12 is NOT diagonal: it mixes the
+L=0 (³S₁) and L=2 (³D₁) partial waves, and in the {³S₁, ³D₁} basis its
+spin-angular matrix is the Rarita-Schwinger result
+
+    <S12> = [[ 0,      2*sqrt(2) ],
+             [ 2*sqrt(2), -2      ]]          (verified here by CG construction).
+
+Because central OPEP alone is too weak to bind (2 mu V0 a^2/hbar^2 ~ 0.5 < the
+Yukawa threshold 1.68), the deuteron binds ONLY through the tensor coupling that
+mixes in the D-wave — this is the sharp, falsifiable signature.
+
+ENGINE
+------
+The radial problem is the F74 two-body bound-state solver generalised from a
+single contact channel to a 2-channel (S,D) coupled system: a real symmetric
+2N×2N Hamiltonian (finite-difference kinetic + centrifugal + the OPEP potential
+matrix), lowest eigenvalue by dense diagonalisation.  A hard core at r_c
+regularises the 1/x^3 tensor singularity (the phenomenological short-range core
+the model does not yet derive — flagged).
+
+CALIBRATION / INPUTS  (honest accounting)
+-----------------------------------------
+  • m_pi, f_pi        : from P3 (`ca_meson.py` / F77), the model's own outputs.
+  • g_A = 1.2723      : EXTERNAL (measured axial charge) — the one new number,
+                        analogous to the ρ's g_rhopipi in P3.
+  • f^2/4pi           : DERIVED from the above by Goldberger-Treiman at the
+                        nucleon, f_piNN = g_A m_pi/(2 f_pi)  ->  f^2/4pi.
+  • M_N = 938.92 MeV  : EXTERNAL nucleon mass (P2 not built; absolute scale is a
+                        P6 concern).  Sets the reduced mass mu = M_N/2.
+  • r_c               : the short-range core radius — the one tuned knob; tuned
+                        to the physical E_b = 2.224 MeV.
+
+The PREDICTION is the binding MECHANISM and structure (tensor force essential,
+single shallow 1^+ I=0 bound state, few-percent D-state), not an absolute MeV
+from first principles.
+
+All arithmetic REAL.  numpy only.
+"""
+
+from __future__ import annotations
+
+import math
+import numpy as np
+
+HBARC = 197.32698        # MeV·fm
+M_N = 938.918            # MeV  (isospin-averaged nucleon mass) — EXTERNAL (P6)
+G_A = 1.2723             # axial charge — EXTERNAL
+M_PI_DEFAULT = 138.039   # MeV  (isospin-averaged) — P3 supplies the model value
+F_PI_DEFAULT = 92.07     # MeV  — P3/F77 supplies the model value
+
+
+# ===========================================================================
+#  Clebsch-Gordan + the tensor spin-angular matrix <S12> by explicit
+#  construction (machine-precision verification of [[0, 2√2],[2√2, -2]]).
+# ===========================================================================
+def clebsch_gordan(j1, m1, j2, m2, J, M):
+    """<j1 m1 j2 m2 | J M> via the Racah closed form (exact for our half-integers)."""
+    if m1 + m2 != M:
+        return 0.0
+    if not (abs(j1 - j2) <= J <= j1 + j2):
+        return 0.0
+    if abs(m1) > j1 or abs(m2) > j2 or abs(M) > J:
+        return 0.0
+    f = math.factorial
+    pref = (2 * J + 1) * f(int(J + j1 - j2)) * f(int(J - j1 + j2)) * f(int(j1 + j2 - J))
+    pref /= f(int(j1 + j2 + J + 1))
+    pref *= (f(int(J + M)) * f(int(J - M)) * f(int(j1 - m1)) * f(int(j1 + m1)) *
+             f(int(j2 - m2)) * f(int(j2 + m2)))
+    pref = math.sqrt(pref)
+    s = 0.0
+    for k in range(0, int(j1 + j2 + J) + 2):
+        d = [j1 + j2 - J - k, j1 - m1 - k, j2 + m2 - k, J - j2 + m1 + k, J - j1 - m2 + k]
+        if any(x < 0 for x in d):
+            continue
+        s += ((-1) ** k) / (f(k) * f(int(j1 + j2 - J - k)) * f(int(j1 - m1 - k)) *
+                            f(int(j2 + m2 - k)) * f(int(J - j2 + m1 + k)) *
+                            f(int(J - j1 - m2 + k)))
+    return pref * s
+
+
+# Pauli matrices and the two-nucleon (4-dim) spin space.
+_SX = np.array([[0, 1], [1, 0]], dtype=complex)
+_SY = np.array([[0, -1j], [1j, 0]], dtype=complex)
+_SZ = np.array([[1, 0], [0, -1]], dtype=complex)
+_I2 = np.eye(2, dtype=complex)
+
+
+def _sigma_dot_n(nx, ny, nz):
+    return nx * _SX + ny * _SY + nz * _SZ
+
+
+def _two_nucleon_triplet_basis():
+    """|1,+1>, |1,0>, |1,-1> as 4-vectors in |s1 s2> = {uu, ud, du, dd}."""
+    uu = np.array([1, 0, 0, 0], dtype=complex)
+    ud = np.array([0, 1, 0, 0], dtype=complex)
+    du = np.array([0, 0, 1, 0], dtype=complex)
+    dd = np.array([0, 0, 0, 1], dtype=complex)
+    return {1: uu, 0: (ud + du) / np.sqrt(2.0), -1: dd}
+
+
+def _Y2(M, theta, phi):
+    """Spherical harmonics Y_{2,M} for M in {-1,0,1} (the only ones reached at total M=0)."""
+    st, ct = np.sin(theta), np.cos(theta)
+    if M == 0:
+        return math.sqrt(5.0 / (16.0 * np.pi)) * (3.0 * ct * ct - 1.0)
+    if M == 1:
+        return -math.sqrt(15.0 / (8.0 * np.pi)) * st * ct * np.exp(1j * phi)
+    if M == -1:
+        return math.sqrt(15.0 / (8.0 * np.pi)) * st * ct * np.exp(-1j * phi)
+    raise ValueError(M)
+
+
+def tensor_matrix_via_construction(n_theta=48, n_phi=48):
+    """Build <³L'₁ | S12 | ³L₁> for L,L' in {0,2} at total J=1, M=0 by quadrature
+    over the sphere with explicit spinor-spherical-harmonic states.
+    Returns the 2×2 matrix in basis (S=L0, D=L2). Should equal [[0,2√2],[2√2,-2]]."""
+    trip = _two_nucleon_triplet_basis()
+    sig1 = {  # sigma1 . n  acting on s1 (first qubit): (n.sigma) ⊗ I
+        "x": np.kron(_SX, _I2), "y": np.kron(_SY, _I2), "z": np.kron(_SZ, _I2)}
+    sig2 = {"x": np.kron(_I2, _SX), "y": np.kron(_I2, _SY), "z": np.kron(_I2, _SZ)}
+    s1s2 = sig1["x"] @ sig2["x"] + sig1["y"] @ sig2["y"] + sig1["z"] @ sig2["z"]
+
+    # |³S₁,0> = Y00 |1,0>;   |³D₁,0> = sum_{ML} <2 ML 1 -ML|1 0> Y_{2,ML} |1,-ML>
+    Y00 = 1.0 / math.sqrt(4.0 * np.pi)
+    cg = {ML: clebsch_gordan(2, ML, 1, -ML, 1, 0) for ML in (-1, 0, 1)}
+
+    # Gauss-Legendre in cosθ, uniform in φ.
+    x, w = np.polynomial.legendre.leggauss(n_theta)      # nodes in cosθ ∈ [-1,1]
+    thetas = np.arccos(x)
+    phis = (np.arange(n_phi) + 0.5) * 2.0 * np.pi / n_phi
+    dphi = 2.0 * np.pi / n_phi
+
+    M = np.zeros((2, 2), dtype=complex)
+    for it, th in enumerate(thetas):
+        st, ct = np.sin(th), np.cos(th)
+        for ph in phis:
+            nx, ny, nz = st * np.cos(ph), st * np.sin(ph), ct
+            S12 = 3.0 * (_sigma_dot_n_kron(nx, ny, nz)) - s1s2
+            # states at this (θ,φ)
+            psiS = Y00 * trip[0]
+            psiD = np.zeros(4, dtype=complex)
+            for ML in (-1, 0, 1):
+                psiD += cg[ML] * _Y2(ML, th, ph) * trip[-ML]
+            states = [psiS, psiD]
+            weight = w[it] * dphi
+            for a in range(2):
+                for b in range(2):
+                    M[a, b] += weight * np.vdot(states[a], S12 @ states[b])
+    return M.real
+
+
+def _sigma_dot_n_kron(nx, ny, nz):
+    """(sigma1 . n)(sigma2 . n) as a 4×4 operator."""
+    s1 = nx * np.kron(_SX, _I2) + ny * np.kron(_SY, _I2) + nz * np.kron(_SZ, _I2)
+    s2 = nx * np.kron(_I2, _SX) + ny * np.kron(_I2, _SY) + nz * np.kron(_I2, _SZ)
+    return s1 @ s2
+
+
+# Analytic Rarita-Schwinger tensor matrix used by the fast solver.
+S12_SS, S12_SD, S12_DD = 0.0, 2.0 * math.sqrt(2.0), -2.0
+
+
+# ===========================================================================
+#  OPEP radial form factors and the coupling.
+# ===========================================================================
+def Y_yukawa(x):
+    return np.exp(-x) / x
+
+
+def T_tensor(x):
+    return (1.0 + 3.0 / x + 3.0 / (x * x)) * np.exp(-x) / x
+
+
+def f2_over_4pi(m_pi=M_PI_DEFAULT, f_pi=F_PI_DEFAULT, g_A=G_A):
+    """Pseudovector πNN coupling from Goldberger-Treiman: f_piNN = g_A m_pi/(2 f_pi)."""
+    f_piNN = g_A * m_pi / (2.0 * f_pi)
+    return f_piNN ** 2 / (4.0 * np.pi)
+
+
+# ===========================================================================
+#  Coupled-channel ³S₁–³D₁ radial solver (F74 engine, 2 channels).
+# ===========================================================================
+def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
+                   f_pi=F_PI_DEFAULT, g_A=G_A, tensor=True, m_N=M_N, vectors=True):
+    """Lowest eigenstate of the coupled ³S₁–³D₁ OPEP Hamiltonian with a hard
+    core at r_c.  Returns a dict with E (MeV; <0 = bound), E_b, P_D, kappa,
+    the radial grid and (u,w), and the second eigenvalue (excited-state check).
+
+    tensor=False zeroes the S12 (tensor) terms -> central OPEP only.
+    vectors=False uses eigvalsh (eigenvalues only) — ~2× faster for tuning.
+    """
+    mu = m_N / 2.0
+    kin = HBARC ** 2 / (2.0 * mu)             # MeV·fm^2  (= hbar^2/2mu)
+    V0 = f2_over_4pi(m_pi, f_pi, g_A) * m_pi   # MeV
+    comp = HBARC / m_pi                        # pion Compton length (fm)
+
+    h = (R_max - r_c) / (N + 1)
+    r = r_c + h * np.arange(1, N + 1)          # interior nodes (u=0 at both ends)
+    x = r / comp
+
+    # finite-difference -d^2/dr^2 (tridiagonal), times kin
+    main = 2.0 * np.ones(N) / h ** 2
+    off = -1.0 * np.ones(N - 1) / h ** 2
+    D2 = (np.diag(main) + np.diag(off, 1) + np.diag(off, -1))   # = -d^2/dr^2
+    K = kin * D2
+
+    centrifugal = kin * 6.0 / r ** 2           # L(L+1)=6 for D-wave
+
+    Y = Y_yukawa(x)
+    T = T_tensor(x)
+    # OPEP potential matrix (MeV). sigma1.sigma2 = +1 (triplet).
+    V_SS = -V0 * Y
+    if tensor:
+        V_SD = S12_SD * (-V0 * T)              # 2√2 · (tensor radial)
+        V_DD = -V0 * Y + S12_DD * (-V0 * T)    # central + (-2)·tensor radial
+    else:
+        V_SD = np.zeros(N)
+        V_DD = -V0 * Y                          # central only in D-channel
+
+    H = np.zeros((2 * N, 2 * N))
+    H[:N, :N] = K + np.diag(V_SS)
+    H[N:, N:] = K + np.diag(centrifugal + V_DD)
+    H[:N, N:] = np.diag(V_SD)
+    H[N:, :N] = np.diag(V_SD)
+
+    if vectors:
+        evals, evecs = np.linalg.eigh(H)
+        v0 = evecs[:, 0]
+        u, w = v0[:N], v0[N:]
+        nrm = np.sum(u ** 2 + w ** 2)
+        P_D = float(np.sum(w ** 2) / nrm)
+    else:
+        evals = np.linalg.eigvalsh(H)
+        u = w = None
+        P_D = float("nan")
+    E0 = float(evals[0])
+    E1 = float(evals[1])
+    E_b = -E0 if E0 < 0 else 0.0
+    kappa = math.sqrt(2.0 * mu * E_b) / HBARC if E_b > 0 else 0.0   # 1/fm
+
+    return {
+        "E": E0, "E1": E1, "E_b": E_b, "bound": E0 < 0.0,
+        "P_D": P_D, "kappa": kappa, "V0": V0, "comp": comp,
+        "r": r, "u": u, "w": w, "h": h, "r_c": r_c, "N": N,
+        "f2_4pi": f2_over_4pi(m_pi, f_pi, g_A),
+    }
+
+
+def tune_core_to_binding(target_Eb=2.224, lo=0.2, hi=1.2, **kw):
+    """Bisection on the hard-core radius r_c to hit a target binding energy.
+    E_b decreases as r_c grows (less attractive volume). Returns (r_c, result)."""
+    def Eb(rc):
+        return solve_deuteron(r_c=rc, vectors=False, **kw)["E_b"]
+    # ensure bracket: small r_c -> deeper (E_b larger); large r_c -> shallower
+    for _ in range(40):
+        mid = 0.5 * (lo + hi)
+        if Eb(mid) > target_Eb:
+            lo = mid      # too deep -> increase r_c
+        else:
+            hi = mid
+    rc = 0.5 * (lo + hi)
+    return rc, solve_deuteron(r_c=rc, **kw)   # final solve WITH vectors (P_D, ψ)
+
+
+if __name__ == "__main__":
+    print("Tensor spin-angular matrix <S12> by CG construction:")
+    Mt = tensor_matrix_via_construction()
+    print(np.array2string(Mt, precision=6, suppress_small=True))
+    print(f"  target [[0, 2√2],[2√2,-2]] = [[0, {2*math.sqrt(2):.6f}],[..,-2]]\n")
+
+    rc, d = tune_core_to_binding()
+    print(f"Deuteron (full ³S₁–³D₁ OPEP, r_c tuned = {rc:.4f} fm):")
+    print(f"  E_b   = {d['E_b']:.4f} MeV   (target 2.224)")
+    print(f"  P_D   = {100*d['P_D']:.2f} %   (D-state admixture)")
+    print(f"  kappa = {d['kappa']:.4f} /fm")
+    dc = solve_deuteron(r_c=rc, tensor=False)
+    print(f"  central-only at same r_c: bound={dc['bound']}  (tensor essential)")

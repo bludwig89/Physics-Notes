@@ -5,6 +5,8 @@
 #   nu_e is the upper component of the electron doublet (weak + gravity only,
 #   enforced by the derived applicability matrix).
 name: particles_first_gen
+title: "First-Generation Particles"
+description: "Particle-layer pilot (P1): typed first-generation particles (electron doublet, u quark) stacked on one BCC lattice, interacting through the four force channels."
 lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
 seed: 7
 ticks: 60
