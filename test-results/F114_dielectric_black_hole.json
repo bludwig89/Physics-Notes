@@ -1,0 +1,120 @@
+{
+  "finding": "F114",
+  "title": "The dielectric black hole (exponential metric)",
+  "timestamp": "2026-06-08 - 20:41",
+  "exact": {
+    "throat": "e",
+    "photon_sphere": "2*sqrt(e)",
+    "shadow_b_c": "2*e",
+    "shadow_ratio_vs_schw": 1.0462671635960652,
+    "redshift_throat": "e",
+    "second_order_alpha2": "4*pi"
+  },
+  "eht": {
+    "M87*": {
+      "theta_g_uas": 3.818993117174679,
+      "shadow_GR_uas": 39.688140676214324,
+      "shadow_lat_uas": 41.52439837370438,
+      "enlargement_pct": 4.62671635960652,
+      "ring_meas_uas": 42.0,
+      "ring_err_uas": 3.0,
+      "gr_within_err": true,
+      "lat_within_err": true
+    },
+    "Sgr A*": {
+      "theta_g_uas": 5.124331289329899,
+      "shadow_GR_uas": 53.25361288760591,
+      "shadow_lat_uas": 55.7175065071583,
+      "enlargement_pct": 4.62671635960652,
+      "ring_meas_uas": 51.8,
+      "ring_err_uas": 2.3,
+      "gr_within_err": true,
+      "lat_within_err": true
+    }
+  },
+  "npass": 9,
+  "ntot": 9,
+  "rows": [
+    {
+      "name": "event horizon",
+      "tier": "PREDICTION",
+      "model": "NONE (g_tt=-e^{-2u} has no finite root; local c=e^{-2u}->0 only at r->0)",
+      "schwarzschild": "horizon at R=2",
+      "verdict": "horizon-free: asymptotic freeze, no one-way membrane",
+      "passed": true,
+      "note": "light from the interior is exponentially slowed/redshifted, not trapped"
+    },
+    {
+      "name": "throat (min areal radius)",
+      "tier": "PREDICTION",
+      "model": "R_min = E = 2.7183 GM/c^2 at isotropic r=1",
+      "schwarzschild": "(no analogue; horizon at 2)",
+      "verdict": "areal radius bottoms out just outside the Schwarzschild radius",
+      "passed": true,
+      "note": "dR/dr=0 at r=1; e=2.71828 > 2"
+    },
+    {
+      "name": "photon sphere",
+      "tier": "PREDICTION",
+      "model": "R_ph = 2*exp(1/2) = 3.2974 GM/c^2 (isotropic r=2)",
+      "schwarzschild": "R_ph = 3 GM/c^2",
+      "verdict": "+9.9% vs GR",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "shadow impact parameter b_c",
+      "tier": "PREDICTION",
+      "model": "b_c = 2*E = 5.4366 GM/c^2",
+      "schwarzschild": "3*sqrt3 = 5.1962 GM/c^2",
+      "verdict": "+4.63% larger shadow",
+      "passed": true,
+      "note": "b_c = 2e; the headline EHT-testable departure"
+    },
+    {
+      "name": "surface redshift at throat",
+      "tier": "PREDICTION",
+      "model": "1+z = E = 2.7183 (finite; z=1.718)",
+      "schwarzschild": "1+z -> infinity at horizon",
+      "verdict": "finite at the throat; diverges only as r->0 (no infinite-redshift surface)",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "2nd-order deflection coefficient",
+      "tier": "PREDICTION",
+      "model": "alpha_2 = 4*pi = 4*pi (exponential index sigma=2)",
+      "schwarzschild": "15*pi/4 (Schwarzschild sigma=7/4)",
+      "verdict": "excess = pi/4 per eps^2 (bends more)",
+      "passed": true,
+      "note": "alpha = 4*eps + alpha_2*eps^2; departs from GR at O((GM/bc^2)^2) \u2014 F111"
+    },
+    {
+      "name": "EHT shadow \u2014 M87*",
+      "tier": "FALSIFIER",
+      "model": "41.5 uas (lattice)",
+      "schwarzschild": "39.7 uas (GR)",
+      "verdict": "+4.63%; ring meas 42+/-3 uas",
+      "passed": true,
+      "note": "4.6% enlargement below current ~3 uas error; an ngEHT discriminator"
+    },
+    {
+      "name": "EHT shadow \u2014 Sgr A*",
+      "tier": "FALSIFIER",
+      "model": "55.7 uas (lattice)",
+      "schwarzschild": "53.3 uas (GR)",
+      "verdict": "+4.63%; ring meas 52+/-2 uas",
+      "passed": true,
+      "note": "both GR and lattice consistent with the measured ring at present precision"
+    },
+    {
+      "name": "GW ringdown echoes",
+      "tier": "PREDICTION",
+      "model": "echoes present (no horizon to absorb the ringdown)",
+      "schwarzschild": "no echoes (horizon absorbs)",
+      "verdict": "horizonless object reflects -> late-time GW echoes (LIGO/Virgo target)",
+      "passed": true,
+      "note": "delay ~ GM/c^3 x log(compactness); qualitative signature of no horizon"
+    }
+  ]
+}

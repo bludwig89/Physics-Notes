@@ -1,0 +1,98 @@
+{
+  "T1_canonical_tau_anchored_spectrum": {
+    "pass": true,
+    "angle (deg, measured)": 12.733,
+    "N_tau = m_tau (MeV)": 1776.86,
+    "m_tau^cond (wall)": 1.0,
+    "m_mu pred (MeV)": 105.6575,
+    "m_mu PDG": 105.6583755,
+    "m_mu err": "-0.00%",
+    "m_mu pred (kg)": "1.883515e-28",
+    "m_e pred (MeV)": 0.51069,
+    "m_e PDG": 0.51099895,
+    "m_e err": "-0.06%",
+    "m_e pred (kg)": "9.103820e-31",
+    "statement": "tau-anchored canonical readout: from m_tau plus the measured angle the equipartition shape gives m_mu to <0.1% and m_e to ~0.1%. The tau anchor adds zero scale error (m_tau^cond=1)."
+  },
+  "T2_tau_anchor_is_delta_stable": {
+    "pass": true,
+    "|dln(m_tau)/ddelta| (wall)": "0.00e+00",
+    "|dln(m_e)/ddelta| (node)": 0.894,
+    "model-angle m_mu err, TAU-anchored": "+5.5%",
+    "model-angle m_mu err, electron-anchored (F120)": "+104%",
+    "statement": "the tau is EXACTLY delta-stable (m_tau^cond=1 for all delta), so the anchor adds no error; with the model angle it predicts m_mu to ~5% (the angle's error), vs ~100% when anchored on the node-sitting electron. tau is the robust canonical anchor."
+  },
+  "T3_full_fermion_kg_table_tau_anchored": {
+    "pass": true,
+    "table": {
+      "electron": {
+        "MeV_pred": 0.51069,
+        "kg_pred": "9.103820e-31",
+        "MeV_PDG": 0.51099895,
+        "err": "-0.06%",
+        "tier": "PREDICTED (shape + m_tau)"
+      },
+      "muon": {
+        "MeV_pred": 105.65747,
+        "kg_pred": "1.883515e-28",
+        "MeV_PDG": 105.6583755,
+        "err": "-0.00%",
+        "tier": "PREDICTED (shape + m_tau)"
+      },
+      "tau": {
+        "MeV_pred": 1776.86,
+        "kg_pred": "3.167541e-27",
+        "MeV_PDG": 1776.86,
+        "err": "anchor",
+        "tier": "ANCHOR"
+      },
+      "up": {
+        "MeV": 2.16,
+        "kg": "3.850550e-30",
+        "tier": "CONSISTENCY (measured -> kg)"
+      },
+      "down": {
+        "MeV": 4.67,
+        "kg": "8.325031e-30",
+        "tier": "CONSISTENCY (measured -> kg)"
+      },
+      "strange": {
+        "MeV": 93.4,
+        "kg": "1.665006e-28",
+        "tier": "CONSISTENCY (measured -> kg)"
+      },
+      "charm": {
+        "MeV": 1270.0,
+        "kg": "2.263981e-27",
+        "tier": "CONSISTENCY (measured -> kg)"
+      },
+      "bottom": {
+        "MeV": 4180.0,
+        "kg": "7.451527e-27",
+        "tier": "CONSISTENCY (measured -> kg)"
+      },
+      "top": {
+        "MeV": 172690.0,
+        "kg": "3.078479e-25",
+        "tier": "CONSISTENCY (measured -> kg)"
+      }
+    },
+    "statement": "canonical kg readout anchored on the tau: leptons predicted by the shape (<=0.1% at the measured angle); quarks are the measured masses converted to kg (consistency)."
+  },
+  "T4_koide_two_thirds": {
+    "pass": true,
+    "Q condensate": 0.666667,
+    "Q data (PDG)": 0.666661,
+    "statement": "Koide Q=2/3 holds geometrically, independent of the anchor."
+  },
+  "V_verdict": {
+    "pass": true,
+    "canonical anchor": "tau (wall-pinned, m_tau^cond=1, exactly delta-stable) -- adopted as the standard mass-scale anchor in place of the electron.",
+    "canonical lepton readout (measured angle)": {
+      "m_e (MeV)": 0.51069,
+      "m_mu (MeV)": 105.6575,
+      "m_tau (MeV)": 1776.86
+    },
+    "open inputs (unchanged, F119)": "the overall scale N (=m_tau here) and the angle lambda6; everything else (ratios, Koide) is the derived shape."
+  }
+}

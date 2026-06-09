@@ -3,7 +3,7 @@
   "date": "2026-06-01",
   "n_tests": 6,
   "n_passed": 6,
-  "total_elapsed_s": 0.4177929170000425,
+  "total_elapsed_s": 0.4295091669919202,
   "results": [
     {
       "test": "GF1",
@@ -15,7 +15,7 @@
       "cool_res": 0.0,
       "passed": true,
       "description": "staples = 2I \u2192 TA(2I)=0 bit-for-bit; cooling projects I\u2192I",
-      "elapsed_s": 0.0068146249977871776
+      "elapsed_s": 0.00529712499701418
     },
     {
       "test": "GF2",
@@ -28,7 +28,7 @@
       "cool_det": 6.885279791348024e-16,
       "passed": true,
       "description": "exp of su(3) and SU(3)-projection stay in the group",
-      "elapsed_s": 0.08909508299984736
+      "elapsed_s": 0.09733537600550335
     },
     {
       "test": "GF3",
@@ -41,7 +41,7 @@
       "max_step_increase": -0.004922166022964247,
       "passed": true,
       "description": "gradient descent on S_W: dS/dt = -\u03a3\u2016Z\u2016\u00b2 \u2264 0",
-      "elapsed_s": 0.2682615829980932
+      "elapsed_s": 0.2731942079990404
     },
     {
       "test": "GF4",
@@ -52,7 +52,7 @@
       "traceless_res": 5.551115123125783e-16,
       "passed": true,
       "description": "TA projection yields a Lie-algebra-valued force",
-      "elapsed_s": 0.008396834000450326
+      "elapsed_s": 0.00835808299598284
     },
     {
       "test": "GF5",
@@ -61,7 +61,7 @@
       "target": 1e-11,
       "passed": true,
       "description": "the central correctness certificate for the integrator",
-      "elapsed_s": 0.03878716599865584
+      "elapsed_s": 0.03883187500468921
     },
     {
       "test": "GF6",
@@ -78,7 +78,7 @@
       "all_decaying": true,
       "passed": true,
       "description": "diffusive smoothing: rate proportional to k\u0302\u00b2 across modes",
-      "elapsed_s": 0.006359416998748202
+      "elapsed_s": 0.006411249996745028
     }
   ]
 }

@@ -1,0 +1,97 @@
+{
+  "CM1": {
+    "sin2_thetaW_bare": 0.25,
+    "(e/g)^2": "1/4",
+    "(g'/g)^2": "1/3",
+    "(g_Z/g)^2": "4/3",
+    "g'^2/g^2 == 1/3 (F45)": true,
+    "free_magnitudes_in_EW_sector": 1,
+    "PASS": true
+  },
+  "CM2": {
+    "note": "boundary sin^2 th_W=1/4 at mu_L; magnitude fixed by alpha_em(M_Z); sin^2 th_W(M_Z), m_Z/m_W, g_V^{eL}, alpha_s predicted.",
+    "scenarios": [
+      {
+        "label": "SM (3 gen, 1 Higgs doublet)",
+        "Ng": 3,
+        "NH": 1,
+        "mu_L_GeV": 1.8504757892461158e+18,
+        "L=ln(muL/MZ)": 37.54905554036942,
+        "b1": 4.1,
+        "b2": -3.1666666666666665,
+        "b3": -7.0,
+        "alpha_star_inv(muL)": 106.03856807516631,
+        "inv_alpha2(MZ)": 7.585268992798856,
+        "inv_alpha1(MZ)": 72.21943860432069,
+        "inv_alpha3(MZ)": -15.323182564981817,
+        "inv_alpha_em(MZ)": 127.95100000000001,
+        "sin2_thetaW(MZ)_pred": 0.059282608129665695,
+        "sin2_MSbar_meas": 0.23122,
+        "sin2_onshell_meas": 0.22339,
+        "resid_vs_MSbar_%": -74.36095141870699,
+        "resid_vs_onshell_%": -73.46228204948041,
+        "mZ/mW(MZ)_pred": 1.031027889898217,
+        "gV_eL(MZ)_pred": -0.38143478374066864,
+        "alpha_s(MZ)_pred[g2=g3]": -0.06526059425052518,
+        "alpha_s_meas": 0.1179,
+        "bare_sin2_gap_%": 8.122134763428765
+      },
+      {
+        "label": "Higgs-free (3 gen, model-correct)",
+        "Ng": 3,
+        "NH": 0,
+        "mu_L_GeV": 1.8504757892461158e+18,
+        "L=ln(muL/MZ)": 37.54905554036942,
+        "b1": 4.0,
+        "b2": -3.3333333333333335,
+        "b3": -7.0,
+        "alpha_star_inv(muL)": 108.03060734106029,
+        "inv_alpha2(MZ)": 7.087259176325361,
+        "inv_alpha1(MZ)": 72.51824449420478,
+        "inv_alpha3(MZ)": -14.825172748508322,
+        "inv_alpha_em(MZ)": 127.951,
+        "sin2_thetaW(MZ)_pred": 0.05539041645884254,
+        "sin2_MSbar_meas": 0.23122,
+        "sin2_onshell_meas": 0.22339,
+        "resid_vs_MSbar_%": -76.04427970813833,
+        "resid_vs_onshell_%": -75.20461235559222,
+        "mZ/mW(MZ)_pred": 1.028901561441562,
+        "gV_eL(MZ)_pred": -0.3892191670823149,
+        "alpha_s(MZ)_pred[g2=g3]": -0.06745283963727289,
+        "alpha_s_meas": 0.1179,
+        "bare_sin2_gap_%": 8.122134763428765
+      }
+    ],
+    "verdict_Planck_anchor": "one-loop running from the lattice (Planck) scale OVERSHOOTS: sin^2->0.06, alpha_s unphysical. The +12% gap is NOT a desert-running effect; running the bare angle the SU(5) way makes it worse.",
+    "crossing_scale_measured_trajectory": [
+      {
+        "Ng": 3,
+        "NH": 1,
+        "mu_star_GeV": 3678.9619935333835,
+        "t=ln(mu*/MZ)": 3.697467001476043,
+        "sin2_at_mu_star": 0.25,
+        "mZ/mW_at_mu_star": 1.1547005383792517,
+        "gV_eL_at_mu_star": 0.0
+      },
+      {
+        "Ng": 3,
+        "NH": 0,
+        "mu_star_GeV": 3416.7209527106465,
+        "t=ln(mu*/MZ)": 3.6235176614465217,
+        "sin2_at_mu_star": 0.24999999999999997,
+        "mZ/mW_at_mu_star": 1.1547005383792517,
+        "gV_eL_at_mu_star": -5.551115123125783e-17
+      }
+    ],
+    "verdict_crossing": "the measured SM trajectory passes through sin^2=1/4 at a few TeV; the 12% gap is a low-scale matching offset, not 16 decades of running."
+  },
+  "CM3": {
+    "F110_identity": "chi = 1/(4 g_s^2)",
+    "rule_normalization_chi": 1,
+    "locked_combination g_s^2*chi": "1/4",
+    "g_s_bare(chi=1)": 0.5,
+    "sigma1_2D(F100, lattice units)": 0.2015,
+    "interpretation": "g_s is not independent: the rule's stiffness fixes g_s^2*chi=1/4. Lattice sigma_1 = (1/4)<1/Omega>_BZ is a pure number (no free g_s).",
+    "PASS": true
+  }
+}

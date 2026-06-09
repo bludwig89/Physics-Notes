@@ -1,0 +1,89 @@
+{
+  "NJ1": {
+    "F77_inputs": {
+      "Lambda_MeV": 651.5,
+      "G*Lambda^2": 2.1,
+      "m0_MeV": 5.5
+    },
+    "reduction": "1 ruler (Lambda) + 2 dimensionless (G*Lambda^2, m0/Lambda)",
+    "g_hat = G*Lambda^2": 2.1,
+    "m_hat = m0/Lambda": 0.00844205679201842,
+    "G_c*Lambda^2 = pi^2/(Nc*Nf)": 1.6449340668482264,
+    "G/G_c (near-critical ratio)": 1.276646913893456,
+    "Lambda vs chiral scale 4*pi*f_pi": 1161.1326447667875,
+    "Lambda/(4*pi*f_pi)": 0.5610900726426938,
+    "note": "Lambda ~ O(chiral scale 4 pi f_pi=1161 MeV); it is set by f_pi/the ruler, not an independent fundamental number. Genuine NJL inputs: 2 dimensionless."
+  },
+  "NJ2": {
+    "grid": "48^3 BZ, K=sum 2(1-cos k_i)",
+    "I1(0)_BZ": 0.45528861113299685,
+    "g_c (dimensionless lattice)": 2.1964089932130646,
+    "G_c_lattice": 0.09151704138387769,
+    "gap_scan": [
+      {
+        "g/g_c": 0.8,
+        "M_dyn": 3.84915842646689e-14,
+        "broken": "False"
+      },
+      {
+        "g/g_c": 0.9,
+        "M_dyn": 8.584494706781817e-14,
+        "broken": "False"
+      },
+      {
+        "g/g_c": 0.9500000000000001,
+        "M_dyn": 1.8797628225558144e-13,
+        "broken": "False"
+      },
+      {
+        "g/g_c": 1.05,
+        "M_dyn": 0.5553677903160479,
+        "broken": "True"
+      },
+      {
+        "g/g_c": 1.1,
+        "M_dyn": 0.839977115330236,
+        "broken": "True"
+      },
+      {
+        "g/g_c": 1.3,
+        "M_dyn": 1.6536020023783835,
+        "broken": "True"
+      },
+      {
+        "g/g_c": 1.6,
+        "M_dyn": 2.592707504282543,
+        "broken": "True"
+      }
+    ],
+    "subcritical_M=0": true,
+    "supercritical_M>0": true,
+    "second_order_continuous (M->0 as g->g_c+)": "True",
+    "M_near_gc": [
+      0.486942584118439,
+      0.32524942805668255,
+      0.21884997960872926,
+      0.14845550209666555,
+      0.10166964851790548
+    ],
+    "PASS": "True",
+    "note": "Cutoff is the zone edge pi; no free Lambda. Chiral SB is a continuous (second-order) threshold in g; 3D IR log softens the mean-field exponent."
+  },
+  "NJ3": {
+    "g/g_c": 1.3,
+    "M_dyn": 1.6536020023783835,
+    "1 - 2 G Pi_PS(0)": 3.552713678800501e-15,
+    "m_pi (chiral limit)": 0.0,
+    "PASS": "True",
+    "note": "Pseudoscalar pole at q^2=0 is identically the gap equation -> exact Goldstone with BZ regularization (F77 theorem survives the lattice cutoff)."
+  },
+  "NJ4": {
+    "Fierz_SU3 (Nc^2-1)/(2Nc^2)": 0.4444444444444444,
+    "g_s^2 (rotor lock, F115)": 0.25,
+    "g_hat target (=G Lambda^2)": 2.1,
+    "(Lambda/M_g)^2 needed": 18.900000000000002,
+    "Lambda/M_g needed": 4.347413023856832,
+    "interpretation": "Induced G ~ (4/9) g_s^2 / M_g^2. Reproducing 2.10 needs the gluon/dielectric mass M_g ~ Lambda/4.3, i.e. a confinement scale below the NJL cutoff -- physically sensible. Mechanism identified; the exact O(1) coefficient needs the full momentum-dependent Fierz reduction (open).",
+    "status": "mechanism (order of magnitude), not a closed coefficient"
+  }
+}

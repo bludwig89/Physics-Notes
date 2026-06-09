@@ -52,6 +52,16 @@ The first nucleus is delivered: a bound, shallow, $J^P=1^+$, isospin-0 deuteron 
 
 ## Scope / next
 
+> **UPDATE 2026-06-08 - 14:35 — open item CLOSED by [[f113-nn-repulsive-core]].**
+> The "derived short-range core to replace the tuned hard core" flagged below is
+> now supplied: F113 derives the core from the quark substructure (Pauli + colour-
+> magnetic, height $+341.8$ MeV exact given $g_\text{cm}$) and it is built into
+> `ca_nuclear.py` as `solve_deuteron(core="derived", b=...)`. Re-binding with the
+> derived core (no hard wall) returns the physical $E_b=2.224$ MeV, $\kappa=0.2316$
+> fm$^{-1}$, single bound $1^+$ state, tensor still essential (test Part I, 16/16
+> PASS). The tuned knob is now the quark size $b\approx0.41$ fm, a physical length,
+> not an ad-hoc wall radius.
+
 The open item is exactly the one the roadmap anticipated: a *derived* short-range core (heavy-meson ω/σ exchange, or a lattice contact from the quark substructure) to replace the tuned hard core. Absolute numbers (currently using physical $M_N$) firm up once P2 (dynamical baryon mass) and P6 (SI scale) are in place. With P3 and P4 done, the QCD-chain branch of the roadmap reaches its first nucleus; the remaining matter-binding phases are P2 (dynamical proton/neutron) and P5 (atoms / hydrogen), plus the cross-cutting P6.
 
 ## Files

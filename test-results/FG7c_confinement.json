@@ -3,7 +3,7 @@
   "date": "2026-06-01",
   "n_tests": 8,
   "n_passed": 8,
-  "total_elapsed_s": 21.16893626000092,
+  "total_elapsed_s": 20.706811426003696,
   "results": [
     {
       "test": "CF1",
@@ -24,7 +24,7 @@
       "bounded": true,
       "passed": true,
       "description": "w(0)=\u27e8Tr U\u27e9_Haar=0; w\u2191 to 1 as \u03b2\u2192\u221e",
-      "elapsed_s": 0.028971540999918943
+      "elapsed_s": 0.02997708399198018
     },
     {
       "test": "CF2",
@@ -33,7 +33,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "periodic rectangle rule is spectrally accurate",
-      "elapsed_s": 0.023815707998437574
+      "elapsed_s": 0.0241260409966344
     },
     {
       "test": "CF3",
@@ -53,7 +53,7 @@
       "decreasing": true,
       "passed": true,
       "description": "2D SU(3) confines at all couplings \u2014 no free quark",
-      "elapsed_s": 0.025018542000907473
+      "elapsed_s": 0.025869624994811602
     },
     {
       "test": "CF4",
@@ -72,7 +72,7 @@
       },
       "passed": true,
       "description": "size-independent \u03c7 \u21d2 strict area law \u21d2 confinement",
-      "elapsed_s": 0.00720174999878509
+      "elapsed_s": 0.007543875006376766
     },
     {
       "test": "CF5",
@@ -89,7 +89,7 @@
       "sigma": 2.050832430468924,
       "passed": true,
       "description": "constant force dV/dR=\u03c3 \u21d2 infinite energy to isolate a quark",
-      "elapsed_s": 0.0036337919991638046
+      "elapsed_s": 0.003831790992990136
     },
     {
       "test": "CF6",
@@ -101,7 +101,7 @@
       "n_meas": 100,
       "passed": true,
       "description": "independent MC validates the deterministic w(\u03b2)",
-      "elapsed_s": 7.3842125039991515
+      "elapsed_s": 7.222134377996554
     },
     {
       "test": "CF7",
@@ -114,7 +114,7 @@
       "sigma_after": 0.03922447209294123,
       "passed": true,
       "description": "confinement lives in the disordered ensemble, not the cooled one",
-      "elapsed_s": 11.00396525600081
+      "elapsed_s": 10.9223746300122
     },
     {
       "test": "CF8",
@@ -127,7 +127,7 @@
       "w_quad": 0.12862778532208338,
       "passed": true,
       "description": "\u27e8(1/N)Tr U\u27e9 real = w (exact) + MC off-diag\u21920 \u21d2 \u27e8W\u27e9=w^{RT}",
-      "elapsed_s": 2.6919907519986737
+      "elapsed_s": 2.4707925020047696
     }
   ]
 }

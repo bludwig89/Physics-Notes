@@ -1,0 +1,98 @@
+{
+  "finding": "F113",
+  "title": "NN short-range repulsive core (quark Pauli + chromomagnetic)",
+  "checks": {
+    "A.sigsig_triplet_+1_singlet_-3": {
+      "status": "PASS",
+      "tier": "exact (Tier-1)",
+      "detail": "triplet=1, singlet=-3"
+    },
+    "A.lamlam_colour_antisym_-8/3": {
+      "status": "PASS",
+      "tier": "exact (Tier-1)",
+      "detail": "value=-8/3"
+    },
+    "B.N=-8_Delta=+8_gcm": {
+      "status": "PASS",
+      "tier": "exact (Tier-1)",
+      "detail": "E_N=-8, E_Delta=8, N-Delta=16 g_cm => g_cm=18.31 MeV"
+    },
+    "C.norm_kernel_exact_n0=20/9": {
+      "status": "PASS",
+      "tier": "exact (Tier-1)",
+      "detail": "K0=839808,K1=93312,K2=93312,K3=839808, n(R=0)=20/9"
+    },
+    "D.core_dE=+56/3_gcm_repulsive": {
+      "status": "PASS",
+      "tier": "exact (Tier-1)",
+      "detail": "E_6q(R0)=8/3, 2N=-16, dE_CM=56/3 g_cm = +341.8 MeV (>0)"
+    },
+    "E.profile_positive_monotone_vanishing": {
+      "status": "PASS",
+      "tier": "quantitative (Tier-B; profile depends on quark size b)",
+      "detail": "V(0)=341.8, V(2b)=172.9, V(4b)=7.1 MeV"
+    },
+    "F.perm_sign_and_channel_allowed": {
+      "status": "PASS",
+      "tier": "exact (Tier-1)",
+      "detail": "sgn(transp)=-1, sgn(3cyc)=1, <Phi|A|Phi>=1866240>0"
+    }
+  },
+  "derived": {
+    "g_cm_MeV": 18.3125,
+    "E_N_gcm": "-8",
+    "E_Delta_gcm": "8",
+    "norm_kernel_K": {
+      "0": "839808",
+      "1": "93312",
+      "2": "93312",
+      "3": "839808"
+    },
+    "n_at_R0": "20/9",
+    "E_6q_R0_gcm": "8/3",
+    "dE_CM_gcm": "56/3",
+    "V_core0_MeV": 341.83333333333337,
+    "profile_MeV": [
+      [
+        0,
+        341.8333333333478
+      ],
+      [
+        0.5,
+        340.63539713824565
+      ],
+      [
+        1.0,
+        323.5392650850061
+      ],
+      [
+        1.5,
+        264.5044653538797
+      ],
+      [
+        2.0,
+        172.85741091719277
+      ],
+      [
+        2.5,
+        92.83121815302806
+      ],
+      [
+        3.0,
+        43.635578234831655
+      ],
+      [
+        4.0,
+        7.069271267319811
+      ]
+    ]
+  },
+  "notes": [
+    "Mechanism: a nucleon = colour-singlet (eps_abc, F71) x SU(6) spin-flavour-symmetric of THREE CA fermions. Two overlapping nucleons = six identical fermions; the F71 Pauli antisymmetriser (extended 3q->6q) forces the spatially-symmetric [6] colour-spin state, which is chromomagnetically unfavourable -> repulsion. This is the Oka-Yazaki / Faessler quark-cluster origin of the NN hard core, here computed directly in the model algebra.",
+    "g_cm is the ONLY external number, fixed by the measured N-Delta splitting (293 MeV) -> 18.31 MeV; it is the same colour-magnetic coupling that the model already uses for the baryon mass splittings, not a new free parameter.",
+    "n(R=0)=20/9>0: the deuteron channel is NOT kinematically Pauli-forbidden (consistent with the deuteron existing); the core here is the DYNAMICAL chromomagnetic repulsion that the Pauli-required [6] symmetry switches on.",
+    "Tier: A-D are exact rationals. E (the R-profile shape / absolute core radius) depends on the quark Gaussian size b and is Tier-B; the core HEIGHT +341.8 MeV is exact given g_cm.",
+    "P4 closure: combine this short-range core with the F103 one-pion-exchange attractive tail to get the full NN potential the deuteron bound state uses."
+  ],
+  "overall": "PASS"
+}

@@ -1,0 +1,51 @@
+{
+  "name": "dielectric_black_hole",
+  "title": "Dielectric Black Hole (strong field)",
+  "description": "Strong-field F64 dielectric K=exp(2GM/rc\u00b2): a compact mass builds a deep horizon-free well (K_max>>1, local c=c/K\u21920 only at r\u21920). The exponential-metric black hole \u2014 light asymptotically frozen, never trapped. Probe ray placed near the photon sphere.",
+  "seed": 0,
+  "ticks": 0,
+  "lattice": {
+    "L": 64,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 1.0
+  },
+  "channels": {
+    "gravity_dielectric": {
+      "name": "gravity_dielectric",
+      "type": "gravity_dielectric",
+      "label": "Gravity Dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 1,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "gravity_dielectric": {
+              "energy": 5.162796528064055e+50,
+              "impact_parameter": 5,
+              "deflection_measured": 94.5487315779809,
+              "deflection_GR_4GM_over_c2b": 96.0,
+              "deflection_GR_finite_aperture": 94.84915524010574,
+              "aperture_factor": 0.9880120337511015,
+              "rel_error": 0.003167383635250471,
+              "K_max": 5.13034377418516e+50
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

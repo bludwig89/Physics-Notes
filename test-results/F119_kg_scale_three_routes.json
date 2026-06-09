@@ -1,0 +1,79 @@
+{
+  "N1_shape_x_scale_factorization": {
+    "pass": true,
+    "y (wall-pinned, y_tau=1)": [
+      1.0,
+      0.243851,
+      0.016958
+    ],
+    "m^cond_a = y_a^2": [
+      1.0,
+      0.05946353,
+      0.00028759
+    ],
+    "ratios pred vs meas max err": "6.94e-18",
+    "N = m_lat(tau)": "5.543911e-19",
+    "m_lat = N * m^cond factorization err": "1.83e-16",
+    "statement": "the condensate gives the dimensionless SHAPE exactly (ratios to 1e-12); the absolute mass is shape x a single scale N = m_lat(tau). N is the one number to derive."
+  },
+  "N2_no_go_gap_mechanism_needs_finetuning": {
+    "pass": true,
+    "g_c (lattice)": 2.1966,
+    "transition exponent p ((g-gc)/gc ~ M^p)": 1.948,
+    "=> M ~ (g-g_c)^": 0.513,
+    "(g-g_c)/g_c required to reach N": "2.78e-36",
+    "statement": "the 3D lattice gap transition is second-order (M ~ (g-g_c)^1/2), so generating N ~ 5.5e-19 needs (g-g_c)/g_c ~ 1e-36: extreme fine-tuning, not an O(1) coupling. Dimensional transmutation is ABSENT in 3D."
+  },
+  "N3_what_would_close_it_marginal_channel": {
+    "pass": true,
+    "N": "5.544e-19",
+    "ln(1/N)": 42.04,
+    "exponential-suppression constant K (N=exp(-K), g=1)": 42.04,
+    "statement": "an O(1) input could yield N only via exponential suppression N=exp(-K/g) (dimensional transmutation), requiring a logarithmically-running / marginal channel with K~42. F115 found the model's couplings essentially NON-running at the lattice scale, so that channel is currently absent: N remains an input, but the REQUIREMENT to derive it is now explicit."
+  },
+  "W1_reproduce_F118_localization": {
+    "pass": true,
+    "B_sea (derived, full BZ)": "-5.6908e-02",
+    "C_req = 0.636|B|": "3.6207e-02",
+    "e^6": 0.14877,
+    "lambda6 = C_req/e^6": 0.2434,
+    "W = 6 lambda6": 1.4603,
+    "statement": "reproduces F118: brake = E_g clock self-interaction C=lambda6 e^6, lambda6=0.243=O(1), W=1.46. Existence of the self-consistent (W,v,c) is closed on the spontaneous-E_g branch (F118); only lambda6's VALUE is open."
+  },
+  "W2_test_quarter_conjecture": {
+    "pass": true,
+    "conjecture lambda6 = 1/4 (rotor g_s^2 chi=1/4)": 0.25,
+    "predicted cos3delta": 0.7651,
+    "predicted delta (deg)": 13.363,
+    "measured delta (deg)": 12.733,
+    "residual (deg)": 0.63,
+    "fitted lambda6 (from data)": 0.2434,
+    "lambda6 mismatch": "2.7%",
+    "statement": "imposing the rotor value lambda6=1/4 PREDICTS delta=13.4 deg vs measured 12.73 deg (+0.6 deg, ~5% in lambda6): suggestive of a universal 1/4 contact but NOT exact for leptons. A clean first-principles value of lambda6 is the residual."
+  },
+  "W3_no_clean_closed_form": {
+    "pass": true,
+    "B_lead = 3 sqrt2 I2 ybar^4 (F95 small-amp)": "2.9145e-02",
+    "B_full / B_lead": 1.953,
+    "lambda6 from leading B (wrong)": 0.1246,
+    "lambda6 full (right)": 0.2434,
+    "statement": "the F95 small-amplitude closed form for B is ~2x too small at the saturation amplitude ybar=0.42, so lambda6 has no clean perturbative closed form: it is genuinely a saturation-scale (nonperturbative) O(1) number -- localized, not closed."
+  },
+  "X1_gravity_pins_a_not_mass_scale": {
+    "pass": true,
+    "G_pred (F79)": "6.674300e-11",
+    "G_CODATA": "6.674300e-11",
+    "G residual": "1.94e-16",
+    "all PDG fermions m_lat < 1": true,
+    "m_lat(top) (heaviest)": "5.388e-17",
+    "a / a_max(top) decades below ceiling": 16.5,
+    "statement": "the gravity-locked cell predicts Newton's G to 3e-8 AND places every fermion at m_lat<1, so it is fully CONSISTENT with the mass map; but a is ~17 decades below the top-quark ceiling, so gravity pins the cell a (hence tau, hence the kg via hbar) -- NOT the dimensionless mass scale N. The cross-check confirms consistency; it does not close N."
+  },
+  "V_verdict": {
+    "pass": true,
+    "kg as a UNIT": "already tied in: a locked (F107) -> tau; hbar carries the kg; m_phys = hbar arcsin(m_lat)/(tau c^2) gives kg with no free param.",
+    "what the model PREDICTS": "the full dimensionless shape (ratios, Koide Q=2/3, E_g angle) and the wall-pinning y_tau=1; W localized to O(1) (lambda6=0.243~1/4, existence closed F118).",
+    "the ONE open number": "the overall scale N = m_lat(tau) ~ 5.5e-19 -- the fermion-mass hierarchy. ROUTE 1: the gap mechanism cannot generate it from O(1) inputs (3D power-law, needs 1e-36 tuning; transmutation needs a marginal/running channel absent per F115). ROUTE 2: W is O(1) and existence-closed but its exact value is still fitted. ROUTE 3: gravity pins a (G to 3e-8) but sits 17 decades below the mass ceiling, so it does not pin N.",
+    "honest bottom line": "kg is in dimensionally; the spectrum shape is predicted; N alone remains an input -- and we now know precisely why (no marginal channel) and what would close it (a running coupling)."
+  }
+}

@@ -1,0 +1,21 @@
+# F114 — the dielectric black hole.  The SAME canonical index as gravity_deflection
+# (K = exp(2GM/rc²), A=1/K, B=K) driven into the STRONG field: a compact mass
+# digs a deep dielectric well (K_max >> 1) so the local light speed c/K collapses
+# toward zero near the centre.  This is the exponential metric — horizon-FREE:
+# the index grows without bound only at r→0, so there is no finite surface where
+# light is trapped, only an asymptotic freeze.  Exact strong-field observables
+# (photon sphere R=2√e, shadow b_c=2e GM/c², throat R=e GM/c²) live in
+# test_F114_dielectric_black_hole.py; this scenario is the field-level picture.
+# Static eikonal background, so ticks=0.  Watch K_max and the deep well.
+name: dielectric_black_hole
+title: "Dielectric Black Hole (strong field)"
+description: "Strong-field F64 dielectric K=exp(2GM/rc²): a compact mass builds a deep horizon-free well (K_max>>1, local c=c/K→0 only at r→0). The exponential-metric black hole — light asymptotically frozen, never trapped. Probe ray placed near the photon sphere."
+lattice: {L: 64, dims: 3, topology: cubic, c_lat: 1.0}
+seed: 0
+ticks: 0
+channels:
+  - {type: gravity_dielectric, M: 120.0, sigma: 1.6, G: 1.0, impact_parameter: 5}
+observers:
+  - {type: field_snapshot, every: 1}
+output:
+  json: test-results/casim_dielectric_black_hole.json

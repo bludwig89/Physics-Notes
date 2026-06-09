@@ -195,9 +195,13 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~are we yet able to construct phase 3 of roadmap-matter-binding? if so, then construct it, and review phase 4 for viability and if workable, construct after requesting user verification.~~
   
-- now that the si units have been locked in, what predictions and measurements can be made? do we need to build a scenario to run?
+- ~~now that the si units have been locked in, what predictions and measurements can be made? do a thorough review and build.~~
 
-- review dynamic_gravity_selfsourced_2062.npz for any new information or variations. also while watching the scenario I noticed an interesting field oscillation that would focus in one corner, then disperse to another, then back after a few hundred ticks. explain the oscillation.
+- ~~review dynamic_gravity_selfsourced_2062.npz for any new information or variations. also while watching the scenario I noticed an interesting field oscillation that would focus in one corner, then disperse to another, then back after a few hundred ticks. explain the oscillation.~~
+
+- ~~pursue construction of the dynamical proton and neutron, p2 in roadmap-matter-binding.md.~~
+
+- as a small fork, since the first-order route exposes EOM 3's (page34-eom-derivation.md) spin-torsion four-fermion term. Conduct a bounded check — does the project's torsion-free assumption cost anything at the lattice's fermion densities? (fork against f62 with the chiral-algebra caveat).
 
 ### Deriving Inputs 
 
@@ -206,8 +210,11 @@ All from project-audit-inputs-dynamism
   - ~~move the f64 em-gravity fork into the main model structure as the gravity field element.~~
   - ~~attempt to execute construction of the f92 bridge construction keeping the flavour vector constrained as detailed in project-audit-inputs-dynamism~~
   - ~~attempt to derive the global stability invariant from the model as detailed in project-audit-inputs-dynamism~~
-  - attempt to derive the gauge coupling magnitudes e, g, and g_s from the model as detailed in project-audit-inputs-dynamism.
-  - attempt to derive the short-range deuteron repulsion r_c from the model as detailed in project-audit-inputs-dynamism.
+  - ~~attempt to derive the gauge coupling magnitudes e, g, and g_s from the model as detailed in project-audit-inputs-dynamism (see also F110). once complete pursue the NJL calibration derivations.~~ **DONE 2026-06-08 (F115 + F116).** F115: EW sector reduces to ONE magnitude ($e=g/2$, $g'=g/\sqrt3$); $g_s$ locked by the rotor ($g_s^2\chi=\tfrac14$); the +12% Weinberg gap is NOT running (Planck-scale run overshoots to 0.06) — it's a ~3.7 TeV matching offset; electric $e$ stays the one irreducible input. F116: NJL $\{\Lambda,G\Lambda^2,m_0\}\to$ 1 ruler + 2 dimensionless; $\Lambda$=BZ edge=chiral scale (lattice gap eq re-derived, Goldstone exact); $G$ induced from the F86/F88 dielectric ($G\sim\tfrac49 g_s^2/M_g^2$). **Residual open:** the exact dimensionless $G\Lambda^2$ (Fierz coefficient) and $m_0/\Lambda$ (quark texture); continuum $\alpha_\text{em}$, $\alpha_s(M_Z)$ still need the one SI ruler.
+  - ~~attempt to execute the self-consistent $(W,v,c)$ derivation as well as derive C from the second-shell condensate's own self-interaction at O(1) strength (see F108,109).~~ **DONE 2026-06-09 (F118).** The self-consistent $(W,v,c)$ triple **exists** — but only on the $\kappa_E<0$ (attractive $E_g$ = spontaneous-condensation, F93) branch: at $v{=}0.16,c{=}1.10,W{=}W^*(v){=}0.44,\kappa_E{=}{-}2.16$ the exact lepton spectrum is the **global** ground state ($121^3$ brute, gap $-2\mathrm{e}{-}6$, KKT+PD), all couplings $O(1)$; the $\kappa_E{>}0$ branch is excluded everywhere (best gap 0.066). F108-T5 closed on the physical branch. $C$ is localized to the $E_g$ clock self-interaction $C{=}\lambda_6 e^6$ with $\lambda_6{=}0.636|B|/e^6{=}0.243{=}O(1)$ ($\approx\tfrac14$, the F115 rotor value), equivalent $W{=}1.46$; the sea loop is **doubly excluded** (F95 wrong scaling + new wrong-*sign* sextic at saturation $C_\text{loop}{=}{-}0.018$). **Residual open:** a first-principles value of $\lambda_6$ ($\approx\tfrac14$?) and of $(v,c)$ from the pair/saturation kinematics (F92/F109).
+
+  - attempt first-principles derivation of lambda_6 (F118), and of (v,c) from the pair/saturation kinematics (F92,F109).
+
   - ~~attempt to build in the real-time link Hamiltonian evolution for the confinement element of the model as detailed in project-audit-inputs-dynamism.~~
 
 - ~~within the bcc lattice, how close together are quarks allowed? can we only have 1 quark existing at one node at a time? Does a quark's information consume 2 or more nodes?~~
@@ -237,16 +244,16 @@ All from project-audit-inputs-dynamism
   - basically, we want to be able to see particles on the lattice interacting with others through the fields, with readouts of test values, field and particle data along the sidebar.
 
 ## Email Disclaimer
-P.S. Disclaimer and personal information - I am a physicist only by proximity, my father had a PhD in theoretical physics and made such problems his hobby, just recently I was able to transcribe one of his notebooks which had a section on the idea of universal structure as cellular automata, so with the help of AI I began interpreting some of it into a model. I'm a computer guy, not a physicist, but I know enough that this could be interesting to you.
-
-As a result, if the physics is nonsensical, or if this is "old news", I plead ignorance and profusely apologize for wasting your time and wish you the absolute best in your studies! 
+P.S. — A disclaimer. I'm a physicist only by proximity. My father held a PhD in theoretical physics and treated problems like this as a hobby; I recently transcribed one of his notebooks and found a section on universal structure as cellular automata. I'm a computer guy, not a physicist, but with AI's help I started turning his notes into a working model — and I know enough to suspect it might interest you.
+So if the physics is nonsensical or this is old news, I plead ignorance, apologize for your time, and wish you the very best in your work!
 
 ## Papers
-- Write a series of files documenting the model. Write them as scientific papers being published for peer review, write each end-to-end with as much detail as possible such that another reasearcher could replicate the work, leaving nothing out (derivations, connections to previous paper, external references, etc.). Break it out into:
+- Write a series of files documenting the model. Write them as scientific papers being published for peer review, write each end-to-end with as much detail as possible such that another reasearcher could replicate the physics, leaving nothing out (derivations, connections to previous paper, external references, etc.). Break it out into:
   - The base structure of the model.
   - One paper for the photon, its structure, and connection to the core model.
   - One paper for mass derivation without the Higgs field. 
   - One paper each for each of the fundamental fields, electromagnetism, strong nuclear force, weak nuclear force, and gravitational force.
+  - One paper specifically reviewing F114 and the dielectric black hole and it's predictions.
   - One paper for the fermion sector, its structure, derivations, and connection to the core model.
   - One for the lepton sector and its structure, derivations, and connection to the model. 
   - One for the baryon sector and its structure, derivations, and connection to the model. 

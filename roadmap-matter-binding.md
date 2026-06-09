@@ -61,7 +61,9 @@ P6 scale & SI units  ── cross-cutting, gates every absolute number in P2–P
 
 ---
 
-### P2 — The dynamical baryon: proton, then neutron
+### P2 — The dynamical baryon: proton, then neutron  ✅ DONE 2026-06-09 (F122)
+
+*Built: `ca-simulation/ca_baryon_dynamics.py` + `model-tests/test_P2_baryon_bound_state.py` (11/11 PASS). The F71 operator proton is now a real, non-dispersing three-body bound state — an explicitly-correlated-Gaussian solver in mass-normalised Jacobi coords with the P1 confining + OGE Cornell potential $V_p=\sigma r-(2\alpha_s/3)/r$ per pair; engine validated to $5\times10^{-14}$ vs the analytic harmonic baryon. Ground state solved two ways (scipy `eigh(H,S)` vs Cholesky, agree $4.5\times10^{-12}$); spatial state exactly S₃-symmetric (equal pair radii to $8\times10^{-11}$). HEADLINE — confinement dominance / F97 made dynamical: the quark-mass sum is 0.11 % of $M$, the mass is the string; the confining spectrum is purely discrete so the proton is automatically non-dispersing. Neutron $udd$: $m_n-m_p=+1.51$ MeV (strong $+2.51$ beats EM $-1.00$), sign positive vs measured $+1.293$. OPEN (Tier-B/P6): absolute $m_p/\sqrt\sigma$ overshoots — needs $V_0$ + relativistic treatment + P6 scale. See F122.*
 
 **Goal.** Replace F71's operator with a **real-time three-quark bound state** that does not disperse and has a **measured mass**. Then build the neutron ($udd$) and the $n$–$p$ splitting.
 
@@ -128,7 +130,9 @@ P6 scale & SI units  ── cross-cutting, gates every absolute number in P2–P
 
 ---
 
-### P6 — Scale & SI units (cross-cutting; gates every absolute MeV)
+### P6 — Scale & SI units (cross-cutting; gates every absolute MeV)  ✅ DONE (matter sector) 2026-06-09 (F123)
+
+*Built: `ca-simulation/ca_si_scale.py` + `model-tests/test_P6_si_scale.py` (10/10 PASS). CO-1 resolved with the project's adopted choice: the F79/F107 canonical geometric cell ($a=\sqrt{8\pi}\,3^{1/4}\ell_P$) fixes metre/second/$G$ (CODATA to $3\times10^{-8}$); a single QCD anchor $f_\pi=92.07$ MeV fixes the strong scale (the cell's $\hbar c/a=1.85\times10^{18}$ GeV is ~18 orders above hadrons — the F119 hierarchy). HEADLINE — the NJL constituent mass $m_c=309.5$ MeV gives the nucleon $3m_c=928.5$ MeV, within $-1.05\%$ of 938.27 (F97 made quantitative; resolves F122's $m_p/\sqrt\sigma$ overshoot). Light mesons within a few % on one anchor ($m_\pi=139.7$, $m_\rho=781.2$, $\langle\bar qq\rangle^{1/3}=-247.7$); $m_n-m_p=+1.51$ MeV (vs +1.293) needs no QCD anchor. OPEN: derive $\sqrt\sigma/f_\pi$ to unify the two QCD calibrations. See F123.*
 
 **Goal.** Turn ratios into physical masses/energies. **Everything absolute in P2–P5 depends on this.**
 

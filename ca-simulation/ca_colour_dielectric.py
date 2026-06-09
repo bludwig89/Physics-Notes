@@ -67,6 +67,9 @@ complementary strong-coupling anchor), F26 (rotation = c).
 import numpy as np
 
 import ca_gluon as cg
+import ca_wmu as cwmu                  # BCC even dispersion + k-grid (Part D)
+import ca_colour_condensate as cc      # the gap / condensate source (Part D)
+import ca_maxwell_2d as cm2            # 2D rotation dispersion (Part D)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -433,3 +436,252 @@ def tube_rms_radius(profile):
     w = x * dens                      # radial weight (2D measure)
     r2 = np.trapz(x ** 2 * w, x) / np.trapz(w, x)
     return np.sqrt(r2)
+
+
+# ══════════════════════════════════════════════════════════════════
+#  Part D — time-evolved gluon propagator: dielectric renorm + gap coupling
+# ══════════════════════════════════════════════════════════════════
+#  Created: 2026-06-08
+#
+#  Parts B/C above are single-tick (uniform) and static-field constructions.
+#  Part D wires the colour-dielectric *into the time-evolved gluon propagator*
+#  and *couples the condensate gap* (ca_colour_condensate, F88) to the
+#  dynamical gluon field, so that one measured number — the condensate VEV v —
+#  simultaneously sets:
+#     (1) the dielectric eps_c(x) that renormalises the (E,B) rotation rate,
+#     (2) the dual-Meissner mass m_V = e v the gluon acquires in the vacuum,
+#     (3) the screening length lambda = 1/m_V and the tension sigma = 2 pi v^2.
+#
+#  D-i  — uniform colour-dielectric on the BCC *even-law* propagator
+#         (F91: the gluon propagator is the even law).  Exact, spectral,
+#         reduces BIT-FOR-BIT to `ca_gluon.gluon_rotation_step_spectral_bcc`
+#         at eps_c=1; rescales the rotation rate (hence c) by sqrt(eps_c)
+#         otherwise.  This is the BCC twin of `gluon_dielectric_rotation_step_2d`.
+#  D-ii — gap coupling: condensate VEV / dual-Meissner mass from the
+#         ca_colour_condensate MC density chain (rho -> z -> m_D -> v).
+#  D-iii— gap-massive gluon step: the gluon evolved with the condensate-induced
+#         effective mass m_V (Proca even law); m_V=0 reduces to the free step.
+#  D-iv — spatially-varying eps_c(x) split-step evolution: the dynamical
+#         demonstration of flux expulsion (dual Meissner) — a colour-electric
+#         packet cannot propagate into the condensed (eps_c->0) vacuum.
+
+
+# ---- D-i : uniform colour-dielectric on the BCC even-law propagator -------
+
+def gluon_dielectric_rotation_step_bcc(E_G, B_G, eps_c=None):
+    """
+    One tick of the F43/F91 *even-law* BCC gluon (E,B) rotation rule
+    renormalised by a *uniform* colour-dielectric eps_c.
+
+    The even dispersion Omega_even(k) = omega_+(k/2)+omega_-(k/2) of the free
+    step is rescaled by the local refractive factor n_c = eps_c^{-1/2}:
+        Omega_even -> Omega_even / n_c = Omega_even * sqrt(eps_c).
+    This is the BCC twin of `gluon_dielectric_rotation_step_2d` and the colour
+    analogue of F64's dielectric renormalisation of the EM rotation rule.
+
+    Parameters
+    ----------
+    E_G, B_G : (8, L, L, L) real colour-octet fields.
+    eps_c    : float (uniform colour permittivity) or None.
+               None or 1.0 -> reduces to
+               `ca_gluon.gluon_rotation_step_spectral_bcc` BIT-FOR-BIT.
+
+    Returns
+    -------
+    E_new, B_new : (8, L, L, L) real.
+
+    A uniform eps_c keeps the step spectral and exactly orthogonal (energy
+    conserving) while rescaling c.  The spatially-varying, flux-expelling case
+    is `gluon_dielectric_evolve_bcc` (D-iv).
+    """
+    if eps_c is None or eps_c == 1.0:
+        return cg.gluon_rotation_step_spectral_bcc(E_G, B_G)
+    if E_G.shape[0] != 8 or B_G.shape[0] != 8:
+        raise ValueError("E_G, B_G must have first axis size 8 (SU(3) octet)")
+    s = float(eps_c) ** 0.5                            # = 1 / n_c
+    shape = E_G.shape[1:]
+    KX, KY, KZ = cwmu._kgrid3d(*shape)
+    Omega = cwmu._omega_even(KX, KY, KZ) * s           # <-- dielectric rescaling
+    cosO = np.cos(Omega)
+    sinO = np.sin(Omega)
+    E_new = np.zeros_like(E_G)
+    B_new = np.zeros_like(B_G)
+    for a in range(8):
+        Ek = np.fft.fftn(E_G[a])
+        Bk = np.fft.fftn(B_G[a])
+        E_new[a] = np.fft.ifftn(cosO * Ek + sinO * Bk).real
+        B_new[a] = np.fft.ifftn(-sinO * Ek + cosO * Bk).real
+    return E_new, B_new
+
+
+# ---- D-ii : gap coupling — condensate VEV / dual-Meissner mass -----------
+
+def condensate_vev(beta, rho):
+    """Condensate VEV bundle from the F88 monopole-density chain (Part F of
+    ca_colour_condensate): rho -> fugacity z -> Debye mass m_D -> v = m_D/e.
+
+    Returns dict {v, m_V, sigma_F86, beta, rho} with m_V = e v = m_D the
+    dual-Meissner (dual-photon) mass and sigma_F86 = 2 pi v^2 the F86 tension.
+    All three are fixed by the single measured density rho.
+    """
+    v, sigma_f86, mD = cc.f86_vev_from_density(beta, rho)
+    return {'v': float(v), 'm_V': float(mD), 'sigma_F86': float(sigma_f86),
+            'beta': float(beta), 'rho': float(rho)}
+
+
+def condensate_vev_from_mc(L=6, beta=1.8, n_sweeps=120, seed=3):
+    """Measure rho on an equilibrated 3D compact-U(1) configuration and return
+    `condensate_vev`.  Couples the *measured* gap to the gluon field with no
+    assumed VEV (the F88 hand-off to F86)."""
+    _, hist = cc.u1_metropolis_3d(L=L, beta=beta, n_sweeps=n_sweeps, seed=seed)
+    rho = float(np.mean(hist))
+    out = condensate_vev(beta, rho)
+    out['n_sweeps'] = n_sweeps
+    out['L_mc'] = L
+    return out
+
+
+def gluon_gap_mass(beta, rho):
+    """Dual-Meissner gluon mass m_V = e v = m_D induced by the condensate gap
+    (e^2 = 1/beta in 3D lattice units, so m_V = m_D directly)."""
+    return float(cc.debye_mass(beta, rho))
+
+
+# ---- D-iii : gap-massive gluon step (gap coupled into the dynamical field) -
+
+def gluon_gap_massive_step_bcc(E_G, B_G, beta, rho, dt=1.0):
+    """
+    Evolve the gluon (E,B) field with the *condensate-induced* effective mass
+    m_V = e v (the dual-Meissner mass from the gap), using the Proca even-law
+    step `ca_gluon.gluon_massive_step_spectral_bcc`.
+
+    Dispersion:  omega_eff(k) = sqrt(m_V^2 + Omega_even(k)^2).
+    Gapless limit (rho -> 0  =>  m_V -> 0) reduces BIT-FOR-BIT to the free
+    even-law step.  This is the dynamical statement of confinement: the
+    colour field propagates with a mass gap set by the measured condensate.
+    """
+    m_V = gluon_gap_mass(beta, rho)
+    return cg.gluon_massive_step_spectral_bcc(E_G, B_G, m_g=m_V, dt=dt)
+
+
+# ---- D-iv : spatially-varying eps_c(x) split-step evolution (flux expulsion)
+
+def eps_c_field_from_condensate(f_field):
+    """eps_c(x) = 1 - f(x)^2 from a (real-space) normalised condensate field
+    f = |phi|/v in [0,1].  Tube core f=0 -> eps_c=1 (free); condensed vacuum
+    f=1 -> eps_c=0 (colour-electric flux expelled)."""
+    return colour_dielectric_from_condensate(f_field)
+
+
+def _free_even_step_dt_bcc(E_G, B_G, dt):
+    """Free even-law BCC gluon step for a general dt (Omega_even * dt).
+    dt=1 reduces to `ca_gluon.gluon_rotation_step_spectral_bcc` bit-for-bit."""
+    shape = E_G.shape[1:]
+    KX, KY, KZ = cwmu._kgrid3d(*shape)
+    Omega = cwmu._omega_even(KX, KY, KZ) * dt
+    cosO, sinO = np.cos(Omega), np.sin(Omega)
+    E_new = np.zeros_like(E_G)
+    B_new = np.zeros_like(B_G)
+    for a in range(E_G.shape[0]):
+        Ek = np.fft.fftn(E_G[a])
+        Bk = np.fft.fftn(B_G[a])
+        E_new[a] = np.fft.ifftn(cosO * Ek + sinO * Bk).real
+        B_new[a] = np.fft.ifftn(-sinO * Ek + cosO * Bk).real
+    return E_new, B_new
+
+
+def _free_even_step_dt_2d(E_G, B_G, dt):
+    """Free gluon step on the 2D square lattice for a general dt.
+    dt=1 reduces to `ca_gluon.gluon_rotation_step_spectral_2d` bit-for-bit."""
+    Lx, Ly = E_G.shape[1], E_G.shape[2]
+    kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
+    ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
+    KX, KY = np.meshgrid(kx, ky, indexing='ij')
+    Omega = cm2.rotation_omega_2d(KX, KY) * dt
+    cosO, sinO = np.cos(Omega), np.sin(Omega)
+    E_new = np.zeros_like(E_G)
+    B_new = np.zeros_like(B_G)
+    for a in range(E_G.shape[0]):
+        Ek = np.fft.fft2(E_G[a])
+        Bk = np.fft.fft2(B_G[a])
+        E_new[a] = np.fft.ifft2(cosO * Ek + sinO * Bk).real
+        B_new[a] = np.fft.ifft2(-sinO * Ek + cosO * Bk).real
+    return E_new, B_new
+
+
+def gluon_dielectric_evolve_2d(E_G, B_G, eps_c_field, n_steps=1, dt=0.5):
+    """
+    Time-evolve the gluon (E,B) field through a *spatially-varying* colour-
+    dielectric eps_c(x) on the 2D square lattice (the transverse plane).
+
+    Scheme (per tick): the free rotation increment is locally rescaled by the
+    refractive slow-down  s(x) = sqrt(eps_c(x)) in [0,1]:
+
+        (E,B)_new = (E,B) + s(x) * [ R_free(Omega*dt)(E,B) - (E,B) ] ,
+
+    R_free the spectral even-law rotation.  Properties:
+      * eps_c == 1 everywhere  =>  s == 1  =>  (E,B)_new = R_free(E,B)
+        BIT-FOR-BIT (the free propagator is recovered exactly).
+      * in the condensed vacuum eps_c -> 0  =>  s -> 0: the field there is
+        FROZEN — colour-electric flux cannot rotate (propagate) into it, the
+        dual-Meissner expulsion realised dynamically.
+      * orthogonal/energy-exact only in the uniform limit; with spatial
+        variation it is a 2nd-order-in-dt split-step (use small dt), exactly as
+        a variable-speed wave problem requires.
+
+    Parameters
+    ----------
+    E_G, B_G    : (noct, Lx, Ly) real (noct typically 8, or 1 for a probe).
+    eps_c_field : (Lx, Ly) real in [0,1].
+    n_steps     : number of ticks.
+    dt          : sub-tick (keep <~0.5 for the varying case).
+
+    Returns E_G, B_G after n_steps.
+    """
+    s = np.sqrt(np.clip(np.asarray(eps_c_field, dtype=float), 0.0, 1.0))
+    s = s[None, :, :]                          # broadcast over octet axis
+    E, B = E_G, B_G
+    for _ in range(int(n_steps)):
+        E_r, B_r = _free_even_step_dt_2d(E, B, dt)
+        E = E + s * (E_r - E)
+        B = B + s * (B_r - B)
+    return E, B
+
+
+def gluon_dielectric_evolve_bcc(E_G, B_G, eps_c_field, n_steps=1, dt=0.5):
+    """BCC analogue of `gluon_dielectric_evolve_2d`.
+
+    E_G, B_G    : (noct, L, L, L) real.
+    eps_c_field : (L, L, L) real in [0,1].
+    Same split-step / freezing properties; eps_c==1 -> free even step bit-for-bit.
+    """
+    s = np.sqrt(np.clip(np.asarray(eps_c_field, dtype=float), 0.0, 1.0))
+    s = s[None, :, :, :]
+    E, B = E_G, B_G
+    for _ in range(int(n_steps)):
+        E_r, B_r = _free_even_step_dt_bcc(E, B, dt)
+        E = E + s * (E_r - E)
+        B = B + s * (B_r - B)
+    return E, B
+
+
+def field_energy(E_G, B_G):
+    """Lattice (E,B) energy  Sum_{a,x} (E^2 + B^2) — the rotation-invariant
+    norm conserved by the uniform even-law step."""
+    return float(np.sum(E_G ** 2) + np.sum(B_G ** 2))
+
+
+def slab_condensate_field_2d(L, core_frac=0.5, axis=1):
+    """Build a test condensate field f(x) on an L×L lattice: a normal 'tube
+    core' (f=0, eps_c=1) occupying the central `core_frac` fraction along
+    `axis`, with the condensed vacuum (f=1, eps_c=0) outside.  Smoothly ramped
+    (cosine) over 2 sites to avoid ringing.  Returns f (L,L)."""
+    coord = np.arange(L)
+    half = core_frac * L / 2.0
+    c0 = (L - 1) / 2.0
+    d = np.abs(coord - c0)
+    f1d = np.clip((d - half) / 2.0, 0.0, 1.0)        # 0 in core -> 1 outside
+    f1d = 0.5 - 0.5 * np.cos(np.pi * f1d)            # smooth ramp
+    if axis == 1:
+        return np.tile(f1d[None, :], (L, 1))
+    return np.tile(f1d[:, None], (1, L))

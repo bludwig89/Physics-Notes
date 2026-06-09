@@ -1,0 +1,109 @@
+{
+  "finding": "F122",
+  "phase": "P2",
+  "title": "dynamical baryon: real-time three-quark bound state",
+  "checks": {
+    "S0 ECG == analytic 3 sqrt(3k/m)": {
+      "residual": 5.18158775783317e-14,
+      "target": 1e-10,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "S1 scipy eigh == Cholesky reduction": {
+      "residual": 4.5279335836312384e-12,
+      "target": 1e-09,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "S2 monotone variational decrease": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S2 converged (last step < 1e-2)": {
+      "residual": 5.5189956345336774e-05,
+      "target": 0.01,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S3 finite gap to 1st excited (discrete)": {
+      "residual": -2.889303908758098,
+      "target": -0.001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S4 three pair radii equal (symmetric)": {
+      "residual": 8.330832595811488e-11,
+      "target": 1e-06,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "S5 quark sum < 2% of M (string-dominated)": {
+      "residual": 0.0010588505217289555,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S6 dominance+symmetry survive 1/2-rule": {
+      "residual": 2.8738039134012728e-11,
+      "target": 1e-06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S7 finite positive m_p/sqrt-sigma on string scale": {
+      "residual": 0.0,
+      "target": 1.0,
+      "tier": "tierB",
+      "status": "PASS"
+    },
+    "S8a m_n - m_p sign POSITIVE": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S8b |m_n-m_p| within 1 MeV of measured": {
+      "residual": 0.21699999999999986,
+      "target": 1.0,
+      "tier": "tierB",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "E_rel_proton": 5.7397663379224975,
+    "convergence_sequence": [
+      6.107010241889974,
+      5.742819065999516,
+      5.7397663379224975,
+      5.739449577950844
+    ],
+    "E0": 5.895092523922337,
+    "E1": 8.784396432680435,
+    "level_gap": 2.889303908758098,
+    "pair_radii": {
+      "12": 1.4573572541198174,
+      "13": 1.4573572542318098,
+      "23": 1.4573572542412274
+    },
+    "quark_fraction_current": 0.0010588505217289555,
+    "confinement_fraction_current": 0.998941149478271,
+    "m_p_over_sqrt_sigma_NR": 8.094766337922497,
+    "m_N_over_sqrt_sigma_empirical": 2.2357142857142858,
+    "np_splitting": {
+      "m_d_minus_m_u": 2.51,
+      "em_term": -1.0,
+      "m_n_minus_m_p": 1.5099999999999998,
+      "sign_positive": true
+    }
+  },
+  "notes": [
+    "ENGINE: explicitly-correlated-Gaussian three-body solver in mass-normalised Jacobi coords; overlap/kinetic/<r>/<1/r> all closed-form. Validated to machine precision against the analytic harmonic three-body ground state.",
+    "TWO ROUTES (scipy generalised eigh vs hand-rolled Cholesky reduction) agree to ~1e-12, the F74 discipline carried to three bodies.",
+    "CONFINEMENT DOMINANCE (the headline, matching F97): with current-mass quarks the quark-mass sum is <1% of the baryon mass -- the mass is the confining STRING (P1: F70/F94/F110), NOT the constituents. The dynamical realisation of F71's energetic-confinement argument and F97's centre-closure no-go.",
+    "NON-DISPERSING: a confining potential has a purely discrete spectrum (no scattering continuum), so the ground state is automatically a stationary, normalisable bound state -- the proton cannot fall apart.",
+    "n-p SPLITTING: sign POSITIVE and ~+1.5 MeV, the down-up current-mass gap (F40 ratio) beating the proton's larger EM self-energy (P5). Sign is the real test of the F40 ratios; it passes.",
+    "OPEN (Tier-B / P6): the ABSOLUTE m_p/sqrt(sigma) from the NR constituent solve overshoots the lattice value -- the missing additive Cornell constant V0 and the relativistic reduction for light quarks. The precise number needs the relativised / Bethe-Salpeter treatment (the same regime F74 flagged) and the P6 SI anchor. Structure is the prediction here; the MeV is P6-gated."
+  ],
+  "overall": "PASS"
+}

@@ -67,6 +67,36 @@
       "target": 0.02,
       "tier": "quantitative",
       "status": "PASS"
+    },
+    "I1 derived core height = 56/3 g_cm = 341.8 MeV": {
+      "residual": 0.0,
+      "target": 1e-06,
+      "tier": "exact-given-gcm",
+      "status": "PASS"
+    },
+    "I2 derived core binds at physical E_b=2.224": {
+      "residual": 2.5428548156014585e-11,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "I3 derived core gives physical \u03ba\u22480.2316/fm": {
+      "residual": 2.335661847049919e-05,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "I4 still ONE bound state (E1\u22650)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
+    },
+    "I5 tensor still essential (central-only unbound)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
     }
   },
   "derived": {
@@ -92,14 +122,20 @@
     "rc_tuned": 0.44771804048623376,
     "Eb_tuned": 2.223999999963834,
     "P_D_tuned": 0.07087428351271353,
-    "kappa_tuned": 0.2315766433783227
+    "kappa_tuned": 0.2315766433783227,
+    "b_tuned": 0.407610969650741,
+    "Eb_derived": 2.2240000000254287,
+    "P_D_derived": 0.08372640649671631,
+    "kappa_derived": 0.2315766433815295,
+    "Vcore0": 341.7866666666667
   },
   "notes": [
     "HEADLINE (B): the deuteron binds ONLY through the pion TENSOR force. At a fixed core radius the full \u00b3S\u2081\u2013\u00b3D\u2081 OPEP is bound while central-only OPEP is not \u2014 central OPEP is below the Yukawa binding threshold (2\u03bcV0a\u00b2/\u0127\u00b2\u22480.5<1.68); the tensor L=0\u2194L=2 coupling supplies the missing attraction. This is the textbook reason the deuteron exists and the model reproduces it.",
     "TENSOR STRENGTH CERTIFIED (A): the spin-angular <S12> matrix built from Clebsch-Gordan equals the Rarita-Schwinger [[0,2\u221a2],[2\u221a2,-2]] to machine precision \u2014 the off-diagonal 2\u221a2 is exactly the mixing that does the binding.",
     "STRUCTURE: a single shallow bound state (D), J^P=1^+ (both waves parity +, spin triplet), isospin-0, with a few-percent tensor-induced D-state (E, P_D\u22487%; P_D=0 with the tensor off). The \u00b3S\u2081 tail matches \u03ba=\u221a(M_N E_b)/\u0127c independently (F).",
     "CALIBRATION (honest): m_pi and f_pi are P3/F77 model outputs; the \u03c0NN coupling f\u00b2/4\u03c0\u22480.074 follows from Goldberger-Treiman with the one external number g_A=1.272 (the deuteron analogue of P3's external g_rhopipi). M_N=938.9 MeV is an external input (P2 not built; absolute scale is P6). The hard-core radius r_c is the one tuned knob (G, r_c\u22480.45 fm -> E_b=2.224 MeV, \u03ba=0.2316/fm both physical).",
-    "PREDICTION vs INPUT: the prediction is the binding MECHANISM and structure (tensor essential; single shallow 1^+ I=0 state; few-% D-wave; \u03ba\u2194E_b), not an absolute MeV from first principles. The short-range repulsive core is phenomenological \u2014 the 'missing ingredient' the roadmap flagged; deriving it (heavy-meson \u03c9/\u03c3 exchange or a lattice contact) is the open follow-up.",
+    "PREDICTION vs INPUT: the prediction is the binding MECHANISM and structure (tensor essential; single shallow 1^+ I=0 state; few-% D-wave; \u03ba\u2194E_b), not an absolute MeV from first principles. M_N and g_A remain external; the absolute scale is P6.",
+    "DERIVED CORE (I, F113): the tuned hard wall is now REPLACED by the derived quark-Pauli + chromomagnetic core (height 56/3 g_cm = 341.8 MeV, exact given g_cm from N-\u0394). With this core and bare OPEP the deuteron re-binds at the physical E_b=2.224 MeV and \u03ba=0.2316/fm; the one tuned knob is now the quark size b\u22480.41 fm \u2014 a MEANINGFUL physical length \u2014 not an ad-hoc wall radius, and the core's height/shape are derived. Tensor stays essential (I5). The derived core is broad (Gaussian cluster overlap), so binding is sharply sensitive to b (the deuteron's shallowness made manifest); intermediate-range 2\u03c0/\u03c3 attraction is the natural next ingredient.",
     "ENGINE: ca_nuclear.py is the F74 two-body solver generalised contact->2-channel (S,D) coupled OPEP; real symmetric 2N\u00d72N Hamiltonian, lowest eigenpair by dense diagonalisation; grid-converged (H)."
   ],
   "overall": "PASS"

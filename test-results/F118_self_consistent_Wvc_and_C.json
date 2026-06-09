@@ -1,0 +1,89 @@
+{
+  "R1_baselines_reproduce_F101_F108": {
+    "pass": true,
+    "B_sea": "-5.6908e-02",
+    "W*(v=0)": 1.4603,
+    "kappa_E": 0.6566,
+    "r=kE/k0": 0.9857,
+    "Delta_inf": 0.03866,
+    "statement": "exact reproduction of F101-B (B=-0.0569, W*=1.46, r=0.986) and F108-T2 (Delta_inf=+0.0386)"
+  },
+  "A1_kEpos_branch_never_global": {
+    "pass": true,
+    "best global gap (kE>0)": 0.0655,
+    "at": {
+      "v": 0.18,
+      "c": 0.05,
+      "W": 0.31,
+      "kE": 0.01,
+      "ground": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "statement": "with kE>0 (repulsive E_g) the lepton point is never the global vacuum on the angle-locked line W=W*(v): best gap ~0.066, the empty (0,0,0) always wins.  Sharpens F108-T5 from one point to the whole (v,c) plane"
+  },
+  "A2_kEneg_branch_self_consistent_global": {
+    "pass": true,
+    "v": 0.16,
+    "c": 1.1,
+    "W=W*(v)": 0.4378,
+    "kappa_E": -2.1558,
+    "mu": 2.3351,
+    "wall_KKT": -12.756,
+    "H2_min": 0.2342,
+    "ground (121^3 brute)": [
+      1.0,
+      0.2417,
+      0.0167
+    ],
+    "lepton spectrum": [
+      1.0,
+      0.2439,
+      0.017
+    ],
+    "gap": "-2.03e-06",
+    "statement": "on the spontaneous-E_g (kE<0) branch the EXACT lepton spectrum is the GLOBAL ground state (dense brute search), wall-KKT<0, constrained Hessian PD: the self-consistent (W,v,c) triple exists.  F108-T5 CLOSED on this branch"
+  },
+  "A3_spontaneous_Eg_bounded_O1": {
+    "pass": true,
+    "kappa_E (attractive E_g => spontaneous splitting, F93)": -2.156,
+    "c (e^4, bounds the hat, >0)": 1.1,
+    "v": 0.16,
+    "W": 0.438,
+    "statement": "the closing sector is a proper bounded Mexican hat: kE<0 drives spontaneous E_g condensation (F93), c e^4>0 bounds it; all completion couplings are O(1) -- the second-shell condensate's own self-interaction scale"
+  },
+  "A4_per_axis_quartic_economizes": {
+    "pass": true,
+    "v=0, c=1.10 global?": false,
+    "(kE there)": -2.16,
+    "v=0, c=2.40 global?": true,
+    "v=0.16, c=1.10 global? (A2)": true,
+    "statement": "v=0 (pure E_g Mexican hat) still closes, but only at a larger quartic c~2.4 and a deeper kE~-4.4 (against the F108-T5 (s,0,0) competitor); a modest per-axis quartic v~0.16 economizes it to c~1.1, kE~-2.2.  The completion is robust, not fine-tuned"
+  },
+  "B1_sea_loop_sextic_wrong_sign_at_saturation": {
+    "pass": true,
+    "loop B @ cap": "-4.8714e-02",
+    "loop C @ cap": "-1.8198e-02",
+    "loop C @ ybar=0.30": "-6.0957e-05",
+    "statement": "the sea loop's own sextic (cos6delta projection, clip-free) is NEGATIVE at saturation amplitude -- an anti-brake.  Combined with F95's wrong SCALING (C_loop ~ ybar^7) at small amplitude, the loop is doubly excluded as the source of the positive brake C"
+  },
+  "B2_C_is_O1_Eg_self_interaction": {
+    "pass": true,
+    "B (derived, F95)": "-5.6908e-02",
+    "C_req = 0.636|B| (POSITIVE brake)": "3.6194e-02",
+    "lambda6 = C_req/e^6": 0.2433,
+    "nearest simple O(1)": "1/4 = 0.25 (within 3%)",
+    "equivalent W = 6 lambda6": 1.4597,
+    "C_self overcoming the wrong-sign loop": "5.4392e-02",
+    "statement": "the brake C matches the unique symmetry-allowed E_g clock invariant C = lambda6 e^6; the derived B and the data ratio fix lambda6 = 0.243 = O(1) (~1/4), i.e. the equivalent brake W = 1.46.  C is localized, sign-fixed, and O(1)-pinned to the E_g condensate's self-interaction"
+  },
+  "V_verdict": {
+    "pass": true,
+    "self-consistent (W,v,c)": "EXISTS on the spontaneous-E_g (kE<0) branch (A2); EXCLUDED on kE>0 (A1).  F108-T5 closed on the physical branch.",
+    "completion couplings": "all O(1): kE~-2.2, c~1.1, v~0.16, W~0.4 (reference brake lambda6=W*/6=0.243).  Per-axis v>0 economizes (A4); even v=0 closes at c~2.4.",
+    "C derivation": "doubly excluded from the sea loop (wrong scaling F95 + wrong sign at saturation B1); localized to the E_g clock self-interaction C = lambda6 e^6, lambda6 = 0.243 = O(1) ~ 1/4 (B2).",
+    "remaining": "a first-principles value of lambda6 (~1/4) and of (v,c) from the pair/saturation structure (F92/F109) is the residual; the EXISTENCE and the O(1) self-interaction character are established."
+  }
+}

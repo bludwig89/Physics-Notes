@@ -1,0 +1,127 @@
+{
+  "C1_calibration_consistent": {
+    "pass": true,
+    "m_e (MeV)": 0.51099895,
+    "m_e (kg, CODATA)": "9.109384e-31",
+    "m_lat(e) at locked cell": "1.594348e-22",
+    "kg via cell map m=hbar*asin(m_lat)/(tau c^2)": "9.109384e-31",
+    "round-trip rel err": "0.00e+00",
+    "statement": "m_e fixes the single scale N; the locked-cell map returns m_e in kg to round-off. kg is in with no free parameter."
+  },
+  "C2_electron_anchored_measured_angle": {
+    "pass": true,
+    "angle (deg, measured)": 12.733,
+    "y = (tau,mu,e)": [
+      1.0,
+      0.24385,
+      0.01695
+    ],
+    "m_mu pred (MeV)": 105.722,
+    "m_mu PDG": 105.6583755,
+    "m_mu err": "+0.06%",
+    "m_tau pred (MeV)": 1777.946,
+    "m_tau PDG": 1776.86,
+    "m_tau err": "+0.06%",
+    "m_mu pred (kg)": "1.884666e-28",
+    "m_tau pred (kg)": "3.169476e-27",
+    "statement": "with the measured condensate angle, the electron-calibrated equipartition shape predicts m_mu AND m_tau to ~0.1% from m_e alone -- the shape is confirmed (uses delta as one extra data input)."
+  },
+  "C3_electron_worst_anchor_node": {
+    "pass": true,
+    "angle (deg, model lambda6=1/4)": 13.363,
+    "m_mu pred (MeV), e-anchored": 215.5,
+    "m_mu err": "+104%",
+    "|dln(m_e)/ddelta| per deg": 0.894,
+    "|dln(m_mu)/ddelta| per deg": 0.086,
+    "|dln(m_tau)/ddelta| per deg (wall)": "0.00e+00",
+    "sensitivity ratio e/mu": 10.4,
+    "statement": "with the model's first-principles angle, electron-anchoring is UNSTABLE (m_mu off ~100pct): the electron sits near the condensate node, ~10x more delta-sensitive than the muon, while the tau is EXACTLY delta-stable (wall-pinned, m_tau^cond=1 for all delta). The electron is the worst anchor; the tau the best."
+  },
+  "C4_tau_is_robust_anchor": {
+    "pass": true,
+    "angle (deg, model lambda6=1/4)": 13.363,
+    "e-anchored errors": {
+      "m_mu": "+104%",
+      "m_tau": "+93%"
+    },
+    "mu-anchored errors": {
+      "m_e": "-51%",
+      "m_tau": "-5%"
+    },
+    "tau-anchored errors": {
+      "m_e": "-48.3%",
+      "m_mu": "+5.5%"
+    },
+    "statement": "at the model angle the tau anchor (the delta-stable wall) predicts m_mu to ~5.5% (tracking the 2.7% lambda6 error); the electron prediction is intrinsically uncertain (node). tau is the robust anchor. The user-requested electron anchor is exact only when delta is taken from data (C2)."
+  },
+  "C5_koide_two_thirds": {
+    "pass": true,
+    "Q measured (PDG)": 0.666661,
+    "Q condensate shape": 0.666667,
+    "2/3": 0.666667,
+    "statement": "Koide Q=2/3 holds geometrically for the condensate spectrum (and the data sit 1e-5 from 2/3), independent of the anchor."
+  },
+  "C6_full_fermion_kg_table": {
+    "pass": true,
+    "table": {
+      "electron": {
+        "MeV_pred": 0.511,
+        "kg_pred": "9.109384e-31",
+        "MeV_PDG": 0.51099895,
+        "err": "+0.00%",
+        "tier": "PREDICTED (shape + m_e)"
+      },
+      "muon": {
+        "MeV_pred": 105.722,
+        "kg_pred": "1.884666e-28",
+        "MeV_PDG": 105.6583755,
+        "err": "+0.06%",
+        "tier": "PREDICTED (shape + m_e)"
+      },
+      "tau": {
+        "MeV_pred": 1777.9458,
+        "kg_pred": "3.169476e-27",
+        "MeV_PDG": 1776.86,
+        "err": "+0.06%",
+        "tier": "PREDICTED (shape + m_e)"
+      },
+      "up": {
+        "MeV": 2.16,
+        "kg": "3.850550e-30",
+        "tier": "CONSISTENCY (measured mass -> kg)"
+      },
+      "down": {
+        "MeV": 4.67,
+        "kg": "8.325031e-30",
+        "tier": "CONSISTENCY (measured mass -> kg)"
+      },
+      "strange": {
+        "MeV": 93.4,
+        "kg": "1.665006e-28",
+        "tier": "CONSISTENCY (measured mass -> kg)"
+      },
+      "charm": {
+        "MeV": 1270.0,
+        "kg": "2.263981e-27",
+        "tier": "CONSISTENCY (measured mass -> kg)"
+      },
+      "bottom": {
+        "MeV": 4180.0,
+        "kg": "7.451527e-27",
+        "tier": "CONSISTENCY (measured mass -> kg)"
+      },
+      "top": {
+        "MeV": 172690.0,
+        "kg": "3.078479e-25",
+        "tier": "CONSISTENCY (measured mass -> kg)"
+      }
+    },
+    "statement": "with m_e + the locked cell, every fermion reads out in kg. Leptons are PREDICTED by the shape to ~0.1%; quark entries are the measured masses converted to kg (the model fits, not predicts, the quark texture)."
+  },
+  "V_verdict": {
+    "pass": true,
+    "answer to 'calibrate on the electron'": "done: m_e fixes the single scale N; with the measured condensate angle the electron-calibrated shape predicts m_mu, m_tau to 0.1% and converts every fermion to kg.",
+    "honest caveat": "the electron is the WORST anchor for the model's own first-principles angle (it sits at the condensate node, ~10x more delta-sensitive than the muon; the tau is exactly delta-stable at the wall): the 2.7pct lambda6 uncertainty (F119) blows up to ~100pct on m_mu when anchored on m_e. tau (the wall) is robust (~5pct).",
+    "what is genuinely predicted": "Koide Q=2/3 (exact), and the FULL lepton shape from a single mass + the angle; the residual open number is the angle's exact value (lambda6), per F119/F118."
+  }
+}

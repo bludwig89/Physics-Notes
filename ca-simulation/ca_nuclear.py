@@ -70,6 +70,36 @@ F_PI_DEFAULT = 92.07     # MeV  — P3/F77 supplies the model value
 
 
 # ===========================================================================
+#  Derived short-range repulsive core (F113) — replaces the tuned hard wall.
+#  ---------------------------------------------------------------------------
+#  V_core(r;b) = g_cm * [ <H_CM>(r) - 2 E_N ],  with the chromomagnetic energy
+#  of the antisymmetrised two-cluster state a closed-form rational function of
+#  u = exp(-r^2/4b^2):
+#        <H_CM>(r) = (N0 + N1 u + N2 u^2 + N3 u^3)/(D0 + D1 u + D2 u^2 + D3 u^3)
+#  The coefficients are EXACT (sum over the 720 six-quark permutations of the
+#  F71 colour-singlet x SU(6) deuteron-channel state); extracted once from
+#  ca_nuclear_core.py and embedded here so the solver pays no permutation cost.
+#  Checks: N0/D0 = -16 = 2 E_N (two free nucleons, r->inf);  sum N/sum D = 8/3
+#  ([6] state at full overlap);  V_core(0) = g_cm*(8/3+16) = 56/3 g_cm.
+# ===========================================================================
+GCM_DEFAULT = 18.31      # MeV  — colour-magnetic coupling from measured N-Delta=293
+B_QUARK_DEFAULT = 0.55   # fm   — single-quark Gaussian size (constituent scale)
+_CORE_N = (-13436928.0, 15925248.0, 15925248.0, -13436928.0)   # F113 numerator
+_CORE_D = (839808.0, 93312.0, 93312.0, 839808.0)               # F113 = norm kernel K
+_CORE_2EN = -16.0        # two free nucleons, in units of g_cm
+
+
+def derived_core_potential(r, b=B_QUARK_DEFAULT, g_cm=GCM_DEFAULT):
+    """The F113 short-range repulsive core in MeV at separation r (fm).
+    Positive (repulsive), height 56/3*g_cm at r=0, -> 0 as r -> infinity.
+    r may be a scalar or numpy array."""
+    u = np.exp(-(np.asarray(r, dtype=float) ** 2) / (4.0 * b * b))
+    num = _CORE_N[0] + u * (_CORE_N[1] + u * (_CORE_N[2] + u * _CORE_N[3]))
+    den = _CORE_D[0] + u * (_CORE_D[1] + u * (_CORE_D[2] + u * _CORE_D[3]))
+    return g_cm * (num / den - _CORE_2EN)
+
+
+# ===========================================================================
 #  Clebsch-Gordan + the tensor spin-angular matrix <S12> by explicit
 #  construction (machine-precision verification of [[0, 2√2],[2√2, -2]]).
 # ===========================================================================
@@ -201,10 +231,18 @@ def f2_over_4pi(m_pi=M_PI_DEFAULT, f_pi=F_PI_DEFAULT, g_A=G_A):
 #  Coupled-channel ³S₁–³D₁ radial solver (F74 engine, 2 channels).
 # ===========================================================================
 def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
-                   f_pi=F_PI_DEFAULT, g_A=G_A, tensor=True, m_N=M_N, vectors=True):
-    """Lowest eigenstate of the coupled ³S₁–³D₁ OPEP Hamiltonian with a hard
-    core at r_c.  Returns a dict with E (MeV; <0 = bound), E_b, P_D, kappa,
-    the radial grid and (u,w), and the second eigenvalue (excited-state check).
+                   f_pi=F_PI_DEFAULT, g_A=G_A, tensor=True, m_N=M_N, vectors=True,
+                   core="hard", b=B_QUARK_DEFAULT, g_cm=GCM_DEFAULT, r_min=0.02):
+    """Lowest eigenstate of the coupled ³S₁–³D₁ OPEP Hamiltonian.
+
+    core="hard"     : infinite wall at r_c (the original tuned-knob model).
+    core="derived"  : the F113 short-range repulsive core V_core(r;b) added to
+                      both channel diagonals — NO tuned wall (grid starts at
+                      r_min); the OPEP 1/x and 1/x^3 singularities are smeared
+                      by the same quark size b via f(r)=[1-exp(-(r/b)^2)]^2, so
+                      one physical length b governs both the core width and the
+                      vertex form factor.  This replaces the tuned r_c with the
+                      derived substructure repulsion.
 
     tensor=False zeroes the S12 (tensor) terms -> central OPEP only.
     vectors=False uses eigvalsh (eigenvalues only) — ~2× faster for tuning.
@@ -214,8 +252,9 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
     V0 = f2_over_4pi(m_pi, f_pi, g_A) * m_pi   # MeV
     comp = HBARC / m_pi                        # pion Compton length (fm)
 
-    h = (R_max - r_c) / (N + 1)
-    r = r_c + h * np.arange(1, N + 1)          # interior nodes (u=0 at both ends)
+    r_lo = r_min if core == "derived" else r_c
+    h = (R_max - r_lo) / (N + 1)
+    r = r_lo + h * np.arange(1, N + 1)         # interior nodes (u=0 at both ends)
     x = r / comp
 
     # finite-difference -d^2/dr^2 (tridiagonal), times kin
@@ -228,14 +267,24 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
 
     Y = Y_yukawa(x)
     T = T_tensor(x)
+    if core == "derived":
+        # vertex form factor (quark size b): kills the OPEP short-range
+        # singularities so the grid can run to r_min without a hard wall.
+        reg = (1.0 - np.exp(-(r / b) ** 2)) ** 2
+        Y = Y * reg
+        T = T * reg
+        Vc = derived_core_potential(r, b=b, g_cm=g_cm)   # derived repulsive core
+    else:
+        Vc = np.zeros(N)
+
     # OPEP potential matrix (MeV). sigma1.sigma2 = +1 (triplet).
-    V_SS = -V0 * Y
+    V_SS = -V0 * Y + Vc
     if tensor:
         V_SD = S12_SD * (-V0 * T)              # 2√2 · (tensor radial)
-        V_DD = -V0 * Y + S12_DD * (-V0 * T)    # central + (-2)·tensor radial
+        V_DD = -V0 * Y + S12_DD * (-V0 * T) + Vc   # central + (-2)·tensor + core
     else:
         V_SD = np.zeros(N)
-        V_DD = -V0 * Y                          # central only in D-channel
+        V_DD = -V0 * Y + Vc                     # central only in D-channel
 
     H = np.zeros((2 * N, 2 * N))
     H[:N, :N] = K + np.diag(V_SS)
@@ -262,8 +311,26 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
         "E": E0, "E1": E1, "E_b": E_b, "bound": E0 < 0.0,
         "P_D": P_D, "kappa": kappa, "V0": V0, "comp": comp,
         "r": r, "u": u, "w": w, "h": h, "r_c": r_c, "N": N,
+        "core": core, "b": b, "Vcore0": float(derived_core_potential(0.0, b, g_cm)),
         "f2_4pi": f2_over_4pi(m_pi, f_pi, g_A),
     }
+
+
+def tune_b_to_binding(target_Eb=2.224, lo=0.30, hi=1.10, **kw):
+    """Bisection on the quark size b (the derived-core width) to hit a target
+    binding energy, replacing tune_core_to_binding's tuned hard wall.  E_b grows
+    as b shrinks (narrower core -> more attractive volume).  Returns (b, result).
+    """
+    def Eb(bb):
+        return solve_deuteron(core="derived", b=bb, vectors=False, **kw)["E_b"]
+    for _ in range(40):
+        mid = 0.5 * (lo + hi)
+        if Eb(mid) > target_Eb:
+            lo = mid       # too deep -> widen the core
+        else:
+            hi = mid
+    bb = 0.5 * (lo + hi)
+    return bb, solve_deuteron(core="derived", b=bb, **kw)
 
 
 def tune_core_to_binding(target_Eb=2.224, lo=0.2, hi=1.2, **kw):
@@ -289,9 +356,19 @@ if __name__ == "__main__":
     print(f"  target [[0, 2√2],[2√2,-2]] = [[0, {2*math.sqrt(2):.6f}],[..,-2]]\n")
 
     rc, d = tune_core_to_binding()
-    print(f"Deuteron (full ³S₁–³D₁ OPEP, r_c tuned = {rc:.4f} fm):")
+    print(f"Deuteron (full ³S₁–³D₁ OPEP, TUNED hard wall r_c = {rc:.4f} fm):")
     print(f"  E_b   = {d['E_b']:.4f} MeV   (target 2.224)")
     print(f"  P_D   = {100*d['P_D']:.2f} %   (D-state admixture)")
     print(f"  kappa = {d['kappa']:.4f} /fm")
     dc = solve_deuteron(r_c=rc, tensor=False)
     print(f"  central-only at same r_c: bound={dc['bound']}  (tensor essential)")
+
+    print(f"\nDeuteron with the DERIVED F113 core (no hard wall), tuning quark size b:")
+    bD, dD = tune_b_to_binding()
+    print(f"  b        = {bD:.4f} fm   (the one physical knob; was the ad-hoc r_c)")
+    print(f"  V_core(0)= {dD['Vcore0']:.1f} MeV   (DERIVED: 56/3·g_cm, exact)")
+    print(f"  E_b      = {dD['E_b']:.4f} MeV   (target 2.224)")
+    print(f"  P_D      = {100*dD['P_D']:.2f} %")
+    print(f"  kappa    = {dD['kappa']:.4f} /fm   (phys 0.2316)")
+    dDc = solve_deuteron(core="derived", b=bD, tensor=False)
+    print(f"  central-only at same b: bound={dDc['bound']}  (tensor still essential)")

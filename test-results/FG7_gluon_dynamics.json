@@ -3,7 +3,7 @@
   "date": "2026-05-27",
   "n_tests": 20,
   "n_passed": 20,
-  "total_elapsed_s": 0.44244595900090644,
+  "total_elapsed_s": 0.5939760010078317,
   "results": [
     {
       "test": "PA.1",
@@ -12,7 +12,7 @@
       "target": 1e-13,
       "passed": true,
       "description": "algebraic identity, machine precision",
-      "elapsed_s": 0.03832637500454439
+      "elapsed_s": 0.05139537500508595
     },
     {
       "test": "PA.2",
@@ -21,7 +21,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "F26 rotation per a \u2014 energy preserved geometrically",
-      "elapsed_s": 0.025155375005851965
+      "elapsed_s": 0.03306358400732279
     },
     {
       "test": "PA.3",
@@ -30,7 +30,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "F26 rotation per a on the BCC lattice",
-      "elapsed_s": 0.022035499998310115
+      "elapsed_s": 0.030194291000952944
     },
     {
       "test": "PA.4",
@@ -39,7 +39,7 @@
       "target": 1e-13,
       "passed": true,
       "description": "F29 B2 SU(3) analog",
-      "elapsed_s": 0.0033567499995115213
+      "elapsed_s": 0.005787417001556605
     },
     {
       "test": "PA.5",
@@ -48,7 +48,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "F29 B3 SU(3) analog",
-      "elapsed_s": 0.0028575840042321943
+      "elapsed_s": 0.0039255840092664585
     },
     {
       "test": "PA.6",
@@ -57,7 +57,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "F29 B2 SU(3) analog on BCC",
-      "elapsed_s": 0.0036623329942813143
+      "elapsed_s": 0.0050959999935003
     },
     {
       "test": "PB.1",
@@ -66,7 +66,7 @@
       "target": 0.0,
       "passed": true,
       "description": "bit-for-bit identity, Tr(T^a \u00b7 I) = 0",
-      "elapsed_s": 0.000324790999002289
+      "elapsed_s": 0.0004439170006662607
     },
     {
       "test": "PB.2",
@@ -75,7 +75,7 @@
       "target": 0.0,
       "passed": true,
       "description": "all three composite plaquettes vanish exactly",
-      "elapsed_s": 0.0009368329992867075
+      "elapsed_s": 0.0013299999991431832
     },
     {
       "test": "PB.3",
@@ -84,7 +84,7 @@
       "target": 0.1,
       "passed": true,
       "description": "non-Abelian plaquette captures U_\u03bc U_\u03bd \u2260 U_\u03bd U_\u03bc",
-      "elapsed_s": 0.004183999997621868
+      "elapsed_s": 0.005673999999999069
     },
     {
       "test": "PB.4",
@@ -93,7 +93,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "F33 W3.3 SU(3) analog",
-      "elapsed_s": 0.004318999999668449
+      "elapsed_s": 0.006256749999010935
     },
     {
       "test": "PB.5",
@@ -102,7 +102,7 @@
       "target": 1e-13,
       "passed": true,
       "description": "F33 W3.4 SU(3) analog \u2014 \u03b4U = exp(iH)\u00b7U is SU(3)",
-      "elapsed_s": 0.015372042005765252
+      "elapsed_s": 0.02147300000069663
     },
     {
       "test": "PB.6",
@@ -111,7 +111,7 @@
       "target": 1e-13,
       "passed": true,
       "description": "F33 W3.4 SU(3) analog on BCC",
-      "elapsed_s": 0.09813254199980292
+      "elapsed_s": 0.13096816700999625
     },
     {
       "test": "PC.1",
@@ -120,7 +120,7 @@
       "target": 1e-13,
       "passed": true,
       "description": "every product term is I\u00b7I\u00b7...\u00b7I = I; Tr I = 3",
-      "elapsed_s": 0.008684958003868815
+      "elapsed_s": 0.011784458998590708
     },
     {
       "test": "PC.2",
@@ -129,7 +129,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "V cancels at the closed-loop start/end corner exactly",
-      "elapsed_s": 0.006997125005000271
+      "elapsed_s": 0.009820542007219046
     },
     {
       "test": "PC.3",
@@ -150,7 +150,7 @@
       "cold_baseline": 3.0,
       "passed": true,
       "description": "strong-coupling decorrelation: |W(r,t)| \u226a N_c=3",
-      "elapsed_s": 0.01934633299970301
+      "elapsed_s": 0.026216666999971494
     },
     {
       "test": "PD.1",
@@ -159,7 +159,7 @@
       "target": 1e-14,
       "passed": true,
       "description": "wrapper consistency, machine \u03b5",
-      "elapsed_s": 0.0029671250013052486
+      "elapsed_s": 0.003952083003241569
     },
     {
       "test": "PD.2",
@@ -169,7 +169,7 @@
       "passed": true,
       "on_diagonal_max": 2.820021048148159,
       "description": "F36 WB.3 SU(3) analog \u2014 exact zero off-diagonal",
-      "elapsed_s": 0.00761354200221831
+      "elapsed_s": 0.010181625009863637
     },
     {
       "test": "PD.3",
@@ -178,7 +178,7 @@
       "target": 0.0,
       "passed": true,
       "description": "F36 WB.5 SU(3) analog \u2014 exact bit-for-bit",
-      "elapsed_s": 0.0036319170030765235
+      "elapsed_s": 0.004870416989433579
     },
     {
       "test": "PD.4",
@@ -187,7 +187,7 @@
       "target": 1e-12,
       "passed": true,
       "description": "C_n(k) = C_0(k)\u00b7exp(\u2212i\u03a9_even(k)\u00b7n) per a-component",
-      "elapsed_s": 0.14759404199867276
+      "elapsed_s": 0.19491879201086704
     },
     {
       "test": "PD.5",
@@ -197,7 +197,7 @@
       "on_diagonal_max": 4.533055186977224,
       "passed": true,
       "description": "no leakage between a-components at linear order",
-      "elapsed_s": 0.026742458998342045
+      "elapsed_s": 0.03640379100397695
     }
   ]
 }

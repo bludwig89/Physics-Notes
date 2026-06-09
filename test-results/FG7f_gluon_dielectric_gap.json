@@ -1,0 +1,94 @@
+{
+  "suite": "FG-7f \u2014 gap-coupled colour-dielectric gluon propagator (Part D)",
+  "date": "2026-06-08",
+  "n_tests": 6,
+  "n_passed": 6,
+  "total_elapsed_s": 0.5647338339913404,
+  "results": [
+    {
+      "test": "GD1",
+      "tier": 1,
+      "passed": true,
+      "residual": 0.0,
+      "name": "BCC even-law dielectric step == free step bit-for-bit at eps_c=1",
+      "detail": {
+        "bit_exact_reduction": 0.0,
+        "field_changes_at_eps0.25": true
+      },
+      "elapsed_s": 0.014388041003257968
+    },
+    {
+      "test": "GD2",
+      "tier": 1,
+      "passed": true,
+      "residual": 4.1143008576497224e-14,
+      "name": "uniform dielectric exactly unitary + c_eff=c sqrt(eps_c)",
+      "detail": {
+        "energy_drift_200_ticks": 4.1143008576497224e-14,
+        "c_eff(0.49)": 0.40414518843273806,
+        "c_eff_expected": 0.40414518843273806,
+        "c_eff_residual": 0.0
+      },
+      "elapsed_s": 0.2826377500023227
+    },
+    {
+      "test": "GD3",
+      "tier": 3,
+      "passed": true,
+      "residual": 0.0,
+      "name": "condensate VEV from measured MC density (F88->F86 hand-off)",
+      "detail": {
+        "v": 0.833383295437157,
+        "m_V": 0.6211672333034244,
+        "sigma_F86": 4.363846347597753,
+        "beta": 1.8,
+        "rho": 0.017592592592592594,
+        "n_sweeps": 160,
+        "L_mc": 6,
+        "sigma_consistency": 0.0,
+        "v_eq_mD_sqrt_beta": 0.0
+      },
+      "elapsed_s": 0.11747349999495782
+    },
+    {
+      "test": "GD4",
+      "tier": 1,
+      "passed": true,
+      "residual": 1.2183920947620988e-13,
+      "name": "gap-massive gluon dispersion omega^2 = m_V^2 + Omega_even^2",
+      "detail": {
+        "m_V": 0.725519745693687,
+        "dispersion_residual": 1.2183920947620988e-13,
+        "gapless_reduction": 0.0
+      },
+      "elapsed_s": 0.10210499999811873
+    },
+    {
+      "test": "GD5",
+      "tier": 3,
+      "passed": true,
+      "residual": 0.02171381255752695,
+      "name": "dual-Meissner screening lambda = 1/m_V from the measured gap",
+      "detail": {
+        "m_V": 0.725519745693687,
+        "lambda_fit": 1.4082508692863231,
+        "lambda_expected": 1.3783222385544802
+      },
+      "elapsed_s": 0.0007206250011222437
+    },
+    {
+      "test": "GD6",
+      "tier": 3,
+      "passed": true,
+      "residual": 0.013690884587926723,
+      "name": "dynamic flux expulsion from condensed vacuum (dual Meissner)",
+      "detail": {
+        "frac_in_condensed_dielectric": 0.013690884587926723,
+        "frac_in_condensed_free_control": 0.5212573092730605,
+        "suppression_factor": 38.07331118200573,
+        "free_step_bitexact": 8.881784197001252e-16
+      },
+      "elapsed_s": 0.04730629199184477
+    }
+  ]
+}
