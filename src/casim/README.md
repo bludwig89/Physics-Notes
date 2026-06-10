@@ -85,6 +85,15 @@ numba/GPU or a hand-written chiral library with `backend.register_backend(...)`
 | `photon_sourced` | even (particle layer) | `ca_charge_coupling.maxwell_curl_step` ← particle `J_em` |
 | `gluon_sourced` | even (particle layer) | `ca_gluon.gluon_sourced_step_bcc` ← quark `J_colour` |
 | `refraction_2d` | variable-c (Tier-3) | `ca_curved.weyl_step_2d_varc_strang` (needs SciPy) |
+| `njl_meson` | spectral (compute-once) | `ca_meson.solve_meson_spectrum` (pion/σ χSB sector, FB03) |
+| `njl_nucleon` | spectral (compute-once) | `ca_si_scale.si_registry` (f_π-anchored 3m_c + n−p, FB02/FA06) |
+| `string_tension` | spectral (compute-once) | `ca_qcd_scale_ratio.summary` (√σ/f_π, FB09) |
+
+The three `spectral` channels (`casim.engine.spectral_matter`) wrap the
+momentum-space matter solvers for the falsification suite: a "tick" runs the
+solve once and the `field_snapshot` observer dumps the physics numbers + PDG
+comparison to JSON. Scenarios: `njl_pion.yaml`, `njl_nucleon.yaml`,
+`string_tension_fpi.yaml`.
 
 ## Coupled channels (Tier-2)
 

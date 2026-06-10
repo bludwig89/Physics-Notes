@@ -203,6 +203,17 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - as a small fork, since the first-order route exposes EOM 3's (page34-eom-derivation.md) spin-torsion four-fermion term. Conduct a bounded check — does the project's torsion-free assumption cost anything at the lattice's fermion densities? (fork against f62 with the chiral-algebra caveat).
 
+- build a research command for claude code that will go wide, searching reference research and the web for data on a question and return results sorted based on our claude.md design decisions. 
+
+- ~~now that we have working structure all the way up to matter binding, research a suite of tests to run against existing measured scientific data in an attempt to falisfy the model or specific model elements. Once the list is done, build a roadmap file that claude code can read, build, and run on CASIM from, one file for each test (sub-agent style). These will supercede the tests-priority suite.~~
+
+- the one matter binding remaining underived element is the isoscalar-vector (ω) short-range repulsion. attempt to derive from existing model elements.
+
+- r~~eview the model files and determine what functions and files are deprecated by current design decisions. make a backup copy in the deprecated folder then delete obsolete functions and files, request user verification of each removal.~~
+
+- ~~Consider the project overall and propose reorganization such that it is clearly separated to different areas, and is also clearly labelled for human reading. ask me questions to build out a organization structure with indexes for quick ai-context loading.~~
+
+
 ### Deriving Inputs 
 
 All from project-audit-inputs-dynamism

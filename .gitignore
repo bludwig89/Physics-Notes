@@ -1,3 +1,7 @@
 # Ignore specific files
 Outreach-Emails-plaintext.txt
 Outreach-Emails.md
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store

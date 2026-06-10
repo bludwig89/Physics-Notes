@@ -1,0 +1,18 @@
+# FB02 + FA06 — the nucleon from a single f_pi anchor (F123/F97/F40).
+# Spectral (compute-once) solve: the NJL constituent mass m_c (gap equation)
+# times three gives the nucleon mass m_p ~= 3 m_c, scored against PDG 938.27;
+# and the n-p splitting (F40 down-up current gap beating the proton EM self-
+# energy, sign positive). A "tick" runs the solve once; field_snapshot writes
+# m_c, m_p~3m_c, m_p_rel_err, and m_n-m_p to JSON. Pure numpy, sandbox-fast.
+name: njl_nucleon
+title: "NJL Nucleon, f_pi-anchored (FB02/FA06)"
+description: "f_pi-anchored constituent nucleon: m_p ~= 3 m_c vs PDG 938.27 (-1.05%), plus the neutron-proton splitting +1.51 MeV (sign positive, no QCD anchor)."
+lattice: {L: 4, topology: cubic, c_lat: 1.0}
+seed: 0
+ticks: 1
+channels:
+  - {type: njl_nucleon, name: nucleon, f_pi_MeV: 92.07}
+observers:
+  - {type: field_snapshot, every: 1}
+output:
+  json: test-results/casim_njl_nucleon.json

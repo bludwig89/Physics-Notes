@@ -1,0 +1,82 @@
+{
+  "name": "njl_nucleon",
+  "title": "NJL Nucleon, f_pi-anchored (FB02/FA06)",
+  "description": "f_pi-anchored constituent nucleon: m_p ~= 3 m_c vs PDG 938.27 (-1.05%), plus the neutron-proton splitting +1.51 MeV (sign positive, no QCD anchor).",
+  "seed": 0,
+  "ticks": 1,
+  "lattice": {
+    "L": 4,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 1.0
+  },
+  "channels": {
+    "nucleon": {
+      "name": "nucleon",
+      "type": "njl_nucleon",
+      "label": "NJL Nucleon (f_pi-anchored)",
+      "propagator": "spectral",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 1,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "nucleon": {
+              "energy": 928.4660013244923,
+              "f_pi_anchor_MeV": 92.07,
+              "m_c_MeV": 309.48866710816407,
+              "m_c_rel_err": -0.011123535456548428,
+              "m_p_3mc_MeV": 928.4660013244923,
+              "m_p_rel_err": -0.010451125766843511,
+              "n_minus_p_MeV": 1.5099999999999998,
+              "n_minus_p_sign_positive": true,
+              "np_strong_term_MeV": 2.51,
+              "np_em_term_MeV": -1.0,
+              "pdg": {
+                "m_p": 938.272,
+                "m_n": 939.565,
+                "n_minus_p": 1.293,
+                "m_N_third": 312.97
+              }
+            }
+          }
+        },
+        {
+          "tick": 1,
+          "channels": {
+            "nucleon": {
+              "energy": 928.4660013244923,
+              "f_pi_anchor_MeV": 92.07,
+              "m_c_MeV": 309.48866710816407,
+              "m_c_rel_err": -0.011123535456548428,
+              "m_p_3mc_MeV": 928.4660013244923,
+              "m_p_rel_err": -0.010451125766843511,
+              "n_minus_p_MeV": 1.5099999999999998,
+              "n_minus_p_sign_positive": true,
+              "np_strong_term_MeV": 2.51,
+              "np_em_term_MeV": -1.0,
+              "pdg": {
+                "m_p": 938.272,
+                "m_n": 939.565,
+                "n_minus_p": 1.293,
+                "m_N_third": 312.97
+              }
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

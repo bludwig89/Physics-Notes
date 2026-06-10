@@ -1,0 +1,66 @@
+{
+  "name": "string_tension_fpi",
+  "title": "sqrt(sigma)/f_pi (FB09)",
+  "description": "The two QCD calibrations reconciled: (Lambda/f_pi)(sqrt(sigma)/Lambda) via condensate axis/sphere BZ conventions, scored against the empirical sqrt(sigma)/f_pi = 4.56.",
+  "seed": 0,
+  "ticks": 1,
+  "lattice": {
+    "L": 4,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 1.0
+  },
+  "channels": {
+    "sigma_fpi": {
+      "name": "sigma_fpi",
+      "type": "string_tension",
+      "label": "\u221a\u03c3/f_\u03c0 (two QCD calibrations)",
+      "propagator": "spectral",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 1,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "sigma_fpi": {
+              "energy": 4.003230750113696,
+              "Lam_over_f_pi_chiral": 7.036894381561894,
+              "sqrt_sigma_over_fpi_axis": 4.003230750113696,
+              "sqrt_sigma_over_fpi_sphere": 3.2265878796272975,
+              "empirical_sqrt_sigma_over_fpi": 4.561746497230368,
+              "axis_rel_err": -0.12243463056436196,
+              "sphere_rel_err": -0.2926858426731303,
+              "band": "3.23-4.00"
+            }
+          }
+        },
+        {
+          "tick": 1,
+          "channels": {
+            "sigma_fpi": {
+              "energy": 4.003230750113696,
+              "Lam_over_f_pi_chiral": 7.036894381561894,
+              "sqrt_sigma_over_fpi_axis": 4.003230750113696,
+              "sqrt_sigma_over_fpi_sphere": 3.2265878796272975,
+              "empirical_sqrt_sigma_over_fpi": 4.561746497230368,
+              "axis_rel_err": -0.12243463056436196,
+              "sphere_rel_err": -0.2926858426731303,
+              "band": "3.23-4.00"
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}
