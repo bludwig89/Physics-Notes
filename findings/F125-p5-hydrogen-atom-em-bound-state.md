@@ -3,9 +3,9 @@
 **Date:** 2026-06-09 - 19:10
 **Status:** Confirmed — 20/20 checks PASS. Machine-precision identities (positronium reduced-mass ratio, Sommerfeld == O((Zα)⁴) series, 2s½–2p½ Dirac degeneracy); grid-floor PREDICTIONs (−1/n² Rydberg series, Coulomb ℓ-degeneracy, node structure); quantitative PREDICTIONs (absolute −13.6 eV from m_e+α, Bohr radius, fine-structure splitting = 10.95 GHz, α⁴/α² scaling, numerical-Dirac == Sommerfeld). Closes the matter-binding roadmap (P0–P6).
 **Module:** `ca-simulation/ca_atom.py`
-**Script:** `model-tests/test_P5_hydrogen.py` (~12 s)
+**Script:** `tests/findings/test_P5_hydrogen.py` (~12 s)
 **Results:** `test-results/P5_hydrogen.json`
-**Cross-references:** [[higgs-free-su2-key-choice]] / F27 (the dynamical electron the atom binds), [[f87-charge-coupling-paired-photon]] / F69 (the EM U(1) paired-spinor photon — the binding channel), the F74 two-body solver (the engine this generalises contact→Coulomb), [[f123-p6-si-scale-matter]] / F121 / F120 (the electron mass anchor), `roadmap-matter-binding.md` (P5).
+**Cross-references:** [[higgs-free-su2-key-choice]] / F27 (the dynamical electron the atom binds), [[f87-charge-coupling-paired-photon]] / F69 (the EM U(1) paired-spinor photon — the binding channel), the F74 two-body solver (the engine this generalises contact→Coulomb), [[f123-p6-si-scale-matter]] / F121 / F120 (the electron mass anchor), `docs/roadmaps/roadmap-matter-binding.md` (P5).
 
 ---
 

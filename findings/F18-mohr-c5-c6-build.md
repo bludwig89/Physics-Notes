@@ -4,7 +4,7 @@
 
 ## Background
 
-The Mohr 2010 summary (`reference-research/mohr-2010-maxwell-photon-wf-summary.md` §C) listed six "gaps" — items in Mohr's continuum photon framework that our composite-photon construction lacked. C1–C4 had previously been implemented as `polarization_basis`, `longitudinal_mode`, `lorentz_boost_covariance`, and `composite_photon_energy_conservation` (Exactness Inventory Tier 1 #22–30, Tier 2 #7). C5 (angular-momentum eigenstates via matrix spherical harmonics, Mohr §8) and C6 (Maxwell Green function + source coupling, Mohr §C6) were still open. The Mohr summary also recommended refinements to C1–C4 — most notably the `c²` factor on the Poynting density and a direct bilinear-level V6 covariance test.
+The Mohr 2010 summary (`references/mohr-2010-maxwell-photon-wf-summary.md` §C) listed six "gaps" — items in Mohr's continuum photon framework that our composite-photon construction lacked. C1–C4 had previously been implemented as `polarization_basis`, `longitudinal_mode`, `lorentz_boost_covariance`, and `composite_photon_energy_conservation` (Exactness Inventory Tier 1 #22–30, Tier 2 #7). C5 (angular-momentum eigenstates via matrix spherical harmonics, Mohr §8) and C6 (Maxwell Green function + source coupling, Mohr §C6) were still open. The Mohr summary also recommended refinements to C1–C4 — most notably the `c²` factor on the Poynting density and a direct bilinear-level V6 covariance test.
 
 ## Method
 
@@ -76,9 +76,9 @@ Per the project standard (a theory must reproduce existing measurements and eith
 
 ## Cross-references
 
-- Predecessor: Mohr 2010 §C, summarised in `reference-research/mohr-2010-maxwell-photon-wf-summary.md`.
+- Predecessor: Mohr 2010 §C, summarised in `references/mohr-2010-maxwell-photon-wf-summary.md`.
 - Build plan: `mohr-c5-c6-build-plan.md` (status table for C1–C6).
 - Code: `ca-simulation/ca_maxwell.py` — sections "C1–C4 refinements", "C5 — Photon angular-momentum eigenstates", "C6 — Source coupling and Maxwell Green function".
-- Inventory entries: `exactness-inventory.md` Tier 1 #35–43, Tier 2 #10–12.
+- Inventory entries: `docs/status/exactness-inventory.md` Tier 1 #35–43, Tier 2 #10–12.
 - Captured run: `test-results/mohr_c1_c6_results_2026-05-21.txt`.
 - Related findings: Finding 7 (composite-photon curl), Finding 15 (closed-form Lorentz-violation coefficients $\beta_\text{LV}, \gamma_\text{LV}$).

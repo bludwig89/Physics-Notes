@@ -2,9 +2,9 @@
 
 **Date:** 2026-06-01 - 14:41
 **Status:** Confirmed — derivation + 3/3 checks against the model's real operators (residuals 1.1×10⁻¹⁶ / 0 / 0). Resolves the F67 either/or in favour of the even photon being the physical EM photon — conditional on the physical photon being the gauge connection.
-**Script:** `model-tests/test_F68_minimal_coupling_forces_even_photon.py`
+**Script:** `tests/findings/test_F68_minimal_coupling_forces_even_photon.py`
 **Results:** `test-results/F68_minimal_coupling_forces_even_photon.json`
-**Cross-references:** [[F67-even-law-photon-vs-bilinear-mutually-exclusive]] (the either/or this resolves), [[F66-allsky-birefringence-anisotropy-no-rescue]] (option 1), [[F65-helicity-chirality-map-confirmed]], [[F39-two-helicity-photon-bilinear]] (§5.1 non-unification), [[F29-w-triplet-bilinear-su2-bridge]], [[F27-complex-mass-chiral-su2]]; `ca_dirac.py` (`mass_step_1flavor_u1`), `ca_hypercharge.py`; McPhee notebook `reference-research/physics-notes-complete.md` pp.5–6, 12–13.
+**Cross-references:** [[F67-even-law-photon-vs-bilinear-mutually-exclusive]] (the either/or this resolves), [[F66-allsky-birefringence-anisotropy-no-rescue]] (option 1), [[F65-helicity-chirality-map-confirmed]], [[F39-two-helicity-photon-bilinear]] (§5.1 non-unification), [[F29-w-triplet-bilinear-su2-bridge]], [[F27-complex-mass-chiral-su2]]; `ca_dirac.py` (`mass_step_1flavor_u1`), `ca_hypercharge.py`; McPhee notebook `references/physics-notes-complete.md` pp.5–6, 12–13.
 
 ---
 
@@ -59,6 +59,6 @@ The remaining open item is therefore *constructive*, not conceptual: **reinstate
 | chiral-channel birefringence (body diag, $k{=}0.4$) | quantitative | $1.03\times10^{-2}$ |
 
 ## Files
-- Test: `model-tests/test_F68_minimal_coupling_forces_even_photon.py`
+- Test: `tests/findings/test_F68_minimal_coupling_forces_even_photon.py`
 - Results: `test-results/F68_minimal_coupling_forces_even_photon.json`
 - Operators: `ca-simulation/ca_dirac.py` (`mass_step_1flavor_u1`), `ca_hypercharge.py`, `ca_bcc.py` (`bcc_unitary`, `_bcc_uvec`).

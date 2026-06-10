@@ -8,7 +8,7 @@ on the actual even-law `(E,B)` field* — that electric charge couples to the
 field (Aharonov–Bohm holonomy) and a charge *sources* the field (sourced Maxwell
 curl), and the two close into one self-consistent loop.
 **Module:** `ca-simulation/ca_charge_coupling.py` (new).
-**Test:** `model-tests/test_F87_charge_coupling_paired_photon.py` (~0.5 s).
+**Test:** `tests/findings/test_F87_charge_coupling_paired_photon.py` (~0.5 s).
 **Results:** `test-results/F87_charge_coupling_paired_photon.json`.
 **Cross-references:** [[higgs-free-su2-key-choice]], [[f41-hypercharge-higgs-free]],
 F68 (minimal coupling forces the even photon), F69 (paired-spinor photon),

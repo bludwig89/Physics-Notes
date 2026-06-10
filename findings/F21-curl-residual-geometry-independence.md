@@ -78,6 +78,6 @@ Half-vindicated, half-refuted, and informative either way:
 ## Cross-references
 
 - Refines [[finding-2-curl-residual]] and Exactness Inventory #7 ($1/\sqrt{2d}\to c_\text{lat}/\sqrt2$).
-- Geometry uniqueness context: `qca-papers-1-4-overview.md` (BCC vs cubic), `ca-reference.md`.
+- Geometry uniqueness context: `qca-papers-1-4-overview.md` (BCC vs cubic), `docs/theory/ca-reference.md`.
 - $c_\text{lat}=1/\sqrt d$ origin: [[finding-10-sqrt-d-light-speed]].
 - Propagation companion: [[F20-photon-fermion-propagation-demo]].

@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-01 - 14:23
 **Status:** Confirmed — 3/3 sections PASS against the model's *real* propagators (residuals 1.8×10⁻¹⁵ / 7.7×10⁻⁶ FD / 1.4×10⁻¹⁷). The wedge between the two photons is, exactly, the excluded birefringence.
-**Script:** `model-tests/test_F67_option1_even_law_photon.py` (imports `ca_wmu._f26_rotation_step`, `ca_wmu.w_propagation_step_chiral`, `ca_bcc`; no propagator re-derivation).
+**Script:** `tests/findings/test_F67_option1_even_law_photon.py` (imports `ca_wmu._f26_rotation_step`, `ca_wmu.w_propagation_step_chiral`, `ca_bcc`; no propagator re-derivation).
 **Results:** `test-results/F67_option1_even_law_photon.json`
 **Cross-references:** [[F66-allsky-birefringence-anisotropy-no-rescue]] (this tests its option 1), [[F65-helicity-chirality-map-confirmed]] (birefringence is forced for the bilinear), [[F39-two-helicity-photon-bilinear]] (the bilinear; §5.1 non-unification flag), [[F29-w-triplet-bilinear-su2-bridge]] (what the bilinear buys), [[F26-speed-of-light-as-rotation-rate]], [[F64-em-connection-gravity]] (the cell size under threat).
 
@@ -76,6 +76,6 @@ An even-law U(1) photon keeps the *kinematics* (speed, reality, two transverse p
 | body-diag override $=(\sqrt3/54)k^2$ | quantitative | $5\times10^{-6}$ |
 
 ## Files
-- Test: `model-tests/test_F67_option1_even_law_photon.py`
+- Test: `tests/findings/test_F67_option1_even_law_photon.py`
 - Results: `test-results/F67_option1_even_law_photon.json`
 - Builds on `ca-simulation/ca_wmu.py` (`_f26_rotation_step`, `w_propagation_step_chiral`), `ca_bcc.py` (`bcc_dispersion`, `bcc_unitary`).

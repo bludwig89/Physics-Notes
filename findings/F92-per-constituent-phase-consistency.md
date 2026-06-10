@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-04 - 20:35
 **Status:** Partial (closing) — 5/5 checks PASS. **What is derived (exact):** the model's two established mass laws — F73's pair-sum kinematics $m=\sin 2t$ and F78's bilinear premise $m=y^2$ — are *jointly satisfiable at exactly one angle*, $t=45°$, given the standard two-quantum Fock normalization $y=\sqrt2\sin t$; the F73 stability cap $m_c\le1/\sqrt2$ is re-derived as **unitarity of the pair amplitude** ($y\le1$); and the "mass amplitude = sine of a rest rotation" reading is grounded in the model's own code (the F27 mass step allocates $(\cos t,\sin t)$ exactly). **What this changes:** F84's irreducible input #1 ("the generation polar angle $\phi$ is the constituent rest-phase") no longer needs to be assumed *and then* driven to 45° by energetics — the identification and the 45° location collapse into a single self-consistency statement whose only new input is the Bose pair factor $\sqrt2$, which the measured lepton masses pin to $c^2=2$ at the $10^{-5}$ level. **What remains:** a derivation from the QCA update rule of *why* the generation-space angle participates in the pair phase budget at all. See §6.
-**Script:** `model-tests/test_F92_per_constituent_phase.py` (<1 s)
+**Script:** `tests/findings/test_F92_per_constituent_phase.py` (<1 s)
 **Results:** `test-results/F92_per_constituent_phase.json`
 **Cross-references:** [[F84-flatness-from-orthorhombic-break]] (irreducible input #1, the target), [[F81-why-45deg-pair-phase-saturation]] (identification (b) this addresses), [[F82-why-saturation-composite-mass-peak]] (the energetic route this complements), [[F80-one-45deg-em-saturation-koide]] ($Q(\phi)$ map; the singlet-$1/\sqrt2$ conjecture this makes precise), [[F78-koide-amplitude-from-cooper-pair]] (the bilinear law L2), [[F73-spin0-bound-pair-scalar]] (the pair-sum law L1 and the $1/\sqrt2$ cap), [[F69-paired-spinor-photon]] (phase-sum rule), [[F46-pythagorean-lattice-mass]] ($m=\sin\Omega_\text{rest}$), [[F27-complex-mass-chiral-su2]] (the mass step exercised in P1), [[F93-orthorhombic-Eg-vacuum]] (the companion finding on input #2).
 
@@ -146,7 +146,7 @@ $c^2\to2$ exactly (currently $0.91\sigma$-limited by $m_\tau$, same as Koide).
 - New content: the L1+L2 consistency theorem and its uniqueness; the
   unitarity reading of the F73 cap; the $c^2=2\cot\phi$ data pin; the P1
   code-level grounding. Builds directly on F73/F78/F80/F81/F82/F84.
-- Verification: `model-tests/test_F92_per_constituent_phase.py`
+- Verification: `tests/findings/test_F92_per_constituent_phase.py`
   (2026-06-04 - 20:31, 5/5 PASS), results
   `test-results/F92_per_constituent_phase.json`.
 - Masses: PDG ($m_e=0.51099895$, $m_\mu=105.6583755$, $m_\tau=1776.86$ MeV).

@@ -3,7 +3,7 @@
 **Date:** 2026-06-02 - 02:35
 **Status:** Candidate finding — 6/6 checks PASS. The channel-selection argument (S3/S4) and the structural mode count (S5) are **exact** (machine-precision tracelessness, exact rationals, exact integers); the assembled closed form (S6) is **exact-algebraic given its three structural inputs**. The one honest limit is dimensional: the model predicts the *dimensionless* number $a/\ell_P$, not a dimensionful $G$ from pure numbers (no theory can — that needs one ruler). See §6.
 **Module:** `ca-simulation/forks/gr_fork_F79_structural_G.py` (self-contained; numpy + fractions, real arithmetic).
-**Tests:** `model-tests/test_F79_structural_G.py`; results `test-results/F79_structural_G.json`.
+**Tests:** `tests/findings/test_F79_structural_G.py`; results `test-results/F79_structural_G.json`.
 **Cross-references:** [[F56-einstein-coupling-from-lattice-phase-matching]], [[F57-induced-eh-term-from-leg-field-backreaction]], [[F58-clockrate-coupling-from-neighbour-rule]], [[F59-induced-eh-prefactor-and-f10-selection]], [[F60-induced-G-channel-reconciliation]] (the channel fork this closes non-circularly), [[F61-weyl-eta-and-gstar-prefactor]] ($\eta=1/12$, $g_*$), [[F64-em-connection-gravity]] (D-EM5 conformal-factor derivation; D-EM10 G-pinning this replaces), [[F75-three-generations-from-bcc-irrep-selection]] (makes $g_*$ structural), F38 (anomaly-free content), [[f41-hypercharge-higgs-free]], F47 ($\nu_R$).
 
 ---
@@ -149,7 +149,7 @@ $a\approx6.6\,\ell_P$, tick $\tau\approx3.8\,t_P$.
 *dimensionless* $a/\ell_P$ (equivalently the pure number $8\pi\sqrt3$). To state $G$ in SI one must
 anchor the one length $a$ to a measured scale. Two anchors exist: (i) $a=\ell_P$ (the readout above),
 which is circular if one wanted $G$ as the output; or (ii) — the genuinely independent route flagged
-in `si-units-options.md` — fix $a$ from a **measured fermion mass** through the F46/F12 lattice-mass
+in `deprecated/si-units-options.md` — fix $a$ from a **measured fermion mass** through the F46/F12 lattice-mass
 map, which references no Planck length at all. Under (ii), $G$ becomes an *output of particle data*:
 $G=a^2c^3/(8\pi\sqrt3\,\hbar)$ with $a$ read from, e.g., the electron mass. That is the sharpest
 "derive $G$" the framework supports, and it is falsifiable through the $a/\ell_P$ relation.
@@ -194,7 +194,7 @@ lattice can supply.
   channel *premise* into a theorem, and the recognition that F75 makes $g_*$ structural — together
   yielding the parameter-free coefficient $8\pi\sqrt3$ and the $a/\ell_P$ prediction.
 - Reuses: F26 ($c_\text{lat}=1/\sqrt d$), F61 ($\eta$, $g_*$ machinery), F64 D-EM5 (conformal-factor
-  derivation), F75 (generation count), F38/F47 (anomaly-free 16-Weyl content), F46/F12 + `si-units-options.md`
+  derivation), F75 (generation count), F38/F47 (anomaly-free 16-Weyl content), F46/F12 + `deprecated/si-units-options.md`
   (the mass-anchor route to a dimensionful $G$).
-- Verification: `model-tests/test_F79_structural_G.py` (2026-06-02 - 02:35, 6/6 PASS),
+- Verification: `tests/findings/test_F79_structural_G.py` (2026-06-02 - 02:35, 6/6 PASS),
   results `test-results/F79_structural_G.json`.

@@ -8,7 +8,7 @@
 
 Phase T5.A (`ca-emergent-time-plan.md` lines 215–223) and Exactness Inventory Tier 1 #2 establish that **true-vacuum cells satisfy $N(\mathbf{x}) = 0$ exactly** — bit-for-bit on 80% of an $L = 256$ lattice in the F1 vacuum regression. The lattice already has a structural distinction between "ticking" cells (active) and "frozen" cells (vacuum).
 
-'t Hooft CAI §9.4 ([`reference-research/t-hooft-2015-cai-summary.md`](../reference-research/t-hooft-2015-cai-summary.md); PDF p. 94–95) claims a *generic* version of the same observation:
+'t Hooft CAI §9.4 ([`references/t-hooft-2015-cai-summary.md`](../references/t-hooft-2015-cai-summary.md); PDF p. 94–95) claims a *generic* version of the same observation:
 
 > *"In any finite, simply connected region of space, the information contained in the bulk gradually disappears, but what sits at the surface will continue to be accessible, so that the information at the surface can be used to characterise the info-equivalence classes."*
 
@@ -102,9 +102,9 @@ The **VOL** branch is the prior — area scaling would be a genuinely new lattic
 ## Cross-references
 
 - Source claim 1: [`ca-emergent-time-plan.md`](../ca-emergent-time-plan.md) Phase T5.A (lines 215–223), T5.B (225–233), T5.C (235–245).
-- Source claim 2: [`reference-research/Cellular-Automaton-Interpretation-of-Quantum-Mechanics.pdf`](../reference-research/Cellular-Automaton-Interpretation-of-Quantum-Mechanics.pdf) §9.4, p. 94–95, Eq. 9.7.
-- Antecedent: [`reference-research/t-hooft-2015-cai-summary.md`](../reference-research/t-hooft-2015-cai-summary.md) §6 item 5 (the "is this a coincidence or a hint" prompt).
-- Empirical anchor: [`exactness-inventory.md`](../exactness-inventory.md) Tier 1 #2 (vacuum freezing $N = 0$ on 80% of $L=256$).
+- Source claim 2: [`references/Cellular-Automaton-Interpretation-of-Quantum-Mechanics.pdf`](../references/Cellular-Automaton-Interpretation-of-Quantum-Mechanics.pdf) §9.4, p. 94–95, Eq. 9.7.
+- Antecedent: [`references/t-hooft-2015-cai-summary.md`](../references/t-hooft-2015-cai-summary.md) §6 item 5 (the "is this a coincidence or a hint" prompt).
+- Empirical anchor: [`docs/status/exactness-inventory.md`](../exactness-inventory.md) Tier 1 #2 (vacuum freezing $N = 0$ on 80% of $L=256$).
 - Instrument: `ca-simulation/ca_curved.py` (Cayley variable-$c$); `ca-simulation/poisson_open.py` (James–Hockney Poisson); tick-counter from T1.B.
 - Tracking: [`lattice-vs-spacetime-tests.md`](../lattice-vs-spacetime-tests.md) — add a row labelled "F18 area-vs-volume" once a run is scheduled.
 

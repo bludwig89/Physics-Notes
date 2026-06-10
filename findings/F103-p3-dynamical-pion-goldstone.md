@@ -2,9 +2,9 @@
 
 **Date:** 2026-06-06 - 06:42
 **Status:** Confirmed — 13/13 checks PASS. Goldstone theorem and the polarization split reproduce to machine precision (2.3×10⁻¹⁴, 1.8×10⁻¹⁶); the calibrated spectrum reproduces the **measured** m_c, m_π, f_π, ⟨q̄q⟩ to 0.2–4.2%; GMOR holds to 0.39%; the Goldstone scaling m_π²∝m₀ is flat to 0.86%; and the real-space relative-coordinate bound state agrees with dense diagonalisation to 1.3×10⁻¹⁵.
-**Roadmap:** `roadmap-matter-binding.md` Phase **P3** (the pion / chiral pseudoscalar — force carrier for P4 nuclei). *Not* to be confused with the particle-layer roadmap's "P3" (GUI sidebar).
+**Roadmap:** `docs/roadmaps/roadmap-matter-binding.md` Phase **P3** (the pion / chiral pseudoscalar — force carrier for P4 nuclei). *Not* to be confused with the particle-layer roadmap's "P3" (GUI sidebar).
 **Module:** `ca-simulation/ca_meson.py`
-**Script:** `model-tests/test_P3_pion.py` (~7 s, numpy only)
+**Script:** `tests/findings/test_P3_pion.py` (~7 s, numpy only)
 **Results:** `test-results/P3_pion.json`
 **Cross-references:** [[F77-njl-gap-rpa-selfconsistent]] (the calibrated NJL gap+RPA ladder this reuses), [[F74-two-constituent-bound-state-binding]] (the relative-coordinate two-body solver reused for the real-space cross-check), [[F73-spin0-bound-pair-scalar]] (the m→2m_c kinematic ceiling = the scalar partner), [[F69-paired-spinor-photon]] (the spin-1 sibling pairing channel; the pion is the spin-0 antisymmetric partner).
 
@@ -12,7 +12,7 @@
 
 ## Goal
 
-`roadmap-matter-binding.md` P3 asks for the pion as a **dynamical** q̄q state: the pseudoscalar Goldstone of chiral-symmetry breaking, the long-range carrier of the residual nuclear force that P4 (deuteron) will consume. F77 already reproduced m_π, f_π and ⟨q̄q⟩ self-consistently from a single coupling, so the *calibration exists*; P3 promotes the pion from "the RPA pseudoscalar pole exists" to a **certified dynamical bound state** with the Goldstone signature made sharp, the GMOR slope verified, an explicit light/heavy contrast, and a real-space relative-coordinate cross-check.
+`docs/roadmaps/roadmap-matter-binding.md` P3 asks for the pion as a **dynamical** q̄q state: the pseudoscalar Goldstone of chiral-symmetry breaking, the long-range carrier of the residual nuclear force that P4 (deuteron) will consume. F77 already reproduced m_π, f_π and ⟨q̄q⟩ self-consistently from a single coupling, so the *calibration exists*; P3 promotes the pion from "the RPA pseudoscalar pole exists" to a **certified dynamical bound state** with the Goldstone signature made sharp, the GMOR slope verified, an explicit light/heavy contrast, and a real-space relative-coordinate cross-check.
 
 ## Construction
 
@@ -61,5 +61,5 @@ The pion mass and the pion-nucleon coupling are exactly the inputs P4 (deuteron)
 
 ## Files
 - Module: `ca-simulation/ca_meson.py`
-- Script: `model-tests/test_P3_pion.py`
+- Script: `tests/findings/test_P3_pion.py`
 - Results: `test-results/P3_pion.json`

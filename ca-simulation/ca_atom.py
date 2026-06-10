@@ -4,7 +4,7 @@
 ca_atom.py
 ==========
 
-P5 of roadmap-matter-binding.md — the ATOM: an electron (P0) bound to a nucleus
+P5 of docs/roadmaps/roadmap-matter-binding.md — the ATOM: an electron (P0) bound to a nucleus
 by the electromagnetic (U(1), F69 paired-spinor photon) channel.  Hydrogen first,
 with positronium as the clean two-body de-risking check, and the relativistic
 fine structure from the Dirac — not Schrödinger — kinetic operator.

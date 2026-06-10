@@ -4,7 +4,7 @@ ca_nuclear_core.py — the NN short-range repulsive core, derived from the model
 
 Created: 2026-06-08
 
-Phase P4 of `roadmap-matter-binding.md` named the **short-range repulsive core**
+Phase P4 of `docs/roadmaps/roadmap-matter-binding.md` named the **short-range repulsive core**
 of the nucleon-nucleon force as the one ingredient the model did not yet have
 (the OPEP attractive tail is the F103 pion).  This module derives that core
 from the model's own first principles — no new free physics, no phenomenology.

@@ -2,10 +2,10 @@
 
 **Date:** 2026-06-01 - 15:02
 **Status:** Confirmed — new module `ca_photon_pair.py` + 5/5 checks (residuals 0 / 1.8×10⁻¹⁵ / 7.7×10⁻⁶ FD / 0 / ≤6×10⁻¹⁵). The composite σ-bilinear is retired *as the photon* (kept for the non-Abelian sectors).
-**Script:** `model-tests/test_F69_paired_photon.py`
+**Script:** `tests/findings/test_F69_paired_photon.py`
 **Module:** `ca-simulation/ca_photon_pair.py`
 **Results:** `test-results/F69_paired_photon.json`
-**Cross-references:** [[F68-minimal-coupling-forces-even-photon]] (the identity channel this realizes), [[F67-even-law-photon-vs-bilinear-mutually-exclusive]], [[F66-allsky-birefringence-anisotropy-no-rescue]], [[F65-helicity-chirality-map-confirmed]], [[F39-two-helicity-photon-bilinear]] (the retired construction), [[F26-speed-of-light-as-rotation-rate]]; McPhee notebook `reference-research/physics-notes-complete.md` pp.5–6, 12–13; `key-decisions.md`, `CLAUDE.md` core decision 5.
+**Cross-references:** [[F68-minimal-coupling-forces-even-photon]] (the identity channel this realizes), [[F67-even-law-photon-vs-bilinear-mutually-exclusive]], [[F66-allsky-birefringence-anisotropy-no-rescue]], [[F65-helicity-chirality-map-confirmed]], [[F39-two-helicity-photon-bilinear]] (the retired construction), [[F26-speed-of-light-as-rotation-rate]]; McPhee notebook `references/physics-notes-complete.md` pp.5–6, 12–13; `docs/theory/key-decisions.md`, `CLAUDE.md` core decision 5.
 
 ---
 
@@ -38,7 +38,7 @@ This is *exactly* the even-law rate of `ca_wmu._f26_rotation_step` (verified res
 - **Retired as the photon:** the composite σ-bilinear $G^i=\phi^\dagger\sigma^i\psi$ and the chiral propagator `w_propagation_step_chiral` *in their role as the U(1) electromagnetic photon*. A deprecation banner now heads `ca_maxwell.py`.
 - **Kept:** the same σ-bilinear / chiral machinery for the **massive and non-Abelian sectors** — W (`ca_wmu`), Z (`ca_z_field`), gluon (`ca_gluon`) — which use the chiral propagator and are **not** under the photon polarimetry bound (massive/confined, no astrophysical vacuum-birefringence constraint). Retiring it there would break those sectors and is not warranted by the observation that excludes it for the photon.
 
-Decision recorded in `key-decisions.md` and `CLAUDE.md` (core decision 5).
+Decision recorded in `docs/theory/key-decisions.md` and `CLAUDE.md` (core decision 5).
 
 ## Why this is the right object (not an ad-hoc patch)
 
@@ -71,6 +71,6 @@ Net effect: the two results now **co-certify a single cell size.** $a\approx6.2\
 
 ## Files
 - Module: `ca-simulation/ca_photon_pair.py` (`pair_dispersion`, `photon_step_spectral`, `build_pair_mode`, `group_velocity`, `pair_birefringence`)
-- Test: `model-tests/test_F69_paired_photon.py`
+- Test: `tests/findings/test_F69_paired_photon.py`
 - Results: `test-results/F69_paired_photon.json`
 - Retirement banner: `ca-simulation/ca_maxwell.py` (top docstring).

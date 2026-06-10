@@ -3,7 +3,7 @@
 **Date:** 2026-06-05 - 14:20
 **Numbering note:** F97 was taken by the concurrent baryon-phase finding; this is **F101** (F98–F100 also taken by concurrent findings during the build).
 **Status:** Partial (located + fitted + cross-validated, with two honest negatives) — 6/6 checks PASS. **New exact structure:** (A0) the BCC sea has a **cliff** at saturation — $f'(m)\to-\infty$ as $m\to1$ (the arccos edge of the F46 dispersion) — so an interior heavy flavor is *always* a saddle: the heavy generation is **forced onto the wall exactly**, $y_\tau=1$. The τ mass *is* the saturation scale — the sharpest scale statement the chain has produced. (A1) With the τ wall-pinned, the inverse problem is **linear**: the two light-flavor stationarity equations give $(\kappa_E,\mu)(W)$ in closed form — the exact measured spectrum $(1,\sqrt{m_\mu/m_\tau},\sqrt{m_e/m_\tau})$ is a genuine KKT local vacuum of the $W$-completed gap theory along a one-parameter family, $W\in[0.10,21.6]$, with $W>0$ **emergent** and $r=\kappa_E/\kappa_0\approx0.986$ (a near-pure per-flavor contact). (B) **Two independent routes meet:** F95's Landau localization $C=0.636|B|$ selects $W^*=6C/e^6=1.46$ — *inside* the admissible window, with all KKT conditions holding at exactly that point. **The honest negatives:** (A2) along the minimal 3-coupling family the lepton point is **metastable** — squeezed between the all-saturated $(1,1,1)$ vacuum (small $W$) and the empty $(0,0,0)$ vacuum (large $W$), closest gap $2.5\times10^{-2}$ at $W\approx0.69$; (C) the static uniform-mode RPA gives a **negative** sextic (an anti-brake) and loses positivity near the wall — $W$ is *not* derivable at static one-loop. See §6.
-**Script:** `model-tests/test_F101_one_heavy_branch_fit_W.py` (~40 s)
+**Script:** `tests/findings/test_F101_one_heavy_branch_fit_W.py` (~40 s)
 **Results:** `test-results/F101_one_heavy_branch_fit_W.json`
 **Cross-references:** [[F96-second-shell-Eg-gap-saturation]] (the framework; the wall result this sharpens), [[F95-B-derived-C-localized]] (the $C=0.636|B|$ requirement that meets the fit at $W^*=1.46$), [[F93-orthorhombic-Eg-vacuum]] (the $E_g$ condensate), [[F92-per-constituent-phase-consistency]] (saturation kinematics), [[F83-fix-lattice-spacing-from-fermion-mass]] (the scale question A0 sharpens), [[F46-pythagorean-lattice-mass]] (the dispersion whose arccos edge is the cliff).
 
@@ -134,7 +134,7 @@ itself regularizes the cliff).
   no-go (C).
 - Machinery: `ca_bcc.bcc_dispersion` + F46 sea, pure-numpy minimizer (no
   scipy), numerical KKT/Hessian checks.
-- Verification: `model-tests/test_F101_one_heavy_branch_fit_W.py`
+- Verification: `tests/findings/test_F101_one_heavy_branch_fit_W.py`
   (2026-06-05 - 14:15, 6/6 PASS), results
   `test-results/F101_one_heavy_branch_fit_W.json`.
 - Masses: PDG charged leptons.

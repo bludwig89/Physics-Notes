@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-04 - 01:59
 **Status:** Confirmed — 14/14 PASS (new suite) + the repaired Phase-7 suite 5/5 PASS. Primarily an **integration / certification** finding (the F85-style kind): it certifies that the sector design decision #5 retains on the σ-bilinear — W, Z, gluon — works *end-to-end* (fermion current → source kick → causal propagation → back-action on the fermion), with the energy bookkeeping closed. One small new algebraic result: the chiral-Proca birefringence closed form and its mass suppression.
-**Module:** none new (one test-local candidate primitive, `chiral_massive_step`). **Tests:** `model-tests/test_E2E_nonabelian_bilinear.py` (~0.4 s); `model-tests/test_wmu_phase7_backreaction.py` (WB.5 repaired).
+**Module:** none new (one test-local candidate primitive, `chiral_massive_step`). **Tests:** `tests/findings/test_E2E_nonabelian_bilinear.py` (~0.4 s); `tests/findings/test_wmu_phase7_backreaction.py` (WB.5 repaired).
 **Results:** `test-results/E2E_nonabelian_bilinear.json`, `test-results/phase7_backreaction_results.json`.
 **Cross-references:** F36 (Phase-7 back-reaction), F43/FG-7 (gluons), FG-4 (Z), FG-8 (β-decay pipeline), F30/F37 (birefringence / chiral aliasing), [[F68-minimal-coupling-forces-even-photon]], [[F69-paired-spinor-photon]], [[F89-singlet-bilinear-is-paired-photon]].
 

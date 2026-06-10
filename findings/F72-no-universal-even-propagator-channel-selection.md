@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-01 - 16:36
 **Status:** Confirmed — 4/4 checks PASS (residuals 1.8×10⁻¹⁶ / structural / a₁=−2.4×10⁻⁵ / 1.8×10⁻¹⁵). The post-F69 question "use the same method everywhere" is answered: **no** — and the model is already self-consistent.
-**Script:** `model-tests/test_F72_universal_even_propagator.py`
+**Script:** `tests/findings/test_F72_universal_even_propagator.py`
 **Results:** `test-results/F72_universal_even_propagator.json`
 **Cross-references:** [[F69-paired-spinor-photon]] (the even/paired photon this generalizes), [[F68-minimal-coupling-forces-even-photon]] (the commutator selection criterion), [[F67-even-law-photon-vs-bilinear-mutually-exclusive]] (the sourceless ΔΩ/2 override), [[F39-two-helicity-photon-bilinear]] (the σ-bilinear), [[F37-rs-bcc-chirality-helicity]] (W chiral propagator), [[F43-fg7-dynamical-gluons]] (gluon as σ-bilinear), [[F29-w-triplet-bilinear-su2-bridge]].
 
@@ -61,6 +61,6 @@ The paired/even-law photon (F69) is the right object for the **electromagnetic**
 | W chiral $S=-\Delta\Omega N$ kept / even $S=0$ | machine | $1.8\times10^{-15}$ |
 
 ## Files
-- Test: `model-tests/test_F72_universal_even_propagator.py`
+- Test: `tests/findings/test_F72_universal_even_propagator.py`
 - Results: `test-results/F72_universal_even_propagator.json`
 - Operators: `ca-simulation/ca_wmu.py` (`_f26_rotation_step`, `w_propagation_step_chiral`), `ca_bcc.py` (`_bcc_uvec`, `bcc_dispersion`), `ca_photon_pair.py` (`build_pair_mode`, `photon_step_spectral`, `pair_birefringence`).

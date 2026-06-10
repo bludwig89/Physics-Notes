@@ -64,7 +64,7 @@ def weyl_step_2d(f, g, c=0.5):
         Explicit Euler applied to a skew-Hermitian operator is
         UNCONDITIONALLY UNSTABLE — divergence is guaranteed for every
         c > 0, and the page 39 "stabilises at ~0.43" observation is
-        slower divergence, not true stability.  See ca-reference.md
+        slower divergence, not true stability.  See docs/theory/ca-reference.md
         Stage 2 for the full discussion.
 
         For all production runs use `weyl_step_2d_splitstep`, which is
@@ -408,7 +408,7 @@ def run_and_reverse(f0, g0, n_steps, c, step_fn):
 # and time-reversibility (it catches sign errors or component swaps
 # that those checks would miss).
 #
-# Measured residuals (2026-05-14, see ca-reference.md):
+# Measured residuals (2026-05-14, see docs/theory/ca-reference.md):
 #   2D, L=32, n_steps=20, c=0.5  →  max |Δω| ≈ 5e-17
 #   3D, L=16, n_steps=20, c=0.5  →  max |Δω| ≈ 8e-17
 # i.e. machine precision — confirms U(k) is the exact Weyl propagator.

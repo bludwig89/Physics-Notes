@@ -3,7 +3,7 @@
 **Date:** 2026-05-29 - 17:40
 **Status:** Confirmed — 5/5 tests PASS (J1, J5 bit-for-bit exact; J2–J4 quantitative).
 **Module:** new `ca-simulation/forks/gr_fork_F55_spatial_metric_backreaction.py` (additive; reuses `gr_fork_F52_restleg_backreaction` Poisson + `gr_fork_E_tensor` for the consistency check).
-**Tests:** `model-tests/test_F55_spatial_metric_backreaction.py`; results `test-results/F55_spatial_metric_backreaction.json`.
+**Tests:** `tests/findings/test_F55_spatial_metric_backreaction.py`; results `test-results/F55_spatial_metric_backreaction.json`.
 
 ## Where F52 left off
 

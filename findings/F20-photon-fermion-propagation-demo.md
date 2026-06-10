@@ -1,6 +1,6 @@
 # Finding 20 — Photon and fermions demonstrably propagate across the BCC lattice
 
-*Recorded 2026-05-22 - 13:42. Run: `model-tests/run_propagation_demo.py`. Result: `test-results/propagation_demo_2026-05-22.json`. Figure: `test-results/figures/propagation_demo.png`.*
+*Recorded 2026-05-22 - 13:42. Run: `tests/runners/run_propagation_demo.py`. Result: `test-results/propagation_demo_2026-05-22.json`. Figure: `test-results/figures/propagation_demo.png`.*
 
 ## Question
 

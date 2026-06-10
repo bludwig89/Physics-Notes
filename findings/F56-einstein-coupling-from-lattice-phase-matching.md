@@ -3,7 +3,7 @@
 **Date:** 2026-05-29 - 18:20
 **Status:** Partial — derivation attempt; 3/3 tests PASS. The geometric factor (16π) is derived exactly; the dimensionful G is reduced to the lattice spacing (Sakharov), which remains the one irreducible input. Full module reasoning in `gr_fork_F56_einstein_coupling_derivation.py`.
 **Module:** new `ca-simulation/forks/gr_fork_F56_einstein_coupling_derivation.py` (additive; reuses `ca_bcc` for the F26 dispersion).
-**Tests:** `model-tests/test_F56_einstein_coupling_derivation.py`; results `test-results/F56_einstein_coupling_derivation.json`.
+**Tests:** `tests/findings/test_F56_einstein_coupling_derivation.py`; results `test-results/F56_einstein_coupling_derivation.json`.
 
 ## The question
 

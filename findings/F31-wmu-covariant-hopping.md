@@ -3,7 +3,7 @@
 **Date:** 2026-05-24  
 **Status:** Confirmed — 6/6 tests PASS  
 **Module:** `ca-simulation/ca_wmu.py`  
-**Tests:** `model-tests/test_wmu_phase1.py` (W1.1–W1.6)  
+**Tests:** `tests/findings/test_wmu_phase1.py` (W1.1–W1.6)  
 **Results:** `test-results/wmu_phase1.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 1  
 **Closes:** F27 known limitation #1 (kinetic step not SU(2)-invariant without $W_\mu$) — partial; full closure deferred to F34 (Phase 4 fermion vertex).
@@ -91,5 +91,5 @@ Residual: $1.2 \times 10^{-17}$ (machine precision).
 ## Files
 
 - `ca-simulation/ca_wmu.py` — `make_w_link_field`, `link_unitarity_residual`, `covariant_weyl_step_3d_bcc`, `covariant_weyl_step_3d_bcc_exact`, `gauge_transform_links`, `gauge_transform_links_kspace`, `verify_spinor_matrix_decomp`, `_SPINOR_MATS`, `BCC_DIRS`
-- `model-tests/test_wmu_phase1.py` — W1.1–W1.6
+- `tests/findings/test_wmu_phase1.py` — W1.1–W1.6
 - `test-results/wmu_phase1.json` — numerical results

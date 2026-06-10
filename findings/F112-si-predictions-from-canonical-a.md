@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-08 - 14:05
 **Status:** Confirmed — 18/18 checks PASS (`test_F112_si_predictions.py`, 0.16 s). **Numbering note:** drafted as F111; renumbered to F112 — F111 was already taken (2026-06-07) by the concurrent second-order-deflection and F110 tree-gauge SU(3) test scripts. Real arithmetic + sympy only (no chiral transforms). Two headline numbers independently re-derived outside the harness. This finding is a *registry*, not a new derivation: it collects what F107's SI lock unlocked and scores each item against the best current measurement.
-**Script:** `model-tests/test_F112_si_predictions.py`
+**Script:** `tests/findings/test_F112_si_predictions.py`
 **Results:** `test-results/F112_si_predictions.{json,md}`
 **Cross-references:** [[F107-canonical-a-adoption-L4-grb-gate]] (the SI lock this report card rests on), [[F79-structural-newton-constant]] ($G$ closed form + $a/\ell_P$), [[F64-em-connection-gravity]] (canonical $K=e^{2u}$, PPN $\beta=\gamma=1$ / D-EM9), [[F106-psi-K-sourcing-derivation]] (the sourcing coefficient), [[F30-photon-dispersion-order-anisotropy-birefringence]] (exact even law), [[F28-grb-dispersion-test]] (LHAASO bound), [[F66-allsky-birefringence-anisotropy-no-rescue]] / [[F69]] (paired photon, zero birefringence), [[F45-sigma-tau-swap-weinberg-angle]] ($\sin^2\theta_W$, $m_Z/m_W$), [[F46-pythagorean-lattice-mass]] / [[F101-one-heavy-branch-fit-W]] (Koide, condensate angle).
 

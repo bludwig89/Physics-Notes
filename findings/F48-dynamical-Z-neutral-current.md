@@ -3,7 +3,7 @@
 **Date:** 2026-05-28 - 23:30
 **Status:** Confirmed — 12/12 tests PASS (6 bit-for-bit zero, 6 at machine ε)
 **Module:** `ca-simulation/ca_z_field.py` (new, additive — no existing surface modified)
-**Verification script:** `model-tests/test_FG4_dynamical_Z.py`
+**Verification script:** `tests/findings/test_FG4_dynamical_Z.py`
 **Results:** `test-results/FG4_dynamical_Z.json`
 **Closes:** first-gen-completeness §3 item 5 and §5.1 row FG-4
 
@@ -193,7 +193,7 @@ Net new: **9 Tier-1 + 3 Tier-2 = 12 entries**.
 - Task source: `first-gen-completeness.md` §3 item 5 (2026-05-22) and §5.1 row FG-4.
 - Mathematical derivation: §6 above; standard SM Lagrangian rewriting in the (A, Z) mass basis; the F45 bare-angle electron prediction (§5) is the structural novelty.
 - Module: `ca-simulation/ca_z_field.py` (~440 lines, additive — no existing surface modified).
-- Numerical verification: `model-tests/test_FG4_dynamical_Z.py` (~440 lines), 12/12 PASS in 0.25 s on a 16³ BCC lattice.
+- Numerical verification: `tests/findings/test_FG4_dynamical_Z.py` (~440 lines), 12/12 PASS in 0.25 s on a 16³ BCC lattice.
 - Filed `test-results/FG4_dynamical_Z.json`.
 
 This discharges the FG-4 entry on the Tier-A first-generation checklist. The remaining Tier-A items are FG-8 (end-to-end β-decay charged-current integration) and FG-9 (per-species $C/CP$); FG-5 (R-handed hypercharge dynamics) was already closed by F42.
@@ -203,6 +203,6 @@ This discharges the FG-4 entry on the Tier-A first-generation checklist. The rem
 ## 11. Files
 
 - `ca-simulation/ca_z_field.py` — new module (this finding)
-- `model-tests/test_FG4_dynamical_Z.py` — verification script (Z1–Z12)
+- `tests/findings/test_FG4_dynamical_Z.py` — verification script (Z1–Z12)
 - `test-results/FG4_dynamical_Z.json` — numerical results
 - `findings/F48-dynamical-Z-neutral-current.md` — this finding

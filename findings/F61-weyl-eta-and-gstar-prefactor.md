@@ -3,7 +3,7 @@
 **Date:** 2026-05-30 - 15:55
 **Status:** Confirmed for the fermionic sector — $\eta_\text{Weyl}=1/12$ derived exactly (Seeley–DeWitt + statistics, rational arithmetic); $g_*$ fixed from the model's first-generation content; $P_\text{pre}$ and $(a,\tau)$ produced as numbers. Gauge-boson contributions to $g_*$ are a flagged, separate additive piece (not yet included). 3/3 checks PASS.
 **Module:** new `ca-simulation/forks/gr_fork_F61_weyl_eta_gstar.py` (self-contained; exact rationals + a real-arithmetic lattice check).
-**Tests:** `model-tests/test_F61_weyl_eta_gstar.py`; results `test-results/F61_weyl_eta_gstar.json`.
+**Tests:** `tests/findings/test_F61_weyl_eta_gstar.py`; results `test-results/F61_weyl_eta_gstar.json`.
 
 ## The question
 

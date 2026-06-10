@@ -3,7 +3,7 @@
 **Date:** 2026-06-09 - 16:54
 **Status:** Confirmed — 11/11 checks PASS. S0/S1/S4 machine-precision/exact (analytic harmonic ground state; two solve routes; S₃-symmetric pair radii); S2/S3/S5/S6 quantitative (variational convergence, discrete spectrum, confinement dominance, Casimir-scaling invariance); S7/S8 Tier-B (m_p/√σ ratio P6-gated; n–p splitting). Independently re-verified: the ⟨r⟩/⟨1/r⟩ kernels vs direct radial quadrature (6 digits) and the full 6-D pair matrix element vs Monte-Carlo.
 **Module:** `ca-simulation/ca_baryon_dynamics.py`
-**Script:** `model-tests/test_P2_baryon_bound_state.py` (~1.5 s)
+**Script:** `tests/findings/test_P2_baryon_bound_state.py` (~1.5 s)
 **Results:** `test-results/P2_baryon_bound_state.json`
 **Cross-references:** [[F71-colour-singlet-baryon-proton]] (the operator-level proton this makes dynamical), [[F97-baryon-phase-closure-no-go]] (mass is centre-closure/string, not constituent phase — the constraint this obeys), [[F74-bound-state-binding]] (the two-body solver generalised here to three bodies), [[F70-gradient-flow-confinement-string-tension]] / [[F94-lattice-gauge-mc-vs-F86]] / [[F110-realtime-link-hamiltonian-confinement]] (P1 — the confining string that sources the mass), [[F40-quark-Y-and-dynamical-chi-kinetic]] (d–u mass ratio used in the n–p splitting), [[F103-p3-dynamical-pion-goldstone]] / [[F104-p4-deuteron-tensor-bound-nucleus]] (the P3/P4 siblings that reused the same F74 engine).
 
@@ -11,7 +11,7 @@
 
 ## 1. What this closes
 
-F71 built the proton as an *operator* — the colour singlet $B=\varepsilon_{abc}u^au^bd^c$ with the right quantum numbers, Fermi statistics, and an *energetic* binding argument — but explicitly **not** a dynamical, real-time, mass-measured bound state. This finding replaces the operator with a genuine solution of the three-body Schrödinger problem: a converged, non-dispersing, S₃-symmetric ground state whose mass is **sourced by the P1 confining string**, with the neutron and the $n$–$p$ splitting following from the same solver. This is the headline deliverable P2 of `roadmap-matter-binding.md`.
+F71 built the proton as an *operator* — the colour singlet $B=\varepsilon_{abc}u^au^bd^c$ with the right quantum numbers, Fermi statistics, and an *energetic* binding argument — but explicitly **not** a dynamical, real-time, mass-measured bound state. This finding replaces the operator with a genuine solution of the three-body Schrödinger problem: a converged, non-dispersing, S₃-symmetric ground state whose mass is **sourced by the P1 confining string**, with the neutron and the $n$–$p$ splitting following from the same solver. This is the headline deliverable P2 of `docs/roadmaps/roadmap-matter-binding.md`.
 
 ## 2. The model
 
@@ -68,4 +68,4 @@ The **absolute** ratio $m_p/\sqrt\sigma$ from the non-relativistic constituent s
 
 ## 7. What P2 adds to the ledger
 
-New module `ca-simulation/ca_baryon_dynamics.py`; new suite `model-tests/test_P2_baryon_bound_state.py` (11/11). Exactness rows: Tier 1 #155–156 (harmonic engine; S₃ pair radii), Tier 2 #65 (two-route agreement), Tier 3 #39–40 (confinement dominance; $n$–$p$ splitting). With P2 closed, the matter-binding roadmap has P0 (single particles), P1 (3+1D confinement), P2 (dynamical baryon), P3 (pion, F103) and P4 (deuteron, F104) all built; the open phases are P5 (atoms) and the cross-cutting P6 (SI scale), which gates every absolute MeV in P2–P5 — including this finding's $m_p/\sqrt\sigma$.
+New module `ca-simulation/ca_baryon_dynamics.py`; new suite `tests/findings/test_P2_baryon_bound_state.py` (11/11). Exactness rows: Tier 1 #155–156 (harmonic engine; S₃ pair radii), Tier 2 #65 (two-route agreement), Tier 3 #39–40 (confinement dominance; $n$–$p$ splitting). With P2 closed, the matter-binding roadmap has P0 (single particles), P1 (3+1D confinement), P2 (dynamical baryon), P3 (pion, F103) and P4 (deuteron, F104) all built; the open phases are P5 (atoms) and the cross-cutting P6 (SI scale), which gates every absolute MeV in P2–P5 — including this finding's $m_p/\sqrt\sigma$.

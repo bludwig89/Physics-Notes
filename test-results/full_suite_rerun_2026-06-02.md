@@ -31,7 +31,7 @@ paired-spinor picture:
   Pound–Rebka, Shapiro, Mercury, CHSH, CPT, Zeno, neutrino, Heisenberg, Doppler,
   Planck-LV, charge quantisation).
 
-## Excluded as superseded (per `CLAUDE.md` / `key-decisions.md`)
+## Excluded as superseded (per `CLAUDE.md` / `docs/theory/key-decisions.md`)
 
 These were **not run** — the model has explicitly retired them:
 
@@ -67,7 +67,7 @@ paired-spinor propagator itself.
 | `run_phase_tests.py` (Phases A–E) | Phase A1 **PASS**; A2+ is matplotlib **frame-rendering**, too slow in-session | Numeric core overlaps `run_phase2_f26_tests.py` (**17/17 PASS** this run). |
 
 Both can be finished locally with the helper added this run:
-`model-tests/run_heavy_rerun.py` → writes `test-results/heavy_rerun_<date>.json`.
+`tests/runners/run_heavy_rerun.py` → writes `test-results/heavy_rerun_<date>.json`.
 
 ## Notes on classification
 

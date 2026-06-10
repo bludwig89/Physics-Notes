@@ -2,8 +2,8 @@
 
 **Date:** 2026-06-01 - 02:25
 **Status:** Confirmed — independent from-scratch reproduction of the F37/F39 identification, plus the new "forced vs optional" result. 4/4 sections PASS (residuals 0, 0, 4.5×10⁻⁵, ≤4.4×10⁻¹⁶).
-**Script:** `model-tests/test_F65_helicity_chirality_map.py` (self-contained; closed-form 2×2 Weyl unitary + (E,B) rotation, no numpy chiral eig per CLAUDE.md).
-**Cross-references:** [[F37-rs-bcc-chirality-helicity]] (algebraic identification), [[F39-two-helicity-photon-bilinear]] (bilinear bridge), [[F30-photon-dispersion-order-anisotropy-birefringence]] (the −√3/27 coefficient), [[F26-speed-of-light-as-rotation-rate]], [[F64-em-connection-gravity]] / `si-units-options.md` (the cell-size anchor this confronts).
+**Script:** `tests/findings/test_F65_helicity_chirality_map.py` (self-contained; closed-form 2×2 Weyl unitary + (E,B) rotation, no numpy chiral eig per CLAUDE.md).
+**Cross-references:** [[F37-rs-bcc-chirality-helicity]] (algebraic identification), [[F39-two-helicity-photon-bilinear]] (bilinear bridge), [[F30-photon-dispersion-order-anisotropy-birefringence]] (the −√3/27 coefficient), [[F26-speed-of-light-as-rotation-rate]], [[F64-em-connection-gravity]] / `deprecated/si-units-options.md` (the cell-size anchor this confronts).
 
 ---
 
@@ -54,5 +54,5 @@ So fixing $a$ via the gravity match (F64) and confirming the helicity↔chiralit
 | chiral split $=|\Delta\Omega|n$; even split $=0$ | machine | $\le4.4\times10^{-16}$ |
 
 ## Files
-- Test: `model-tests/test_F65_helicity_chirality_map.py`
+- Test: `tests/findings/test_F65_helicity_chirality_map.py`
 - Builds on `ca-simulation/ca_bcc.py` (`_bcc_uvec`, `bcc_dispersion`), `ca_wmu.py` (`w_propagation_step_chiral`), `ca_maxwell.py` (`riemann_silberstein_decomp`, two-helicity bilinear).

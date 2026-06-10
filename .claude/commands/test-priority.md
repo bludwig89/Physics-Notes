@@ -1,6 +1,6 @@
 # /test-priority — Run the priority test suite
 
-Run all tests in `model-tests/tests-priority/` and save results.
+Run all tests in `tests/priority/` and save results.
 
 ## Steps
 
@@ -8,9 +8,9 @@ Run all tests in `model-tests/tests-priority/` and save results.
 
 2. Run the suite from the project root:
    ```
-   python -m pytest model-tests/tests-priority/ -v --tb=short 2>&1 | tee test-results/priority-run-{ts}.txt
+   python -m pytest tests/priority/ -v --tb=short 2>&1 | tee test-results/priority-run-{ts}.txt
    ```
-   If pytest is unavailable, run each file individually with `python model-tests/tests-priority/test_*.py`.
+   If pytest is unavailable, run each file individually with `python tests/priority/test_*.py`.
 
 3. Report a summary table:
    | Test file | PASS/FAIL | Notes |
@@ -18,7 +18,7 @@ Run all tests in `model-tests/tests-priority/` and save results.
 
 4. If any test fails:
    - Show the traceback
-   - Check whether the failure is in a module that was recently edited (check `changelog.md`)
+   - Check whether the failure is in a module that was recently edited (check `docs/status/changelog.md`)
    - Suggest the most likely fix
 
-5. If all pass, offer to run the full `model-tests/` suite or a specific CASIM scenario.
+5. If all pass, offer to run the full `tests/findings/` suite or a specific CASIM scenario.

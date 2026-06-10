@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-03 - 00:28
 **Status:** Partial (closing) — 4/4 checks PASS. **This identifies F82's "flat direction" assumption physically and closes the loop:** the stiffness $\kappa$ that F82 needed to vanish *is* the residual democratic ($S_3$ generation-permutation) symmetry, and it is removed by the **same orthorhombic break** F76 invoked for three distinct masses. The Koide ratio interpolates $\tfrac13\leftrightarrow\tfrac23$ between the cubic-degenerate vacuum (F75) and the complete orthorhombic break (F76/F82). The descent now bottoms out at two clearly-identified structural primitives; the final residual — that the charged-lepton break is *essentially complete* — is bounded by the data to $\kappa/\lambda\lesssim2\times10^{-5}$.
-**Script:** `model-tests/test_F84_flatness_from_orthorhombic_break.py` (<1 s)
+**Script:** `tests/findings/test_F84_flatness_from_orthorhombic_break.py` (<1 s)
 **Results:** `test-results/F84_flatness_from_orthorhombic_break.json`
 **Numbering note:** built concurrently with the lattice-spacing finding that took **F83**; this flatness/closure finding is **F84**.
 **Cross-references:** [[F82-why-saturation-composite-mass-peak]] (the flatness assumption this explains), [[F76-generation-mass-hierarchy-crystal-field]] (the orthorhombic break for three distinct masses), [[F75-three-generations-from-bcc-irrep-selection]] (the cubic degenerate triplet — the $\kappa\to\infty$ endpoint), [[F80-one-45deg-em-saturation-koide]] / [[F81-why-45deg-pair-phase-saturation]] (the $45°$/$N=2$ chain), [[F92-per-constituent-phase-consistency]] / [[F93-orthorhombic-Eg-vacuum]] (2026-06-04: the two §6 irreducible inputs attacked — input #1 reduced to a consistency fixed point of the F73+F78 mass laws with the Fock $\sqrt2$ as the only new input; input #2 identified as an $E_g$ condensate on the second-neighbour shell with $\kappa=0$ as a stabilizer theorem).
@@ -134,6 +134,6 @@ and the honest end of this particular thread.
   democratic symmetry and tying its removal to the F76 orthorhombic break; the
   $\kappa$-interpolation between F75 and F76/F82, and the closure statement, are
   new.
-- Verification: `model-tests/test_F84_flatness_from_orthorhombic_break.py`
+- Verification: `tests/findings/test_F84_flatness_from_orthorhombic_break.py`
   (2026-06-03 - 00:28, 4/4 PASS), results
   `test-results/F84_flatness_from_orthorhombic_break.json`.

@@ -3,7 +3,7 @@
 **Date:** 2026-05-30 - 15:30
 **Status:** Confirmed — 6/6 tests PASS.
 **Module:** new `ca-simulation/forks/dirac_gravity_fork.py` (additive; reuses `ca_dirac` primitives, `ca_curved.CayleyVarcSolver2D`).
-**Tests:** `model-tests/test_F62_dirac_gravity_fork.py`; results `test-results/F62_dirac_gravity_fork.json` / `.md`.
+**Tests:** `tests/findings/test_F62_dirac_gravity_fork.py`; results `test-results/F62_dirac_gravity_fork.json` / `.md`.
 **Plan:** realises `ca-dirac-gravity-plan.md` Stages **D2** (static curved background, time-domain) and **D3a** (linearized backreaction). Stage **D1** (flat Dirac propagator, m=0 → Weyl) was already in `ca_dirac.py`; the static-background *dispersion* identity was already in `gr_fork_F46_dirac.py` (F46/F50).
 
 ## What was open

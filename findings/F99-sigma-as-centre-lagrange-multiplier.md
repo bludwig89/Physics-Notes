@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-05 - 14:40
 **Status:** Confirmed — 5/5 checks PASS. D1/D2/D4 algebraically exact (sympy, symbolic $\mathbb{Z}_N$ weights), D3 machine precision (real SU(3) links), D5 reconciliation (F70 numeric to its published table; F86 small-σ algebraic). **Closes the bridge** flagged open in F97 §8 and F98 §4.
-**Script:** `model-tests/test_F99_sigma_from_qca_rule.py` (<0.5 s)
+**Script:** `tests/findings/test_F99_sigma_from_qca_rule.py` (<0.5 s)
 **Results:** `test-results/F99_sigma_from_qca_rule.json`
 **Cross-references:** [[F98-enforcer-is-binder]] (the price *structure* this now derives), [[F97-baryon-phase-closure-no-go]] (§8 open bridge), [[F70-gradient-flow-confinement-string-tension]] (2D-exact area law $\sigma=-\ln w$, the SU(3) anchor reconciled here), [[F86-colour-dielectric-dual-superconductor]] ($\sigma=2\pi v^2 n$, the small-σ limit), [[F94-lattice-gauge-mc-confinement-vs-F86]] (real SU(3) links used for the centre-covariance test), [[F43-dynamical-gluons]] (the gluon rotation update rule).
 
@@ -55,4 +55,4 @@ i.e. the multiplier $\theta$ is exactly what fixes the centre charge to $c$ — 
 
 - New content: the centre-twist Lagrange-multiplier derivation of $\sigma$ (Moves 1–4, §2), and its reconciliation to F70/F86 (§3).
 - Reused: F70 2D area law and `ca_confinement.string_tension`; F94 `lgt_fork_A_mc` links; F86 $2\pi v^2 n$; F97/F98 closure principle.
-- Verification: `model-tests/test_F99_sigma_from_qca_rule.py` (2026-06-05, 5/5 PASS), results `test-results/F99_sigma_from_qca_rule.json`.
+- Verification: `tests/findings/test_F99_sigma_from_qca_rule.py` (2026-06-05, 5/5 PASS), results `test-results/F99_sigma_from_qca_rule.json`.

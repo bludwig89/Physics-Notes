@@ -64,10 +64,10 @@ The exact law is the full trigonometric rotation; Maxwell is its linearization.
   - `findings.md` was getting too big so I told it to split each one out as its own thing in the `Findings` folder.
 - `ca-simulation` folder has all the python code for the model and it's associated tests.
 - See `findings.md` for the so-far-coolest stuff we've uncovered.
-- See  `ca-reference.md` for our current reference data and the list of current exact vs calculated results.
-- `changelog.md` is our software model change log.
+- See  `docs/theory/ca-reference.md` for our current reference data and the list of current exact vs calculated results.
+- `docs/status/changelog.md` is our software model change log.
 - `model-observations.md` is our pre-emergent-time observations on the BCC lattice model.
-- `project-status.md` is a somewhat-disorganized file where I'm having Claude keep track of stuff we do.
+- `docs/status/project-status.md` is a somewhat-disorganized file where I'm having Claude keep track of stuff we do.
 
 ## Running the program (`casim`)
 
@@ -98,4 +98,4 @@ A scenario is a small YAML file (lattice size/topology, seed, ticks, channels, o
 
 ## Next Steps
 
-- `next-steps.md` is a hand-written list of things I want to try and play with which I change every time I review the latest results.
+- `docs/roadmaps/next-steps.md` is a hand-written list of things I want to try and play with which I change every time I review the latest results.

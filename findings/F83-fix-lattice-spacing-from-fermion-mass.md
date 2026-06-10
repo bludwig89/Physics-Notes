@@ -5,9 +5,9 @@
 **Date:** 2026-06-02 - 20:05
 **Status:** Confirmed (negative/conditional result) — 5/5 checks PASS, round-trip at machine precision ($2.5\times10^{-16}$). The algebra is exact; the headline is that a single measured mass **cannot** fix $a$, but it imposes an exact ceiling and, once $a$ is pinned elsewhere, an exact $m_\text{lat}$.
 **Module:** none new — analytic identity on F46 (rest-leg rotation) + F10/F26 (lightcone) + F61 (cell size).
-**Verification script:** `model-tests/test_F83_fix_lattice_spacing.py`
+**Verification script:** `tests/findings/test_F83_fix_lattice_spacing.py`
 **Results:** `test-results/F83_fix_lattice_spacing.json`
-**Cross-references:** F46 (spherical-Pythagorean lattice mass, $\Omega_\text{rest}=\arcsin m$), F12/F15 (SR dispersion + $\beta_\text{LV}$, the $m\ll1$ regime), F10 (the $\sqrt d$ Planck mismatch and its three resolutions), F26 ($c$ as rotation rate), F59/F61 (induced-$G$ cell size $a\approx3.81\,\ell_P$), `si-units-options.md` §3.3 / §5 Option D.
+**Cross-references:** F46 (spherical-Pythagorean lattice mass, $\Omega_\text{rest}=\arcsin m$), F12/F15 (SR dispersion + $\beta_\text{LV}$, the $m\ll1$ regime), F10 (the $\sqrt d$ Planck mismatch and its three resolutions), F26 ($c$ as rotation rate), F59/F61 (induced-$G$ cell size $a\approx3.81\,\ell_P$), `deprecated/si-units-options.md` §3.3 / §5 Option D.
 
 ---
 
@@ -27,7 +27,7 @@ $$
 
 where $\bar\lambda_C=\hbar/(m_\text{phys}c)$ is the **reduced Compton wavelength** of the fermion.
 
-**The result of the attempt:** Eq. ($\triangle$) is *one equation in two unknowns* ($a$ and $m_\text{lat}$). A measured fermion mass alone therefore **does not fix $a$** — it fixes only the one-parameter family $a(m_\text{lat})$. This is the §7 "no first-principles $a$" caveat of `si-units-options.md` made precise: the mass anchor (Option D) supplies a *relation*, and a second anchor is still required to pin the scale.
+**The result of the attempt:** Eq. ($\triangle$) is *one equation in two unknowns* ($a$ and $m_\text{lat}$). A measured fermion mass alone therefore **does not fix $a$** — it fixes only the one-parameter family $a(m_\text{lat})$. This is the §7 "no first-principles $a$" caveat of `deprecated/si-units-options.md` made precise: the mass anchor (Option D) supplies a *relation*, and a second anchor is still required to pin the scale.
 
 What the measured mass *does* fix exactly:
 
@@ -50,7 +50,7 @@ What the measured mass *does* fix exactly:
 | $0.5$ | $3.5\times10^{-13}$ m | $2.2\times10^{22}$ | 0.511 MeV |
 | $0.999$ | $1.0\times10^{-12}$ m | $6.5\times10^{22}$ | 0.511 MeV |
 
-Every row satisfies ($\star$) to round-off. The mass fixes the *ray* $a=\sqrt d\,\arcsin(m_\text{lat})\,\bar\lambda_C$ in the $(a,m_\text{lat})$ plane, nothing more. This is exactly the over-/under-determination `si-units-options.md` §2 flagged: three SI base units need three anchors; $c$ fixes $a/\tau$, $\hbar$ is the action quantum, and *one* mass fixes one combination — leaving the absolute scale $a$ free.
+Every row satisfies ($\star$) to round-off. The mass fixes the *ray* $a=\sqrt d\,\arcsin(m_\text{lat})\,\bar\lambda_C$ in the $(a,m_\text{lat})$ plane, nothing more. This is exactly the over-/under-determination `deprecated/si-units-options.md` §2 flagged: three SI base units need three anchors; $c$ fixes $a/\tau$, $\hbar$ is the action quantum, and *one* mass fixes one combination — leaving the absolute scale $a$ free.
 
 ---
 
@@ -94,9 +94,9 @@ All $m_\text{lat}\ll1$ — the regime in which F12/F15's $\beta_\text{LV}\approx
 
 ---
 
-## 5. A $\sqrt d$ correction to `si-units-options.md` §3.3
+## 5. A $\sqrt d$ correction to `deprecated/si-units-options.md` §3.3
 
-`si-units-options.md` §3.3 wrote the map as $m_\text{lat}=m_\text{phys}c\,a/\hbar$ and quoted $m_\text{lat}(e^-)\approx4\times10^{-23}$ at $a=\ell_P$. That expression uses $a/\tau=c$ (the naive Planck pairing), **not** the Option-C lightcone $a/\tau=c\sqrt d$ that the same document recommends in §6. The exact small-mass map from ($\triangle$) is
+`deprecated/si-units-options.md` §3.3 wrote the map as $m_\text{lat}=m_\text{phys}c\,a/\hbar$ and quoted $m_\text{lat}(e^-)\approx4\times10^{-23}$ at $a=\ell_P$. That expression uses $a/\tau=c$ (the naive Planck pairing), **not** the Option-C lightcone $a/\tau=c\sqrt d$ that the same document recommends in §6. The exact small-mass map from ($\triangle$) is
 
 $$m_\text{lat}\;\approx\;\frac{m_\text{phys}\,c\,a}{\sqrt d\,\hbar}\qquad(\text{Option C}),$$
 
@@ -124,7 +124,7 @@ Total **5/5 PASS**, pure-Python arithmetic (no numpy/scipy, per CLAUDE.md chiral
 
 **Imported / conditional:** the lightcone convention $a/\tau=c\sqrt d$ (F10 resolution 3 / F26 — a *choice*, the only one F26 forces but still a choice); the F61 cell $a=3.81\,\ell_P$ used in §4 (itself partial — F61's gauge-sector $g_*$ correction is open).
 
-**Not closed:** $a$ is still not fixed from first principles. As `si-units-options.md` §7 anticipated, the mass anchor is one constraint short; the missing second anchor is the gravity/EMQG match (F55/F56/L4 absolute lensing coefficient) or the F12 GRB Lorentz-violation floor. This finding sharpens the gap to a number: any first-principles $a$ must fall in $(\,0,\ 3.1\times10^{-18}\,]$ m to be consistent with the top quark, and at $3.81\,\ell_P$ predicts the $m_\text{lat}$ table of §4.
+**Not closed:** $a$ is still not fixed from first principles. As `deprecated/si-units-options.md` §7 anticipated, the mass anchor is one constraint short; the missing second anchor is the gravity/EMQG match (F55/F56/L4 absolute lensing coefficient) or the F12 GRB Lorentz-violation floor. This finding sharpens the gap to a number: any first-principles $a$ must fall in $(\,0,\ 3.1\times10^{-18}\,]$ m to be consistent with the top quark, and at $3.81\,\ell_P$ predicts the $m_\text{lat}$ table of §4.
 
 ---
 
@@ -132,13 +132,13 @@ Total **5/5 PASS**, pure-Python arithmetic (no numpy/scipy, per CLAUDE.md chiral
 
 1. **Second anchor.** Combine ($\triangle$) with the absolute lensing coefficient $\Delta\theta=4GM/(bc^2)$ (F55/L4, carries an explicit $\sqrt d$, Finding 10) to pin $a$ independently of any mass, then test whether the resulting $a$ reproduces the F61 $3.81\,\ell_P$ — a genuine consistency check between the matter and gravity sectors.
 2. **GRB floor.** Convert the §4 $m_\text{lat}$ values + F12/F15 $\beta_\text{LV}$ into an $E_\text{LV}(a)$ and verify $E_\text{LV}(3.81\,\ell_P)\gtrsim10^{19}$ GeV (Fermi GRB 090510). Expected to clear easily; quantifies the one *empirical* bracket on $a$.
-3. **Annotate `si-units-options.md` §3.3** with the $\sqrt d$ Option-C factor (§5 above).
+3. **Annotate `deprecated/si-units-options.md` §3.3** with the $\sqrt d$ Option-C factor (§5 above).
 
 ---
 
 ## 9. Provenance
 
-- Map source: F46 (rest-leg rotation $\arcsin m$) + `si-units-options.md` §3.3/§5 Option D (mass anchor) + F10/F26 (lightcone $a/\tau=c\sqrt d$).
+- Map source: F46 (rest-leg rotation $\arcsin m$) + `deprecated/si-units-options.md` §3.3/§5 Option D (mass anchor) + F10/F26 (lightcone $a/\tau=c\sqrt d$).
 - Cell value: F61 ($a=3.81\,\ell_P$ for $g_*=16$).
 - Masses: PDG 2024 central values; constants CODATA 2018 ($\hbar c=197.3270$ MeV·fm, $\ell_P=1.616255\times10^{-35}$ m).
-- Numerical verification: `model-tests/test_F83_fix_lattice_spacing.py` (2026-06-02, 5/5 PASS), `test-results/F83_fix_lattice_spacing.json`.
+- Numerical verification: `tests/findings/test_F83_fix_lattice_spacing.py` (2026-06-02, 5/5 PASS), `test-results/F83_fix_lattice_spacing.json`.

@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-05 - 15:35
 **Status:** Confirmed — 5/5 checks PASS. S1 exact (charge-basis diagonalisation, truncation-converged $4\times10^{-16}$); S2/S3 asymptotically exact (weak→Gaussian, strong→log, relative errors $\to0$); S4 reconciliation with F70 (both slopes $\to-1$; leading character $\beta/18$); S5 the compact correction at the rule's coupling. **Extends F100 past the Gaussian/spin-wave regime to all couplings.**
-**Script:** `model-tests/test_F101_strong_coupling_sigma.py` (<0.2 s)
+**Script:** `tests/findings/test_F101_strong_coupling_sigma.py` (<0.2 s)
 **Results:** `test-results/F101_strong_coupling_sigma.json`
 **Cross-references:** [[F100-gamma-from-transfer-operator]] (the Gaussian limit this extends; same transfer operator, now kept compact), [[F70-gradient-flow-confinement-string-tension]] (the all-coupling SU(3) $-\ln w(\beta)$ reconciled), [[F99-sigma-as-centre-lagrange-multiplier]] ($\sigma=-\ln s_1$), [[F95-B-derived-C-localized]] (BZ-average structure), [[F26-c-as-rotation-rate]] ($\Omega$).
 
@@ -72,4 +72,4 @@ Mapping $\lambda=\chi\Omega^2$, the rotor extends F100's $\gamma(\Omega)$/$\sigm
 
 - New content: the compact-rotor transfer operator at all couplings (§2), the strong-coupling log law $\sigma\to-\ln(2\lambda\chi)$ from rotor PT (§3), the F70 reconciliation via the $\beta/18$ leading character and the $-1$ log slope (§4), the compact correction at the rule's coupling (§5).
 - Reused: F100 Gaussian limit; F70 `ca_confinement` ($-\ln w$, $w$, leading coefficient); F99 $\sigma=-\ln s_1$.
-- Verification: `model-tests/test_F101_strong_coupling_sigma.py` (2026-06-05, 5/5 PASS), results `test-results/F101_strong_coupling_sigma.json`.
+- Verification: `tests/findings/test_F101_strong_coupling_sigma.py` (2026-06-05, 5/5 PASS), results `test-results/F101_strong_coupling_sigma.json`.

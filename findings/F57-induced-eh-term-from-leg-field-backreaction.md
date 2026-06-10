@@ -3,7 +3,7 @@
 **Date:** 2026-05-29 - 19:05
 **Status:** Partial — the back-reaction is shown to *generate* the metric kinetic term (the EH term emerges, not assumed) with the correct sign and finite on the lattice; the absolute coefficient is reduced to a definite BZ integral + mode count + IR scale, not produced as a pure number. 3/3 tests PASS.
 **Module:** new `ca-simulation/forks/gr_fork_F57_induced_eh_from_backreaction.py` (reuses `ca_bcc` F26 dispersion).
-**Tests:** `model-tests/test_F57_induced_eh_from_backreaction.py`; results `test-results/F57_induced_eh_from_backreaction.json`.
+**Tests:** `tests/findings/test_F57_induced_eh_from_backreaction.py`; results `test-results/F57_induced_eh_from_backreaction.json`.
 
 ## The question
 

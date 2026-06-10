@@ -108,5 +108,5 @@ genuinely-anisotropic B diverge); none of GR-1…GR-4 separates them.
 
 - Predecessor: Finding 14.5 (GR-3 factor-2 falsification of Paper 6 $c(x)$).
 - GR-4 baseline calibration: Finding 14.12 (Mercury 1PN at 1.5%).
-- Tracking: `lattice-vs-spacetime-tests.md` GR-3 / GR-4 rows; `ca-reference.md` GR-3 cross-fork entry.
+- Tracking: `lattice-vs-spacetime-tests.md` GR-3 / GR-4 rows; `docs/theory/ca-reference.md` GR-3 cross-fork entry.
 - Code: `ca-simulation/forks/{gr3_fork_harness,gr3_fork_baseline,gr3_fork_A_phase_tick,gr3_fork_B_anisotropic,gr3_fork_C_restricted_c}.py`.

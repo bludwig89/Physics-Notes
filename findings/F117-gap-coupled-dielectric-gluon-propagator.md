@@ -3,7 +3,7 @@
 **Date:** 2026-06-08 - 16:05
 **Status:** Confirmed — 6/6 PASS; GD1/GD4 bit-for-bit + machine-ε, GD2 machine-ε unitary, GD3 exact hand-off identities, GD5/GD6 quantitative.
 **Modules:** `ca-simulation/ca_colour_dielectric.py` (new **Part D**)
-**Tests:** `model-tests/test_FG7f_gluon_dielectric_gap.py` (new)
+**Tests:** `tests/findings/test_FG7f_gluon_dielectric_gap.py` (new)
 **Results:** `test-results/FG7f_gluon_dielectric_gap.json`
 **Cross-refs:** F86 (dual-superconductor flux tube — Parts A/C), F88 (colour-magnetic condensate *derived*, the gap source), F91 (gluon propagator is the **even** law), F64 (gravity dielectric — the structural template), F43/FG-7 (dynamical gluon sector), F26 (c = rotation rate).
 

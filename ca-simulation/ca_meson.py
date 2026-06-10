@@ -4,7 +4,7 @@
 ca_meson.py
 ===========
 
-P3 of roadmap-matter-binding.md — the DYNAMICAL meson sector: the pion as the
+P3 of docs/roadmaps/roadmap-matter-binding.md — the DYNAMICAL meson sector: the pion as the
 q-qbar pseudoscalar Goldstone of chiral-symmetry breaking, its scalar chiral
 partner (sigma), and a vector (rho) contrast.
 

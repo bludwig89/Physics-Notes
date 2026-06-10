@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-02 - 11:57
 **Status:** Partial — 4/4 checks PASS + 1 honest residual recorded. **Exact/derived:** the amplitude-rotation→Koide map $Q(\phi)=1/(3\cos^2\phi)$, the SO(2) unification of the F73 constituent cap and the generation equipartition (the *same* 45° equal-split), and that the measured leptons sit at $\phi=45°$. **Hypothesis (the user's insight, now testable):** electromagnetism is the *selector* — only charged leptons couple to the clean abelian rotation, so only they land on the critical point; quarks (QCD-contaminated) and neutrinos (neutral) do not. **Honest residual:** perturbative EM is ~340× too weak to be the *driver*; EM explains *which sector*, not the *magnitude* of the 45° rotation.
-**Script:** `model-tests/test_F80_em_saturation_45deg.py` (<1 s)
+**Script:** `tests/findings/test_F80_em_saturation_45deg.py` (<1 s)
 **Results:** `test-results/F80_em_saturation_45deg.json`
 **Numbering note:** built concurrently with the structural-Newton-constant finding that took **F79**; this 45°/EM-selection finding is **F80**.
 **Cross-references:** [[F78-koide-amplitude-from-cooper-pair]] (the $\sqrt m$ amplitude and the equipartition characterisation this closes), [[F77-njl-gap-rpa-selfconsistent]] (the dynamical-mass / gap machinery), [[F73-spin0-bound-pair-scalar]] (the 45° stability cap $\arcsin m_c=\pi/4$), [[F76-generation-mass-hierarchy-crystal-field]], [[F75-three-generations-from-bcc-irrep-selection]], [[F47-majorana-seesaw-higgs-free]] (the neutral-lepton mass route that lacks the EM rotation), [[F81-why-45deg-pair-phase-saturation]] (answers the value-level open question below: 45° is the two-constituent pair's half of the $\pi/2$ phase budget).
@@ -171,7 +171,7 @@ $1/\sqrt2$ — the next thing to derive.
 
 - Closes the open question posed at the end of F78; the SO(2) unification, the
   $Q(\phi)$ map, and the EM selection rule are new.
-- Verification: `model-tests/test_F80_em_saturation_45deg.py`
+- Verification: `tests/findings/test_F80_em_saturation_45deg.py`
   (2026-06-02 - 11:57, 4/4 PASS + residual), results
   `test-results/F80_em_saturation_45deg.json`.
 - Masses: PDG charged leptons; PDG quark masses (scheme-rough, conclusion

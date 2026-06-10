@@ -2,8 +2,8 @@
 
 **Date:** 2026-06-01 - 02:40
 **Status:** Confirmed — the anisotropy gives only an O(1) all-sky suppression, ~14 orders short of what the polarization bound requires. The escape hatch (i) of F65 is closed.
-**Script:** `model-tests/test_F66_allsky_birefringence_anisotropy.py` (self-contained, numpy only; uses the exact BCC dispersion).
-**Cross-references:** [[F65-helicity-chirality-map-confirmed]] (birefringence is physical), [[F30-photon-dispersion-order-anisotropy-birefringence]] (anisotropy), [[F64-em-connection-gravity]] (the cell size a), `si-units-options.md`.
+**Script:** `tests/findings/test_F66_allsky_birefringence_anisotropy.py` (self-contained, numpy only; uses the exact BCC dispersion).
+**Cross-references:** [[F65-helicity-chirality-map-confirmed]] (birefringence is physical), [[F30-photon-dispersion-order-anisotropy-birefringence]] (anisotropy), [[F64-em-connection-gravity]] (the cell size a), `deprecated/si-units-options.md`.
 
 ---
 
@@ -48,5 +48,5 @@ The chain is now tight and the tension is localized to one assumption, not the f
 The cleanest decisive test is therefore now option 1: determine whether the model's *gauge* photon (the one minimally coupled in `ca_dirac`) is forced to the even combination, independent of the composite bilinear.
 
 ## Files
-- Test: `model-tests/test_F66_allsky_birefringence_anisotropy.py`
+- Test: `tests/findings/test_F66_allsky_birefringence_anisotropy.py`
 - Uses `ca_bcc` dispersion; builds on F65 / F30 / F64.

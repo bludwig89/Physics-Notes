@@ -3,7 +3,7 @@
 **Date:** 2026-06-04 - 01:25
 **Numbering:** built as F88 concurrently with the colour-condensate finding that took F88 → renumbered **F89** (same F53/F54-style collision).
 **Status:** Confirmed — 10/10 checks against the real model operators (worst machine residual $4.9\times10^{-13}$ over 8 ticks × 2000 k; one identity exactly $0$). Closes the "are we introducing two different photon entities?" question raised against F68/F69.
-**Script:** `model-tests/test_F89_singlet_bilinear_is_paired_photon.py`
+**Script:** `tests/findings/test_F89_singlet_bilinear_is_paired_photon.py`
 **Results:** `test-results/F89_singlet_bilinear_paired_photon.json`
 **Cross-references:** [[F69-paired-spinor-photon]] (the pair construction this grounds), [[F68-minimal-coupling-forces-even-photon]] (the channel claim made constructive), [[F67-even-law-photon-vs-bilinear-mutually-exclusive]], [[F39-two-helicity-photon-bilinear]], [[F29-w-triplet-bilinear-su2-bridge]], [[F26-speed-of-light-as-rotation-rate]]; `ca_photon_pair.py`, `ca_wmu._f26_rotation_step`, `ca_maxwell.py` (kept σ-bilinear machinery), `ca_bcc.py`.
 
@@ -56,6 +56,6 @@ Constituents are built closed-form (no `np.linalg.eig` on chiral matrices, per p
 - The σ-vector channel's same-branch pairing is *used* by W/Z/gluon but not *forced* there by an argument of F68's strength; a minimal-coupling-style derivation of why the non-Abelian sectors must take the chiral pairing would complete the symmetry.
 
 ## Files
-- Test: `model-tests/test_F89_singlet_bilinear_is_paired_photon.py`
+- Test: `tests/findings/test_F89_singlet_bilinear_is_paired_photon.py`
 - Results: `test-results/F89_singlet_bilinear_paired_photon.json`
 - Operators exercised: `ca_bcc._bcc_uvec`/`bcc_dispersion`, `ca_photon_pair.pair_dispersion`/`pair_birefringence`, `ca_wmu._f26_rotation_step`.

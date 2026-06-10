@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-05 - 14:05
 **Status:** Confirmed — 5/5 checks PASS. E1/E3/E5 algebraically exact (sympy/integer), E2 exact (BPS Tier-1, F86), E4 machine-precision round-trip (Tier-2). Builds the quantitative bridge that F97 §4 *theorized* and §8 flagged as open.
-**Script:** `model-tests/test_F98_enforcer_is_binder.py` (<0.1 s)
+**Script:** `tests/findings/test_F98_enforcer_is_binder.py` (<0.1 s)
 **Results:** `test-results/F98_enforcer_is_binder.json`
 **Cross-references:** [[F97-baryon-phase-closure-no-go]] (the closure principle this tests; §4 grammar, §8 open bridge), [[F86-colour-dielectric-dual-superconductor]] (Option C, $\sigma=2\pi v^2 n$), [[F94-lattice-gauge-mc-confinement-vs-F86]] (Option A, gauge-MC $\sigma$ and the $v^*=\sqrt{\sigma_A/2\pi}$ bridge), [[F71-colour-singlet-baryon-proton]] ($\varepsilon_{abc}$ singlet, N-ality-0), [[F70-gradient-flow-confinement-string-tension]] (area-law $\sigma$), [[F92-per-constituent-phase-consistency]] (the pair-sector instance of the same grammar).
 
@@ -14,7 +14,7 @@ F97 §4 stated the **closure principle** as theorized structure, not derived fac
 
 > A stable composite is a configuration whose phase budget closes exactly; the object that enforces the budget is itself the binding agent. Non-closure is priced either by over-wrap (kinematic instability, the pair sector) or linearly in separation (confinement, the colour sector).
 
-For the colour sector the budget is the $\mathbb{Z}_3$ **centre phase** and the enforcer/binder is the F86 colour-dielectric condensate. F97 §8 named the missing piece explicitly: *“a dynamical demonstration that $\sigma$ emerges as the Lagrange-multiplier price of centre-phase non-closure.”* This finding supplies the quantitative bridge using the two binding-force builds that already exist — **Option C (F86)** and **Option A (F94)** from `roadmap-P1-binding-force-options.md`.
+For the colour sector the budget is the $\mathbb{Z}_3$ **centre phase** and the enforcer/binder is the F86 colour-dielectric condensate. F97 §8 named the missing piece explicitly: *“a dynamical demonstration that $\sigma$ emerges as the Lagrange-multiplier price of centre-phase non-closure.”* This finding supplies the quantitative bridge using the two binding-force builds that already exist — **Option C (F86)** and **Option A (F94)** from `deprecated/roadmap-P1-binding-force-options.md`.
 
 ## 2. The one identification that makes “enforcer = binder” exact
 
@@ -60,4 +60,4 @@ with $\sigma=0$ holding **iff** N-ality $=0$.
 
 - New content: the dual-role identification (§2) and its five-check verification (§3); the explicit A-vs-C $k$-dependence scope (§4).
 - Reused exact results: F86 $\sigma_\text{BPS}=2\pi v^2 n$ (CD1), F94 $v^*=\sqrt{\sigma_A/2\pi}$ bridge (CMP2), F71 N-ality-0 singlet, F97 §4 closure grammar / P6 $\mathbb{Z}_3$ arithmetic.
-- Verification: `model-tests/test_F98_enforcer_is_binder.py` (2026-06-05, 5/5 PASS), results `test-results/F98_enforcer_is_binder.json`.
+- Verification: `tests/findings/test_F98_enforcer_is_binder.py` (2026-06-05, 5/5 PASS), results `test-results/F98_enforcer_is_binder.json`.

@@ -3,7 +3,7 @@
 **Date:** 2026-05-29 - 04:14
 **Status:** Confirmed — representation-theory derivation; 5/5 machine-precision / exact checks PASS
 **Modules touched:** none (analytical study + verification harness only)
-**Verification script:** `model-tests/test_sublattice_hypercharge.py`
+**Verification script:** `tests/findings/test_sublattice_hypercharge.py`
 **Result file:** `test-results/sublattice_hypercharge.json`
 
 Closes the explicit gap named in [F49](F49-bcc-finite-k-weinberg-angle.md) §"What this derives and what it does not" (line 109): *"to derive it rather than match it requires showing that the bipartite sublattice DOF carries hypercharge as a matter of representation theory on the BCC walk, which has not been done."* This finding does that for the abelian factor itself; the **value** of the coupling ratio ($2{:}7 \to \sin^2\theta_W = 2/9$) remains F49's separate, still-partial question.
@@ -97,7 +97,7 @@ The **charge spectrum** ($Y_L=-1$, etc.) is fixed independently by anomaly cance
 
 ## 6. Verification summary
 
-Script `model-tests/test_sublattice_hypercharge.py`, results `test-results/sublattice_hypercharge.json`:
+Script `tests/findings/test_sublattice_hypercharge.py`, results `test-results/sublattice_hypercharge.json`:
 
 | Test | Statement | Type | Residual | Status |
 |------|-----------|------|---------:|:------:|
@@ -141,7 +141,7 @@ Sampled over 400 random $\mathbf k$ inside the BZ per branch; the identities S1�
 ## 9. Files
 
 - `findings/F51-bipartite-sublattice-hypercharge.md` — this finding
-- `model-tests/test_sublattice_hypercharge.py` — S1–S5 verification
+- `tests/findings/test_sublattice_hypercharge.py` — S1–S5 verification
 - `test-results/sublattice_hypercharge.json` — numerical output
 
 ---

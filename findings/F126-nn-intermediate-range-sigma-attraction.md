@@ -3,7 +3,7 @@
 **Date:** 2026-06-08 - 16:20
 **Status:** Confirmed — 5/5 PASS; mass & coupling derived-from-model, folded vertex machine-checked, deuteron reproduced at a physical quark size
 **Module:** `ca-simulation/ca_nuclear.py` (σ-exchange added)
-**Tests:** `model-tests/test_F126_sigma_attraction.py`
+**Tests:** `tests/findings/test_F126_sigma_attraction.py`
 **Results:** `test-results/F126_sigma_attraction.json`
 **Cross-refs:** [[f113-nn-repulsive-core]] (short-range core), [[F104-p4-deuteron-tensor-bound-nucleus]] (OPEP tail + deuteron solver), [[F103-p3-dynamical-pion-goldstone]] (the σ as the pion's chiral partner), [[F77-njl-gap-rpa-selfconsistent]] (m_c, m_σ=2m_c, f_π)
 

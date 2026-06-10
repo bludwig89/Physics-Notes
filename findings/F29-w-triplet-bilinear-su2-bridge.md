@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-23 - 19:30
 **Files:**
-- `model-tests/test_su2_photon_bridge.py` — 8-test suite
+- `tests/findings/test_su2_photon_bridge.py` — 8-test suite
 - `test-results/F29_su2_photon_bridge.json` — numerical results
 **Linked findings:** F26 (rotation law), F27 (chiral SU(2)), F17 (Poynting energy)
 
@@ -171,5 +171,5 @@ Added to Tier 1 (exact algebraic / machine-precision identities):
   triplet decomposes under.
 - `findings/F17-poynting-energy-conservation.md` — the energy conservation
   per W^a component.
-- `reference-research/mohr-2010-maxwell-photon-wf-summary.md` §C.2 — the
+- `references/mohr-2010-maxwell-photon-wf-summary.md` §C.2 — the
   longitudinal-photon discussion which informs the per-component structure.

@@ -3,7 +3,7 @@
 **Date:** 2026-05-24  
 **Status:** Confirmed — 5/5 tests PASS  
 **Module:** `ca-simulation/ca_wmu.py`  
-**Tests:** `model-tests/test_wmu_phase3.py` (W3.1–W3.5)  
+**Tests:** `tests/findings/test_wmu_phase3.py` (W3.1–W3.5)  
 **Results:** `test-results/wmu_phase3.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 3
 
@@ -82,5 +82,5 @@ On the lattice this commutator is captured automatically by the plaquette produc
 ## Files
 
 - `ca-simulation/ca_wmu.py` — `wilson_plaquette_field_strength`, `yang_mills_self_coupling_step`, `link_unitarity_residual`
-- `model-tests/test_wmu_phase3.py` — W3.1–W3.5
+- `tests/findings/test_wmu_phase3.py` — W3.1–W3.5
 - `test-results/wmu_phase3.json` — numerical results

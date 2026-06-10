@@ -7,9 +7,9 @@ Load the right context, work through the physics, produce tests.
 Always read these (small, always relevant):
 - `findings-index.md` — one-line summary of all findings (~3k tokens)
 - `project-status-index.md` — one-line per milestone, recent-first (~1.4k tokens)
-- `tail -n 150 changelog.md` — recent changes only (not the whole file)
+- `tail -n 150 docs/status/changelog.md` — recent changes only (not the whole file)
 
-Do NOT load `project-status.md`, `physics-notes-complete.md`, or all findings files upfront.
+Do NOT load `docs/status/project-status.md`, `physics-notes-complete.md`, or all findings files upfront.
 
 ## Step 2 — Find relevant findings
 
@@ -25,7 +25,7 @@ If the question involves a specific module, also locate the source:
 grep -rn "KEYWORD" ca-simulation/ --include="*.py" -l
 ```
 
-If the question requires foundational derivations not in a finding file, read the relevant section of `reference-research/physics-notes-complete.md` — but only after the index search comes up short.
+If the question requires foundational derivations not in a finding file, read the relevant section of `references/physics-notes-complete.md` — but only after the index search comes up short.
 
 ## Step 3 — State the question clearly
 
@@ -51,12 +51,12 @@ One test per claim. Each test must:
 - Use only `stdlib + numpy` — no scipy on chiral/spinor quantities without checking first
 - Verify rotation laws match F91 classification (even vs chiral) for any propagator
 
-Save to `model-tests/test_F{N}_name.py`.
+Save to `tests/findings/test_F{N}_name.py`.
 
 ## Step 6 — After passing tests
 
 Remind user to run:
 - `/finding` to document the result (also regenerates `findings-index.md`)
 - `/exactness` to log the new rows
-- Add a one-paragraph entry to `changelog.md` with timestamp
-- Add a `## {date} — {summary}` entry to `project-status.md` (regenerate `project-status-index.md` afterward)
+- Add a one-paragraph entry to `docs/status/changelog.md` with timestamp
+- Add a `## {date} — {summary}` entry to `docs/status/project-status.md` (regenerate `project-status-index.md` afterward)

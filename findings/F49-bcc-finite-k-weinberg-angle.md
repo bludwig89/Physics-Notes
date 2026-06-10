@@ -3,7 +3,7 @@
 **Date:** 2026-05-28 - 23:55
 **Status:** Partial — exact rational answer 2/9 emerges from BCC structure under a specific assignment, but the assignment itself is not yet derived.
 **Modules touched:** none (analytical + numerical study only)
-**Verification script:** `model-tests/test_F49_bcc_weinberg_2over9.py`
+**Verification script:** `tests/findings/test_F49_bcc_weinberg_2over9.py`
 **Result file:** `test-results/F49_bcc_weinberg_2over9.json`
 
 ---
@@ -180,5 +180,5 @@ $$g^2 : g'^2 \;=\; 7 : 2 \;=\; n_{\text{bond axes}} : n_{\text{sublattices}}.$$
 ## Files
 
 - `findings/F49-bcc-finite-k-weinberg-angle.md` — this finding
-- `model-tests/test_F49_bcc_weinberg_2over9.py` — three-step verification script
+- `tests/findings/test_F49_bcc_weinberg_2over9.py` — three-step verification script
 - `test-results/F49_bcc_weinberg_2over9.json` — full numerical output

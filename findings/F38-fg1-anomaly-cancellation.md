@@ -2,7 +2,7 @@
 
 *2026-05-26 - 02:02 — Algebraic, Tier-1 exact-rational result. The L-handed Weyl content of one Standard-Model generation, with the hypercharge assignments adopted in [first-gen-completeness-review.md](../first-gen-completeness-review.md) §1, satisfies every gauge and gravitational anomaly cancellation condition exactly (over $\mathbb Q$ / $\mathbb Z$, not "to machine precision"). This closes the FG-1 entry in §5.1 of the completeness review, promotes §2.3's "anomaly cancellation" row from ❌ to ✅, and supersedes [F27](F27-complex-mass-chiral-su2.md)'s "anomaly cancellation … not tested" caveat. It is also the QFT-6 entry in `lattice-vs-spacetime-tests.md`.*
 
-Cross-references: [F27 complex mass / chiral SU(2)](F27-complex-mass-chiral-su2.md) (mass mechanism and the original "not tested" note); [F34 W-fermion vertex](F34-wmu-fermion-vertex.md) (left-handed doublet structure); [F35 electroweak mixing](F35-electroweak-mixing.md) (Gell-Mann–Nishijima charges, W6.4); [first-gen-completeness-review.md](../first-gen-completeness-review.md) §1–§5.1; [exactness-inventory.md](../exactness-inventory.md) entries #86–91; results JSON [`test-results/FG1_anomaly_cancellation.json`](../test-results/FG1_anomaly_cancellation.json); test script [`model-tests/test_FG1_anomaly_cancellation.py`](../model-tests/test_FG1_anomaly_cancellation.py).
+Cross-references: [F27 complex mass / chiral SU(2)](F27-complex-mass-chiral-su2.md) (mass mechanism and the original "not tested" note); [F34 W-fermion vertex](F34-wmu-fermion-vertex.md) (left-handed doublet structure); [F35 electroweak mixing](F35-electroweak-mixing.md) (Gell-Mann–Nishijima charges, W6.4); [first-gen-completeness-review.md](../first-gen-completeness-review.md) §1–§5.1; [docs/status/exactness-inventory.md](../exactness-inventory.md) entries #86–91; results JSON [`test-results/FG1_anomaly_cancellation.json`](../test-results/FG1_anomaly_cancellation.json); test script [`tests/findings/test_FG1_anomaly_cancellation.py`](../tests/findings/test_FG1_anomaly_cancellation.py).
 
 ---
 
@@ -154,7 +154,7 @@ This is one of the few places in the project where the distinction between "Tier
 
 ## 7. The 8-state lepton vector and the (right-handed weak ↔ magnetic monopole) correspondence
 
-*2026-05-28 - 02:44 — Organising-principle addendum to FG-1. Records the notebook's L/R-symmetric lepton octet (pp.89–97; cross-checked in [physics-notes-complete-review.md](../physics-notes-complete-review.md) §4.1) as a single 8-state object and identifies its four EM-neutral states with the two gauge channels that are absent in nature: right-handed weak SU(2)$_R$ and magnetic monopole U(1)$_{em}^\star$. Also tightens [F37](F37-rs-bcc-chirality-helicity.md)'s RS-BCC chirality/helicity bookkeeping by giving that section's 4-state photon split a matching 8-state lepton target.*
+*2026-05-28 - 02:44 — Organising-principle addendum to FG-1. Records the notebook's L/R-symmetric lepton octet (pp.89–97; cross-checked in [docs/audits/physics-notes-complete-review.md](../physics-notes-complete-review.md) §4.1) as a single 8-state object and identifies its four EM-neutral states with the two gauge channels that are absent in nature: right-handed weak SU(2)$_R$ and magnetic monopole U(1)$_{em}^\star$. Also tightens [F37](F37-rs-bcc-chirality-helicity.md)'s RS-BCC chirality/helicity bookkeeping by giving that section's 4-state photon split a matching 8-state lepton target.*
 
 ### 7.1 The lepton octet
 
@@ -206,9 +206,9 @@ Neither observation modifies FG-1 (six exact zeros stand) or F37's algebraic ide
 
 ## 8. Files
 
-- Test script: [`model-tests/test_FG1_anomaly_cancellation.py`](../model-tests/test_FG1_anomaly_cancellation.py)
+- Test script: [`tests/findings/test_FG1_anomaly_cancellation.py`](../tests/findings/test_FG1_anomaly_cancellation.py)
 - Results JSON: [`test-results/FG1_anomaly_cancellation.json`](../test-results/FG1_anomaly_cancellation.json)
-- Inventory entries: #86 (FG-1.A) through #91 (FG-1.F) in [exactness-inventory.md](../exactness-inventory.md)
+- Inventory entries: #86 (FG-1.A) through #91 (FG-1.F) in [docs/status/exactness-inventory.md](../exactness-inventory.md)
 - Review rows updated: §0 dated note, §2.3 "Anomaly cancellation" → ✅, §5.1 FG-1 row, §5.4 QFT-6 moved to "already run," §7 sequencing item 1 closed.
 
 ---

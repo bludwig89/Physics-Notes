@@ -3,7 +3,7 @@
 **Date:** 2026-06-04 - 14:33
 **Status:** Confirmed — engine 6/6 PASS (correctness), comparison 4/4 PASS; FA2/FA3 machine-ε, FA1 machine-ε, FA4/FA5 statistical, multilevel 84× variance reduction. Production σ is user-run.
 **Modules:** `ca-simulation/forks/lgt_fork_A_mc.py` (new)
-**Tests:** `model-tests/test_FA_lgt_mc.py` (engine, 6/6), `model-tests/test_FA_vs_FC_comparison.py` (A-vs-C, 4/4), `model-tests/run_lgt_confinement.py` (heavy, user-run)
+**Tests:** `tests/findings/test_FA_lgt_mc.py` (engine, 6/6), `tests/findings/test_FA_vs_FC_comparison.py` (A-vs-C, 4/4), `tests/runners/run_lgt_confinement.py` (heavy, user-run)
 **Results:** `test-results/FA_lgt_mc.json`, `test-results/FA_vs_FC_comparison.json`, `test-results/lgt_confinement.{json,md}` (smoke)
 **Cross-refs:** F86 (Option C, the dual-SC/colour-dielectric route this is tested against), F70 (2D-exact area-law σ), F43 (dynamical gluons + Wilson primitives), `run_confinement_mc.py` (the plain-Metropolis wall this repairs).
 
@@ -11,7 +11,7 @@
 
 ## What this builds
 
-**Option A** of `roadmap-P1-binding-force-options.md`: the standard, rigorous binding-force route — thermalise the 3+1D SU(3) Wilson ensemble with a proper heat-bath, beat the exponential signal-to-noise wall with a **Lüscher–Weisz multilevel** estimator, and read off the confining static potential. Built as a fork to stand head-to-head with **Option C** (F86), the model-native colour-dielectric / dual superconductor.
+**Option A** of `deprecated/roadmap-P1-binding-force-options.md`: the standard, rigorous binding-force route — thermalise the 3+1D SU(3) Wilson ensemble with a proper heat-bath, beat the exponential signal-to-noise wall with a **Lüscher–Weisz multilevel** estimator, and read off the confining static potential. Built as a fork to stand head-to-head with **Option C** (F86), the model-native colour-dielectric / dual superconductor.
 
 This directly repairs the wall that defeated `run_confinement_mc.py` (plain 2D Metropolis): large Wilson/Polyakov correlators decay as $e^{-\sigma\,\text{Area}}$ far below the $1/\sqrt N$ noise floor, so the Creutz ratio came out NaN. Heat-bath gives short autocorrelation; the two-level estimator factorises the correlator into sublattice averages whose variances **multiply**, recovering an exponentially better signal.
 

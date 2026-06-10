@@ -3,7 +3,7 @@
 **Date:** 2026-05-29 - 20:47
 **Status:** Confirmed — 10/10 tests PASS (7 bit-for-bit / exact-ℚ, 3 at machine ε)
 **Module:** `ca-simulation/ca_charged_current.py` (new, additive — no existing surface modified)
-**Verification script:** `model-tests/test_FG8_beta_decay.py`
+**Verification script:** `tests/findings/test_FG8_beta_decay.py`
 **Results:** `test-results/FG8_beta_decay.json`
 **Closes:** first-gen-completeness.md §5.1 row **FG-8** and §7 step 5 (β-decay half)
 

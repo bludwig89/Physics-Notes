@@ -2,8 +2,8 @@
 
 **Date:** 2026-05-30 - 21:06
 **Status:** Confirmed — 5/5 checks PASS (EC coefficient exact-rational; ratio and Cartan density real-arithmetic). This is a **bounded magnitude estimate**, not a dynamical torsion simulation (that is plan item D3b, open research).
-**Module:** new `ca-simulation/forks/gr_fork_F63_spin_torsion_estimate.py` (self-contained; real arithmetic only, no scipy/chiral bilinear). **Tests:** `model-tests/test_F63_spin_torsion_estimate.py`; results `test-results/F63_spin_torsion_estimate.json`.
-**Origin:** the reconciliation in `page34-eom-derivation.md` §2/§4 — page 34's first-order (Palatini) variation w.r.t. the independent connection $\Omega_\mu$ (EOM 3) would generate Einstein–Cartan torsion sourced by fermion spin, which the project (F50/F52/F62) drops by working torsion-free. This finding answers whether that omission costs anything.
+**Module:** new `ca-simulation/forks/gr_fork_F63_spin_torsion_estimate.py` (self-contained; real arithmetic only, no scipy/chiral bilinear). **Tests:** `tests/findings/test_F63_spin_torsion_estimate.py`; results `test-results/F63_spin_torsion_estimate.json`.
+**Origin:** the reconciliation in `docs/theory/page34-eom-derivation.md` §2/§4 — page 34's first-order (Palatini) variation w.r.t. the independent connection $\Omega_\mu$ (EOM 3) would generate Einstein–Cartan torsion sourced by fermion spin, which the project (F50/F52/F62) drops by working torsion-free. This finding answers whether that omission costs anything.
 
 ## What was open
 
@@ -53,4 +53,4 @@ The reconciliation document flagged EOM 3 as the *one* place page 34's first-ord
 
 ## Relation to other findings
 
-Follows directly from `page34-eom-derivation.md` (the page-34 EOM reconciliation). Uses **F61** (pinned cell size $a$, $\eta$, $g_*$) and checks against **F62** (the dynamical curved-background Dirac CA whose densities it evaluates). Sits upstream of plan item **D3b** (full nonlinear backreaction / torsion), which it pre-screens as negligible at current densities. Links: [[F62-dirac-gravity-dynamical-fork]], [[F61-weyl-eta-and-gstar-prefactor]], [[F52-gravity-from-rest-leg-backreaction]].
+Follows directly from `docs/theory/page34-eom-derivation.md` (the page-34 EOM reconciliation). Uses **F61** (pinned cell size $a$, $\eta$, $g_*$) and checks against **F62** (the dynamical curved-background Dirac CA whose densities it evaluates). Sits upstream of plan item **D3b** (full nonlinear backreaction / torsion), which it pre-screens as negligible at current densities. Links: [[F62-dirac-gravity-dynamical-fork]], [[F61-weyl-eta-and-gstar-prefactor]], [[F52-gravity-from-rest-leg-backreaction]].

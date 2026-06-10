@@ -87,7 +87,7 @@ The conservation is therefore:
 
 ## Significance
 
-This closes Gap C4 from the Mohr summary (`reference-research/mohr-2010-maxwell-photon-wf-summary.md`). It confirms that the composite-photon bilinear respects the full Poynting energy conservation law of Maxwell's equations at the EM-field level, not merely the Weyl spinor norm conservation. The result is stronger than the continuum requirement (which only conserves the spatially integrated energy for a plane wave), because it holds **pointwise in $k$-space at every time step**.
+This closes Gap C4 from the Mohr summary (`references/mohr-2010-maxwell-photon-wf-summary.md`). It confirms that the composite-photon bilinear respects the full Poynting energy conservation law of Maxwell's equations at the EM-field level, not merely the Weyl spinor norm conservation. The result is stronger than the continuum requirement (which only conserves the spatially integrated energy for a plane wave), because it holds **pointwise in $k$-space at every time step**.
 
 The circular-polarization origin is physically meaningful: the BCC composite-photon construction **selects circular polarization by construction** when both Weyl spinors are in the same helicity eigenstate. This is consistent with the photon being a definite-helicity state ($h = \pm 1$).
 
@@ -114,7 +114,7 @@ Per-step rate (10 000-step run, k=0.05): ~1.4e-16 ≈ ε_machine
 
 ## Cross-references
 
-- `exactness-inventory.md` Tier 2 #10 (C4 refinement — Mohr Eq. 55)
-- `ca-reference.md` §Mohr composite-photon energy conservation
-- `reference-research/mohr-2010-maxwell-photon-wf-summary.md` §C4 (Gap now closed)
+- `docs/status/exactness-inventory.md` Tier 2 #10 (C4 refinement — Mohr Eq. 55)
+- `docs/theory/ca-reference.md` §Mohr composite-photon energy conservation
+- `references/mohr-2010-maxwell-photon-wf-summary.md` §C4 (Gap now closed)
 - `ca_maxwell.py` `composite_photon_energy_conservation_c2()`

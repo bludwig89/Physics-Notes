@@ -1,10 +1,10 @@
 # F107 — Adoption of $a=\sqrt{8\pi}\,3^{1/4}\,\ell_P$ as the canonical SI ruler: L4 absolute lensing on $K=e^{2u}$ confirms the $G$-match; the GRB gate observationally discriminates the F79 anchor from the F83 ceiling
 
 **Date:** 2026-06-06 - 22:39
-**Status:** Confirmed — 6/6 checks PASS. L4a is **exact-algebraic** (sympy, all field strengths); L4b/L4c numeric guards; L4d/gate are quantitative against CODATA/IAU constants and the bounds quoted in F28/F66. Closes audit item C.1 (`project-audit-inputs-dynamism-2026-06-06.md`, recommended priority #2).
-**Script:** `model-tests/test_F107_canonical_a_L4_grb_gate.py`
+**Status:** Confirmed — 6/6 checks PASS. L4a is **exact-algebraic** (sympy, all field strengths); L4b/L4c numeric guards; L4d/gate are quantitative against CODATA/IAU constants and the bounds quoted in F28/F66. Closes audit item C.1 (`docs/audits/project-audit-inputs-dynamism-2026-06-06.md`, recommended priority #2).
+**Script:** `tests/findings/test_F107_canonical_a_L4_grb_gate.py`
 **Results:** `test-results/F107_canonical_a_L4_grb_gate.json`
-**Cross-references:** [[F79-structural-newton-constant]] (the parameter-free $a/\ell_P$), [[F83-fix-lattice-spacing-from-fermion-mass]] (degeneracy + top-quark ceiling, now demoted to consistency check), [[F64-em-connection-gravity]] (canonical $K=e^{2u}$, D-EM5/D-EM9), [[F30-photon-dispersion-order-anisotropy-birefringence]] (even-channel $n=2$ law), [[F28-grb-dispersion-test]] (time-of-flight bounds), [[F66-allsky-birefringence-anisotropy-no-rescue]] / [[F67-even-law-photon-vs-bilinear-mutually-exclusive]] (polarimetry bound + bilinear exclusion), [[F69]] (paired photon, even law), `si-units-options.md` Options C/D.
+**Cross-references:** [[F79-structural-newton-constant]] (the parameter-free $a/\ell_P$), [[F83-fix-lattice-spacing-from-fermion-mass]] (degeneracy + top-quark ceiling, now demoted to consistency check), [[F64-em-connection-gravity]] (canonical $K=e^{2u}$, D-EM5/D-EM9), [[F30-photon-dispersion-order-anisotropy-birefringence]] (even-channel $n=2$ law), [[F28-grb-dispersion-test]] (time-of-flight bounds), [[F66-allsky-birefringence-anisotropy-no-rescue]] / [[F67-even-law-photon-vs-bilinear-mutually-exclusive]] (polarimetry bound + bilinear exclusion), [[F69]] (paired photon, even law), `deprecated/si-units-options.md` Options C/D.
 
 ---
 
@@ -20,7 +20,7 @@ Rationale (audit C.1): it is the only parameter-free candidate the model produce
 
 ## 2. L4 absolute lensing on the canonical dielectric (L4a–L4d)
 
-The open item from Finding 8 / `si-units-options.md` §7: the *absolute* deflection coefficient $\Delta\theta=4GM/(bc^2)$ had never been checked against the lattice value (only linear-in-$M$ scaling had), and Finding 10 warned a stray $\sqrt d$ could appear.
+The open item from Finding 8 / `deprecated/si-units-options.md` §7: the *absolute* deflection coefficient $\Delta\theta=4GM/(bc^2)$ had never been checked against the lattice value (only linear-in-$M$ scaling had), and Finding 10 warned a stray $\sqrt d$ could appear.
 
 **L4a (exact).** For the canonical index $n=K=e^{2u}$, $u=GM/(rc^2)$ (F64 D-EM5 — *not* the deprecated $(1-u)^{-2}$ linearisation), the log-index is exactly Coulombic: $\ln K = 2GM/(rc^2)$. The straight-ray eikonal integral is therefore
 

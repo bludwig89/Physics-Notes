@@ -1435,7 +1435,7 @@ def measure_w_dispersion(E_W, B_W, n_steps=100, mass_correction=0.0):
 # ═══════════════════════════════════════════════════════════════════
 #
 # Promotes the inline operator originally written in
-# `model-tests/test_wmu_phase6_rank1.py` (W6.9) into the main module so
+# `tests/findings/test_wmu_phase6_rank1.py` (W6.9) into the main module so
 # other tests / live runs can reuse it.  This implements the lattice
 # version of
 #
@@ -1625,7 +1625,7 @@ def covariant_stueckelberg_lagrangian_uniform(W123, B, g, gp, f=1.0,
     U_st = I uniform on an L³ cubic lattice and uniform gauge fields
     W123 = (W^1, W^2, W^3) and B.
 
-    Used by W6.9 (model-tests/test_wmu_phase6_rank1.py) to extract the
+    Used by W6.9 (tests/findings/test_wmu_phase6_rank1.py) to extract the
     Hessian H_ij = ∂²L_st/∂ξ^i∂ξ^j at ξ = 0 in (W^1, W^2, W^3, B).
 
     Parameters

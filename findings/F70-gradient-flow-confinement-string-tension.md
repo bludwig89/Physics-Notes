@@ -3,9 +3,9 @@
 **Date:** 2026-06-01 - 16:35
 **Status:** Confirmed — 6/6 (flow driver) + 8/8 (confinement) PASS; 7 results at machine ε / bit-for-bit, Creutz ratio & linear potential algebraically exact
 **Modules:** `ca-simulation/ca_cooling.py` (new), `ca-simulation/ca_confinement.py` (new)
-**Tests:** `model-tests/test_FG7b_gradient_flow.py`, `model-tests/test_FG7c_confinement.py`, `model-tests/run_confinement_mc.py` (heavy MC, user-run)
+**Tests:** `tests/findings/test_FG7b_gradient_flow.py`, `tests/findings/test_FG7c_confinement.py`, `tests/runners/run_confinement_mc.py` (heavy MC, user-run)
 **Results:** `test-results/FG7b_gradient_flow.json`, `test-results/FG7c_confinement.json`
-**Cross-refs:** F43 (FG-7 dynamical gluons + Wilson-loop primitives), `reference-research/ca-strong-design.md`
+**Cross-refs:** F43 (FG-7 dynamical gluons + Wilson-loop primitives), `docs/design/ca-strong-design.md`
 
 ---
 

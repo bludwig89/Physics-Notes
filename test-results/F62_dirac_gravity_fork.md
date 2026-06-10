@@ -1,6 +1,6 @@
 # F62 — Dynamical Dirac CA on a curved background (D2) + linearized backreaction (D3a)
 
-_Generated 2026-05-30 - 15:30 by `model-tests/test_F60_dirac_gravity_fork.py`._
+_Generated 2026-05-30 - 15:30 by `tests/findings/test_F60_dirac_gravity_fork.py`._
 
 **6/6 PASS** (total 30.58 s). Module: `ca-simulation/forks/dirac_gravity_fork.py`.
 

@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-01 - 20:05
 **Status:** Confirmed — 14/14 checks PASS. The two chiral-limit theorems (Goldstone $m_\pi=0$ and the NJL relation $m_\sigma=2m_c$) reproduce to machine precision ($2.3\times10^{-14}$), the polarization split identity is exact ($1.8\times10^{-16}$), and the canonical SU(2) fit reproduces the **measured** $m_c$, $f_\pi$, $m_\pi$ and $\langle\bar qq\rangle$ to within $0.2$–$4\%$. The F74 follow-up is answered.
-**Script:** `model-tests/test_F77_njl_gap_rpa.py` (~1–2 s, numpy only)
+**Script:** `tests/findings/test_F77_njl_gap_rpa.py` (~1–2 s, numpy only)
 **Results:** `test-results/F77_njl_gap_rpa.json`
 **Cross-references:** [[F74-two-constituent-bound-state-binding]] (the external-$m_c$ contact solver this replaces and the exact follow-up it flagged), [[F73-spin0-bound-pair-scalar]] (the $m_H\to2m_c$ kinematic ceiling), [[F69-paired-spinor-photon]] (the spin-1 sibling channel), [[F46-pythagorean-lattice-mass]] (the $m_\text{lat}$ map), [[F78-koide-amplitude-from-cooper-pair]] / [[F80-one-45deg-em-saturation-koide]] (the *generation-space* application of this same Cooper-pair/condensate dynamics — see thread note).
 
@@ -82,5 +82,5 @@ which lives in the region $m_\sigma/(2m_c)<1$ that the self-consistent NJL **can
 - Above threshold the scalar is a broad resonance; quantifying its width via $\mathrm{Im}\,K(q^2>4M^2)$ is a small extension of this script.
 
 ## Files
-- Script: `model-tests/test_F77_njl_gap_rpa.py`
+- Script: `tests/findings/test_F77_njl_gap_rpa.py`
 - Results: `test-results/F77_njl_gap_rpa.json`

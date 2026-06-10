@@ -3,7 +3,7 @@ ca_strong.py  —  SU(3)_color strong-force gauge sector  (Phase E3)
 ==================================================================
 Link-variable lattice SU(3) acting on a three-flavour (u, d, s)
 colour-triplet Dirac quark field.  Implements the design in
-`reference-research/ca-strong-design.md` (2026-05-21).
+`docs/design/ca-strong-design.md` (2026-05-21).
 
 State per cell
 --------------
@@ -45,7 +45,7 @@ Coexistence with the rest of v2
 
 References
 ----------
-  `reference-research/ca-strong-design.md` (the full design)
+  `docs/design/ca-strong-design.md` (the full design)
   Wilson, K. (1974) "Confinement of quarks." Phys. Rev. D 10, 2445.
   Kogut, J. & Susskind, L. (1975) "Hamiltonian formulation of Wilson's
   lattice gauge theories." Phys. Rev. D 11, 395.

@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-05 - 16:10
 **Status:** Confirmed — 5/5 checks PASS. Exact diagonalisation of $\mathbb{Z}_3$ gauge theory (coupled rotors) on strips of $P=1,2,3$ plaquettes; M1 Lanczos validated vs dense ($2.7\times10^{-14}$) + Gauss-law trivial sector ($\langle A_s\rangle=1$); M2–M5 the crossover, decoupling, factorisation, log law, and transition precursor. **Answers the open question of F101 §7.**
-**Script:** `model-tests/test_F102_coupled_rotors.py` (~29 s)
+**Script:** `tests/findings/test_F102_coupled_rotors.py` (~29 s)
 **Results:** `test-results/F102_coupled_rotors.json`
 **Cross-references:** [[F101-strong-coupling-sigma-compact-rotor]] (the single rotor this couples; §7 open question), [[F100-gamma-from-transfer-operator]] / [[F99-sigma-as-centre-lagrange-multiplier]] (the $\mathbb{Z}_3$ centre theory), [[F70-gradient-flow-confinement-string-tension]] (the 2D independent-plaquette area law recovered at strong coupling), [[F94-lattice-gauge-mc-confinement-vs-F86]] (the full multi-mode SU(3) route this complements).
 
@@ -54,4 +54,4 @@ The crossover survives coupling. Concretely: at strong coupling the coupled plaq
 
 - New content: the coupled $\mathbb{Z}_3$ gauge ED (matvec Lanczos, §2); the survival/decoupling/factorisation/log-law/transition-precursor results (§3–4).
 - Reused: F101 single rotor and $\sigma=-\ln s_1$; F70 area-law product; F99 $\mathbb{Z}_3$ centre.
-- Verification: `model-tests/test_F102_coupled_rotors.py` (2026-06-05, 5/5 PASS), results `test-results/F102_coupled_rotors.json`.
+- Verification: `tests/findings/test_F102_coupled_rotors.py` (2026-06-05, 5/5 PASS), results `test-results/F102_coupled_rotors.json`.

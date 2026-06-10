@@ -36,4 +36,4 @@ A peer-review-style write-up of the BCC quantum-cellular-automaton (QCA) model o
 3. Photon = bound pair of two spin-½ quanta, not a fundamental spin-1 boson (F69).
 4. Gravity = a single impedance-matched lattice dielectric, $K=e^{2GM/rc^2}$ (F64).
 
-See `key-decisions.md` and `findings/` for the full record.
+See `docs/theory/key-decisions.md` and `findings/` for the full record.

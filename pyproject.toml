@@ -31,4 +31,6 @@ markers = [
     "machine_precision: result holds to FFT/float round-off (<1e-12)",
     "slow: long run, excluded from default selection",
 ]
-testpaths = ["tests"]
+# Default `pytest` = fast casim package suite (matches pre-reorg behaviour).
+# Finding/priority tests are run explicitly: pytest tests/findings/test_F124_... etc.
+testpaths = ["tests/casim"]

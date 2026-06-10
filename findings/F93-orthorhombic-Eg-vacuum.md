@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-04 - 20:40
 **Status:** Partial (major reframing) — 8/8 checks PASS. **What is exact:** the crystal field that splits the F75 $T_{1u}$ generation triplet into three distinct masses *without mixing axes* is **uniquely the $E_g$ channel** (O1); its minimal lattice home is the **BCC second-neighbour (cube-axis) shell** — the first shell contains no $E_g$ at all (O2); a generic-angle $E_g$ condensate leaves stabilizer $D_{2h}$ with **no residual axis permutation**, so no symmetry can generate the democratic stiffness $\kappa$ — F84's flatness becomes a stabilizer theorem (O3); F76-C6's $Z_3$ parametrization **is** an $E_g$ condensate at angle $\delta$, exactly (O4); and the vacuum dispersion (including the F30 anisotropy) is exactly $O_h$-symmetric, so it supplies **zero** explicit $E_g$ field — the break **must be spontaneous** (O6). **What is mechanism, not derivation:** the Landau theory (O5) gives the exact criterion for the orthorhombic phase to win — sextic invariant required, $C>0$ and $|B|<2C$, with $\cos3\delta^*=-B/(2C)$ — but the coefficients are not derived from the QCA rule. The data (O7) give $\delta=12.73°$ (generic — orthorhombic confirmed), amplitude ratio $\sqrt2$ to $10^{-5}$, and the one remaining free number $\cos3\delta=-B/(2C)=0.7859$. See §8.
-**Script:** `model-tests/test_F93_orthorhombic_Eg_vacuum.py` (~2 s)
+**Script:** `tests/findings/test_F93_orthorhombic_Eg_vacuum.py` (~2 s)
 **Results:** `test-results/F93_orthorhombic_Eg_vacuum.json`
 **Cross-references:** [[F84-flatness-from-orthorhombic-break]] (irreducible input #2, the target), [[F76-generation-mass-hierarchy-crystal-field]] (C1 orthorhombic requirement; C6 $Z_3$ form), [[F75-three-generations-from-bcc-irrep-selection]] ($T_{1u}$ triplet; the $O_h$ machinery), [[F78-koide-amplitude-from-cooper-pair]] (B3: symmetric dynamics give the democratic floor — consistent with O5b), [[F30-photon-dispersion-order-anisotropy-birefringence]] (the anisotropy O6 shows is $O_h$-symmetric, hence *not* the break), [[F49-bcc-finite-k-weinberg-angle]] (the second shell reappears), [[F92-per-constituent-phase-consistency]] (companion finding on input #1), [[F95-B-derived-C-localized]] (2026-06-04: the §8 open problem half-closed — $B$ derived from the QCA Dirac sea, closed form $-3\sqrt2 I_2\bar y^4$ with the correct sign; $C$ proven impossible from any per-axis loop and localized to the second-shell condensate's own sextic self-interaction, required size $0.636|B|$).
 
@@ -200,7 +200,7 @@ the model's deepest open problem to date.
   reduction of F76's phase to a Landau-coefficient ratio (O7).
 - Group machinery follows F75 (here: the 48 signed permutation matrices,
   exact integers). Dispersion via `ca_bcc.bcc_dispersion`.
-- Verification: `model-tests/test_F93_orthorhombic_Eg_vacuum.py`
+- Verification: `tests/findings/test_F93_orthorhombic_Eg_vacuum.py`
   (2026-06-04 - 20:33, 8/8 PASS), results
   `test-results/F93_orthorhombic_Eg_vacuum.json`.
 - Masses: PDG ($m_e=0.51099895$, $m_\mu=105.6583755$, $m_\tau=1776.86$ MeV).

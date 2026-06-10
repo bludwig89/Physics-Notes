@@ -3,7 +3,7 @@
 **Date:** 2026-06-01 - 20:08
 **Status:** Candidate finding — 8/8 checks PASS (all group data built from generators; multiplicities exact rationals, character table cross-checked orthonormal over the integers). The *group theory* is exact; the *physical identification* (generation index = orbital shell irrep) is a stated hypothesis, not a theorem. See §7 limitations.
 **Module:** no new model module — analytic group-theory result on the existing `ca_bcc.py` nearest-neighbour shell + the F27 chiral mass step.
-**Verification script:** `model-tests/test_F75_three_generations_irrep.py`
+**Verification script:** `tests/findings/test_F75_three_generations_irrep.py`
 **Results:** `test-results/F75_three_generations_irrep.json`
 **Cross-references:** F27 (chiral SU(2) mass step), F37 (BCC chirality/helicity), F46 (spherical-Pythagorean mass — the scalar-mass requirement), F26/F30 (BCC lattice & its dispersion), F38 (one-generation anomaly cancellation — the quantum numbers that generations must share).
 
@@ -228,6 +228,6 @@ The result makes **falsifiable structural commitments**:
   realises the generation count, with the F27 scalar-mass parity rule as
   selector. New here (no prior project finding addressed generation number).
 - Derivation: §3, built from generators + exact rational projection.
-- Verification: `model-tests/test_F75_three_generations_irrep.py`
+- Verification: `tests/findings/test_F75_three_generations_irrep.py`
   (2026-06-01 - 20:08, 8/8 PASS, <1 s), results in
   `test-results/F75_three_generations_irrep.json`.

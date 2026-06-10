@@ -3,7 +3,7 @@
 **Date:** 2026-05-24  
 **Status:** Confirmed — 4/4 tests PASS  
 **Module:** `ca-simulation/ca_wmu.py`  
-**Tests:** `model-tests/test_wmu_phase2.py` (W2.1–W2.4)  
+**Tests:** `tests/findings/test_wmu_phase2.py` (W2.1–W2.4)  
 **Results:** `test-results/wmu_phase2.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 2
 
@@ -68,5 +68,5 @@ where $\hat{C} = \hat{E} + i\hat{B}$.  This avoids the phase-wrapping artefact o
 ## Files
 
 - `ca-simulation/ca_wmu.py` — `_f26_rotation_step` (even dispersion), `w_propagation_step_spectral`, `w_free_dispersion_check`
-- `model-tests/test_wmu_phase2.py` — W2.1–W2.4
+- `tests/findings/test_wmu_phase2.py` — W2.1–W2.4
 - `test-results/wmu_phase2.json` — numerical results

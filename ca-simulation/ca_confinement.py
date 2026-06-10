@@ -33,7 +33,7 @@ The single-plaquette mean w(β) is computed deterministically by SU(3)
 Weyl-torus quadrature (machine precision), so σ, χ and V are exact.
 
 A light Metropolis sampler is included to cross-check the analytic area law on
-a full 2D lattice; a heavier version lives in `model-tests/run_confinement_mc.py`.
+a full 2D lattice; a heavier version lives in `tests/runners/run_confinement_mc.py`.
 
 Coupling convention (standard Wilson normalisation)
 ---------------------------------------------------
@@ -252,7 +252,7 @@ def mc_wilson_loops(beta, L=6, n_therm=80, n_meas=120, r_max=3, t_max=3,
 
     Returns dict (R,T) → mean loop, plus the measured single-plaquette mean.
     Light defaults so it finishes inside a sandbox tick; use
-    `model-tests/run_confinement_mc.py` for production statistics.
+    `tests/runners/run_confinement_mc.py` for production statistics.
     """
     rng = np.random.default_rng(seed)
     U = cstr.cold_links_2d((L, L))

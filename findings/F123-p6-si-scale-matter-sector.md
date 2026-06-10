@@ -3,7 +3,7 @@
 **Date:** 2026-06-09 - 17:40
 **Status:** Confirmed — 10/10 checks PASS. G0 PREDICTION (inherited from F107/F112, $3.0\times10^{-8}$); H1/H2/H3 matter-sector PREDICTIONs; H4/H6/H7/H8/G1 CONSISTENCY; H5 Tier-3 (one external coupling). Headline ($m_c$, $3m_c=m_p$, $f_\pi$) independently re-derived by direct loop-integral quadrature, agreeing with the module to 10 digits.
 **Module:** `ca-simulation/ca_si_scale.py`
-**Script:** `model-tests/test_P6_si_scale.py` (~2 s)
+**Script:** `tests/findings/test_P6_si_scale.py` (~2 s)
 **Results:** `test-results/P6_si_scale.json`
 **Cross-references:** [[F107-canonical-a-adoption-L4-grb-gate]] (the geometric SI cell adopted here), [[F112-si-predictions-from-canonical-a]] (the gravity/EW registry this extends to the strong sector), [[F119-kg-scale-three-routes]] (the hierarchy: the cell fixes $a$, not the hadron scale $N$ — which this finding fixes with $f_\pi$), [[F77-njl-gap-rpa]] / [[F103-p3-dynamical-pion-goldstone]] (the dimensionless χSB spectrum anchored here), [[F122-p2-dynamical-baryon-three-body]] (the P2 nucleon whose absolute mass this delivers; resolves its $m_p/\sqrt\sigma$ overshoot), [[F97-baryon-phase-closure-no-go]] (mass is dynamical, not current-quark sum — made quantitative), [[F40-quark-Y-and-dynamical-chi-kinetic]] ($d$–$u$ gap in the $n$–$p$ splitting), [[F104-p4-deuteron-tensor-bound-nucleus]] (deuteron OPEP range now predicted).
 
@@ -62,4 +62,4 @@ One strong-sector debt remains: the model carries **two** independent QCD calibr
 
 ## 6. What P6 adds to the ledger
 
-New module `ca-simulation/ca_si_scale.py`; new suite `model-tests/test_P6_si_scale.py` (10/10). Exactness rows: Tier-3 #41 (the $f_\pi$-anchored nucleon $3m_c$), #42 (the absolute light-meson spectrum on one anchor). With P6 implemented for the matter sector, the matter-binding roadmap has P0, P1, P2, P3, P4 and (matter-sector) P6 all built; **P5 (atoms)** remains the one open phase, and the cross-cutting $\sqrt\sigma\leftrightarrow f_\pi$ unification is the remaining strong-scale debt.
+New module `ca-simulation/ca_si_scale.py`; new suite `tests/findings/test_P6_si_scale.py` (10/10). Exactness rows: Tier-3 #41 (the $f_\pi$-anchored nucleon $3m_c$), #42 (the absolute light-meson spectrum on one anchor). With P6 implemented for the matter sector, the matter-binding roadmap has P0, P1, P2, P3, P4 and (matter-sector) P6 all built; **P5 (atoms)** remains the one open phase, and the cross-cutting $\sqrt\sigma\leftrightarrow f_\pi$ unification is the remaining strong-scale debt.

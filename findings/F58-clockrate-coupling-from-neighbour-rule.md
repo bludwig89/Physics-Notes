@@ -3,7 +3,7 @@
 **Date:** 2026-05-30 - 13:40
 **Status:** Confirmed (scope-limited) — 5/5 tests PASS; Q0 exact (residual $2\times10^{-16}$), Q3a lock exact ($1\times10^{-16}$), Q1/Q2/Q3b quantitative. Answers the open follow-up named verbatim in **F52** and **F55**.
 **Module:** new `ca-simulation/forks/gr_fork_F58_clockrate_coupling_derivation.py` (additive; reuses `ca_bcc` F26 dispersion).
-**Tests:** `model-tests/test_F58_clockrate_coupling_derivation.py`; results `test-results/F58_clockrate_coupling_derivation.json`.
+**Tests:** `tests/findings/test_F58_clockrate_coupling_derivation.py`; results `test-results/F58_clockrate_coupling_derivation.json`.
 
 ## The question
 

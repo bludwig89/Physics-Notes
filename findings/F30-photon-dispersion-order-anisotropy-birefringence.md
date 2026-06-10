@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-24 - 17:31
 **Status:** Confirmed — Tier 1 exact (sympy series, exact rational coefficients) + Tier 2 high-precision numeric (mpmath log-log slopes)
-**Script:** `model-tests/test_F30_dispersion_order.py`
+**Script:** `tests/findings/test_F30_dispersion_order.py`
 **Results:** `test-results/F30_dispersion_order.json`, `test-results/F30_dispersion_order_summary.md`
 
 ---
@@ -123,4 +123,4 @@ With tick $=t_P$ and spacing $=\ell_P$, the dimensionless lattice wavenumber map
 - [[F25-real-rotation-exact-discrete-time-maxwell]]: exact rotation underlying $\Omega(\mathbf{k})$
 - [[F28-grb-dispersion-test]]: time-of-flight bounds (the unpolarised channel)
 - [[F22-velocity-addition-deformed-formula]]: the analogous massive arccos nonlinearity
-- `model-tests/test_F30_dispersion_order.py`, `ca-simulation/ca_bcc.py::bcc_dispersion`, `ca-simulation/ca_maxwell.py::maxwell_curl_residual` (single-branch photon, lines 226–235)
+- `tests/findings/test_F30_dispersion_order.py`, `ca-simulation/ca_bcc.py::bcc_dispersion`, `ca-simulation/ca_maxwell.py::maxwell_curl_residual` (single-branch photon, lines 226–235)

@@ -7,7 +7,7 @@ pass/fail vs tolerance.
 
 Writes to a *casim-scoped* file (``test-results/casim-exactness-inventory.md``)
 so it never clobbers the repository's large hand-maintained
-``exactness-inventory.md``.
+``docs/status/exactness-inventory.md``.
 """
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ def build_markdown(checks: List[Check]) -> str:
         "",
         "Auto-generated from `casim.verify.run_all()`; do not edit by hand. "
         "This is scoped to the `casim` engine and does **not** replace the "
-        "repository's hand-maintained `exactness-inventory.md`.",
+        "repository's hand-maintained `docs/status/exactness-inventory.md`.",
         "",
         "| check | channel | class | residual | tolerance | pass |",
         "|---|---|---|---|---|---|",

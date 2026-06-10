@@ -2,9 +2,9 @@
 
 **Date:** 2026-06-01 - 17:42
 **Status:** Partial — the **kinematics are exact and derived** (BP1/BP2/BP4 algebraic; BP3/BP5 quantitative; 6/6 checks PASS, residuals ≤ $4\times10^{-51}$). The **mass value is not yet predicted**: the missing input is the binding dynamics (the SM quartic $\lambda$ in disguise). The model predicts only the kinematic ceiling and a sharp falsifiable structure; a candidate scale match ($m_H\!\approx\!v/2$) is **flagged, not derived**.
-**Script:** `model-tests/test_F73_spin0_bound_pair.py` (<1 s)
+**Script:** `tests/findings/test_F73_spin0_bound_pair.py` (<1 s)
 **Results:** `test-results/F73_spin0_bound_pair.json`
-**Cross-references:** [[F69-paired-spinor-photon]] (the spin-1 partner of this pairing), [[F46-pythagorean-lattice-mass]] ($\Omega_\text{rest}=\arcsin m$), [[F27-complex-mass-chiral-su2]] (the chiral mass rotation), [[F44-higgs-free-mA-zero-from-rank1-stueckelberg]] (Stueckelberg scale $f=v/2$), [[F34b-wmu-mass-stueckelberg]]; McPhee notebook `reference-research/physics-notes-complete.md` pp.5–6 (items 2/3/6: "the Higgs is the Cooper pair, we presume"), p.62 ("Weinberg–Salam w/o Higgs").
+**Cross-references:** [[F69-paired-spinor-photon]] (the spin-1 partner of this pairing), [[F46-pythagorean-lattice-mass]] ($\Omega_\text{rest}=\arcsin m$), [[F27-complex-mass-chiral-su2]] (the chiral mass rotation), [[F44-higgs-free-mA-zero-from-rank1-stueckelberg]] (Stueckelberg scale $f=v/2$), [[F34b-wmu-mass-stueckelberg]]; McPhee notebook `references/physics-notes-complete.md` pp.5–6 (items 2/3/6: "the Higgs is the Cooper pair, we presume"), p.62 ("Weinberg–Salam w/o Higgs").
 
 ---
 
@@ -76,5 +76,5 @@ equivalently, $m_H=v/2$ is the statement that the quartic is $\lambda=\tfrac18=0
 - **Remains (the real physics):** a two-constituent **bound-state simulation** with an actual interaction (the deep follow-up flagged in F69) to produce the binding depth $E_b$ and hence $m_H$ — i.e. to derive $\lambda$. Until then the value is an input, and the $m_H\approx v/2$ / $\lambda\approx1/8$ match is unproven.
 
 ## Files
-- Script: `model-tests/test_F73_spin0_bound_pair.py`
+- Script: `tests/findings/test_F73_spin0_bound_pair.py`
 - Results: `test-results/F73_spin0_bound_pair.json`

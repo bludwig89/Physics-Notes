@@ -4,7 +4,7 @@
 ca_baryon_dynamics.py
 =====================
 
-P2 of roadmap-matter-binding.md — the DYNAMICAL baryon: a real-time, non-
+P2 of docs/roadmaps/roadmap-matter-binding.md — the DYNAMICAL baryon: a real-time, non-
 dispersing, mass-measured three-quark bound state (proton uud, then neutron
 udd), replacing the operator-level colour singlet of F71 with a genuine
 solution of the three-body Schrodinger problem.

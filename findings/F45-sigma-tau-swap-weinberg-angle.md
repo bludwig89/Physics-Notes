@@ -3,7 +3,7 @@
 **Date:** 2026-05-27 - 14:30
 **Status:** Algebraic prediction — bare/tree-level
 **Modules touched:** (analysis only — no code change to `ca_wmu.py`)
-**Verification script:** `model-tests/test_f45_sigma_tau_weinberg.py` (algebraic, rational arithmetic)
+**Verification script:** `tests/findings/test_f45_sigma_tau_weinberg.py` (algebraic, rational arithmetic)
 
 ---
 
@@ -167,5 +167,5 @@ Suggested follow-up: change `weinberg_mix(...)` signature to `weinberg_mix(..., 
 ## Files
 
 - `findings/F45-sigma-tau-swap-weinberg-angle.md` — this finding
-- `model-tests/test_f45_sigma_tau_weinberg.py` — algebraic verification (rational arithmetic)
+- `tests/findings/test_f45_sigma_tau_weinberg.py` — algebraic verification (rational arithmetic)
 - `test-results/F45_sigma_tau_weinberg.json` — written by the test script

@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-23 - 12:00  
 **Source:** physics_notes_0708.pdf pages 59–60 ("Complex mass", dated 9/6/2007)  
-**Files:** `ca-simulation/forks/complex_mass_fork.py`, `model-tests/test_complex_mass_chiral.py`  
+**Files:** `ca-simulation/forks/complex_mass_fork.py`, `tests/findings/test_complex_mass_chiral.py`  
 **Test suite:** 9/9 PASS — see summary below
 
 ---
@@ -200,4 +200,4 @@ This confirms θ(x) carries no physical information — it is a pure gauge artif
 
 ---
 
-*Cross-references:* `findings.md` §F27, `changelog.md` 2026-05-23, `exactness-inventory.md` Tier 1 #22–#24, `ca-reference.md` §Complex-mass / Chiral SU(2)
+*Cross-references:* `findings.md` §F27, `docs/status/changelog.md` 2026-05-23, `docs/status/exactness-inventory.md` Tier 1 #22–#24, `docs/theory/ca-reference.md` §Complex-mass / Chiral SU(2)

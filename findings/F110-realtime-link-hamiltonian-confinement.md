@@ -3,7 +3,7 @@
 **Date:** 2026-06-06 - 23:55
 **Status:** Confirmed — 7/7 checks PASS. C1/C2/C7 machine-precision/exact (direct-vs-dual spectral identity; λ=0 potential in integer arithmetic; rotor matrix identity); C3/C4 convergent/asymptotic (linear potential, strong-coupling PT); C5 machine-precision real-time unitarity; C6 quantitative (flux-tube localisation and persistence). **Closes audit B.2 item 2** ("real-time link Hamiltonian evolution (Kogut–Susskind-type) is not built; Wilson-loop tests run on frozen links").
 **Module:** `ca-simulation/ca_link_hamiltonian.py`
-**Script:** `model-tests/test_F110_link_hamiltonian_realtime.py` (~30 s)
+**Script:** `tests/findings/test_F110_link_hamiltonian_realtime.py` (~30 s)
 **Results:** `test-results/F110_link_hamiltonian_realtime.json`
 **Cross-references:** [[F101-strong-coupling-sigma-compact-rotor]] (the single-plaquette rotor this makes multi-plaquette and real-time; χ map verified as a matrix identity), [[F100-gamma-from-transfer-operator]] (λ = χΩ² rule map), [[F99-sigma-as-centre-lagrange-multiplier]] / [[F97-baryon-no-go-centre-closure]] (why ℤ₃, the SU(3) centre, is the load-bearing group), [[F70-gradient-flow-confinement-string-tension]] (the frozen-link Euclidean area law this complements with energy-per-length), [[F94-lattice-gauge-mc-confinement-vs-F86]] (3+1D Euclidean σ, still the production route).
 
@@ -63,4 +63,4 @@ with integer height operators $\hat m_p$ on plaquettes (outer face ≡ 0) and a 
 
 - New content: the dual height construction with exact Gauss law and static-charge backgrounds (§2), the direct-vs-dual spectral identity (C1), the Hamiltonian string tension and PT cross-check (C3/C4), real-time flux-tube persistence/melting (C6), the F101 χ-map matrix identity (C7).
 - Reused: F101 rotor convention and table value $\sigma_1(\lambda{=}1,\chi{=}1)=0.29551$; F99/F97 centre-group rationale; F70/F94 as the Euclidean complements.
-- Verification: `model-tests/test_F110_link_hamiltonian_realtime.py` (2026-06-06, 7/7 PASS), results `test-results/F110_link_hamiltonian_realtime.json`.
+- Verification: `tests/findings/test_F110_link_hamiltonian_realtime.py` (2026-06-06, 7/7 PASS), results `test-results/F110_link_hamiltonian_realtime.json`.

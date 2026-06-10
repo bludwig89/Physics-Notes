@@ -58,7 +58,7 @@ casim/
 (markers `exact` / `machine_precision` / `slow`) or standalone
 (`PYTHONPATH=src python tests/test_casim_exactness.py`). `casim inventory`
 regenerates `test-results/casim-exactness-inventory.md` (scoped to the engine;
-it does not touch the repo's hand-maintained `exactness-inventory.md`).
+it does not touch the repo's hand-maintained `docs/status/exactness-inventory.md`).
 
 ## Backend seam (Phase G)
 

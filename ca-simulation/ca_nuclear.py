@@ -4,7 +4,7 @@
 ca_nuclear.py
 =============
 
-P4 of roadmap-matter-binding.md — the first NUCLEUS: the deuteron, a proton and
+P4 of docs/roadmaps/roadmap-matter-binding.md — the first NUCLEUS: the deuteron, a proton and
 a neutron bound by the residual strong force.  Full ³S₁–³D₁ coupled-channel
 treatment with the pion TENSOR force (the user-selected faithful scope).
 

@@ -3,7 +3,7 @@
 **Date:** 2026-06-09 - 18:20
 **Status:** Confirmed (partial derivation) — 6/6 checks PASS. C1/C3 machine-precision (Pagels–Stokar identity; factorisation); C2/C4/C5 quantitative PREDICTIONs (chiral factor exact; condensed-vacuum route reproduces the empirical ratio to ~12 %); C6 a tagged DIAGNOSTIC that locates the residual. Headline (Λ/f_π = 7.04, condensate route = 4.00) independently re-derived by direct loop-integral quadrature.
 **Module:** `ca-simulation/ca_qcd_scale_ratio.py`
-**Script:** `model-tests/test_F124_qcd_scale_ratio.py` (~1 s)
+**Script:** `tests/findings/test_F124_qcd_scale_ratio.py` (~1 s)
 **Results:** `test-results/F124_qcd_scale_ratio.json`
 **Cross-references:** [[F123-p6-si-scale-matter-sector]] (the open debt this closes — the two QCD calibrations $f_\pi$ and $\sqrt\sigma$), [[F77-njl-gap-rpa]] / [[F116-njl-calibration-bz-cutoff-induced-G]] (the chiral side: NJL with Λ = BZ edge), [[F86-colour-dielectric-dual-superconductor]] / [[F88-colour-condensate-from-model]] (the confinement side: $\sigma=2\pi v^2$, $v=m_D/e=0.713$ measured), [[F101-strong-coupling-sigma-compact-rotor]] / [[F115-coupling-magnitudes-running-rotor]] (the locked rotor coupling $g_s^2\chi=\frac14$ and the bare $\sigma_{\rm lat}$), [[F70-gradient-flow-confinement-string-tension]] (confinement lives in the disordered/strong-coupling ensemble).
 
@@ -61,4 +61,4 @@ The factorisation also exposes *where* the remaining uncertainty lives. If $\sqr
 
 ## 7. Verdict and ledger
 
-$\sqrt\sigma/f_\pi$ is no longer a free second calibration: it is derived to ~12 % as (exact chiral $7.04$) × (confinement $0.57$), with the residual a single, well-posed scale-setting ratio rather than an unconstrained number. New module `ca-simulation/ca_qcd_scale_ratio.py`; new suite `model-tests/test_F124_qcd_scale_ratio.py` (6/6); exactness row Tier-3 #43. This closes the F123 open debt down to the scale-setting (dimensional-transmutation) residual, leaving **P5 (atoms)** as the one open matter-binding phase.
+$\sqrt\sigma/f_\pi$ is no longer a free second calibration: it is derived to ~12 % as (exact chiral $7.04$) × (confinement $0.57$), with the residual a single, well-posed scale-setting ratio rather than an unconstrained number. New module `ca-simulation/ca_qcd_scale_ratio.py`; new suite `tests/findings/test_F124_qcd_scale_ratio.py` (6/6); exactness row Tier-3 #43. This closes the F123 open debt down to the scale-setting (dimensional-transmutation) residual, leaving **P5 (atoms)** as the one open matter-binding phase.

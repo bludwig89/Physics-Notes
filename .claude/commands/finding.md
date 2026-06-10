@@ -132,9 +132,9 @@ print(f"findings-index.md updated ({len(entries)} entries)")
 
 6. **Automatically run `/exactness` for this finding.** Do not stop and wait — chain straight into it:
    - Read `.claude/commands/exactness.md` and follow its steps using the results from the finding you just created (the `## Exactness` table and `## Tests` section are the source rows).
-   - For each confirmed result in the finding, append a row to the correct tier section of `exactness-inventory.md` (Exact algebraic / Machine precision / Quantitative), set **Source** to this finding's number and test file, and update the "Last updated" line.
+   - For each confirmed result in the finding, append a row to the correct tier section of `docs/status/exactness-inventory.md` (Exact algebraic / Machine precision / Quantitative), set **Source** to this finding's number and test file, and update the "Last updated" line.
    - If the finding has no confirmed numerical results yet (results still open/pending), skip the append and tell the user `/exactness` was deferred until results are confirmed.
 
 7. Remind the user to:
-   - Add an entry to `changelog.md` if code was written
-   - Update `project-status.md` if this is a major milestone
+   - Add an entry to `docs/status/changelog.md` if code was written
+   - Update `docs/status/project-status.md` if this is a major milestone

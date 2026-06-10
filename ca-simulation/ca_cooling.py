@@ -24,7 +24,7 @@ is gradient descent on the Wilson action S_W, so
     dS_W/dt = -Σ_{x,μ} ‖Z_μ(x)‖²  ≤  0
 — the action is monotonically non-increasing, the cold configuration is a
 fixed point, and the flow commutes with gauge transformations.  All four
-properties are verified in `model-tests/test_FG7b_gradient_flow.py`.
+properties are verified in `tests/findings/test_FG7b_gradient_flow.py`.
 
 Conventions match `ca_strong.py`:
     U : ndarray (n_dir=2, Lx, Ly, 3, 3) complex,  U[0]=+x, U[1]=+y links.

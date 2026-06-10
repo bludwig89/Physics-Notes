@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-09 - 15:40
 **Status:** Partial (one clean factorisation + one sharp no-go + one $O(1)$ localisation + one consistency cross-check) — 8/8 checks PASS (`test_F119_kg_scale_three_routes.py`, <1 s). Pure numpy/math (no scipy, per CLAUDE.md). The headline: **the kilogram is already tied in *as a unit*** — once $a$ is locked (F107), $\hbar$ carries the kg and $m_\text{phys}=\hbar\arcsin(m_\text{lat})/(\tau c^2)$ returns kg with no free parameter. What is *not* derived is the single dimensionless overall scale $N\equiv m_\text{lat}(\tau)=5.54\times10^{-19}$ (since the condensate pins $m^\text{cond}_\tau\equiv1$). The condensate gives the *shape* (ratios, Koide, angle) to $10^{-12}$; $N$ is a clean multiplicative scale on top. **The three attempted closures all fail in the same instructive way:** $N$ *is* the fermion-mass hierarchy.
-**Script:** `model-tests/test_F119_kg_scale_three_routes.py`
+**Script:** `tests/findings/test_F119_kg_scale_three_routes.py`
 **Results:** `test-results/F119_kg_scale_three_routes.json`
 **Cross-references:** [[F118-self-consistent-Wvc-and-C]] (the $W$/$\lambda_6$ localisation this builds on and tests), [[F116-njl-calibration-bz-cutoff-induced-G]] (the lattice-BZ gap machinery reused in the no-go), [[F115-coupling-magnitudes-running-rotor]] (couplings non-running ⇒ no transmutation channel; the rotor value $g_s^2\chi=\tfrac14$), [[F101-one-heavy-branch-fit-W]] (the wall-pinning $y_\tau=1$ and the "saturation↔MeV" ledger gap), [[F83-fix-lattice-spacing-from-fermion-mass]] (the mass map $(\triangle)$, the $m_\text{lat}$ table, the top-quark ceiling), [[F79-structural-newton-constant]] / [[F112-si-predictions-from-canonical-a]] (the locked cell and the genuine $G=3\times10^{-8}$ prediction), [[F46-pythagorean-lattice-mass]] ($\Omega_\text{rest}=\arcsin m$), [[F95-B-derived-C-localized]] (the derived cubic $B$).
 
@@ -85,4 +85,4 @@ The gravity sector (F79/F107) fixes $a\to\tau$ and yields the project's genuine 
 
 - New content: the clean shape×scale factorisation $m_\text{lat}=N\,m^\text{cond}$ (N1); the gap-mechanism no-go with the measured 3D transition exponent and the $10^{-36}$ tuning requirement (N2); the marginal-channel requirement $K\approx42$ (N3); the quantitative $\lambda_6=\tfrac14$ angle prediction (W2) and the nonperturbative-$B$ obstruction to a closed form (W3); the gravity consistency-vs-non-closure cross-check (X1).
 - Machinery: `ca_bcc.bcc_dispersion` + F46 sea tables (L=24, F101/F118 convention); lattice-BZ gap equation (F116 NJ2); F79/F107 cell; PDG 2024 masses; CODATA 2018 constants.
-- Verification: `model-tests/test_F119_kg_scale_three_routes.py` (2026-06-09 - 15:40, 8/8 PASS), results `test-results/F119_kg_scale_three_routes.json`.
+- Verification: `tests/findings/test_F119_kg_scale_three_routes.py` (2026-06-09 - 15:40, 8/8 PASS), results `test-results/F119_kg_scale_three_routes.json`.

@@ -1,6 +1,6 @@
 # F64 (EM-connection dielectric) vs F62 (emergent-gravity rest-leg)
 
-_Generated 2026-05-31 - 16:00 by `model-tests/compare_F64_F62.py`._
+_Generated 2026-05-31 - 16:00 by `tests/runners/compare_F64_F62.py`._
 
 Both gravity routes run on the **same** exactly-unitary curved-background Dirac stepper (`dirac_gravity_fork`); the only independent variable is the metric placement. F62 passes 6/6 of its battery; F64 passes 16/9 (6 dynamic counterparts + 3 static eikonal/field-level, incl. the radiation-as-source discriminator F62 has no analogue for).
 

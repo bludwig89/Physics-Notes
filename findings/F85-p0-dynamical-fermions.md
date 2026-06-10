@@ -1,10 +1,10 @@
 # F85 — P0: the electron and the up/down quarks certified as dynamical, real-time wavepackets
 
 **Date:** 2026-06-03 - 00:35
-**Status:** Confirmed — 16/16 PASS. This is an **integration / certification** finding: it does not introduce a new algebraic identity, it certifies that the existing first-generation machinery (`ca_dirac_bcc`, `ca_bcc`, `ca_strong`, `ca_charged_current`) behaves as a *measured, non-dispersing, correctly-charged real-time wavepacket* for each of e, u, d — the P0 foundation of `roadmap-matter-binding.md`.
-**Module:** none new. **Test:** `model-tests/test_P0_dynamical_fermions.py` (~8 s).
+**Status:** Confirmed — 16/16 PASS. This is an **integration / certification** finding: it does not introduce a new algebraic identity, it certifies that the existing first-generation machinery (`ca_dirac_bcc`, `ca_bcc`, `ca_strong`, `ca_charged_current`) behaves as a *measured, non-dispersing, correctly-charged real-time wavepacket* for each of e, u, d — the P0 foundation of `docs/roadmaps/roadmap-matter-binding.md`.
+**Module:** none new. **Test:** `tests/findings/test_P0_dynamical_fermions.py` (~8 s).
 **Results:** `test-results/P0_dynamical_fermions.json`.
-**Cross-references:** [[F46-pythagorean-lattice-mass]] (rest rotation $\Omega_\text{rest}=\arcsin m$ → zitter $2\arcsin m$), F43 (SU(3) colour sector), F38/FG-1 (charge content), F83 (the physical $m_\text{lat}$ are ~$10^{-22}$; P0 uses representative O(0.05–0.4) test masses), `roadmap-matter-binding.md` P0.
+**Cross-references:** [[F46-pythagorean-lattice-mass]] (rest rotation $\Omega_\text{rest}=\arcsin m$ → zitter $2\arcsin m$), F43 (SU(3) colour sector), F38/FG-1 (charge content), F83 (the physical $m_\text{lat}$ are ~$10^{-22}$; P0 uses representative O(0.05–0.4) test masses), `docs/roadmaps/roadmap-matter-binding.md` P0.
 
 ---
 

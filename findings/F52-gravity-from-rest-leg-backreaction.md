@@ -3,7 +3,7 @@
 **Date:** 2026-05-29 - 17:05
 **Status:** Confirmed — 5/5 tests PASS (H1/H1b loop closure, H2 redshift factor-1, H3/H3b deflection discriminator).
 **Module:** new `ca-simulation/forks/gr_fork_F52_restleg_backreaction.py` (additive; reuses `gr_fork_E_tensor` metric map and `ca_emqg.solve_poisson_3d`).
-**Tests:** `model-tests/test_F52_restleg_backreaction.py`; results `test-results/F52_restleg_backreaction.json`.
+**Tests:** `tests/findings/test_F52_restleg_backreaction.py`; results `test-results/F52_restleg_backreaction.json`.
 
 ## The open loop in F50
 

@@ -1,6 +1,6 @@
 # CA Simulation — Next Steps Implementation Plan
 
-Plan to implement the five "Next Steps" items listed in `ca-reference.md`. Grouped into three phases by theme; ordered so earlier phases produce tools the later phases depend on.
+Plan to implement the five "Next Steps" items listed in `docs/theory/ca-reference.md`. Grouped into three phases by theme; ordered so earlier phases produce tools the later phases depend on.
 
 *Drafted 2026-05-14, after the dispersion-verification work landed.*
 
@@ -72,7 +72,7 @@ For the massless Weyl dispersion $\omega = c|\mathbf{k}|$ we have $\mathbf{v}_g 
 
 **Deliverable.**
 - New function `measure_group_velocity` in `ca_core.py`.
-- A new section in `ca-reference.md` recording the measurement and concluding: $c$ is built into the propagator's $\cos(c\kappa)$ / $\sin(c\kappa)$ structure (structural), and observable as the centroid speed of any wave packet (measurable). These are the same number; the apparent "or" in the question is a false dichotomy.
+- A new section in `docs/theory/ca-reference.md` recording the measurement and concluding: $c$ is built into the propagator's $\cos(c\kappa)$ / $\sin(c\kappa)$ structure (structural), and observable as the centroid speed of any wave packet (measurable). These are the same number; the apparent "or" in the question is a false dichotomy.
 
 **Effort.** Small. ~50 lines including a plot.
 
@@ -244,7 +244,7 @@ The reference doc says "use physics_notes_pages documents for reference if appli
 - **Pages 38, 59–60, 81–88** (Weyl factorization, complex mass, Dirac plane-wave solutions): the physics that grounds Phase D. The Dirac extension is worked out in detail in `ca-dirac-gravity-plan.md`.
 - **Pages 60–72, 77, 89–90** (electroweak without Higgs, V–A current, fermion-state table): the source material for Phase E. Ludwig's page-60 speculation that one helicity half carries an SU(2) symmetry broken to U(1) is independently very close to the Standard Model electroweak structure, and it is the natural CA framing for the gauge phases.
 
-### Maximum-density section in `ca-reference.md`
+### Maximum-density section in `docs/theory/ca-reference.md`
 
 A small documentation tightening identified in an earlier review: the "maximum density (black holes)" section currently lists "bounded density" and "information never destroyed" as separate observations. They are the same statement (exact unitarity ⇒ global norm fixed ⇒ max single-cell density finite). Worth collapsing into one bullet to tighten the argument. Two-minute edit; defer until Phase A lands so the section can also reference the new visualizations.
 

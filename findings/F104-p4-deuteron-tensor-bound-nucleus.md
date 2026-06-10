@@ -2,9 +2,9 @@
 
 **Date:** 2026-06-06 - 06:58
 **Status:** Confirmed — 11/11 checks PASS. The tensor spin-angular matrix built from Clebsch-Gordan equals the Rarita-Schwinger [[0,2√2],[2√2,−2]] to 9.8×10⁻¹⁵; the deuteron binds as a single shallow J^P=1⁺ I=0 state **only** through the tensor force (central-only OPEP is unbound at the same core); the ³S₁ tail matches κ=√(M_N E_b)/ħc to 0.34%; and tuning the one short-range knob lands E_b=2.224 MeV with the physical κ=0.2316 fm⁻¹ and a 7% D-state.
-**Roadmap:** `roadmap-matter-binding.md` Phase **P4** (nuclei — deuteron). Full ³S₁–³D₁ coupled-channel scope (user-selected).
+**Roadmap:** `docs/roadmaps/roadmap-matter-binding.md` Phase **P4** (nuclei — deuteron). Full ³S₁–³D₁ coupled-channel scope (user-selected).
 **Module:** `ca-simulation/ca_nuclear.py`
-**Script:** `model-tests/test_P4_deuteron.py` (~8 s, numpy only)
+**Script:** `tests/findings/test_P4_deuteron.py` (~8 s, numpy only)
 **Results:** `test-results/P4_deuteron.json`
 **Cross-references:** [[F103-p3-dynamical-pion-goldstone]] (supplies m_π, f_π — the force carrier), [[F74-two-constituent-bound-state-binding]] (the two-body solver generalised contact→2-channel), [[F77-njl-gap-rpa-selfconsistent]] (Goldberger-Treiman tie for the coupling), [[F71-colour-singlet-baryon-proton]] (the nucleons being bound).
 
@@ -12,7 +12,7 @@
 
 ## Goal
 
-`roadmap-matter-binding.md` P4 asks for the first **nucleus**: bind a proton and a neutron into the deuteron via the residual strong force, which at long range is one-pion exchange. The roadmap flags this as the highest-risk phase — the model has no residual nuclear force a priori, and the deuteron is shallow and fine-tuned even in real QCD. The user selected the **full ³S₁–³D₁ tensor** treatment (the faithful J^P=1⁺ deuteron) rather than a central-only first cut.
+`docs/roadmaps/roadmap-matter-binding.md` P4 asks for the first **nucleus**: bind a proton and a neutron into the deuteron via the residual strong force, which at long range is one-pion exchange. The roadmap flags this as the highest-risk phase — the model has no residual nuclear force a priori, and the deuteron is shallow and fine-tuned even in real QCD. The user selected the **full ³S₁–³D₁ tensor** treatment (the faithful J^P=1⁺ deuteron) rather than a central-only first cut.
 
 ## Construction
 
@@ -66,5 +66,5 @@ The open item is exactly the one the roadmap anticipated: a *derived* short-rang
 
 ## Files
 - Module: `ca-simulation/ca_nuclear.py`
-- Script: `model-tests/test_P4_deuteron.py`
+- Script: `tests/findings/test_P4_deuteron.py`
 - Results: `test-results/P4_deuteron.json`

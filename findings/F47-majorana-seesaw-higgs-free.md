@@ -3,7 +3,7 @@
 **Date:** 2026-05-28 - 14:00
 **Status:** Confirmed — 6/6 tests PASS
 **Module:** `ca-simulation/forks/hypercharge_fork.py` (re-exports `ca_hypercharge`; F43 block adds Majorana primitives)
-**Tests:** `model-tests/test_majorana_fork.py` (M1–M6)
+**Tests:** `tests/findings/test_majorana_fork.py` (M1–M6)
 **Results:** `test-results/majorana_fork.json`
 **Builds on:** F27 chiral SU(2) Dirac CA, F41 hypercharge fork, F42 quark+dynamical-χ kinetic.
 

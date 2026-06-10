@@ -3,7 +3,7 @@
 **Date:** 2026-05-24  
 **Status:** Confirmed — 5/5 tests PASS  
 **Module:** `ca-simulation/ca_wmu.py`  
-**Tests:** `model-tests/test_wmu_phase4.py` (W4.1–W4.5)  
+**Tests:** `tests/findings/test_wmu_phase4.py` (W4.1–W4.5)  
 **Results:** `test-results/wmu_phase4.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 4
 
@@ -88,5 +88,5 @@ The kinetic step applies identity links to $\chi$. Therefore $\chi$ evolves unde
 ## Files
 
 - `ca-simulation/ca_wmu.py` — `covariant_dirac_doublet_step`, `isospin_charges`
-- `model-tests/test_wmu_phase4.py` — W4.1–W4.5 (with `_NumpyEncoder` fix)
+- `tests/findings/test_wmu_phase4.py` — W4.1–W4.5 (with `_NumpyEncoder` fix)
 - `test-results/wmu_phase4.json` — numerical results

@@ -3,7 +3,7 @@
 **Date:** 2026-06-04 - 14:05
 **Numbering:** built as F90 concurrently with the E2E non-Abelian certification that took F90 → renumbered **F91**.
 **Status:** Confirmed — 13/13 checks (5 exact over ℚ / structural-zero, 6 machine ≤ 2×10⁻¹³, 2 quantitative/contrast). Completes the F68→F89 chain: the chiral pairing is now *derived* where it holds (W±) and shown *unforced* where it was assumed (gluon BCC).
-**Script:** `model-tests/test_F91_pairing_classification.py`
+**Script:** `tests/findings/test_F91_pairing_classification.py`
 **Results:** `test-results/F91_pairing_classification.json`
 **Cross-references:** [[F89-singlet-bilinear-is-paired-photon]] (the open item this closes), [[F68-minimal-coupling-forces-even-photon]] (the argument mirrored), [[F90-e2e-nonabelian-bilinear-backreaction]] (independent closed form for the chiral-Proca mass suppression, corroborating Z3), [[F67-even-law-photon-vs-bilinear-mutually-exclusive]], [[F45]] (θ_W = π/6), [[F42]] (hypercharge, Q = T3 + Y/2), [[F37]] (chiral step), [[F30]]; `ca_z_field.py`, `ca_wmu.py`, `ca_gluon.py`, `ca_photon_pair.py`.
 
@@ -64,7 +64,7 @@ Regression after migration (all green):
 | `test_FG7e_colour_condensate.py` | 8/8 | unaffected |
 | `test_F72_universal_even_propagator.py` | PASS | C5 catalog entry updated: gluon now EVEN |
 
-No other `ca-simulation` module calls the BCC gluon step directly (verified by grep); `key-decisions.md` and `CLAUDE.md` decision 5 updated.
+No other `ca-simulation` module calls the BCC gluon step directly (verified by grep); `docs/theory/key-decisions.md` and `CLAUDE.md` decision 5 updated.
 
 ## Recommendation as originally flagged (now executed)
 
@@ -76,6 +76,6 @@ Migrate `gluon_rotation_step_spectral_bcc` from the chiral W step to the even la
 - Physical θ_W ≠ π/6: Z1/Z2 are ℚ-exact at the F45 bare value; for arbitrary θ_W they hold symbolically (gA = T3 is θ_W-independent), so nothing changes qualitatively.
 
 ## Files
-- Test: `model-tests/test_F91_pairing_classification.py`
+- Test: `tests/findings/test_F91_pairing_classification.py`
 - Results: `test-results/F91_pairing_classification.json`
 - Operators exercised: `ca_z_field.z_couplings`/`T3_TABLE`/`Q_TABLE`, `ca_wmu.w_propagation_step_chiral`/`_f26_rotation_step`, `ca_gluon` octet conventions, `ca_photon_pair.pair_dispersion`/`pair_birefringence`, `ca_bcc`.

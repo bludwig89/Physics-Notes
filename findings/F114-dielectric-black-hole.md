@@ -3,7 +3,7 @@
 **Date:** 2026-06-08 - 15:10
 **Numbering note:** drafted as F113; renumbered to **F114** — F113 was already taken (same day) by the NN short-range repulsive core.
 **Status:** Confirmed — 9/9 checks PASS (`test_F114_dielectric_black_hole.py`, sympy-exact core + EHT quantitative). Throat $=e$, photon sphere $=2\sqrt e$, shadow $b_c=2e$, redshift$_\text{throat}=e$, $\alpha_2=4\pi$ are all **Tier-1 exact** (sympy zero residual). EHT diameters are quantitative against measured $M,D$. A CASIM scenario (`scenarios/dielectric_black_hole.yaml`) renders the strong-field well ($K_\text{max}\sim10^{50}$).
-**Script:** `model-tests/test_F114_dielectric_black_hole.py`
+**Script:** `tests/findings/test_F114_dielectric_black_hole.py`
 **Scenario:** `scenarios/dielectric_black_hole.yaml`
 **Results:** `test-results/F114_dielectric_black_hole.{json,md}`, `test-results/casim_dielectric_black_hole.json`
 **Cross-references:** [[F64-em-connection-gravity]] (canonical $K=e^{2u}$, $A=1/K$, $B=K$, PPN $\beta=\gamma=1$/D-EM9), [[F107-canonical-a-adoption-L4-grb-gate]] (the SI lock that turns the shadow into $\mu$as), [[F112-si-predictions-from-canonical-a]] (the prediction registry this extends into the strong field), the F111 second-order-deflection script (the $O(u^2)$ departure reused here), [[F106-psi-K-sourcing-derivation]] (how the well is sourced).

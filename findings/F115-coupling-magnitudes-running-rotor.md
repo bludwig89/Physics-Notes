@@ -1,8 +1,8 @@
 # F115 — Gauge coupling magnitudes $e$, $g$, $g_s$: the electroweak sector reduces to one magnitude, $g_s$ is locked by the rotor stiffness, and the +12% Weinberg gap is a low-scale matching, not a running effect
 
 **Date:** 2026-06-08 - 14:40
-**Status:** Partial — half structural reduction, half a sharp negative. 4/4 check blocks PASS (CM1 exact rationals; CM3 exact lock; CM2 a decisive numerical result; CM4 a notation no-go). Addresses audit C.5 (`project-audit-inputs-dynamism-2026-06-06.md`, open input #5) and uses F110's rotor identity.
-**Script:** `model-tests/test_F115_coupling_magnitudes.py` (<0.2 s, numpy + fractions)
+**Status:** Partial — half structural reduction, half a sharp negative. 4/4 check blocks PASS (CM1 exact rationals; CM3 exact lock; CM2 a decisive numerical result; CM4 a notation no-go). Addresses audit C.5 (`docs/audits/project-audit-inputs-dynamism-2026-06-06.md`, open input #5) and uses F110's rotor identity.
+**Script:** `tests/findings/test_F115_coupling_magnitudes.py` (<0.2 s, numpy + fractions)
 **Results:** `test-results/F115_coupling_magnitudes.json`
 **Cross-references:** [[F45-sigma-tau-swap-weinberg-angle]] (the ratio $g'/g$ this builds on), [[F48-dynamical-Z-neutral-current]] (the +12% gap appears identically in $\sin^2\theta_W$, $m_Z/m_W$, $g_V^{e_L}$), [[F110-realtime-link-hamiltonian-confinement]] (the $\chi=1/(4g_s^2)$ rotor identity that locks $g_s$), [[F100-gamma-from-transfer-operator]]/[[F101-strong-coupling-sigma-compact-rotor]] ($\sigma_1=\tfrac14\langle1/\Omega\rangle_\text{BZ}$), [[F79-structural-newton-constant]]/[[F107-canonical-a-adoption-L4-grb-gate]] (the lattice scale $1/a=M_\text{Pl}/6.5978$), [[F95-B-derived-C-localized]] (the $E_g$ sextic $e^6\cos^23\delta$ whose "$e$" is NOT the electric charge).
 
@@ -85,4 +85,4 @@ Open input #5 is sharpened, not eliminated: the electroweak sector now carries e
 
 - New content: the one-magnitude EW reduction (CM1), the Planck-vs-TeV running computation and the few-TeV crossing (CM2/CM2b), the $g_s$ rotor lock $g_s^2\chi=\tfrac14$ (CM3), and the $e^6$-notation no-go (CM4).
 - Reused: F45 ratio, F48 three-observable lock, F110 C7 matrix identity, F100/F101 $\sigma_1$, F79/F107 lattice scale, F95 sextic.
-- Verification: `model-tests/test_F115_coupling_magnitudes.py` (2026-06-08, 4/4 PASS), results `test-results/F115_coupling_magnitudes.json`.
+- Verification: `tests/findings/test_F115_coupling_magnitudes.py` (2026-06-08, 4/4 PASS), results `test-results/F115_coupling_magnitudes.json`.

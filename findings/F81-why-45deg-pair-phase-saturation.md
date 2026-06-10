@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-02 - 12:15
 **Status:** Partial — 4/4 checks PASS + 1 recorded residual. **This answers the "why 45°" of F80 at the level of the *value*:** a two-constituent (Cooper) pair shares the $\pi/2$ stable phase budget equally, $\pi/4=45°$ per member, giving $Q=2/3$ exactly; and the observed lepton $Q$ **reads off the constituent number $N=2$**. The residual is now a single sharper question — *why the pair sits at its phase saturation* — not the value itself.
-**Script:** `model-tests/test_F81_45deg_pair_saturation.py` (<1 s)
+**Script:** `tests/findings/test_F81_45deg_pair_saturation.py` (<1 s)
 **Results:** `test-results/F81_45deg_pair_saturation.json`
 **Cross-references:** [[F80-one-45deg-em-saturation-koide]] (the open question this closes; the $Q(\phi)=1/(3\cos^2\phi)$ map), [[F69-paired-spinor-photon]] (the pair-phase-sum rule), [[F73-spin0-bound-pair-scalar]] (the $\pi/2$ stability saturation; the spin-0 singlet), [[F74-two-constituent-bound-state-binding]] / [[F77-njl-gap-rpa-selfconsistent]] (the criticality / threshold-state language), [[F78-koide-amplitude-from-cooper-pair]] ($\sqrt m$ as the constituent amplitude), [[F82-why-saturation-composite-mass-peak]] (answers the 'why at saturation' residual below: the composite mass peaks at $45°$, so any binding lands there).
 
@@ -142,6 +142,6 @@ which is the point.
 - Closes the value-level part of the open question stated at the end of F80;
   the per-constituent identification (b), the $Q_N$ family, and the $N=2$
   readout are new.
-- Verification: `model-tests/test_F81_45deg_pair_saturation.py`
+- Verification: `tests/findings/test_F81_45deg_pair_saturation.py`
   (2026-06-02 - 12:15, 4/4 PASS + residual), results
   `test-results/F81_45deg_pair_saturation.json`.

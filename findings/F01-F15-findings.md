@@ -7,7 +7,7 @@ This file documents new physics observations or possible new finds that arise du
 ## Finding 84 — Why the generation rotation is flat: it is the same orthorhombic break F76 needed for three distinct masses (closure of the F75→F84 descent)
 
 **Date:** 2026-06-03 - 00:28
-**Status:** Partial (closing) — 4/4 PASS. Identifies F82's "flat direction" assumption physically and closes the loop. (Numbered **F84** — built concurrently with the lattice-spacing finding that took F83.) Full writeup [findings/F84-flatness-from-orthorhombic-break.md](findings/F84-flatness-from-orthorhombic-break.md). **Test:** `model-tests/test_F84_flatness_from_orthorhombic_break.py`; results `test-results/F84_flatness_from_orthorhombic_break.json`.
+**Status:** Partial (closing) — 4/4 PASS. Identifies F82's "flat direction" assumption physically and closes the loop. (Numbered **F84** — built concurrently with the lattice-spacing finding that took F83.) Full writeup [findings/F84-flatness-from-orthorhombic-break.md](findings/F84-flatness-from-orthorhombic-break.md). **Test:** `tests/findings/test_F84_flatness_from_orthorhombic_break.py`; results `test-results/F84_flatness_from_orthorhombic_break.json`.
 
 ### The resolution
 
@@ -22,7 +22,7 @@ The descent F75→F84 (count → orthorhombic hierarchy → $\sqrt m$ pair-bilin
 ## Finding 82 — Why the charged-lepton pair sits at saturation: the composite mass peaks there, so any binding lands the rotation at 45° regardless of coupling strength
 
 **Date:** 2026-06-02 - 19:38
-**Status:** Partial — 4/4 PASS + recorded residual. Dissolves the F80-D5 "EM too weak" worry and answers F81's saturation residual at the level of the *location*. Full writeup [findings/F82-why-saturation-composite-mass-peak.md](findings/F82-why-saturation-composite-mass-peak.md). **Test:** `model-tests/test_F82_saturation_mass_peak.py`; results `test-results/F82_saturation_mass_peak.json`.
+**Status:** Partial — 4/4 PASS + recorded residual. Dissolves the F80-D5 "EM too weak" worry and answers F81's saturation residual at the level of the *location*. Full writeup [findings/F82-why-saturation-composite-mass-peak.md](findings/F82-why-saturation-composite-mass-peak.md). **Test:** `tests/findings/test_F82_saturation_mass_peak.py`; results `test-results/F82_saturation_mass_peak.json`.
 
 ### The resolution
 
@@ -37,7 +37,7 @@ The composite (lepton) mass $m_H=\sin(2\phi)$ (F73) and the Koide ratio $Q=1/(3\
 ## Finding 81 — Why 45°: the charged-lepton equipartition is the phase saturation of a two-constituent pair, and Q reads off N = 2
 
 **Date:** 2026-06-02 - 12:15
-**Status:** Partial — 4/4 PASS + recorded residual. Answers the *value-level* "why 45°" left open by F80. Full writeup [findings/F81-why-45deg-pair-phase-saturation.md](findings/F81-why-45deg-pair-phase-saturation.md). **Test:** `model-tests/test_F81_45deg_pair_saturation.py`; results `test-results/F81_45deg_pair_saturation.json`.
+**Status:** Partial — 4/4 PASS + recorded residual. Answers the *value-level* "why 45°" left open by F80. Full writeup [findings/F81-why-45deg-pair-phase-saturation.md](findings/F81-why-45deg-pair-phase-saturation.md). **Test:** `tests/findings/test_F81_45deg_pair_saturation.py`; results `test-results/F81_45deg_pair_saturation.json`.
 
 ### The derivation (model rules only)
 
@@ -56,7 +56,7 @@ The *value* is derived. Remaining inputs: the per-constituent identification (b)
 ## Finding 80 — One 45°: the charged-lepton Koide point and the F73 bound-pair cap are the same SO(2) equipartition, selected by electromagnetism
 
 **Date:** 2026-06-02 - 11:57
-**Status:** Partial — 4/4 PASS + 1 honest residual. Closes the open question posed by F78. (Numbered **F80** — built concurrently with the structural-Newton-constant finding that took F79.) Full writeup [findings/F80-one-45deg-em-saturation-koide.md](findings/F80-one-45deg-em-saturation-koide.md). **Test:** `model-tests/test_F80_em_saturation_45deg.py`; results `test-results/F80_em_saturation_45deg.json`.
+**Status:** Partial — 4/4 PASS + 1 honest residual. Closes the open question posed by F78. (Numbered **F80** — built concurrently with the structural-Newton-constant finding that took F79.) Full writeup [findings/F80-one-45deg-em-saturation-koide.md](findings/F80-one-45deg-em-saturation-koide.md). **Test:** `tests/findings/test_F80_em_saturation_45deg.py`; results `test-results/F80_em_saturation_45deg.json`.
 
 ### Answered (exact)
 
@@ -75,7 +75,7 @@ The *value* is derived. Remaining inputs: the per-constituent identification (b)
 ## Finding 78 — Why $\sqrt m$: the Cooper-pair bilinear, and the equipartition amplitude as the democratic–hierarchical midpoint
 
 **Date:** 2026-06-01 - 21:14
-**Status:** Partial — 6/6 PASS. **Part A derives** why the cubic vector is $\sqrt m$ (resolving F76's open puzzle); **Part B** sharply characterises the equipartition amplitude $\sqrt2$ but shows it is **not** derived from the cube's symmetric dynamics. (Numbered **F78** — built concurrently with the NJL-gap finding that took F77.) Full writeup [findings/F78-koide-amplitude-from-cooper-pair.md](findings/F78-koide-amplitude-from-cooper-pair.md). **Test:** `model-tests/test_F78_koide_amplitude_pairing.py`; results `test-results/F78_koide_amplitude_pairing.json`.
+**Status:** Partial — 6/6 PASS. **Part A derives** why the cubic vector is $\sqrt m$ (resolving F76's open puzzle); **Part B** sharply characterises the equipartition amplitude $\sqrt2$ but shows it is **not** derived from the cube's symmetric dynamics. (Numbered **F78** — built concurrently with the NJL-gap finding that took F77.) Full writeup [findings/F78-koide-amplitude-from-cooper-pair.md](findings/F78-koide-amplitude-from-cooper-pair.md). **Test:** `tests/findings/test_F78_koide_amplitude_pairing.py`; results `test-results/F78_koide_amplitude_pairing.json`.
 
 ### Part A — why $\sqrt m$ (derived)
 
@@ -94,7 +94,7 @@ Derived: *why $\sqrt m$* (the bilinear). Exactly characterised: $Q=2/3$ = range 
 ## Finding 76 — The generation mass hierarchy: a crystal-field splitting of the F75 $T_{1u}$ triplet, and Koide $Q=2/3$ as its cubic-vector signature
 
 **Date:** 2026-06-01 - 20:41
-**Status:** Candidate — 6/6 PASS, with the structural and numerical claims kept strictly separate. Full writeup [findings/F76-generation-mass-hierarchy-crystal-field.md](findings/F76-generation-mass-hierarchy-crystal-field.md). **Test:** `model-tests/test_F76_generation_hierarchy.py`; results `test-results/F76_generation_hierarchy.json`.
+**Status:** Candidate — 6/6 PASS, with the structural and numerical claims kept strictly separate. Full writeup [findings/F76-generation-mass-hierarchy-crystal-field.md](findings/F76-generation-mass-hierarchy-crystal-field.md). **Test:** `tests/findings/test_F76_generation_hierarchy.py`; results `test-results/F76_generation_hierarchy.json`.
 
 ### What it claims
 
@@ -110,7 +110,7 @@ The cubic geometry dictates the **form** of the hierarchy ($\sqrt m$ = cubic vec
 
 **Date:** 2026-06-01 - 20:08
 **Status:** Candidate — 8/8 checks PASS (group data built from generators; multiplicities exact rationals; $O_h$ character table cross-checked orthonormal over $\mathbb Z$). The group theory is exact; the physical identification (generation index = orbital shell irrep) is a stated hypothesis. Full writeup [findings/F75-three-generations-from-bcc-irrep-selection.md](findings/F75-three-generations-from-bcc-irrep-selection.md).
-**Module:** none new — analytic result on `ca_bcc.py`'s nearest-neighbour shell + the F27 mass step. **Test:** `model-tests/test_F75_three_generations_irrep.py`; results `test-results/F75_three_generations_irrep.json`.
+**Module:** none new — analytic result on `ca_bcc.py`'s nearest-neighbour shell + the F27 mass step. **Test:** `tests/findings/test_F75_three_generations_irrep.py`; results `test-results/F75_three_generations_irrep.json`.
 
 ### What it claims
 
@@ -134,11 +134,11 @@ Mass *hierarchy* is not derived (the triplet is degenerate at the symmetric poin
 
 **Date:** 2026-05-30 - 21:06
 **Status:** Confirmed — 5/5 checks PASS (EC coefficient exact-rational; ratio + Cartan density real-arithmetic). A bounded magnitude estimate, not a dynamical torsion sim (that is plan item D3b, open). Full writeup [findings/F63-spin-torsion-magnitude-estimate.md](findings/F63-spin-torsion-magnitude-estimate.md).
-**Module:** new `ca-simulation/forks/gr_fork_F63_spin_torsion_estimate.py`. **Tests:** `model-tests/test_F63_spin_torsion_estimate.py`; results `test-results/F63_spin_torsion_estimate.json`.
+**Module:** new `ca-simulation/forks/gr_fork_F63_spin_torsion_estimate.py`. **Tests:** `tests/findings/test_F63_spin_torsion_estimate.py`; results `test-results/F63_spin_torsion_estimate.json`.
 
 ### What changed
 
-The `page34-eom-derivation.md` reconciliation flagged that page 34's first-order variation w.r.t. the independent connection $\Omega_\mu$ (EOM 3) generates Einstein–Cartan torsion — the one genuinely new piece absent from the project's torsion-free emergent gravity. Eliminating the algebraic torsion leaves the axial-axial four-fermion term $\mathcal{L}_{4f}=-\tfrac{3}{16}\kappa\,j_5^2$, $\kappa=8\pi G/c^4$. F63 estimates its magnitude vs the Dirac energy density at the model's lattice scale, using the conservative polarised bound $j_5\le n$ (so no chiral bilinear is contracted — numpy-safe per CLAUDE.md) and F61's pinned cell $a=3.81\,\ell_P$.
+The `docs/theory/page34-eom-derivation.md` reconciliation flagged that page 34's first-order variation w.r.t. the independent connection $\Omega_\mu$ (EOM 3) generates Einstein–Cartan torsion — the one genuinely new piece absent from the project's torsion-free emergent gravity. Eliminating the algebraic torsion leaves the axial-axial four-fermion term $\mathcal{L}_{4f}=-\tfrac{3}{16}\kappa\,j_5^2$, $\kappa=8\pi G/c^4$. F63 estimates its magnitude vs the Dirac energy density at the model's lattice scale, using the conservative polarised bound $j_5\le n$ (so no chiral bilinear is contracted — numpy-safe per CLAUDE.md) and F61's pinned cell $a=3.81\,\ell_P$.
 
 ### Results
 
@@ -156,7 +156,7 @@ Quantifies and *vindicates* the project's choice to drop torsion: the EC four-fe
 
 **Date:** 2026-05-30 - 15:55
 **Status:** Confirmed (fermionic sector) — $\eta_\text{Weyl}=1/12$ derived exactly (Seeley–DeWitt + Lichnerowicz + statistics, rational arithmetic); $g_*$ fixed from the model's first-gen content; $P_\text{pre}$ and $(a,\tau)$ produced as numbers. Gauge-boson $g_*$ contribution flagged, not yet included. 4/4 PASS. Full writeup [findings/F61-weyl-eta-and-gstar-prefactor.md](findings/F61-weyl-eta-and-gstar-prefactor.md).
-**Module:** new `ca-simulation/forks/gr_fork_F61_weyl_eta_gstar.py`. **Tests:** `model-tests/test_F61_weyl_eta_gstar.py`; results `test-results/F61_weyl_eta_gstar.json`.
+**Module:** new `ca-simulation/forks/gr_fork_F61_weyl_eta_gstar.py`. **Tests:** `tests/findings/test_F61_weyl_eta_gstar.py`; results `test-results/F61_weyl_eta_gstar.json`.
 
 ### What changed
 
@@ -172,7 +172,7 @@ $P_\text{pre}=\sqrt{\pi g_*/6}$, so for one full generation ($g_*=16$): $P_\text
 
 **Date:** 2026-05-30 - 15:25
 **Status:** Confirmed — 4/4 checks, three at machine precision (exponents $2.0000$, $-1.0000$, $-3.0000$; lock spread $1.1\times10^{-16}$). Resolves the F58↔F59 fork; the project's emergent-gravity ontology selects the loop channel ⇒ $1/G\propto\sqrt d$ ⇒ F59's $d^{1/4}$ stands. Full writeup [findings/F60-induced-G-channel-reconciliation.md](findings/F60-induced-G-channel-reconciliation.md).
-**Module:** new `ca-simulation/forks/gr_fork_F60_channel_reconciliation.py`. **Tests:** `model-tests/test_F60_channel_reconciliation.py`; results `test-results/F60_channel_reconciliation.json`.
+**Module:** new `ca-simulation/forks/gr_fork_F60_channel_reconciliation.py`. **Tests:** `tests/findings/test_F60_channel_reconciliation.py`; results `test-results/F60_channel_reconciliation.json`.
 
 ### What changed
 
@@ -189,7 +189,7 @@ The project uses emergent gravity (F52 mass-sourced rest leg, F57 EH term *gener
 **Date:** 2026-05-30 - 14:55
 **Status:** Partial — the **$d^{1/4}$ selection is derived and lattice-confirmed (exact-algebraic origin)**; the absolute O(1) prefactor is reduced to two standard inputs ($\eta$, $g_*$) and $\approx1$ for minimal Weyl content (suggestive). 6/6 tests PASS. Full writeup [findings/F59-induced-eh-prefactor-and-f10-selection.md](findings/F59-induced-eh-prefactor-and-f10-selection.md).
 **Module:** new `ca-simulation/forks/gr_fork_F59_induced_eh_prefactor.py` (self-contained; mirrors `ca_bcc` F26 dispersion, real arithmetic only).
-**Tests:** `model-tests/test_F59_induced_eh_prefactor.py`; results `test-results/F59_induced_eh_prefactor.json`.
+**Tests:** `tests/findings/test_F59_induced_eh_prefactor.py`; results `test-results/F59_induced_eh_prefactor.json`.
 
 ### What changed
 
@@ -211,7 +211,7 @@ Finding 10 left the three resolutions free because nothing tied $G$ to the latti
 **Date:** 2026-05-29 - 19:05
 **Status:** Partial — back-reaction *generates* the metric kinetic term (EH emerges, correct sign, finite on the lattice); absolute coefficient reduced to a BZ integral + mode count + IR scale, not a pure number. 3/3 PASS. Full writeup [findings/F57-induced-eh-term-from-leg-field-backreaction.md](findings/F57-induced-eh-term-from-leg-field-backreaction.md).
 **Module:** new `ca-simulation/forks/gr_fork_F57_induced_eh_from_backreaction.py` (reuses `ca_bcc` F26 dispersion).
-**Tests:** `model-tests/test_F57_induced_eh_from_backreaction.py`; results `test-results/F57_induced_eh_from_backreaction.json`.
+**Tests:** `tests/findings/test_F57_induced_eh_from_backreaction.py`; results `test-results/F57_induced_eh_from_backreaction.json`.
 
 ### What changed
 
@@ -234,7 +234,7 @@ The Sakharov mechanism is no longer assumed — the matter loop is shown to gene
 **Date:** 2026-05-29 - 18:20
 **Status:** Partial — derivation attempt; 3/3 tests PASS (C1 exact). The geometric $16\pi$ is derived; the dimensionful $G$ reduces to the lattice spacing (Sakharov). Full writeup [findings/F56-einstein-coupling-from-lattice-phase-matching.md](findings/F56-einstein-coupling-from-lattice-phase-matching.md).
 **Module:** new `ca-simulation/forks/gr_fork_F56_einstein_coupling_derivation.py` (reuses `ca_bcc` F26 dispersion).
-**Tests:** `model-tests/test_F56_einstein_coupling_derivation.py`; results `test-results/F56_einstein_coupling_derivation.json`.
+**Tests:** `tests/findings/test_F56_einstein_coupling_derivation.py`; results `test-results/F56_einstein_coupling_derivation.json`.
 
 ### What changed
 
@@ -255,7 +255,7 @@ Everything in $16\pi G/c^4$ except the choice of lattice spacing is derivable: t
 **Date:** 2026-05-29 - 17:40
 **Status:** Confirmed — 5/5 tests PASS (J1, J5 bit-for-bit exact). Full writeup [findings/F55-spatial-metric-trace-reversal-einstein-factor2.md](findings/F55-spatial-metric-trace-reversal-einstein-factor2.md).
 **Module:** new `ca-simulation/forks/gr_fork_F55_spatial_metric_backreaction.py` (additive; reuses F52 Poisson + `gr_fork_E_tensor`).
-**Tests:** `model-tests/test_F55_spatial_metric_backreaction.py`; results `test-results/F55_spatial_metric_backreaction.json`.
+**Tests:** `tests/findings/test_F55_spatial_metric_backreaction.py`; results `test-results/F55_spatial_metric_backreaction.json`.
 **Numbering note:** F53 (FG-9 C/CP) and F54 (FG-8 β-decay) were taken by concurrent work; this is F55.
 
 ### What changed
@@ -285,7 +285,7 @@ Together F52+F53 answer the original question end to end: gravity is an effect o
 **Date:** 2026-05-29 - 17:05
 **Status:** Confirmed — 5/5 tests PASS. Full writeup [findings/F52-gravity-from-rest-leg-backreaction.md](findings/F52-gravity-from-rest-leg-backreaction.md).
 **Module:** new `ca-simulation/forks/gr_fork_F52_restleg_backreaction.py` (additive; reuses `gr_fork_E_tensor` + `ca_emqg.solve_poisson_3d`).
-**Tests:** `model-tests/test_F52_restleg_backreaction.py`; results `test-results/F52_restleg_backreaction.json`.
+**Tests:** `tests/findings/test_F52_restleg_backreaction.py`; results `test-results/F52_restleg_backreaction.json`.
 
 ### What changed
 
@@ -316,7 +316,7 @@ Posited: the $4\pi G$ coupling between clock-rate deficit and $\rho$ (Newton's c
 **Date:** 2026-05-28 - 23:58
 **Status:** Confirmed — 5/5 tests PASS (G1 slope-4; G2–G4 algebraic/machine-ε; G5 exactly norm-conserving stepper). Full writeup [findings/F50-gravity-fork-f46-tetrad-dirac.md](findings/F50-gravity-fork-f46-tetrad-dirac.md).
 **Module:** new `ca-simulation/forks/gr_fork_F46_dirac.py`; reuses `gr_fork_E_tensor.py`, `ca_dirac.py`, `ca_curved.py`
-**Tests:** `model-tests/test_F50_gravity_fork_dirac.py`; results `test-results/F50_gravity_fork_dirac.json`
+**Tests:** `tests/findings/test_F50_gravity_fork_dirac.py`; results `test-results/F50_gravity_fork_dirac.json`
 
 ### What changed
 
@@ -333,7 +333,7 @@ The correction: a **static** clock has $\mathbf k=0$, so the kinetic leg vanishe
 **Date:** 2026-05-28 - 23:55
 **Status:** Partial — exact rational answer 2/9 emerges from BCC structure under a specific assignment of $U(1)_Y$ to sublattices and $SU(2)_L$ to bond axes; the assignment itself is not yet derived from first principles. Full writeup [findings/F49-bcc-finite-k-weinberg-angle.md](findings/F49-bcc-finite-k-weinberg-angle.md).
 **Module:** No new module — analytical + numerical study only on existing `ca_bcc.py`
-**Tests:** `model-tests/test_F49_bcc_weinberg_2over9.py`; results `test-results/F49_bcc_weinberg_2over9.json`
+**Tests:** `tests/findings/test_F49_bcc_weinberg_2over9.py`; results `test-results/F49_bcc_weinberg_2over9.json`
 
 ### What changed
 
@@ -368,7 +368,7 @@ F45 (σ↔τ swap, $1/4$) is an *internal* representation count; F49 (bond/subla
 **Date:** 2026-05-28 - 22:50
 **Status:** Confirmed — 8/8 tests PASS at machine precision (Tier 1 algebraic + Tier 2 machine-ε); full writeup [findings/F46-pythagorean-lattice-mass.md](findings/F46-pythagorean-lattice-mass.md)
 **Module:** No new module — analytical identity on existing `ca_dirac.py` + `ca_bcc.py`
-**Tests:** `model-tests/test_F46_pythagorean_mass.py`; results `test-results/F46_pythagorean_mass.json`
+**Tests:** `tests/findings/test_F46_pythagorean_mass.py`; results `test-results/F46_pythagorean_mass.json`
 
 ### What changed
 
@@ -384,7 +384,7 @@ The identity holds for both the 2D-square QCA and the 3D-BCC walk (both helicity
 
 Before F46, the photon ($c_\text{lat}$ = rotation rate, F26) and the fermion mass ($\arcsin m$ = rotation rate, F27) were two separate "rotation-rate" statements that were not visibly linked. F46 shows they **compose by a single spherical-trig identity**, and that Einstein's relativistic dispersion is the continuum limit of that identity. The Einstein relation is therefore *geometric* on the CA lattice, not algebraic. The lattice "has" $E^2 = p^2 c^2 + m^2 c^4$ because every per-tick rotation lives on $S^1$, and on $S^1$ orthogonal rotations compose by spherical Pythagoras.
 
-This closes §4.4 / §6 row 2 of `reference-research/physics-notes-complete-review.md` and discharges the page-73 / page-74 notebook entry: Richard McPhee's 2007 helical-motion intuition was correct — only his small-angle (Euclidean) approximation hid the spherical structure that makes the exact identity bit-for-bit exact.
+This closes §4.4 / §6 row 2 of `references/physics-notes-complete-review.md` and discharges the page-73 / page-74 notebook entry: Richard McPhee's 2007 helical-motion intuition was correct — only his small-angle (Euclidean) approximation hid the spherical structure that makes the exact identity bit-for-bit exact.
 
 ### Test residuals (8/8 PASS, 0.30 s)
 
@@ -410,7 +410,7 @@ Tier-1: +4 (P1, P2, P4, P6 → #129–132); Tier-2: +3 (P3, P5, P7 → #48–50)
 **Date:** 2026-05-28 - 01:30
 **Status:** Confirmed — 20/20 tests PASS (8 bit-for-bit exact), full writeup [findings/F43-fg7-dynamical-gluons.md](findings/F43-fg7-dynamical-gluons.md)
 **Module:** `ca-simulation/ca_gluon.py` (new, additive — no edits to `ca_strong.py` or `ca_wmu.py`)
-**Tests:** `model-tests/test_FG7_gluon_dynamics.py`; results `test-results/FG7_gluon_dynamics.json`
+**Tests:** `tests/findings/test_FG7_gluon_dynamics.py`; results `test-results/FG7_gluon_dynamics.json`
 
 ### What changed
 
@@ -443,7 +443,7 @@ Tier 2: #43–#47 (5 entries — propagation magnitude conservation, link unitar
 **Date:** 2026-05-27 - 14:30
 **Status:** Algebraic prediction — bare/tree-level — full writeup [findings/F45-sigma-tau-swap-weinberg-angle.md](findings/F45-sigma-tau-swap-weinberg-angle.md)
 **Module:** (analysis only — no code change to `ca_wmu.py`)
-**Tests:** `model-tests/test_f45_sigma_tau_weinberg.py` (F45.1–F45.6, all PASS); results `test-results/F45_sigma_tau_weinberg.json`
+**Tests:** `tests/findings/test_f45_sigma_tau_weinberg.py` (F45.1–F45.6, all PASS); results `test-results/F45_sigma_tau_weinberg.json`
 
 ### Question
 F35 currently consumes the Weinberg angle as an input parameter. The notebook pp.67/71 σ↔τ duality ($A_\mu$ acts on isospin as $W$ acts on spin) suggested $\theta_W$ might be derivable from BCC swap geometry rather than fit. Can it?
@@ -476,7 +476,7 @@ Optional: change `ca_wmu.weinberg_mix(..., theta_W)` signature to default $\thet
 **Date:** 2026-05-27 - 09:00
 **Status:** Confirmed — 8/8 tests PASS — full writeup [findings/F42-hypercharge-quark-extension-and-dynamical-chi-kinetic.md](findings/F42-hypercharge-quark-extension-and-dynamical-chi-kinetic.md)
 **Module:** `ca-simulation/ca_hypercharge.py` (F42 block; F41 surface unchanged)
-**Tests:** `model-tests/test_hypercharge_extension.py` (Y8–Y15); results `test-results/hypercharge_extension.json`
+**Tests:** `tests/findings/test_hypercharge_extension.py` (Y8–Y15); results `test-results/hypercharge_extension.json`
 
 ### Question
 F41 closed $U(1)_Y$ on the lepton mass step. Two follow-ups remained: (i) does the same Y-extended $U(x)$ trick port to the quark mass step with $\Delta Y_u = -1$, $\Delta Y_d = +1$? (ii) Can the right-handed singlets ($e_R, u_R, d_R$), which F41 left as algebraic spectators, be promoted to **dynamical** $U(1)_Y$-coupled fields in the kinetic step?
@@ -499,7 +499,7 @@ This is **exactly** $U(1)_Y$-gauge-covariant for arbitrary $\alpha(x), \beta(x)$
 - **$\chi$ kinetic step bit-for-bit reduction** to bare `_weyl_half_step_2c` at $\alpha=0$ (Y14, $0.0$).
 - **Gell-Mann–Nishijima algebra** on the quark side (Y15, $5.55\times 10^{-17}$).
 
-F41 (Y1–Y7) re-run after the extension: still 7/7 PASS unchanged. Total tally updated: see [exactness-inventory.md](exactness-inventory.md).
+F41 (Y1–Y7) re-run after the extension: still 7/7 PASS unchanged. Total tally updated: see [docs/status/exactness-inventory.md](docs/status/exactness-inventory.md).
 
 ### Physics interpretation
 First-generation closure point 3 of the completeness review is now resolved: the right-handed singlets are no longer spectators — they carry dynamical hypercharge through a spectral Stueckelberg wrap that is the Abelian analog of F31/F34's link-based $W_\mu$ covariantisation. The fact that $(\Delta Y_u, \Delta Y_d) = (\Delta Y_\nu, \Delta Y_e)$ in the SM is exactly the statement that one Higgs field gives mass to both leptons and quarks (via $\Phi$ for down-type and $i\sigma_2\Phi^*$ for up-type); in this Higgs-free CA it is the statement that one extended $U(x)$ with two diagonal phase eigenvalues services all four mass branches. The next item is **dynamical $Z$ coupled to the neutral current** — F42's gauge-covariant $\chi$ kinetic step is the prerequisite.
@@ -511,7 +511,7 @@ First-generation closure point 3 of the completeness review is now resolved: the
 **Date:** 2026-05-26 - 17:45
 **Status:** Confirmed — 7/7 tests PASS — full writeup [findings/F41-hypercharge-higgs-free-su2.md](findings/F41-hypercharge-higgs-free-su2.md)
 **Module:** `ca-simulation/ca_hypercharge.py` (promoted from `forks/hypercharge_fork.py`)
-**Tests:** `model-tests/test_hypercharge.py` (Y1–Y7); results `test-results/hypercharge_fork.json`
+**Tests:** `tests/findings/test_hypercharge.py` (Y1–Y7); results `test-results/hypercharge_fork.json`
 
 ### Question
 After F27 (chiral SU(2) mass from β-gauging — no Yukawa) and F34b (W mass from Stueckelberg — no Higgs VEV), does the bare F27 mass step survive $U(1)_Y$? The η_L ↔ χ_R coupling carries a hypercharge mismatch $Y_R - Y_L = -1$ (for e_R) or $+1$ (for ν_R), which the SM Higgs absorbs via $Y_\Phi = +1$.
@@ -532,7 +532,7 @@ with $\Delta Y_e = Y_L - Y_{e_R} = +1$ (SM Higgs) and $\Delta Y_\nu = Y_L - Y_{\
 - **Gell-Mann–Nishijima algebra** ($Q = T_3 + Y/2$) and the Higgs-Y identity ($\Delta Y_e = +1$, $\Delta Y_\nu = -1$) are symbolically exact (Y7).
 
 ### Physics interpretation
-$Y_\Phi = +1$ is **not** a property of any physical Higgs scalar in this model — it is the hypercharge that the F27 pure-gauge field $U(x)$ must carry so that the chiral mass step commutes with $U(1)_Y$. The SM's "two different Higgs operators for up vs. down (i.e., $\Phi$ vs. $i\sigma_2\Phi^*$)" appears here as a *single* extended $U(x)$ with two diagonal phase eigenvalues. New Tier-1 entries #102–104 and Tier-2 entries #34–37 in [exactness-inventory.md](exactness-inventory.md). Total tally: **104 exact algebraic / 37 machine-precision**.
+$Y_\Phi = +1$ is **not** a property of any physical Higgs scalar in this model — it is the hypercharge that the F27 pure-gauge field $U(x)$ must carry so that the chiral mass step commutes with $U(1)_Y$. The SM's "two different Higgs operators for up vs. down (i.e., $\Phi$ vs. $i\sigma_2\Phi^*$)" appears here as a *single* extended $U(x)$ with two diagonal phase eigenvalues. New Tier-1 entries #102–104 and Tier-2 entries #34–37 in [docs/status/exactness-inventory.md](docs/status/exactness-inventory.md). Total tally: **104 exact algebraic / 37 machine-precision**.
 
 ---
 
@@ -671,8 +671,8 @@ Either way, the linear-in-k residual is a concrete data point about how well the
 ### Where the test lives
 
 - `ca-simulation/ca_maxwell.py::maxwell_curl_residual` — the test implementation.
-- `model-tests/run_L_tests.py::test_L3` — reports the residual as INFO (not a pass/fail gate) so the L3 suite passes on dispersion + transversality alone.
-- `changelog.md` 2026-05-15 (v2 layered build) — entry documenting the residual scaling and the decision to defer the smeared-photon implementation.
+- `tests/runners/run_L_tests.py::test_L3` — reports the residual as INFO (not a pass/fail gate) so the L3 suite passes on dispersion + transversality alone.
+- `docs/status/changelog.md` 2026-05-15 (v2 layered build) — entry documenting the residual scaling and the decision to defer the smeared-photon implementation.
 
 ### Update 2026-05-16 — 10× k-scan confirms 1/√6 to 7 significant figures
 
@@ -728,7 +728,7 @@ A third bona-fide "exact" result, alongside Finding 1 (BCC unitarity) and the F1
 ### Where the test lives
 
 - `ca-simulation/ca_higgs.py::verify_higgs_dispersion_2d`.
-- `model-tests/run_phaseF_tests.py::test_F2` — passes at the prior 0.5% threshold; the new exact result holds when L is bumped from 64 to 640.
+- `tests/runners/run_phaseF_tests.py::test_F2` — passes at the prior 0.5% threshold; the new exact result holds when L is bumped from 64 to 640.
 
 ---
 
@@ -771,7 +771,7 @@ Consequences:
 ### Where the test lives
 
 - `ca-simulation/ca_higgs.py::kg_step_strang` — the KG stepper. The current API allows the unsafe configuration.
-- `model-tests/run_phaseF_tests.py::test_F1` — needs `n_phi_sub=2` passed through `un.unified_step` to be stable at L=320.
+- `tests/runners/run_phaseF_tests.py::test_F1` — needs `n_phi_sub=2` passed through `un.unified_step` to be stable at L=320.
 
 ---
 
@@ -1051,7 +1051,7 @@ The Cayley stepper preserves norm to machine precision across all three runs (ze
 
 ## Finding 9 — Changes required to match Paper 4's exact zitterbewegung; and the consequences of enforcing $n^2 + m^2 = 1$ in the Dirac coupling
 
-**Status:** **Closed 2026-05-18.**  Both Step 1 (enforce $n^2+m^2=1$) and Step 2 (swap kinetic generator for exact-QCA Weyl unitary) have landed in `ca_dirac.py`.  The `c=` argument is removed from every Dirac stepper signature.  D1 dispersion matches $\omega_k = \arccos(\sqrt{1-m^2}\,c_x c_y)$ at $3.9\times 10^{-16}$ residual; D1 zitterbewegung lands within FFT bin width of $2\arcsin(m)$ ($\pi/3$ at $m=0.5$; measured $1.04877$ vs analytic $1.04720$, 0.15% error).  F1 vacuum and F4 symmetric regression contracts both pass — F1 at $1.43\times 10^{-15}$ (machine ε), F4 bit-for-bit zero against `weyl_step_2d_arccos_splitstep`.  See `changelog.md` 2026-05-18 entry for the full migration record and test residuals.  One detail diverged from the design text below: the lower-right block of $D_k$ is $W_k^\dagger$ (forced by unitarity), not $W_k^* = W_k(-\mathbf k)$ as paraphrased here — element-wise complex conjugation and Hermitian conjugation differ for the explicit 2D Eq. 16 unitary; the unitarity algebra $D^\dagger D = I$ forces $W' = W^\dagger$.
+**Status:** **Closed 2026-05-18.**  Both Step 1 (enforce $n^2+m^2=1$) and Step 2 (swap kinetic generator for exact-QCA Weyl unitary) have landed in `ca_dirac.py`.  The `c=` argument is removed from every Dirac stepper signature.  D1 dispersion matches $\omega_k = \arccos(\sqrt{1-m^2}\,c_x c_y)$ at $3.9\times 10^{-16}$ residual; D1 zitterbewegung lands within FFT bin width of $2\arcsin(m)$ ($\pi/3$ at $m=0.5$; measured $1.04877$ vs analytic $1.04720$, 0.15% error).  F1 vacuum and F4 symmetric regression contracts both pass — F1 at $1.43\times 10^{-15}$ (machine ε), F4 bit-for-bit zero against `weyl_step_2d_arccos_splitstep`.  See `docs/status/changelog.md` 2026-05-18 entry for the full migration record and test residuals.  One detail diverged from the design text below: the lower-right block of $D_k$ is $W_k^\dagger$ (forced by unitarity), not $W_k^* = W_k(-\mathbf k)$ as paraphrased here — element-wise complex conjugation and Hermitian conjugation differ for the explicit 2D Eq. 16 unitary; the unitarity algebra $D^\dagger D = I$ forces $W' = W^\dagger$.
 
 ---
 
@@ -1099,7 +1099,7 @@ $$U_D(k) = \cos(\omega_k\,dt)\,I_4 - i\,\frac{\sin(\omega_k\,dt)}{\omega_k}\,\ha
 
    where $\hat W_k = -i\boldsymbol\sigma\cdot\tilde{\mathbf n}_k/|\tilde{\mathbf n}_k|$ is the unit-norm Hamiltonian generator of the Weyl block. (Alternatively, compute $D_k$ as a $4\times 4$ matrix product at each $k$ via direct construction — exact but $\sim 4\times$ slower than the analytic eigen-decomposition.)
 
-3. **Normalise the kinetic and mass coefficients.** The current API takes `c` and `m` independently. Under Paper 1 Eq. 23, the kinetic coefficient is $n = \sqrt{1-m^2}$, not a free parameter. The `c` argument loses meaning — it is absorbed into the lattice unit (effectively $c = 1/\sqrt d$ as in `ca-reference.md` line 19). The API should accept *only* `m` and derive $n$ internally, or alternatively accept $(n, m)$ as a pair and raise on $n^2 + m^2 \ne 1$.
+3. **Normalise the kinetic and mass coefficients.** The current API takes `c` and `m` independently. Under Paper 1 Eq. 23, the kinetic coefficient is $n = \sqrt{1-m^2}$, not a free parameter. The `c` argument loses meaning — it is absorbed into the lattice unit (effectively $c = 1/\sqrt d$ as in `docs/theory/ca-reference.md` line 19). The API should accept *only* `m` and derive $n$ internally, or alternatively accept $(n, m)$ as a pair and raise on $n^2 + m^2 \ne 1$.
 
 4. **Update the zitterbewegung analytic prediction.** `measure_zitterbewegung_freq_2d` line 311 currently returns `freq_analytic = 2.0 * m`. Under the exact QCA, this becomes `freq_analytic = 2.0 * np.arcsin(m)`. At $m=0.5$ this is $\pi/3 \approx 1.0472$ rather than $1.000$ — a 4.7% shift, well above current measurement resolution (0.026%).
 
@@ -1157,8 +1157,8 @@ A reference contract: with $m=0.5, dt=0.5, L=48, \sigma=10, n_\text{steps}=50000
 ### Where this should live in code
 
 - `ca-simulation/ca_dirac.py` — refactor `dirac_step_2d_splitstep` to take only `m` (and optionally `m0` for the variable-mass case), build the kinetic block from `ca_core_exact.py`'s Paper-1-Eq.-16 unitary, and use $\omega_k = \arccos(\sqrt{1-m^2}\,c_x c_y)$ as the propagator eigenvalue.
-- `model-tests/run_phase_tests.py::test_D1` — update the zitterbewegung analytic prediction to $2\arcsin(m)$.
-- `ca-reference.md` — update the Dirac-stepper section to record the exact-QCA dispersion alongside the current linearization, and flag the convention choice explicitly.
+- `tests/runners/run_phase_tests.py::test_D1` — update the zitterbewegung analytic prediction to $2\arcsin(m)$.
+- `docs/theory/ca-reference.md` — update the Dirac-stepper section to record the exact-QCA dispersion alongside the current linearization, and flag the convention choice explicitly.
 - `qca-papers-1-4-overview.md` — close V1 (Dirac sector) and V3 in the verification list after the refactor lands and the new D1 zitterbewegung result matches $2\arcsin(m)$ to FFT-bin-width.
 
 ---
@@ -1200,9 +1200,9 @@ Any one of these closes the gap. They are *not* compatible with each other simul
 
 ### What changes in existing project calculations
 
-- **Dimensionless lattice tests are unaffected.** L1–L4 unitarity, dispersion residuals, norm drift, F1–F4 unification gates, D1/E1/E2 phase tests, and the entire 8-result exact-algebraic inventory in `ca-reference.md` live in dimensionless lattice units and never invoke $a$ or $\tau$. The $\sqrt d$ factor enters only at the SI conversion boundary.
+- **Dimensionless lattice tests are unaffected.** L1–L4 unitarity, dispersion residuals, norm drift, F1–F4 unification gates, D1/E1/E2 phase tests, and the entire 8-result exact-algebraic inventory in `docs/theory/ca-reference.md` live in dimensionless lattice units and never invoke $a$ or $\tau$. The $\sqrt d$ factor enters only at the SI conversion boundary.
 - **L4 EMQG / Newtonian lensing absolute magnitudes acquire an explicit $\sqrt d$.** Finding 8 verified linear-in-M scaling at $3.5 \times 10^{-3}$ on the L=64 3-D Poisson lattice but did *not* check the absolute deflection coefficient $\Delta\theta = 4GM/(bc^2)$ vs the lattice value. Any such comparison now carries a $\sqrt d$ factor whose origin is the identification choice above.
-- **Yukawa coupling reported in lattice units.** Already flagged in `changelog.md` 2026-05-16 (item 3 cleanup): with $c=1$ in natural lattice units, $y_\text{lat}$ is the SM coupling. The Planck identification choice does *not* further rescale $y_\text{lat}$ because the Yukawa $H_Y$ now carries no $c^2$ factor (Item 3 cleared 2026-05-16).
+- **Yukawa coupling reported in lattice units.** Already flagged in `docs/status/changelog.md` 2026-05-16 (item 3 cleanup): with $c=1$ in natural lattice units, $y_\text{lat}$ is the SM coupling. The Planck identification choice does *not* further rescale $y_\text{lat}$ because the Yukawa $H_Y$ now carries no $c^2$ factor (Item 3 cleared 2026-05-16).
 - **F3b deflection magnitude.** F3b reports $\Delta y$ in cells. Conversion to arcseconds for a GR comparison requires committing to one of the three resolutions; the $1/b$ scaling (item 12 in `model-observations.md`) is dimensionally pure and independent of the choice.
 
 ### Why this is not a falsification of the model
@@ -1219,8 +1219,8 @@ The three resolutions above are mutually exclusive but each is internally consis
 
 ### Where this should live in code
 
-- `ca-reference.md` — add a row to the exactness inventory recording $c_\text{lat} = 1/\sqrt d$ as exact algebraic and the $\sqrt d$ factor in the SI mapping as exact consequent. Add a note in "Current limitations" flagging the SI identification as currently undefined.
-- `changelog.md` — log the decision-point (entry 2026-05-17) noting that any future lattice-to-SI calculation must declare which resolution is in force.
+- `docs/theory/ca-reference.md` — add a row to the exactness inventory recording $c_\text{lat} = 1/\sqrt d$ as exact algebraic and the $\sqrt d$ factor in the SI mapping as exact consequent. Add a note in "Current limitations" flagging the SI identification as currently undefined.
+- `docs/status/changelog.md` — log the decision-point (entry 2026-05-17) noting that any future lattice-to-SI calculation must declare which resolution is in force.
 - `ca_emqg.py` — when the absolute-coefficient lensing test (Finding 8 follow-on) is implemented, the conversion to SI should reference the identification choice as a runtime parameter.
 - No code changes are required *now*; all existing tests are dimensionless and unaffected.
 
@@ -1353,7 +1353,7 @@ This is a direct measurement of the dispersion that QG-2 (Planck-scale Lorentz-v
 
 ### Where the test lives
 
-- `model-tests/test_SR2_time_dilation.py` — full implementation (Part A algebraic scan, Part B single-point numerical, Part B scan).
+- `tests/findings/test_SR2_time_dilation.py` — full implementation (Part A algebraic scan, Part B single-point numerical, Part B scan).
 - Part A produces the closed-form $\mathcal O(k^2)$ scaling table.
 - Part B uses sub-pixel spectral sampling (`numpy.fft` phase-shift) to read the plane-wave amplitude on a fractional-cell worldline, eliminating integer-rounding noise.
 - Plane-wave eigenmodes built from `ca_core_exact.exact2d_unitary` + 4×4 `numpy.linalg.eig` of $D_k$.
@@ -1366,7 +1366,7 @@ This is a direct measurement of the dispersion that QG-2 (Planck-scale Lorentz-v
 
 ### Bottom line for the emergent-time proposition
 
-SR-2 is the cleanest Lorentz analog of T2.B (Shapiro). T2.B passed at $2.7\times 10^{-16}$ on the gravitational side because the proper-time tick ratio $c_\text{in}/c_\text{out}$ is *algebraically* tied to the propagator via $\omega = c\cdot k$. SR-2 passes at $4.4\times 10^{-15}$ on the Lorentz side because $\omega_\text{moving}/\omega_\text{static}$ is *algebraically* tied to the propagator via $\omega_k - k\cdot v_g$. Both are dispersion-identity tests; both are exact at the lattice's own dispersion. The proposition's two-reading rule (§2 of `reference-research\ca-emergent-time-proposition.md`) survives the Lorentz translation.
+SR-2 is the cleanest Lorentz analog of T2.B (Shapiro). T2.B passed at $2.7\times 10^{-16}$ on the gravitational side because the proper-time tick ratio $c_\text{in}/c_\text{out}$ is *algebraically* tied to the propagator via $\omega = c\cdot k$. SR-2 passes at $4.4\times 10^{-15}$ on the Lorentz side because $\omega_\text{moving}/\omega_\text{static}$ is *algebraically* tied to the propagator via $\omega_k - k\cdot v_g$. Both are dispersion-identity tests; both are exact at the lattice's own dispersion. The proposition's two-reading rule (§2 of `references\ca-emergent-time-proposition.md`) survives the Lorentz translation.
 
 ---
 
@@ -1386,7 +1386,7 @@ Two new modules, mirroring the 2D infrastructure that landed under Finding 12:
 
   where $A_k$ is the BCC Weyl-QCA unitary (`ca_bcc.bcc_unitary`, Paper 1 Eq. 15).  The off-diagonal closure $A_-^\text{block} = A_k^\dagger$ is *forced* by unitarity of the full 4×4 $D_k$ — same Hermitian-conjugate-vs-helicity-conjugate distinction surfaced for 2D in Finding 9.  Spectral interpolation for arbitrary $dt$ is the same arccos form as the 2D case.  Stepper sanity at $L=16^3, m=0.3$: unitarity $8.9\times 10^{-16}$, dispersion residual $2.2\times 10^{-16}$, norm drift over 200 steps $2.2\times 10^{-14}$.
 
-- `model-tests/test_SR2_3D_time_dilation.py` — direct port of the 2D test.  Part A scans $(m, k_x)$ algebraically using the BCC dispersion; Part B propagates 4-spinor plane waves on $L^3$ lattices and reads phase rates via FFT-based sub-pixel sampling at the worldline $x(t) = v_g t$.  Lattice light speed is now $c_\text{lat} = 1/\sqrt 3$ (vs $1/\sqrt 2$ in 2D).
+- `tests/findings/test_SR2_3D_time_dilation.py` — direct port of the 2D test.  Part A scans $(m, k_x)$ algebraically using the BCC dispersion; Part B propagates 4-spinor plane waves on $L^3$ lattices and reads phase rates via FFT-based sub-pixel sampling at the worldline $x(t) = v_g t$.  Lattice light speed is now $c_\text{lat} = 1/\sqrt 3$ (vs $1/\sqrt 2$ in 2D).
 
 ### Dispersion-identity reading — still exact
 
@@ -1433,7 +1433,7 @@ Since SR-2 reads a propagator-derived $v_g$ that already absorbs the lattice dis
 
 ### What this means for QG-2 (Planck-scale Lorentz-violation bound)
 
-Finding 12 already framed SR-2 as the cleanest 2D analog of the QG-2 cosmic-ray test.  The 3D BCC result *sharpens* the QG-2 falsifiability question: if the SI identification (Finding 10) is fixed by setting $a/\tau = c\cdot\sqrt 3$ so that $c_\text{lat}\cdot a/\tau = c$ in 3D BCC, then the predicted continuum-SR gap at energies reachable by GRB time-of-flight bounds ($E \lesssim 10^{19}$ GeV) is roughly 10× the corresponding 2D prediction at the same fractional velocity.  Whether this lands above or below the experimental bound is the QG-2 falsifiability question, and the BCC version is the physically correct lattice to run it against (per Paper 2's uniqueness theorem in 3D — see `ca-reference.md` and Finding 1).
+Finding 12 already framed SR-2 as the cleanest 2D analog of the QG-2 cosmic-ray test.  The 3D BCC result *sharpens* the QG-2 falsifiability question: if the SI identification (Finding 10) is fixed by setting $a/\tau = c\cdot\sqrt 3$ so that $c_\text{lat}\cdot a/\tau = c$ in 3D BCC, then the predicted continuum-SR gap at energies reachable by GRB time-of-flight bounds ($E \lesssim 10^{19}$ GeV) is roughly 10× the corresponding 2D prediction at the same fractional velocity.  Whether this lands above or below the experimental bound is the QG-2 falsifiability question, and the BCC version is the physically correct lattice to run it against (per Paper 2's uniqueness theorem in 3D — see `docs/theory/ca-reference.md` and Finding 1).
 
 ### What this does and does not validate
 
@@ -1465,7 +1465,7 @@ This finding documents the first seven entries of the top-10 priority sweep
 from `lattice-vs-spacetime-tests.md`.  Tests 8–10 (QM-2 tunneling, GR-4 Mercury
 perihelion, QG-4 Noether charge conservation) are pending and will get their
 own write-up.  Each numbered test below points at a self-contained script
-under `model-tests/tests-priority/` and a JSON dump under `test-results/`.
+under `tests/priority/` and a JSON dump under `test-results/`.
 
 The sweep is being run on a sandbox without `scipy`, so anything that requires
 the Cayley sparse-LU stepper (`ca_curved.CayleyVarcSolver2D`) was substituted
@@ -1569,7 +1569,7 @@ masquerading as QM.
 
 **Gate outcome.**  PASS by a wide margin ($S \ge 2.5$ gate; achieved
 $|S| = 2.828$).  Moves to Tier 1 (exact algebraic) of
-`exactness-inventory.md`.
+`docs/status/exactness-inventory.md`.
 
 ### 14.4 — Test 3: SR-2 time dilation (re-execution)
 
@@ -1869,7 +1869,7 @@ predicts exponential decay.  This is the signature lattice behaviour: the
 Dirac propagator's evanescent-mode amplitude in the barrier region does
 not vanish even at large widths — the same Klein-paradox physics that
 gives the V2 lattice test its $\max R = 0.91$ reflection plateau (already
-recorded as Tier 3 #9 in `exactness-inventory.md`).
+recorded as Tier 3 #9 in `docs/status/exactness-inventory.md`).
 
 **Klein-regime sanity:** at $V_0 = 1.5 \gg 2m$ the lattice still gives
 $T_\text{lat} = 0.376$ while Schrödinger predicts $T_\text{QM} = 7.9\times 10^{-8}$.
@@ -2352,8 +2352,8 @@ The interpretation is sharper than what Finding 12 stated: SR-2's "predicted Pla
 
 - `ca-simulation/derive_beta_LV.py` — symbolic + numerical derivation script.
 - `findings.md` Finding 12 (the open item that this closure resolves).
-- `ca-reference.md` — closed-form formulas now in the exact-algebraic ledger.
-- `exactness-inventory.md` — three rows ($\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$ exact analytic).
+- `docs/theory/ca-reference.md` — closed-form formulas now in the exact-algebraic ledger.
+- `docs/status/exactness-inventory.md` — three rows ($\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$ exact analytic).
 
 ### What this does *not* close
 
@@ -2371,7 +2371,7 @@ The "no closed form extracted" hedge in Finding 12 is now retired; future SR-2 /
 
 **Date:** 2026-05-23 - 12:00  
 **Source:** physics_notes_0708.pdf pages 59–60 ("Complex mass", dated 9/6/2007)  
-**Files:** `ca-simulation/forks/complex_mass_fork.py`, `model-tests/test_complex_mass_chiral.py`  
+**Files:** `ca-simulation/forks/complex_mass_fork.py`, `tests/findings/test_complex_mass_chiral.py`  
 **Full writeup:** `findings/F27-complex-mass-chiral-su2.md`
 
 ### Summary
@@ -2403,7 +2403,7 @@ Additional confirmed results:
 ## Finding 28 — F26 photon-dispersion prediction is consistent with all current LIV bounds (n=2 subluminal), but ~15 decades below sensitivity
 
 **Date:** 2026-05-23 — 16:35
-**Status:** Confirmed via `model-tests/test_F28_grb_dispersion.py`; full write-up in `findings/F28-grb-dispersion-test.md`.
+**Status:** Confirmed via `tests/findings/test_F28_grb_dispersion.py`; full write-up in `findings/F28-grb-dispersion-test.md`.
 
 ### What was tested
 
@@ -2435,7 +2435,7 @@ Confronted against three best current bounds (Fermi-LAT GRB 090510, LHAASO GRB 2
 ## Finding 29 — W-triplet bilinear bridges F26 (photon rotation law) to F27 (chiral SU(2))
 
 **Date:** 2026-05-23 - 19:30
-**Status:** Confirmed via `model-tests/test_su2_photon_bridge.py` (8/8 PASS, 0.025 s); full write-up in `findings/F29-w-triplet-bilinear-su2-bridge.md`.
+**Status:** Confirmed via `tests/findings/test_su2_photon_bridge.py` (8/8 PASS, 0.025 s); full write-up in `findings/F29-w-triplet-bilinear-su2-bridge.md`.
 
 ### What was tested
 
@@ -2476,7 +2476,7 @@ on doublet Weyl spinors at $k/2$ on the BCC lattice, then tested SU(2) action, t
 ## Finding 30 — BCC photon-dispersion LIV order is anisotropic; the linear term is chiral (birefringent)
 
 **Date:** 2026-05-24 - 17:31  
-**Status:** Confirmed via `model-tests/test_F30_dispersion_order.py`; full write-up in `findings/F30-photon-dispersion-order-anisotropy-birefringence.md`.
+**Status:** Confirmed via `tests/findings/test_F30_dispersion_order.py`; full write-up in `findings/F30-photon-dispersion-order-anisotropy-birefringence.md`.
 
 Exact sympy series expansion of $\Omega^\pm = 2\omega^\pm_\text{BCC}(\mathbf{k}/2)$ shows the BCC vacuum is anisotropic: the dispersion is exactly linear along cube axes (no LIV); leading correction is $n=2$ along $(1,1,0)$ ($\delta v/c \sim k^2$) and $n=1$ ($-k/18$) along $(1,1,1)$. The linear term cancels between the two chirality branches, leaving unpolarised time-of-flight at $n=2$ and vacuum birefringence $\Omega^+-\Omega^- = -\sqrt3\,k^2/27$ along $(1,1,1)$. Tier-1 entries #68–#69 added to exactness-inventory.
 

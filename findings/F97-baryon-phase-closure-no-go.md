@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-05 - 13:35
 **Status:** Theoretical (no-go proven) — 7/7 checks PASS; P1–P6 algebraically exact, P7 quantitative data anchor. **What is derived (exact):** the F92 consistency construction (pair-sum law + Fock-normalized amplitude law) has **no joint solution inside the stability domain for three constituents** — both candidate fixed points land in a forbidden gap that opens for $N\ge3$ and provably does not exist for $N=2$. **What is theorized (structural, built on F70/F71/F86/F94, not newly derived):** the baryon sector obeys the *same grammar* as F92 — stability = exact closure of a phase budget, and the object enforcing the budget is itself the binder — but with the $\mathbb{Z}_3$ centre phase in place of the unitarity wrap. **What this predicts:** baryon mass cannot come from constituent phase kinematics (confirmed: PDG quark sum is 0.96% of $m_p$), and the only stable colour combinations are N-ality-0 closures (confirmed structurally by F71/F86).
-**Script:** `model-tests/test_F97_baryon_phase_closure.py` (<1 s)
+**Script:** `tests/findings/test_F97_baryon_phase_closure.py` (<1 s)
 **Results:** `test-results/F97_baryon_phase_closure.json`
 **Numbering note:** drafted as F96; renumbered **F97** (F96 taken by the concurrent second-shell E$_g$ gap finding).
 **Cross-references:** [[F92-per-constituent-phase-consistency]] (the $N=2$ law this extends/negates), [[F73-spin0-bound-pair-scalar]] (pair-sum law, over-wrap cap), [[F78-koide-amplitude-from-cooper-pair]] (bilinear law), [[F69-paired-spinor-photon]] (phase-sum rule), [[F71-colour-singlet-baryon-proton]] ($\varepsilon_{abc}$ singlet, $C_2=0$), [[F70-gradient-flow-confinement-string-tension]] / [[F94-lattice-gauge-mc-confinement-vs-F86]] (area law $\sigma$), [[F86-colour-dielectric-dual-superconductor]] (the condensate-as-binder), [[F93-orthorhombic-Eg-vacuum]] (flavor-space E$_g$ — kept distinct from the colour question, §6).
@@ -92,5 +92,5 @@ This finding is about the **colour/constituent** level. It says nothing against 
 ## 8. Provenance
 
 - New content: the $N\ge3$ no-go theorem and cap-coincidence theorem (§2); the closure-principle synthesis (§4); the falsifiable handles (§5). Everything in the §4 table other than the synthesis is prior work (F27/F46/F69/F70/F71/F73/F78/F86/F92/F94).
-- Verification: `model-tests/test_F97_baryon_phase_closure.py` (2026-06-05 - 13:32, 7/7 PASS), results `test-results/F97_baryon_phase_closure.json`.
+- Verification: `tests/findings/test_F97_baryon_phase_closure.py` (2026-06-05 - 13:32, 7/7 PASS), results `test-results/F97_baryon_phase_closure.json`.
 - Data: PDG quark masses $m_u=2.16$, $m_d=4.67$ MeV ($\overline{\rm MS}$, 2 GeV), $m_p=938.272$ MeV.

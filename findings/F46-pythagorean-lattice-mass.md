@@ -3,9 +3,9 @@
 **Date:** 2026-05-28 - 22:50
 **Status:** Confirmed — 8/8 tests PASS at machine precision (Tier 1 algebraic, Tier 2 machine-ε)
 **Module:** No new module — analytical identity on existing `ca_dirac.py` + `ca_bcc.py`
-**Verification script:** `model-tests/test_F46_pythagorean_mass.py`
+**Verification script:** `tests/findings/test_F46_pythagorean_mass.py`
 **Results:** `test-results/F46_pythagorean_mass.json`
-**Cross-references:** F25 (real-rotation Maxwell), F26 (speed of light as rotation rate), F27 (chiral SU(2) mass), F30 (BCC photon dispersion), F37 (chiral helicity), Paper 1 Eq. 23 (Bisio–D'Ariano–Perinotti–Tosini), reference-research/physics-notes-complete.md pp. 73–74 (Richard McPhee's helical-motion construction)
+**Cross-references:** F25 (real-rotation Maxwell), F26 (speed of light as rotation rate), F27 (chiral SU(2) mass), F30 (BCC photon dispersion), F37 (chiral helicity), Paper 1 Eq. 23 (Bisio–D'Ariano–Perinotti–Tosini), references/physics-notes-complete.md pp. 73–74 (Richard McPhee's helical-motion construction)
 
 ---
 
@@ -44,7 +44,7 @@ Before this finding, the project carried two separate "rotation-rate" statements
 
 F46 says these two rotations **compose by a spherical-trig identity**. The full Dirac dispersion is the *hypotenuse* of a right spherical triangle whose legs are the photon rotation $\Omega_\text{kin}(\mathbf k)$ and the mass rotation $\Omega_\text{rest}(m)$. Einstein's $E^2 = p^2c^2 + m^2c^4$ is then no longer an algebraic axiom but the small-leg limit of $\cos c = \cos a\cdot\cos b$ — i.e. it is **geometric**.
 
-This closes §4.4 / §6 row 2 of `reference-research/physics-notes-complete-review.md` (2026-05-27): the helical-motion construction Mark Ludwig proposed on pages 73–74 of the notebook — $c^2 = v_\text{eff}^2 + (2\pi\nu r)^2$ — and dismissed for the wrong reason is now realised as the exact lattice identity above. The author's intuition was correct; only the analysis of the high-energy limit was wrong.
+This closes §4.4 / §6 row 2 of `references/physics-notes-complete-review.md` (2026-05-27): the helical-motion construction Mark Ludwig proposed on pages 73–74 of the notebook — $c^2 = v_\text{eff}^2 + (2\pi\nu r)^2$ — and dismissed for the wrong reason is now realised as the exact lattice identity above. The author's intuition was correct; only the analysis of the high-energy limit was wrong.
 
 ---
 
@@ -219,9 +219,9 @@ The author intuited the structure correctly but worked in a small-quantity (Eucl
 
 ## 10. Provenance
 
-- Hypothesis source: `reference-research/physics-notes-complete-review.md` §4.4 (2026-05-27), which derives from notebook pp. 73–74 (Richard McPhee, dated approximately 2007).
+- Hypothesis source: `references/physics-notes-complete-review.md` §4.4 (2026-05-27), which derives from notebook pp. 73–74 (Richard McPhee, dated approximately 2007).
 - Mathematical derivation: §3 above; structurally already implicit in `ca_dirac.py::_dirac_dispersion` (Paper 1 Eq. 23) but never previously interpreted as a spherical-trig identity nor linked to F26 / F27.
-- Numerical verification: `model-tests/test_F46_pythagorean_mass.py` (2026-05-28, 8/8 PASS, 0.30 s).
+- Numerical verification: `tests/findings/test_F46_pythagorean_mass.py` (2026-05-28, 8/8 PASS, 0.30 s).
 - Filed `test-results/F46_pythagorean_mass.json`.
 
 This finding closes §6 row 2 of the review and discharges the page-73 / page-74 notebook entry from the "author rejected for the wrong reason" list.

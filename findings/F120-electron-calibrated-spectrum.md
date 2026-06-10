@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-09 - 16:30
 **Status:** Confirmed — 7/7 checks PASS (`test_F120_electron_calibrated_spectrum.py`, <1 s). Pure math/numpy (no scipy, per CLAUDE.md). Executes the F119 follow-up: fix the one open scale $N$ with the electron and turn the model's dimensionless shape into absolute masses (MeV and kg).
-**Script:** `model-tests/test_F120_electron_calibrated_spectrum.py`
+**Script:** `tests/findings/test_F120_electron_calibrated_spectrum.py`
 **Results:** `test-results/F120_electron_calibrated_spectrum.json`
 **Cross-references:** [[F119-kg-scale-three-routes]] (the single open scale $N$ and the $\lambda_6=\tfrac14$ angle this uses), [[F118-self-consistent-Wvc-and-C]] / [[F101-one-heavy-branch-fit-W]] (the condensate, equipartition $A=\sqrt2\bar y$, wall-pinning $y_\tau=1$), [[F96-second-shell-Eg-gap-saturation]] (the texture algebra $Q=\tfrac23\Leftrightarrow\delta=15°$), [[F78-koide-amplitude-from-cooper-pair]] ($m=y^2$, Koide), [[F46-pythagorean-lattice-mass]] / [[F83-fix-lattice-spacing-from-fermion-mass]] (the SI mass map), [[F112-si-predictions-from-canonical-a]] (the locked cell).
 
@@ -77,4 +77,4 @@ Once $N$ is set (C6), the whole fermion sector reads out in kg. Leptons are *pre
 
 - New content: the electron-calibrated lepton spectrum in MeV and kg (C2); the node-sensitivity analysis showing the electron is the worst anchor and the wall-pinned τ exactly δ-stable (C3/C4); the full fermion kg readout (C6).
 - Machinery: the F101/F118 condensate shape (equipartition, wall-pinning); PDG 2024 masses; CODATA 2018 constants and the F79/F107 locked cell.
-- Verification: `model-tests/test_F120_electron_calibrated_spectrum.py` (2026-06-09 - 16:30, 7/7 PASS), results `test-results/F120_electron_calibrated_spectrum.json`.
+- Verification: `tests/findings/test_F120_electron_calibrated_spectrum.py` (2026-06-09 - 16:30, 7/7 PASS), results `test-results/F120_electron_calibrated_spectrum.json`.

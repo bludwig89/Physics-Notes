@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-01 - 20:41
 **Status:** Candidate — 6/6 checks PASS. **Two tiers of claim, kept strictly separate:** the *structural* results (C1 splitting pattern, C4 equipartition identity) are exact; the *numerical* results (C3 Koide $Q=2/3$, C5 $m_\tau$ prediction, C6 $Z_3$ reconstruction) are the empirical charged-lepton Koide relation re-expressed in the model's cubic language. The amplitude $\sqrt2$ ($\Leftrightarrow Q=2/3$) and the phase $\delta$ are **inputs, not derived** from the QCA rule. Quarks/neutrinos are **not** fit. See §6.
-**Module:** none new. **Test:** `model-tests/test_F76_generation_hierarchy.py`; results `test-results/F76_generation_hierarchy.json`.
+**Module:** none new. **Test:** `tests/findings/test_F76_generation_hierarchy.py`; results `test-results/F76_generation_hierarchy.json`.
 **Cross-references:** F75 (generation count = $T_{1u}$ triplet — this is its hierarchy follow-up), F46 (mass as $\Omega_\text{rest}=\arcsin m$ rotation), F69/F73 (bound-pair fermion → motivates $\sqrt m$ as the fundamental amplitude), F30/F37 (BCC anisotropy — the physical origin of an axis-splitting field).
 
 ---
@@ -186,6 +186,6 @@ charged leptons equipartition, are the two open problems this finding sharpens.
 - Builds directly on F75 (the $T_{1u}$ triplet). The crystal-field reading and
   the identification of Koide $Q=2/3$ with $\sqrt m$-equipartition in the cubic
   $A_{1g}\oplus T_{1u}$ basis are the new content.
-- Verification: `model-tests/test_F76_generation_hierarchy.py`
+- Verification: `tests/findings/test_F76_generation_hierarchy.py`
   (2026-06-01 - 20:41, 6/6 PASS), results `test-results/F76_generation_hierarchy.json`.
 - Masses: PDG (m_e, m_mu exact-ish; m_tau $1776.86\pm0.12$ MeV).

@@ -1,8 +1,8 @@
 # F116 — NJL calibration: the cutoff $\Lambda$ is the Brillouin-zone edge (not a fit), the contact $G$ is an induced coupling from the confining colour dielectric, and the three F77 numbers reduce to one ruler plus two dimensionless inputs
 
 **Date:** 2026-06-08 - 15:10
-**Status:** Partial — structural reduction + a runnable lattice-BZ re-derivation; the precise dimensionless values remain a fit/mechanism. 4/4 check blocks (NJ1 accounting; NJ2 lattice-BZ chiral SB; NJ3 chiral-limit Goldstone exact $3.6\times10^{-15}$; NJ4 induced-$G$ order of magnitude). Addresses audit C.6 (`project-audit-inputs-dynamism-2026-06-06.md`, open input #6).
-**Script:** `model-tests/test_F116_njl_lattice_calibration.py` (~2 s, numpy)
+**Status:** Partial — structural reduction + a runnable lattice-BZ re-derivation; the precise dimensionless values remain a fit/mechanism. 4/4 check blocks (NJ1 accounting; NJ2 lattice-BZ chiral SB; NJ3 chiral-limit Goldstone exact $3.6\times10^{-15}$; NJ4 induced-$G$ order of magnitude). Addresses audit C.6 (`docs/audits/project-audit-inputs-dynamism-2026-06-06.md`, open input #6).
+**Script:** `tests/findings/test_F116_njl_lattice_calibration.py` (~2 s, numpy)
 **Results:** `test-results/F116_njl_lattice_calibration.json`
 **Cross-references:** [[F77-njl-gap-rpa-selfconsistent]] (the calibration $\{\Lambda,G\Lambda^2,m_0\}$ this re-derives; $G_c\Lambda^2=\pi^2/6$), [[F88-colour-condensate-from-model]] (the dual-Meissner/dielectric scale $M_g$ that induces $G$; $v=m_D/e=0.713$), [[F86-colour-dielectric-dual-superconductor]] ($\sigma=2\pi v^2$), [[F115-coupling-magnitudes-running-rotor]] ($g_s$ rotor lock used in the induced-$G$ estimate), [[F107-canonical-a-adoption-L4-grb-gate]] (the SI ruler that absorbs $\Lambda$), [[F46-pythagorean-lattice-mass]] (the lattice dispersion the BZ integral uses).
 
@@ -80,4 +80,4 @@ The calibration is reduced from **three fitted numbers** to **one ruler (shared 
 
 - New content: the dimensional reduction (NJ1), the lattice-BZ gap-equation re-derivation with $\Lambda\to$ zone (NJ2), the cutoff-independent Goldstone check (NJ3), and the induced-$G$ mechanism/estimate (NJ4).
 - Reused: F77 gap+RPA structure and $G_c\Lambda^2=\pi^2/6$; F88 dielectric scale; F115 $g_s$ lock; F107 ruler.
-- Verification: `model-tests/test_F116_njl_lattice_calibration.py` (2026-06-08, 4/4 PASS), results `test-results/F116_njl_lattice_calibration.json`.
+- Verification: `tests/findings/test_F116_njl_lattice_calibration.py` (2026-06-08, 4/4 PASS), results `test-results/F116_njl_lattice_calibration.json`.

@@ -2,7 +2,7 @@
 
 *2026-05-26 - 03:15 — Closes the structural gap that F29's W-triplet bridge built the composite photon from `sign='+'` Weyl eigenmodes only. The new construction in `ca_maxwell.py` builds the photon bilinear from BOTH BCC chirality branches, and the resulting (E, B) field manifests the two-helicity structure that F37 established at the field level: under chiral propagation, $F^+(k) = E + iB$ tracks $\Omega^+(k)$ and $F^-(k) = E - iB$ tracks $\Omega^-(k)$. The (1,1,1) birefringence reproduces F30's closed form $-\sqrt3/27\!\cdot\!k^2$ to $4.5\times10^{-5}$ relative.*
 
-Cross-references: [F26 photon rotation law](F26-speed-of-light-as-rotation-rate.md); [F27 chiral SU(2) mass mechanism](F27-complex-mass-chiral-su2.md); [F29 W-triplet SU(2) bridge](F29-w-triplet-bilinear-su2-bridge.md) (the bridge this finding extends); [F30 dispersion anisotropy and birefringence](F30-photon-dispersion-order-anisotropy-birefringence.md); [F37 RS / BCC chirality correspondence](F37-rs-bcc-chirality-helicity.md); [first-gen-completeness-review.md](../first-gen-completeness-review.md) §3 item 4 and §5.1; [exactness-inventory.md](../exactness-inventory.md) entries #92–95; test script [`model-tests/test_FG6_two_helicity_photon.py`](../model-tests/test_FG6_two_helicity_photon.py); results [`test-results/FG6_two_helicity_photon.json`](../test-results/FG6_two_helicity_photon.json).
+Cross-references: [F26 photon rotation law](F26-speed-of-light-as-rotation-rate.md); [F27 chiral SU(2) mass mechanism](F27-complex-mass-chiral-su2.md); [F29 W-triplet SU(2) bridge](F29-w-triplet-bilinear-su2-bridge.md) (the bridge this finding extends); [F30 dispersion anisotropy and birefringence](F30-photon-dispersion-order-anisotropy-birefringence.md); [F37 RS / BCC chirality correspondence](F37-rs-bcc-chirality-helicity.md); [first-gen-completeness-review.md](../first-gen-completeness-review.md) §3 item 4 and §5.1; [docs/status/exactness-inventory.md](../exactness-inventory.md) entries #92–95; test script [`tests/findings/test_FG6_two_helicity_photon.py`](../tests/findings/test_FG6_two_helicity_photon.py); results [`test-results/FG6_two_helicity_photon.json`](../test-results/FG6_two_helicity_photon.json).
 
 ---
 
@@ -109,7 +109,7 @@ What FG-6 adds:
 ## 6. Files
 
 - Module code: [`ca-simulation/ca_maxwell.py`](../ca-simulation/ca_maxwell.py) (new functions `EM_bilinears_branch`, `EM_bilinears_two_helicity`, `riemann_silberstein_decomp`, `triplet_bilinear_branch`, `triplet_bilinear_two_helicity`, plus factored-out `_TAU_ISO`, `_singlet_bilinear_H`, `_triplet_bilinear_H`).
-- Test script: [`model-tests/test_FG6_two_helicity_photon.py`](../model-tests/test_FG6_two_helicity_photon.py)
+- Test script: [`tests/findings/test_FG6_two_helicity_photon.py`](../tests/findings/test_FG6_two_helicity_photon.py)
 - Results JSON: [`test-results/FG6_two_helicity_photon.json`](../test-results/FG6_two_helicity_photon.json)
 - Inventory entries: #92 (linearity), #93 (per-helicity dispersion), #94 (F30 coefficient), #95 (RS identity).
 - Review updates: §0 dated note, §2.2 photon row, §3 item 4 → ✅ closed, §5.1 FG-6 row, §7 sequencing item 4.

@@ -3,7 +3,7 @@
 **Date:** 2026-05-26 - 16:30
 **Status:** Confirmed — FG-2 11/11 PASS, FG-3 6/6 PASS.
 **Modules:** `ca-simulation/ca_strong.py` (additions only; old paths intact)
-**Tests:** `model-tests/test_FG2_quark_complex_mass.py`, `model-tests/test_FG3_quark_electroweak.py`
+**Tests:** `tests/findings/test_FG2_quark_complex_mass.py`, `tests/findings/test_FG3_quark_electroweak.py`
 **Results:** `test-results/FG2_quark_complex_mass.json`, `test-results/FG3_quark_electroweak.json`
 **Closes:** `first-gen-completeness-review.md` §3 items 1 and 2 (quark electroweak wiring + unified mass mechanism); §5.1 FG-2 and FG-3.
 
@@ -13,7 +13,7 @@
 
 Two coupled deficits identified in the 2026-05-25 first-generation completeness review are closed in this work:
 
-1. **Mass mechanism — leptons used the F27 chiral-SU(2) complex-mass step ([F27](F27-complex-mass-chiral-su2.md)) while quarks still ran the Higgs–Yukawa path through `dirac_step_2d_varm_complex_splitstep`.** The project's [key-decisions.md](../key-decisions.md) commits to F27 as the adopted mass mechanism (no Higgs); the quark sector now honours that decision.
+1. **Mass mechanism — leptons used the F27 chiral-SU(2) complex-mass step ([F27](F27-complex-mass-chiral-su2.md)) while quarks still ran the Higgs–Yukawa path through `dirac_step_2d_varm_complex_splitstep`.** The project's [docs/theory/key-decisions.md](../key-decisions.md) commits to F27 as the adopted mass mechanism (no Higgs); the quark sector now honours that decision.
 
 2. **Electroweak coupling — the quark doublet $(u,d)_L$ in `ca_strong.py` had zero SU(2)$_L$ / $W_\mu$ / $Z$ / $Y$ wiring** (verified in the review: `ca_strong.py` only mentions `ca_weak` in a comment). The doublet now couples to a dynamical $W_\mu$ link field via a 2D-square analog of [F31](F31-wmu-covariant-hopping.md) / [F34](F34-wmu-fermion-vertex.md).
 
@@ -147,8 +147,8 @@ The natural next FG test is **FG-7** (dynamical gluon propagation + confinement)
 ## Files added / modified
 
 - `ca-simulation/ca_strong.py` — appended ~440 lines: F27 complex-mass section + Phase-4 EW wiring section.
-- `model-tests/test_FG2_quark_complex_mass.py` (new) — 11 tests.
-- `model-tests/test_FG3_quark_electroweak.py` (new) — 6 tests.
+- `tests/findings/test_FG2_quark_complex_mass.py` (new) — 11 tests.
+- `tests/findings/test_FG3_quark_electroweak.py` (new) — 6 tests.
 - `test-results/FG2_quark_complex_mass.json`, `test-results/FG3_quark_electroweak.json` (new).
 
 Total runtime FG-2 + FG-3: $\sim 2.3$ s on the sandbox.

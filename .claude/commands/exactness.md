@@ -1,4 +1,4 @@
-# /exactness — Add a row to exactness-inventory.md
+# /exactness — Add a row to docs/status/exactness-inventory.md
 
 Add one or more results to the exactness inventory table.
 
@@ -14,7 +14,7 @@ Add one or more results to the exactness inventory table.
    - **Tier** — one of: `Exact algebraic`, `Machine precision`, `Quantitative`
    - **Source** — finding number and/or test file (e.g. `F77 / test_F77_njl.py`)
 
-3. Append the row(s) to the correct tier section in `exactness-inventory.md`:
+3. Append the row(s) to the correct tier section in `docs/status/exactness-inventory.md`:
    ```
    | {#} | {Construct} | {Predicted form} | {Measured residual} | {Source} |
    ```

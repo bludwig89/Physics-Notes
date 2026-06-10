@@ -1,6 +1,6 @@
 # F64 — Electromagnetic-connection gravity — single lattice dielectric K(x)
 
-_Generated 2026-05-31 - 16:00 by `model-tests/test_F64_em_connection.py`._
+_Generated 2026-05-31 - 16:00 by `tests/findings/test_F64_em_connection.py`._
 
 **D-EM1 verdict: VIABLE** (16/16 implemented tests PASS; 0 scaffolded). Module: `ca-simulation/forks/gr_fork_F64_em_connection.py`.
 

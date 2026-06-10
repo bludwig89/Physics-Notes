@@ -19,26 +19,38 @@ We are attempting to construct a "universe in a bottle", if our universe is a co
 6. We are operating under the philosophy of elegant design, that the universe can both be completely understood, and is elegant and simple in it's construction. 
  
 ## Project Structure
+See `INDEX.md` for the full annotated map. In brief:
 - `ca-simulation/` — core model modules (`ca_*.py`, `derive_*.py`, `forks/`, etc.)
-- `model-tests/` — test scripts (`test_*.py`, `run_*.py`) and `tests-priority/` sub-suite
-- `test-results/` — JSON result dumps, markdown summaries, and `figures/` recordings
-- `reference-research/` — reference PDFs and research-summary markdown files
+- `src/casim/` — the CASIM package (engine/CLI layer over the kernels)
+- `tests/` — all tests: `findings/` (test_F*.py), `priority/` (GR/QM/QFT battery), `casim/` (package suite, default `pytest` target), `runners/` (standalone run_* scripts), `falsification/` (spec briefs)
+- `test-results/` — JSON result dumps, markdown summaries, and `figures/` (single merged location)
+- `findings/` — one markdown file per physics finding (`F{N}-name.md`)
+- `papers/` — the paper series + claims/falsifiers summary
+- `docs/` — everything else, by purpose: `theory/`, `roadmaps/` (incl. `next-steps.md`), `status/` (`project-status.md`, `changelog.md`, `exactness-inventory.md`), `audits/`, `design/`
+- `references/` — external PDFs and research-summary markdown files only
+- `scenarios/` — CASIM scenario YAMLs + RUN-GUIDE
+- `tools/` — maintenance scripts (`regen_indexes.py`)
+- `deprecated/` — superseded docs/plans (see its README for why each item landed there)
 
 ## Context
 
 ### Always load (small, always relevant)
+- `INDEX.md` — master map: every directory, what lives in it, which index covers it
 - `findings-index.md` — one-line index of all findings (~3k tokens). Search this first; then read only the specific `findings/F{N}-*.md` files you need.
-- `project-status-index.md` — one-line per milestone (~1.4k tokens). Read full `project-status.md` only if you need narrative detail on a specific entry.
-- `tail -n 150 changelog.md` — recent changes (do NOT read the whole file; it is ~97k tokens)
+- `project-status-index.md` — one-line per milestone (~1.4k tokens). Read full `docs/status/project-status.md` only if you need narrative detail on a specific entry.
+- `tests-index.md` — test ↔ finding ↔ results-JSON map; check before writing or hunting for a test
+- `code-index.md` — one line per `ca_*.py` module and casim subpackage
+- `docs-index.md` — one line per theory doc, paper, and reference summary
+- `tail -n 150 docs/status/changelog.md` — recent changes (do NOT read the whole file; it is ~100k tokens)
 - `src/casim/README.md` — CASIM documentation
 - `scenarios/RUN-GUIDE.md` — scenario handles and benchmark speeds
 
 ### Load only when directly relevant (large — load targeted sections)
-- `reference-research/physics-notes-complete.md` (~44k tokens) — full theory notes; load only if the question requires foundational derivations not in a finding file
-- `reference-research/t-hooft-2015-cai-summary.md`
-- `reference-research/mohr-2010-maxwell-photon-wf-summary.md`
-- `reference-research/ostoma-trushyk-1999-summary.md`
-- `reference-research/qca-papers-1-4-overview.md`
+- `references/physics-notes-complete.md` (~44k tokens) — full theory notes; load only if the question requires foundational derivations not in a finding file
+- `references/t-hooft-2015-cai-summary.md`
+- `references/mohr-2010-maxwell-photon-wf-summary.md`
+- `references/ostoma-trushyk-1999-summary.md`
+- `references/qca-papers-1-4-overview.md`
 
 ### Finding files
 Individual findings are in `findings/F{N}-name.md`. Use `grep -i "keyword" findings-index.md` to locate relevant ones, then read those files directly. Do not read all findings at once.
@@ -54,89 +66,15 @@ Use the important elements of a new theory, it must explain existing scientific 
 - **Pipes in tables:** a literal `|` (e.g. `|k|` for a magnitude, `|ψ|²`, or absolute-value bars) breaks Markdown tables because `|` is the column delimiter. Inside any table cell — including finding titles that get pulled into `findings-index.md` — escape it as `\|` (`\|k\|`), or use the LaTeX forms `\lvert k\rvert` / `\lVert k\rVert`. The index regen script auto-escapes `|`→`\|` in summaries, but write finding **titles and body tables** safely so they don't break on first render.
 - For all new entries to files, include a date & time stamp of the format `yyyy-mm-dd - hh:mm`
 
-- Include a `changelog.md` file entry for documenting non-trivial software changes and decisions, make them short, one-paragraph.
-- Keep a short table of what tests and equations are exact and which ones run to machine precision in `exactness-inventory.md`.
+- Include a `docs/status/changelog.md` file entry for documenting non-trivial software changes and decisions, make them short, one-paragraph.
+- Keep a short table of what tests and equations are exact and which ones run to machine precision in `docs/status/exactness-inventory.md`.
 - Document any new physics finds, or possible new finds, to the Findings folder with each new finding being a new markdown file. Use the convention `F99-name.md`.
 ## Index maintenance
 
-`findings-index.md` and `project-status-index.md` are compact indexes used to keep context usage low. Regenerate them after any session that adds new findings or project-status entries:
+`INDEX.md`, `findings-index.md`, `project-status-index.md`, `tests-index.md`, `code-index.md`, and `docs-index.md` are compact indexes used to keep context usage low. Regenerate them after any session that adds findings, tests, modules, docs, or project-status entries:
 
-```python
-# Regenerate findings-index.md
-import os, re
-findings_dir = "findings"
-entries = []
-
-CAP = 160  # max summary length; keeps the index to one compact line per finding
-
-def clean(text):
-    text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', text)   # [txt](url) -> txt
-    text = re.sub(r'\[\[([^\]]+)\]\]', r'\1', text)         # [[link]] -> link
-    return re.sub(r'\s+', ' ', text).strip()
-
-def truncate(text, n=CAP):
-    # Cut on a word boundary and add an ellipsis so summaries never break mid-word.
-    text = text.strip()
-    if len(text) <= n:
-        return text
-    cut = text[:n].rsplit(' ', 1)[0].rstrip(' ,;:.—–-')
-    return (cut or text[:n]) + '…'
-
-def extract_summary(content, fname):
-    # 1) Descriptive part of the title (after the "F123 —"/"F123:" separator) — primary, uniform source.
-    title_m = re.search(r'^#\s+(.+)', content, re.MULTILINE)
-    if title_m:
-        title = clean(title_m.group(1))
-        parts = re.split(r'\s*[—–]\s*|:\s+', title, maxsplit=1)
-        if len(parts) > 1 and parts[1].strip():
-            return truncate(parts[1].strip())
-        if title:
-            return truncate(title)
-    # 2) First sentence of a ## Summary section (title had no separator).
-    sum_m = re.search(r'##\s+Summary\s*\n+(.*?)(?=\n##|\Z)', content, re.DOTALL)
-    if sum_m:
-        text = clean(sum_m.group(1))
-        if text:
-            return truncate(re.split(r'(?<=[.!?])\s', text)[0])
-    # 3) First real prose line — skip metadata (**Date:**, dates, code, lists).
-    for l in content.splitlines():
-        l = l.strip()
-        if not l or l.startswith(('#','**','`','>','-','|','$','!','*','=','[')): continue
-        if re.match(r'^\d{4}-\d{2}-\d{2}', l): continue
-        return truncate(clean(l))
-    return fname
-
-for fname in sorted(os.listdir(findings_dir)):
-    if not fname.endswith(".md"): continue
-    with open(os.path.join(findings_dir, fname), encoding="utf-8", errors="replace") as f:
-        content = f.read(2000)
-    m = re.match(r'(F\d+)', fname)
-    fnum = m.group(1) if m else "?"
-    summary = extract_summary(content, fname)
-    test_m = re.search(r'(\d+)/(\d+)\s*PASS', content)
-    tests = f"{test_m.group(1)}/{test_m.group(2)} PASS" if test_m else ""
-    entries.append((fnum, fname.replace('.md',''), summary, tests))
-with open("findings-index.md", "w") as out:
-    out.write("# Findings Index\n\n*Auto-generated compact index — one line per finding.*\n")
-    out.write("*Pipes in summaries are escaped (`|`→`\\|`) so `|k|`-style notation doesn't break the table.*\n\n")
-    out.write("| # | File | Summary | Tests |\n|---|------|---------|-------|\n")
-    for fnum, slug, summary, tests in entries:
-        safe = summary.replace("|", "\\|")  # escape so |k|, |ψ|² etc. don't break the table
-        out.write(f"| {fnum} | `{slug}` | {safe} | {tests} |\n")
-
-# Regenerate project-status-index.md
-import re
-with open("project-status.md", encoding="utf-8") as f:
-    content = f.read()
-entries = re.findall(r'^## (.+)$', content, re.MULTILINE)
-with open("project-status-index.md", "w") as out:
-    out.write("# Project Status Index\n\n*Auto-generated one-line-per-entry summary.*\n\n")
-    out.write("| Date | Summary |\n|------|---------|\n")
-    for e in entries:
-        parts = e.split(" — ", 1)
-        if len(parts) == 2:
-            date, desc = parts
-            out.write(f"| {date.strip()} | {desc.strip()[:140]} |\n")
-        else:
-            out.write(f"| — | {e[:140]} |\n")
+```bash
+python3 tools/regen_indexes.py        # rebuilds all auto-generated indexes
 ```
+
+INDEX.md is hand-maintained — update it only when the directory layout itself changes.

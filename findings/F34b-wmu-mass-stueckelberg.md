@@ -3,7 +3,7 @@
 **Date:** 2026-05-24  
 **Status:** Confirmed — 5/5 tests PASS  
 **Module:** `ca-simulation/ca_wmu.py`  
-**Tests:** `model-tests/test_wmu_phase5_stueckelberg.py` (W5.1–W5.5)  
+**Tests:** `tests/findings/test_wmu_phase5_stueckelberg.py` (W5.1–W5.5)  
 **Results:** `test-results/wmu_phase5_stueckelberg.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 5B
 
@@ -86,5 +86,5 @@ The promotion of the SU(2) mass link $U_m(x)$ (F27) to a dynamical field is the 
 ## Files
 
 - `ca-simulation/ca_wmu.py` — `make_stueckelberg_field`, `stueckelberg_mass_term`, `wmu_mass_stueckelberg`
-- `model-tests/test_wmu_phase5_stueckelberg.py` — W5.1–W5.5
+- `tests/findings/test_wmu_phase5_stueckelberg.py` — W5.1–W5.5
 - `test-results/wmu_phase5_stueckelberg.json` — numerical results

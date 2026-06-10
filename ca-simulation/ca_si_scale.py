@@ -4,7 +4,7 @@
 ca_si_scale.py
 ==============
 
-P6 of roadmap-matter-binding.md — SI / absolute-scale closure for the MATTER
+P6 of docs/roadmaps/roadmap-matter-binding.md — SI / absolute-scale closure for the MATTER
 sector.  Turns the dimensionless P2-P4 hadron results into absolute MeV by
 adopting the project's CURRENT SI choice plus one QCD-scale anchor, and scores
 the resulting absolute numbers against measurement.

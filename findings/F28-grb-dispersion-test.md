@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-23 — 16:35
 **Status:** Confirmed test result — F26 not excluded by any current photon time-of-flight experiment
-**Script:** `model-tests/test_F28_grb_dispersion.py`
+**Script:** `tests/findings/test_F28_grb_dispersion.py`
 **Results:** `test-results/F27_grb_dispersion.json`, `test-results/F27_grb_dispersion_summary.md`
 
 ---
@@ -94,7 +94,7 @@ time-of-flight measurements with foreseeable technology.
 
 - [[F26-speed-of-light-as-rotation-rate]]: source of the prediction
 - [[F25-real-rotation-exact-discrete-time-maxwell]]: exact rotation underlying the correction
-- `model-tests/tests-priority/test_06_QG2_planck_LV.py`: prior BCC Weyl LV bound (linear, different sector)
+- `tests/priority/test_06_QG2_planck_LV.py`: prior BCC Weyl LV bound (linear, different sector)
 - Vasileiou et al. 2013, PRD 87, 122001 (arXiv:1305.3463)
 - Piran & Ouyang 2024 (arXiv:2308.03031)
 - LHAASO Collab. 2024, PRL

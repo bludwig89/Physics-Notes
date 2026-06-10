@@ -3,9 +3,9 @@
 **Date:** 2026-06-08 - 14:05
 **Status:** Confirmed — 7/7 PASS; 6 results bit-for-bit exact (rational), 1 quantitative (Tier-B profile)
 **Module:** `ca-simulation/ca_nuclear_core.py` (new)
-**Tests:** `model-tests/test_F113_repulsive_core.py`
+**Tests:** `tests/findings/test_F113_repulsive_core.py`
 **Results:** `test-results/F113_repulsive_core.json`
-**Cross-refs:** [[F104-p4-deuteron-tensor-bound-nucleus]] (**this closes its one open item** — replaces the tuned short-range core), [[F71-colour-singlet-baryon-proton]] (colour-singlet baryon + Pauli antisymmetriser), [[F103-p3-dynamical-pion-goldstone]] (pion / OPEP tail), [[F77-njl-gap-rpa-selfconsistent]] (NJL constituent mass), F43/F86 (colour sector), `roadmap-matter-binding.md` P4
+**Cross-refs:** [[F104-p4-deuteron-tensor-bound-nucleus]] (**this closes its one open item** — replaces the tuned short-range core), [[F71-colour-singlet-baryon-proton]] (colour-singlet baryon + Pauli antisymmetriser), [[F103-p3-dynamical-pion-goldstone]] (pion / OPEP tail), [[F77-njl-gap-rpa-selfconsistent]] (NJL constituent mass), F43/F86 (colour sector), `docs/roadmaps/roadmap-matter-binding.md` P4
 
 ---
 
@@ -121,7 +121,7 @@ ${}^3D_1$ channel diagonals and replaces the old infinite hard wall at the tuned
 $r_c$; the OPEP $1/x$ and $1/x^3$ singularities are smeared by the *same* quark
 size $b$ via a vertex form factor $[1-e^{-(r/b)^2}]^2$, so one physical length
 governs both the core width and the short-distance cutoff. Re-binding the
-deuteron (test `model-tests/test_P4_deuteron.py` Part I, **16/16 PASS**):
+deuteron (test `tests/findings/test_P4_deuteron.py` Part I, **16/16 PASS**):
 
 | quantity | tuned hard wall (old) | **derived core (F113)** | physical |
 |---|---|---|---|

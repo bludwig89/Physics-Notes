@@ -1,7 +1,7 @@
 # F28 — GRB / AGN dispersion test of F26 photon rotation prediction
 
 **Date:** 2026-05-23 — 16:35
-**Script:** `model-tests/test_F28_grb_dispersion.py`
+**Script:** `tests/findings/test_F28_grb_dispersion.py`
 **JSON:** `test-results/F28_grb_dispersion.json`
 
 ## Prediction tested

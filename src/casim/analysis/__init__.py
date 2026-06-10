@@ -2,7 +2,7 @@
 
 Extracted from the inline diagnostics of the historical ``run_*`` scripts:
 summarise norm drift, dispersion/unitarity residuals, and classify each
-observer's exactness so reports (and eventually ``exactness-inventory.md``,
+observer's exactness so reports (and eventually ``docs/status/exactness-inventory.md``,
 roadmap Phase F) can be generated rather than hand-maintained.
 """
 from __future__ import annotations

@@ -48,7 +48,7 @@ Honest scope
 * No theory makes a *dimensionful* G out of pure numbers -- that needs one ruler.
   What is predicted is the pure number a/ell_P (equivalently the coefficient
   2 pi eta g_* sqrt d = 8 pi sqrt 3 = 43.53).  G follows once the cell scale a is
-  anchored (by ell_P, or - per si-units-options.md - by a measured fermion mass
+  anchored (by ell_P, or - per deprecated/si-units-options.md - by a measured fermion mass
   through the F46/F12 mass map, with no reference to ell_P at all).
 * The fermionic g_*=48 is exact; the spin-1 gauge contribution (W/Z massive,
   non-Abelian anomaly) is a bounded sqrt(.) correction, flagged as in F61/F64.

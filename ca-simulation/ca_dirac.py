@@ -395,7 +395,7 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, m=0.5, dt=0.5,
 # composite bilinear in `ca_maxwell.py` (now a genuine two-helicity
 # field, F39). The composite photon arises naturally from the BCC
 # Weyl QCA structure and does NOT require a separate U(1)-gauge boson
-# on top of the fermion sector (key-decisions.md).
+# on top of the fermion sector (docs/theory/key-decisions.md).
 #
 # Consequences of the removal:
 #   • Tier-1 #14 (Aharonov-Bohm phase pickup, $4.4\times10^{-16}$) is

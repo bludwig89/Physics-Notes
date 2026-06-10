@@ -5,14 +5,14 @@ lgt_fork_A_mc.py — Fork A: 3+1D SU(3) lattice-gauge Monte-Carlo + multilevel  
 Created: 2026-06-04
 
 The **standard, rigorous** binding-force route from
-`roadmap-P1-binding-force-options.md`, built as a fork to stand head-to-head
+`deprecated/roadmap-P1-binding-force-options.md`, built as a fork to stand head-to-head
 with Option C (F86, the colour-dielectric / dual superconductor).  Where C is a
 model-native, algebraically-exact mechanism, A is the textbook lattice-gauge
 computation: thermalise the SU(3) Wilson ensemble with a proper heat-bath, beat
 the exponential signal-to-noise wall with a Lüscher–Weisz multilevel estimator,
 and read off the confining static potential  V(R) = mu + sigma R - e/R.
 
-This directly repairs the wall that `model-tests/run_confinement_mc.py`
+This directly repairs the wall that `tests/runners/run_confinement_mc.py`
 (plain 2D Metropolis) ran into: large Wilson/Polyakov correlators decay as
 exp(-sigma·Area) far below the 1/sqrt(N) noise floor.  Heat-bath gives short
 autocorrelation; the two-level estimator factorises the correlator into
@@ -29,8 +29,8 @@ Contents
   * Lüscher–Weisz **two-level** estimator for the Polyakov-loop correlator.
 
 All pure-numpy (no scipy), per project practice.  Heavy production runs go
-through `model-tests/run_lgt_confinement.py`; the sandbox battery
-`model-tests/test_FA_lgt_mc.py` exercises correctness on small lattices.
+through `tests/runners/run_lgt_confinement.py`; the sandbox battery
+`tests/findings/test_FA_lgt_mc.py` exercises correctness on small lattices.
 
 Conventions
 -----------

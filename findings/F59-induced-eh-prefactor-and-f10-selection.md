@@ -3,7 +3,7 @@
 **Date:** 2026-05-30 - 14:55
 **Status:** Partial derivation. The **$d^{1/4}$ scaling that selects a Finding-10 resolution is derived and lattice-confirmed** (exact-algebraic in origin); the **absolute O(1) prefactor is reduced to two standard inputs** (per-dof heat-kernel number $\eta$, gravitating mode count $g_*$) and evaluates to $\approx 1$ for minimal Weyl content — suggestive, not proven. Answers the F56/F57 follow-up "the Sakharov $G\propto\ell^2$ plus $c_\text{lat}=1/\sqrt d$ may select one of the $(a,\tau)$ resolutions."
 **Module:** new `ca-simulation/forks/gr_fork_F59_induced_eh_prefactor.py` (self-contained; mirrors the `ca_bcc` F26 dispersion, real arithmetic only).
-**Tests:** `model-tests/test_F59_induced_eh_prefactor.py`; results `test-results/F59_induced_eh_prefactor.json`.
+**Tests:** `tests/findings/test_F59_induced_eh_prefactor.py`; results `test-results/F59_induced_eh_prefactor.json`.
 
 ## The question
 
@@ -74,7 +74,7 @@ i.e. Finding 10's resolution 3 (lightcone $a/\tau=c\sqrt d\approx5.20\times10^8$
 
 - Recompute $\eta$ for the actual BCC Weyl spinor (Seeley–DeWitt $a_1$ for the F26 propagator) and sum $g_*$ over the gravitating first-gen polarizations — turns $P_\text{pre}\approx1$ into a number.
 - Reconcile the Sakharov ($\sqrt d$) and clock-rate-stiffness ($1/d$, F58 Q3a) induced-$G$ channels; the selection's $d$-sign depends on it.
-- Promote the chosen $(a,\tau)$ convention to a runtime parameter in the SI-mapping layer (`si-units-options.md` Option C/D), now with $a=P_\text{pre}\,d^{1/4}\ell_P$ as the default rather than the bare $\ell_P$.
+- Promote the chosen $(a,\tau)$ convention to a runtime parameter in the SI-mapping layer (`deprecated/si-units-options.md` Option C/D), now with $a=P_\text{pre}\,d^{1/4}\ell_P$ as the default rather than the bare $\ell_P$.
 
 ## Relation to other findings
 

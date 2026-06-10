@@ -3,7 +3,7 @@
 **Date:** 2026-05-30 - 15:25
 **Status:** Confirmed — 4/4 checks, three at machine precision (exponents $2.0000$, $-1.0000$, $-3.0000$; lock spread $1.1\times10^{-16}$). Resolves the F58↔F59 channel fork flagged in F59. The emergent-gravity ontology the project already uses (F52/F55/F57) selects the loop channel, so $1/G\propto\sqrt d$ and the F59 selection power $d^{1/4}$ stands.
 **Module:** new `ca-simulation/forks/gr_fork_F60_channel_reconciliation.py` (self-contained; real arithmetic only).
-**Tests:** `model-tests/test_F60_channel_reconciliation.py`; results `test-results/F60_channel_reconciliation.json`.
+**Tests:** `tests/findings/test_F60_channel_reconciliation.py`; results `test-results/F60_channel_reconciliation.json`.
 
 ## The fork
 

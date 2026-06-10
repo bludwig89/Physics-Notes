@@ -1,19 +1,23 @@
-"""pytest configuration for the casim suite (roadmap Phase F).
+"""pytest configuration for the whole tests/ tree.
 
-Registers the exactness markers and, after a run, regenerates the casim-scoped
-exactness inventory from the same canonical checks the tests assert on.
+Subtrees: casim/ (package suite), findings/ (test_F*.py finding verifications),
+priority/ (GR/QM/QFT priority battery), runners/ (standalone run_* scripts),
+falsification/ (spec briefs, no collectable tests).
+
+Registers the exactness markers, puts src/ and ca-simulation/ on sys.path so
+every subtree imports without an editable install, and after a run regenerates
+the casim-scoped exactness inventory.
 """
 from __future__ import annotations
 
 import os
 import sys
 
-# Make the src-layout package importable when running pytest from the repo root
-# without an editable install.
 _HERE = os.path.dirname(os.path.abspath(__file__))
-_SRC = os.path.join(os.path.dirname(_HERE), "src")
-if _SRC not in sys.path:
-    sys.path.insert(0, _SRC)
+_REPO = os.path.dirname(_HERE)
+for _p in (os.path.join(_REPO, "src"), os.path.join(_REPO, "ca-simulation")):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 
 def pytest_configure(config):

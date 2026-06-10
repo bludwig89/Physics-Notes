@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-06 - 17:55
 **Status:** Candidate finding — 5/5 checks PASS. E1 (coefficient identity) and E4/E5 (nonrel reduction, source identity) are **exact** (sympy zero residual / machine precision); E2/E3 (Poisson recovery of the canonical $K$) are lattice to $\le 2\%$ (finite periodic box). Closes the one remaining "posited input" in the F64 backreaction loop — the coupling and the source are both now derived.
-**Module / test:** `model-tests/test_F106_psi_K_sourcing.py` (~3 s; numpy + sympy, all real arithmetic).
+**Module / test:** `tests/findings/test_F106_psi_K_sourcing.py` (~3 s; numpy + sympy, all real arithmetic).
 **Results:** `test-results/F106_psi_K_sourcing.json`.
 **Cross-references:** [[F64-em-connection-gravity]] (the dielectric this sources; D-EM5 conformal leg, D-EM8 dynamical Φ), [[F79-structural-newton-constant]] (the structural $G$ that fixes the coefficient), [[F26-speed-of-light-as-rotation-rate]] ($c_\text{lat}=1/\sqrt3$; mass = confined $(\mathbf E,\mathbf B)$ rotation), [[F62-dirac-gravity-dynamical-fork]] (the curved-Dirac stepper and the backreaction loop that fed in $|\Psi|^2$), [[F52-gravity-from-rest-leg-backreaction]] (the rest-leg source this generalises), [[F60-induced-G-channel-reconciliation]] (loop channel).
 
@@ -127,5 +127,5 @@ where bare probability density would have under-counted it.
   zero-tree-stiffness ⇒ loop channel), F64-D-EM5 ($\ln K=-2\Phi/c^2$ impedance leg),
   F62 (curved-Dirac energy density and the backreaction loop), F58/D-EM10 (the $4\pi$
   lattice Green's function).
-- Verification: `model-tests/test_F106_psi_K_sourcing.py` (2026-06-06 - 17:55, 5/5 PASS),
+- Verification: `tests/findings/test_F106_psi_K_sourcing.py` (2026-06-06 - 17:55, 5/5 PASS),
   results `test-results/F106_psi_K_sourcing.json`.

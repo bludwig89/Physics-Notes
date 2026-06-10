@@ -3,7 +3,7 @@ F63 — Does the project's torsion-free assumption cost anything? A bounded
       magnitude estimate of the Einstein-Cartan spin-torsion four-fermion term
       at the model's lattice density.
 ====================================================================================
-Reconciliation follow-up to `page34-eom-derivation.md`.  Page 34's first-order
+Reconciliation follow-up to `docs/theory/page34-eom-derivation.md`.  Page 34's first-order
 (Palatini) variation w.r.t. the independent connection Omega_mu (EOM 3) generates
 Einstein-Cartan torsion algebraically sourced by the fermion spin density.  The
 project (F50/F52/F57/F62) instead works torsion-free: the connection is whatever

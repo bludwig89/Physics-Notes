@@ -3,9 +3,9 @@
 **Date:** 2026-05-28 - 23:55 (updated 2026-05-29 - 00:30 — kinetic leg promoted to the bounded exact-QCA form)
 **Status:** Confirmed — 8/8 tests PASS (G1 slope-4 lattice correction; G2–G4, G6 algebraic/machine-ε; G5 exactly norm-conserving prototype stepper; G7 boundedness + slope; G8 bit-for-bit QCA stepper phase match)
 **Module:** `ca-simulation/forks/gr_fork_F46_dirac.py` (new); reuses `gr_fork_E_tensor.py` (metric), `ca_dirac.py` (`_mix_eta_chi`), `ca_curved.py` (`CayleyVarcSolver2D`)
-**Verification script:** `model-tests/test_F50_gravity_fork_dirac.py`
+**Verification script:** `tests/findings/test_F50_gravity_fork_dirac.py`
 **Results:** `test-results/F50_gravity_fork_dirac.json`
-**Cross-references:** F46 (spherical-Pythagorean Dirac dispersion, §9.3 curved-spacetime follow-up), F16 (GR-3 factor-2 resolution by Forks A/B/C), F26 (speed of light as rotation rate), F27 (chiral SU(2) mass rotation), `gr_fork_E_tensor.py` (Fork E3 "tetrad Dirac" promise), `ca-dirac-gravity-plan.md` Stage D2, `reference-research/physics-notes-complete.md` pp. 16–17, 32–33 (Sachs tetrad spinor formalism)
+**Cross-references:** F46 (spherical-Pythagorean Dirac dispersion, §9.3 curved-spacetime follow-up), F16 (GR-3 factor-2 resolution by Forks A/B/C), F26 (speed of light as rotation rate), F27 (chiral SU(2) mass rotation), `gr_fork_E_tensor.py` (Fork E3 "tetrad Dirac" promise), `ca-dirac-gravity-plan.md` Stage D2, `references/physics-notes-complete.md` pp. 16–17, 32–33 (Sachs tetrad spinor formalism)
 
 ---
 
@@ -140,5 +140,5 @@ G1 confirms the spherical→Euclidean reduction has the F46-characteristic 4th-o
 
 - Hypothesis source: F46 §9.3 (2026-05-28) + `gr_fork_E_tensor.py` E3 note + `ca-dirac-gravity-plan.md` Stage D2.
 - Tetrad reduction: §2 above, from the Sachs spinor formalism (`physics-notes-complete.md` pp. 16–17, 32–33).
-- Numerical verification: `model-tests/test_F50_gravity_fork_dirac.py` (5/5 PASS).
+- Numerical verification: `tests/findings/test_F50_gravity_fork_dirac.py` (5/5 PASS).
 - Filed `test-results/F50_gravity_fork_dirac.json`.

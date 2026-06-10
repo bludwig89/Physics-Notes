@@ -3,7 +3,7 @@
 **Date:** 2026-05-27 - 22:56
 **Status:** Confirmed — 20/20 tests PASS (8 bit-for-bit exact)
 **Module:** `ca-simulation/ca_gluon.py`  (new)
-**Tests:** `model-tests/test_FG7_gluon_dynamics.py`
+**Tests:** `tests/findings/test_FG7_gluon_dynamics.py`
 **Results:** `test-results/FG7_gluon_dynamics.json`
 **Cross-refs:** F29 (W-triplet bilinear), F33 (W Yang–Mills self-coupling), F36 (W back-reaction)
 
@@ -123,7 +123,7 @@ split as free F26 rotation + real-space source kick. Each $a$ is sourced only by
 
 - `ca-simulation/ca_gluon.py` — new module (~600 lines). Public API:
   `_F_SU3`, `structure_constants_jacobi_residual`, `gluon_rotation_step_spectral_2d`, `gluon_rotation_step_spectral_bcc`, `gluon_massive_step_spectral_bcc`, `quark_colour_octet_bilinear_2d`, `quark_colour_octet_bilinear_bcc`, `octet_norm_sq`, `octet_adjoint_rotate`, `plaquette_matrix_su3_2d`, `plaquette_field_strength_su3_2d`, `plaquette_field_strength_su3_bcc`, `gluon_self_coupling_step_2d`, `gluon_self_coupling_step_bcc`, `link_unitarity_residual_su3`, `wilson_loop_2d_rect`, `wilson_loop_2d_avg`, `wilson_loop_gauge_residual_2d`, `wilson_loop_area_law_data`, `quark_colour_current_2d`, `gluon_sourced_step_2d`, `gluon_sourced_step_bcc`, `free_gluon_dispersion_residual_bcc`, `make_su3_link_field_bcc`.
-- `model-tests/test_FG7_gluon_dynamics.py` — 20-test suite.
+- `tests/findings/test_FG7_gluon_dynamics.py` — 20-test suite.
 - `test-results/FG7_gluon_dynamics.json` — numerical results.
 
 ---

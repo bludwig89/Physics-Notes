@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-09 - 17:05
 **Status:** Confirmed — 5/5 checks PASS (`test_F121_tau_anchored_canonical_spectrum.py`, <1 s). Pure math (no scipy, per CLAUDE.md). Adopts the τ as the standard mass-scale anchor in place of the electron, per the F120 robustness lesson.
-**Script:** `model-tests/test_F121_tau_anchored_canonical_spectrum.py`
+**Script:** `tests/findings/test_F121_tau_anchored_canonical_spectrum.py`
 **Results:** `test-results/F121_tau_anchored_canonical_spectrum.json`
 **Cross-references:** [[F120-electron-calibrated-spectrum]] (the electron-anchor instability this fixes), [[F119-kg-scale-three-routes]] (the single open scale $N$ and the angle $\lambda_6$), [[F101-one-heavy-branch-fit-W]] (the wall-pinning $y_\tau=1$), [[F78-koide-amplitude-from-cooper-pair]] (Koide, $m=y^2$).
 
@@ -67,4 +67,4 @@ Unchanged from F119: the irreducible open inputs are exactly **two** — the ove
 
 - New content: adoption of the τ as the canonical anchor; the δ-stability proof for the wall-pinned τ vs the node-sitting electron; the canonical τ-anchored lepton spectrum and full fermion kg table.
 - Machinery: the F101 condensate shape; PDG 2024 masses; CODATA 2018 constants and the F79/F107 locked cell.
-- Verification: `model-tests/test_F121_tau_anchored_canonical_spectrum.py` (2026-06-09 - 17:05, 5/5 PASS), results `test-results/F121_tau_anchored_canonical_spectrum.json`.
+- Verification: `tests/findings/test_F121_tau_anchored_canonical_spectrum.py` (2026-06-09 - 17:05, 5/5 PASS), results `test-results/F121_tau_anchored_canonical_spectrum.json`.

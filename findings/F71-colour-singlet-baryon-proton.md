@@ -3,7 +3,7 @@
 **Date:** 2026-06-01 - 16:42
 **Status:** Confirmed — 8/8 PASS; 6 results bit-for-bit exact, 2 at machine ε
 **Module:** `ca-simulation/ca_baryon.py` (new)
-**Tests:** `model-tests/test_FG7d_baryon_singlet.py`
+**Tests:** `tests/findings/test_FG7d_baryon_singlet.py`
 **Results:** `test-results/FG10_baryon_singlet.json`
 **Cross-refs:** F38 (FG-1 anomaly cancellation / quark charges), F40/F42 (quark mass + hypercharge), F43 (SU(3) colour sector), F70 (string tension / binding)
 

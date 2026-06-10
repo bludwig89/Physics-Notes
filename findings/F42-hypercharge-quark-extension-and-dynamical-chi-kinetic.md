@@ -3,7 +3,7 @@
 **Date:** 2026-05-27 - 09:00
 **Status:** Confirmed — 8/8 tests PASS
 **Module:** `ca-simulation/ca_hypercharge.py` (extension; F41 surface unchanged)
-**Tests:** `model-tests/test_hypercharge_extension.py` (Y8–Y15)
+**Tests:** `tests/findings/test_hypercharge_extension.py` (Y8–Y15)
 **Results:** `test-results/hypercharge_extension.json`
 **Closes:** F41 §"Implications" point 4 (quark Y-coupling); first-generation-completeness review §3 item 3 (dynamical $e_R, u_R, d_R$ via kinetic-step $U(1)_Y$).
 
@@ -113,5 +113,5 @@ holding for **both** generations of each chirality pair: $(\nu_L, \nu_R)$ and $(
 ## Files added / modified
 
 - `ca-simulation/ca_hypercharge.py` — appended ~150 lines: F42 quark constants, `mass_step_quark_doublet_su2xu1y`, `apply_u1y_transform_quark`, `kinetic_half_step_chi_u1y`, `kinetic_half_step_chi_singlets_all`, `apply_u1y_transform_chi`. F41 surface unchanged.
-- `model-tests/test_hypercharge_extension.py` (new) — Y8–Y15 (8 tests).
+- `tests/findings/test_hypercharge_extension.py` (new) — Y8–Y15 (8 tests).
 - `test-results/hypercharge_extension.json` (new) — 8/8 PASS at machine ε.

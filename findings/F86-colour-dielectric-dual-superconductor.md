@@ -3,7 +3,7 @@
 **Date:** 2026-06-03 - 23:58
 **Status:** Confirmed — 6/6 PASS; CD1 algebraically exact (sympy), CD4 bit-for-bit, CD6 machine-ε, CD3 ODE-exact to 5e-6, CD2/CD5 quantitative.
 **Modules:** `ca-simulation/ca_colour_dielectric.py` (new)
-**Tests:** `model-tests/test_FG7d_colour_dielectric.py`
+**Tests:** `tests/findings/test_FG7d_colour_dielectric.py`
 **Results:** `test-results/FG7d_colour_dielectric.json`
 **Cross-refs:** F43 (dynamical SU(3) gluons + Wilson primitives), F64 (gravity dielectric — the structural template), F70 (2D-exact area-law σ — the complementary anchor), F26 (c = rotation rate), F71/F74 (baryon, downstream P2).
 
@@ -11,7 +11,7 @@
 
 ## What this closes
 
-This is the build of **P1 Option C** from `roadmap-P1-binding-force-options.md`: the binding force as the **model-native** mechanism — the dual superconductor — recast in the model's own rotation-rate language as a **colour-dielectric** $\varepsilon_c(x)$ that renormalises the F43 gluon $(\mathbf E,\mathbf B)$-rotation rule, exactly parallel to F64's gravitational dielectric $K(x)$.
+This is the build of **P1 Option C** from `deprecated/roadmap-P1-binding-force-options.md`: the binding force as the **model-native** mechanism — the dual superconductor — recast in the model's own rotation-rate language as a **colour-dielectric** $\varepsilon_c(x)$ that renormalises the F43 gluon $(\mathbf E,\mathbf B)$-rotation rule, exactly parallel to F64's gravitational dielectric $K(x)$.
 
 It does **not** replace F70 (2D-exact area law) or Option A/B (3+1D Monte-Carlo / Hamiltonian); it is the third, complementary route — the one that **unifies confinement with the F64 gravity mechanism under a single idea**: *a position-dependent renormalisation of the $(\mathbf E,\mathbf B)$ rotation rule*. The roadmap explicitly flagged this as "most novel and most consistent with the model's existing gravity/EM treatment … directly answers the notebook's BCS questions; no string theory."
 

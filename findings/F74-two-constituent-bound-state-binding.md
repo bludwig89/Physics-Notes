@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-01 - 18:30
 **Status:** Confirmed (rigorous core) — 6/6 checks PASS; the 3D binding threshold matches the Watson integral to $1.7\times10^{-7}$ and the two independent bound-state methods agree to $1.3\times10^{-15}$. The **binding depth is produced as an explicit function $E_b(g)$**; the derivation is **complete up to one external number** (the contact coupling), which the model's gauge sector does not supply. 125 GeV is **not** conjured — the result is a quantified near-no-go for the simplest composite interpretation.
-**Script:** `model-tests/test_F74_bound_state_binding.py` (~3 s, numpy only)
+**Script:** `tests/findings/test_F74_bound_state_binding.py` (~3 s, numpy only)
 **Results:** `test-results/F74_bound_state_binding.json`
 **Cross-references:** [[F73-spin0-bound-pair-scalar]] (the kinematic ceiling this completes), [[F69-paired-spinor-photon]] (the spin-1 sibling; this is the explicit "two-body binding dynamics" follow-up flagged there), [[F46-pythagorean-lattice-mass]] (the $m_\text{lat}=m_c c a/\hbar$ map), [[F64-em-connection-gravity]] (the $a\approx6.2\times10^{-35}$ m cell); McPhee notebook pp.5–6 (the "Cooper pair" / "negative binding energy").
 
@@ -70,5 +70,5 @@ This is a genuine (if negative) completion: it converts F73's "needs binding dyn
 - A self-consistent NJL gap + RPA implementation (rather than the analytic $m_\sigma=2m_c$ reference used here) would let the *same* coupling fix both $m_c$ and $E_b$, testing whether criticality lands anywhere near the EW scale.
 
 ## Files
-- Script: `model-tests/test_F74_bound_state_binding.py`
+- Script: `tests/findings/test_F74_bound_state_binding.py`
 - Results: `test-results/F74_bound_state_binding.json`

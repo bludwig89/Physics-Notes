@@ -3,7 +3,7 @@
 Observers replace the inline diagnostics duplicated across the historical
 ``run_*`` scripts.  Each declares an ``exactness`` class (``"exact"`` |
 ``"machine-precision"`` | ``"quantitative"``) so a future pass can regenerate
-``exactness-inventory.md`` rather than maintain it by hand (roadmap Phase F).
+``docs/status/exactness-inventory.md`` rather than maintain it by hand (roadmap Phase F).
 
 An observer is called with the live ``Simulation`` and appends structured
 records into ``sim.results["observers"][<observer-name>]``.

@@ -3,7 +3,7 @@
 **Date:** 2026-06-04 - 01:18
 **Status:** Confirmed — 8/8 PASS; CC1/CC2 algebraically exact (sympy), CC5/CC7 bit-for-bit integer, CC6 machine-ε, CC3/CC4/CC8 quantitative.
 **Modules:** `ca-simulation/ca_colour_condensate.py`, `ca-simulation/derive_colour_condensate.py` (new)
-**Tests:** `model-tests/test_FG7e_colour_condensate.py`
+**Tests:** `tests/findings/test_FG7e_colour_condensate.py`
 **Results:** `test-results/FG7e_colour_condensate.json`
 **Cross-refs:** F86 (dual superconductor — this closes its flagged research risk), F43 ($f^{abc}$ dynamical gluons — the self-coupling that drives the instability), F26 (c = rotation rate — the tachyon is an *imaginary rotation rate*), F70 (strong-coupling area law), F64 (dielectric mechanism).
 

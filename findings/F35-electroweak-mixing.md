@@ -3,7 +3,7 @@
 **Date:** 2026-05-24  
 **Status:** Confirmed — 5/5 tests PASS  
 **Module:** `ca-simulation/ca_wmu.py`  
-**Tests:** `model-tests/test_wmu_phase6.py` (W6.1–W6.5)  
+**Tests:** `tests/findings/test_wmu_phase6.py` (W6.1–W6.5)  
 **Results:** `test-results/wmu_phase6.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 6
 
@@ -130,5 +130,5 @@ The Weinberg mixing commutes exactly with the F26 rotation-law propagator. This 
 ## Files
 
 - `ca-simulation/ca_wmu.py` — `weinberg_mix`, `weinberg_unmix`, `ew_charge`, `hypercharge_propagation_step`, `make_hypercharge_link_field`
-- `model-tests/test_wmu_phase6.py` — W6.1–W6.5
+- `tests/findings/test_wmu_phase6.py` — W6.1–W6.5
 - `test-results/wmu_phase6.json` — numerical results

@@ -1,6 +1,6 @@
 # QCA Verifications V1–V10 — Results
 
-*Run 2026-05-15. Implementation in `model-tests/run_qca_verifications.py`. Proposed in `qca-papers-1-4-overview.md`.*
+*Run 2026-05-15. Implementation in `tests/runners/run_qca_verifications.py`. Proposed in `qca-papers-1-4-overview.md`.*
 
 | ID  | Test                                                  | Result | Key number                                |
 |---|---|---|---|
@@ -76,7 +76,7 @@ Numerical comparison: at $m=0.3$, $|\mathbf{k}|=0.1$:
 - $\omega_{\text{cont}} = \sqrt{0.01 + 0.09} = 0.3162$
 - Δ = 0.0086, about 2.8% at this k
 
-So the existing implementation is correct **as a continuum approximation**, but it does not respect the QCA's $n^2 + m^2 = 1$ constraint and therefore does not have the QCA's exact dispersion at higher $|\mathbf{k}|$. The Phase D1 dispersion residual of 9 × 10⁻¹⁷ in `project-status.md` reflects machine-precision agreement with the *continuum form*, not with the QCA dispersion.
+So the existing implementation is correct **as a continuum approximation**, but it does not respect the QCA's $n^2 + m^2 = 1$ constraint and therefore does not have the QCA's exact dispersion at higher $|\mathbf{k}|$. The Phase D1 dispersion residual of 9 × 10⁻¹⁷ in `docs/status/project-status.md` reflects machine-precision agreement with the *continuum form*, not with the QCA dispersion.
 
 **Verdict:** documented. Migrating to the exact QCA form would require enforcing $n^2 + m^2 = 1$ in the Dirac coupling. Not yet done; not required for existing tests.
 
@@ -199,4 +199,4 @@ These results don't change any existing Phase A–F test; they characterise wher
 
 ---
 
-*Script: `model-tests/run_qca_verifications.py`. To re-run: `python3 run_qca_verifications.py` from that directory.*
+*Script: `tests/runners/run_qca_verifications.py`. To re-run: `python3 run_qca_verifications.py` from that directory.*

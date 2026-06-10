@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-02 - 19:38
 **Status:** Partial — 4/4 checks PASS + 1 recorded residual. **This dissolves the F80-D5 worry and answers F81's residual at the level of the *location*:** the composite (lepton) mass $m_H=\sin(2\phi)$ peaks at the saturation edge, so a binding energy $E=E_0-\lambda\sin(2\phi)$ is minimised at $\phi=45°$ for **any** $\lambda>0$ — the location is coupling-strength-independent. The remaining input shrinks to a single structural assumption: that $\phi$ is a **flat direction** (no stiffness favouring democracy), which the data's *exact* $45°$ directly supports.
-**Script:** `model-tests/test_F82_saturation_mass_peak.py` (<1 s)
+**Script:** `tests/findings/test_F82_saturation_mass_peak.py` (<1 s)
 **Results:** `test-results/F82_saturation_mass_peak.json`
 **Cross-references:** [[F81-why-45deg-pair-phase-saturation]] (the saturation residual this answers), [[F80-one-45deg-em-saturation-koide]] (the D5 "EM too weak" objection this dissolves; the $Q(\phi)$ map), [[F73-spin0-bound-pair-scalar]] ($m_H=\sin\Omega_\text{pair}$, max at $\Omega=\pi/2$), [[F74-two-constituent-bound-state-binding]] / [[F77-njl-gap-rpa-selfconsistent]] (gap/condensate energetics), [[F76-generation-mass-hierarchy-crystal-field]] (the orthorhombic lattice as the free symmetry-breaking background), [[F84-flatness-from-orthorhombic-break]] (closes the flat-direction residual below: $\kappa$ is the residual democratic symmetry, removed by the F76 orthorhombic break).
 
@@ -146,6 +146,6 @@ clean structural residual.
 - Answers the residual stated at the end of F81 and the D5 caveat of F80; the
   composite-mass-peak energetics, the coupling-independence of the $45°$
   location, the flat-direction criterion, and the $Q$↔binding corollary are new.
-- Verification: `model-tests/test_F82_saturation_mass_peak.py`
+- Verification: `tests/findings/test_F82_saturation_mass_peak.py`
   (2026-06-02 - 19:38, 4/4 PASS + residual), results
   `test-results/F82_saturation_mass_peak.json`.

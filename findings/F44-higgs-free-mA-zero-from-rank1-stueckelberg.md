@@ -3,9 +3,9 @@
 **Date:** 2026-05-27 - 23:55 (proposed); 2026-05-28 - 00:05 (W6.6–W6.8 Confirmed); 2026-05-28 - 00:20 (W6.9 lattice Confirmed); 2026-05-28 - 00:40 (operator promoted to `ca_wmu.py`, W6.10 sanity added)
 **Status:** Confirmed — 5/5 tests PASS; the covariant Stueckelberg operator now lives in `ca_wmu.py` and the rank-1 verification calls it directly
 **Module:** `ca-simulation/ca_wmu.py` — new Phase 5C section with `covariant_stueckelberg_lagrangian`, `covariant_stueckelberg_lagrangian_uniform`, `covariant_stueckelberg_difference`, `make_su2_link_uniform`, `make_u1y_link_uniform`
-**Tests:** `model-tests/test_wmu_phase6_rank1.py` (W6.6–W6.10)
+**Tests:** `tests/findings/test_wmu_phase6_rank1.py` (W6.6–W6.10)
 **Results:** `test-results/wmu_phase6_rank1.json`
-**Origin:** `physics-notes-complete-review.md` §3.1 (open action item from the review of `physics-notes-complete.md` pp.65–66)
+**Origin:** `docs/audits/physics-notes-complete-review.md` §3.1 (open action item from the review of `physics-notes-complete.md` pp.65–66)
 **Related findings:** [[F27-complex-mass-chiral-su2]], [[F34b-wmu-mass-stueckelberg]], [[F35-electroweak-mixing]], [[F41-hypercharge-higgs-free-su2]]
 
 ---
@@ -186,7 +186,7 @@ Three linear-algebra checks against the F44 mass matrix and `ca_wmu.weinberg_mix
 | W6.7 | `numpy.linalg.eigh(M^2)` returns eigenvalues $(0,\ f^2(g^2+g'^2))$ and eigenvectors $(\sin\theta_W, \cos\theta_W)^\top$ (photon) and $(\cos\theta_W, -\sin\theta_W)^\top$ (Z) in the $(W^3, B)$ basis — matching the W6.1 rotation columns at $\theta_W = \arctan(g'/g)$. | $2.19\times 10^{-16}$ (eig), $1.24\times 10^{-16}$ (vec) | $10^{-14}$ | ✓ |
 | W6.8 | Two parameterisations are algebraically distinct: (a) the notebook's diagonal $\mathrm{diag}(m_W^2, m_{W_0}^2)$ rotated by $R(\theta_W)$ produces an off-diagonal $(m_W^2 - m_{W_0}^2)\sin\theta_W\cos\theta_W$ — reproduced to $4.44\times 10^{-16}$; (b) the F44 single-field $M^2_{(W^3,B)}$ rotated by $R(\theta_W)$ has zero off-diagonal at $1.51\times 10^{-15}$. | as above | $10^{-14}$ | ✓ |
 
-The complete numerical record is in `test-results/wmu_phase6_rank1.json`; the driver is `model-tests/test_wmu_phase6_rank1.py`.
+The complete numerical record is in `test-results/wmu_phase6_rank1.json`; the driver is `tests/findings/test_wmu_phase6_rank1.py`.
 
 ### 5.1 Normalisation cross-check
 
@@ -214,7 +214,7 @@ The `stueckelberg_mass_term` docstring formula $m_W = g\,f$ is therefore consist
 
 ## 7. Open questions / follow-ups
 
-- **F46 candidate** (per `physics-notes-complete-review.md` §4.4) — the Pythagorean lattice mass decomposition. Independent of F44 but uses the same Stueckelberg machinery; worth scheduling next.
+- **F46 candidate** (per `docs/audits/physics-notes-complete-review.md` §4.4) — the Pythagorean lattice mass decomposition. Independent of F44 but uses the same Stueckelberg machinery; worth scheduling next.
 - ~~W6.6–W6.8 numerical check~~ — resolved 2026-05-28 - 00:05 (see §0 / §5).
 - ~~Lattice-level rank-1 verification (W6.9)~~ — resolved 2026-05-28 - 00:20. The lattice covariant Stueckelberg operator reproduces the rank-1 $(W^3, B)$ block to $1.13\times 10^{-11}$ relative determinant residual on a $4^3$ lattice with $a = 10^{-2}$. The W^1/W^2 sector is *bit-for-bit decoupled* from W^3/B and *bit-for-bit equal in mass* — a stronger statement than the (W^3, B) rank-1, indicating the lattice operator preserves the horizontal SU(2)_L subgroup exactly.
 - ~~Promote the lattice covariant Stueckelberg operator to `ca_wmu.py`~~ — resolved 2026-05-28 - 00:40. New Phase 5C section in `ca_wmu.py` provides `covariant_stueckelberg_lagrangian` (general site/link arrays), `covariant_stueckelberg_lagrangian_uniform` (constant-field convenience for W6.9-style probing), `covariant_stueckelberg_difference` (one-direction lattice difference), `make_su2_link_uniform`, and `make_u1y_link_uniform`. W6.9 was refactored to call the promoted version; W6.10 (sanity test) added — zero-field and constant-U_st reductions return $0.0$ exactly, and the Cayley-Klein implementation matches a direct 2×2 matrix evaluation bit-for-bit. The operator now uses BCC's 8 nearest-neighbour link directions by default (configurable via `link_dirs`). Convention bug found and fixed during the promotion: `V_μ†` (not `V_μ`) is the correct right-multiplier; the original inline code computed `W @ V.conj().T`, which I initially mis-translated as `· V_phase` instead of `· conj(V_phase)`. Symptom was photon/Z eigenvectors swapping ($\|\Delta\| = \sqrt 2$); residuals went from $1.41$ back to $2.12\times 10^{-12}$ after the fix.
@@ -225,7 +225,7 @@ The `stueckelberg_mass_term` docstring formula $m_W = g\,f$ is therefore consist
 
 ## 8. Files
 
-- `model-tests/test_wmu_phase6_rank1.py` — W6.6–W6.10 driver (5 tests)
+- `tests/findings/test_wmu_phase6_rank1.py` — W6.6–W6.10 driver (5 tests)
 - `test-results/wmu_phase6_rank1.json` — numerical results (5/5 PASS)
 - `ca-simulation/ca_wmu.py` — new Phase 5C section (lines following the existing Phase 5B Stueckelberg section): `covariant_stueckelberg_lagrangian`, `covariant_stueckelberg_lagrangian_uniform`, `covariant_stueckelberg_difference`, `make_su2_link_uniform`, `make_u1y_link_uniform`, `_su2_right_mult_by_diag`
 - `findings/F41-hypercharge-higgs-free-su2.md` — §"Implications for the model" item 3 annotated with the explicit rank-1 statement and cross-reference to F44 (done 2026-05-28 - 00:20)

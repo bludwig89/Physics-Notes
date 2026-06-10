@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-01 - 21:14
 **Status:** Partial — 6/6 checks PASS. **Part A is a derivation** (why the cubic vector is $\sqrt m$, given the model's own Cooper-pair premise) and resolves the open puzzle F76 left. **Part B is a sharp characterisation plus an honest negative**: the equipartition amplitude $\sqrt2$ (Koide $Q=2/3$) is the exact democratic↔hierarchical midpoint, but it is **not** produced by the cube's symmetric dynamics (which give the degenerate $Q=1/3$). So $\sqrt2$ remains an input — now pinned to a single critical condition.
-**Script:** `model-tests/test_F78_koide_amplitude_pairing.py` (<1 s)
+**Script:** `tests/findings/test_F78_koide_amplitude_pairing.py` (<1 s)
 **Results:** `test-results/F78_koide_amplitude_pairing.json`
 **Numbering note:** built concurrently with the NJL-gap finding that took **F77**; this Koide-amplitude finding is **F78**.
 **Cross-references:** [[F76-generation-mass-hierarchy-crystal-field]] (the $\sqrt m$ puzzle this answers), [[F75-three-generations-from-bcc-irrep-selection]] ($T_{1u}$ triplet), [[F73-spin0-bound-pair-scalar]] / [[F74-two-constituent-bound-state-binding]] / [[F77-njl-gap-rpa-selfconsistent]] (the Cooper-pair condensate, its 45° stability bound, and the constituent-mass gap machinery), [[F80-one-45deg-em-saturation-koide]] (closes the open problem below: the 45° unification + the EM selection rule), [[F69-paired-spinor-photon]] (the pairing channel); McPhee notebook pp.5–6 ("the Higgs is the Cooper pair").
@@ -184,5 +184,5 @@ $\arcsin m_c=45^\circ$ — and explain why only the charged leptons sit there
   data selection are new.
 - Part B's range-midpoint framing of $Q=2/3$, the symmetric-gap degeneracy, and
   the $C_{3v}$ $[2,1]$ result are new.
-- Verification: `model-tests/test_F78_koide_amplitude_pairing.py`
+- Verification: `tests/findings/test_F78_koide_amplitude_pairing.py`
   (2026-06-01 - 21:14, 6/6 PASS), results `test-results/F78_koide_amplitude_pairing.json`.

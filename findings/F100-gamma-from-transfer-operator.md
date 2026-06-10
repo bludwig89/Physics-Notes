@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-05 - 15:05
 **Status:** Confirmed — 5/5 checks PASS. T1 machine-precision (oscillator vacuum moment, number-basis); T2 convergent BZ quadrature (Richardson, $r=0.499$); T3 exact clock inversion (round-trip $10^{-16}$); T4 exact limits; T5 reconciliation (consistency, explicitly not an identity). **Closes the last gap flagged in F99 §5** — the exact $\gamma(\Omega)$ map.
-**Script:** `model-tests/test_F100_gamma_from_transfer_operator.py` (<0.1 s)
+**Script:** `tests/findings/test_F100_gamma_from_transfer_operator.py` (<0.1 s)
 **Results:** `test-results/F100_gamma_from_transfer_operator.json`
 **Cross-references:** [[F99-sigma-as-centre-lagrange-multiplier]] (the $\gamma$ this map fixes; D4 limits now reached from the rule), [[F26-c-as-rotation-rate]] / Finding 26 ($\Omega$ = the rotation rate, $c_\text{lat}=d\Omega/d|k|$), [[F70-gradient-flow-confinement-string-tension]] (the large-$\beta$ tension reconciled), [[F95-B-derived-C-localized]] ($I_2=\langle\cot\omega_\text{kin}\rangle$, the same BZ-average structure), [[F86-colour-dielectric-dual-superconductor]] (the $2\pi v^2 n$ this feeds), [[F43-dynamical-gluons]] (the rotation rule).
 
@@ -61,4 +61,4 @@ $\sigma_1\approx0.20$ is the same order of magnitude, and shares the BZ-inverse-
 
 - New content: the transfer-operator derivation $\langle\phi^2\rangle=1/(2\Omega)$ (T1), the BZ-average vacuum variance from the actual dispersion (T2), the closed-form $\gamma(\Omega)$ map (T3), and the headline $\sigma_1=\tfrac14\langle1/\Omega\rangle_\text{BZ}$.
 - Reused: `ca_maxwell_2d.rotation_omega_2d` (the rule), F99 $\mathbb{Z}_3$ clock weight, F70 `ca_confinement.string_tension`, F95 $I_2$.
-- Verification: `model-tests/test_F100_gamma_from_transfer_operator.py` (2026-06-05, 5/5 PASS), results `test-results/F100_gamma_from_transfer_operator.json`.
+- Verification: `tests/findings/test_F100_gamma_from_transfer_operator.py` (2026-06-05, 5/5 PASS), results `test-results/F100_gamma_from_transfer_operator.json`.
