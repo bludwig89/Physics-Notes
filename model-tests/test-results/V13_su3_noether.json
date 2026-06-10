@@ -7,7 +7,7 @@
     "passed": true
   },
   "V13a_cold_link_regression": {
-    "max_diff_vs_dirac": 0.0,
+    "max_diff_vs_dirac_ref": 0.0,
     "other_channels_max": 0.0,
     "passed": true
   },
@@ -31,8 +31,14 @@
     "passed": true
   },
   "V13b4_local_invariance": {
-    "norm_diff_max": 4.263256414560601e-14,
+    "norm_diff_max": 4.973799150320701e-14,
     "plaq_diff_max": 4.440892098500626e-16,
+    "passed": true
+  },
+  "V13b5_field_gauge_covariance": {
+    "field_residual_abs": 1.99936494731956e-15,
+    "field_residual_rel": 3.298920105328074e-15,
+    "q_scale": 0.6060664955451309,
     "passed": true
   }
 }

@@ -308,35 +308,30 @@ def gauge_transform_links(U, Vfield):
 
 def parallel_transport(q, U):
     """
-    Half-step covariant kinetic transport — apply the link variables.
+    DEPRECATED — gauge-variant; retained only as a named alias so that
+    any external caller gets the old (broken) behaviour rather than a
+    silent AttributeError.  Do not call from new code.
 
-    For cold links (U_μ ≡ I) this is the identity.  For general U_μ it
-    rotates the colour triplet of every (flavour, Dirac component) at
-    every cell by an O(1) SU(3) phase determined by the local link.
+    The original implementation averaged the forward link matrices at
+    each site, projected to the nearest unitary, and applied the result
+    as a local SU(3) rotation q(x) → V_proj(x) q(x).  Under a local
+    gauge transformation V(x), the average Σ_μ U_μ(x) V†(x+μ̂) does
+    NOT factor as V(x)·[avg U_μ(x)]·V†(x), so this step was
+    gauge-variant for any non-global gauge transformation.
 
-    This is the operator that distinguishes the gauge-invariant
-    parallel-transported quark step from the colour-blind Dirac step.
-    The shift / FFT kinetic step itself is unchanged.
-
-    Strang convention: this routine multiplies q(x) by an x-dependent
-    SU(3) matrix that is the half-step's symmetric average of the
-    forward link rotations.  In the cold-link limit it reduces to the
-    identity, and the V13a regression contract holds bit-for-bit.
+    Use covariant_half_step instead.
     """
-    # For V13 the link multiplication is folded into the kinetic step
-    # via covariant shifts.  See covariant_shift below.  This standalone
-    # routine is the diagnostic / per-cell action; in the V13a cold-link
-    # regression it must be the identity.
+    import warnings
+    warnings.warn(
+        "parallel_transport is gauge-variant and deprecated. "
+        "Use covariant_half_step instead.",
+        DeprecationWarning, stacklevel=2,
+    )
     Vfield = np.zeros(U.shape[1:], dtype=complex)
-    # Build V(x) = symmetric Hermitianised average of forward links.
-    # For cold links this is exactly I.
     n_dir = U.shape[0]
     for mu in range(n_dir):
         Vfield += U[mu]
     Vfield /= n_dir
-    # Project to nearest unitary by polar decomposition (gauge-invariant).
-    # For cold links the average is already I, so the projection is exact.
-    # For random non-cold links we do a per-cell polar projection.
     Lx, Ly = Vfield.shape[:2]
     Vfield_proj = np.empty_like(Vfield)
     for i in range(Lx):
@@ -345,6 +340,49 @@ def parallel_transport(q, U):
             U_, _, Vh = np.linalg.svd(X)
             Vfield_proj[i, j] = U_ @ Vh
     return gauge_transform_quark(q, Vfield_proj)
+
+
+def covariant_half_step(q, U):
+    """
+    Gauge-covariant kinetic half-step via symmetric covariant shift sum.
+
+    Computes
+
+        q_cov(x) = (1 / 2 n_dir) Σ_μ [ U_μ(x) q(x+μ̂)
+                                        + U_{-μ}(x) q(x-μ̂) ]
+
+    using covariant_shift for each direction and sign.  Every term is
+    of the form U_μ(x) q(x+μ̂), which transforms as V(x) · [term] under
+    a local gauge transform V(x), so the sum inherits gauge covariance:
+
+        q_cov(x)  →  V(x) q_cov(x)   for any local V(x) ∈ SU(3).
+
+    Cold-link limit (U_μ ≡ I):
+
+        q_cov(x) = (1 / 2 n_dir) Σ_μ [ q(x+μ̂) + q(x-μ̂) ]
+
+    i.e.\ the symmetric nearest-neighbour average — no colour mixing.
+    This is NOT the identity (it is the discrete Laplacian stencil
+    shifted by 1), so V13a's bit-for-bit contract with
+    dirac_step_2d_splitstep no longer holds; see test_su3_noether.py
+    gate V13a (updated) for the correct cold-link reference.
+
+    Unitarity note: the eigenvalue spectrum of the cold-link step is
+    (cos k_x + cos k_y)/2 ⊂ [-1, 1], so this step is NOT unitary.
+    For frozen non-cold links expect moderate norm drift per tick.
+    Full unitarity requires exponentiating the covariant Hamiltonian
+    (deferred to V15 with dynamical gluons).
+    """
+    n_dir = U.shape[0]
+    # Accumulate covariant shifts in all directions.
+    q_acc = {k: np.zeros_like(v) for k, v in q.items()}
+    for mu in range(n_dir):
+        q_fwd = covariant_shift(q, U, mu, direction='+')
+        q_bwd = covariant_shift(q, U, mu, direction='-')
+        for k in q_acc:
+            q_acc[k] = q_acc[k] + q_fwd[k] + q_bwd[k]
+    factor = 1.0 / (2 * n_dir)
+    return {k: factor * v for k, v in q_acc.items()}
 
 
 def covariant_shift(q, U, mu, direction='+'):
@@ -386,6 +424,211 @@ def covariant_shift(q, U, mu, direction='+'):
 #  Strong-sector stepper (cold and frozen-link cases)
 # ══════════════════════════════════════════════════════════════════
 
+# ══════════════════════════════════════════════════════════════════
+#  Covariant Cayley (Crank-Nicolson) kinetic step  (2026-06-10)
+#  ──────────────────────────────────────────────────────────────────
+#  Replaces the gauge-variant parallel_transport + FFT architecture
+#  for non-cold links.  Cold links still use the fast FFT path to
+#  preserve the exact QCA (arccos) dispersion.
+#
+#  Physics:  the lattice covariant momentum
+#
+#      p_μ η(x) = (−i/2)[ U_μ(x) η(x+μ̂) − U†_μ(x−μ̂) η(x−μ̂) ]
+#
+#  is Hermitian (D_μ† = −D_μ, so p_μ = (−i/2)D_μ gives p_μ† = p_μ).
+#  The one-directional Weyl Hamiltonian H_μ = σ_x p_μ is Hermitian.
+#
+#  Crank-Nicolson for i ∂_t η = H_μ η  over a time step τ:
+#
+#      (I + A) η_new = (I − A) η_old,    A = (τ/2) i H_μ = κ σ_x D_μ
+#
+#  with  κ = τ/4  (because  iH_μ = i σ_x (−i/2) D_μ = (1/2) σ_x D_μ,
+#  so  (τ/2) iH_μ = (τ/4) σ_x D_μ).
+#
+#  For A† = −A (skew-Hermitian), (I+A)^{-1}(I−A) is unitary:
+#      U†U = (I+A)(I−A²)^{−1}(I−A) = (I+A)(I−A)(I−A²)^{-1}
+#           = (I−A²)(I−A²)^{-1} = I   ✓
+#
+#  Right-handed χ uses κ → −κ (opposite chirality, same formula).
+#
+#  Local gauge covariance: D_μ q → V(x) D_μ q under
+#  q(x) → V(x)q(x), U_μ(x) → V(x)U_μ(x)V†(x+μ̂), so the solve
+#  rotates site-consistently: q_new → V(x) q_new.  ✓
+# ══════════════════════════════════════════════════════════════════
+
+def _is_cold_links(U, tol=1e-10):
+    """Return True if every link is within tol of the 3×3 identity."""
+    I3 = np.eye(3, dtype=complex)
+    return all(np.max(np.abs(U[mu] - I3)) < tol for mu in range(U.shape[0]))
+
+
+def _cov_cayley_1dir(eu_trip, ed_trip, cu_trip, cd_trip, U_mu, mu, kappa):
+    """
+    Covariant Cayley half-step in one lattice direction for all colours.
+
+    Solves, for each 1D slice perpendicular to direction mu:
+
+        Left-handed  η:  (I + κ σ_x D_μ) η_new = (I − κ σ_x D_μ) η_old
+        Right-handed χ:  (I − κ σ_x D_μ) χ_new = (I + κ σ_x D_μ) χ_old
+
+    with  D_μ ψ(x) = U_μ(x) ψ(x+μ̂) − U†_μ(x−μ̂) ψ(x−μ̂),
+    and κ = dt_step / 4.  The system is a cyclic block-tridiagonal
+    (6L × 6L, blocks of size 3 in colour) solved with np.linalg.solve.
+
+    Parameters
+    ----------
+    eu_trip, ed_trip : (Lx, Ly, 3) — η spin-↑/↓ colour triplets
+    cu_trip, cd_trip : (Lx, Ly, 3) — χ spin-↑/↓ colour triplets
+    U_mu : (Lx, Ly, 3, 3) — link field for direction mu
+    mu   : 0 = x-direction (shift along axis 0), 1 = y-direction
+    kappa : float — coupling, dt_step / 4  (positive; χ gets −kappa)
+
+    Returns (eu_new, ed_new, cu_new, cd_new), same shapes.
+    """
+    Lx, Ly = eu_trip.shape[:2]
+    L_solve = Lx if mu == 0 else Ly
+    L_loop  = Ly if mu == 0 else Lx
+    N = 6 * L_solve   # 2 spin × 3 colour per site
+
+    eu_new = np.empty_like(eu_trip)
+    ed_new = np.empty_like(ed_trip)
+    cu_new = np.empty_like(cu_trip)
+    cd_new = np.empty_like(cd_trip)
+
+    xs  = np.arange(L_solve)
+    xps = (xs + 1) % L_solve
+    xms = (xs - 1) % L_solve
+
+    for i_loop in range(L_loop):
+        if mu == 0:
+            su = eu_trip[:, i_loop, :]   # (L_solve, 3) η↑
+            sd = ed_trip[:, i_loop, :]   # (L_solve, 3) η↓
+            tu = cu_trip[:, i_loop, :]   # (L_solve, 3) χ↑
+            td = cd_trip[:, i_loop, :]   # (L_solve, 3) χ↓
+            Umu_s = U_mu[:, i_loop, :, :]  # (L_solve, 3, 3)
+        else:
+            su = eu_trip[i_loop, :, :]
+            sd = ed_trip[i_loop, :, :]
+            tu = cu_trip[i_loop, :, :]
+            td = cd_trip[i_loop, :, :]
+            Umu_s = U_mu[i_loop, :, :, :]
+
+        # Link matrices for every site
+        U_fwd = Umu_s                                           # (L, 3, 3)
+        U_bwd = np.conj(Umu_s[xms].transpose(0, 2, 1))         # (L, 3, 3)
+
+        def _solve_one(spin_u, spin_d, kp):
+            """Solve (I + kp σ_x D) [u,d]_new = (I − kp σ_x D) [u,d]_old."""
+            # --- RHS (vectorised) ---
+            b = np.empty(N, dtype=complex)
+            b_r = b.reshape(L_solve, 6)
+            b_r[:, :3] = spin_u - kp * (
+                np.einsum('xij,xj->xi', U_fwd, spin_d[xps])
+                - np.einsum('xij,xj->xi', U_bwd, spin_d[xms]))
+            b_r[:, 3:] = spin_d - kp * (
+                np.einsum('xij,xj->xi', U_fwd, spin_u[xps])
+                - np.einsum('xij,xj->xi', U_bwd, spin_u[xms]))
+
+            # --- LHS matrix (I + off-diagonal blocks) ---
+            A = np.eye(N, dtype=complex)
+            for x in range(L_solve):
+                xp, xm = xps[x], xms[x]
+                ru = slice(6 * x,      6 * x + 3)   # spin-↑ block at x
+                rd = slice(6 * x + 3,  6 * x + 6)   # spin-↓ block at x
+                rpu = slice(6 * xp,     6 * xp + 3)  # spin-↑ at x+1
+                rpd = slice(6 * xp + 3, 6 * xp + 6)  # spin-↓ at x+1
+                rmu = slice(6 * xm,     6 * xm + 3)
+                rmd = slice(6 * xm + 3, 6 * xm + 6)
+                A[ru, rpd] += kp * U_fwd[x]
+                A[ru, rmd] -= kp * U_bwd[x]
+                A[rd, rpu] += kp * U_fwd[x]
+                A[rd, rmu] -= kp * U_bwd[x]
+
+            sol = np.linalg.solve(A, b)
+            s_r = sol.reshape(L_solve, 6)
+            return s_r[:, :3].copy(), s_r[:, 3:].copy()
+
+        eu_s, ed_s = _solve_one(su, sd, kappa)
+        cu_s, cd_s = _solve_one(tu, td, -kappa)   # χ: opposite chirality
+
+        if mu == 0:
+            eu_new[:, i_loop, :] = eu_s
+            ed_new[:, i_loop, :] = ed_s
+            cu_new[:, i_loop, :] = cu_s
+            cd_new[:, i_loop, :] = cd_s
+        else:
+            eu_new[i_loop, :, :] = eu_s
+            ed_new[i_loop, :, :] = ed_s
+            cu_new[i_loop, :, :] = cu_s
+            cd_new[i_loop, :, :] = cd_s
+
+    return eu_new, ed_new, cu_new, cd_new
+
+
+def _covariant_kinetic_half_cayley(q, U, dt_half):
+    """
+    Strang-split covariant kinetic half-step (Cayley) for all (f, c).
+
+    Strang decomposition of exp(−i(H_x + H_y) dt_half):
+
+        K_x(dt_half/2) → K_y(dt_half) → K_x(dt_half/2)
+
+    where K_μ(τ) uses κ = τ/4. Applied to all flavours simultaneously
+    via colour-triplet views.
+    """
+    kappa_x = dt_half / 8.0   # (dt_half/2) / 4
+    kappa_y = dt_half / 4.0   # dt_half / 4
+
+    for kappa, mu in ((kappa_x, 0), (kappa_y, 1), (kappa_x, 0)):
+        for f in FLAVOURS:
+            eu_t = _colour_triplet(q, f, 'eu')
+            ed_t = _colour_triplet(q, f, 'ed')
+            cu_t = _colour_triplet(q, f, 'cu')
+            cd_t = _colour_triplet(q, f, 'cd')
+            eu_n, ed_n, cu_n, cd_n = _cov_cayley_1dir(
+                eu_t, ed_t, cu_t, cd_t, U[mu], mu, kappa)
+            _set_colour_triplet(q, f, 'eu', eu_n)
+            _set_colour_triplet(q, f, 'ed', ed_n)
+            _set_colour_triplet(q, f, 'cu', cu_n)
+            _set_colour_triplet(q, f, 'cd', cd_n)
+    return q
+
+
+def _covariant_full_step_cayley(q, U, m_flavour, dt):
+    """
+    Full covariant SU(3) Dirac step (Cayley kinetic + F27 mass).
+
+    Strang split: kinetic(dt/2) → mass(dt) → kinetic(dt/2).
+
+    Both sub-steps are locally gauge-covariant:
+      • kinetic: built entirely from covariant shifts → V(x) q(x) covariant ✓
+      • mass (θ≡0): local, colour-blind rotation → trivially covariant ✓
+
+    Both sub-steps are unitary (Cayley transform; mass = SU(2) rotation),
+    so the full step conserves ‖q‖² exactly.
+    """
+    q = _covariant_kinetic_half_cayley(q, U, dt / 2.0)
+
+    sample = next(iter(q.values()))
+    zero_theta = np.zeros(sample.shape, dtype=float)
+    for f in FLAVOURS:
+        m = float(m_flavour.get(f, 0.0))
+        if m == 0.0:
+            continue
+        for c in COLOURS:
+            eu_n, ed_n, cu_n, cd_n = cdir.mass_step_1flavor_u1(
+                q[(f, c, 'eu')], q[(f, c, 'ed')],
+                q[(f, c, 'cu')], q[(f, c, 'cd')],
+                zero_theta, m, dt)
+            q[(f, c, 'eu')] = eu_n
+            q[(f, c, 'ed')] = ed_n
+            q[(f, c, 'cu')] = cu_n
+            q[(f, c, 'cd')] = cd_n
+
+    q = _covariant_kinetic_half_cayley(q, U, dt / 2.0)
+    return q
+
+
 def step_strong_2d(q, U, m_flavour=None, dt=1.0):
     """
     One full strong-sector tick on a 3-flavour, 3-colour quark field.
@@ -398,54 +641,57 @@ def step_strong_2d(q, U, m_flavour=None, dt=1.0):
         Default: massless ({'u': 0, 'd': 0, 's': 0}).
     dt : time step, passed straight through to the Dirac stepper.
 
-    Algorithm (Strang-symmetric, cold-link reducible):
+    Algorithm (2026-06-10 — fully covariant):
+    -----------------------------------------
+    Cold links (U_μ ≡ I):
+        Each (flavour, colour) copy evolves independently via the exact-QCA
+        spectral propagator `dirac_step_2d_splitstep` (arccos dispersion).
+        This is the V13a regression contract: bit-for-bit identical to 9
+        independent per-(f,c) Dirac steps.
 
-        1. Half-step parallel transport: q → P_½ q with P_½ from link avg.
-        2. Kinetic step on each (flavour, colour) copy:
-                (η, χ) ← dirac_step_2d_splitstep(η, χ, m = m_flavour[f])
-        3. Half-step parallel transport again.
+    Non-cold links:
+        Locally SU(3)-gauge-covariant Cayley (Crank-Nicolson) step via
+        `_covariant_full_step_cayley`.  Algorithm:
+            kinetic(dt/2) [Strang K_x K_y K_x Cayley]
+            → mass(dt)    [local F27 U(1) rotation]
+            → kinetic(dt/2)
+        The kinetic step dispatches through `_cov_cayley_1dir`, which
+        builds and solves a 6L × 6L cyclic block-tridiagonal system for
+        each row slice perpendicular to the direction being integrated.
+        Every term is a covariant shift U_μ(x) q(x+μ̂), so the step
+        commutes exactly with any local V(x) ∈ SU(3).  Unitary by the
+        Cayley-transform unitarity argument.  (V13b5 PASS.)
 
-    Cold-link limit (U_μ ≡ I): step 1 and step 3 are the identity; the
-    result is bit-for-bit 9 independent (per-flavour, per-colour) Dirac
-    steps. This is the V13a regression contract.
-
-    Note: this is the *frozen-link* stepper — the links do NOT update.
+    Note: frozen-link stepper — links do NOT update here.
     Dynamical gluons live in V15 (separate routine).
 
-    History — Higgs–Yukawa path removed 2026-05-26
-    -----------------------------------------------
-    The `phi_field` / `yukawa` per-cell-mass branch that previously
-    sat inside this function was retired in the F40/F41 cleanup. The
-    project's adopted quark mass mechanism is now Ludwig's F27 chiral
-    complex mass via `quark_mass_step_f27` / `step_strong_2d_complex_mass`
-    (see F40 / FG-2). For any test that needs a position-dependent
-    mass profile (e.g. a Klein-paradox-style mass barrier), call the
-    primitive `cdir.dirac_step_2d_varm_complex_splitstep` directly.
+    History
+    -------
+    2026-05-26: Higgs–Yukawa path removed; F27 mass adopted.
+    2026-06-10: parallel_transport (gauge-variant) → covariant_half_step
+                (covariant but non-unitary).
+    2026-06-10: covariant_half_step + FFT → Cayley for non-cold links
+                (locally covariant AND unitary; V13b5 PASS).
     """
     if m_flavour is None:
         m_flavour = {'u': 0.0, 'd': 0.0, 's': 0.0}
 
-    # ── Half-step parallel transport ───────────────────────────────
-    q = parallel_transport(q, U)
+    if _is_cold_links(U):
+        # ── Cold-link fast path: exact-QCA FFT per (f, c) ─────────
+        for f in FLAVOURS:
+            m = m_flavour.get(f, 0.0)
+            for c in COLOURS:
+                eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_2d_splitstep(
+                    q[(f, c, 'eu')], q[(f, c, 'ed')],
+                    q[(f, c, 'cu')], q[(f, c, 'cd')], m=m, dt=dt)
+                q[(f, c, 'eu')] = eu_n
+                q[(f, c, 'ed')] = ed_n
+                q[(f, c, 'cu')] = cu_n
+                q[(f, c, 'cd')] = cd_n
+    else:
+        # ── Non-cold: fully covariant Cayley step ─────────────────
+        q = _covariant_full_step_cayley(q, U, m_flavour, dt)
 
-    # ── Kinetic step on each (flavour, colour) copy ────────────────
-    for f in FLAVOURS:
-        m = m_flavour.get(f, 0.0)
-        for c in COLOURS:
-            eu = q[(f, c, 'eu')]
-            ed = q[(f, c, 'ed')]
-            cu = q[(f, c, 'cu')]
-            cd = q[(f, c, 'cd')]
-            eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_2d_splitstep(
-                eu, ed, cu, cd, m=m, dt=dt
-            )
-            q[(f, c, 'eu')] = eu_n
-            q[(f, c, 'ed')] = ed_n
-            q[(f, c, 'cu')] = cu_n
-            q[(f, c, 'cd')] = cd_n
-
-    # ── Second half-step parallel transport ────────────────────────
-    q = parallel_transport(q, U)
     return q
 
 
@@ -772,27 +1018,39 @@ def step_strong_2d_complex_mass(q, U, theta_flavour=None, m_flavour=None, dt=1.0
         zero_theta = np.zeros(sample.shape, dtype=float)
         theta_flavour = {f: zero_theta for f in FLAVOURS}
 
-    # Half-step SU(3) parallel transport
-    q = parallel_transport(q, U)
+    if _is_cold_links(U):
+        # Cold-link fast path: exact-QCA FFT per (f, c)
+        for f in FLAVOURS:
+            m = float(m_flavour.get(f, 0.0))
+            theta = theta_flavour.get(f, np.zeros(next(iter(q.values())).shape))
+            for c in COLOURS:
+                eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_complex_mass_1flavor(
+                    q[(f, c, 'eu')], q[(f, c, 'ed')],
+                    q[(f, c, 'cu')], q[(f, c, 'cd')],
+                    theta, m, dt)
+                q[(f, c, 'eu')] = eu_n
+                q[(f, c, 'ed')] = ed_n
+                q[(f, c, 'cu')] = cu_n
+                q[(f, c, 'cd')] = cd_n
+    else:
+        # Non-cold: Cayley kinetic half-steps + F27 θ-mass
+        q = _covariant_kinetic_half_cayley(q, U, dt / 2.0)
+        sample = next(iter(q.values()))
+        zero_theta = np.zeros(sample.shape, dtype=float)
+        for f in FLAVOURS:
+            m = float(m_flavour.get(f, 0.0))
+            theta = theta_flavour.get(f, zero_theta)
+            for c in COLOURS:
+                eu_n, ed_n, cu_n, cd_n = cdir.mass_step_1flavor_u1(
+                    q[(f, c, 'eu')], q[(f, c, 'ed')],
+                    q[(f, c, 'cu')], q[(f, c, 'cd')],
+                    theta, m, dt)
+                q[(f, c, 'eu')] = eu_n
+                q[(f, c, 'ed')] = ed_n
+                q[(f, c, 'cu')] = cu_n
+                q[(f, c, 'cd')] = cd_n
+        q = _covariant_kinetic_half_cayley(q, U, dt / 2.0)
 
-    # F27 complex-mass kinetic step per (flavour, colour)
-    sample = next(iter(q.values()))
-    zero_theta = np.zeros(sample.shape, dtype=float)
-    for f in FLAVOURS:
-        m = float(m_flavour.get(f, 0.0))
-        theta = theta_flavour.get(f, zero_theta)
-        for c in COLOURS:
-            eu_n, ed_n, cu_n, cd_n = cdir.dirac_step_complex_mass_1flavor(
-                q[(f, c, 'eu')], q[(f, c, 'ed')],
-                q[(f, c, 'cu')], q[(f, c, 'cd')],
-                theta, m, dt)
-            q[(f, c, 'eu')] = eu_n
-            q[(f, c, 'ed')] = ed_n
-            q[(f, c, 'cu')] = cu_n
-            q[(f, c, 'cd')] = cd_n
-
-    # Half-step SU(3) parallel transport
-    q = parallel_transport(q, U)
     return q
 
 
@@ -1151,8 +1409,9 @@ def covariant_quark_doublet_step_2d(q, U_color, W_links,
     # The SU(3) and SU(2)_L gauge sectors are independent; we apply the
     # SU(3) transport before/after the doublet step exactly as in
     # step_strong_2d.
+    # SU(3) colour transport (replaces gauge-variant parallel_transport, 2026-06-10)
     if U_color is not None:
-        q = parallel_transport(q, U_color)
+        q = covariant_half_step(q, U_color)
 
     # ─ Strang: K(dt/2) → M(dt) → K(dt/2) ─
     q = apply_kinetic_half(q, 0.5 * dt)
@@ -1160,5 +1419,5 @@ def covariant_quark_doublet_step_2d(q, U_color, W_links,
     q = apply_kinetic_half(q, 0.5 * dt)
 
     if U_color is not None:
-        q = parallel_transport(q, U_color)
+        q = covariant_half_step(q, U_color)
     return q

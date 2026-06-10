@@ -8,7 +8,7 @@
   },
   "n_pass": 6,
   "n_total": 6,
-  "elapsed_s": 0.59,
+  "elapsed_s": 0.47,
   "results": {
     "L4a_exact_canonical_deflection": {
       "pass": true,

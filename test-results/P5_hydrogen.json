@@ -1,0 +1,171 @@
+{
+  "phase": "P5",
+  "title": "hydrogen atom \u2014 Coulomb bound state, Rydberg series, Dirac fine structure",
+  "checks": {
+    "A1 Ry(Ps)/Ry(H_inf) = 1/2 (reduced mass)": {
+      "residual": 0.0,
+      "target": 1e-09,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "A2 positronium ground \u2248 -6.803 eV": {
+      "residual": 0.00012344448251866424,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "A3 positronium 1/n^2 series (n=1..3)": {
+      "residual": 2.4990419190240587e-05,
+      "target": 0.0005,
+      "tier": "grid",
+      "status": "PASS"
+    },
+    "B  E_n[Ry] = -1/n^2 for n=1..5": {
+      "residual": 0.0001561491526755887,
+      "target": 0.001,
+      "tier": "grid",
+      "status": "PASS"
+    },
+    "C  l-degeneracy (spread within n)": {
+      "residual": 1.3016042804542272e-05,
+      "target": 0.002,
+      "tier": "grid",
+      "status": "PASS"
+    },
+    "D1 Ry(H) matches reduced-mass CODATA": {
+      "residual": 1.1377953539642106e-12,
+      "target": 1e-05,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D2 ground state \u2248 -13.6 eV": {
+      "residual": 0.00015708557186696964,
+      "target": 0.001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "D3 Bohr radius \u2248 0.0529 nm": {
+      "residual": 0.0005450154844530025,
+      "target": 0.001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E1 <r>_1s = 1.5 a0": {
+      "residual": 2.4992293325309944e-05,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E2 1s ~ x e^{-x} (slope -1)": {
+      "residual": 1.6660363068909945e-05,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "E3 node count = n-l-1": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
+    },
+    "F1 Sommerfeld == O((Za)^4) series": {
+      "residual": 4.60063475119518e-10,
+      "target": 1e-06,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "F2 1s_1/2 \u2248 -13.6057 eV": {
+      "residual": 1.331319348441872e-05,
+      "target": 0.0001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "G  numerical Dirac == Sommerfeld (rel binding)": {
+      "residual": 1.2699666439959404e-06,
+      "target": 0.0001,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "H1 splitting \u2248 10.95 GHz": {
+      "residual": 0.0017642999334756113,
+      "target": 0.005,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "H2 splitting \u221d alpha^4 (absolute)": {
+      "residual": 8.323004467669648e-05,
+      "target": 0.1,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "H3 splitting/binding \u221d alpha^2 (relative)": {
+      "residual": 4.007265141403593e-05,
+      "target": 0.1,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "I  2s_1/2 == 2p_1/2 (same |kappa|)": {
+      "residual": 0.0,
+      "target": 1e-14,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "J1 ground state converges toward -1 Ry": {
+      "residual": 1.405859458469827e-05,
+      "target": 0.0005,
+      "tier": "grid",
+      "status": "PASS"
+    },
+    "J2 finer grid is more accurate": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "structural",
+      "status": "PASS"
+    }
+  },
+  "derived": {
+    "m_e_MeV": 0.51099895,
+    "alpha": 0.0072973525692838015,
+    "m_p_MeV": 938.27208816,
+    "mu_H_MeV": 0.5107208027575896,
+    "Ry_Ps_eV": 6.80284656150474,
+    "positronium_ground_eV": -6.802676555517482,
+    "series_worst_dev_Ry": 0.0001561491526755887,
+    "l_degeneracy_worst_Ry": 1.3016042804542272e-05,
+    "Ry_H_eV": 13.598287264302241,
+    "E_ground_eV": -13.596163903268081,
+    "a0_nm": 0.05294654096590164,
+    "r_exp_1s_a0": 1.5000249922933253,
+    "slope_1s": -0.9999833396369311,
+    "nodes": {
+      "1s": 0,
+      "2s": 1,
+      "3s": 2,
+      "2p": 0,
+      "3p": 1,
+      "4p": 2,
+      "3d": 0,
+      "4d": 1,
+      "5d": 2
+    },
+    "E_1s_dirac_eV": -13.605874258219036,
+    "dirac_num_worst_rel": 1.2699666439959404e-06,
+    "split_2p_ueV": 45.284103010079235,
+    "split_2p_GHz": 10.949647394029705,
+    "alpha_slope_abs": 4.000083230044677,
+    "alpha_slope_rel": 2.000040072651414,
+    "dirac_2s_2p_degeneracy": 0.0,
+    "E1s_N3000_Ry": -0.9999000866016414,
+    "E1s_N8000_Ry": -0.9999859414054153
+  },
+  "notes": [
+    "HEADLINE (D): the hydrogen ground state comes out at -13.60 eV from the model's own electron mass m_e (P0/F120-F121) and the electromagnetic coupling alpha alone \u2014 Ry = (1/2) mu c^2 alpha^2 \u2014 with no further input. The Bohr radius (0.0529 nm) and the full -Ry/n^2 Rydberg series follow.",
+    "ENGINE: ca_atom.py is the attractive-1/r analogue of the F74 contact two-body solver \u2014 a real symmetric tridiagonal radial Coulomb eigenproblem. It reproduces E_n[Ry]=-1/n^2 (B) with the exact Coulomb l-degeneracy (C, the accidental SO(4) symmetry) to the grid floor, and the correct 1s shape, <r>=1.5 a0, and n-l-1 node structure (E).",
+    "POSITRONIUM (A): the e+e- two-body problem reduces in the relative coordinate to the same 1/r solver with mu=m_e/2, giving EXACTLY half the infinite-mass hydrogen spectrum (ratio 0.5 to 1e-9) and a ground state of -6.803 eV. This de-risks the two-body reduction before the heavy proton.",
+    "FINE STRUCTURE (F,G,H): the relativistic splitting is a PREDICTION of the DIRAC (not Schr\u00f6dinger) kinetic operator. The exact Dirac-Coulomb (Sommerfeld) spectrum matches its O((Za)^4) expansion (F) and is reproduced by a hand-rolled numerical radial-Dirac integrator (G), so the splitting is a genuine solve. The 2p_{3/2}-2p_{1/2} gap is the measured 10.95 GHz / 45.3 ueV (H1) and scales as alpha^4 absolute / alpha^2 relative to the binding (H2,H3) \u2014 the defining fine-structure signature.",
+    "LAMB SHIFT IS BEYOND DIRAC (I): in pure Dirac-Coulomb 2s_{1/2} and 2p_{1/2} (same |kappa|=1) are EXACTLY degenerate (to 1e-14). The observed 2s-2p Lamb shift is a radiative QED effect (vacuum polarisation + self-energy) \u2014 the open QFT-4 item in first-gen-completeness.md \u00a75.4 \u2014 not part of the one-body Dirac problem solved here.",
+    "CALIBRATION (honest): m_e is a model anchor (P0/F120-F121); alpha is the one empirical EM coupling (the P5 analogue of P4's g_A); m_p sets the 0.05% reduced-mass shift. Everything else \u2014 the 1/n^2 series, l-degeneracy, the absolute 13.6 eV, the alpha^2 fine structure, and the Dirac 2s-2p degeneracy \u2014 is a prediction. P5 is independent of the QCD chain (needs only P0 + EM).",
+    "LATTICE CAVEAT (roadmap): a full 3D real-space lattice Coulomb solve has known short-distance 1/r regularisation issues and the bound-state energy leans on the lattice spacing a (P6); the partial-wave-reduced radial solver used here is the standard, accurate route and sidesteps that \u2014 the positronium-first check confirms the two-body reduction is faithful."
+  ],
+  "overall": "PASS"
+}

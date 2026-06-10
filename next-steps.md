@@ -227,10 +227,12 @@ All from project-audit-inputs-dynamism
 
 - ~~can we review .npz files? can we get casim to do a "dump/results export" of a checkpoint to a json file for claude to read? I ran a particle field first gen to t13160 and want you to review it.~~
 
-- ~~conduct a project audit and verify that: ~~
-  - ~~we do not have any "input" values that are not derived within the system.~~
-  - ~~every field is fully dynamical and particle interaction is correctly functioning.~~
-  - ~~if there are still input values that aren't derived, provide a detailed outline for each and what avenue is needed to source them.~~
+- conduct a project audit and verify that: 
+  - we do not have any "input" values that are not derived within the system.
+  - every field is fully dynamical and particle interaction is correctly functioning.
+  - if there are still input values that aren't derived, provide a detailed outline for each and what avenue is needed to source them.
+
+- ~~execute the build of p5 (atoms) in roadmap-matter-binding.md and test thoroughly.~~
 
 ## CASIM Structure
 

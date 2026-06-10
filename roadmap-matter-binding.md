@@ -114,7 +114,9 @@ P6 scale & SI units  ── cross-cutting, gates every absolute number in P2–P
 
 ---
 
-### P5 — Atoms: electron bound to a nucleus by EM (hydrogen first)
+### P5 — Atoms: electron bound to a nucleus by EM (hydrogen first)  ✅ DONE 2026-06-09 (F125)
+
+*Built: `ca-simulation/ca_atom.py` + `model-tests/test_P5_hydrogen.py` (20/20 PASS). The atom delivered as the attractive-$1/r$ generalisation of the F74 contact solver — a real symmetric tridiagonal radial Coulomb eigenproblem. HEADLINE: the hydrogen ground state is $-13.596$ eV from the model's own $m_e$ (P0/F120–F121) and the EM coupling $\alpha$ alone ($\mathrm{Ry}=\tfrac12\mu c^2\alpha^2$, matches reduced-mass CODATA to $1.1\times10^{-12}$), with the full $-\mathrm{Ry}/n^2$ series, exact Coulomb $\ell$-degeneracy, $1s\sim xe^{-x}$, $\langle r\rangle_{1s}=1.5a_0$, $n{-}l{-}1$ nodes, Bohr radius $0.0529$ nm. Positronium ($\mu=m_e/2$) is exactly half (ratio $0.5$ to $10^{-9}$, ground $-6.803$ eV) — the two-body de-risk. Fine structure from the DIRAC operator: Sommerfeld == $O((Z\alpha)^4)$ series; a hand-rolled numerical radial-Dirac integrator reproduces it ($\le1.3\times10^{-6}$); the $2p_{3/2}{-}2p_{1/2}$ splitting is the measured $10.95$ GHz scaling as $\alpha^4$/$\alpha^2$; and $2s_{1/2}{=}2p_{1/2}$ exactly (the $2s$–$2p$ Lamb shift is the beyond-Dirac QED/QFT-4 effect). $\alpha$ is the one external EM input. See F125.*
 
 **Goal.** The **atom** — an electron (P0) bound to a proton (P2) by the electromagnetic photon (F69 paired-spinor photon, the U(1) channel). Hydrogen ground state and spectrum.
 
@@ -132,7 +134,9 @@ P6 scale & SI units  ── cross-cutting, gates every absolute number in P2–P
 
 ### P6 — Scale & SI units (cross-cutting; gates every absolute MeV)  ✅ DONE (matter sector) 2026-06-09 (F123)
 
-*Built: `ca-simulation/ca_si_scale.py` + `model-tests/test_P6_si_scale.py` (10/10 PASS). CO-1 resolved with the project's adopted choice: the F79/F107 canonical geometric cell ($a=\sqrt{8\pi}\,3^{1/4}\ell_P$) fixes metre/second/$G$ (CODATA to $3\times10^{-8}$); a single QCD anchor $f_\pi=92.07$ MeV fixes the strong scale (the cell's $\hbar c/a=1.85\times10^{18}$ GeV is ~18 orders above hadrons — the F119 hierarchy). HEADLINE — the NJL constituent mass $m_c=309.5$ MeV gives the nucleon $3m_c=928.5$ MeV, within $-1.05\%$ of 938.27 (F97 made quantitative; resolves F122's $m_p/\sqrt\sigma$ overshoot). Light mesons within a few % on one anchor ($m_\pi=139.7$, $m_\rho=781.2$, $\langle\bar qq\rangle^{1/3}=-247.7$); $m_n-m_p=+1.51$ MeV (vs +1.293) needs no QCD anchor. OPEN: derive $\sqrt\sigma/f_\pi$ to unify the two QCD calibrations. See F123.*
+*Built: `ca-simulation/ca_si_scale.py` + `model-tests/test_P6_si_scale.py` (10/10 PASS). CO-1 resolved with the project's adopted choice: the F79/F107 canonical geometric cell ($a=\sqrt{8\pi}\,3^{1/4}\ell_P$) fixes metre/second/$G$ (CODATA to $3\times10^{-8}$); a single QCD anchor $f_\pi=92.07$ MeV fixes the strong scale (the cell's $\hbar c/a=1.85\times10^{18}$ GeV is ~18 orders above hadrons — the F119 hierarchy). HEADLINE — the NJL constituent mass $m_c=309.5$ MeV gives the nucleon $3m_c=928.5$ MeV, within $-1.05\%$ of 938.27 (F97 made quantitative; resolves F122's $m_p/\sqrt\sigma$ overshoot). Light mesons within a few % on one anchor ($m_\pi=139.7$, $m_\rho=781.2$, $\langle\bar qq\rangle^{1/3}=-247.7$); $m_n-m_p=+1.51$ MeV (vs +1.293) needs no QCD anchor. See F123.*
+
+*Follow-up (F124, 2026-06-09): the $\sqrt\sigma/f_\pi$ unification debt is now derived to ~12 %. Factoring $\sqrt\sigma/f_\pi=(\Lambda/f_\pi)(\sqrt\sigma/\Lambda)$: chiral $\Lambda/f_\pi=7.04$ exact (NJL/Pagels–Stokar), confinement $\sqrt\sigma/\Lambda=0.569$ from the F86/F88 condensate ($\sigma=2\pi v^2$) at the BZ-edge cutoff → $\sqrt\sigma/f_\pi=4.00$ vs empirical 4.56. Residual = the scale-setting (strong- vs weak-coupling) gap. `ca_qcd_scale_ratio.py` + `test_F124_qcd_scale_ratio.py` (6/6). See F124.*
 
 **Goal.** Turn ratios into physical masses/energies. **Everything absolute in P2–P5 depends on this.**
 

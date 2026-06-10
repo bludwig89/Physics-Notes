@@ -30,6 +30,19 @@ import ca_fft as _fft
 from ca_lattice import make_kgrid_3d as _kgrid3d
 from ca_bcc import bcc_dispersion, bcc_unitary, weyl_step_3d_bcc, BCC_C
 
+# ── JAX acceleration (optional) ──────────────────────────────────────────────
+_JAX_AVAILABLE = False
+_USE_JAX = False
+try:
+    import jax
+    import jax.numpy as jnp
+    _JAX_AVAILABLE = True
+except ImportError:
+    pass
+
+# Dispersion + kernel cache: keyed by shape-tuples to avoid per-tick recomputation
+_disp_cache: dict = {}
+
 # ═══════════════════════════════════════════════════════════════════
 #  BCC geometry constants
 # ═══════════════════════════════════════════════════════════════════
@@ -717,6 +730,100 @@ def _chiral_dispersions(shape):
     return Op, Om
 
 
+# ── Cached dispersion helpers (skip recomputation on every tick) ─────────────
+
+def _get_chiral_dispersions(shape):
+    """Cached _chiral_dispersions — computed once per (Lx, Ly, Lz) shape."""
+    key = ('chiral',) + shape
+    if key not in _disp_cache:
+        _disp_cache[key] = _chiral_dispersions(shape)
+    return _disp_cache[key]
+
+
+def _get_omega_even_cached(shape):
+    """Cached Omega_even for a given lattice shape."""
+    key = ('omega_even',) + shape
+    if key not in _disp_cache:
+        KX, KY, KZ = _kgrid3d(*shape)
+        _disp_cache[key] = _omega_even(KX, KY, KZ)
+    return _disp_cache[key]
+
+
+# ── JAX backend ───────────────────────────────────────────────────────────────
+
+def use_jax(enabled: bool = True) -> None:
+    """
+    Enable or disable the JAX-JIT backend for W-field propagation steps.
+
+    When True, w_propagation_step_spectral and w_massive_propagation_step_spectral
+    use a JIT-compiled JAX kernel.  Requires ``pip install jax``.  On CPU the
+    first call compiles (~0.5 s); subsequent calls run the compiled kernel.
+    On GPU (jax[cuda]) speedups of 10–100× are typical.
+    """
+    global _USE_JAX
+    if enabled and not _JAX_AVAILABLE:
+        raise RuntimeError("JAX not installed — run: pip install jax")
+    _USE_JAX = enabled
+
+
+_jax_kernels: dict = {}
+
+
+def _ensure_jax_kernels() -> None:
+    """Build (and JIT-compile) JAX propagation kernels on first call."""
+    if _jax_kernels:
+        return
+
+    @jax.jit
+    def _chiral_kernel(E_W, B_W, Op, Om):
+        """Batched chiral propagation step, JIT-compiled."""
+        E_k = jnp.fft.fftn(E_W, axes=(-3, -2, -1))
+        B_k = jnp.fft.fftn(B_W, axes=(-3, -2, -1))
+        Fp = E_k + 1j * B_k
+        Fm = E_k - 1j * B_k
+        Fp_new = jnp.exp(-1j * Op) * Fp
+        Fm_new = jnp.exp(+1j * Om) * Fm
+        E_new = jnp.fft.ifftn((Fp_new + Fm_new) * 0.5, axes=(-3, -2, -1)).real
+        B_new = jnp.fft.ifftn((Fp_new - Fm_new) * (-0.5j), axes=(-3, -2, -1)).real
+        return E_new, B_new
+
+    @jax.jit
+    def _massive_kernel(E_W, B_W, cos_e, sin_e):
+        """Batched massive-W propagation step, JIT-compiled."""
+        E_k = jnp.fft.fftn(E_W, axes=(-3, -2, -1))
+        B_k = jnp.fft.fftn(B_W, axes=(-3, -2, -1))
+        E_k_new = cos_e * E_k + sin_e * B_k
+        B_k_new = -sin_e * E_k + cos_e * B_k
+        E_new = jnp.fft.ifftn(E_k_new, axes=(-3, -2, -1)).real
+        B_new = jnp.fft.ifftn(B_k_new, axes=(-3, -2, -1)).real
+        return E_new, B_new
+
+    _jax_kernels['chiral'] = _chiral_kernel
+    _jax_kernels['massive'] = _massive_kernel
+
+
+def _get_jax_chiral_arrays(shape):
+    """Convert cached numpy dispersions to JAX arrays (once per shape)."""
+    key = ('jax_chiral',) + shape
+    if key not in _disp_cache:
+        Op_np, Om_np = _get_chiral_dispersions(shape)
+        _disp_cache[key] = (jnp.array(Op_np), jnp.array(Om_np))
+    return _disp_cache[key]
+
+
+def _get_jax_massive_arrays(shape, m_W, dt):
+    """Cached (cos_e, sin_e) JAX arrays for the massive propagation step."""
+    key = ('jax_massive', shape, float(m_W), float(dt))
+    if key not in _disp_cache:
+        Omega_even = _get_omega_even_cached(shape)
+        omega_eff = np.sqrt(float(m_W) ** 2 + Omega_even ** 2)
+        _disp_cache[key] = (
+            jnp.array(np.cos(omega_eff * float(dt))),
+            jnp.array(np.sin(omega_eff * float(dt))),
+        )
+    return _disp_cache[key]
+
+
 def w_propagation_step_chiral(E_W, B_W):
     """
     Chirality-faithful W-field propagation (F37).
@@ -730,18 +837,22 @@ def w_propagation_step_chiral(E_W, B_W):
     to ≤ 1e-13 relative drift for any grid size.
     """
     shape = E_W.shape[1:]
-    Op, Om = _chiral_dispersions(shape)
-    E_new = np.zeros_like(E_W)
-    B_new = np.zeros_like(B_W)
-    for a in range(3):
-        Ek = _fft.fftn(E_W[a])
-        Bk = _fft.fftn(B_W[a])
-        Fp = Ek + 1j * Bk   # F⁺ eigenstate  (eigenvalue exp(−iΩ⁺))
-        Fm = Ek - 1j * Bk   # F⁻ eigenstate  (eigenvalue exp(+iΩ⁻))
-        Fp_new = np.exp(-1j * Op) * Fp
-        Fm_new = np.exp(+1j * Om) * Fm
-        E_new[a] = _fft.ifftn((Fp_new + Fm_new) * 0.5).real
-        B_new[a] = _fft.ifftn((Fp_new - Fm_new) * (-0.5j)).real
+    # ── JAX-JIT path ─────────────────────────────────────────────────────────
+    if _USE_JAX:
+        _ensure_jax_kernels()
+        Op, Om = _get_jax_chiral_arrays(shape)
+        E_out, B_out = _jax_kernels['chiral'](jnp.array(E_W), jnp.array(B_W), Op, Om)
+        return np.array(E_out), np.array(B_out)
+    # ── NumPy path: batched FFT over isospin axis (no per-component loop) ────
+    Op, Om = _get_chiral_dispersions(shape)              # cached
+    E_k = _fft.fftn(E_W, axes=(-3, -2, -1))
+    B_k = _fft.fftn(B_W, axes=(-3, -2, -1))
+    Fp = E_k + 1j * B_k   # F⁺ eigenstate  (eigenvalue exp(−iΩ⁺))
+    Fm = E_k - 1j * B_k   # F⁻ eigenstate  (eigenvalue exp(+iΩ⁻))
+    Fp_new = np.exp(-1j * Op) * Fp
+    Fm_new = np.exp(+1j * Om) * Fm
+    E_new = _fft.ifftn((Fp_new + Fm_new) * 0.5, axes=(-3, -2, -1)).real
+    B_new = _fft.ifftn((Fp_new - Fm_new) * (-0.5j), axes=(-3, -2, -1)).real
     return E_new, B_new
 
 
@@ -1753,21 +1864,23 @@ def w_massive_propagation_step_spectral(E_W, B_W, m_W, dt=1.0):
     E_W_new, B_W_new : updated W fields.
     """
     shape = E_W.shape[1:]
-    KX, KY, KZ = _kgrid3d(*shape)
-    Omega_even = _omega_even(KX, KY, KZ)
+    # ── JAX-JIT path ─────────────────────────────────────────────────────────
+    if _USE_JAX:
+        _ensure_jax_kernels()
+        cos_j, sin_j = _get_jax_massive_arrays(shape, m_W, dt)
+        E_out, B_out = _jax_kernels['massive'](jnp.array(E_W), jnp.array(B_W), cos_j, sin_j)
+        return np.array(E_out), np.array(B_out)
+    # ── NumPy path: batched FFT + cached dispersion ───────────────────────────
+    Omega_even = _get_omega_even_cached(shape)           # cached
     omega_eff = np.sqrt(m_W**2 + Omega_even**2)
     cos_e = np.cos(omega_eff * dt)
     sin_e = np.sin(omega_eff * dt)
-
-    E_new = np.zeros_like(E_W)
-    B_new = np.zeros_like(B_W)
-    for a in range(3):
-        Ek = _fft.fftn(E_W[a])
-        Bk = _fft.fftn(B_W[a])
-        Ek_new = cos_e * Ek + sin_e * Bk
-        Bk_new = -sin_e * Ek + cos_e * Bk
-        E_new[a] = _fft.ifftn(Ek_new).real
-        B_new[a] = _fft.ifftn(Bk_new).real
+    E_k = _fft.fftn(E_W, axes=(-3, -2, -1))
+    B_k = _fft.fftn(B_W, axes=(-3, -2, -1))
+    E_k_new = cos_e * E_k + sin_e * B_k
+    B_k_new = -sin_e * E_k + cos_e * B_k
+    E_new = _fft.ifftn(E_k_new, axes=(-3, -2, -1)).real
+    B_new = _fft.ifftn(B_k_new, axes=(-3, -2, -1)).real
     return E_new, B_new
 
 

@@ -54,6 +54,8 @@ from ca_wmu import _f26_rotation_step
 
 ROOT3 = np.sqrt(3.0)
 
+_photon_disp_cache: dict = {}  # shape → (cos_Omega, sin_Omega)
+
 
 # ----------------------------------------------------------------------
 # Pair dispersion  Ω_pair(k) = ω⁺(k/2) + ω⁻(k/2)  (= Ω_even)
@@ -90,15 +92,17 @@ def photon_step_spectral(E, B):
     Returns (E_new, B_new), real, norm-conserving.
     """
     shape = E.shape[1:]
-    KX, KY, KZ = make_kgrid_3d(*shape)
-    E_new = np.zeros_like(E)
-    B_new = np.zeros_like(B)
-    for a in range(3):
-        ek = _fft.fftn(E[a])
-        bk = _fft.fftn(B[a])
-        ek2, bk2 = _f26_rotation_step(ek, bk, KX, KY, KZ)
-        E_new[a] = _fft.ifftn(ek2).real
-        B_new[a] = _fft.ifftn(bk2).real
+    # ── Cached even-law dispersion ─────────────────────────────────────────
+    if shape not in _photon_disp_cache:
+        KX, KY, KZ = make_kgrid_3d(*shape)
+        Omega = pair_dispersion(KX, KY, KZ)
+        _photon_disp_cache[shape] = (np.cos(Omega), np.sin(Omega))
+    cos_O, sin_O = _photon_disp_cache[shape]
+    # ── Batched FFT over all 3 polarisation components ─────────────────────
+    Ek = _fft.fftn(E, axes=(-3, -2, -1))
+    Bk = _fft.fftn(B, axes=(-3, -2, -1))
+    E_new = _fft.ifftn(cos_O * Ek + sin_O * Bk, axes=(-3, -2, -1)).real
+    B_new = _fft.ifftn(-sin_O * Ek + cos_O * Bk, axes=(-3, -2, -1)).real
     return E_new, B_new
 
 

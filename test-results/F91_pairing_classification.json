@@ -48,8 +48,8 @@
       "pass": true
     },
     "G3_even_octet_step_clean": {
-      "S_even": 0.0,
-      "norm_drift": 6.797297100180627e-15,
+      "S_even": 4.440892098500626e-16,
+      "norm_drift": 6.006913716438692e-15,
       "pass": true
     },
     "G3_chiral_gluon_unforced_contrast": {

@@ -64,6 +64,8 @@ import numpy as np
 import ca_fft as _fft          # multi-core FFT backend (scipy/pyfftw/numpy)
 from ca_lattice import make_kgrid_3d as _kgrid3d
 
+_weyl_cache: dict = {}   # (shape, sign) → (U_ff, U_fg, U_gf, U_gg)
+
 
 # ══════════════════════════════════════════════════════════════════
 #  BCC analytic structures
@@ -251,8 +253,11 @@ def weyl_step_3d_bcc(f, g, sign='+'):
     Exactly unitary by construction — every FFT mode is rotated by a
     2×2 unitary matrix, so total norm is conserved to FFT round-off.
     """
-    KX, KY, KZ = _kgrid3d(*f.shape)
-    U_ff, U_fg, U_gf, U_gg = bcc_unitary(KX, KY, KZ, sign=sign)
+    key = (f.shape, sign)
+    if key not in _weyl_cache:
+        KX, KY, KZ = _kgrid3d(*f.shape)
+        _weyl_cache[key] = bcc_unitary(KX, KY, KZ, sign=sign)
+    U_ff, U_fg, U_gf, U_gg = _weyl_cache[key]
 
     F = _fft.fftn(f)
     G = _fft.fftn(g)

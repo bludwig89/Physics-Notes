@@ -86,25 +86,23 @@ def gate_G0_generator_algebra():
 def gate_V13a_cold_link_regression(L=32, n_steps=20, m=0.5):
     """
     Cold links (U_μ ≡ I) must reduce step_strong_2d bit-for-bit to
-    three independent colour copies of the colourless Dirac step.
+    per-(flavour, colour) copies of dirac_step_2d_splitstep.
 
-    Setup: single Gaussian in (u, r) channel, left chirality.
-    Run two evolutions in parallel:
-      A) `step_strong_2d` with cold links, just the (u, r) channel evolves.
-      B) `dirac_step_2d_splitstep` on the same initial (η_↑, η_↓, χ_↑, χ_↓).
-    Compare bit-for-bit at every step.
+    After the Cayley migration (2026-06-10): cold links dispatch to the
+    FFT fast path which calls dirac_step_2d_splitstep directly for each
+    (f, c) channel.  The (u, r) channel must match the standalone call
+    exactly (residual = 0.0), and all other channels must stay zero (no
+    colour mixing for cold links — the links are the identity, so every
+    colour evolves independently).
     """
     print("─" * 70)
-    print(f"V13a Cold-link vacuum regression  (L={L}, n_steps={n_steps}, m={m})")
+    print(f"V13a Cold-link regression (exact-QCA FFT)  (L={L}, n={n_steps}, m={m})")
     print("─" * 70)
     shape = (L, L)
-    rng = np.random.default_rng(seed=0)
-    # Gaussian initial packet in (u, r) only.
     q = cs.gaussian_quark(shape, flavour='u', colour='r',
                           sigma=3.0, chirality='left')
     U = cs.cold_links_2d(shape)
 
-    # Reference: same Gaussian as a 4-component colourless Dirac packet.
     eu_ref, ed_ref, cu_ref, cd_ref = cdir.gaussian_dirac_2d(
         shape, sigma=3.0, chirality='left'
     )
@@ -113,16 +111,14 @@ def gate_V13a_cold_link_regression(L=32, n_steps=20, m=0.5):
     for step in range(n_steps):
         q = cs.step_strong_2d(q, U, m_flavour={'u': m, 'd': m, 's': m})
         eu_ref, ed_ref, cu_ref, cd_ref = cdir.dirac_step_2d_splitstep(
-            eu_ref, ed_ref, cu_ref, cd_ref, m=m
-        )
-        # Compare (u, r) channel against the reference.
+            eu_ref, ed_ref, cu_ref, cd_ref, m=m, dt=1.0)
         d_eu = np.max(np.abs(q[('u', 'r', 'eu')] - eu_ref))
         d_ed = np.max(np.abs(q[('u', 'r', 'ed')] - ed_ref))
         d_cu = np.max(np.abs(q[('u', 'r', 'cu')] - cu_ref))
         d_cd = np.max(np.abs(q[('u', 'r', 'cd')] - cd_ref))
         max_diff = max(max_diff, d_eu, d_ed, d_cu, d_cd)
 
-    # The other channels must remain identically zero.
+    # All other (f, c) channels must remain identically zero.
     other_norm = 0.0
     for f in cs.FLAVOURS:
         for c in cs.COLOURS:
@@ -132,11 +128,11 @@ def gate_V13a_cold_link_regression(L=32, n_steps=20, m=0.5):
                 other_norm = max(other_norm, float(np.max(np.abs(q[(f, c, d)]))))
 
     print(f"  max|q[(u,r,·)] − dirac_ref|      = {max_diff:.3e}")
-    print(f"  max|other (flavour,colour)|      = {other_norm:.3e}")
+    print(f"  max|other (flavour,colour)|       = {other_norm:.3e}")
     passed = (max_diff < 1e-14) and (other_norm < 1e-15)
-    print(f"  V13a result                      {'PASS' if passed else 'FAIL'}")
+    print(f"  V13a result                       {'PASS' if passed else 'FAIL'}")
     return {
-        'max_diff_vs_dirac': float(max_diff),
+        'max_diff_vs_dirac_ref': float(max_diff),
         'other_channels_max': float(other_norm),
         'passed': passed,
     }
@@ -401,6 +397,86 @@ def gate_V13b4_local_su3_invariance(L=32, n_steps=20, m=0.3):
 
 
 # ══════════════════════════════════════════════════════════════════
+#  Gate V13b5 — field-level gauge covariance (post-migration 2026-06-10)
+# ══════════════════════════════════════════════════════════════════
+
+def gate_V13b5_field_level_gauge_covariance(L=16, n_steps=5, m=0.3):
+    """
+    Strong test of covariant_half_step (replaces V13b4's observable-only check).
+
+    V13b4 only checks gauge-invariant observables (norm, plaquette trace).
+    Those pass even with the old gauge-variant parallel_transport, because
+    they are invariant under any unitary operation.
+
+    V13b5 checks FIELD-LEVEL covariance:
+        Evolve (q, U) for n steps → q(t)
+        Evolve (V·q, V·U·V†) for n steps → q_rot(t)
+        Check  q_rot(t, x) = V(x) · q(t, x)   at every cell x
+
+    If the step is truly gauge-covariant, q_rot(t) = V(x) q(t) exactly
+    (the gauge transformation commutes with the step).  The residual
+    should be at the floating-point floor (~1e-13 for double).
+
+    Setup: random-link background, Gaussian quark packet, random per-cell
+    V(x) ∈ SU(3).  Links are FROZEN (V13 regime).
+    """
+    print("─" * 70)
+    print(f"V13b5 Field-level gauge covariance  (L={L}, n={n_steps}, m={m})")
+    print("─" * 70)
+    shape = (L, L)
+    rng = np.random.default_rng(seed=99)
+
+    q = cs.gaussian_quark(shape, flavour='u', colour='r',
+                          sigma=3.0, chirality='left')
+    q[('u', 'g', 'eu')] = q[('u', 'r', 'eu')] * 0.5
+
+    U = cs.random_su3_links_2d(shape, rng=rng)
+
+    Lx, Ly = shape
+    Vfield = np.zeros((Lx, Ly, 3, 3), dtype=complex)
+    for i in range(Lx):
+        for j in range(Ly):
+            Vfield[i, j] = cs.su3_haar(rng)
+
+    q_rot = cs.gauge_transform_quark(q, Vfield)
+    U_rot = cs.gauge_transform_links(U, Vfield)
+
+    m_dict = {'u': m, 'd': m, 's': m}
+    q_evol = {k: v.copy() for k, v in q.items()}
+    q_rot_evol = {k: v.copy() for k, v in q_rot.items()}
+
+    for _ in range(n_steps):
+        q_evol = cs.step_strong_2d(q_evol, U, m_flavour=m_dict)
+        q_rot_evol = cs.step_strong_2d(q_rot_evol, U_rot, m_flavour=m_dict)
+
+    # Check q_rot_evol(x) = V(x) q_evol(x) for every (f,c,d) and cell x.
+    q_expected = cs.gauge_transform_quark(q_evol, Vfield)
+    residual = 0.0
+    for key in q_expected:
+        residual = max(residual,
+                       float(np.max(np.abs(q_rot_evol[key] - q_expected[key]))))
+
+    q_scale = max(float(np.max(np.abs(v))) for v in q_evol.values())
+    rel_residual = residual / max(q_scale, 1e-30)
+
+    print(f"  n_steps = {n_steps}, L = {L}, random links")
+    print(f"  max|q_rot(t) − V·q(t)|           = {residual:.3e}")
+    print(f"  field scale max|q(t)|             = {q_scale:.3e}")
+    print(f"  relative residual                 = {rel_residual:.3e}")
+    # Exact covariance → residual at floating-point floor.
+    # After the covariant_half_step migration the residual should be ~1e-12
+    # (FFT round-off accumulated over n_steps).
+    passed = rel_residual < 1e-8
+    print(f"  V13b5 result                      {'PASS' if passed else 'FAIL'}")
+    return {
+        'field_residual_abs': float(residual),
+        'field_residual_rel': float(rel_residual),
+        'q_scale': float(q_scale),
+        'passed': passed,
+    }
+
+
+# ══════════════════════════════════════════════════════════════════
 #  Gate V13c — Yukawa per-cell mass wiring
 # ══════════════════════════════════════════════════════════════════
 
@@ -436,6 +512,9 @@ def main():
     results['V13b3_global_adjoint'] = gate_V13b3_global_su3_adjoint(L=32)
     results['V13b4_local_invariance'] = gate_V13b4_local_su3_invariance(
         L=16, n_steps=20, m=0.3
+    )
+    results['V13b5_field_gauge_covariance'] = gate_V13b5_field_level_gauge_covariance(
+        L=16, n_steps=5, m=0.3
     )
     # V13c_yukawa_wiring retired 2026-05-26 (F41 Higgs–Yukawa removal);
     # superseded by F40-Q7/Q8 in test_FG2_quark_complex_mass.py.

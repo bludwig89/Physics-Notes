@@ -20,9 +20,9 @@
       "pass": true
     },
     "C4_even_erases_W_branch_content": {
-      "S_chiral (keeps branch split)": 0.07924217276933643,
+      "S_chiral (keeps branch split)": 0.07924217276933732,
       "S_chiral_pred_-dOmega*N": 0.0792421727693382,
-      "S_even (paired law, erases it)": -1.7763568394002505e-15,
+      "S_even (paired law, erases it)": -8.881784197001252e-16,
       "verdict": "chiral law gives S = -dOmega*N (the two W helicities ride Omega^+/Omega^- -> branch content present); the even/paired law gives S~0 -> that helicity-distinguishing content is discarded. For the W this content carries its parity violation, so the even law is not a free swap.",
       "pass": true
     },
@@ -35,5 +35,5 @@
     }
   },
   "all_pass": true,
-  "wall_seconds": 0.48
+  "wall_seconds": 0.5
 }

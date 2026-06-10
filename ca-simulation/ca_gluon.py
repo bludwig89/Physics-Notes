@@ -34,11 +34,25 @@ References
 """
 
 import numpy as np
+import ca_fft as _fft          # multi-threaded FFT backend (scipy/pyfftw/numpy)
 
 import ca_strong as cstr
 import ca_bcc as cbcc
 import ca_maxwell_2d as cm2
 import ca_wmu as cwmu
+
+# ── Stacked generator tensor for batch ops ───────────────────────────────────
+# Built lazily; used by _su3_expmap_field and gluon readout loops.
+_T_STACK = None   # (8, 3, 3)
+
+def _get_T_stack():
+    global _T_STACK
+    if _T_STACK is None:
+        _T_STACK = np.stack(cstr.T_GEN, axis=0)
+    return _T_STACK
+
+# ── Dispersion cache for BCC gluon (even law, same as photon / W) ────────────
+_gluon_disp_cache: dict = {}
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -181,15 +195,20 @@ def gluon_rotation_step_spectral_bcc(E_G, B_G):
     if E_G.shape[0] != 8 or B_G.shape[0] != 8:
         raise ValueError("E_G, B_G must have first axis size 8 (SU(3) octet)")
     shape = E_G.shape[1:]
-    KX, KY, KZ = cwmu._kgrid3d(*shape)
-    E_new = np.zeros_like(E_G)
-    B_new = np.zeros_like(B_G)
-    for a in range(8):
-        Ek = np.fft.fftn(E_G[a])
-        Bk = np.fft.fftn(B_G[a])
-        Ek2, Bk2 = cwmu._f26_rotation_step(Ek, Bk, KX, KY, KZ)
-        E_new[a] = np.fft.ifftn(Ek2).real
-        B_new[a] = np.fft.ifftn(Bk2).real
+    # ── Cached even-law dispersion (same as photon / W) ──────────────────────
+    key = shape
+    if key not in _gluon_disp_cache:
+        KX, KY, KZ = cwmu._kgrid3d(*shape)
+        omega_p = cbcc.bcc_dispersion(KX / 2, KY / 2, KZ / 2, sign='+')
+        omega_m = cbcc.bcc_dispersion(KX / 2, KY / 2, KZ / 2, sign='-')
+        Omega = omega_p + omega_m
+        _gluon_disp_cache[key] = (np.cos(Omega), np.sin(Omega))
+    cos_O, sin_O = _gluon_disp_cache[key]
+    # ── Batched FFT over all 8 colour components at once ─────────────────────
+    Ek = _fft.fftn(E_G, axes=(-3, -2, -1))
+    Bk = _fft.fftn(B_G, axes=(-3, -2, -1))
+    E_new = _fft.ifftn(cos_O * Ek + sin_O * Bk, axes=(-3, -2, -1)).real
+    B_new = _fft.ifftn(-sin_O * Ek + cos_O * Bk, axes=(-3, -2, -1)).real
     return E_new, B_new
 
 
@@ -477,15 +496,18 @@ def _su3_expmap_field(theta_field):
     shape = theta_field.shape[1:]
     V = np.zeros(shape + (3, 3), dtype=complex)
     flat_theta = theta_field.reshape(8, -1)
-    flat_V = V.reshape(-1, 3, 3)
-    # Vectorised Hermitian build:  H = Σ_a θ^a · T^a
-    for n in range(flat_theta.shape[1]):
-        H = sum(flat_theta[a, n] * cstr.T_GEN[a] for a in range(8))
-        if not np.any(flat_theta[:, n]):
-            flat_V[n] = np.eye(3, dtype=complex)
-            continue
-        w, U = np.linalg.eigh(H)
-        flat_V[n] = U @ np.diag(np.exp(1j * w)) @ U.conj().T
+    # ── Batched Hermitian matrix build: H[x] = Σ_a θ^a(x) · T^a ─────────────
+    # T_stack : (8, 3, 3); flat_theta : (8, N) → H_batch : (N, 3, 3)
+    T_stack = _get_T_stack()                       # (8, 3, 3) real generators
+    # einsum: 'an, aij -> nij'  (a=colour, n=sites, i/j=matrix indices)
+    flat_theta_T = flat_theta.T                    # (N, 8)
+    H_batch = np.einsum('na,aij->nij', flat_theta_T, T_stack)   # (N, 3, 3)
+    # ── Batched eigendecomposition ────────────────────────────────────────────
+    w_batch, U_batch = np.linalg.eigh(H_batch)    # (N, 3), (N, 3, 3)
+    # V = U · diag(exp(i·w)) · U†  — vectorised over all N sites at once
+    exp_iw = np.exp(1j * w_batch)                 # (N, 3)
+    flat_V = np.einsum('nij,nj,nkj->nik', U_batch, exp_iw, U_batch.conj())
+    # Cold sites (θ=0) are already I after the exp(i·0)=1 path; no fixup needed.
     return flat_V.reshape(shape + (3, 3))
 
 

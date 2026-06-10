@@ -1,0 +1,62 @@
+# Project Status Index
+
+*Auto-generated one-line-per-entry summary. Read `project-status.md` for full detail on any entry.*
+
+| Date | Summary |
+|------|---------|
+| — | Source |
+| — | Progress |
+| 2026-06-09 - 19:10 | F125 / P5: the atom — hydrogen as an electromagnetic bound state, Rydberg series + Dirac fine structure (20/20 PASS) |
+| 2026-06-09 - 18:20 | F124: √σ/f_π derived from first principles — the two QCD calibrations reconciled to ~12 % from the one locked lattice (6/6 PASS) |
+| 2026-06-09 - 17:40 | F123 / P6: SI absolute-scale closure for the matter sector — one f_π anchor puts the nucleon at 3m_c within ~1 % of 938 MeV (10/10 PASS) |
+| 2026-06-09 - 16:54 | F122 / P2: the dynamical baryon — a real-time, non-dispersing, mass-measured three-quark bound state (proton, then neutron) (11/11 PASS) |
+| 2026-06-08 - 15:10 | F114: the dielectric black hole — black holes are horizon-free in the model (9/9 PASS) |
+| 2026-06-08 - 14:05 | F112: SI prediction registry — the canonical cell's report card against current data (18/18 PASS) |
+| 2026-06-05 - 14:20 | F101: the one-heavy lepton branch located and exactly fitted — the sea cliff pins m_tau at saturation; F95's angle requirement and the sp... |
+| 2026-06-05 - 04:55 | F96: the second-shell E_g gap computation built — quadratic theory excluded by a two-value theorem; massless-electron texture algebra exa... |
+| 2026-06-04 - 23:30 | F95: half of F93's last number derived — B from the QCA Dirac sea (closed form + sign); C proven impossible from any per-axis loop and lo... |
+| 2026-06-04 - 20:45 | F92 + F93: F84's two irreducible inputs attacked — consistency theorem for the per-constituent phase; the orthorhombic vacuum identified ... |
+| 2026-06-01 - 16:42 | F70 + F71: confinement (gradient flow + exact static potential) and the first hadron (colour-singlet proton) |
+| 2026-05-29 - 21:10 | F53 / FG-9: antiparticle / per-species C and CP — last Tier-A structural item closed; 6/6 PASS |
+| 2026-05-29 - 20:48 | F54 / FG-8: end-to-end β-decay charged-current integration — 10/10 PASS (last Tier-A structural item; first generation now structurally c... |
+| 2026-05-28 - 01:30 | F43 FG-7: dynamical SU(3) gluon sector — rotation law, Yang–Mills self-coupling, Wilson-loop diagnostic, quark-current back-reaction; 20/... |
+| 2026-05-26 - 17:45 | F41 hypercharge merged into main model as `ca_hypercharge.py`; U(1)_Y compatible with Higgs-free F27 |
+| 2026-05-26 - 16:30 | F40 / FG-2 + FG-3: F27 complex mass adopted for quarks AND quark doublet wired to W_μ |
+| 2026-05-26 - 03:15 | FG-6 two-helicity composite photon bilinear: F^+→Ω^+ and F^-→Ω^- to 1.5e-15; F30 birefringence reproduced |
+| 2026-05-26 - 02:02 | FG-1 anomaly cancellation: all six traces exactly zero (closes the first capstone test from the completeness review) |
+| 2026-05-25 - 14:00 | First-generation completeness review: quark electroweak wiring is the key missing piece |
+| 2026-05-24 - 00:00 | F37: RS eigenstates correspond exactly to BCC chirality branches; vacuum birefringence identified |
+| 2026-05-24 - 00:00 | WMU Phase 7: back-reaction closes fermion↔boson loop; Proca dispersion verified |
+| 2026-05-24 - 23:30 | WMU Roadmap complete: all 6 phases pass; electroweak sector fully implemented |
+| 2026-05-24 - 17:31 | F30: photon-dispersion LIV order is anisotropic; the linear term is chiral (birefringent), not net time-of-flight |
+| 2026-05-24 - 22:00 | W1.4 k-space Ward identity verified; full W1 suite 6/6 PASS |
+| 2026-05-24 - 21:30 | Exact BCC fractional-shift architecture implemented |
+| 2026-05-24 - 20:30 | All SU(2)-affected tests passing (F26/F27/F28/F29/W1) |
+| 2026-05-24 - 18:00 | F26 all five phases complete: roadmap fully executed |
+| 2026-05-24 - 12:00 | F26 Phase 2 complete: rotation propagator wired as default EM evolve |
+| 2026-05-23 - 20:00 | Roadmap drafted: $W_\mu$ as dynamical SU(2) gauge boson |
+| 2026-05-23 - 19:30 | F29: W-triplet bilinear bridges F26 photon rotation law to F27 chiral SU(2) |
+| 2026-05-23 - 16:00 | F26 adopted: exact rotation-law EM propagator implemented (3D BCC + 2D square) |
+| 2026-05-23 - 14:00 | SU(2) complex-mass merged into ca_dirac.py |
+| 2026-05-23 - 12:00 | F27: Chiral SU(2) from β-gauging confirmed; Higgs-free mass coupling (Ludwig 2007) |
+| 2026-05-23 | C9 / F26: BCC spin axis derived in closed form; scalar contamination locked down |
+| 2026-05-23 | F26: Speed of light reinterpreted as angular rotation rate of the (E, B) pair |
+| 2026-05-23 | C8 / F25: Real-rotation formula holds to machine precision; Maxwell curl holds only to O(k) |
+| 2026-05-23 | C7 / F24: Weyl SL(2,ℂ) boost — 4-current Lorentz covariance at machine precision |
+| 2026-05-23 | F23: Smearing ruled out; curl residual is phase-locked at c_lat/√2 |
+| — | Method |
+| — | Content Summary (pages 1–15) |
+| — | Content Summary (pages 16–30) |
+| — | Content Summary (pages 31–45) |
+| — | Notes / Uncertainties |
+| — | Content Summary (pages 46–60) |
+| — | Content Summary (pages 61–90) |
+| — | Software Modeling |
+| — | Corrections Log |
+| 2026-05-20 | Full regression at L=192 (post-engine-rebuild) |
+| — | Next Steps |
+| 2026-05-19 - 22:53 | Top-10 priority test sweep complete |
+| — | Diagram files (page 3 & 5) |
+| 2026-05-22 - 13:42 | Real-space propagation demo + curl-residual geometry forks |
+| 2026-05-23 - 16:35 | F28: F26 dispersion test against current LIV experiments |
+| 2026-05-24 - 00:00 | F37 chiral split propagation implemented |

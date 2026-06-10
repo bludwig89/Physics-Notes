@@ -100,6 +100,49 @@ def derived_core_potential(r, b=B_QUARK_DEFAULT, g_cm=GCM_DEFAULT):
 
 
 # ===========================================================================
+#  Intermediate-range ATTRACTION (F115) — scalar-isoscalar (σ) exchange.
+#  ---------------------------------------------------------------------------
+#  The σ is the chiral scalar PARTNER of the pion (F103/F77 NJL): the model's
+#  economical realisation of correlated two-pion exchange.  Both its mass and
+#  its NN coupling are model-native:
+#    m_σ = 2 m_c = 622 MeV               (F103: the scalar pole sits at 2 m_c)
+#    g_σNN = 3 (m_c/f_π)                 (chiral quark model: each constituent
+#       quark couples g_σq = m_c/f_π — the σ-analogue of the pion's Goldberger-
+#       Treiman; the scalar-isoscalar charge adds coherently over 3 quarks)
+#    => g_σNN²/4π = 9 (m_c/f_π)²/4π = 8.09   (squarely in the OBE range 5–9)
+#  The σNN vertex is folded over the finite quark size b (a Gaussian density),
+#  giving a scalar Yukawa that is FINITE at the origin (no spurious short-range
+#  pocket); the closed form uses erfc.  Attractive, central, isoscalar -> added
+#  to both ³S₁ and ³D₁ diagonals.
+# ===========================================================================
+M_C_DEFAULT = 311.2      # MeV  constituent quark mass (F77 canonical NJL)
+M_SIGMA_DEFAULT = 622.4  # MeV  = 2 m_c (F103 scalar pole)
+SIGMA_G2_4PI_BARE = 9.0 * (M_C_DEFAULT / F_PI_DEFAULT) ** 2 / (4.0 * math.pi)  # 8.09
+
+_erfc_vec = np.vectorize(math.erfc)
+
+
+def folded_yukawa(r, m, beta):
+    """Scalar Yukawa e^{-mr}/r folded over a Gaussian vertex of width beta (fm):
+    the convolution with two Gaussian quark densities (Fourier e^{-q^2 beta^2}).
+    Finite at r -> 0.  m in MeV, r in fm.  Returns the dimensionless radial shape
+    (-> e^{-x}/x as beta -> 0)."""
+    r = np.asarray(r, dtype=float)
+    a = m / HBARC                                   # 1/fm
+    pre = np.exp((a * beta) ** 2)
+    t1 = np.exp(-a * r) * _erfc_vec(a * beta - r / (2.0 * beta))
+    t2 = np.exp(a * r) * _erfc_vec(a * beta + r / (2.0 * beta))
+    return pre * (t1 - t2) / (2.0 * r)
+
+
+def sigma_exchange_potential(r, b=B_QUARK_DEFAULT, g2_4pi=SIGMA_G2_4PI_BARE,
+                             m_sigma=M_SIGMA_DEFAULT):
+    """Intermediate-range scalar-isoscalar (σ) attraction in MeV at r (fm).
+    Negative (attractive), V = -(g²/4π)·m_σ·folded_yukawa(r;m_σ,b)."""
+    return -g2_4pi * m_sigma * folded_yukawa(r, m_sigma, b)
+
+
+# ===========================================================================
 #  Clebsch-Gordan + the tensor spin-angular matrix <S12> by explicit
 #  construction (machine-precision verification of [[0, 2√2],[2√2, -2]]).
 # ===========================================================================
@@ -232,7 +275,9 @@ def f2_over_4pi(m_pi=M_PI_DEFAULT, f_pi=F_PI_DEFAULT, g_A=G_A):
 # ===========================================================================
 def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
                    f_pi=F_PI_DEFAULT, g_A=G_A, tensor=True, m_N=M_N, vectors=True,
-                   core="hard", b=B_QUARK_DEFAULT, g_cm=GCM_DEFAULT, r_min=0.02):
+                   core="hard", b=B_QUARK_DEFAULT, g_cm=GCM_DEFAULT, r_min=0.02,
+                   sigma=False, sigma_g2_4pi=SIGMA_G2_4PI_BARE,
+                   m_sigma=M_SIGMA_DEFAULT):
     """Lowest eigenstate of the coupled ³S₁–³D₁ OPEP Hamiltonian.
 
     core="hard"     : infinite wall at r_c (the original tuned-knob model).
@@ -277,14 +322,18 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
     else:
         Vc = np.zeros(N)
 
+    # intermediate-range scalar-isoscalar (σ) attraction, central in both channels
+    Vs = (sigma_exchange_potential(r, b=b, g2_4pi=sigma_g2_4pi, m_sigma=m_sigma)
+          if sigma else np.zeros(N))
+
     # OPEP potential matrix (MeV). sigma1.sigma2 = +1 (triplet).
-    V_SS = -V0 * Y + Vc
+    V_SS = -V0 * Y + Vc + Vs
     if tensor:
         V_SD = S12_SD * (-V0 * T)              # 2√2 · (tensor radial)
-        V_DD = -V0 * Y + S12_DD * (-V0 * T) + Vc   # central + (-2)·tensor + core
+        V_DD = -V0 * Y + S12_DD * (-V0 * T) + Vc + Vs   # central+(-2)tensor+core+σ
     else:
         V_SD = np.zeros(N)
-        V_DD = -V0 * Y + Vc                     # central only in D-channel
+        V_DD = -V0 * Y + Vc + Vs               # central only in D-channel
 
     H = np.zeros((2 * N, 2 * N))
     H[:N, :N] = K + np.diag(V_SS)
@@ -298,10 +347,12 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
         u, w = v0[:N], v0[N:]
         nrm = np.sum(u ** 2 + w ** 2)
         P_D = float(np.sum(w ** 2) / nrm)
+        rms_rel = float(math.sqrt(np.sum((u ** 2 + w ** 2) * r ** 2) / nrm))
     else:
         evals = np.linalg.eigvalsh(H)
         u = w = None
         P_D = float("nan")
+        rms_rel = float("nan")
     E0 = float(evals[0])
     E1 = float(evals[1])
     E_b = -E0 if E0 < 0 else 0.0
@@ -312,8 +363,27 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
         "P_D": P_D, "kappa": kappa, "V0": V0, "comp": comp,
         "r": r, "u": u, "w": w, "h": h, "r_c": r_c, "N": N,
         "core": core, "b": b, "Vcore0": float(derived_core_potential(0.0, b, g_cm)),
+        "rms_rel": rms_rel, "r_d": rms_rel / 2.0,   # deuteron radius = rms_rel/2
+        "sigma": sigma, "sigma_g2_4pi": sigma_g2_4pi if sigma else 0.0,
         "f2_4pi": f2_over_4pi(m_pi, f_pi, g_A),
     }
+
+
+def tune_sigma_to_binding(b=B_QUARK_DEFAULT, target_Eb=2.224, lo=2.5, hi=5.0, **kw):
+    """At a FIXED (physical) quark size b, bisect the σ coupling g²/4π to hit the
+    target binding energy with the F113 derived core + OPEP + σ attraction.
+    Returns (g²/4π, result).  E_b grows with the σ coupling."""
+    def Eb(g2):
+        return solve_deuteron(core="derived", b=b, sigma=True, sigma_g2_4pi=g2,
+                              vectors=False, **kw)["E_b"]
+    for _ in range(40):
+        mid = 0.5 * (lo + hi)
+        if Eb(mid) > target_Eb:
+            hi = mid       # too deep -> weaken σ
+        else:
+            lo = mid
+    g2 = 0.5 * (lo + hi)
+    return g2, solve_deuteron(core="derived", b=b, sigma=True, sigma_g2_4pi=g2, **kw)
 
 
 def tune_b_to_binding(target_Eb=2.224, lo=0.30, hi=1.10, **kw):
