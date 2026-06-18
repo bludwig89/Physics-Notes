@@ -143,6 +143,35 @@ def sigma_exchange_potential(r, b=B_QUARK_DEFAULT, g2_4pi=SIGMA_G2_4PI_BARE,
 
 
 # ===========================================================================
+#  Short-range REPULSION (F128) — isoscalar-VECTOR (ω) exchange.
+#  ---------------------------------------------------------------------------
+#  The ω is the isoscalar (I=0) member of the q̄q VECTOR (J^P=1^-) RPA pole, the
+#  spin-1 sibling of the σ/π channels (F69/F77/F89).  It couples to the conserved
+#  BARYON-NUMBER current ψ̄γ^μψ.  Two nucleons each carry B=+1 (like sign), so —
+#  exactly as for like electric charges in the paired-photon channel (F69/F89) —
+#  the static TIME-COMPONENT vector exchange is REPULSIVE.  This is the only sign
+#  difference from the σ: spin-1 (j^0 j^0, like charges repel) vs spin-0 (scalar
+#  density, always attractive).  Hence the single sign flip below (+ vs the σ's -).
+#  Mass: the vector bubble is flavour-blind, so m_ω = m_ρ up to OZI (~1%); the
+#  model's vector pole sits at ~0.78 GeV (m_ω = 782.7 MeV adopted).  The PRECISE
+#  NJL value is scheme-dependent because a sharp 3-momentum cutoff breaks vector
+#  current conservation (see F128); the degeneracy m_ω=m_ρ is the robust statement.
+#  Coupling: g_ωNN = 3 g_ωq (baryon number adds coherently over 3 quarks, exactly
+#  as the σ-isoscalar charge does in F126); SU(6) gives g_ωNN = 3 g_ρNN.
+# ===========================================================================
+M_OMEGA_DEFAULT = 782.66      # MeV  isoscalar-vector pole (= m_ρ up to OZI)
+OMEGA_G2_4PI_OBE = 11.0       # g_ωNN²/4π — OBE/SU(6) window value (F128, Tier-B)
+
+
+def omega_exchange_potential(r, b=B_QUARK_DEFAULT, g2_4pi=OMEGA_G2_4PI_OBE,
+                             m_omega=M_OMEGA_DEFAULT):
+    """Short-range isoscalar-vector (ω) REPULSION in MeV at r (fm).
+    POSITIVE (repulsive) — the lone sign flip vs the σ: V = +(g²/4π)·m_ω·
+    folded_yukawa(r;m_ω,b).  Same folded vertex (quark size b) as the σ."""
+    return +g2_4pi * m_omega * folded_yukawa(r, m_omega, b)
+
+
+# ===========================================================================
 #  Clebsch-Gordan + the tensor spin-angular matrix <S12> by explicit
 #  construction (machine-precision verification of [[0, 2√2],[2√2, -2]]).
 # ===========================================================================
@@ -277,7 +306,9 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
                    f_pi=F_PI_DEFAULT, g_A=G_A, tensor=True, m_N=M_N, vectors=True,
                    core="hard", b=B_QUARK_DEFAULT, g_cm=GCM_DEFAULT, r_min=0.02,
                    sigma=False, sigma_g2_4pi=SIGMA_G2_4PI_BARE,
-                   m_sigma=M_SIGMA_DEFAULT):
+                   m_sigma=M_SIGMA_DEFAULT,
+                   omega=False, omega_g2_4pi=OMEGA_G2_4PI_OBE,
+                   m_omega=M_OMEGA_DEFAULT):
     """Lowest eigenstate of the coupled ³S₁–³D₁ OPEP Hamiltonian.
 
     core="hard"     : infinite wall at r_c (the original tuned-knob model).
@@ -325,6 +356,10 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
     # intermediate-range scalar-isoscalar (σ) attraction, central in both channels
     Vs = (sigma_exchange_potential(r, b=b, g2_4pi=sigma_g2_4pi, m_sigma=m_sigma)
           if sigma else np.zeros(N))
+    # short-range isoscalar-vector (ω) REPULSION (F128), central in both channels
+    Vw = (omega_exchange_potential(r, b=b, g2_4pi=omega_g2_4pi, m_omega=m_omega)
+          if omega else np.zeros(N))
+    Vs = Vs + Vw
 
     # OPEP potential matrix (MeV). sigma1.sigma2 = +1 (triplet).
     V_SS = -V0 * Y + Vc + Vs
@@ -365,6 +400,7 @@ def solve_deuteron(r_c=0.50, R_max=25.0, N=900, m_pi=M_PI_DEFAULT,
         "core": core, "b": b, "Vcore0": float(derived_core_potential(0.0, b, g_cm)),
         "rms_rel": rms_rel, "r_d": rms_rel / 2.0,   # deuteron radius = rms_rel/2
         "sigma": sigma, "sigma_g2_4pi": sigma_g2_4pi if sigma else 0.0,
+        "omega": omega, "omega_g2_4pi": omega_g2_4pi if omega else 0.0,
         "f2_4pi": f2_over_4pi(m_pi, f_pi, g_A),
     }
 

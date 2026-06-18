@@ -1,0 +1,186 @@
+{
+  "N1": {
+    "PASS": true,
+    "detail": {
+      "fierz": {
+        "c_scalar_isoscalar": 0.22222222222222213,
+        "c_pseudo_isoscalar": 0.22222222222222218,
+        "c_scalar_isovector": 0.22222222222222218,
+        "c_pseudo_isovector": 0.22222222222222218,
+        "target_2_over_9": 0.2222222222222222,
+        "max_dev_from_2/9": 8.326672684688674e-17,
+        "chiral_symmetric_spread": 5.551115123125783e-17
+      },
+      "fock": {
+        "coefficient": 5.333333333333333,
+        "four_CF": 5.333333333333333,
+        "dev": 0.0,
+        "offdiag": 0.0
+      }
+    }
+  },
+  "N2": {
+    "PASS": true,
+    "detail": {
+      "anchor_F88": {
+        "R_analytic": 1.1434146889622865,
+        "R_power": 1.1434146889622918,
+        "dev": 5.329070518200751e-15,
+        "g_c_lattice": 2.0600687265910294
+      },
+      "anchor_F117": {
+        "R_analytic": 0.6122914710997169,
+        "R_power": 0.6122914710997172,
+        "dev": 2.220446049250313e-16,
+        "g_c_lattice": 2.0600687265910294
+      }
+    }
+  },
+  "N3": {
+    "PASS": true,
+    "detail": {
+      "F88_mD=0.532": {
+        "R_contact_bare": 1.1434146889622918,
+        "R_resolved_bare": 0.0992639079719904,
+        "R_resolved_bare_epsc=0.52": 0.14240287045977237,
+        "R_resolved_bare_epsc=0.25": 0.23456418960579695,
+        "ghat_resolved_bare": 0.16328258383161426
+      },
+      "F117_mV=0.727": {
+        "R_contact_bare": 0.6122914710997172,
+        "R_resolved_bare": 0.0748185562301403,
+        "R_resolved_bare_epsc=0.52": 0.11665901924924553,
+        "R_resolved_bare_epsc=0.25": 0.1890617851986179,
+        "ghat_resolved_bare": 0.1230715919753574
+      }
+    }
+  },
+  "N4": {
+    "PASS": true,
+    "detail": {
+      "F88_mD=0.532": {
+        "running_R_range": [
+          3.739907030358797,
+          15.425159164481025
+        ],
+        "alpha_crit": 0.20041894675375538,
+        "ghat_running_range": [
+          6.151900481082369,
+          25.373369796210962
+        ]
+      },
+      "F117_mV=0.727": {
+        "running_R_range": [
+          2.6249924619064937,
+          8.149725353429806
+        ],
+        "alpha_crit": 0.2659015208098053,
+        "ghat_running_range": [
+          4.317939525809787,
+          13.40576086931339
+        ]
+      }
+    }
+  },
+  "N5": {
+    "PASS": true,
+    "detail": {
+      "alpha_eff_F88": 0.2559349950045456,
+      "alpha_eff_F117": 0.3395562420741213,
+      "targets": {
+        "G_over_Gc_F77": 1.277,
+        "ghat_F77": 2.1
+      },
+      "note": "fit bracketed: bare 0.07-0.10 < 1.277 < running 2.6-15; residual = the nonperturbative IR coupling (same scale-setting constant as F124/F144-A4)"
+    }
+  },
+  "ALL_PASS": true,
+  "report": {
+    "fierz": {
+      "c_scalar_isoscalar": 0.22222222222222213,
+      "c_pseudo_isoscalar": 0.22222222222222218,
+      "c_scalar_isovector": 0.22222222222222218,
+      "c_pseudo_isovector": 0.22222222222222218,
+      "target_2_over_9": 0.2222222222222222,
+      "max_dev_from_2/9": 8.326672684688674e-17,
+      "chiral_symmetric_spread": 5.551115123125783e-17
+    },
+    "fock_identity": {
+      "coefficient": 5.333333333333333,
+      "four_CF": 5.333333333333333,
+      "dev": 0.0,
+      "offdiag": 0.0
+    },
+    "anchor_F88": {
+      "R_analytic": 1.1434146889622865,
+      "R_power": 1.1434146889622918,
+      "dev": 5.329070518200751e-15,
+      "g_c_lattice": 2.0600687265910294
+    },
+    "anchor_F117": {
+      "R_analytic": 0.6122914710997169,
+      "R_power": 0.6122914710997172,
+      "dev": 2.220446049250313e-16,
+      "g_c_lattice": 2.0600687265910294
+    },
+    "F88_mD=0.532": {
+      "R_contact_bare": 1.1434146889622918,
+      "R_resolved_bare": 0.0992639079719904,
+      "R_resolved_bare_epsc=0.52": 0.14240287045977237,
+      "R_resolved_bare_epsc=0.25": 0.23456418960579695,
+      "R0_geometry": 0.3970556318895363,
+      "alpha_crit": 0.20041894675375538,
+      "alpha_eff_for_F77_fit": 0.2559349950045456,
+      "running": {
+        "mu_fr=0.4_Lam3=0.272": 7.273250087766794,
+        "mu_fr=0.4_Lam3=0.343": 15.425159164481025,
+        "mu_fr=0.5_Lam3=0.272": 5.058639637035295,
+        "mu_fr=0.5_Lam3=0.343": 7.795200215473033,
+        "mu_fr=0.65_Lam3=0.272": 3.739907030358797,
+        "mu_fr=0.65_Lam3=0.343": 5.004838955743624
+      },
+      "running_R_range": [
+        3.739907030358797,
+        15.425159164481025
+      ],
+      "ghat_contact_bare": 1.8808417744087425,
+      "ghat_resolved_bare": 0.16328258383161426,
+      "ghat_running_range": [
+        6.151900481082369,
+        25.373369796210962
+      ]
+    },
+    "F117_mV=0.727": {
+      "R_contact_bare": 0.6122914710997172,
+      "R_resolved_bare": 0.0748185562301403,
+      "R_resolved_bare_epsc=0.52": 0.11665901924924553,
+      "R_resolved_bare_epsc=0.25": 0.1890617851986179,
+      "R0_geometry": 0.2992742249220457,
+      "alpha_crit": 0.2659015208098053,
+      "alpha_eff_for_F77_fit": 0.3395562420741213,
+      "running": {
+        "mu_fr=0.4_Lam3=0.272": 4.389130487887055,
+        "mu_fr=0.4_Lam3=0.343": 8.149725353429806,
+        "mu_fr=0.5_Lam3=0.272": 3.3414070977033288,
+        "mu_fr=0.5_Lam3=0.343": 4.887627282322893,
+        "mu_fr=0.65_Lam3=0.272": 2.6249924619064937,
+        "mu_fr=0.65_Lam3=0.343": 3.439315091759138
+      },
+      "running_R_range": [
+        2.6249924619064937,
+        8.149725353429806
+      ],
+      "ghat_contact_bare": 1.007179099652541,
+      "ghat_resolved_bare": 0.1230715919753574,
+      "ghat_running_range": [
+        4.317939525809787,
+        13.40576086931339
+      ]
+    },
+    "targets": {
+      "G_over_Gc_F77": 1.277,
+      "ghat_F77": 2.1
+    }
+  },
+  "CALIBRATION_NOTE": "Inputs: g_s^2=1/4 DERIVED (F144 A1); m_D measured (F88 CC8 0.532 / F117 0.727, MC at beta=1.8); Lambda_NJL=651.5 MeV is the F116 chiral-scale ruler; running from F144 (1-loop nf=3, Lambda3 = chain 272 MeV / FLAG 343 MeV sensitivity). Targets only: F77 fit G/G_c=1.277, ghat=2.10. Open: the nonperturbative IR coupling (one number, shared with F124/F144-A4); the m_D beta-dependence inherits F88's honest scope."
+}

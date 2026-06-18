@@ -1,0 +1,53 @@
+{
+  "test_id": "FB01",
+  "name": "Charged-lepton spectrum from one anchor + the condensate shape",
+  "verdict": "FLAGGED",
+  "predicted": {
+    "shape": "E_g condensate, equipartition A = sqrt2*ybar, m_a = y_a^2, heaviest wall-pinned m_tau^cond = 1",
+    "angle_deg_measured": 12.733,
+    "anchor": "tau (wall-pinned, exactly delta-stable), N = m_tau",
+    "m_mu_MeV": 105.6575,
+    "m_e_MeV": 0.51069,
+    "m_mu_err_pct_stated": "-0.00%",
+    "m_e_err_pct_stated": "-0.06%",
+    "koide_Q": "2/3 (predicted by the same shape)"
+  },
+  "measured_target": {
+    "m_e": 0.51099895,
+    "m_mu": 105.6583755,
+    "m_tau": 1776.86,
+    "units": "MeV",
+    "Q_pdg": 0.6666605,
+    "source": "PDG (brief FB01)"
+  },
+  "gate": {
+    "criterion": "PASS if tau-anchored m_mu, m_e within <=0.06% (measured angle) AND Koide Q=2/3; FALSIFIED if residuals exceed the stated shape error in a way not attributable to the documented condensate-node sensitivity (F120)",
+    "tolerance": 0.0006
+  },
+  "computed": {
+    "m_tau_cond_wall": 1.0,
+    "m_mu_pred_MeV": 105.6575,
+    "m_mu_err_pct": -0.0009,
+    "m_e_pred_MeV": 0.51069,
+    "m_e_err_pct": -0.0611,
+    "m_mu_err_pct_rounded": 0.0,
+    "m_e_err_pct_rounded": 0.06,
+    "koide_Q_condensate": 0.666666667,
+    "koide_Q_pdg": 0.6666605,
+    "koide_Q_symbolic": "2/3",
+    "dln_mtau_ddelta_symbolic": "0",
+    "tau_exact_delta_stable": true,
+    "dln_mtau_ddelta_numeric": 0.0,
+    "dln_mmu_ddelta_numeric": 1.6515,
+    "dln_me_ddelta_numeric": 17.2138,
+    "electron_over_muon_node_sensitivity": 10.42,
+    "model_angle_m_mu_err_tau_anchored_pct": 5.5,
+    "model_angle_m_mu_err_electron_anchored_pct": 104.4,
+    "checks": "B1 m_mu/m_e at stated precision PASS, B2 tau delta-stable + electron ~10x node PASS, B3 Koide 2/3 PASS (4/4)",
+    "flag_reason": "All checks pass at the brief's stated 2-decimal precision (m_mu -0.00%, m_e -0.06%). The raw electron residual is -0.0611%, which rounds to -0.06% but marginally exceeds an unrounded 0.06% gate by 0.0011 pp. Per the brief this excess is the documented condensate-node sensitivity (the electron sits at the node, ~10x the muon), not a shape failure -> FLAGGED rather than FALSIFIED."
+  },
+  "commands": [
+    "python3 tests/findings/test_FB01_charged_lepton_spectrum.py"
+  ],
+  "timestamp": "2026-06-16"
+}

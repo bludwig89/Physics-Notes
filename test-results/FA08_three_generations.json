@@ -1,0 +1,172 @@
+{
+  "test_id": "FA08",
+  "name": "Exactly three fermion generations (BCC O_h irrep selection of F27 mass step)",
+  "tier": "A \u2014 sharp falsifier",
+  "verdict": "PASS",
+  "predicted": {
+    "n_generations": 3,
+    "mechanism": "dim(T1u) of O_h = 3; no 4-dim single-valued irrep -> 4th forbidden",
+    "selected_irrep": "T1u (odd-parity cubic vector triplet)"
+  },
+  "measured_target": {
+    "N_nu": "2.984 +/- 0.008",
+    "source": "PDG / LEP invisible Z width (light active neutrinos)",
+    "fourth_generation_observed": false
+  },
+  "gate": "PASS iff exactly three stable mass-carrying irreps AND no 4th generation observed; FALSIFIED on a 4th chiral fermion, a 4th confirmed light active neutrino, or group multiplicity != 3.",
+  "computed": {
+    "|O_h|": 48,
+    "max_single_valued_irrep_dim": 3,
+    "shell_decomposition": {
+      "A1g": 1,
+      "A2u": 1,
+      "T1u": 1,
+      "T2g": 1
+    },
+    "odd_triplets": [
+      "T1u"
+    ],
+    "n_generations": 3,
+    "schur_degeneracies": [
+      1,
+      1,
+      3,
+      3
+    ],
+    "one_generation_cancels_all_six_anomalies": true,
+    "anomaly_free_for_any_N_copies": true,
+    "N_nu_deviation_from_3_sigma": 2.0
+  },
+  "checks": {
+    "S1_group_orders": {
+      "pass": true,
+      "|O|": 24,
+      "|O_h|": 48,
+      "expected": "24, 48"
+    },
+    "S1b_ten_classes": {
+      "pass": true,
+      "n_classes": 10,
+      "expected": 10,
+      "sizes": {
+        "3sigma_h": 3,
+        "6S4": 6,
+        "8C3": 8,
+        "8S6": 8,
+        "6C2p": 6,
+        "6C4": 6,
+        "6sigma_d": 6,
+        "i": 1,
+        "3C2": 3,
+        "E": 1
+      }
+    },
+    "S2_char_table_orthonormal": {
+      "pass": true,
+      "note": "embedded O_h table passes <chi_a,chi_b>=48 delta_ab exactly over Z"
+    },
+    "S2b_max_single_valued_irrep_dim": {
+      "pass": true,
+      "max_irrep_dim": 3,
+      "sum_d_squared": 48,
+      "expected_sum": 48,
+      "claim": "no 4-dim single-valued irrep -> 4th degenerate partner forbidden (Schur)"
+    },
+    "S3_shell_decomposition": {
+      "pass": true,
+      "decomposition": {
+        "A1g": 1,
+        "A2u": 1,
+        "T1u": 1,
+        "T2g": 1
+      },
+      "expected": {
+        "A1g": 1,
+        "A2u": 1,
+        "T1u": 1,
+        "T2g": 1
+      },
+      "sum_of_dims": 8,
+      "contains_triplet": true
+    },
+    "S4_parity_selected_triplet": {
+      "pass": true,
+      "odd_parity_shell_content": [
+        "A2u",
+        "T1u"
+      ],
+      "odd_triplets": [
+        "T1u"
+      ],
+      "selected_generation_multiplet": "T1u (dim 3)",
+      "n_generations": 3
+    },
+    "S5_schur_degeneracies": {
+      "pass": true,
+      "commutator_with_group": 4.440892098500626e-16,
+      "eigenvalue_degeneracies": [
+        1,
+        1,
+        3,
+        3
+      ],
+      "expected": [
+        1,
+        1,
+        3,
+        3
+      ],
+      "max_protected_degeneracy": 3
+    },
+    "S6_anomaly_compatibility": {
+      "pass": true,
+      "one_generation_anomalies": {
+        "grav^2.U1": "0",
+        "U1^3": "0",
+        "SU2^2.U1": "0",
+        "SU3^2.U1": "0",
+        "SU3^3": "0",
+        "SU2^3": "0"
+      },
+      "three_copies_anomalies": {
+        "grav^2.U1": "0",
+        "U1^3": "0",
+        "SU2^2.U1": "0",
+        "SU3^2.U1": "0",
+        "SU3^3": "0",
+        "SU2^3": "0"
+      },
+      "four_copies_anomalies": {
+        "grav^2.U1": "0",
+        "U1^3": "0",
+        "SU2^2.U1": "0",
+        "SU3^2.U1": "0",
+        "SU3^3": "0",
+        "SU2^3": "0"
+      },
+      "one_generation_cancels_all_six": true,
+      "N_copies_cancel_for_any_N": true,
+      "note": "anomaly freedom holds for ANY N -> it does NOT cap the count; the cap is the O_h irrep selection (=3). Selected T1u triplet is thus 3 anomaly-free identical SM generations."
+    },
+    "S7_LEP_consistency": {
+      "pass": true,
+      "N_nu_measured": 2.984,
+      "N_nu_err": 0.008,
+      "predicted": 3,
+      "deviation_sigma": 2.0,
+      "excludes_4th_light_active_neutrino": true,
+      "source": "PDG / LEP invisible Z width"
+    }
+  },
+  "commands": [
+    "python3 tests/findings/test_FA08_three_generations.py"
+  ],
+  "timestamp": "2026-06-10",
+  "provenance": [
+    "F75",
+    "F76",
+    "F84",
+    "F38",
+    "F27"
+  ]
+}

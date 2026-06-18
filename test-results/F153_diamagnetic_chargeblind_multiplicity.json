@@ -1,0 +1,62 @@
+{
+  "finding": "F153",
+  "checks": {
+    "D1_analytic_seagull_matches_dense": {
+      "pass": true,
+      "detail": "max|analytic(\u2212q) \u2212 dense transfer-0 block| = 7.81e-08"
+    },
+    "D2_diamagnetic_charge_blind": {
+      "pass": true,
+      "detail": "max|stag transfer-0 block \u2212 vector block| = 1.11e-10 (P\u00b2=1) \u21d2 channel splitting is purely paramagnetic"
+    },
+    "_N1_numbers": {
+      "transverse_y": 0.03409987012101165,
+      "transverse_z": -0.11375715092543504,
+      "yz_asym": 0.14785702104644668,
+      "yz_signal": 0.11375715092543504,
+      "chan_diff_qhat_100": -0.06378853619800659,
+      "chan_diff_qhat_111": 0.1571559127771454
+    },
+    "N1_small_q_artifact_dominated": {
+      "pass": true,
+      "detail": "L=6 transverse y vs z differ by 0.148 (signal 0.114; symmetry\u21d20); \u03c7_stag\u2212\u03c7_vec sign flips: q\u0302=[100] -0.0638, q\u0302=[111] +0.1572 \u21d2 clean isotropic small-q\u0303 R(m) not extractable at reachable L"
+    },
+    "_M1_numbers": {
+      "faceaxis_dd2_4_transverse_summed": 0.0,
+      "facediag_dd2_8": 0.6331,
+      "antipodal_dd2_12": 0.3275,
+      "antipodal_vec_m02": 0.2722,
+      "antipodal_stag_m02": 0.3149,
+      "eigs_transverse": [
+        -1.0793,
+        -1.0729,
+        -0.68,
+        -0.6797,
+        -0.2861,
+        -0.2824,
+        -0.2043,
+        -0.2019
+      ],
+      "within_pair_max": 0.006396169775723992,
+      "between_pair_min": 0.08117822201078817
+    },
+    "M1_no_clean_channel_count": {
+      "pass": true,
+      "detail": "transverse-summed face-axis(|\u0394d|\u00b2=4)\u21920.0 (cancels); face-diag\u21920.6331, antipodal\u21920.3275; eigs=4 pairs (within 0.006 \u226a between 0.081); m=0.2 antipodal splitting vec 0.2722 vs stag 0.3149 (the \u22121 tick sign)"
+    },
+    "_P1_numbers": {
+      "Eg_amplitude_e_at_lepton_point": 0.727887312707125,
+      "y_tau_wallpinned": 1.0,
+      "sin2_os_2_9": 0.2222222222222222,
+      "mZ_over_mW_3_sqrt7": 1.1338934190276817,
+      "pdg_mZ_over_mW": 1.1346137575090955,
+      "resid_mZmW_pct": -0.06348755042379084,
+      "resid_s2_pct": -0.37111758698846753
+    },
+    "P1_physical_coupling_is_O1": {
+      "pass": true,
+      "detail": "E_g amplitude at lepton point e=0.728 (O(1), y_\u03c4=1) \u21d2 outside the perturbative small-m R(m) regime; on-shell 2/9 \u21d2 m_Z/m_W=3/\u221a7=1.133893 vs PDG 1.134614 (-0.063%) stands as exact algebra"
+    }
+  },
+  "summary": "5/5 PASS"
+}

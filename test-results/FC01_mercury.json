@@ -1,0 +1,58 @@
+{
+  "test": "FC01 \u2014 Mercury perihelion precession",
+  "tier": "C (consistency regression)",
+  "verdict": "PASS",
+  "run_stamp": "2026-06-16 - 16:30",
+  "model_element": "timelike geodesics of F64 single-lattice-dielectric metric",
+  "hypothesis": "\u0394\u03c9 = 6\u03c0GM/[a(1-e\u00b2)c\u00b2], GR-identical (PPN \u03b2=\u03b3=1)",
+  "test_orbit": {
+    "GM": 0.001,
+    "a": 1.0,
+    "e": 0.3,
+    "c": 1.0,
+    "n_orbits": 40,
+    "steps_per_orbit": 40000
+  },
+  "domega_GR_per_orbit_rad": 0.02071379771597666,
+  "model_element_under_test": "canonical exponential K=e^{2u} (\u03b2=\u03b3=1)",
+  "results": {
+    "canonical_exponential": {
+      "metric": "A=e^{-2u}, B=e^{+2u}  (K=e^{2u}), \u03b2=\u03b3=1",
+      "domega_per_orbit_rad": 0.020677941307689372,
+      "domega_std_rad": 1.652379216383389e-12,
+      "rel_err_vs_GR": 0.00173103980153434,
+      "n_perihelia": 39,
+      "v_peri_over_c": 0.04309458036856673,
+      "pass_5pct": true,
+      "mercury_arcsec_per_century": 42.90559990933005
+    },
+    "linear_truncated_dielectric": {
+      "metric": "A=1-2u, B=1+2u (\u03b2=0, \u03b3=1)",
+      "domega_per_orbit_rad": 0.02766639884702307,
+      "domega_std_rad": 1.847444301675883e-12,
+      "rel_err_vs_GR": 0.3356507206635428,
+      "analytic_ppn_factor": 1.3333333333333333,
+      "rel_err_vs_own_4_3_target": 0.001738040497657146,
+      "integrator_faithful_5pct": true,
+      "n_perihelia": 39,
+      "mercury_arcsec_per_century": 57.40626797411907,
+      "note": "perihelion is a 2nd-PPN observable; truncating the dielectric at O(u) drops the g_tt O(u\u00b2) term (\u03b2=0), giving factor 4/3 \u2192 ~57\"/cy. Documented F64 D-EM9 overshoot \u2014 NOT a model failure; the canonical completion K=e^{2u} restores \u03b2=1."
+    }
+  },
+  "Ou_cross_check_linear_vs_exp_frac": 0.3373817604650771,
+  "mercury_GR_arcsec_per_century": 42.98,
+  "mercury_observed_arcsec_per_century": 43.0,
+  "ppn_check": {
+    "beta": 1.0,
+    "gamma": 1.0,
+    "note": "canonical K=e^{2u} gives \u03b2=\u03b3=1 (F64 D-EM9); O(u) linearisation reproduces the same leading perihelion coefficient 6\u03c0GM/[a(1-e\u00b2)c\u00b2]."
+  },
+  "falsified_if": "canonical K=e^{2u} geodesic perihelion advance differs from GR value beyond ~5% (would imply \u03b2\u22601 or \u03b3\u22601)",
+  "pass_gate": "canonical exponential K=e^{2u} within 5% of 6\u03c0GM/[a(1-e\u00b2)c\u00b2]; geodesic integrator verified faithful against the linear form analytic 4/3 PPN target",
+  "provenance": [
+    "F64 (canonical K=e^{2u}, D-EM9 PPN)",
+    "F16 (GR-3 fork resolution)",
+    "F112 \u00a7B",
+    "supersedes tests/priority/test_09_GR4_mercury.py"
+  ]
+}

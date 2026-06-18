@@ -1,0 +1,147 @@
+{
+  "test_id": "FB08",
+  "name": "NN short-range repulsive core, derived (quark Pauli + chromomagnetic)",
+  "verdict": "PASS",
+  "predicted": {
+    "core_height_MeV": 341.83333333333337,
+    "core_height_frac_gcm": "56/3",
+    "core_sign": "repulsive (+)",
+    "deuteron_E_b_MeV": 2.224,
+    "deuteron_kappa_inv_fm": 0.2316
+  },
+  "measured_target": {
+    "N_Delta_splitting_MeV": 293.0,
+    "deuteron_E_b_MeV": 2.224,
+    "deuteron_kappa_inv_fm": 0.2316,
+    "phenomenology": "Argonne-v18-class: strong repulsive core (~GeV wall inside ~0.5 fm); deuteron is the single shallow 1+ I=0 bound state."
+  },
+  "gate": {
+    "criterion": "PASS iff derived core +341.8 MeV REPULSIVE (exact given g_cm) AND deuteron binds at physical E_b/kappa with the derived core (no tuned hard wall).",
+    "core_height_repulsive_ok": true,
+    "deuteron_binds_physical_ok": true
+  },
+  "computed": {
+    "g_cm_MeV": 18.3125,
+    "E_N_gcm": "-8",
+    "E_Delta_gcm": "8",
+    "norm_kernel_K": {
+      "0": "839808",
+      "1": "93312",
+      "2": "93312",
+      "3": "839808"
+    },
+    "n_at_R0": "20/9",
+    "E_6q_R0_gcm": "8/3",
+    "dE_CM_gcm": "56/3",
+    "V_core0_MeV": 341.83333333333337,
+    "V_core0_solver_MeV": 341.83333333333337,
+    "core_profile_MeV": [
+      [
+        0,
+        341.8333333333478
+      ],
+      [
+        0.5,
+        340.63539713824565
+      ],
+      [
+        1.0,
+        323.5392650850061
+      ],
+      [
+        1.5,
+        264.5044653538797
+      ],
+      [
+        2.0,
+        172.85741091719277
+      ],
+      [
+        3.0,
+        43.635578234831655
+      ],
+      [
+        4.0,
+        7.069271267319811
+      ]
+    ],
+    "deuteron": {
+      "core": "derived",
+      "b_tuned_fm": 0.41001429701245806,
+      "E_b_MeV": 2.2240000001815146,
+      "kappa_inv_fm": 0.23157664338965583,
+      "E1_MeV": 0.9737802260782572,
+      "P_D": 0.08456194140601728,
+      "Vcore0_MeV": 341.83333333333337,
+      "central_only_bound": false
+    }
+  },
+  "checks": {
+    "P1.baryon_chromomagnetic_N=-8_Delta=+8": {
+      "status": "PASS",
+      "detail": "E_N=-8 g_cm, E_Delta=8 g_cm, split=16 g_cm => g_cm=18.31 MeV"
+    },
+    "P1.pauli_norm_n0=20/9_not_forbidden": {
+      "status": "PASS",
+      "detail": "K0=839808, K1=93312, K2=93312, K3=839808; n(R=0)=20/9 (>0)"
+    },
+    "P1.core_dE=+56/3_gcm_(exact_rational)": {
+      "status": "PASS",
+      "detail": "E_6q(R0)=8/3 g_cm, 2N=-16 g_cm, dE=56/3 g_cm"
+    },
+    "P1.core_REPULSIVE_sign(+)": {
+      "status": "PASS",
+      "detail": "dE_CM=56/3 g_cm > 0  =>  V_core(0)=+341.8 MeV (repulsive)"
+    },
+    "P1.core_height_+341.8_MeV": {
+      "status": "PASS",
+      "detail": "V_core(0) = +341.8333 MeV  (target +341.8)"
+    },
+    "P1.profile_positive_monotone_vanishing": {
+      "status": "PASS",
+      "detail": "V(0)=341.8, V(2b)=172.9, V(4b)=7.1 MeV"
+    },
+    "P1.solver_closed_form_matches_exact": {
+      "status": "PASS",
+      "detail": "ca_nuclear.derived_core_potential(0)=+341.8333 MeV vs exact +341.8333 MeV"
+    },
+    "P2.core_mode_is_derived_no_hard_wall": {
+      "status": "PASS",
+      "detail": "core='derived', b_tuned=0.4100 fm (physical quark size), Vcore0=341.8 MeV"
+    },
+    "P2.deuteron_binds": {
+      "status": "PASS",
+      "detail": "bound=True, E_b=2.2240 MeV"
+    },
+    "P2.E_b=2.224_MeV": {
+      "status": "PASS",
+      "detail": "E_b=2.22400 MeV (target 2.224)"
+    },
+    "P2.kappa=0.2316_inv_fm": {
+      "status": "PASS",
+      "detail": "kappa=0.23158 fm^-1 (target 0.2316)"
+    },
+    "P2.single_bound_state": {
+      "status": "PASS",
+      "detail": "E1=0.9738 MeV (>=0)"
+    },
+    "P2.solver_used_derived_341.8_core": {
+      "status": "PASS",
+      "detail": "Vcore0 in solve = +341.8333 MeV"
+    },
+    "P2.tensor_still_essential": {
+      "status": "PASS",
+      "detail": "central-only E=0.680 MeV (unbound: True)"
+    }
+  },
+  "commands": [
+    "python3 tests/findings/test_FB08_nn_repulsive_core.py"
+  ],
+  "notes": [
+    "Part 1 (core height) computed in THIS test from the exact rational chromomagnetic algebra in ca_nuclear_core (Fierz swap identities; pure Fraction arithmetic, no numpy on chiral objects per CLAUDE.md): dE_CM = +56/3 g_cm exactly; g_cm = 293/16 = 18.31 MeV from the N-Delta splitting => +341.79 MeV, REPULSIVE.",
+    "Part 2 reuses the F113-wired ca_nuclear.solve_deuteron(core='derived'), which embeds the SAME exact rational core kernel (closed-form derived_core_potential, cross-checked here to reproduce the exact R=0 height) and replaces the old tuned hard wall; the single physical knob is the quark size b, bisected to the binding by the model's own helper.",
+    "g_cm is NOT a new parameter: it is the existing N-Delta colour-magnetic coupling. The core HEIGHT and SHAPE are derived; only b (a genuine quark/nucleon-core length, ~0.41 fm) is tuned to the shallow binding.",
+    "Consistent with the independent P4 deuteron result (test-results/P4_deuteron.json, checks I1-I5 PASS)."
+  ],
+  "timestamp": "2026-06-16"
+}

@@ -1,0 +1,42 @@
+{
+  "test_id": "FA05",
+  "name": "Koide relation Q = 2/3",
+  "verdict": "PASS",
+  "predicted": {
+    "Q_model": 0.6666666666666666,
+    "Q_model_exact": "2/3",
+    "basis": "sqrt-mass (Cooper-pair amplitude) cubic-vector; 45-deg equipartition node"
+  },
+  "measured_target": {
+    "Q_pdg": 0.6666605114773855,
+    "expected_pdg": 0.666661,
+    "masses_MeV": {
+      "m_e": 0.51099895,
+      "m_mu": 105.6583755,
+      "m_tau": 1776.86
+    },
+    "source": "PDG lepton masses (brief FA05)"
+  },
+  "gate": {
+    "criterion": "PASS if model Q=2/3 (exact) and PDG Q within 1e-5 of 2/3",
+    "tolerance": 1e-05
+  },
+  "computed": {
+    "Q_pdg": 0.6666605114773855,
+    "Q_model": 0.6666666666666666,
+    "abs_deviation": 6.155189281153994e-06,
+    "within_tolerance": true,
+    "symbolic": {
+      "identity_Q_minus_Q_from_angle": "0",
+      "Q_node_at_cos2phi_half": "2/3",
+      "Q_node_equals_two_thirds": true,
+      "identity_holds": true
+    },
+    "symbolic_ok": true
+  },
+  "commands": [
+    "python3 tests/findings/test_FA05_koide_relation.py"
+  ],
+  "timestamp": "2026-06-10",
+  "iso_timestamp": "2026-06-10T19:21:48.201922"
+}

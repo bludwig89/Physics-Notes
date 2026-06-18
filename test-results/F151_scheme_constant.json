@@ -1,0 +1,153 @@
+{
+  "S1": {
+    "PASS": true,
+    "detail": {
+      "static_lock": {
+        "max_dev": 0.0,
+        "statement": "V(R) = (g^2/2) q^2 R exact at lambda=0 \u2014 the lock normalises the static electric energy"
+      },
+      "a1_ledger": {
+        "nf=0": {
+          "a1": 10.333333333333334,
+          "Delta_inv_alpha": 0.822300539308126,
+          "Lambda_V_over_MS": 1.5995094199463482
+        },
+        "nf=3": {
+          "a1": 7.0,
+          "Delta_inv_alpha": 0.5570423008216338,
+          "Lambda_V_over_MS": 1.4753406154906223
+        },
+        "nf=6": {
+          "a1": 3.6666666666666665,
+          "Delta_inv_alpha": 0.2917840623351414,
+          "Lambda_V_over_MS": 1.2994027838901268
+        }
+      },
+      "a1(6)=11/3": true
+    }
+  },
+  "S2": {
+    "PASS": true,
+    "detail": {
+      "Z0": 0.15490287361379707,
+      "known": 0.154933,
+      "dev": 3.0126386202922184e-05
+    }
+  },
+  "S3": {
+    "PASS": true,
+    "detail": {
+      "band_lo": 0.11429201545037868,
+      "band_hi": 0.12322525425358861,
+      "PDG": 0.118,
+      "F144_dev_%": 8.455199185051088,
+      "a1_corrected_dev_%": 4.428181570837819
+    }
+  },
+  "S4": {
+    "PASS": true,
+    "detail": {
+      "implied_qstar_a": 0.7327013876669253,
+      "geometric_mean": 0.7598356856515925,
+      "vs_geometric_%": -3.57107444373298,
+      "Lambda3_GeV": 0.34683787366664925,
+      "Lambda3_vs_FLAG": 1.011189136054371,
+      "hierarchy_N": 1.8743489254849263e-19,
+      "note": "q* fixed by alpha_s(M_Z) alone; Lambda3 then corroborates to ~1% \u2014 independent observable"
+    }
+  },
+  "S5": {
+    "PASS": true,
+    "detail": {
+      "coulomb": {
+        "max_rel_dev": 0.030702519961010366,
+        "L": 96,
+        "statement": "exact-symbol Green's fn = continuum Coulomb (difference test, image-corrected)"
+      },
+      "ir_face": {
+        "alpha_eff*_F88": 0.37643104591406884,
+        "alpha_eff*_F117": 0.4111366695258767
+      },
+      "spread": 0.034705623611807845
+    }
+  },
+  "ALL_PASS": true,
+  "report": {
+    "a1_ledger": {
+      "nf=0": {
+        "a1": 10.333333333333334,
+        "Delta_inv_alpha": 0.822300539308126,
+        "Lambda_V_over_MS": 1.5995094199463482
+      },
+      "nf=3": {
+        "a1": 7.0,
+        "Delta_inv_alpha": 0.5570423008216338,
+        "Lambda_V_over_MS": 1.4753406154906223
+      },
+      "nf=6": {
+        "a1": 3.6666666666666665,
+        "Delta_inv_alpha": 0.2917840623351414,
+        "Lambda_V_over_MS": 1.2994027838901268
+      }
+    },
+    "static_energy_lock": {
+      "max_dev": 0.0,
+      "statement": "V(R) = (g^2/2) q^2 R exact at lambda=0 \u2014 the lock normalises the static electric energy"
+    },
+    "spectral_coulomb": {
+      "max_rel_dev": 0.030702519961010366,
+      "L": 96,
+      "statement": "exact-symbol Green's fn = continuum Coulomb (difference test, image-corrected)"
+    },
+    "wilson_tadpole": {
+      "Z0": 0.15490287361379707,
+      "known": 0.154933,
+      "dev": 3.0126386202922184e-05
+    },
+    "chain_band": {
+      "q*=1/a": {
+        "alpha_s_MZ": 0.12322525425358861,
+        "dev_vs_PDG_%": 4.428181570837819,
+        "Lambda3_GeV": 0.43623138664342337,
+        "Lambda3_vs_FLAG": 1.2718116228671235,
+        "hierarchy_N": 2.35744102042257e-19
+      },
+      "q*=1/sqrt3/a": {
+        "alpha_s_MZ": 0.11429201545037868,
+        "dev_vs_PDG_%": -3.1423597878146747,
+        "Lambda3_GeV": 0.2908764712443019,
+        "Lambda3_vs_FLAG": 0.8480363593128334,
+        "hierarchy_N": 1.5719275278731742e-19
+      },
+      "q*=3^-1/4/a (geometric mean)": {
+        "alpha_s_MZ": 0.11858752021424436,
+        "dev_vs_PDG_%": 0.49789848664776315,
+        "Lambda3_GeV": 0.3562685745519446,
+        "Lambda3_vs_FLAG": 1.0386838908219957,
+        "hierarchy_N": 1.9253134406460133e-19
+      },
+      "no_a1_reference (F144)": {
+        "alpha_s_MZ": 0.12797713503836028,
+        "dev_vs_PDG_%": 8.455199185051088,
+        "Lambda3_GeV": 0.5285700209266841,
+        "Lambda3_vs_FLAG": 1.5410204691740061,
+        "hierarchy_N": 2.856448865557499e-19
+      }
+    },
+    "implied_qstar_a": 0.7327013876669253,
+    "implied_vs_geometric_%": -3.57107444373298,
+    "implied_in_band": true,
+    "at_implied": {
+      "alpha_s_MZ": 0.1179999999999998,
+      "dev_vs_PDG_%": -1.6653345369377348e-13,
+      "Lambda3_GeV": 0.34683787366664925,
+      "Lambda3_vs_FLAG": 1.011189136054371,
+      "hierarchy_N": 1.8743489254849263e-19
+    },
+    "ir_face": {
+      "alpha_eff*_F88": 0.37643104591406884,
+      "alpha_eff*_F117": 0.4111366695258767
+    }
+  },
+  "CALIBRATION_NOTE": "Zero new parameters. Derived: alpha_rule=alpha_V (tree, S1) and the exact one-loop a1 conversion. Bounded: the matching scale q* in [1/sqrt3, 1]/a (model geometric conventions); data-implied q*=0.7327/a, 3.6% below 3^(-1/4)/a (observation, not derivation \u2014 the LPT q* computation is the remaining first-principles step). Corroboration: Lambda3 = 347 MeV vs FLAG 343(12) at the implied point. IR face alpha_eff*~0.38-0.41 is a separate nonperturbative target (refines the 'one shared number' of F144/F145)."
+}

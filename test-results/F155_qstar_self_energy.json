@@ -1,0 +1,59 @@
+{
+  "A0_tadpole_empty_exact": {
+    "passed": true,
+    "link_residual": 2.220446049250313e-16,
+    "u0": 1.0,
+    "wilson_Z0_absent": 0.15486463008695847,
+    "gluon_luminal_dev": 1.6172416655405516e-12
+  },
+  "A3_d1_subtraction_convergent": {
+    "passed": true,
+    "d1_bubble": 0.1664680107641233,
+    "convergence_spread": 0.00017660535999114435,
+    "b0_slope_ratio": 0.9933321107386444
+  },
+  "A5_qstar_bracketed": {
+    "passed": true,
+    "qstar_bracket": [
+      0.5774,
+      0.9793
+    ],
+    "qstar_abelian": 0.9793,
+    "qstar_implied": 0.7327,
+    "lambda_ratio_bracket": [
+      1.327,
+      2.251
+    ],
+    "lambda_ratio_at_implied": 1.773,
+    "wilson_contrast": 28.81
+  },
+  "Bf_freeze_anchorfree": {
+    "passed": true,
+    "onset_L16": 0.3068,
+    "onset_L24": 0.3068,
+    "alpha_phys": 0.3764,
+    "freeze_window": [
+      0.307,
+      0.376
+    ],
+    "continuum_window": [
+      0.3,
+      0.5
+    ]
+  },
+  "C_falsification_sharp": {
+    "passed": true,
+    "target_qstar": 0.7327,
+    "target_lambda_ratio": 1.78,
+    "wilson_must_not_match": 28.81,
+    "verdict": "A: q* bracketed [0.577,~0.97] (implied 0.733 inside), needs gluonic 3g+ghost finite part / high-res static potential to pin; B-freeze ~0.35(4) anchor-free, exact value gated on A scale"
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true,
+    "A_bracketed": true,
+    "A_pinned": false,
+    "B_freeze_anchorfree": true
+  }
+}

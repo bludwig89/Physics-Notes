@@ -1,0 +1,183 @@
+{
+  "finding": "F148",
+  "checks": [
+    {
+      "name": "A net charge of 1H is exactly 0 e",
+      "pass": true,
+      "detail": "protons 1 + electrons -1 = 0"
+    },
+    {
+      "name": "B1 proton ground state is a finite, discrete (bound) level",
+      "pass": true,
+      "detail": "E_rel = 5.739766 string-units"
+    },
+    {
+      "name": "B2 mass is the string: constituent-mass sum is a minority of M",
+      "pass": true,
+      "detail": "constituent-mass fraction = 29.093% (<50% => confinement-bound)"
+    },
+    {
+      "name": "B3 single-nucleon nuclear binding is exactly 0 (no bond to form)",
+      "pass": true,
+      "detail": "A=1: self-bound baryon, no inter-nucleon force needed"
+    },
+    {
+      "name": "C1 electron 1s level is bound (E < 0)",
+      "pass": true,
+      "detail": "E_1s = -13.597947 eV"
+    },
+    {
+      "name": "C2 equals -(1/2) mu c^2 alpha^2 from imported m_e,m_p,alpha (machine)",
+      "pass": true,
+      "detail": "|E_1s + Ry_model|/Ry = 2.50e-05  (Ry_model = 13.598287 eV)"
+    },
+    {
+      "name": "D ionization = +13.598 eV (measured H)",
+      "pass": true,
+      "detail": "I = 13.597947 eV  vs  measured 13.5984346 eV  (rel 3.58e-05)"
+    },
+    {
+      "name": "E 1H is STABLE (neutral & nucleus bound & electron bound)",
+      "pass": true,
+      "detail": "neutral=True, nucleus bound=True, electron bound=True"
+    },
+    {
+      "name": "F all assembler constants are imported model values (no redefinition)",
+      "pass": true,
+      "detail": "m_e_MeV<-ca_atom (F120 anchor); m_p_MeV<-ca_atom (F122/F123); alpha<-ca_atom (the one EM input, F125)"
+    },
+    {
+      "name": "G1 build_element(Z,N): correct A and exact neutrality across H..U",
+      "pass": true,
+      "detail": "He,Ne,Ar,Fe,U all A=Z+N and net charge 0"
+    },
+    {
+      "name": "G2 Aufbau noble-gas closures: He=1s2, Ne=2p6, Ar=3p6",
+      "pass": true,
+      "detail": "He ((1, 's'), 2), Ne ((2, 'p'), 6), Ar ((3, 'p'), 6)"
+    },
+    {
+      "name": "G3 A>=3 nuclear + Z>=2 electron paths raise model-only recipes (no fake numbers)",
+      "pass": true,
+      "detail": "honest extension hooks present"
+    },
+    {
+      "name": "G4 A=2 deuteron (pn) binds via model NN OBE (pi+sigma+omega+core)",
+      "pass": true,
+      "detail": "deuteron binding = 2.2343 MeV (>0, bound)"
+    }
+  ],
+  "derived": {
+    "hydrogen_report": {
+      "element": "H-1",
+      "Z": 1,
+      "N": 0,
+      "A": 1,
+      "net_charge_e": 0,
+      "neutral": true,
+      "ionization_energy_eV": 13.597947437401986,
+      "stable": true
+    },
+    "baryon": {
+      "E_rel": 5.7397663379224975,
+      "M": 8.094766337922497,
+      "constituent_mass_fraction": 0.2909287188398826,
+      "discrete_spectrum_bound": true
+    },
+    "E_1s_eV": -13.597947437401986,
+    "Ry_model_eV": 13.598287264302241,
+    "ionization_eV": 13.597947437401986,
+    "provenance": {
+      "m_e_MeV": {
+        "value": 0.51099895,
+        "source": "ca_atom (F120 anchor)"
+      },
+      "m_p_MeV": {
+        "value": 938.27208816,
+        "source": "ca_atom (F122/F123)"
+      },
+      "alpha": {
+        "value": 0.0072973525692838015,
+        "source": "ca_atom (the one EM input, F125)"
+      }
+    },
+    "ladder": [
+      {
+        "symbol": "He",
+        "Z": 2,
+        "N": 2,
+        "A": 4,
+        "net_charge": 0,
+        "last_subshell": [
+          [
+            1,
+            "s"
+          ],
+          2
+        ]
+      },
+      {
+        "symbol": "Ne",
+        "Z": 10,
+        "N": 10,
+        "A": 20,
+        "net_charge": 0,
+        "last_subshell": [
+          [
+            2,
+            "p"
+          ],
+          6
+        ]
+      },
+      {
+        "symbol": "Ar",
+        "Z": 18,
+        "N": 22,
+        "A": 40,
+        "net_charge": 0,
+        "last_subshell": [
+          [
+            3,
+            "p"
+          ],
+          6
+        ]
+      },
+      {
+        "symbol": "Fe",
+        "Z": 26,
+        "N": 30,
+        "A": 56,
+        "net_charge": 0,
+        "last_subshell": [
+          [
+            3,
+            "d"
+          ],
+          6
+        ]
+      },
+      {
+        "symbol": "U",
+        "Z": 92,
+        "N": 146,
+        "A": 238,
+        "net_charge": 0,
+        "last_subshell": [
+          [
+            5,
+            "f"
+          ],
+          4
+        ]
+      }
+    ],
+    "deuteron_binding_MeV": 2.234279328803517
+  },
+  "summary": {
+    "passed": 13,
+    "total": 13,
+    "all_pass": true
+  }
+}

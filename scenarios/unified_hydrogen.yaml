@@ -1,0 +1,55 @@
+# Unified real-space integration (roadmap-unified-real-space.md, U0):
+# the FULL chain on one BCC lattice with every coupling loop live —
+#   * three colour quarks (uud) source the gluon field; the gluon field
+#     acts back on them (confinement loop, ca_gluon.gluon_sourced_step_bcc
+#     + su3_rotate_weyl_step);
+#   * the quarks' net +1 charge (and the electron's −1) source the even-law
+#     photon's Coulomb α(x); the electron reads α and is wrapped by it
+#     (EM/Coulomb loop, photon_sourced + u1_wrap_dirac_step);
+#   * a light F64 dielectric background (gravity present).
+#
+# This is a COMPRESSED-SCALE demonstration: at the canonical cell the proton
+# (1e-15 m) and the Bohr orbit (5e-11 m) differ by ~1e4 in size and cannot
+# share one tractable lattice (see roadmap §2). Here the couplings are scaled
+# so the mechanism and the loop consistency are exhibited on one lattice; the
+# physical scale separation is restored at U4 via the block-spin multigrid.
+# Structure is the deliverable; absolute fm/eV remain P6/scale-gated (F123).
+name: unified_hydrogen
+title: "Unified Hydrogen (real-space U0)"
+description: "Full chain on one BCC lattice: uud quarks↔gluon (confinement loop) + (p,e) charge↔photon Coulomb α (EM loop) + F64 gravity background, with the unification readout."
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 60
+channels:
+  # --- static F64 dielectric background (gravity present) ---
+  - {type: gravity_dielectric, name: gmass, M: 1.0, sigma: 3.0}
+
+  # --- sourced fields FIRST: each reads the prior-tick currents and
+  #     publishes the updated potential the particles read THIS tick
+  #     (leapfrog; engine steps in listed order, later channels see
+  #     earlier channels' updated state). ---
+  - {type: gluon_sourced,  name: gluon_field,  sources: [u_r, u_g, d_b], g_lat: 1.0, dt: 1.0}
+  - {type: photon_sourced, name: photon_field, sources: [u_r, u_g, d_b, electron],
+     dt: 0.1, g_em: 1.0, coulomb: true, g_coulomb: 6.0}
+
+  # --- the proton's three colour quarks (at rest, tightly overlapped) ---
+  - {type: particle, name: u_r, species: u_L, colour: r,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: u_g, species: u_L, colour: g,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: d_b, species: d_L, colour: b,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+
+  # --- the electron: a massive lepton singlet offset from the proton,
+  #     reading the proton's Coulomb α(x) ---
+  - {type: particle, name: electron, species: e_L, mass: 0.3,
+     init: {center: [12, 8, 8], width: 2.0},
+     couplings: {em: photon_field, gravity: gmass}}
+observers:
+  - {type: norm_conservation, every: 10, channels: [u_r, u_g, d_b, electron]}
+  - {type: particle_readout, every: 20}
+  - {type: unification_readout, every: 5}
+output: {json: test-results/casim_unified_hydrogen.json}

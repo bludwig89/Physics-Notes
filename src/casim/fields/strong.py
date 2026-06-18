@@ -13,7 +13,7 @@ import casim as _casim  # noqa: F401
 
 _MODULES = [
     "ca_gluon", "ca_strong", "ca_colour_condensate", "ca_colour_dielectric",
-    "ca_confinement", "spinor_color",
+    "ca_dual_gl_backreaction", "ca_confinement", "spinor_color",
 ]
 _loaded = {}
 for _m in _MODULES:

@@ -29,7 +29,7 @@ Reads off `n_minus_p_MeV, n_minus_p_sign_positive, np_strong_term_MeV, np_em_ter
 1. Symbolic: the down–up current-mass gap → `+2.51 MeV` (F40 Y-extension); proton EM self-energy → `−1.00 MeV`; sum `+1.51 MeV`. Confirm sign and value.
 2. Dynamical baryon cross-check (the two-route P2 baryon):
 ```bash
-casim run scenarios/proton_composite.yaml --L 16 --ticks 60 \
+casim run scenarios/proton_composite.yaml --L 64 --ticks 1000 \
     --out test-results/FA06_np.json
 ```
 Compare proton vs neutron three-body binding with the F40 current masses; confirm the neutron is heavier and the gap sign is positive.

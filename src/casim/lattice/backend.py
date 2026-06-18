@@ -14,6 +14,8 @@ from __future__ import annotations
 
 from typing import Any, Callable, Dict
 
+import numpy as np
+
 import casim as _casim  # noqa: F401  (legacy dir on sys.path)
 import ca_fft as _ca_fft  # noqa: E402
 
@@ -81,8 +83,32 @@ def ifft(a, **kw):  return _ACTIVE[0].ifft(a, **kw)
 def chiral_transform(*a, **kw): return _ACTIVE[0].chiral_transform(*a, **kw)
 
 
+class _NumpyFftBackend:
+    """Pure-`numpy.fft` backend (Phase 4, F134).
+
+    A second, independent FFT implementation registered through the same seam.
+    It exists to *validate the seam*: swapping it in must leave every spectral
+    result identical to the default `ca_fft` backend (to the FFT round-off
+    floor), which is the regression a future numba/GPU backend has to pass — a
+    GPU backend is the same kind of drop-in (hardware-dependent, so not built in
+    this sandbox)."""
+    name = "numpy_fft"
+
+    def fftn(self, a, **kw):  return np.fft.fftn(a, **kw)
+    def ifftn(self, a, **kw): return np.fft.ifftn(a, **kw)
+    def fft2(self, a, **kw):  return np.fft.fft2(a, **kw)
+    def ifft2(self, a, **kw): return np.fft.ifft2(a, **kw)
+    def fft(self, a, **kw):   return np.fft.fft(a, **kw)
+    def ifft(self, a, **kw):  return np.fft.ifft(a, **kw)
+
+    def chiral_transform(self, *a, **kw):  # pragma: no cover
+        raise NotImplementedError(
+            "numpy_fft has no chiral_transform; use the 'chiral_core' backend.")
+
+
 # Register + activate the default on import.
 register_backend(_CaFftBackend())
+register_backend(_NumpyFftBackend())
 use("ca_fft")
 
 __all__ = [

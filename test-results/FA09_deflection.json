@@ -1,0 +1,100 @@
+{
+  "test_id": "FA09",
+  "title": "Light-bending coefficient = -4 and absolute solar deflection",
+  "verdict": "PASS",
+  "timestamp": "2026-06-10T19:27:32.259684",
+  "date": "2026-06-10",
+  "predicted": {
+    "K_bend": -4,
+    "K_bend_exact_all_field_strengths": true,
+    "solar_deflection_arcsec": 1.75119
+  },
+  "measured_target": {
+    "VLBI_GR_solar_limb_arcsec": 1.751,
+    "reported_GR_value_arcsec": 1.75119,
+    "gamma_cassini_bound": "|gamma-1| < 2.3e-5",
+    "source": "VLBI / GR solar limb deflection; Cassini gamma"
+  },
+  "gate": "PASS iff K_bend=-4 exact (sympy zero residual) AND absolute deflection 1.751190\" within F79 G-residual of VLBI",
+  "A_symbolic": {
+    "alpha": "-4*mu/b",
+    "K_bend": "-4",
+    "residual": "0",
+    "exact_minus4": true
+  },
+  "B_numeric": {
+    "backend": "mpmath",
+    "runs": [
+      {
+        "u": 0.01,
+        "K_bend": -4.0,
+        "residual": 0.0
+      },
+      {
+        "u": 0.001,
+        "K_bend": -4.0,
+        "residual": 0.0
+      },
+      {
+        "u": 0.0001,
+        "K_bend": -4.0,
+        "residual": 0.0
+      },
+      {
+        "u": 1e-05,
+        "K_bend": -4.0,
+        "residual": 0.0
+      }
+    ],
+    "max_abs_residual": 0.0,
+    "pass": true
+  },
+  "C_absolute_solar": {
+    "a_over_ellP": 6.597816664747605,
+    "a_m": 1.0663754173481642e-34,
+    "G_pred": 6.67429980237485e-11,
+    "G_codata": 6.6743e-11,
+    "G_residual": 2.960986906000282e-08,
+    "M_sun_from_GMsun": 1.9884099298442997e+30,
+    "deflection_arcsec": 1.7511903257975014,
+    "deflection_gr_arcsec": 1.7511903257975014,
+    "deflection_resid_rel": 0.0,
+    "target_arcsec": 1.75119,
+    "deviation_arcsec": 3.2579750142147645e-07,
+    "pass": true
+  },
+  "D_open_bc_eikonal": {
+    "runs": [
+      {
+        "b": 8,
+        "Kbend": 3.99998750005861
+      },
+      {
+        "b": 12,
+        "Kbend": 3.99998750005859
+      },
+      {
+        "b": 16,
+        "Kbend": 3.99998750005847
+      },
+      {
+        "b": 24,
+        "Kbend": 3.999987500058569
+      },
+      {
+        "b": 32,
+        "Kbend": 3.9999875000586558
+      }
+    ],
+    "max_abs_dev_from_4": 1.2499941529853231e-05,
+    "pass": true,
+    "note": "real-space 1/r kernel, open boundaries, no FFT/PBC; supersedes test_01b"
+  },
+  "commands": [
+    "python3 tests/findings/test_FA09_deflection_coefficient.py",
+    "# CASIM equivalent (native, if run on full lattice):",
+    "casim run scenarios/gravity_deflection.yaml --L 128 --out test-results/FA09_deflection.json",
+    "casim analyze test-results/FA09_deflection.json --table"
+  ],
+  "provenance": "F64 (D-EM5/D-EM9), F79 (G closed form, a/ell_P), F107 (L4 absolute lensing), F112 (B, registry)"
+}

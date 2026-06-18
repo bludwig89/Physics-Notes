@@ -89,6 +89,19 @@ class Channel:
         """Round-trippable build spec: ``build_channel(ch.spec())`` rebuilds it."""
         return {"type": self.type_name, "name": self.name, **self.config}
 
+    # --- block-spin RG hook (Phase 4, F133) ---------------------------------
+    def block_spin(self, state, lattice, b: int):
+        """Coarse-grain this channel's state under R_b (block factor ``b``).
+
+        Default dispatches on the state layout via
+        ``casim.engine.blockspin.block_state`` (even/chiral/dielectric (E,B)
+        fields → component-wise block-average; (f,g) spinors → complex-safe
+        block-average; gravity (φ,K) → block-average the linear φ, rebuild K).
+        Channels with exotic state should override.
+        """
+        from .blockspin import block_state
+        return block_state(state, b, self.propagator)
+
     def density_field(self, state) -> "np.ndarray":
         """Return a 3-D real scalar volume for visualisation (GUI point cloud).
 

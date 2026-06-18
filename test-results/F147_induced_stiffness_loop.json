@@ -1,0 +1,57 @@
+{
+  "finding": "F147",
+  "checks": {
+    "L1_hop_decomposition": {
+      "pass": true,
+      "detail": "max residual +: 1.07e-15, \u2212: 1.48e-15 (8 harmonics, A0=0)"
+    },
+    "L2_parity_theorem": {
+      "pass": true,
+      "detail": "omega(q+Q)=pi\u2212omega: 9.99e-16; n(q+Q)=\u2212n: 9.71e-16"
+    },
+    "L3_circle_pt_kernel": {
+      "pass": true,
+      "detail": "cot(dOm/2) kernel, unit prefactor: max |ratio\u22121| = 1.85e-06"
+    },
+    "L4a_ward_two_tick": {
+      "pass": true,
+      "detail": "two-tick pure-gauge E-invariance: stag 0.00e+00, vec 0.00e+00 (exact telescoping)"
+    },
+    "L4b_ward_one_tick_fails": {
+      "pass": true,
+      "detail": "one-tick staggered gauge invariance fails by 9.17e-03 \u2014 hypercharge gauge structure is stroboscopic-only (F51)"
+    },
+    "L5_gauged_spectral_closures": {
+      "pass": true,
+      "detail": "lambda\u2192\u2212lambda (bipartite, any A): 0.0e+00; lambda\u2192\u2212conj(lambda) (theta\u2192pi\u2212theta): 0.0e+00, at eps=0.3"
+    },
+    "L6_one_tick_rigidity": {
+      "pass": true,
+      "detail": "one-tick chi: vec -0.0e+00, stag -0.0e+00 \u2014 exactly zero (theta\u2192pi\u2212theta pairs filled states to constant sum \u2212pi)"
+    },
+    "L7_channel_equality_pointwise": {
+      "pass": true,
+      "detail": "max |dM|, |dGap| \u2014 face: 1.0e-14/3.6e-15, diag: 5.1e-15/3.6e-15 (8000-pt grids)"
+    },
+    "_chi_two_tick_L6": {
+      "vector": -0.006405493814377728,
+      "staggered": -0.006405493814377728
+    },
+    "_chi_two_tick_L8": {
+      "vector": -0.012095966894776211,
+      "staggered": -0.01209596778295463
+    },
+    "L8_channel_equality_full_response": {
+      "pass": true,
+      "detail": "para+diamagnetic brute force: rel diff L=6: 0.0e+00, L=8: 7.3e-08"
+    },
+    "L9_charge_bookkeeping": {
+      "pass": true,
+      "detail": "equal quanta + bare charges: t^2 = 1/4, sin^2(theta_W)_free = 1/5; F49 target 2/7 = t^2 \u00d7 8/7 \u2014 the 8/7 is charge content/multiplicity (F38/F141-U1,U3), not loop dynamics"
+    }
+  },
+  "summary": {
+    "n_pass": 10,
+    "n_total": 10
+  }
+}

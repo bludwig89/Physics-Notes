@@ -21,7 +21,7 @@ This is a hard structural prediction, not a small number — the excluded σ-bil
 ## CASIM build & run
 Structural; verify the two polarisations are degenerate on the live propagator.
 ```bash
-casim run scenarios/photon_pair.yaml --L 64 --ticks 200 \
+casim run scenarios/photon_pair.yaml --L 128 --ticks 2000 \
     --out test-results/FA02_birefringence.json
 ```
 Initialise both helicity states, propagate, and confirm their dispersion relations `Ω₊(k)` and `Ω₋(k)` coincide to machine precision (`max|Ω₊−Ω₋| < 1e-13`). Cross-check symbolically that the even-law rotation step `ca_wmu._f26_rotation_step` is helicity-blind. Contrast with the σ-bilinear channel (`ca_maxwell.py`) which must show the split (regression that the right object was retired).

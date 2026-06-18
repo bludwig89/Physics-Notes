@@ -1,0 +1,31 @@
+{
+  "V1_quadratic_propagator": {
+    "passed": true,
+    "ratio_spread_rel": 0.0034915956290169498,
+    "ratios": [
+      20.25,
+      20.25,
+      20.1794,
+      20.25
+    ]
+  },
+  "V2_colour_antisymmetry": {
+    "passed": true,
+    "V123": -3.001229075948685,
+    "V_colourswap": 3.001229075948685,
+    "sum": 0.0
+  },
+  "V3_bose_full_symmetry": {
+    "passed": true,
+    "V": -3.001229075948685,
+    "swap_dev": 0.0,
+    "cyclic_dev": 0.0
+  },
+  "summary": {
+    "passed": 3,
+    "total": 3,
+    "all_pass": true,
+    "extractor_validated": true,
+    "continuum_magnitude": "pending large-L native run (run_lpt_vertex_continuum.py)"
+  }
+}

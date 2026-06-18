@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .DS_Store
+# Ephemeral per-run output of the `casim test` suite (timestamped dirs)
+test-results/suite/

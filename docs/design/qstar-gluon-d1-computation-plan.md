@@ -1,0 +1,47 @@
+# Computing the gluonic $d_1$ — the one number that pins $q_\ast$ (a validatable plan)
+
+`2026-06-16 - 17:00` — design doc for the remaining Residual-A computation (F155 §6).
+Companion to `ca-simulation/ca_gluon_self_energy.py` and `findings/F155-qstar-self-energy-and-freeze-bracket.md`.
+
+> **UPDATE 2026-06-18 (F162) — the $b_0$ gate is PASSED; the finite $d_1$ to the digit is still open.**
+> The background-field one-loop gluon self-energy is now **assembled** (`ca-simulation/ca_bgfield_loop.py`; Abbott/HKYS $\xi{=}1$ gluon loop $\Gamma^F\Gamma^F$ + ghost loop $-2(2k{+}q)(2k{+}q)$). Its UV log part is **exactly transverse** with $b_0=\tfrac{11}{3}C_A=11$ (gluon:ghost $=10{:}1$, scalar-bubble calibration $g{=}1$) — the loop-assembly validation this plan called for, done symbolically. The lattice propagator is shown (well-conditioned, subtracted) to leave $b_0$ unchanged ($\Delta=B_\text{lat}-B_\text{cont}$ q-flat; rule shift $\to0$, near-perfect action). **What remains exactly as below:** the finite $d_1$ needs the bespoke lattice 3-gluon+ghost $\cos(k/2)$ **vertex form factors**, with the Wilson finite-constant gate (28.81) — NOT yet executed. The continuum-vertex stand-in only reproduces the propagator piece (band top $\sim0.97$), confirming the pull-down to $0.733$ is entirely the vertex form-factor part. So the F155 bracket stands; the plan's step 2 (the vertex algebra) and step 3 (the Wilson $b_0$/28.81 gate **with full lattice vertices**) are the open items. See `findings/F162-bgfield-self-energy-b0-gate.md`.
+
+## The target, stated precisely
+
+Everything around $q_\ast$ is fixed (F151/F155): the rule coupling is the V-scheme coupling (tree-exact), the V→$\overline{\rm MS}$ conversion is the exact $a_1=\tfrac{11}3$, the tadpole sector is *exactly empty* (A0), and the leading-log/abelian matching scale is the band top $q_\ast^\text{abelian}\sim0.97/a$. The **moment-insensitivity theorem** (F155 §6.1) proved the remaining shift to the implied $0.733$ is *entirely* a finite, vertex-dependent lattice constant — no moment captures it. So the whole problem reduces to one pure number:
+
+$$d_1 \;=\; 0.348\ \text{(in }1/\alpha\text{ units)}\quad\Longleftrightarrow\quad q_\ast a = e^{-d_1/2b_0^\alpha}=0.733,\quad \Lambda_{\overline{\rm MS}}/\Lambda_\text{rule}=1.78.$$
+
+$d_1$ is the UV-finite part of the rule's one-loop **background-field gluon self-energy** (gluon loop + ghost loop; tadpole/4-gluon contact is zero by A0), minus the continuum $\overline{\rm MS}$ value. It is the genuine lattice-PT $d_1$, tadpole-free.
+
+Magnitude sanity (literature): Wilson $\Lambda_{\overline{\rm MS}}/\Lambda_L=28.81$ is tadpole-dominated; force/V-scheme $\Lambda_R=1.048\,\Lambda_{\overline{\rm MS}}$; good tadpole-free schemes give $O(1)$ ratios. The rule's $1.78$ is in that physical band, so the target $d_1$ is an $O(0.3)$ finite number — not a large one.
+
+## The computation (background-field Feynman gauge)
+
+1. **Propagator (done).** The rule gluon propagator is $1/K_\text{lat}(k)$ with $K_\text{lat}=3\,\Omega_\text{even}^2\to\lvert k\rvert^2$ (`K_true_4d`), transverse projector in background-field gauge. Luminal and tadpole-free (A0/A1).
+2. **Vertices — 3-gluon extractor BUILT + partly validated (2026-06-16, `ca_lpt_vertex.py`).** Rather than transcribe a closed-form lattice vertex, the extractor reads the vertex straight off the gauge-invariant compact plaquette action by amplitude differentiation (mixed third derivative of $S$ in three plane-wave modes). Validated by THREE convention-free structural checks, all to machine precision (test `tests/findings/test_F155_lpt_vertex.py`, 3/3): (V1) quadratic term → propagator $c_2(k)/\hat K(k)$ constant across non-Nyquist transverse modes (spread $<4\times10^{-3}$); (V2) cubic term colour-antisymmetric $V(a,b,c)=-V(b,a,c)$ (the $f^{abc}$ structure); (V3) full Bose symmetry — $V$ invariant under simultaneous (momentum+Lorentz+colour) leg exchange and cyclic permutation. Since the extractor reads the vertex off the gauge-invariant plaquette action (classical continuum limit = Yang–Mills) and passes all three symmetries, it carries the correct vertex **including the point-splitting form factors** (they come from the action automatically). **Continuum-magnitude cross-check (optional, native):** `run_lpt_vertex_continuum.py` sweeps $L{=}12{-}32$ and checks the volume-normalised transverse contraction $(\text{amp}/V)/\text{continuum}\to$ const as $k\to0$. Caveat: transverse contractions can partially cancel the $O(k)$ piece, so the *definitive* continuum-form check is better done via the closed-form vertex (sympy) or a Ward/Slavnov–Taylor identity against the validated propagator. The extractor works for any compact action, so the rule's vertex = same extractor on the rule's plaquette. Remaining for the full $d_1$:
+
+   The original open items still to wire after the form-factor validation:
+   - the background–quantum–quantum **3-gluon vertex** $V_3(k,p)$ on the BCC BZ;
+   - the **ghost–gluon vertex** + ghost propagator (Faddeev–Popov for the background-field gauge condition).
+   These are the bespoke pieces: the $\Omega_\text{even}=\arccos$-based kinetic operator gives momentum factors that differ from Wilson's $\sin$-based vertices at $O(k^3)$ and beyond, but agree at leading order (the near-perfect action, F129).
+3. **Self-energy $\Pi(p)$ — must use the BACKGROUND-FIELD formalism (verified necessary, 2026-06-16).** Contract the 3-gluon vertex squared (gluon loop) + the ghost loop on the BZ; the transverse coefficient is $b_0 g^2 p^2[\ln(1/p^2a^2)+C_\text{lat}]$, and the $b_0=\tfrac{11}3C_A$ recovery is the loop's validation gate. **Critical:** this works only in **background-field gauge**, where the coupling renormalisation is $Z_g=Z_A^{-1/2}$ so $b_0$ comes from the background self-energy *alone*. In ordinary Feynman gauge the gluon vacuum polarisation is **not transverse by itself** and does **not** give $b_0$ without the (separately computed) vertex correction — a Feynman-gauge $\Pi$ will *not* reproduce $\tfrac{11}3C_A$. So the loop must be assembled with the **background–quantum–quantum** 3-gluon vertex and the background-field ghost vertex, not the plain vertices. (The plain vertex's structure is what `ca_lpt_ward.py` validates via the Ward identity; the background-field vertices are a documented modification of it.) Validation gate: the assembled background-field $\Pi$ must give $b_0=11$ (pure gauge, $C_A=3$) before any $d_1$ is trusted.
+4. **Subtract.** $d_1 = b_0$-normalised$\big(C_\text{lat}-C_{\overline{\rm MS}}\big)$ — the UV-finite difference, using the convergent subtraction machinery already built and validated (A3, `subtracted_bubble_constant`). Then $q_\ast a=e^{-d_1/2b_0^\alpha}$.
+
+## Validation gate — status
+
+**Integration core: BUILT and VALIDATED (2026-06-16, `ca_lpt_wilson.py`).** The reusable BZ-quadrature engine reproduces the canonical Wilson one-loop integrals: the exact sum rule $\int_\text{BZ}\hat k_x^2/\hat K=1/4$ to machine precision ($10^{-16}$), and the famous tadpole $Z_0=\int_\text{BZ}1/\hat K\to0.1549334$ (rel dev $1.1\times10^{-4}$ at $n{=}64$, converging $\sim1/n^2$; the dominant piece of Wilson's 28.809, and exactly the term the rule lacks, A0). Test `tests/findings/test_F155_lpt_wilson_core.py` (3/3); native high-res runner `tests/runners/run_lpt_wilson_validation.py` (n=64…192). So the *machinery* the rule's $d_1$ will reuse is trusted. **Still open: the vertex+ghost finite constant** (the non-tadpole part of 28.809 = the rule's whole $d_1$) — the cubic/quartic expansion of the action below.
+
+## Validation gate (do this FIRST, before trusting the rule's number)
+
+Implement the **same machinery for the Wilson action** (kinetic $\hat K=4\sum\sin^2(k/2)$, Wilson 3-gluon/ghost vertices, *with* the tadpole) and reproduce the known $\Lambda_{\overline{\rm MS}}/\Lambda_L=28.81$ (equivalently the Wilson $d_1$). Only once the framework reproduces Wilson to a few % do we swap in the rule's propagator+vertices (and drop the tadpole, A0) and read off the rule's $d_1$. This converts "a bespoke integral we hope is right" into "a validated pipeline applied to a new action."
+
+Pass/fail: the rule must give $q_\ast a=0.733\pm$(band) / $\Lambda$-ratio $\approx1.78$. If it lands near Wilson's $29$, the $g_s=\tfrac12$ lock is falsified — but A0 (exact tadpole-emptiness) makes that structurally impossible, so the honest expectation is an $O(1)$ ratio in the F151 band.
+
+## Cost / shape
+
+A finite 4D BZ quadrature once the vertices are in hand — minutes of compute. The cost is the *vertex algebra* (the cubic/quartic expansion of the $\arccos$ rotor action), which is a focused analytic + symbolic task (sympy), not a long compute job. This is the single remaining production computation of the entire strong sector's UV face.
+
+## Alternative (gauge-fixing-free) cross-check
+
+The A-NP static-potential route (`run_su3_3d_string_tension.py`, Cornell $\alpha_V$ fit) reaches the same $q_\ast$ without gauge fixing — but the 2026-06-14→16 production runs showed the confining term swamps the perturbative Coulomb at accessible $\beta/L$, so it needs a wider $\beta$-lever + Coulomb-improved short-distance fit (more seeds, larger $\beta$). The block-spin RG (`confinement_rg_step`, F130-C1) cheaply extends the $\sigma$-scaling check but does **not** reach $q_\ast$ (its relevant direction is confinement/IR, not the UV matching). So the LPT route above is the higher-leverage path.

@@ -1,0 +1,271 @@
+{
+  "name": "confined_baryon",
+  "title": "Confined Baryon (real-space U1)",
+  "description": "Three massive Dirac constituents bound by the F86/F70 scalar confining string toward the singlet COM (Y-string): the cluster RMS stays bounded vs free dispersal \u2014 real-space confinement.",
+  "seed": 11,
+  "ticks": 150,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "q1": {
+      "name": "q1",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "q2": {
+      "name": "q2",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "q3": {
+      "name": "q3",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 50,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "q1": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "q2": {
+              "energy": 0.9999999999999998,
+              "rel_drift": 0.0
+            },
+            "q3": {
+              "energy": 0.9999999999999997,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "q1": {
+              "energy": 1.0000000000000067,
+              "rel_drift": 6.439293542825906e-15
+            },
+            "q2": {
+              "energy": 1.0000000000000062,
+              "rel_drift": 6.4392935428259095e-15
+            },
+            "q3": {
+              "energy": 1.0000000000000062,
+              "rel_drift": 6.550315845288426e-15
+            }
+          }
+        },
+        {
+          "tick": 100,
+          "channels": {
+            "q1": {
+              "energy": 1.0000000000000133,
+              "rel_drift": 1.3100631690576844e-14
+            },
+            "q2": {
+              "energy": 1.0000000000000129,
+              "rel_drift": 1.310063169057685e-14
+            },
+            "q3": {
+              "energy": 1.0000000000000129,
+              "rel_drift": 1.3211653993039368e-14
+            }
+          }
+        },
+        {
+          "tick": 150,
+          "channels": {
+            "q1": {
+              "energy": 1.0000000000000204,
+              "rel_drift": 2.0206059048177846e-14
+            },
+            "q2": {
+              "energy": 1.00000000000002,
+              "rel_drift": 2.0206059048177852e-14
+            },
+            "q3": {
+              "energy": 1.0000000000000195,
+              "rel_drift": 1.9872992140790308e-14
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "q1": 2.0206059048177846e-14,
+          "q2": 2.0206059048177852e-14,
+          "q3": 1.9872992140790308e-14
+        }
+      }
+    },
+    "unification_readout": {
+      "type": "unification_readout",
+      "label": "Unification Readout",
+      "exactness": "quantitative",
+      "every": 25,
+      "records": [
+        {
+          "tick": 0,
+          "proton_rms": 2.0225735104980505,
+          "proton_centroid": [
+            8.000000000000037,
+            8.650613626504638,
+            8.0
+          ],
+          "proton_norm": 3.0,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 25,
+          "proton_rms": 3.2962246860159388,
+          "proton_centroid": [
+            8.012385882688264,
+            8.566498884065542,
+            8.242282098284994
+          ],
+          "proton_norm": 3.000000000000009,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 50,
+          "proton_rms": 3.5411763610225706,
+          "proton_centroid": [
+            8.045445465825631,
+            8.577648562189253,
+            8.262802972988183
+          ],
+          "proton_norm": 3.0000000000000187,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 75,
+          "proton_rms": 3.622301106630493,
+          "proton_centroid": [
+            8.020085311926863,
+            8.61401382837905,
+            8.274808793558076
+          ],
+          "proton_norm": 3.0000000000000293,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 100,
+          "proton_rms": 3.6883634063884836,
+          "proton_centroid": [
+            8.083054748922326,
+            8.593006110064824,
+            8.312695271141445
+          ],
+          "proton_norm": 3.000000000000039,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 125,
+          "proton_rms": 3.7125131881966262,
+          "proton_centroid": [
+            8.069642740464738,
+            8.605309700439259,
+            8.303082238196154
+          ],
+          "proton_norm": 3.0000000000000497,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 150,
+          "proton_rms": 3.6978218958041955,
+          "proton_centroid": [
+            8.030195339354453,
+            8.499252467202158,
+            8.268982599418832
+          ],
+          "proton_norm": 3.00000000000006,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0,
+            "photon_alpha": 0.0
+          }
+        }
+      ],
+      "summary": {
+        "proton_rms": {
+          "first": 2.0225735104980505,
+          "last": 3.6978218958041955,
+          "ratio": 1.828275648133858
+        },
+        "net_charge": 0.0,
+        "loops_live": {
+          "J_colour": false,
+          "gluon_A": false,
+          "J_em": false,
+          "photon_alpha": false
+        }
+      }
+    }
+  }
+}

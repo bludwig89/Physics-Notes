@@ -1,0 +1,1040 @@
+{
+  "name": "beta_decay",
+  "title": "Beta Decay",
+  "description": "F54 d\u2192u+W\u207b: a localized left-handed quark doublet emits a W\u207b via the charged current on the first tick, then the W\u207b propagates as a massive Proca field.",
+  "seed": 0,
+  "ticks": 1000,
+  "lattice": {
+    "L": 64,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 64,
+    "cell_factor": 1
+  },
+  "channels": {
+    "beta_decay": {
+      "name": "beta_decay",
+      "type": "beta_decay",
+      "label": "Beta Decay",
+      "propagator": "chiral",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "energy_trace": {
+      "type": "energy_trace",
+      "label": "Energy Trace",
+      "exactness": "quantitative",
+      "every": 6,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "beta_decay": 0.0
+          }
+        },
+        {
+          "tick": 6,
+          "energy": {
+            "beta_decay": 1.7967991300735344
+          }
+        },
+        {
+          "tick": 12,
+          "energy": {
+            "beta_decay": 1.7967991300735366
+          }
+        },
+        {
+          "tick": 18,
+          "energy": {
+            "beta_decay": 1.7967991300735386
+          }
+        },
+        {
+          "tick": 24,
+          "energy": {
+            "beta_decay": 1.7967991300735409
+          }
+        },
+        {
+          "tick": 30,
+          "energy": {
+            "beta_decay": 1.796799130073543
+          }
+        },
+        {
+          "tick": 36,
+          "energy": {
+            "beta_decay": 1.796799130073545
+          }
+        },
+        {
+          "tick": 42,
+          "energy": {
+            "beta_decay": 1.7967991300735473
+          }
+        },
+        {
+          "tick": 48,
+          "energy": {
+            "beta_decay": 1.79679913007355
+          }
+        },
+        {
+          "tick": 54,
+          "energy": {
+            "beta_decay": 1.7967991300735524
+          }
+        },
+        {
+          "tick": 60,
+          "energy": {
+            "beta_decay": 1.7967991300735549
+          }
+        },
+        {
+          "tick": 66,
+          "energy": {
+            "beta_decay": 1.7967991300735573
+          }
+        },
+        {
+          "tick": 72,
+          "energy": {
+            "beta_decay": 1.79679913007356
+          }
+        },
+        {
+          "tick": 78,
+          "energy": {
+            "beta_decay": 1.7967991300735622
+          }
+        },
+        {
+          "tick": 84,
+          "energy": {
+            "beta_decay": 1.7967991300735646
+          }
+        },
+        {
+          "tick": 90,
+          "energy": {
+            "beta_decay": 1.796799130073567
+          }
+        },
+        {
+          "tick": 96,
+          "energy": {
+            "beta_decay": 1.7967991300735688
+          }
+        },
+        {
+          "tick": 102,
+          "energy": {
+            "beta_decay": 1.7967991300735717
+          }
+        },
+        {
+          "tick": 108,
+          "energy": {
+            "beta_decay": 1.796799130073574
+          }
+        },
+        {
+          "tick": 114,
+          "energy": {
+            "beta_decay": 1.7967991300735766
+          }
+        },
+        {
+          "tick": 120,
+          "energy": {
+            "beta_decay": 1.7967991300735786
+          }
+        },
+        {
+          "tick": 126,
+          "energy": {
+            "beta_decay": 1.7967991300735813
+          }
+        },
+        {
+          "tick": 132,
+          "energy": {
+            "beta_decay": 1.7967991300735837
+          }
+        },
+        {
+          "tick": 138,
+          "energy": {
+            "beta_decay": 1.7967991300735857
+          }
+        },
+        {
+          "tick": 144,
+          "energy": {
+            "beta_decay": 1.796799130073588
+          }
+        },
+        {
+          "tick": 150,
+          "energy": {
+            "beta_decay": 1.7967991300735906
+          }
+        },
+        {
+          "tick": 156,
+          "energy": {
+            "beta_decay": 1.7967991300735933
+          }
+        },
+        {
+          "tick": 162,
+          "energy": {
+            "beta_decay": 1.7967991300735953
+          }
+        },
+        {
+          "tick": 168,
+          "energy": {
+            "beta_decay": 1.7967991300735975
+          }
+        },
+        {
+          "tick": 174,
+          "energy": {
+            "beta_decay": 1.7967991300736001
+          }
+        },
+        {
+          "tick": 180,
+          "energy": {
+            "beta_decay": 1.7967991300736028
+          }
+        },
+        {
+          "tick": 186,
+          "energy": {
+            "beta_decay": 1.7967991300736055
+          }
+        },
+        {
+          "tick": 192,
+          "energy": {
+            "beta_decay": 1.796799130073608
+          }
+        },
+        {
+          "tick": 198,
+          "energy": {
+            "beta_decay": 1.7967991300736106
+          }
+        },
+        {
+          "tick": 204,
+          "energy": {
+            "beta_decay": 1.7967991300736128
+          }
+        },
+        {
+          "tick": 210,
+          "energy": {
+            "beta_decay": 1.7967991300736152
+          }
+        },
+        {
+          "tick": 216,
+          "energy": {
+            "beta_decay": 1.7967991300736175
+          }
+        },
+        {
+          "tick": 222,
+          "energy": {
+            "beta_decay": 1.7967991300736201
+          }
+        },
+        {
+          "tick": 228,
+          "energy": {
+            "beta_decay": 1.7967991300736224
+          }
+        },
+        {
+          "tick": 234,
+          "energy": {
+            "beta_decay": 1.796799130073625
+          }
+        },
+        {
+          "tick": 240,
+          "energy": {
+            "beta_decay": 1.7967991300736275
+          }
+        },
+        {
+          "tick": 246,
+          "energy": {
+            "beta_decay": 1.7967991300736301
+          }
+        },
+        {
+          "tick": 252,
+          "energy": {
+            "beta_decay": 1.7967991300736323
+          }
+        },
+        {
+          "tick": 258,
+          "energy": {
+            "beta_decay": 1.7967991300736346
+          }
+        },
+        {
+          "tick": 264,
+          "energy": {
+            "beta_decay": 1.7967991300736372
+          }
+        },
+        {
+          "tick": 270,
+          "energy": {
+            "beta_decay": 1.7967991300736392
+          }
+        },
+        {
+          "tick": 276,
+          "energy": {
+            "beta_decay": 1.7967991300736417
+          }
+        },
+        {
+          "tick": 282,
+          "energy": {
+            "beta_decay": 1.796799130073644
+          }
+        },
+        {
+          "tick": 288,
+          "energy": {
+            "beta_decay": 1.7967991300736463
+          }
+        },
+        {
+          "tick": 294,
+          "energy": {
+            "beta_decay": 1.7967991300736488
+          }
+        },
+        {
+          "tick": 300,
+          "energy": {
+            "beta_decay": 1.7967991300736514
+          }
+        },
+        {
+          "tick": 306,
+          "energy": {
+            "beta_decay": 1.7967991300736534
+          }
+        },
+        {
+          "tick": 312,
+          "energy": {
+            "beta_decay": 1.796799130073656
+          }
+        },
+        {
+          "tick": 318,
+          "energy": {
+            "beta_decay": 1.7967991300736583
+          }
+        },
+        {
+          "tick": 324,
+          "energy": {
+            "beta_decay": 1.7967991300736608
+          }
+        },
+        {
+          "tick": 330,
+          "energy": {
+            "beta_decay": 1.796799130073663
+          }
+        },
+        {
+          "tick": 336,
+          "energy": {
+            "beta_decay": 1.7967991300736652
+          }
+        },
+        {
+          "tick": 342,
+          "energy": {
+            "beta_decay": 1.7967991300736679
+          }
+        },
+        {
+          "tick": 348,
+          "energy": {
+            "beta_decay": 1.79679913007367
+          }
+        },
+        {
+          "tick": 354,
+          "energy": {
+            "beta_decay": 1.7967991300736723
+          }
+        },
+        {
+          "tick": 360,
+          "energy": {
+            "beta_decay": 1.7967991300736748
+          }
+        },
+        {
+          "tick": 366,
+          "energy": {
+            "beta_decay": 1.7967991300736768
+          }
+        },
+        {
+          "tick": 372,
+          "energy": {
+            "beta_decay": 1.796799130073679
+          }
+        },
+        {
+          "tick": 378,
+          "energy": {
+            "beta_decay": 1.7967991300736814
+          }
+        },
+        {
+          "tick": 384,
+          "energy": {
+            "beta_decay": 1.7967991300736839
+          }
+        },
+        {
+          "tick": 390,
+          "energy": {
+            "beta_decay": 1.7967991300736865
+          }
+        },
+        {
+          "tick": 396,
+          "energy": {
+            "beta_decay": 1.7967991300736885
+          }
+        },
+        {
+          "tick": 402,
+          "energy": {
+            "beta_decay": 1.796799130073691
+          }
+        },
+        {
+          "tick": 408,
+          "energy": {
+            "beta_decay": 1.7967991300736934
+          }
+        },
+        {
+          "tick": 414,
+          "energy": {
+            "beta_decay": 1.7967991300736954
+          }
+        },
+        {
+          "tick": 420,
+          "energy": {
+            "beta_decay": 1.7967991300736978
+          }
+        },
+        {
+          "tick": 426,
+          "energy": {
+            "beta_decay": 1.7967991300737003
+          }
+        },
+        {
+          "tick": 432,
+          "energy": {
+            "beta_decay": 1.7967991300737023
+          }
+        },
+        {
+          "tick": 438,
+          "energy": {
+            "beta_decay": 1.796799130073705
+          }
+        },
+        {
+          "tick": 444,
+          "energy": {
+            "beta_decay": 1.7967991300737072
+          }
+        },
+        {
+          "tick": 450,
+          "energy": {
+            "beta_decay": 1.7967991300737098
+          }
+        },
+        {
+          "tick": 456,
+          "energy": {
+            "beta_decay": 1.796799130073712
+          }
+        },
+        {
+          "tick": 462,
+          "energy": {
+            "beta_decay": 1.796799130073714
+          }
+        },
+        {
+          "tick": 468,
+          "energy": {
+            "beta_decay": 1.7967991300737167
+          }
+        },
+        {
+          "tick": 474,
+          "energy": {
+            "beta_decay": 1.796799130073719
+          }
+        },
+        {
+          "tick": 480,
+          "energy": {
+            "beta_decay": 1.7967991300737216
+          }
+        },
+        {
+          "tick": 486,
+          "energy": {
+            "beta_decay": 1.7967991300737238
+          }
+        },
+        {
+          "tick": 492,
+          "energy": {
+            "beta_decay": 1.796799130073726
+          }
+        },
+        {
+          "tick": 498,
+          "energy": {
+            "beta_decay": 1.7967991300737285
+          }
+        },
+        {
+          "tick": 504,
+          "energy": {
+            "beta_decay": 1.796799130073731
+          }
+        },
+        {
+          "tick": 510,
+          "energy": {
+            "beta_decay": 1.7967991300737334
+          }
+        },
+        {
+          "tick": 516,
+          "energy": {
+            "beta_decay": 1.7967991300737356
+          }
+        },
+        {
+          "tick": 522,
+          "energy": {
+            "beta_decay": 1.7967991300737383
+          }
+        },
+        {
+          "tick": 528,
+          "energy": {
+            "beta_decay": 1.7967991300737407
+          }
+        },
+        {
+          "tick": 534,
+          "energy": {
+            "beta_decay": 1.796799130073743
+          }
+        },
+        {
+          "tick": 540,
+          "energy": {
+            "beta_decay": 1.7967991300737454
+          }
+        },
+        {
+          "tick": 546,
+          "energy": {
+            "beta_decay": 1.7967991300737478
+          }
+        },
+        {
+          "tick": 552,
+          "energy": {
+            "beta_decay": 1.7967991300737503
+          }
+        },
+        {
+          "tick": 558,
+          "energy": {
+            "beta_decay": 1.7967991300737522
+          }
+        },
+        {
+          "tick": 564,
+          "energy": {
+            "beta_decay": 1.796799130073755
+          }
+        },
+        {
+          "tick": 570,
+          "energy": {
+            "beta_decay": 1.7967991300737574
+          }
+        },
+        {
+          "tick": 576,
+          "energy": {
+            "beta_decay": 1.7967991300737596
+          }
+        },
+        {
+          "tick": 582,
+          "energy": {
+            "beta_decay": 1.796799130073762
+          }
+        },
+        {
+          "tick": 588,
+          "energy": {
+            "beta_decay": 1.7967991300737642
+          }
+        },
+        {
+          "tick": 594,
+          "energy": {
+            "beta_decay": 1.796799130073767
+          }
+        },
+        {
+          "tick": 600,
+          "energy": {
+            "beta_decay": 1.7967991300737691
+          }
+        },
+        {
+          "tick": 606,
+          "energy": {
+            "beta_decay": 1.7967991300737713
+          }
+        },
+        {
+          "tick": 612,
+          "energy": {
+            "beta_decay": 1.796799130073774
+          }
+        },
+        {
+          "tick": 618,
+          "energy": {
+            "beta_decay": 1.7967991300737762
+          }
+        },
+        {
+          "tick": 624,
+          "energy": {
+            "beta_decay": 1.7967991300737787
+          }
+        },
+        {
+          "tick": 630,
+          "energy": {
+            "beta_decay": 1.796799130073781
+          }
+        },
+        {
+          "tick": 636,
+          "energy": {
+            "beta_decay": 1.7967991300737833
+          }
+        },
+        {
+          "tick": 642,
+          "energy": {
+            "beta_decay": 1.7967991300737856
+          }
+        },
+        {
+          "tick": 648,
+          "energy": {
+            "beta_decay": 1.7967991300737882
+          }
+        },
+        {
+          "tick": 654,
+          "energy": {
+            "beta_decay": 1.7967991300737904
+          }
+        },
+        {
+          "tick": 660,
+          "energy": {
+            "beta_decay": 1.7967991300737927
+          }
+        },
+        {
+          "tick": 666,
+          "energy": {
+            "beta_decay": 1.796799130073795
+          }
+        },
+        {
+          "tick": 672,
+          "energy": {
+            "beta_decay": 1.7967991300737975
+          }
+        },
+        {
+          "tick": 678,
+          "energy": {
+            "beta_decay": 1.7967991300738
+          }
+        },
+        {
+          "tick": 684,
+          "energy": {
+            "beta_decay": 1.796799130073802
+          }
+        },
+        {
+          "tick": 690,
+          "energy": {
+            "beta_decay": 1.7967991300738047
+          }
+        },
+        {
+          "tick": 696,
+          "energy": {
+            "beta_decay": 1.7967991300738069
+          }
+        },
+        {
+          "tick": 702,
+          "energy": {
+            "beta_decay": 1.7967991300738093
+          }
+        },
+        {
+          "tick": 708,
+          "energy": {
+            "beta_decay": 1.7967991300738118
+          }
+        },
+        {
+          "tick": 714,
+          "energy": {
+            "beta_decay": 1.7967991300738142
+          }
+        },
+        {
+          "tick": 720,
+          "energy": {
+            "beta_decay": 1.7967991300738164
+          }
+        },
+        {
+          "tick": 726,
+          "energy": {
+            "beta_decay": 1.7967991300738186
+          }
+        },
+        {
+          "tick": 732,
+          "energy": {
+            "beta_decay": 1.796799130073821
+          }
+        },
+        {
+          "tick": 738,
+          "energy": {
+            "beta_decay": 1.7967991300738233
+          }
+        },
+        {
+          "tick": 744,
+          "energy": {
+            "beta_decay": 1.7967991300738257
+          }
+        },
+        {
+          "tick": 750,
+          "energy": {
+            "beta_decay": 1.7967991300738282
+          }
+        },
+        {
+          "tick": 756,
+          "energy": {
+            "beta_decay": 1.7967991300738309
+          }
+        },
+        {
+          "tick": 762,
+          "energy": {
+            "beta_decay": 1.7967991300738326
+          }
+        },
+        {
+          "tick": 768,
+          "energy": {
+            "beta_decay": 1.7967991300738353
+          }
+        },
+        {
+          "tick": 774,
+          "energy": {
+            "beta_decay": 1.7967991300738375
+          }
+        },
+        {
+          "tick": 780,
+          "energy": {
+            "beta_decay": 1.7967991300738402
+          }
+        },
+        {
+          "tick": 786,
+          "energy": {
+            "beta_decay": 1.7967991300738428
+          }
+        },
+        {
+          "tick": 792,
+          "energy": {
+            "beta_decay": 1.796799130073845
+          }
+        },
+        {
+          "tick": 798,
+          "energy": {
+            "beta_decay": 1.796799130073847
+          }
+        },
+        {
+          "tick": 804,
+          "energy": {
+            "beta_decay": 1.7967991300738495
+          }
+        },
+        {
+          "tick": 810,
+          "energy": {
+            "beta_decay": 1.796799130073852
+          }
+        },
+        {
+          "tick": 816,
+          "energy": {
+            "beta_decay": 1.7967991300738544
+          }
+        },
+        {
+          "tick": 822,
+          "energy": {
+            "beta_decay": 1.7967991300738566
+          }
+        },
+        {
+          "tick": 828,
+          "energy": {
+            "beta_decay": 1.7967991300738593
+          }
+        },
+        {
+          "tick": 834,
+          "energy": {
+            "beta_decay": 1.7967991300738615
+          }
+        },
+        {
+          "tick": 840,
+          "energy": {
+            "beta_decay": 1.796799130073864
+          }
+        },
+        {
+          "tick": 846,
+          "energy": {
+            "beta_decay": 1.7967991300738664
+          }
+        },
+        {
+          "tick": 852,
+          "energy": {
+            "beta_decay": 1.7967991300738686
+          }
+        },
+        {
+          "tick": 858,
+          "energy": {
+            "beta_decay": 1.796799130073871
+          }
+        },
+        {
+          "tick": 864,
+          "energy": {
+            "beta_decay": 1.7967991300738733
+          }
+        },
+        {
+          "tick": 870,
+          "energy": {
+            "beta_decay": 1.796799130073876
+          }
+        },
+        {
+          "tick": 876,
+          "energy": {
+            "beta_decay": 1.7967991300738781
+          }
+        },
+        {
+          "tick": 882,
+          "energy": {
+            "beta_decay": 1.7967991300738806
+          }
+        },
+        {
+          "tick": 888,
+          "energy": {
+            "beta_decay": 1.796799130073883
+          }
+        },
+        {
+          "tick": 894,
+          "energy": {
+            "beta_decay": 1.7967991300738853
+          }
+        },
+        {
+          "tick": 900,
+          "energy": {
+            "beta_decay": 1.7967991300738877
+          }
+        },
+        {
+          "tick": 906,
+          "energy": {
+            "beta_decay": 1.79679913007389
+          }
+        },
+        {
+          "tick": 912,
+          "energy": {
+            "beta_decay": 1.7967991300738926
+          }
+        },
+        {
+          "tick": 918,
+          "energy": {
+            "beta_decay": 1.7967991300738948
+          }
+        },
+        {
+          "tick": 924,
+          "energy": {
+            "beta_decay": 1.796799130073897
+          }
+        },
+        {
+          "tick": 930,
+          "energy": {
+            "beta_decay": 1.7967991300738992
+          }
+        },
+        {
+          "tick": 936,
+          "energy": {
+            "beta_decay": 1.7967991300739024
+          }
+        },
+        {
+          "tick": 942,
+          "energy": {
+            "beta_decay": 1.7967991300739043
+          }
+        },
+        {
+          "tick": 948,
+          "energy": {
+            "beta_decay": 1.7967991300739068
+          }
+        },
+        {
+          "tick": 954,
+          "energy": {
+            "beta_decay": 1.7967991300739088
+          }
+        },
+        {
+          "tick": 960,
+          "energy": {
+            "beta_decay": 1.7967991300739115
+          }
+        },
+        {
+          "tick": 966,
+          "energy": {
+            "beta_decay": 1.7967991300739137
+          }
+        },
+        {
+          "tick": 972,
+          "energy": {
+            "beta_decay": 1.796799130073916
+          }
+        },
+        {
+          "tick": 978,
+          "energy": {
+            "beta_decay": 1.7967991300739186
+          }
+        },
+        {
+          "tick": 984,
+          "energy": {
+            "beta_decay": 1.7967991300739206
+          }
+        },
+        {
+          "tick": 990,
+          "energy": {
+            "beta_decay": 1.7967991300739232
+          }
+        },
+        {
+          "tick": 996,
+          "energy": {
+            "beta_decay": 1.7967991300739257
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

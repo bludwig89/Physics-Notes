@@ -1,0 +1,41 @@
+# Real-space hydrogen atom (~Bohr radius) — the full chain on one BCC lattice
+# (uud quarks ↔ gluon confinement loop; (p,e) charge ↔ photon Coulomb α; F64
+# gravity background), declared on a block-spin physical patch so the tractable
+# L super-cells represent an atom-scale (L·block)^3 block of physical cells.
+#
+# This is the largest scale separation in the project: a hydrogen atom is
+# ~5e23 cells across at the canonical ruler (roadmap-scale-to-real-space §0),
+# ~1e4 larger than the proton — the two cannot share a literal lattice.  The
+# block-spin multigrid (F129–F133) is what licenses representing the atom-scale
+# patch on a tractable super-cell lattice.  Same compressed-scale caveat as
+# unified_hydrogen.yaml: STRUCTURE and loop-consistency are the deliverable;
+# absolute fm/eV remain P6/scale-gated (F123).  Tiers grow `block` (the
+# represented patch) by orders of magnitude.
+name: realspace_hydrogen_bohr
+title: "Real-Space Hydrogen ~Bohr (block-spin patch)"
+description: "Full chain on one BCC lattice (uud↔gluon confinement loop + (p,e) charge↔photon Coulomb α + F64 gravity) on a block-spin physical patch: L super-cells represent an atom-scale (L·block)^3 block of physical cells. Tiers grow the represented patch."
+lattice: {physical_patch: 32, block: 2, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 60
+channels:
+  - {type: gravity_dielectric, name: gmass, M: 1.0, sigma: 3.0}
+  - {type: gluon_sourced,  name: gluon_field,  sources: [u_r, u_g, d_b], g_lat: 1.0, dt: 1.0}
+  - {type: photon_sourced, name: photon_field, sources: [u_r, u_g, d_b, electron],
+     dt: 0.1, g_em: 1.0, coulomb: true, g_coulomb: 6.0}
+  - {type: particle, name: u_r, species: u_L, colour: r,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: u_g, species: u_L, colour: g,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: d_b, species: d_L, colour: b,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: electron, species: e_L, mass: 0.3,
+     init: {center: [12, 8, 8], width: 2.0},
+     couplings: {em: photon_field, gravity: gmass}}
+observers:
+  - {type: norm_conservation, every: 10, channels: [u_r, u_g, d_b, electron]}
+  - {type: particle_readout, every: 20}
+  - {type: unification_readout, every: 5}
+output: {json: test-results/casim_realspace_hydrogen_bohr.json}

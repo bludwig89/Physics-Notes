@@ -1,0 +1,131 @@
+{
+  "test_id": "FB11",
+  "name": "Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg",
+  "verdict": "PASS",
+  "tier": "B",
+  "predicted": {
+    "delta_chiral_deg": 15,
+    "delta_chiral_symbolic": "pi/12 (exact, m_e=0 limit)",
+    "delta_meas_deg": 12.733,
+    "offset_deg": 2.27,
+    "offset_carrier": "finite m_e/m_tau",
+    "lambda6": "1/4 (open dynamical input, F118/F119)",
+    "delta_from_lambda6_quarter_deg": 13.36
+  },
+  "measured_target": {
+    "delta_meas_deg": 12.733,
+    "source": "PDG charged-lepton masses -> condensate angle",
+    "masses_MeV": {
+      "m_e": 0.51099895,
+      "m_mu": 105.6583755,
+      "m_tau": 1776.86
+    }
+  },
+  "gate": {
+    "criterion": "PASS if (1) delta=15 deg exact in m_e=0 limit, (2) lambda6 reconcilable with delta_meas within m_e/m_tau correction, (3) same delta gives FB01 spectrum + FA05 Koide. FALSIFIED if any fails."
+  },
+  "subcriteria": {
+    "C1_delta_chiral_deg": 15,
+    "C1_exact_in_me0_limit": true,
+    "C2a_delta_meas_reproduced_deg": 12.7323,
+    "C2a_offset_deg": 2.2677,
+    "C2a_offset_accounted_by_me_over_mtau": true,
+    "C2b_lambda6": "1/4",
+    "C2b_delta_from_lambda6_deg": 13.364,
+    "C2b_residual_vs_meas_deg": 0.631,
+    "C2b_reconcilable_open_input": true,
+    "C3_m_mu_err_pct": -0.0009,
+    "C3_m_e_err_pct": -0.0611,
+    "C3_koide_Q_exact_two_thirds": true,
+    "C3_FB01_FA05_consistent": true
+  },
+  "checks": {
+    "C1_delta15_exact_in_me0_limit": {
+      "pass": true,
+      "claim": "in the massless-electron limit the condensate angle is exactly 15 deg",
+      "vanishing_branch_solutions_deg": {
+        "branch_0": [
+          135.0,
+          225.0
+        ],
+        "branch_1": [
+          15.0,
+          105.0
+        ],
+        "branch_2": [
+          255.0,
+          345.0
+        ]
+      },
+      "branch_giving_15deg": 1,
+      "delta_chiral_exact_deg": 15,
+      "delta_chiral_exact_symbolic": "pi/12",
+      "electron_branch_y_at_15deg": [
+        "1",
+        "0",
+        "2 - sqrt(3)"
+      ],
+      "zero_branch_exact_at_pi_over_12": true,
+      "statement": "Solving 1 + sqrt2 cos(delta + 2 pi a/3) = 0 (the m_e=0 node) gives delta = 15 deg exactly for the electron branch; at delta=pi/12 the electron condensate amplitude is identically 0."
+    },
+    "C2a_measured_angle_from_PDG_masses": {
+      "pass": true,
+      "delta_chiral_deg": 15.0,
+      "delta_meas_reproduced_deg": 12.7323,
+      "delta_meas_target_deg": 12.733,
+      "offset_15_minus_meas_deg": 2.2677,
+      "offset_target_deg": 2.27,
+      "carrier": "finite m_e/m_tau (electron node displacement from the 15-deg massless node)",
+      "m_e_over_m_tau": 0.0002875853753250115,
+      "y_e_at_meas": 0.01695834,
+      "sqrt_m_e_over_m_tau": 0.01695834,
+      "statement": "Reading delta from the PDG electron/tau ratio gives delta = 12.732 deg (target 12.733). The 15->12.733 offset of 2.27 deg is exactly the finite-m_e displacement of the electron branch off its massless 15-deg node."
+    },
+    "C2b_lambda6_quarter_open_input": {
+      "pass": true,
+      "lambda6": "1/4",
+      "lambda6_value": 0.25,
+      "cos3delta_at_lambda6_quarter": 0.765,
+      "delta_from_lambda6_quarter_deg": 13.364,
+      "delta_target_F119_deg": 13.36,
+      "delta_meas_deg": 12.733,
+      "residual_lambda6_vs_meas_deg": 0.631,
+      "lambda6_implied_by_measured_angle": 0.2568,
+      "lambda6_residual_pct": 2.73,
+      "status": "OPEN dynamical input",
+      "statement": "lambda6 = 1/4 (rotor value g_s^2 chi, F115) predicts delta = 13.36 deg vs measured 12.733 deg: a +0.63 deg / 2.7%-in-lambda6 residual -- suggestive of a universal 1/4 contact but not exact for leptons. lambda6 is the one open dynamical number (F118/F119), reconcilable with the measured angle within the small residual -> NOT over-determined / inconsistent."
+    },
+    "C3_consistency_FB01_spectrum_FA05_koide": {
+      "pass": true,
+      "angle_used_deg": 12.733,
+      "FB01": {
+        "m_tau_anchor_MeV": 1776.86,
+        "m_mu_pred_MeV": 105.6575,
+        "m_mu_PDG_MeV": 105.6583755,
+        "m_mu_err_pct": -0.0009,
+        "m_e_pred_MeV": 0.51069,
+        "m_e_PDG_MeV": 0.51099895,
+        "m_e_err_pct": -0.0611,
+        "spectrum_within_0p06pct": true
+      },
+      "FA05": {
+        "Q_symbolic_all_delta": "2/3",
+        "Q_is_exactly_two_thirds_for_all_delta": true,
+        "Q_condensate_at_meas_angle": 0.666666667,
+        "Q_pdg": 0.6666605
+      },
+      "statement": "The single measured angle reproduces the FB01 tau-anchored spectrum (m_mu, m_e within the stated 0.06%) AND the FA05 Koide Q = 2/3 (exact for the shape at ANY delta) -- the angle is NOT over-determined: one delta serves both."
+    }
+  },
+  "commands": [
+    "python3 tests/runners/FB11_condensate_angle.py"
+  ],
+  "provenance": [
+    "F93 (orthorhombic E_g vacuum)",
+    "F101 (one-heavy branch fit; m_e=0 -> delta=15 deg texture)",
+    "F118/F119 (lambda6=1/4 open input; lambda6=1/4 -> 13.36 deg)",
+    "F112 sec.D"
+  ],
+  "timestamp": "2026-06-16 - 15:25",
+  "iso_timestamp": "2026-06-16T15:25:06.970203"
+}

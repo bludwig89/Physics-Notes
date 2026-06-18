@@ -1,0 +1,46 @@
+{
+  "test_id": "FA01",
+  "title": "Lorentz-violation time-of-flight scale (canonical cell a)",
+  "date": "2026-06-10",
+  "symbolic": {
+    "group_velocity_k2_coeff": "-1/54",
+    "group_velocity_k2_coeff_float": -0.018518518518518517,
+    "expected_group_k2": "-1/54",
+    "group_law_matches": true,
+    "phase_velocity_k2_coeff": "-1/162",
+    "expected_phase_k2": "-1/162",
+    "phase_law_matches": true,
+    "subluminal": true,
+    "net_linear_n1_term_present": false,
+    "even_law_linear_coeff_is_clat": true
+  },
+  "si_readout": {
+    "a_m": 1.0663754173481642e-34,
+    "a_over_ellP": 6.597816664747605,
+    "E_QG2_GeV": 1.3597943269789463e+19,
+    "E_QG2_over_EP": 1.113773007378999,
+    "predicted_brief_GeV": 1.36e+19,
+    "rel_err_vs_brief": 0.00015123016253952
+  },
+  "gate": {
+    "measured_bound_GeV": 700000000000.0,
+    "measured_bound_source": "LHAASO GRB 221009A, n=2 subluminal one-sided (F28)",
+    "falsify_threshold_GeV": 1.4e+19,
+    "bound_below_prediction": true,
+    "margin_decades_above_bound": 7.288375184964092,
+    "superluminal_n2_detected": false,
+    "net_linear_n1_detected": false,
+    "falsified_by_bound_above_threshold": false
+  },
+  "checks": {
+    "symbolic_pass": true,
+    "si_pass": true,
+    "gate_pass": true
+  },
+  "verdict": "PASS",
+  "gate_text": "PASS: E_QG,2 = 1.360e19 GeV to fit floor AND best measured bound (7e11 GeV) is below it.",
+  "commands": [
+    "python3 tests/findings/test_FA01_liv_tof.py"
+  ],
+  "timestamp": "2026-06-10T00:00:00"
+}

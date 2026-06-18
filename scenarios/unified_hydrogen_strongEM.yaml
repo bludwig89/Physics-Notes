@@ -1,0 +1,42 @@
+# Unified real-space integration — U2 strong-coupling EM mechanism probe
+# (roadmap-unified-real-space.md). Same full chain as unified_hydrogen.yaml,
+# but the Coulomb well is driven hard (g_coulomb 6→80) and the electron is
+# heavier (m_e 0.3→0.9) and starts closer (sep 4→3), to test whether the EM
+# binding loop *responds* — i.e. whether the proton's Coulomb α(x) measurably
+# attracts the electron, vs the free control unified_hydrogen_free.yaml.
+#
+# Observed (test-results/casim_unified_hydrogen_strongEM.json): the electron
+# starts compact (e_rms_about_p≈3.5 vs free≈4.7), is over-accelerated and
+# scatters across the periodic box (ticks 15–50), then is pulled BACK in by
+# tick 55–60 (ep_separation→1.9, vs the free control's monotonic saturation
+# to ≈9). The binding mechanism is exhibited and responsive; it is not a clean
+# stationary bound state at this compressed scale / small box (an over-driven
+# scattering quasi-orbit). A true stationary orbit needs the U4 scale
+# separation (block-spin multigrid) and a properly scaled well.
+name: unified_hydrogen_strongEM
+title: "Unified Hydrogen — strong-EM mechanism probe (U2)"
+description: "Full chain with the Coulomb well driven hard (g_coulomb=80, m_e=0.9): the EM loop measurably attracts the electron vs the free control, without a clean stationary orbit at compressed scale."
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 60
+channels:
+  - {type: gravity_dielectric, name: gmass, M: 1.0, sigma: 3.0}
+  - {type: gluon_sourced,  name: gluon_field,  sources: [u_r, u_g, d_b], g_lat: 1.0, dt: 1.0}
+  - {type: photon_sourced, name: photon_field, sources: [u_r, u_g, d_b, electron],
+     dt: 0.1, g_em: 1.0, coulomb: true, g_coulomb: 80.0}
+  - {type: particle, name: u_r, species: u_L, colour: r,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: u_g, species: u_L, colour: g,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: d_b, species: d_L, colour: b,
+     init: {center: [8, 8, 8], width: 1.5},
+     couplings: {strong: gluon_field, em: photon_field, gravity: gmass}, eps_strong: 0.3}
+  - {type: particle, name: electron, species: e_L, mass: 0.9,
+     init: {center: [11, 8, 8], width: 1.5},
+     couplings: {em: photon_field, gravity: gmass}}
+observers:
+  - {type: norm_conservation, every: 10, channels: [u_r, u_g, d_b, electron]}
+  - {type: unification_readout, every: 5}
+output: {json: test-results/casim_unified_hydrogen_strongEM.json}

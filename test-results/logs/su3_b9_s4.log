@@ -1,0 +1,57 @@
+running beta=9.00 L=24: 4000 therm + 2000 meas sweeps (~59 min at this L; progress below)...
+  [therm 1/4000] acc=0.36 <plaq>=0.9105  1s elapsed, ~3125s left
+  [therm 151/4000] acc=0.52 <plaq>=0.6608  77s elapsed, ~2996s left
+  [therm 301/4000] acc=0.51 <plaq>=0.6621  154s elapsed, ~2922s left
+  [therm 451/4000] acc=0.51 <plaq>=0.6621  231s elapsed, ~2844s left
+  [therm 601/4000] acc=0.51 <plaq>=0.6642  308s elapsed, ~2767s left
+  [therm 751/4000] acc=0.51 <plaq>=0.6609  384s elapsed, ~2687s left
+  [therm 901/4000] acc=0.51 <plaq>=0.6645  990s elapsed, ~5603s left
+  [therm 1051/4000] acc=0.51 <plaq>=0.6623  10645s elapsed, ~50127s left
+  [therm 1201/4000] acc=0.51 <plaq>=0.6636  14200s elapsed, ~56739s left
+  [therm 1351/4000] acc=0.51 <plaq>=0.6618  14294s elapsed, ~49188s left
+  [therm 1501/4000] acc=0.51 <plaq>=0.6641  14389s elapsed, ~43128s left
+  [therm 1651/4000] acc=0.51 <plaq>=0.6627  14483s elapsed, ~38150s left
+  [therm 1801/4000] acc=0.51 <plaq>=0.6621  14577s elapsed, ~33985s left
+  [therm 1951/4000] acc=0.51 <plaq>=0.6636  14671s elapsed, ~30447s left
+  [therm 2101/4000] acc=0.51 <plaq>=0.6642  14765s elapsed, ~27401s left
+  [therm 2251/4000] acc=0.52 <plaq>=0.6642  14860s elapsed, ~24749s left
+  [therm 2401/4000] acc=0.51 <plaq>=0.6647  14959s elapsed, ~22423s left
+  [therm 2551/4000] acc=0.51 <plaq>=0.6631  15060s elapsed, ~20362s left
+  [therm 2701/4000] acc=0.51 <plaq>=0.6629  15160s elapsed, ~18517s left
+  [therm 2851/4000] acc=0.52 <plaq>=0.6644  15257s elapsed, ~16852s left
+  [therm 3001/4000] acc=0.51 <plaq>=0.6644  15353s elapsed, ~15343s left
+  [therm 3151/4000] acc=0.51 <plaq>=0.6626  15450s elapsed, ~13969s left
+  [therm 3301/4000] acc=0.51 <plaq>=0.6633  15547s elapsed, ~12712s left
+  [therm 3451/4000] acc=0.51 <plaq>=0.6650  15645s elapsed, ~11555s left
+  [therm 3601/4000] acc=0.51 <plaq>=0.6621  15740s elapsed, ~10486s left
+  [therm 3751/4000] acc=0.51 <plaq>=0.6625  15835s elapsed, ~9494s left
+  [therm 3901/4000] acc=0.52 <plaq>=0.6647  15930s elapsed, ~8571s left
+  [therm 4000/4000] acc=0.51 <plaq>=0.6651  15993s elapsed, ~7996s left
+  [meas 1/2000] acc=0.51  15993s elapsed, ~7991s left
+  [meas 151/2000] acc=0.51  17055s elapsed, ~7597s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 197 (n=50 recorded)
+  [meas 301/2000] acc=0.51  18090s elapsed, ~7146s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 397 (n=100 recorded)
+  [meas 451/2000] acc=0.51  52868s elapsed, ~18399s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 597 (n=150 recorded)
+  [meas 601/2000] acc=0.52  58035s elapsed, ~17646s left
+  [meas 751/2000] acc=0.51  58875s elapsed, ~15478s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 797 (n=200 recorded)
+  [meas 901/2000] acc=0.51  59706s elapsed, ~13388s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 997 (n=250 recorded)
+  [meas 1051/2000] acc=0.51  60512s elapsed, ~11369s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 1197 (n=300 recorded)
+  [meas 1201/2000] acc=0.51  61298s elapsed, ~9417s left
+  [meas 1351/2000] acc=0.52  62106s elapsed, ~7533s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 1397 (n=350 recorded)
+  [meas 1501/2000] acc=0.51  62900s elapsed, ~5706s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 1597 (n=400 recorded)
+  [meas 1651/2000] acc=0.51  63725s elapsed, ~3936s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 1797 (n=450 recorded)
+  [meas 1801/2000] acc=0.51  64522s elapsed, ~2213s left
+  [meas 1951/2000] acc=0.51  65336s elapsed, ~538s left
+  [checkpoint] wrote test-results/su3_static_potential_b9_s4.json at meas-sweep 1997 (n=500 recorded)
+  [meas 2000/2000] acc=0.51  65593s elapsed, ~0s left
+beta=9.00 L=24: acc=0.51 <plaq>=0.6627 (65593.5s)
+  Cornell fit: {'ok': True, 'alpha_V': 0.030348055306459763, 'sigma': 0.2636701759823259, 'V0': 0.14766849593483666, 'rms_resid': 0.01172100074135778, 'Rs_used': [1, 2, 3, 4, 5, 6], 'alpha_s_uv_lock': 0.019894367886486918}
+  wrote test-results/su3_static_potential_b9_s4.json (complete)

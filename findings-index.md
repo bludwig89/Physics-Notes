@@ -34,7 +34,44 @@
 | F124 | `F124-sqrt-sigma-over-fpi-two-qcd-calibrations` | Deriving √σ/f_π: the model's two QCD calibrations reconciled to ~12 % from the one locked lattice |  |
 | F125 | `F125-p5-hydrogen-atom-em-bound-state` | P5: the atom — hydrogen as an electromagnetic bound state, Rydberg series + Dirac fine structure |  |
 | F126 | `F126-nn-intermediate-range-sigma-attraction` | The NN intermediate-range attraction (scalar-isoscalar σ exchange) | 5/5 PASS |
+| F128 | `F128-nn-short-range-omega-repulsion` | The NN short-range repulsion from the isoscalar-vector (ω) meson, derived from existing model elements | 13/13 PASS |
+| F129 | `F129-blockspin-free-photon` | Block-spin RG for the free paired-photon: c_lat is an exact RG fixed point and the lattice-artifact (LIV) operators are irrelevant ($\lambda_n=b^{-n}$), so a… |  |
+| F130 | `F130-blockspin-rg-gauge-gravity` | A proven block-spin RG scheme (gauge + gravity sectors) | 30/30 PASS |
+| F131 | `F131-blockspin-bound-state-reproduction` | Phase-2: a coarse-grained bound state reproduces the fine spectrum | 10/10 PASS |
+| F132 | `F132-blockspin-dynamical-bound-states` | Coarse-graining the dynamical / relativistic bound states | 9/9 PASS |
+| F133 | `F133-blockspin-casim-engine-kernel` | Phase 4: the block-spin RG as a first-class CASIM engine operation | 11/11 PASS |
+| F134 | `F134-phase4-chiral-blockspin-completion` | Phase 4 completion: chiral block-spin, a hand-rolled chiral core, the FFT floor | 15/15 PASS |
+| F134 | `F134-unified-real-space-integration` | Unified real-space integration: the full chain on one BCC lattice (proton quarks ↔ gluon, charge ↔ photon ↔ electron), and where real-space binding actually… |  |
+| F135 | `F135-blockspin-wavepacket-realtime` | Real-time wave-packet dynamics survive block-spin: a moving, spreading massive Dirac packet coarse-grains faithfully, and mass is the matter sector's one… |  |
+| F136 | `F136-colour-triplet-dirac-quark-confinement` | The scalar confining string on genuine SU(3) colour-triplet quarks: a real-space confined proton |  |
+| F136 | `F136-realspace-scalar-confinement` | Real-space confinement (U1): the proton holds together as a scalar-confined three-body bound state, and why vector confinement Klein-tunnels |  |
+| F137 | `F137-live-colour-dielectric-flux-tube` | The live colour-dielectric flux-tube field: the proton digs its own confining bag |  |
+| F138 | `F138-weinberg-gap-closure-4piv-matching` | Closing the Weinberg gap: $\sin^2\theta_W=\tfrac14$ is the compositeness-scale matching condition at $\mu_\star=4\pi v$, forced by hypercharge having no… |  |
+| F139 | `F139-self-consistent-dual-gl-backreaction` | The self-consistent dual-Ginzburg-Landau back-reaction: the flux that the condensate confines is what melts it |  |
+| F140 | `F140-coarse-grained-baryon-element` | The coarse-grained baryon element | 9/9 PASS |
+| F141 | `F141-ws-cell-7axes-onshell-mass-counting` | The "7 bond axes" of F49 are the Wigner–Seitz facet axes of BCC (exact lemma), and the 2 : 7 assignment is an on-shell mass-counting statement: $m_W^2 : m_Z^2… | 11/11 PASS |
+| F142 | `F142-dielectric-tension-no-go-and-nonabelian-scope` | The dielectric tube cannot carry $2\pi v^2 n$ exactly (it has no winding); the exact map is the centre route, and the non-Abelian condensate is solvable only… |  |
+| F143 | `F143-wrap-loop-stiffness-nogo` | The lattice fermion loop of the induced $U(1)_Y$ wrap stiffness on $U(x)$: transverse channel exactly zero (conjugation no-go), longitudinal channel per-mille… |  |
+| F144 | `F144-route-a-alpha-s-dimensional-transmutation` | Route A: $\alpha_s$ predicted from the rule by dimensional transmutation — $g_s=\tfrac12$ derived (not assumed), then $\alpha_s(M_Z)$ to +8.4% (converged) /… |  |
+| F145 | `F145-route-c-induced-njl-coupling` | Route C: the NJL coupling as an induced coupling — exact Fierz $c=\tfrac29$ (all four chiral channels), a bare-coupling no-go, and χSB guaranteed by Route A's… |  |
+| F146 | `F146-emergent-su3-string-tension-into-bag` | The string tension measured from the model's own 3D SU(3) gauge dynamics, fed into the confining bag (closing the imported-σ gap up to the U4 scale factor) |  |
+| F147 | `F147-walk-loop-rigidity-channel-equality` | The Peierls-gauged walk loop: the one-tick sea is gauge-rigid (zero induced stiffness in every channel, exact), and in the stroboscopic sea the F51 hypercharge… |  |
+| F148 | `F148-modular-element-assembler` | The modular element assembler: any element as NUCLEUS(Z,N) + ELECTRON CLOUD(Z), verified stable on hydrogen |  |
+| F149 | `F149-condensate-channel-splitting-content-nogo` | The condensate-sector response: mass is the unique channel-splitting agent (F147's lock breaks ∝ m² with kinematics still locked), the one-tick rigidity… |  |
+| F150 | `F150-eg-sextic-brake-from-architecture` | The $E_g$ sextic brake $C/W$ from the architecture: F147's rigidity theorem + F95's per-axis no-go close the **source** (a condensate self-coupling… |  |
+| F151 | `F151-scheme-constant-determined` | The shared scheme/scale constant determined: $\alpha_\text{rule}=\alpha_V$ (tree-exact), the one-loop conversion is the known $a_1=\tfrac{11}{3}$, and the… |  |
+| F152 | `F152-ir-coupling-the-irface` | The **IR face** of the strong coupling: the $\alpha_\text{eff}^\ast\approx0.39$ that F151-S5 split off is the gap-saturated frozen coupling — its scale is the… |  |
+| F153 | `F153-diamagnetic-chargeblind-splitting-paramagnetic` | The diamagnetic Peierls contact is charge-blind (exact, machine precision): the electroweak channel splitting is **purely paramagnetic**, the small-$\tilde q$… |  |
+| F154 | `F154-residuals-A-B-built-and-solved` | Building and solving the two strong-sector residuals: **Residual B is solved** (the self-consistent gap fixes the IR coupling… |  |
+| F155 | `F155-qstar-self-energy-and-freeze-bracket` | Residual A attacked with the one-loop self-energy machinery: the tadpole sector is **exactly empty** (the Wilson 28.81 is structurally absent), the… |  |
+| F156 | `F156-realspace-em-bound-electron` | U2: a real-space, real-time EM-bound electron (stationary cloud) |  |
+| F157 | `F157-manybody-nuclei-and-electron-clouds` | Phase 2(iii): multi-nucleon nuclei and multi-electron clouds |  |
+| F158 | `F158-realspace-neutral-hydrogen-atom` | U3: neutral hydrogen as one dynamic real-space object |  |
+| F159 | `F159-u4-blockspin-multigrid-scale-separation` | U4: the block-spin two-grid multigrid defeats the scale-separation wall |  |
 | F16 | `F16-gr3-fork-resolution` | GR-3 factor-2 redshift is resolvable by all three Finding 14.5 forks; GR-4 (Mercury) is the discriminator |  |
+| F160 | `F160-live-two-grid-multigrid-atom` | U4 LIVE: the two-grid multigrid hydrogen atom as one engine run |  |
+| F161 | `F161-atomic-photon-emission` | Dynamical-processes layer P1: photon emission from atoms |  |
+| F162 | `F162-bgfield-self-energy-b0-gate` | The background-field one-loop gluon self-energy is **assembled and the $b_0=\tfrac{11}{3}C_A=11$ recovery gate PASSES exactly** (transverse, gluon : ghost… |  |
 | F17 | `F17-poynting-energy-conservation` | Poynting Energy Density $\\|E_G\\|^2 + c^2\\|B_G\\|^2$ is Exactly Conserved for Composite-Photon Propagation |  |
 | F18 | `F18-mohr-c5-c6-build` | Mohr §C C5/C6 build lands at machine precision; nine new Tier 1 identities, three new Tier 2 |  |
 | F19 | `F19-tick-area-vs-volume` | Does the active-tick region scale as area or volume in the strong-gravity limit? |  |

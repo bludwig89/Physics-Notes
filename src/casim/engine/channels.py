@@ -57,8 +57,15 @@ class PhotonPairChannel(Channel):
         return {"E": np.asarray(E, float), "B": np.asarray(B, float)}
 
     def step(self, state, lattice, context=None, rng=None):
-        from casim.fields.photon import photon_step_spectral
-        E, B = photon_step_spectral(state["E"], state["B"])
+        block = int(getattr(lattice, "block", 1))
+        if block > 1:
+            # coarse lattice: use the renormalised rule Ω_coarse(κ)=Ω(κ/block)
+            # so the physical dynamics stays faithful (F130 T1/T2, F133).
+            from casim.engine.blockspin import renormalized_even_step
+            E, B = renormalized_even_step(state["E"], state["B"], block)
+        else:
+            from casim.fields.photon import photon_step_spectral
+            E, B = photon_step_spectral(state["E"], state["B"])
         return {"E": E, "B": B}
 
     def energy(self, state) -> float:
@@ -96,9 +103,14 @@ class WeylBCCChannel(Channel):
         return {"f": f, "g": g}
 
     def step(self, state, lattice, context=None, rng=None):
-        from casim.lattice import weyl_step_3d_bcc
         sign = self.config.get("sign", "+")
-        f, g = weyl_step_3d_bcc(state["f"], state["g"], sign=sign)
+        block = int(getattr(lattice, "block", 1))
+        if block > 1:
+            from casim.engine.blockspin import renormalized_weyl_step
+            f, g = renormalized_weyl_step(state["f"], state["g"], block, sign=sign)
+        else:
+            from casim.lattice import weyl_step_3d_bcc
+            f, g = weyl_step_3d_bcc(state["f"], state["g"], sign=sign)
         return {"f": f, "g": g}
 
     def energy(self, state) -> float:
@@ -143,8 +155,13 @@ class WChiralChannel(Channel):
         return {"E": E, "B": B}
 
     def step(self, state, lattice, context=None, rng=None):
-        from casim.fields.electroweak import w_propagation_step_chiral
-        E, B = w_propagation_step_chiral(state["E"], state["B"])
+        block = int(getattr(lattice, "block", 1))
+        if block > 1:
+            from casim.engine.blockspin import renormalized_chiral_step
+            E, B = renormalized_chiral_step(state["E"], state["B"], block)
+        else:
+            from casim.fields.electroweak import w_propagation_step_chiral
+            E, B = w_propagation_step_chiral(state["E"], state["B"])
         return {"E": E, "B": B}
 
     def energy(self, state) -> float:

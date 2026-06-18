@@ -1,0 +1,139 @@
+{
+  "generated": "2026-06-13 11:34",
+  "residual_B_solved": {
+    "F88_mD=0.532": {
+      "Mg": 0.532,
+      "rows": [
+        {
+          "L": 32,
+          "alpha_eff_star": 0.37643585205078134,
+          "M0_check": 1.5000589735131917,
+          "ok": true,
+          "secs": 2.7
+        },
+        {
+          "L": 48,
+          "alpha_eff_star": 0.37643585205078134,
+          "M0_check": 1.5000589523058863,
+          "ok": true,
+          "secs": 7.4
+        },
+        {
+          "L": 64,
+          "alpha_eff_star": 0.37643585205078134,
+          "M0_check": 1.5000589523027617,
+          "ok": true,
+          "secs": 20.9
+        },
+        {
+          "L": 96,
+          "alpha_eff_star": 0.37643585205078134,
+          "M0_check": 1.5000589523027612,
+          "ok": true,
+          "secs": 74.9
+        }
+      ],
+      "converged_spread": 0.0
+    },
+    "F117_mV=0.727": {
+      "Mg": 0.727,
+      "rows": [
+        {
+          "L": 32,
+          "alpha_eff_star": 0.4111282348632813,
+          "M0_check": 1.499904890995487,
+          "ok": true,
+          "secs": 3.9
+        },
+        {
+          "L": 48,
+          "alpha_eff_star": 0.4111282348632813,
+          "M0_check": 1.4999048909333923,
+          "ok": true,
+          "secs": 11.3
+        },
+        {
+          "L": 64,
+          "alpha_eff_star": 0.4111282348632813,
+          "M0_check": 1.4999048909333923,
+          "ok": true,
+          "secs": 30.1
+        },
+        {
+          "L": 96,
+          "alpha_eff_star": 0.4111282348632813,
+          "M0_check": 1.4999048909333923,
+          "ok": true,
+          "secs": 114.9
+        }
+      ],
+      "converged_spread": 0.0
+    }
+  },
+  "residual_A_logmoment_negative": {
+    "implied_qstar_F151": 0.7327,
+    "band": [
+      0.5773502691896258,
+      1.0
+    ],
+    "rows": [
+      {
+        "n": 64,
+        "d3_flat": 2.3087,
+        "d3_prop": 1.506,
+        "d3_prop2": 0.1507,
+        "d4_flat": 2.7179,
+        "d4_prop": 2.2992,
+        "d4_prop2": 0.6537
+      },
+      {
+        "n": 96,
+        "d3_flat": 2.3087,
+        "d3_prop": 1.4892,
+        "d3_prop2": 0.1009,
+        "d4_flat": 2.7179,
+        "d4_prop": 2.2986,
+        "d4_prop2": 0.5426
+      },
+      {
+        "n": 128,
+        "d3_flat": 2.3087,
+        "d3_prop": 1.4802,
+        "d3_prop2": 0.0758,
+        "d4_flat": 2.7179,
+        "d4_prop": 2.2983,
+        "d4_prop2": 0.4749
+      }
+    ],
+    "verdict": "converged flat/prop moments are UV (>band) => q* is the UV-finite subtraction, not a moment (F154-A). The full one-loop self-energy (ca_gluon_self_energy.py) is required."
+  },
+  "residual_A_self_energy": {
+    "qstar_a_bracket": [
+      0.5774,
+      0.9795
+    ],
+    "qstar_a_abelian_moment": 0.9795,
+    "qstar_a_implied_F151": 0.7327,
+    "band_F151": [
+      0.5773502691896258,
+      1.0
+    ],
+    "lambda_ratio_bracket": [
+      1.327,
+      2.251
+    ],
+    "lambda_ratio_at_implied": 1.773,
+    "lambda_ratio_target": 1.78,
+    "wilson_contrast": 28.81,
+    "implied_in_bracket": true,
+    "tadpole_empty": true,
+    "verdict": "q* bracketed to [1/sqrt3, ~0.97] by the convergent subtracted LM analysis (abelian/kinetic = band top, the near-perfect-action signature); implied 0.733 inside; Lambda-ratio O(1) (NOT Wilson 28.81 \u2014 tadpole-free, A0); single-value pinning needs the gluonic 3g+ghost finite part (A-PT proper) or the high-res static-potential measurement (A-NP, run_su3 Coulomb fit)."
+  },
+  "targets": {
+    "alpha_eff_star_mD": 0.376,
+    "alpha_eff_star_mV": 0.411,
+    "qstar_a": 0.7327,
+    "Lambda_ratio": 1.78,
+    "M0_constituent_MeV": 311
+  }
+}

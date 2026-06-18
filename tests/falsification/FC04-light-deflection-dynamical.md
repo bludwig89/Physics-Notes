@@ -21,7 +21,7 @@ Falsified if the dynamical deflection departs from `4GM/(bc²)` beyond grid floo
 ## CASIM build & run
 Propagate a photon-pair wavepacket past the open-BC dielectric well.
 ```bash
-casim run scenarios/gravity_deflection.yaml --L 64 \
+casim run scenarios/gravity_deflection.yaml --L 128 \
     --out test-results/FC04_deflection_dyn.json
 ```
 1. Use open-BC Poisson (supersedes test_01b); measure the wavepacket's angular deflection; confirm `4GM/(bc²)` and agreement with FA09's eikonal `K_bend=−4`.

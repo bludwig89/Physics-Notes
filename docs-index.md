@@ -13,13 +13,19 @@
 | `key-decisions.md` | Key Decisions |
 | `page34-eom-derivation.md` | Page 34 Equations of Motion — Derivation and Reconciliation with the Project |
 | `physics-F64-dielectric-gravity-simple.md` | F64 — Gravity as the Vacuum Acting Like Glass, Explained Simply |
+| `qcd-calibration-derivation-routes.md` | QCD calibration block — algebraic derivation routes (review) |
 
 ## docs/roadmaps/ — active roadmaps & next steps
 
 | File | Title |
 |------|-------|
+| `next-session-bgfield-loop.md` | Next-session prompt — the background-field one-loop gluon self-energy → **pin q\*** |
+| `next-session-residual-A-solve.md` | Next-session prompt — build out Residuals A & B, then **solve/derive Residual A** |
 | `next-steps.md` | Next Research Steps |
+| `prompt-weinberg-8over7-closure.md` | Session prompt — close the F49 8/7: diamagnetic-complete R(m), the 8-vs-7 multiplicity test, and the F118 matching |
 | `roadmap-matter-binding.md` | Roadmap — Dynamical Matter & Binding: electrons, u/d quarks → protons, neutrons, atoms |
+| `roadmap-scale-to-real-space.md` | Roadmap — Running the lattice at a scale analogous to real space |
+| `roadmap-unified-real-space.md` | Roadmap — Unified real-space integration: one lattice carrying a confined proton **and** an EM-bound electron |
 
 ## docs/status/ — project status, changelog, exactness inventory
 
@@ -28,12 +34,14 @@
 | `changelog.md` | Changelog |
 | `exactness-inventory.md` | Exactness Inventory |
 | `project-status.md` | Project Status — Physics Notes Transcription |
+| `qcd-ir-coupling-problem-status.md` | The strong-sector scale-setting problem (the "IR coupling") — what's been tried, what's left |
 
 ## docs/audits/ — one-off reviews & audits
 
 | File | Title |
 |------|-------|
 | `2026-05-24-mass-and-kinetic-without-wmu-higgs-verdict.md` | Verdict — Can Stueckelberg + AKT + Chen–Lin help with mass coupling and kinetic steps without $W_\mu$ or the Higgs? |
+| `2026-06-12-emergent-bound-states-vs-manufactured.md` | Audit — are the model's bound states emergent, or manufactured by their tests? |
 | `completed-items.md` | 1. `docs/theory/ca-unified-v2.md` line 48: $c = c_0(1 + \phi/c_0^2)^{-1}$ has the wrong sign for gravitational lensing; the working `ca_emqg.py` code uses the… |
 | `model-observations.md` | Model review — nonsensical or self-inconsistent constructs flagged |
 | `physics-notes-complete-review.md` | Review of `physics-notes-complete.md` — Model Support, Falsifiers, Improvements |
@@ -49,6 +57,7 @@
 | `ca-per-cell-yukawa-design.md` | Per-Cell Yukawa Mechanism — V14 Design Outline |
 | `ca-software-plan.md` | Cellular Automata Simulation — Implementation Plan & Results |
 | `ca-strong-design.md` | SU(3) Strong-Force Gauge Sector — Design |
+| `qstar-gluon-d1-computation-plan.md` | Computing the gluonic $d_1$ — the one number that pins $q_\ast$ (a validatable plan) |
 
 ## papers/ — the paper series
 

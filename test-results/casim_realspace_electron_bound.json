@@ -1,0 +1,263 @@
+{
+  "name": "realspace_electron_bound",
+  "title": "Real-Space EM-Bound Electron (U2)",
+  "description": "Non-relativistic electron orbital held in a bounded cloud by a static +1 Coulomb well (started in the ground state); RMS stays flat vs the free dispersing control.",
+  "seed": 11,
+  "ticks": 400,
+  "lattice": {
+    "L": 32,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 32,
+    "cell_factor": 1
+  },
+  "channels": {
+    "electron": {
+      "name": "electron",
+      "type": "nr_electron",
+      "label": "Non-Rel Electron",
+      "propagator": "non-rel",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 80,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "electron": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 80,
+          "channels": {
+            "electron": {
+              "energy": 1.0000000000000009,
+              "rel_drift": 6.661338147750938e-16
+            }
+          }
+        },
+        {
+          "tick": 160,
+          "channels": {
+            "electron": {
+              "energy": 1.000000000000002,
+              "rel_drift": 1.77635683940025e-15
+            }
+          }
+        },
+        {
+          "tick": 240,
+          "channels": {
+            "electron": {
+              "energy": 1.0000000000000022,
+              "rel_drift": 1.9984014443252814e-15
+            }
+          }
+        },
+        {
+          "tick": 320,
+          "channels": {
+            "electron": {
+              "energy": 1.0000000000000033,
+              "rel_drift": 3.1086244689504375e-15
+            }
+          }
+        },
+        {
+          "tick": 400,
+          "channels": {
+            "electron": {
+              "energy": 1.0000000000000038,
+              "rel_drift": 3.5527136788005e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "electron": 3.5527136788005e-15
+        }
+      }
+    },
+    "unification_readout": {
+      "type": "unification_readout",
+      "label": "Unification Readout",
+      "exactness": "quantitative",
+      "every": 50,
+      "records": [
+        {
+          "tick": 0,
+          "electron_rms_self": 2.449489742783177,
+          "electron_centroid": [
+            16.0,
+            16.0,
+            16.0
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 4.832350134698448e-10,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 50,
+          "electron_rms_self": 2.5141554014831207,
+          "electron_centroid": [
+            15.999999999999995,
+            15.999999999999998,
+            15.999999999999995
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0004486209324255267,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 100,
+          "electron_rms_self": 2.513195218733016,
+          "electron_centroid": [
+            16.000000000000004,
+            16.000000000000004,
+            16.000000000000004
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0004452231756168674,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 150,
+          "electron_rms_self": 2.5126134968216163,
+          "electron_centroid": [
+            15.999999999999998,
+            15.999999999999998,
+            15.999999999999998
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.000448989596727982,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 200,
+          "electron_rms_self": 2.5138819025386567,
+          "electron_centroid": [
+            15.999999999999995,
+            15.999999999999995,
+            15.999999999999995
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.00045630743543884355,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 250,
+          "electron_rms_self": 2.5131310587069673,
+          "electron_centroid": [
+            16.000000000000004,
+            16.000000000000004,
+            16.000000000000004
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0004504940148397592,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 300,
+          "electron_rms_self": 2.512747858600304,
+          "electron_centroid": [
+            15.999999999999998,
+            15.999999999999998,
+            15.999999999999998
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0004551665248990938,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 350,
+          "electron_rms_self": 2.513881731871169,
+          "electron_centroid": [
+            15.999999999999995,
+            15.999999999999995,
+            15.999999999999995
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0004485502689979055,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 400,
+          "electron_rms_self": 2.513052859587556,
+          "electron_centroid": [
+            16.000000000000004,
+            16.000000000000004,
+            16.000000000000004
+          ],
+          "net_charge": -1.0,
+          "loops": {
+            "J_colour": 0.0,
+            "gluon_A": 0.0,
+            "J_em": 0.0004531228080718505,
+            "photon_alpha": 0.0
+          }
+        }
+      ],
+      "summary": {
+        "electron_rms_self": {
+          "first": 2.449489742783177,
+          "last": 2.513052859587556,
+          "ratio": 1.0259495337719424
+        },
+        "net_charge": -1.0,
+        "loops_live": {
+          "J_colour": false,
+          "gluon_A": false,
+          "J_em": true,
+          "photon_alpha": false
+        }
+      }
+    }
+  }
+}

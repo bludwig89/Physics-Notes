@@ -1,0 +1,214 @@
+{
+  "name": "unified_hydrogen_multigrid",
+  "title": "Two-Grid Hydrogen Atom (real-space U4, live)",
+  "description": "Live two-grid multigrid: fine confined uud proton + coarse bound electron co-evolving in one run, R_b-coupled each tick; represented proton:orbit ratio ~6e4 (\u2248physical H) on tractable lattices.",
+  "seed": 11,
+  "ticks": 80,
+  "lattice": {
+    "L": 32,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 32,
+    "cell_factor": 1
+  },
+  "channels": {
+    "atom": {
+      "name": "atom",
+      "type": "two_grid_atom",
+      "label": "Two-Grid Atom",
+      "propagator": "multigrid",
+      "topologies": [
+        "bcc",
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "two_grid_readout": {
+      "type": "two_grid_readout",
+      "label": "Two-Grid Readout",
+      "exactness": "quantitative",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "b": 30000,
+          "proton_rms_fine": 2.5562249613457384,
+          "electron_rms_coarse": 6.265461747361873,
+          "proton_charge": 0.9999999999999998,
+          "electron_charge": -1.0,
+          "net_charge": -2.220446049250313e-16,
+          "represented_a0_over_rp": 73531.81166101343,
+          "represented_decades": 4.866475266157905,
+          "proton_norm": 2.9999999999999996,
+          "electron_norm": 0.9999999999999999
+        },
+        {
+          "tick": 10,
+          "b": 30000,
+          "proton_rms_fine": 2.872865505632121,
+          "electron_rms_coarse": 6.256038457573477,
+          "proton_charge": 0.9999999999999909,
+          "electron_charge": -1.0,
+          "net_charge": -9.103828801926284e-15,
+          "represented_a0_over_rp": 65328.90361879594,
+          "represented_decades": 4.815105369711281,
+          "proton_norm": 2.999999999999972,
+          "electron_norm": 1.0000000000000002
+        },
+        {
+          "tick": 20,
+          "b": 30000,
+          "proton_rms_fine": 2.844269661502158,
+          "electron_rms_coarse": 6.23029617879185,
+          "proton_charge": 0.9999999999999813,
+          "electron_charge": -1.0,
+          "net_charge": -1.865174681370263e-14,
+          "represented_a0_over_rp": 65714.19295913116,
+          "represented_decades": 4.817659178663923,
+          "proton_norm": 2.999999999999944,
+          "electron_norm": 1.0000000000000009
+        },
+        {
+          "tick": 30,
+          "b": 30000,
+          "proton_rms_fine": 2.996069118305351,
+          "electron_rms_coarse": 6.196090916061988,
+          "proton_charge": 0.9999999999999718,
+          "electron_charge": -1.0,
+          "net_charge": -2.8199664825478976e-14,
+          "represented_a0_over_rp": 62042.20268022368,
+          "represented_decades": 4.792687208143583,
+          "proton_norm": 2.999999999999915,
+          "electron_norm": 1.0000000000000013
+        },
+        {
+          "tick": 40,
+          "b": 30000,
+          "proton_rms_fine": 3.0743200749383996,
+          "electron_rms_coarse": 6.163067419916585,
+          "proton_charge": 0.9999999999999623,
+          "electron_charge": -1.0,
+          "net_charge": -3.774758283725532e-14,
+          "represented_a0_over_rp": 60140.784983555175,
+          "represented_decades": 4.779169092401038,
+          "proton_norm": 2.9999999999998868,
+          "electron_norm": 1.0000000000000018
+        },
+        {
+          "tick": 50,
+          "b": 30000,
+          "proton_rms_fine": 3.105989010972716,
+          "electron_rms_coarse": 6.138436369695247,
+          "proton_charge": 0.9999999999999526,
+          "electron_charge": -1.0,
+          "net_charge": -4.7406523151494184e-14,
+          "represented_a0_over_rp": 59289.67888820231,
+          "represented_decades": 4.7729790982205,
+          "proton_norm": 2.999999999999858,
+          "electron_norm": 1.0000000000000022
+        },
+        {
+          "tick": 60,
+          "b": 30000,
+          "proton_rms_fine": 3.1807986551366523,
+          "electron_rms_coarse": 6.127247006208589,
+          "proton_charge": 0.9999999999999432,
+          "electron_charge": -1.0,
+          "net_charge": -5.684341886080802e-14,
+          "represented_a0_over_rp": 57789.703189609965,
+          "represented_decades": 4.761850463917057,
+          "proton_norm": 2.9999999999998295,
+          "electron_norm": 1.0000000000000024
+        },
+        {
+          "tick": 70,
+          "b": 30000,
+          "proton_rms_fine": 3.208262320057271,
+          "electron_rms_coarse": 6.130281485728725,
+          "proton_charge": 0.9999999999999336,
+          "electron_charge": -1.0,
+          "net_charge": -6.639133687258436e-14,
+          "represented_a0_over_rp": 57323.38139001638,
+          "represented_decades": 4.758331800631656,
+          "proton_norm": 2.999999999999801,
+          "electron_norm": 1.0000000000000027
+        },
+        {
+          "tick": 80,
+          "b": 30000,
+          "proton_rms_fine": 3.2554293402706582,
+          "electron_rms_coarse": 6.147345410399024,
+          "proton_charge": 0.999999999999924,
+          "electron_charge": -1.0,
+          "net_charge": -7.605027718682322e-14,
+          "represented_a0_over_rp": 56650.08913897603,
+          "represented_decades": 4.7532005975627865,
+          "proton_norm": 2.9999999999997726,
+          "electron_norm": 1.0000000000000033
+        }
+      ],
+      "summary": {}
+    },
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 20,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "atom": {
+              "energy": 3.9999999999999996,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "atom": {
+              "energy": 3.999999999999945,
+              "rel_drift": 1.3655743202889427e-14
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "atom": {
+              "energy": 3.9999999999998885,
+              "rel_drift": 2.7755575615628917e-14
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "atom": {
+              "energy": 3.999999999999832,
+              "rel_drift": 4.185540802836841e-14
+            }
+          }
+        },
+        {
+          "tick": 80,
+          "channels": {
+            "atom": {
+              "energy": 3.999999999999776,
+              "rel_drift": 5.584421813864538e-14
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "atom": 5.584421813864538e-14
+        }
+      }
+    }
+  }
+}

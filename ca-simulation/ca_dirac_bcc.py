@@ -192,6 +192,57 @@ def dirac_step_3d_bcc_splitstep(eta_u, eta_d, chi_u, chi_d,
 
 
 # ══════════════════════════════════════════════════════════════════
+#  Position-dependent (scalar) mass — 3D BCC variable-mass step
+# ══════════════════════════════════════════════════════════════════
+def _mix_eta_chi_3d(eu, ed, xu, xd, theta):
+    """Per-cell Lorentz-scalar mass rotation exp(−i·β·θ), β=[[0,I],[I,0]].
+
+    Dimension-agnostic pointwise rotation (identical to the audited 2D
+    ``ca_dirac._mix_eta_chi``); ``theta`` is a scalar or an (Lx,Ly,Lz) array.
+    Exactly unitary for any θ (a real rotation), so the scalar-mass profile
+    may be arbitrarily large — the basis of MIT-bag / scalar confinement."""
+    cos_t = np.cos(theta)
+    sin_t = np.sin(theta)
+    return (cos_t * eu - 1j * sin_t * xu,
+            cos_t * ed - 1j * sin_t * xd,
+            cos_t * xu - 1j * sin_t * eu,
+            cos_t * xd - 1j * sin_t * ed)
+
+
+def dirac_step_3d_bcc_varm_splitstep(eta_u, eta_d, chi_u, chi_d,
+                                     m_field, m0=0.0, dt=1.0, sign='+'):
+    """One step of the 3D BCC Dirac CA with a position-dependent **scalar**
+    (Lorentz-scalar) mass m(x) — the real-space realisation of confinement.
+
+    Strang split (each half exactly unitary; O(dt²) Strang error)::
+
+        Mix(δm, dt/2)  →  Kinetic(m_0, dt)  →  Mix(δm, dt/2)
+
+    where ``Mix`` is the per-cell η↔χ rotation by δm(x)=m_field−m_0 and the
+    kinetic step is the audited exact-QCA propagator at the *baseline* mass
+    m_0.  Unlike the kinetic mass (bounded |m_0|≤1 by QCA admissibility), the
+    **mix carries the full confining profile** δm(x) with no bound — a real
+    rotation is always unitary.  A Lorentz-scalar linear profile
+    m(x)=m_0+σ·r confines even a (near-)massless fermion (MIT bag), where a
+    *vector* (time-component) potential of the same shape Klein-tunnels and
+    does **not** bind.  This is the F86 colour-dielectric ε_c→0 (flux expelled
+    ⇒ effective mass → ∞ in the vacuum) seen in the quark's frame.
+
+    Contract.  When ``m_field`` is uniform and equal to ``m_0`` (δm=0) the mix
+    is the identity and this reduces to ``dirac_step_3d_bcc_splitstep`` at
+    m=m_0 bit-for-bit.
+    """
+    _check_mass(m0)
+    dm = np.asarray(m_field) - m0
+    theta_half = dm * dt * 0.5
+    eu, ed, xu, xd = _mix_eta_chi_3d(eta_u, eta_d, chi_u, chi_d, theta_half)
+    eu, ed, xu, xd = dirac_step_3d_bcc_splitstep(eu, ed, xu, xd,
+                                                 m=m0, dt=dt, sign=sign)
+    eu, ed, xu, xd = _mix_eta_chi_3d(eu, ed, xu, xd, theta_half)
+    return eu, ed, xu, xd
+
+
+# ══════════════════════════════════════════════════════════════════
 #  4×4 D_k matrix builder for analytic / eigen-decomposition use
 # ══════════════════════════════════════════════════════════════════
 

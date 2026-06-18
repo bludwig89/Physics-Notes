@@ -1,0 +1,227 @@
+{
+  "test_id": "FB04",
+  "name": "Hydrogen ground state / Rydberg from m_e + alpha alone",
+  "verdict": "PASS",
+  "predicted": {
+    "Ry_H_eV": 13.598287,
+    "ground_state_eV": -13.598,
+    "a0_nm": 0.052947,
+    "E_n_Ry": "-1/n^2 (n=1..5)",
+    "l_degeneracy": "accidental SO(4): equal-n levels coincide",
+    "node_count": "n-l-1",
+    "r_exp_1s": "1.5 a0"
+  },
+  "measured_target": {
+    "Ry_hc_inf_eV": 13.605693,
+    "Ry_H_reduced_eV": 13.598287,
+    "ground_state_reduced_eV": -13.598,
+    "a0_reduced_nm": 0.052947,
+    "a0_inf_nm": 0.0529177,
+    "source": "CODATA"
+  },
+  "gate": {
+    "criterion": "-1/n^2 series + l-degeneracy at grid floor AND -13.6 eV / a0=0.0529 nm from m_e+alpha",
+    "series_ok": true,
+    "l_degeneracy_ok": true,
+    "absolute_scale_ok": true,
+    "pass": true
+  },
+  "computed": {
+    "mu_H_MeV": 0.5107208526770519,
+    "Ry_eV": 13.598288411649616,
+    "a0_nm": 0.05294653614465471,
+    "series_Ry": {
+      "n=1": {
+        "E_Ry": -0.9999121467813703,
+        "target": -1.0,
+        "abs_dev": 8.785321862969653e-05
+      },
+      "n=2": {
+        "E_Ry": -0.24999450845004229,
+        "target": -0.25,
+        "abs_dev": 5.491549957714614e-06
+      },
+      "n=3": {
+        "E_Ry": -0.11111002633400857,
+        "target": -0.1111111111111111,
+        "abs_dev": 1.0847771025335184e-06
+      },
+      "n=4": {
+        "E_Ry": -0.06249965676633713,
+        "target": -0.0625,
+        "abs_dev": 3.432336628667043e-07
+      },
+      "n=5": {
+        "E_Ry": -0.03999985941093663,
+        "target": -0.04,
+        "abs_dev": 1.4058906337016674e-07
+      }
+    },
+    "worst_series_dev_Ry": 8.785321862969653e-05,
+    "l_degeneracy": {
+      "n=2": {
+        "levels_Ry": [
+          -0.24999450845004229,
+          -0.2500018306953355
+        ],
+        "max_spread_vs_highL": 7.322245293206464e-06
+      },
+      "n=3": {
+        "levels_Ry": [
+          -0.11111002633400857,
+          -0.11111195488244213,
+          -0.11111118342944842
+        ],
+        "max_spread_vs_highL": 1.157095439852096e-06
+      },
+      "n=4": {
+        "levels_Ry": [
+          -0.06249965676633713,
+          -0.06250043478631982,
+          -0.06250006864626059,
+          -0.06250000980836345
+        ],
+        "max_spread_vs_highL": 4.2497795636753377e-07
+      },
+      "n=5": {
+        "levels_Ry": [
+          -0.03999985941093663,
+          -0.04000024932306799,
+          -0.0400000522210772,
+          -0.040000013656803945,
+          -0.04000000222818868
+        ],
+        "max_spread_vs_highL": 2.4709487930762997e-07
+      }
+    },
+    "worst_l_degeneracy_Ry": 7.322245293206464e-06,
+    "node_counts": {
+      "1s": {
+        "nodes": 0,
+        "expected": 0
+      },
+      "2s": {
+        "nodes": 1,
+        "expected": 1
+      },
+      "3s": {
+        "nodes": 2,
+        "expected": 2
+      },
+      "4s": {
+        "nodes": 3,
+        "expected": 3
+      },
+      "5s": {
+        "nodes": 4,
+        "expected": 4
+      },
+      "2p": {
+        "nodes": 0,
+        "expected": 0
+      },
+      "3p": {
+        "nodes": 1,
+        "expected": 1
+      },
+      "4p": {
+        "nodes": 2,
+        "expected": 2
+      },
+      "5p": {
+        "nodes": 3,
+        "expected": 3
+      },
+      "3d": {
+        "nodes": 0,
+        "expected": 0
+      },
+      "4d": {
+        "nodes": 1,
+        "expected": 1
+      },
+      "5d": {
+        "nodes": 2,
+        "expected": 2
+      },
+      "4f": {
+        "nodes": 0,
+        "expected": 0
+      },
+      "5f": {
+        "nodes": 1,
+        "expected": 1
+      },
+      "5g": {
+        "nodes": 0,
+        "expected": 0
+      }
+    },
+    "r_exp_1s_a0": 1.500014059182775,
+    "log_slope_1s_R": -0.9999906275805454,
+    "rel_Ry_vs_reduced_target": 1.0381084152408274e-07,
+    "ground_state_eV": -13.597093758244798,
+    "analytic_ground_eV": -13.598288411649616,
+    "positronium_ratio": 0.5,
+    "positronium_ground_eV": -6.802847136201109
+  },
+  "checks": [
+    {
+      "name": "B  E_n[Ry] = -1/n^2 (n=1..5) to grid floor",
+      "pass": true,
+      "detail": "worst |dev| = 8.785e-05 Ry"
+    },
+    {
+      "name": "C  Coulomb l-degeneracy (accidental SO(4))",
+      "pass": true,
+      "detail": "worst l-spread = 7.322e-06 Ry"
+    },
+    {
+      "name": "E1 node count = n-l-1 across the series",
+      "pass": true,
+      "detail": "all (n,l) match"
+    },
+    {
+      "name": "E2 <r>_1s = 1.5 a0",
+      "pass": true,
+      "detail": "<r>_1s = 1.50001 a0"
+    },
+    {
+      "name": "E3 1s R(x) ~ e^{-x} (log-slope = -1)",
+      "pass": true,
+      "detail": "log-slope = -1.0000"
+    },
+    {
+      "name": "D1 Ry(H) = 13.598287 eV (vs reduced-mass target ~1e-12)",
+      "pass": true,
+      "detail": "Ry = 13.598288412 eV, rel = 1.04e-07"
+    },
+    {
+      "name": "D2 ground state ~ -13.6 eV (m_e+alpha, grid floor)",
+      "pass": true,
+      "detail": "E_1s = -13.59709 eV (analytic -Ry = -13.59829)"
+    },
+    {
+      "name": "D3 a0 = 0.0529 nm",
+      "pass": true,
+      "detail": "a0 = 0.052947 nm"
+    },
+    {
+      "name": "A  positronium Ry / H_inf Ry = 1/2 (machine)",
+      "pass": true,
+      "detail": "ratio = 0.5000000000"
+    }
+  ],
+  "inputs": {
+    "m_e_MeV": 0.510999,
+    "m_p_MeV": 938.272,
+    "alpha": 0.0072973525205055605,
+    "grid_N": 8000,
+    "hbar_c_eVnm": 197.3269804
+  },
+  "engine": "ca-simulation/ca_atom.py (F125 attractive-1/r radial solver; F74 analogue)",
+  "commands": [
+    "python3 tests/findings/test_FB04_hydrogen_rydberg.py"
+  ],
+  "timestamp": "2026-06-16"
+}

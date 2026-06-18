@@ -121,6 +121,45 @@ def _cmd_inventory(args) -> int:
     return 0 if n_pass == len(checks) else 1
 
 
+def _cmd_test(args) -> int:
+    from .suite import run_suite, build_plan, tier_names
+    from .suite.runner import find_repo_root
+    groups = tuple(g.strip() for g in args.groups.split(",") if g.strip())
+    only = [s.strip() for s in args.only.split(",") if s.strip()] if args.only else None
+    repo_root = find_repo_root()
+
+    if args.list:
+        import json as _json
+        plan = build_plan(args.scale, groups, repo_root, only=only)
+        print(f"[casim] suite plan — scale={args.scale}  groups={list(groups)}")
+        for b in plan.get("battery", []):
+            print(f"  battery/{b['group']:10s} {b['path']}")
+        for grp in ("scenarios", "realspace"):
+            for s in plan.get(grp, []):
+                if s.get("error"):
+                    print(f"  {grp}/{s['name']:26s} ERROR {s['error']}")
+                    continue
+                if s.get("realspace"):
+                    print(f"  {grp}/{s['name']:26s} patch={s['physical_L']}^? "
+                          f"block={s['block']}  ~{s['represented_cells']:.2e} cells  "
+                          f"compute={s['compute_cells']:.2e}  ~{s['mem_gb']:.2f} GB"
+                          + ("  [skip]" if s['skipped'] else ""))
+                else:
+                    print(f"  {grp}/{s['name']:26s} L={s['L']:<5d} ticks={s['ticks']:<6d} "
+                          f"×{s['cost_factor']:<7.0f} ~{s['mem_gb']:.2f} GB"
+                          + ("  [skip]" if s['skipped'] else ""))
+        return 0
+
+    report = run_suite(
+        scale=args.scale, groups=groups, out_dir=args.out,
+        report_every=args.report_every, checkpoint_every=args.checkpoint_every,
+        mem_limit_gb=args.mem_gb, only=only, repo_root=repo_root,
+        script_timeout=args.script_timeout, run_scripts=not args.no_scripts,
+    )
+    c = report["counts"]
+    return 0 if (c.get("FAIL", 0) == 0 and c.get("ERROR", 0) == 0) else 1
+
+
 def _cmd_gui(args) -> int:
     from .gui import gui_available, launch
     if not gui_available():
@@ -174,6 +213,31 @@ def build_parser() -> argparse.ArgumentParser:
                          help="run canonical checks, regenerate exactness inventory")
     inv.add_argument("--out", default="test-results/casim-exactness-inventory.md")
     inv.set_defaults(func=_cmd_inventory)
+
+    t = sub.add_parser("test",
+                       help="run the unified grouped test suite at a scale tier")
+    t.add_argument("--scale", default="smoke",
+                   choices=["smoke", "10x", "100x", "1000x"],
+                   help="scale tier: smoke (sandbox) → 1000x (orders of magnitude)")
+    t.add_argument("--groups", default="battery,scenarios,realspace",
+                   help="comma list: battery,scenarios,realspace")
+    t.add_argument("--only", default=None,
+                   help="comma list of scenario names to restrict to")
+    t.add_argument("--out", default=None,
+                   help="report dir (default test-results/suite/<scale>_<stamp>)")
+    t.add_argument("--report-every", type=float, default=15.0,
+                   help="seconds between progress heartbeats during long runs")
+    t.add_argument("--checkpoint-every", type=int, default=0,
+                   help="NPZ checkpoint cadence (ticks) for resumable long runs")
+    t.add_argument("--mem-gb", type=float, default=None,
+                   help="skip scenarios whose projected footprint exceeds this")
+    t.add_argument("--script-timeout", type=float, default=900.0,
+                   help="per standalone battery script timeout (s)")
+    t.add_argument("--no-scripts", action="store_true",
+                   help="battery: run only pytest-style files, skip standalone scripts")
+    t.add_argument("--list", action="store_true",
+                   help="dry-run: print the plan (sizes/cost/memory) and exit")
+    t.set_defaults(func=_cmd_test)
 
     g = sub.add_parser("gui", help="(Phase E) interactive viewer")
     g.add_argument("scenario", nargs="?", default=None)

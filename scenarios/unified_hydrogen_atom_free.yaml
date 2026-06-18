@@ -1,0 +1,30 @@
+# U3 free control (roadmap-unified-real-space.md) — the unbound baseline the
+# neutral-atom run (unified_hydrogen_atom.yaml) is measured against: the SAME
+# three quarks with NO confining string and the SAME electron with NO Coulomb
+# well.  Both the quark cluster and the electron orbital disperse ballistically.
+name: unified_hydrogen_atom_free
+title: "Neutral Hydrogen Atom — free control (U3)"
+description: "Matched quarks (no confinement) + electron (no Coulomb well): both disperse — the control for unified_hydrogen_atom.yaml."
+lattice: {L: 24, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 200
+channels:
+  - {type: gluon_sourced, name: gluon, sources: [u_r, u_g, d_b], g_lat: 0.5, dt: 1.0}
+  - {type: photon_sourced, name: photon, sources: [u_r, u_g, d_b, electron],
+     dt: 0.1, g_em: 1.0, coulomb: true, g_coulomb: 1.0}
+  - {type: quark_dirac, name: u_r, species: u_L, colour: r, mass: 0.9,
+     init: {center: [11, 12, 12], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05}
+  - {type: quark_dirac, name: u_g, species: u_L, colour: g, mass: 0.9,
+     init: {center: [13, 12, 12], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05}
+  - {type: quark_dirac, name: d_b, species: d_L, colour: b, mass: 0.9,
+     init: {center: [12, 14, 12], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05}
+  - {type: nr_electron, name: electron, mass: 1.0, charge: -1.0,
+     g_coulomb: 0.0, dt: 0.2, sources: [u_r, u_g, d_b],
+     init: {center: [12, 12.7, 12], width: 3.0, ground_state: false}}
+observers:
+  - {type: norm_conservation, every: 40, channels: [u_r, u_g, d_b, electron]}
+  - {type: unification_readout, every: 25, gluon: gluon, photon: photon}
+output: {json: test-results/casim_unified_hydrogen_atom_free.json}

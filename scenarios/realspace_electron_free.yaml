@@ -1,0 +1,23 @@
+# U2 free control (roadmap-unified-real-space.md) — the matched no-well run.
+# Identical non-relativistic electron orbital as realspace_electron_bound.yaml,
+# but with NO Coulomb well (g_coulomb=0, no external charge): the orbital
+# disperses ballistically to box saturation, the baseline the bound run is
+# measured against.
+name: realspace_electron_free
+title: "Real-Space Electron — free control (U2)"
+description: "Matched non-relativistic electron orbital with no Coulomb well: disperses ballistically (the control for realspace_electron_bound.yaml)."
+lattice: {L: 32, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 400
+channels:
+  - type: nr_electron
+    name: electron
+    mass: 1.0
+    charge: -1.0
+    g_coulomb: 0.0
+    dt: 0.2
+    init: {center: [16, 16, 16], width: 2.0, ground_state: false}
+observers:
+  - {type: norm_conservation, every: 80, channels: [electron]}
+  - {type: unification_readout, every: 50, electron: electron}
+output: {json: test-results/casim_realspace_electron_free.json}

@@ -25,8 +25,8 @@ Closed-form geometric prediction; verify symbolically.
 1. Symbolic (sympy): derive `m_Z/m_W = 2/√3` and `sin²θ_W = 1/4` from the σ↔τ swap on the BCC lattice (F45 construction); confirm against PDG to `+1.77%` / `+12%`.
 2. Optional dynamical cross-check on the Z/W channels:
 ```bash
-casim run scenarios/z_even.yaml --L 16 --ticks 60 --out test-results/FA04_z.json
-casim run scenarios/w_chiral.yaml --L 16 --ticks 60 --out test-results/FA04_w.json
+casim run scenarios/z_even.yaml --L 64 --ticks 1000 --out test-results/FA04_z.json
+casim run scenarios/w_chiral.yaml --L 64 --ticks 1000 --out test-results/FA04_w.json
 ```
 Confirm the mass terms entering each propagator carry the `2/√3` ratio.
 

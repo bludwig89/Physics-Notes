@@ -57,7 +57,24 @@ from __future__ import annotations
 
 import math
 import numpy as np
-from scipy.linalg import eigh_tridiagonal
+
+try:
+    from scipy.linalg import eigh_tridiagonal
+except ImportError:                       # numpy-only fallback (no scipy)
+    def eigh_tridiagonal(d, e, select="a", select_range=None):
+        """Drop-in for ``scipy.linalg.eigh_tridiagonal`` (subset of the API
+        used here): symmetric tridiagonal eigenproblem via a dense
+        ``numpy.linalg.eigh``.  Honours ``select='i'`` index ranges.  Exact to
+        the same floor for the modest N this module uses; slower at very large
+        N (dense), which is acceptable for the sandbox fallback."""
+        d = np.asarray(d, float)
+        e = np.asarray(e, float)
+        M = np.diag(d) + np.diag(e, 1) + np.diag(e, -1)
+        w, v = np.linalg.eigh(M)
+        if select == "i" and select_range is not None:
+            lo, hi = int(select_range[0]), int(select_range[1])
+            return w[lo:hi + 1], v[:, lo:hi + 1]
+        return w, v
 
 
 # ===========================================================================

@@ -1,0 +1,20 @@
+# Block-spin photon (Phase 4, F133) — adaptive-resolution CA run.
+# Declares a physical patch of 32 cells/axis represented by a block factor 2
+# (16 super-cells), then coarse-grains the live run again at tick 20 (→ block 4,
+# 8 super-cells).  c_lat is the RG fixed point (F130 T1), carried through; the
+# even-law channel propagates by the renormalised rule Ω(κ/block).
+name: blockspin_photon
+title: "Block-Spin Photon (Phase 4)"
+description: "Declares a physical patch + block factor and coarse-grains the live run (R_b as a first-class engine op); the even-law channel steps by the renormalised rule Ω(κ/block) so the coarse run stays physically faithful."
+lattice: {physical_patch: 32, block: 2, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
+seed: 5
+ticks: 40
+channels:
+  - {type: photon_pair, init: random}
+blockspin:
+  - {at: 20, factor: 2}
+observers:
+  - {type: norm_conservation, every: 10}
+  - {type: field_snapshot, every: 40}
+output:
+  json: test-results/casim_blockspin_photon.json

@@ -1,0 +1,30 @@
+{
+  "sigma_measured_ag2": 0.31,
+  "mass": 0.9,
+  "rows": [
+    {
+      "spacing": 1.0,
+      "L": 24,
+      "box": 24.0,
+      "rms_phys": 1.9927,
+      "E0": 0.8607
+    },
+    {
+      "spacing": 0.75,
+      "L": 32,
+      "box": 24.0,
+      "rms_phys": 2.0345,
+      "E0": 0.871
+    },
+    {
+      "spacing": 0.6,
+      "L": 40,
+      "box": 24.0,
+      "rms_phys": 2.0502,
+      "E0": 0.8748
+    }
+  ],
+  "rms_phys_spread_frac": 0.0289,
+  "R_conf_times_sqrt_sigma": 1.1095,
+  "note": "scale-covariant (C1/F131); F135 RMS 6.25 was a coarse-box zitterbewegung artifact, not the true ~2 a_g well size; absolute fm P6-gated via sqrt(sigma)=0.42 GeV."
+}

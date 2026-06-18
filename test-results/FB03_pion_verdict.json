@@ -1,0 +1,63 @@
+{
+  "test_id": "FB03",
+  "name": "Pion sector: m_pi, f_pi, <qbar q>, GMOR slope, chiral-limit Goldstone theorem (F77/F103 NJL gap+RPA)",
+  "verdict": "PASS",
+  "predicted": {
+    "m_c_MeV": 311.2,
+    "m_pi_MeV": 140.5,
+    "f_pi_MeV": 92.6,
+    "m_sigma_over_2mc": 1.0,
+    "gmor_rel_pct": 0.39,
+    "m_pi_chiral_limit_MeV": 1.6e-4,
+    "goldstone_residual": 2.3e-14,
+    "coupling": {"Lam_MeV": 651.5, "GLam2": 2.10, "m0_MeV": 5.5}
+  },
+  "measured_target": {
+    "m_pi_MeV": "135-138 (PDG)",
+    "f_pi_MeV": 92.4,
+    "condensate_root_MeV": "-272 (lattice total); -250 (F77 per-flavour)",
+    "m_c_MeV": "~325 (constituent)"
+  },
+  "gate": {
+    "criteria": "PASS if m_pi, f_pi, <qbar q>, m_c within a few %; Goldstone exact; GMOR <= 0.4%",
+    "m_pi_pct": 2.6,
+    "f_pi_pct": 0.2,
+    "m_c_pct": 4.2,
+    "condensate_perflavour_pct": 0.4,
+    "goldstone_exact": true,
+    "gmor_pct": 0.393,
+    "gmor_gate_max_pct": 0.4,
+    "result": "all criteria satisfied"
+  },
+  "computed": {
+    "m_c_MeV": 311.21462294173983,
+    "m_pi_MeV": 140.52053957607242,
+    "m_sigma_MeV": 622.4292458834797,
+    "m_rho_MeV": 785.596673129178,
+    "f_pi_MeV": 92.58345580787223,
+    "condensate_root_perflavour_MeV": -249.05117143127202,
+    "condensate_root_total_MeV": -313.78,
+    "m_sigma_over_2mc": 1.0,
+    "gmor_rel_residual": 0.003934402096827787,
+    "gmor_rel_pct": 0.3934,
+    "m_pi_chiral_limit_MeV": 0.00015529222149097974,
+    "goldstone_residual_1minus2GPiPS0": 2.265e-14,
+    "goldstone_identity_check_phys": {"one_minus_2G_PiPS0": 0.01767269, "m0_over_M": 0.01767269, "diff": 1.68e-14},
+    "gmor_slope_sweep_m_pi2_over_m0": {
+      "m0_2.0MeV": 3.60966, "m0_3.0MeV": 3.60362, "m0_4.0MeV": 3.59798,
+      "m0_5.5MeV": 3.59019, "m0_6.0MeV": 3.58776, "m0_8.0MeV": 3.57881,
+      "slope_spread_pct": 0.858
+    },
+    "m_c_rel_err": -0.04241654479464667,
+    "m_pi_rel_err": 0.025697369168411848,
+    "f_pi_rel_err": 0.001985452466149578,
+    "numerics_real_no_imag_dropped": true
+  },
+  "commands": [
+    "casim run scenarios/njl_pion.yaml --out test-results/FB03_pion.json",
+    "python3 ca-simulation/ca_meson.py (gap_solve, meson_pole, f_pi, condensate, gmor_residual, Pi_PS sweeps)"
+  ],
+  "provenance": ["F103", "F77", "F116", "F124"],
+  "raw_output": "test-results/FB03_pion.json",
+  "timestamp": "2026-06-16"
+}

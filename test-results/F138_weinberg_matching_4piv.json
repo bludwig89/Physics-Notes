@@ -1,0 +1,52 @@
+{
+  "WM1": {
+    "s2(t2)_strictly_below_quarter": true,
+    "s2->1/4_as_gX->inf": true,
+    "bridge_(2/9)/(1/4)": "8/9",
+    "bridge_is_8/9": true,
+    "mZ/mW_at_2/9": 1.1338934190276817,
+    "PASS": true
+  },
+  "WM2": {
+    "v_GeV": 246.21965079413738,
+    "mu*=4piv_GeV": 3094.087384417225,
+    "scenarios": [
+      {
+        "label": "SM (3 gen, 1 Higgs doublet)",
+        "b1": 4.1,
+        "b2": -3.1666666666666665,
+        "mu_star_GeV": 3094.087384417225,
+        "L": 3.5243249644444483,
+        "sin2(mu*)": 0.25,
+        "sin2_MZ_pred": 0.23209941486811253,
+        "resid_vs_MSbar_%": 0.38033685153209984
+      },
+      {
+        "label": "Higgs-free (model-correct)",
+        "b1": 4.0,
+        "b2": -3.3333333333333335,
+        "mu_star_GeV": 3094.087384417225,
+        "L": 3.5243249644444483,
+        "sin2(mu*)": 0.25,
+        "sin2_MZ_pred": 0.23173409680419646,
+        "resid_vs_MSbar_%": 0.22234097577910694
+      }
+    ],
+    "bare_gap_was_%": 8.122134763428765,
+    "PASS": true
+  },
+  "WM3": {
+    "mu_star_crossing_SM_GeV": 3678.9781315258015,
+    "mu_star_crossing_HF_GeV": 3416.7359403666555,
+    "4piv_GeV": 3094.087384417225,
+    "ln(mu_x_HF/4piv)": 0.0991926970020733,
+    "sin2_onshell_meas": 0.22320949284344327,
+    "2/9": 0.2222222222222222,
+    "resid_2/9_vs_onshell_%": -0.4423067355444063,
+    "mZ/mW_meas": 1.1346137575090955,
+    "3/sqrt7": 1.1338934190276817,
+    "resid_3/sqrt7_%": -0.06348755042378955,
+    "PASS": true
+  },
+  "ALL_PASS": true
+}

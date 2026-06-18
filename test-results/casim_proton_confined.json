@@ -1,0 +1,307 @@
+{
+  "name": "proton_confined",
+  "title": "Confined Proton (colour quarks, U3 Part 1)",
+  "description": "Three massive SU(3) colour-triplet Dirac quarks (uud) bound by the F135 scalar string, gluon loop live, net charge +1: a real-space confined proton.",
+  "seed": 11,
+  "ticks": 120,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "gluon": {
+      "name": "gluon",
+      "type": "gluon_sourced",
+      "label": "Gluon Sourced",
+      "propagator": "even",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "photon": {
+      "name": "photon",
+      "type": "photon_sourced",
+      "label": "Photon Sourced",
+      "propagator": "even",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    },
+    "u_r": {
+      "name": "u_r",
+      "type": "quark_dirac",
+      "label": "Colour Dirac Quark",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "u_g": {
+      "name": "u_g",
+      "type": "quark_dirac",
+      "label": "Colour Dirac Quark",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "d_b": {
+      "name": "d_b",
+      "type": "quark_dirac",
+      "label": "Colour Dirac Quark",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 30,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "u_g": {
+              "energy": 0.9999999999999998,
+              "rel_drift": 0.0
+            },
+            "d_b": {
+              "energy": 0.9999999999999997,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "u_r": {
+              "energy": 1.000000000000004,
+              "rel_drift": 3.7747582837255314e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000036,
+              "rel_drift": 3.774758283725533e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000038,
+              "rel_drift": 4.107825191113081e-15
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "u_r": {
+              "energy": 1.000000000000008,
+              "rel_drift": 7.771561172376094e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000075,
+              "rel_drift": 7.771561172376097e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000075,
+              "rel_drift": 7.882583474838615e-15
+            }
+          }
+        },
+        {
+          "tick": 90,
+          "channels": {
+            "u_r": {
+              "energy": 1.000000000000012,
+              "rel_drift": 1.1768364061026656e-14
+            },
+            "u_g": {
+              "energy": 1.000000000000012,
+              "rel_drift": 1.2212453270876725e-14
+            },
+            "d_b": {
+              "energy": 1.0000000000000115,
+              "rel_drift": 1.187938636348918e-14
+            }
+          }
+        },
+        {
+          "tick": 120,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000162,
+              "rel_drift": 1.598721155460225e-14
+            },
+            "u_g": {
+              "energy": 1.0000000000000158,
+              "rel_drift": 1.5987211554602257e-14
+            },
+            "d_b": {
+              "energy": 1.0000000000000158,
+              "rel_drift": 1.6098233857064776e-14
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "u_r": 1.598721155460225e-14,
+          "u_g": 1.5987211554602257e-14,
+          "d_b": 1.6098233857064776e-14
+        }
+      }
+    },
+    "unification_readout": {
+      "type": "unification_readout",
+      "label": "Unification Readout",
+      "exactness": "quantitative",
+      "every": 20,
+      "records": [
+        {
+          "tick": 0,
+          "proton_rms": 2.0225735104980505,
+          "proton_centroid": [
+            8.000000000000037,
+            8.650613626504638,
+            8.0
+          ],
+          "proton_norm": 3.0,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.2946602986114941,
+            "gluon_A": 0.0,
+            "J_em": 0.2835370045288673,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 20,
+          "proton_rms": 3.201710690576041,
+          "proton_centroid": [
+            7.997162349904309,
+            8.598186223532643,
+            8.181070475407893
+          ],
+          "proton_norm": 3.0000000000000075,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.12086290885495263,
+            "gluon_A": 0.0,
+            "J_em": 0.09498527676439963,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 40,
+          "proton_rms": 3.4324427052362454,
+          "proton_centroid": [
+            7.965907388915766,
+            8.580693690799666,
+            8.28001972359595
+          ],
+          "proton_norm": 3.000000000000015,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.10595228374617535,
+            "gluon_A": 0.0,
+            "J_em": 0.0798575499272205,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 60,
+          "proton_rms": 3.589690459430624,
+          "proton_centroid": [
+            8.088889673573815,
+            8.568124000024058,
+            8.20806606935415
+          ],
+          "proton_norm": 3.0000000000000235,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.09483686286754493,
+            "gluon_A": 0.0,
+            "J_em": 0.07180398826625033,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 80,
+          "proton_rms": 3.655845179719211,
+          "proton_centroid": [
+            7.990413769731642,
+            8.602695622348804,
+            8.333954628713023
+          ],
+          "proton_norm": 3.0000000000000315,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.0917786572668034,
+            "gluon_A": 0.0,
+            "J_em": 0.06776642100632613,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 100,
+          "proton_rms": 3.688989445173151,
+          "proton_centroid": [
+            8.05271224426301,
+            8.521608788856403,
+            8.356162269010888
+          ],
+          "proton_norm": 3.000000000000039,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.09026548500428956,
+            "gluon_A": 0.0,
+            "J_em": 0.06656300104587284,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 120,
+          "proton_rms": 3.718066356728404,
+          "proton_centroid": [
+            8.07912654497695,
+            8.504760401541535,
+            8.463231174391725
+          ],
+          "proton_norm": 3.000000000000048,
+          "net_charge": 1.0,
+          "loops": {
+            "J_colour": 0.08977811406740249,
+            "gluon_A": 0.0,
+            "J_em": 0.06496519223941699,
+            "photon_alpha": 0.0
+          }
+        }
+      ],
+      "summary": {
+        "proton_rms": {
+          "first": 2.0225735104980505,
+          "last": 3.718066356728404,
+          "ratio": 1.8382849065460396
+        },
+        "net_charge": 1.0,
+        "loops_live": {
+          "J_colour": true,
+          "gluon_A": false,
+          "J_em": true,
+          "photon_alpha": false
+        }
+      }
+    }
+  }
+}

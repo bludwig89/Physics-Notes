@@ -1,0 +1,34 @@
+# U4 LIVE — the two-grid multigrid hydrogen atom as ONE engine run
+# (roadmap-unified-real-space.md U4; F160).
+#
+# A single `two_grid_atom` channel co-evolves BOTH grids in one Simulation.run:
+#   * FINE patch  — three colour Dirac quarks (uud) confined by the F135 scalar
+#     Y-string (the audited quark_dirac kernel), resolving the proton (~1 fm);
+#   * COARSE grid — the F156 non-relativistic electron orbital (the Bohr orbit).
+# Every tick the proton's charge is block-spin (R_b) reduced to a point source
+# on the coarse grid (the F133/F159 reduction) and the electron is stepped in
+# that well.  The block factor b=30000 carries the proton:orbit scale ratio
+# (~6e4 — physical hydrogen) that NO single tractable lattice can hold; here
+# both grids are tiny (12 fine, 32 coarse) yet the represented ratio is ~4.8
+# decades.  This is the LIVE realisation of the F159 staged multigrid.
+#
+# Deliverables (two_grid_readout): proton confined (bounded fine RMS), electron
+# orbit resolved+bounded (coarse RMS ~6), net charge → 0, represented a0/r_p
+# ~6e4, norms conserved.  Structure + scale ratio are the deliverable; absolute
+# fm/eV stay P6/scale-gated (F123).
+name: unified_hydrogen_multigrid
+title: "Two-Grid Hydrogen Atom (real-space U4, live)"
+description: "Live two-grid multigrid: fine confined uud proton + coarse bound electron co-evolving in one run, R_b-coupled each tick; represented proton:orbit ratio ~6e4 (≈physical H) on tractable lattices."
+lattice: {L: 32, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 80
+channels:
+  - type: two_grid_atom
+    name: atom
+    b: 30000
+    fine:   {L: 12, sigma: 0.5, dt: 0.5, mass: 0.9}
+    coarse: {L: 32, m: 1.0, k: 0.3, dt: 0.5, relax_steps: 600}
+observers:
+  - {type: two_grid_readout, every: 10}
+  - {type: norm_conservation, every: 20, channels: [atom]}
+output: {json: test-results/casim_unified_hydrogen_multigrid.json}

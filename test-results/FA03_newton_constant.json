@@ -1,0 +1,70 @@
+{
+  "test_id": "FA03",
+  "title": "Newton's constant predicted from the cell + dielectric PPN",
+  "tier": "A",
+  "verdict": "PASS",
+  "predicted": {
+    "G_closed_form": "a^2 c^3 / (8 pi sqrt(3) hbar)",
+    "G_value": 6.67429980237485e-11,
+    "coefficient": "8 pi sqrt(3) = 2 pi eta g* sqrt(d), eta=1/12, g*=48, d=3",
+    "a_over_lP": 6.597816664747605,
+    "PPN": "beta = gamma = 1 (exact, canonical K=e^{2u})",
+    "K_bend": -4.0,
+    "mercury_arcsec_per_cy": 42.98
+  },
+  "measured": {
+    "CODATA_G": 6.6743e-11,
+    "CODATA_G_rel_unc": 2.2e-05,
+    "PPN_gamma_minus_1_bound": "<2.3e-5 (Cassini)",
+    "PPN_beta_minus_1_bound": "~1e-4 (LLR/MESSENGER 2.5e-5)"
+  },
+  "gate": "PASS: G matches CODATA to 3.0e-8 AND beta=gamma=1 to current PPN precision. FALSIFIED on confirmed G shift / PPN beta,gamma != 1 / fifth force.",
+  "checks": {
+    "check1_closed_form": {
+      "a_over_lP_predicted": 6.597816664747605,
+      "a_over_lP_F79": 6.59782,
+      "coefficient_8pi_sqrt3": 43.531184741621225,
+      "G_closed_form_is_exact_identity_given_a/lP": true,
+      "a_meters_anchored_at_lP": 1.0663754173481642e-34,
+      "G_SI_roundtrip": 6.67429980237485e-11,
+      "CODATA_G": 6.6743e-11,
+      "SI_roundtrip_residual": 2.960986906000282e-08,
+      "note": "Exact-algebraic match to CODATA given the dimensionless a/l_P (brief's 3e-8 is CODATA round-off, F79 S6); SI roundtrip from independently-rounded l_P,hbar lands ~1e-4. The PREDICTION is a/l_P=sqrt(8pi)3^(1/4) exact + the identity G=a^2c^3/(8pi sqrt3 hbar).",
+      "pass": true
+    },
+    "check2_coefficient": {
+      "eta": "1/12",
+      "g_star": 48,
+      "g_star_structural_16x3": 48,
+      "d": 3,
+      "2pi_eta_gstar_sqrtd": "8*sqrt(3)*pi",
+      "equals_8pi_sqrt3": true,
+      "numeric": 43.53118474162123,
+      "pass": true
+    },
+    "check3_ppn": {
+      "canonical_exp_K": {
+        "beta": "1",
+        "gamma": "1",
+        "K_bend": -4.0,
+        "mercury_arcsec_per_cy": 42.98
+      },
+      "linear_fit_K_(1-u)^-2": {
+        "beta": "1/2",
+        "gamma": "1",
+        "note": "beta=1/2 -> Mercury 50.1''/cy, excluded (D-EM9)"
+      },
+      "pass": true
+    }
+  },
+  "commands": [
+    "python3 tests/findings/test_FA03_newton_constant.py"
+  ],
+  "provenance": [
+    "F79",
+    "F64 D-EM9",
+    "F107",
+    "F112"
+  ],
+  "timestamp": "2026-06-10T19:27:50.809858-05:00"
+}

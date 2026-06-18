@@ -1,0 +1,177 @@
+{
+  "test_id": "FC03",
+  "title": "Gravitational redshift (Pound-Rebka): dielectric g_tt=-e^{-2u} gives Delta nu/nu = g Delta r/c^2 at O(phi/c^2), horizon-free",
+  "tier": "C",
+  "timestamp": "2026-06-16 - 16:28",
+  "element_under_test": "Clock-rate (g_tt) leg of F64 single-lattice dielectric; canonical K=e^{2u}, A=1/K=e^{-2u}",
+  "hypothesis": "Delta nu/nu = g h/c^2 = G M Delta r/(r^2 c^2) (GR-identical, exact at O(phi/c^2))",
+  "provenance": [
+    "F16",
+    "F64",
+    "F62",
+    "F112 (section B)"
+  ],
+  "part1_leading_order_match": {
+    "units": "geometric (G=c=1)",
+    "target": "Delta nu/nu = g Delta r/c^2 = G M Delta r/(r^2 c^2)",
+    "fixed_field_u": 1e-06,
+    "cases": [
+      {
+        "r": 1000000.0,
+        "delta_r": 10000.0,
+        "eps_dr_over_r": 0.01,
+        "u_emit": 1e-06,
+        "u_obs": 9.900990099009902e-07,
+        "phi_over_c2": 1e-06,
+        "z_exact_dielectric": 9.900990148024583e-09,
+        "z_GR_g_dr_over_c2": 1e-08,
+        "abs_residual": 9.900985197541691e-11,
+        "rel_residual": 0.00990098519754169
+      },
+      {
+        "r": 1000000.0,
+        "delta_r": 1000.0,
+        "eps_dr_over_r": 0.001,
+        "u_emit": 1e-06,
+        "u_obs": 9.99000999000999e-07,
+        "phi_over_c2": 1e-06,
+        "z_exact_dielectric": 9.990009994998714e-10,
+        "z_GR_g_dr_over_c2": 1e-09,
+        "abs_residual": 9.990005001286892e-13,
+        "rel_residual": 0.000999000500128689
+      },
+      {
+        "r": 1000000.0,
+        "delta_r": 100.0,
+        "eps_dr_over_r": 0.0001,
+        "u_emit": 1e-06,
+        "u_obs": 9.99900009999e-07,
+        "phi_over_c2": 1e-06,
+        "z_exact_dielectric": 9.999000100489263e-11,
+        "z_GR_g_dr_over_c2": 1e-10,
+        "abs_residual": 9.998995107370046e-15,
+        "rel_residual": 9.998995107370046e-05
+      },
+      {
+        "r": 1000000.0,
+        "delta_r": 10.0,
+        "eps_dr_over_r": 1e-05,
+        "u_emit": 1e-06,
+        "u_obs": 9.99990000099999e-07,
+        "phi_over_c2": 1e-06,
+        "z_exact_dielectric": 9.999900001098591e-12,
+        "z_GR_g_dr_over_c2": 1e-11,
+        "abs_residual": 9.999890140839227e-17,
+        "rel_residual": 9.999890140839228e-06
+      },
+      {
+        "r": 1000000.0,
+        "delta_r": 1.0,
+        "eps_dr_over_r": 1e-06,
+        "u_emit": 1e-06,
+        "u_obs": 9.99999000001e-07,
+        "phi_over_c2": 1e-06,
+        "z_exact_dielectric": 9.999989998939513e-13,
+        "z_GR_g_dr_over_c2": 1e-12,
+        "abs_residual": 1.0001060487264759e-18,
+        "rel_residual": 1.000106048726476e-06
+      }
+    ],
+    "rel_residual_smallest_eps": 1.000106048726476e-06,
+    "rel_residual_scales_as_eps": "rel_residual ~ Delta r/r (next-order term)",
+    "rel_residual_decade_ratios": [
+      9.910891131952654,
+      9.991008990416917,
+      9.999104956697948,
+      9.998829777675056
+    ],
+    "linear_in_eps_confirmed": true
+  },
+  "part2_horizon_free": {
+    "claim": "g_tt = -e^{-2u} has no finite root => no event horizon; redshift finite and monotonic for all r>0 (links FA10)",
+    "scan": [
+      {
+        "r": 10.0,
+        "u": 0.1,
+        "A_dielectric_e^-2u": 0.8187307530779818,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 1.1051709180756477,
+        "A_schwarzschild_1-2u": 0.8,
+        "one_plus_z_to_infinity_schwarzschild": 1.118033988749895,
+        "schwarzschild_status": "finite"
+      },
+      {
+        "r": 4.0,
+        "u": 0.25,
+        "A_dielectric_e^-2u": 0.6065306597126334,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 1.2840254166877414,
+        "A_schwarzschild_1-2u": 0.5,
+        "one_plus_z_to_infinity_schwarzschild": 1.414213562373095,
+        "schwarzschild_status": "finite"
+      },
+      {
+        "r": 2.0,
+        "u": 0.5,
+        "A_dielectric_e^-2u": 0.36787944117144233,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 1.6487212707001282,
+        "A_schwarzschild_1-2u": 0.0,
+        "one_plus_z_to_infinity_schwarzschild": null,
+        "schwarzschild_status": "horizon (g_tt=0)"
+      },
+      {
+        "r": 1.0,
+        "u": 1.0,
+        "A_dielectric_e^-2u": 0.1353352832366127,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 2.718281828459045,
+        "A_schwarzschild_1-2u": -1.0,
+        "one_plus_z_to_infinity_schwarzschild": null,
+        "schwarzschild_status": "inside horizon (g_tt>0, no static clock)"
+      },
+      {
+        "r": 0.5,
+        "u": 2.0,
+        "A_dielectric_e^-2u": 0.01831563888873418,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 7.38905609893065,
+        "A_schwarzschild_1-2u": -3.0,
+        "one_plus_z_to_infinity_schwarzschild": null,
+        "schwarzschild_status": "inside horizon (g_tt>0, no static clock)"
+      },
+      {
+        "r": 0.1,
+        "u": 10.0,
+        "A_dielectric_e^-2u": 2.061153622438558e-09,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 22026.465794806718,
+        "A_schwarzschild_1-2u": -19.0,
+        "one_plus_z_to_infinity_schwarzschild": null,
+        "schwarzschild_status": "inside horizon (g_tt>0, no static clock)"
+      },
+      {
+        "r": 0.01,
+        "u": 100.0,
+        "A_dielectric_e^-2u": 1.3838965267367376e-87,
+        "dielectric_finite_positive": true,
+        "one_plus_z_to_infinity_dielectric": 2.6881171418161356e+43,
+        "A_schwarzschild_1-2u": -199.0,
+        "one_plus_z_to_infinity_schwarzschild": null,
+        "schwarzschild_status": "inside horizon (g_tt>0, no static clock)"
+      }
+    ],
+    "dielectric_lapse_positive_everywhere": true,
+    "dielectric_redshift_monotonic_in_1/r": true,
+    "schwarzschild_horizon_at_r": 2.0,
+    "schwarzschild_has_horizon": true
+  },
+  "verdict": "PASS",
+  "summary": {
+    "leading_order_match_pass": true,
+    "rel_residual_smallest_eps": 1.000106048726476e-06,
+    "rel_residual_linear_in_eps": true,
+    "horizon_free_confirmed": true,
+    "note": "Delta nu/nu = e^{u_emit-u_obs}-1 = g Delta r/c^2 + O(eps) + O(u), eps=Delta r/r; residual is the next-order term and vanishes linearly as Delta r/r -> 0 (rel residual 9.99e-04 -> 1.0e-06 over 4 decades). Exact exponential lapse e^{-2u} is horizon-free."
+  }
+}

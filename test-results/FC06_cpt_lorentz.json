@@ -1,0 +1,56 @@
+{
+  "test_id": "FC06",
+  "title": "CPT invariance and Lorentz covariance",
+  "tier": "C",
+  "date": "2026-06-16",
+  "verdict": "PASS",
+  "numpy_complex_safety": {
+    "passed": true,
+    "max_dev_vs_hand_rolled": 1.2560739669470201e-15,
+    "note": "numpy 2x2 complex matmul + dagger match a from-scratch complex impl to <1e-13; real+imag both preserved, so numpy is trusted for the SL(2,C) block."
+  },
+  "cpt_jarlskog": {
+    "jarlskog_J": 0.0,
+    "n_phase": 0,
+    "max_cpt_rest_freq_delta": 0.0,
+    "max_numerical_omega_rel": 1.7234938385612053e-15,
+    "max_C_norm_rel": 2.2058172016931163e-16,
+    "floor": 1e-12,
+    "note": "No CPT-violating asymmetry: J=0 exactly, p/antip symmetric to numerical floor.",
+    "passed": true
+  },
+  "sl2c_covariance": {
+    "max_covariance_residual": 3.9931033176969704e-16,
+    "n_dirs": 12,
+    "rapidity": 0.6931471805599453,
+    "beta": 0.6,
+    "passed": true
+  },
+  "doppler_lv": {
+    "max_doppler_relative_residual": 1.812986607347358e-16,
+    "doppler_gate": 1e-12,
+    "measured_lv_residue_coeff_over_k2": -1.0319001112247208e-14,
+    "fa01_group_velocity_k2_coeff_bound": -0.018518518518518517,
+    "fa01_source": "test-results/FA01_liv_tof.json",
+    "lv_residue_within_FA01_envelope": true,
+    "note": "Doppler matches SR sqrt[(1-b)/(1+b)] to machine precision in the continuum limit. The split-step Weyl kernel is exactly linear so its measured finite-k residue is ~machine-zero, well within (does not exceed) the FA01 group-velocity k^2 envelope (-1/54).",
+    "passed": true
+  },
+  "falsified_if": [
+    "C/P/CP bookkeeping produces CPT-violating asymmetry beyond floor",
+    "boosted 4-current not covariant (SL(2,C) fails)",
+    "relativistic Doppler departs from SR beyond FA01 LV residue"
+  ],
+  "provenance": [
+    "F53",
+    "F54",
+    "F24",
+    "F22",
+    "FA01"
+  ],
+  "supersedes": [
+    "tests/priority/test_13_QFT8_CPT.py",
+    "tests/priority/test_11_SR4_doppler.py"
+  ],
+  "timestamp": "2026-06-16T00:00:00"
+}

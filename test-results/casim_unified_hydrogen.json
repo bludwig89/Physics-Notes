@@ -1,0 +1,665 @@
+{
+  "name": "unified_hydrogen",
+  "title": "Unified Hydrogen (real-space U0)",
+  "description": "Full chain on one BCC lattice: uud quarks\u2194gluon (confinement loop) + (p,e) charge\u2194photon Coulomb \u03b1 (EM loop) + F64 gravity background, with the unification readout.",
+  "seed": 11,
+  "ticks": 20,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "gmass": {
+      "name": "gmass",
+      "type": "gravity_dielectric",
+      "label": "Gravity Dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    },
+    "gluon_field": {
+      "name": "gluon_field",
+      "type": "gluon_sourced",
+      "label": "Gluon Sourced",
+      "propagator": "even",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "photon_field": {
+      "name": "photon_field",
+      "type": "photon_sourced",
+      "label": "Photon Sourced",
+      "propagator": "even",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    },
+    "u_r": {
+      "name": "u_r",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "u_g": {
+      "name": "u_g",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "d_b": {
+      "name": "d_b",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "electron": {
+      "name": "electron",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "u_g": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "d_b": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "electron": {
+              "energy": 1.0,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000022,
+              "rel_drift": 1.9984014443252814e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000022,
+              "rel_drift": 1.9984014443252814e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000027,
+              "rel_drift": 2.442490654175344e-15
+            },
+            "electron": {
+              "energy": 1.000000000000002,
+              "rel_drift": 1.9984014443252818e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000044,
+              "rel_drift": 4.218847493575594e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000044,
+              "rel_drift": 4.218847493575594e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000047,
+              "rel_drift": 4.440892098500625e-15
+            },
+            "electron": {
+              "energy": 1.000000000000004,
+              "rel_drift": 3.9968028886505635e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "u_r": 4.218847493575594e-15,
+          "u_g": 4.218847493575594e-15,
+          "d_b": 4.440892098500625e-15,
+          "electron": 3.9968028886505635e-15
+        }
+      }
+    },
+    "particle_readout": {
+      "type": "particle_readout",
+      "label": "Particle Readout",
+      "exactness": "quantitative",
+      "every": 20,
+      "records": [
+        {
+          "tick": 0,
+          "particles": {
+            "u_r": {
+              "species": "u_L",
+              "norm": 1.0000000000000002,
+              "centroid": [
+                8.0,
+                8.0,
+                8.0
+              ],
+              "velocity_per_tick": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "charges": [
+                {
+                  "Q": "2/3",
+                  "T3": "1/2",
+                  "Y": "1/3",
+                  "B": "1/3",
+                  "L": "0",
+                  "colour": true,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "strong": {
+                  "partner": "gluon_field",
+                  "tier": "coupled"
+                },
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": 0.0,
+              "grav_K_centroid": 1.0
+            },
+            "u_g": {
+              "species": "u_L",
+              "norm": 1.0000000000000002,
+              "centroid": [
+                8.0,
+                8.0,
+                8.0
+              ],
+              "velocity_per_tick": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "charges": [
+                {
+                  "Q": "2/3",
+                  "T3": "1/2",
+                  "Y": "1/3",
+                  "B": "1/3",
+                  "L": "0",
+                  "colour": true,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "strong": {
+                  "partner": "gluon_field",
+                  "tier": "coupled"
+                },
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": 0.0,
+              "grav_K_centroid": 1.0
+            },
+            "d_b": {
+              "species": "d_L",
+              "norm": 1.0000000000000002,
+              "centroid": [
+                8.0,
+                8.0,
+                8.0
+              ],
+              "velocity_per_tick": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "charges": [
+                {
+                  "Q": "-1/3",
+                  "T3": "-1/2",
+                  "Y": "1/3",
+                  "B": "1/3",
+                  "L": "0",
+                  "colour": true,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "strong": {
+                  "partner": "gluon_field",
+                  "tier": "coupled"
+                },
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": 0.0,
+              "grav_K_centroid": 1.0
+            },
+            "electron": {
+              "species": "e_L",
+              "norm": 1.0,
+              "centroid": [
+                11.983084601728715,
+                8.0,
+                8.0
+              ],
+              "velocity_per_tick": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "charges": [
+                {
+                  "Q": "-1",
+                  "T3": "-1/2",
+                  "Y": "-1",
+                  "B": "0",
+                  "L": "1",
+                  "colour": false,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": 0.0,
+              "grav_K_centroid": 1.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "particles": {
+            "u_r": {
+              "species": "u_L",
+              "norm": 1.0000000000000044,
+              "centroid": [
+                0.001310185430370535,
+                15.985019795417754,
+                0.8194828900361892
+              ],
+              "velocity_per_tick": [
+                0.00013257852268822035,
+                -0.010209438425183848,
+                0.5003568887543199
+              ],
+              "charges": [
+                {
+                  "Q": "2/3",
+                  "T3": "1/2",
+                  "Y": "1/3",
+                  "B": "1/3",
+                  "L": "0",
+                  "colour": true,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "strong": {
+                  "partner": "gluon_field",
+                  "tier": "coupled"
+                },
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.12310855491301766,
+              "grav_K_centroid": 1.5445861866018358
+            },
+            "u_g": {
+              "species": "u_L",
+              "norm": 1.0000000000000044,
+              "centroid": [
+                0.001310185430370535,
+                15.985019795417754,
+                0.8194828900361892
+              ],
+              "velocity_per_tick": [
+                0.00013257852268822035,
+                -0.010209438425183848,
+                0.5003568887543199
+              ],
+              "charges": [
+                {
+                  "Q": "2/3",
+                  "T3": "1/2",
+                  "Y": "1/3",
+                  "B": "1/3",
+                  "L": "0",
+                  "colour": true,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "strong": {
+                  "partner": "gluon_field",
+                  "tier": "coupled"
+                },
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.12310855491301766,
+              "grav_K_centroid": 1.5445861866018358
+            },
+            "d_b": {
+              "species": "d_L",
+              "norm": 1.0000000000000047,
+              "centroid": [
+                0.0002506752953926991,
+                0.007494282025357748,
+                0.8200818181592987
+              ],
+              "velocity_per_tick": [
+                -1.5286024979133117e-06,
+                0.005105632107527569,
+                0.500412334491795
+              ],
+              "charges": [
+                {
+                  "Q": "-1/3",
+                  "T3": "-1/2",
+                  "Y": "1/3",
+                  "B": "1/3",
+                  "L": "0",
+                  "colour": true,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "strong": {
+                  "partner": "gluon_field",
+                  "tier": "coupled"
+                },
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.12310978702512353,
+              "grav_K_centroid": 1.5445861866018358
+            },
+            "electron": {
+              "species": "e_L",
+              "norm": 1.000000000000004,
+              "centroid": [
+                5.43593988251541,
+                15.922557880577367,
+                12.722048819783003
+              ],
+              "velocity_per_tick": [
+                -0.42951711567520423,
+                0.2772186627126487,
+                0.5536198275132111
+              ],
+              "charges": [
+                {
+                  "Q": "-1",
+                  "T3": "-1/2",
+                  "Y": "-1",
+                  "B": "0",
+                  "L": "1",
+                  "colour": false,
+                  "chirality": "L"
+                }
+              ],
+              "couplings": {
+                "em": {
+                  "partner": "photon_field",
+                  "tier": "coupled"
+                },
+                "gravity": {
+                  "partner": "gmass",
+                  "tier": "coupled"
+                }
+              },
+              "grav_potential": -0.13394642616393768,
+              "grav_K_centroid": 1.9270022917234266
+            }
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "unification_readout": {
+      "type": "unification_readout",
+      "label": "Unification Readout",
+      "exactness": "quantitative",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "proton_rms": 1.8371172885673375,
+          "proton_centroid": [
+            8.0,
+            8.0,
+            8.0
+          ],
+          "proton_norm": 3.0,
+          "electron_rms_self": 2.4316398320372854,
+          "electron_centroid": [
+            11.983084601728715,
+            8.0,
+            8.0
+          ],
+          "electron_rms_about_p": 4.660840080308079,
+          "ep_separation": 3.9830846017287147,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.23757922497407608,
+            "gluon_A": 0.0,
+            "J_em": 0.31820783870698993,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 5,
+          "proton_rms": 3.9172562703294345,
+          "proton_centroid": [
+            8.000019379744076,
+            8.000518338633858,
+            8.955872102794139
+          ],
+          "proton_norm": 3.0000000000000036,
+          "electron_rms_self": 4.093298462135861,
+          "electron_centroid": [
+            11.89271516847701,
+            7.994922609399997,
+            8.532485502944027
+          ],
+          "electron_rms_about_p": 5.5635638563021885,
+          "ep_separation": 3.9156567812740444,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.08060379721335853,
+            "gluon_A": 0.0009344275536205302,
+            "J_em": 0.10576060633132064,
+            "photon_alpha": 0.8003614338588771
+          }
+        },
+        {
+          "tick": 10,
+          "proton_rms": 6.127012531588887,
+          "proton_centroid": [
+            7.999975450620608,
+            7.996347537805889,
+            10.129531301154309
+          ],
+          "proton_norm": 3.000000000000007,
+          "electron_rms_self": 5.280549395666218,
+          "electron_centroid": [
+            11.611925701790458,
+            7.9973616340375795,
+            9.200418088799369
+          ],
+          "electron_rms_about_p": 6.165710949180447,
+          "ep_separation": 3.7295357628918944,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.04306018183696034,
+            "gluon_A": 0.001639392145932732,
+            "J_em": 0.0709837375058995,
+            "photon_alpha": 1.2302696437169702
+          }
+        },
+        {
+          "tick": 15,
+          "proton_rms": 7.352212964916889,
+          "proton_centroid": [
+            0.0012080150266313289,
+            0.013447148562496286,
+            13.102076315285649
+          ],
+          "proton_norm": 3.0000000000000107,
+          "electron_rms_self": 6.961966889661164,
+          "electron_centroid": [
+            10.102086829351203,
+            8.004367570671196,
+            10.429186500949612
+          ],
+          "electron_rms_about_p": 8.252408447670371,
+          "ep_separation": 10.285853387801124,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0347380200283655,
+            "gluon_A": 0.002282413121446759,
+            "J_em": 0.052011808112733496,
+            "photon_alpha": 1.3592562649016329
+          }
+        },
+        {
+          "tick": 20,
+          "proton_rms": 7.065065043680233,
+          "proton_centroid": [
+            0.0009570805897856148,
+            15.992511829572479,
+            0.8196825461585326
+          ],
+          "proton_norm": 3.0000000000000133,
+          "electron_rms_self": 7.327583939198604,
+          "electron_centroid": [
+            5.43593988251541,
+            15.922557880577367,
+            12.722048819783003
+          ],
+          "electron_rms_about_p": 8.062549135450281,
+          "ep_separation": 6.806947463271442,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.04106219190595607,
+            "gluon_A": 0.003490714253038439,
+            "J_em": 0.05600389973605267,
+            "photon_alpha": 1.313822482083432
+          }
+        }
+      ],
+      "summary": {
+        "proton_rms": {
+          "first": 1.8371172885673375,
+          "last": 7.065065043680233,
+          "ratio": 3.8457343402335913
+        },
+        "electron_rms_about_p": {
+          "first": 4.660840080308079,
+          "last": 8.062549135450281,
+          "ratio": 1.7298489106104133
+        },
+        "ep_separation": {
+          "first": 3.9830846017287147,
+          "last": 6.806947463271442,
+          "ratio": 1.7089638167156005
+        },
+        "electron_rms_self": {
+          "first": 2.4316398320372854,
+          "last": 7.327583939198604,
+          "ratio": 3.0134330926218547
+        },
+        "net_charge": 0.0,
+        "loops_live": {
+          "J_colour": true,
+          "gluon_A": true,
+          "J_em": true,
+          "photon_alpha": true
+        }
+      }
+    }
+  }
+}

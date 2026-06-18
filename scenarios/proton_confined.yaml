@@ -1,0 +1,35 @@
+# U3 Part 1 — a real-space confined PROTON on genuine SU(3) colour quarks
+# (roadmap-unified-real-space.md). The F135 scalar string (Lorentz-scalar
+# confining mass, MIT bag) now acts on three massive colour-triplet DIRAC
+# quarks (uud, colours r/g/b) — not lepton stand-ins — with the SU(3) gluon
+# loop live (each quark publishes J_colour → gluon_sourced → su3 rotation
+# back on the quark) and the photon Coulomb loop present. Net charge = +1.
+#
+# Result (test-results/casim_proton_confined.json): the cluster RMS stays
+# bounded (~3.7, capped) — a confined proton — while the free control
+# (proton_confined_free.yaml) disperses to box saturation (~7).
+name: proton_confined
+title: "Confined Proton (colour quarks, U3 Part 1)"
+description: "Three massive SU(3) colour-triplet Dirac quarks (uud) bound by the F135 scalar string, gluon loop live, net charge +1: a real-space confined proton."
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 120
+channels:
+  - {type: gluon_sourced,  name: gluon,  sources: [u_r, u_g, d_b], g_lat: 0.5, dt: 1.0}
+  - {type: photon_sourced, name: photon, sources: [u_r, u_g, d_b], dt: 0.1, coulomb: true, g_coulomb: 2.0}
+  - {type: quark_dirac, name: u_r, species: u_L, colour: r, mass: 0.9,
+     init: {center: [7, 8, 8], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05,
+     confine: {sigma: 0.5, dt: 0.5, mode: scalar, anchor: com, partners: [u_r, u_g, d_b]}}
+  - {type: quark_dirac, name: u_g, species: u_L, colour: g, mass: 0.9,
+     init: {center: [9, 8, 8], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05,
+     confine: {sigma: 0.5, dt: 0.5, mode: scalar, anchor: com, partners: [u_r, u_g, d_b]}}
+  - {type: quark_dirac, name: d_b, species: d_L, colour: b, mass: 0.9,
+     init: {center: [8, 10, 8], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05,
+     confine: {sigma: 0.5, dt: 0.5, mode: scalar, anchor: com, partners: [u_r, u_g, d_b]}}
+observers:
+  - {type: norm_conservation, every: 30, channels: [u_r, u_g, d_b]}
+  - {type: unification_readout, every: 20, cluster: [u_r, u_g, d_b]}
+output: {json: test-results/casim_proton_confined.json}

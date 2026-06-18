@@ -1,0 +1,47 @@
+running beta=9.00 L=24: 4000 therm + 2000 meas sweeps (~59 min at this L; progress below)...
+  [therm 1/4000] acc=0.36 <plaq>=0.9103  1s elapsed, ~3892s left
+  [therm 151/4000] acc=0.51 <plaq>=0.6607  95s elapsed, ~3676s left
+  [therm 301/4000] acc=0.51 <plaq>=0.6624  298s elapsed, ~5644s left
+  [therm 451/4000] acc=0.51 <plaq>=0.6627  622s elapsed, ~7654s left
+  [therm 601/4000] acc=0.51 <plaq>=0.6614  2493s elapsed, ~22393s left
+  [therm 751/4000] acc=0.52 <plaq>=0.6615  2810s elapsed, ~19641s left
+  [therm 901/4000] acc=0.51 <plaq>=0.6632  3785s elapsed, ~21419s left
+  [therm 1051/4000] acc=0.52 <plaq>=0.6615  3857s elapsed, ~18161s left
+  [therm 1201/4000] acc=0.51 <plaq>=0.6638  4095s elapsed, ~16362s left
+  [therm 1351/4000] acc=0.51 <plaq>=0.6628  5080s elapsed, ~17480s left
+  [therm 1501/4000] acc=0.51 <plaq>=0.6645  5153s elapsed, ~15445s left
+  [therm 1651/4000] acc=0.52 <plaq>=0.6635  5225s elapsed, ~13764s left
+  [therm 1801/4000] acc=0.51 <plaq>=0.6623  5297s elapsed, ~12351s left
+  [therm 1951/4000] acc=0.52 <plaq>=0.6635  5369s elapsed, ~11142s left
+  [therm 2101/4000] acc=0.51 <plaq>=0.6632  5441s elapsed, ~10097s left
+  [therm 2251/4000] acc=0.51 <plaq>=0.6625  5512s elapsed, ~9180s left
+  [therm 2401/4000] acc=0.52 <plaq>=0.6619  5584s elapsed, ~8370s left
+  [therm 2551/4000] acc=0.52 <plaq>=0.6628  5656s elapsed, ~7646s left
+  [therm 2701/4000] acc=0.51 <plaq>=0.6625  5727s elapsed, ~6995s left
+  [therm 2851/4000] acc=0.51 <plaq>=0.6637  5799s elapsed, ~6405s left
+  [therm 3001/4000] acc=0.51 <plaq>=0.6613  5870s elapsed, ~5866s left
+  [therm 3151/4000] acc=0.51 <plaq>=0.6638  5942s elapsed, ~5372s left
+  [therm 3301/4000] acc=0.51 <plaq>=0.6632  6014s elapsed, ~4917s left
+  [therm 3451/4000] acc=0.51 <plaq>=0.6619  6085s elapsed, ~4495s left
+  [therm 3601/4000] acc=0.51 <plaq>=0.6624  6157s elapsed, ~4102s left
+  [therm 3751/4000] acc=0.51 <plaq>=0.6639  6228s elapsed, ~3734s left
+  [therm 3901/4000] acc=0.52 <plaq>=0.6628  6300s elapsed, ~3390s left
+  [therm 4000/4000] acc=0.52 <plaq>=0.6624  6347s elapsed, ~3174s left
+  [meas 1/2000] acc=0.51  6348s elapsed, ~3171s left
+  [meas 151/2000] acc=0.51  14157s elapsed, ~6306s left
+  [meas 301/2000] acc=0.52  26113s elapsed, ~10315s left
+  [meas 451/2000] acc=0.51  43723s elapsed, ~15216s left
+  [meas 601/2000] acc=0.52  44526s elapsed, ~13539s left
+  [meas 751/2000] acc=0.52  45383s elapsed, ~11931s left
+  [meas 901/2000] acc=0.52  46210s elapsed, ~10362s left
+  [meas 1051/2000] acc=0.51  47024s elapsed, ~8835s left
+  [meas 1201/2000] acc=0.51  47827s elapsed, ~7347s left
+  [meas 1351/2000] acc=0.52  48681s elapsed, ~5904s left
+  [meas 1501/2000] acc=0.52  49478s elapsed, ~4488s left
+  [meas 1651/2000] acc=0.51  50284s elapsed, ~3105s left
+  [meas 1801/2000] acc=0.51  51073s elapsed, ~1752s left
+  [meas 1951/2000] acc=0.51  51880s elapsed, ~427s left
+  [meas 2000/2000] acc=0.52  52137s elapsed, ~-0s left
+beta=9.00 L=24: acc=0.51 <plaq>=0.6627 (52137.3s)
+  Cornell fit: {'ok': True, 'alpha_V': 0.07752809281477145, 'sigma': 0.24548351136265478, 'V0': 0.22890732450159484, 'rms_resid': 0.005159649714755529, 'Rs_used': [1, 2, 3, 4, 5, 6], 'alpha_s_uv_lock': 0.019894367886486918}
+  wrote test-results/su3_static_potential_b9_s2.json

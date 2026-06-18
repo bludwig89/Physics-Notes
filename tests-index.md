@@ -28,6 +28,45 @@
 | findings | `test_F121_tau_anchored_canonical_spectrum.py` |  | test_F121_tau_anchored_canonical_spectrum.py | `F121_tau_anchored_canonical_spectrum.json` |
 | findings | `test_F124_qcd_scale_ratio.py` |  | test_F124_qcd_scale_ratio.py | `F124_qcd_scale_ratio.json` |
 | findings | `test_F126_sigma_attraction.py` |  | test_F126_sigma_attraction.py | `F126_sigma_attraction.json` |
+| findings | `test_F127_alpha_em_derivation.py` | F127 | F127 — Deriving α_em from the lattice rule: four-avenue investigation | `F127_alpha_em_derivation.json` |
+| findings | `test_F128_omega_repulsion.py` |  | test_F128_omega_repulsion.py | `F128_omega_repulsion.json` |
+| findings | `test_F129_blockspin_free_photon.py` | F129 | F129 — Block-spin RG for the FREE PAIRED-PHOTON sector (Phase 1, roadmap-scale-to-real-space) | `F129_blockspin_free_photon.json`, `F129_blockspin_free_photon_summary.md` |
+| findings | `test_F130_blockspin_gauge_gravity.py` |  | test_F130_blockspin_gauge_gravity.py |  |
+| findings | `test_F131_blockspin_bound_state.py` |  | test_F131_blockspin_bound_state.py |  |
+| findings | `test_F132_blockspin_dynamical_bound_states.py` |  | test_F132_blockspin_dynamical_bound_states.py |  |
+| findings | `test_F133_blockspin_engine.py` |  | test_F133_blockspin_engine.py |  |
+| findings | `test_F134_phase4_completion.py` |  | test_F134_phase4_completion.py |  |
+| findings | `test_F134_unified_real_space.py` | F134 | F134 — Unified real-space integration: the full chain on one BCC lattice. |  |
+| findings | `test_F135_blockspin_wavepacket_realtime.py` | F135 | F135 — Real-time wave-packet dynamics under block-spin coarse-graining (Phase 2) | `F135_blockspin_wavepacket_realtime.json`, `F135_blockspin_wavepacket_realtime_summary.md` |
+| findings | `test_F135_realspace_confinement.py` | F135 | F135 — Real-space confinement (U1): the proton holds together as a |  |
+| findings | `test_F136_colour_quark_confinement.py` | F136 | F136 — Real-space confined PROTON on genuine SU(3) colour-triplet quarks |  |
+| findings | `test_F137_live_flux_tube.py` | F137 | F137 — Live colour-dielectric flux-tube field (roadmap-unified-real-space.md |  |
+| findings | `test_F138_weinberg_matching_4piv.py` | F138 | F138 — Closing the +12% Weinberg gap: sin^2 th_W = 1/4 as the COMPOSITENESS-SCALE | `F138_weinberg_matching_4piv.json` |
+| findings | `test_F139_dual_gl_backreaction.py` | F137 F139 | F139 — Self-consistent dual-Ginzburg-Landau back-reaction (closes F137 §5). | `F139_dual_gl_backreaction.json` |
+| findings | `test_F140_coarse_grained_baryon.py` |  | test_F140_coarse_grained_baryon.py |  |
+| findings | `test_F141_ws_cell_mass_counting.py` | F141 | F141 — BCC Wigner-Seitz cell face counting and the on-shell 7:9 mass ratio. | `F141_ws_cell_mass_counting.json` |
+| findings | `test_F143_wrap_loop_stiffness.py` | F143 | F143 — The lattice fermion loop of the induced U(1)_Y (wrap) stiffness on U(x). | `F143_wrap_loop_stiffness.json`, `F143_wrap_loop_stiffness_test.json` |
+| findings | `test_F144_route_a_alpha_s.py` | F144 | F144 — Route A of the QCD calibration block: alpha_s from the rule by | `F144_route_a_alpha_s.json` |
+| findings | `test_F145_route_c_induced_njl.py` | F145 | F145 — Route C of the QCD calibration block: the NJL coupling ghat = G Lambda^2 | `F145_route_c_induced_njl.json` |
+| findings | `test_F147_induced_stiffness_loop.py` | F147 | F147 — the induced gauge-stiffness one-loop on the BCC walk | `F147_induced_stiffness_loop.json` |
+| findings | `test_F148_modular_element_assembler.py` |  | test_F148_modular_element_assembler.py | `F148_modular_element_assembler.json` |
+| findings | `test_F149_condensate_channel_splitting.py` | F149 | F149 — the condensate-sector response: mass is the unique channel-splitting | `F149_condensate_channel_splitting.json` |
+| findings | `test_F150_eg_sextic_brake.py` | F145 F147 F150 | F150 — The E_g sextic brake C/W from the model architecture (F145 + F147). | `F150_eg_sextic_brake.json` |
+| findings | `test_F151_scheme_constant.py` | F124 F144 F145 F151 | F151 — the shared scheme/scale constant of F144-A4 / F145-N5 / F124 §5, | `F151_scheme_constant.json` |
+| findings | `test_F152_ir_coupling.py` | F151 F152 | F152 — The IR FACE of the strong coupling (the object F151-S5 split off). | `F152_ir_coupling.json` |
+| findings | `test_F153_diamagnetic_chargeblind_multiplicity.py` | F153 | F153 — the diamagnetic Peierls contact is charge-blind (exact), the channel | `F153_diamagnetic_chargeblind_multiplicity.json` |
+| findings | `test_F154_residuals_A_B.py` | F154 | F154 — Building and solving the two strong-sector residuals A (UV scheme scale | `F154_residuals_A_B.json` |
+| findings | `test_F155_lpt_vertex.py` | F155 | F155 follow-up — the cubic expansion / 3-gluon vertex EXTRACTOR validated | `F155_lpt_vertex.json` |
+| findings | `test_F155_lpt_wilson_core.py` | F155 | F155 follow-up — the lattice-PT BZ-integration CORE validated on the canonical | `F155_lpt_wilson_core.json` |
+| findings | `test_F155_qstar_self_energy.py` | F155 | F155 — Residual A attacked with the one-loop self-energy machinery, and the | `F155_qstar_self_energy.json` |
+| findings | `test_F155_ward_identity.py` | F155 | F155 follow-up — the 3-gluon vertex closed form + Ward-Takahashi identity, | `F155_ward_identity.json` |
+| findings | `test_F156_realspace_electron_bound.py` | F156 | F156 — U2: a real-space, real-time EM-bound electron (stationary cloud). |  |
+| findings | `test_F157_manybody_atoms.py` | F157 | F157 — Phase 2(iii): multi-nucleon nuclei and multi-electron clouds. |  |
+| findings | `test_F158_neutral_hydrogen.py` | F158 | F158 — U3: neutral hydrogen as ONE dynamic real-space object. |  |
+| findings | `test_F159_multigrid_scale_separation.py` | F159 | F159 — U4: the block-spin two-grid multigrid (scale separation). |  |
+| findings | `test_F160_live_two_grid_atom.py` | F160 | F160 — U4 LIVE: the two-grid multigrid hydrogen atom as ONE engine run. |  |
+| findings | `test_F161_atomic_emission.py` | F161 | F161 — Dynamical-processes layer P1: photon emission from atoms. |  |
+| findings | `test_F162_bgfield_loop.py` | F162 | F162 — the background-field one-loop gluon self-energy: the b0 = 11/3 C_A | `F162_bgfield_loop.json`, `F162_bgfield_loop_highres.json` |
 | findings | `test_F28_grb_dispersion.py` | F26 F27 | F27 — GRB / AGN dispersion test of the F26 photon rotation prediction | `F28_grb_dispersion.json`, `F28_grb_dispersion_summary.md` |
 | findings | `test_F30_dispersion_order.py` | F30 | F30 — Order of the leading photon-dispersion correction in the BCC vacuum. | `F30_dispersion_order.json`, `F30_dispersion_order_summary.md` |
 | findings | `test_F37_delta_omega.py` | F30 F37 | test_F37_delta_omega.py — F37 chirality split: measure ΔΩ vs F30 analytical value | `F37_delta_omega.json` |
@@ -73,8 +112,26 @@
 | findings | `test_F97_baryon_phase_closure.py` |  |  | `F97_baryon_phase_closure.json` |
 | findings | `test_F98_enforcer_is_binder.py` |  |  | `F98_enforcer_is_binder.json` |
 | findings | `test_F99_sigma_from_qca_rule.py` |  |  | `F99_sigma_from_qca_rule.json` |
+| findings | `test_FA01_liv_tof.py` |  | FA01 — Lorentz-violation time-of-flight scale (sharp falsifier). | `FA01_liv_tof.json` |
+| findings | `test_FA02_vacuum_birefringence.py` |  | FA02 — Vacuum birefringence is exactly zero. | `FA02_vacuum_birefringence.json` |
+| findings | `test_FA03_newton_constant.py` |  | FA03 — Newton's constant predicted from the cell (falsification brief). | `FA03_newton_constant.json` |
+| findings | `test_FA04_mz_mw_ratio.py` |  | FA04 — Z/W mass ratio = 2/sqrt(3) (falsification brief). | `FA04_mz_mw_ratio.json` |
+| findings | `test_FA05_koide_relation.py` |  | FA05 - Koide relation Q = 2/3 falsification test. | `FA05_koide_relation.json` |
+| findings | `test_FA06_np_splitting.py` |  | test_FA06_np_splitting.py |  |
+| findings | `test_FA08_three_generations.py` |  | test_FA08_three_generations.py | `FA08_three_generations.json` |
+| findings | `test_FA09_deflection_coefficient.py` |  | FA09 — Light-bending coefficient = -4 and absolute solar deflection |  |
+| findings | `test_FA10_black_hole_shadow.py` |  | test_FA10_black_hole_shadow.py — Tier-A falsifier: the +4.63% horizon-free shadow |  |
 | findings | `test_FA_lgt_mc.py` |  | test_FA_lgt_mc.py — correctness battery for the Option-A SU(3) lattice-gauge MC fork | `FA_lgt_mc.json` |
 | findings | `test_FA_vs_FC_comparison.py` |  | test_FA_vs_FC_comparison.py — Option A (lattice-gauge MC) vs Option C (colour-dielectric) | `FA_vs_FC_comparison.json` |
+| findings | `test_FB01_charged_lepton_spectrum.py` |  | test_FB01_charged_lepton_spectrum.py | `FB01_charged_lepton_spectrum.json`, `FB01_charged_lepton_spectrum_checks.json` |
+| findings | `test_FB04_hydrogen_rydberg.py` |  | test_FB04_hydrogen_rydberg.py | `FB04_hydrogen_rydberg.json` |
+| findings | `test_FB05_hydrogen_fine_structure.py` |  | FB05 — Hydrogen fine structure (Dirac): 2p_3/2 - 2p_1/2 = 10.95 GHz. | `FB05_hydrogen_fine_structure.json` |
+| findings | `test_FB06_positronium.py` |  | test_FB06_positronium.py | `FB06_positronium.json` |
+| findings | `test_FB07_deuteron.py` |  | test_FB07_deuteron.py | `FB07_deuteron.json` |
+| findings | `test_FB07_deuteron_binding.py` |  | test_FB07_deuteron_binding.py |  |
+| findings | `test_FB08_nn_repulsive_core.py` |  | test_FB08_nn_repulsive_core.py | `FB08_nn_repulsive_core.json` |
+| findings | `test_FB10_lamb_shift_boundary.py` |  | FB10 — Lamb shift boundary: 2s_{1/2} == 2p_{1/2} at Dirac order. | `FB10_lamb_shift_boundary.json` |
+| findings | `test_FB11_condensate_angle.py` |  | FB11 — Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg. | `FB11_condensate_angle.json` |
 | findings | `test_FG1_anomaly_cancellation.py` |  | FG-1 — Anomaly cancellation across a single first-generation Standard-Model | `FG1_anomaly_cancellation.json` |
 | findings | `test_FG2_quark_complex_mass.py` | F27 | FG-2 — F27 complex-mass adoption for the quark sector. | `FG2_quark_complex_mass.json` |
 | findings | `test_FG3_quark_electroweak.py` | F34 | FG-3 — Electroweak wiring of the quark doublet (2D analog of F34). | `FG3_quark_electroweak.json` |
@@ -142,18 +199,38 @@
 | casim | `test_gravity_element.py` | F64 | Gravity-element suite — the F64 fork mainlined (audit B.2 #1, 2026-06-06). |  |
 | casim | `test_gui_render_spinor.py` |  | Headless tests for Bloch-sphere spinor colouring (casim.gui.render). |  |
 | casim | `test_particle_layer.py` |  | Particle-layer suite (roadmap-particle-layer.md, Phase P1). |  |
+| runners | `FA07_weinberg_angle.py` |  | FA07 — Weinberg angle sin^2 theta_W = 1/4 (bare). | `FA07_weinberg_angle.json` |
+| runners | `FB11_condensate_angle.py` |  | FB11 — Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg. | `FB11_condensate_angle.json` |
+| runners | `FC01_mercury_perihelion.py` |  | FC01 — Mercury perihelion precession (Tier C consistency regression) |  |
+| runners | `FC03_redshift.py` |  | FC03 — Gravitational redshift (Pound-Rebka) | `FC03_redshift.json` |
 | runners | `_sr2_3d_scan.py` |  | On-grid k scan for the 3D BCC SR-2 test — characterises residuals |  |
+| runners | `analyse_su3_runs.py` |  | analyse_su3_runs.py — consolidate the native production SU(3) static-potential |  |
 | runners | `compare_F64_F62.py` | F62 F64 | compare_F64_F62.py — Head-to-head: EM-connection (F64) vs emergent-gravity (F62) |  |
 | runners | `run_10x_tests.py` |  | run_10x_tests.py — Comprehensive 10× scale test run |  |
+| runners | `run_F143_wrap_stiffness_scan.py` | F139 | F139 dev — Part B production: induced wrap stiffness by eigenvalue PT on the |  |
+| runners | `run_F143_wrap_stiffness_slab.py` | F139 | F139 — slab-chunked version: partial BZ sums over kx in [i0,i1). |  |
+| runners | `run_FC02_shapiro.py` |  | FC02 — Shapiro time delay (GR-2), Tier C consistency regression |  |
+| runners | `run_FC04_deflection_dynamical.py` |  | FC04 — Light deflection, dynamical open-BC (GR-1) |  |
+| runners | `run_FC05_qm_battery.py` |  | FC05 — Quantum-mechanics regression battery (consolidated) |  |
+| runners | `run_FC06_cpt_lorentz.py` |  | run_FC06_cpt_lorentz.py — FC06: CPT invariance and Lorentz covariance |  |
+| runners | `run_FC07_charge_anomaly_beta.py` |  | run_FC07_charge_anomaly_beta.py |  |
 | runners | `run_L192_phaseF_tests.py` |  | run_L192_phaseF_tests.py — Phase F test suite capped at L=192 |  |
 | runners | `run_L192_tests.py` |  | run_L192_tests.py — Full phase-A–E test suite capped at L=192 |  |
 | runners | `run_L_tests.py` |  | run_L_tests.py — Test suite for the v2 layered build (L1–L4) |  |
+| runners | `run_bgfield_loop.py` |  | run_bgfield_loop.py — NATIVE runner for the background-field one-loop gluon |  |
 | runners | `run_confinement_mc.py` |  | run_confinement_mc.py — production Monte-Carlo confirmation of the 2D area law |  |
 | runners | `run_heavy_rerun.py` |  | run_heavy_rerun.py — the two suite items too slow for the in-session sandbox. |  |
 | runners | `run_lgt_confinement.py` |  | run_lgt_confinement.py — production 3+1D SU(3) string-tension measurement (P1 Option A) |  |
+| runners | `run_lpt_vertex_continuum.py` |  | run_lpt_vertex_continuum.py — NATIVE large-L continuum-limit validation of the |  |
+| runners | `run_lpt_wilson_validation.py` |  | run_lpt_wilson_validation.py — NATIVE high-resolution validation of the lattice-PT |  |
 | runners | `run_phase2_f26_tests.py` | F26 | run_phase2_f26_tests.py — F26 Phase 2 full test suite runner |  |
 | runners | `run_phaseF_tests.py` |  | run_phaseF_tests.py — Phase F: Higgs + Yukawa proposition tests |  |
 | runners | `run_phase_tests.py` |  | run_phase_tests.py — End-to-end test suite for all implemented phases |  |
 | runners | `run_propagation_demo.py` |  | propagation_demo.py — Fresh propagation demonstration on the BCC lattice |  |
 | runners | `run_qca_verifications.py` |  | run_qca_verifications.py — V1–V9 from qca-papers-1-4-overview.md |  |
+| runners | `run_residual_AB_highres.py` |  | run_residual_AB_highres.py — HIGH-RESOLUTION verification of the strong-sector |  |
 | runners | `run_simulation.py` |  | run_simulation.py — Main runner: all five CA stages |  |
+| runners | `run_su2_3d_fluxtube.py` |  | su2_3d_fluxtube.py — Does a confining flux tube appear with NO input string |  |
+| runners | `run_su3_3d_string_tension.py` |  | su3_3d_string_tension.py — string tension sigma(beta) from the MODEL's own |  |
+| runners | `run_u4_multigrid.py` |  | run_u4_multigrid.py — U4 block-spin two-grid multigrid, PRODUCTION run. |  |
+| runners | `run_u4_sigma_carry.py` |  | run_u4_sigma_carry.py — U4 scale carry of the SU(3)-measured string tension |  |

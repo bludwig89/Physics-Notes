@@ -29,7 +29,7 @@ Reads off `sqrt_sigma_over_fpi_axis, _sphere, Lam_over_f_pi_chiral, empirical_sq
 1. Symbolic (what the channel does): confirm `Λ/f_π=7.04` (Pagels-Stokar) and `σ=2πv²` (F86 BPS); form `√σ/f_π` → 4.00 (axis)/3.23 (sphere); compare to 4.56.
 2. Lattice-gauge σ confinement cross-check (Option A Monte-Carlo, F94) — sandbox smoke then production:
 ```bash
-casim run scenarios/gauge_mc.yaml --L 8 --ticks 40 \
+casim run scenarios/gauge_mc.yaml --L 64 --ticks 1000 \
     --out test-results/FB09_sigma_smoke.json   # sandbox ceiling
 # production (native, Ben): --L 12 --ticks 400
 ```

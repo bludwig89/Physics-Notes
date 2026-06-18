@@ -6,10 +6,16 @@
 | Layer | Module | Summary |
 |-------|--------|---------|
 | ca-simulation | `benchmark_jax.py` | benchmark_jax.py — Compare propagation step performance: |
+| ca-simulation | `ca_alpha_s_running.py` | ca_alpha_s_running.py — Route A of the QCD calibration block: |
 | ca-simulation | `ca_atom.py` | ca_atom.py |
 | ca-simulation | `ca_baryon.py` | ca_baryon.py — colour-singlet three-quark (baryon / proton) construction (FG-10) |
+| ca-simulation | `ca_baryon_blockspin.py` | ca_baryon_blockspin.py — the coarse-grained baryon element (F140) |
 | ca-simulation | `ca_baryon_dynamics.py` | ca_baryon_dynamics.py |
 | ca-simulation | `ca_bcc.py` | ca_bcc.py — BCC-lattice Weyl QCA (Paper 1 / Paper 2) |
+| ca-simulation | `ca_bgfield_loop.py` | ca_bgfield_loop.py — the background-field one-loop gluon self-energy: the |
+| ca-simulation | `ca_blockspin.py` | ca_blockspin.py — Phase-1 block-spin / coarse-graining RG scheme (F130) |
+| ca-simulation | `ca_blockspin_binding.py` | ca_blockspin_binding.py — Phase-2: a coarse-grained bound state reproduces the |
+| ca-simulation | `ca_blockspin_dynamical.py` | ca_blockspin_dynamical.py — coarse-graining the dynamical / relativistic bound |
 | ca-simulation | `ca_charge_coupling.py` | ca_charge_coupling.py — The U(1) charge-coupling path on the paired-photon field |
 | ca-simulation | `ca_charged_current.py` | ca_charged_current.py |
 | ca-simulation | `ca_colour_condensate.py` | ca_colour_condensate.py — the colour-magnetic condensate arising within the model (F88) |
@@ -21,24 +27,39 @@
 | ca-simulation | `ca_curved.py` | ca_curved.py — Variable-c stepper (Phase C1) |
 | ca-simulation | `ca_dirac.py` | ca_dirac.py — Dirac CA on a flat lattice (Phase D1) — exact-QCA form |
 | ca-simulation | `ca_dirac_bcc.py` | ca_dirac_bcc.py — Dirac CA on the 3D BCC lattice (exact-QCA form) |
+| ca-simulation | `ca_dual_gl_backreaction.py` | ca_dual_gl_backreaction.py — Self-consistent dual-Ginzburg-Landau back-reaction |
+| ca-simulation | `ca_element.py` | ca_element.py |
+| ca-simulation | `ca_emission.py` | ca_emission.py |
 | ca-simulation | `ca_emqg.py` | ca_emqg.py — EMQG modified Poisson + c(φ) coupling (Paper 6) |
 | ca-simulation | `ca_fft.py` | ca_fft.py — FFT backend for the CA simulation suite |
+| ca-simulation | `ca_gap_solve.py` | ca_gap_solve.py — Residual B of the strong-sector scale problem: |
 | ca-simulation | `ca_gluon.py` | ca_gluon.py — Dynamical SU(3) gauge sector (FG-7, 2026-05-27) |
+| ca-simulation | `ca_gluon_self_energy.py` | ca_gluon_self_energy.py — Residual A of the strong-sector scale problem, |
 | ca-simulation | `ca_gravity.py` | ca_gravity.py — the gravity field element of the main model (F64 → mainline). |
 | ca-simulation | `ca_higgs.py` | ca_higgs.py — Complex scalar Φ (Higgs) field CA |
 | ca-simulation | `ca_hypercharge.py` | ca_hypercharge.py — U(1)_Y hypercharge gauging on the F27 chiral-SU(2) |
+| ca-simulation | `ca_induced_stiffness.py` | ca_induced_stiffness.py — the induced gauge-stiffness one-loop on the BCC walk |
+| ca-simulation | `ca_ir_coupling.py` | ca_ir_coupling.py — F152: the IR FACE of the strong coupling. |
 | ca-simulation | `ca_lattice.py` | ca_lattice.py — Lattice configuration and k-grid utilities |
 | ca-simulation | `ca_lazy.py` | ca_lazy.py — Lazy-update / tick-counter wrapper for emergent-time work |
 | ca-simulation | `ca_link_hamiltonian.py` | ca_link_hamiltonian.py — Real-time Kogut–Susskind link Hamiltonian evolution |
+| ca-simulation | `ca_lpt_vertex.py` | ca_lpt_vertex.py — the cubic expansion of the compact gauge action: the |
+| ca-simulation | `ca_lpt_ward.py` | ca_lpt_ward.py — the 3-gluon vertex closed form + the Ward-Takahashi identity, |
+| ca-simulation | `ca_lpt_wilson.py` | ca_lpt_wilson.py — Wilson-action lattice perturbation theory: the BZ-integration |
+| ca-simulation | `ca_manybody.py` | ca_manybody.py |
 | ca-simulation | `ca_maxwell.py` | ca_maxwell.py — Composite-photon EM sector (Paper 1 Eq. 35) |
 | ca-simulation | `ca_maxwell_2d.py` | ca_maxwell_2d.py — Composite-photon bilinear on the 2D square QCA |
 | ca-simulation | `ca_meson.py` | ca_meson.py |
 | ca-simulation | `ca_minimal_coupling.py` | ca_minimal_coupling — U(1) and SU(3) minimal coupling on the 3D BCC walk. |
+| ca-simulation | `ca_multigrid.py` | ca_multigrid.py |
+| ca-simulation | `ca_njl_induced_coupling.py` | ca_njl_induced_coupling.py — Route C of the QCD calibration block: |
 | ca-simulation | `ca_nuclear.py` | ca_nuclear.py |
 | ca-simulation | `ca_nuclear_core.py` | ca_nuclear_core.py — the NN short-range repulsive core, derived from the model |
 | ca-simulation | `ca_photon_pair.py` | ca_photon_pair.py — The photon as a bound pair of two spin-½ Weyl quanta |
 | ca-simulation | `ca_propagator.py` | ca_propagator.py — Cached spectral propagator objects |
 | ca-simulation | `ca_qcd_scale_ratio.py` | ca_qcd_scale_ratio.py |
+| ca-simulation | `ca_qstar_logmoment.py` | ca_qstar_logmoment.py — Residual A of the strong-sector scale problem: |
+| ca-simulation | `ca_scheme_constant.py` | ca_scheme_constant.py — the shared scheme/scale constant of F144-A4 / F145-N5 |
 | ca-simulation | `ca_si_scale.py` | ca_si_scale.py |
 | ca-simulation | `ca_strong.py` | ca_strong.py — SU(3)_color strong-force gauge sector (Phase E3) |
 | ca-simulation | `ca_su3_ladder.py` | ca_su3_ladder.py — SU(3) electric Casimir ladder and the SU(3) character rotor |
@@ -48,6 +69,7 @@
 | ca-simulation | `ca_z_field.py` | ca_z_field.py — FG-4: dynamical Z neutral-current sector |
 | ca-simulation | `derive_beta_LV.py` | derive_beta_LV.py — Analytic derivation of the SR-2 Lorentz-violation coefficient |
 | ca-simulation | `derive_colour_condensate.py` | derive_colour_condensate.py — the colour-magnetic condensate derived, not assumed (F88) |
+| ca-simulation | `derive_dielectric_noconfine.py` | derive_dielectric_noconfine.py — Why the colour-dielectric tension does NOT |
 | ca-simulation | `derive_velocity_addition.py` | derive_velocity_addition.py — Velocity addition from the QCA arccos dispersion |
 | ca-simulation | `live_display.py` | live_display.py — Real-time 3D Weyl CA (point-cloud renderer) |
 | ca-simulation | `poisson_open.py` | poisson_open.py — Open-boundary 3D Poisson solver |
@@ -92,5 +114,6 @@
 | casim | `io/` | casim.io — scenario loading and result writing. |
 | casim | `lattice/` | casim.lattice — lattice substrate & FFT backend (re-exports legacy kernels). |
 | casim | `particles/` | casim.particles — typed particles stacked on the lattice. |
+| casim | `suite/` | casim.suite — the unified, user-run, grouped test suite. |
 | casim | `verify.py` | casim.verify — canonical fidelity & exactness checks. |
 | casim | `viz/` | casim.viz — static figure helpers (re-exports legacy viz, tick_heatmap). |

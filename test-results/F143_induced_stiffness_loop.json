@@ -1,0 +1,4 @@
+{
+  "note": "Stale file from a renumbered run. This work was renumbered to F147 after a concurrent session claimed F143 (F143-wrap-loop-stiffness-nogo). See test-results/F147_induced_stiffness_loop.json and findings/F147-walk-loop-rigidity-channel-equality.md.",
+  "date": "2026-06-12"
+}

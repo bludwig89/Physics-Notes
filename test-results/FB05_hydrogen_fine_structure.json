@@ -1,0 +1,111 @@
+{
+  "test_id": "FB05",
+  "name": "Hydrogen fine structure (Dirac) 2p_3/2-2p_1/2 = 10.95 GHz",
+  "verdict": "PASS",
+  "predicted": {
+    "splitting_GHz": 10.94964739109176,
+    "splitting_ueV": 45.284103009635146,
+    "E_1s_half_eV": -13.605874076335347,
+    "abs_alpha_slope": 4.000056759960222,
+    "rel_binding_slope": 1.999997608399639
+  },
+  "measured_target": {
+    "splitting_GHz": 10.969,
+    "splitting_ueV_nominal": 45.28,
+    "splitting_GHz_nominal": 10.95,
+    "E_1s_half_eV": -13.605874,
+    "pct_tolerance": 0.18
+  },
+  "gate": {
+    "splitting_pct_vs_measured_max": 0.18,
+    "dirac_vs_sommerfeld_rel_max": 1.3e-06,
+    "sommerfeld_vs_series_rel_max": 5e-09,
+    "abs_slope_target": 4.0,
+    "rel_slope_target": 2.0,
+    "E_1s_half_eV_target": -13.605874
+  },
+  "computed": {
+    "alpha": 0.0072973525205055605,
+    "m_e_MeV": 0.51099895,
+    "splitting_eV": 4.5284103009635146e-05,
+    "splitting_ueV": 45.284103009635146,
+    "splitting_GHz": 10.94964739109176,
+    "pct_vs_measured": 0.17643002013163442,
+    "E_1s_half_eV": -13.605874076335347,
+    "sommerfeld_vs_series_worst_rel": 4.5271426067330913e-10,
+    "dirac_vs_sommerfeld_worst_rel": 1.269966660983423e-06,
+    "abs_alpha_slope": 4.000056759960222,
+    "rel_binding_slope": 1.999997608399639,
+    "numerical_dirac_table": {
+      "1s_1/2": {
+        "E_num_mc2": 0.999973373968623,
+        "E_som_mc2": 0.999973373968623,
+        "bind_num_eV": -13.605874076335347,
+        "bind_som_eV": -13.605874076335347,
+        "rel_to_binding": 0.0
+      },
+      "2p_1/2": {
+        "E_num_mc2": 0.9999933434784547,
+        "E_som_mc2": 0.9999933434700011,
+        "bind_num_eV": -3.401475520301045,
+        "bind_som_eV": -3.4014798400670396,
+        "rel_to_binding": 1.269966660983423e-06
+      },
+      "2p_3/2": {
+        "E_num_mc2": 0.9999933435586199,
+        "E_som_mc2": 0.9999933435586199,
+        "bind_num_eV": -3.40143455596403,
+        "bind_som_eV": -3.40143455596403,
+        "rel_to_binding": 0.0
+      }
+    },
+    "checks": [
+      {
+        "name": "Sommerfeld == O((Za)^4) series",
+        "residual": 4.5271426067330913e-10,
+        "target": 5e-09,
+        "tier": "machine",
+        "status": "PASS"
+      },
+      {
+        "name": "1s_1/2 = -13.605874 eV",
+        "residual": 7.633534693241018e-08,
+        "target": 5e-05,
+        "tier": "quantitative",
+        "status": "PASS"
+      },
+      {
+        "name": "numerical Dirac == Sommerfeld (rel binding)",
+        "residual": 1.269966660983423e-06,
+        "target": 1.3e-06,
+        "tier": "quantitative",
+        "status": "PASS"
+      },
+      {
+        "name": "splitting within 0.18% of measured 10.969 GHz",
+        "residual": 0.17643002013163442,
+        "target": 0.18,
+        "tier": "quantitative",
+        "status": "PASS"
+      },
+      {
+        "name": "absolute alpha-scaling slope = 4",
+        "residual": 5.675996022169727e-05,
+        "target": 0.01,
+        "tier": "quantitative",
+        "status": "PASS"
+      },
+      {
+        "name": "relative-to-binding slope = 2",
+        "residual": 2.391600361084656e-06,
+        "target": 0.01,
+        "tier": "quantitative",
+        "status": "PASS"
+      }
+    ]
+  },
+  "commands": [
+    "python3 tests/findings/test_FB05_hydrogen_fine_structure.py"
+  ],
+  "timestamp": "2026-06-16"
+}

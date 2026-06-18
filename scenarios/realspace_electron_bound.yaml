@@ -1,0 +1,41 @@
+# U2 — real-space EM-bound electron (roadmap-unified-real-space.md).
+#
+# The honest U2 deliverable: a real-time lattice electron held in a bounded
+# cloud by a Coulomb potential, vs a free dispersing control.
+#
+# Physics note (why non-relativistic).  An atomic electron is non-relativistic
+# (v ~ αc ~ 0.007 c).  A *relativistic* Dirac electron in a vector Coulomb well
+# on a tractable lattice does NOT give a clean stationary bound state — it
+# Klein-tunnels / undergoes the Zα→1 Dirac–Coulomb collapse (the F135 vector
+# null; the F134 "responsive but not stationary" probe).  The relativistic fine
+# structure (Lamb, 2p split) is already supplied by the F125 *spectral* Dirac–
+# Coulomb solve.  Here the binding is exhibited with the correct, stable
+# non-relativistic description: the Schrödinger orbital evolved by an exactly-
+# unitary split-step, started in the ground state of the well.
+#
+# De-risk (per roadmap U2): the source is a STATIC external +1 point charge,
+# so the well is a fixed central potential.  Result: the electron RMS radius
+# stays FLAT (bounded, stationary) over the whole run, while the matched free
+# control (realspace_electron_free.yaml, same orbital, no well) disperses
+# ballistically to box saturation.  Structure is the deliverable; absolute
+# fm/eV stay P6/scale-gated (F123).
+name: realspace_electron_bound
+title: "Real-Space EM-Bound Electron (U2)"
+description: "Non-relativistic electron orbital held in a bounded cloud by a static +1 Coulomb well (started in the ground state); RMS stays flat vs the free dispersing control."
+lattice: {L: 32, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 400
+channels:
+  - type: nr_electron
+    name: electron
+    mass: 1.0
+    charge: -1.0
+    g_coulomb: 12.0
+    dt: 0.2
+    external_charge: {center: [16, 16, 16], q: 1.0, width: 0.8}
+    init: {center: [16, 16, 16], width: 2.0, ground_state: true,
+           relax_steps: 800, relax_dtau: 0.05}
+observers:
+  - {type: norm_conservation, every: 80, channels: [electron]}
+  - {type: unification_readout, every: 50, electron: electron}
+output: {json: test-results/casim_realspace_electron_bound.json}

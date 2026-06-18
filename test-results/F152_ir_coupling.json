@@ -1,0 +1,41 @@
+{
+  "J1": {
+    "passed": true,
+    "mean": 0.39349999999999996,
+    "mD": 0.376,
+    "mV": 0.411
+  },
+  "J2": {
+    "passed": true,
+    "Lambda3_GeV": 0.4902833073517328,
+    "mD_over_Lambda": 0.8566475621383718,
+    "mg_over_Lambda": 1.0198185263552046,
+    "alpha0": 1.2966339647591727
+  },
+  "J3": {
+    "passed": true,
+    "alpha_hat0_over_pi": 0.97,
+    "m_g_GeV": 0.5,
+    "model_mD_GeV": 0.42,
+    "frozen_range": [
+      0.3,
+      0.5
+    ]
+  },
+  "J4": {
+    "passed": true,
+    "ir_face_owns": [
+      "chiral SB (F145/F77)",
+      "E_g sextic brake lambda_6 (F150)"
+    ]
+  },
+  "J5": {
+    "passed": true,
+    "identical": false
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true
+  }
+}

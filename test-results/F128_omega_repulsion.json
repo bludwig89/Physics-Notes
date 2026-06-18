@@ -1,0 +1,119 @@
+{
+  "finding": "F128",
+  "title": "NN short-range repulsion from the isoscalar-vector (\u03c9) meson",
+  "checks": {
+    "A1 V_omega > 0 everywhere (REPULSIVE)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "exact",
+      "status": "PASS",
+      "V_omega(0.5fm)_MeV": 442.48151144160704
+    },
+    "A2 V_sigma < 0 everywhere (ATTRACTIVE)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "exact",
+      "status": "PASS",
+      "V_sigma(0.5fm)_MeV": -506.3354434170144
+    },
+    "A3 at equal mass: V_omega == -V_sigma (lone sign flip)": {
+      "residual": 0.0,
+      "target": 1e-10,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "A4 sign rule eta: scalar=-1, vector=+1 (Coulomb-like)": {
+      "residual": 0.0,
+      "target": 1e-12,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "B1 baryon number 3*(1/3) = 1": {
+      "residual": 0.0,
+      "target": 1e-15,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "B2 g_\u03c9NN/g_\u03c9q = 3 ;  (g_\u03c9NN)\u00b2/(g_\u03c9q)\u00b2 = 9": {
+      "residual": 0.0,
+      "target": 1e-15,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "C1 vector bubble: direct trace == [I1+(q2-M2)K] reduction": {
+      "residual": 0.0,
+      "target": 0.0005,
+      "tier": "machine",
+      "status": "PASS",
+      "PiV_direct": -0.13146987858337503,
+      "PiV_reduced": -0.13146987858337503
+    },
+    "C2 transverse Pi_V retains I1 (cutoff breaks gauge inv.) -> m_\u03c9 scheme-dep": {
+      "residual": 0.0,
+      "target": 1.0,
+      "tier": "note",
+      "status": "PASS",
+      "spurious_I1_term": -0.13236755641080222
+    },
+    "C3 \u03c1-\u03c9 degeneracy: |m_\u03c9-m_\u03c1|/m_\u03c1 <= 2% (flavour-blind bubble + OZI)": {
+      "residual": 0.009545184841214655,
+      "target": 0.02,
+      "tier": "Tier-1",
+      "status": "PASS",
+      "m_rho_GeV": 0.77526,
+      "m_omega_GeV": 0.78266,
+      "split_frac": 0.009545184841214655
+    },
+    "D1 bare \u03c3 (8.18) alone over-binds (E_b > 2.224)": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "E_b_bareSigma_MeV": 156.23462369882208
+    },
+    "D2 bare \u03c3 + \u03c9 -> deuteron E_b = 2.224 MeV (single bound state)": {
+      "residual": 7.058797990566745e-12,
+      "target": 0.005,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "E_b_MeV": 2.2239999999929414,
+      "P_D": 0.06255894216389961,
+      "r_d_fm": 1.9765910210577515
+    },
+    "D3 fitted g_\u03c9NN\u00b2/4\u03c0 in OBE/SU(6) window [5,25]": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omegaNN2_4pi": 5.391383085213537
+    },
+    "D4 deuteron P_D in physical band [3%,9%]": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "P_D": 0.06255894216389961
+    }
+  },
+  "derived": {
+    "g_omegaNN_over_g_omegaq": 3.0,
+    "m_omega_adopted_MeV": 782.66,
+    "g_omegaNN2_4pi_fit": 5.391383085213537,
+    "deuteron_with_bareSigma_plus_omega": {
+      "E_b_MeV": 2.2239999999929414,
+      "P_D": 0.06255894216389961,
+      "r_d_fm": 1.9765910210577515,
+      "bound": true,
+      "b_fm": 0.55,
+      "sigma_g2_4pi": 8.182302583062446,
+      "omega_g2_4pi": 5.391383085213537,
+      "m_omega_MeV": 782.66
+    }
+  },
+  "notes": [],
+  "summary": {
+    "pass": 13,
+    "total": 13,
+    "all_pass": true
+  }
+}

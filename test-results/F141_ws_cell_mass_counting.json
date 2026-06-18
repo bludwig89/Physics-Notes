@@ -1,0 +1,251 @@
+{
+  "finding": "F141",
+  "checks": {
+    "V1a_relevant_count": {
+      "pass": true,
+      "detail": "relevant=14 (NN=8, NNN=6, other=0) over window |v|^2<=24"
+    },
+    "V1b_no_ties_on_facets": {
+      "pass": true,
+      "detail": "degenerate equidistance ties among relevant vectors: []"
+    },
+    "V1c_axes_mod_inversion": {
+      "pass": true,
+      "detail": "unique facet axes mod inversion = 7 (expected 7 = 4 body-diagonal + 3 face)"
+    },
+    "V2a_vertices": {
+      "pass": true,
+      "detail": "vertices=24 (expected 24), circumradius^2=5/4 (expected 5/4)"
+    },
+    "V2b_facet_classification": {
+      "pass": true,
+      "detail": "hexagonal facets=8 (all perp NN: True), square facets=6 (all perp NNN: True)"
+    },
+    "V2c_covering_radius_closure": {
+      "pass": true,
+      "detail": "relevance bound |v|^2 <= 4*mu^2 = 5; next BCC shell |v|^2=8 > 5 \u2014 V1 window is rigorously closed"
+    },
+    "V3a_sin2_2over9": {
+      "pass": true,
+      "detail": "sin^2(theta_W)_os = 2/9, m_W^2/m_Z^2 = 7/9"
+    },
+    "V3b_mass_ratio_identity": {
+      "pass": true,
+      "detail": "(m_Z/m_W)^2 = 9/7 = 9/7  <=>  m_Z/m_W = 3/sqrt(7)"
+    },
+    "V3c_f138_bridge": {
+      "pass": true,
+      "detail": "(2/9)/(1/4) = 8/9 \u2014 the F138 UV-cap -> on-shell correction factor, exact"
+    },
+    "V4a_mZ_over_mW": {
+      "pass": true,
+      "detail": "3/sqrt7 = 1.133893 vs PDG 1.134614, residual -0.0635%"
+    },
+    "V4b_onshell_s2": {
+      "pass": true,
+      "detail": "2/9 = 0.222222 vs PDG on-shell 0.223209, residual -0.4423%"
+    }
+  },
+  "summary": {
+    "n_pass": 11,
+    "n_total": 11,
+    "relevant_vectors": [
+      [
+        -2,
+        0,
+        0
+      ],
+      [
+        -1,
+        -1,
+        -1
+      ],
+      [
+        -1,
+        -1,
+        1
+      ],
+      [
+        -1,
+        1,
+        -1
+      ],
+      [
+        -1,
+        1,
+        1
+      ],
+      [
+        0,
+        -2,
+        0
+      ],
+      [
+        0,
+        0,
+        -2
+      ],
+      [
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        -1,
+        -1
+      ],
+      [
+        1,
+        -1,
+        1
+      ],
+      [
+        1,
+        1,
+        -1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        0,
+        0
+      ]
+    ],
+    "vertices_exact": [
+      [
+        "-1",
+        "-1/2",
+        "0"
+      ],
+      [
+        "-1",
+        "0",
+        "-1/2"
+      ],
+      [
+        "-1",
+        "0",
+        "1/2"
+      ],
+      [
+        "-1",
+        "1/2",
+        "0"
+      ],
+      [
+        "-1/2",
+        "-1",
+        "0"
+      ],
+      [
+        "-1/2",
+        "0",
+        "-1"
+      ],
+      [
+        "-1/2",
+        "0",
+        "1"
+      ],
+      [
+        "-1/2",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "-1",
+        "-1/2"
+      ],
+      [
+        "0",
+        "-1",
+        "1/2"
+      ],
+      [
+        "0",
+        "-1/2",
+        "-1"
+      ],
+      [
+        "0",
+        "-1/2",
+        "1"
+      ],
+      [
+        "0",
+        "1/2",
+        "-1"
+      ],
+      [
+        "0",
+        "1/2",
+        "1"
+      ],
+      [
+        "0",
+        "1",
+        "-1/2"
+      ],
+      [
+        "0",
+        "1",
+        "1/2"
+      ],
+      [
+        "1/2",
+        "-1",
+        "0"
+      ],
+      [
+        "1/2",
+        "0",
+        "-1"
+      ],
+      [
+        "1/2",
+        "0",
+        "1"
+      ],
+      [
+        "1/2",
+        "1",
+        "0"
+      ],
+      [
+        "1",
+        "-1/2",
+        "0"
+      ],
+      [
+        "1",
+        "0",
+        "-1/2"
+      ],
+      [
+        "1",
+        "0",
+        "1/2"
+      ],
+      [
+        "1",
+        "1/2",
+        "0"
+      ]
+    ],
+    "pdg_inputs": {
+      "mW_GeV": 80.3692,
+      "mZ_GeV": 91.188
+    }
+  }
+}

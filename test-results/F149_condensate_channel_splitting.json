@@ -1,0 +1,74 @@
+{
+  "finding": "F149",
+  "checks": {
+    "N1_dirac_parity_theorem": {
+      "pass": true,
+      "detail": "omega_m(q+Q)=pi\u2212omega_m: 1.11e-15; D(q+Q)=\u2212X D X: 1.33e-15 (m=0.4)"
+    },
+    "N2_S_anticommutation_gauged": {
+      "pass": true,
+      "detail": "{S, D_A} = 0 with S = P\u00b7diag(I,\u2212I), eps=0.3: 0.00e+00"
+    },
+    "N3_massless_limit_lock": {
+      "pass": true,
+      "detail": "m=0 channel lock through the 4x4 path: rel dT 4.1e-15, dGap 3.6e-15; numpy eig vs analytic arccos(n\u00b7u): 1.8e-15"
+    },
+    "N4_massive_one_tick_rigidity": {
+      "pass": true,
+      "detail": "one-tick chi at m=0.4: vec -2.1e-11, stag -2.1e-11 \u2014 rigidity survives the mass"
+    },
+    "_split_vs_m": {
+      "m": [
+        0.05,
+        0.1,
+        0.2,
+        0.4
+      ],
+      "rel_dT": [
+        0.07451985463655039,
+        0.22140234310552856,
+        0.48683636134394365,
+        0.726589732538102
+      ]
+    },
+    "N5_mass_splits_channels": {
+      "pass": true,
+      "detail": "pointwise rel dT: ['0.075', '0.221', '0.487', '0.727'] at m=[0.05, 0.1, 0.2, 0.4] (monotone: True); gaps equal to 3.6e-15 at ALL m \u2014 weights split, kinematics locked"
+    },
+    "_bf_split": {
+      "0.05": -0.005547351351938063,
+      "0.1": -0.020582629329308273,
+      "0.2": -0.06378857514627506
+    },
+    "N6_full_response_split_m2_onset": {
+      "pass": true,
+      "detail": "(chi_stag\u2212chi_vec): -0.0055 (m=0.05), -0.0206 (m=0.1), -0.0638 (m=0.2); m^2-scaling ratio 1.08 (1 = exact m^2)"
+    },
+    "_para_ratio_vs_m": {
+      "m": [
+        0.0,
+        0.1,
+        0.2,
+        0.4
+      ],
+      "vec_over_stag": [
+        1.0000000000000002,
+        0.9831271741497787,
+        0.9532941616021656,
+        0.9154369271227427
+      ]
+    },
+    "N7_para_ratio_smooth_drift": {
+      "pass": true,
+      "detail": "paramagnetic vec/stag: ['1.0000', '0.9831', '0.9533', '0.9154'] at m=0,0.1,0.2,0.4 \u2014 exactly 1 at m=0, monotone drift (staggered enhanced in the para piece; physical small-q ratio needs the diamagnetic term \u2014 open)"
+    },
+    "N8_content_no_go": {
+      "pass": true,
+      "detail": "bare: t\u00b2=1/4 (needs \u00d78/7); F38 SM generation: \u03a3T\u2083\u00b2=2, \u03a3(Y/2)\u00b2=10/3 \u27f9 t\u00b2=3/5, sin\u00b2\u03b8_W=3/8 (the equal-quanta/GUT value; needs \u00d710/21) \u2014 no charge set gives 2/7: content no-go"
+    }
+  },
+  "summary": {
+    "n_pass": 8,
+    "n_total": 8
+  }
+}

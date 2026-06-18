@@ -1,0 +1,91 @@
+{
+  "name": "njl_pion",
+  "title": "NJL Pion Sector (FB03)",
+  "description": "Dynamical light-meson spectrum from the canonical SU(2) NJL fit: pion/sigma poles, f_pi, condensate, GMOR slope, and the chiral-limit Goldstone theorem.",
+  "seed": 0,
+  "ticks": 1,
+  "lattice": {
+    "L": 4,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 1.0,
+    "block": 1,
+    "physical_L": 4,
+    "cell_factor": 1
+  },
+  "channels": {
+    "pion": {
+      "name": "pion",
+      "type": "njl_meson",
+      "label": "NJL Meson Sector",
+      "propagator": "spectral",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "field_snapshot": {
+      "type": "field_snapshot",
+      "label": "Field Snapshot",
+      "exactness": "quantitative",
+      "every": 1,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "pion": {
+              "energy": 92.58345580787223,
+              "m_c_MeV": 311.21462294173983,
+              "m_pi_MeV": 140.52053957607242,
+              "m_sigma_MeV": 622.4292458834797,
+              "m_rho_MeV": 785.596673129178,
+              "f_pi_MeV": 92.58345580787223,
+              "condensate_root_MeV": -249.05117143127202,
+              "gmor_rel_residual": 0.003934402096827787,
+              "m_sigma_over_2mc": 1.0,
+              "m_pi_chiral_limit_MeV": 0.00015529222149097974,
+              "goldstone_ok": true,
+              "m_c_rel_err": -0.04241654479464667,
+              "m_pi_rel_err": 0.025697369168411848,
+              "f_pi_rel_err": 0.001985452466149578,
+              "targets_MeV": {
+                "m_c": 325.0,
+                "m_pi": 137.0,
+                "f_pi": 92.4
+              }
+            }
+          }
+        },
+        {
+          "tick": 1,
+          "channels": {
+            "pion": {
+              "energy": 92.58345580787223,
+              "m_c_MeV": 311.21462294173983,
+              "m_pi_MeV": 140.52053957607242,
+              "m_sigma_MeV": 622.4292458834797,
+              "m_rho_MeV": 785.596673129178,
+              "f_pi_MeV": 92.58345580787223,
+              "condensate_root_MeV": -249.05117143127202,
+              "gmor_rel_residual": 0.003934402096827787,
+              "m_sigma_over_2mc": 1.0,
+              "m_pi_chiral_limit_MeV": 0.00015529222149097974,
+              "goldstone_ok": true,
+              "m_c_rel_err": -0.04241654479464667,
+              "m_pi_rel_err": 0.025697369168411848,
+              "f_pi_rel_err": 0.001985452466149578,
+              "targets_MeV": {
+                "m_c": 325.0,
+                "m_pi": 137.0,
+                "f_pi": 92.4
+              }
+            }
+          }
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

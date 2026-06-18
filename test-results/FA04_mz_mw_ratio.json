@@ -1,0 +1,47 @@
+{
+  "test_id": "FA04",
+  "title": "Z/W mass ratio = 2/sqrt(3)",
+  "verdict": "PASS",
+  "timestamp": "2026-06-10",
+  "predicted": {
+    "m_Z/m_W": 1.1547005383792515,
+    "m_Z/m_W_exact": "2/sqrt(3)",
+    "sin2_theta_W": 0.25,
+    "sin2_theta_W_exact": "1/4",
+    "cos2_theta_W_exact": "3/4",
+    "theta_W": "pi/6 (30 deg)",
+    "gp2_over_g2_exact": "1/3"
+  },
+  "measured": {
+    "m_Z/m_W": 1.134616581020045,
+    "m_W_GeV": 80.369,
+    "m_Z_GeV": 91.188,
+    "sin2_theta_W": 0.22321,
+    "source": "PDG (m_W=80.369 GeV, m_Z=91.188 GeV)"
+  },
+  "comparison": {
+    "rel_overshoot_ratio": 0.01770109629558781,
+    "rel_overshoot_ratio_pct": 1.770109629558781,
+    "rel_overshoot_sin2": 0.12002150441288477,
+    "rel_overshoot_sin2_pct": 12.002150441288476
+  },
+  "gate": {
+    "PASS": "model 2/sqrt(3)=1.1547, within +1.77% of PDG, residual RG-shaped",
+    "FALSIFIED": "ratio drifts off 2/sqrt(3) beyond what running can explain",
+    "matches_geometric_2_over_sqrt3": true,
+    "within_tolerance_2pct": true,
+    "residual_rg_shaped": true,
+    "residual_note": "F115/CM2b: measured SM trajectory passes through sin2_theta_W=1/4 and m_Z/m_W=2/sqrt(3) at mu_*~3.7 TeV; the +1.77% gap is a low-scale (few-TeV) matching offset, not a Planck desert-running effect. Falsifier criterion #2 (residual NOT RG-shaped) is therefore not triggered."
+  },
+  "provenance": [
+    "F45",
+    "F35",
+    "F49",
+    "F112",
+    "F115"
+  ],
+  "method": "Closed-form symbolic (sympy exact Rational/sqrt); PDG comparison only float step.",
+  "commands": [
+    "python3 tests/findings/test_FA04_mz_mw_ratio.py"
+  ]
+}

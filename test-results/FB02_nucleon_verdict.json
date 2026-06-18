@@ -1,0 +1,39 @@
+{
+  "test_id": "FB02",
+  "name": "Nucleon mass from a single f_pi anchor (m_p approx 3 m_c)",
+  "verdict": "PASS",
+  "predicted": {
+    "m_c_MeV": 309.49,
+    "m_p_3mc_MeV": 928.47,
+    "m_p_rel_err_vs_PDG": -0.01045,
+    "n_minus_p_MeV": 1.51,
+    "n_minus_p_sign_positive": true
+  },
+  "measured_target": {
+    "PDG_m_p_MeV": 938.272,
+    "PDG_m_n_MeV": 939.565,
+    "PDG_n_minus_p_MeV": 1.293,
+    "PDG_m_N_third_MeV": 312.97
+  },
+  "gate": {
+    "criterion": "m_p approx 3 m_c within ~1% of PDG 938.27 from the single f_pi=92.07 MeV anchor; dynamical (chiSB) constituent mass dominates over the current-quark sum (sub-1%, F97 cites 0.96%); n-p splitting sign positive",
+    "tolerance": 0.02
+  },
+  "computed": {
+    "f_pi_anchor_MeV": 92.07,
+    "m_c_MeV": 309.48866710816407,
+    "m_c_rel_err_vs_mN_third": -0.011123535456548428,
+    "m_p_3mc_MeV": 928.4660013244923,
+    "m_p_rel_err_vs_PDG": -0.010451125766843511,
+    "n_minus_p_MeV": 1.51,
+    "n_minus_p_sign_positive": true,
+    "np_strong_term_MeV": 2.51,
+    "np_em_term_MeV": -1.0,
+    "constituent_dominance": "PDG current-quark sum is ~0.96% of m_p (F97); dynamical chiSB constituent mass dominates -> picture confirmed"
+  },
+  "commands": [
+    "casim run scenarios/njl_nucleon.yaml --out test-results/FB02_nucleon.json"
+  ],
+  "notes": "scenario --out overwrote test-results/FB02_nucleon.json with raw scenario output (per brief); falsification verdict written here. Raw output also at test-results/casim_njl_nucleon.json (per YAML).",
+  "timestamp": "2026-06-16"
+}

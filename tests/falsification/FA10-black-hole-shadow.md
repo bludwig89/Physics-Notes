@@ -23,7 +23,7 @@ Falsified if:
 ## CASIM build & run
 Strong-field eikonal; closed forms are sympy-exact.
 ```bash
-casim run scenarios/dielectric_black_hole.yaml --L 64 \
+casim run scenarios/dielectric_black_hole.yaml --L 128 \
     --out test-results/FA10_shadow.json
 ```
 - Symbolic: confirm `b_c=2e`, photon sphere `2√e`, throat `e`, redshift `1+z=e`, and that `g_tt=−e^(−2u)` has no finite root (sympy).

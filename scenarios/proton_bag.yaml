@@ -1,0 +1,30 @@
+# U3 Part 2 — confined proton bound by the LIVE colour-dielectric bag field
+# (roadmap-unified-real-space.md, F137). Same uud colour quarks as
+# proton_confined.yaml, but the scalar confining mass is no longer the
+# geometric string V=σ|x−R_cm| — it is read live from a `colour_bag` channel:
+# the colour-magnetic condensate f(x) is MELTED where the quark colour charge
+# sits (the bag the quarks dig), and the bag wall S(x)=M_bag·f²(x) confines
+# them (F86 ε_c→0 in the vacuum = flux expelled = ∞ effective mass).
+name: proton_bag
+title: "Confined Proton — live colour-dielectric bag (U3 Part 2)"
+description: "uud colour quarks confined by a LIVE colour-dielectric bag field sourced by their own J_colour (F86): the condensate melts where the quarks sit; the bag wall confines them. Replaces the geometric string."
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 120
+channels:
+  - {type: gluon_sourced, name: gluon, sources: [u_r, u_g, d_b], g_lat: 0.5, dt: 1.0}
+  # the live dielectric bag, sourced by the quark colour charge
+  - {type: colour_bag, name: bag, sources: [u_r, u_g, d_b], M_bag: 8.0, phi0: 0.01, lam: 1.5}
+  - {type: quark_dirac, name: u_r, species: u_L, colour: r, mass: 0.9,
+     init: {center: [7, 8, 8], width: 1.3},
+     couplings: {strong: gluon}, eps_strong: 0.05, confine: {mode: scalar, field: bag}}
+  - {type: quark_dirac, name: u_g, species: u_L, colour: g, mass: 0.9,
+     init: {center: [9, 8, 8], width: 1.3},
+     couplings: {strong: gluon}, eps_strong: 0.05, confine: {mode: scalar, field: bag}}
+  - {type: quark_dirac, name: d_b, species: d_L, colour: b, mass: 0.9,
+     init: {center: [8, 10, 8], width: 1.3},
+     couplings: {strong: gluon}, eps_strong: 0.05, confine: {mode: scalar, field: bag}}
+observers:
+  - {type: norm_conservation, every: 30, channels: [u_r, u_g, d_b]}
+  - {type: unification_readout, every: 20, cluster: [u_r, u_g, d_b]}
+output: {json: test-results/casim_proton_bag.json}

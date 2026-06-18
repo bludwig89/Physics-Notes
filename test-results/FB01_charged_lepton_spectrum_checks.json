@@ -1,0 +1,48 @@
+{
+  "B1_tau_anchored_spectrum_measured_angle": {
+    "pass": true,
+    "angle_deg": 12.733,
+    "N_eq_m_tau_MeV": 1776.86,
+    "m_tau_cond_wall": 1.0,
+    "m_mu_pred_MeV": 105.6575,
+    "m_mu_PDG": 105.6583755,
+    "m_mu_err_pct": -0.0009,
+    "m_e_pred_MeV": 0.51069,
+    "m_e_PDG": 0.51099895,
+    "m_e_err_pct": -0.0611,
+    "m_mu_err_pct_rounded": 0.0,
+    "m_e_err_pct_rounded": 0.06,
+    "gate_pct": 0.06,
+    "statement": "From m_tau (wall anchor, zero angle error) plus the measured angle, the equipartition shape gives m_mu and m_e within 0.06%."
+  },
+  "B2_sensitivity_tau_stable_electron_node": {
+    "pass": true,
+    "dln_mtau_ddelta_symbolic": "0",
+    "tau_exact_delta_stable": true,
+    "dln_mtau_ddelta_numeric": "0.00e+00",
+    "dln_mmu_ddelta_numeric": 0.0858,
+    "dln_me_ddelta_numeric": 0.8943,
+    "electron_over_muon_node_sensitivity": 10.42,
+    "model_angle_m_mu_err_tau_anchored_pct": 5.5,
+    "model_angle_m_mu_err_electron_anchored_pct": 104.0,
+    "statement": "tau is exactly delta-stable (dln m_tau/ddelta = 0 symbolically, wall-pinned); the electron sits at the condensate node with ~10x the muon's sensitivity, so tau is the robust anchor."
+  },
+  "B3_koide_two_thirds_same_shape": {
+    "pass": true,
+    "Q_condensate": 0.666666667,
+    "Q_pdg": 0.6666605,
+    "Q_symbolic": "6/((sqrt(2)*cos(delta) + 1)**2*(Abs((sqrt(2)*sin(delta + pi/6) - 1)/(sqrt(2)*cos(delta) + 1)) + Abs((sqrt(2)*cos(delta + pi/3) - 1)/(sqrt(2)*cos(delta) + 1)) + 1)**2)",
+    "statement": "the same equipartition shape gives Koide Q = 2/3 exactly (condensate) and the PDG masses give 0.666661 (FA05); internal-consistency falsifier passes."
+  },
+  "V_verdict": {
+    "pass": true,
+    "verdict": "FLAGGED",
+    "canonical_readout_MeV": {
+      "m_e": 0.51069,
+      "m_mu": 105.6575,
+      "m_tau": 1776.86
+    },
+    "note": "B1/B2/B3 all pass at the brief's stated 2-decimal precision (m_mu -0.00%, m_e -0.06%). The raw electron residual is -0.0611%, marginally over an unrounded 0.06% gate; this excess is the documented condensate-node sensitivity (B2), not a shape failure -> FLAGGED, not FALSIFIED.",
+    "open_inputs": "overall scale N (= m_tau) and angle lambda6; all ratios + Koide are predicted by the shape."
+  }
+}

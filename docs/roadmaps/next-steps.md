@@ -201,18 +201,19 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~pursue construction of the dynamical proton and neutron, p2 in docs/roadmaps/roadmap-matter-binding.md.~~
 
-- as a small fork, since the first-order route exposes EOM 3's (docs/theory/page34-eom-derivation.md) spin-torsion four-fermion term. Conduct a bounded check — does the project's torsion-free assumption cost anything at the lattice's fermion densities? (fork against f62 with the chiral-algebra caveat).
+- ~~as a small fork, since the first-order route exposes EOM 3's (docs/theory/page34-eom-derivation.md) spin-torsion four-fermion term. Conduct a bounded check — does the project's torsion-free assumption cost anything at the lattice's fermion densities? (fork against f62 with the chiral-algebra caveat).~~
 
-- build a research command for claude code that will go wide, searching reference research and the web for data on a question and return results sorted based on our claude.md design decisions. 
+- change the findings command so it builds a finding off of whatever was derived or studied during that session.
 
 - ~~now that we have working structure all the way up to matter binding, research a suite of tests to run against existing measured scientific data in an attempt to falisfy the model or specific model elements. Once the list is done, build a roadmap file that claude code can read, build, and run on CASIM from, one file for each test (sub-agent style). These will supercede the tests-priority suite.~~
 
-- the one matter binding remaining underived element is the isoscalar-vector (ω) short-range repulsion. attempt to derive from existing model elements.
+- ~~the one matter binding remaining underived element is the isoscalar-vector (ω) short-range repulsion. attempt to derive from existing model elements.~~
 
 - r~~eview the model files and determine what functions and files are deprecated by current design decisions. make a backup copy in the deprecated folder then delete obsolete functions and files, request user verification of each removal.~~
 
 - ~~Consider the project overall and propose reorganization such that it is clearly separated to different areas, and is also clearly labelled for human reading. ask me questions to build out a organization structure with indexes for quick ai-context loading.~~
 
+- ~~If we want to run the model/CASIM at the scale such that we could have analogous to real space, in order to make more predictions/build on the standard model, what would we need to accomplish? ~~
 
 ### Deriving Inputs 
 
@@ -244,6 +245,18 @@ All from project-audit-inputs-dynamism
   - if there are still input values that aren't derived, provide a detailed outline for each and what avenue is needed to source them.
 
 - ~~execute the build of p5 (atoms) in docs/roadmaps/roadmap-matter-binding.md and test thoroughly.~~
+
+- (Opus) review the model and verify that emergent bound states do in fact form and aren't just manufactured by tests. 
+
+- (Fable) review the $E_g$ sextic-brake $C/W$ with the model and determine if it can be algebraically derived. search the web if needed.
+
+- (Fable) ~~the qcd calibration blocks in strong-sector need algebraic derivations, review the model for sources of the derivation and/or search the web for possible resources.~~ *(review done 2026-06-12 - 02:25 → `docs/theory/qcd-calibration-derivation-routes.md`; headline: locked $g_s=1/2$ at the BZ edge + standard running gives $\alpha_s(M_Z)$ to +1.3% (1-loop) with zero parameters — Route A would derive the $f_\pi$ anchor itself. Follow-up build tasks: ~~(A)~~ **Route A executed → F144** ($g_s=1/2$ derived, $\alpha_s(M_Z)$ +8.4% converged / +1.3% 1-loop, hierarchy ×1.9, residual = one scheme constant bounded ≈1.8); ~~(C)~~ **Route C executed → F145** (exact Fierz 2/9, bare-coupling no-go, χSB forced by F144 running, fit bracketed). Remaining: the model-action one-loop scheme constant / nonperturbative IR coupling (ONE shared number, closes F144-A4 + F145-N5 + F124 §5 together); (D) $g_A$ from the F122 ECG baryon.)*
+
+- (Fable) ~~can f49's structural assignment (2 sublattices : 7 bond axes) be algebraically derived?~~
+
+- (Opus) From F139 - can the the dielectric-model tension be mapped onto onto $2\pi v^2 n$ (from F86) with algebraic exactness? also can the full non-abelian condensate be solved/algebraically derived?
+
+- (Opus, after the above are done) review from finding f129 onward and see if roadmap-scale-to-real-space.md and roadmap-unified-real-space have any open items update both with closed marks if applicable.
 
 ## CASIM Structure
 

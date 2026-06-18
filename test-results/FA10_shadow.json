@@ -1,0 +1,114 @@
+{
+  "test_id": "FA10",
+  "title": "Black-hole shadow is +4.63% larger (horizon-free exponential metric)",
+  "tier": "A",
+  "verdict": "PASS",
+  "timestamp": "2026-06-10",
+  "element_under_test": "F114 dielectric black hole; canonical K=e^{2u}, A=1/K, B=K (F64)",
+  "predicted": {
+    "shadow_b_c": "2*e",
+    "shadow_b_c_value": 5.43656365691809,
+    "photon_sphere": "2*sqrt(e)",
+    "photon_sphere_value": 3.2974425414002564,
+    "throat_R_min": "e",
+    "throat_R_min_value": 2.718281828459045,
+    "throat_redshift_1_plus_z": "e",
+    "event_horizon": "none (g_tt=-e^{-2u} has no finite root)",
+    "shadow_enlargement_vs_schwarzschild_pct": 4.62671635960652
+  },
+  "measured_target": {
+    "schwarzschild_b_c": "3*sqrt(3)",
+    "schwarzschild_b_c_value": 5.196152422706632,
+    "source": "EHT 2019 (M87*), EHT 2022 + GRAVITY 2022 (Sgr A*); ~10% emission-ring uncertainty -> shadow size",
+    "eht_rings": {
+      "M87*": {
+        "theta_g_uas": 3.818993117174679,
+        "shadow_GR_uas": 39.688140676214324,
+        "shadow_lat_uas": 41.52439837370438,
+        "enlargement_pct": 4.62671635960652,
+        "ring_meas_uas": 42.0,
+        "ring_err_uas": 3.0,
+        "gr_within_2sigma": true,
+        "lat_within_2sigma": true
+      },
+      "Sgr A*": {
+        "theta_g_uas": 5.124331289329899,
+        "shadow_GR_uas": 53.25361288760591,
+        "shadow_lat_uas": 55.7175065071583,
+        "enlargement_pct": 4.62671635960652,
+        "ring_meas_uas": 51.8,
+        "ring_err_uas": 2.3,
+        "gr_within_2sigma": true,
+        "lat_within_2sigma": true
+      }
+    }
+  },
+  "gate": {
+    "PASS": "b_c=2e (+4.63%) and consistent with EHT M87*/Sgr A* within current uncertainty",
+    "FALSIFIED": "shadow confirmed at 3 sqrt3 to <4%, OR a true horizon/trapping surface confirmed"
+  },
+  "computed": {
+    "symbolic_core_exact": true,
+    "shadow_enlargement_exact": true,
+    "eht_consistent": true,
+    "schwarzschild_confirmed_under_4pct": false,
+    "horizon_confirmed": false,
+    "npass": 7,
+    "ntot": 7
+  },
+  "commands": [
+    "python tests/findings/test_FA10_black_hole_shadow.py",
+    "casim run scenarios/dielectric_black_hole.yaml --L 64 --out test-results/FA10_shadow_casim.json   # field-level well, ticks=0"
+  ],
+  "checks": [
+    {
+      "name": "event horizon (g_tt = -e^{-2u})",
+      "predicted": "NONE: no finite root; local c=e^{-2u}->0 only as r->0",
+      "measured": "horizon at R=2 (Schwarzschild)",
+      "passed": true,
+      "note": "horizon-free frozen object, not a one-way membrane"
+    },
+    {
+      "name": "throat R_min",
+      "predicted": "e = 2.718282 GM/c^2 (isotropic r=1)",
+      "measured": "(no Schwarzschild analogue; horizon at 2)",
+      "passed": true,
+      "note": "areal radius bottoms out just outside r_s"
+    },
+    {
+      "name": "photon sphere R_ph",
+      "predicted": "2*sqrt(e) = 3.297443 GM/c^2",
+      "measured": "3 (Schwarzschild) -> +9.91%",
+      "passed": true,
+      "note": ""
+    },
+    {
+      "name": "shadow impact parameter b_c",
+      "predicted": "2e = 5.436564 GM/c^2 (+4.63% vs 3 sqrt3)",
+      "measured": "3*sqrt3 = 5.196152 GM/c^2 (Schwarzschild)",
+      "passed": true,
+      "note": "the EHT-testable departure: +4.63% larger shadow"
+    },
+    {
+      "name": "throat redshift 1+z",
+      "predicted": "e = 2.718282 (finite)",
+      "measured": "1+z -> infinity at horizon",
+      "passed": true,
+      "note": "finite redshift at throat; diverges only as r->0"
+    },
+    {
+      "name": "EHT shadow \u2014 M87*",
+      "predicted": "41.5 uas (lattice b_c=2e)",
+      "measured": "ring 42+/-3 uas; GR 39.7 uas",
+      "passed": true,
+      "note": "enlargement +4.63%; below current ring error -> ngEHT discriminator"
+    },
+    {
+      "name": "EHT shadow \u2014 Sgr A*",
+      "predicted": "55.7 uas (lattice b_c=2e)",
+      "measured": "ring 52+/-2 uas; GR 53.3 uas",
+      "passed": true,
+      "note": "enlargement +4.63%; below current ring error -> ngEHT discriminator"
+    }
+  ]
+}

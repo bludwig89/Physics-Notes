@@ -1,0 +1,99 @@
+{
+  "test_id": "FB06",
+  "name": "Positronium levels are exactly half hydrogen",
+  "verdict": "PASS",
+  "predicted": {
+    "Ry_ratio_Ps_over_Hinf": 0.5,
+    "positronium_ground_eV": -6.803,
+    "series": "E_n[Ry] = -1/n^2",
+    "basis": "Ry proportional to mu; mu(Ps)=m_e/2 => ratio = 1/2 (analytic)"
+  },
+  "measured_target": {
+    "positronium_ground_eV": -6.8,
+    "note": "measured Ps ground ~ -6.8 eV; -6.8028 eV = 1/4 Ry_inf equal-mass reduction"
+  },
+  "gate": {
+    "ratio_eq_half_tol": 1e-09,
+    "ground_eV": -6.803,
+    "ground_tol_eV": 0.005,
+    "series_tol_Ry": 0.001,
+    "pass_if": "ratio = 1/2 to 1e-9 AND ground ~ -6.803 eV AND clean -1/n^2 series"
+  },
+  "computed": {
+    "Ry_Ps_eV": 6.80284656150474,
+    "Ry_Hinf_eV": 13.60569312300948,
+    "Ry_ratio": 0.5,
+    "ratio_dev_from_half": 0.0,
+    "positronium_ground_eV": -6.801784302778379,
+    "ground_dev_eV": 0.0010156972216215365,
+    "series": {
+      "1": {
+        "E_Ry": -0.9998438508473244,
+        "minus_1_over_n2": -1.0,
+        "dev": 0.0001561491526755887
+      },
+      "2": {
+        "E_Ry": -0.24999023839217213,
+        "minus_1_over_n2": -0.25,
+        "dev": 9.76160782786839e-06
+      },
+      "3": {
+        "E_Ry": -0.1111091828092334,
+        "minus_1_over_n2": -0.1111111111111111,
+        "dev": 1.9283018777016547e-06
+      },
+      "4": {
+        "E_Ry": -0.06249938986394829,
+        "minus_1_over_n2": -0.0625,
+        "dev": 6.101360517096754e-07
+      },
+      "5": {
+        "E_Ry": -0.03999975008676364,
+        "minus_1_over_n2": -0.04,
+        "dev": 2.499132363623091e-07
+      }
+    },
+    "series_worst_dev_Ry": 0.0001561491526755887,
+    "ground_Ry_scipy": -0.9998438508473244,
+    "ground_Ry_handrolled": -0.9998438508466274,
+    "solver_crosscheck_dev_Ry": 6.969980148596733e-13,
+    "mu_Ps_MeV": 0.255499475,
+    "mu_Hinf_MeV": 0.51099895,
+    "alpha": 0.0072973525692838015,
+    "N_grid": 6000,
+    "checks": [
+      {
+        "name": "Ry(Ps)/Ry(H_inf) = 1/2",
+        "value": 0.0,
+        "target": 1e-09,
+        "tier": "machine",
+        "status": "PASS"
+      },
+      {
+        "name": "positronium ground ~ -6.803 eV",
+        "value": 0.0010156972216215365,
+        "target": 0.005,
+        "tier": "quantitative",
+        "status": "PASS"
+      },
+      {
+        "name": "positronium -1/n^2 series (n=1..5)",
+        "value": 0.0001561491526755887,
+        "target": 0.001,
+        "tier": "grid",
+        "status": "PASS"
+      },
+      {
+        "name": "scipy == hand-rolled real solve",
+        "value": 6.969980148596733e-13,
+        "target": 1e-05,
+        "tier": "verification",
+        "status": "PASS"
+      }
+    ]
+  },
+  "commands": [
+    "python3 tests/findings/test_FB06_positronium.py"
+  ],
+  "timestamp": "2026-06-16"
+}

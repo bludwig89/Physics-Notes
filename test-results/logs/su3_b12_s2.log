@@ -1,0 +1,18 @@
+running beta=12.00 L=24: 4000 therm + 2000 meas sweeps (~59 min at this L; progress below)...
+  [therm 1/4000] acc=0.26 <plaq>=0.9371  0s elapsed, ~2982s left
+  [therm 151/4000] acc=0.42 <plaq>=0.7559  74s elapsed, ~2860s left
+  [therm 301/4000] acc=0.42 <plaq>=0.7585  146s elapsed, ~2772s left
+  [therm 451/4000] acc=0.42 <plaq>=0.7594  220s elapsed, ~2713s left
+  [therm 601/4000] acc=0.43 <plaq>=0.7569  294s elapsed, ~2643s left
+  [therm 751/4000] acc=0.42 <plaq>=0.7573  368s elapsed, ~2573s left
+  [therm 901/4000] acc=0.42 <plaq>=0.7583  441s elapsed, ~2497s left
+  [therm 1051/4000] acc=0.42 <plaq>=0.7581  516s elapsed, ~2428s left
+  [therm 1201/4000] acc=0.42 <plaq>=0.7580  590s elapsed, ~2356s left
+  [therm 1351/4000] acc=0.42 <plaq>=0.7577  664s elapsed, ~2284s left
+  [therm 1501/4000] acc=0.42 <plaq>=0.7590  738s elapsed, ~2212s left
+  [therm 1651/4000] acc=0.42 <plaq>=0.7592  812s elapsed, ~2139s left
+  [therm 1801/4000] acc=0.42 <plaq>=0.7583  887s elapsed, ~2068s left
+  [therm 1951/4000] acc=0.42 <plaq>=0.7589  961s elapsed, ~1995s left
+  [therm 2101/4000] acc=0.43 <plaq>=0.7582  1036s elapsed, ~1923s left
+  [therm 2251/4000] acc=0.43 <plaq>=0.7574  1110s elapsed, ~1849s left
+  [therm 2401/4000] acc=0.43 <plaq>=0.7579  1184s elapsed, ~1774s left

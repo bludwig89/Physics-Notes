@@ -1,0 +1,40 @@
+{
+  "G1_b0_gate_exact": {
+    "passed": true,
+    "b0_total": "11",
+    "b0_target": "11",
+    "transverse": true,
+    "calibration_g": "1",
+    "gluon_ghost_split": [
+      "10",
+      "1"
+    ],
+    "tensor_coeff": "22/3"
+  },
+  "G2_lattice_b0_propagator_independent": {
+    "passed": true,
+    "wilson_shift_spread": 0.00015927402577570193,
+    "wilson_shift_mean": -0.07869058442756195,
+    "rule_shift_mean": -0.005071300575511986,
+    "n": 18
+  },
+  "G3_finite_d1_open_bracket_stands": {
+    "passed": true,
+    "qstar_bracket": [
+      0.5774,
+      0.97
+    ],
+    "implied_qstar": 0.7327,
+    "lambda_ratio_target": 1.78,
+    "wilson_contrast": 28.81,
+    "verdict": "b0 gate PASS (exact + lattice); finite d1 to digit OPEN (vertex form factors, Wilson-28.81 gate); F155 bracket stands"
+  },
+  "summary": {
+    "passed": 3,
+    "total": 3,
+    "all_pass": true,
+    "b0_gate": "PASS (exact 11 = 10 gluon + 1 ghost)",
+    "qstar_pinned": false,
+    "qstar_bracketed": true
+  }
+}

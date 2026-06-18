@@ -1,0 +1,44 @@
+{
+  "B1_gap_solve": {
+    "passed": true,
+    "alpha_eff_star_mD": 0.37643585205078134,
+    "alpha_eff_star_mV": 0.4111282348632813,
+    "mean": 0.3937820434570313,
+    "M0_mD": 1.5000608658556982,
+    "M0_mV": 1.4999049156311164
+  },
+  "B2_L_stable": {
+    "passed": true,
+    "aL16": 0.3764137268066407,
+    "aL32": 0.37643585205078134
+  },
+  "B3_running_overshoots": {
+    "passed": true,
+    "M0_running": 7.578640365744872,
+    "M0_MeV": 1571.650033189658
+  },
+  "A1_qstar_open": {
+    "passed": true,
+    "a1_6": 3.6666666666666665,
+    "implied_qstar_F151": 0.7327,
+    "band_top": 1.0,
+    "logmoment_flat4d": 2.7178845426930867,
+    "logmoment_prop4d": 2.299154496961239,
+    "verdict": "cheap log-moment gives UV scale ~e/a, NOT the matching scale; q* needs the full one-loop subtraction \u2014 A OPEN"
+  },
+  "C_frozen_window": {
+    "passed": true,
+    "alpha_eff_star_mean": 0.3937820434570313,
+    "window": [
+      0.3,
+      0.5
+    ]
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true,
+    "B_solved": true,
+    "A_open": true
+  }
+}

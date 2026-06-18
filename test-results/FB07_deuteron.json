@@ -1,0 +1,137 @@
+{
+  "test_id": "FB07",
+  "name": "Deuteron \u2014 \u00b3S\u2081\u2013\u00b3D\u2081 coupled-channel: binds via the pion tensor force",
+  "verdict": "PASS",
+  "hypothesis": "The deuteron binds as a single J^P=1\u207a, I=0 state ONLY through the OPEP tensor force (central-only OPEP is unbound at the same core \u2014 structural). E_b=2.224 MeV, \u03ba=0.2316 fm\u207b\u00b9, r_d\u22481.97 fm, few-% D-state.",
+  "predicted": {
+    "E_b_MeV": 2.224,
+    "kappa_inv_fm": 0.2316,
+    "JP": "1+",
+    "isospin": 0,
+    "tensor_essential": true,
+    "S12_matrix": "[[0, 2\u221a2],[2\u221a2, -2]] (Rarita-Schwinger)"
+  },
+  "measured_target": {
+    "E_b_MeV": 2.22457,
+    "kappa_inv_fm": 0.2316,
+    "JP": "1+",
+    "isospin": 0,
+    "r_d_fm": 1.97,
+    "P_D_percent": "4-6"
+  },
+  "gate": {
+    "criterion": "PASS iff (1) full tensor binds AND central-only unbound at the same core (tensor-essential), (2) single J^P=1\u207a I=0 with few-% D-state, (3) \u00b3S\u2081 tail slope matches \u03ba=\u221a(M_N E_b)/\u0127c to ~1% with E_b tunable to 2.224 MeV at physical \u03ba=0.2316 fm\u207b\u00b9.",
+    "criterion_1_tensor_essential_ok": true,
+    "criterion_2_single_1plus_I0_fewpct_D_ok": true,
+    "criterion_3_tail_and_tune_ok": true,
+    "tensor_matrix_machine_precision_ok": true
+  },
+  "computed": {
+    "S12_matrix_residual": 2.057203149150033e-14,
+    "config": {
+      "core": "derived",
+      "b_fm": 0.55,
+      "sigma_g2_4pi": 8.18,
+      "m_sigma_MeV": 622.4,
+      "omega_g2_4pi_tuned": 5.388611729629234,
+      "m_omega_MeV": 782.66,
+      "Vcore0_MeV": 341.7866666666667,
+      "g_A": 1.2723,
+      "M_N_MeV": 938.918,
+      "m_pi_MeV": 138.039,
+      "f_pi_MeV": 92.07,
+      "f2_over_4pi": 0.07238965746396356
+    },
+    "deuteron": {
+      "E_b_MeV": 2.224000000007859,
+      "kappa_inv_fm": 0.2315766433806148,
+      "kappa_analytic_sqrt_MN_Eb": 0.2315766433806148,
+      "kappa_tail_slope": 0.23178019394022017,
+      "tail_rel_error": 0.0008789770705452144,
+      "E1_MeV": 1.0152889537445031,
+      "P_D": 0.06256052761907052,
+      "P_D_percent": 6.2560527619070525,
+      "P_D_no_tensor": 0.0,
+      "r_d_fm": 1.9765710312213467,
+      "central_only_bound": false,
+      "central_only_E_MeV": 0.6153692205025135
+    },
+    "cross_check_b_tuned": {
+      "b_fm": 0.41002736616683255,
+      "E_b_MeV": 2.2240000000472024,
+      "kappa_inv_fm": 0.23157664338266312,
+      "P_D_percent": 8.45613730400116,
+      "E1_MeV": 0.9737799237813735
+    }
+  },
+  "checks": {
+    "C0.S12_equals_Rarita_Schwinger": {
+      "status": "PASS",
+      "detail": "max|<S12>_CG - [[0,2\u221a2],[2\u221a2,-2]]| = 2.06e-14 (machine)"
+    },
+    "C1.full_binds_central_unbound": {
+      "status": "PASS",
+      "detail": "full E_b=2.2240 MeV (bound); central-only E=0.615 MeV (unbound: True)"
+    },
+    "C2.single_bound_state": {
+      "status": "PASS",
+      "detail": "E1 = 1.0153 MeV >= 0 (no second bound state)"
+    },
+    "C2.JP_is_1plus_I0": {
+      "status": "PASS",
+      "detail": "L\u2208{0,2} (P=(-1)^L=+1), S=1 triplet, T=0 (antisymmetry) -> J^P=1\u207a, I=0"
+    },
+    "C2.D_state_few_percent": {
+      "status": "PASS",
+      "detail": "P_D = 6.26% (few-%; tensor-induced)"
+    },
+    "C2.D_state_vanishes_without_tensor": {
+      "status": "PASS",
+      "detail": "P_D(tensor off) = 0.00e+00 (~0)"
+    },
+    "C3.tail_slope_matches_kappa": {
+      "status": "PASS",
+      "detail": "\u03ba_tail=0.23178 vs \u03ba=0.23158 fm\u207b\u00b9  (rel 0.088% < 1%)"
+    },
+    "C3.E_b_tuned_to_2.224_MeV": {
+      "status": "PASS",
+      "detail": "E_b = 2.22400 MeV (target 2.224)"
+    },
+    "C3.physical_kappa_0.2316": {
+      "status": "PASS",
+      "detail": "\u03ba = 0.23158 fm\u207b\u00b9 (target 0.2316)"
+    },
+    "C3.kappa_equals_sqrt_MN_Eb": {
+      "status": "PASS",
+      "detail": "\u03ba = \u221a(M_N E_b)/\u0127c to 0.00e+00"
+    },
+    "C3.deuteron_radius_~1.97_fm": {
+      "status": "PASS",
+      "detail": "r_d = 1.977 fm (measured \u22481.97)"
+    },
+    "X.b_tuned_path_same_physical_deuteron": {
+      "status": "PASS",
+      "detail": "b=0.4100 fm -> E_b=2.2240 MeV, \u03ba=0.23158, P_D=8.46%, tensor still essential"
+    }
+  },
+  "commands": [
+    "python3 tests/findings/test_FB07_deuteron.py"
+  ],
+  "notes": [
+    "Tensor matrix <S12> built by explicit Clebsch-Gordan + spinor-spherical-harmonic quadrature equals the Rarita-Schwinger [[0,2\u221a2],[2\u221a2,-2]] to 2.1e-14; the off-diagonal 2\u221a2 (hand-checked) is exactly the L=0<->L=2 mixing that supplies the binding.",
+    "HEADLINE (tensor-essential): with the F113 derived +341.8 MeV core, F126 \u03c3 attraction (g\u00b2/4\u03c0=8.18, b=0.55 fm) and F128 \u03c9 repulsion, the full \u00b3S\u2081\u2013\u00b3D\u2081 OPEP binds (E_b=2.224 MeV) while central-only OPEP is UNBOUND at the identical configuration \u2014 the textbook reason the deuteron exists.",
+    "Single short-range knob here is the \u03c9 coupling (bisected, kept inside the OBE window); FB08 instead tunes the quark size b at default couplings. Both land the same physical deuteron (cross-check X) \u2014 the result is not an artefact of which short-range lever is tuned.",
+    "Inputs honest: g_A (external, via Goldberger-Treiman) and M_N (external, P2/P6) are the only non-model numbers; m_\u03c0, f_\u03c0 are P3/F77 outputs; the core height +341.8 MeV is EXACT given g_cm (F113).",
+    "Radial Schr\u00f6dinger eigenproblem solved with numpy (REAL arithmetic, NOT a chiral transform \u2014 appropriate per CLAUDE.md); spin-angular algebra verified against the closed-form Rarita-Schwinger result.",
+    "Consistent with F104 (P4_deuteron.json, 11/11) and FB08 (FB08_nn_repulsive_core.json)."
+  ],
+  "provenance": [
+    "F104",
+    "F126",
+    "F113",
+    "F103",
+    "F128",
+    "F77"
+  ],
+  "timestamp": "2026-06-16 - 15:25"
+}

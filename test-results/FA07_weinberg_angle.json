@@ -1,0 +1,75 @@
+{
+  "test_id": "FA07",
+  "title": "Weinberg angle sin^2 theta_W = 1/4 (bare)",
+  "tier": "A",
+  "verdict": "PASS",
+  "predicted": {
+    "sin2_thetaW_bare_F45": "1/4",
+    "sin2_thetaW_bare_F45_float": 0.25,
+    "sin2_thetaW_partial_F49": "2/9",
+    "sin2_thetaW_partial_F49_float": 0.2222222222222222,
+    "mZ_over_mW": "2/sqrt(3) = 1.1547"
+  },
+  "measured_target": {
+    "sin2_on_shell": 0.22305,
+    "sin2_msbar_MZ": 0.23122,
+    "source": "PDG 2024"
+  },
+  "gate": "PASS if +12% residual is RG/matching-shaped (F115) AND the 1/4 vs 2/9 derivations reconcile.",
+  "computed": {
+    "F45_swap": {
+      "gp2_over_g2": "1/3",
+      "sin2_thetaW": "1/4",
+      "sin2_thetaW_float": 0.25,
+      "cos2_thetaW": "3/4",
+      "casimir_cross_check_ratio": "1/3",
+      "casimir_matches_dimension_count": true,
+      "mZ_over_mW_symbolic": "2*sqrt(3)/3",
+      "mZ_over_mW_float": 1.1547005383792515,
+      "thetaW_deg": 30.0
+    },
+    "F49_bcc_counting": {
+      "n_sublattices": 2,
+      "n_bond_axes_2nd_shell": 7,
+      "gp2_over_g2": "2/7",
+      "sin2_thetaW": "2/9",
+      "sin2_thetaW_float": 0.2222222222222222,
+      "status": "partial (assignment not yet derived from BCC representation theory)"
+    },
+    "measured": {
+      "pdg_sin2_on_shell": 0.22305,
+      "pdg_sin2_msbar_MZ": 0.23122,
+      "source": "PDG 2024 (on-shell + MSbar at M_Z)",
+      "rel_gap_F45_vs_onshell": 0.12082492714637974,
+      "rel_gap_F49_vs_onshell": -0.0037111758698847273
+    },
+    "residual_F115": {
+      "desert_running_from_planck": "overshoots to ~0.059 (-74%), FALSIFIES running",
+      "measured_trajectory_crosses_1/4_at_TeV": {
+        "SM": 3.7,
+        "higgs_free": 3.4,
+        "units": "TeV"
+      },
+      "all_three_EW_observables_lock_at_mu_star": true,
+      "verdict": "gap is a few-TeV matching offset, not desert running",
+      "residual_is_RG_matching_shaped": true
+    },
+    "gate": {
+      "criterion_1_residual_RG_matching_shaped": true,
+      "criterion_2_derivations_reconcile": true,
+      "delta_between_derivations": "1/36",
+      "note": "1/4 (F45 internal) and 2/9 (F49 external) are complementary, not contradictory; both > PDG on-shell; 2/9 is the partial structural closer to the bare 1/4."
+    }
+  },
+  "commands": [
+    "python3 tests/runners/FA07_weinberg_angle.py"
+  ],
+  "provenance": [
+    "F45",
+    "F49",
+    "F35",
+    "F115",
+    "F112 sec.D"
+  ],
+  "timestamp": "2026-06-10T00:00:00"
+}

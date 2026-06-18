@@ -1,0 +1,41 @@
+{
+  "S1": {
+    "passed": true,
+    "A_over_ybar": 1.4142005051845774,
+    "sqrt2": 1.4142135623730951,
+    "delta_deg": 12.732819967108327
+  },
+  "S2": {
+    "passed": true,
+    "cos3delta": 0.7858735155809619,
+    "F93_value": 0.785874
+  },
+  "S3": {
+    "passed": true,
+    "Q": 0.6666605114773855,
+    "two_thirds": 0.6666666666666666,
+    "cosQ": 0.7858910669452445,
+    "cos_two_thirds": 0.785887260776948,
+    "three_delta_rad": 0.6666888944691493,
+    "rel_3delta_vs_Q": 4.25748807303378e-05
+  },
+  "S4": {
+    "passed": true,
+    "lambda6": 0.243,
+    "fierz_2_9": 0.2222222222222222,
+    "rotor_1_4": 0.25,
+    "Creq_over_absB": 0.6362346994609838,
+    "note": "lambda_6 bracketed by the two binding/rotor rationals; exact point = IR residual shared with F124/F144/F145"
+  },
+  "S5": {
+    "passed": true,
+    "B_exp": 3.99,
+    "Cloop_exp": 7.2,
+    "note": "C_loop scales steeper than B by >3 powers -> per-axis/free-sea loop cannot supply C (F95+F147 two-route no-go)"
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true
+  }
+}

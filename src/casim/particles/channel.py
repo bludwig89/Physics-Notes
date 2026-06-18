@@ -43,7 +43,7 @@ coupling the particle's charges forbid (e.g. a lepton → gluon) raises
 """
 from __future__ import annotations
 
-from typing import Dict
+from typing import Any, Dict
 
 import numpy as np
 
@@ -235,6 +235,76 @@ class ParticleChannel(Channel):
             return ps["alpha"]
         return None
 
+    def _confine_potential(self, lattice, context):
+        """F86/F70 linear confining string field
+
+            V_i(x) = Σ_{j≠i} (σ/2) · |x − r_j|     (periodic minimal image)
+
+        where r_j are the start-of-tick centroids of the colour-singlet
+        partners (the pairwise Δ-string; matches F122's per-pair (σ/2)r
+        Cornell confining term).  σ is the string tension (F70 area law /
+        F86 dual-superconductor σ=2πv²n).  Returned as a real (L,L,L) array
+        (or None when no ``confine`` block / partners).
+
+        How it is APPLIED decides whether it confines (the U1 physics):
+          * Lorentz-**scalar** (added to the Dirac mass, ``confine.mode:
+            scalar``, the default) → MIT-bag / dual-superconductor
+            confinement: it BINDS even a (near-)massless fermion.
+          * **vector** (a phase kick e^{-iV dt} on a Weyl spinor,
+            ``confine.mode: vector``) → Klein paradox: it only redirects,
+            never slows, and does NOT bind (the documented null).
+        """
+        cfg = self.config.get("confine")
+        if not cfg or context is None:
+            return None
+        # LIVE flux-tube field (F137): read the scalar bag mass S(x) from a
+        # partner colour_bag channel instead of building a geometric string.
+        if cfg.get("field"):
+            ps = context.get(cfg["field"])
+            if ps is not None and "S" in ps and np.any(ps["S"]):
+                return np.asarray(ps["S"])
+            return None
+        sigma = float(cfg.get("sigma", 0.0))
+        partners = cfg.get("partners", [])
+        if sigma == 0.0 or not partners:
+            return None
+        L = lattice.L
+        idx = np.indices((L, L, L))
+
+        def _dist_to(r):
+            d2 = np.zeros((L, L, L))
+            for ax in range(3):
+                dax = (idx[ax] - r[ax] + L / 2.0) % L - L / 2.0
+                d2 = d2 + dax ** 2
+            return np.sqrt(d2)
+
+        anchor = cfg.get("anchor", "pairwise")
+        if anchor == "com":
+            # Y-string: a single conical well V=σ|x−R_cm| toward the colour-
+            # singlet centre of mass (the string junction).  Full inward
+            # gradient σ everywhere — the strong-binding geometry.
+            cens = [np.asarray(context[p]["centroid_prev"], float)
+                    for p in partners
+                    if context.get(p) is not None
+                    and "centroid_prev" in context[p]]
+            if not cens:
+                return None
+            R = np.mean(cens, axis=0)
+            return sigma * _dist_to(R)
+        # pairwise Δ-string: V_i = Σ_{j≠i}(σ/2)|x−r_j| (matches F122 per-pair)
+        V = np.zeros((L, L, L))
+        n_used = 0
+        for pname in partners:
+            if pname == self.name:
+                continue
+            ps = context.get(pname)
+            if ps is None or "centroid_prev" not in ps:
+                continue
+            V = V + 0.5 * sigma * _dist_to(np.asarray(ps["centroid_prev"],
+                                                       float))
+            n_used += 1
+        return V if n_used else None
+
     def step(self, state, lattice, context=None, rng=None):
         import ca_bcc
         import ca_minimal_coupling as mc
@@ -255,7 +325,23 @@ class ParticleChannel(Channel):
                 from casim.gravity import lapse_mix_half
                 eu, ed, xu, xd = lapse_mix_half(eu, ed, xu, xd,
                                                 sqrtA, self.mass)
-            if alpha is not None and q:
+            # F86/F70 confining string as a Lorentz-SCALAR potential (U1):
+            # m_eff(x) = m + Σ_{j≠i}(σ/2)|x−r_j| added to the Dirac mass.
+            # A scalar linear well confines (MIT bag / F86 dielectric ε_c→0 =
+            # infinite effective mass in the vacuum) where the vector kick
+            # Klein-tunnels.  Steps with the variable-mass BCC Dirac kernel.
+            V_conf = (self._confine_potential(lattice, context)
+                      if self.config.get("confine", {}).get(
+                          "mode", "scalar") != "vector" else None)
+            if V_conf is not None:
+                from ca_dirac_bcc import dirac_step_3d_bcc_varm_splitstep
+                m_field = self.mass + V_conf
+                eu, ed, xu, xd = dirac_step_3d_bcc_varm_splitstep(
+                    eu, ed, xu, xd, m_field=m_field, m0=self.mass, sign=sign)
+                if alpha is not None and q:        # EM as a minimal-coupling phase
+                    ph = np.exp(-1j * q * a)
+                    eu, ed, xu, xd = ph * eu, ph * ed, ph * xu, ph * xd
+            elif alpha is not None and q:
                 eu, ed, xu, xd = mc.u1_wrap_dirac_step_3d_bcc(
                     eu, ed, xu, xd, a, q, m=self.mass, sign=sign)
             else:
@@ -312,6 +398,18 @@ class ParticleChannel(Channel):
                 f_c, g_c, A_oct, eps=eps_s, sign=sign)
             if ph is not None:
                 f_c, g_c = np.conj(ph) * f_c, np.conj(ph) * g_c
+            # F86/F70 confining string (U1) applied to a Weyl spinor as a
+            # VECTOR (phase) kick e^{-iV dt}: exactly unitary, but a vector
+            # potential Klein-tunnels and does NOT bind a massless quark —
+            # the documented null (the scalar/mass coupling on the Dirac path
+            # is what confines).  Off unless confine.mode == "vector".
+            V = self._confine_potential(lattice, context)
+            if V is not None and \
+                    self.config.get("confine", {}).get("mode") == "vector":
+                dt_c = float(self.config["confine"].get("dt", 1.0))
+                cphase = np.exp(-1j * V * dt_c)
+                f_c = f_c * cphase[None, ...]
+                g_c = g_c * cphase[None, ...]
             new = {"f": f_c, "g": g_c}
         else:
             if alpha is not None and self.specs[0].Q != 0:
@@ -419,6 +517,338 @@ class ParticleChannel(Channel):
             out["grav_potential"] = float(state.get("grav_potential", 0.0))
             out["grav_K_centroid"] = float(state.get("grav_K_centroid", 1.0))
         return out
+
+
+# ======================================================================
+# ColourDiracQuarkChannel — a massive SU(3) colour-triplet Dirac quark
+# (roadmap-unified-real-space.md U3, Part 1): the F135 scalar confining
+# string applied to a genuine colour quark, with the SU(3) gluon loop live.
+# ======================================================================
+@register
+class ColourDiracQuarkChannel(ParticleChannel):
+    """A massive colour-triplet **Dirac** quark on the BCC lattice.
+
+    State is a 4-component Dirac spinor (η↑,η↓,χ↑,χ↓) stacked on 3 colours,
+    each component an (3,L,L,L) complex array.  Per tick:
+      1. SU(3) colour rotation from the gluon octet potential A (the F43
+         loop, ``su3`` via ``_su3_expmap_field``) — applied to every spinor
+         component's colour axis;
+      2. the **variable-mass** BCC Dirac step per colour with the F135
+         Lorentz-scalar confining mass m_eff(x)=m+Σ(σ/2)|x−r| (``confine``
+         block; colour-blind);
+      3. the U(1) EM minimal-coupling phase if charged.
+
+    It publishes ``J_colour`` (sources the gluon) and ``J_em``/``rho_em``
+    (sources the photon), closing both loops on a real colour quark.  Unlike
+    the Weyl ``particle`` quark, this one is massive, so the scalar string
+    binds it (F135) — vector/Weyl confinement Klein-tunnels.
+    """
+    type_name = "quark_dirac"
+    label = "Colour Dirac Quark"
+    propagator = "per-branch"
+    topologies = ("bcc",)
+
+    def __init__(self, name=None, **config):
+        Channel.__init__(self, name=name, **config)
+        flavour = config.get("species", "u_L")
+        self.specs = (get_spec(flavour),)
+        if self.specs[0].kind != "quark":
+            raise ValueError(f"{self.name}: quark_dirac needs a quark species")
+        self.species = flavour
+        self.is_doublet = False
+        self.is_quark = True
+        self.is_dirac = True
+        self.mass = float(config.get("mass", 0.3))
+        if abs(self.mass) > 1.0:
+            raise ValueError(f"{self.name}: |mass| must be ≤ 1 (QCA)")
+        self.colour = str(config.get("colour", "r"))
+        allowed = self.specs[0].couples_to()
+        self.couplings = dict(config.get("couplings", {}))
+        for force in self.couplings:
+            if force not in _TIERS:
+                raise ValueError(f"{self.name}: unknown force {force!r}")
+            if force == "weak":
+                raise ValueError(f"{self.name}: weak coupling is doublet-only")
+            if force not in allowed:
+                raise ValueError(
+                    f"{self.name}: {flavour} does not couple to {force}")
+
+    def init_state(self, lattice, rng):
+        L = lattice.L
+        init = self.config.get("init", {}) or {}
+        center = tuple(init.get("center", (L // 2, L // 2, L // 2)))
+        width = float(init.get("width", 1.5))
+        k0 = init.get("k0", None)
+        k0 = tuple(k0) if k0 is not None else None
+        idx = {"r": 0, "g": 1, "b": 2}[self.colour]
+        pkt = gaussian_packet(L, center, width, k0=k0)
+        z = np.zeros((3, L, L, L), dtype=complex)
+        eu = z.copy()
+        eu[idx] = pkt
+        st = {"eta_u": eu, "eta_d": z.copy(),
+              "chi_u": z.copy(), "chi_d": z.copy()}
+        st["centroid_prev"] = _centroid(self._density(st), L)
+        self._publish_currents(st)
+        self._grav_readout(st, context=None)
+        return st
+
+    def _density(self, state):
+        d = (np.abs(state["eta_u"]) ** 2 + np.abs(state["eta_d"]) ** 2
+             + np.abs(state["chi_u"]) ** 2 + np.abs(state["chi_d"]) ** 2)
+        d = d.sum(axis=0)
+        return d.real if np.iscomplexobj(d) else d
+
+    def density_field(self, state):
+        return np.asarray(self._density(state))
+
+    def step(self, state, lattice, context=None, rng=None):
+        from ca_dirac_bcc import (dirac_step_3d_bcc_varm_splitstep,
+                                  dirac_step_3d_bcc_splitstep)
+        sign = self.config.get("sign", "+")
+        prev = _centroid(self._density(state), lattice.L)
+        eu = state["eta_u"].copy(); ed = state["eta_d"].copy()
+        xu = state["chi_u"].copy(); xd = state["chi_d"].copy()
+
+        # (1) SU(3) colour rotation from the gluon octet potential A
+        if "strong" in self.couplings and context:
+            gs = context.get(self.couplings["strong"])
+            if gs is not None and "A" in gs and np.any(gs["A"]):
+                from ca_gluon import _su3_expmap_field
+                eps = float(self.config.get("eps_strong", 0.05))
+                V = _su3_expmap_field(eps * gs["A"])
+                eu = np.einsum('xyzij,jxyz->ixyz', V, eu)
+                ed = np.einsum('xyzij,jxyz->ixyz', V, ed)
+                xu = np.einsum('xyzij,jxyz->ixyz', V, xu)
+                xd = np.einsum('xyzij,jxyz->ixyz', V, xd)
+
+        # (2) variable-mass Dirac kinetic step per colour (scalar confinement)
+        V_conf = (self._confine_potential(lattice, context)
+                  if self.config.get("confine", {}).get(
+                      "mode", "scalar") != "vector" else None)
+        if V_conf is not None:
+            m_field = self.mass + V_conf
+            dt_c = float(self.config.get("confine", {}).get("dt", 1.0))
+            for c in range(3):
+                eu[c], ed[c], xu[c], xd[c] = dirac_step_3d_bcc_varm_splitstep(
+                    eu[c], ed[c], xu[c], xd[c],
+                    m_field=m_field, m0=self.mass, dt=dt_c, sign=sign)
+        else:
+            for c in range(3):
+                eu[c], ed[c], xu[c], xd[c] = dirac_step_3d_bcc_splitstep(
+                    eu[c], ed[c], xu[c], xd[c], m=self.mass, sign=sign)
+
+        # (3) U(1) EM minimal-coupling phase
+        alpha = self._em_alpha(context)
+        q = float(self.specs[0].Q)
+        if alpha is not None and q:
+            ph = np.exp(-1j * q * alpha)[None, ...]
+            eu, ed, xu, xd = ph * eu, ph * ed, ph * xu, ph * xd
+
+        new = {"eta_u": eu, "eta_d": ed, "chi_u": xu, "chi_d": xd,
+               "centroid_prev": prev}
+        self._publish_currents(new)
+        self._grav_readout(new, context)
+        return new
+
+    def _publish_currents(self, state) -> None:
+        if "em" in self.couplings:
+            q = float(self.specs[0].Q)
+            J = np.zeros((3,) + state["eta_u"].shape[1:])
+            for c in range(3):
+                J += q * (weyl_vector_current(state["eta_u"][c],
+                                              state["eta_d"][c])
+                          - weyl_vector_current(state["chi_u"][c],
+                                                state["chi_d"][c]))
+            state["J_em"] = J
+            state["rho_em"] = q * self._density(state)
+        if "strong" in self.couplings:
+            state["J_colour"] = (
+                colour_charge_density(state["eta_u"], state["eta_d"])
+                + colour_charge_density(state["chi_u"], state["chi_d"]))
+
+    def observables(self, state, lattice) -> dict:
+        out = ParticleChannel.observables(self, state, lattice)
+        out["colour"] = self.colour
+        out["mass"] = self.mass
+        return out
+
+
+# ======================================================================
+# NonRelElectronChannel — the non-relativistic atomic electron (U2/U3).
+# ----------------------------------------------------------------------
+# The atomic electron is non-relativistic (v ~ αc ~ 0.007 c): the Dirac
+# split-step kernel brings in the Klein/zitterbewegung dynamics that a bound
+# atomic electron does NOT have, and on a tractable relativistic lattice a
+# vector Coulomb well Klein-tunnels rather than binds (the F135 vector null;
+# the Dirac–Coulomb Zα→1 collapse).  F125 already supplies the relativistic
+# fine structure (Lamb shift, 2p split) from the *spectral* Dirac–Coulomb
+# solve.  For the real-time *binding* demonstration (U2) and the neutral atom
+# (U3) the correct, stable description is the Schrödinger evolution of the
+# electron orbital in the proton's Coulomb potential, integrated by an
+# exactly-unitary split-step (potential half-kick · spectral kinetic · half-
+# kick).  This is the atomic-scale, non-relativistic complement to the Dirac
+# matter channels — explicitly labelled so, not a relativistic claim.
+# ======================================================================
+@register
+class NonRelElectronChannel(Channel):
+    """Non-relativistic electron orbital ψ(x) bound by a Coulomb potential.
+
+    Evolves  i ∂_t ψ = (−∇²/2m + V)ψ  with V(x) = q·φ_em(x), where
+    φ_em = −Poisson(ρ_src) is the *same* open-boundary electrostatic
+    convention the ``photon_sourced`` channel uses (F64 kernel).  ρ_src is the
+    summed ``rho_em`` of the channels named in ``sources`` (the proton's
+    quarks, self-consistently each tick) plus an optional static
+    ``external_charge`` (the U2 de-risk: a fixed point charge).
+
+    Integrator: Strang split-step ``e^{−iVdt/2} · F⁻¹ e^{−ik²dt/2m} F ·
+    e^{−iVdt/2}`` — exactly unitary (norm conserved to the FFT floor).
+
+    With ``init: {ground_state: true}`` the orbital is relaxed to the
+    instantaneous ground state of V by imaginary-time propagation on the
+    first step (so it starts stationary — the clean bound-vs-free control is
+    then unambiguous).  Otherwise a Gaussian ``init: {center, width}``.
+
+    Publishes ``rho_em`` = q·\|ψ\|² and the probability current ``J_em`` so it
+    sources the photon and is counted in the neutrality / loop-liveness
+    readout.  Charge defaults to the ``e_L`` electron (q = −1); set ``charge``
+    to override.
+    """
+    type_name = "nr_electron"
+    label = "Non-Rel Electron"
+    propagator = "non-rel"          # Schrödinger; outside the F91 classes
+    topologies = ("cubic", "bcc")
+
+    def __init__(self, name=None, **config):
+        super().__init__(name=name, **config)
+        self.mass = float(config.get("mass", 1.0))
+        self.charge = float(config.get("charge", -1.0))
+        self.g_coulomb = float(config.get("g_coulomb", 1.0))
+        self.dt = float(config.get("dt", 0.2))
+        self.sources = list(config.get("sources", []))
+        self.external_charge = config.get("external_charge")
+
+    # --- potential assembly ------------------------------------------------
+    def _source_density(self, lattice, context, state):
+        """ρ_src(x): summed partner rho_em + static external charge (or None)."""
+        rho = None
+        for src in self.sources:
+            ps = (context or {}).get(src)
+            if ps is not None and ps.get("rho_em") is not None:
+                rho = ps["rho_em"] if rho is None else rho + ps["rho_em"]
+        ext = state.get("_rho_ext")
+        if ext is not None:
+            rho = ext if rho is None else rho + ext
+        return rho
+
+    def _potential(self, lattice, context, state):
+        rho = self._source_density(lattice, context, state)
+        if rho is None or not np.any(rho):
+            return np.zeros((lattice.L,) * 3)
+        from casim.gravity import solve_poisson_3d_open
+        phi_em = -solve_poisson_3d_open(rho, G_N=self.g_coulomb / (4.0 * np.pi))
+        return self.charge * phi_em
+
+    # --- spectral kinetic helper ------------------------------------------
+    @staticmethod
+    def _k2(L):
+        k = 2.0 * np.pi * np.fft.fftfreq(L)
+        KX, KY, KZ = np.meshgrid(k, k, k, indexing="ij")
+        return KX ** 2 + KY ** 2 + KZ ** 2
+
+    def _relax_ground_state(self, psi, V, L, dtau, steps):
+        """Imaginary-time relaxation to the ground state of (−∇²/2m + V)."""
+        k2 = self._k2(L)
+        kin = np.exp(-k2 / (2.0 * self.mass) * dtau)
+        pot = np.exp(-V * dtau / 2.0)
+        for _ in range(int(steps)):
+            psi = pot * psi
+            psi = np.fft.ifftn(kin * np.fft.fftn(psi))
+            psi = pot * psi
+            nrm = np.sqrt(float((np.abs(psi) ** 2).sum()))
+            if nrm > 0:
+                psi = psi / nrm
+        return psi
+
+    def init_state(self, lattice, rng):
+        L = lattice.L
+        init = self.config.get("init", {}) or {}
+        center = tuple(init.get("center", (L // 2, L // 2, L // 2)))
+        width = float(init.get("width", 2.0))
+        psi = gaussian_packet(L, center, width, k0=None).astype(complex)
+        psi = psi / np.sqrt(float((np.abs(psi) ** 2).sum()))
+        st = {"psi": psi, "_relaxed": not bool(init.get("ground_state", False)),
+              "centroid_prev": _centroid(np.abs(psi) ** 2, L)}
+        # build the static external point charge once (U2 de-risk)
+        if self.external_charge is not None:
+            ec = self.external_charge
+            c = tuple(ec.get("center", center))
+            w = float(ec.get("width", 1.0))
+            qext = float(ec.get("q", 1.0))
+            blob = gaussian_packet(L, c, w, k0=None)
+            dens = np.abs(blob) ** 2
+            dens = dens / dens.sum() * qext
+            st["_rho_ext"] = dens
+        self._publish_currents(st)
+        return st
+
+    def density_field(self, state):
+        return np.asarray(np.abs(state["psi"]) ** 2)
+
+    def step(self, state, lattice, context=None, rng=None):
+        L = lattice.L
+        psi = state["psi"]
+        prev = _centroid(np.abs(psi) ** 2, L)
+        V = self._potential(lattice, context, state)
+        # lazy ground-state relaxation on the first live step
+        if not state.get("_relaxed", True):
+            init = self.config.get("init", {}) or {}
+            psi = self._relax_ground_state(
+                psi, V, L,
+                dtau=float(init.get("relax_dtau", 0.05)),
+                steps=int(init.get("relax_steps", 800)))
+        # real-time Strang split-step (exactly unitary)
+        k2 = self._k2(L)
+        kin = np.exp(-1j * k2 / (2.0 * self.mass) * self.dt)
+        pot = np.exp(-1j * V * self.dt / 2.0)
+        psi = pot * psi
+        psi = np.fft.ifftn(kin * np.fft.fftn(psi))
+        psi = pot * psi
+        new = {"psi": psi, "_relaxed": True, "centroid_prev": prev}
+        if "_rho_ext" in state:
+            new["_rho_ext"] = state["_rho_ext"]
+        self._publish_currents(new)
+        return new
+
+    def _publish_currents(self, state) -> None:
+        psi = state["psi"]
+        state["rho_em"] = self.charge * np.abs(psi) ** 2
+        # probability current J = q·Im(ψ* ∇ψ)/m (spectral gradient)
+        ft = np.fft.fftn(psi)
+        k = 2.0 * np.pi * np.fft.fftfreq(psi.shape[0])
+        KX, KY, KZ = np.meshgrid(k, k, k, indexing="ij")
+        J = np.zeros((3,) + psi.shape)
+        for ax, Kc in enumerate((KX, KY, KZ)):
+            grad = np.fft.ifftn(1j * Kc * ft)
+            J[ax] = self.charge * np.imag(np.conj(psi) * grad) / self.mass
+        state["J_em"] = J
+
+    def energy(self, state) -> float:
+        return float((np.abs(state["psi"]) ** 2).sum())
+
+    def observables(self, state, lattice) -> dict:
+        L = lattice.L
+        d = np.abs(state["psi"]) ** 2
+        cen = _centroid(d, L)
+        prev = np.asarray(state["centroid_prev"])
+        vel = (cen - prev + L / 2.0) % L - L / 2.0
+        return {
+            "species": "e_NR",
+            "norm": self.energy(state),
+            "centroid": [float(x) for x in cen],
+            "velocity_per_tick": [float(v) for v in vel],
+            "rms_self": _rms_radius(d, cen, L),
+            "charge": self.charge,
+        }
 
 
 # ======================================================================
@@ -620,6 +1050,120 @@ class GluonSourcedChannel(Channel):
 
 
 # ======================================================================
+# ColourBagChannel — the LIVE colour-dielectric flux-tube field (F137).
+# Replaces the geometric F135 string with a dynamical bag: the colour-magnetic
+# condensate is MELTED where the quark colour charge/flux sits, and full in
+# the vacuum.  The scalar confining mass the quarks read is the bag wall,
+# S(x)=M_bag·f²(x) — large in the vacuum (ε_c→0, flux expelled, F86), ~0 in
+# the dug-out core/tube.  Sourced each tick by the quark J_colour, so the bag
+# tracks the quarks: a self-generated MIT bag / dual-superconductor tube.
+# ======================================================================
+def _gauss_smear(rho, lam):
+    """Gaussian smear of a real (L,L,L) field by width ``lam`` (FFT).  Models
+    the colour-field penetration: a point colour charge fills a region of
+    radius ~λ (the F86 dual-London depth λ=1/ev), so two charges within ~2λ
+    share a connected low-condensate channel — the flux tube."""
+    L = rho.shape[0]
+    k = 2.0 * np.pi * np.fft.fftfreq(L)
+    KX, KY, KZ = np.meshgrid(k, k, k, indexing="ij")
+    ker = np.exp(-0.5 * lam ** 2 * (KX ** 2 + KY ** 2 + KZ ** 2))
+    return np.real(np.fft.ifftn(np.fft.fftn(rho) * ker))
+
+
+@register
+class ColourBagChannel(Channel):
+    """Live colour-dielectric bag field S(x) sourced by quark colour charge.
+
+    Per tick: ρ(x)=Σ_sources |J_colour|(x) (octet magnitude) → smear by the
+    penetration depth λ → condensate f²(x)=exp(−φ/φ₀) (→1 vacuum, →0 where
+    colour charge sits) → bag wall mass S(x)=M_bag·f²(x) and F86 dielectric
+    ε_c(x)=1−f²(x) (→0 vacuum, →1 core).  Quarks with ``confine.field`` read
+    S as their Lorentz-scalar confining mass (F135 mechanism), so the bag they
+    dig confines them — no posited geometric string.
+
+    Two modes:
+      * **mean-field** (default) — the F137 fixed-smear map above; the
+        condensate responds to the colour-charge density one-way, so the tube
+        pinches off beyond ~2λ.
+      * **self-consistent** (``backreaction: true``, F139) — the genuine dual-
+        Ginzburg-Landau loop ``ca_dual_gl_backreaction.self_consistent_bag``:
+        the confined colour-electric flux is itself what melts the condensate
+        (∂f/∂τ has the −f|D|²/ε_c² back-reaction term), the two fields solved
+        to mutual consistency each tick (warm-started from the previous tick).
+        The tube stays connected and linear to arbitrary separation; λ emerges
+        from the coherence length ξ instead of being posited.
+    """
+    type_name = "colour_bag"
+    label = "Colour Bag (dielectric)"
+    propagator = "dielectric"
+    topologies = ("bcc",)
+
+    def init_state(self, lattice, rng):
+        L = lattice.L
+        z = np.zeros((L, L, L))
+        return {"S": z.copy(), "eps_c": z.copy(), "phi": z.copy(),
+                "f": np.ones((L, L, L))}            # warm-start condensate (SC)
+
+    def _octet_source(self, L, context):
+        """Net signed octet colour-charge density ρ^a = Σ_sources J^a_colour
+        (8, L, L, L), and the scalar octet-magnitude ρ used by the mean-field
+        map.  Returns (rho_oct, rho_mag)."""
+        rho_oct = np.zeros((8, L, L, L))
+        rho_mag = np.zeros((L, L, L))
+        for src in self.config.get("sources", []):
+            ps = (context or {}).get(src)
+            if ps is not None and "J_colour" in ps:
+                Jc = np.asarray(ps["J_colour"], float)
+                rho_oct = rho_oct + Jc
+                rho_mag = rho_mag + np.sqrt((Jc ** 2).sum(axis=0))
+        return rho_oct, rho_mag
+
+    def step(self, state, lattice, context=None, rng=None):
+        L = lattice.L
+        M_bag = float(self.config.get("M_bag", 1.5))
+
+        if self.config.get("backreaction", False):
+            # --- self-consistent dual-GL back-reaction (F139) -------------
+            from casim.fields.strong import ca_dual_gl_backreaction as gl
+            rho_oct, _ = self._octet_source(L, context)
+            # solve only the non-trivial octet directions (Cartan-dominated
+            # for a definite-colour proton) — keeps the live loop cheap
+            rho_oct = rho_oct * float(self.config.get("g_src", 1.0))  # colour coupling g_s on the source
+            norms = np.sqrt((rho_oct ** 2).sum(axis=(1, 2, 3)))
+            keep = norms > float(self.config.get("src_tol", 1e-3)) * (norms.max() + 1e-30)
+            src = rho_oct[keep] if keep.any() else rho_oct[:1]
+            res = gl.self_consistent_bag(
+                src,
+                xi=float(self.config.get("xi", 1.0)),
+                eps_floor=float(self.config.get("eps_floor", 0.02)),
+                dtau=float(self.config.get("dtau", 0.03)),
+                n_out=int(self.config.get("sc_iters", 12)),
+                poisson_maxit=int(self.config.get("poisson_maxit", 150)),
+                tol=float(self.config.get("sc_tol", 1e-6)),
+                f_init=state.get("f"))
+            f = res["f"]
+            return {"S": M_bag * f * f, "eps_c": res["eps_c"], "f": f,
+                    "phi": -np.log(np.clip(f * f, 1e-12, 1.0))}
+
+        # --- mean-field bag (F137 default) -------------------------------
+        phi0 = float(self.config.get("phi0", 0.05))
+        lam = float(self.config.get("lam", 2.0))
+        _, rho = self._octet_source(L, context)
+        phi = np.clip(_gauss_smear(rho, lam), 0.0, None)  # clip FFT round-off
+        f2 = np.exp(-phi / max(phi0, 1e-12))
+        return {"S": M_bag * f2, "eps_c": 1.0 - f2, "phi": phi,
+                "f": np.sqrt(f2)}
+
+    def energy(self, state) -> float:
+        return float(state["S"].sum())
+
+    def observables(self, state, lattice) -> dict:
+        return {"S_max": float(state["S"].max()),
+                "S_min": float(state["S"].min()),
+                "eps_c_core": float(state["eps_c"].max())}
+
+
+# ======================================================================
 # Sidebar feed: per-particle readouts every N ticks
 # ======================================================================
 @register_observer
@@ -639,3 +1183,349 @@ class ParticleReadout(Observer):
                     sim.states[cname], sim.lattice)
         if rec["particles"]:
             self.records.append(rec)
+
+
+# ======================================================================
+# Unification readout — the emergent-binding diagnostics for the
+# real-space integration (roadmap-unified-real-space.md, U0).
+# ======================================================================
+def _rms_radius(density, center, L):
+    """Periodic-safe RMS radius of a density about ``center`` (lattice units)."""
+    tot = float(np.asarray(density).sum())
+    if tot <= 0.0:
+        return 0.0
+    idx = np.indices(density.shape)
+    r2 = np.zeros(density.shape)
+    for ax in range(3):
+        d = (idx[ax] - center[ax] + L / 2.0) % L - L / 2.0
+        r2 = r2 + d ** 2
+    return float(np.sqrt(float((density * r2).sum()) / tot))
+
+
+def _min_image_sep(a, b, L):
+    """Periodic-safe distance between two centroids (lattice units)."""
+    d = (np.asarray(a) - np.asarray(b) + L / 2.0) % L - L / 2.0
+    return float(np.sqrt(float(np.sum(d ** 2))))
+
+
+def _field_norm(state, key):
+    """L2 norm of a field array stored under ``key`` in ``state`` (or 0)."""
+    if state is None or key not in state or state[key] is None:
+        return 0.0
+    return float(np.sqrt(float(np.sum(np.abs(state[key]) ** 2))))
+
+
+@register_observer
+class UnificationReadout(Observer):
+    """Emergent-binding diagnostics for the unified real-space run (U0).
+
+    Auto-detects the quark ParticleChannels (the proton constituents), the
+    charged-lepton ParticleChannel (the electron), and the gluon / photon
+    sourced-field channels, then records each tick:
+
+      * ``proton_rms``       — RMS radius of the combined quark density about
+        its own centroid (the confinement size proxy; bounded = confined,
+        growing = dispersing).
+      * ``electron_rms_self``— electron RMS radius about its own centroid.
+      * ``electron_rms_about_p`` — electron RMS radius about the **proton**
+        centroid (the orbit/binding proxy).
+      * ``ep_separation``    — proton↔electron centroid separation.
+      * ``net_charge``       — Σ q over all particle channels (neutrality).
+      * ``loops``            — liveness norms ‖J_colour‖, ‖gluon A‖, ‖J_em‖,
+        ‖photon α‖ (the currents are sourcing the fields, the fields exist).
+
+    Config (all optional; auto-detected if absent): ``quarks`` (list of channel
+    names), ``electron``, ``gluon``, ``photon``.
+    """
+    name = "unification_readout"
+    label = "Unification Readout"
+    exactness = "quantitative"
+
+    def _resolve(self, sim):
+        cfg = self.config
+        # explicit constituent cluster (e.g. confined Dirac stand-ins) wins
+        quarks = list(cfg.get("cluster", cfg.get("quarks", [])))
+        if cfg.get("cluster"):
+            return quarks, cfg.get("electron"), cfg.get("gluon"), \
+                cfg.get("photon")
+        electron = cfg.get("electron")
+        gluon = cfg.get("gluon")
+        photon = cfg.get("photon")
+        for cname, ch in sim.channels.items():
+            if isinstance(ch, ColourDiracQuarkChannel) or (
+                    isinstance(ch, ParticleChannel)
+                    and getattr(ch, "is_quark", False)):
+                if not cfg.get("quarks") and cname not in quarks:
+                    quarks.append(cname)
+            elif isinstance(ch, NonRelElectronChannel):
+                if electron is None:
+                    electron = cname
+            elif isinstance(ch, ParticleChannel) \
+                    and electron is None and not getattr(ch, "is_doublet", False) \
+                    and float(ch.specs[0].Q) != 0.0:
+                electron = cname
+            st = sim.states.get(cname)
+            if gluon is None and st is not None and "A" in st \
+                    and np.asarray(st["A"]).shape[0] == 8:
+                gluon = cname
+            if photon is None and st is not None and "alpha" in st:
+                photon = cname
+        return quarks, electron, gluon, photon
+
+    def observe(self, sim) -> None:
+        L = sim.lattice.L
+        quarks, electron, gluon, photon = self._resolve(sim)
+        rec = {"tick": sim.tick}
+
+        # --- proton: combined quark density ---
+        p_centroid = None
+        if quarks:
+            dens = None
+            for q in quarks:
+                ch = sim.channels[q]
+                d = np.asarray(ch.density_field(sim.states[q]))
+                dens = d if dens is None else dens + d
+            p_centroid = _centroid(dens, L)
+            rec["proton_rms"] = _rms_radius(dens, p_centroid, L)
+            rec["proton_centroid"] = [float(x) for x in p_centroid]
+            rec["proton_norm"] = float(dens.sum())
+
+        # --- electron ---
+        if electron is not None:
+            ch = sim.channels[electron]
+            de = np.asarray(ch.density_field(sim.states[electron]))
+            e_centroid = _centroid(de, L)
+            rec["electron_rms_self"] = _rms_radius(de, e_centroid, L)
+            rec["electron_centroid"] = [float(x) for x in e_centroid]
+            if p_centroid is not None:
+                rec["electron_rms_about_p"] = _rms_radius(de, p_centroid, L)
+                rec["ep_separation"] = _min_image_sep(e_centroid, p_centroid, L)
+
+        # --- net charge over all particle channels ---
+        q_tot = 0.0
+        for cname, ch in sim.channels.items():
+            if isinstance(ch, NonRelElectronChannel):
+                q_tot += ch.charge
+            elif isinstance(ch, ParticleChannel):
+                q_tot += sum(float(s.Q) for s in ch.specs)
+        rec["net_charge"] = q_tot
+
+        # --- loop liveness ---
+        loops = {}
+        jc = 0.0
+        for q in quarks:
+            jc += _field_norm(sim.states.get(q), "J_colour")
+        loops["J_colour"] = jc
+        loops["gluon_A"] = _field_norm(sim.states.get(gluon), "A") \
+            if gluon else 0.0
+        jem = 0.0
+        for cname, ch in sim.channels.items():
+            if isinstance(ch, (ParticleChannel, NonRelElectronChannel)):
+                jem += _field_norm(sim.states.get(cname), "J_em")
+        loops["J_em"] = jem
+        loops["photon_alpha"] = _field_norm(sim.states.get(photon), "alpha") \
+            if photon else 0.0
+        rec["loops"] = loops
+        self.records.append(rec)
+
+    def summary(self) -> Dict[str, Any]:
+        if not self.records:
+            return {}
+        first, last = self.records[0], self.records[-1]
+        out = {}
+        for key in ("proton_rms", "electron_rms_about_p", "ep_separation",
+                    "electron_rms_self"):
+            if key in first and key in last:
+                out[key] = {"first": first[key], "last": last[key],
+                            "ratio": (last[key] / first[key]
+                                      if first[key] else None)}
+        out["net_charge"] = last.get("net_charge")
+        out["loops_live"] = {k: (v > 0.0) for k, v in
+                             last.get("loops", {}).items()}
+        return out
+
+
+# ======================================================================
+# TwoGridAtomChannel — the LIVE two-grid multigrid (U4, F160)
+# ----------------------------------------------------------------------
+# A single engine channel that co-evolves BOTH grids in one Simulation.run():
+#   * a FINE proton patch  — three colour Dirac quarks (uud) confined by the
+#     F135 scalar Y-string (the audited `quark_dirac` kernel), resolving the
+#     proton's internal structure;
+#   * a COARSE atomic grid — the F156 non-relativistic electron orbital.
+# Every tick: step the fine proton, R_b coarse-grain its charge to a point
+# source on the coarse grid (the F133/F159 block-spin reduction), then step the
+# electron in that well.  The block factor b carries the proton:orbit scale
+# separation (~1e4–1e5) that no single tractable grid can hold — so the proton
+# and the orbit live at their TRUE relative scale, not the U3 compressed scale.
+# This is the live realisation of the F159 staged multigrid.
+# ======================================================================
+@register
+class TwoGridAtomChannel(Channel):
+    """Live two-grid hydrogen: fine confined proton + coarse bound electron,
+    coupled by a per-tick block-spin (R_b) charge reduction (U4).
+
+    Scenario config::
+
+        {type: two_grid_atom, name: atom, b: 30000,
+         fine:   {L: 16, sigma: 0.5, dt: 0.5, mass: 0.9},
+         coarse: {L: 32, m: 1.0, k: 6.0, dt: 0.2, relax_steps: 600}}
+    """
+    type_name = "two_grid_atom"
+    label = "Two-Grid Atom"
+    propagator = "multigrid"
+    topologies = ("bcc", "cubic")
+
+    _FINE = (("u_r", "u_L", "r"), ("u_g", "u_L", "g"), ("d_b", "d_L", "b"))
+
+    def __init__(self, name=None, **config):
+        super().__init__(name=name, **config)
+        self.b = int(config.get("b", 30000))
+        fine = dict(config.get("fine", {}) or {})
+        coarse = dict(config.get("coarse", {}) or {})
+        self.Lf = int(fine.get("L", 16))
+        self.f_sigma = float(fine.get("sigma", 0.5))
+        self.f_dt = float(fine.get("dt", 0.5))
+        self.f_mass = float(fine.get("mass", 0.9))
+        self.Lc = int(coarse.get("L", 32))
+        self.e_m = float(coarse.get("m", 1.0))
+        self.e_k = float(coarse.get("k", 6.0))
+        self.e_dt = float(coarse.get("dt", 0.2))
+        self.e_relax = int(coarse.get("relax_steps", 600))
+        self.e_charge = float(coarse.get("charge", -1.0))
+        # build the fine proton quark channels (audited quark_dirac kernel)
+        names = [n for (n, _, _) in self._FINE]
+        c = self.Lf // 2
+        offs = [(-2, 0, 0), (2, 0, 0), (0, 2, 0)]
+        self._fine_names = names
+        self._fine_chs = []
+        for (nm, sp, col), off in zip(self._FINE, offs):
+            ch = ColourDiracQuarkChannel(
+                name=nm, species=sp, colour=col, mass=self.f_mass,
+                init={"center": [c + off[0], c + off[1], c + off[2]],
+                      "width": 1.3},
+                couplings={"em": "photon"},          # publishes rho_em
+                confine={"mode": "scalar", "anchor": "com", "sigma": self.f_sigma,
+                         "dt": self.f_dt, "partners": names})
+            self._fine_chs.append(ch)
+
+    def _fine_lat(self):
+        from ..engine.simulation import LatticeSpec
+        return LatticeSpec(L=self.Lf, topology="bcc",
+                           c_lat=1.0 / float(np.sqrt(3.0)))
+
+    def _proton_charge_density(self, fine_states):
+        """Summed quark rho_em on the fine grid (total ≈ +1)."""
+        rho = None
+        for st in fine_states:
+            r = st.get("rho_em")
+            if r is not None:
+                rho = r if rho is None else rho + r
+        return rho
+
+    def _coarse_well(self, rho_fine):
+        """R_b-reduce the fine proton charge to a point source on the coarse
+        grid and return the electron Coulomb well V(x)=−k·Q/r (live coupling)."""
+        import ca_multigrid as mg
+        Q = float(np.sum(rho_fine))                 # total charge (R_b-conserved)
+        rms_c = mg._rms(np.asarray(rho_fine, float)) / max(self.b, 1)
+        cc = self.Lc // 2
+        return mg.coarse_point_potential(self.Lc, (cc, cc, cc),
+                                         k=self.e_k * Q,
+                                         src_rms_cells=min(rms_c, 0.0)), Q
+
+    def init_state(self, lattice, rng):
+        import ca_multigrid as mg
+        flat = self._fine_lat()
+        fine = [ch.init_state(flat, rng) for ch in self._fine_chs]
+        rho = self._proton_charge_density(fine)
+        V, Q = self._coarse_well(rho)
+        # electron relaxed into the initial proton well (starts bound)
+        cc = self.Lc // 2
+        ax = np.arange(self.Lc)
+        X, Y, Z = np.meshgrid(ax, ax, ax, indexing="ij")
+        psi = np.exp(-(((X - cc) ** 2 + (Y - cc) ** 2 + (Z - cc) ** 2))
+                     / (2.0 * (self.Lc / 6.0) ** 2)).astype(complex)
+        psi /= np.sqrt((np.abs(psi) ** 2).sum())
+        psi = mg.schrodinger_relax(psi, V, self.e_m, 1.0, self.e_relax, 0.02)
+        st = {"psi": psi, "proton_charge": Q}
+        for nm, fs in zip(self._fine_names, fine):
+            st[f"fine::{nm}"] = fs
+        return st
+
+    def _fine_states(self, state):
+        return [state[f"fine::{nm}"] for nm in self._fine_names]
+
+    def step(self, state, lattice, context=None, rng=None):
+        import ca_multigrid as mg
+        flat = self._fine_lat()
+        fine = self._fine_states(state)
+        ctx = {nm: fs for nm, fs in zip(self._fine_names, fine)}
+        # 1. step the fine proton (each quark reads the shared pre-tick context)
+        new_fine = [ch.step(ctx[nm], flat, context=ctx, rng=rng)
+                    for nm, ch in zip(self._fine_names, self._fine_chs)]
+        # 2. R_b: reduce the live proton charge to the coarse well (per tick)
+        rho = self._proton_charge_density(new_fine)
+        V, Q = self._coarse_well(rho)
+        # 3. step the coarse electron in that well
+        psi = mg.schrodinger_step(state["psi"], V, self.e_m, 1.0, self.e_dt)
+        out = {"psi": psi, "proton_charge": Q}
+        for nm, fs in zip(self._fine_names, new_fine):
+            out[f"fine::{nm}"] = fs
+        return out
+
+    # --- diagnostics -------------------------------------------------------
+    def _proton_density(self, state):
+        d = None
+        for nm in self._fine_names:
+            fs = state[f"fine::{nm}"]
+            dd = (np.abs(fs["eta_u"]) ** 2 + np.abs(fs["eta_d"]) ** 2
+                  + np.abs(fs["chi_u"]) ** 2 + np.abs(fs["chi_d"]) ** 2).sum(axis=0)
+            d = dd if d is None else d + dd
+        return np.asarray(d.real if np.iscomplexobj(d) else d)
+
+    def density_field(self, state):
+        return np.asarray(np.abs(state["psi"]) ** 2)
+
+    def energy(self, state) -> float:
+        e = float((np.abs(state["psi"]) ** 2).sum())
+        e += float(self._proton_density(state).sum())
+        return e
+
+    def observables(self, state, lattice) -> dict:
+        import ca_multigrid as mg
+        pd = self._proton_density(state)
+        ed = np.abs(state["psi"]) ** 2
+        rp = mg._rms(pd)                      # proton RMS (fine cells)
+        re = mg._rms(ed)                      # electron RMS (coarse cells)
+        Q = float(state.get("proton_charge", 0.0))
+        ratio = re * self.b / rp if rp > 0 else 0.0
+        return {
+            "b": self.b,
+            "proton_rms_fine": rp,
+            "electron_rms_coarse": re,
+            "proton_charge": Q,
+            "electron_charge": self.e_charge,
+            "net_charge": Q + self.e_charge,
+            "represented_a0_over_rp": ratio,
+            "represented_decades": float(np.log10(ratio)) if ratio > 0 else None,
+            "proton_norm": float(pd.sum()),
+            "electron_norm": float(ed.sum()),
+        }
+
+
+@register_observer
+class TwoGridReadout(Observer):
+    """Per-tick diagnostics for the live two-grid atom (U4): proton RMS (fine),
+    electron RMS (coarse), net charge, and the represented proton:orbit ratio."""
+    name = "two_grid_readout"
+    label = "Two-Grid Readout"
+    exactness = "quantitative"
+
+    def observe(self, sim) -> None:
+        for cname, ch in sim.channels.items():
+            if isinstance(ch, TwoGridAtomChannel):
+                rec = {"tick": sim.tick}
+                rec.update(ch.observables(sim.states[cname], sim.lattice))
+                self.records.append(rec)
+                return

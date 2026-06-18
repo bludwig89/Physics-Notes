@@ -19,7 +19,7 @@ Falsified if the model delay departs from the GR form (i.e. effective `γ≠1`) 
 ## CASIM build & run
 Null geodesic / eikonal time-of-flight on the open-BC dielectric.
 ```bash
-casim run scenarios/gravity_deflection.yaml --L 64 \
+casim run scenarios/gravity_deflection.yaml --L 128 \
     --out test-results/FC02_shapiro.json
 ```
 1. Use the **open-boundary** Poisson kernel (supersedes test_05b) to avoid PBC artefacts; integrate null time-of-flight past the mass; confirm the logarithmic Shapiro form with γ=1 to grid floor.

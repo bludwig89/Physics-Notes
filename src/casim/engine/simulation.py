@@ -21,13 +21,50 @@ ROOT3 = float(np.sqrt(3.0))
 CHECKPOINT_VERSION = 1
 
 
+def _parse_blockspin_schedule(spec: Any) -> Dict[int, int]:
+    """Normalise a scenario ``blockspin:`` field into {tick: factor}.
+
+    Accepts None, a single ``{at: T, factor: b}`` mapping, or a list of them.
+    """
+    if not spec:
+        return {}
+    if isinstance(spec, dict):
+        spec = [spec]
+    out: Dict[int, int] = {}
+    for item in spec:
+        at = int(item["at"])
+        factor = int(item.get("factor", 2))
+        if factor < 1:
+            raise ValueError(f"blockspin factor must be ≥ 1, got {factor}")
+        out[at] = factor
+    return out
+
+
 @dataclass
 class LatticeSpec:
-    """Lattice substrate: size, dimensionality, topology, signal speed."""
+    """Lattice substrate: size, dimensionality, topology, signal speed.
+
+    Block-spin (Phase 4, F133): ``block`` is the number of physical cells per
+    axis that each simulated super-cell stands for.  A run therefore simulates
+    ``L`` super-cells but *declares* a physical patch of ``physical_L = L·block``
+    cells per axis (``cell_factor = block^dims`` physical cells each).  c_lat is
+    an RG fixed point (F130 T1), carried through unchanged.
+    """
     L: int = 32
     dims: int = 3
     topology: str = "cubic"        # "cubic" | "bcc"
     c_lat: float = 1.0 / ROOT3     # F26 rotation-rate speed of light
+    block: int = 1                 # physical cells per super-cell per axis (R_b)
+
+    @property
+    def physical_L(self) -> int:
+        """Physical cells per axis represented: L · block."""
+        return int(self.L) * int(self.block)
+
+    @property
+    def cell_factor(self) -> int:
+        """Physical cells per super-cell: block^dims."""
+        return int(self.block) ** int(self.dims)
 
     def validate_channel(self, ch: Channel) -> None:
         if self.topology not in ch.topologies:
@@ -38,7 +75,10 @@ class LatticeSpec:
 
     def to_dict(self) -> Dict[str, Any]:
         return {"L": self.L, "dims": self.dims,
-                "topology": self.topology, "c_lat": self.c_lat}
+                "topology": self.topology, "c_lat": self.c_lat,
+                "block": self.block,
+                "physical_L": self.physical_L,
+                "cell_factor": self.cell_factor}
 
 
 class Simulation:
@@ -56,6 +96,7 @@ class Simulation:
         target_ticks: int = 0,
         title: str = "",
         description: str = "",
+        blockspin_schedule: Any = None,
     ):
         self.lattice = lattice
         self.name = name
@@ -69,6 +110,10 @@ class Simulation:
         self.checkpoint_every = int(checkpoint_every)
         self.checkpoint_dir = checkpoint_dir
         self.target_ticks = int(target_ticks)
+        #: scheduled block-spin events {tick: factor} (Phase 4); applied in step()
+        self._blockspin_schedule = _parse_blockspin_schedule(blockspin_schedule)
+        #: log of applied R_b operations, surfaced in collect_results()
+        self.blockspin_events: List[Dict[str, Any]] = []
 
         self.channels: Dict[str, Channel] = {}
         self.states: Dict[str, Any] = {}
@@ -89,11 +134,22 @@ class Simulation:
     def from_scenario(cls, scenario: Dict[str, Any]) -> "Simulation":
         """Build a Simulation from a parsed scenario dict (see casim.io)."""
         lat = scenario.get("lattice", {})
+        block = int(lat.get("block", 1))
+        if "physical_patch" in lat:
+            # declare the physical patch + block factor; derive the super-cell L
+            phys = int(lat["physical_patch"])
+            if phys % block != 0:
+                raise ValueError(
+                    f"physical_patch={phys} not divisible by block={block}")
+            L = phys // block
+        else:
+            L = int(lat.get("L", 32))
         lattice = LatticeSpec(
-            L=int(lat.get("L", 32)),
+            L=L,
             dims=int(lat.get("dims", 3)),
             topology=str(lat.get("topology", "cubic")),
             c_lat=float(lat.get("c_lat", 1.0 / ROOT3)),
+            block=block,
         )
         channels = [build_channel(c) for c in scenario.get("channels", [])]
         observers = [build_observer(o) for o in scenario.get("observers", [])]
@@ -109,6 +165,7 @@ class Simulation:
             target_ticks=int(scenario.get("ticks", 0)),
             title=str(scenario.get("title", "")),
             description=str(scenario.get("description", "")),
+            blockspin_schedule=scenario.get("blockspin", None),
         )
 
     # ------------------------------------------------------------------
@@ -125,8 +182,49 @@ class Simulation:
                     context=self.states, rng=self.rng)
             self.tick += 1
             self._run_observers()
+            if self.tick in self._blockspin_schedule:
+                self.block_spin(self._blockspin_schedule[self.tick])
             if self.checkpoint_every and self.tick % self.checkpoint_every == 0:
                 self.checkpoint(self._auto_checkpoint_path())
+
+    # ------------------------------------------------------------------
+    def block_spin(self, b: int) -> Dict[str, Any]:
+        """Apply the block-spin transform R_b as a first-class engine operation
+        (Phase 4, F133).
+
+        Coarse-grains every channel state in place (grouping b^dims fine
+        super-cells into one), shrinks the lattice L → L/b and accumulates the
+        block factor so the lattice keeps representing the SAME physical patch
+        (``physical_L`` invariant; c_lat is the F130-T1 fixed point, unchanged).
+        Subsequent ``step`` calls then advance the coarse field — the channels
+        that support a renormalised rule (even-law, F130 T1/T2) stay physically
+        faithful.  Returns the recorded event.
+        """
+        if b == 1:
+            return {"tick": self.tick, "factor": 1, "noop": True}
+        if self.lattice.L % b != 0:
+            raise ValueError(
+                f"cannot block-spin L={self.lattice.L} by b={b} (not divisible)")
+        phys_before = self.lattice.physical_L
+        for cname, ch in self.channels.items():
+            self.states[cname] = ch.block_spin(self.states[cname],
+                                               self.lattice, b)
+        self.lattice.L //= b
+        self.lattice.block *= b
+        assert self.lattice.physical_L == phys_before, "physical patch not conserved"
+        for ch in self.channels.values():
+            self.lattice.validate_channel(ch)
+        # energy baseline is representation-dependent across R_b; refresh it
+        self._energy0 = {c: ch.energy(self.states[c])
+                         for c, ch in self.channels.items()}
+        event = {
+            "tick": self.tick, "factor": b,
+            "L_after": self.lattice.L, "block_after": self.lattice.block,
+            "physical_L": self.lattice.physical_L,
+            "cells_per_supercell": self.lattice.cell_factor,
+        }
+        self.blockspin_events.append(event)
+        return event
 
     def run(self, ticks: int) -> Dict[str, Any]:
         """Run for ``ticks`` ticks (observers also fire once at tick 0)."""
@@ -151,6 +249,10 @@ class Simulation:
             "channels": {c: ch.describe() for c, ch in self.channels.items()},
             "observers": {obs.name: obs.result() for obs in self.observers},
         }
+        if self.lattice.block > 1 or self.blockspin_events:
+            from .blockspin import patch_summary
+            self.results["physical_patch"] = patch_summary(self.lattice)
+            self.results["blockspin_events"] = self.blockspin_events
         return self.results
 
     def state_norms(self) -> Dict[str, float]:
@@ -215,6 +317,7 @@ class Simulation:
             lattice = LatticeSpec(
                 L=int(lat["L"]), dims=int(lat["dims"]),
                 topology=str(lat["topology"]), c_lat=float(lat["c_lat"]),
+                block=int(lat.get("block", 1)),
             )
             channels = [build_channel(c) for c in meta["channels"]]
             observers = [build_observer(o) for o in meta["observers"]]

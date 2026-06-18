@@ -5,7 +5,7 @@
   "checks": {
     "T1": {
       "statement": "rule tick = oscillator phase rotation R(Omega) (orthogonal, det 1); transfer-operator vacuum <phi^2> = 1/(2 Omega) per mode (number-basis diagonalisation)",
-      "residual": "orth 2.1e-17, det 0.0e+00, osc 3.3e-16",
+      "residual": "orth 0.0e+00, det 0.0e+00, osc 1.2e-15",
       "status": "PASS"
     },
     "T2": {
@@ -15,7 +15,7 @@
     },
     "T3": {
       "statement": "gamma(Omega) = clock^{-1}(exp(-sigma_phi^2/2)) = 1.78000 for the 2D rule (s_1 = 0.81752); clock round-trip exact; monotone in dispersion stiffness (1.302<1.780<2.252)",
-      "residual": "roundtrip 1.1e-16",
+      "residual": "roundtrip 2.2e-16",
       "status": "PASS"
     },
     "T4": {

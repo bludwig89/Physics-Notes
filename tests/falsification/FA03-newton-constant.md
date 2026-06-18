@@ -28,7 +28,7 @@ Closed form + GR-consistency.
 1. Symbolic (sympy, no chiral transforms): evaluate `G = a²c³/(8π√3·ħ)` at `a = √(8π)·3^(1/4)·ℓ_P`; confirm `6.674300×10⁻¹¹` and the `3.0×10⁻⁸` residual vs CODATA. Re-derive `8π√3` from `2πη g*√d` with `η=1/12`, `g*=48`, `d=3` as an independent check.
 2. PPN consistency on the dielectric:
 ```bash
-casim run scenarios/gravity_deflection.yaml --L 64 \
+casim run scenarios/gravity_deflection.yaml --L 128 \
     --out test-results/FA03_ppn.json
 ```
 Confirm the eikonal deflection coefficient is exactly `−4` at all field strengths (FA09) and the weak-field metric returns `β=γ=1`.

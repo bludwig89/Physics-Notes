@@ -27,7 +27,7 @@ Falsified if:
 ## CASIM build & run
 Eikonal on the dielectric.
 ```bash
-casim run scenarios/gravity_deflection.yaml --L 64 \
+casim run scenarios/gravity_deflection.yaml --L 128 \
     --out test-results/FA09_deflection.json
 casim analyze test-results/FA09_deflection.json --table
 ```

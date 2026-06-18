@@ -1,0 +1,14 @@
+{
+  "anchor_sqrt_sigma_GeV": 0.42,
+  "sigma_GeV2": 0.17639999999999997,
+  "hbarc_GeV_fm": 0.197327,
+  "sigma_ag2_measured": 0.31,
+  "a_g_fm": 0.2616,
+  "R_conf_fm": 0.5215,
+  "R_conf_over_ag": 1.994,
+  "proton_charge_radius_fm": 0.841,
+  "m_p_NR_GeV": 3.402,
+  "m_p_relbag_floor_GeV": 2.316,
+  "m_N_empirical_GeV": 0.938,
+  "note": "One anchor (sqrt_sigma) sets a_g; R_conf is parameter-light and lands right order; proton MASS overshoots (NR, no V0) per F122 \u2014 relativistic/Bethe-Salpeter is the open P6 mass item. SIZE is set, MASS is not."
+}

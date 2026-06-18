@@ -30,7 +30,7 @@ Reads off `m_c, m_p_3mc_MeV, m_p_rel_err, n_minus_p_MeV`. Verified output: m_c=3
 1. Numerical (NJL, F77/F116): solve the gap equation with Λ=BZ edge, induced G; with f_π=92.07 anchor get `m_c=309.5`; form `3m_c=928.5`; confirm `−1.05%` vs PDG.
 2. Dynamical cross-check (P2 three-body baryon):
 ```bash
-casim run scenarios/proton_composite.yaml --L 16 --ticks 60 \
+casim run scenarios/proton_composite.yaml --L 64 --ticks 1000 \
     --out test-results/FB02_nucleon.json
 ```
 Confirm the two routes (constituent NJL vs real-time three-body) agree and the current-quark sum is ~0.11% of M.

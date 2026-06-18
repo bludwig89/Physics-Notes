@@ -1,0 +1,18 @@
+{
+  "W1_ward_identity": {
+    "passed": true,
+    "n_components": 16,
+    "mismatches": []
+  },
+  "W2_bose_antisymmetry": {
+    "passed": true,
+    "mismatches": []
+  },
+  "summary": {
+    "passed": 2,
+    "total": 2,
+    "all_pass": true,
+    "vertex_structure_validated": true,
+    "loop_needs": "background-field formalism for b0 gate"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "b0_gate": {
+    "scalar_bubble_calibration_g": "1",
+    "calibration_ok": true,
+    "g_tensor_coeff_total": "22/3",
+    "g_tensor_coeff_gluon": "20/3",
+    "g_tensor_coeff_ghost": "2/3",
+    "transverse": true,
+    "b0_total": "11",
+    "b0_gluon": "10",
+    "b0_ghost": "1",
+    "b0_target": "11",
+    "gate_pass": true,
+    "statement": "background-field gluon+ghost self-energy is exactly transverse and gives b0 = 11/3 C_A = 11 (gluon+ghost split verified); scalar-bubble calibration g=1 fixes the normalisation. The loop ASSEMBLY is validated (exact)."
+  },
+  "lattice_b0_consistency_vs_n": [
+    {
+      "n": 16,
+      "wilson_shift_mean": -0.0787144289103364,
+      "wilson_shift_spread": 0.00018009737014362814,
+      "rule_shift_mean": -0.007407496275156619,
+      "rule_shift_spread": 0.019205353046657214,
+      "b0_propagator_independent": true,
+      "seconds": 1.2
+    },
+    {
+      "n": 24,
+      "wilson_shift_mean": -0.07867389689899573,
+      "wilson_shift_spread": 6.972068029714729e-05,
+      "rule_shift_mean": -0.0001727975938650983,
+      "rule_shift_spread": 0.021450346659180997,
+      "b0_propagator_independent": true,
+      "seconds": 5.9
+    }
+  ],
+  "verdict": "b0 = 11/3 C_A = 11 recovered EXACTLY (loop assembly validated); lattice b0 = continuum b0 (Wilson subtracted shift q-flat). Finite d1 to the digit OPEN (vertex form factors, Wilson-28.81 gate); F155 q* bracket stands."
+}

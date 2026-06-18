@@ -25,6 +25,8 @@ casim run scenarios/bcc_weyl.yaml --ticks 500 --seed 1
 casim resume checkpoints/gluon_bcc_t50.npz --ticks 150   # continue a long run
 casim analyze test-results/casim_bcc_weyl.json --table
 casim inventory                             # run checks, regenerate exactness table
+casim test --scale 100x                     # unified grouped suite (see scenarios/SUITE-GUIDE.md)
+casim test --list --scale 1000x             # dry-run plan: sizes, cost factor, memory
 casim gui [scenario.yaml]                   # interactive viewer (needs casim[gui])
 ```
 
@@ -60,12 +62,29 @@ casim/
 regenerates `test-results/casim-exactness-inventory.md` (scoped to the engine;
 it does not touch the repo's hand-maintained `docs/status/exactness-inventory.md`).
 
+### Unified scaled suite — `casim test` (Phase F+)
+
+`casim test` (package `casim.suite`) runs the whole repo's runnable tests in
+**groups** (`battery` = the correctness gate — hybrid pytest **+** standalone
+`main()` scripts, classified per file; `scenarios`; `realspace`) with
+**periodic reporting**, at a **scale tier** (`smoke`/`10x`/`100x`/`1000x`) — i.e.
+orders of magnitude over the shipped sandbox sizes. The `realspace` group grows
+the *represented physical patch* (the block-spin factor, F129–F133) so a
+tractable super-cell lattice stands in for proton/neutron/atom-scale physical
+cells. Long runs are chunked (heartbeat) and resumable (`--checkpoint-every` →
+`casim resume`); the JSON+Markdown report is rewritten after every item so a
+native run is inspectable mid-flight. Full reference: `scenarios/SUITE-GUIDE.md`.
+
 ## Backend seam (Phase G)
 
 Spectral work routes through `casim.lattice.backend` (`fftn/ifftn/…` and a
 `chiral_transform` hook). The default delegates to the audited `ca_fft`; swap in
 numba/GPU or a hand-written chiral library with `backend.register_backend(...)`
-+ `backend.use(name)` — no physics-code changes.
++ `backend.use(name)` — no physics-code changes. **F134** validates the seam: a
+second `numpy_fft` backend is identical to `ca_fft` to round-off (the regression a
+GPU backend must pass), and `casim.lattice.chiral_core` is a verified hand-rolled
+chiral core (explicit real/imag arithmetic, no `np.linalg`) registered through the
+`chiral_transform` hook — matching the audited Weyl/W± kernels bit-for-bit.
 
 ## Channels (F91 propagator classification)
 
@@ -102,6 +121,27 @@ comparison to JSON. Scenarios: `njl_pion.yaml`, `njl_nucleon.yaml`,
 can source from a partner matter current and act back within one tick. See
 `casim.engine.coupled` and `scenarios/fermion_w_backreaction.yaml`. Independent
 channels ignore `context` and stay bit-identical.
+
+## Block-spin / physical patch (Phase 4, F133)
+
+A run can declare a **physical patch size and a block factor** so a tractable
+lattice of `L` super-cells represents `(L·block)^d` physical cells (the
+coarse-graining substitution the scale roadmap rests on). The light speed
+`c_lat` is the RG fixed point (F130), carried through unchanged.
+
+```yaml
+lattice: {physical_patch: 64, block: 4}    # → 16 super-cells, patch = 64 cells/axis
+blockspin: [{at: 50, factor: 2}]           # coarse-grain the LIVE run at tick 50
+```
+
+`Simulation.block_spin(b)` applies the block-spin transform R_b in place
+(grouping `b^dims` super-cells into one), shrinks `L → L/b`, accumulates the
+block factor, and keeps the physical patch invariant — an adaptive-resolution CA
+step. The even-law channel then propagates by the renormalised rule
+Ω(κ/block) (`engine.blockspin.renormalized_even_step`), faithful in the IR
+(`[R_b, evolution] = 0` on band-limited fields). Per-channel R_b is complex-safe
+for spinors and uses the log rule for the gravity dielectric (A·B≡1). See
+`scenarios/blockspin_photon.yaml`.
 
 ## Checkpoint / resume
 

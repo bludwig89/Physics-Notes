@@ -1,0 +1,53 @@
+{
+  "finding": "F127",
+  "date": "2026-06-10",
+  "overall": "6/6 PASS",
+  "avenues": {
+    "A": {
+      "verdict": "SHARP_NEGATIVE",
+      "I1_BZ": 0.44616275307355396,
+      "alpha_hypothetical": 0.8405004618083345,
+      "ratio_to_measured": 115.17882051110651,
+      "reason": "Ward identity Pi(0)=0 blocks the Sakharov mechanism for alpha. Conformal anomaly enables it for G (T^mu_mu=0 -> zero tree stiffness)."
+    },
+    "B": {
+      "verdict": "SHARP_NEGATIVE",
+      "E_lat_GeV": 1.8504921487066755e+18,
+      "mu_star_over_E_lat": 1.9994680888465056e-15,
+      "reason": "mu_star/E_lat = 2e-15; no O(1) lattice scale near 3.7 TeV."
+    },
+    "C": {
+      "verdict": "SHARP_NEGATIVE",
+      "Q2_per_gen": 2.6666666666666665,
+      "Phi_0": 18.84955592153876,
+      "reason": "Topology fixes charge spectrum {0,1/3,2/3,1}, not magnitude |e|."
+    },
+    "D": {
+      "verdict": "INCONCLUSIVE",
+      "e_lat_required": 0.3028221208761722,
+      "e_lat_sq": 0.09170123689194305,
+      "reason": "Z=1, c=1/sqrt(3), curl normalization \u2014 all structural. But Peierls coupling q is independent. No constraint found."
+    },
+    "E": {
+      "verdict": "OBSERVATION_NOT_DERIVATION",
+      "inv_alpha_bare_needed": 64.2057284830582,
+      "distance_from_64": 0.2057284830581949,
+      "inv_alpha_0_predicted": 138.59144181615665,
+      "gap_percent": 1.1350607257630436,
+      "structural_candidates": [
+        "z_NN^2=64",
+        "(4/3)*g_star=64",
+        "Sum_Q2*z_NN=64"
+      ],
+      "reason": "1/alpha(Lambda)=64 gives 1/alpha(0)~138.6, 1.14% from 137.036. Suggestive but not derived from the lattice rule."
+    },
+    "F": {
+      "verdict": "DIAGNOSIS",
+      "G_coefficient": 43.531184741621225,
+      "obstruction": "Ward identity Pi(0)=0 blocks Sakharov for alpha; conformal anomaly T^mu_mu=0 enables it for G.",
+      "proposed_closure": "Derive effective vertex from composite photon bilinear (F89) overlap with external fermion.",
+      "alternative": "Identify a lattice self-consistency condition that constrains the Peierls phase magnitude."
+    }
+  },
+  "conclusion": "All four derivation avenues produce sharp negatives. The structural obstruction is the U(1) Ward identity: Pi(0)=0 prevents the Sakharov mechanism that works for G. Numerical observation: 1/alpha(Lambda)=64 =z_NN^2 under one-loop running gives 1/alpha(0)~138.6, within 1.14% of 137.036. Suggestive but NOT derived. The minimum closure is computing the effective vertex from the composite photon bilinear (F89)."
+}

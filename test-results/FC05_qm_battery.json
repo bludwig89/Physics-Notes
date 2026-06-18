@@ -1,0 +1,306 @@
+{
+  "test_id": "FC05",
+  "title": "Quantum-mechanics regression battery (5 sub-tests)",
+  "date": "2026-06-16 - 16:39",
+  "verdict": "PASS",
+  "overall_pass": true,
+  "subtests": {
+    "QM1_CHSH": {
+      "name": "QM-1 CHSH / Tsirelson",
+      "value_S": 2.82842712474619,
+      "qm_target": 2.8284271247461903,
+      "residual": 4.440892098500626e-16,
+      "S_lattice_propagated": 2.8284266294206795,
+      "lattice_residual": 4.953255108297583e-07,
+      "S_separable_control": 1.414213562373095,
+      "S_maxmixed_control": 0.0,
+      "classical_bound": 2.0,
+      "exceeds_tsirelson": false,
+      "classical_controls_obey_bound": true,
+      "pass": true
+    },
+    "QM2_tunneling": {
+      "name": "QM-2 tunneling vs Schr\u00f6dinger/WKB",
+      "value_transfer_vs_closed": 1.1102230246251565e-16,
+      "qm_target": 0.0,
+      "residual": 1.1102230246251565e-16,
+      "eigenstate_matches_schrodinger": true,
+      "wkb_is_thickbarrier_limit": true,
+      "lattice_T": 0.3999304084347386,
+      "lattice_P_inside": 0.04636199257463934,
+      "lattice_evanescent_inside": true,
+      "lattice_tunnels": true,
+      "E_kin_lat": 0.07294089235805251,
+      "V0_lat": 0.15,
+      "eigenstate_rows": [
+        {
+          "w": 1.0,
+          "E_over_V0": 0.3,
+          "T_closed": 0.2773855042162008,
+          "T_transfer": 0.2773855042162009,
+          "T_wkb": 0.09381486939112493
+        },
+        {
+          "w": 1.0,
+          "E_over_V0": 0.5,
+          "T_closed": 0.4199743416140261,
+          "T_transfer": 0.4199743416140261,
+          "T_wkb": 0.1353352832366127
+        },
+        {
+          "w": 1.0,
+          "E_over_V0": 0.7,
+          "T_closed": 0.5350241447838789,
+          "T_transfer": 0.5350241447838789,
+          "T_wkb": 0.2124192551730449
+        },
+        {
+          "w": 1.5,
+          "E_over_V0": 0.3,
+          "T_closed": 0.09284385130721319,
+          "T_transfer": 0.09284385130721319,
+          "T_wkb": 0.028734756246702978
+        },
+        {
+          "w": 1.5,
+          "E_over_V0": 0.5,
+          "T_closed": 0.18070663892364858,
+          "T_transfer": 0.18070663892364855,
+          "T_wkb": 0.049787068367863944
+        },
+        {
+          "w": 1.5,
+          "E_over_V0": 0.7,
+          "T_closed": 0.2878630956488647,
+          "T_transfer": 0.2878630956488647,
+          "T_wkb": 0.09790183287366487
+        },
+        {
+          "w": 2.0,
+          "E_over_V0": 0.3,
+          "T_closed": 0.029220113233972778,
+          "T_transfer": 0.029220113233972778,
+          "T_wkb": 0.00880122971887383
+        },
+        {
+          "w": 2.0,
+          "E_over_V0": 0.5,
+          "T_closed": 0.07065082485316447,
+          "T_transfer": 0.07065082485316447,
+          "T_wkb": 0.01831563888873418
+        },
+        {
+          "w": 2.0,
+          "E_over_V0": 0.7,
+          "T_closed": 0.14257048871518055,
+          "T_transfer": 0.14257048871518052,
+          "T_wkb": 0.045121939968271164
+        },
+        {
+          "w": 2.5,
+          "E_over_V0": 0.3,
+          "T_closed": 0.009024559706954314,
+          "T_transfer": 0.009024559706954314,
+          "T_wkb": 0.00269574740427025
+        },
+        {
+          "w": 2.5,
+          "E_over_V0": 0.5,
+          "T_closed": 0.02659222668316062,
+          "T_transfer": 0.026592226683160622,
+          "T_wkb": 0.006737946999085467
+        },
+        {
+          "w": 2.5,
+          "E_over_V0": 0.7,
+          "T_closed": 0.06792486067319105,
+          "T_transfer": 0.06792486067319105,
+          "T_wkb": 0.020796234419099814
+        },
+        {
+          "w": 3.0,
+          "E_over_V0": 0.3,
+          "T_closed": 0.0027711919347732567,
+          "T_transfer": 0.002771191934773257,
+          "T_wkb": 0.0008256862165574359
+        },
+        {
+          "w": 3.0,
+          "E_over_V0": 0.5,
+          "T_closed": 0.00986603716544019,
+          "T_transfer": 0.009866037165440192,
+          "T_wkb": 0.0024787521766663585
+        },
+        {
+          "w": 3.0,
+          "E_over_V0": 0.7,
+          "T_closed": 0.03178754347520224,
+          "T_transfer": 0.03178754347520223,
+          "T_wkb": 0.009584768880023008
+        }
+      ],
+      "pass": true
+    },
+    "QM3_heisenberg": {
+      "name": "QM-3 Heisenberg \u0394x\u00b7\u0394p \u2265 \u0127/2",
+      "value_product_minwidth": 0.5000000000000071,
+      "qm_target": 0.5,
+      "residual": 1.137423488728473e-13,
+      "all_satisfy_bound": true,
+      "max_saturation_delta_sig_ge8": 1.137423488728473e-13,
+      "rows": [
+        {
+          "sigma": 4,
+          "sigma_x": 2.82842712475648,
+          "sigma_p": 0.17677669529663687,
+          "product": 0.500000000001819,
+          "delta": 1.8189894035458565e-12
+        },
+        {
+          "sigma": 8,
+          "sigma_x": 5.656854249492381,
+          "sigma_p": 0.08838834764831843,
+          "product": 0.5,
+          "delta": 0.0
+        },
+        {
+          "sigma": 16,
+          "sigma_x": 11.313708498982187,
+          "sigma_p": 0.044194173824159216,
+          "product": 0.49999999999988626,
+          "delta": -1.137423488728473e-13
+        },
+        {
+          "sigma": 32,
+          "sigma_x": 22.627416997969522,
+          "sigma_p": 0.02209708691207961,
+          "product": 0.5000000000000001,
+          "delta": 1.1102230246251565e-16
+        },
+        {
+          "sigma": 64,
+          "sigma_x": 45.254833995939684,
+          "sigma_p": 0.011048543456039804,
+          "product": 0.5000000000000071,
+          "delta": 7.105427357601002e-15
+        }
+      ],
+      "pass": true
+    },
+    "QM4_zeno": {
+      "name": "QM-4 Zeno suppression",
+      "value_slope": 1.996015397457114,
+      "qm_target": 2.0,
+      "residual": 0.003984602542886018,
+      "max_analytic_delta": 9.43689570931383e-15,
+      "survival_n1": 0.08046423546177377,
+      "survival_n1000": 0.9753098104328703,
+      "suppression": true,
+      "zeno_monotone": true,
+      "rows": [
+        {
+          "n": 1,
+          "p_num": 0.08046423546177377,
+          "p_ana": 0.08046423546177377,
+          "delta": 0.0
+        },
+        {
+          "n": 2,
+          "p_num": 0.4119471515970565,
+          "p_ana": 0.4119471515970565,
+          "delta": 0.0
+        },
+        {
+          "n": 5,
+          "p_num": 0.002120157917129987,
+          "p_ana": 0.0021201579171299867,
+          "delta": 4.336808689942018e-19
+        },
+        {
+          "n": 10,
+          "p_num": 0.07341075641943541,
+          "p_ana": 0.07341075641943545,
+          "delta": 4.163336342344337e-17
+        },
+        {
+          "n": 20,
+          "p_num": 0.2827358951099541,
+          "p_ana": 0.282735895109954,
+          "delta": 1.1102230246251565e-16
+        },
+        {
+          "n": 50,
+          "p_num": 0.6060240772154118,
+          "p_ana": 0.6060240772154118,
+          "delta": 0.0
+        },
+        {
+          "n": 100,
+          "p_num": 0.7787196080961325,
+          "p_ana": 0.7787196080961316,
+          "delta": 8.881784197001252e-16
+        },
+        {
+          "n": 200,
+          "p_num": 0.8824854098988635,
+          "p_ana": 0.882485409898854,
+          "delta": 9.43689570931383e-15
+        },
+        {
+          "n": 500,
+          "p_num": 0.9512286317887123,
+          "p_ana": 0.9512286317887044,
+          "delta": 7.882583474838611e-15
+        },
+        {
+          "n": 1000,
+          "p_num": 0.9753098104328703,
+          "p_ana": 0.9753098104328732,
+          "delta": 2.886579864025407e-15
+        }
+      ],
+      "pass": true
+    },
+    "QM6_twoslit": {
+      "name": "QM-6 two-slit fringe + which-path decoherence",
+      "value_V_double": 0.9894153024043882,
+      "qm_target": "V>=0.80, decohered V<0.40, central ratio->2, period\u221d1/d",
+      "residual": 0.019607843137254832,
+      "fringe_spacing_meas": 34.0,
+      "fringe_spacing_theory": 41.88790204786391,
+      "fringe_period_dA16": 50.0,
+      "fringe_period_dB24": 34.0,
+      "period_ratio_meas": 1.4705882352941178,
+      "period_ratio_expected_lambdaL_over_d": 1.5,
+      "fringe_scaling_rel_err": 0.019607843137254832,
+      "V_double_coherent": 0.9894153024043882,
+      "V_whichpath_decohered": 0.0,
+      "central_enhancement_coherent": 1.9888621156305553,
+      "central_enhancement_target": 2.0,
+      "fringe_scaling_ok": true,
+      "pass": true
+    }
+  },
+  "provenance": {
+    "runner": "tests/runners/run_FC05_qm_battery.py",
+    "supersedes": [
+      "test_02_QM1_CHSH",
+      "test_08_QM2_tunneling",
+      "test_12_QM3_heisenberg",
+      "test_14_QM4_zeno",
+      "test_15_QM6_twoslit"
+    ],
+    "qca_modules": [
+      "ca_core.weyl_step_2d_splitstep",
+      "ca_dirac.dirac_step_2d_splitstep",
+      "ca_dirac.dirac_step_2d_varm_complex_splitstep"
+    ],
+    "numpy_imag_check": {
+      "weyl_step_imag_preserved": true,
+      "dirac_varm_imag_preserved": true,
+      "all_ok": true
+    },
+    "note_qm2": "Tunneling rebuilt on the variable-mass primitive (V(x) stepper removed in F41); barrier = raised rest mass, evanescent kappa=sqrt(m_b^2-E^2), vs WKB exp(-2 kappa w).",
+    "runtime_s": 4.98
+  }
+}

@@ -28,7 +28,7 @@ The prediction is an exact closed form; verify it two ways.
 1. Symbolic: evaluate `E_QG,2 = √54·ħc/a` at the canonical cell and confirm `1.360×10¹⁹ GeV`; confirm `δv_g/c = −k²/54` from the even law symbolically (sympy, no chiral transforms).
 2. Numerical dispersion fit on the live propagator:
 ```bash
-casim run scenarios/photon_pair.yaml --L 64 --ticks 200 \
+casim run scenarios/photon_pair.yaml --L 128 --ticks 2000 \
     --out test-results/FA01_liv_tof.json
 casim analyze test-results/FA01_liv_tof.json --table
 ```

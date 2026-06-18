@@ -1,0 +1,610 @@
+{
+  "name": "unified_hydrogen_strongEM",
+  "title": "Unified Hydrogen \u2014 strong-EM mechanism probe (U2)",
+  "description": "Full chain with the Coulomb well driven hard (g_coulomb=80, m_e=0.9): the EM loop measurably attracts the electron vs the free control, without a clean stationary orbit at compressed scale.",
+  "seed": 11,
+  "ticks": 60,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "gmass": {
+      "name": "gmass",
+      "type": "gravity_dielectric",
+      "label": "Gravity Dielectric",
+      "propagator": "dielectric",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    },
+    "gluon_field": {
+      "name": "gluon_field",
+      "type": "gluon_sourced",
+      "label": "Gluon Sourced",
+      "propagator": "even",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "photon_field": {
+      "name": "photon_field",
+      "type": "photon_sourced",
+      "label": "Photon Sourced",
+      "propagator": "even",
+      "topologies": [
+        "cubic",
+        "bcc"
+      ]
+    },
+    "u_r": {
+      "name": "u_r",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "u_g": {
+      "name": "u_g",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "d_b": {
+      "name": "d_b",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "electron": {
+      "name": "electron",
+      "type": "particle",
+      "label": "Particle",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 10,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "u_g": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "d_b": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            },
+            "electron": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000022,
+              "rel_drift": 1.9984014443252814e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000022,
+              "rel_drift": 1.9984014443252814e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000022,
+              "rel_drift": 1.9984014443252814e-15
+            },
+            "electron": {
+              "energy": 1.0000000000000013,
+              "rel_drift": 1.1102230246251563e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000044,
+              "rel_drift": 4.218847493575594e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000044,
+              "rel_drift": 4.218847493575594e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000044,
+              "rel_drift": 4.218847493575594e-15
+            },
+            "electron": {
+              "energy": 1.0000000000000029,
+              "rel_drift": 2.6645352591003753e-15
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000064,
+              "rel_drift": 6.217248937900875e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000064,
+              "rel_drift": 6.217248937900875e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000067,
+              "rel_drift": 6.439293542825906e-15
+            },
+            "electron": {
+              "energy": 1.0000000000000044,
+              "rel_drift": 4.218847493575594e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000084,
+              "rel_drift": 8.215650382226157e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000084,
+              "rel_drift": 8.215650382226157e-15
+            },
+            "d_b": {
+              "energy": 1.0000000000000089,
+              "rel_drift": 8.65973959207622e-15
+            },
+            "electron": {
+              "energy": 1.0000000000000056,
+              "rel_drift": 5.3290705182007506e-15
+            }
+          }
+        },
+        {
+          "tick": 50,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000102,
+              "rel_drift": 9.992007221626407e-15
+            },
+            "u_g": {
+              "energy": 1.0000000000000102,
+              "rel_drift": 9.992007221626407e-15
+            },
+            "d_b": {
+              "energy": 1.000000000000011,
+              "rel_drift": 1.0880185641326531e-14
+            },
+            "electron": {
+              "energy": 1.0000000000000067,
+              "rel_drift": 6.439293542825906e-15
+            }
+          }
+        },
+        {
+          "tick": 60,
+          "channels": {
+            "u_r": {
+              "energy": 1.0000000000000122,
+              "rel_drift": 1.1990408665951687e-14
+            },
+            "u_g": {
+              "energy": 1.0000000000000122,
+              "rel_drift": 1.1990408665951687e-14
+            },
+            "d_b": {
+              "energy": 1.000000000000013,
+              "rel_drift": 1.2878587085651813e-14
+            },
+            "electron": {
+              "energy": 1.000000000000008,
+              "rel_drift": 7.771561172376094e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "u_r": 1.1990408665951687e-14,
+          "u_g": 1.1990408665951687e-14,
+          "d_b": 1.2878587085651813e-14,
+          "electron": 7.771561172376094e-15
+        }
+      }
+    },
+    "unification_readout": {
+      "type": "unification_readout",
+      "label": "Unification Readout",
+      "exactness": "quantitative",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "proton_rms": 1.8371172885673375,
+          "proton_centroid": [
+            8.0,
+            8.0,
+            8.0
+          ],
+          "proton_norm": 3.0,
+          "electron_rms_self": 1.837080357177431,
+          "electron_centroid": [
+            10.999985493370508,
+            8.0,
+            8.0
+          ],
+          "electron_rms_about_p": 3.5177683364585173,
+          "ep_separation": 2.9999854933705077,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.23757922497407608,
+            "gluon_A": 0.0,
+            "J_em": 0.3657779221924671,
+            "photon_alpha": 0.0
+          }
+        },
+        {
+          "tick": 5,
+          "proton_rms": 3.9100613632368937,
+          "proton_centroid": [
+            8.001898255530724,
+            8.012157429331724,
+            8.94744275991594
+          ],
+          "proton_norm": 3.0000000000000036,
+          "electron_rms_self": 1.969916784697653,
+          "electron_centroid": [
+            10.951511413131419,
+            7.983838331307833,
+            8.182555893859595
+          ],
+          "electron_rms_about_p": 3.6284106526983204,
+          "ep_separation": 3.0473056408357735,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.0806558680564122,
+            "gluon_A": 0.01634760094241949,
+            "J_em": 0.12061869645569484,
+            "photon_alpha": 10.209902625212855
+          }
+        },
+        {
+          "tick": 10,
+          "proton_rms": 6.119423290225535,
+          "proton_centroid": [
+            7.993314130468555,
+            7.965594813230896,
+            10.06488717706574
+          ],
+          "proton_norm": 3.000000000000007,
+          "electron_rms_self": 2.30343362314022,
+          "electron_centroid": [
+            10.797689978253707,
+            7.991027066957371,
+            8.169220830078451
+          ],
+          "electron_rms_about_p": 4.087457541161666,
+          "ep_separation": 3.3850733513870024,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.043114465535163626,
+            "gluon_A": 0.028119666244318674,
+            "J_em": 0.11448292173901506,
+            "photon_alpha": 19.33449665559104
+          }
+        },
+        {
+          "tick": 15,
+          "proton_rms": 7.328510645668319,
+          "proton_centroid": [
+            0.2691520203856932,
+            0.311460858058372,
+            12.86049544256102
+          ],
+          "proton_norm": 3.0000000000000107,
+          "electron_rms_self": 2.739206620281921,
+          "electron_centroid": [
+            10.54867171567039,
+            8.018185193195942,
+            8.12620485313688
+          ],
+          "electron_rms_about_p": 10.208186535659559,
+          "ep_separation": 10.701915822858412,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.03500667349426169,
+            "gluon_A": 0.038328309905942985,
+            "J_em": 0.07054637802364595,
+            "photon_alpha": 29.19023437148338
+          }
+        },
+        {
+          "tick": 20,
+          "proton_rms": 7.092757998022663,
+          "proton_centroid": [
+            0.17375952036076703,
+            15.885387152507032,
+            0.7676337135246153
+          ],
+          "proton_norm": 3.0000000000000133,
+          "electron_rms_self": 3.250181264374511,
+          "electron_centroid": [
+            10.227815687036781,
+            8.046072337095259,
+            8.15214173928969
+          ],
+          "electron_rms_about_p": 11.089095375850736,
+          "ep_separation": 12.302034938446845,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.040510027158669554,
+            "gluon_A": 0.06023800683859928,
+            "J_em": 0.06581296922530504,
+            "photon_alpha": 39.906225615490555
+          }
+        },
+        {
+          "tick": 25,
+          "proton_rms": 7.598997491144573,
+          "proton_centroid": [
+            0.38869541844250327,
+            0.14397274578861236,
+            1.9561857201553767
+          ],
+          "proton_norm": 3.0000000000000164,
+          "electron_rms_self": 3.8001975995324035,
+          "electron_centroid": [
+            9.843009118133704,
+            8.05962341763609,
+            8.199234262587618
+          ],
+          "electron_rms_about_p": 10.671265793037312,
+          "ep_separation": 12.019949658960101,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.035189934134039355,
+            "gluon_A": 0.04810136897863581,
+            "J_em": 0.057338611502924325,
+            "photon_alpha": 49.73952367548433
+          }
+        },
+        {
+          "tick": 30,
+          "proton_rms": 7.878496617052614,
+          "proton_centroid": [
+            14.754913720111114,
+            15.881668314843834,
+            2.140337810684459
+          ],
+          "proton_norm": 3.0000000000000195,
+          "electron_rms_self": 4.338438069233073,
+          "electron_centroid": [
+            9.40266376118682,
+            8.066484737206814,
+            8.229133670963698
+          ],
+          "electron_rms_about_p": 10.099092365090035,
+          "ep_separation": 11.260422239113685,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.03513649574067897,
+            "gluon_A": 0.05628521147213342,
+            "J_em": 0.053630605448718796,
+            "photon_alpha": 58.192306469915245
+          }
+        },
+        {
+          "tick": 35,
+          "proton_rms": 7.712322560862844,
+          "proton_centroid": [
+            13.456764085845517,
+            0.7977993693177828,
+            12.570611093348981
+          ],
+          "proton_norm": 3.000000000000022,
+          "electron_rms_self": 4.810938486411031,
+          "electron_centroid": [
+            8.914130469536364,
+            8.0728418915531,
+            8.241450004269987
+          ],
+          "electron_rms_about_p": 9.069264874757094,
+          "ep_separation": 9.607465826509591,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.03292055896515558,
+            "gluon_A": 0.05456446399870376,
+            "J_em": 0.050655590443966336,
+            "photon_alpha": 65.19300247371318
+          }
+        },
+        {
+          "tick": 40,
+          "proton_rms": 7.089159109901238,
+          "proton_centroid": [
+            15.59246398740104,
+            0.029955797528294296,
+            14.390379368533198
+          ],
+          "proton_norm": 3.0000000000000253,
+          "electron_rms_self": 5.181899343456379,
+          "electron_centroid": [
+            8.38847113118912,
+            8.075777445442805,
+            8.239827101391453
+          ],
+          "electron_rms_about_p": 10.194076614156568,
+          "ep_separation": 12.369145464419937,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.046671902563814635,
+            "gluon_A": 0.08942711491961426,
+            "J_em": 0.06221048977042315,
+            "photon_alpha": 71.34414179113672
+          }
+        },
+        {
+          "tick": 45,
+          "proton_rms": 7.260783431959262,
+          "proton_centroid": [
+            15.908699825888343,
+            15.670705594222966,
+            0.7269938608033641
+          ],
+          "proton_norm": 3.0000000000000284,
+          "electron_rms_self": 5.445172238608786,
+          "electron_centroid": [
+            7.84754239765147,
+            8.07122926891706,
+            8.226757262244291
+          ],
+          "electron_rms_about_p": 10.42736148802601,
+          "ep_separation": 13.305025850246075,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.04166636747872328,
+            "gluon_A": 0.10240674716751672,
+            "J_em": 0.05750950382294438,
+            "photon_alpha": 77.24105591534699
+          }
+        },
+        {
+          "tick": 50,
+          "proton_rms": 7.491013047817325,
+          "proton_centroid": [
+            0.44373284631016935,
+            15.123530202600804,
+            1.6081865269034556
+          ],
+          "proton_norm": 3.000000000000031,
+          "electron_rms_self": 5.602070472652051,
+          "electron_centroid": [
+            7.323002452560826,
+            8.058732589599618,
+            8.199467752585148
+          ],
+          "electron_rms_about_p": 10.083664563353423,
+          "ep_separation": 11.86088967254039,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.035922132565174715,
+            "gluon_A": 0.09076427619242952,
+            "J_em": 0.0515882760766553,
+            "photon_alpha": 82.46013608411263
+          }
+        },
+        {
+          "tick": 55,
+          "proton_rms": 7.453648053923483,
+          "proton_centroid": [
+            7.773789787761559,
+            9.132184501927398,
+            5.5689485121529145
+          ],
+          "proton_norm": 3.0000000000000346,
+          "electron_rms_self": 5.6722026821508935,
+          "electron_centroid": [
+            6.842312215352022,
+            8.049695511950397,
+            8.177993517622266
+          ],
+          "electron_rms_about_p": 6.141770355360589,
+          "ep_separation": 2.974314832341721,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.036714015737899675,
+            "gluon_A": 0.10295314299493093,
+            "J_em": 0.05190013152024135,
+            "photon_alpha": 86.63617561042946
+          }
+        },
+        {
+          "tick": 60,
+          "proton_rms": 7.058131197578494,
+          "proton_centroid": [
+            8.131888587383411,
+            8.004457223071828,
+            8.870288126500212
+          ],
+          "proton_norm": 3.0000000000000373,
+          "electron_rms_self": 5.667227195560615,
+          "electron_centroid": [
+            6.416337493910961,
+            8.028139584726317,
+            8.139601978451518
+          ],
+          "electron_rms_about_p": 5.8891648881727665,
+          "ep_separation": 1.8648267092462747,
+          "net_charge": 0.0,
+          "loops": {
+            "J_colour": 0.041025067753880484,
+            "gluon_A": 0.12682191255565484,
+            "J_em": 0.05884477133148347,
+            "photon_alpha": 88.97082143905381
+          }
+        }
+      ],
+      "summary": {
+        "proton_rms": {
+          "first": 1.8371172885673375,
+          "last": 7.058131197578494,
+          "ratio": 3.841960032439043
+        },
+        "electron_rms_about_p": {
+          "first": 3.5177683364585173,
+          "last": 5.8891648881727665,
+          "ratio": 1.6741195908601623
+        },
+        "ep_separation": {
+          "first": 2.9999854933705077,
+          "last": 1.8648267092462747,
+          "ratio": 0.6216119089133084
+        },
+        "electron_rms_self": {
+          "first": 1.837080357177431,
+          "last": 5.667227195560615,
+          "ratio": 3.084909799083577
+        },
+        "net_charge": 0.0,
+        "loops_live": {
+          "J_colour": true,
+          "gluon_A": true,
+          "J_em": true,
+          "photon_alpha": true
+        }
+      }
+    }
+  }
+}

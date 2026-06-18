@@ -1,0 +1,53 @@
+{
+  "test_id": "FB10",
+  "name": "Lamb shift boundary: 2s_1/2 == 2p_1/2 at Dirac order (Lamb shift is QED-beyond-sector)",
+  "tier": "B",
+  "model_element": "F125 \u00a7I \u2014 pure Dirac-Coulomb 2s_1/2 / 2p_1/2 degeneracy; explicit QED/QFT-4 boundary",
+  "provenance": "F125 \u00a7I (test ledger item I); reuses ca-simulation/ca_atom.py radial-Dirac integrator (same Dirac route as the P5/FB05 fine-structure solve)",
+  "verdict": "PASS",
+  "predicted": {
+    "dirac_2s12_2p12_degeneracy_mc2units": 0.0,
+    "dirac_2s12_2p12_degeneracy_eV": 0.0,
+    "dirac_2s12_2p12_degeneracy_MHz": 0.0,
+    "statement": "2s_1/2 == 2p_1/2 EXACTLY at Dirac order (machine precision)",
+    "lamb_shift_MHz": null,
+    "lamb_shift_prediction_note": "NOT predicted at Dirac order \u2014 QED loop physics outside the current sector"
+  },
+  "measured_target": {
+    "lamb_shift_2s12_minus_2p12_MHz": 1057.8,
+    "source": "QED (vacuum polarization + self-energy); textbook/CODATA Lamb shift",
+    "in_current_sector": false,
+    "sector": "QFT-4 (radiative loop sector), open roadmap item"
+  },
+  "gate": {
+    "machine_eps_gate_mc2units": 1e-13,
+    "closed_form_degeneracy_within_gate": true,
+    "numerical_no_spurious_split": true,
+    "numerical_split_gate_eV": 4.528410301007924e-06,
+    "lamb_flagged_qed_beyond_sector": true,
+    "pass_rule": "PASS iff closed-form Dirac 2s_1/2==2p_1/2 within machine gate AND no spurious numerical Dirac split AND Lamb shift flagged QED-beyond-sector"
+  },
+  "computed": {
+    "kappa_2s12": -1,
+    "kappa_2p12": 1,
+    "E_2s12_sommerfeld_mc2units": 0.9999933434699121,
+    "E_2p12_sommerfeld_mc2units": 0.9999933434699121,
+    "Eb_2s12_sommerfeld_eV": -3.4014798855663284,
+    "Eb_2p12_sommerfeld_eV": -3.4014798855663284,
+    "E_2s12_numerical_dirac_mc2units": 0.9999933434783657,
+    "E_2p12_numerical_dirac_mc2units": 0.9999933434783657,
+    "numerical_dirac_degeneracy_mc2units": 0.0,
+    "numerical_dirac_degeneracy_eV": 0.0,
+    "numerical_dirac_relbinding_dev_2s12": 1.2699666439355578e-06,
+    "numerical_dirac_relbinding_dev_2p12": 1.2699666439355578e-06,
+    "fine_structure_2p32_2p12_split_eV": 4.5284103010079235e-05,
+    "alpha": 0.0072973525692838015,
+    "m_e_MeV": 0.51099895,
+    "integrator": "hand-rolled radial-Dirac RK4, inward+outward Wronskian matching of large/small components G,F, real arithmetic (no scipy for Dirac pieces); reused from ca-simulation/ca_atom.py \u2014 same Dirac route as the P5/FB05 fine-structure solve"
+  },
+  "boundary_statement": "At Dirac (one-particle relativistic) order the model gives EXACT 2s_1/2 == 2p_1/2 degeneracy (machine precision): both have n=2 and |kappa|=1, and the Dirac-Coulomb (Sommerfeld) spectrum E_{n,kappa} depends only on (n, |kappa|) i.e. (n, j). The MEASURED 2s_1/2-2p_1/2 Lamb shift (~1057.8 MHz) is therefore EXPLICITLY a QED radiative effect (vacuum polarization + electron self-energy) that lies OUTSIDE the current one-body Dirac sector \u2014 an open QFT-4 roadmap item, NOT a present prediction. This test exists to mark that boundary; a claim to reproduce 1057 MHz without an explicit QED loop sector would be the falsifier.",
+  "commands": [
+    "python3 tests/findings/test_FB10_lamb_shift_boundary.py"
+  ],
+  "timestamp": "2026-06-16"
+}

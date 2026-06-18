@@ -1,0 +1,34 @@
+# U1 — real-space confined baryon (roadmap-unified-real-space.md).
+# The fix for F134's U1 null: the proton's binding is the F86/F70 confining
+# STRING, applied as a Lorentz-SCALAR potential (a position-dependent Dirac
+# mass m_eff(x)=m+σ|x−R|, the MIT-bag / dual-superconductor mechanism), NOT
+# the Coulombic gluon exchange and NOT a vector phase kick (which Klein-
+# tunnels — see F134/F135).
+#
+# Three massive Dirac constituents (constituent-quark stand-ins; the binding
+# is colour-blind — it is the string, per F122 "the mass is the string") are
+# each confined toward the colour-singlet centre of mass (the Y-string
+# junction).  σ=0.5, m=0.9 (m/√σ in the F122 constituent window), dt=0.5 so
+# the scalar profile stays in the small-Strang regime.  Result: the cluster
+# RMS radius stays BOUNDED (~3.7, capped) while the free control (confined_
+# baryon_free.yaml) disperses to box saturation (~9).
+name: confined_baryon_free
+title: "Confined Baryon — free control"
+description: "Three massive Dirac constituents bound by the F86/F70 scalar confining string toward the singlet COM (Y-string): the cluster RMS stays bounded vs free dispersal — real-space confinement."
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 300
+channels:
+  - {type: particle, name: q1, species: nu_e_L, mass: 0.9,
+     init: {center: [7, 8, 8], width: 1.3}, couplings: {},
+     confine: {sigma: 0.0, dt: 0.5, mode: scalar, anchor: com, partners: [q1, q2, q3]}}
+  - {type: particle, name: q2, species: nu_e_L, mass: 0.9,
+     init: {center: [9, 8, 8], width: 1.3}, couplings: {},
+     confine: {sigma: 0.0, dt: 0.5, mode: scalar, anchor: com, partners: [q1, q2, q3]}}
+  - {type: particle, name: q3, species: nu_e_L, mass: 0.9,
+     init: {center: [8, 10, 8], width: 1.3}, couplings: {},
+     confine: {sigma: 0.0, dt: 0.5, mode: scalar, anchor: com, partners: [q1, q2, q3]}}
+observers:
+  - {type: norm_conservation, every: 50, channels: [q1, q2, q3]}
+  - {type: unification_readout, every: 25, cluster: [q1, q2, q3]}
+output: {json: test-results/casim_confined_baryon_free.json}

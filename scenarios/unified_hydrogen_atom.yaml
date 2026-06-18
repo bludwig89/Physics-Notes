@@ -1,0 +1,50 @@
+# U3 — neutral hydrogen as ONE dynamic real-space object
+# (roadmap-unified-real-space.md).  Combines the U1 confined, charged proton
+# and the U2 bound electron on a single BCC lattice:
+#
+#   * three colour Dirac quarks (uud, Q=+1) held together by the F135/F86
+#     Lorentz-scalar confining Y-string (anchor: com) — a non-dispersing,
+#     real-space proton that also sources the gluon (strong loop) and carries
+#     real fractional charge (photon loop);
+#   * a non-relativistic electron orbital (U2 nr_electron) relaxed into the
+#     ground state of the proton's own Coulomb potential (sourced from the
+#     quark rho_em) — a bound cloud around the proton.
+#
+# Deliverables (the U3 readout): net EM charge → 0 (uud + e), the electron
+# cloud tracks the proton centroid (bounded ep-separation), both the proton
+# cluster and the electron cloud stay bounded (vs free dispersal), and every
+# norm is conserved.  COMPRESSED SCALE (one tractable lattice holds both; the
+# physical proton:orbit ~1e4 size ratio is restored at U4 via the block-spin
+# multigrid).  Structure is the deliverable; absolute fm/eV stay P6-gated (F123).
+name: unified_hydrogen_atom
+title: "Neutral Hydrogen Atom (real-space U3)"
+description: "Confined uud proton (scalar Y-string) + non-relativistic bound electron on one BCC lattice: neutral, electron cloud tracks the proton, both bounded, norms conserved."
+lattice: {L: 24, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 200
+channels:
+  - {type: gluon_sourced, name: gluon, sources: [u_r, u_g, d_b], g_lat: 0.5, dt: 1.0}
+  - {type: photon_sourced, name: photon, sources: [u_r, u_g, d_b, electron],
+     dt: 0.1, g_em: 1.0, coulomb: true, g_coulomb: 1.0}
+  # --- the proton: three confined colour quarks (uud, net +1) ---
+  - {type: quark_dirac, name: u_r, species: u_L, colour: r, mass: 0.9,
+     init: {center: [11, 12, 12], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05,
+     confine: {mode: scalar, anchor: com, sigma: 0.5, dt: 0.5, partners: [u_r, u_g, d_b]}}
+  - {type: quark_dirac, name: u_g, species: u_L, colour: g, mass: 0.9,
+     init: {center: [13, 12, 12], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05,
+     confine: {mode: scalar, anchor: com, sigma: 0.5, dt: 0.5, partners: [u_r, u_g, d_b]}}
+  - {type: quark_dirac, name: d_b, species: d_L, colour: b, mass: 0.9,
+     init: {center: [12, 14, 12], width: 1.3},
+     couplings: {strong: gluon, em: photon}, eps_strong: 0.05,
+     confine: {mode: scalar, anchor: com, sigma: 0.5, dt: 0.5, partners: [u_r, u_g, d_b]}}
+  # --- the electron: bound cloud in the proton's Coulomb well ---
+  - {type: nr_electron, name: electron, mass: 1.0, charge: -1.0,
+     g_coulomb: 30.0, dt: 0.2, sources: [u_r, u_g, d_b],
+     init: {center: [12, 12.7, 12], width: 3.0, ground_state: true,
+            relax_steps: 700, relax_dtau: 0.05}}
+observers:
+  - {type: norm_conservation, every: 40, channels: [u_r, u_g, d_b, electron]}
+  - {type: unification_readout, every: 25, gluon: gluon, photon: photon}
+output: {json: test-results/casim_unified_hydrogen_atom.json}

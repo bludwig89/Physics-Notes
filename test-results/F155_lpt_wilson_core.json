@@ -1,0 +1,31 @@
+{
+  "W1_sum_rule_exact": {
+    "passed": true,
+    "value": 0.24999999999999983,
+    "exact": 0.25,
+    "dev": 1.6653345369377348e-16
+  },
+  "W2_tadpole_Z0": {
+    "passed": true,
+    "Z0": 0.15491623316432648,
+    "published": 0.154933390231,
+    "rel_dev": 0.00011073834147656836
+  },
+  "W3_convergence": {
+    "passed": true,
+    "Z0_rel_devs": [
+      0.000791,
+      0.000444,
+      0.000197,
+      0.000111
+    ],
+    "monotone": true
+  },
+  "summary": {
+    "passed": 3,
+    "total": 3,
+    "all_pass": true,
+    "core_validated": true,
+    "vertex_part": "next increment"
+  }
+}

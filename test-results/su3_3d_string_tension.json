@@ -1,0 +1,50 @@
+{
+  "description": "SU(3) pure-gauge 3D Metropolis (model su3_exp representation). Inputs: beta and lattice ONLY. No sigma/v.",
+  "engine": "tests/runners/run_su3_3d_string_tension.py",
+  "validation": {
+    "cold_plaquette": 1.0,
+    "links_is_su3": true,
+    "plaquette_monotone_in_beta": {
+      "3.0": 0.2031,
+      "5.0": 0.3696,
+      "7.0": 0.544,
+      "9.0": 0.6586
+    }
+  },
+  "headline": {
+    "beta": 9.0,
+    "L": 8,
+    "n_meas": 50,
+    "acceptance": 0.52,
+    "mean_plaquette": 0.6621,
+    "V_R": {
+      "1": 0.3722,
+      "2": 0.6701,
+      "3": 0.9636,
+      "4": 1.3479
+    },
+    "sigma_linear_fit": 0.3221,
+    "V0": 0.0333,
+    "creutz_chi": {
+      "2,2": 0.3213,
+      "2,3": 0.3065,
+      "3,2": 0.3065,
+      "3,3": 0.2935
+    },
+    "sigma_creutz_mean": 0.307,
+    "sigma_creutz_std": 0.0099
+  },
+  "wired_into_F135_bag": {
+    "free_RMS": 8.86,
+    "sigma_vs_RMS_plateau": {
+      "0.31": 6.25,
+      "0.40": 4.66,
+      "0.50": 3.74,
+      "0.70": 4.91,
+      "1.00": 7.77
+    },
+    "measured_sigma_0.31_binds": "loosely (RMS 6.25 < free 8.86; plateaued, not dispersed)",
+    "tight_binding_window": "sigma_135 ~ 0.4-0.5",
+    "scale_gap_factor": "~1.5 (= a_gauge/a_Dirac matching, U4 open)"
+  }
+}

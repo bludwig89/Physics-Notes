@@ -1,0 +1,44 @@
+{
+  "test_id": "FA06",
+  "title": "Neutron-proton mass splitting (sign and magnitude, no QCD anchor)",
+  "verdict": "PASS",
+  "timestamp": "2026-06-11T00:22:56Z",
+  "date": "2026-06-10",
+  "predicted": {
+    "np_strong_term_MeV": 2.51,
+    "np_em_term_MeV": -1.0,
+    "n_minus_p_MeV": 1.51,
+    "n_minus_p_sign_positive": true,
+    "decomposition": "(m_d - m_u) + (delta_em_n - delta_em_p)"
+  },
+  "computed": {
+    "m_d_minus_m_u_MeV": 2.51,
+    "em_term_MeV": -1.0,
+    "n_minus_p_MeV": 1.5099999999999998,
+    "n_minus_p_sign_positive": true,
+    "abs_dev_from_PDG_MeV": 0.2166699999999997,
+    "rel_high_pct": 16.752878229067576
+  },
+  "inputs_MeV": {
+    "m_u": 2.16,
+    "m_d": 4.67,
+    "delta_em_p": 1.0,
+    "delta_em_n": 0.0
+  },
+  "measured_target": {
+    "n_minus_p_MeV": 1.29333,
+    "source": "PDG (m_n - m_p = +1.29333 MeV)"
+  },
+  "gate": {
+    "pass_if": "total +1.51 MeV, sign positive, within ~0.25 MeV of PDG +1.293",
+    "tolerance_MeV": 0.25
+  },
+  "commands": [
+    "casim run scenarios/njl_nucleon.yaml --out test-results/FA06_np.json",
+    "python3 tests/findings/test_FA06_np_splitting.py",
+    "pytest tests/findings/test_FA06_np_splitting.py"
+  ],
+  "engine": "ca-simulation/ca_baryon_dynamics.neutron_minus_proton (via scenarios/njl_nucleon.yaml -> casim njl_nucleon channel)",
+  "provenance": "F123 H3 (sharpest matter prediction), F40 (quark Y / down-up gap), F122 (dynamical baryon three-body)",
+  "caveat_check": "Pure real arithmetic; no chiral/Dirac numpy transforms involved."
+}

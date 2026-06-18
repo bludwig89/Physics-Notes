@@ -59,6 +59,7 @@ Individual findings are in `findings/F{N}-name.md`. Use `grep -i "keyword" findi
 
 Use the important elements of a new theory, it must explain existing scientific measurements (not necessarily other theories), and either explain them better or extend beyond them. Our strong preference is for equations and predictions to be to algebraic exactness, then machine-precision exactness.
 
+- Always attempt to algebraically derive new elements or functionaltiy before introducting new physics.
 - Use CASIM now when possible, when sandbox timeout is exceeded, give the user a script or run parameters for CASIM to return a json or result file for Claude to read.
 
 - Be aware that using numpy or scipy on chiral transforms may not produce desired results. Check them first when troubleshooting. If they are returning wrong results or droping the real or imaginary elements, begin writing our own library of functions from scratch so we know what they are doing.

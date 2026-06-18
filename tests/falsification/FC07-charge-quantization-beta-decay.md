@@ -26,7 +26,7 @@ Falsified if:
 2. Charges: confirm `Q` assignments are exact rationals and Σ over a generation is anomaly-free; proton charge `= −`electron.
 3. β-decay (Tier-2 chiral channel):
 ```bash
-casim run scenarios/beta_decay.yaml --L 16 --ticks 24 \
+casim run scenarios/beta_decay.yaml --L 64 --ticks 1000 \
     --out test-results/FC07_beta.json
 ```
 Confirm `d→u+W⁻→u+e⁻+ν̄` with left-handed coupling (right-branch weight ≡ 0).

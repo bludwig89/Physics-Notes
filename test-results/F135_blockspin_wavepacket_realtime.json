@@ -1,0 +1,137 @@
+{
+  "finding": "F135",
+  "title": "Real-time wave-packet dynamics under block-spin",
+  "tests": {
+    "RT1_faithfulness": {
+      "detail": {
+        "2": {
+          "L": 48,
+          "Lc": 24,
+          "N_coarse": 6,
+          "fine_ticks": 12,
+          "max_rel_resid": 1.4246537683556085e-15,
+          "per_tick": [
+            4.2575965395673313e-16,
+            6.571513029123784e-16,
+            6.402490887799404e-16,
+            8.986687656594746e-16,
+            1.3269913354921988e-15,
+            1.4246537683556085e-15
+          ]
+        },
+        "3": {
+          "L": 48,
+          "Lc": 16,
+          "N_coarse": 6,
+          "fine_ticks": 18,
+          "max_rel_resid": 2.519634952623926e-15,
+          "per_tick": [
+            7.784798782347187e-16,
+            1.0122645554403792e-15,
+            1.3794852872712482e-15,
+            1.659006046540435e-15,
+            2.202454117992163e-15,
+            2.519634952623926e-15
+          ]
+        }
+      },
+      "pass": true
+    },
+    "RT2_group_velocity": {
+      "v_fine_cells_per_tick": 0.5329607528655375,
+      "v_coarse_cells_per_tick": 0.531727082592815,
+      "packet_actually_moves": true,
+      "pass": true
+    },
+    "RT3_spreading": {
+      "dwidth_fine_cells": 0.06719442747574789,
+      "dwidth_coarse_in_fine_cells": 0.06787127475356947,
+      "packet_actually_spreads": true,
+      "pass": true
+    },
+    "RT4_mass_relevant": {
+      "detail": {
+        "0.1": {
+          "m": 0.1,
+          "gap_fine_arcsin_m": 0.10016742116155969,
+          "arcsin_m": 0.1001674211615598,
+          "b2": {
+            "eigenvalue": 2.0,
+            "m_coarse_sin(b arcsin m)": 0.19899748742132378,
+            "m_coarse_approx_bm": 0.2,
+            "lam_phys_ratio": 1.0
+          },
+          "b3": {
+            "eigenvalue": 3.0,
+            "m_coarse_sin(b arcsin m)": 0.2959999999999997,
+            "m_coarse_approx_bm": 0.30000000000000004,
+            "lam_phys_ratio": 1.0
+          },
+          "b4": {
+            "eigenvalue": 4.0,
+            "m_coarse_sin(b arcsin m)": 0.3900350753457946,
+            "m_coarse_approx_bm": 0.4,
+            "lam_phys_ratio": 1.0
+          }
+        },
+        "0.25": {
+          "m": 0.25,
+          "gap_fine_arcsin_m": 0.25268025514207854,
+          "arcsin_m": 0.25268025514207865,
+          "b2": {
+            "eigenvalue": 2.0,
+            "m_coarse_sin(b arcsin m)": 0.4841229182759269,
+            "m_coarse_approx_bm": 0.5,
+            "lam_phys_ratio": 1.0
+          },
+          "b3": {
+            "eigenvalue": 3.0,
+            "m_coarse_sin(b arcsin m)": 0.6874999999999997,
+            "m_coarse_approx_bm": 0.75,
+            "lam_phys_ratio": 1.0000000000000002
+          },
+          "b4": {
+            "eigenvalue": 4.0,
+            "m_coarse_sin(b arcsin m)": 0.8472151069828722,
+            "m_coarse_approx_bm": 1.0,
+            "lam_phys_ratio": 1.0
+          }
+        },
+        "0.5": {
+          "m": 0.5,
+          "gap_fine_arcsin_m": 0.5235987755982989,
+          "arcsin_m": 0.5235987755982989,
+          "b2": {
+            "eigenvalue": 2.0,
+            "m_coarse_sin(b arcsin m)": 0.8660254037844387,
+            "m_coarse_approx_bm": 1.0,
+            "lam_phys_ratio": 1.0
+          },
+          "b3": {
+            "eigenvalue": 3.0,
+            "m_coarse_sin(b arcsin m)": 1.0,
+            "m_coarse_approx_bm": 1.5,
+            "lam_phys_ratio": 1.0
+          },
+          "b4": {
+            "eigenvalue": 4.0,
+            "m_coarse_sin(b arcsin m)": 0.8660254037844385,
+            "m_coarse_approx_bm": 2.0,
+            "lam_phys_ratio": 1.0
+          }
+        }
+      },
+      "pass": true
+    },
+    "RT5_norm": {
+      "fine_drift": 7.771561172376096e-16,
+      "coarse_drift": 2.220446049250313e-16,
+      "pass": true
+    }
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true
+  }
+}

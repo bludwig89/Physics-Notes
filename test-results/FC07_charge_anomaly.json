@@ -1,0 +1,153 @@
+{
+  "test": "FC07",
+  "title": "Charge quantization, anomaly cancellation, \u03b2-decay",
+  "tier": "C (consistency regression)",
+  "date": "2026-06-16 - 16:30",
+  "overall_verdict": "PASS",
+  "provenance": [
+    "F38",
+    "F41",
+    "F35",
+    "F54",
+    "F47",
+    "F53"
+  ],
+  "supersedes": [
+    "test_10_QG4_charge.py",
+    "test_07_QFT5_neutrino.py",
+    "test_FG1_anomaly_cancellation.py",
+    "test_FG8_beta_decay.py"
+  ],
+  "block1_anomalies": {
+    "pass": true,
+    "all_six_exactly_zero": true,
+    "arithmetic": "fractions.Fraction (exact rationals over Q)",
+    "traces": {
+      "FG-1.A  [grav]^2.U(1)_Y": "0",
+      "FG-1.B  U(1)_Y^3": "0",
+      "FG-1.C  [SU(2)_L]^2.U(1)_Y": "0",
+      "FG-1.D  [SU(3)_c]^2.U(1)_Y": "0",
+      "FG-1.E  [SU(3)_c]^3": "0",
+      "FG-1.F  [SU(2)_L]^3": "0"
+    }
+  },
+  "block2_charges": {
+    "pass": true,
+    "convention": "Q = T3 + Y/2",
+    "charges_exact_rationals": true,
+    "table": {
+      "nu_e": "0",
+      "e": "-1",
+      "u": "2/3",
+      "d": "-1/3"
+    },
+    "Q_proton (uud)": "1",
+    "Q_electron": "-1",
+    "proton_equals_minus_electron_exact": true
+  },
+  "block3_beta_decay": {
+    "pass": true,
+    "process": "d -> u + W- -> u + e- + nubar_e",
+    "vertex": "P_L = (1 - gamma5)/2  (left-coupled charged current)",
+    "left_chiral": true,
+    "right_branch_weight": 0.0,
+    "right_branch_weight_is_zero": true,
+    "numpy_verified_against_handrolled": true,
+    "chirality_detail": {
+      "handrolled": {
+        "resid_right (P_L psi_R)": 0.0,
+        "resid_left  (P_L psi_L - psi_L)": 0.0,
+        "right_branch_weight (P_R psi_L)": 0.0
+      },
+      "numpy": {
+        "resid_right": 0.0,
+        "resid_left": 0.0,
+        "right_branch_weight": 0.0
+      },
+      "numpy_matches_handrolled": true,
+      "repo_va_vertex": {
+        "resid_right": 0.0,
+        "resid_left": 0.0
+      },
+      "right_branch_weight_is_zero": true,
+      "left_chiral": true
+    },
+    "casim_run": {
+      "present": true,
+      "native_run_needed": false,
+      "L": 64,
+      "ticks": 1000,
+      "propagator": "chiral",
+      "E_W_tick0": 0.0,
+      "E_W_after_emit": 1.7967991300735344,
+      "E_W_final": 1.7967991300739257,
+      "w_minus_emitted": true,
+      "proca_energy_conserved": true
+    }
+  },
+  "block4_seesaw": {
+    "pass": true,
+    "seesaw_formula": "m_nu = M_D^2 / M_R  (M_R >> M_D)",
+    "higgs_free": true,
+    "cases": [
+      {
+        "M_D_GeV": 100.0,
+        "M_R_GeV": 100000000000000.0,
+        "m_nu_eV": 0.1,
+        "M_D^2/M_R_eV": 0.1,
+        "in_measured_window_0.001..0.12eV": true
+      },
+      {
+        "M_D_GeV": 100.0,
+        "M_R_GeV": 200000000000000.0,
+        "m_nu_eV": 0.05,
+        "M_D^2/M_R_eV": 0.05,
+        "in_measured_window_0.001..0.12eV": true
+      },
+      {
+        "M_D_GeV": 30.0,
+        "M_R_GeV": 100000000000000.0,
+        "m_nu_eV": 0.009,
+        "M_D^2/M_R_eV": 0.009,
+        "in_measured_window_0.001..0.12eV": true
+      }
+    ],
+    "scaling_check": [
+      {
+        "M_R/M_D": 10,
+        "m*M_R/M_D^2-1": 0.009804864072151642,
+        "bound_1.1*(M_D/M_R)^2": 0.011000000000000003,
+        "ok": true
+      },
+      {
+        "M_R/M_D": 100,
+        "m*M_R/M_D^2-1": 9.998000499844562e-05,
+        "bound_1.1*(M_D/M_R)^2": 0.00011000000000000002,
+        "ok": true
+      },
+      {
+        "M_R/M_D": 1000,
+        "m*M_R/M_D^2-1": 9.999979999619768e-07,
+        "bound_1.1*(M_D/M_R)^2": 1.1e-06,
+        "ok": true
+      },
+      {
+        "M_R/M_D": 10000,
+        "m*M_R/M_D^2-1": 9.999999828202988e-09,
+        "bound_1.1*(M_D/M_R)^2": 1.1000000000000001e-08,
+        "ok": true
+      },
+      {
+        "M_R/M_D": 100000,
+        "m*M_R/M_D^2-1": 9.999989725173464e-11,
+        "bound_1.1*(M_D/M_R)^2": 1.1000000000000002e-10,
+        "ok": true
+      }
+    ],
+    "scaling_within_bound": true,
+    "accommodates_measured_scale": true,
+    "sum_mnu_bound_eV": 0.12,
+    "note": "A single large Majorana scale M_R replaces an unnaturally tiny Yukawa: m_nu ~ 1e-3..1e-1 eV emerges automatically."
+  },
+  "native_run_needed": false
+}
