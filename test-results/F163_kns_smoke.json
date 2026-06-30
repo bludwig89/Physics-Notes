@@ -1,0 +1,94 @@
+{
+  "N_act": 25.920000801704653,
+  "p_vec": [
+    2,
+    0,
+    0,
+    0
+  ],
+  "n_samples": 8,
+  "seagull_raw": -633.0085014025125,
+  "note": "raw seagull (action normalisation). Divide by N_act, add measure (g^2/12)C_A, rescale colour 2->3, then VALIDATE transversality before combining with loops + C_MSbar=131/66. This runner provides the extractor + normalisation; the transversality-validated assembly is the remaining native step.",
+  "sample_rows": [
+    {
+      "k": [
+        5,
+        3,
+        3,
+        1
+      ],
+      "Khat": 10.0,
+      "W": -38.878957378529755
+    },
+    {
+      "k": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "Khat": 0.9999999999999998,
+      "W": 15.292082537754492
+    },
+    {
+      "k": [
+        1,
+        4,
+        3,
+        5
+      ],
+      "Khat": 9.0,
+      "W": -27.99294296362831
+    },
+    {
+      "k": [
+        3,
+        3,
+        5,
+        4
+      ],
+      "Khat": 12.0,
+      "W": -44.926781607446124
+    },
+    {
+      "k": [
+        3,
+        3,
+        3,
+        5
+      ],
+      "Khat": 13.0,
+      "W": -45.617962832200654
+    },
+    {
+      "k": [
+        1,
+        4,
+        4,
+        0
+      ],
+      "Khat": 7.0,
+      "W": -26.610569910101578
+    },
+    {
+      "k": [
+        2,
+        5,
+        3,
+        0
+      ],
+      "Khat": 7.999999999999999,
+      "W": -10.022298965739473
+    },
+    {
+      "k": [
+        4,
+        4,
+        5,
+        1
+      ],
+      "Khat": 8.0,
+      "W": -30.412077481334343
+    }
+  ]
+}

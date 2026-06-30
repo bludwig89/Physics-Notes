@@ -1,0 +1,90 @@
+{
+  "checks": [
+    {
+      "name": "A_coefficient_identity",
+      "one_over_G_d3": "8*sqrt(3)*pi*hbar/(a**2*c**3)",
+      "res_one_over_G_vs_8pi_sqrt3": 0.0,
+      "res_8piG_c4_vs_a2clat_hbarc": 0.0,
+      "pass": true,
+      "note": "static law  \u2207\u00b2lnK = -(8\u03c0G/c\u2074)T00  -->  hyperbolic  (\u2207\u00b2 - c_lat\u207b\u00b2\u2202t\u00b2) lnK = -(8\u03c0G/c\u2074)T00"
+    },
+    {
+      "name": "B_inverse_coupling_carries_clat",
+      "detail": {
+        "d=1": {
+          "integral_times_c": [
+            6.2933835261156315,
+            6.2933835261156315,
+            6.2933835261156315,
+            6.293383526115631
+          ],
+          "rel_spread": 1.4112891992271797e-16
+        },
+        "d=2": {
+          "integral_times_c": [
+            3.0924369772722686,
+            3.0924369772722686,
+            3.092436977272268,
+            3.0924369772722686
+          ],
+          "rel_spread": 1.4360493459167542e-16
+        },
+        "d=3": {
+          "integral_times_c": [
+            3.0826771742624897,
+            3.0826771742624883,
+            3.0826771742624905,
+            3.082677174262487
+          ],
+          "rel_spread": 7.202979500380349e-16
+        }
+      },
+      "pass": true,
+      "note": "integral*c is c-independent (<0.5%) \u21d2 1/G \u221d 1/c_lat exactly; the only velocity in the gravity sector is the rotation rate."
+    },
+    {
+      "name": "C_graviton_inherits_lightcone",
+      "detail": {
+        "c=0.57735": {
+          "invariant_isocontour_spread": 2.222430200212864e-05,
+          "naive_isotropic_spread": 0.27116404950377787,
+          "lightcone_speed_c_grav": 0.5773502691896258
+        },
+        "c=1.00000": {
+          "invariant_isocontour_spread": 1.1839839515430803e-08,
+          "naive_isotropic_spread": 1.1839839515430803e-08,
+          "lightcone_speed_c_grav": 1.0
+        },
+        "c=0.50000": {
+          "invariant_isocontour_spread": 4.168006645477585e-05,
+          "naive_isotropic_spread": 0.3294679370518276,
+          "lightcone_speed_c_grav": 0.5
+        }
+      },
+      "pass": true,
+      "note": "Pi(q) is a function of c^2|q|^2 - q0^2 ONLY \u21d2 graviton light cone q0=c|q|; with c=c_lat=1/\u221a3, c_grav=c_lat exactly. The speed is inherited from the constituent rotation rate."
+    },
+    {
+      "name": "D_dispersion_and_gw170817",
+      "c_lat": 0.5773502691896258,
+      "slope_residual_c_g_minus_c_gamma": 0.0,
+      "gw170817_bound": 1e-15,
+      "model_residual_at_100Hz_upper_bound": 2.9061108245362933e-83,
+      "pass": true,
+      "note": "leading slopes identical (=c_lat, exact); first difference is O((f/f_Planck)^2) ~ 1e-83 \u226a 1e-15."
+    },
+    {
+      "name": "E_realspace_wavefront",
+      "c_g_set_from_rotation_rule": 0.5773502691896258,
+      "c_lat": 0.5773502691896258,
+      "measured_wavefront_speed": 0.5942483160439002,
+      "speed_over_c_lat": 1.0292682757002825,
+      "static_poisson_fixedpoint_rel_dev": 0.0008582483181432951,
+      "pass": true,
+      "note": "delta-K pulse radiates at c_lat=1/\u221a3; static limit = F106 Poisson."
+    }
+  ],
+  "n_pass": 5,
+  "n_total": 5,
+  "all_pass": true
+}

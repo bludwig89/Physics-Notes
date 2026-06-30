@@ -1,0 +1,76 @@
+{
+  "C1": {
+    "g_c": 2.2595484878546777,
+    "secular_residual_at_threshold": 0.0,
+    "wavefn_norm": 1.0,
+    "normalizable": true,
+    "pass": true
+  },
+  "C2": {
+    "g_c_finite": true,
+    "g_c": 2.2595484878546777,
+    "pass": true
+  },
+  "C3": {
+    "rows": [
+      {
+        "|k|": 0.05,
+        "T_true(k)": 0.028729582187579254,
+        "Omega_even": 0.02886706797245704,
+        "Omega_even_minus_T": 0.00013748578487778745,
+        "slope": 0.5773413594491408
+      },
+      {
+        "|k|": 0.1,
+        "T_true(k)": 0.05711729477728945,
+        "Omega_even": 0.05773146300644369,
+        "Omega_even_minus_T": 0.0006141682291542425,
+        "slope": 0.5773146300644368
+      },
+      {
+        "|k|": 0.2,
+        "T_true(k)": 0.11287459335075226,
+        "Omega_even": 0.11544154201333687,
+        "Omega_even_minus_T": 0.0025669486625846116,
+        "slope": 0.5772077100666843
+      },
+      {
+        "|k|": 0.4,
+        "T_true(k)": 0.21983781720800993,
+        "Omega_even": 0.2307119966394618,
+        "Omega_even_minus_T": 0.010874179431451858,
+        "slope": 0.5767799915986545
+      }
+    ],
+    "slope_small_k": 0.5773413594491408,
+    "Omega_even_minus_T_exponent": 2.09797894566747,
+    "all_gaps_nonneg": true,
+    "pass": true
+  },
+  "C4": {
+    "Eb_secular": -0.2764741566556992,
+    "Eb_dense": -0.27647415665575553,
+    "diff": 5.6343818499726694e-14,
+    "below_threshold": true,
+    "pass": true
+  },
+  "C5": {
+    "T(0)": 0.0,
+    "w_plus(0)": 0.0,
+    "w_minus(0)": 0.0,
+    "pass": true
+  },
+  "C6": {
+    "rms_relative_radius_lattice_units": 1.9070524942534506,
+    "pass": true
+  },
+  "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true,
+    "C6": true
+  },
+  "all_pass": true
+}

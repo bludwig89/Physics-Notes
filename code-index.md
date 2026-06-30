@@ -13,9 +13,11 @@
 | ca-simulation | `ca_baryon_dynamics.py` | ca_baryon_dynamics.py |
 | ca-simulation | `ca_bcc.py` | ca_bcc.py — BCC-lattice Weyl QCA (Paper 1 / Paper 2) |
 | ca-simulation | `ca_bgfield_loop.py` | ca_bgfield_loop.py — the background-field one-loop gluon self-energy: the |
+| ca-simulation | `ca_blackhole.py` | ca_blackhole.py -- The black hole under the F178 gravity sector |
 | ca-simulation | `ca_blockspin.py` | ca_blockspin.py — Phase-1 block-spin / coarse-graining RG scheme (F130) |
 | ca-simulation | `ca_blockspin_binding.py` | ca_blockspin_binding.py — Phase-2: a coarse-grained bound state reproduces the |
 | ca-simulation | `ca_blockspin_dynamical.py` | ca_blockspin_dynamical.py — coarse-graining the dynamical / relativistic bound |
+| ca-simulation | `ca_casimir.py` | ca_casimir.py — The Casimir effect in the BCC Weyl-QCA model (F207) |
 | ca-simulation | `ca_charge_coupling.py` | ca_charge_coupling.py — The U(1) charge-coupling path on the paired-photon field |
 | ca-simulation | `ca_charged_current.py` | ca_charged_current.py |
 | ca-simulation | `ca_colour_condensate.py` | ca_colour_condensate.py — the colour-magnetic condensate arising within the model (F88) |
@@ -24,11 +26,15 @@
 | ca-simulation | `ca_cooling.py` | ca_cooling.py — SU(3) Wilson gradient flow and cooling driver (FG-7b, 2026-06-01) |
 | ca-simulation | `ca_core.py` | ca_core.py — Cellular Automaton physics core |
 | ca-simulation | `ca_core_exact.py` | ca_core_exact.py — Exact-arccos 2D Weyl QCA (Paper 1 Eq. 16) |
+| ca-simulation | `ca_cosmology.py` | ca_cosmology.py -- Homogeneous-isotropic (FLRW) cosmology of the full-tensor |
 | ca-simulation | `ca_curved.py` | ca_curved.py — Variable-c stepper (Phase C1) |
+| ca-simulation | `ca_darkmatter.py` | ca_darkmatter.py -- Galactic rotation curves & the Bullet-Cluster test |
 | ca-simulation | `ca_dirac.py` | ca_dirac.py — Dirac CA on a flat lattice (Phase D1) — exact-QCA form |
 | ca-simulation | `ca_dirac_bcc.py` | ca_dirac_bcc.py — Dirac CA on the 3D BCC lattice (exact-QCA form) |
 | ca-simulation | `ca_dual_gl_backreaction.py` | ca_dual_gl_backreaction.py — Self-consistent dual-Ginzburg-Landau back-reaction |
+| ca-simulation | `ca_eg_sextic_coupling.py` | ca_eg_sextic_coupling.py — the saturated-condensate induced-coupling solve for |
 | ca-simulation | `ca_element.py` | ca_element.py |
+| ca-simulation | `ca_emergent_gravity.py` | ca_emergent_gravity.py -- Model-native emergent-gravity ("dark matter without |
 | ca-simulation | `ca_emission.py` | ca_emission.py |
 | ca-simulation | `ca_emqg.py` | ca_emqg.py — EMQG modified Poisson + c(φ) coupling (Paper 6) |
 | ca-simulation | `ca_fft.py` | ca_fft.py — FFT backend for the CA simulation suite |
@@ -37,8 +43,11 @@
 | ca-simulation | `ca_gluon_self_energy.py` | ca_gluon_self_energy.py — Residual A of the strong-sector scale problem, |
 | ca-simulation | `ca_gravity.py` | ca_gravity.py — the gravity field element of the main model (F64 → mainline). |
 | ca-simulation | `ca_higgs.py` | ca_higgs.py — Complex scalar Φ (Higgs) field CA |
+| ca-simulation | `ca_horizon_entropy.py` | ca_horizon_entropy.py -- Lattice microstates & the Bekenstein-Hawking area law |
 | ca-simulation | `ca_hypercharge.py` | ca_hypercharge.py — U(1)_Y hypercharge gauging on the F27 chiral-SU(2) |
 | ca-simulation | `ca_induced_stiffness.py` | ca_induced_stiffness.py — the induced gauge-stiffness one-loop on the BCC walk |
+| ca-simulation | `ca_inspiral.py` | ca_inspiral.py -- Compact-binary inspiral & GW phasing (post-Newtonian) |
+| ca-simulation | `ca_interior_metric.py` | ca_interior_metric.py -- Covariant two-function interior metric kernel (F181) |
 | ca-simulation | `ca_ir_coupling.py` | ca_ir_coupling.py — F152: the IR FACE of the strong coupling. |
 | ca-simulation | `ca_lattice.py` | ca_lattice.py — Lattice configuration and k-grid utilities |
 | ca-simulation | `ca_lazy.py` | ca_lazy.py — Lazy-update / tick-counter wrapper for emergent-time work |
@@ -46,6 +55,7 @@
 | ca-simulation | `ca_lpt_vertex.py` | ca_lpt_vertex.py — the cubic expansion of the compact gauge action: the |
 | ca-simulation | `ca_lpt_ward.py` | ca_lpt_ward.py — the 3-gluon vertex closed form + the Ward-Takahashi identity, |
 | ca-simulation | `ca_lpt_wilson.py` | ca_lpt_wilson.py — Wilson-action lattice perturbation theory: the BZ-integration |
+| ca-simulation | `ca_lpt_wilson_selfenergy.py` | ca_lpt_wilson_selfenergy.py — the FULL Wilson-action one-loop background-field |
 | ca-simulation | `ca_manybody.py` | ca_manybody.py |
 | ca-simulation | `ca_maxwell.py` | ca_maxwell.py — Composite-photon EM sector (Paper 1 Eq. 35) |
 | ca-simulation | `ca_maxwell_2d.py` | ca_maxwell_2d.py — Composite-photon bilinear on the 2D square QCA |
@@ -53,17 +63,26 @@
 | ca-simulation | `ca_minimal_coupling.py` | ca_minimal_coupling — U(1) and SU(3) minimal coupling on the 3D BCC walk. |
 | ca-simulation | `ca_multigrid.py` | ca_multigrid.py |
 | ca-simulation | `ca_njl_induced_coupling.py` | ca_njl_induced_coupling.py — Route C of the QCD calibration block: |
+| ca-simulation | `ca_ns_eos.py` | ca_ns_eos.py -- Tabulated-EoS neutron stars on the F181 two-function kernel |
 | ca-simulation | `ca_nuclear.py` | ca_nuclear.py |
 | ca-simulation | `ca_nuclear_core.py` | ca_nuclear_core.py — the NN short-range repulsive core, derived from the model |
+| ca-simulation | `ca_photon_bs.py` | ca_photon_bs.py — The interacting two-body bound-state wavefunction of the |
 | ca-simulation | `ca_photon_pair.py` | ca_photon_pair.py — The photon as a bound pair of two spin-½ Weyl quanta |
 | ca-simulation | `ca_propagator.py` | ca_propagator.py — Cached spectral propagator objects |
 | ca-simulation | `ca_qcd_scale_ratio.py` | ca_qcd_scale_ratio.py |
+| ca-simulation | `ca_qnm.py` | ca_qnm.py -- Quasinormal-mode ringdown spectrum (WKB Regge-Wheeler) |
 | ca-simulation | `ca_qstar_logmoment.py` | ca_qstar_logmoment.py — Residual A of the strong-sector scale problem: |
+| ca-simulation | `ca_raytrace.py` | ca_raytrace.py -- Black-hole shadow by null-geodesic ray tracing + mu-as map |
+| ca-simulation | `ca_rotation.py` | ca_rotation.py -- Slow-rotation frame dragging & moment of inertia (Hartle) |
 | ca-simulation | `ca_scheme_constant.py` | ca_scheme_constant.py — the shared scheme/scale constant of F144-A4 / F145-N5 |
 | ca-simulation | `ca_si_scale.py` | ca_si_scale.py |
+| ca-simulation | `ca_slowlight.py` | ca_slowlight.py — Slow-light / EIT as a test of the rotation-rate picture |
+| ca-simulation | `ca_stellar.py` | ca_stellar.py -- Hydrostatic stellar structure: GR (TOV) vs the dielectric model |
 | ca-simulation | `ca_strong.py` | ca_strong.py — SU(3)_color strong-force gauge sector (Phase E3) |
 | ca-simulation | `ca_su3_ladder.py` | ca_su3_ladder.py — SU(3) electric Casimir ladder and the SU(3) character rotor |
+| ca-simulation | `ca_tolman.py` | ca_tolman.py -- GR-vs-model pressure / Tolman sector |
 | ca-simulation | `ca_unified.py` | ca_unified.py — Unified stepper coupling Higgs field Φ to Dirac fermion |
+| ca-simulation | `ca_vacuum_energy.py` | ca_vacuum_energy.py -- The cosmological constant under the full-tensor source |
 | ca-simulation | `ca_weak.py` | ca_weak.py — SU(2) weak-isospin gauge coupling (Phase E2) |
 | ca-simulation | `ca_wmu.py` | ca_wmu.py — SU(2) W_μ gauge field on the BCC lattice |
 | ca-simulation | `ca_z_field.py` | ca_z_field.py — FG-4: dynamical Z neutral-current sector |
@@ -89,6 +108,17 @@
 | ca-simulation/forks | `gr3_fork_harness.py` | GR-3 candidate-fix cross-fork harness |
 | ca-simulation/forks | `gr3_forks_AB_extended.py` | GR-3 Forks A & B — extended run |
 | ca-simulation/forks | `gr_fork_E_tensor.py` | Fork E — TENSOR-METRIC GRAVITY (the structurally-honest path beyond Paper 6) |
+| ca-simulation/forks | `gr_fork_F164_cosmological_constant.py` | gr_fork_F164_cosmological_constant.py |
+| ca-simulation/forks | `gr_fork_F180_gw_speed.py` | F180 — Gravitational-wave speed from the dielectric rotation rule. |
+| ca-simulation/forks | `gr_fork_F193_ontic_vacuum.py` | gr_fork_F193_ontic_vacuum.py |
+| ca-simulation/forks | `gr_fork_F196_dilution_exponent.py` | gr_fork_F196_dilution_exponent.py |
+| ca-simulation/forks | `gr_fork_F197_first_excitation_dark.py` | gr_fork_F197_first_excitation_dark.py |
+| ca-simulation/forks | `gr_fork_F198_angular_misalignment.py` | gr_fork_F198_angular_misalignment.py |
+| ca-simulation/forks | `gr_fork_F199_amplitude_mode_stability.py` | gr_fork_F199_amplitude_mode_stability.py |
+| ca-simulation/forks | `gr_fork_F200_sterile_neutrino_dm.py` | gr_fork_F200_sterile_neutrino_dm.py |
+| ca-simulation/forks | `gr_fork_F201_kev_from_eg_texture.py` | gr_fork_F201_kev_from_eg_texture.py |
+| ca-simulation/forks | `gr_fork_F202_leptogenesis_sakharov.py` | gr_fork_F202_leptogenesis_sakharov.py |
+| ca-simulation/forks | `gr_fork_F203_dark_sector_falsifiers.py` | gr_fork_F203_dark_sector_falsifiers.py |
 | ca-simulation/forks | `gr_fork_F46_dirac.py` | Fork F46-Dirac — GRAVITY VIA THE SPHERICAL-TRIANGLE LEGS (tetrad Dirac / Fork E3) |
 | ca-simulation/forks | `gr_fork_F52_restleg_backreaction.py` | Fork F52 — GRAVITY AS A SELF-CONSISTENT REST-LEG (CLOCK-RATE) FIELD |
 | ca-simulation/forks | `gr_fork_F55_spatial_metric_backreaction.py` | Fork F55 — SOURCING THE SPATIAL METRIC: EINSTEIN'S FACTOR-2 FROM TRACE REVERSAL |

@@ -1,0 +1,249 @@
+{
+  "name": "stable_atom_helium_free",
+  "title": "He free control (F195) \u2014 no binding, ballistic dispersal",
+  "description": "Matched control: He electron orbitals with the nuclear well and e-e Hartree field switched off; the cloud disperses, certifying the bound run is genuinely bound.",
+  "seed": 7,
+  "ticks": 120,
+  "lattice": {
+    "L": 28,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 28,
+    "cell_factor": 1
+  },
+  "channels": {
+    "atom": {
+      "name": "atom",
+      "type": "element_atom",
+      "label": "Element Atom",
+      "propagator": "multigrid",
+      "topologies": [
+        "bcc",
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "atom_stability_readout": {
+      "type": "atom_stability_readout",
+      "label": "Atom Stability Readout",
+      "exactness": "quantitative",
+      "every": 20,
+      "records": [
+        {
+          "tick": 0,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 4.898923186165941,
+          "shell_rms_coarse": [
+            4.898923186165941
+          ],
+          "shell_norm": [
+            0.9999999999999984
+          ],
+          "cloud_centroid_sep": 0.0,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 67454.80943556408,
+          "represented_decades": 4.829012919713834,
+          "cloud_norm": 1.999999999999997,
+          "loop_liveness": null
+        },
+        {
+          "tick": 20,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 5.477783917415566,
+          "shell_rms_coarse": [
+            5.477783917415566
+          ],
+          "shell_norm": [
+            0.9999999999999927
+          ],
+          "cloud_centroid_sep": 0.0,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 75425.3243492168,
+          "represented_decades": 4.877517186434327,
+          "cloud_norm": 1.9999999999999853,
+          "loop_liveness": null
+        },
+        {
+          "tick": 40,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 6.933450103871174,
+          "shell_rms_coarse": [
+            6.933450103871174
+          ],
+          "shell_norm": [
+            0.9999999999999867
+          ],
+          "cloud_centroid_sep": 3.076740298213702e-15,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 95468.84850294117,
+          "represented_decades": 4.97986168435568,
+          "cloud_norm": 1.9999999999999734,
+          "loop_liveness": null
+        },
+        {
+          "tick": 60,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 8.816087542802022,
+          "shell_rms_coarse": [
+            8.816087542802022
+          ],
+          "shell_norm": [
+            0.9999999999999816
+          ],
+          "cloud_centroid_sep": 9.230220894641107e-15,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 121391.47371126324,
+          "represented_decades": 5.084188183854649,
+          "cloud_norm": 1.9999999999999631,
+          "loop_liveness": null
+        },
+        {
+          "tick": 80,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 10.71831216840365,
+          "shell_rms_coarse": [
+            10.71831216840365
+          ],
+          "shell_norm": [
+            0.9999999999999762
+          ],
+          "cloud_centroid_sep": 1.2306961192854808e-14,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 147583.80103452914,
+          "represented_decades": 5.169038691447769,
+          "cloud_norm": 1.9999999999999525,
+          "loop_liveness": null
+        },
+        {
+          "tick": 100,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 12.328804205745742,
+          "shell_rms_coarse": [
+            12.328804205745742
+          ],
+          "shell_norm": [
+            0.9999999999999702
+          ],
+          "cloud_centroid_sep": 2.1167734743366723e-14,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 169759.1708756362,
+          "represented_decades": 5.229833245415564,
+          "cloud_norm": 1.9999999999999405,
+          "loop_liveness": null
+        },
+        {
+          "tick": 120,
+          "Z": 2,
+          "N": 2,
+          "A": 4,
+          "b": 30000,
+          "tier": "A(coarse nucleus)",
+          "nuc_charge": 1.9999999999999998,
+          "electron_charge": -2.0,
+          "net_charge": -2.220446049250313e-16,
+          "n_orbitals": 1,
+          "occupations": [
+            2
+          ],
+          "nucleus_rms_fine": 2.178757850103609,
+          "cloud_rms_coarse": 13.55998303231289,
+          "shell_rms_coarse": [
+            13.55998303231289
+          ],
+          "shell_norm": [
+            0.9999999999999644
+          ],
+          "cloud_centroid_sep": 2.9777166713245526e-14,
+          "cloud_surrounds_nucleus": true,
+          "max_orbital_overlap": 0.0,
+          "represented_a0_over_rnuc": 186711.65818176704,
+          "represented_decades": 5.271171435924113,
+          "cloud_norm": 1.9999999999999287,
+          "loop_liveness": null
+        }
+      ],
+      "summary": {}
+    }
+  }
+}

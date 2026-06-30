@@ -1,0 +1,28 @@
+# F195 — fully stable block-spin atom, LITHIUM (Z=3, N=4), open 2s¹ shell.
+#   * FINE patch  — Tier A: A=7 nucleon charge blobs (3 protons + 4 neutrons),
+#     net rho_em = +3, R_b-reduced to a +3 coarse point.
+#   * COARSE grid — 1s² 2s¹: TWO spatial orbitals (1s occ 2, 2s occ 1).  The
+#     diffuse 2s is the open-shell test; it binds inside the tractable box with
+#     the deeper coarse coupling (a representation choice, P6-gated).  Live
+#     Hartree mean field + Gram-Schmidt Pauli each tick.
+# Open shells (Li/C) are the F157-flagged frontier; Li is certified stable here
+# over a long run with the uniform deep coarse config.
+name: stable_atom_lithium
+title: "Fully Stable Block-Spin Atom — Lithium (F195)"
+description: "Live element atom Li(3,4): A=7 coarse-grained nucleus → +3 point, 1s²2s¹ open shell with live Hartree + Gram-Schmidt Pauli; the diffuse 2s binds inside the box, net charge 0, norms machine-precision."
+lattice: {L: 28, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 300
+channels:
+  - type: element_atom
+    name: atom
+    Z: 3
+    N: 4
+    b: 30000
+    fine:   {L: 12, sigma: 0.5, spread: 2.0}
+    coarse: {L: 28, m: 1.0, k: 0.6, dt: 0.4, relax_steps: 1000,
+             scf_iters: 12, gs_every: 1, hartree_every: 3}
+observers:
+  - {type: atom_stability_readout, every: 25}
+  - {type: norm_conservation, every: 25, channels: [atom]}
+output: {json: test-results/casim_stable_atom_lithium.json}

@@ -1,0 +1,109 @@
+{
+  "finding": "F183",
+  "title": "The black hole under the F178 gravity sector: exact Schwarzschild/Kerr, with a lattice-regulated core",
+  "timestamp": "2026-06-30 - 03:15",
+  "n_pass": 8,
+  "n_total": 8,
+  "results": {
+    "S1_schwarzschild_closed_forms": {
+      "pass": true,
+      "r_horizon": 2.0,
+      "r_photon_sphere": 3.0,
+      "shadow_b_crit": 5.196152422706632,
+      "3sqrt3": 5.196152422706632,
+      "r_isco": 6.0,
+      "kappa": 0.25,
+      "numeric_r_ph": 3.000009,
+      "numeric_b_c": 5.1961524227767795,
+      "_seconds": 0.0,
+      "_desc": "horizon 2M, photon sphere 3M, shadow 3sqrt3 M, ISCO 6M (+ numeric solve)"
+    },
+    "S2_hawking_present": {
+      "pass": true,
+      "T_hawking_K_1Msun": 6.168677824358303e-08,
+      "expected_~6.17e-8": 6.17e-08,
+      "lifetime_yr_1Msun": 2.097105533248958e+67,
+      "r_s_km_1Msun": 2.954007736491099,
+      "T_scaling_ratio(1/10)": 10.0,
+      "lifetime_scaling(10/1)": 1000.0,
+      "present": true,
+      "_seconds": 0.0,
+      "_desc": "Hawking T=hbar c^3/8 pi G M k_B (6.17e-8 K), lifetime ~ M^3 -- PRESENT"
+    },
+    "Q1_qnm_photon_sphere": {
+      "pass": true,
+      "Omega_c": 0.19245008972987526,
+      "lyapunov": 0.19245008972987526,
+      "target_1/3sqrt3": 0.19245008972987526,
+      "eikonal_real_errors_by_l": {
+        "2": 0.2876,
+        "3": 0.1237,
+        "4": 0.0703,
+        "5": 0.0456,
+        "6": 0.0321
+      },
+      "errors_converging": true,
+      "damping_eikonal": 0.09622504486493763,
+      "damping_tab_l2": 0.08896,
+      "damping_err": 0.08166642159327377,
+      "_seconds": 0.0,
+      "_desc": "eikonal QNM Omega_c=lambda=1/3sqrt3 M; converges to tabulated GR -> ringdown"
+    },
+    "K1_kerr_horizons_framedrag": {
+      "pass": true,
+      "r_horizon_outer": 1.4358898943540672,
+      "r_horizon_inner": 0.5641101056459328,
+      "ergosphere_eq": 2.0,
+      "Omega_H": 0.3133945031366293,
+      "isco_prograde": 2.320883041761887,
+      "isco_retrograde": 8.717352279606489,
+      "schwarzschild_limit_ok": true,
+      "_seconds": 0.0,
+      "_desc": "Kerr horizons, ergosphere, Omega_H, prograde<6M<retrograde ISCO; a->0=Schw"
+    },
+    "K2_kerr_shadow_bardeen": {
+      "pass": true,
+      "a0.3_height": 10.392277160583346,
+      "2*3sqrt3": 10.392304845413264,
+      "a0.3_offset": 0.6065616995737804,
+      "a0.3_asymmetry": 0.993603128969626,
+      "a0.9_width": 9.646669297392144,
+      "a0.9_height": 10.39229699776913,
+      "a0.9_offset": 1.986448705890598,
+      "a0.9_asymmetry": 0.9282518868988207,
+      "_seconds": 0.0,
+      "_desc": "Bardeen shadow: circle at a->0, displaced asymmetric D-shape at a=0.9"
+    },
+    "C1_oppenheimer_snyder_collapse": {
+      "pass": true,
+      "horizon_forms": true,
+      "tau_singularity": 35.12407365520363,
+      "expected": 35.12407365520363,
+      "tau_horizon_crossing": 33.70114607181585,
+      "R_final": 0.0,
+      "finite_collapse": true,
+      "_seconds": 0.0,
+      "_desc": "dust collapse forms horizon, reaches R=0 in finite proper time"
+    },
+    "L1_lattice_core": {
+      "pass": true,
+      "r_core_m_1Msun": 4.8821093259734675e-22,
+      "r_core_over_a": 4578227560903.622,
+      "r_core_over_horizon": 1.652707020927661e-25,
+      "M^(1/3)_scaling_ok": true,
+      "note": "singularity regulated at the lattice scale (non-GR)",
+      "_seconds": 0.0,
+      "_desc": "Kretschmann meets cell scale: a<r_core<horizon, r_core~M^{1/3} (NEW)"
+    },
+    "X1_f114_contrast": {
+      "pass": true,
+      "horizon_appeared": true,
+      "F114_shadow_pct_vs_GR": 0.0462671635960652,
+      "F178_shadow_pct_vs_GR": 0.0,
+      "hawking_now_present": true,
+      "_seconds": 0.0,
+      "_desc": "vs F114: horizon appears, shadow back to 3sqrt3 (was +4.63%), Hawking present"
+    }
+  },
+  "seconds": 0.0
+}

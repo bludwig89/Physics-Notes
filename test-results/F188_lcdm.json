@@ -1,0 +1,33 @@
+{
+  "finding": "F188",
+  "title": "Multi-component LCDM cosmology under the full-tensor source",
+  "timestamp": "2026-06-30 - 04:30",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "L1_cosmic_timeline": {
+      "pass": true,
+      "z_eq": 3432.8923981703338,
+      "z_acc": 0.6314835640597676,
+      "age_gyr": 13.78700992127312,
+      "_seconds": 0.04,
+      "_desc": "z_eq~3400, z_acc~0.63, age~13.8 Gyr"
+    },
+    "L2_acceleration_sign": {
+      "pass": true,
+      "accel_early": -249469999.3153918,
+      "accel_now": 0.52686636,
+      "accel_future": 0.6787681575308642,
+      "note": "pressure (rho+3p): radiation+matter decelerate, Lambda (w=-1) accelerates",
+      "_seconds": 0.0,
+      "_desc": "decelerate early, accelerate now (rho+3p)"
+    },
+    "L3_flat_normalization": {
+      "pass": true,
+      "E(1)": 1.0,
+      "_seconds": 0.0,
+      "_desc": "E(1)=1 (flat, sum Omega=1)"
+    }
+  },
+  "seconds": 0.04
+}

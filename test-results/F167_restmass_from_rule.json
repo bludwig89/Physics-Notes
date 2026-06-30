@@ -1,0 +1,55 @@
+{
+  "T1_unitary_completion_forces_n2_plus_m2": {
+    "passed": true,
+    "constraint": "n^2 + m^2 = 1",
+    "unitary_residual": 4.441429870324033e-16,
+    "broken_residual_for_wrong_n": 0.0884677500000004,
+    "note": "given the chirality coupling i.m.I, n=sqrt(1-m^2) is the unique unitary completion \u2014 the kinetic rescale is FORCED by the rule"
+  },
+  "T2_unique_mass_term_group_theory": {
+    "passed": true,
+    "n_covariants": 16,
+    "admissible": [
+      "g0",
+      "g0g5"
+    ],
+    "physical": "g0 (scalar mass)",
+    "gauge": "g0g5 (pseudoscalar chiral phase)",
+    "note": "exactly 2 of 16 Dirac covariants are k-indep + chirality-off-diag + spin-scalar => one physical mass parameter (mass is UNIQUE)"
+  },
+  "T3_rest_eigenphase_is_arcsin_m": {
+    "passed": true,
+    "Omega_rest": 0.3790090206959508,
+    "arcsin_m": 0.3790090206959508,
+    "cos_Omega_rest": 0.9290317540321213,
+    "n": 0.9290317540321213,
+    "note": "rest mass IS the k=0 rotation rate: Omega_rest = arcsin(m), cos Omega_rest = sqrt(1-m^2) (F46-P6 read as the derivation)"
+  },
+  "T4_chiral_phase_pure_gauge": {
+    "passed": true,
+    "max_eigenphase_dev_over_theta": 2.220446049250313e-16,
+    "note": "rest eigenphase independent of chiral phase theta => only the magnitude m is physical (F27 T3/T4 at k=0)"
+  },
+  "T5_one_generator_slope_and_intercept": {
+    "passed": true,
+    "intercept_Omega_at_k0": 0.37900902069595077,
+    "arcsin_m": 0.3790090206959508,
+    "slope_dOmega_dk_at_k0_m0": 0.5773502691896257,
+    "c_lat": 0.5773502691896258,
+    "note": "rest mass = intercept, c_lat = low-k slope, of the SAME Omega_Dirac(k,m); the conceptual gap is closed algebraically"
+  },
+  "T6_magnitude_free_scope": {
+    "passed": true,
+    "max_unitarity_residual_over_m": 2.2324442447954334e-16,
+    "derived": "mass exists, is unique, is the zero-k rotation rate (T1-T5)",
+    "open": "the VALUE of m (overall scale) \u2014 F119 no-go; shape via F120/F121",
+    "note": "structural half of G1 closed; magnitude half remains open, now sharply separated"
+  },
+  "summary": {
+    "passed": 6,
+    "total": 6,
+    "all_pass": true,
+    "verdict": "G1 structural half CLOSED: rest mass = unique, unitarity-&-symmetry-forced zero-wavenumber rotation rate of the rule, sharing one generator with c_lat (slope vs intercept).",
+    "open": "G1 magnitude half (value of m) remains open \u2014 F119 overall-scale no-go; spectrum shape from the locked cell (F120/F121)."
+  }
+}

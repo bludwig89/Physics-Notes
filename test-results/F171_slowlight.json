@@ -1,0 +1,56 @@
+{
+  "summary": {
+    "n_checks": 4,
+    "n_pass": 4,
+    "all_pass": true
+  },
+  "checks": {
+    "S1_normal_eit": {
+      "anchor": "Hau 1999, v_g = 17 m/s, Nature 397 594",
+      "hau_v_g_calibrated_m_s": 16.999983922355266,
+      "hau_n_g": 17634867.148654643,
+      "hau_slowdown_factor": 17634867.148654643,
+      "prop_regime_v_g_m_s": 963962.0306758719,
+      "prop_regime_n_g": 311.0002764214724,
+      "L_m": 0.06,
+      "delay_measured_s": 6.225585937500128e-08,
+      "delay_predicted_L_over_vg_s": 6.224311548654217e-08,
+      "delay_rel_err": 0.0002047437432956956,
+      "rotation_vs_phase_field_resid": 3.3270878813221947e-16,
+      "slow_light_positive_delay": true,
+      "PASS": true
+    },
+    "S2_anomalous_gain": {
+      "anchor": "Wang-Kuzmich-Dogariu 2000, v_g = -c/310, Nature 406 277",
+      "v_g_calibrated_m_s": -967346.2628120766,
+      "v_g_in_units_of_c": -0.0032267198089822413,
+      "n_g": -309.9122512020701,
+      "L_m": 0.06,
+      "delay_measured_peak_s": -6.225585937500128e-08,
+      "delay_predicted_L_over_vg_s": -6.202535979782455e-08,
+      "spectral_group_delay_s": -6.202535979782455e-08,
+      "negative_group_velocity": true,
+      "spectral_delay_negative_advance": true,
+      "peak_advances_illustrative": true,
+      "rotation_vs_phase_field_resid": 4.1120259694745617e-16,
+      "PASS": true
+    },
+    "S3_front_velocity": {
+      "statement": "n(omega->inf)->1 so the turn-on front is luminal in both regimes",
+      "eit_n_high_freq": 1.0000000000000016,
+      "eit_v_front_over_c": 0.9999999999999984,
+      "gain_n_high_freq": 1.0,
+      "gain_v_front_over_c": 1.0,
+      "PASS": true
+    },
+    "S4_lattice_term": {
+      "a_cell_m": 1.0664e-34,
+      "optical_lambda_m": 5.89e-07,
+      "fractional_liv_ak2": 1.294104716240787e-54,
+      "enhanced_by_group_index": false,
+      "frac_in_slow_medium_same_as_vacuum": true,
+      "note": "set by vacuum k=2pi/lambda, not by n_g; ~1e-56, unobservable",
+      "PASS": true
+    }
+  }
+}

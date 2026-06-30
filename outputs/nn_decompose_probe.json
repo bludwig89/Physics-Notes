@@ -1,0 +1,312 @@
+{
+  "off": {
+    "nn_binding": false,
+    "g_nn": 0.012,
+    "com_rms_first": 1.1462,
+    "com_rms_last": 1.0711,
+    "com_rms_drift": -0.06552085150933533,
+    "intra_rms_first": 1.6649,
+    "intra_rms_last": 3.4261,
+    "intra_rms_drift": 1.057841311790498,
+    "nn_meta": null,
+    "series": [
+      {
+        "tick": 1,
+        "com_rms": 1.1462,
+        "intra_rms": 1.6649
+      },
+      {
+        "tick": 11,
+        "com_rms": 1.1261,
+        "intra_rms": 2.5483
+      },
+      {
+        "tick": 21,
+        "com_rms": 1.0974,
+        "intra_rms": 2.918
+      },
+      {
+        "tick": 31,
+        "com_rms": 1.0921,
+        "intra_rms": 3.1031
+      },
+      {
+        "tick": 41,
+        "com_rms": 1.0756,
+        "intra_rms": 3.2209
+      },
+      {
+        "tick": 51,
+        "com_rms": 1.0726,
+        "intra_rms": 3.2275
+      },
+      {
+        "tick": 61,
+        "com_rms": 1.0723,
+        "intra_rms": 3.3408
+      },
+      {
+        "tick": 71,
+        "com_rms": 1.0742,
+        "intra_rms": 3.3837
+      },
+      {
+        "tick": 80,
+        "com_rms": 1.0711,
+        "intra_rms": 3.4261
+      }
+    ]
+  },
+  "on_g0.006": {
+    "nn_binding": true,
+    "g_nn": 0.006,
+    "com_rms_first": 1.1462,
+    "com_rms_last": 0.6903,
+    "com_rms_drift": -0.39774908392950625,
+    "intra_rms_first": 1.6649,
+    "intra_rms_last": 4.5561,
+    "intra_rms_drift": 1.7365607543996633,
+    "nn_meta": {
+      "anchor_Eb_MeV": 2.234279328803517,
+      "V0_MeV": 167.7263504532176,
+      "R0_fm": 1.4295016625736205,
+      "V_min_MeV": -49.089067127018794
+    },
+    "series": [
+      {
+        "tick": 1,
+        "com_rms": 1.1462,
+        "intra_rms": 1.6649
+      },
+      {
+        "tick": 11,
+        "com_rms": 1.1911,
+        "intra_rms": 2.851
+      },
+      {
+        "tick": 21,
+        "com_rms": 0.9903,
+        "intra_rms": 3.7121
+      },
+      {
+        "tick": 31,
+        "com_rms": 0.8948,
+        "intra_rms": 4.0523
+      },
+      {
+        "tick": 41,
+        "com_rms": 0.8253,
+        "intra_rms": 4.2742
+      },
+      {
+        "tick": 51,
+        "com_rms": 0.77,
+        "intra_rms": 4.3743
+      },
+      {
+        "tick": 61,
+        "com_rms": 0.7309,
+        "intra_rms": 4.4586
+      },
+      {
+        "tick": 71,
+        "com_rms": 0.7056,
+        "intra_rms": 4.521
+      },
+      {
+        "tick": 80,
+        "com_rms": 0.6903,
+        "intra_rms": 4.5561
+      }
+    ]
+  },
+  "on_g0.012": {
+    "nn_binding": true,
+    "g_nn": 0.012,
+    "com_rms_first": 1.1462,
+    "com_rms_last": 0.5377,
+    "com_rms_drift": -0.5308846623625895,
+    "intra_rms_first": 1.6649,
+    "intra_rms_last": 4.5231,
+    "intra_rms_drift": 1.7167397441287764,
+    "nn_meta": {
+      "anchor_Eb_MeV": 2.234279328803517,
+      "V0_MeV": 167.7263504532176,
+      "R0_fm": 1.4295016625736205,
+      "V_min_MeV": -49.089067127018794
+    },
+    "series": [
+      {
+        "tick": 1,
+        "com_rms": 1.1462,
+        "intra_rms": 1.6649
+      },
+      {
+        "tick": 11,
+        "com_rms": 1.127,
+        "intra_rms": 2.871
+      },
+      {
+        "tick": 21,
+        "com_rms": 0.9355,
+        "intra_rms": 3.5785
+      },
+      {
+        "tick": 31,
+        "com_rms": 0.8003,
+        "intra_rms": 3.9423
+      },
+      {
+        "tick": 41,
+        "com_rms": 0.7142,
+        "intra_rms": 4.1717
+      },
+      {
+        "tick": 51,
+        "com_rms": 0.6456,
+        "intra_rms": 4.287
+      },
+      {
+        "tick": 61,
+        "com_rms": 0.6084,
+        "intra_rms": 4.391
+      },
+      {
+        "tick": 71,
+        "com_rms": 0.5758,
+        "intra_rms": 4.4735
+      },
+      {
+        "tick": 80,
+        "com_rms": 0.5377,
+        "intra_rms": 4.5231
+      }
+    ]
+  },
+  "on_g0.024": {
+    "nn_binding": true,
+    "g_nn": 0.024,
+    "com_rms_first": 1.1462,
+    "com_rms_last": 0.5614,
+    "com_rms_drift": -0.5102076426452626,
+    "intra_rms_first": 1.6649,
+    "intra_rms_last": 3.9851,
+    "intra_rms_drift": 1.3935972130458285,
+    "nn_meta": {
+      "anchor_Eb_MeV": 2.234279328803517,
+      "V0_MeV": 167.7263504532176,
+      "R0_fm": 1.4295016625736205,
+      "V_min_MeV": -49.089067127018794
+    },
+    "series": [
+      {
+        "tick": 1,
+        "com_rms": 1.1462,
+        "intra_rms": 1.6649
+      },
+      {
+        "tick": 11,
+        "com_rms": 1.0984,
+        "intra_rms": 2.6264
+      },
+      {
+        "tick": 21,
+        "com_rms": 0.9487,
+        "intra_rms": 3.1528
+      },
+      {
+        "tick": 31,
+        "com_rms": 0.8549,
+        "intra_rms": 3.42
+      },
+      {
+        "tick": 41,
+        "com_rms": 0.7736,
+        "intra_rms": 3.6147
+      },
+      {
+        "tick": 51,
+        "com_rms": 0.698,
+        "intra_rms": 3.7493
+      },
+      {
+        "tick": 61,
+        "com_rms": 0.6362,
+        "intra_rms": 3.8424
+      },
+      {
+        "tick": 71,
+        "com_rms": 0.5968,
+        "intra_rms": 3.9182
+      },
+      {
+        "tick": 80,
+        "com_rms": 0.5614,
+        "intra_rms": 3.9851
+      }
+    ]
+  },
+  "on_g0.05": {
+    "nn_binding": true,
+    "g_nn": 0.05,
+    "com_rms_first": 1.1462,
+    "com_rms_last": 0.4333,
+    "com_rms_drift": -0.6219682428895481,
+    "intra_rms_first": 1.6649,
+    "intra_rms_last": 4.0366,
+    "intra_rms_drift": 1.4245300018019098,
+    "nn_meta": {
+      "anchor_Eb_MeV": 2.234279328803517,
+      "V0_MeV": 167.7263504532176,
+      "R0_fm": 1.4295016625736205,
+      "V_min_MeV": -49.089067127018794
+    },
+    "series": [
+      {
+        "tick": 1,
+        "com_rms": 1.1462,
+        "intra_rms": 1.6649
+      },
+      {
+        "tick": 11,
+        "com_rms": 1.0368,
+        "intra_rms": 2.5361
+      },
+      {
+        "tick": 21,
+        "com_rms": 0.8943,
+        "intra_rms": 3.0156
+      },
+      {
+        "tick": 31,
+        "com_rms": 0.7895,
+        "intra_rms": 3.3207
+      },
+      {
+        "tick": 41,
+        "com_rms": 0.6865,
+        "intra_rms": 3.5554
+      },
+      {
+        "tick": 51,
+        "com_rms": 0.603,
+        "intra_rms": 3.7218
+      },
+      {
+        "tick": 61,
+        "com_rms": 0.5289,
+        "intra_rms": 3.8477
+      },
+      {
+        "tick": 71,
+        "com_rms": 0.4733,
+        "intra_rms": 3.9592
+      },
+      {
+        "tick": 80,
+        "com_rms": 0.4333,
+        "intra_rms": 4.0366
+      }
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "finding": "F181",
+  "title": "Covariant two-function interior kernel + F62/F64 dynamic battery re-verified in the two-function regime",
+  "timestamp": "2026-06-30 - 02:30",
+  "n_pass": 9,
+  "n_total": 9,
+  "results": {
+    "C1_vacuum_schwarzschild_exact": {
+      "pass": true,
+      "G_mixed": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "_seconds": 0.37,
+      "_desc": "two-function areal Schwarzschild solves vacuum G=0 (sympy, exact)"
+    },
+    "C2_dielectric_anisotropic": {
+      "pass": true,
+      "p_r": "-exp(-2*u(r))*Derivative(u(r), r)**2/(8*pi)",
+      "p_t": "exp(-2*u(r))*Derivative(u(r), r)**2/(8*pi)",
+      "p_r_plus_p_t": "0",
+      "note": "single scalar forces p_r=-p_t (anisotropic) -> cannot source an isotropic perfect fluid (F173)",
+      "_seconds": 0.58,
+      "_desc": "single scalar => p_r=-p_t (F173); cannot be vacuum-exact / isotropic source"
+    },
+    "C3_two_function_interior_isotropic": {
+      "pass": true,
+      "rho_eff": "3/(8*pi*a**2)",
+      "p_r_minus_p_t": "0",
+      "AB": "(-3*sqrt(-R**2 + a**2) + sqrt(a**2 - r**2))**2/(4*(a**2 - r**2))",
+      "note": "two independent functions => isotropic perfect fluid (p_r=p_t), rho=const; AB!=1",
+      "_seconds": 7.75,
+      "_desc": "two functions => isotropic perfect fluid p_r=p_t, rho=const, AB!=1 (sympy)"
+    },
+    "C4_ppn_and_horizon": {
+      "pass": true,
+      "schwarzschild_beta": "1",
+      "schwarzschild_gamma": "1",
+      "dielectric_beta": "1",
+      "dielectric_gamma": "1",
+      "K_bend_schwarzschild": "4",
+      "redshift_slope_Z": "1",
+      "B_diff_O(u^2)_coeff": "1/2",
+      "A_schw_areal_at_horizon": 0,
+      "A_dielectric": "e^{-2u} > 0 for all u (no horizon) -- the F114 artifact",
+      "note": "PPN identical (both beta=gamma=1); exact metrics differ at O(u^2); Schwarzschild has a horizon, dielectric does not",
+      "_seconds": 0.07,
+      "_desc": "beta=gamma=1 both; exact metrics differ at O(u^2); Schwarzschild horizon vs dielectric none"
+    },
+    "N1_tov_equals_gr": {
+      "pass": true,
+      "M_msun": 2.099567398839402,
+      "R_km": 13.020463492014791,
+      "tov_match_dM": 0.0,
+      "tov_match_dR": 0.0,
+      "max|AB-1|_interior": 0.8166098426543406,
+      "|AB-1|_surface": 2.220446049250313e-16,
+      "M_max_msun": 2.132610430562281,
+      "turnover": true,
+      "_seconds": 1.03,
+      "_desc": "numeric: two-function TOV == GR; AB!=1 inside, ->1 at surface; max-mass turnover"
+    },
+    "B1_equivalence_principle": {
+      "pass": true,
+      "centroid_drift_x": -15.832524366045703,
+      "falls_toward_low_lapse": true,
+      "norm_drift": 3.4083846855992306e-14,
+      "_seconds": 1.2,
+      "_desc": "dynamic: rest packet falls toward low lapse, mass-independent, norm conserved"
+    },
+    "B2_redshift": {
+      "near_A": 0.040296341191458286,
+      "near_freq": 0.19573786003674723,
+      "near_freq_analytic": 0.20107806749286644,
+      "far_A": 0.6399042800426863,
+      "far_freq": 0.7829514401469889,
+      "far_freq_analytic": 0.8229684157617385,
+      "ratio_meas": 0.25,
+      "ratio_pred": 0.24433266652979488,
+      "pass": true,
+      "_seconds": 4.04,
+      "_desc": "dynamic: clock frequency ~ sqrt(A) (gravitational redshift)"
+    },
+    "B3_deflection": {
+      "pass": true,
+      "dtheta_meas": -0.5512373410200311,
+      "K_eikonal": -3.5961654159563246,
+      "K_meas": -3.6749156068002073,
+      "ratio_meas_eik": 1.0218983783377886,
+      "_seconds": 16.57,
+      "_desc": "dynamic: factor-2 bend (eikonal K~4) from two-function c_eff=c0 sqrt(A/B)"
+    },
+    "B4_backreaction_norm": {
+      "pass": true,
+      "norm_drift": 2.2737367544323206e-13,
+      "_seconds": 0.32,
+      "_desc": "dynamic: norm conserved while propagating on two-function background"
+    }
+  },
+  "seconds": 31.92
+}

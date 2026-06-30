@@ -1,0 +1,61 @@
+{
+  "finding": "F187",
+  "title": "Quasinormal-mode ringdown spectrum (WKB Regge-Wheeler)",
+  "timestamp": "2026-06-30 - 04:25",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "Q1_fundamentals_vs_GR": {
+      "pass": true,
+      "fundamentals": {
+        "l2_n0": {
+          "wkb_real": 0.39884926121810704,
+          "wkb_imag": 0.08828382413654424,
+          "tab_real": 0.373672,
+          "tab_imag": 0.088962,
+          "err_real": 0.06737797110328587,
+          "err_imag": 0.007623208374988809
+        },
+        "l3_n0": {
+          "wkb_real": 0.6165611498595527,
+          "wkb_imag": 0.09231793921425874,
+          "tab_real": 0.599443,
+          "tab_imag": 0.092703,
+          "err_real": 0.028556759958082312,
+          "err_imag": 0.004153703609821218
+        },
+        "l4_n0": {
+          "wkb_real": 0.8223031110672486,
+          "wkb_imag": 0.09392883119502457,
+          "tab_real": 0.809178,
+          "tab_imag": 0.094164,
+          "err_real": 0.016220301425951614,
+          "err_imag": 0.0024974385643709643
+        }
+      },
+      "real_errors_l234": [
+        0.06737797110328587,
+        0.028556759958082312,
+        0.016220301425951614
+      ],
+      "_seconds": 0.12,
+      "_desc": "WKB QNM n=0 within 8%, converging"
+    },
+    "Q2_ringdown_waveform": {
+      "pass": true,
+      "quality_factor": 2.2589034011554965,
+      "tau_ringdown_M": 11.327103348551704,
+      "f_real_per_M": 0.39884926121810704,
+      "_seconds": 0.02,
+      "_desc": "damped sinusoid, Q>1.5"
+    },
+    "Q3_echo_suppressed": {
+      "pass": true,
+      "transmission": 5.026921427578281e-06,
+      "regime": "exponentially suppressed (true horizon present)",
+      "_seconds": 0.0,
+      "_desc": "horizon -> echoes exp. suppressed (vs F114)"
+    }
+  },
+  "seconds": 0.14
+}

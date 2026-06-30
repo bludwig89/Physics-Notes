@@ -1,5 +1,7 @@
 # F114 — The dielectric black hole: the canonical gravity field is the exponential metric, so "black holes" are horizon-free frozen objects with a 4.6 %-larger shadow
 
+> **⚠ Reclassified by [[F178-gravity-full-tensor-adoption]] (2026-06-29):** gravity sources from the full stress-energy tensor (induced Einstein equation canonical). **SUPERSEDED for the strong field** — under full-tensor gravity the exact vacuum solution is **Schwarzschild**; the horizon-free dielectric black hole and +4.6% shadow were artifacts of treating the exponential metric $K=e^{2u}$ as fundamental (it is only PPN-order).
+
 **Date:** 2026-06-08 - 15:10
 **Numbering note:** drafted as F113; renumbered to **F114** — F113 was already taken (same day) by the NN short-range repulsive core.
 **Status:** Confirmed — 9/9 checks PASS (`test_F114_dielectric_black_hole.py`, sympy-exact core + EHT quantitative). Throat $=e$, photon sphere $=2\sqrt e$, shadow $b_c=2e$, redshift$_\text{throat}=e$, $\alpha_2=4\pi$ are all **Tier-1 exact** (sympy zero residual). EHT diameters are quantitative against measured $M,D$. A CASIM scenario (`scenarios/dielectric_black_hole.yaml`) renders the strong-field well ($K_\text{max}\sim10^{50}$).

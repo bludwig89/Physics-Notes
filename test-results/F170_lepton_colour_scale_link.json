@@ -1,0 +1,45 @@
+{
+  "A1_kernel_near_degeneracy": {
+    "passed": true,
+    "Gc_Eg_over_Gc_swave_L64": 1.0831816692086509,
+    "L_convergence": {
+      "24": 1.2433,
+      "32": 1.1454,
+      "48": 1.0953,
+      "64": 1.0832
+    },
+    "note": "E_g lepton channel critical coupling ~8% above s-wave colour chiSB: the two condense at essentially the same rung of the run"
+  },
+  "A2_scale_locked_to_strong": {
+    "passed": true,
+    "alpha_crit_chiSB": 0.2,
+    "alpha_crit_Eg": 0.2166,
+    "condensation_scale_ratio_Eg_over_chi": 0.7649,
+    "note": "shared induced coupling (no independent lepton coupling, F145) + near-degenerate criticality (A1) => lepton scale locked to Lambda_QCD within O(1); no mechanism makes a hierarchy"
+  },
+  "A3_measured_O1_bracket": {
+    "passed": true,
+    "m_tau_over": {
+      "Lam3_FLAG": 5.18,
+      "Lam3_model": 3.36,
+      "M_c": 5.74,
+      "m_D": 3.34
+    },
+    "kernel_factor": 1.08,
+    "residual_factor": 3.1,
+    "note": "m_tau/Lambda is O(1) (3.4-5.7), NOT a hierarchy. Kernel supplies ~1.1; residual ~3 = saturation-wall amplitude + B/C angle = the lambda_6 saturated-condensate residual (F150)"
+  },
+  "A4_scope_residual_is_lambda6": {
+    "passed": true,
+    "derived": "mechanism: E_g condensate inherits Lambda_QCD (no own coupling F145, no own kinematics A1) -> v_Eg = O(1) Lambda_QCD",
+    "open": "exact O(1) digit = saturated-condensate solve = the single IR coupling shared with G/Gc (F145), sqrt(sigma)/f_pi (F124), Lambda scheme constant (F144), lambda_6 (F150)",
+    "note": "A2 closes the link MECHANISM; it does not pin the O(1) digit"
+  },
+  "summary": {
+    "passed": 4,
+    "total": 4,
+    "all_pass": true,
+    "verdict": "Lepton<->colour scale link DERIVED at mechanism level: the E_g condensate has no independent coupling (F145) and a gap kernel near-degenerate with colour chiSB (A1), so its scale is locked to Lambda_QCD within O(1). v_Eg = O(1) x Lambda_QCD.",
+    "open": "exact O(1) = the saturated-condensate residual (= lambda_6, F150)"
+  }
+}

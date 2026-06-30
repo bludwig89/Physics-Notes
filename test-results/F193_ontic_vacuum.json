@@ -1,0 +1,35 @@
+{
+  "finding": "F193",
+  "partA_ontic_vacuum": {
+    "L_block": 8,
+    "T00_ontic_vacuum_J_per_m3": 0.0,
+    "T00_one_quantum_J": 513508180.0223563,
+    "ca_energy_eigenvalue_vacuum_J": 0.0,
+    "M_enclosed_ontic_vacuum_kg": 0.0,
+    "dielectric_K_minus_1_ontic_vacuum": 0.0,
+    "I_CC_template_zero_point": 4.081048569526987,
+    "rho_vac_template_J_per_m3": 3.4563582491862774e+111,
+    "note": "T00_ontic_vacuum is structurally 0 (zero field amplitude), not a cancelled sum; the template +1/2 hbar omega is a superimposable expectation and does not enter the beable source."
+  },
+  "partB_residual": {
+    "H0_per_s": 2.1713221239277246e-18,
+    "R_H_hubble_radius_m": 1.3806908458967049e+26,
+    "R_H_over_a": 1.294751194968628e+60,
+    "a_over_R_H_squared": 5.965232275260876e-121,
+    "rho_vac_template_J_per_m3": 3.4563582491862774e+111,
+    "rho_grav_holographic_J_per_m3": 2.0617979782910156e-09,
+    "rho_Lambda_observed_J_per_m3": 6e-10,
+    "holographic_over_observed": 3.4363299638183595,
+    "holographic_dlog10": 0.5360948590547993,
+    "rho_CKN_c4_over_8piG_RH2_J_per_m3": 2.5260639295459544e-10,
+    "rho_CKN_over_observed": 0.4210106549243257,
+    "mean_lattice_excitation_fraction_f": 1.7359311643729542e-121,
+    "bare_overshoot_log10": 120.76046750008446
+  },
+  "checks": {
+    "A_T00_ontic_vacuum_exactly_zero": true,
+    "A_dielectric_flat_on_vacuum": true,
+    "A_ca_energy_vacuum_zero": true,
+    "B_holographic_within_1_dex": true
+  }
+}

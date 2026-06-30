@@ -1,5 +1,7 @@
 # F106 — The ψ→K sourcing law: the dielectric is sourced by the fermion's own energy density, with no free coupling
 
+> **⚠ Reclassified by [[F178-gravity-full-tensor-adoption]] (2026-06-29):** gravity sources from the full stress-energy tensor (induced Einstein equation canonical). the energy-only $\nabla^2\ln K=-8\pi T^{00}$ below is now the **static weak-field reduction**, not the fundamental law (which is the full-tensor induced Einstein equation).
+
 **Date:** 2026-06-06 - 17:55
 **Status:** Candidate finding — 5/5 checks PASS. E1 (coefficient identity) and E4/E5 (nonrel reduction, source identity) are **exact** (sympy zero residual / machine precision); E2/E3 (Poisson recovery of the canonical $K$) are lattice to $\le 2\%$ (finite periodic box). Closes the one remaining "posited input" in the F64 backreaction loop — the coupling and the source are both now derived.
 **Module / test:** `tests/findings/test_F106_psi_K_sourcing.py` (~3 s; numpy + sympy, all real arithmetic).

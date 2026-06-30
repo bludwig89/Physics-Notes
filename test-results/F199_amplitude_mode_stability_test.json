@@ -1,0 +1,85 @@
+{
+  "finding": "F199",
+  "title": "Amplitude-mode mass/channels from F73/F93: stability fails before abundance (E_g modes decay to leptons)",
+  "timestamp": "2026-06-30 - 20:40",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "H1_higgs_not_dm": {
+      "pass": true,
+      "mass_GeV": 125.25,
+      "lifetime_s": 1.6172283953316953e-22,
+      "note": "F73 EW radial mode = observed 125 GeV Higgs; decays -> not DM",
+      "_seconds": 0.0,
+      "_desc": "EW radial mode = observed Higgs, decays"
+    },
+    "H2_eg_amplitude_unstable": {
+      "pass": true,
+      "mass_GeV": 123.11,
+      "f_GeV": 123.11,
+      "coupling_g_tau": 0.014433108602063196,
+      "lifetime_s": 6.435773040820527e-22,
+      "orders_below_cosmo": 38.82988853676339,
+      "dominant_channel": "tau",
+      "note": "E_g amplitude mode sets lepton masses -> couples g_l=m_l/f -> decays to tau+tau-",
+      "_seconds": 0.0,
+      "_desc": "E_g amplitude mode decays to leptons (~1e-21 s)"
+    },
+    "H3_instability_generic": {
+      "pass": true,
+      "scan": [
+        {
+          "m_S_GeV": 10.0,
+          "lifetime_s": 9.68187104093539e-21,
+          "orders_below_age": 37.652529963258644
+        },
+        {
+          "m_S_GeV": 50.0,
+          "lifetime_s": 1.594668536862101e-21,
+          "orders_below_age": 38.43581883136174
+        },
+        {
+          "m_S_GeV": 123.11,
+          "lifetime_s": 6.435773040820527e-22,
+          "orders_below_age": 38.82988853676339
+        },
+        {
+          "m_S_GeV": 500.0,
+          "lifetime_s": 1.5827623200771574e-22,
+          "orders_below_age": 39.43907355423944
+        },
+        {
+          "m_S_GeV": 3000.0,
+          "lifetime_s": 2.6377435510617244e-23,
+          "orders_below_age": 40.21725668703795
+        }
+      ],
+      "note": "unstable across 10 GeV - 3 TeV: 38-40 orders below the age of the universe",
+      "_seconds": 0.0,
+      "_desc": "unstable across EW-TeV (>30 orders)"
+    },
+    "H4_freezeout_moot": {
+      "pass": true,
+      "Eg_amplitude_lifetime_s": 6.435773040820527e-22,
+      "age_of_universe_s": 4.35e+17,
+      "note": "abundance undefined for an unstable state -> F198 WIMP window unrealisable here",
+      "_seconds": 0.0,
+      "_desc": "freeze-out window moot without stability"
+    },
+    "H5_requires_conserved_charge": {
+      "pass": true,
+      "requirement": "a conserved charge (Z2/U(1)) making the relic the LIGHTEST state carrying it, so it cannot decay to SM",
+      "Eg_has_it": false,
+      "candidates": [
+        "a STERILE-sector excitation (no SM gauge charge; F191 'sterile-sector' hint)",
+        "a topologically conserved lattice excitation (orthorhombic-domain texture / skyrmion of U(x)) carrying a winding number",
+        "the lightest state of a hidden conserved lattice charge (a 'dark baryon', Z3-centre analog of F97)"
+      ],
+      "note": "DM identity moves out of the E_g sector to a conserved-charge sector",
+      "_seconds": 0.0,
+      "_desc": "DM needs a conserved charge E_g lacks"
+    }
+  },
+  "verdict": "Working out the amplitude mode from F73/F93: the EW radial mode is the observed 125 GeV Higgs (decays), and the E_g second-shell amplitude mode couples to leptons as g_l=m_l/f (it IS the lepton-mass crystal field), so it decays in ~1e-21 s \u2014 38 orders below cosmological. Omega_DM=0.26 does NOT fall out: the E_g sector has no STABLE relic. The obstruction moves from abundance to stability/identity \u2014 dark matter needs a conserved charge the E_g condensate lacks (sterile sector / topological winding / hidden conserved charge).",
+  "seconds": 0.0
+}

@@ -1,0 +1,60 @@
+{
+  "finding": "F198",
+  "title": "Angular-mode misalignment relic (fails at condensate scale) vs amplitude-mode freeze-out (viable)",
+  "timestamp": "2026-06-30 - 20:05",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "G1_scaling": {
+      "pass": true,
+      "ratio_mass_x4": 2.0,
+      "ratio_f_x2": 4.0,
+      "ratio_theta_x2": 4.0,
+      "note": "Omega \u221d m_a^{1/2} f^2 theta^2 (x4 mass->x2, x2 f->x4, x2 theta->x4)",
+      "_seconds": 0.0,
+      "_desc": "misalignment scaling Omega \u221d m^0.5 f^2 theta^2"
+    },
+    "G2_condensate_scale_fails": {
+      "pass": true,
+      "f_GeV": 123.11,
+      "m_a_required_GeV": 8.446513168286236e+28,
+      "m_a_required_over_M_Pl": 6918211144.381024,
+      "note": "f=v/2=123 GeV needs trans-Planckian m_a -> misalignment fails at the condensate scale",
+      "_seconds": 0.0,
+      "_desc": "f=123 GeV needs trans-Planckian mass"
+    },
+    "G3_light_mode_underproduces": {
+      "pass": true,
+      "m_a_light_GeV": 0.02752823287099991,
+      "Omega_h2_obtained": 6.850648439749938e-17,
+      "deficit_factor": 1751659000682572.2,
+      "note": "light angular mode (small lambda6, f=123 GeV) under-produces by ~15 orders",
+      "_seconds": 0.0,
+      "_desc": "light angular mode under-produces ~15 orders"
+    },
+    "G4_axion_window_needs_high_f": {
+      "pass": true,
+      "m_a_GeV": 1e-15,
+      "f_required_GeV": 11802192588171.709,
+      "f_over_condensate_scale": 95867050509.07082,
+      "note": "a light (~ueV) angular mode reaches Omega_DM only at f~10^13 GeV, far above the condensate",
+      "_seconds": 0.0,
+      "_desc": "axion window needs f>>condensate scale"
+    },
+    "G5_freezeout_viable": {
+      "pass": true,
+      "best": {
+        "m_chi_GeV": 3000.0,
+        "g": 1.0,
+        "Omega_h2": 0.13919672065136313,
+        "sigv_cm3_s": 2.5862678252432995e-26
+      },
+      "WIMP_window_reachable": true,
+      "note": "heavy amplitude mode (~TeV, EW coupling) hits Omega h^2~0.12 -> the viable relic route",
+      "_seconds": 0.0,
+      "_desc": "heavy amplitude mode freeze-out reaches Omega_DM"
+    }
+  },
+  "verdict": "Standard misalignment with the condensate's NATURAL decay constant (f ~ v/2 = 123 GeV) badly UNDER-produces: Omega \u221d f^2, so a low-scale f needs either a trans-Planckian mass (light mode) or relies on the heavy amplitude-mode freeze-out instead. A light axion-like angular mode reaches Omega_DM only if f is pushed to ~10^15-10^16 GeV (intermediate/GUT), far above the E_g condensate scale. The relic obstruction is therefore SHARPENED, not closed: misalignment alone fails by the f-scale gap. The heavy AMPLITUDE mode via thermal freeze-out DOES reach Omega_DM in the WIMP window, so the E_g sector's dark-matter relic is the heavy amplitude mode, not the light angular one (updating the F197 candidate identification).",
+  "seconds": 0.0
+}

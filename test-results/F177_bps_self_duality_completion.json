@@ -1,0 +1,44 @@
+{
+  "B1_radial_self_duality_derived": {
+    "passed": true,
+    "pair_rotation_deg": 45,
+    "sin_eq_cos": true,
+    "saturation_amplitude_y": 1.0,
+    "eta2": 0.5,
+    "Q": 0.6666666666666666,
+    "cos2_angle_to_democratic": 0.5,
+    "note": "45deg pair rotation (sin=cos, self-dual, F82 peak) -> y=1 wall (F73/F101) -> eta^2=1/2 -> Q=2/3 -> sqrt(m) at 45deg to (1,1,1). Radial self-duality DERIVED from BPS/saturation"
+  },
+  "B2_bps_governs_walls_not_vacuum_angle": {
+    "passed": true,
+    "vacuum_angle": "cos3delta* = -B/(2C) (brake minimiser)",
+    "bogomolny_condition": "delta' = sqrt(2W) -> wall tension (boundary), not delta*",
+    "note": "standard Bogomolny/BPS fixes the domain-wall sector, not the vacuum angle => angular self-duality is NOT a standard BPS theorem"
+  },
+  "B3_no_second_geometric_self_duality": {
+    "passed": true,
+    "offsets_from_45deg": {
+      "(1,0,0)": 44.06,
+      "(1,1,0)": 34.68,
+      "e2(3z2-r2)": 1.39,
+      "(2,1,0)": 38.07
+    },
+    "closest_off_deg": 1.39,
+    "note": "no natural reference puts sqrt(m) at 45deg (closest ~1.4deg off) => the angle delta* is not fixed by a clean second self-duality"
+  },
+  "B4_angular_equals_shared_residual": {
+    "passed": true,
+    "C_over_B_target": 0.63622,
+    "fitted_F118_F119": 0.636,
+    "two_over_pi": 0.63662,
+    "is_clean_closed_form": false,
+    "note": "3delta*=Q=2/3 <=> C/|B|=1/(2cos(2/3))=0.636 = the F150 saturated-condensate solve = the ONE shared residual (F172); near 2/pi but not equal -> not a clean closed form; angular self-duality is a restatement of that residual, target 0.636"
+  },
+  "summary": {
+    "passed": 4,
+    "total": 4,
+    "all_pass": true,
+    "verdict": "Self-duality HALF-derived from BPS. RADIAL: closed (45deg self-dual pair rotation => Q=2/3, sqrt(m) at 45deg to democratic). ANGULAR (3delta=Q): NOT a standard-BPS theorem (Bogomolny fixes walls not the vacuum angle; no 2nd geometric self-duality); it equals the one shared residual C/|B|=1/(2cos(2/3))=0.636 (F150).",
+    "terminus": "honest: no false closure; the angular self-duality is the single nonperturbative residual the whole program shares, now with a sharp target (0.636) and a physical meaning (angular = radial invariant)"
+  }
+}

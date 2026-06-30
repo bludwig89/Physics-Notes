@@ -1,0 +1,74 @@
+{
+  "finding": "F201",
+  "title": "A light (keV) sterile from the F93 Z_3/E_g generation texture applied to M_R",
+  "timestamp": "2026-06-30 - 22:00",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "K1_charged_lepton": {
+      "pass": true,
+      "texture_ratios": [
+        0.00028746114765319634,
+        0.059462001427163166,
+        1.0
+      ],
+      "observed_ratios": [
+        0.00028758537532501155,
+        0.059463534268316014,
+        1.0
+      ],
+      "note": "same Z_3 texture reproduces m_e:m_mu:m_tau hierarchy",
+      "_seconds": 0.0,
+      "_desc": "Z_3 texture reproduces charged-lepton hierarchy"
+    },
+    "K2_node": {
+      "pass": true,
+      "z3_node_deg": 135.0,
+      "note": "1 + sqrt2 cos(135 deg) = 0 -> one sqrt-mass vanishes (cancellation node)",
+      "_seconds": 0.0,
+      "_desc": "Z_3 cancellation node at 135 deg"
+    },
+    "K3_suppression_monotone": {
+      "pass": true,
+      "near_node_scan": [
+        {
+          "delta_nu_deg": 130.0,
+          "M_min_over_M_max": 0.001445186981806189
+        },
+        {
+          "delta_nu_deg": 134.0,
+          "M_min_over_M_max": 5.507483979751073e-05
+        },
+        {
+          "delta_nu_deg": 134.9,
+          "M_min_over_M_max": 5.448029086179989e-07
+        },
+        {
+          "delta_nu_deg": 134.99,
+          "M_min_over_M_max": 5.442122023486928e-09
+        }
+      ],
+      "note": "closer to the node -> exponentially lighter eigenvalue",
+      "_seconds": 0.0,
+      "_desc": "near-node eigenvalue parametrically light"
+    },
+    "K4_kev_landing": {
+      "pass": true,
+      "M_lightest_keV": 5.601934573078601,
+      "M_heaviest_GeV": 5.602153538723162,
+      "node_proximity_rad": 0.0023640484718261733,
+      "note": "M_R0~GeV + delta_nu ~0.14 deg from node -> M_1~keV, M_3~GeV (nuMSM split)",
+      "_seconds": 0.0,
+      "_desc": "M_R0~GeV + node-proximity -> keV + GeV (nuMSM)"
+    },
+    "K5_verdict": {
+      "pass": true,
+      "hierarchy_M1_over_M3": 9.99960914022965e-07,
+      "verdict": "The lattice does NOT pin keV, but it provides a NATURAL MECHANISM for one light sterile: the F93 Z_3/E_g generation texture, applied to M_R, has cancellation nodes where one eigenvalue -> 0. A light (keV) sterile is the generation nearest a node \u2014 structurally the same reason the electron is the lightest charged lepton. Hitting keV needs two inputs: the overall scale M_R0 ~ GeV (the nuMSM heavy-sterile scale) and a node-proximity delta_nu ~ 1e-3 rad (modest tuning). So 'one light sterile' is structural; its exact keV value is accommodated.",
+      "_seconds": 0.0,
+      "_desc": "one light sterile structural; keV value = 2 inputs"
+    }
+  },
+  "verdict": "The lattice does NOT pin keV, but it provides a NATURAL MECHANISM for one light sterile: the F93 Z_3/E_g generation texture, applied to M_R, has cancellation nodes where one eigenvalue -> 0. A light (keV) sterile is the generation nearest a node \u2014 structurally the same reason the electron is the lightest charged lepton. Hitting keV needs two inputs: the overall scale M_R0 ~ GeV (the nuMSM heavy-sterile scale) and a node-proximity delta_nu ~ 1e-3 rad (modest tuning). So 'one light sterile' is structural; its exact keV value is accommodated.",
+  "seconds": 0.0
+}

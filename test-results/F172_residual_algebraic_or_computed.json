@@ -1,0 +1,53 @@
+{
+  "C1_cluster_is_one_coupling_plus_geometry": {
+    "passed": true,
+    "members": {
+      "lambda_6_Eg_brake": 0.243,
+      "alpha_eff_star_IR": 0.39,
+      "G_over_Gc_chiSB": 1.277,
+      "Lambda_scheme_ratio": 1.78,
+      "cos3delta_star": 0.785874,
+      "lepton_colour_O1_mtau_over_Lam": 3.36
+    },
+    "spread": 3.117,
+    "note": "distinct numbers => not literally 'one number'; they are functions of one IR coupling alpha_eff* dressed by EXACT lattice geometry. Algebraic question = is alpha_eff* algebraic + are dressings exact"
+  },
+  "C2_shape_has_exact_anchor_F96": {
+    "passed": true,
+    "three_delta_massless_rad": 0.7853981633974484,
+    "pi_over_4": 0.7853981633974483,
+    "cos3delta_massless": 0.7071067811865475,
+    "note": "EXACT algebraic anchor: at m_e=0, 3delta=pi/4 (cos=1/sqrt2). The physical angle is a self-consistency displacement off this point (m_e>0) \u2014 same kind as F92's exactly-derived 45deg"
+  },
+  "C3_shape_target_3delta_eq_Q": {
+    "passed": true,
+    "Q_koide": 0.6666605114773855,
+    "three_delta_star_rad": 0.6666881111100766,
+    "dev_3delta_minus_Q": 2.1444443410012504e-05,
+    "dev_cos3d_minus_cosQ": 1.326077694807637e-05,
+    "note": "3delta* = Q = 2/3 rad to 2e-5; connects the open shape residual to the ALREADY-EXACT Koide Q=2/3 (F92). Caveat: radian-angle = dimensionless-ratio; a target w/ rationale, not yet a theorem"
+  },
+  "C4_scale_residual_transcendental_leaning": {
+    "passed": true,
+    "rational_pieces_already_exact": {
+      "a1_Vscheme": 3.6666666666666665,
+      "C_MSbar_continuum": 1.9848484848484849,
+      "Fierz_c": 0.2222222222222222,
+      "g_s2_bare": 0.25,
+      "alpha0": 0.019894367886486918
+    },
+    "residual_digit": "d1 (action-specific finite vertex constant) \u2014 moment-inaccessible (F155), computed not algebraic",
+    "real_qcd_analogues_are_computed": {
+      "alpha_hat0_over_pi": 0.97,
+      "gluon_mass_GeV": 0.43
+    },
+    "note": "big transcendental piece removed (tadpole-free, 28.81 absent; MS-bar part 131/66 rational), but residual finite constant is the computed kind; only Banks-Zaks conformal-window fixed points are algebraic (ratios of beta coeffs), and the model's IR coupling is a gap/saturation value, not Banks-Zaks"
+  },
+  "summary": {
+    "passed": 4,
+    "total": 4,
+    "all_pass": true,
+    "verdict": "Algebraic-connection hypothesis: WELL-MOTIVATED for the SHAPE residual (exact F96 anchor pi/4 + self-consistency structure + 3delta*=Q, matching the model's history of consistency-fixed-point derivations 45deg/Q=2/3/sqrt2), WEAK for the SCALE/scheme residual (matches computed nonperturbative QCD quantities).",
+    "recommendation": "attack the SHAPE angle as a self-consistency fixed point (F92 method) with the exact F96 anchor (pi/4 at m_e=0) as boundary condition; treat the SCALE/scheme constant as a separate computed number. Stop calling them 'one number'."
+  }
+}

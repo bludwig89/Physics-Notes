@@ -1,5 +1,7 @@
 # F64 — Electromagnetic-connection gravity (single lattice dielectric)
 
+> **⚠ Reclassified by [[F178-gravity-full-tensor-adoption]] (2026-06-29):** gravity sources from the full stress-energy tensor (induced Einstein equation canonical). this dielectric is now the **vacuum/weak-field representation**, not the strong-field law; the fundamental law is the induced Einstein equation $G_{\mu\nu}=8\pi G\,T_{\mu\nu}$.
+
 **Date:** 2026-05-30 - 21:30 (updated 2026-05-31 - 17:05 — canonical K=e^{2u} adopted; G pinned (D-EM10); co-evolving self-redshift (D-EM11))
 **Status:** **Model element — 16/16 tests PASS.** Static eikonal/field-level (D-EM1 exact/algebraic; D-EM2, D-EM3 lattice); a full dynamic time-domain battery (D-EM-D1 flat regression, D-EM-D2a free-fall/EP, D-EM-D2b dynamical redshift, D-EM-D2c deflection, D-EM-D3a backreaction-norm, D-EM4 self-sourced redshift+bend) mirroring F62; the build-out/maturation steps D-EM5 (derive ε=μ=K from the rotation rule), D-EM6 (dynamical light-bends-light), D-EM7 (absolute 3-D K_bend→4 on a ray), D-EM8 (Φ a dynamical field, finite c_g), D-EM9 (strong-field PPN); **and the closing steps D-EM10 (the 4πG coupling pinned to the cell scale — Newton's constant no longer by hand) and D-EM11 (the fully co-evolving self-redshift, removing D-EM4's fixed-radius workaround).**
 

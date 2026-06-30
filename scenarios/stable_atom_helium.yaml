@@ -1,0 +1,32 @@
+# F195 — fully stable block-spin atom, HELIUM (Z=2, N=2), the clean target.
+# Generalises the F160 two-grid hydrogen atom to a general element (Z,N):
+#   * FINE patch  — Tier A: A=4 nucleon charge blobs (2 protons + 2 neutrons)
+#     in a bound cluster whose net rho_em integrates to EXACTLY +2; the N=2
+#     neutrons carry zero net charge.  R_b-reduced to a single +2 coarse point.
+#   * COARSE grid — the 1s² closed shell: ONE spatial orbital (occ 2) evolving
+#     in the self-consistent mean field = +2 nuclear well + the live Hartree
+#     repulsion of the other electron, exactly-unitary F156 split-step.  Pauli
+#     antisymmetry is enforced by Gram-Schmidt each tick.
+# He is the clean "fully stable" target: closed electron shell (1s²) + closed
+# nucleus (2p2n, F157 α −30.1 MeV).  Net charge ≡ 0 (machine precision), norms
+# conserved ~1e-15, every radius bounded, cloud surrounds nucleus.  Structure +
+# scale ratio are the deliverable; absolute fm/eV stay P6/scale-gated (F123).
+name: stable_atom_helium
+title: "Fully Stable Block-Spin Atom — Helium (F195)"
+description: "Live element atom He(2,2): A=4 coarse-grained nucleus → +2 point, 1s² closed shell with live Hartree + Gram-Schmidt Pauli; net charge 0, norms machine-precision, bounded over a long run."
+lattice: {L: 28, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 300
+channels:
+  - type: element_atom
+    name: atom
+    Z: 2
+    N: 2
+    b: 30000
+    fine:   {L: 12, sigma: 0.5, spread: 2.0}
+    coarse: {L: 28, m: 1.0, k: 0.6, dt: 0.4, relax_steps: 1000,
+             scf_iters: 12, gs_every: 1, hartree_every: 3}
+observers:
+  - {type: atom_stability_readout, every: 25}
+  - {type: norm_conservation, every: 25, channels: [atom]}
+output: {json: test-results/casim_stable_atom_helium.json}

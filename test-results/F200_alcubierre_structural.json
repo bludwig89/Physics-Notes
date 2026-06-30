@@ -1,0 +1,62 @@
+{
+  "finding": "F200",
+  "title": "Structural test of the Alcubierre warp family against the model's induced-gravity / beable-source commitments",
+  "timestamp": "2026-06-30 - 20:55",
+  "n_pass": 5,
+  "n_total": 5,
+  "c_lat": 0.5773502691896258,
+  "results": {
+    "G1_symbolic_negative_wall": {
+      "pass": true,
+      "residual_vs_closed_form": "0",
+      "rho": "v_s**2*(-y**2 - z**2)*Subs(Derivative(f(_xi_1), _xi_1), _xi_1, sqrt(x**2 + y**2 + z**2))**2/(32*pi*(x**2 + y**2 + z**2))",
+      "note": "rho<=0 everywhere, <0 where f'!=0 => WEC violated for the Eulerian observer (Alcubierre/Pfenning-Ford, exact in-repo)",
+      "_seconds": 6.92,
+      "_desc": "EXACT sympy: Alcubierre Eulerian rho = -(1/8pi)(v_s^2/4)(rho_cyl^2/r^2)f'^2 <0 (WEC violated)"
+    },
+    "G2_integrated_energy_negative": {
+      "pass": true,
+      "E_tot_by_vfac_of_clat": {
+        "0.25": -0.004652958332414021,
+        "0.5": -0.018611833329656085,
+        "1.0": -0.07444733331862434,
+        "3.0": -0.6700259998676198
+      },
+      "E_over_vsq_ratios": [
+        0.9999999999999998,
+        1.0,
+        0.9999999999999992,
+        1.0000000000000004
+      ],
+      "note": "E(v_s) = -C v_s^2 < 0 for every v_s incl. subluminal; sign velocity-independent => M2 (F193) forbids the source",
+      "_seconds": 0.29,
+      "_desc": "numeric: E(v_s)=-C v_s^2<0 for all v_s incl subluminal; M2 forbids source"
+    },
+    "PA1_kernel_carries_positive_source": {
+      "pass": true,
+      "M_Msun": 1.0617127661892454,
+      "R_km": 9.947496095796707,
+      "max_abs_AB_minus_1_inside": 0.5770175936720068,
+      "abs_AB_minus_1_surface": 0.0,
+      "note": "M3: kernel carries positive/exotic stress (AB!=1) fine; obstruction is the source SIGN, not the kernel",
+      "_seconds": 0.05,
+      "_desc": "numeric/M3: F181 kernel carries positive source -> valid metric AB!=1, lapse well"
+    },
+    "PA3_momentum_cosupport": {
+      "pass": true,
+      "support_overlap_frac": 0.985,
+      "note": "T^{0x} \u221d f'(r_s)^2 and rho<0 \u221d f'(r_s)^2 share support => cannot keep warp momentum flux while dropping the negative wall",
+      "_seconds": 0.0,
+      "_desc": "numeric: momentum density and negative wall both \u221d f'^2 (co-supported)"
+    },
+    "PC1_speed_limit": {
+      "pass": true,
+      "c_lat": 0.5773502691896258,
+      "c_eff_max_over_c_lat": 0.8132817192094872,
+      "note": "M4: induced field well-posed (A,B>0), local propagation c_eff<=c_lat; warp ceiling = c_lat=1/sqrt3 (no FTL coordinate transport since the metric is induced, not free-standing)",
+      "_seconds": 0.0,
+      "_desc": "numeric/M4: induced field well-posed, c_eff<=c_lat; warp ceiling c_lat=1/sqrt3"
+    }
+  },
+  "seconds": 7.25
+}

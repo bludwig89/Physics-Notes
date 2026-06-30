@@ -97,9 +97,35 @@ def aufbau_configuration(Z):
     return cfg
 
 
+def _scalar_relativistic_shift_Ha(n, l, eps_Ha, alpha):
+    """Scalar-relativistic (spin-averaged Dirac–Coulomb) O((Zα)⁴) shift of a
+    screened orbital, in Hartree.  This is the F125 fine-structure operator
+    (mass-velocity + Darwin) applied with the orbital's OWN effective charge.
+
+    The non-relativistic orbital energy fixes a hydrogenic effective charge
+    ``Z_eff = n·√(−2 ε)`` (the standard screened-Z relativistic estimate).
+    The hydrogenic fine-structure shift is then
+
+        ΔE = −(Z_eff⁴ α² / 2 n⁴) · (C(n,l) − 3/4)   [Hartree, binding ⇒ ΔE<0]
+
+    with the (2j+1)-weighted spin average of n/(j+½):
+        C(n,0) = n              (only j=½ exists for l=0)
+        C(n,l≥1) = n/(l+½)
+    Reproduces the F125 hydrogen 1s shift (Z=1: ΔE = −α²/8 Ha = −0.181 meV).
+    Spin–orbit *splitting* (j=l±½) is sub-resolution for light atoms and is
+    folded into this centroid; the DIRECT shift only — indirect relativistic
+    core contraction (Dirac–Fock screening feedback) is NOT included (flagged).
+    """
+    if eps_Ha >= 0:                                   # unbound — no shift
+        return 0.0
+    z_eff = n * np.sqrt(-2.0 * eps_Ha)
+    C = float(n) if l == 0 else n / (l + 0.5)
+    return -(z_eff ** 4 * alpha ** 2) / (2.0 * n ** 4) * (C - 0.75)
+
+
 def electron_cloud_hartree(Z, alpha=ALPHA, m_e_MeV=M_E_MEV,
                            N=900, r_max=None, max_iter=60, tol=1e-6,
-                           mix=0.4):
+                           mix=0.4, relativistic=False):
     """Total electronic energy (eV) of Z electrons by Hartree SCF.
 
     Returns a dict: ``total_energy_eV`` (<0 bound), ``orbital_energies_eV``
@@ -107,6 +133,13 @@ def electron_cloud_hartree(Z, alpha=ALPHA, m_e_MeV=M_E_MEV,
     ``converged``, ``tier``.  Energies are produced in atomic units (Hartree)
     and converted with the MODEL Rydberg 1 Ha = m_e c² α² (so only m_e, α
     enter — model-only).
+
+    ``relativistic=True`` adds the F125 scalar Dirac–Coulomb (mass-velocity +
+    Darwin) O((Zα)⁴) shift per orbital (``_scalar_relativistic_shift_Ha``) and
+    returns the extra keys ``ionization_eV_rel`` (Koopmans IE with the HOMO
+    shift), ``total_energy_eV_rel`` (Σ occ·ΔE added), ``orbital_rel_shift_eV``
+    {(n,l): ΔE}, and ``core_1s_rel_shift_eV`` (the 1s relativistic shift — where
+    relativity actually grows, ∝ Z⁴).  Non-relativistic keys are unchanged.
     """
     cfg = aufbau_configuration(Z)
     if r_max is None:
@@ -160,7 +193,8 @@ def electron_cloud_hartree(Z, alpha=ALPHA, m_e_MeV=M_E_MEV,
     hartree_eV = m_e_MeV * 1.0e6 * alpha ** 2     # 1 Ha = m_e c² α² (model Ry×2)
     levels = {(o["n"], o["l"]): o["eps"] * hartree_eV for o in orbs}
     eps_homo = max(o["eps"] for o in orbs)        # highest occupied
-    return {
+    homo = max(orbs, key=lambda o: o["eps"])
+    out = {
         "Z": Z,
         "configuration": cfg,
         "total_energy_eV": E_ha * hartree_eV,
@@ -169,6 +203,26 @@ def electron_cloud_hartree(Z, alpha=ALPHA, m_e_MeV=M_E_MEV,
         "converged": converged,
         "tier": "Hartree mean field (Coulomb + Pauli; no exchange/correlation)",
     }
+    if relativistic:
+        rel_shift = {}                            # Hartree per orbital
+        E_rel_corr = 0.0
+        for o in orbs:
+            d = _scalar_relativistic_shift_Ha(o["n"], o["l"], o["eps"], alpha)
+            rel_shift[(o["n"], o["l"])] = d
+            E_rel_corr += o["occ"] * d
+        d_homo = rel_shift[(homo["n"], homo["l"])]
+        core = _scalar_relativistic_shift_Ha(1, 0,
+                                             min(o["eps"] for o in orbs), alpha)
+        out.update({
+            "ionization_eV_rel": -(eps_homo + d_homo) * hartree_eV,
+            "total_energy_eV_rel": (E_ha + E_rel_corr) * hartree_eV,
+            "orbital_rel_shift_eV": {k: v * hartree_eV
+                                     for k, v in rel_shift.items()},
+            "core_1s_rel_shift_eV": core * hartree_eV,
+            "tier_rel": "scalar Dirac–Coulomb O((Zα)⁴) on screened Z_eff "
+                        "(direct shift; no Dirac–Fock feedback)",
+        })
+    return out
 
 
 # ===========================================================================

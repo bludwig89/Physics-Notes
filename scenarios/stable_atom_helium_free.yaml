@@ -1,0 +1,22 @@
+# F195 — matched CONTROL for stable_atom_helium: NO nuclear well, NO e-e field.
+# The orbitals are seeded compact and propagate ballistically, so the
+# bounded-vs-dispersing contrast is EXHIBITED (the bound cloud RMS stays ~2-4
+# cells; the free cloud RMS grows toward the box) rather than asserted.
+name: stable_atom_helium_free
+title: "He free control (F195) — no binding, ballistic dispersal"
+description: "Matched control: He electron orbitals with the nuclear well and e-e Hartree field switched off; the cloud disperses, certifying the bound run is genuinely bound."
+lattice: {L: 28, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 120
+channels:
+  - type: element_atom
+    name: atom
+    Z: 2
+    N: 2
+    b: 30000
+    free: true
+    fine:   {L: 12, sigma: 0.5, spread: 2.0}
+    coarse: {L: 28, m: 1.0, k: 0.6, dt: 0.4}
+observers:
+  - {type: atom_stability_readout, every: 20}
+output: {json: test-results/casim_stable_atom_helium_free.json}

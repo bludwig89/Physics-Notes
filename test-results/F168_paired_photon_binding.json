@@ -1,0 +1,43 @@
+{
+  "B1": {
+    "u_plus(0)": 1.0,
+    "u_minus(0)": 1.0,
+    "w_plus(0)": 0.0,
+    "w_minus(0)": 0.0,
+    "gap_if_onsite_deficit_1e-3": 0.044725087168733454,
+    "pass": true
+  },
+  "B2": {
+    "max_resid_wminus_eq_wplus_negk": 0.0,
+    "exact_zero": true,
+    "pass": true
+  },
+  "B3": {
+    "Omega_pair_over_k": [
+      0.5773502649593962,
+      0.5773499127981762
+    ],
+    "target_1_over_sqrt3": 0.5773502691896258,
+    "birefringent_split_fit_exponent": 2.0004465985157505,
+    "note": "exponent ~2 => no k^0 (mass) or k^1 term in the split",
+    "pass": true
+  },
+  "B4": {
+    "gap_equals_mass_resid": 4.163336342344337e-17,
+    "gap_for_masses": {
+      "0.0": 0.0,
+      "0.1": 0.10000000000000005,
+      "0.3": 0.3,
+      "0.7": 0.7
+    },
+    "gap_identity_channel(no X)": 0.0,
+    "pass": true
+  },
+  "checks": {
+    "B1": true,
+    "B2": true,
+    "B3": true,
+    "B4": true
+  },
+  "all_pass": true
+}

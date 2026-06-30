@@ -1,0 +1,32 @@
+{
+  "finding": "F194",
+  "H0_per_s": 2.1713221239277246e-18,
+  "R_H_m": 1.3806908458967049e+26,
+  "dilution_exponent_p": 2.0,
+  "exponent_slope_dlnrho_dlnL": -2.0,
+  "route1_bh_bound_J_per_m3": 7.578191788637865e-10,
+  "route2_holographic_J_per_m3": 7.578192013027136e-10,
+  "closed_form_3c4_8piG_RH2": 7.578191788637864e-10,
+  "rho_crit_energy_J_per_m3": 7.578191788637863e-10,
+  "routes_agree_rel": 2.960986968712064e-08,
+  "bh_equals_crit_rel": 2.72881920787897e-16,
+  "rho_Lambda_observed_J_per_m3": 6e-10,
+  "saturation_over_observed": 1.2630319647729775,
+  "saturation_dlog10": 0.1014143418054129,
+  "omega_L_times_crit_J_per_m3": 5.228952334160125e-10,
+  "omega_L_residual_over_observed": 0.8714920556933542,
+  "excluded_p1p5_J_per_m3": 2.3460608361363556e+21,
+  "p1p5_overshoot_log10": 30.592188019312218,
+  "p2_simple_J_per_m3": 2.0617979782910156e-09,
+  "p2_simple_dlog10": 0.5360948590547993,
+  "per_cell_entropy_nats": 10.882796185405304,
+  "per_cell_entropy_2pi_sqrt3": 10.882796185405306,
+  "checks": {
+    "p_equals_2_exact": true,
+    "two_routes_agree": true,
+    "saturation_is_critical_density": true,
+    "saturation_within_0p2_dex_of_obs": true,
+    "p1p5_excluded": true,
+    "f190_per_cell_entropy_2pi_sqrt3": true
+  }
+}

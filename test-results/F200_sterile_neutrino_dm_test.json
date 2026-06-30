@@ -1,0 +1,73 @@
+{
+  "finding": "F200",
+  "title": "The F47 sterile right-handed neutrino as the model-native dark-matter relic",
+  "timestamp": "2026-06-30 - 21:15",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "S1_genuine_sterile": {
+      "pass": true,
+      "U1_Y": 0.0,
+      "Y_forced_by": "Higgs-free Majorana mass U(1)_Y-invariance (F47 M2/M3) \u2014 not a free choice",
+      "note": "F47 nu_R is a total SM singlet; Y=0 forced by Higgs-free Majorana U(1)_Y invariance",
+      "_seconds": 0.0,
+      "_desc": "F47 nu_R is a total SM singlet (Y=0 forced)"
+    },
+    "S2_long_lived": {
+      "pass": true,
+      "m_s_keV": 7.1,
+      "sin2_2theta": 5e-12,
+      "tau_over_age_universe": 2890613014.8170075,
+      "contrast_Eg_amplitude_tau_over_age": 1.471264367816092e-39,
+      "note": "long-lived by ~9 orders; E_g amplitude mode was ~38 orders below age (F199)",
+      "_seconds": 0.0,
+      "_desc": "long-lived (tau/age ~1e9) vs E_g 38 orders below"
+    },
+    "S3_clusters_collisionless": {
+      "pass": true,
+      "warm_dark_matter": true,
+      "free_streaming_caveat": "keV -> WARM DM; Lyman-alpha sets m_s >~ few keV (non-resonant) / lower for resonant; clusters on galactic+ scales, suppresses sub-galactic structure",
+      "note": "keV -> warm DM, clusters on galactic+ scales; only mixing coupling -> Bullet-compatible",
+      "_seconds": 0.0,
+      "_desc": "massive (warm, clusters) + collisionless"
+    },
+    "S4_mixing_window": {
+      "pass": true,
+      "xray_bound": 1.6627597806993002e-11,
+      "benchmarks": {
+        "naive_seesaw": {
+          "sin2_2theta": 2.816901408450705e-05,
+          "xray_excluded": true,
+          "lifetime_s": 2.231914574065581e+20,
+          "tau_over_age": 513.0838101300186,
+          "stable": true
+        },
+        "nonresonant_DW_full": {
+          "sin2_2theta": 7.934933544931562e-09,
+          "xray_excluded": true,
+          "lifetime_s": 7.923296737932815e+23,
+          "tau_over_age": 1821447.5259615665,
+          "stable": true
+        },
+        "resonant_nuMSM": {
+          "sin2_2theta": 5e-12,
+          "xray_excluded": false,
+          "lifetime_s": 1.2574166614453982e+27,
+          "tau_over_age": 2890613014.8170075,
+          "stable": true
+        }
+      },
+      "note": "naive see-saw & DW-full X-ray excluded; resonant nuMSM benchmark allowed & stable",
+      "_seconds": 0.0,
+      "_desc": "naive/DW X-ray excluded; resonant nuMSM allowed"
+    },
+    "S5_verdict": {
+      "pass": true,
+      "verdict": "The model contains a GENUINE sterile state \u2014 the F47 right-handed neutrino, a total SM singlet with Y=0 structurally forced \u2014 and it passes every bar the E_g sector failed: stable (tau ~ 1e25-26 s, ~8 orders > age, vs E_g's 38 orders below), massive (clusters), collisionless (only tiny mixing). It is the nuMSM keV sterile neutrino, viable via resonant production in the X-ray/Lyman-alpha window, and is structurally tied to the F47 see-saw that already explains the small active-neutrino mass. The keV mass scale is ACCOMMODATED (free M_R), not yet derived \u2014 the remaining obstruction.",
+      "_seconds": 0.0,
+      "_desc": "model-native sterile DM passes all bars E_g failed"
+    }
+  },
+  "verdict": "The model contains a GENUINE sterile state \u2014 the F47 right-handed neutrino, a total SM singlet with Y=0 structurally forced \u2014 and it passes every bar the E_g sector failed: stable (tau ~ 1e25-26 s, ~8 orders > age, vs E_g's 38 orders below), massive (clusters), collisionless (only tiny mixing). It is the nuMSM keV sterile neutrino, viable via resonant production in the X-ray/Lyman-alpha window, and is structurally tied to the F47 see-saw that already explains the small active-neutrino mass. The keV mass scale is ACCOMMODATED (free M_R), not yet derived \u2014 the remaining obstruction.",
+  "seconds": 0.0
+}

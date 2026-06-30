@@ -1,6 +1,15 @@
 """
 ca_gravity.py — the gravity field element of the main model (F64 → mainline).
 
+STATUS (2026-06-29, F178): canonical gravity is now the full-tensor induced
+Einstein equation G_mu_nu = 8 pi G T_mu_nu.  This dielectric is the
+VACUUM / WEAK-FIELD REPRESENTATION of that law (lensing, PPN beta=gamma=1,
+redshift) and is correct where T_mu_nu -> 0 or p << rho c^2.  It is NOT the
+field equation inside matter: a single scalar forces anisotropic stress (F173),
+so the relativistic interior uses full Einstein / TOV (see ca_stellar.py,
+theory='gr').  The exact vacuum solution is Schwarzschild; the exponential
+K = e^{2u} below is the PPN-order approximation (F178 decision note).
+
 2026-06-06 - 18:20
 
 Gravity in this model is NOT a sourced metric with its own substance: it is a

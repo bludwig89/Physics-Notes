@@ -1,0 +1,92 @@
+{
+  "finding": "F203",
+  "title": "Dark-sector falsifiability battery (overview \u00a74 built out)",
+  "timestamp": "2026-06-30 - 22:45",
+  "n_pass": 7,
+  "n_total": 7,
+  "results": {
+    "T1_xray_line": {
+      "pass": true,
+      "status": "under_pressure",
+      "line_rate_headroom_dex": 1.9109164673003483,
+      "model_ms_keV": 5.6,
+      "predicted_lines": {
+        "5.6keV": 2.8,
+        "7.1keV": 3.55
+      },
+      "note": "X-ray line at E=m_s/2; survives XRISM line limit but below the 41 keV 100%-DM floor",
+      "_seconds": 0.0,
+      "_desc": "keV sterile X-ray line at E=m_s/2 (under pressure)"
+    },
+    "T2_warm_structure": {
+      "pass": true,
+      "status": "under_pressure",
+      "model_ms_keV": 5.6,
+      "excluded_if_nonresonant": true,
+      "survives_if_resonant": true,
+      "note": "warm-DM cutoff; non-resonant excluded, resonant survives at the edge",
+      "_seconds": 0.0,
+      "_desc": "warm-DM Lyman-alpha squeeze (under pressure)"
+    },
+    "T3_dark_energy_w": {
+      "pass": true,
+      "status": "under_pressure",
+      "model_w0wa": [
+        -1.0,
+        0.0
+      ],
+      "sigma_against_model": 4.2,
+      "note": "DESI DR2 rejects CC at 2.8-4.2 sigma; tension but < 5 sigma discovery",
+      "_seconds": 0.0,
+      "_desc": "w=-1 vs DESI DR2 (under pressure)"
+    },
+    "T4_bullet_lensing": {
+      "pass": true,
+      "status": "consistent",
+      "model_minus_observed_Mpc": 0.0,
+      "emergent_gravity_misprediction_Mpc": 0.189,
+      "note": "lensing on collisionless component matches Clowe 2006; emergent gravity falsified",
+      "_seconds": 0.0,
+      "_desc": "lensing on collisionless component (consistent)"
+    },
+    "T5_not_wimp_not_axion": {
+      "pass": true,
+      "status": "consistent",
+      "identity": "keV sterile neutrino (F200/F201)",
+      "note": "keV-sterile identity; WIMP/axion nulls consistent (soft falsifier)",
+      "_seconds": 0.0,
+      "_desc": "not WIMP / not axion (consistent)"
+    },
+    "T6_a0_coincidence": {
+      "pass": true,
+      "status": "consistent",
+      "ratio": 0.9094892241640906,
+      "percent_off": -9.051077583590939,
+      "note": "a0=c*H0/6 within ~10% of empirical (diagnostic only)",
+      "_seconds": 0.0,
+      "_desc": "a0=c*H0/6 (consistent, diagnostic)"
+    },
+    "T7_battery_summary": {
+      "pass": true,
+      "summary": {
+        "n_tests": 6,
+        "n_falsified": 0,
+        "n_under_pressure": 3,
+        "n_consistent": 3,
+        "statuses": {
+          "T1_xray_line": "under_pressure",
+          "T2_warm_structure": "under_pressure",
+          "T3_dark_energy_w": "under_pressure",
+          "T4_bullet_lensing": "consistent",
+          "T5_not_wimp_not_axion": "consistent",
+          "T6_a0_coincidence": "consistent"
+        }
+      },
+      "note": "6 tests: 0 falsified, 3 under_pressure (T1/T2 sterile, T3 w), 3 consistent (T4/T5/T6)",
+      "_seconds": 0.0,
+      "_desc": "battery internally consistent (0 falsified)"
+    }
+  },
+  "verdict": "Six dark-sector predictions made sharp and evaluated against current data. NONE is falsified; THREE are under genuine 2025 pressure (T1 + T2 keV sterile vs XRISM + Lyman-alpha pushing 100%%-DM sterile to >~41 keV; T3 w=-1 vs DESI DR2's 2.8-4.2 sigma rejection of the cosmological constant); THREE are consistent (T4 Bullet lensing on the collisionless component; T5 WIMP/axion nulls; T6 a0=c*H0/6). The pressure points are the highest-value places to watch: a tighter X-ray/Lyman-alpha overlap closure would kill the keV sterile, and a robust >=5-sigma w!=-1 detection would kill the pure-VEV dark energy.",
+  "seconds": 0.0
+}

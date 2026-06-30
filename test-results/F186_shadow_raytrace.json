@@ -1,0 +1,38 @@
+{
+  "finding": "F186",
+  "title": "BH shadow ray-tracer + EHT mu-as predictions",
+  "timestamp": "2026-06-30 - 04:20",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "T1_numeric_b_crit": {
+      "pass": true,
+      "b_c_numeric": 5.196077128949128,
+      "3sqrt3": 5.196152422706632,
+      "_seconds": 5.49,
+      "_desc": "ray-traced b_c = 3sqrt3 M"
+    },
+    "T2_eht_microarcsec": {
+      "pass": true,
+      "M87_GR_uas": 39.698035708862086,
+      "M87_F114_uas": 41.53475122144645,
+      "SgrA_GR_uas": 53.26689005880002,
+      "F114_enlargement_pct": 4.62671635960652,
+      "_seconds": 0.0,
+      "_desc": "M87*/SgrA* GR shadow vs F114 (+4.63%)"
+    },
+    "T3_kerr_spin_shadow": {
+      "pass": true,
+      "offsets_by_spin": [
+        0.6065616995737804,
+        1.2381921996209913,
+        1.986448705890598,
+        2.4411602631545026
+      ],
+      "grows_with_spin": true,
+      "_seconds": 0.0,
+      "_desc": "shadow displacement grows with spin"
+    }
+  },
+  "seconds": 5.49
+}

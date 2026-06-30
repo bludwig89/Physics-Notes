@@ -1,0 +1,32 @@
+{
+  "finding": "F189",
+  "title": "PN compact-binary inspiral & GW phasing",
+  "timestamp": "2026-06-30 - 04:35",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "I1_gw150914": {
+      "pass": true,
+      "Mc_solar": 28.09555579546043,
+      "f_isco_Hz": 67.63149151866384,
+      "time_from_35Hz_s": 0.1900281749931195,
+      "_seconds": 0.0,
+      "_desc": "GW150914 chirp mass ~28.6, f_isco ~70 Hz, ~0.2 s"
+    },
+    "I2_chirp_scaling": {
+      "pass": true,
+      "ratio_meas": 12.699208415745597,
+      "ratio_expected_2^(11/3)": 12.699208415745595,
+      "_seconds": 0.0,
+      "_desc": "df/dt ~ f^{11/3} (quadrupole)"
+    },
+    "I3_chirp_mass_formula": {
+      "pass": true,
+      "Mc_equal_mass": 26.11651689888372,
+      "expected_30/2^0.2": 26.116516898883724,
+      "_seconds": 0.0,
+      "_desc": "equal mass Mc = m/2^{1/5}"
+    }
+  },
+  "seconds": 0.0
+}

@@ -10,6 +10,7 @@
 |------|-------|
 | `ca-reference.md` | Weyl Spinor Cellular Automaton — Reference |
 | `ca-unified-v2.md` | A Unified Proposition v2: Combining the Phase-F Architecture with the QCA Literature |
+| `dark-sector-overview.md` | Dark Sector — Overview & Falsifiable Points |
 | `key-decisions.md` | Key Decisions |
 | `page34-eom-derivation.md` | Page 34 Equations of Motion — Derivation and Reconciliation with the Project |
 | `physics-F64-dielectric-gravity-simple.md` | F64 — Gravity as the Vacuum Acting Like Glass, Explained Simply |
@@ -19,8 +20,13 @@
 
 | File | Title |
 |------|-------|
+| `angular-self-duality-solve-2026-06-30.md` | Session prompt — derive the angular self-duality (C/\|B\| = 0.636) |
+| `gravity-sector-scenarios-2026-06-30.md` | Gravity-sector scenario catalog (post-F178 full-tensor adoption) |
+| `mass-magnitude-derivation-2026-06-29.md` | Roadmap — Deriving the mass *magnitude* (the open half of audit G1 / F167) |
 | `next-session-bgfield-loop.md` | Next-session prompt — the background-field one-loop gluon self-energy → **pin q\*** |
+| `next-session-prompt-vacuum-energy.md` | Next-session prompt — the BCC zero-point / vacuum-energy density and the cosmological-constant sector |
 | `next-session-residual-A-solve.md` | Next-session prompt — build out Residuals A & B, then **solve/derive Residual A** |
+| `next-session-stable-atomic-structure.md` | Next-session prompt — build the **fully stable blockspin atom**: multi-nucleon nucleus + multi-electron shells, general (Z,N) |
 | `next-steps.md` | Next Research Steps |
 | `prompt-weinberg-8over7-closure.md` | Session prompt — close the F49 8/7: diamagnetic-complete R(m), the 8-vs-7 multiplicity test, and the F118 matching |
 | `roadmap-matter-binding.md` | Roadmap — Dynamical Matter & Binding: electrons, u/d quarks → protons, neutrons, atoms |
@@ -44,6 +50,8 @@
 | `2026-06-12-emergent-bound-states-vs-manufactured.md` | Audit — are the model's bound states emergent, or manufactured by their tests? |
 | `completed-items.md` | 1. `docs/theory/ca-unified-v2.md` line 48: $c = c_0(1 + \phi/c_0^2)^{-1}$ has the wrong sign for gravitational lensing; the working `ca_emqg.py` code uses the… |
 | `model-observations.md` | Model review — nonsensical or self-inconsistent constructs flagged |
+| `physics-audit-prompt.md` | You are a theoretical physics auditor for a cellular automaton (CA) model of particle physics. Your job is a **complete internal consistency audit**: find… |
+| `physics-audit-report-2026-06-29.md` | Physics Audit Report — 2026-06-29 |
 | `physics-notes-complete-review.md` | Review of `physics-notes-complete.md` — Model Support, Falsifiers, Improvements |
 | `project-audit-inputs-dynamism-2026-06-06.md` | Project Audit — Underived Inputs & Field Dynamism |
 
@@ -51,13 +59,16 @@
 
 | File | Title |
 |------|-------|
+| `alcubierre-warp-structural-test.md` | Structural test: the Alcubierre warp metric in the lattice model |
 | `ca-electroweak-design.md` | Electroweak Mass-Generation Design under Unified v2 |
 | `ca-emergent-time-proposition.md` | Emergent-Time Proposition — Time as a Per-Cell Tick Count |
 | `ca-forces-integration.md` | CA Rules and the Four Forces — Integration of Ludwig + Fredkin |
 | `ca-per-cell-yukawa-design.md` | Per-Cell Yukawa Mechanism — V14 Design Outline |
 | `ca-software-plan.md` | Cellular Automata Simulation — Implementation Plan & Results |
 | `ca-strong-design.md` | SU(3) Strong-Force Gauge Sector — Design |
+| `casimir-effect-build-brief.md` | Build Brief / Next-Session Prompt — The Casimir Effect in the BCC Weyl-QCA Model |
 | `qstar-gluon-d1-computation-plan.md` | Computing the gluonic $d_1$ — the one number that pins $q_\ast$ (a validatable plan) |
+| `warp-shift-vector-construction.md` | Exploration: constructing the F204 open items (warp shift vector & forward Bobrick–Martire) |
 
 ## papers/ — the paper series
 
@@ -76,11 +87,14 @@
 | `Paper-09-Fermion-Sector.md` | Paper IX — The Fermion Sector: Weyl Quanta, Chirality and Helicity, Exactly Three Generations, and the Anomaly-Free First Generation |
 | `Paper-10-Lepton-Sector.md` | Paper X — The Lepton Sector: Higgs-Free Hypercharge, the Koide Equipartition as an Electromagnetically-Selected $45^\circ$ Critical Point, and the See-Saw… |
 | `Paper-11-Baryon-Sector.md` | Paper XI — The Baryon Sector: The Colour-Singlet Proton, Centre-Phase Closure, the Dynamical Pion, and the First Nucleus |
+| `Paper-12-Unification-Rotation-Currency.md` | Paper XII — One Currency: Mass, Energy, Light, and Gravity as a Single Rotation Rate |
+| `Paper-13-Koide-Angle.md` | Paper XIII — The Charged-Lepton Shape Angle: $3\delta=Q$, the Koide Phase as the $E_g$ Representation Weight $\tfrac29$, and a Saturation Self-Duality |
 
 ## references/ — summaries of external papers (PDFs alongside)
 
 | File | Title |
 |------|-------|
+| `casimir-force-literature-and-model-integration.md` | Casimir Force — Current Literature & Integration into the BCC Weyl-QCA Model |
 | `cellular-automata-research.md` | Page 35 — Cellular Automata & Spacetime: Research Notes |
 | `chen-lin-2022-quantum-kinetic-axial-summary.md` | Summary: "Quantum Kinetic Theory with Vector and Axial Gauge Fields" |
 | `fredkin-correlation.md` | Edward Fredkin — Correlation with Pages 35–39 |

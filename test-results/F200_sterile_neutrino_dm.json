@@ -1,0 +1,90 @@
+{
+  "existence": {
+    "field": "right-handed neutrino nu_R (F47)",
+    "SU3_colour": "singlet",
+    "SU2_L": "singlet",
+    "U1_Y": 0.0,
+    "Y_forced_by": "Higgs-free Majorana mass U(1)_Y-invariance (F47 M2/M3) \u2014 not a free choice",
+    "only_coupling": "Dirac mixing M_D with active nu_L; mixing angle theta ~ M_D/M_R",
+    "light_eigenvalue_allowed": "yes \u2014 3x3 M_R (F47 follow-up #2) admits a keV sterile (nuMSM)",
+    "genuinely_sterile": true
+  },
+  "stability": {
+    "m_s_keV": 7.1,
+    "sin2_2theta": 5e-12,
+    "lifetime_s": 1.2574166614453982e+27,
+    "tau_over_age_universe": 2890613014.8170075,
+    "stable_on_cosmo_time": true,
+    "contrast_Eg_amplitude_tau_over_age": 1.471264367816092e-39,
+    "note": "long-lived by ~9-10 orders (decay only via tiny mixing) \u2014 passes where E_g failed by ~38 orders (F199)"
+  },
+  "clustering_collisionless": {
+    "massive_keV_clusters": true,
+    "warm_dark_matter": true,
+    "free_streaming_caveat": "keV -> WARM DM; Lyman-alpha sets m_s >~ few keV (non-resonant) / lower for resonant; clusters on galactic+ scales, suppresses sub-galactic structure",
+    "collisionless": true,
+    "coupling_to_SM": "only the tiny mixing -> sigma/m << Bullet bound (F191 D2 satisfied)"
+  },
+  "mixing_window": {
+    "m_s_keV": 7.1,
+    "xray_bound_sin2_2theta": 1.6627597806993002e-11,
+    "benchmarks": {
+      "naive_seesaw": {
+        "sin2_2theta": 2.816901408450705e-05,
+        "xray_excluded": true,
+        "lifetime_s": 2.231914574065581e+20,
+        "tau_over_age": 513.0838101300186,
+        "stable": true
+      },
+      "nonresonant_DW_full": {
+        "sin2_2theta": 7.934933544931562e-09,
+        "xray_excluded": true,
+        "lifetime_s": 7.923296737932815e+23,
+        "tau_over_age": 1821447.5259615665,
+        "stable": true
+      },
+      "resonant_nuMSM": {
+        "sin2_2theta": 5e-12,
+        "xray_excluded": false,
+        "lifetime_s": 1.2574166614453982e+27,
+        "tau_over_age": 2890613014.8170075,
+        "stable": true
+      }
+    },
+    "note": "naive single-flavour see-saw mixing (~2.8e-05) and non-resonant DW-for-100%-DM (~7.9e-09) are both X-ray excluded; the resonant (Shi-Fuller) nuMSM benchmark (~5e-12) sits BELOW the X-ray bound (~1.7e-11) and reaches Omega_DM \u2014 the surviving keV window. The nuMSM decouples the DM sterile's Yukawa so its mixing is free; the heavier two steriles do see-saw + baryogenesis."
+  },
+  "abundance": {
+    "sin2_for_full_DW": 7.934933544931562e-09,
+    "DW_full_xray_excluded": true,
+    "resonant_sin2": 5e-12,
+    "resonant_xray_excluded": false,
+    "note": "non-resonant DW for 100% DM needs sin2~7.9e-09 -> X-ray excluded; resonant production reaches Omega_DM at the smaller, X-ray-allowed mixing"
+  },
+  "lifetime_scan": [
+    {
+      "m_s_keV": 1.0,
+      "lifetime_s": 2.2686680470162167e+31,
+      "tau_over_age": 52153288437154.41,
+      "stable": true
+    },
+    {
+      "m_s_keV": 3.0,
+      "lifetime_s": 9.33608249800912e+28,
+      "tau_over_age": 214622586161.12918,
+      "stable": true
+    },
+    {
+      "m_s_keV": 7.1,
+      "lifetime_s": 1.2574166614453982e+27,
+      "tau_over_age": 2890613014.8170075,
+      "stable": true
+    },
+    {
+      "m_s_keV": 30.0,
+      "lifetime_s": 9.336082498009124e+23,
+      "tau_over_age": 2146225.8616112927,
+      "stable": true
+    }
+  ],
+  "verdict": "The model contains a GENUINE sterile state \u2014 the F47 right-handed neutrino, a total SM singlet with Y=0 structurally forced \u2014 and it passes every bar the E_g sector failed: stable (tau ~ 1e25-26 s, ~8 orders > age, vs E_g's 38 orders below), massive (clusters), collisionless (only tiny mixing). It is the nuMSM keV sterile neutrino, viable via resonant production in the X-ray/Lyman-alpha window, and is structurally tied to the F47 see-saw that already explains the small active-neutrino mass. The keV mass scale is ACCOMMODATED (free M_R), not yet derived \u2014 the remaining obstruction."
+}

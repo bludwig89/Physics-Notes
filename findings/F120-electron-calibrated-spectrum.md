@@ -59,6 +59,8 @@ Once $N$ is set (C6), the whole fermion sector reads out in kg. Leptons are *pre
 
 **Predicted (parameter-free):** Koide $Q=2/3$; the *entire* lepton shape from one mass plus the angle. **Calibrated:** the overall scale $N$ (one mass — the F119 open number) and the angle $\delta$ (whose exact value is the open $\lambda_6$, F118/F119). **Consistency only:** the quark masses in kg. The honest reading: with one mass and the measured angle the lepton sector is reproduced to 0.1 %; the irreducible open inputs remain exactly two — the overall scale $N$ and the angle $\lambda_6$ — both flagged in F119.
 
+> **Relabel (F179, 2026-06-29 — audit C2).** The angle, not $\lambda_6$, is the honest one-parameter handle: $\lambda_6$ is convention-laden and is **not** a clean rational (the "$\approx\tfrac14$" framing above misses the data angle by $0.67°$; $\tfrac29$ misses by $2.48°$). The convention-independent statement is the condensate angle $\delta^*=\tfrac29$ rad ($3\delta^*=Q=\tfrac23$), Koide-locked to data at $<1\sigma$ but **not derived**. Granting that one relation, one anchor reproduces the spectrum to $0.01\%$ — so this section's "predicted (parameter-free)" should read **one-angle consistency fit** (one Koide-locked angle + one scale $N$), not a zero-parameter prediction. See [[F179-lambda6-derivation-attempt-and-relabel]].
+
 ## 6. Test summary (`test_F120_electron_calibrated_spectrum.py`, 2026-06-09 - 16:30)
 
 | Check | Statement | Result | Status |

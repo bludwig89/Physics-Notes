@@ -3,15 +3,17 @@
 **B. Ludwig**
 *Independent researcher*
 
-*Series: "A Universe in a Bottle" — Paper VII of XI. Builds on Paper I (light as rotation rate), Paper II (the cell-size co-certification), and completes the four-interaction set (IV–VII). Its strong-field limit is Paper VIII (the dielectric black hole).*
+*Series: "A Universe in a Bottle" — Paper VII of XI. Builds on Paper I (light as rotation rate), Paper II (the cell-size co-certification), and completes the four-interaction set (IV–VII). Its strong-field limit is the exact Schwarzschild/Kerr solution of the induced Einstein equation (F178); the earlier horizon-free "dielectric black hole" of Paper VIII is reclassified as the PPN-order representation (see §4.2).*
 
 *Revision 2 (2026-06-08): the SI cell is updated throughout to the **adopted canonical value** of Finding F107, $a=\sqrt{8\pi}\,3^{1/4}\,\ell_P=6.5978\,\ell_P=1.0664\times10^{-34}$ m (tick $\tau=2.0537\times10^{-43}$ s). Revision 1 quoted an inconsistent "$\approx3.8\,\ell_P$, one generation" in one place; that is corrected here — the mode count is $g_*=48$ (three generations $\times$ 16 Weyl fields), giving $a/\ell_P=\sqrt{8\pi}\,3^{1/4}=6.5978$.*
+
+*Revision 3 (2026-06-30): **strong-field section re-issued per Finding F178.** The model now adopts the **induced Einstein equation** $G_{\mu\nu}=(8\pi G/c^4)T_{\mu\nu}$ as the canonical gravitational law, sourced by the **full** stress-energy tensor. The single impedance-matched dielectric $K=e^{2u}$ is reclassified as the **vacuum/weak-field (PPN-order) representation** of that law — exact in spirit for lensing, PPN $\beta=\gamma=1$, redshift and the Newton-constant origin story, but **not** the exact strong-field metric. The canonical strong-field object is therefore **exact Schwarzschild (and Kerr for rotation)**, with a genuine horizon; the horizon-free "dielectric black hole" of Paper VIII is demoted to a representation artifact (F114→F178). Inside matter the metric carries two independent functions and the dynamics are GR/TOV (the covariant interior kernel, F181). The weak-field claims of §§2–3, 5–6 are unchanged; §4 is rewritten below.*
 
 ---
 
 ## Abstract
 
-We present gravity in the BCC quantum-cellular-automaton model as a single, impedance-matched **lattice dielectric** $K(\mathbf x)$: a position-dependent renormalisation of the $(\mathbf E,\mathbf B)$ rotation rule that Paper I identified with the speed of light. With the canonical index $K=\exp(2GM/rc^2)$, metric legs $A=1/K$, $B=K$ obeying the exact reciprocal lock $AB\equiv1$, the model reproduces general relativity at the post-Newtonian level: $\beta=\gamma=1$, Mercury perihelion advance $42.98''$/century, and full Einstein factor-2 light bending ($4GM/bc^2$). A single scalar achieves what a single scalar generically cannot — simultaneous factor-1 redshift and factor-2 deflection — because the reciprocal lock keeps the lattice impedance $\sqrt{\mu/\varepsilon}=1$ exactly, so the rotation stays a *proper* rotation with no scalar contamination. We derive the dielectric placement $\varepsilon=\mu=K$ from the proper-rotation requirement plus the conformal invariance of source-free Maxwell, show that light dynamically bends light (the rest-mass route gives zero), promote the potential to a causal dynamical field, and — crucially — **free Newton's constant from the Sakharov premise**: the gravity field carries zero tree stiffness because the dominant lattice stress tensor is traceless, so the induced (loop) channel is forced as a theorem, giving the closed form $G=a^2c^3/(8\pi\sqrt3\,\hbar)$ and the parameter-free prediction $a/\ell_P=\sqrt{8\pi}\,3^{1/4}=6.598$. Sixteen field-level and dynamical tests pass; the SI cell is gated by two independent campaigns (absolute lensing and the GRB time-of-flight bound).
+We present gravity in the BCC quantum-cellular-automaton model as a single, impedance-matched **lattice dielectric** $K(\mathbf x)$: a position-dependent renormalisation of the $(\mathbf E,\mathbf B)$ rotation rule that Paper I identified with the speed of light. With the canonical index $K=\exp(2GM/rc^2)$, metric legs $A=1/K$, $B=K$ obeying the exact reciprocal lock $AB\equiv1$, the model reproduces general relativity at the post-Newtonian level: $\beta=\gamma=1$, Mercury perihelion advance $42.98''$/century, and full Einstein factor-2 light bending ($4GM/bc^2$). A single scalar achieves what a single scalar generically cannot — simultaneous factor-1 redshift and factor-2 deflection — because the reciprocal lock keeps the lattice impedance $\sqrt{\mu/\varepsilon}=1$ exactly, so the rotation stays a *proper* rotation with no scalar contamination. We derive the dielectric placement $\varepsilon=\mu=K$ from the proper-rotation requirement plus the conformal invariance of source-free Maxwell, show that light dynamically bends light (the rest-mass route gives zero), promote the potential to a causal dynamical field, and — crucially — **free Newton's constant from the Sakharov premise**: the gravity field carries zero tree stiffness because the dominant lattice stress tensor is traceless, so the induced (loop) channel is forced as a theorem, giving the closed form $G=a^2c^3/(8\pi\sqrt3\,\hbar)$ and the parameter-free prediction $a/\ell_P=\sqrt{8\pi}\,3^{1/4}=6.598$. Sixteen field-level and dynamical tests pass; the SI cell is gated by two independent campaigns (absolute lensing and the GRB time-of-flight bound). **The dielectric is the vacuum/weak-field representation of the model's canonical gravitational law — the induced Einstein equation $G_{\mu\nu}=(8\pi G/c^4)T_{\mu\nu}$ sourced by the *full* stress-energy tensor (§4, Revision 3 / F178)**: a $T^{00}$-only source is not Lorentz covariant, and an impedance-locked single scalar cannot source an isotropic perfect fluid (it forces $p_r=-p_t$, F173). The exact strong-field object is therefore **Schwarzschild/Kerr** (with a horizon) and the interior is GR/TOV (F181), so the horizon-free "dielectric black hole" is reclassified as a PPN-order artifact. The model's lasting gravitational content is the **origin and structural value of $G$**, with low-energy dynamics that are exactly Einstein's.
 
 ---
 
@@ -64,7 +66,9 @@ A 1D Yee finite-difference simulation confirms it: the impedance-matched dielect
 
 ---
 
-## 4. Strong field: PPN and the canonical exponential
+## 4. Strong field: the canonical law is the induced Einstein equation (re-issued, F178)
+
+### 4.1 PPN — where the dielectric is exact
 
 Exact post-Newtonian analysis of $g_{tt}=-A$, $g_{ij}=B\delta_{ij}$:
 
@@ -74,16 +78,38 @@ Exact post-Newtonian analysis of $g_{tt}=-A$, $g_{ij}=B\delta_{ij}$:
 | **exponential $K=e^{2u}$** | $1$ | $1$ | $1$ | **42.98** |
 | Schwarzschild (ref) | $1$ | $1$ | $1$ | $42.98$ |
 
-Light deflection depends only on $\gamma=1$, so the dielectric passes the bending test exactly. But perihelion advance depends on $\beta$: the naive linear dielectric $K=(1-u)^{-2}$ has $\beta=\tfrac12$, predicting Mercury $50.1''$/cy — a $16.7\%$ excess excluded by the MESSENGER bound. The EM-sector derivation fixes $K$ only to linear order; the second-PPN (Mercury) test selects the nonlinear completion
+Light deflection depends only on $\gamma=1$, so the dielectric passes the bending test exactly. Perihelion advance depends on $\beta$: the naive linear dielectric $K=(1-u)^{-2}$ has $\beta=\tfrac12$ (Mercury $50.1''$/cy, a $16.7\%$ excess excluded by MESSENGER), while the impedance-matched exponential
 
 $$
-\boxed{\;K=e^{2GM/rc^2},\qquad A=1/K,\ B=K,\ AB\equiv1,\;}
+K=e^{2GM/rc^2},\qquad A=1/K,\ B=K,\ AB\equiv1,
 \tag{4.1}
 $$
 
-which restores $\beta=\gamma=1$ (GR-identical; derivation D-EM9) and converges on exactly the Puthoff polarizable-vacuum / Yilmaz exponential form — now *derived* by impedance matching rather than assumed. The two forms agree at $O(u)$ ($(1-u)^{-2}=1+2u+3u^2+\cdots$ vs $e^{2u}=1+2u+2u^2+\cdots$), so all weak-field results are unchanged. The strong-field consequences of (4.1) — a horizon-free black hole — are the subject of Paper VIII.
+restores $\beta=\gamma=1$ (derivation D-EM9). To **PPN order** the dielectric is GR-identical, and *this is the regime in which it is canonical*: all weak-field/solar-system observables — light bending, Mercury, Shapiro delay, gravitational redshift — are reproduced exactly, with the reciprocal lock $AB\equiv1$ doing the work of two independently-sourced legs.
 
-A causal dynamical completion is provided: promoting the potential to a field with a kinetic term, $\Box\Phi=-4\pi G\rho$, gives a static Poisson limit, retarded propagation at the graviton speed $c_g$, and energy conservation — i.e. dielectric gravitational waves. The dynamical Dirac wave-packet battery (equivalence principle, redshift, factor-2 deflection, backreaction) reproduces every result of the earlier two-leg emergent-gravity module using one field equation instead of two.
+### 4.2 The canonical strong-field law (F178)
+
+The exponential (4.1) is, however, only the **vacuum/weak-field representation** of the model's gravity, not its exact strong-field metric. Finding F178 makes the canonical law the **induced Einstein equation**
+
+$$
+\boxed{\;G_{\mu\nu}=\frac{8\pi G}{c^4}\,T_{\mu\nu},\qquad G=\frac{a^2c^3}{8\pi\sqrt3\,\hbar}\;}
+\tag{4.2}
+$$
+
+sourced by the **full** stress-energy tensor. Three independent reasons force this over the single energy-sourced scalar:
+
+1. **Lorentz covariance.** A source built from the energy density $T^{00}$ alone is not a tensor equation; only coupling to the full $T_{\mu\nu}$ is frame-independent. The single scalar can only ever be a static, preferred-frame approximation.
+2. **The single scalar carries anisotropic stress.** The exact Einstein tensor of (4.1) has $p_r=-p_t=-e^{-2u}u'^2/8\pi$ (F173, sympy-exact): an impedance-locked single scalar **cannot** source an isotropic perfect fluid, so it cannot be the field equation inside matter.
+3. **Neutron stars.** The literal energy-only law has no maximum mass; the full-tensor source recovers TOV structure and the observed $\sim2\,M_\odot$ ceiling (F176/F181).
+
+The consequences of (4.2):
+
+- **Vacuum / exterior.** The exact spherically-symmetric vacuum solution is **Schwarzschild** (Kerr for rotation), *with a horizon*. The exponential $K=e^{2u}$ agrees only to PPN order: the two metrics differ at $O(u^2)$ (e.g. the spatial leg, $e^{2u}=1+2u+2u^2+\cdots$ vs isotropic Schwarzschild $(1+u/2)^4=1+2u+\tfrac32u^2+\cdots$), and the dielectric lapse $A=e^{-2u}>0$ never vanishes — it is **horizon-free**. That horizon-free "dielectric black hole" (the subject of the earlier Paper VIII / F114) is therefore reclassified as an artifact of treating the PPN-order representation as fundamental; the canonical black hole is Schwarzschild/Kerr.
+- **Interior.** Inside matter the metric carries its **second independent function** ($A,B$ free, $AB\neq1$) and the dynamics are GR/TOV. The covariant two-function interior kernel (F181) solves the full isotropic perfect-fluid Einstein equations exactly where the single scalar cannot, reproducing GR-TOV to the integrator floor.
+
+### 4.3 What is preserved
+
+The reclassification is a deliberate trade — Lorentz covariance and automatic consistency with neutron stars, gravitational waves and cosmology, in exchange for the dielectric's distinctive strong-field phenomenology. What survives intact is everything in the regime where the dielectric *is* the representation of (4.2): factor-2 light bending, $\beta=\gamma=1$, Mercury, Shapiro, redshift; the structural Newton constant $G=a^2c^3/(8\pi\sqrt3\,\hbar)$ (§5); and the emergent-origin story (gravity as an induced renormalisation of the $(\mathbf E,\mathbf B)$ rotation rate). A causal dynamical completion ($\Box\Phi=-4\pi G\rho$ in the weak field; the full spin-2 equation in general) gives retarded propagation at the graviton speed $c_g=c_{\rm lat}=1/\sqrt3$ (F180). The dynamical Dirac wave-packet battery — equivalence principle, redshift $\propto\sqrt{-g_{tt}}$, factor-2 deflection, unitary backreaction — reproduces every result on the **two-function** background without modification (F181), so nothing in the weak-field phenomenology is lost by abandoning the impedance lock.
 
 ---
 
@@ -140,7 +166,7 @@ Adoption was gated on two passed campaigns (Finding F107, 6/6):
 1. **L4 absolute lensing.** On the canonical $K=e^{2u}$ the straight-ray bending coefficient is $K_\text{bend}=-4$ exact at all field strengths; the lattice absolute coefficient is $4$; the $G$-match and the solar-limb deflection $1.7512''$ both hold at $3.0\times10^{-8}$.
 2. **The GRB gate.** The even-channel $n=2$ Lorentz-violation scale is $E_{\text{QG},2}=\sqrt{54}\,\hbar c/a$. At the F79 value it clears LHAASO by $1.9\times10^7$; at the F83 mass-ceiling cell it would be excluded by $\sim9$ decades. The bound thus observationally *selects* the F79 cell. Falsification handle: any $n=2$ time-of-flight bound above $1.36\times10^{19}$ GeV kills the adopted cell.
 
-Every SI prediction in the series (Paper VIII shadows, Paper XI nuclear scales once calibrated) now evaluates at this single $a$ (Finding F112).
+Every SI prediction in the series (the canonical Schwarzschild/Kerr shadow per §4.2, Paper XI nuclear scales once calibrated) now evaluates at this single $a$ (Finding F112).
 
 ---
 
@@ -164,15 +190,15 @@ The cell size that (5.3) forces, $a=6.5978\,\ell_P$, is the same cell size at wh
 | $g_*=48$; $a/\ell_P=\sqrt{8\pi}3^{1/4}=6.5978$ | §5.3 | exact; $G$ consistent to $3\times10^{-8}$ |
 | L4 lensing + GRB gate (adoption) | §5.5 | 6/6; $3.0\times10^{-8}$ |
 
-Sixteen field-level and dynamical tests pass. Underlying findings: F64 (EM-connection / dielectric gravity, D-EM1–D-EM11), F79 (structural Newton constant), F107 (canonical $a$ adoption / GRB gate), F112 (SI predictions), F55–F62 (the superseded two-leg route and its lessons), F69 (cell-size co-certification).
+Sixteen field-level and dynamical tests pass. Underlying findings: F64 (EM-connection / dielectric gravity, D-EM1–D-EM11), F79 (structural Newton constant), F107 (canonical $a$ adoption / GRB gate), F112 (SI predictions), F55–F62 (the superseded two-leg route and its lessons), F69 (cell-size co-certification). Strong-field re-issue (§4.2): F178 (full-tensor source adopted), F173 (single-scalar anisotropy), F176/F181 (covariant interior / TOV), F180 (graviton speed), F114 (the demoted dielectric black hole).
 
 ---
 
 ## 8. Discussion
 
-Gravity in this model is not a new field but a modulation of the field already present: the rotation rate that *is* the speed of light. One impedance-matched scalar reproduces GR's weak- and strong-field phenomenology, with the reciprocal lock $AB=1$ doing the work that two independently-sourced metric legs did in the earlier route. The deepest result is that Newton's constant is not free: because the gravity field is a conformal reparametrisation with no tree stiffness, $G$ is the lattice's induced dielectric stiffness against bending its own rotation rule, fixed (up to one ruler) by $c_\text{lat}=1/\sqrt3$, $\eta=\tfrac1{12}$, and the generation theorem $g_*=48$.
+Gravity in this model is not a new field but a modulation of the field already present: the rotation rate that *is* the speed of light. In the **weak field** one impedance-matched scalar reproduces GR's PPN phenomenology, with the reciprocal lock $AB=1$ doing the work that two independently-sourced metric legs did in the earlier route. The canonical law, however, is the **induced Einstein equation** $G_{\mu\nu}=(8\pi G/c^4)T_{\mu\nu}$ sourced by the full stress-energy tensor (§4.2, F178): the dielectric is its vacuum/weak-field representation, the exact strong-field object is Schwarzschild/Kerr, and the interior is GR/TOV (F181). The deepest result is that Newton's constant is not free: because the gravity field is a conformal reparametrisation with no tree stiffness, $G$ is the lattice's induced dielectric stiffness against bending its own rotation rule, fixed (up to one ruler) by $c_\text{lat}=1/\sqrt3$, $\eta=\tfrac1{12}$, and the generation theorem $g_*=48$. The model's distinctive gravitational content is thus the **origin and value of $G$** (and the rotation-rate origin story), with low-energy dynamics that are exactly Einstein's.
 
-Open items, all bounded: the spin-1 gauge contribution to $g_*$; a full strong-field battery on the exponential $K$ against exact Schwarzschild geodesics (begun in Paper VIII); a two-body / gravitational-wave sector; and 3D dynamical light-bends-light. The lineage is Sachs' electrogravity (the notebook's starting point), Puthoff's polarizable vacuum, Yilmaz's exponential metric, and Ostoma–Trushyk.
+Open items, all bounded: the spin-1 gauge contribution to $g_*$; the Kerr/frame-dragging sector on the two-function kernel; a two-body / gravitational-wave sector (graviton speed $c_g=c_{\rm lat}$ confirmed, F180); and 3D dynamical light-bends-light. The lineage is Sachs' electrogravity (the notebook's starting point), Puthoff's polarizable vacuum, Yilmaz's exponential metric, and Ostoma–Trushyk — now understood as the **weak-field representation** of induced (Sakharov-type) Einstein gravity.
 
 ---
 

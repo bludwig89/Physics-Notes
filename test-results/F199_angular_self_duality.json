@@ -1,0 +1,80 @@
+{
+  "A_anchor": {
+    "u_star": "2 - sqrt(3)",
+    "delta_deg": 15.0,
+    "three_delta": "pi/4",
+    "cos3delta": 0.7071067811865476,
+    "statement": "massless Koide point forces 3delta = pi/4 EXACTLY"
+  },
+  "S1_second_relation": {
+    "Q_expr": "1/3 + r^2/6",
+    "dQ_ddelta": 0,
+    "r_at_Q_two_thirds": "sqrt(2)",
+    "verdict": "Q purely RADIAL, 3delta purely ANGULAR (orthogonal). The F92 analogue (two mass laws intersecting) does NOT exist. NO second exact relation forces 3delta = Q."
+  },
+  "S2_alpha_cancellation": {
+    "B_order": "O(alpha^0)  (Dirac-sea cubic, parameter-free, F95 D1-D4)",
+    "C_order": "O(alpha^>=1) (induced E_g clock self-coupling, F145/F118)",
+    "cancels": false,
+    "rows": {
+      "Fierz_2_9": {
+        "lambda6": 0.2222222222222222,
+        "C_over_B": 0.581800429603593,
+        "cos3delta": 0.8594012217224946,
+        "delta_deg": 10.250193854824476
+      },
+      "rotor_1_4": {
+        "lambda6": 0.25,
+        "C_over_B": 0.6545254833040421,
+        "cos3delta": 0.7639121970866618,
+        "delta_deg": 13.396562299328624
+      },
+      "fit": {
+        "lambda6": 0.243,
+        "C_over_B": 0.6361987697715289,
+        "cos3delta": 0.7859178982373064,
+        "delta_deg": 12.731449167614429
+      }
+    },
+    "target_C_over_B": 0.6362235716935879,
+    "bare_Fierz_C_over_B": 0.581800429603593,
+    "nonperturbative_enhancement_needed": 1.093542629604237,
+    "verdict": "alpha_eff does NOT cancel (different alpha-orders). Bare Fierz 2/9 gives C/|B|=0.5818, needs 1.094x uncomputed IR factor to reach 0.63622 -> COMPUTED number, not a theorem."
+  },
+  "S3_bps_degeneracy": {
+    "interior_vacuum": "x* = -B/(2C)",
+    "V0_minus_Vint": "(2C-|B|)^2 / (4C)",
+    "degeneracy_C_over_B": 0.5,
+    "self_dual_C_over_B": 0.6362235716935879,
+    "verdict": "Only special ratio the wall picks is the tetragonal->orthorhombic threshold C/|B|=1/2 (vacuum existence). 0.636 != 0.5: standard BPS does NOT pin the angle (F177-B2 made quantitative)."
+  },
+  "V_value_discrimination": {
+    "self_dual": 0.6362235716935879,
+    "competitor_2_over_pi": 0.6366197723675814,
+    "split": 0.00039620067399348535,
+    "data_C_over_B": 0.6362346994609838,
+    "data_minus_self_dual": 1.1127767395868737e-05,
+    "data_minus_2_over_pi": 0.0003850729065976166,
+    "data_sigma_from_mtau": 1.2538204625156535e-05,
+    "data_pulls_to_self_dual_by_sigma": 0.8875088362764546,
+    "bare_solve_C_over_B": 0.581800429603593,
+    "bare_off_both_by": 0.05442314208999488,
+    "verdict": "Data SATISFIES the self-dual value to ~1e-5 (the F176/F179 target), but the DERIVATION (bare induced rational) lands off BOTH targets by ~9%. The solve cannot discriminate -> the value is a computed nonperturbative number; self-duality must be POSITED. Honest terminus."
+  },
+  "summary": {
+    "verdict": "FORCED POSIT (honest terminus)",
+    "anchor_recovered": true,
+    "second_relation_exists": false,
+    "alpha_cancels": false,
+    "bps_pins_angle": false,
+    "derivation_predicts_value": false,
+    "checks": {
+      "A": "PASS",
+      "S1": "PASS",
+      "S2": "PASS",
+      "S3": "PASS",
+      "V": "PASS"
+    },
+    "overall": "5/5 PASS"
+  }
+}

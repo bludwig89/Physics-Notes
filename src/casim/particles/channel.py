@@ -1529,3 +1529,544 @@ class TwoGridReadout(Observer):
                 rec.update(ch.observables(sim.states[cname], sim.lattice))
                 self.records.append(rec)
                 return
+
+
+# ======================================================================
+# ElementAtomChannel — the F195 generalisation of the F160 two-grid atom
+# to a general element (Z, N): multi-nucleon fine patch → +Z coarse point,
+# multi-electron coarse grid with Pauli (Gram–Schmidt) filling in a live
+# self-consistent Hartree mean field.
+# ======================================================================
+def _gram_schmidt(psis):
+    """Modified Gram–Schmidt orthonormalisation of a list of complex orbital
+    arrays (the live Pauli antisymmetriser).  ``np.vdot(a, b)`` conjugates the
+    first argument, so this is the proper Hermitian inner product Σ ψ_a* ψ_b.
+    Order is the binding order (lowest state first), so the reference set is the
+    deeper orbitals and higher orbitals are projected orthogonal to them."""
+    out = []
+    for p in psis:
+        q = np.asarray(p, dtype=complex).copy()
+        for r in out:
+            q = q - np.vdot(r, q) * r
+        n = float(np.sqrt(np.vdot(q, q).real))
+        if n > 0:
+            q = q / n
+        out.append(q)
+    return out
+
+
+def _max_offdiag_overlap(psis):
+    """Largest |⟨ψ_i|ψ_j⟩| over i≠j (Pauli orthogonality residual)."""
+    m = 0.0
+    for i in range(len(psis)):
+        for j in range(i + 1, len(psis)):
+            m = max(m, abs(complex(np.vdot(psis[i], psis[j]))))
+    return m
+
+
+# real (m=0,±1) angular factors for the seed packets; only s,p are needed for
+# the certified ladder H→He→Li→C.  d/f fall back to coordinate products and are
+# wired-but-not-certified.
+def _angular_seed(l, mi, X, Y, Z, cc):
+    dx, dy, dz = X - cc, Y - cc, Z - cc
+    if l == 0:
+        return np.ones_like(dx, dtype=float)
+    if l == 1:
+        return (dx, dy, dz)[mi % 3]
+    if l == 2:                                   # wired, not certified past C
+        comps = (dx * dy, dy * dz, dz * dx, dx * dx - dy * dy, dz * dz)
+        return comps[mi % 5]
+    comps = (dx, dy, dz)                          # crude f fallback
+    return comps[mi % 3]
+
+
+def _spatial_orbitals(Z):
+    """Decompose the Aufbau configuration of Z electrons into distinct SPATIAL
+    orbitals with Hund's-rule occupancies.  Each spatial orbital holds ≤2
+    electrons (a spin pair, automatically orthogonal in spin); within an open
+    subshell the m-orbitals are singly filled first (Hund), then paired.
+
+    Returns a list of dicts {n, l, mi, occ} ordered by Aufbau binding."""
+    import ca_manybody as mb
+    cfg = mb.aufbau_configuration(Z)              # [(n, 'l', occ)]
+    L_OF = {"s": 0, "p": 1, "d": 2, "f": 3}
+    orbs = []
+    for (n, ll, occ) in cfg:
+        l = L_OF[ll]
+        nm = 2 * l + 1                            # m-orbitals in the subshell
+        m_occ = [0] * nm
+        e = occ
+        for i in range(nm):                       # Hund: one each first
+            if e <= 0:
+                break
+            m_occ[i] += 1
+            e -= 1
+        for i in range(nm):                       # then pair up
+            if e <= 0:
+                break
+            m_occ[i] += 1
+            e -= 1
+        for i, mo in enumerate(m_occ):
+            if mo > 0:
+                orbs.append({"n": n, "l": l, "mi": i, "occ": mo})
+    return orbs
+
+
+@register
+class ElementAtomChannel(Channel):
+    """Live block-spin atom for a general element (Z, N) — the F195
+    generalisation of the F160 ``two_grid_atom``.
+
+    FINE sector (Tier A, default): A = Z+N nucleon charge blobs in a bound
+    cluster whose net ``rho_em`` integrates to exactly +Z (the N neutrons carry
+    zero net charge); this is R_b-reduced to a single +Z coarse point source.
+    Faithful to F159 (the electron cannot resolve nuclear structure as
+    a₀/r_nuc → ∞).  Tier B (``fine: {live_quarks: true}``, He-capped) runs
+    3·A ``quark_dirac`` quarks as live confined nucleons instead.
+
+    COARSE sector: Z electrons filled into the Aufbau configuration as distinct
+    spatial orbitals (Hund's rule), each an exactly-unitary F156 split-step
+    packet evolving in the self-consistent mean field = the +Z nuclear well
+    plus the live Hartree potential of all *other* electrons.  Pauli
+    antisymmetry is enforced by Gram–Schmidt orthonormalising the occupied
+    orbitals every ``gs_every`` ticks.
+
+    Scenario config::
+
+        {type: element_atom, name: atom, Z: 2, N: 2, b: 30000,
+         fine:   {L: 12, sigma: 0.5, spread: 2.0},
+         coarse: {L: 24, m: 1.0, k: 0.3, dt: 0.5, relax_steps: 480,
+                  scf_iters: 8, gs_every: 1, hartree_every: 2}}
+
+    ``free: true`` builds the matched CONTROL (no nuclear well, no e–e field):
+    the orbitals are seeded compact and propagate ballistically so the
+    bounded-vs-dispersing contrast is exhibited, not asserted.
+    """
+    type_name = "element_atom"
+    label = "Element Atom"
+    propagator = "multigrid"
+    topologies = ("bcc", "cubic")
+
+    def __init__(self, name=None, **config):
+        super().__init__(name=name, **config)
+        self.Z = int(config.get("Z", 1))
+        self.N = int(config.get("N", 0))
+        self.A = self.Z + self.N
+        self.b = int(config.get("b", 30000))
+        self.free = bool(config.get("free", False))
+        fine = dict(config.get("fine", {}) or {})
+        coarse = dict(config.get("coarse", {}) or {})
+        self.Lf = int(fine.get("L", 12))
+        self.f_sigma = float(fine.get("sigma", 0.5))     # nucleon blob RMS (cells)
+        self.f_spread = float(fine.get("spread", 2.0))   # cluster placement radius
+        self.live_quarks = bool(fine.get("live_quarks", False))
+        self.f_dt = float(fine.get("dt", 0.5))
+        self.f_mass = float(fine.get("mass", 0.9))
+        # Tier-B inter-nucleon binding (model NN one-boson-exchange, F104/F126/
+        # F128/F113): on by default for live quarks; the matched control sets it
+        # off to expose bound-vs-unbound.
+        self.nn_binding = bool(fine.get("nn_binding", True))
+        self.g_nn = float(fine.get("g_nn", 0.012))      # NN force → lattice momentum
+        self.nn_scale = float(fine.get("r_fm_per_cell", 1.0))  # fine-cell → fm
+        self.Lc = int(coarse.get("L", 24))
+        self.e_m = float(coarse.get("m", 1.0))
+        self.e_k = float(coarse.get("k", 0.3))
+        self.e_dt = float(coarse.get("dt", 0.5))
+        self.e_relax = int(coarse.get("relax_steps", 480))
+        self.e_scf = int(coarse.get("scf_iters", 8))
+        self.e_dtau = float(coarse.get("relax_dtau", 0.02))
+        self.gs_every = max(1, int(coarse.get("gs_every", 1)))
+        self.hartree_every = max(1, int(coarse.get("hartree_every", 2)))
+        self.e_charge = -1.0
+        self._orbs = _spatial_orbitals(self.Z)
+        self._occ = [o["occ"] for o in self._orbs]
+        # fine nucleon cluster geometry (Tier A static charge/matter densities)
+        self._build_fine_nucleus()
+        # Tier B: live quark nucleons (He-capped)
+        self._fine_chs = []
+        self._fine_names = []
+        if self.live_quarks and not self.free:
+            self._build_live_quarks()
+
+    # -- fine nucleus -------------------------------------------------------
+    def _nucleon_offsets(self):
+        """A deterministic compact cluster of A nucleon centres (fine cells)."""
+        cc = self.Lf // 2
+        if self.A == 1:
+            return [(cc, cc, cc)]
+        # points on a small spherical shell (Fibonacci lattice) — compact, A-body
+        pts = []
+        phi = np.pi * (3.0 - np.sqrt(5.0))
+        for i in range(self.A):
+            y = 1.0 - 2.0 * (i + 0.5) / self.A
+            r = np.sqrt(max(0.0, 1.0 - y * y))
+            th = phi * i
+            pts.append((cc + self.f_spread * r * np.cos(th),
+                        cc + self.f_spread * y,
+                        cc + self.f_spread * r * np.sin(th)))
+        return pts
+
+    def _blob(self, center):
+        ax = np.arange(self.Lf)
+        X, Y, Z = np.meshgrid(ax, ax, ax, indexing="ij")
+        r2 = ((X - center[0]) ** 2 + (Y - center[1]) ** 2 + (Z - center[2]) ** 2)
+        g = np.exp(-r2 / (2.0 * self.f_sigma ** 2))
+        s = g.sum()
+        return g / s if s > 0 else g           # normalised to total 1
+
+    def _build_fine_nucleus(self):
+        offs = self._nucleon_offsets()
+        rho_q = np.zeros((self.Lf,) * 3)        # charge density (protons only)
+        rho_m = np.zeros((self.Lf,) * 3)        # matter density (all nucleons)
+        for i, c in enumerate(offs):
+            blob = self._blob(c)
+            rho_m += blob
+            if i < self.Z:                      # first Z nucleons are protons
+                rho_q += blob                   # each integrates to +1 → total +Z
+        self._rho_charge_fine = rho_q
+        self._rho_matter_fine = rho_m
+        import ca_multigrid as mg
+        self._nuc_rms_fine = mg._rms(rho_m)
+        self._nuc_charge = float(rho_q.sum())   # ≈ Z to machine precision
+
+    def _build_live_quarks(self):
+        """Tier B: 3·A colour Dirac quarks (Z protons uud, N neutrons udd)."""
+        offs = self._nucleon_offsets()
+        protons = [(("u_r", "u_L", "r"), ("u_g", "u_L", "g"), ("d_b", "d_L", "b"))] * self.Z
+        neutrons = [(("u_r", "u_L", "r"), ("d_g", "d_L", "g"), ("d_b", "d_L", "b"))] * self.N
+        groups = protons + neutrons
+        self._nuc_groups = []                  # [[quark names per nucleon], ...]
+        self._fine_ch_by_name = {}
+        for ni, (grp, ctr) in enumerate(zip(groups, offs)):
+            names = [f"n{ni}_{nm}" for (nm, _, _) in grp]
+            self._nuc_groups.append(names)
+            qoff = [(-1, 0, 0), (1, 0, 0), (0, 1, 0)]
+            for (nm, sp, col), off in zip(grp, qoff):
+                full = f"n{ni}_{nm}"
+                ch = ColourDiracQuarkChannel(
+                    name=full, species=sp, colour=col, mass=self.f_mass,
+                    init={"center": [ctr[0] + off[0], ctr[1] + off[1],
+                                     ctr[2] + off[2]], "width": 1.1},
+                    couplings={"em": "photon"},
+                    confine={"mode": "scalar", "anchor": "com",
+                             "sigma": self.f_sigma, "dt": self.f_dt,
+                             "partners": names})
+                self._fine_chs.append(ch)
+                self._fine_names.append(full)
+                self._fine_ch_by_name[full] = ch
+        if self.nn_binding:
+            self._setup_nn_potential()
+
+    # -- model NN one-boson-exchange (F104/F126/F128/F113) -------------------
+    def _setup_nn_potential(self):
+        """Build the model NN central potential V_pair(r) = σ(F126) + ω(F128) +
+        quark-Pauli core(F113) − V0·exp(−r²/2R0²), where the S=1,T=0 attraction
+        (the F104 π-tensor, folded as in ca_manybody) has depth V0 fixed so the
+        A=2 variational reproduces the MODEL deuteron binding — no experimental
+        nucleus calibrates it.  Caches V_pair and its derivative for the live
+        inter-nucleon force."""
+        import ca_nuclear as ncl
+        import ca_manybody as mb
+        HBARC, M_PI, M_N = ncl.HBARC, ncl.M_PI_DEFAULT, ncl.M_N
+        anchor = mb._model_deuteron_binding()
+        R0 = HBARC / M_PI
+        rr = np.linspace(1e-3, 9.0, 1800)
+        dr = rr[1] - rr[0]
+        Vcent = (ncl.sigma_exchange_potential(rr) + ncl.omega_exchange_potential(rr)
+                 + ncl.derived_core_potential(rr))
+        Vatt = np.exp(-rr ** 2 / (2.0 * R0 ** 2))
+
+        def pair_V(b, V0):
+            P = (2 * np.pi * b ** 2) ** -1.5 * np.exp(-rr ** 2 / (2 * b ** 2)) \
+                * 4 * np.pi * rr ** 2
+            return float(((Vcent - V0 * Vatt) * P).sum() * dr)
+
+        def Emin2(V0):
+            bs = np.linspace(0.7, 4.5, 200)
+            return min(0.75 * HBARC ** 2 / (M_N * b ** 2) + pair_V(b, V0)
+                       for b in bs)
+
+        lo, hi = 0.0, 600.0
+        target = -abs(anchor)
+        for _ in range(70):
+            mid = 0.5 * (lo + hi)
+            lo, hi = (mid, hi) if Emin2(mid) > target else (lo, mid)
+        V0 = mid
+        self._nn_r = rr
+        self._nn_V = Vcent - V0 * Vatt
+        self._nn_Vprime = np.gradient(self._nn_V, rr)
+        self._nn_meta = {"anchor_Eb_MeV": anchor, "V0_MeV": V0, "R0_fm": R0,
+                         "V_min_MeV": float(self._nn_V.min())}
+
+    def _nucleon_coms(self, fine_states):
+        coms = []
+        for grp in self._nuc_groups:
+            d = None
+            for nm in grp:
+                fs = fine_states[nm]
+                dd = (np.abs(fs["eta_u"]) ** 2 + np.abs(fs["eta_d"]) ** 2
+                      + np.abs(fs["chi_u"]) ** 2
+                      + np.abs(fs["chi_d"]) ** 2).sum(axis=0)
+                d = dd if d is None else d + dd
+            d = np.asarray(d.real if np.iscomplexobj(d) else d)
+            coms.append(_centroid(d, self.Lf))
+        return coms
+
+    def _apply_nn_binding(self, fine_states):
+        """Bind the A nucleons with the model NN OBE applied as a **Lorentz-
+        scalar potential** (the MIT-bag / F135 confinement mechanism, not a
+        force impulse — a scalar mass binds to a standing state, a vector kick
+        only heats / Klein-tunnels).  Each nucleon i feels, on top of its own
+        F135 Y-string, the superposed OBE field of the OTHER nucleons,
+
+            S_i(x) = g_nn · Σ_{j≠i} V_pair(|x − R_j|)   (V_pair in MeV, F104/
+                     F126/F128/F113; the attractive σ/π well is LOW scalar mass
+                     ⇒ favourable, the ω + quark-Pauli core is HIGH mass ⇒
+                     excluded), R_j the live nucleon COMs.
+
+        Applied as one exactly-unitary η↔χ scalar-mass rotation θ=S_i per tick
+        (`_mix_eta_chi_3d`, the same "Mix" factor the intra-nucleon string uses)
+        — an operator-split inter-nucleon factor after the channel's kinetic +
+        intra-confine step.  Norm-preserving for any θ."""
+        from ca_dirac_bcc import _mix_eta_chi_3d
+        coms = self._nucleon_coms(fine_states)
+        Lf = self.Lf
+        ax = np.arange(Lf)
+        X, Y, Z = np.meshgrid(ax, ax, ax, indexing="ij")
+        for i, grp in enumerate(self._nuc_groups):
+            S = np.zeros((Lf, Lf, Lf))
+            for j in range(len(self._nuc_groups)):
+                if j == i:
+                    continue
+                Rj = np.asarray(coms[j])
+                dx = (X - Rj[0] + Lf / 2.0) % Lf - Lf / 2.0
+                dy = (Y - Rj[1] + Lf / 2.0) % Lf - Lf / 2.0
+                dz = (Z - Rj[2] + Lf / 2.0) % Lf - Lf / 2.0
+                r_fm = np.sqrt(dx * dx + dy * dy + dz * dz) * self.nn_scale
+                S += np.interp(r_fm, self._nn_r, self._nn_V)   # MeV
+            theta = self.g_nn * S
+            for nm in grp:
+                fs = fine_states[nm]
+                eu, ed, xu, xd = _mix_eta_chi_3d(
+                    fs["eta_u"], fs["eta_d"], fs["chi_u"], fs["chi_d"], theta)
+                fs["eta_u"], fs["eta_d"], fs["chi_u"], fs["chi_d"] = eu, ed, xu, xd
+                self._fine_ch_by_name[nm]._publish_currents(fs)
+
+    def _fine_lat(self):
+        from ..engine.simulation import LatticeSpec
+        return LatticeSpec(L=self.Lf, topology="bcc",
+                           c_lat=1.0 / float(np.sqrt(3.0)))
+
+    # -- coarse potentials --------------------------------------------------
+    def _nuclear_well(self, Q):
+        """V_nuc(x) = −k·Q/r on the coarse grid (R_b-reduced +Z point)."""
+        import ca_multigrid as mg
+        cc = self.Lc // 2
+        return mg.coarse_point_potential(self.Lc, (cc, cc, cc), k=self.e_k * Q)
+
+    def _poisson(self, rho_pos):
+        from casim.gravity import solve_poisson_3d_open
+        return solve_poisson_3d_open(np.asarray(rho_pos, float), G_N=self.e_k)
+
+    def _ee_potentials(self, psis):
+        """Live Hartree: for each orbital i, V_ee,i(x) = repulsion from all
+        OTHER electrons.  ρ_others,i = ρ_tot − |ψ_i|² (one electron of orbital i
+        removed, mirroring ca_manybody._hartree_potential).  Poisson is linear,
+        so φ(ρ_others,i) = φ_tot − φ(|ψ_i|²): one total solve + one per orbital.
+        Repulsive sign: V_ee = −φ (φ is the attractive-convention potential of a
+        positive source)."""
+        dens = [np.abs(p) ** 2 for p in psis]
+        rho_tot = np.zeros((self.Lc,) * 3)
+        for occ, d in zip(self._occ, dens):
+            rho_tot += occ * d
+        phi_tot = self._poisson(rho_tot)
+        Vees = []
+        for d in dens:
+            phi_others = phi_tot - self._poisson(d)
+            Vees.append(-phi_others)
+        return Vees
+
+    # -- initial orbital relaxation (SCF) -----------------------------------
+    def _seed_orbitals(self):
+        import ca_multigrid as mg
+        cc = self.Lc // 2
+        ax = np.arange(self.Lc)
+        X, Y, Z = np.meshgrid(ax, ax, ax, indexing="ij")
+        r2 = (X - cc) ** 2 + (Y - cc) ** 2 + (Z - cc) ** 2
+        psis = []
+        for o in self._orbs:
+            w = (self.Lc / 7.0) * (1.0 + 0.6 * (o["n"] - 1))   # wider for higher n
+            ang = _angular_seed(o["l"], o["mi"], X, Y, Z, cc)
+            psi = (ang * np.exp(-r2 / (2.0 * w ** 2))).astype(complex)
+            nrm = np.sqrt((np.abs(psi) ** 2).sum())
+            psis.append(psi / nrm if nrm > 0 else psi)
+        return _gram_schmidt(psis)
+
+    def _scf_relax(self, V_nuc):
+        import ca_multigrid as mg
+        psis = self._seed_orbitals()
+        block = max(1, self.e_relax // max(1, self.e_scf))
+        for _ in range(self.e_scf):
+            Vees = self._ee_potentials(psis)
+            new = []
+            for psi, Vee in zip(psis, Vees):
+                V = V_nuc + Vee
+                new.append(mg.schrodinger_relax(psi, V, self.e_m, 1.0,
+                                                block, self.e_dtau))
+            psis = _gram_schmidt(new)
+        return psis
+
+    # -- engine interface ---------------------------------------------------
+    def init_state(self, lattice, rng):
+        Q = self._nuc_charge
+        if self.free:
+            # control: no well, seed compact packets, propagate ballistically
+            psis = self._seed_orbitals()
+            V_nuc = np.zeros((self.Lc,) * 3)
+        else:
+            V_nuc = self._nuclear_well(Q)
+            psis = self._scf_relax(V_nuc)
+        st = {"psis": psis, "nuc_charge": Q, "V_nuc": V_nuc, "tick": 0}
+        if self._fine_chs:
+            flat = self._fine_lat()
+            for nm, ch in zip(self._fine_names, self._fine_chs):
+                st[f"fine::{nm}"] = ch.init_state(flat, rng)
+        return st
+
+    def step(self, state, lattice, context=None, rng=None):
+        import ca_multigrid as mg
+        psis = state["psis"]
+        tick = int(state.get("tick", 0)) + 1
+        V_nuc = state["V_nuc"]
+        Q = state["nuc_charge"]
+        # Tier B: advance the live quark nucleons and re-derive the +Z well
+        new_fine = {}
+        if self._fine_chs:
+            flat = self._fine_lat()
+            ctx = {nm: state[f"fine::{nm}"] for nm in self._fine_names}
+            for nm, ch in zip(self._fine_names, self._fine_chs):
+                ctx[nm] = ch.step(ctx[nm], flat, context=ctx, rng=rng)
+            # inter-nucleon binding: model NN OBE force as a unitary momentum kick
+            if self.nn_binding and getattr(self, "_nuc_groups", None):
+                self._apply_nn_binding(ctx)
+            rho = None
+            for nm in self._fine_names:
+                r = ctx[nm].get("rho_em")
+                if r is not None:
+                    rho = r if rho is None else rho + r
+            if rho is not None:
+                Q = float(np.sum(rho))
+                cc = self.Lc // 2
+                V_nuc = mg.coarse_point_potential(self.Lc, (cc, cc, cc),
+                                                  k=self.e_k * Q)
+            new_fine = {f"fine::{nm}": ctx[nm] for nm in self._fine_names}
+        # live Hartree mean field (recomputed on cadence)
+        if self.free:
+            Vees = [np.zeros((self.Lc,) * 3)] * len(psis)
+        elif (tick % self.hartree_every) == 0 or "Vees" not in state:
+            Vees = self._ee_potentials(psis)
+        else:
+            Vees = state["Vees"]
+        # step every orbital in its own mean field (exactly unitary)
+        out = []
+        for psi, Vee in zip(psis, Vees):
+            V = V_nuc + Vee
+            out.append(mg.schrodinger_step(psi, V, self.e_m, 1.0, self.e_dt))
+        if (not self.free) and (tick % self.gs_every) == 0:
+            out = _gram_schmidt(out)             # Pauli antisymmetriser
+        new = {"psis": out, "nuc_charge": Q, "V_nuc": V_nuc, "tick": tick,
+               "Vees": Vees}
+        new.update(new_fine)
+        return new
+
+    # -- diagnostics --------------------------------------------------------
+    def density_field(self, state):
+        d = np.zeros((self.Lc,) * 3)
+        for occ, psi in zip(self._occ, state["psis"]):
+            d += occ * np.abs(psi) ** 2
+        return np.asarray(d)
+
+    def _nucleus_density_fine(self, state):
+        if self._fine_chs:
+            d = None
+            for nm in self._fine_names:
+                fs = state[f"fine::{nm}"]
+                dd = (np.abs(fs["eta_u"]) ** 2 + np.abs(fs["eta_d"]) ** 2
+                      + np.abs(fs["chi_u"]) ** 2
+                      + np.abs(fs["chi_d"]) ** 2).sum(axis=0)
+                d = dd if d is None else d + dd
+            return np.asarray(d.real if np.iscomplexobj(d) else d)
+        return self._rho_matter_fine
+
+    def energy(self, state) -> float:
+        e = 0.0
+        for occ, psi in zip(self._occ, state["psis"]):
+            e += occ * float((np.abs(psi) ** 2).sum())
+        e += float(self._nucleus_density_fine(state).sum())
+        return e
+
+    def observables(self, state, lattice) -> dict:
+        import ca_multigrid as mg
+        psis = state["psis"]
+        cc = self.Lc // 2
+        nuc_d = self._nucleus_density_fine(state)
+        nuc_rms = mg._rms(nuc_d)
+        cloud = self.density_field(state)
+        cloud_rms = mg._rms(cloud)
+        cloud_cen = _centroid(cloud, self.Lc)
+        sep = float(np.sqrt(sum((cloud_cen[i] - cc) ** 2 for i in range(3))))
+        shell_rms = [mg._rms(np.abs(p) ** 2) for p in psis]
+        shell_norm = [float((np.abs(p) ** 2).sum()) for p in psis]
+        Q = float(state.get("nuc_charge", 0.0))
+        e_charge = self.e_charge * sum(self._occ)            # = −Z
+        # represented geometry: cloud radius carries the block factor b
+        rep_ratio = (cloud_rms * self.b / nuc_rms) if nuc_rms > 0 else 0.0
+        # Tier-B loop liveness: ‖J_em‖, ‖rho_em‖ summed over the live quarks
+        loop_live = None
+        if self._fine_chs:
+            jem = 0.0
+            rem = 0.0
+            for nm in self._fine_names:
+                fs = state[f"fine::{nm}"]
+                if fs.get("J_em") is not None:
+                    jem += float(np.abs(fs["J_em"]).sum())
+                if fs.get("rho_em") is not None:
+                    rem += float(np.abs(fs["rho_em"]).sum())
+            loop_live = {"J_em_norm": jem, "rho_em_norm": rem}
+        return {
+            "Z": self.Z, "N": self.N, "A": self.A, "b": self.b,
+            "tier": "B(live quarks)" if self._fine_chs else "A(coarse nucleus)",
+            "nuc_charge": Q,
+            "electron_charge": e_charge,
+            "net_charge": Q + e_charge,
+            "n_orbitals": len(psis),
+            "occupations": list(self._occ),
+            "nucleus_rms_fine": nuc_rms,
+            "cloud_rms_coarse": cloud_rms,
+            "shell_rms_coarse": shell_rms,
+            "shell_norm": shell_norm,
+            "cloud_centroid_sep": sep,
+            "cloud_surrounds_nucleus": bool(rep_ratio > 1.0),
+            "max_orbital_overlap": _max_offdiag_overlap(psis),
+            "represented_a0_over_rnuc": rep_ratio,
+            "represented_decades": float(np.log10(rep_ratio)) if rep_ratio > 0 else None,
+            "cloud_norm": float(cloud.sum()),
+            "loop_liveness": loop_live,
+        }
+
+
+@register_observer
+class AtomStabilityReadout(Observer):
+    """Whole-atom stability readout for the F195 element atom: net charge,
+    nucleus/cloud/shell RMS, cloud-surrounds-nucleus + centroid tracking, the
+    represented a₀/r_nuc decades, and the Pauli orthogonality residual."""
+    name = "atom_stability_readout"
+    label = "Atom Stability Readout"
+    exactness = "quantitative"
+
+    def observe(self, sim) -> None:
+        for cname, ch in sim.channels.items():
+            if isinstance(ch, ElementAtomChannel):
+                rec = {"tick": sim.tick}
+                rec.update(ch.observables(sim.states[cname], sim.lattice))
+                self.records.append(rec)

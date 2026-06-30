@@ -258,6 +258,14 @@ All from project-audit-inputs-dynamism
 
 - (Opus, after the above are done) review from finding f129 onward and see if roadmap-scale-to-real-space.md and roadmap-unified-real-space have any open items update both with closed marks if applicable.
 
+- If photons are zero mass and zero charge, yet carry energy, what does that lead to? 
+
+- can the high voltage ionocraft lifter technology be explained clearly by the model as it stands?
+
+- ~~build a model test prompt to examine the work of miguel alcubierre, if it is structurally sound within the model, what problems arise, and optional solutions. ~~
+
+- build out a prompt to construct a casim atom builder that allows us to experiment with building atoms with a field for number of protons, neutrons, and electrons that will build that element and run it to see if it is stable or not.
+
 ## CASIM Structure
 
 - ~~update scenarios to have a clear name with a short description for each and what it is doing/testing.~~

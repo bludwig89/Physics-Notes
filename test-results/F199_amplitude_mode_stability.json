@@ -1,0 +1,84 @@
+{
+  "two_modes_separated": {
+    "electroweak_higgs": {
+      "identity": "electroweak radial mode = observed 125 GeV Higgs (F73)",
+      "mass_GeV": 125.25,
+      "width_GeV": 0.00407,
+      "lifetime_s": 1.6172283953316953e-22,
+      "stable_on_cosmo_time": false,
+      "is_dark_matter": false,
+      "note": "observed at LHC; decays to bb/WW/ZZ -> not dark matter"
+    },
+    "Eg_amplitude_mode": {
+      "identity": "E_g second-shell condensate amplitude mode (sets lepton masses, F93 O1)",
+      "mass_GeV": 123.11,
+      "f_GeV": 123.11,
+      "coupling_g_tau": 0.014433108602063196,
+      "width_GeV": 0.0010227395415051514,
+      "channels_GeV": {
+        "e": 8.439307753596141e-11,
+        "mu": 3.6080516661117876e-06,
+        "tau": 0.0010191314054459621
+      },
+      "lifetime_s": 6.435773040820527e-22,
+      "dominant_channel": "tau",
+      "stable_on_cosmo_time": false,
+      "orders_below_cosmo": 38.82988853676339,
+      "is_dark_matter": false
+    }
+  },
+  "instability_scan": [
+    {
+      "m_S_GeV": 10.0,
+      "lifetime_s": 9.68187104093539e-21,
+      "orders_below_age": 37.652529963258644
+    },
+    {
+      "m_S_GeV": 50.0,
+      "lifetime_s": 1.594668536862101e-21,
+      "orders_below_age": 38.43581883136174
+    },
+    {
+      "m_S_GeV": 123.11,
+      "lifetime_s": 6.435773040820527e-22,
+      "orders_below_age": 38.82988853676339
+    },
+    {
+      "m_S_GeV": 500.0,
+      "lifetime_s": 1.5827623200771574e-22,
+      "orders_below_age": 39.43907355423944
+    },
+    {
+      "m_S_GeV": 3000.0,
+      "lifetime_s": 2.6377435510617244e-23,
+      "orders_below_age": 40.21725668703795
+    }
+  ],
+  "angular_mode": {
+    "identity": "E_g angular (axion-like) mode",
+    "mass_GeV": 0.006037383539249432,
+    "can_decay_to_ee": true,
+    "abundance_verdict": "under-produced by ~1e15 (F198)",
+    "note": "even if long-lived (if below e+e- threshold), it is far too rare to be the DM (F198)"
+  },
+  "freezeout_moot": {
+    "F198_found_WIMP_window": true,
+    "but_relic_must_be_stable": true,
+    "Eg_amplitude_lifetime_s": 6.435773040820527e-22,
+    "age_of_universe_s": 4.35e+17,
+    "stable": false,
+    "conclusion": "freeze-out abundance is undefined for an unstable state; the WIMP window of F198 cannot be realised by the E_g amplitude mode"
+  },
+  "viable_relic_requirement": {
+    "requirement": "a conserved charge (Z2/U(1)) making the relic the LIGHTEST state carrying it, so it cannot decay to SM",
+    "Eg_condensate_has_it": false,
+    "why_not": "the E_g amplitude mode is even under the D_2h stabilizer and couples linearly to the lepton mass operator (its defining role) -> no symmetry forbids S -> l+l-",
+    "model_native_candidates": [
+      "a STERILE-sector excitation (no SM gauge charge; F191 'sterile-sector' hint)",
+      "a topologically conserved lattice excitation (orthorhombic-domain texture / skyrmion of U(x)) carrying a winding number",
+      "the lightest state of a hidden conserved lattice charge (a 'dark baryon', Z3-centre analog of F97)"
+    ],
+    "status": "directions, not derivations \u2014 flagged speculative"
+  },
+  "verdict": "Working out the amplitude mode from F73/F93: the EW radial mode is the observed 125 GeV Higgs (decays), and the E_g second-shell amplitude mode couples to leptons as g_l=m_l/f (it IS the lepton-mass crystal field), so it decays in ~1e-21 s \u2014 38 orders below cosmological. Omega_DM=0.26 does NOT fall out: the E_g sector has no STABLE relic. The obstruction moves from abundance to stability/identity \u2014 dark matter needs a conserved charge the E_g condensate lacks (sterile sector / topological winding / hidden conserved charge)."
+}

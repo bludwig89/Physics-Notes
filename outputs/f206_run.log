@@ -1,0 +1,9 @@
+test_C1_unitary_under_binding: PASS
+test_C2_charge_conserved: PASS
+test_C3_binding_contracts: PASS
+test_C4_bounded_equilibrium: PASS
+test_C5_core_sets_floor: PASS
+test_C6_helium_cluster_binds: PASS
+results JSON -> /sessions/jolly-upbeat-meitner/mnt/Physics Notes/tests/findings/../../test-results/F206_internucleon_nn_binding.json
+
+6/6 PASS

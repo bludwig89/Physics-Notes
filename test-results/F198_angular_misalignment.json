@@ -1,0 +1,151 @@
+{
+  "inputs": {
+    "gstar": 80.0,
+    "Omega_DM_h2_target": 0.12,
+    "f_Stueckelberg_GeV": 123.11,
+    "Lambda_QCD_GeV": 0.34
+  },
+  "scaling_check": {
+    "Omega_propto_m^0.5_f^2_theta^2": true,
+    "ratio_mass_x4": 2.0,
+    "ratio_f_x2": 4.0,
+    "ratio_theta_x2": 4.0
+  },
+  "omega_contour": [
+    {
+      "m_a_GeV": 1e-22,
+      "f_required_GeV": 663686062018419.5
+    },
+    {
+      "m_a_GeV": 1e-18,
+      "f_required_GeV": 66368606201841.945
+    },
+    {
+      "m_a_GeV": 1e-12,
+      "f_required_GeV": 2098759607285.9739
+    },
+    {
+      "m_a_GeV": 1e-06,
+      "f_required_GeV": 66368606201.841965
+    },
+    {
+      "m_a_GeV": 1.0,
+      "f_required_GeV": 2098759607.2859738
+    },
+    {
+      "m_a_GeV": 100.0,
+      "f_required_GeV": 663686062.0184196
+    },
+    {
+      "m_a_GeV": 1000.0,
+      "f_required_GeV": 373218099.6258022
+    }
+  ],
+  "model_condensate_scale": {
+    "f_GeV": 123.11,
+    "m_a_required_GeV": 8.446513168286236e+28,
+    "m_a_required_over_M_Pl": 6918211144.381024,
+    "trans_planckian": true,
+    "f_QCD_GeV": 0.34,
+    "m_a_required_QCD_GeV": 1.4518947021515094e+39
+  },
+  "natural_light_mode": {
+    "lambda6": 0.05,
+    "m_a_light_GeV": 0.02752823287099991,
+    "Omega_h2_obtained": 6.850648439749938e-17,
+    "T_osc_GeV": 86864799.9992843,
+    "oscillates_in_radiation_era": true,
+    "under_over_production": "UNDER",
+    "deficit_factor": 1751659000682572.2
+  },
+  "f_for_axion_window": {
+    "m_a_GeV": 1e-15,
+    "f_required_GeV": 11802192588171.709,
+    "f_over_condensate_scale": 95867050509.07082
+  },
+  "freezeout_amplitude_mode": {
+    "points": [
+      {
+        "m_chi_GeV": 100.0,
+        "g": 0.3,
+        "Omega_h2": 0.01909420036369865,
+        "sigv_cm3_s": 1.885389244602365e-25
+      },
+      {
+        "m_chi_GeV": 100.0,
+        "g": 0.65,
+        "Omega_h2": 0.000866429175146299,
+        "sigv_cm3_s": 4.15498473881853e-24
+      },
+      {
+        "m_chi_GeV": 100.0,
+        "g": 1.0,
+        "Omega_h2": 0.00015466302294595905,
+        "sigv_cm3_s": 2.3276410427189693e-23
+      },
+      {
+        "m_chi_GeV": 300.0,
+        "g": 0.3,
+        "Omega_h2": 0.17184780327328786,
+        "sigv_cm3_s": 2.094876938447072e-26
+      },
+      {
+        "m_chi_GeV": 300.0,
+        "g": 0.65,
+        "Omega_h2": 0.0077978625763166914,
+        "sigv_cm3_s": 4.616649709798367e-25
+      },
+      {
+        "m_chi_GeV": 300.0,
+        "g": 1.0,
+        "Omega_h2": 0.0013919672065136317,
+        "sigv_cm3_s": 2.5862678252432988e-24
+      },
+      {
+        "m_chi_GeV": 1000.0,
+        "g": 0.3,
+        "Omega_h2": 1.9094200363698648,
+        "sigv_cm3_s": 1.885389244602365e-27
+      },
+      {
+        "m_chi_GeV": 1000.0,
+        "g": 0.65,
+        "Omega_h2": 0.08664291751462988,
+        "sigv_cm3_s": 4.154984738818531e-26
+      },
+      {
+        "m_chi_GeV": 1000.0,
+        "g": 1.0,
+        "Omega_h2": 0.015466302294595903,
+        "sigv_cm3_s": 2.3276410427189695e-25
+      },
+      {
+        "m_chi_GeV": 3000.0,
+        "g": 0.3,
+        "Omega_h2": 17.184780327328784,
+        "sigv_cm3_s": 2.0948769384470723e-28
+      },
+      {
+        "m_chi_GeV": 3000.0,
+        "g": 0.65,
+        "Omega_h2": 0.779786257631669,
+        "sigv_cm3_s": 4.616649709798368e-27
+      },
+      {
+        "m_chi_GeV": 3000.0,
+        "g": 1.0,
+        "Omega_h2": 0.13919672065136313,
+        "sigv_cm3_s": 2.5862678252432995e-26
+      }
+    ],
+    "best": {
+      "m_chi_GeV": 3000.0,
+      "g": 1.0,
+      "Omega_h2": 0.13919672065136313,
+      "sigv_cm3_s": 2.5862678252432995e-26
+    },
+    "WIMP_window_reachable": true,
+    "note": "heavy amplitude mode (~v/2..TeV) annihilating with EW-strength coupling lands in the thermal-relic window Omega h^2~0.12 \u2014 the WIMP miracle"
+  },
+  "verdict": "Standard misalignment with the condensate's NATURAL decay constant (f ~ v/2 = 123 GeV) badly UNDER-produces: Omega \u221d f^2, so a low-scale f needs either a trans-Planckian mass (light mode) or relies on the heavy amplitude-mode freeze-out instead. A light axion-like angular mode reaches Omega_DM only if f is pushed to ~10^15-10^16 GeV (intermediate/GUT), far above the E_g condensate scale. The relic obstruction is therefore SHARPENED, not closed: misalignment alone fails by the f-scale gap. The heavy AMPLITUDE mode via thermal freeze-out DOES reach Omega_DM in the WIMP window, so the E_g sector's dark-matter relic is the heavy amplitude mode, not the light angular one (updating the F197 candidate identification)."
+}

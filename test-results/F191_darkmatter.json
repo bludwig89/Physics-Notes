@@ -1,0 +1,38 @@
+{
+  "finding": "F191",
+  "title": "Galactic rotation curves & the Bullet-Cluster test (dark-matter assessment)",
+  "timestamp": "2026-06-30 - 04:45",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "D1_rotation_curves": {
+      "pass": true,
+      "baryon_falloff": 0.5787342402108824,
+      "nfw_flatness": 0.9801872139873443,
+      "mond_flatness": 0.9785102292046914,
+      "note": "rotation curves alone cannot separate dark halo from modified gravity",
+      "_seconds": 0.0,
+      "_desc": "baryons fall; halo & MOND both flatten"
+    },
+    "D2_bullet_cluster": {
+      "pass": true,
+      "lensing_gas_offset_mpc": 0.33834586466165395,
+      "xray_gas_peak_mpc": -0.00375939849624074,
+      "lensing_peaks_mpc": [
+        -0.3421052631578947,
+        0.3421052631578947
+      ],
+      "verdict": "lensing offset from gas -> dark SOURCE favoured over pure dielectric reweighting",
+      "_seconds": 0.0,
+      "_desc": "lensing peak offset from gas -> dark source"
+    },
+    "D3_needs_dark_source": {
+      "pass": true,
+      "baryons_insufficient": true,
+      "conclusion": "under F178 exact GR, missing mass requires a dark gravitating source",
+      "_seconds": 0.0,
+      "_desc": "GR+const G needs a dark source"
+    }
+  },
+  "seconds": 0.0
+}

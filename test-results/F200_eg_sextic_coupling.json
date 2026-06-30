@@ -1,0 +1,66 @@
+{
+  "G1_fullBZ_B": {
+    "B": -0.04857684950358661,
+    "B_abs": 0.04857684950358661,
+    "B_leadingform": -0.027367852454701427,
+    "full_over_leading": 1.7749602232761876,
+    "ybar_sat": 0.4142135623730951,
+    "statement": "full-BZ sea cubic at saturation; B<0; ~1.8x leading form"
+  },
+  "G2_sea_sextic_sign": {
+    "C6_sea": -0.018055674736420325,
+    "sign": "negative (anti-brake)",
+    "statement": "sea's own sextic is NEGATIVE -> C is the INDUCED clock self-coupling, not the sea loop (reproduces F118 B1)"
+  },
+  "G3_alpha_eff_star": {
+    "band_mD_mV": [
+      0.37643585205078134,
+      0.4111282348632813
+    ],
+    "mean": 0.3937820434570313,
+    "statement": "alpha_eff* recomputed end-to-end from the nonlinear gap M(0)=1.5 solve; reproduces F152/F154 [0.376,0.411]"
+  },
+  "G4_lambda6_per_order": {
+    "relation": "lambda_6 = (2/9) * c_quartic",
+    "lambda6_computed": 0.24444444444444446,
+    "lambda6_F118_independent_fit": 0.243,
+    "fractional_miss": 0.005944215820759138,
+    "sextic_over_quartic_F118": 0.2209090909090909,
+    "fierz_2_9": 0.2222222222222222,
+    "statement": "sextic/quartic ratio of the E_g composite = Fierz 2/9 (F145); matches F118's independent (lambda6,c) to <=1%"
+  },
+  "G5_assembly": {
+    "C_over_B_central": 0.6862154291752964,
+    "C_over_B_residual_band": [
+      0.4678741562558839,
+      0.7485986500094143
+    ],
+    "self_dual": 0.6362235716935879,
+    "two_over_pi": 0.6366197723675814,
+    "split": 0.00039620067399348535,
+    "quartic_needed_for_self_dual": 1.0198632952687054,
+    "e6_over_Babs": 2.8072449375353035,
+    "discriminates": false,
+    "band_brackets_both": true,
+    "statement": "C/|B| = (2/9) c e^6/|B| computed ~0.69 central; residual band brackets both targets; cannot discriminate 0.63622 vs 2/pi -> computed nonperturbative number, residual = the one O(1) quartic c (F199 verdict, quantified)"
+  },
+  "summary": {
+    "what": "end-to-end induced-coupling computation of C/|B|",
+    "B_abs_fullBZ": 0.04857684950358661,
+    "e6_saturation": 0.13636711485035782,
+    "alpha_eff_star_mean": 0.3937820434570313,
+    "lambda6_per_order": "(2/9) c_quartic",
+    "C_over_B_central": 0.6862154291752964,
+    "self_dual_target": 0.6362235716935879,
+    "two_over_pi": 0.6366197723675814,
+    "verdict": "COMPUTED number ~0.69(central); residual = single O(1) quartic c; cannot discriminate self-dual vs 2/pi; alpha_eff* does NOT cancel -> confirms F199 terminus",
+    "checks": {
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS"
+    },
+    "overall": "5/5 PASS"
+  }
+}

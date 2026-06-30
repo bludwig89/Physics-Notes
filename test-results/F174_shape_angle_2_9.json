@@ -1,0 +1,47 @@
+{
+  "S1_value_is_2_9": {
+    "passed": true,
+    "delta_star_rad": 0.22222963148971653,
+    "three_delta_star_rad": 0.6666888944691496,
+    "target_2_3": 0.6666666666666666,
+    "dev_sigma": 0.89,
+    "eta2": 0.4999907672160783,
+    "brannen_published": "delta=0.2222220(19), eta^2=0.500003(23)",
+    "note": "delta* = 2/9 rad corroborated by model extraction (0.9 sigma) AND Brannen's independent circulant fit (7 digits)"
+  },
+  "S2_rational_radian_not_geometric": {
+    "passed": true,
+    "cos3delta_star": 0.7858735155809614,
+    "candidate_sigma": {
+      "cos(2/3)_rational_radian": 0.89,
+      "11/14_algebraic": 10.27,
+      "pi/4_algebraic": 30.67,
+      "1/sqrt2_F96_anchor": 5081.72
+    },
+    "note": "only the transcendental-cosine 3delta*=2/3 survives; algebraic-cosine (geometric) candidates excluded at >10 sigma => the angle is a TOPOLOGICAL rational radian, not a group projection"
+  },
+  "S3_model_home_and_triangulation": {
+    "passed": true,
+    "two_ninths_in_model": [
+      "F49 sin^2 theta_W = 2/9 (2nd-shell bond counting)",
+      "F145 Fierz c = 2/9 (4/9 colour x 1/2 flavour)",
+      "F93 E_g condensate lives on the BCC 2nd shell"
+    ],
+    "lambda6_from_measured_angle": 0.243,
+    "lambda6_from_imposed_2_9": 0.243,
+    "note": "2/9 recurs on the 2nd shell where the condensate lives; imposing delta*=2/9 reproduces the brake fit lambda_6=0.243 to 1e-5 (data, brake, 2/9 conjecture triangulate)"
+  },
+  "S4_caveat_joint_exactness": {
+    "passed": true,
+    "eta2_minus_half": -9.23e-06,
+    "delta_minus_2_9": 7.41e-06,
+    "note": "eta^2=1/2 and delta=2/9 each hold at ~1 sigma but the free fit lands ~1e-5 off both; joint exactness is below current precision (Brannen flags possible conflict; may be mass-scheme dependent). The 2nd-shell winding -> 2/9 derivation is the open build (cf. external ZIP: delta=2/9 from topological moments in 3D)"
+  },
+  "summary": {
+    "passed": 4,
+    "total": 4,
+    "all_pass": true,
+    "verdict": "Shape-angle algebraic connection FOUND as a sharp corroborated target: delta* = 2/9 rad (3delta* = 2/3), a TOPOLOGICAL rational-radian phase (geometric algebraic-cosine alternatives excluded at >10 sigma). Model home: the 2/9 of the BCC 2nd shell (F49/F145) where the E_g condensate lives.",
+    "open": "derive the 2nd-shell winding -> 2/9 rad (model analogue of the ZIP topological-moment derivation); resolve the eta^2=1/2 vs delta=2/9 joint-exactness tension with better data/scheme control"
+  }
+}

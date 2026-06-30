@@ -1,0 +1,56 @@
+{
+  "finding": "F197",
+  "title": "First excitation channel as a unified dark sector (E_g condensate vs F69), discriminator",
+  "timestamp": "2026-06-30 - 19:20",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "E1_eos_split": {
+      "pass": true,
+      "w_VEV_darkenergy": -1.0,
+      "w_gapped_cold": 1.483533408071491e-07,
+      "w_massless_radiation": 0.3333333333333333,
+      "note": "VEV=-1 (dark energy); gapped cold ->0 (clusters); massless=1/3 (radiation)",
+      "_seconds": 0.0,
+      "_desc": "EoS separates: VEV=-1, gapped cold->0, massless=1/3"
+    },
+    "E2_Eg_gapped": {
+      "pass": true,
+      "delta_star_deg": 12.721202003338897,
+      "cos3delta_star": 0.786249544504834,
+      "m2_angular_light": 0.5083753656344417,
+      "m2_amplitude_heavy": 4.4718228334430625,
+      "mass_ratio_light_to_heavy": 0.33717079838872477,
+      "note": "E_g condensate: two gapped modes; angular (axion-like, light) + amplitude (Higgs-like, heavy)",
+      "_seconds": 0.0,
+      "_desc": "E_g condensate has two gapped (cold-capable) modes"
+    },
+    "E3_F69_gapless": {
+      "pass": true,
+      "gap": 0.0,
+      "note": "F69 paired-spinor photon massless / marginal binding -> radiation, not cold DM",
+      "_seconds": 0.0,
+      "_desc": "F69 channel gapless -> radiation, not cold DM"
+    },
+    "E4_clustering_contrast": {
+      "pass": true,
+      "homogeneous_nonnormalizable": true,
+      "clump_total_mass_converges": true,
+      "baryon_falloff": 0.5013600359671365,
+      "rotation_flatness_with_clump": 0.9291846767852341,
+      "note": "homogeneous -> Friedmann/dark-energy only (F193 \u00a773); localized clump -> flat curve",
+      "_seconds": 0.0,
+      "_desc": "homogeneous non-normalizable; clump -> flat curve"
+    },
+    "E5_verdict": {
+      "pass": true,
+      "Eg_unified": true,
+      "F69_unified": false,
+      "verdict": "The E_g second-shell condensate (Channel A) is the unique near-vacuum channel that can be SMOOTH-cosmic (VEV, w=-1) AND CLUSTERING-galactic (gapped cold modes, w->0, collisionless). The F69 channel (B) is gapless/luminal/collisional -> radiation, EXCLUDED as dark matter.",
+      "_seconds": 0.0,
+      "_desc": "E_g = unified dark sector; F69 excluded"
+    }
+  },
+  "open_obstruction": "Relic abundance Omega_DM ~ 0.26 (~5x baryons) NOT derived: needs the cold-mode production history (misalignment of the angular mode / thermal freeze-out of the amplitude mode). Mass of the light angular mode depends on lambda6 (F150/F154 IR residual), not yet pinned.",
+  "seconds": 0.0
+}

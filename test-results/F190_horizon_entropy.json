@@ -1,0 +1,33 @@
+{
+  "finding": "F190",
+  "title": "Lattice microstates and the Bekenstein-Hawking area law",
+  "timestamp": "2026-06-30 - 04:40",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "E1_per_cell_closed_form": {
+      "pass": true,
+      "s_per_cell": 10.882796185405303,
+      "2pi_sqrt3": 10.882796185405306,
+      "microstates_per_cell": 53252.295222104636,
+      "note": "S=A/4 reproduced iff each F107 horizon cell carries 2 pi sqrt3 nats",
+      "_seconds": 0.0,
+      "_desc": "s_cell=2pi sqrt3 (F107 -> S=A/4)"
+    },
+    "E2_area_law": {
+      "pass": true,
+      "S(2M)/S(M)": 4.0,
+      "expected_(M2/M1)^2": 4.0,
+      "_seconds": 0.0,
+      "_desc": "S ~ A ~ M^2 (area law exact)"
+    },
+    "E3_magnitude": {
+      "pass": true,
+      "S_BH_1Msun": 1.0494297377023744e+77,
+      "N_cells_1Msun": 9.64301563517052e+75,
+      "_seconds": 0.0,
+      "_desc": "S(1Msun)~1e77 nats, ~1e76 cells"
+    }
+  },
+  "seconds": 0.0
+}

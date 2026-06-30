@@ -1,0 +1,45 @@
+{
+  "finding": "F196",
+  "title": "Deriving the p=2 holographic dilution exponent from the lattice (closes F193 obstruction)",
+  "timestamp": "2026-06-30 - 18:10",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "E1_exponent_is_2": {
+      "pass": true,
+      "p": 2.0,
+      "slope": -2.0,
+      "_seconds": 0.0,
+      "_desc": "p=2 exact: 3(volume) - 1(Schwarzschild M~R)"
+    },
+    "E2_two_routes_converge": {
+      "pass": true,
+      "route1_bh": 7.578191788637865e-10,
+      "route2_holo": 7.578192013027136e-10,
+      "rho_crit": 7.578191788637863e-10,
+      "_seconds": 0.0,
+      "_desc": "BH-bound = holographic(F190+GH) = critical density"
+    },
+    "E3_lands_near_observed": {
+      "pass": true,
+      "saturation_over_observed": 1.2630319647729775,
+      "saturation_dlog10": 0.1014143418054129,
+      "omega_L_residual_over_observed": 0.8714920556933542,
+      "_seconds": 0.0,
+      "_desc": "saturation = rho_crit, 0.10 dex from obs; residual = Omega_L"
+    },
+    "E4_statistical_route_excluded": {
+      "pass": true,
+      "p1p5_overshoot_log10": 30.592188019312218,
+      "_seconds": 0.0,
+      "_desc": "p=3/2 sqrt(N) route excluded by >30 orders"
+    },
+    "E5_f190_entropy_link": {
+      "pass": true,
+      "per_cell_nats": 10.882796185405304,
+      "_seconds": 0.0,
+      "_desc": "cell-vs-nat factor = F190 per-cell entropy 2 pi sqrt3"
+    }
+  },
+  "seconds": 0.0
+}

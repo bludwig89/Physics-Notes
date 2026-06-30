@@ -67,6 +67,52 @@
 | findings | `test_F160_live_two_grid_atom.py` | F160 | F160 — U4 LIVE: the two-grid multigrid hydrogen atom as ONE engine run. |  |
 | findings | `test_F161_atomic_emission.py` | F161 | F161 — Dynamical-processes layer P1: photon emission from atoms. |  |
 | findings | `test_F162_bgfield_loop.py` | F162 | F162 — the background-field one-loop gluon self-energy: the b0 = 11/3 C_A | `F162_bgfield_loop.json`, `F162_bgfield_loop_highres.json` |
+| findings | `test_F163_wilson_selfenergy.py` |  | test_F163_wilson_selfenergy.py — the full Wilson lattice background-field gluon | `F163_wilson_selfenergy.json`, `F163_wilson_selfenergy_highres.json` |
+| findings | `test_F166_triple_gluon_branch.py` | F166 | F166 — triple-gluon vertex branch structure: closing audit C3. | `F166_triple_gluon_branch.json` |
+| findings | `test_F167_restmass_from_rule.py` | F167 | F167 — rest-mass from the QCA rule: closing the conceptual->algebraic gap G1. | `F167_restmass_from_rule.json` |
+| findings | `test_F168_paired_photon_binding.py` | F168 | F168 — Is the paired-photon binding dynamical / symmetry-protected, or merely kinematic? | `F168_paired_photon_binding.json` |
+| findings | `test_F169_photon_bound_state.py` | F169 | F169 — The interacting two-body bound-state wavefunction of the paired photon. | `F169_photon_bound_state.json` |
+| findings | `test_F170_lepton_colour_scale_link.py` | F170 | F170 — Route A2: why the lepton / E_g-condensate scale equals O(1) x Lambda_QCD. | `F170_lepton_colour_scale_link.json` |
+| findings | `test_F171_slowlight.py` |  | test_F171_slowlight.py -- Track 1.b: slow-light / EIT as a test of the | `F171_slowlight.json` |
+| findings | `test_F172_residual_algebraic_or_computed.py` | F172 | F172 — Is the one shared IR residual an algebraic connection or a computed | `F172_residual_algebraic_or_computed.json` |
+| findings | `test_F173_tolman_pressure.py` |  | test_F173_tolman_pressure.py -- GR-vs-model pressure / Tolman sector. | `F173_tolman_pressure.json` |
+| findings | `test_F174_shape_angle_2_9.py` | F174 | F174 — The shape-angle algebraic connection: the lepton-condensate angle is | `F174_shape_angle_2_9.json` |
+| findings | `test_F174_stellar_overlay.py` |  | test_F174_stellar_overlay.py -- GR-TOV vs dielectric-model neutron stars. | `F174_stellar_overlay.json` |
+| findings | `test_F175_lattice_2_9_eg_weight.py` | F175 | F175 — Deriving 2/9 from the lattice: the lepton-condensate angle delta* = 2/9 rad | `F175_lattice_2_9_eg_weight.json` |
+| findings | `test_F176_covariant_stellar.py` |  | test_F176_covariant_stellar.py -- How much of TOV does the covariant | `F176_covariant_stellar.json` |
+| findings | `test_F176_saturation_self_duality.py` | F176 | F176 — The dynamical principle behind delta* = 2/9: SATURATION SELF-DUALITY. | `F176_saturation_self_duality.json` |
+| findings | `test_F177_bps_self_duality_completion.py` | F177 | F177 — Completing the self-duality condition from the BPS structure: the RADIAL | `F177_bps_self_duality_completion.json` |
+| findings | `test_F179_lambda6_relabel.py` | F179 | F179 — The E_g sextic brake lambda_6 / C: derivation attempt closes negative; | `F179_lambda6_relabel.json` |
+| findings | `test_F180_gw_speed.py` | F180 | F180 — gravitational-wave speed from the dielectric rotation rule. | `F180_gw_speed.json` |
+| findings | `test_F181_covariant_interior_battery.py` |  | test_F181_covariant_interior_battery.py | `F181_covariant_interior_battery.json` |
+| findings | `test_F182_friedmann_pressure.py` |  | test_F182_friedmann_pressure.py | `F182_friedmann_pressure.json` |
+| findings | `test_F183_blackhole.py` |  | test_F183_blackhole.py | `F183_blackhole.json` |
+| findings | `test_F184_tabulated_ns.py` |  | test_F184_tabulated_ns.py | `F184_tabulated_ns.json` |
+| findings | `test_F185_rotation.py` |  | test_F185_rotation.py -- Slow-rotation frame dragging & moment of inertia (S2) | `F185_rotation.json` |
+| findings | `test_F186_shadow_raytrace.py` |  | test_F186_shadow_raytrace.py -- BH shadow ray-tracer + mu-as predictions (S3) | `F186_shadow_raytrace.json` |
+| findings | `test_F187_qnm.py` |  | test_F187_qnm.py -- Quasinormal-mode ringdown spectrum (WKB) (S4) | `F187_qnm.json` |
+| findings | `test_F188_lcdm.py` |  | test_F188_lcdm.py -- Multi-component (LCDM) cosmology under the full tensor (S5) | `F188_lcdm.json` |
+| findings | `test_F189_inspiral.py` |  | test_F189_inspiral.py -- PN binary inspiral / GW phasing (S6) | `F189_inspiral.json` |
+| findings | `test_F190_horizon_entropy.py` |  | test_F190_horizon_entropy.py -- Lattice microstates & S=A/4 (S7, speculative) | `F190_horizon_entropy.json` |
+| findings | `test_F191_darkmatter.py` |  | test_F191_darkmatter.py -- Rotation curves & Bullet-Cluster test (S8, speculative) | `F191_darkmatter.json` |
+| findings | `test_F192_vacuum_energy.py` |  | test_F192_vacuum_energy.py -- Cosmological constant under the full tensor (S9, open) | `F192_vacuum_energy.json` |
+| findings | `test_F193_ontic_vacuum.py` |  | test_F193_ontic_vacuum.py -- CA-native ontic vacuum gravitates as zero (candidate (i)), | `F193_ontic_vacuum.json`, `F193_ontic_vacuum_test.json` |
+| findings | `test_F194_emergent_gravity_bullet.py` |  | test_F194_emergent_gravity_bullet.py | `F194_emergent_gravity_bullet.json` |
+| findings | `test_F195_blockspin_element_atom.py` | F195 | F195 — Fully stable block-spin atom for a general element (Z, N). | `F195_blockspin_element_atom.json` |
+| findings | `test_F196_dilution_exponent.py` |  | test_F196_dilution_exponent.py -- deriving the p=2 holographic dilution exponent | `F196_dilution_exponent.json`, `F196_dilution_exponent_test.json` |
+| findings | `test_F197_first_excitation_dark.py` |  | test_F197_first_excitation_dark.py | `F197_first_excitation_dark.json`, `F197_first_excitation_dark_test.json` |
+| findings | `test_F198_angular_misalignment.py` |  | test_F198_angular_misalignment.py | `F198_angular_misalignment.json`, `F198_angular_misalignment_test.json` |
+| findings | `test_F199_amplitude_mode_stability.py` |  | test_F199_amplitude_mode_stability.py | `F199_amplitude_mode_stability.json`, `F199_amplitude_mode_stability_test.json` |
+| findings | `test_F199_angular_self_duality_derivation.py` | F199 | F199 — First-principles attempt at the angular self-duality C/\|B\| = 1/(2 cos 2/3). |  |
+| findings | `test_F200_alcubierre_structural.py` |  | test_F200_alcubierre_structural.py | `F200_alcubierre_structural.json` |
+| findings | `test_F200_eg_sextic_coupling_computation.py` | F200 | F200 — The saturated-condensate induced-coupling computation of the E_g sextic |  |
+| findings | `test_F200_sterile_neutrino_dm.py` |  | test_F200_sterile_neutrino_dm.py | `F200_sterile_neutrino_dm.json`, `F200_sterile_neutrino_dm_test.json` |
+| findings | `test_F201_kev_from_eg_texture.py` |  | test_F201_kev_from_eg_texture.py | `F201_kev_from_eg_texture.json`, `F201_kev_from_eg_texture_test.json` |
+| findings | `test_F202_leptogenesis_sakharov.py` |  | test_F202_leptogenesis_sakharov.py | `F202_leptogenesis_sakharov.json`, `F202_leptogenesis_sakharov_test.json` |
+| findings | `test_F203_dark_sector_falsifiers.py` |  | test_F203_dark_sector_falsifiers.py | `F203_dark_sector_falsifiers.json`, `F203_dark_sector_falsifiers_test.json` |
+| findings | `test_F206_internucleon_nn_binding.py` | F195 F206 | F206 — Tier-B inter-nucleon NN one-boson-exchange binding (closes the F195 | `F206_internucleon_nn_binding.json` |
+| findings | `test_F207_casimir.py` |  | test_F207_casimir.py — The Casimir effect in the BCC Weyl-QCA model | `F207_casimir.json` |
+| findings | `test_F208_relativistic_scf_ie.py` | F125 F208 | F208 — relativistic (F125 Dirac–Coulomb) ionization energies in the |  |
 | findings | `test_F28_grb_dispersion.py` | F26 F27 | F27 — GRB / AGN dispersion test of the F26 photon rotation prediction | `F28_grb_dispersion.json`, `F28_grb_dispersion_summary.md` |
 | findings | `test_F30_dispersion_order.py` | F30 | F30 — Order of the leading photon-dispersion correction in the BCC vacuum. | `F30_dispersion_order.json`, `F30_dispersion_order_summary.md` |
 | findings | `test_F37_delta_omega.py` | F30 F37 | test_F37_delta_omega.py — F37 chirality split: measure ΔΩ vs F30 analytical value | `F37_delta_omega.json` |
@@ -165,6 +211,7 @@
 | findings | `test_fork_D_doppler.py` |  | test_fork_D_doppler.py — Fork D / Phase L1: |  |
 | findings | `test_hypercharge.py` |  | test_hypercharge.py — U(1)_Y hypercharge gauging on the | `hypercharge_extension.json`, `hypercharge_fork.json` |
 | findings | `test_hypercharge_extension.py` | F41 F42 | test_hypercharge_extension.py — F42 extension of F41: | `hypercharge_extension.json` |
+| findings | `test_hypercharge_quantisation.py` | F165 | F165 — Hypercharge quantisation from anomaly cancellation + mass-step gauge invariance. | `hypercharge_quantisation.json` |
 | findings | `test_majorana_fork.py` | F43 | test_majorana_fork.py — F43 bare ν_R Majorana mass step and see-saw | `majorana_fork.json` |
 | findings | `test_su2_photon_bridge.py` |  | test_su2_photon_bridge.py |  |
 | findings | `test_su3_noether.py` |  | test_su3_noether.py — V13 strong-sector gate |  |
@@ -209,6 +256,8 @@
 | runners | `run_10x_tests.py` |  | run_10x_tests.py — Comprehensive 10× scale test run |  |
 | runners | `run_F143_wrap_stiffness_scan.py` | F139 | F139 dev — Part B production: induced wrap stiffness by eigenvalue PT on the |  |
 | runners | `run_F143_wrap_stiffness_slab.py` | F139 | F139 — slab-chunked version: partial BZ sums over kx in [i0,i1). |  |
+| runners | `run_F206_breathing_decompose.py` |  | Decompose the Tier-B He 'breathing' into INTER-nucleon COM spread (what the |  |
+| runners | `run_F208_ie_sweep.py` |  | Range-based SCF IE sweep that APPENDS to a persistent JSON (so it can run in |  |
 | runners | `run_FC02_shapiro.py` |  | FC02 — Shapiro time delay (GR-2), Tier C consistency regression |  |
 | runners | `run_FC04_deflection_dynamical.py` |  | FC04 — Light deflection, dynamical open-BC (GR-1) |  |
 | runners | `run_FC05_qm_battery.py` |  | FC05 — Quantum-mechanics regression battery (consolidated) |  |
@@ -220,8 +269,10 @@
 | runners | `run_bgfield_loop.py` |  | run_bgfield_loop.py — NATIVE runner for the background-field one-loop gluon |  |
 | runners | `run_confinement_mc.py` |  | run_confinement_mc.py — production Monte-Carlo confirmation of the 2D area law |  |
 | runners | `run_heavy_rerun.py` |  | run_heavy_rerun.py — the two suite items too slow for the in-session sandbox. |  |
+| runners | `run_kns_seagull.py` |  | run_kns_seagull.py — NATIVE driver for the full Kawai-Nakayama-Seo quartic |  |
 | runners | `run_lgt_confinement.py` |  | run_lgt_confinement.py — production 3+1D SU(3) string-tension measurement (P1 Option A) |  |
 | runners | `run_lpt_vertex_continuum.py` |  | run_lpt_vertex_continuum.py — NATIVE large-L continuum-limit validation of the |  |
+| runners | `run_lpt_wilson_selfenergy.py` |  | run_lpt_wilson_selfenergy.py — NATIVE high-resolution driver for the full Wilson |  |
 | runners | `run_lpt_wilson_validation.py` |  | run_lpt_wilson_validation.py — NATIVE high-resolution validation of the lattice-PT |  |
 | runners | `run_phase2_f26_tests.py` | F26 | run_phase2_f26_tests.py — F26 Phase 2 full test suite runner |  |
 | runners | `run_phaseF_tests.py` |  | run_phaseF_tests.py — Phase F: Higgs + Yukawa proposition tests |  |
@@ -234,3 +285,4 @@
 | runners | `run_su3_3d_string_tension.py` |  | su3_3d_string_tension.py — string tension sigma(beta) from the MODEL's own |  |
 | runners | `run_u4_multigrid.py` |  | run_u4_multigrid.py — U4 block-spin two-grid multigrid, PRODUCTION run. |  |
 | runners | `run_u4_sigma_carry.py` |  | run_u4_sigma_carry.py — U4 scale carry of the SU(3)-measured string tension |  |
+| runners | `run_warp_openitems_explore.py` |  | warp_openitems_explore.py |  |

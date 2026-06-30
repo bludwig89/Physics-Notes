@@ -1,0 +1,64 @@
+{
+  "finding": "F182",
+  "title": "FLRW cosmology under the F178 full-tensor source: radiation gravitates with pressure -> standard Friedmann",
+  "timestamp": "2026-06-30 - 02:45",
+  "n_pass": 6,
+  "n_total": 6,
+  "results": {
+    "A1_bianchi_forces_3p": {
+      "pass": true,
+      "derived_accel_over_a": "4*pi*G*rho*(-3*w - 1)/3",
+      "target_full(rho+3p)": "-4*pi*G*rho*(3*w + 1)/3",
+      "matches_full": true,
+      "energy_only_consistent_only_if_p=0": true,
+      "_seconds": 0.19,
+      "_desc": "Friedmann I + continuity => a''/a=-(4piG/3)(rho+3p); energy-only consistent only if p=0 (sympy)"
+    },
+    "A2_omitted_fraction": {
+      "pass": true,
+      "omitted_fraction_expr": "3*w/(3*w + 1)",
+      "radiation_w=1/3": "1/2",
+      "dust_w=0": "0",
+      "_seconds": 0.01,
+      "_desc": "energy-only omits 3w/(1+3w): radiation 1/2, dust 0 (sympy)"
+    },
+    "N1_radiation_t_half": {
+      "pass": true,
+      "exponent_a_vs_t": 0.4999968242585315,
+      "expected": 0.5,
+      "rho_vs_a_slope": -3.9999999999999774,
+      "expected_rho_slope": -4.0,
+      "_seconds": 1.51,
+      "_desc": "radiation: a ~ t^{1/2}, rho ~ a^{-4}"
+    },
+    "N2_matter_t_twothirds": {
+      "pass": true,
+      "exponent_a_vs_t": 0.666661716698203,
+      "expected": 0.6666666666666666,
+      "rho_vs_a_slope": -3.000000000000024,
+      "expected_rho_slope": -3.0,
+      "_seconds": 1.51,
+      "_desc": "matter: a ~ t^{2/3}, rho ~ a^{-3}"
+    },
+    "N3_deceleration": {
+      "pass": true,
+      "q_radiation_full": 1.0,
+      "q_matter_full": 0.5,
+      "q_radiation_energy_only": 0.5,
+      "note": "full-tensor radiation q=1; energy-only would give 1/2 (factor-2 mis-weight)",
+      "_seconds": 0.0,
+      "_desc": "q: radiation 1 / matter 1/2 (full); energy-only 1/2 (radiation mis-weighted)"
+    },
+    "N4_numerical_consistency": {
+      "pass": true,
+      "numerical_accel_over_a": -0.06249889067514783,
+      "full_tensor_pred": -0.0624988726772719,
+      "energy_only_pred": -0.03124943633863595,
+      "num/full": 1.000000287971209,
+      "full/energy_ratio": 2.0,
+      "_seconds": 1.5,
+      "_desc": "numerical a''/a matches full-tensor (rho+3p), 2x the energy-only law"
+    }
+  },
+  "seconds": 4.72
+}

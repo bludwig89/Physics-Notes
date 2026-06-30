@@ -1,0 +1,19 @@
+# F195 — matched CONTROL for stable_atom_carbon (no nuclear well, no e-e field).
+name: stable_atom_carbon_free
+title: "C free control (F195) — no binding, ballistic dispersal"
+description: "Matched control: Carbon orbitals with binding switched off; the cloud disperses toward the box."
+lattice: {L: 28, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 120
+channels:
+  - type: element_atom
+    name: atom
+    Z: 6
+    N: 6
+    b: 30000
+    free: true
+    fine:   {L: 12, sigma: 0.5, spread: 2.0}
+    coarse: {L: 28, m: 1.0, k: 0.6, dt: 0.4}
+observers:
+  - {type: atom_stability_readout, every: 20}
+output: {json: test-results/casim_stable_atom_carbon_free.json}

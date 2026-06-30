@@ -1,0 +1,144 @@
+{
+  "vertex_continuum_limit": {
+    "rows": [
+      {
+        "eps": 0.1,
+        "rel_dev": 0.0011613001581956323
+      },
+      {
+        "eps": 0.03,
+        "rel_dev": 0.00010455124800338138
+      },
+      {
+        "eps": 0.01,
+        "rel_dev": 1.1617139787748402e-05
+      },
+      {
+        "eps": 0.003,
+        "rel_dev": 1.045546004960709e-06
+      }
+    ],
+    "decade_ratios": [
+      11.10747294148104,
+      8.99974089264576,
+      11.111074723282949
+    ],
+    "O_a2_scaling": true,
+    "statement": "lattice 3-gluon vertex -> continuum vertex as O(a^2); the cos(k/2) form factors are correctly transcribed (the leading structure that fixes b0)"
+  },
+  "loop_mass": {
+    "M2": 0.46426996817995825,
+    "diag": [
+      0.46426996817995825,
+      0.4642699681799568,
+      0.4642699681799577,
+      0.4642699681799577
+    ],
+    "n": 20,
+    "isotropic": true,
+    "offdiag_max": 1.3379271648905621e-18,
+    "note": "M^2 = Pi^loop_00(0); the tadpole+measure subtract exactly this"
+  },
+  "transversality_check": {
+    "Q": 0.5,
+    "n": 20,
+    "Pi_total_00": 0.0,
+    "ward_residual_max": 4.024882513488662e-18,
+    "Pi_loop_01_offdiag": 8.134232220083359e-18,
+    "transverse": 1.0,
+    "note": "q_hat.Pi^total = 0 and Pi^total_00 = 0 => tadpole/measure transversality restoration is complete (gauge invariance)"
+  },
+  "tadpole_Z0": {
+    "Z0": 0.15490287361379718,
+    "published": 0.154933390231,
+    "rel_dev": 0.00019696604558461228,
+    "n": 48
+  },
+  "finite_constant_scan": {
+    "rows": [
+      {
+        "Q": 0.3,
+        "Pi_lat": 0.5296521981245319,
+        "Pi_cont": 0.3863199778838009,
+        "dC": 2.0576469988448407,
+        "Lambda_BZ": 2.7977723169193967
+      },
+      {
+        "Q": 0.4,
+        "Pi_lat": 0.49780702285006345,
+        "Pi_cont": 0.36316032823694055,
+        "dC": 1.9329594323575454,
+        "Lambda_BZ": 2.6286744722185724
+      },
+      {
+        "Q": 0.5,
+        "Pi_lat": 0.46667236367650256,
+        "Pi_cont": 0.34234690767558207,
+        "dC": 1.7847899166750927,
+        "Lambda_BZ": 2.4409686746691324
+      },
+      {
+        "Q": 0.7,
+        "Pi_lat": 0.40295939157244137,
+        "Pi_cont": 0.30275220730541913,
+        "dC": 1.4385531154364728,
+        "Lambda_BZ": 2.0529474842776834
+      },
+      {
+        "Q": 0.9,
+        "Pi_lat": 0.3437724802625211,
+        "Pi_cont": 0.2710342328298652,
+        "dC": 1.0442148756201706,
+        "Lambda_BZ": 1.685576156180505
+      },
+      {
+        "Q": 1.1,
+        "Pi_lat": 0.2881989246154849,
+        "Pi_cont": 0.24467767478774133,
+        "dC": 0.6247818455866291,
+        "Lambda_BZ": 1.3666888584400934
+      }
+    ],
+    "n": 20,
+    "M2_lat": 0.46426996817995825,
+    "M2_cont": 0.3255475554803123,
+    "dC_drift": 1.4328651532582115,
+    "transversality_restored": true,
+    "verdict": "transversality restoration COMPLETE (exact); scheme-clean lattice constant dC extractable (needs Q->0 high-res). The literal 28.81 additionally needs the MS-bar continuum reference (sharp-BZ-cutoff continuum used here gives the lattice/cutoff ratio ~O(3), not Lambda_MSbar/Lambda_L).",
+    "target_Lambda_ratio": 28.8086
+  },
+  "assembly_manifest": {
+    "gluon_loop": "AQQ vertex^2 (gammaF_lattice, lattice-dressed Abbott Eq.18) / Khat Khat \u2014 ASSEMBLED; continuum limit O(a^2) VALIDATED",
+    "ghost_loop": "-2 Vgh Vgh, Vgh=cos(q/2)(khat(k)+khat(k+q)) -> (2k+q) \u2014 ASSEMBLED; continuum-correct",
+    "three_gluon_vertex": "gamma3_lattice with cos(k/2) form factors \u2014 VALIDATED (continuum limit O(a^2); colour/Bose symmetry ca_lpt_ward; extractor ca_lpt_vertex)",
+    "tadpole_seagull_measure": "the seagull (4-gluon) + Haar measure are delta_{mn}; by the lattice Ward identity their ENTIRE effect on the transverse scalar is fixed to subtract the loop zero-momentum mass M^2 = Pi^loop_00(0) (transverse_scalar). COMPLETE \u2014 transversality (transversality_check) holds to machine precision (~1e-18). The dominant Z0=0.1549334 sits inside M^2.",
+    "b0_log": "11/3 C_A = 11, vertex-INDEPENDENT (F155 theorem; F162 exact continuum gate) \u2014 fixed",
+    "continuum_MSbar": "C_MSbar = 131/66 ~ 1.985 (continuum_msbar_constant; analytic dim-reg, b0=11 pole self-validates). DONE.",
+    "finite_constant": "Lambda = exp((C_lat - C_MSbar)/2). C_lat from the lattice converges (q->0, no heavy run): ~5.6 (axial f=-M^2) / ~6.4 (off-axis transversality). Gives Lambda ~ 6-9, SHORT of 28.81.",
+    "OPEN_seagull_measure": "the ~3x gap is the genuine remaining piece: transversality + loops do NOT fully fix the tadpole/measure finite content (the axial Ward identity only constrains the longitudinal-leg seagull; the transverse leg f(0) \u2014 which sets C_lat \u2014 needs the EXPLICIT Wilson 4-gluon seagull + Haar measure integrand). This is the physical content of 'Wilson 28.81 is tadpole-dominated'."
+  },
+  "target_Lambda_ratio": 28.8086,
+  "checks": {
+    "W1_vertex_O_a2": true,
+    "W2_tadpole_Z0": true,
+    "W3_mass_isotropic": true,
+    "W4_transversality_exact": true,
+    "W5_msbar_131_66": true,
+    "W6_transv_insufficient": true
+  },
+  "lambda_status": {
+    "C_lat_offaxis_q0": 6.138642608418188,
+    "C_MSbar": 1.9848484848484849,
+    "Lambda_estimate": 7.979670036400603,
+    "Lambda_target": 28.8086,
+    "reproduced": false,
+    "verdict": "transversality-inference of the tadpole/measure is INSUFFICIENT: Lambda ~ 8.0 vs target 28.81. The ~3x gap is the explicit Wilson 4-gluon seagull + Haar measure finite content (NOT fixed by loops+transversality) \u2014 the genuine remaining computation."
+  },
+  "continuum_msbar": {
+    "b0_pole": 11,
+    "C_MSbar": 1.9848484848484849,
+    "C_MSbar_exact": "131/66",
+    "validated": true,
+    "note": "analytic dim-reg; b0=11 pole self-validates. NOT a runner."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "finding": "F164",
+  "canonical_cell_a_m": 1.0663754173481642e-34,
+  "a_over_ellP": 6.597816664747605,
+  "tau_s": 2.0536611840420687e-43,
+  "I_CC_dimensionless": 4.081048569526987,
+  "mean_omega_grid": 1.5707963267948957,
+  "mean_omega_mc": 1.5696229331693303,
+  "mean_omega_exact_pi_over_2": 1.5707963267948966,
+  "pi_over_2_pairing_residual": 2.220446049250313e-16,
+  "g_star": 2,
+  "rho_vac_bare_J_per_m3": 3.4563582491862774e+111,
+  "hbar_c_over_a4_J_per_m3": 2.444873335353091e+110,
+  "rho_Lambda_observed_J_per_m3": 6e-10,
+  "ratio_rho_vac_over_rho_Lambda": 5.760597081977129e+120,
+  "log10_ratio": 120.76046750008446,
+  "rho_vac_quartic_eV": 3.5881198567047565e+27,
+  "rho_Lambda_quartic_eV": 0.002316061389766469,
+  "energy_scale_ratio": 1.5492334842931562e+30,
+  "sign_note": "all-fermion vacuum \u27f9 bare zero-point sum is NEGATIVE; magnitude reported, sign is -1 (opposite the observed +\u03c1_\u039b)."
+}

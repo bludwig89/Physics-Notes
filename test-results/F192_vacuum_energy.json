@@ -1,0 +1,33 @@
+{
+  "finding": "F192",
+  "title": "The cosmological constant under the full-tensor source (sign fixed, magnitude open)",
+  "timestamp": "2026-06-30 - 04:50",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "V1_vacuum_eos_sign": {
+      "pass": true,
+      "w": -1.0,
+      "rho_plus_3p_over_rho": -2.0,
+      "accelerates": true,
+      "_seconds": 0.0,
+      "_desc": "w=-1: rho+3p=-2rho -> accelerates (sign right)"
+    },
+    "V2_bare_overshoot": {
+      "pass": true,
+      "log10_overshoot": 120.76046750008447,
+      "rho_vac_J_m3": 3.45635824918628e+111,
+      "_seconds": 0.16,
+      "_desc": "reproduces F164 ~10^120 overshoot"
+    },
+    "V3_open_status": {
+      "pass": true,
+      "n_candidates": 4,
+      "all_underived": true,
+      "status": "full-tensor fixes the SIGN; the magnitude (F164) stays open",
+      "_seconds": 0.0,
+      "_desc": "candidate cancellations all underived (open)"
+    }
+  },
+  "seconds": 0.16
+}

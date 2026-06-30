@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "D1_invariants": {
+      "Aratio": 1.414200505184577,
+      "Q": 0.6666605114773855,
+      "cos3delta": 0.7858735155809619,
+      "delta_deg": 12.73281996710832,
+      "pass": true
+    },
+    "D2_lambda6_not_rational": {
+      "delta(2/9)_deg": 10.251986753128266,
+      "miss_2/9_deg": 2.4808332139800537,
+      "delta(1/4)_deg": 13.397825064143383,
+      "miss_1/4_deg": 0.6650050970350634,
+      "data_delta_deg": 12.73281996710832,
+      "pass": true
+    },
+    "D3_target_3delta_eq_Q": {
+      "three_delta_rad": 0.6666888944691488,
+      "Q": 0.6666605114773855,
+      "abs_diff": 2.838299176333159e-05,
+      "cos3delta_minus_cos(2/3)": -1.374519598618118e-05,
+      "sigma_cos3delta_from_mtau": 1.548711965143612e-05,
+      "deviation_in_sigma": 0.8875243618916955,
+      "diffs_over_mtau_band": [
+        6.020383632143744e-05,
+        2.838299176333159e-05,
+        -3.434680233338483e-06
+      ],
+      "pass": true
+    },
+    "D4_granted_prediction": {
+      "m_mu_over_m_tau_err": -6.049459651880085e-05,
+      "m_e_over_m_tau_err": -7.032609515167376e-05,
+      "pass": true
+    },
+    "D5_verdict": {
+      "verdict": {
+        "lambda6_derived_from_first_principles": false,
+        "honest_label": "one-angle consistency fit (delta* = 2/9 rad), NOT zero-parameter",
+        "convention_independent_parameter": "delta* (3delta* = Q = 2/3 rad)",
+        "spectrum_accuracy_if_granted": "~0.01% (m_mu, m_e relative to m_tau)",
+        "residual": "single shared IR-coupling normalization (F124/F144/F145/F150 cluster)",
+        "derived_inputs": [
+          "generation count 3 (F75)",
+          "Q = 2/3 equipartition (F92)"
+        ],
+        "fitted_inputs": [
+          "overall scale N (F119)",
+          "condensate angle delta* (this/F118/F150)"
+        ]
+      },
+      "pass": true
+    }
+  },
+  "verdict": {
+    "lambda6_derived_from_first_principles": false,
+    "honest_label": "one-angle consistency fit (delta* = 2/9 rad), NOT zero-parameter",
+    "convention_independent_parameter": "delta* (3delta* = Q = 2/3 rad)",
+    "spectrum_accuracy_if_granted": "~0.01% (m_mu, m_e relative to m_tau)",
+    "residual": "single shared IR-coupling normalization (F124/F144/F145/F150 cluster)",
+    "derived_inputs": [
+      "generation count 3 (F75)",
+      "Q = 2/3 equipartition (F92)"
+    ],
+    "fitted_inputs": [
+      "overall scale N (F119)",
+      "condensate angle delta* (this/F118/F150)"
+    ]
+  }
+}

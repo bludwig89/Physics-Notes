@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "n_checks": 4,
+    "n_pass": 4,
+    "all_pass": true
+  },
+  "checks": {
+    "P1_leading_law": {
+      "claim": "8*pi*rho_eff = -nabla^2(lnK) + O(u'^2)  (F106 recovered)",
+      "remainder_vanishes_at_zero_gradient": true,
+      "remainder_expr": "2*Derivative(u(r), (r, 2)) - exp(-2*u(r))*Derivative(u(r), r)**2 - 2*exp(-2*u(r))*Derivative(u(r), (r, 2)) + 4*Derivative(u(r), r)/r - 4*exp(-2*u(r))*Derivative(u(r), r)/r",
+      "PASS": true
+    },
+    "P2_anisotropic_no_matter_pressure": {
+      "claim": "scalar carries only anisotropic field stress p_r=-p_t; no isotropic matter pressure source",
+      "p_r_plus_p_t": "0",
+      "p_r_equals_minus_eexp_uprime2": "0",
+      "isotropic_pressure_source_present": false,
+      "PASS": true
+    },
+    "P3_source_omission_vs_eos": {
+      "claim": "model omits 3w/(1+3w) of GR's time-potential source",
+      "dust_w0": 0.0,
+      "radiation_w_third": 0.5,
+      "table": {
+        "w=0.0": 0.0,
+        "w=0.01": 0.029126213592233007,
+        "w=0.1": 0.23076923076923078,
+        "w=0.3333333333333333": 0.5,
+        "w=1.0": 0.75
+      },
+      "PASS": true
+    },
+    "P4_uniform_sphere_divergence": {
+      "claim": "central time-dilation model-GR diverges at O(s^2), coeff -15/4; null in solar system, %-tens% for NS",
+      "leading_coefficient_s2": "-15/4",
+      "coefficient_is_minus_15_4": true,
+      "fracdiff_anchors": {
+        "Sun_s2.12e-6": 8.427063644205584e-12,
+        "white_dwarf_s3e-4": 1.68831057291791e-07,
+        "NS_s0.1": 0.022654783645263403,
+        "NS_s0.2": 0.11923827247368196,
+        "NS_s0.3": 0.4211096209558211
+      },
+      "solar_system_null": true,
+      "neutron_star_observable": true,
+      "PASS": true
+    }
+  }
+}

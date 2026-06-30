@@ -1,0 +1,28 @@
+# F195 — fully stable block-spin atom, CARBON (Z=6, N=6), open 2p² (Hund).
+#   * FINE patch  — Tier A: A=12 nucleon charge blobs (6 protons + 6 neutrons),
+#     net rho_em = +6, R_b-reduced to a +6 coarse point.
+#   * COARSE grid — 1s² 2s² 2p²: FOUR spatial orbitals (1s occ 2, 2s occ 2,
+#     and by Hund's rule TWO singly-occupied p orbitals 2pₓ, 2p_y).  Live
+#     Hartree mean field + Gram-Schmidt Pauli each tick keep the four mutually
+#     orthogonal (overlap ~1e-15).
+# Carbon exercises Hund filling and the four-orbital live SCF — certified stable
+# over a long run with the uniform deep coarse config.
+name: stable_atom_carbon
+title: "Fully Stable Block-Spin Atom — Carbon (F195)"
+description: "Live element atom C(6,6): A=12 coarse-grained nucleus → +6 point, 1s²2s²2p² with Hund filling, live Hartree + Gram-Schmidt Pauli over four orbitals; net charge 0, norms machine-precision, all radii bounded."
+lattice: {L: 28, topology: bcc, c_lat: 0.5773502691896258}
+seed: 7
+ticks: 300
+channels:
+  - type: element_atom
+    name: atom
+    Z: 6
+    N: 6
+    b: 30000
+    fine:   {L: 12, sigma: 0.5, spread: 2.0}
+    coarse: {L: 28, m: 1.0, k: 0.6, dt: 0.4, relax_steps: 1000,
+             scf_iters: 12, gs_every: 1, hartree_every: 3}
+observers:
+  - {type: atom_stability_readout, every: 25}
+  - {type: norm_conservation, every: 25, channels: [atom]}
+output: {json: test-results/casim_stable_atom_carbon.json}

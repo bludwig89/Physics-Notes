@@ -1,0 +1,50 @@
+{
+  "finding": "F185",
+  "title": "Slow-rotation frame dragging & moment of inertia",
+  "timestamp": "2026-06-30 - 04:15",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "R1_moment_of_inertia": {
+      "pass": true,
+      "M_msun": 0.9463737596088978,
+      "R_km": 10.369110812429138,
+      "I_over_MR2": 0.3126443420329477,
+      "I_bar": 17.213444798257374,
+      "omega_over_Omega_surface": 0.0842697994757778,
+      "_seconds": 0.06,
+      "_desc": "I/MR^2~0.3, I_bar~10-40, frame drag"
+    },
+    "R2_framedrag_monotone": {
+      "pass": true,
+      "compactness": [
+        0.09324961949429512,
+        0.11552992738248348,
+        0.1347694299020723,
+        0.1515111035013291
+      ],
+      "framedrag": [
+        0.05490418094290527,
+        0.07020785607093386,
+        0.0842697994757778,
+        0.09722041172679377
+      ],
+      "I_bar": [
+        33.85588855694219,
+        22.7652390206776,
+        17.213444798257374,
+        13.976359929638779
+      ],
+      "_seconds": 0.26,
+      "_desc": "more compact -> more drag, smaller I_bar"
+    },
+    "R3_SI_units": {
+      "pass": true,
+      "I_SI_kg_m2": 6.325606822067146e+37,
+      "I_1e45_g_cm2": 0.6325606822067147,
+      "_seconds": 0.06,
+      "_desc": "I ~ 1e45 g cm^2 (pulsar range)"
+    }
+  },
+  "seconds": 0.39
+}

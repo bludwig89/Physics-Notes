@@ -1,0 +1,340 @@
+{
+  "rows": [
+    {
+      "Z": 1,
+      "sym": "H",
+      "homo": [
+        1,
+        0
+      ],
+      "ie_nr": 13.598980889940526,
+      "ie_rel": 13.599161841663856,
+      "nist": 13.59844,
+      "err_nr_pct": 0.003977588168390652,
+      "err_rel_pct": 0.005308268182640592,
+      "homo_rel_shift_meV": 0.18095172332976972,
+      "core_1s_rel_shift_eV": -0.00018095172333031963,
+      "converged": true
+    },
+    {
+      "Z": 2,
+      "sym": "He",
+      "homo": [
+        1,
+        0
+      ],
+      "ie_nr": 23.979615131542513,
+      "ie_rel": 23.98017777647736,
+      "nist": 24.58738,
+      "err_nr_pct": -2.471856978895217,
+      "err_rel_pct": -2.4695686304219535,
+      "homo_rel_shift_meV": 0.5626449348454798,
+      "core_1s_rel_shift_eV": -0.0005626449348446828,
+      "converged": true
+    },
+    {
+      "Z": 3,
+      "sym": "Li",
+      "homo": [
+        2,
+        0
+      ],
+      "ie_nr": 4.612606390457558,
+      "ie_rel": 4.612710481364757,
+      "nist": 5.39171,
+      "err_nr_pct": -14.450028090205919,
+      "err_rel_pct": -14.448097517026008,
+      "homo_rel_shift_meV": 0.10409090719853964,
+      "core_1s_rel_shift_eV": -0.004120899245134189,
+      "converged": true
+    },
+    {
+      "Z": 4,
+      "sym": "Be",
+      "homo": [
+        2,
+        0
+      ],
+      "ie_nr": 7.472268473823607,
+      "ie_rel": 7.472541638749606,
+      "nist": 9.32269,
+      "err_nr_pct": -19.84857939260442,
+      "err_rel_pct": -19.84564928417006,
+      "homo_rel_shift_meV": 0.2731649259990476,
+      "core_1s_rel_shift_eV": -0.01479633865648977,
+      "converged": true
+    },
+    {
+      "Z": 5,
+      "sym": "B",
+      "homo": [
+        2,
+        1
+      ],
+      "ie_nr": 6.157719943007614,
+      "ie_rel": 6.157806512854211,
+      "nist": 8.29803,
+      "err_nr_pct": -25.79299010719877,
+      "err_rel_pct": -25.791946849382192,
+      "homo_rel_shift_meV": 0.08656984659705103,
+      "core_1s_rel_shift_eV": -0.03886324223637084,
+      "converged": true
+    },
+    {
+      "Z": 6,
+      "sym": "C",
+      "homo": [
+        2,
+        1
+      ],
+      "ie_nr": 7.969455759736559,
+      "ie_rel": 7.9696007651146665,
+      "nist": 11.2603,
+      "err_nr_pct": -29.22519151588716,
+      "err_rel_pct": -29.223903758206568,
+      "homo_rel_shift_meV": 0.14500537810757663,
+      "core_1s_rel_shift_eV": -0.08283567467321964,
+      "converged": true
+    },
+    {
+      "Z": 7,
+      "sym": "N",
+      "homo": [
+        2,
+        1
+      ],
+      "ie_nr": 9.680105925993697,
+      "ie_rel": 9.680319863535438,
+      "nist": 14.53414,
+      "err_nr_pct": -33.397463310566046,
+      "err_rel_pct": -33.39599134496133,
+      "homo_rel_shift_meV": 0.21393754174070523,
+      "core_1s_rel_shift_eV": -0.1536257027331648,
+      "converged": true
+    },
+    {
+      "Z": 8,
+      "sym": "O",
+      "homo": [
+        2,
+        1
+      ],
+      "ie_nr": 11.326587789216282,
+      "ie_rel": 11.326880692993816,
+      "nist": 13.61806,
+      "err_nr_pct": -16.826715485052336,
+      "err_rel_pct": -16.824564637005444,
+      "homo_rel_shift_meV": 0.29290377753454777,
+      "core_1s_rel_shift_eV": -0.2583841298433414,
+      "converged": true
+    },
+    {
+      "Z": 9,
+      "sym": "F",
+      "homo": [
+        2,
+        1
+      ],
+      "ie_nr": 12.916014718324572,
+      "ie_rel": 12.916395594532318,
+      "nist": 17.42282,
+      "err_nr_pct": -25.867255023442986,
+      "err_rel_pct": -25.86506894674733,
+      "homo_rel_shift_meV": 0.3808762077461836,
+      "core_1s_rel_shift_eV": -0.40318230492527607,
+      "converged": true
+    },
+    {
+      "Z": 10,
+      "sym": "Ne",
+      "homo": [
+        2,
+        1
+      ],
+      "ie_nr": 14.446870138746712,
+      "ie_rel": 14.447346651271067,
+      "nist": 21.5646,
+      "err_nr_pct": -33.00654712470107,
+      "err_rel_pct": -33.004337426750006,
+      "homo_rel_shift_meV": 0.47651252435443325,
+      "core_1s_rel_shift_eV": -0.5925603155244196,
+      "converged": true
+    },
+    {
+      "Z": 11,
+      "sym": "Na",
+      "homo": [
+        3,
+        0
+      ],
+      "ie_nr": 4.017150777838089,
+      "ie_rel": 4.017292889190125,
+      "nist": 5.13908,
+      "err_nr_pct": -21.831324325791986,
+      "err_rel_pct": -21.82855901853784,
+      "homo_rel_shift_meV": 0.14211135203634484,
+      "core_1s_rel_shift_eV": -0.8506699883068866,
+      "converged": true
+    },
+    {
+      "Z": 12,
+      "sym": "Mg",
+      "homo": [
+        3,
+        0
+      ],
+      "ie_nr": 5.558352866215263,
+      "ie_rel": 5.558624938769687,
+      "nist": 7.64624,
+      "err_nr_pct": -27.306063291038946,
+      "err_rel_pct": -27.30250503816664,
+      "homo_rel_shift_meV": 0.2720725544236302,
+      "core_1s_rel_shift_eV": -1.1701016720878157,
+      "converged": true
+    },
+    {
+      "Z": 13,
+      "sym": "Al",
+      "homo": [
+        3,
+        1
+      ],
+      "ie_nr": 3.727762773893802,
+      "ie_rel": 3.72783075943124,
+      "nist": 5.98577,
+      "err_nr_pct": -37.722919960275746,
+      "err_rel_pct": -37.72178417427932,
+      "homo_rel_shift_meV": 0.06798553743792013,
+      "core_1s_rel_shift_eV": -1.5567421618768684,
+      "converged": true
+    },
+    {
+      "Z": 14,
+      "sym": "Si",
+      "homo": [
+        3,
+        1
+      ],
+      "ie_nr": 5.085411725805982,
+      "ie_rel": 5.085538249610097,
+      "nist": 8.15169,
+      "err_nr_pct": -37.61524633780257,
+      "err_rel_pct": -37.6136942203384,
+      "homo_rel_shift_meV": 0.12652380411459774,
+      "core_1s_rel_shift_eV": -2.004519290828834,
+      "converged": true
+    },
+    {
+      "Z": 15,
+      "sym": "P",
+      "homo": [
+        3,
+        1
+      ],
+      "ie_nr": 6.35673186476739,
+      "ie_rel": 6.356929556171651,
+      "nist": 10.48669,
+      "err_nr_pct": -39.38285708104855,
+      "err_rel_pct": -39.38097191609887,
+      "homo_rel_shift_meV": 0.19769140426095788,
+      "core_1s_rel_shift_eV": -2.5103943972368703,
+      "converged": true
+    },
+    {
+      "Z": 16,
+      "sym": "S",
+      "homo": [
+        3,
+        1
+      ],
+      "ie_nr": 7.600138807680876,
+      "ie_rel": 7.600421401754191,
+      "nist": 10.36001,
+      "err_nr_pct": -26.63965760958845,
+      "err_rel_pct": -26.63692987020099,
+      "homo_rel_shift_meV": 0.282594073314435,
+      "core_1s_rel_shift_eV": -3.068737048991478,
+      "converged": true
+    },
+    {
+      "Z": 17,
+      "sym": "Cl",
+      "homo": [
+        3,
+        1
+      ],
+      "ie_nr": 8.83492238187917,
+      "ie_rel": 8.835304260616367,
+      "nist": 12.96764,
+      "err_nr_pct": -31.869465979321056,
+      "err_rel_pct": -31.86652112013931,
+      "homo_rel_shift_meV": 0.3818787371958621,
+      "core_1s_rel_shift_eV": -3.6720072352060096,
+      "converged": true
+    },
+    {
+      "Z": 18,
+      "sym": "Ar",
+      "homo": [
+        3,
+        1
+      ],
+      "ie_nr": 10.070090174364527,
+      "ie_rel": 10.070586294347356,
+      "nist": 15.75962,
+      "err_nr_pct": -36.10194805227203,
+      "err_rel_pct": -36.09880000693319,
+      "homo_rel_shift_meV": 0.49611998282905745,
+      "core_1s_rel_shift_eV": -4.31102409360395,
+      "converged": true
+    },
+    {
+      "Z": 19,
+      "sym": "K",
+      "homo": [
+        4,
+        0
+      ],
+      "ie_nr": 2.9667620968928206,
+      "ie_rel": 2.9668740558365854,
+      "nist": 4.34066,
+      "err_nr_pct": -31.651820301686364,
+      "err_rel_pct": -31.649240994766103,
+      "homo_rel_shift_meV": 0.11195894376481164,
+      "core_1s_rel_shift_eV": -5.007090851255334,
+      "converged": true
+    },
+    {
+      "Z": 20,
+      "sym": "Ca",
+      "homo": [
+        4,
+        0
+      ],
+      "ie_nr": 3.9330137382716788,
+      "ie_rel": 3.9332105016523577,
+      "nist": 6.11316,
+      "err_nr_pct": -35.66316376028635,
+      "err_rel_pct": -35.65994507501263,
+      "homo_rel_shift_meV": 0.19676338067897703,
+      "core_1s_rel_shift_eV": -5.727959630432786,
+      "converged": true
+    }
+  ],
+  "summary": {
+    "reference": "CRC Handbook 84th ed. / NIST ASD",
+    "n_atoms": 20,
+    "grid": "N=900 uniform radial; ~1% grid error (light)",
+    "H_err_pct": 0.003977588168390652,
+    "mean_abs_err_nr_pct_Z2_20": 27.7,
+    "median_abs_err_nr_pct_Z2_20": 29.2,
+    "max_abs_err_nr_pct": 39.4,
+    "first_Z_over_5pct": 3,
+    "first_Z_over_10pct": 3,
+    "max_valence_rel_shift_meV": 0.563,
+    "core_1s_shift_Ne_eV": -0.593,
+    "core_1s_shift_Ar_eV": -4.311,
+    "core_1s_loglog_slope_Ne_Ar": 3.38,
+    "IE_rel_minus_nr_always_lt_1meV": true
+  }
+}

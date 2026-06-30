@@ -19,6 +19,8 @@ A peer-review-style write-up of the BCC quantum-cellular-automaton (QCA) model o
 | IX | [Fermion Sector](Paper-09-Fermion-Sector.md) | Weyl/Dirac quanta; chirality–helicity correspondence; exactly three generations from $O_h$ (no fourth); anomaly-free first generation. |
 | X | [Lepton Sector](Paper-10-Lepton-Sector.md) | Higgs-free hypercharge; the Koide $45^\circ$ equipartition as an EM-selected critical point; the Higgs-free see-saw neutrino. |
 | XI | [Baryon Sector](Paper-11-Baryon-Sector.md) | The colour-singlet proton; centre-phase closure (baryon mass = field energy); the dynamical pion; the deuteron bound by the tensor force; the derived NN repulsive core. |
+| XII | [One Currency (Unification)](Paper-12-Unification-Rotation-Currency.md) | Synthesis: mass, energy, light, and gravity are one rotation rate $\Omega$ read four ways; $E=mc^2$ makes the energy-coupled dielectric gravity *forced*, not merely permitted. (Draws on F26/F167/F69/F68/F168/F64/F106.) |
+| XIII | [The Koide Angle](Paper-13-Koide-Angle.md) | The charged-lepton **phase**: $\delta^\*=\tfrac29$ as the $E_g$ representation weight $\dim E_g/\dim(T_{1u}\otimes T_{1u})$; unified with the Koide amplitude by the saturation self-duality $3\delta=Q$ (radial half BPS-derived, angular half $=$ the one shared residual); full charged-lepton shape to $\le0.007\%$, zero shape parameters. (Findings F174–F177.) |
 
 ## Headline verified numbers
 

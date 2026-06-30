@@ -1,0 +1,50 @@
+{
+  "D1_Eg_weight_2_9_exact": {
+    "passed": true,
+    "order_of_O": 24,
+    "multiplicity_of_E": 1.0,
+    "dim_Eg": 2,
+    "dim_T1u_x_T1u": 9,
+    "weight": 0.2222222222222222,
+    "note": "E_g appears once in T1u x T1u (dim 9); weight dim(E_g)/9 = 2/9 exact"
+  },
+  "D2_parallel_gauge_2_9": {
+    "passed": true,
+    "sin2_thetaW": 0.2222222222222222,
+    "structure": "2 sublattices / (2 + 7 bond axes) = 2/9 (F49); same '2 special / 9 total' on the same 2nd shell as E_g"
+  },
+  "D3_C3_phase_2pi_over_3": {
+    "passed": true,
+    "n_C3": 8,
+    "chi_E_on_C3": -1,
+    "phase_per_C3": 2.0943951023931953,
+    "note": "C3 -> 2pi/3 phase on E_g => cos(3 delta) invariant; a geometric winding would be a fraction of 2pi (algebraic cosine), which F174 excluded => the 2/9 is a representation weight carried as the phase"
+  },
+  "D4_mass_ratio_prediction": {
+    "passed": true,
+    "m_mu_over_m_e": {
+      "pred": 206.7703,
+      "pdg": 206.7683,
+      "pct": 0.001
+    },
+    "m_tau_over_m_e": {
+      "pred": 3477.4728,
+      "pdg": 3477.2283,
+      "pct": 0.007
+    },
+    "note": "delta*=2/9 (derived weight) + eta^2=1/2 (Koide, F92) => lepton ratios to <=0.007%, ZERO shape parameters (only overall scale mu)"
+  },
+  "D5_residual_weight_as_phase": {
+    "passed": true,
+    "derived": "the NUMBER 2/9 (E_g weight, exact, two countings) + it reproduces the spectrum to 1e-4",
+    "open": "the PRINCIPLE that the saturated condensate phase (rad) = the representation weight; ZIP template (delta = 3D moment diff); proposed in-model route = saturation equipartition (F92's 45deg method) applied to the 9-dim generation bilinear",
+    "note": "winding-as-geometry is the wrong frame (F174); weight-as-phase is the right one; the number is derived, the principle is not"
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true,
+    "verdict": "2/9 DERIVED from the lattice as the exact E_g representation weight of the 2nd-shell generation bilinear (dim E_g / dim T1uxT1u = 2/9), paralleling F49's gauge 2/9; using it (delta*=2/9) with the Koide sqrt2 reproduces the charged-lepton ratios to <=0.007% with zero shape parameters.",
+    "open": "the weight->phase dynamical principle (why saturated phase = representation weight) \u2014 proposed: saturation equipartition"
+  }
+}

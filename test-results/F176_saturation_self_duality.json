@@ -1,0 +1,38 @@
+{
+  "P1_representation_identities": {
+    "passed": true,
+    "Q_eq_dimEg_over_dimT1u": 0.6666666666666666,
+    "delta_eq_dimEg_over_dimT1u_sq": 0.2222222222222222,
+    "factor_linking_is_dim_T1u": 3,
+    "note": "Q=dim(E_g)/dim(T_1u)=2/3 (radial); delta*=dim(E_g)/dim(T_1u)^2=2/9; 3 delta*=Q, the factor 3=dim(T_1u)=the cos3delta threefold"
+  },
+  "P2_self_duality_is_real": {
+    "passed": true,
+    "physical_3delta": 0.666689,
+    "physical_Q": 0.666661,
+    "self_duality_gap_physical": 2.8382991764108745e-05,
+    "self_duality_gap_at_me_to_0": 0.0233,
+    "note": "3 delta = Q holds for the physical spectrum (2.8e-5) but fails at m_e->0 (gap ~0.02): a real condition that SELECTS the spectrum, not an identity"
+  },
+  "P3_reproduces_spectrum": {
+    "passed": true,
+    "m_mu_over_m_e_pct": 0.001,
+    "m_tau_over_m_e_pct": 0.007,
+    "note": "self-duality (3delta=Q=2/3) + Koide (eta^2=1/2, F92) -> lepton ratios to <=0.007%, zero shape parameters"
+  },
+  "P4_scope": {
+    "passed": true,
+    "principle": "SATURATION SELF-DUALITY: angular invariant = radial invariant (3 delta = Q) at the saturated condensate",
+    "derived_half": "radial lock Q=2/3 (F92 equipartition/45deg)",
+    "new_half": "angular lock 3delta=Q (this finding)",
+    "motivation": "BPS/saturation: F86 BPS confinement + F73/F82 y=1 wall; self-dual (angular=radial) configs are natural at BPS points",
+    "open": "derive 3delta=Q from the rule's saturation microdynamics; the eta^2=1/2 vs 3delta=2/3 mild joint-exactness tension (F174 S4)"
+  },
+  "summary": {
+    "passed": 4,
+    "total": 4,
+    "all_pass": true,
+    "verdict": "Dynamical principle = SATURATION SELF-DUALITY (3 delta = Q). With Q=dim(E_g)/dim(T_1u)=2/3 it gives delta*=dim(E_g)/dim(T_1u)^2=2/9; real (non-automatic) condition selecting the spectrum; reproduces masses to 1e-4. Shape sector reduced to one principle + representation theory (radial half already F92).",
+    "open": "first-principles derivation of self-duality from saturation microdynamics (BPS); the mild eta^2-delta tension"
+  }
+}

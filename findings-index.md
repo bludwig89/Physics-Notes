@@ -72,10 +72,59 @@
 | F160 | `F160-live-two-grid-multigrid-atom` | U4 LIVE: the two-grid multigrid hydrogen atom as one engine run |  |
 | F161 | `F161-atomic-photon-emission` | Dynamical-processes layer P1: photon emission from atoms |  |
 | F162 | `F162-bgfield-self-energy-b0-gate` | The background-field one-loop gluon self-energy is **assembled and the $b_0=\tfrac{11}{3}C_A=11$ recovery gate PASSES exactly** (transverse, gluon : ghost… |  |
+| F163 | `F163-wilson-lattice-selfenergy-vertices-28p81-gate` | The lattice 3-gluon + ghost vertices are **transcribed with their cos(k/2) form factors and validated** (continuum limit exact to O(a²)), the full Wilson… |  |
+| F164 | `F164-cosmological-constant-120-orders-and-candidate-cancellations` | The cosmological constant: the model's $\Lambda^4$ vacuum integral made quantitative (a definite, finite $\approx10^{121}$ overshoot), and the candidate… |  |
+| F165 | `F165-hypercharge-quantisation-from-anomaly-and-mass` | Hypercharge quantisation: the SM Y-values are forced, up to one normalisation |  |
+| F166 | `F166-triple-gluon-vertex-branch-blind` | The triple-gluon vertex is branch-blind (no chiral component): the gluon "even" classification is upgraded from forced-at-free-field (F91 G1) to… |  |
+| F167 | `F167-restmass-from-rule-zero-k-rotation` | Rest mass derived from the QCA rule: it is the unique, unitarity-and-symmetry-forced zero-wavenumber rotation rate of the rule's generator — the same generator… |  |
+| F168 | `F168-paired-photon-binding-gauge-protected` | The paired-photon binding is gauge-protected, not kinematic: zero binding energy is forced by structure |  |
+| F169 | `F169-photon-interacting-two-body-wavefunction` | The photon's interacting two-body wavefunction: a normalizable threshold bound state whose masslessness is inherited from gapless constituents |  |
 | F17 | `F17-poynting-energy-conservation` | Poynting Energy Density $\\|E_G\\|^2 + c^2\\|B_G\\|^2$ is Exactly Conserved for Composite-Photon Propagation |  |
+| F170 | `F170-lepton-colour-scale-link` | Route A2: why the lepton / $E_g$-condensate scale equals $O(1)\times\Lambda_\text{QCD}$ — the link is *derived at the mechanism level* (the $E_g$ condensate… |  |
+| F171 | `F171-slowlight-rotation-vs-phase` | Slow light / EIT does not distinguish the rotation-rate picture from phase velocity: they are isomorphic, and the front always stays luminal |  |
+| F172 | `F172-residual-algebraic-or-computed` | Is the one shared IR residual an *algebraic connection* or a *computed number*? A wide review: the "one number" is one IR fixed-point coupling dressed by exact… |  |
+| F173 | `F173-pressure-tolman-discriminator` | The pressure/Tolman discriminator: the single-scalar dielectric sources gravity from energy density only, omitting GR's 3p term — null in the solar system, but… |  |
+| F174 | `F174-shape-angle-2-9-topological` | The shape-angle algebraic connection, built out: the lepton-condensate angle is **$\delta^*=\tfrac29$ rad** ($3\delta^*=\tfrac23$ rad) — a **topological… |  |
+| F174 | `F174-stellar-structure-overlay` | The NICER overlay: solving both theories' hydrostatic structure shows the literal energy-only dielectric has no maximum neutron-star mass and is excluded by… |  |
+| F175 | `F175-lattice-2-9-eg-weight` | Deriving $\tfrac29$ from the lattice: the lepton-condensate angle $\delta^*=\tfrac29$ rad is the **$E_g$ representation weight** of the second-shell generation… |  |
+| F176 | `F176-covariant-dielectric-tov-recovery` | How much of TOV the covariant dielectric recovers: curvature feedback restores the maximum mass, the pressure source matches GR to 0.4%, and a ~2 km AB≡1… |  |
+| F176 | `F176-saturation-self-duality-principle` | The dynamical principle behind $\delta^*=\tfrac29$: **saturation self-duality**. The saturated $E_g$ condensate sits where its **angular invariant equals its… |  |
+| F177 | `F177-bps-self-duality-completion` | Completing the self-duality condition from the BPS structure: the **radial** half *is* derived (the 45° self-dual pair rotation $\Rightarrow Q=\tfrac23$), but… |  |
+| F178 | `F178-gravity-full-tensor-adoption` | Decision: gravity is sourced by the full stress-energy tensor (induced Einstein equation canonical); the single-scalar dielectric is demoted to the… |  |
+| F179 | `F179-lambda6-derivation-attempt-and-relabel` | The $E_g$ sextic brake $\lambda_6$: the first-principles derivation attempt closes **negative**, so the charged-lepton spectrum is honestly relabelled as a… |  |
 | F18 | `F18-mohr-c5-c6-build` | Mohr §C C5/C6 build lands at machine precision; nine new Tier 1 identities, three new Tier 2 |  |
+| F180 | `F180-gravitational-wave-speed` | The gravitational-wave equation from the rotation rule: $c_\text{grav}=c_\text{lat}=1/\sqrt3$ (GW170817 survived) |  |
+| F181 | `F181-covariant-interior-kernel-battery` | The covariant two-function interior kernel scoped by F178: the genuine GR/TOV interior (A, B independent, AB≠1) sources an isotropic perfect fluid where the… |  |
+| F182 | `F182-friedmann-pressure-cosmology` | Cosmology under the F178 full-tensor source: pressure gravitates, so radiation enters the acceleration equation as ρ+3p=2ρ → standard Friedmann; the demoted… |  |
+| F183 | `F183-blackhole-under-full-tensor` | The black hole under the F178 gravity sector: the canonical object is exact Schwarzschild/Kerr (horizon, GR shadow 3√3 M, Hawking radiation, photon-sphere… |  |
+| F184 | `F184-tabulated-eos-neutron-stars` | Tabulated-EoS neutron stars on the F181 kernel: SLy gives M_max=2.08 M⊙ and R(1.4)=11.1 km, consistent with PSR J0740 and NICER (scenario S1) |  |
+| F185 | `F185-slow-rotation-moment-of-inertia` | Slow-rotation frame dragging and moment of inertia on the F181 kernel: I/MR²≈0.31, I≈0.6×10⁴⁵ g cm², Lense-Thirring drag recovered (scenario S2) |  |
+| F186 | `F186-shadow-raytracer-microarcsec` | Black-hole shadow ray-tracer: b_c=3√3 M confirmed by geodesic integration; M87* 39.7 μas, Sgr A* 53.3 μas (GR), withdrawing the F114 +4.63% (scenario S3) |  |
+| F187 | `F187-qnm-ringdown-spectrum` | Ringdown quasinormal-mode spectrum (WKB): GR fundamentals reproduced to <7%, and the lattice-core echo amplitude is exponentially suppressed (scenario S4) |  |
+| F188 | `F188-multicomponent-lcdm-cosmology` | Multi-component cosmology under the full-tensor source: z_eq≈3430, z_acc≈0.63, age≈13.8 Gyr — standard ΛCDM, with pressure setting every transition (scenario… |  |
+| F189 | `F189-pn-binary-inspiral` | Compact-binary inspiral and GW phasing: GW150914 chirp mass 28.1 M⊙, ISCO 67.6 Hz, ~0.19 s in band — standard quadrupole chirp on the F178 sector (scenario S6) |  |
 | F19 | `F19-tick-area-vs-volume` | Does the active-tick region scale as area or volume in the strong-gravity limit? |  |
+| F190 | `F190-horizon-entropy-lattice-microstates` | Bekenstein-Hawking entropy from horizon lattice cells: S=A/4 is reproduced iff each F107 cell carries exactly 2π√3 nats (scenario S7, speculative) |  |
+| F191 | `F191-dark-matter-rotation-curves-bullet` | Dark matter under F178: rotation curves cannot separate a dark halo from modified gravity, but the Bullet-Cluster lensing offset favours a dark *source* over a… |  |
+| F192 | `F192-vacuum-energy-full-tensor` | The cosmological constant under the full-tensor source: vacuum w=−1 gives ρ+3p=−2ρ so it accelerates (sign correct), but the ~10¹²¹ magnitude overshoot (F164)… |  |
+| F193 | `F193-ontic-vacuum-gravitates-as-zero` | The CA-native ontic vacuum gravitates as **exactly zero**: candidate (i) of F164 turned from a position into a derivation (bare CC = 0, fixing magnitude… |  |
+| F194 | `F194-emergent-gravity-bullet-falsification` | The model-native emergent-gravity ("dark matter without dark matter") route, falsified by the Bullet-Cluster lensing/gas offset |  |
+| F195 | `F195-blockspin-element-atom` | Fully stable block-spin atom for a general element (Z, N) |  |
+| F196 | `F196-dilution-exponent-derived` | The holographic dilution exponent $p=2$ is **derived from the lattice**, closing F193's named obstruction: $p=3-1$ (spatial volume minus the Schwarzschild… |  |
+| F197 | `F197-first-excitation-dark-source` | The first excitation channel as a unified dark sector: a near-vacuum channel can be both dark energy and dark matter **iff** it has a gapped branch — the F93… |  |
+| F198 | `F198-angular-mode-relic-misalignment` | The F197 relic obstruction, computed: vacuum-misalignment of the $E_g$ **angular** mode under-produces by ~15 orders at the condensate scale ($\Omega\propto… |  |
+| F199 | `F199-amplitude-mode-stability-nogo` | Working out the amplitude mode from F73/F93: $\Omega_\text{DM}=0.26$ does **not** fall out, because stability fails before abundance — the EW radial mode is… |  |
+| F199 | `F199-angular-self-duality-derivation-forced-posit` | The angular self-duality $C/\lvert B\rvert=1/(2\cos\tfrac23)=0.63622$: the first-principles derivation is attempted along the full F176→F177→F179 program and… |  |
 | F20 | `F20-photon-fermion-propagation-demo` | Photon and fermions demonstrably propagate across the BCC lattice |  |
+| F200 | `F200-eg-sextic-coupling-computed` | The saturated-condensate induced-coupling computation, built end-to-end: $C/\lvert B\rvert$ assembled from the full-BZ sea cubic $B$, the saturation amplitude… |  |
+| F200 | `F200-sterile-neutrino-dark-matter` | The model-native dark-matter relic: the F47 sterile right-handed neutrino. It is a total SM singlet ($Y=0$ structurally forced), cosmologically long-lived… |  |
+| F201 | `F201-kev-sterile-from-eg-texture` | Does the lattice prefer a keV sterile? The F93/F76 Z₃ (E_g) generation texture, applied to the F47 Majorana matrix M_R, has cancellation nodes where one… |  |
+| F202 | `F202-leptogenesis-from-intrinsic-L-violation` | Can the model source the lepton asymmetry resonant keV-DM production needs? Yes: all three Sakharov conditions are met by the model's own structure… |  |
+| F203 | `F203-dark-sector-falsifiability-battery` | The dark-sector falsifiability battery: the six observational tests of `dark-sector-overview.md` §4, built out as quantified, currently-evaluable falsifiers… |  |
+| F204 | `F204-alcubierre-warp-structural-exclusion` | The Alcubierre warp family under the model's induced-gravity / beable source: the superluminal branch is **structurally excluded** (stronger than the… |  |
+| F206 | `F206-tierB-internucleon-nn-binding` | Tier-B inter-nucleon NN one-boson-exchange binding (closes the F195 frontier) |  |
+| F207 | `F207-casimir-effect-source-channel-and-gravitation` | The Casimir effect in the BCC Weyl-QCA model: the force is reproduced exactly from the F69 photon as a source/$H_\text{int}$ effect, consistent with F193 (the… |  |
+| F208 | `F208-relativistic-scf-ionization-energies` | Relativistic (F125 Dirac–Coulomb) ionization energies in the multi-electron SCF, and the light-element accuracy map |  |
 | F21 | `F21-curl-residual-geometry-independence` | The composite-photon curl residual is geometry-independent: $\text{curl}/\|k\| = c_\text{lat}/\sqrt2$ |  |
 | F22 | `F22-velocity-addition-deformed-formula` | QCA Velocity Addition: Exact Deformed Formula from the Arccos Dispersion |  |
 | F23 | `F23-smearing-ruled-out-curl-residual-is-phase-locked` | Smearing is ruled out; the c_lat/√2 curl coefficient is algebraically phase-locked |  |

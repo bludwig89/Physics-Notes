@@ -1,0 +1,53 @@
+{
+  "finding": "F202",
+  "title": "Leptogenesis from the model's intrinsic L-violation (F47) + 3-generation CP (F53/F75)",
+  "timestamp": "2026-06-30 - 22:30",
+  "n_pass": 5,
+  "n_total": 5,
+  "results": {
+    "L1_L_violation": {
+      "pass": true,
+      "source": "F47 Majorana step is anti-linear (chi <-> chi*)",
+      "status": "DERIVED \u2014 intrinsic to the Higgs-free Majorana mass",
+      "note": "F47 Majorana step anti-linear -> intrinsic lepton-number violation",
+      "_seconds": 0.0,
+      "_desc": "F47 Majorana -> intrinsic L-violation"
+    },
+    "L2_cp_available": {
+      "pass": true,
+      "C_maximal": true,
+      "dirac_phases": 1,
+      "majorana_phases": 2,
+      "note": "F53: C maximal; 3-gen (F75) lepton sector has 1 Dirac + 2 Majorana phases",
+      "_seconds": 0.0,
+      "_desc": "3-gen CP phases available (F53/F75)"
+    },
+    "L3_out_of_eq_sphalerons": {
+      "pass": true,
+      "out_of_equilibrium": true,
+      "sphalerons": true,
+      "sphaleron_source": "SU(2)_L gauge structure (F27/F34/F41) -> electroweak sphalerons (B+L violation)",
+      "note": "feeble sterile coupling -> freeze-in; SU(2)_L -> sphalerons convert L to B",
+      "_seconds": 0.0,
+      "_desc": "out-of-eq + SU(2)_L sphalerons"
+    },
+    "L4_magnitude_same_sector": {
+      "pass": true,
+      "Y_B_observed": 8.7e-11,
+      "delta_L_over_s_for_resonant_DM": 0.0001,
+      "lepton_to_baryon_ratio": 1149425.287356322,
+      "requires": "near-degenerate N_{2,3} (resonant CP enhancement) + O(1) CP phases",
+      "note": "baryon asymmetry (sphaleron freeze-out) + larger late lepton asymmetry both from N_{2,3}",
+      "_seconds": 0.0,
+      "_desc": "baryon + lepton asymmetry from same N_{2,3}"
+    },
+    "L5_verdict": {
+      "pass": true,
+      "verdict": "YES \u2014 the model's intrinsic lepton-number violation (F47, derived) plus 3-generation CP violation (F53/F75, available: 1 Dirac + 2 Majorana phases) plus feeble-coupling out-of-equilibrium dynamics meet ALL three Sakharov conditions, and the SU(2)_L sphalerons convert L to B. So the SAME sterile sector (the two heavy N_{2,3} of the F201 texture) can source BOTH the baryon asymmetry and the ~1e6x-larger late lepton asymmetry resonant keV-DM production needs (the nuMSM unification). Not derived: the CP-phase magnitudes and the N_{2,3} degeneracy that set the asymmetry's SIZE \u2014 the same free corner the nuMSM uses, inherited not solved.",
+      "_seconds": 0.0,
+      "_desc": "all Sakharov conditions met"
+    }
+  },
+  "verdict": "YES \u2014 the model's intrinsic lepton-number violation (F47, derived) plus 3-generation CP violation (F53/F75, available: 1 Dirac + 2 Majorana phases) plus feeble-coupling out-of-equilibrium dynamics meet ALL three Sakharov conditions, and the SU(2)_L sphalerons convert L to B. So the SAME sterile sector (the two heavy N_{2,3} of the F201 texture) can source BOTH the baryon asymmetry and the ~1e6x-larger late lepton asymmetry resonant keV-DM production needs (the nuMSM unification). Not derived: the CP-phase magnitudes and the N_{2,3} degeneracy that set the asymmetry's SIZE \u2014 the same free corner the nuMSM uses, inherited not solved.",
+  "seconds": 0.0
+}

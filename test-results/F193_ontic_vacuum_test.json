@@ -1,0 +1,40 @@
+{
+  "finding": "F193",
+  "title": "CA-native ontic vacuum gravitates as zero; residual as holographic IR back-reaction",
+  "timestamp": "2026-06-30 - 17:35",
+  "n_pass": 4,
+  "n_total": 4,
+  "results": {
+    "A1_T00_ontic_vacuum_zero": {
+      "pass": true,
+      "T00_vac": 0.0,
+      "T00_one_quantum": 513508180.0223563,
+      "_seconds": 0.0,
+      "_desc": "beable T00 on empty lattice is exactly 0 (bare CC=0 in the ontology)"
+    },
+    "A2_dielectric_flat_on_vacuum": {
+      "pass": true,
+      "K_minus_1": 0.0,
+      "note": "empty ontic vacuum does not curve the lattice",
+      "_seconds": 0.0,
+      "_desc": "F64 dielectric K=1 on the ontic vacuum (no curvature)"
+    },
+    "A3_template_density_is_F164": {
+      "pass": true,
+      "rho_vac_template": 3.4563582491862774e+111,
+      "I_CC": 4.081048569526987,
+      "_seconds": 0.0,
+      "_desc": "the +1/2 hbar omega template sum = F164 number (a superimposable)"
+    },
+    "B_holographic_residual": {
+      "pass": true,
+      "holographic_over_observed": 3.4363299638183595,
+      "dlog10": 0.5360948590547993,
+      "bare_overshoot_log10": 120.76046750008446,
+      "rho_CKN_over_observed": 0.4210106549243257,
+      "_seconds": 0.0,
+      "_desc": "rho_vac*(a/R_H)^2 within ~0.5 dex of observed rho_Lambda"
+    }
+  },
+  "seconds": 0.0
+}

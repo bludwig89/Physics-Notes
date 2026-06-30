@@ -1,0 +1,97 @@
+{
+  "finding": "F207",
+  "title": "Casimir effect in the BCC Weyl-QCA model",
+  "timestamp": "2026-06-30 21:34",
+  "checks": {
+    "C1_1d_machinery": {
+      "coeff_sin": -0.07557726051710638,
+      "target": -0.07557497350975909,
+      "rel_err": 3.0261437630407784e-05,
+      "axis_Esub_const": [
+        0.4534498410585499,
+        0.4534498410585428,
+        0.4534498410585357
+      ],
+      "axis_flatness": 1.4210854715202004e-14,
+      "tier": "quantitative (3.5e-5) + exact axis-linear",
+      "pass": true
+    },
+    "C2_em_reproduction": {
+      "force_law": "-pi^2 hbar c / 240 L^4",
+      "energy_law": "-pi^2 hbar c / 720 L^3",
+      "c_lat": 0.5773502691896258,
+      "energy_numeric_over_closed": [
+        1.0,
+        0.9999999999999998,
+        1.0,
+        1.0
+      ],
+      "force_numeric_over_closed": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tier": "exact-algebraic (closed form from IR dispersion)",
+      "pass": true
+    },
+    "C3_lattice_signature": {
+      "beta_by_direction": {
+        "axis_100": -0.00015399856852689928,
+        "face_110": -0.0033927277052573737,
+        "body_111": -0.006573516763327032
+      },
+      "form": "fractional correction ~ beta*(a/L)^2",
+      "axis_exactly_linear": true,
+      "aL_squared_at_1um": 1.1371663043999998e-56,
+      "tier": "directional structure exact (axis=0); coefficient O((a/L)^2)",
+      "pass": true
+    },
+    "C4_source_channel": {
+      "lambdas": [
+        0.01,
+        0.1,
+        1.0,
+        10.0,
+        1000.0
+      ],
+      "E_times_L": [
+        -0.013382605987885364,
+        -0.047943661985209454,
+        -0.07123346710167135,
+        -0.07536126433080025,
+        -0.07585552696448793
+      ],
+      "dirichlet_limit": -0.07557497350975909,
+      "interpretation": "force = matter/H_int coupling effect (Jaffe 2005); vanishes as lambda->0; F193 superimposable does not source it",
+      "tier": "qualitative+limits",
+      "pass": true
+    },
+    "G1_gravitation": {
+      "cavity": "1 cm^2 plates, 10 nm gap",
+      "E_C_J": -4.333752574825845e-08,
+      "delta_m_kg": -4.821950045302489e-25,
+      "weight_change_N": -4.730332994441742e-24,
+      "gauss_enclosed_mass_kg": -4.821950045302489e-25,
+      "delta_m_equals_E_over_c2": true,
+      "distinguishable_from_SEP_buoyancy": false,
+      "verdict": "Casimir energy gravitates as beable binding energy Delta m = E_C/c^2; equals SEP vacuum-buoyancy magnitude => Archimedes cannot discriminate (interpretational distinction only); the non-gravitating piece is the homogeneous sum (F193)",
+      "tier": "exact (Gauss law) + honest non-discrimination",
+      "pass": true
+    },
+    "D1_dynamical_casimir": {
+      "max_abs_na_minus_nb": 0.0,
+      "max_dev_from_sinh2": 0.020610413817047757,
+      "n_a_end": 4.513220584071834,
+      "sinh2_end": 4.533830997888882,
+      "result": "strict pair emission (n_a=n_b exactly); DCE two-mode squeezing. NB: distinct from F69 internal Weyl-pair binding of ONE photon \u2014 DCE emits TWO photons together (4 Weyl quanta).",
+      "tier": "exact pair correlation (0) + sinh^2 magnitude",
+      "pass": true
+    }
+  },
+  "summary": {
+    "passed": 6,
+    "total": 6,
+    "status": "PASS"
+  }
+}

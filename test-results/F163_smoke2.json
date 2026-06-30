@@ -1,0 +1,65 @@
+{
+  "per_n": [
+    {
+      "n": 16,
+      "M2_lat": 0.46396862987558607,
+      "M2_cont": 0.3254269630681485,
+      "transversality": 1.0101955280810407e-18,
+      "scan": [
+        {
+          "Q": 0.3,
+          "Pi_lat": 0.514423161400746,
+          "Pi_cont": 0.3709446351563876,
+          "dC": 2.0597473368481953,
+          "Lambda_BZ": 2.8007119939890734
+        },
+        {
+          "Q": 0.5,
+          "Pi_lat": 0.4568260184432149,
+          "Pi_cont": 0.33214201171130586,
+          "dC": 1.7899371950352068,
+          "Lambda_BZ": 2.4472589382499295
+        }
+      ]
+    },
+    {
+      "n": 24,
+      "M2_lat": 0.4644327164552068,
+      "M2_cont": 0.32561304613764575,
+      "transversality": 3.850394371257327e-18,
+      "scan": [
+        {
+          "Q": 0.3,
+          "Pi_lat": 0.5404710753327866,
+          "Pi_cont": 0.3972377132930866,
+          "dC": 2.0562278114470525,
+          "Lambda_BZ": 2.7957877395174533
+        },
+        {
+          "Q": 0.5,
+          "Pi_lat": 0.4708814110798684,
+          "Pi_cont": 0.3467306450455485,
+          "dC": 1.7822821045104567,
+          "Lambda_BZ": 2.4379098473430894
+        }
+      ]
+    }
+  ],
+  "z0": {
+    "Z0": 0.15492576757292534,
+    "published": 0.154933390231,
+    "rel_dev": 4.919958224169907e-05,
+    "n": 96
+  },
+  "target_Lambda_ratio": 28.8086,
+  "note": "Pi_lat uses the transversality-restored (mass-subtracted) transverse scalar. dC = scheme-clean lattice constant; extrapolate Q->0. Literal 28.81 = swap the BZ-continuum reference for the MS-bar constant.",
+  "wall_seconds": 7.3,
+  "ns": [
+    16,
+    24
+  ],
+  "qs": [
+    0.3,
+    0.5
+  ]
+}
