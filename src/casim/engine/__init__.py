@@ -15,6 +15,7 @@ from . import channels as _channels  # noqa: F401,E402
 from . import coupled as _coupled     # noqa: F401,E402  (Tier-2 coupled channels)
 from . import tier3 as _tier3         # noqa: F401,E402  (Tier-3 MC / variable-c)
 from . import spectral_matter as _spectral_matter  # noqa: F401,E402  (matter-sector spectral solves)
+from . import manybody as _manybody   # noqa: F401,E402  (genuine 2^n entanglement register, F212/F214)
 from ..particles import channel as _particles  # noqa: F401,E402  (particle layer)
 
 __all__ = [

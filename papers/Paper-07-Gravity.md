@@ -3,11 +3,11 @@
 **B. Ludwig**
 *Independent researcher*
 
-*Series: "A Universe in a Bottle" — Paper VII of XI. Builds on Paper I (light as rotation rate), Paper II (the cell-size co-certification), and completes the four-interaction set (IV–VII). Its strong-field limit is the exact Schwarzschild/Kerr solution of the induced Einstein equation (F178); the earlier horizon-free "dielectric black hole" of Paper VIII is reclassified as the PPN-order representation (see §4.2).*
+*Series: "A Universe in a Bottle" — Paper VII of XI. Builds on Paper I (light as rotation rate), Paper II (the cell-size co-certification), and completes the four-interaction set (IV–VII). Its strong-field limit is the exact Schwarzschild/Kerr solution of the induced Einstein equation (F178); the earlier horizon-free "dielectric black hole" treatment (deprecated, F114) is reclassified as the PPN-order representation (see §4.2).*
 
 *Revision 2 (2026-06-08): the SI cell is updated throughout to the **adopted canonical value** of Finding F107, $a=\sqrt{8\pi}\,3^{1/4}\,\ell_P=6.5978\,\ell_P=1.0664\times10^{-34}$ m (tick $\tau=2.0537\times10^{-43}$ s). Revision 1 quoted an inconsistent "$\approx3.8\,\ell_P$, one generation" in one place; that is corrected here — the mode count is $g_*=48$ (three generations $\times$ 16 Weyl fields), giving $a/\ell_P=\sqrt{8\pi}\,3^{1/4}=6.5978$.*
 
-*Revision 3 (2026-06-30): **strong-field section re-issued per Finding F178.** The model now adopts the **induced Einstein equation** $G_{\mu\nu}=(8\pi G/c^4)T_{\mu\nu}$ as the canonical gravitational law, sourced by the **full** stress-energy tensor. The single impedance-matched dielectric $K=e^{2u}$ is reclassified as the **vacuum/weak-field (PPN-order) representation** of that law — exact in spirit for lensing, PPN $\beta=\gamma=1$, redshift and the Newton-constant origin story, but **not** the exact strong-field metric. The canonical strong-field object is therefore **exact Schwarzschild (and Kerr for rotation)**, with a genuine horizon; the horizon-free "dielectric black hole" of Paper VIII is demoted to a representation artifact (F114→F178). Inside matter the metric carries two independent functions and the dynamics are GR/TOV (the covariant interior kernel, F181). The weak-field claims of §§2–3, 5–6 are unchanged; §4 is rewritten below.*
+*Revision 3 (2026-06-30): **strong-field section re-issued per Finding F178.** The model now adopts the **induced Einstein equation** $G_{\mu\nu}=(8\pi G/c^4)T_{\mu\nu}$ as the canonical gravitational law, sourced by the **full** stress-energy tensor. The single impedance-matched dielectric $K=e^{2u}$ is reclassified as the **vacuum/weak-field (PPN-order) representation** of that law — exact in spirit for lensing, PPN $\beta=\gamma=1$, redshift and the Newton-constant origin story, but **not** the exact strong-field metric. The canonical strong-field object is therefore **exact Schwarzschild (and Kerr for rotation)**, with a genuine horizon; the horizon-free "dielectric black hole" (deprecated) is demoted to a representation artifact (F114→F178). Inside matter the metric carries two independent functions and the dynamics are GR/TOV (the covariant interior kernel, F181). The weak-field claims of §§2–3, 5–6 are unchanged; §4 is rewritten below.*
 
 ---
 
@@ -104,7 +104,7 @@ sourced by the **full** stress-energy tensor. Three independent reasons force th
 
 The consequences of (4.2):
 
-- **Vacuum / exterior.** The exact spherically-symmetric vacuum solution is **Schwarzschild** (Kerr for rotation), *with a horizon*. The exponential $K=e^{2u}$ agrees only to PPN order: the two metrics differ at $O(u^2)$ (e.g. the spatial leg, $e^{2u}=1+2u+2u^2+\cdots$ vs isotropic Schwarzschild $(1+u/2)^4=1+2u+\tfrac32u^2+\cdots$), and the dielectric lapse $A=e^{-2u}>0$ never vanishes — it is **horizon-free**. That horizon-free "dielectric black hole" (the subject of the earlier Paper VIII / F114) is therefore reclassified as an artifact of treating the PPN-order representation as fundamental; the canonical black hole is Schwarzschild/Kerr.
+- **Vacuum / exterior.** The exact spherically-symmetric vacuum solution is **Schwarzschild** (Kerr for rotation), *with a horizon*. The exponential $K=e^{2u}$ agrees only to PPN order: the two metrics differ at $O(u^2)$ (e.g. the spatial leg, $e^{2u}=1+2u+2u^2+\cdots$ vs isotropic Schwarzschild $(1+u/2)^4=1+2u+\tfrac32u^2+\cdots$), and the dielectric lapse $A=e^{-2u}>0$ never vanishes — it is **horizon-free**. That horizon-free "dielectric black hole" (the subject of the earlier, now-deprecated F114 treatment) is therefore reclassified as an artifact of treating the PPN-order representation as fundamental; the canonical black hole is Schwarzschild/Kerr.
 - **Interior.** Inside matter the metric carries its **second independent function** ($A,B$ free, $AB\neq1$) and the dynamics are GR/TOV. The covariant two-function interior kernel (F181) solves the full isotropic perfect-fluid Einstein equations exactly where the single scalar cannot, reproducing GR-TOV to the integrator floor.
 
 ### 4.3 What is preserved
@@ -136,7 +136,7 @@ $$
 |---|---|---|
 | $c_\text{lat}$ | $1/\sqrt d$ | BCC rotation rule (Paper I) |
 | $\eta_\text{Weyl}$ | $\tfrac1{12}$ | Seeley–DeWitt heat-kernel coefficient |
-| $g_*$ | $48=16\times3$ | $O_h$ generation theorem (Paper IX) $\times$ anomaly-free content |
+| $g_*$ | $48=16\times3$ | $O_h$ generation theorem (Paper VIII) $\times$ anomaly-free content |
 
 The mode count $g_*$ is the decisive upgrade: the generation count $3$ is a theorem about the BCC point group ($\dim T_{1u}$, no 4-dim single-valued irrep), so with the anomaly-free 16-Weyl content per generation ($L{=}2,e_R{=}1,Q{=}6,u_R{=}3,d_R{=}3,\nu_R{=}1$), $g_*=48$ is a count of the lattice's own protected normal modes, not a matter-content input. Assembling the Sakharov integral gives the closed form
 
@@ -166,7 +166,7 @@ Adoption was gated on two passed campaigns (Finding F107, 6/6):
 1. **L4 absolute lensing.** On the canonical $K=e^{2u}$ the straight-ray bending coefficient is $K_\text{bend}=-4$ exact at all field strengths; the lattice absolute coefficient is $4$; the $G$-match and the solar-limb deflection $1.7512''$ both hold at $3.0\times10^{-8}$.
 2. **The GRB gate.** The even-channel $n=2$ Lorentz-violation scale is $E_{\text{QG},2}=\sqrt{54}\,\hbar c/a$. At the F79 value it clears LHAASO by $1.9\times10^7$; at the F83 mass-ceiling cell it would be excluded by $\sim9$ decades. The bound thus observationally *selects* the F79 cell. Falsification handle: any $n=2$ time-of-flight bound above $1.36\times10^{19}$ GeV kills the adopted cell.
 
-Every SI prediction in the series (the canonical Schwarzschild/Kerr shadow per §4.2, Paper XI nuclear scales once calibrated) now evaluates at this single $a$ (Finding F112).
+Every SI prediction in the series (the canonical Schwarzschild/Kerr shadow per §4.2, Paper X nuclear scales once calibrated) now evaluates at this single $a$ (Finding F112).
 
 ---
 
@@ -212,4 +212,4 @@ Open items, all bounded: the spin-1 gauge contribution to $g_*$; the Kerr/frame-
 6. C. M. Will, *Theory and Experiment in Gravitational Physics* (Cambridge, 2018) — PPN formalism.
 7. Project findings: F64 (dielectric gravity), F79 (structural $G$), F107 (canonical cell / GRB gate), F112 (SI predictions), F55–F62 (two-leg route), F69 (cell-size co-certification).
 
-*Companion papers: I (light as rotation), II (photon / cell size), VIII (strong-field / black hole), IX (generation count / $g_*$).*
+*Companion papers: I (light as rotation), II (photon / cell size), VIII (generation count / $g_*$).*

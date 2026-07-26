@@ -1,0 +1,29 @@
+{
+  "closed_form_slope": -0.9959178296949418,
+  "isolated_slope": -1.0744307171718548,
+  "periodic_slope": -1.0620264656070517,
+  "stepper": {
+    "bs": [
+      10,
+      16,
+      24
+    ],
+    "kicks": [
+      -0.0015188576825943757,
+      -0.0013447777572303415,
+      -0.0007114249070275553
+    ],
+    "drifts": [
+      2.714073328182828e-15,
+      3.0759497719405385e-15,
+      3.07594977194125e-15
+    ]
+  },
+  "checks": {
+    "C1 continuum closed-form slope = -1 (EXACT 1/b)": true,
+    "C2 lattice isolated-slice slope ~ -1": true,
+    "C3 lattice periodic-slice slope ~ -1 (b<<L/2)": true,
+    "C4 stepper deflection toward mass": true,
+    "C5 Cayley norm conserved (<1e-9)": true
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "finding": "F213",
+  "title": "First-principles Hopfield eta + mass renormalization / gap ratio",
+  "n_pass": 7,
+  "n_total": 7,
+  "checks": {
+    "HOP1": {
+      "statement": "free-electron E_F from density (Al 11.7, Na 3.2 eV)",
+      "tier": "numeric",
+      "residual": 0.01286339236895348,
+      "pass": true,
+      "E_F_Al": 11.667809248815871,
+      "E_F_Na": 3.2411628555806513
+    },
+    "HOP2": {
+      "statement": "deformation potential D=(2/3)E_F exact (F64 dilation)",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true
+    },
+    "HOP3": {
+      "statement": "lambda = N(0) V_Task1 (scales as D^2) \u2014 F210/F211 loop closure",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true,
+      "lambda_bare_Al": 1.0134987421596773
+    },
+    "HOP4": {
+      "statement": "bare jellium lambda overestimates Al,Na by consistent ~2.5x; screened D physical",
+      "tier": "numeric",
+      "residual": 0.5353077463366032,
+      "pass": true,
+      "over_Al": 2.3569738189759937,
+      "over_Na": 2.892281565312597,
+      "D_scr_Al": 5.066647404692893,
+      "D_scr_Na": 1.2705428289695007
+    },
+    "MR1": {
+      "statement": "Z=1+lambda; gap ratio -> 3.528 as Tc/omega_log->0",
+      "tier": "exact",
+      "residual": 5.78655789951199e-10,
+      "pass": true,
+      "Z_Pb": 2.55
+    },
+    "MR2": {
+      "statement": "strong-coupling gap ratio reproduces measured 2Delta/kTc (mean<6%)",
+      "tier": "numeric",
+      "residual": 0.028987923767476546,
+      "pass": true,
+      "per_element": {
+        "Al": [
+          3.53,
+          3.4
+        ],
+        "Sn": [
+          3.69,
+          3.5
+        ],
+        "In": [
+          3.71,
+          3.65
+        ],
+        "Ta": [
+          3.67,
+          3.6
+        ],
+        "Nb": [
+          3.93,
+          3.8
+        ],
+        "Pb": [
+          4.52,
+          4.38
+        ],
+        "Hg": [
+          4.66,
+          4.6
+        ]
+      }
+    },
+    "MR3": {
+      "statement": "measured gap ratio & Z both strongly correlate with Tc/omega_log (coupling)",
+      "tier": "numeric",
+      "residual": 0.011267733878354669,
+      "pass": true,
+      "corr_ratio_vs_coupling": 0.9887322661216453,
+      "corr_Z_vs_coupling": 0.9979698839926995
+    },
+    "jellium_table": [
+      {
+        "metal": "Al",
+        "E_F_eV": 11.667809248815871,
+        "D_bare_eV": 7.778539499210581,
+        "lambda_bare": 1.0134987421596773,
+        "lambda_meas": 0.43,
+        "D_screening_factor": 0.6513623033227627,
+        "D_screened_eV": 5.066647404692893,
+        "overestimate": 2.3569738189759937
+      },
+      {
+        "metal": "Na",
+        "E_F_eV": 3.2411628555806513,
+        "D_bare_eV": 2.1607752370537674,
+        "lambda_bare": 0.4627650504500155,
+        "lambda_meas": 0.16,
+        "D_screening_factor": 0.5880032347565659,
+        "D_screened_eV": 1.2705428289695007,
+        "overestimate": 2.892281565312597
+      },
+      {
+        "metal": "Pb",
+        "E_F_eV": 9.453360604883668,
+        "D_bare_eV": 6.302240403255778,
+        "lambda_bare": 1.5297628065496653,
+        "lambda_meas": 1.55,
+        "D_screening_factor": 1.006592755135121,
+        "D_screened_eV": 6.34378953103711,
+        "overestimate": 0.9869437461610744
+      }
+    ],
+    "gap_ratio_table": [
+      {
+        "element": "Al",
+        "Tc_over_wlog": 0.004054982817869416,
+        "ratio_pred": 3.5312449959181533,
+        "ratio_meas": 3.4,
+        "rel_err": 0.03860146938769218,
+        "Z": 1.43
+      },
+      {
+        "element": "Sn",
+        "Tc_over_wlog": 0.037200000000000004,
+        "ratio_pred": 3.6863102276217394,
+        "ratio_meas": 3.5,
+        "rel_err": 0.053231493606211266,
+        "Z": 1.72
+      },
+      {
+        "element": "In",
+        "Tc_over_wlog": 0.04011764705882353,
+        "ratio_pred": 3.706798326515209,
+        "ratio_meas": 3.65,
+        "rel_err": 0.015561185346632663,
+        "Z": 1.8050000000000002
+      },
+      {
+        "element": "Ta",
+        "Tc_over_wlog": 0.03446153846153847,
+        "ratio_pred": 3.6678297844174255,
+        "ratio_meas": 3.6,
+        "rel_err": 0.018841606782618158,
+        "Z": 1.69
+      },
+      {
+        "element": "Nb",
+        "Tc_over_wlog": 0.06702898550724638,
+        "ratio_pred": 3.9258775774845738,
+        "ratio_meas": 3.8,
+        "rel_err": 0.0331256782854142,
+        "Z": 2.01
+      },
+      {
+        "element": "Pb",
+        "Tc_over_wlog": 0.12839285714285714,
+        "ratio_pred": 4.516019178059386,
+        "ratio_meas": 4.38,
+        "rel_err": 0.03105460686287352,
+        "Z": 2.55
+      },
+      {
+        "element": "Hg",
+        "Tc_over_wlog": 0.14310344827586208,
+        "ratio_pred": 4.657497360064111,
+        "ratio_meas": 4.6,
+        "rel_err": 0.012499426100893815,
+        "Z": 2.62
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "finding": "F226",
+  "date": "2026-07-02",
+  "title": "CHSH / Tsirelson on the lattice register (Route 3)",
+  "tests": {
+    "G1_tsirelson_exact": {
+      "entanglement_entropy": 0.6931471805599454,
+      "ln2": 0.6931471805599453,
+      "CHSH_max_native": 2.8284271247461885,
+      "T_eigs": [
+        0.9999999999999991,
+        0.9999999999999989,
+        0.9999999999999989
+      ],
+      "CHSH_singlet_bell_angles": 2.82842712474619,
+      "Tsirelson": 2.8284271247461903,
+      "residual": 1.7763568394002505e-15,
+      "pass": true
+    },
+    "G2_quadratic_correction": {
+      "fitted_curvature": -4.250731785800907,
+      "analytic_-3sqrt2": -4.242640687119286,
+      "loglog_slope": 2.001294372960366,
+      "expected_slope": 2.0,
+      "pass": true
+    },
+    "G3_confront_bell_data": {
+      "E_lat_eV": 3.205067815022935e+27,
+      "predicted_absdS": {
+        "1.8_eV": 1.3381562185874485e-54,
+        "1000_eV": 4.13011178576373e-49,
+        "1e+06_eV": 4.130111785763731e-43,
+        "1e+09_eV": 4.13011178576373e-37
+      },
+      "max_predicted_absdS_upto_1GeV": 4.13011178576373e-37,
+      "measured_S_error_bars": {
+        "Hensen2015": 0.2,
+        "Giustina_Shalm2015_photonic": 0.1
+      },
+      "orders_of_magnitude_below_experiment": 35.384038193553444,
+      "verdict": "Bell-indistinguishable from QM (Planck-suppressed)",
+      "pass": true
+    },
+    "G4_measurement_independence": {
+      "rms_dev_from_minus_cos": 1.705924146843205e-16,
+      "native_vs_singlet_infidelity_local_unitary": 4.440892098500626e-16,
+      "settings": "free, independent (uncorrelated with state prep)",
+      "note": "violation reproduced WITHOUT correlated settings; no superdeterminism",
+      "pass": true
+    },
+    "G5_sanity": {
+      "norm": 0.9999999999999998,
+      "herm_resid": 0.0,
+      "involution_resid": 2.0849856140276212e-17,
+      "separable_CHSH_max": 2.0,
+      "classical_bound": 2.0,
+      "pass": true
+    }
+  },
+  "summary": {
+    "passed": 5.0,
+    "total": 5,
+    "all_pass": 1.0
+  }
+}

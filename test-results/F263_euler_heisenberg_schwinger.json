@@ -1,0 +1,215 @@
+{
+  "finding": "F263",
+  "title": "Nonlinear/non-perturbative QED: Euler-Heisenberg, light-by-light, vacuum birefringence, Schwinger pair production",
+  "euler_heisenberg": {
+    "EH1_coefficients": {
+      "series_coeffs": {
+        "x4": "-1/45",
+        "y4": "-1/45",
+        "x2y2": "-1/9"
+      },
+      "coeff_EmB2_over_a2m4": "2/45",
+      "coeff_EdotB2_over_a2m4": "14/45",
+      "invariant_weight": "7",
+      "coeff_F2_over_a2m4": "8/45",
+      "coeff_G2_over_a2m4": "14/45",
+      "invariant_basis_ratio": "8/45 : 14/45 = 4 : 7",
+      "L_EH": "(2 alpha^2/45 m^4)[(E^2-B^2)^2 + 7 (E.B)^2]",
+      "gate_pass": true,
+      "statement": "Euler-Heisenberg coefficient 2 alpha^2/45 and the box-diagram invariant weight 7 both derived exactly from the proper-time one-loop determinant (sympy). The 7 = 2/45 (from a^4+b^4) + 5/45 (from a^2 b^2) over the 2/45 of (E^2-B^2)^2."
+    },
+    "EH2_light_by_light": {
+      "sigma": "973*alpha**4*w**6/(10125*pi*m**8)",
+      "coeff_times_pi": "973/10125",
+      "coeff_target": "973/10125",
+      "scaling": "alpha^4 omega^6 / m^8",
+      "gate_pass": true,
+      "statement": "low-energy gamma gamma -> gamma gamma cross section = (973/10125 pi) alpha^4 omega^6/m^8 (Karplus-Neuman), reproduced EXACTLY from the L_EH contact vertex; angular integral closes to a rational times 1/pi."
+    },
+    "EH3_ward_bose": {
+      "ward_leg_residuals": {
+        "leg1": "0",
+        "leg2": "0",
+        "leg3": "0",
+        "leg4": "0"
+      },
+      "ward_all_legs_zero": true,
+      "bose_1_2_invariant": true,
+      "bose_3_4_invariant": true,
+      "gate_pass": true,
+      "statement": "four-photon amplitude is exactly transverse on every leg (eps^i -> k^i gives 0) and Bose-symmetric; the four-leg counterpart of F251's two-leg Ward identity, preserving the F250 massless gauge structure."
+    },
+    "EH4_birefringence": {
+      "coeff_parallel": "7",
+      "coeff_perp": "4",
+      "ratio_par_perp": "7/4",
+      "n_par_minus_1": "(7/2)(2 alpha^2/45)(B^2/m^4)",
+      "n_perp_minus_1": "(4/2)(2 alpha^2/45)(B^2/m^4)",
+      "gate_pass": true,
+      "statement": "field-induced vacuum birefringence ratio (n_par-1):(n_perp-1) = 7:4 (Adler 1971), derived exactly from L_EH; the nonlinear, non-zero counterpart of F249-B1's zero LINEAR birefringence for the free paired photon."
+    },
+    "EH5_observation": {
+      "experiment": "ATLAS Pb+Pb, Nature Phys. 13, 852 (2017)",
+      "regime": "high-energy box (m_gg ~ GeV), beyond the omega<<m contact limit",
+      "model_contact": "sigma_LE = (973/10125 pi) alpha^4 omega^6/m^8 (this module)",
+      "statement": "light-by-light scattering is experimentally observed; the model reproduces the analytic low-energy limit exactly. No cross-section fit to the ATLAS high-energy regime is claimed."
+    }
+  },
+  "schwinger": {
+    "SC1_exponent": {
+      "ImL_n": "E**2*exp(-pi*m**2*n/E)/(8*pi**3*n**2)",
+      "ImL_n_target": "E**2*exp(-pi*m**2*n/E)/(8*pi**3*n**2)",
+      "w_n": "2*ImL_n = (eE)^2/(4 pi^3 n^2) exp(-n pi m^2/eE)",
+      "exponent_n": "pi*m**2*n/E",
+      "exponent_n1": "pi m^2/(e E) = pi E_crit/E, with E_crit = m^2/e",
+      "pole_location": "s_n = n pi/(e E)",
+      "gate_pass": true,
+      "statement": "the Schwinger tunnelling exponent pi m^2/(e E) and the 1/n^2 instanton weights are the residues of the proper-time integrand at s_n = n pi/(e E); w = 2 Im L = (eE)^2/(4 pi^3) sum 1/n^2 exp(-n pi m^2/eE), exact."
+    },
+    "SC2_critical_field": {
+      "E_crit_V_per_m": 1.323285474948166e+18,
+      "E_crit_target": 1.32e+18,
+      "B_crit_T": 4414005221.399419,
+      "B_crit_target": 4410000000.0,
+      "rel_err_E": 0.0024889961728529453,
+      "rel_err_B": 0.0009082134692559707,
+      "gate_pass": true,
+      "statement": "critical (Schwinger) field E_crit = m_e^2 c^3/(e hbar) = 1.323e18 V/m; companion B_crit = 4.414e9 T. Above E_crit the exponent -pi E_crit/E is O(1) and pair creation is unsuppressed."
+    },
+    "SC3_rate_at_Ecrit": {
+      "E_over_Ecrit": 1.0,
+      "R_sum": 0.04368996973356948,
+      "n1_term": 0.04321391826377226,
+      "n1_fraction_of_sum": 0.9891038727492768,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "SC3b_rate_below": {
+      "E_over_Ecrit": 0.1,
+      "R_sum": 2.2711010683241095e-14,
+      "n1_term": 2.2711010683240965e-14,
+      "n1_fraction_of_sum": 0.9999999999999943,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "SC4_nonperturbative": {
+      "taylor_about_E0": "0",
+      "all_derivatives_vanish": true,
+      "gate_pass": true,
+      "statement": "exp(-pi E_crit/E) has a vanishing Taylor series about E=0 (essential singularity): Schwinger production is invisible to perturbation theory \u2014 genuinely non-perturbative."
+    }
+  },
+  "schwinger_field_sweep": {
+    "E_over_Ecrit_0.05": {
+      "E_over_Ecrit": 0.05,
+      "R_sum": 5.157900062542853e-28,
+      "n1_term": 5.157900062542853e-28,
+      "n1_fraction_of_sum": 1.0,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "E_over_Ecrit_0.1": {
+      "E_over_Ecrit": 0.1,
+      "R_sum": 2.2711010683241095e-14,
+      "n1_term": 2.2711010683240965e-14,
+      "n1_fraction_of_sum": 0.9999999999999943,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "E_over_Ecrit_0.25": {
+      "E_over_Ecrit": 0.25,
+      "R_sum": 3.487345396602887e-06,
+      "n1_term": 3.4873423562089973e-06,
+      "n1_fraction_of_sum": 0.9999991281638198,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "E_over_Ecrit_0.5": {
+      "E_over_Ecrit": 0.5,
+      "R_sum": 0.0018683152916593969,
+      "n1_term": 0.0018674427317079893,
+      "n1_fraction_of_sum": 0.9995329696463424,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "E_over_Ecrit_1.0": {
+      "E_over_Ecrit": 1.0,
+      "R_sum": 0.04368996973356948,
+      "n1_term": 0.04321391826377226,
+      "n1_fraction_of_sum": 0.9891038727492768,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    },
+    "E_over_Ecrit_2.0": {
+      "E_over_Ecrit": 2.0,
+      "R_sum": 0.21981609193914514,
+      "n1_term": 0.20787957635076193,
+      "n1_fraction_of_sum": 0.945697717200396,
+      "converged": true,
+      "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
+    }
+  },
+  "test_battery": {
+    "finding": "F263",
+    "title": "Nonlinear/non-perturbative QED: Euler-Heisenberg, light-by-light, birefringence, Schwinger pair production",
+    "checks": {
+      "EH1_coefficients": {
+        "quantity": "L_EH = (2 alpha^2/45 m^4)[(E^2-B^2)^2 + 7(E.B)^2]",
+        "prefactor": "2/45",
+        "weight": "7",
+        "invariant_basis": "8/45 : 14/45 = 4 : 7",
+        "tier": "exact (sympy)",
+        "pass": true
+      },
+      "EH2_light_by_light": {
+        "quantity": "sigma(gg->gg) low-energy coefficient",
+        "coeff_times_pi": "973/10125",
+        "target": "973/10125",
+        "scaling": "alpha^4 omega^6 / m^8",
+        "tier": "exact (sympy)",
+        "pass": true
+      },
+      "EH3_ward_bose": {
+        "quantity": "gauge invariance (Ward, 4 legs) + Bose symmetry",
+        "ward_all_legs_zero": true,
+        "bose_1_2": true,
+        "bose_3_4": true,
+        "tier": "exact (sympy)",
+        "pass": true
+      },
+      "EH4_birefringence": {
+        "quantity": "(n_par-1):(n_perp-1)",
+        "coeff_parallel": "7",
+        "coeff_perp": "4",
+        "ratio": "7/4",
+        "tier": "exact (sympy)",
+        "pass": true
+      },
+      "SC1_schwinger_exponent": {
+        "quantity": "Im L per n = (eE)^2/(8 pi^3 n^2) exp(-n pi m^2/eE)",
+        "ImL_n": "E**2*exp(-pi*m**2*n/E)/(8*pi**3*n**2)",
+        "exponent_n1": "pi m^2/(e E) = pi E_crit/E, with E_crit = m^2/e",
+        "tier": "exact (sympy)",
+        "pass": true
+      },
+      "SC2_critical_field": {
+        "quantity": "E_crit = m^2/e, B_crit = m^2/e",
+        "E_crit_V_per_m": 1.323285474948166e+18,
+        "B_crit_T": 4414005221.399419,
+        "rel_err_E": 0.0024889961728529453,
+        "rel_err_B": 0.0009082134692559707,
+        "tier": "quantitative",
+        "pass": true
+      },
+      "SC3_nonperturbative": {
+        "quantity": "exp(-pi E_crit/E) Taylor series about E=0",
+        "taylor": "0",
+        "tier": "exact (sympy)",
+        "pass": true
+      }
+    },
+    "n_pass": 7,
+    "n_total": 7,
+    "all_pass": true
+  }
+}

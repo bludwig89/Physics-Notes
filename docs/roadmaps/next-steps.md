@@ -138,7 +138,7 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~outline the next project elements to execute in order to bring the model up to being able to model dynamic electrons, up, and down quarks, along with their binding dynamics to form protons, neutrons, and atoms.~~
 
-- attempt to combine ($\triangle$) with the absolute lensing coefficient $\Delta\theta=4GM/(bc^2)$ (F55/L4, carries an explicit $\sqrt d$, Finding 10) to pin $a$ independently of any mass.
+- ~~attempt to combine ($\triangle$) with the absolute lensing coefficient $\Delta\theta=4GM/(bc^2)$ (F55/L4, carries an explicit $\sqrt d$, Finding 10) to pin $a$ independently of any mass.~~ **DONE 2026-07-02 (F232, L3): closes NEGATIVE/degenerate.** The deflection coefficient is exactly $-4$ (dimensionless, $a$-independent over 47 decades; F107 L4a) — no $\sqrt d$ in the dimensionless part (it lives in the SI map). Scale-invariance theorem: no dimensionless, mass-blind observable pins $a$. The mass-independent pin is the F79 $G$-match ($a=\sqrt{8\pi}3^{1/4}\ell_P$), a dimensionful gravitational input, not lensing.
 
 - ~~f76 points towards an orthorhombic vaccum structure, is that still in keeping with a bcc lattice?~~
 
@@ -265,6 +265,8 @@ All from project-audit-inputs-dynamism
 - ~~build a model test prompt to examine the work of miguel alcubierre, if it is structurally sound within the model, what problems arise, and optional solutions. ~~
 
 - build out a prompt to construct a casim atom builder that allows us to experiment with building atoms with a field for number of protons, neutrons, and electrons that will build that element and run it to see if it is stable or not.
+
+- expand upon the quantum computing work of f217, f218 and scale the algorithms up to a higher qubit-count and see if it's still stable. Work on the field-native execution within the fermion-chain. Finally work on the error-correction/noise channel and what might need to be put in place.
 
 ## CASIM Structure
 

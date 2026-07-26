@@ -39,11 +39,14 @@ The net statement: the model is *more* hostile to warp-drive FTL than GR+QFT, fo
 
 ## Open / next
 
-- The brief's problem #3 (well-posedness of a superluminal *shift vector* under the induced-gravity construction, independent of the energy condition) is touched but not exhausted: PC1 checks the static positive-source field, not a dynamically evolved shift. A live two-grid co-evolution of an off-diagonal ($T^{0i}$) source through a gravitomagnetic kernel would settle it fully — same open rung as F181's "live two-grid co-evolution."
-- A genuine **forward** Bobrick–Martire construction (build a positive-$T^{00}$, momentum-carrying beable shell and read off its induced subluminal bubble geometry, comparing to the Fuchs "Warp Factory" target) remains the one constructive computation worth doing if the subluminal class is ever wanted quantitatively. G1/G2/PA1 establish only that nothing forbids it.
+**First construction of both open items done (2026-06-30 - 21:40, exploration `docs/design/warp-shift-vector-construction.md`, runner `tests/runners/run_warp_openitems_explore.py`).** The key move: the warp shift vector $N^i=g_{0i}$ is the *translational* analogue of Hartle's rotational frame-drag $\omega(r)$ (F185), so both items ride a single weak-field gravitomagnetic kernel $\nabla^2 N_i=-16\pi T^{0i}$ (free-space FFT). Results below; both remain pre-finding pending a nonlinear forward solve + dynamical IVP-break.
+
+- **Problem #3 (superluminal shift well-posedness)** — two *computed* obstructions, both sharper than continuum GR: (1a) the beable lattice cell worldline $g_{00}=-(c_\text{lat}^2-v_s^2f^2)$ goes **null at exactly $v_s=c_\text{lat}$** and spacelike beyond, so no lattice rest frame exists inside a $\ge c_\text{lat}$ bubble (continuum GR's Eulerian-slicing escape is unavailable — the cells are fixed beables); (1b) the induced-metric signal cone is $c_\text{lat}$ (F180), so a $>c_\text{lat}$ bubble has no causal assembly. Still open: a *dynamically evolved* off-diagonal source through a hyperbolic kernel showing the IVP break live (the F181 "live two-grid" rung).
+- **Forward Bobrick–Martire construction** — first (linearized) build done: a positive-$T^{00}$ shell translated at $v$ produces a real shift vector via the gravitomagnetic kernel, with **WEC holding everywhere** ($\min T^{00}=+2.4\times10^{-37}$, no negative wall) and a **partial** carry-along drag fraction $N_x/v\approx4(M/R_0)$ that reaches full co-motion only at strong field $M/R_0\sim O(1)$ — where the F204 nonlinear $-v_s^2$ wall returns. Confirms the subluminal class is realizable and FTL-less, consistent with F204. Still open: the *nonlinear* forward solve (full $G_{\mu\nu}$) and a quantitative match to the Fuchs "Warp Factory" target.
 
 ## Files
 - Reuses module: `ca-simulation/ca_interior_metric.py` (F181)
 - Test: `tests/findings/test_F200_alcubierre_structural.py`
 - Results: `test-results/F200_alcubierre_structural.json`
 - Brief: `docs/design/alcubierre-warp-structural-test.md`
+- Open-items exploration: `docs/design/warp-shift-vector-construction.md` · runner `tests/runners/run_warp_openitems_explore.py`

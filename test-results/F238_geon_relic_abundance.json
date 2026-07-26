@@ -1,0 +1,137 @@
+{
+  "constants": {
+    "Mpl_GeV": 1.2208901282098643e+19,
+    "A_s": 2.1e-09,
+    "sigma_CMB": 4.58257569495584e-05,
+    "delta_c": 0.45,
+    "H_inf_max_GeV": 60000000000000.0,
+    "Omega_DM_target": 0.12
+  },
+  "checks": [
+    {
+      "check": "S1_geon_side_pinned_only_beta_free",
+      "pass": true,
+      "detail": "Geon side fully pinned (reuse F228): M_rem=0.93060 M_Pl (exact-algebraic, F190/F107); entropy-conserved yield coeff fixed => beta needed for Omega=0.12: 1e+04 g: 6.62e-15, 1e+06 g: 6.62e-12, 1e+08 g: 6.62e-09. The ONLY unpinned quantity is beta(M_form)."
+    },
+    {
+      "check": "S2_required_small_scale_sigma",
+      "pass": true,
+      "detail": "Press-Schechter inversion of the F228 beta band -> required RMS amplitude at the PBH scale sigma ~ 0.0584..0.0792 (delta_c=0.45). This is the amplitude the primordial spectrum must have at the small (PBH-formation) scale to source Omega_DM."
+    },
+    {
+      "check": "S3_scale_invariant_nogo",
+      "pass": true,
+      "detail": "Scale-invariant (n_s=1) spectrum at the CMB amplitude sigma_CMB=4.583e-05: x=delta_c/(sqrt2 sigma_CMB)=6944 => beta_HZ~10^(-2.094e+07), giving Omega_DM h^2 ~ 10^(-2.094e+07) <<< 0.12. The tuning-free spectrum UNDER-produces by ~2.09e+07 orders. A scale-invariant primordial spectrum CANNOT make the geon relic."
+    },
+    {
+      "check": "S4_required_spectral_boost",
+      "pass": true,
+      "detail": "Power ~ sigma^2 => the small-scale spectrum must be boosted by (sigma_req/sigma_CMB)^2 ~ 1.62e+06..2.99e+06 above the CMB amplitude. Spread over ~18 decades in k that is a blue tilt Delta(n_s-1) ~ 0.35 (or a localized spike). This boost is an INFLATON-POTENTIAL input, not a geon-sector quantity."
+    },
+    {
+      "check": "S5_no_beta_attractor",
+      "pass": true,
+      "detail": "beta(sigma)=1/2 erfc(delta_c/sqrt2 sigma) is strictly monotone in sigma (log10 beta grid ['-441.8', '-50.4', '-18.9', '-8.0', '-4.1', '-1.9', '-1.4']) with no interior fixed point => there is NO dynamically selected critical/attractor beta. beta tracks sigma one-for-one, so deriving beta REQUIRES deriving the small-scale sigma (the spectrum)."
+    },
+    {
+      "check": "S6_no_inflaton_sector_in_model",
+      "pass": true,
+      "detail": "Searched findings/ and ca-simulation/: inflaton/preheating/primordial-spectrum findings=NONE, modules=NONE. The model has NO inflaton finding and NO primordial-power-spectrum machinery (ca_cosmology.py starts at the hot Big Bang). So sigma(k) at the PBH scale is an EXTERNAL input."
+    },
+    {
+      "check": "S7_abundance_is_free_cosmological_input",
+      "pass": true,
+      "detail": "VERDICT: Omega_DM h^2=0.12 is NOT derivable from the model as it stands. The abundance is inherited one-for-one from beta(M_form), which Press-Schechter ties to the small-scale primordial amplitude sigma(k_PBH). That amplitude must be ~2e6x the CMB value (S4); the only tuning-free spectrum under-produces by ~2e7 orders (S3); there is no attractor (S5); and the model has no inflaton/spectrum sector to fix it (S6). So abundance is a FREE COSMOLOGICAL INITIAL CONDITION, isolated to a single external number -- extending F228's 'beta is the residual' to 'beta is provably a free input, and here is exactly why.'"
+    }
+  ],
+  "step1_geon_side": {
+    "M_rem_over_Mpl": 0.9306048591020996,
+    "beta_band": {
+      "1e+04 g": {
+        "beta_required": 6.6197957443318025e-15,
+        "T_form_GeV": 43491396423661.125
+      },
+      "1e+06 g": {
+        "beta_required": 6.619795744331802e-12,
+        "T_form_GeV": 4349139642366.113
+      },
+      "1e+08 g": {
+        "beta_required": 6.619795744331803e-09,
+        "T_form_GeV": 434913964236.61127
+      }
+    }
+  },
+  "step2_required_sigma": {
+    "1e+04 g": {
+      "beta": 6.6197957443318025e-15,
+      "x": 5.44800694270856,
+      "sigma_required": 0.05840632269380871
+    },
+    "1e+06 g": {
+      "beta": 6.619795744331802e-12,
+      "x": 4.784866739036193,
+      "sigma_required": 0.06650092236383587
+    },
+    "1e+08 g": {
+      "beta": 6.619795744331803e-09,
+      "x": 4.01879186429624,
+      "sigma_required": 0.07917753948913907
+    }
+  },
+  "step3_scale_invariant": {
+    "x_HZ": 6943.650748294136,
+    "log10_beta_HZ": -20939202.62581387,
+    "log10_Omega_HZ": -20939189.367477216,
+    "underproduces_by_orders": 20939189.367477216
+  },
+  "step4_required_boost": {
+    "boost_lo": 1624427.8717206258,
+    "boost_hi": 2985277.504549607,
+    "ns_minus_1_needed": 0.3534801762893027,
+    "Ndecades_k_assumed": 18.0
+  },
+  "step5_no_attractor": {
+    "sigma_grid": [
+      0.01,
+      0.03,
+      0.05,
+      0.08,
+      0.12,
+      0.2,
+      0.4
+    ],
+    "log10_beta_grid": [
+      -441.7756798943797,
+      -50.435244907127775,
+      -18.94765399258678,
+      -8.033834315580398,
+      -4.058790509789324,
+      -1.94615202184382,
+      -1.4031055309562166
+    ],
+    "strictly_increasing": true
+  },
+  "step6_missing_sector": {
+    "inflaton_findings": [],
+    "inflaton_modules": []
+  },
+  "summary": {
+    "question": "Can Omega_DM h^2~0.12 be derived non-tunably from a stated channel?",
+    "answer": "NO -- abundance remains a FREE cosmological initial condition (the small-scale primordial spectrum), and this fork proves exactly why.",
+    "channel": "PBH-remnant (F228) -- the only viable production route; abundance = M_rem * beta(M_form) * yield; geon side pinned, beta is the sole residual.",
+    "required_sigma_PBH": [
+      0.05840632269380871,
+      0.07917753948913907
+    ],
+    "sigma_CMB": 4.58257569495584e-05,
+    "required_spectral_boost": [
+      1624427.8717206258,
+      2985277.504549607
+    ],
+    "scale_invariant_underproduces_by_orders": 20939189.367477216,
+    "reason": "beta <- sigma(k_PBH) <- primordial P(k) <- inflaton potential; the model has no inflaton/spectrum sector, so sigma(k_PBH) is external. No attractor exists.",
+    "relation_to_F228": "EXTENDS F228: F228 named beta as 'the residual'; F238 proves beta is provably a free input (Press-Schechter inversion + scale-invariant no-go + no-attractor + missing-sector), and identifies it as a cosmological INITIAL CONDITION, not a particle coupling.",
+    "n_pass": 7,
+    "n_total": 7
+  }
+}

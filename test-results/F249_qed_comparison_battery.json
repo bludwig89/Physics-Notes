@@ -1,0 +1,204 @@
+{
+  "summary": {
+    "finding": "F249",
+    "title": "Quantitative QED comparison battery for the paired-spinor photon",
+    "computed_checks": 16,
+    "computed_pass": 16,
+    "computed_fail": 0,
+    "reference_ledger_items": 0,
+    "alpha_used_inv": 137.035999177,
+    "verdict": "tree/classical + photon-precision QED reproduced; the Tier-C radiative ledger is CLOSED by the interacting one-loop sector (F251 vacuum polarisation, F252 vertex): a_e=alpha/2pi and running alpha from Pi(q^2) and the Lamb shift all computed, with Ward/WT identities and b0^QED=4/3 exact; and Tier-D adds the full tree S-matrix (F260): Compton/Klein-Nishina, Moller, Bhabha, Dirac annihilation, e+e- -> mu+mu-, plus the positron/charge-conjugation + crossing sector."
+  },
+  "references": {
+    "alpha_inv": 137.035999177,
+    "a_e_measured": 0.00115965218046,
+    "alpha_MZ_inv": 128.927,
+    "lamb_shift_MHz": 1057.845,
+    "sigma_T_barn": 0.66524587,
+    "r_e_fm": 2.8179403262,
+    "m_e_MeV": 0.51099895,
+    "m_gamma_bound_eV": 1e-18
+  },
+  "tierA": {
+    "A1_masslessness": {
+      "quantity": "Omega_pair(k=0)",
+      "model": 0.0,
+      "target": 0.0,
+      "residual": 0.0,
+      "tier": "exact",
+      "pass": true,
+      "note": "gapless: pure-hop walk A0=0 (F168/B1). Real photon: massless."
+    },
+    "A2_luminality": {
+      "quantity": "group velocity dOmega/d|k| (k->0)",
+      "model": {
+        "x": 0.5773502930749134,
+        "diag": 0.5773502930749134,
+        "face": 0.5773502930749134
+      },
+      "target": 0.5773502691896258,
+      "residual": 2.3885287525615695e-08,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "massless => moves at c_lat=1/sqrt(3) in every direction."
+    },
+    "A3_lorentz_isotropy": {
+      "quantity": "fractional spread of phase speed over directions",
+      "spread_vs_kmag": {
+        "0.4": 0.0009847691859106158,
+        "0.2": 0.0002460816940979399,
+        "0.1": 6.151349364030269e-05,
+        "0.05": 1.5377940654621627e-05
+      },
+      "approach_order_in_k": 2.0002716712319977,
+      "target_order": 2.0,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "isotropy (=> Lorentz invariance) restored as k->0; anisotropy is O(k^2). Real photon: exactly isotropic. Model: continuum-limit."
+    },
+    "A4_coulomb_massless_pole": {
+      "quantity": "photon static pole  D^-1 = m^2 + v^2 k^2",
+      "mass_gap_m2": 5.574309550896583e-07,
+      "target_m2": 0.0,
+      "v2": 0.3330743705071017,
+      "target_v2": 0.3333333333333333,
+      "v": 0.577125957228664,
+      "anisotropy_of_v2": 3.2783358452423235e-05,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "massless pole (m^2->0) in 3-D IS the 1/r Coulomb law, NOT Yukawa e^-mr/r; v^2->1/3 = c_lat^2. alpha sets the physical prefactor and is an INPUT, not predicted. Anisotropy O(1e-4) at k=0.03."
+    },
+    "A5_thomson_cross_section": {
+      "quantity": "sigma_T (Thomson) from model alpha + m_e",
+      "model_barn": 0.6652458719056219,
+      "target_barn": 0.66524587,
+      "model_r_e_fm": 2.817940323426725,
+      "target_r_e_fm": 2.8179403262,
+      "rel_err": 2.864537712220892e-09,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "classical (Thomson) scattering limit; a tree-level QED number the model's two inputs reproduce."
+    },
+    "A6_ward_charge_conservation": {
+      "quantity": "C.(C x B) (curl sources no charge => d_t rho = -i C.J)",
+      "model": 1.6863088960388689e-16,
+      "target": 0.0,
+      "residual": 1.6863088960388689e-16,
+      "tier": "machine",
+      "pass": true,
+      "note": "tree Ward identity: the U(1) coupling conserves charge exactly (F87)."
+    }
+  },
+  "tierB": {
+    "B1_vacuum_birefringence": {
+      "quantity": "rotation-rate difference between two linear polarisations",
+      "measured_split": 3.3306690738754696e-16,
+      "single_branch_would_be": 0.0057767073394007495,
+      "target": 0.0,
+      "tier": "machine",
+      "pass": true,
+      "note": "both polarisations rotate at the one rate Omega_pair => zero vacuum birefringence (F69 PP2 dynamical). The single-branch value is the split the pair structurally avoids; that chiral photon is excluded by GRB/AGN polarimetry (F65/F66)."
+    },
+    "B2_photon_mass": {
+      "quantity": "photon rest mass (gap at k=0)",
+      "model": 0.0,
+      "pdg_bound_eV": 1e-18,
+      "tier": "exact",
+      "pass": true,
+      "note": "gap identically 0 => consistent with PDG m_gamma < 1e-18 eV."
+    },
+    "B3_dispersion_LIV": {
+      "quantity": "Omega_pair(k) - c_lat|k| along body diagonal",
+      "leading_order_in_k": 3.000033905384507,
+      "leading_coeff": 0.0035641973572948793,
+      "axis_aligned_deviation": -1.2212453270876722e-15,
+      "target_axis": 0.0,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "axis-aligned dispersion exactly linear (F105); LIV is anisotropic and O(k^3), i.e. suppressed by (k a)^2. Consistent with GRB time-of-flight bounds ~15 decades below sensitivity (F28)."
+    }
+  },
+  "tierC": {
+    "C1_electron_g_minus_2": {
+      "quantity": "electron anomalous moment a_e = (g-2)/2",
+      "model_a_e": 0.0011614097320976644,
+      "F2_0_over_alpha": "1/(2*pi)",
+      "parametric_integral": "1",
+      "measured_a_e": 0.00115965218046,
+      "leading_vs_measured_rel": 0.001515585161895022,
+      "model_can_compute": true,
+      "computed_by": "F252 ca_vertex_loop",
+      "tier": "exact_leading",
+      "pass": true,
+      "note": "a_e = F_2(0) = alpha/2pi computed EXACTLY from the one-loop vertex (parametric integral = 1); 0.15% vs measured. Higher QED orders out of scope (future)."
+    },
+    "C2_running_alpha": {
+      "quantity": "running coupling alpha(q^2): alpha(0) -> alpha(M_Z)",
+      "alpha0_inv": 137.035999177,
+      "b0_QED": "4/3",
+      "delta_alpha_lep_model": 0.03142092800460496,
+      "delta_alpha_lep_PDG": 0.031498,
+      "alpha_MZ_inv_leptonic": 132.73020091282038,
+      "alpha_MZ_inv_measured_full": 128.927,
+      "model_can_compute": true,
+      "computed_by": "F251 ca_vacuum_polarization",
+      "tier": "quantitative_leptonic",
+      "pass": true,
+      "note": "photon self-energy built: b0^QED=4/3 exact, Ward-transverse; leptonic Delta alpha(M_Z) matches PDG to <0.3% (1/alpha|lep ~ 132.7). Hadronic pull-down to 128.927 is the QCD sector (F151/F152) \u2014 honest scope, not the lepton loop."
+    },
+    "C3_lamb_shift": {
+      "quantity": "hydrogen Lamb shift 2s_1/2 - 2p_1/2",
+      "model_MHz": 1052.1934481291125,
+      "self_energy_MHz": 1079.322204853146,
+      "vacuum_pol_MHz": -27.12875672403348,
+      "measured_MHz": 1057.845,
+      "fraction_of_measured": 0.9946574858595659,
+      "dirac_degeneracy_lifted": true,
+      "model_can_compute": true,
+      "computed_by": "F252 ca_vertex_loop + ca_atom",
+      "tier": "quantitative_leading",
+      "pass": true,
+      "note": "the exact Dirac 2s-2p degeneracy (F125) is lifted to +1052.2 MHz = 99.5% of measured 1057.845 MHz. Uehling (-27.1 MHz) derived from F251's Pi; self-energy from the Bethe log. Residual ~5.6 MHz is higher-order alpha(Z alpha)^5/two-loop QED."
+    }
+  },
+  "tierD": {
+    "D1_compton_klein_nishina": {
+      "quantity": "Compton |M|^2 = Klein-Nishina; total sigma(x); -> Thomson",
+      "M2_worst_rel_err": 6.926801420662888e-13,
+      "kn_total_worst_rel_err": 4.5031840056496117e-07,
+      "sigma_over_thomson_at_x_1e-4": 0.999800038644157,
+      "ward_worst": 2.220446049250313e-16,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "full Klein-Nishina (1929): |M|^2 matches the Mandelstam form to machine precision, total sigma(x) reproduces the closed KN form and reduces to Thomson sigma_T as omega->0 (extends A5); Ward exact."
+    },
+    "D2_moller_bhabha": {
+      "quantity": "Moller (t/u) & Bhabha (s/t) cross sections + crossing",
+      "moller_worst_rel_err": 1.8919776987694968e-16,
+      "bhabha_worst_rel_err": 1.8919776987694973e-16,
+      "moller_bhabha_crossing_exact": true,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "Moller 1932 / Bhabha 1936 differential cross sections reproduced; the Bhabha<->Moller s<->u crossing relation is exact (sympy)."
+    },
+    "D3_pair_annihilation": {
+      "quantity": "e+e- -> gamma gamma (Dirac 1930): |M|^2, Bose, Ward, sigma",
+      "M2_worst_rel_err": 2.93157156624437e-16,
+      "bose_symmetry_worst": 0.0,
+      "ward_both_photons_worst": 7.216449660063518e-16,
+      "sigma_worst_rel_err": 1.5698694459076481e-06,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "Dirac annihilation cross section reproduced; photon Bose symmetry and Ward on both photons exact; needs the positron (v = C ubar^T)."
+    },
+    "D4_ee_to_mumu": {
+      "quantity": "e+e- -> mu+mu-: |M|^2, total sigma -> 4 pi alpha^2 / 3s",
+      "M2_worst_rel_err": 1.962781860511647e-16,
+      "sigma_worst_rel_err": 1.5622344113508774e-08,
+      "m_mu_MeV": 105.6583755,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "the R-ratio unit sigma = (4 pi alpha^2/3s) beta (1+2m^2/s) -> 4 pi alpha^2/3s at high energy; needs the 2nd-generation muon (F121 anchor)."
+    }
+  }
+}

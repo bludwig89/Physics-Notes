@@ -1,0 +1,122 @@
+{
+  "finding": "F240",
+  "title": "Deriving the omega NN coupling from the vector-meson sector; full-OBE deuteron",
+  "checks": {
+    "A1 KSFR closes: m_rho = sqrt2 g_rhopipi f_pi": {
+      "residual": 1.4525699246367009e-16,
+      "target": 1e-12,
+      "tier": "exact",
+      "status": "PASS",
+      "g_rhopipi": 6.010906846567429,
+      "g_rhoNN2_4pi": 2.875213713403097
+    },
+    "A2 baryon-number coherence g_omegaNN = 3 g_rhoNN (exact x3)": {
+      "residual": 0.0,
+      "target": 1e-15,
+      "tier": "exact",
+      "status": "PASS"
+    },
+    "A3 => strict-universality g_omegaNN^2/4pi = 9 g_rhoNN^2/4pi": {
+      "residual": 7.105427357601002e-15,
+      "target": 1e-09,
+      "tier": "exact",
+      "status": "PASS",
+      "g_omegaNN2_4pi_universal": 25.876923420627868
+    },
+    "B1 strict-universality g_omega (25.9) UNBINDS the deuteron": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omega2_4pi": 25.876923420627868,
+      "E_b_MeV": 0.0,
+      "bound": false
+    },
+    "C1 route A (F113 core + sigma + omega) binds E_b=2.224": {
+      "residual": 0.003328737105956936,
+      "target": 0.02,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omega2_4pi": 5.391892083964194,
+      "E_b_MeV": 2.2206712628940433,
+      "r_d_fm": 1.9777216842706773,
+      "P_D": 0.06252602871899626
+    },
+    "C2 route A r_d within 5% of 1.97 fm": {
+      "residual": 0.003919636685623005,
+      "target": 0.05,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "r_d_fm": 1.9777216842706773
+    },
+    "C3 route B (pure sigma+omega OBE, no core) binds E_b=2.224": {
+      "residual": 0.00628499928956705,
+      "target": 0.02,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omega2_4pi": 11.149380730741541,
+      "E_b_MeV": 2.217715000710433,
+      "r_d_fm": 1.8802646904921283,
+      "P_D": 0.07058109543570933
+    },
+    "C4 route B r_d within 8% of 1.97 fm": {
+      "residual": 0.04555091853191456,
+      "target": 0.08,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "r_d_fm": 1.8802646904921283
+    },
+    "D1 vector quench ~= scalar quench (both ~0.43-0.45, agree <10%)": {
+      "residual": 0.04459551634494207,
+      "target": 0.1,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "quench_vector": 0.43086191312270833,
+      "quench_scalar_F126": 0.45097330030771343
+    },
+    "E1 sigma+omega residual well in [-100,-50] MeV at g_omega2/4pi=8": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "well_min_MeV": -81.27421140464764,
+      "g_omega2_4pi": 8.0
+    }
+  },
+  "derived": {
+    "g_rhopipi_KSFR": 6.010906846567429,
+    "g_rhoNN2_4pi_universality": 2.875213713403097,
+    "g_omegaNN2_4pi_strict_universality": 25.876923420627868,
+    "m_omega_MeV": 782.66,
+    "route_A_core_plus_omega": {
+      "g_omega2_4pi": 5.391892083964194,
+      "E_b_MeV": 2.2206712628940433,
+      "r_d_fm": 1.9777216842706773,
+      "P_D": 0.06252602871899626,
+      "bound": true
+    },
+    "route_B_pure_sigma_omega_OBE": {
+      "g_omega2_4pi": 11.149380730741541,
+      "E_b_MeV": 2.217715000710433,
+      "r_d_fm": 1.8802646904921283,
+      "P_D": 0.07058109543570933,
+      "bound": true
+    },
+    "quench_vector_pureOBE_over_universality": 0.43086191312270833,
+    "quench_scalar_F126": 0.45097330030771343,
+    "residual_well_min_MeV_at_g8": -81.27421140464764
+  },
+  "notes": [
+    "m_omega and g_omegaNN/g_rhoNN=3 and the repulsive sign are Tier-1 model-derived.",
+    "STRICT universality g_omegaNN^2/4pi=25.9 OVERSHOOTS: deuteron unbinds (B1).",
+    "Deuteron binds at g_omega^2/4pi=5.39 (with F113 core) or 11.15 (pure OBE).",
+    "Vector absolute coupling stays a one-number bracket [5.4,11.1] below the 25.9 ceiling.",
+    "The required 0.43 quench of the bare vector coupling matches F126's 0.45 scalar quench.",
+    "Residual sigma+omega well = -81 MeV at g_omega^2/4pi=8 (in the -50..-100 MeV target)."
+  ],
+  "summary": {
+    "pass": 10,
+    "total": 10,
+    "all_pass": true
+  }
+}

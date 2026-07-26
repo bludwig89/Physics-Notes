@@ -53,10 +53,12 @@ These are ordered roughly by how cleanly a near-term measurement could kill the 
 The relic decays radiatively $\nu_s\to\nu\gamma$, emitting a **monochromatic X-ray line at $E_\gamma=m_s/2$**. The model lands $m_s\approx5.6$ keV (F201) → line at **~2.8 keV**; the 7.1 keV $\nu$MSM benchmark (F200) → **3.5 keV** line. The allowed mixing is a *narrow* resonant window ($\sin^2 2\theta\sim5\times10^{-12}$), bounded above by existing X-ray non-detections and below by requiring $\Omega_{\rm DM}$.
 - **Falsifier:** a clean X-ray survey (XRISM, Athena) that excludes a decay line across $\sim2$–$15$ keV at the predicted mixing rules out the model-native relic. Conversely, a confirmed line fixes $m_s$ and would be a direct hit.
 - **Status in model:** falsifiable, *not* free — F200 flags this explicitly.
+- **Quantified (F205):** the full Boltzmann solve gives non-resonant Dodelson-Widrow $\sin^2 2\theta=6.1\times10^{-9}$ for $\Omega_{\rm DM}$ — **2.55 dex above** the aggregate X-ray bound, so non-resonant DM is X-ray excluded. Resonant production is up to ~580× more efficient and clears the X-ray bound for a sufficient lepton asymmetry.
 
 ### 4.2 Warm-dark-matter small-scale structure  *(near-term)*
 A keV mass is **warm**: free-streaming suppresses sub-galactic structure. Predicts a **cutoff in the halo mass function**, fewer Milky-Way satellites, and a Lyman-α forest power suppression.
 - **Falsifier:** Lyman-α + satellite-count bounds already push $m_s\gtrsim$ few keV (non-resonant); resonant production relaxes this. If structure data force $m_s$ above the X-ray-allowed window, the candidate is squeezed out. This is a live two-sided constraint (X-ray from above on mixing, Lyman-α from below on mass).
+- **Quantified (F205):** from the computed frozen sterile spectrum, the Lyman-α mass floor is **~41 keV (non-resonant, reproduces the cited combined bound) → ~15 keV (coldest resonant, Viel bound) → ~9 keV (coldest + conservative bound)**. The model's 5.6 keV (F201) and the 7.1 keV benchmark sit **below all of these** → the keV sterile is under quantified pressure as 100% DM, viable only sub-dominant or if the full lepton-number-depletion QKE threads the cold + X-ray-allowed corner.
 
 ### 4.3 Dark energy is strictly $w=-1$ (no evolution)  *(near-term, topical)*
 F192/F196/F197 make dark energy the **homogeneous condensate VEV / holographic residual** → $w=-1$ exactly, with no quintessence-like field rolling. The picture predicts **no measurable $w(z)$ evolution**.
@@ -86,12 +88,12 @@ Both have been driven from "what is the dark sector?" to "what fixes one remaini
 
 ### Highest-value next steps
 1. **Pin the keV eigenvalue** — derive (or bound) $M_{R0}$ and $\delta_\nu$ from the QCA rule rather than the $\nu$MSM scale, turning the X-ray line position into a sharp prediction.
-2. **Lepton asymmetry** — does the same sterile sector source the asymmetry resonant production needs (F201 flags a paired F202 question)?
+2. **Lepton asymmetry / full L-depletion QKE** — F205 shows the fixed-$L$ pass cannot simultaneously deliver a cold spectrum *and* X-ray-allowed mixing at 7.1 keV; a depletion-tracking QKE (F202 sector) is the one door that could relieve the T2 pressure.
 3. **Confront $w=-1$ with current DESI/Euclid** $w(z)$ data directly — the cleanest live test of the dark-energy half.
-4. **Real CMB + structure-growth battery** for the keV warm relic (not yet built; F191/F197 used toy profiles only).
+4. **Real CMB + structure-growth battery** for the keV warm relic (F205 did the linear free-streaming; the CMB third-peak + growth confrontation with a proper transfer function is the remaining piece; F191/F197 used toy profiles only).
 
 ---
 
 ## 6. Caveat on rigor
 
-Most dark-sector findings use **toy galactic/cluster profiles** (F191/F194/F197) and **order-of-magnitude** abundance parametrisations calibrated to the literature (F198/F200), not full Boltzmann/Lyman-α computations. The *directions* (dark source required, emergent gravity falsified, $E_g$ unstable, sterile-ν viable) are robust; the *numbers* are illustrative until the structure-growth and X-ray-line batteries are built.
+Several dark-sector findings still use **toy galactic/cluster profiles** (F191/F194/F197). The keV-sterile abundance and free-streaming, however, are **no longer order-of-magnitude**: F205 does the momentum-resolved Boltzmann (QKE) production and the free-streaming → thermal-equivalent-mass mapping, narrowing the T1/T2 margins to computed numbers (DW X-ray exclusion 2.55 dex; Lyman-α floor ~41 keV non-resonant / ~9–15 keV coldest resonant). Residual uncertainties there are the standard ~factor-2 QCD-epoch normalisation and the fixed-lepton-number resonant pass (no back-reaction depletion); full 3D hydrodynamic Lyman-α simulations remain out of scope (linear free-streaming is matched to published simulated bounds, as is standard). The *directions* (dark source required, emergent gravity falsified, $E_g$ unstable, sterile-ν viable-but-pressured) are robust.

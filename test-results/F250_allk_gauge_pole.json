@@ -1,0 +1,21 @@
+{
+  "GP1_pole_location_max_det": 1.1102229946090791e-16,
+  "GP2_Omega_pair_0": 0.0,
+  "GP3_ward_commutator_max": 0.0,
+  "GP4_transverse_residue_rank_dev": 0,
+  "GP4_full_residue_rank_dev": 0,
+  "GP4_ward_k_dot_RT_max": 9.330572604757347e-17,
+  "GP5_eigenphase_err_max": 4.440892098500626e-16,
+  "GP6_unitary_max": 2.220446049250313e-16,
+  "GP6_completeness_max": 1.1102230246251565e-16,
+  "GP7_min_Omega_over_BZ": 0.0,
+  "GP7_bz_zeros": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "GP8_independent_residue_max_diff": 7.248526274307872e-16,
+  "c_lat_slope": 0.5773502930753144
+}

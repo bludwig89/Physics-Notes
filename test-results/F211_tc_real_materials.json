@@ -1,0 +1,145 @@
+{
+  "finding": "F211",
+  "title": "T_c magnitude from real superconductors",
+  "n_pass": 5,
+  "n_total": 5,
+  "checks": {
+    "TC1": {
+      "statement": "Allen-Dynes gap-eq reproduces measured T_c (mean |err|<20%; Pb/Ta/Sn tight)",
+      "tier": "numeric",
+      "residual": 0.1426418578083222,
+      "pass": true,
+      "per_element_rel_err": {
+        "Al": 0.5487305742710856,
+        "Sn": 0.04894185089818687,
+        "In": 0.22688998340039976,
+        "Ta": 0.002948215347675642,
+        "Nb": 0.10908796036635314,
+        "Pb": 0.0011848974049964908,
+        "Hg": 0.06070952296955793
+      },
+      "mean_rel_err": 0.1426418578083222
+    },
+    "TC2": {
+      "statement": "f1 f2 strong-coupling factors bring Pb, Hg within a few %",
+      "tier": "numeric",
+      "residual": 0.04295476065194422,
+      "pass": true,
+      "Pb_K": 7.498844729087479,
+      "Hg_K": 4.0734518431607,
+      "err_Pb": 0.04295476065194422,
+      "err_Hg": 0.018445338997421803
+    },
+    "TC3": {
+      "statement": "Hopfield lambda=eta/(M<w^2>) (Task-1 kernel) matches tabulated lambda",
+      "tier": "numeric",
+      "residual": 0.027484143763213578,
+      "pass": true,
+      "rel_err": {
+        "Nb": 0.000306216188629347,
+        "Al": 0.027484143763213578,
+        "Ta": 0.000384763370527149,
+        "Pb": 0.006451612903225812
+      }
+    },
+    "TC4": {
+      "statement": "BCS T_c prefactor 2 e^gamma/pi = 1.134 = F210 gap-ratio constant",
+      "tier": "machine",
+      "residual": 0.0,
+      "pass": true,
+      "prefactor": 1.1338659173110976
+    },
+    "TC5": {
+      "statement": "weak-coupling BCS overestimates T_c; Allen-Dynes (mass renorm) fixes it",
+      "tier": "numeric",
+      "residual": 0.0,
+      "pass": true
+    },
+    "table": [
+      {
+        "element": "Al",
+        "lambda": 0.43,
+        "mustar": 0.1,
+        "omega_log_K": 291.0,
+        "theta_D_K": 428.0,
+        "Tc_exp_K": 1.18,
+        "Tc_BCS_K": 15.93715533236968,
+        "Tc_McMillan_K": 2.1919909688476324,
+        "Tc_AllenDynes_K": 1.827502077639881,
+        "rel_err_AD": 0.5487305742710856
+      },
+      {
+        "element": "Sn",
+        "lambda": 0.72,
+        "mustar": 0.11,
+        "omega_log_K": 100.0,
+        "theta_D_K": 200.0,
+        "Tc_exp_K": 3.72,
+        "Tc_BCS_K": 22.009163366646696,
+        "Tc_McMillan_K": 5.6835201680465515,
+        "Tc_AllenDynes_K": 3.537936314658745,
+        "rel_err_AD": 0.04894185089818687
+      },
+      {
+        "element": "In",
+        "lambda": 0.805,
+        "mustar": 0.1,
+        "omega_log_K": 85.0,
+        "theta_D_K": 108.0,
+        "Tc_exp_K": 3.41,
+        "Tc_BCS_K": 23.332436100129765,
+        "Tc_McMillan_K": 4.241882740894934,
+        "Tc_AllenDynes_K": 4.183694843395363,
+        "rel_err_AD": 0.22688998340039976
+      },
+      {
+        "element": "Ta",
+        "lambda": 0.69,
+        "mustar": 0.1,
+        "omega_log_K": 130.0,
+        "theta_D_K": 240.0,
+        "Tc_exp_K": 4.48,
+        "Tc_BCS_K": 27.065291642682737,
+        "Tc_McMillan_K": 6.66722982960322,
+        "Tc_AllenDynes_K": 4.493208004757587,
+        "rel_err_AD": 0.002948215347675642
+      },
+      {
+        "element": "Nb",
+        "lambda": 1.01,
+        "mustar": 0.1,
+        "omega_log_K": 138.0,
+        "theta_D_K": 275.0,
+        "Tc_exp_K": 9.25,
+        "Tc_BCS_K": 52.14277065570989,
+        "Tc_McMillan_K": 16.091795943351784,
+        "Tc_AllenDynes_K": 10.259063633388767,
+        "rel_err_AD": 0.10908796036635314
+      },
+      {
+        "element": "Pb",
+        "lambda": 1.55,
+        "mustar": 0.1,
+        "omega_log_K": 56.0,
+        "theta_D_K": 105.0,
+        "Tc_exp_K": 7.19,
+        "Tc_BCS_K": 31.85930461375477,
+        "Tc_McMillan_K": 10.212485737497094,
+        "Tc_AllenDynes_K": 7.198519412341925,
+        "rel_err_AD": 0.0011848974049964908
+      },
+      {
+        "element": "Hg",
+        "lambda": 1.62,
+        "mustar": 0.1,
+        "omega_log_K": 29.0,
+        "theta_D_K": 72.0,
+        "Tc_exp_K": 4.15,
+        "Tc_BCS_K": 17.030980242344068,
+        "Tc_McMillan_K": 7.283667832028998,
+        "Tc_AllenDynes_K": 3.898055479676335,
+        "rel_err_AD": 0.06070952296955793
+      }
+    ]
+  }
+}

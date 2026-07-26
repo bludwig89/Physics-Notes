@@ -1,0 +1,116 @@
+{
+  "summary": {
+    "finding": "F259",
+    "title": "IR sector: soft bremsstrahlung + Bloch-Nordsieck cancellation",
+    "checks": 6,
+    "passed": 6,
+    "failed": 0,
+    "verdict": "Eikonal factor reproduced from the F87 vertex; k.J=0 and the F250 2-pol collapse exact; the soft IR log cancels the virtual (F252 F_1 + F258 Z_2) IR log so the O(alpha) inclusive rate is mu-independent (Bloch-Nordsieck); finite Sudakov observable quoted."
+  },
+  "detail": {
+    "b1": {
+      "eikonal_factor": "e * ( p'.eps/(p'.k) - p.eps/(p.k) )",
+      "outgoing_denominator": "(p'+k)^2 - m^2 = 2 p'.k",
+      "incoming_denominator": "(p-k)^2 - m^2 = -2 p.k",
+      "spinor_identity": "ubar(p') gamma^mu (pslash'+m) = 2 p'^mu ubar(p')",
+      "spinor_identity_exact": true,
+      "gate_pass": true,
+      "statement": "soft radiation off an external leg factorises to the eikonal factor e(p'.eps/p'.k - p.eps/p.k); the F87 vertex e*gamma^mu + the on-shell Dirac identity give it exactly."
+    },
+    "b2": {
+      "k_dot_J": "0",
+      "k_dot_J_zero": true,
+      "polsum_collapse": "sum_pol |eps.J|^2 = -J.J",
+      "polsum_collapse_exact": true,
+      "minus_JdotJ": "2 p.p'/((p.k)(p'.k)) - m^2/(p'.k)^2 - m^2/(p.k)^2",
+      "gate_pass": true,
+      "statement": "k.J = 1 - 1 = 0 exactly, so the F250 transverse 2-pol projector is sufficient; the pol sum collapses to -J.J."
+    },
+    "b4": {
+      "omega_log_integral": "log(DeltaE) - log(mu)",
+      "omega_log_integral_is_log": true,
+      "c_lat_independent_coeff": true,
+      "sigma_soft_over_sigma0": "(alpha/pi) f_IR ln(DeltaE^2/mu^2)",
+      "gate_pass": true,
+      "statement": "soft omega-integral = ln(DeltaE/mu) exactly (IR log); the BCC c_lat drops out of the dimensionless coefficient, so the IR coefficient is the continuum f_IR."
+    },
+    "q1": {
+      "minus_q2_over_m2": 10000.0,
+      "angular_integral": 16.43379376720722,
+      "f_IR_numeric": 8.21689688360361,
+      "f_IR_closed_hi_E_ln_minus1": 8.210340371976184,
+      "rel_err_vs_closed": 0.0007985675782462494,
+      "leading_log_ln_minus_q2_m2": 9.210340371976184,
+      "statement": "f_IR(q^2) = (1/2) x eikonal angular integral; high-energy closed form ln(-q^2/m^2) - 1, leading log ln(-q^2/m^2). This is the shared IR coefficient of virtual and real."
+    },
+    "b3": {
+      "sigma_virtual_IR": "-(alpha/pi) f_IR ln(-q^2/mu^2)",
+      "sigma_soft_IR": "+(alpha/pi) f_IR ln(DeltaE^2/mu^2)",
+      "d_dmu2_of_sum": "0",
+      "mu_independent": true,
+      "finite_sum": "1 - (alpha/pi) f_IR ln(-q^2/DeltaE^2)",
+      "finite_form_exact": true,
+      "gate_pass": true,
+      "statement": "coeff of ln(mu^2) in sigma_virtual+sigma_soft = 0 (literal); Bloch-Nordsieck: the O(alpha) inclusive rate is mu-finite, leaving the physical ln(DeltaE) Sudakov dependence."
+    },
+    "q2": {
+      "sqrt_minus_q2_MeV": 1000.0,
+      "delta_E_MeV": 100.0,
+      "delta_E_frac": 0.1,
+      "f_IR": 14.158286045114403,
+      "ln_minus_q2_over_dE2": 4.605170185988092,
+      "O_alpha_correction": -0.1514508877069414,
+      "leading_double_log": -0.16214786665088654,
+      "sigma_over_sigma0_Oalpha": 0.8485491122930586,
+      "sudakov_exponentiated": 0.8594600912923034,
+      "mu_independent": true,
+      "statement": "finite O(alpha) inclusive correction 1 - (alpha/pi) f_IR ln(-q^2/DeltaE^2), f_IR=ln(-q^2/m^2)-1; mu-independent, physical ln(DeltaE) resolution dependence."
+    }
+  },
+  "checks": {
+    "B1_eikonal_factor": {
+      "quantity": "M_rad -> e M_0 (p'.eps/p'.k - p.eps/p.k) from F87 vertex",
+      "spinor_identity_exact": true,
+      "tier": "exact",
+      "pass": true
+    },
+    "B2_current_conservation": {
+      "quantity": "k.J = 0 (literal); pol-sum collapse -J.J (F250 2-pol)",
+      "k_dot_J": "0",
+      "collapse": true,
+      "tier": "exact",
+      "pass": true
+    },
+    "B4_ir_log_coefficient": {
+      "quantity": "soft omega-integral = ln(DeltaE/mu); c_lat drops out",
+      "omega_log_integral": "log(DeltaE) - log(mu)",
+      "c_lat_independent": true,
+      "tier": "exact",
+      "pass": true
+    },
+    "Q1_ir_function": {
+      "quantity": "f_IR(q^2) angular integral vs closed ln(-q^2/m^2)-1",
+      "f_IR_numeric": 8.21689688360361,
+      "f_IR_closed": 8.210340371976184,
+      "rel_err_vs_closed": 0.0007985675782462494,
+      "tier": "quantitative",
+      "pass": true
+    },
+    "B3_bloch_nordsieck": {
+      "quantity": "coeff of ln(mu^2) in sigma_virtual+sigma_soft = 0",
+      "mu_independent": true,
+      "finite_form_exact": true,
+      "finite_sum": "1 - (alpha/pi) f_IR ln(-q^2/DeltaE^2)",
+      "tier": "exact",
+      "pass": true
+    },
+    "Q2_sudakov": {
+      "quantity": "finite mu-independent O(alpha) Sudakov correction",
+      "O_alpha_correction": -0.1514508877069414,
+      "sudakov_exponentiated": 0.8594600912923034,
+      "mu_independent": true,
+      "tier": "quantitative",
+      "pass": true
+    }
+  }
+}

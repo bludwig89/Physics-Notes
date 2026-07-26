@@ -124,7 +124,7 @@ $$
 \tag{5.2}
 $$
 
-This certifies that the electromagnetic charges are not free inputs but are fixed by the consistency of the full gauge structure — the capstone tying the $U(1)$ of this paper to the $SU(2)_L$ of Paper VI and the $SU(3)_c$ of Paper V (Finding F38; the full content table is given in Paper IX §5).
+This certifies that the electromagnetic charges are not free inputs but are fixed by the consistency of the full gauge structure — the capstone tying the $U(1)$ of this paper to the $SU(2)_L$ of Paper VI and the $SU(3)_c$ of Paper V (Finding F38; the full content table is given in Paper VIII §5).
 
 ---
 

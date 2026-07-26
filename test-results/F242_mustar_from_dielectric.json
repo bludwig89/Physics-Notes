@@ -1,0 +1,79 @@
+{
+  "rows": [
+    {
+      "element": "Al",
+      "r_s": 2.073235975064746,
+      "E_F_eV": 11.658556795394396,
+      "mu": 0.23436945917365612,
+      "mustar_derived": 0.11605135280307217,
+      "mustar_tab": 0.1,
+      "simple": true
+    },
+    {
+      "element": "Sn",
+      "r_s": 2.2191309378680044,
+      "E_F_eV": 10.17598384351659,
+      "mu": 0.2416310445124587,
+      "mustar_derived": 0.10614819222506586,
+      "mustar_tab": 0.11,
+      "simple": true
+    },
+    {
+      "element": "In",
+      "r_s": 2.4105130026814305,
+      "E_F_eV": 8.624289135492416,
+      "mu": 0.25051782771059994,
+      "mustar_derived": 0.10786260708076958,
+      "mustar_tab": 0.1,
+      "simple": true
+    },
+    {
+      "element": "Ta",
+      "r_s": 1.7967797535129235,
+      "E_F_eV": 15.522174970653527,
+      "mu": 0.21927002868695084,
+      "mustar_derived": 0.09997288408859893,
+      "mustar_tab": 0.1,
+      "simple": false
+    },
+    {
+      "element": "Nb",
+      "r_s": 1.7967321617613314,
+      "E_F_eV": 15.522997282731843,
+      "mu": 0.21926726151250264,
+      "mustar_derived": 0.1005722195000498,
+      "mustar_tab": 0.1,
+      "simple": false
+    },
+    {
+      "element": "Pb",
+      "r_s": 2.303339373557842,
+      "E_F_eV": 9.445531528331726,
+      "mu": 0.24562591701716488,
+      "mustar_derived": 0.1014320992196386,
+      "mustar_tab": 0.1,
+      "simple": true
+    },
+    {
+      "element": "Hg",
+      "r_s": 2.706480132332416,
+      "E_F_eV": 6.8412045881306245,
+      "mu": 0.2630191777214815,
+      "mustar_derived": 0.10075503352702642,
+      "mustar_tab": 0.1,
+      "simple": true
+    }
+  ],
+  "allen_dynes_mean_err": {
+    "tabulated": 0.1426418578083222,
+    "derived": 0.06348720600508354
+  },
+  "eliashberg_mean_err_derived": 0.2155755326251936,
+  "checks": {
+    "C1 mu(r_s) closed form (Al ~0.234)": true,
+    "C2 derived mu* in empirical band 0.085-0.13": true,
+    "C3 mu*(6 wlog) > mu*(wlog) cutoff consistency": true,
+    "C4 Allen-Dynes error tightens (derived<tabulated)": true,
+    "C5 Eliashberg residual only partial (10%<err, mu* not whole story)": true
+  }
+}

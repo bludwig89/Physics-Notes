@@ -1,0 +1,37 @@
+{
+  "finding": "F224",
+  "date": "2026-07-01",
+  "title": "SI-anchored super-exchange vs cold-atom data",
+  "tests": {
+    "G1_exact_gap": {
+      "worst_vs_diag": 2.688821387764051e-16,
+      "leading_limit_rel": 3.938416173059941e-08
+    },
+    "G2_scaling_refinement": {
+      "scaling_law_dispersion": 0.0,
+      "t_over_U": 0.1414213562373095,
+      "exact_vs_leading_pct": -6.929669182746452
+    },
+    "G3_timescales": {
+      "J_hz": [
+        5.0,
+        30.0,
+        1000.0
+      ],
+      "entangling_time_s": [
+        0.05,
+        0.008333333333333333,
+        0.00025
+      ],
+      "period_s": [
+        0.2,
+        0.03333333333333333,
+        0.001
+      ]
+    },
+    "G4_scale": {
+      "fundamental_cell_energy_GeV": 3.2050659654193684e+18,
+      "note": "physical content is dimensionless J/U; emergent \u03c4_eff sets Hz"
+    }
+  }
+}

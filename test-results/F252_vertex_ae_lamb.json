@@ -1,0 +1,89 @@
+{
+  "summary": {
+    "finding": "F252",
+    "title": "One-loop QED vertex: a_e = alpha/2pi and the Lamb shift",
+    "checks": 4,
+    "passed": 4,
+    "failed": 0,
+    "verdict": "Ward-Takahashi and a_e=alpha/2pi exact; Uehling coefficient derived from F251; Lamb shift lifts the Dirac degeneracy to 99.5% of the measured 1057.845 MHz (leading order)."
+  },
+  "detail": {
+    "wt": {
+      "clifford_2eta": true,
+      "wt_residual_zero": true,
+      "Z1_equals_Z2": true,
+      "gate_pass": true,
+      "statement": "q_m Lambda^m = S^{-1}(p') - S^{-1}(p) exactly (literal 0) with the F87 identity-channel vertex; fixes Z1 = Z2. Loop counterpart of F251's transverse self-energy."
+    },
+    "ae": {
+      "parametric_integral": "1",
+      "F2_0_over_alpha_symbolic": "1/(2*pi)",
+      "F2_0_over_alpha_numeric": 0.15915494309189535,
+      "target_1_over_2pi": 0.15915494309189535,
+      "a_e_schwinger": 0.0011614097320976644,
+      "a_e_measured": 0.00115965218046,
+      "rel_err_leading": 0.001515585161895022,
+      "gate_pass": true,
+      "note": "leading (Schwinger) term only; (alpha/pi)^2,... higher QED orders close the residual 0.15% and are out of scope.",
+      "statement": "one-loop vertex F_2(0) = alpha/2pi EXACTLY (parametric integral = 1); a_e = 1.16141e-3 vs measured 1.15965e-3 (0.15%)."
+    },
+    "uehling": {
+      "moment_x2_1mx2": "1/30",
+      "Pi_lowq_coeff_over_alpha_pi": "1/15",
+      "uehling_S_state_coeff": "-4/15",
+      "statement": "Pi(q^2) -> (alpha/15pi) q^2/m^2 at low q (from int x^2(1-x)^2 = 1/30); Uehling S-state coefficient -4/15, derived from the F251 bubble."
+    },
+    "lamb": {
+      "dirac_2s1_2_eV": -3.4014798855663284,
+      "dirac_2p1_2_eV": -3.4014798855663284,
+      "dirac_degeneracy_gap_eV": 0.0,
+      "dirac_degenerate": true,
+      "E1_unit_MHz": 101.73283771512556,
+      "self_energy_2s_minus_2p_MHz": 1079.322204853146,
+      "vacuum_pol_uehling_MHz": -27.12875672403348,
+      "total_lamb_MHz": 1052.1934481291125,
+      "measured_MHz": 1057.845,
+      "fraction_of_measured": 0.9946574858595659,
+      "residual_MHz": 5.651551870887488,
+      "degeneracy_lifted": true,
+      "statement": "one-loop radiative shift lifts the exact Dirac 2s-2p degeneracy to +1052.2 MHz = 99.5% of the measured 1057.845 MHz; Uehling (-27.1 MHz) derived from F251, self-energy (+1079 MHz) from the Bethe log (literature input). Residual ~5.6 MHz is higher-order alpha(Z alpha)^5/two-loop QED, out of leading-order scope."
+    }
+  },
+  "checks": {
+    "V1_ward_takahashi": {
+      "quantity": "q_m Lambda^m = S^{-1}(p') - S^{-1}(p) (fixes Z1=Z2)",
+      "tier": "exact",
+      "clifford": true,
+      "pass": true
+    },
+    "V2_ae_schwinger": {
+      "quantity": "a_e = F_2(0) = alpha/2pi",
+      "parametric_integral": "1",
+      "F2_0_over_alpha": "1/(2*pi)",
+      "a_e_model": 0.0011614097320976644,
+      "a_e_measured": 0.00115965218046,
+      "rel_err_leading": 0.001515585161895022,
+      "tier": "exact",
+      "pass": true
+    },
+    "V3_uehling_coefficient": {
+      "quantity": "Uehling S-state coefficient from F251 bubble low-q",
+      "moment": "1/30",
+      "uehling_coeff": "-4/15",
+      "tier": "exact",
+      "pass": true
+    },
+    "V4_lamb_shift": {
+      "quantity": "2s_{1/2}-2p_{1/2} Lamb shift (degeneracy lifted)",
+      "dirac_degenerate": true,
+      "self_energy_MHz": 1079.322204853146,
+      "vacuum_pol_MHz": -27.12875672403348,
+      "total_MHz": 1052.1934481291125,
+      "measured_MHz": 1057.845,
+      "fraction_of_measured": 0.9946574858595659,
+      "tier": "quantitative",
+      "pass": true,
+      "note": "leading order; residual ~5.6 MHz is higher-order QED."
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "finding": "F237",
+  "title": "keV-sterile resolution (D2): resonant + entropy-dilution vs X-ray + Lyman-alpha -> clean exclusion, hand off to the F223 geon",
+  "timestamp": "2026-07-03 - 14:20",
+  "n_pass": 7,
+  "n_total": 7,
+  "results": {
+    "A1_reuse_F205": {
+      "pass": true,
+      "reused_solver": "dm_fork_F205_sterile_qke_boltzmann (momentum-resolved QKE)",
+      "dw_mean_eps": 3.2888387702355826,
+      "note": "F237 reuses the validated F205 momentum-resolved QKE solver",
+      "_seconds": 0.0,
+      "_desc": "reuse the validated F205 QKE solver"
+    },
+    "A2_nonresonant_dilution_worsens_xray": {
+      "pass": true,
+      "dex_S1": 2.5534418297657804,
+      "dex_S10": 3.5534418297657804,
+      "note": "dilution needs S x more production -> S x mixing -> X-ray gets WORSE, not better",
+      "_seconds": 0.11,
+      "_desc": "non-resonant + dilution pushes mixing further over X-ray"
+    },
+    "A3_opposite_sign_exponents": {
+      "pass": true,
+      "slope_xray": 1.0000000000000002,
+      "slope_lya": -0.44444444444444453,
+      "note": "+1 vs -4/9 -> dilution cannot co-improve both windows (the heart of the exclusion)",
+      "_seconds": 0.0,
+      "_desc": "X-ray +1 vs Lyman-alpha -4/9: no co-improvement"
+    },
+    "A4_grid_71_excluded": {
+      "pass": true,
+      "n_points": 154,
+      "n_viable_viel": 0,
+      "n_viable_cons": 0,
+      "note": "7.1 keV: no (L,S) clears X-ray AND (even conservative) Lyman-alpha -> excluded",
+      "_seconds": 0.0,
+      "_desc": "7.1 keV grid: zero viable full-DM points"
+    },
+    "A5_grid_56_excluded": {
+      "pass": true,
+      "n_viable_viel": 0,
+      "n_viable_cons": 0,
+      "note": "5.6 keV model-texture mass: no viable full-DM point either",
+      "_seconds": 0.0,
+      "_desc": "5.6 keV grid: zero viable full-DM points"
+    },
+    "A6_best_case_door_closed": {
+      "pass": true,
+      "S_needed_viel": 6,
+      "xray_cost_dex_viel": 0.7781512503836436,
+      "note": "best case: the S that passes Lyman-alpha costs >0 dex over the X-ray bound -> door closed",
+      "_seconds": 0.0,
+      "_desc": "best case still costs >0 dex X-ray to pass Lyman-alpha"
+    },
+    "A7_handoff_and_subdominant": {
+      "pass": true,
+      "handoff_named": true,
+      "f_xray_saturated": 1.0,
+      "note": "clean exclusion -> hand off 100%-DM to the F223/F228 geon; keV sterile survives sub-dominant",
+      "_seconds": 0.0,
+      "_desc": "clean exclusion + F223 geon hand-off + sub-dominant survival"
+    }
+  },
+  "verdict": "EXCLUSION (clean). Reusing the F205 QKE solver and adding late entropy dilution S (the F202 GeV-N_2,3 decay channel), no (m_s, L, S) point across the full grid clears BOTH the current X-ray line bound AND even the conservative (3.5 keV) Lyman-alpha floor, for either the 5.6 keV texture mass or the 7.1 keV benchmark (viable-conservative points = 0). The reason is structural: the two levers have OPPOSITE sign in log S \u2014 the required mixing (hence the X-ray margin) scales as sin^2 2theta \u221d S (slope +1.00), while the Lyman-alpha floor improves only as S^(-4/9) (slope -0.44). So dilution can never co-improve both windows; the undiluted resonant point is already X-ray-optimal and it fails Lyman-alpha. Even the maximally-generous best case (coldest resonant <eps>=1.57 placed AT the X-ray bound) needs S~6 (Viel) / S~2 (conservative) to pass Lyman-alpha at 7.1 keV, which costs 0.8 / 0.3 dex OVER the X-ray bound. HAND-OFF: the model's viable 100%-DM candidate is the F223/F228 Planck-mass spin-2 geon (passes every DM screen: cold, collisionless, non-fuzzy, Delta N_eff~0). The keV sterile survives only as a bounded SUB-DOMINANT component (f<1), for which X-ray and Lyman-alpha both relax.",
+  "seconds": 0.11
+}

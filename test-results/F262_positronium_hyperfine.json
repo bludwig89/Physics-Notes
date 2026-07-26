@@ -1,0 +1,168 @@
+{
+  "finding": "F262",
+  "title": "Bound-state QED: positronium (reduced-mass + hyperfine + decays), hydrogen 21 cm, Lamb recoil + finite size",
+  "positronium": {
+    "spectrum": {
+      "mu_MeV": 0.255499475,
+      "Ry_ps_eV": 6.80284656150474,
+      "ground_state_eV": -6.798936535942746,
+      "ground_state_closed_eV": -6.80284656150474,
+      "levels_eV": {
+        "1s": -6.798936535942746,
+        "2s": -1.7004670529841726,
+        "2p": -1.7007932216461665,
+        "3s": -0.7558235188866327,
+        "3p": -0.7559094398667456,
+        "3d": -0.7558750619814898,
+        "4s": -0.42516262005523026,
+        "4p": -0.4251972843996267,
+        "4d": -0.42518096833941166,
+        "4f": -0.42517834698280726
+      },
+      "half_hydrogen_ratio": {
+        "1s": 0.5,
+        "2s": 0.5,
+        "3s": 0.5,
+        "4s": 0.5,
+        "2p": 0.5,
+        "3p": 0.5,
+        "4p": 0.5,
+        "3d": 0.5,
+        "4d": 0.5,
+        "4f": 0.5
+      },
+      "worst_ratio_dev_from_half": 0.0,
+      "statement": "Positronium spectrum = one-body Coulomb at mu=m_e/2; every level is exactly half the infinite-nucleus hydrogen value; ground state -6.803 eV."
+    },
+    "hyperfine_coefficients": {
+      "spin_spin": "1/3",
+      "annihilation": "1/4",
+      "sum": "7/12",
+      "sum_is_7_12": true,
+      "exact": true
+    },
+    "spin_spin": {
+      "coeff": 0.33333333333333326,
+      "target": 0.3333333333333333,
+      "rel_err": 1.6653345369377348e-16,
+      "statement": "spin-spin Fermi contact = (1/3) alpha^4 m_e c^2 from g=2 (F27/F46) + |psi(0)|^2"
+    },
+    "annihilation_contact": {
+      "coeff": 0.25,
+      "target": 0.25,
+      "rel_err": 0.0,
+      "contact_strength_pi_alpha_over_m2": 0.022925309222316594,
+      "statement": "virtual annihilation = (1/4) alpha^4 m_e c^2 from the single-photon e+e- coupling (^3S_1 only)"
+    },
+    "annihilation_from_model": {
+      "target_sigma_v_over_pi_alpha2_m2": 1.0,
+      "closed_form_limit": [
+        {
+          "beta": 0.1,
+          "sigma_v": 0.0001689269371353166,
+          "ratio_to_pi_alpha2_m2": 1.0097604956186919
+        },
+        {
+          "beta": 0.05,
+          "sigma_v": 0.00016770979119930975,
+          "ratio_to_pi_alpha2_m2": 1.0024850077395855
+        },
+        {
+          "beta": 0.02,
+          "sigma_v": 0.00016736091754514213,
+          "ratio_to_pi_alpha2_m2": 1.0003996160316992
+        },
+        {
+          "beta": 0.01,
+          "sigma_v": 0.00016731078954653625,
+          "ratio_to_pi_alpha2_m2": 1.000099976000482
+        }
+      ],
+      "extrapolated_ratio": 1.000099976000482,
+      "model_M2_over_e4_threshold": 4.000015999944001,
+      "model_amplitude_available": true,
+      "statement": "annihilation coupling pi alpha/m^2 is the model's own single-photon e+e- vertex; threshold sigma*v -> pi alpha^2/m^2 reproduced from F260"
+    },
+    "hyperfine": {
+      "coeff_total": 0.5833333333333333,
+      "coeff_target": 0.5833333333333334,
+      "coeff_spin_spin": 0.33333333333333326,
+      "coeff_annihilation": 0.25,
+      "delta_E_eV": 0.0008452751859878593,
+      "delta_E_MHz": 204386.63067765473,
+      "measured_MHz": 203389.0,
+      "ratio_to_measured": 1.0049050375273723,
+      "rel_err_LO": 0.004905037527372316,
+      "statement": "LO hyperfine 7/12 alpha^4 m_e c^2 = 204 387 MHz vs measured 203 389 MHz; ~0.5% residual is the O(alpha^5) radiative correction (out of leading-order scope)."
+    },
+    "para_2gamma": {
+      "sigma_v_threshold_over_m": 0.00016729406415509762,
+      "Gamma_over_m": 1.0346575999065053e-11,
+      "Gamma_closed_over_m": 1.0346575999065051e-11,
+      "coeff_check_rel_err": 1.5614703202669384e-16,
+      "Gamma_eV": 5.287089471617442e-06,
+      "tau_ns": 0.12449419674727726,
+      "tau_measured_ns": 0.12452,
+      "tau_rel_err": 0.000207221753314731,
+      "statement": "para->2gamma: Gamma = 4 (sigma v)_thr |psi(0)|^2 = (1/2) alpha^5 m_e c^2; tau = 0.125 ns (from F260 annihilation cross section, model-derived)."
+    },
+    "ore_powell": {
+      "integral": 0.8696044009748422,
+      "target_pi2_minus_9": 0.869604401089358,
+      "rel_err": 1.3168728344825422e-10,
+      "factor_2_pi2m9_over_9pi": 0.061511928430150443,
+      "statement": "Ore-Powell 3gamma phase-space integral -> pi^2-9; ortho rate factor = 2(pi^2-9)/(9 pi)"
+    },
+    "ortho_3gamma": {
+      "factor": 0.061511928430150443,
+      "Gamma_over_m": 9.288622648147801e-15,
+      "Gamma_eV": 4.7464764201497454e-09,
+      "tau_ns": 138.67380739652643,
+      "tau_measured_ns": 142.05,
+      "tau_rel_err": 0.023767635364122373,
+      "statement": "ortho->3gamma: Gamma = 2(pi^2-9)/(9 pi) alpha^6 m_e c^2; tau_LO = 138.6 ns vs measured 142 ns (O(alpha) correction brings LO up to measured)."
+    }
+  },
+  "hyperfine_and_lamb": {
+    "hydrogen_21cm": {
+      "g_proton_input": 5.5856946893,
+      "coeff_4_3": 1.3333333333333333,
+      "a_e_schwinger": 0.0011614097328858596,
+      "E_F_point_MHz": 1421.159529068593,
+      "E_F_reduced_mass_MHz": 1418.8400929265697,
+      "E_F_with_a_e_MHz": 1420.4879476199033,
+      "measured_MHz": 1420.405751768,
+      "ratio_point_to_measured": 1.0005306774487885,
+      "ratio_final_to_measured": 1.0000578678675447,
+      "rel_err_final": 5.78678675447978e-05,
+      "wavelength_cm": 21.10489275902107,
+      "statement": "Fermi-contact hyperfine = (4/3) g_p (m_e/m_p) alpha^4 m_e c^2; with reduced mass and a_e (F252) -> 1420.4 MHz = the 21 cm line (g_p is the one non-QED input)."
+    },
+    "finite_size_2s": {
+      "r_p_fm": 0.8409,
+      "delta_E_fs_2s_MHz": 0.13822953439665714,
+      "proton_radius_lever_dln_dlnrp": 2.0,
+      "statement": "finite-size shifts 2s up by ~0.14 MHz (r_p=0.84 fm); Delta E_fs \u221d r_p^2 is the proton-radius lever."
+    },
+    "lamb_complete": {
+      "baseline_radiative_MHz": 1052.1934481291125,
+      "bethe_source": "literature (Drake/Klarsfeld)",
+      "finite_size_MHz": 0.13822953439665714,
+      "recoil_MHz": -1.357256551479689,
+      "recoil_breakdown": {
+        "reduced_mass_ratio": 0.9994556794247613,
+        "reduced_mass_shift_MHz": -1.7172565514796891,
+        "pure_recoil_shift_MHz_cited_EGS": 0.36,
+        "total_recoil_MHz": -1.357256551479689,
+        "statement": "recoil = reduced-mass rescaling (m_r/m_e)^3 (~-1.7 MHz, derived) + leading Salpeter/EGS pure-recoil term (~+0.36 MHz, cited); both are small."
+      },
+      "shifted_total_MHz": 1050.9744211120296,
+      "measured_MHz": 1057.845,
+      "residual_after_corrections_MHz": 6.870578887970396,
+      "finite_size_at_rp_0.8409_MHz": 0.13822953439665714,
+      "finite_size_at_rp_0.8770_MHz": 0.15035273305396138,
+      "proton_radius_lever": 0.01212319865730424,
+      "statement": "recoil + finite size are sub-MHz to ~MHz; the residual to 1057.845 MHz is dominated by two-loop/higher-order radiative QED, not by recoil or size. Finite size \u221d r_p^2 is the proton-radius lever."
+    }
+  }
+}

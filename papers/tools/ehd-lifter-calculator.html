@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EHD Ionocraft / Lifter Efficiency Calculator</title>
+<style>
+  :root{
+    --bg:#0f1216; --panel:#171b21; --panel2:#1e242c; --ink:#e8edf2; --muted:#9aa7b4;
+    --acc:#4fb0ff; --good:#38d39f; --warn:#ffb454; --bad:#ff6b6b; --line:#2a323c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink);padding:24px}
+  .wrap{max-width:920px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 20px;font-size:13px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 12px}
+  label{display:block;margin:10px 0 4px;font-size:13px;color:var(--muted)}
+  input,select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+        border-radius:8px;padding:9px 10px;font-size:15px}
+  input:focus,select:focus{outline:none;border-color:var(--acc)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .out{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:16px}
+  .metric{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .metric:last-child{border-bottom:none}
+  .metric .k{color:var(--muted);font-size:13px}
+  .metric .v{font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+  .v small{font-size:12px;color:var(--muted);font-weight:400}
+  .flag{margin-top:12px;padding:10px 12px;border-radius:8px;font-size:13px}
+  .flag.ok{background:rgba(56,211,159,.12);border:1px solid var(--good);color:var(--good)}
+  .flag.warn{background:rgba(255,180,84,.12);border:1px solid var(--warn);color:var(--warn)}
+  .note{color:var(--muted);font-size:12px;margin-top:14px;line-height:1.5}
+  .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel2);
+        padding:2px 6px;border-radius:5px;font-size:12px;color:var(--acc)}
+  details{margin-top:16px}
+  summary{cursor:pointer;color:var(--acc);font-size:13px}
+  .tabs{display:flex;gap:6px;margin-bottom:10px}
+  .tab{flex:1;text-align:center;padding:8px;border-radius:8px;background:var(--panel2);
+       border:1px solid var(--line);cursor:pointer;font-size:13px;color:var(--muted)}
+  .tab.active{border-color:var(--acc);color:var(--ink);background:rgba(79,176,255,.10)}
+  .hidden{display:none}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  th,td{text-align:right;padding:5px 8px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--muted);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>EHD Ionocraft / Lifter Efficiency Calculator</h1>
+  <p class="sub">Asymmetric-capacitor (Biefeld–Brown) thrust in air. Efficiency <span class="formula">F/P = d/(μV)</span> is exact from air constants; absolute thrust needs the corona current. Applied Note 1, "A Universe in a Bottle".</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Operating point</h2>
+      <label>Applied voltage V (kV)</label>
+      <input id="V" type="number" value="30" step="1" oninput="calc()">
+      <div class="row">
+        <div>
+          <label>Electrode gap d (cm)</label>
+          <input id="d" type="number" value="3" step="0.5" oninput="calc()">
+        </div>
+        <div>
+          <label>Emitter radius r (mm)</label>
+          <input id="r" type="number" value="0.05" step="0.01" oninput="calc()">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Ion mobility μ (10⁻⁴ m²/V·s)</label>
+          <input id="mu" type="number" value="2.0" step="0.1" oninput="calc()">
+        </div>
+        <div>
+          <label>Air density factor δ</label>
+          <input id="delta" type="number" value="1.0" step="0.05" oninput="calc()">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Current source</h2>
+      <div class="tabs">
+        <div class="tab active" id="tabA" onclick="setMode('A')">I know my current</div>
+        <div class="tab" id="tabB" onclick="setMode('B')">Calibrate from a test point</div>
+      </div>
+
+      <div id="modeA">
+        <label>Corona current I (mA)</label>
+        <input id="I" type="number" value="0.5" step="0.05" oninput="calc()">
+        <p class="note">Measured device current at the operating voltage above. Gives exact thrust via <span class="formula">F = I·d/μ</span>.</p>
+      </div>
+
+      <div id="modeB" class="hidden">
+        <p class="note">Enter one measured (V, I) point. We fit the Townsend law <span class="formula">I = C·V(V−V₀)</span> (V₀ from Peek's onset) and predict I at your operating voltage.</p>
+        <div class="row">
+          <div>
+            <label>Test voltage (kV)</label>
+            <input id="Vt" type="number" value="30" step="1" oninput="calc()">
+          </div>
+          <div>
+            <label>Test current (mA)</label>
+            <input id="It" type="number" value="0.5" step="0.05" oninput="calc()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="out">
+    <div class="metric"><span class="k">Thrust-to-power efficiency &nbsp;(exact)</span><span class="v" id="o_eff">–</span></div>
+    <div class="metric"><span class="k">Mean gap field &nbsp;E = V/d</span><span class="v" id="o_field">–</span></div>
+    <div class="metric"><span class="k">Corona onset voltage &nbsp;(Peek estimate)</span><span class="v" id="o_onset">–</span></div>
+    <div class="metric"><span class="k">Corona current I &nbsp;(used)</span><span class="v" id="o_I">–</span></div>
+    <div class="metric"><span class="k">Thrust &nbsp;F = I·d/μ</span><span class="v" id="o_F">–</span></div>
+    <div class="metric"><span class="k">Lifted mass &nbsp;m = F/g</span><span class="v" id="o_m">–</span></div>
+    <div class="metric"><span class="k">Electrical power &nbsp;P = I·V</span><span class="v" id="o_P">–</span></div>
+    <div class="metric"><span class="k">Space-charge current ceiling &nbsp;(planar Mott–Gurney)</span><span class="v" id="o_sclc">–</span></div>
+    <div id="flag"></div>
+  </div>
+
+  <details>
+    <summary>Reference efficiency table (air, μ = 2.0×10⁻⁴)</summary>
+    <table>
+      <thead><tr><th>Voltage</th><th>Gap</th><th>Mean field</th><th>Thrust/Power</th></tr></thead>
+      <tbody>
+        <tr><td>30 kV</td><td>3 cm</td><td>10 kV/cm</td><td>5.0 N/kW</td></tr>
+        <tr><td>30 kV</td><td>5 cm</td><td>6 kV/cm</td><td>8.3 N/kW</td></tr>
+        <tr><td>20 kV</td><td>3 cm</td><td>6.7 kV/cm</td><td>7.5 N/kW</td></tr>
+        <tr><td>40 kV</td><td>5 cm</td><td>8 kV/cm</td><td>6.2 N/kW</td></tr>
+        <tr><td>10 kV</td><td>3 cm</td><td>3.3 kV/cm</td><td>15 N/kW</td></tr>
+      </tbody>
+    </table>
+    <p class="note"><b>Design rule (max efficiency):</b> largest gap and lowest voltage that still sustain a stable saturated corona without arc-over, driven from the sharpest practical emitter into a smooth large collector. Efficiency ∝ d/V.</p>
+  </details>
+
+  <p class="note"><b>Honesty boundary.</b> μ, corona onset, and the Townsend coefficient are continuum gas-kinetics inputs — not derived from the lattice. The model fixes the <i>mechanism</i> and the efficiency <i>form</i>, not these transport constants. In true high vacuum the model predicts <b>zero net steady-DC thrust</b> (no gas to ionise, no momentum reservoir); the "anti-gravity" reading is excluded. See Applied Note 1.</p>
+</div>
+
+<script>
+const EPS0 = 8.854e-12, G = 9.80665, E0PEEK = 3.0e6; // SI
+let mode = 'A';
+
+function setMode(m){
+  mode = m;
+  document.getElementById('modeA').classList.toggle('hidden', m!=='A');
+  document.getElementById('modeB').classList.toggle('hidden', m!=='B');
+  document.getElementById('tabA').classList.toggle('active', m==='A');
+  document.getElementById('tabB').classList.toggle('active', m==='B');
+  calc();
+}
+
+const num = id => parseFloat(document.getElementById(id).value);
+
+// Peek onset field (V/m) for emitter radius r (m), density factor delta
+function peekField(r, delta){
+  return E0PEEK * delta * (1 + 0.03/Math.sqrt(delta * r));
+}
+// Coaxial-approx onset voltage: V0 = Ec * r * ln(d/r)
+function onsetVoltage(r, d, delta){
+  const Ec = peekField(r, delta);
+  return Ec * r * Math.log(d/r);
+}
+
+function calc(){
+  const V = num('V')*1e3;              // V
+  const d = num('d')/100;              // m
+  const r = num('r')/1000;            // m
+  const mu = num('mu')*1e-4;          // m^2/Vs
+  const delta = num('delta');
+
+  if(!(V>0&&d>0&&r>0&&mu>0)){return;}
+
+  // exact efficiency (N/W); show N/kW
+  const eff = d/(mu*V);
+  const field = V/d;                   // V/m
+  const V0 = onsetVoltage(r, d, delta);// V
+
+  // current
+  let I;                               // A
+  if(mode==='A'){
+    I = num('I')*1e-3;
+  } else {
+    const Vt = num('Vt')*1e3, It = num('It')*1e-3;
+    const denom = Vt*(Vt - V0);
+    const C = denom>0 ? It/denom : 0;  // Townsend coefficient
+    I = C>0 ? C*V*(V - V0) : 0;
+    if(I<0) I = 0;
+  }
+
+  const F = I*d/mu;                     // N
+  const P = I*V;                        // W
+  const m = F/G;                        // kg
+  const Jsclc = (9/8)*EPS0*mu*V*V/(d*d*d); // A/m^2
+
+  set('o_eff', (eff*1000).toFixed(1), 'N/kW');
+  set('o_field', (field/1e5).toFixed(1), 'kV/cm');
+  set('o_onset', (V0/1e3).toFixed(1), 'kV');
+  set('o_I', (I*1e3).toFixed(3), 'mA');
+  set('o_F', (F*1e3).toFixed(2), 'mN');
+  set('o_m', (m*1e3).toFixed(2), 'g');
+  set('o_P', P.toFixed(1), 'W');
+  set('o_sclc', (Jsclc*1e3).toFixed(2), 'mA/m²');
+
+  // flags
+  const flag = document.getElementById('flag');
+  let html = '';
+  if(V <= V0){
+    html = `<div class="flag warn">Applied ${(V/1e3).toFixed(0)} kV is at or below the ~${(V0/1e3).toFixed(1)} kV corona onset — little or no ion current, so little thrust. Raise voltage or sharpen the emitter.</div>`;
+  } else if(field/1e5 > 30){
+    html = `<div class="flag warn">Mean gap field ${(field/1e5).toFixed(1)} kV/cm is near/above the ~30 kV/cm arc-over scale — risk of spark-over. Widen the gap.</div>`;
+  } else {
+    html = `<div class="flag ok">Above corona onset and below arc-over — valid operating window. Efficiency improves further by lowering V toward onset and widening the gap.</div>`;
+  }
+  flag.innerHTML = html;
+}
+
+function set(id, val, unit){
+  document.getElementById(id).innerHTML = `${val} <small>${unit}</small>`;
+}
+calc();
+</script>
+</body>
+</html>

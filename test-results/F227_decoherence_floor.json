@@ -1,0 +1,74 @@
+{
+  "finding": "F227",
+  "date": "2026-07-02",
+  "title": "Intrinsic-decoherence / unitarity floor (Route 4)",
+  "tests": {
+    "G1_intrinsic_floor": {
+      "E_eV": 1.8,
+      "gamma_liv_s^-1": 8.625361419199093e-40,
+      "gamma_conservative_s^-1": 1.5358260154230867e-12,
+      "effective_theory_floor": 0.0,
+      "E_lat_eV": 3.205067815022935e+27,
+      "pass": true
+    },
+    "G2_lieb_robinson_speed": {
+      "dispersion_slope_dOmega_dk": 0.5773502691896258,
+      "c_lat": 0.5773502691896258,
+      "residual": 0.0,
+      "source": "F26/F105/F180 exact on-axis \u03a9=|k|/\u221a3",
+      "pass": true
+    },
+    "G3_strict_causal_cone": {
+      "times": [
+        1,
+        2,
+        3
+      ],
+      "front_and_cone_2t": [
+        [
+          2,
+          4
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          12
+        ]
+      ],
+      "max_correlation_outside_cone": 1.5543122344752192e-15,
+      "front_within_cone": true,
+      "pass": true
+    },
+    "G4_confront_experiment": {
+      "E_eV": 1.8,
+      "gamma_intrinsic_liv_s^-1": 8.625361419199093e-40,
+      "gamma_intrinsic_conservative_s^-1": 1.5358260154230867e-12,
+      "measured_clock_decoherence_s^-1": 0.00847457627118644,
+      "measured_transmon_decoherence_s^-1": 943.3962264150944,
+      "CSL_GRW_s^-1": 1e-16,
+      "CSL_Adler_s^-1_excluded": 1e-08,
+      "conservative_orders_below_clock": 9.741775972845666,
+      "conservative_orders_below_transmon": 14.788352114887022,
+      "liv_orders_below_CSL_GRW": 23.064222698101034,
+      "liv_orders_below_CSL_Adler": 31.064222698101034,
+      "note_CSL_is_per_nucleon": "CSL \u03bb is a per-nucleon localisation rate; the model has NO such stochastic term \u2014 it is unitary",
+      "verdict": "intrinsic floor Planck-suppressed below ALL measured decoherence and below the collapse-model rates; model is unitary with no objective collapse (no DP/CSL term)",
+      "pass": true
+    },
+    "G5_leakage_separation": {
+      "doublon_leakage_per_gate": 0.0012959999999999998,
+      "intrinsic_nonunitarity_per_gate": 3.154064454833776e-55,
+      "separation_orders": 51.61373443743306,
+      "note": "emergent (material-scale) vs fundamental (Planckian) \u2014 distinct channels",
+      "pass": true
+    }
+  },
+  "summary": {
+    "passed": 5,
+    "total": 5,
+    "all_pass": true
+  }
+}

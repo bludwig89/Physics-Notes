@@ -110,9 +110,61 @@
 | findings | `test_F201_kev_from_eg_texture.py` |  | test_F201_kev_from_eg_texture.py | `F201_kev_from_eg_texture.json`, `F201_kev_from_eg_texture_test.json` |
 | findings | `test_F202_leptogenesis_sakharov.py` |  | test_F202_leptogenesis_sakharov.py | `F202_leptogenesis_sakharov.json`, `F202_leptogenesis_sakharov_test.json` |
 | findings | `test_F203_dark_sector_falsifiers.py` |  | test_F203_dark_sector_falsifiers.py | `F203_dark_sector_falsifiers.json`, `F203_dark_sector_falsifiers_test.json` |
+| findings | `test_F205_sterile_qke_boltzmann.py` |  | test_F205_sterile_qke_boltzmann.py | `F205_sterile_qke_boltzmann.json`, `F205_sterile_qke_boltzmann_test.json` |
 | findings | `test_F206_internucleon_nn_binding.py` | F195 F206 | F206 — Tier-B inter-nucleon NN one-boson-exchange binding (closes the F195 | `F206_internucleon_nn_binding.json` |
 | findings | `test_F207_casimir.py` |  | test_F207_casimir.py — The Casimir effect in the BCC Weyl-QCA model | `F207_casimir.json` |
 | findings | `test_F208_relativistic_scf_ie.py` | F125 F208 | F208 — relativistic (F125 Dirac–Coulomb) ionization energies in the |  |
+| findings | `test_F209_modulated_casimir.py` |  | test_F209_modulated_casimir.py — Can a *time-modulated* Casimir cavity break | `F209_modulated_casimir.json` |
+| findings | `test_F210_superconductivity.py` |  | test_F210_superconductivity.py | `F210_superconductivity.json` |
+| findings | `test_F211_tc_real_materials.py` |  | test_F211_tc_real_materials.py | `F211_tc_real_materials.json` |
+| findings | `test_F212_entanglement_generation.py` | F212 | F212 — Does the lattice substrate GENERATE entanglement it isn't given? | `F212_entanglement_generation.json` |
+| findings | `test_F213_hopfield_and_gap_renormalization.py` |  | test_F213_hopfield_and_gap_renormalization.py | `F213_hopfield_and_gap_renormalization.json` |
+| findings | `test_F214_live_entanglement_superexchange.py` | F214 | F214 — Super-exchange J derived from the ca_dirac hopping + a LIVE casim | `F214_live_entanglement_superexchange.json` |
+| findings | `test_F215_eliashberg_solver.py` |  | test_F215_eliashberg_solver.py | `F215_eliashberg_solver.json` |
+| findings | `test_F216_massive_spin2.py` | F216 | Test wrapper for F216 — massive spin-2 / second-polarization dark-sector fork. | `F216_massive_spin2.json` |
+| findings | `test_F217_field_native_fermion_entanglement.py` | F217 | F217 — Field-native two-fermion second quantization: super-exchange J and | `F217_field_native_fermion_entanglement.json` |
+| findings | `test_F218_algorithm_through_engine.py` | F218 | F218 — A quantum ALGORITHM run through the engine: native exchange→CZ/CNOT | `F218_algorithm_through_engine.json` |
+| findings | `test_F218_alpha2F_and_pade_gap.py` |  | test_F218_alpha2F_and_pade_gap.py | `F218_alpha2F_and_pade_gap.json` |
+| findings | `test_F220_field_native_execution.py` | F220 | F220 — Field-native execution: quantum gates and a full algorithm run on the | `F220_field_native_execution.json` |
+| findings | `test_F221_noise_error_correction.py` | F221 | F221 — Decoherence channels + stabilizer error correction: the engine studies | `F221_noise_error_correction.json` |
+| findings | `test_F222_scaled_quantum_algorithms.py` | F222 | F222 — Scaling the substrate's quantum algorithms to many qubits, and proving | `F222_scaled_quantum_algorithms.json` |
+| findings | `test_F223_spin2_binding_relic.py` | F216 F223 | Test wrapper for F223 — does the F216 massive spin-2 DM bound state form? | `F223_spin2_binding_relic.json` |
+| findings | `test_F224_qc_si_coldatom.py` | F224 | F224 — SI-anchoring the super-exchange sector and testing it against measured | `F224_qc_si_coldatom.json` |
+| findings | `test_F225_doublon_leakage_spinqubit.py` | F225 | F225 — Route 2 to a real-world test: the model's native doublon leakage vs | `F225_doublon_leakage_spinqubit.json` |
+| findings | `test_F226_bell_tsirelson.py` | F226 | F226 — Route 3: CHSH / Tsirelson on the genuine 2^n lattice register | `F226_bell_tsirelson.json` |
+| findings | `test_F227_decoherence_floor.py` | F227 | F227 — Route 4: intrinsic-decoherence / unitarity floor from discreteness | `F227_decoherence_floor.json` |
+| findings | `test_F228_geon_production_stability.py` | F223 F228 | Test wrapper for F228 — how is the F223 geon produced, and is it stable? | `F228_geon_production_stability.json` |
+| findings | `test_F230_lepton_angle_geometric_nogo.py` | F230 | F230 — E1: attempt to derive the lepton spectrum angle delta* = 2/9 rad | `F230_lepton_angle_geometric_nogo.json` |
+| findings | `test_F231_weinberg_scheme_reconciliation.py` | F45 F49 F138 F231 | F231 — E2: reconcile sin^2 theta_W = 1/4 (F45/F138 UV cap) with 2/9 (F49/on-shell). | `F231_weinberg_scheme_reconciliation.json` |
+| findings | `test_F232_lattice_spacing_degeneracy.py` | F232 | F232 — L3: Pin the lattice spacing a independently of any mass. | `F232_lattice_spacing_degeneracy.json` |
+| findings | `test_F233_mass_scale_N_transmutation.py` |  | test_F233_mass_scale_N_transmutation.py | `F233_mass_scale_N_transmutation.json` |
+| findings | `test_F234_Wvc_triple_closed.py` |  | test_F234_Wvc_triple_closed.py | `F234_Wvc_triple_closed.json` |
+| findings | `test_F235_sqrt_sigma_fpi_scale_setting.py` |  | test_F235_sqrt_sigma_fpi_scale_setting.py | `F235_sqrt_sigma_fpi_scale_setting.json` |
+| findings | `test_F236_three_generation_seesaw.py` |  | test_F236_three_generation_seesaw.py | `F236_three_generation_seesaw.json` |
+| findings | `test_F237_kev_sterile_resolution.py` |  | test_F237_kev_sterile_resolution.py | `F237_kev_sterile_resolution.json` |
+| findings | `test_F238_geon_relic_abundance.py` | F223 F228 F238 | Test wrapper for F238 -- can the F223/F228 geon relic abundance be derived? | `F238_geon_relic_abundance.json` |
+| findings | `test_F239_scheme_factor_factorization.py` | F239 | F239 — Q2 (open-derivations prompt #9): the lattice->MSbar SCHEME conversion for | `F239_scheme_factor_factorization.json` |
+| findings | `test_F240_omega_coupling_derivation.py` |  | test_F240_omega_coupling_derivation.py | `F240_omega_coupling_derivation.json` |
+| findings | `test_F241_omega_lambda_residual.py` |  | test_F241_omega_lambda_residual.py -- the last O(1) factor of the cosmological | `F241_omega_lambda_residual.json` |
+| findings | `test_F242_mustar_from_dielectric.py` | F64 | test_F242 — Morel-Anderson mu* derived from the F64 EM-connection dielectric. | `F242_mustar_from_dielectric.json` |
+| findings | `test_F243_f3_lowdensity_lensing.py` |  | test_F243 — Falsification attempt: F3 lensing prediction failure at low | `F243_f3_lowdensity_lensing.json` |
+| findings | `test_F244_emqg_1overb_scan.py` |  | test_F244 — 1/b scaling of 3-D EMQG lensing. | `F244_emqg_1overb_scan.json` |
+| findings | `test_F248_tt_graviton_bcc.py` | F248 | Test wrapper for F248 — the explicit transverse-traceless (TT) graviton mode | `F248_tt_graviton_bcc.json` |
+| findings | `test_F249_qed_comparison_battery.py` | F249 | qed_comparison_battery.py — F249: quantitative QED comparison battery | `F249_qed_comparison_battery.json` |
+| findings | `test_F250_allk_gauge_pole.py` | F250 | F250 — The all-k gauge pole of the dual-spinor (paired) photon. | `F250_allk_gauge_pole.json` |
+| findings | `test_F251_vacuum_polarization.py` | F251 | test_F251_vacuum_polarization.py — F251: the interacting one-loop QED photon | `F251_vacuum_polarization.json` |
+| findings | `test_F252_vertex_ae_lamb.py` | F252 | test_F252_vertex_ae_lamb.py — F252: the one-loop QED vertex correction | `F252_vertex_ae_lamb.json` |
+| findings | `test_F253_weight_as_phase_scale_nogo.py` | F253 | F253 -- E1 weight->phase principle: sharpened no-go + topological exclusion. | `F253_weight_as_phase_scale_nogo.json` |
+| findings | `test_F254_t2g_pmns_selector.py` |  | test_F254_t2g_pmns_selector.py | `F254_t2g_pmns_selector.json` |
+| findings | `test_F255_generator_norm_from_F118.py` | F118 F234 F255 | F255 -- E1 follow-up: the F118/F234 solve fixes the E_g generator norm (R=1) | `F255_generator_norm_from_F118.json` |
+| findings | `test_F256_lambda6_sextic_nogo.py` | F256 | F256 -- E1: 'derive lambda6=0.243' is structurally misposed; the dynamical | `F256_lambda6_sextic_nogo.json` |
+| findings | `test_F257_bethe_log_from_spectrum.py` | F257 | test_F257_bethe_log_from_spectrum.py — F257: the hydrogen Bethe logarithm | `F257_bethe_log_from_spectrum.json` |
+| findings | `test_F258_electron_self_energy.py` | F258 | test_F258_electron_self_energy.py — F258: the one-loop QED electron self-energy | `F258_electron_self_energy.json` |
+| findings | `test_F259_ir_bremsstrahlung.py` | F259 | test_F259_ir_bremsstrahlung.py — F259: the IR sector of QED — soft real-photon | `F259_ir_bremsstrahlung.json` |
+| findings | `test_F260_qed_scattering.py` | F260 | test_F260_qed_scattering.py — F260: the tree-level QED S-matrix on the model's | `F260_qed_scattering.json` |
+| findings | `test_F261_twoloop_ae_amu.py` | F261 | test_F261_twoloop_ae_amu.py — F261: two-loop QED. The electron anomalous moment |  |
+| findings | `test_F262_positronium_hyperfine.py` | F262 | test_F262_positronium_hyperfine.py — F262: bound-state QED (two-body + hyperfine). | `F262_positronium_hyperfine.json` |
+| findings | `test_F263_euler_heisenberg_schwinger.py` | F263 | test_F263_euler_heisenberg_schwinger.py — F263: the nonlinear / non-perturbative | `F263_euler_heisenberg_schwinger.json` |
 | findings | `test_F28_grb_dispersion.py` | F26 F27 | F27 — GRB / AGN dispersion test of the F26 photon rotation prediction | `F28_grb_dispersion.json`, `F28_grb_dispersion_summary.md` |
 | findings | `test_F30_dispersion_order.py` | F30 | F30 — Order of the leading photon-dispersion correction in the BCC vacuum. | `F30_dispersion_order.json`, `F30_dispersion_order_summary.md` |
 | findings | `test_F37_delta_omega.py` | F30 F37 | test_F37_delta_omega.py — F37 chirality split: measure ΔΩ vs F30 analytical value | `F37_delta_omega.json` |
@@ -258,6 +310,8 @@
 | runners | `run_F143_wrap_stiffness_slab.py` | F139 | F139 — slab-chunked version: partial BZ sums over kx in [i0,i1). |  |
 | runners | `run_F206_breathing_decompose.py` |  | Decompose the Tier-B He 'breathing' into INTER-nucleon COM spread (what the |  |
 | runners | `run_F208_ie_sweep.py` |  | Range-based SCF IE sweep that APPENDS to a persistent JSON (so it can run in |  |
+| runners | `run_F261_twoloop_qed.py` | F261 | run_F261_twoloop_qed.py — standalone runner for the F261 two-loop QED sector. |  |
+| runners | `run_F263_euler_heisenberg_schwinger.py` | F263 | run_F263_euler_heisenberg_schwinger.py — standalone runner for the F263 nonlinear |  |
 | runners | `run_FC02_shapiro.py` |  | FC02 — Shapiro time delay (GR-2), Tier C consistency regression |  |
 | runners | `run_FC04_deflection_dynamical.py` |  | FC04 — Light deflection, dynamical open-BC (GR-1) |  |
 | runners | `run_FC05_qm_battery.py` |  | FC05 — Quantum-mechanics regression battery (consolidated) |  |
@@ -268,6 +322,9 @@
 | runners | `run_L_tests.py` |  | run_L_tests.py — Test suite for the v2 layered build (L1–L4) |  |
 | runners | `run_bgfield_loop.py` |  | run_bgfield_loop.py — NATIVE runner for the background-field one-loop gluon |  |
 | runners | `run_confinement_mc.py` |  | run_confinement_mc.py — production Monte-Carlo confirmation of the 2D area law |  |
+| runners | `run_d1_selfenergy.py` |  | run_d1_selfenergy.py — NATIVE runner for the d1 exact-vertex self-energy |  |
+| runners | `run_d1_static_potential.py` |  | run_d1_static_potential.py — NATIVE runner for the d1 CROSS-CHECK (Route A-NP): |  |
+| runners | `run_d1_vertex_formfactor.py` |  | run_d1_vertex_formfactor.py — NATIVE runner for the d1 CALCULATION (Route A-PT): |  |
 | runners | `run_heavy_rerun.py` |  | run_heavy_rerun.py — the two suite items too slow for the in-session sandbox. |  |
 | runners | `run_kns_seagull.py` |  | run_kns_seagull.py — NATIVE driver for the full Kawai-Nakayama-Seo quartic |  |
 | runners | `run_lgt_confinement.py` |  | run_lgt_confinement.py — production 3+1D SU(3) string-tension measurement (P1 Option A) |  |

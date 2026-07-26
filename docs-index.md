@@ -10,6 +10,7 @@
 |------|-------|
 | `ca-reference.md` | Weyl Spinor Cellular Automaton — Reference |
 | `ca-unified-v2.md` | A Unified Proposition v2: Combining the Phase-F Architecture with the QCA Literature |
+| `d1-kns-vertex-status.md` | d₁ via the full KNS lattice self-energy — status and honest blocker |
 | `dark-sector-overview.md` | Dark Sector — Overview & Falsifiable Points |
 | `key-decisions.md` | Key Decisions |
 | `page34-eom-derivation.md` | Page 34 Equations of Motion — Derivation and Reconciliation with the Project |
@@ -20,15 +21,22 @@
 
 | File | Title |
 |------|-------|
+| `F216-followon-spin2-mass-abundance-prompt.md` | Session prompt — close the F216 obstruction: mass and relic abundance of the dark spin-2 bound state |
+| `F223-followup-geon-production-brief.md` | Research brief — Geon production within the model as it stands (F223 follow-on) |
 | `angular-self-duality-solve-2026-06-30.md` | Session prompt — derive the angular self-duality (C/\|B\| = 0.636) |
 | `gravity-sector-scenarios-2026-06-30.md` | Gravity-sector scenario catalog (post-F178 full-tensor adoption) |
+| `loop-sector-buildout-prompt.md` | New-session prompt — build the interacting one-loop QED sector |
 | `mass-magnitude-derivation-2026-06-29.md` | Roadmap — Deriving the mass *magnitude* (the open half of audit G1 / F167) |
 | `next-session-bgfield-loop.md` | Next-session prompt — the background-field one-loop gluon self-energy → **pin q\*** |
 | `next-session-prompt-vacuum-energy.md` | Next-session prompt — the BCC zero-point / vacuum-energy density and the cosmological-constant sector |
 | `next-session-residual-A-solve.md` | Next-session prompt — build out Residuals A & B, then **solve/derive Residual A** |
 | `next-session-stable-atomic-structure.md` | Next-session prompt — build the **fully stable blockspin atom**: multi-nucleon nucleus + multi-electron shells, general (Z,N) |
 | `next-steps.md` | Next Research Steps |
+| `open-derivations-prompts-v2.md` | Open-Derivations Prompt Library — v2 |
+| `open-derivations-prompts.md` | Open-Derivations Prompt Library |
+| `prompt-superconductivity-construction-2026-06-30.md` | Session prompt — construct electrical superconductivity on the lattice: pairing glue → BCS gap → Meissner/London → flux quantum h/2e → Josephson → Tc |
 | `prompt-weinberg-8over7-closure.md` | Session prompt — close the F49 8/7: diamagnetic-complete R(m), the 8-vs-7 multiplicity test, and the F118 matching |
+| `qc-routes-3-4-prompt.md` | Session prompt — QC empirical thread, Routes 3 & 4 (Bell/Tsirelson + intrinsic-decoherence floor) |
 | `roadmap-matter-binding.md` | Roadmap — Dynamical Matter & Binding: electrons, u/d quarks → protons, neutrons, atoms |
 | `roadmap-scale-to-real-space.md` | Roadmap — Running the lattice at a scale analogous to real space |
 | `roadmap-unified-real-space.md` | Roadmap — Unified real-space integration: one lattice carrying a confined proton **and** an EM-bound electron |
@@ -39,6 +47,8 @@
 |------|-------|
 | `changelog.md` | Changelog |
 | `exactness-inventory.md` | Exactness Inventory |
+| `open-derivations.md` | Open-Derivations Ledger |
+| `project-status-guide.md` | Status of the Project — In-Depth Guide |
 | `project-status.md` | Project Status — Physics Notes Transcription |
 | `qcd-ir-coupling-problem-status.md` | The strong-sector scale-setting problem (the "IR coupling") — what's been tried, what's left |
 
@@ -54,6 +64,7 @@
 | `physics-audit-report-2026-06-29.md` | Physics Audit Report — 2026-06-29 |
 | `physics-notes-complete-review.md` | Review of `physics-notes-complete.md` — Model Support, Falsifiers, Improvements |
 | `project-audit-inputs-dynamism-2026-06-06.md` | Project Audit — Underived Inputs & Field Dynamism |
+| `project-audit-prompt.md` | Project Audit — Methodology & Rerunnable Prompt |
 
 ## docs/design/ — internal design docs
 
@@ -68,13 +79,16 @@
 | `ca-strong-design.md` | SU(3) Strong-Force Gauge Sector — Design |
 | `casimir-effect-build-brief.md` | Build Brief / Next-Session Prompt — The Casimir Effect in the BCC Weyl-QCA Model |
 | `qstar-gluon-d1-computation-plan.md` | Computing the gluonic $d_1$ — the one number that pins $q_\ast$ (a validatable plan) |
+| `session-prompt-modulated-casimir-beable-template.md` | Session prompt — Does a *modulated* Casimir cavity probe the beable-vs-template split? |
 | `warp-shift-vector-construction.md` | Exploration: constructing the F204 open items (warp shift vector & forward Bobrick–Martire) |
 
 ## papers/ — the paper series
 
 | File | Title |
 |------|-------|
+| `Applied-Note-01-EHD-Ionocraft-Efficiency.md` | Applied Note 1 — Ionocraft / Asymmetric-Capacitor Thrust in the Lattice EM Sector: Efficiency Formulas, Optimal Design, and the Vacuum Prediction |
 | `Claims-and-Falsifiers-Summary.md` | % A Universe in a Bottle — Claims and Falsifiers |
+| `Companion-Note-01-The-Graviton.md` | Companion Note 1 — The Graviton in the Lattice Model: Why It Exists, What It Is, What It Does, and How It Might Be Seen |
 | `Outreach-Emails.md` | Outreach drafts |
 | `Paper-01-Base-Structure.md` | Paper I — The Base Structure of the Cellular-Automaton Universe: A Body-Centred-Cubic Quantum Cellular Automaton and Its Emergent Kinematics |
 | `Paper-02-Photon.md` | Paper II — The Photon as a Bound Pair of Spin-½ Lattice Quanta: A Non-Birefringent, Luminal, Transverse Composite |
@@ -83,12 +97,11 @@
 | `Paper-05-Strong-Force.md` | Paper V — The Strong Force: A Dynamical $SU(3)$ Colour Sector, Gluon Self-Coupling, and Confinement from Exact Area Law to Colour-Dielectric Condensate |
 | `Paper-06-Weak-Force.md` | Paper VI — The Weak Force: Chiral $SU(2)_L$ Without a Higgs, the Derived Weinberg Angle, and the $\beta$-Decay Charged Current |
 | `Paper-07-Gravity.md` | Paper VII — Gravity as a Lattice Dielectric: An Impedance-Matched Renormalisation of the Field Rotation Rate, GR-Identical PPN, and a Structural Newton Constant |
-| `Paper-08-Dielectric-Black-Hole.md` | Paper VIII — Black Holes as Horizon-Free Dielectric Condensates: The Exponential Metric, Its Shadow, and the Fate of Hawking Radiation in a Cellular-Automaton… |
-| `Paper-09-Fermion-Sector.md` | Paper IX — The Fermion Sector: Weyl Quanta, Chirality and Helicity, Exactly Three Generations, and the Anomaly-Free First Generation |
-| `Paper-10-Lepton-Sector.md` | Paper X — The Lepton Sector: Higgs-Free Hypercharge, the Koide Equipartition as an Electromagnetically-Selected $45^\circ$ Critical Point, and the See-Saw… |
-| `Paper-11-Baryon-Sector.md` | Paper XI — The Baryon Sector: The Colour-Singlet Proton, Centre-Phase Closure, the Dynamical Pion, and the First Nucleus |
-| `Paper-12-Unification-Rotation-Currency.md` | Paper XII — One Currency: Mass, Energy, Light, and Gravity as a Single Rotation Rate |
-| `Paper-13-Koide-Angle.md` | Paper XIII — The Charged-Lepton Shape Angle: $3\delta=Q$, the Koide Phase as the $E_g$ Representation Weight $\tfrac29$, and a Saturation Self-Duality |
+| `Paper-08-Fermion-Sector.md` | Paper VIII — The Fermion Sector: Weyl Quanta, Chirality and Helicity, Exactly Three Generations, and the Anomaly-Free First Generation |
+| `Paper-09-Lepton-Sector.md` | Paper IX — The Lepton Sector: Higgs-Free Hypercharge, the Koide Equipartition as an Electromagnetically-Selected $45^\circ$ Critical Point, and the See-Saw… |
+| `Paper-10-Baryon-Sector.md` | Paper X — The Baryon Sector: The Colour-Singlet Proton, Centre-Phase Closure, the Dynamical Pion, and the First Nucleus |
+| `Paper-11-Unification-Rotation-Currency.md` | Paper XI — One Currency: Mass, Energy, Light, and Gravity as a Single Rotation Rate |
+| `Paper-12-Koide-Angle.md` | Paper XII — The Charged-Lepton Shape Angle: $3\delta=Q$, the Koide Phase as the $E_g$ Representation Weight $\tfrac29$, and a Saturation Self-Duality |
 
 ## references/ — summaries of external papers (PDFs alongside)
 

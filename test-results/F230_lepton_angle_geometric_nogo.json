@@ -1,0 +1,65 @@
+{
+  "finding": "F230",
+  "item": "E1",
+  "checks": {
+    "G1": {
+      "statement": "equipartition amplitude r=A/ybar -> sqrt2 (Q=2/3, phi=45deg, F80)",
+      "value": 1.4142005051845772,
+      "target": 1.4142135623730951,
+      "tier": "data/geometry",
+      "status": "PASS"
+    },
+    "G2": {
+      "statement": "3 delta* = Q = 2/3 rad (delta* = 2/9 rad); |3delta*-Q|",
+      "value": 2.8382991762110343e-05,
+      "target": 0.0,
+      "tier": "target",
+      "status": "PASS"
+    },
+    "G2b": {
+      "statement": "delta* vs 2/9 rad relative residual",
+      "value": 3.3341703721434524e-05,
+      "target": 0.0,
+      "tier": "target",
+      "status": "PASS"
+    },
+    "G3": {
+      "statement": "massless endpoint delta=15deg, 3delta=pi/4=0.7854 rad != Q=0.6667",
+      "value": {
+        "delta_end_deg": 15.000000000000005,
+        "3delta_end_rad": 0.7853981633974485,
+        "Q": 0.6666605114773855,
+        "pi_4": 0.7853981633974483
+      },
+      "target": {
+        "delta_end_deg": 15.0,
+        "3delta_end_rad": 0.7853981633974483
+      },
+      "tier": "exact/anchor",
+      "status": "PASS"
+    },
+    "G4": {
+      "statement": "geometry fixes endpoints {0, pi/4}; interior 3delta* is dynamics-set (free to geometry)",
+      "value": {
+        "interior_3delta": 0.6666888944691476,
+        "democratic_3delta": 0.0,
+        "massless_3delta": 0.7853981633974483
+      },
+      "target": "interior in (0, pi/4)",
+      "tier": "structural/negative",
+      "status": "PASS"
+    },
+    "G5": {
+      "statement": "echo: sin^2thetaW=2/9 (ratio) vs delta*=2/9 rad (radian) -- dimensionally distinct, flagged open",
+      "value": {
+        "sin2thetaW": 0.2222222222222222,
+        "delta_star_rad": 0.2222222222222222
+      },
+      "target": "coincidence (radian != ratio)",
+      "tier": "flag/open",
+      "status": "PASS"
+    }
+  },
+  "verdict": "NEGATIVE (sharpened no-go). The requested crystal-field + equipartition geometry fixes only the phase-coordinate endpoints (democratic 3delta=0; massless-Koide 3delta=pi/4, exact; equipartition phi=45deg). The interior stopping point 3delta*=Q=2/3 rad is set by the brake ratio B/C (crystal-field cubic vs sextic self-coupling), a dynamical (lambda_6) number. DIMENSIONAL no-go: 3delta* is a radian, Q is a pure ratio; geometry yields only trig ratios/rational multiplicities and cannot force a radian = ratio without a dynamical scale. Consistent with and subsumed by F199's three-way structural no-go; delta*=2/9 rad remains a Koide-confidence TARGET, answerable only by the saturated-condensate solve (alpha_eff*).",
+  "summary": "6/6 PASS"
+}

@@ -1,0 +1,37 @@
+{
+  "finding": "F225",
+  "date": "2026-07-01",
+  "title": "Doublon leakage vs spin-qubit error budgets",
+  "tests": {
+    "G1_closed_form": {
+      "worst_vs_diag": 5.551115123125783e-17
+    },
+    "G2_scaling": {
+      "loglog_slope": 1.999668286810533,
+      "d_over_(2t_U)^2_tail": 0.9999885560537223
+    },
+    "G3_magnitude": {
+      "measured_leakage": 0.0013,
+      "t_over_U": 0.01806299832046706,
+      "U_over_t": 55.361794440677485,
+      "roundtrip_err": 2.3418766925686896e-17
+    },
+    "G4_consistency": {
+      "0.9": {
+        "U_over_t": 16.664379907541036,
+        "gate_leakage": 0.002745977649864395,
+        "gs_doublon": 0.013809982855717662
+      },
+      "0.95": {
+        "U_over_t": 26.03561476314537,
+        "gate_leakage": 0.001425509719215512,
+        "gs_doublon": 0.005798530856922002
+      },
+      "0.98": {
+        "U_over_t": 44.67417695345349,
+        "gate_leakage": 0.003968755563518167,
+        "gs_doublon": 0.001992255999785586
+      }
+    }
+  }
+}

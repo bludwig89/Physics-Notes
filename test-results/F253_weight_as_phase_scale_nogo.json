@@ -1,0 +1,98 @@
+{
+  "A0_group_theory": {
+    "decomposition": {
+      "A1": 1,
+      "A2": 0,
+      "E": 1,
+      "T1": 1,
+      "T2": 1
+    },
+    "total_dim": 9,
+    "mult_E": 1,
+    "Eg_weight": "2/9",
+    "equals_2_9": true
+  },
+  "A0b_measured": {
+    "Q": 0.6666605114773855,
+    "3delta_meas": 0.6666888944691496,
+    "delta_meas": 0.22222963148971653,
+    "delta_vs_2_9_pct": 0.0033341703724432126,
+    "3delta_vs_2_3_pct": 0.0033341703724432126
+  },
+  "A1_landau": {
+    "dF": "-3*B*sin(3*delta) - 3*C*sin(6*delta)",
+    "interior_relation": "cos(3*delta) = -B/(2C)  (one eqn, two unknowns delta & C)",
+    "note": "Q is delta-blind (F199): Q=1/3+r^2/6 has dQ/ddelta=0, so no 2nd kinematic eqn."
+  },
+  "A2_equipartition": {
+    "posit_N": "E_g generator unit-normalized: democratic phase budget = 1 rad",
+    "delta_with_posit": "2/9",
+    "delta_with_posit_float": 0.2222222222222222,
+    "matches_2_9": true,
+    "delta_without_posit": "2*R/9  (R free => delta free)",
+    "verdict": "Given POSIT-N (+unit amplitude), delta*=2/9 rad EXACTLY. Without it delta=weight*R is scale-degenerate. So equipartition reduces E1 to the SINGLE posit that the E_g generator norm =1 (equivalently the democratic phase budget = 1 rad)."
+  },
+  "A3_posit_N_derivable": {
+    "R_needed": 1.0,
+    "candidates": {
+      "1 (bare)": 1.0,
+      "e_sat": 0.733,
+      "1/e_sat": 1.364256480218281,
+      "sqrt2*e_sat^2 (=y unitarity)": 0.7598413907138779,
+      "e_sat^2": 0.537289
+    },
+    "any_forces_R1_exactly": true,
+    "verdict": "No O(1) saturation combination equals 1 exactly except the bare 'set generator norm =1' choice itself -> POSIT-N is an assumption, not derived.  This is F230's 'missing dynamical scale', now named concretely as the E_g generator normalization."
+  },
+  "B0_Eg_basis": {
+    "u_dz2": [
+      -0.2886751345948129,
+      -0.2886751345948129,
+      -0.2886751345948129,
+      -0.2886751345948129,
+      0.5773502691896258,
+      0.5773502691896258
+    ],
+    "w_dx2y2": [
+      0.5,
+      0.5,
+      -0.5,
+      -0.5,
+      0.0,
+      0.0
+    ],
+    "orthonormal": true
+  },
+  "B1_C3_on_Eg": {
+    "matrix": [
+      [
+        -0.5000000000000001,
+        0.8660254037844388
+      ],
+      [
+        -0.8660254037844388,
+        -0.5
+      ]
+    ],
+    "rotation_angle_rad": -2.0943951023931957,
+    "as_fraction_of_2pi": -0.33333333333333337,
+    "expected_2pi/3": 2.0943951023931953,
+    "note": "C3 acts on E_g doublet as rotation by 2pi/3 => Landau invariant cos(3 delta). This is a rational multiple of pi (allowed 'winding' kind); it does NOT single out 2/9 rad."
+  },
+  "B2_candidates": {
+    "C3_holonomy_over_2pi": -0.33333333333333337,
+    "Eg_weight_in_6site_perm": "1/3",
+    "Eg_weight_in_bilinear": "2/9 (multiplicity, not holonomy)",
+    "finding": "The only genuine HOLONOMY the BCC 2nd shell supplies in the E_g channel is 2pi/3 (=> 1/3 of a turn), a rational multiple of pi. 2/9 appears ONLY as a representation MULTIPLICITY (dim ratio), which is scale-free and therefore cannot BE a radian without the same POSIT-N normalization. No lattice holonomy = 2/9 rad exists."
+  },
+  "B3_quantized_phase_sweep": {
+    "target_2_9_rad": 0.2222222222222222,
+    "matches_2pi_p_over_q_within_1e-3": [],
+    "verdict": "2/9 rad = 0.2222 is not close to any low-order quantized phase 2*pi*p/q (the smallest, 2*pi/28=0.2244, is neither symmetry-natural nor equal). Confirms 2/9 rad is NOT a lattice holonomy. A ZIP 'difference of moments' is likewise a dimensionless integer/rational and would still need POSIT-N to become a radian."
+  },
+  "VERDICT": {
+    "route_A_equipartition": "REDUCES E1 to ONE named posit (POSIT-N: E_g generator unit-normalized so the democratic phase budget = 1 rad). Given it, delta*=2/9 rad exactly. Not independently derivable from saturation.",
+    "route_B_topological": "NEGATIVE: the only genuine E_g holonomy on the BCC 2nd shell is 2pi/3 (rational-multiple-of-pi). 2/9 is a representation multiplicity, not a holonomy; it has no intrinsic radian scale.",
+    "net": "E1 does NOT close positive. But it SHARPENS: the F230 'missing dynamical scale' is now identified concretely as POSIT-N -- the E_g order-parameter generator normalization. The whole EW/lepton open frontier reduces to this single normalization constant (weight->radian bridge). A topological (scale-free) origin is excluded: lattice holonomies are multiples of pi/3, not 2/9."
+  }
+}

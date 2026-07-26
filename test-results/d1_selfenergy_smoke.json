@@ -1,0 +1,62 @@
+{
+  "target_16pi2": 73.9,
+  "cosine_standin_leading": 19.1,
+  "vertex_wiring_gate": {
+    "ratio_mean": "(0.999999870767038-1.969026221910149e-13j)",
+    "is_real_unity": true,
+    "spread": 2.3688944528200837e-07,
+    "pass": true,
+    "statement": "colour-stripped grid 3-gluon tensor -> continuum YM tensor (ratio -> 1, real) => exact vertex wired in with correct i/colour normalisation"
+  },
+  "haar_measure_derivation": {
+    "c_measure": 0.12500000080764676,
+    "c_over_CA": 0.04166666693588225,
+    "analytic_CA_over_24": 0.125,
+    "std": 2.942721759787551e-10,
+    "mass_counterterm_Pi": -0.25,
+    "pass": true,
+    "statement": "ln J(X) = -(C_A/24) sum_a (X^a)^2 (derived from the adjoint exp-map Jacobian) => measure mass counterterm Pi^meas = -delta_{mn} C_A/12, cancelling the seagull quadratic divergence"
+  },
+  "scheme_consistency_diagnosis": {
+    "bqq_over_abbott_spread": 6.7588831134379905,
+    "bqq_over_symmetric_mean": "(0.999999902377758+1.0751411519040487e-05j)",
+    "bqq_over_symmetric_spread": 0.001226549003161145,
+    "action_vertex_is_symmetric": true,
+    "action_vertex_is_abbott": false,
+    "statement": "plaquette-action vertex == symmetric YM vertex (NOT Abbott) => the scheme-consistent d1 needs ONE more term: the lattice background-covariant gauge-fixing vertex (Abbott - symmetric). Its lattice form factors come from the same link expansion."
+  },
+  "finite_constant_vs_n": [
+    {
+      "n": 6,
+      "rows": [
+        {
+          "Q": 0.15,
+          "B_lat": 0.15323064540279713,
+          "B_cont": -0.2955371325341331,
+          "C": 70.8665669790947
+        },
+        {
+          "Q": 0.25,
+          "B_lat": 0.14751394680064678,
+          "B_cont": -0.29307595486492755,
+          "C": 69.57516852086528
+        }
+      ],
+      "C": 70.22086774997999,
+      "Q_spread": 1.2913984582294233,
+      "b0_preserved_if_flat": true,
+      "seconds": 41.2
+    }
+  ],
+  "seagull_tadpole_vs_n": [
+    {
+      "n": 6,
+      "Z0": 0.15281943355713848,
+      "seagull_coeff_(d-1)/2*CA": 4.5,
+      "seagull_mass": 0.6876874510071231,
+      "measure_counterterm": -0.25,
+      "note": "Z0 -> 0.15493 as n->inf (Wilson tadpole). The measure term cancels the QUADRATIC divergence; the finite remnant + gluon/ghost vertex constant assemble the 28.81 gate."
+    }
+  ],
+  "verdict": "EXACT-vertex ordinary-gauge transverse constant C=70.2 (16pi^2 u., n=6) vs target 73.9; cosine stand-in gave 19.1. Wiring the exact vertices closes the bulk of the former 74% gap. NOT a certified d1: scheme_consistency_diagnosis shows the action vertex is symmetric (not Abbott); certification needs the background-covariant gauge-fixing vertex (or Z1)."
+}

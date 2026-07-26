@@ -1,0 +1,104 @@
+{
+  "finding": "F261",
+  "title": "Two-loop QED: A2, two-loop beta, muon a_mu universality",
+  "quadrature_nodes": 600,
+  "twoloop_ae": {
+    "T1_equal_mass_vp": {
+      "A2_vp_equal_mass_model": 0.01568742216614732,
+      "A2_vp_equal_mass_exact": 0.015687421859102546,
+      "exact_form": "119/36 - pi^2/3",
+      "abs_err": 3.070447750219696e-10,
+      "gate_pass": true,
+      "statement": "the equal-mass VP insertion, built from F251's own spectral function (1/pi)Im Pi = (alpha/3pi)(1+2m^2/s)sqrt(1-4m^2/s), reproduces 119/36 - pi^2/3 = 0.0156874 to <1e-6 (dispersive Kallen-Lehmann assembly through the F252 kernel K1)."
+    },
+    "T2_A2_assembly": {
+      "A2_vp_group_symbolic": "119/36 - pi**2/3",
+      "A2_vertex_group_symbolic": "-pi**2*log(2)/2 - 31/16 + 3*zeta(3)/4 + 5*pi**2/12",
+      "A2_total_symbolic": "-pi**2*log(2)/2 + pi**2/12 + 3*zeta(3)/4 + 197/144",
+      "A2_group_sum_equals_canonical": true,
+      "A2_numeric": -0.32847896557919376,
+      "A2_vp_numeric": 0.01568742185910268,
+      "A2_vertex_numeric": -0.3441663874382965,
+      "A2_target": -0.328478965,
+      "abs_err_vs_target": 5.791937485177812e-10,
+      "gate_pass": true,
+      "statement": "A2 = (119/36 - pi^2/3) + (-31/16 + 5pi^2/12 - (pi^2/2)ln2 + (3/4)zeta3) = 197/144 + pi^2/12 - (pi^2/2)ln2 + (3/4)zeta3 = -0.328478966. Group I (VP) is model-derived from F251; group II (six vertex masters) is the established closed form (reproduced, not re-derived from the masters)."
+    },
+    "T3_a_e_two_loop": {
+      "A2_mass_independent": -0.32847896557919376,
+      "A2_vp_mu_in_e": 5.197462007249842e-07,
+      "A2_vp_tau_in_e": 1.837896195361272e-09,
+      "A2_electron_total": -0.32847844399509685,
+      "a_e_one_loop": 0.0011614097320976644,
+      "a_e_two_loop": 0.001159637429851403,
+      "a_e_measured": 0.00115965218046,
+      "rel_err_one_loop": 0.001515585161895022,
+      "rel_err_two_loop": 1.2719855871897364e-05,
+      "statement": "a_e through two loops = alpha/2pi + A2(e)(alpha/pi)^2 with A2(e) = -0.32847844 (mass-independent + decoupling mu,tau VP) gives a_e = 1.1596396e-3 vs measured 1.15965218e-3 (~1e-5); the one-loop 0.15% is reduced by ~2 orders. Residual is the three-loop A3 = 1.181... and beyond (out of scope)."
+    },
+    "BETA_two_loop": {
+      "beta_alpha_form": "2*alpha^2/(3*pi) + alpha^3/(2*pi^2) + ...",
+      "one_loop_coeff_symbolic": "2/(3*pi)",
+      "two_loop_coeff_symbolic": "1/(2*pi**2)",
+      "one_loop_matches_2_over_3pi": true,
+      "two_loop_matches_1_over_2pi2": true,
+      "b0_QED_F251": "4/3",
+      "b1_QED": "1",
+      "gate_pass": true,
+      "scope": "leptonic: each charged lepton contributes b0=4/3, b1=1. Quark / hadronic loops (and their QCD dressing) are deferred to the QCD sector (F151/F152) \u2014 not included here, stated not faked.",
+      "statement": "QED two-loop running: mu dalpha/dmu = 2alpha^2/3pi + alpha^3/2pi^2 (sympy-exact from mu de/dmu = e^3/12pi^2 + e^5/64pi^4). One-loop = F251 b0 = 4/3; two-loop coefficient = 1/2 (alpha^3/pi^2), i.e. b1 = 1 per unit-charge fermion."
+    }
+  },
+  "amu": {
+    "U1_universality": {
+      "A1_electron": 0.5,
+      "A1_muon": 0.5,
+      "A1_identical": true,
+      "A2_massindep_electron": -0.32847896557919376,
+      "A2_massindep_muon": -0.32847896557919376,
+      "A2_massindep_identical": true,
+      "A2_massindep_value": -0.32847896557919376,
+      "gate_pass": true,
+      "statement": "the mass-independent QED coefficients A1 = 1/2 and A2 = -0.328478966 are IDENTICAL for e and mu (same diagrams, no lepton-mass dependence) \u2014 exact universality, the same number, not a fit."
+    },
+    "U2_vp_e_in_mu": {
+      "A2_vp_e_in_mu_model": 1.0942583101131775,
+      "A2_vp_e_in_mu_known": 1.0942583,
+      "leading_log_13_ln_mmu_me_minus_2536": 1.0827551423575517,
+      "leading_plus_pi2_4_me_mmu": 1.0946883124967046,
+      "A2_vp_mu_in_e_reverse_decoupled": 5.197462007249842e-07,
+      "asymmetry_ratio_light_over_heavy": 2105370.483876202,
+      "abs_err_vs_known": 1.0113177628667813e-08,
+      "gate_pass": true,
+      "statement": "A2^{VP}(e in mu) = 1.0942583 (model, from F251 Pi); leading log (1/3)ln(m_mu/m_e) - 25/36 = 1.0828; the reverse mu-in-e insertion decouples to 5.2e-7. This light-in-heavy vs heavy-in-light asymmetry is exactly why a_mu > a_e."
+    },
+    "U3_a_mu_two_loop": {
+      "A2_mass_independent": -0.32847896557919376,
+      "A2_vp_e_in_mu": 1.0942583101131775,
+      "A2_vp_tau_in_mu": 7.807611221744027e-05,
+      "A2_muon_total": 0.7658574206462012,
+      "A2_muon_known": 0.76585741,
+      "A2_muon_abs_err": 1.0646201253905474e-08,
+      "a_mu_one_loop": 0.0011614097320976644,
+      "a_mu_two_loop_QED": 0.0011655419083537947,
+      "a_mu_measured_reference_only": 0.00116592059,
+      "gate_pass": true,
+      "scope_note": "QED (mass-independent + leptonic VP) ONLY through two loops. Hadronic VP + hadronic light-by-light (QCD sector, F151/F152) and electroweak (weak sector) are OUT OF SCOPE. The full SM a_mu and the experimental comparison \u2014 an active, unsettled area (g-2 Theory Initiative 2020/2025 white papers; hadronic-VP tension) \u2014 are NOT claimed here.",
+      "statement": "A2(mu) = -0.328479 + 1.094258 + 0.000078 = 0.765857 vs known 0.765857410; a_mu^{QED} (2 loops) = 1.1655e-3. Hadronic and electroweak pieces deferred; no anomaly claim."
+    }
+  },
+  "vp_coefficients_highres": {
+    "equal_mass": 0.015687422166146586,
+    "e_in_mu": 1.0942583101131416,
+    "tau_in_mu": 7.807611221743664e-05,
+    "mu_in_e": 5.197462007249611e-07,
+    "tau_in_e": 1.8378961953611966e-09
+  },
+  "reference_targets": {
+    "A2_sommerfield_petermann": -0.328478965,
+    "A2_vp_equal_mass_exact": 0.015687421859102546,
+    "A2_vp_e_in_mu_known": 1.0942583,
+    "A2_muon_known": 0.76585741,
+    "two_loop_beta_coeff_alpha3_pi2": 0.5
+  }
+}

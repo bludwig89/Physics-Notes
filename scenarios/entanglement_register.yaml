@@ -1,0 +1,18 @@
+# Genuine 2ⁿ many-body entanglement register (F212/F214) — the ONE casim sector
+# that carries real entanglement (all others are first-quantised / mean-field).
+# Starts from a PRODUCT (Néel) state and lets the DERIVED spinor-exchange gate
+# (θ = J/4, super-exchange from the ca_dirac hopping at mass m) generate
+# entanglement live: the recorded von Neumann entropy rises from 0 toward ln2.
+name: entanglement_register
+title: "Live Entanglement Generation"
+description: "A genuine 2^n register on n lattice cells: from a product Néel state, the derived nearest-neighbour spinor-exchange gate generates entanglement entropy live (0 → ln2). Rate set by the super-exchange J(m) derived from the ca_dirac hopping."
+lattice: {L: 8, dims: 3, topology: cubic}
+seed: 0
+ticks: 40
+channels:
+  - {type: entanglement_register, n_qubits: 3, m: 0.5, init: neel, cut: [0]}
+observers:
+  - {type: entanglement_entropy, every: 1}
+  - {type: norm_conservation, every: 5, channels: [entanglement_register]}
+output:
+  json: test-results/casim_entanglement_register.json

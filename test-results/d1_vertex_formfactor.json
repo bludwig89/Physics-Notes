@@ -1,0 +1,249 @@
+{
+  "targets": {
+    "qstar_a": 0.7327,
+    "lambda_ratio": 1.78,
+    "wilson_gate": 28.81,
+    "alpha_s_MZ": 0.118
+  },
+  "b0_alpha": 0.5570423008216338,
+  "a1_VtoMSbar": 3.6666666666666665,
+  "b0_gate": {
+    "scalar_bubble_calibration_g": "1",
+    "calibration_ok": true,
+    "g_tensor_coeff_total": "22/3",
+    "g_tensor_coeff_gluon": "20/3",
+    "g_tensor_coeff_ghost": "2/3",
+    "transverse": true,
+    "b0_total": "11",
+    "b0_gluon": "10",
+    "b0_ghost": "1",
+    "b0_target": "11",
+    "gate_pass": true,
+    "statement": "background-field gluon+ghost self-energy is exactly transverse and gives b0 = 11/3 C_A = 11 (gluon+ghost split verified); scalar-bubble calibration g=1 fixes the normalisation. The loop ASSEMBLY is validated (exact)."
+  },
+  "vertex_finite_constant": {
+    "wilson": [
+      {
+        "kernel": "wilson",
+        "n": 24,
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_lat_ff": -0.3624028620546809,
+            "B_cont": -0.47797148344920204,
+            "C_vg": 18.249865189491125
+          },
+          {
+            "Q": 0.15,
+            "B_lat_ff": -0.3473309798891945,
+            "B_cont": -0.4632227158291085,
+            "C_vg": 18.30088939331938
+          },
+          {
+            "Q": 0.2,
+            "B_lat_ff": -0.32744734423752675,
+            "B_cont": -0.4437632480878902,
+            "C_vg": 18.36787130493174
+          },
+          {
+            "Q": 0.3,
+            "B_lat_ff": -0.2895295412410709,
+            "B_cont": -0.4068608185824311,
+            "C_vg": 18.5282126597396
+          }
+        ],
+        "C_vg": 18.36170963687046,
+        "Q_spread": 0.2783474702484767,
+        "seconds": 3.6
+      },
+      {
+        "kernel": "wilson",
+        "n": 32,
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_lat_ff": -0.3933156254199848,
+            "B_cont": -0.5088702605480165,
+            "C_vg": 18.24765656681435
+          },
+          {
+            "Q": 0.15,
+            "B_lat_ff": -0.36788984303145417,
+            "B_cont": -0.4837959733242118,
+            "C_vg": 18.3031624584102
+          },
+          {
+            "Q": 0.2,
+            "B_lat_ff": -0.34156549094233596,
+            "B_cont": -0.4579037792191694,
+            "C_vg": 18.371406111875807
+          },
+          {
+            "Q": 0.3,
+            "B_lat_ff": -0.30264336861903035,
+            "B_cont": -0.4200162944786762,
+            "C_vg": 18.534789530129533
+          }
+        ],
+        "C_vg": 18.36425366680747,
+        "Q_spread": 0.2871329633151838,
+        "seconds": 11.6
+      },
+      {
+        "kernel": "wilson",
+        "n": 48,
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_lat_ff": -0.42468928020171487,
+            "B_cont": -0.5402509659514497,
+            "C_vg": 18.248769956366214
+          },
+          {
+            "Q": 0.15,
+            "B_lat_ff": -0.38743077614403953,
+            "B_cont": -0.50335371111344,
+            "C_vg": 18.305816146579037
+          },
+          {
+            "Q": 0.2,
+            "B_lat_ff": -0.3601122156921775,
+            "B_cont": -0.4764764631247891,
+            "C_vg": 18.37550541744567
+          },
+          {
+            "Q": 0.3,
+            "B_lat_ff": -0.3108842163745731,
+            "B_cont": -0.4282763441030593,
+            "C_vg": 18.537821767716988
+          }
+        ],
+        "C_vg": 18.366978322026977,
+        "Q_spread": 0.28905181135077385,
+        "seconds": 80.3
+      }
+    ],
+    "rule": [
+      {
+        "kernel": "rule",
+        "n": 24,
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_lat_ff": -0.34186299659850616,
+            "B_cont": -0.47797148344920204,
+            "C_vg": 21.493390733555856
+          },
+          {
+            "Q": 0.15,
+            "B_lat_ff": -0.3268754427351553,
+            "B_cont": -0.4632227158291085,
+            "C_vg": 21.531098345673815
+          },
+          {
+            "Q": 0.2,
+            "B_lat_ff": -0.3071171933015242,
+            "B_cont": -0.4437632480878902,
+            "C_vg": 21.578280059376244
+          },
+          {
+            "Q": 0.3,
+            "B_lat_ff": -0.26937837141283627,
+            "B_cont": -0.4068608185824311,
+            "C_vg": 21.710357850521095
+          }
+        ],
+        "C_vg": 21.57828174728175,
+        "Q_spread": 0.21696711696523963,
+        "seconds": 3.7
+      },
+      {
+        "kernel": "rule",
+        "n": 32,
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_lat_ff": -0.37275899118605343,
+            "B_cont": -0.5088702605480165,
+            "C_vg": 21.493830130123044
+          },
+          {
+            "Q": 0.15,
+            "B_lat_ff": -0.3474226399949549,
+            "B_cont": -0.4837959733242118,
+            "C_vg": 21.535213613082565
+          },
+          {
+            "Q": 0.2,
+            "B_lat_ff": -0.3211740406737769,
+            "B_cont": -0.4579037792191694,
+            "C_vg": 21.59149486891845
+          },
+          {
+            "Q": 0.3,
+            "B_lat_ff": -0.2823324669551523,
+            "B_cont": -0.4200162944786762,
+            "C_vg": 21.742158561359997
+          }
+        ],
+        "C_vg": 21.590674293371013,
+        "Q_spread": 0.2483284312369527,
+        "seconds": 11.5
+      },
+      {
+        "kernel": "rule",
+        "n": 48,
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_lat_ff": -0.4041252673466083,
+            "B_cont": -0.5402509659514497,
+            "C_vg": 21.4961087048273
+          },
+          {
+            "Q": 0.15,
+            "B_lat_ff": -0.36690887972477426,
+            "B_cont": -0.50335371111344,
+            "C_vg": 21.546504134071526
+          },
+          {
+            "Q": 0.2,
+            "B_lat_ff": -0.3396135409191508,
+            "B_cont": -0.4764764631247891,
+            "C_vg": 21.612526389547487
+          },
+          {
+            "Q": 0.3,
+            "B_lat_ff": -0.290494856599602,
+            "B_cont": -0.4282763441030593,
+            "C_vg": 21.75758040724417
+          }
+        ],
+        "C_vg": 21.60317990892262,
+        "Q_spread": 0.2614717024168698,
+        "seconds": 82.4
+      }
+    ]
+  },
+  "wilson_tadpole_constant": 0.696890835391313,
+  "rule_tadpole_constant": 0.0,
+  "wilson_gate": {
+    "finite_constant_C": 19.06386915741829,
+    "lambda_ratio": 2.3786652407653186,
+    "qstar_a": 0.5461045874542884,
+    "assembled_d1": 19.06386915741829,
+    "target": 28.81,
+    "rel_err": 0.9174361249300479,
+    "pass": false
+  },
+  "rule_result": {
+    "finite_constant_C": 21.60317990892262,
+    "lambda_ratio": 2.669690967309738,
+    "qstar_a": 0.48657317116707677,
+    "assembled_d1": 21.60317990892262,
+    "lambda_target": 1.78,
+    "qstar_target": 0.7327,
+    "certified": false
+  },
+  "verdict": "GATE FAIL: the leading (hatted+cosine) form-factor vertex gives Wilson Lambda-ratio=2.38 vs 28.81 -> the full Kawai-Nakayama-Seo 3-gluon vertex is needed to certify the digit. The rule number (Lambda-ratio=2.670, q*_a=0.4866) is a CANDIDATE consistent with the F155 bracket; use run_d1_static_potential.py (gauge-fixing-free) as the trusted pin."
+}

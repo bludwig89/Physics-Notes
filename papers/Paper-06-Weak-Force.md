@@ -3,7 +3,7 @@
 **B. Ludwig**
 *Independent researcher*
 
-*Series: "A Universe in a Bottle" — Paper VI of XI. Builds on Paper III (chiral mass / $SU(2)_L$), Paper IV (electromagnetism), and supplies the weak interactions used in the lepton (X) and baryon (XI) sectors.*
+*Series: "A Universe in a Bottle" — Paper VI of XI. Builds on Paper III (chiral mass / $SU(2)_L$), Paper IV (electromagnetism), and supplies the weak interactions used in the lepton (IX) and baryon (X) sectors.*
 
 *Revision 2 (2026-06-08): re-issued for the eleven-paper series; the chiral $W^\pm$ / even-$Z$ propagator assignment is now noted as forced by the F91 classification theorem.*
 
@@ -145,7 +145,7 @@ Underlying findings: F27/F31/F34/F34b (chiral $SU(2)_L$, $W$ vertex, Stueckelber
 
 The weak sector is the most direct payoff of the Higgs-free design decision. Because the chiral $SU(2)_L$ is the gauge symmetry of the mass step itself, gauging it requires no new scalar: the $W$ and $Z$ masses come from a rank-1 Stueckelberg term whose longitudinal mode is the pure-gauge phase that would have been the Higgs. The Weinberg angle, an SM input, becomes a tree-level prediction of the BCC swap geometry. And the full $\beta$-decay chain — parity violation, universality, conservation laws, the Fermi limit — runs as one integrated lattice process.
 
-The honest limits are calibration (Tier B): the absolute couplings $g,g'$ and boson masses are uncalibrated, and the $\sim12\%$ gap in $\sin^2\theta_W$ (for the $\tfrac14$ counting) is what RG running and currently-absent lattice loop corrections would have to close; reconciling the $\tfrac14$ and $\tfrac29$ countings is open. None of this affects the structural completeness: every Tier-A weak-sector test passes. The neutrino-mass extension of the weak sector — the right-handed Majorana mass and the see-saw — is developed in Paper X.
+The honest limits are calibration (Tier B): the absolute couplings $g,g'$ and boson masses are uncalibrated, and the $\sim12\%$ gap in $\sin^2\theta_W$ (for the $\tfrac14$ counting) is what RG running and currently-absent lattice loop corrections would have to close; reconciling the $\tfrac14$ and $\tfrac29$ countings is open. None of this affects the structural completeness: every Tier-A weak-sector test passes. The neutrino-mass extension of the weak sector — the right-handed Majorana mass and the see-saw — is developed in Paper IX.
 
 ---
 

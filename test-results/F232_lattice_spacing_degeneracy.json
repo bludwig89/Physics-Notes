@@ -1,0 +1,64 @@
+{
+  "finding": "F232",
+  "item": "L3",
+  "checks": {
+    "T1": {
+      "statement": "a/ell_P = sqrt(8pi) 3^(1/4) (F79 structural)",
+      "value": 6.597816664747605,
+      "target": 6.59782,
+      "status": "PASS"
+    },
+    "T2": {
+      "statement": "G-match k^2/(8pi sqrt3) == 1 (a scales with ell_P; no free metre)",
+      "value": 0.9999999999999999,
+      "target": 1.0,
+      "status": "PASS"
+    },
+    "T3": {
+      "statement": "eikonal deflection coeff = -4, a-independent over 47 decades",
+      "value": -3.9999998750000034,
+      "target": -4.0,
+      "status": "PASS"
+    },
+    "T4": {
+      "statement": "triangle + a-free lensing => a undetermined (one ray, many a give same m_e)",
+      "value": "family",
+      "target": "family",
+      "status": "PASS"
+    },
+    "T5": {
+      "statement": "third input = G (dimensionful): a = 6.59782 ell_P in metres",
+      "value": 1.0663754173481642e-34,
+      "target": 1.06638e-34,
+      "status": "PASS"
+    }
+  },
+  "degeneracy_ray": [
+    {
+      "m_lat": 1e-30,
+      "a_fm": 6.688474717158382e-28,
+      "a_over_lP": 4.138254617717119e-08,
+      "m_recovered_MeV": 0.51099895
+    },
+    {
+      "m_lat": 1e-23,
+      "a_fm": 6.688474717158382e-21,
+      "a_over_lP": 0.41382546177171187,
+      "m_recovered_MeV": 0.51099895
+    },
+    {
+      "m_lat": 1e-22,
+      "a_fm": 6.688474717158382e-20,
+      "a_over_lP": 4.138254617717119,
+      "m_recovered_MeV": 0.51099895
+    },
+    {
+      "m_lat": 0.5,
+      "a_fm": 350.20771725243077,
+      "a_over_lP": 2.16678505095069e+22,
+      "m_recovered_MeV": 0.51099895
+    }
+  ],
+  "verdict": "DEGENERATE (negative). The absolute light-deflection coefficient is exactly -4, dimensionless and independent of a (F107 L4a), so it adds no constraint on a; the F83 (a, m_lat) ray is unbroken. A dimensionless observable cannot fix a length (scale-invariance theorem). The scale is pinned only by a dimensionful gravitational input: G (equivalently ell_P), via F79 a=sqrt(8pi)3^(1/4) ell_P. Mass-independent pin EXISTS but is the F79 G-match, NOT the lensing route the follow-up proposed.",
+  "summary": "5/5 PASS"
+}

@@ -12,6 +12,6 @@ Sub-modules:
 """
 from __future__ import annotations
 
-from . import photon, electroweak, strong, matter, em  # noqa: F401
+from . import photon, electroweak, strong, matter, em, entanglement  # noqa: F401
 
-__all__ = ["photon", "electroweak", "strong", "matter", "em"]
+__all__ = ["photon", "electroweak", "strong", "matter", "em", "entanglement"]

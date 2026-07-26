@@ -1,0 +1,53 @@
+{
+  "finding": "F235",
+  "title": "sqrt(sigma)/f_pi scale-setting: reduced to the shared strong-sector scheme constant; no cutoff closes it to <5%",
+  "sqrt_sigma_lat": 1.7872259598119031,
+  "cutoff_table": {
+    "axis_pi_over_a": {
+      "Lambda_over_a": 3.141592653589793,
+      "sqrt_sigma/Lambda": 0.5688916918524429,
+      "sqrt_sigma/f_pi": 4.003290835565641,
+      "dev_%": -12.208534307771012
+    },
+    "sphere_1atom_(6pi^2)^1/3": {
+      "Lambda_over_a": 3.8977770897207535,
+      "sqrt_sigma/Lambda": 0.45852441498647745,
+      "sqrt_sigma/f_pi": 3.2266363082598417,
+      "dev_%": -29.240431836406977
+    },
+    "sphere_2atom_bcc_(12pi^2)^1/3": {
+      "Lambda_over_a": 4.910891403137155,
+      "sqrt_sigma/Lambda": 0.36393106935131875,
+      "sqrt_sigma/f_pi": 2.5609829350252302,
+      "dev_%": -43.838093530148456
+    }
+  },
+  "checks": {
+    "C1_reproduce_F124": {
+      "axis": 4.003290835565641,
+      "sphere": 3.2266363082598417,
+      "pass": true
+    },
+    "C2_no_cutoff_within_5pct": {
+      "closest_dev_%": -12.208534307771012,
+      "all_devs_%": {
+        "axis_pi_over_a": -12.208534307771012,
+        "sphere_1atom_(6pi^2)^1/3": -29.240431836406977,
+        "sphere_2atom_bcc_(12pi^2)^1/3": -43.838093530148456
+      },
+      "Lambda_eff_needed_over_a": 2.758050236665869,
+      "pass": true
+    },
+    "C3_residual_is_scale_setting": {
+      "residual_factor_axis": 1.1390628828384133,
+      "note": "empirical/model(axis); lives in the confinement factor sqrt(sigma)/Lambda",
+      "pass": true
+    },
+    "C4_unify_with_E3_Q2": {
+      "statement": "the sqrt(sigma)/Lambda residual is the strong-coupling scale-setting (bare rotor ~1 -> condensed 4.0, F124 sec.5); same family as the d1 (Lambda_MS/Lambda_lat~1.78) that F233/F144 (E3) and F154/F144-A4 (Q2) isolate",
+      "chiral_factor_exact": 7.037,
+      "pass": true
+    }
+  },
+  "all_pass": true
+}

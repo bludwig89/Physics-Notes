@@ -148,6 +148,18 @@ in the stepper, replacing D-EM8's free `c_g`).
   lattice is the natural next build. The leading-order GW170817 statement
   ($c_\text{grav}=c_\text{lat}=c_\gamma$) holds for both because it is a property
   of the shared light cone, not of the polarisation structure.
+  **Update (2026-07-15 - 19:14): this TT-mode build is now done in
+  [[F248-tt-graviton-bcc-explicit]].** The two helicity-$\pm2$ TT polarisations
+  are constructed explicitly for every direction and shown to ride the **one**
+  scalar induced light cone: the graviton self-energy factorises as
+  $f_2(Q^2)\,\Lambda_{ij,kl}$ (spin-2 TT projector $\times$ scalar form factor),
+  both helicities are eigenvalue-$1$ of $\Lambda$ and so share the common pole
+  $q_0=c_\text{lat}\lvert\mathbf q\rvert$ — luminal and **exactly non-birefringent**,
+  with the gauge (spin-1/0) parts projected out. Verified on the genuine BCC even
+  ("paired") law $\omega_+(k/2)+\omega_-(k/2)$ (F69), whose helicity-symmetric sum
+  cancels the odd $s_xs_ys_z$ term, leaving an isotropic $c_\text{lat}$ slope and a
+  helicity-blind $O((ka)^2)$ anisotropy; a real-space TT packet propagates at
+  $0.9998\,c_\text{lat}$ for both polarisations.
 
 ## 6. Consequence for the engine and the audit
 

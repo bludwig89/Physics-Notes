@@ -1,0 +1,96 @@
+{
+  "targets": {
+    "wilson_gate": 28.81,
+    "lambda_ratio_rule": 1.78,
+    "pt_bracket": [
+      1.33,
+      2.25
+    ],
+    "world_Lambda_over_sqrtsigma": 0.55
+  },
+  "rows": [
+    {
+      "beta": 5.8,
+      "dim": 4,
+      "alpha_V": 0.25229028937020453,
+      "sigma_lat": 0.06531737885945052,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 1.0344827586206897,
+        "Lambda_L_a": 0.002938040252629825,
+        "Lambda_MSbar_a": 0.08464493967826525,
+        "sqrt_sigma_lat": 0.25557264888765097,
+        "Lambda_MSbar_over_sqrtsigma": 0.3311971764062865
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.25229028937020453,
+        "Lambda_V_a": 0.10392837611968536,
+        "Lambda_MSbar_a": 0.12277686932120763,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.48039909534756203
+      },
+      "routes_agree_pct": 36.767522014080285,
+      "world_value": 0.55,
+      "seconds": 2741.2
+    },
+    {
+      "beta": 6.0,
+      "dim": 4,
+      "alpha_V": 0.17988832873376007,
+      "sigma_lat": 0.05175445762614595,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 1.0,
+        "Lambda_L_a": 0.0023461336668890785,
+        "Lambda_MSbar_a": 0.06759211094307435,
+        "sqrt_sigma_lat": 0.22749606068269831,
+        "Lambda_MSbar_over_sqrtsigma": 0.2971133246889444
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.17988832873376007,
+        "Lambda_V_a": 0.041781740989372984,
+        "Lambda_MSbar_a": 0.04935929478545115,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.21696769006605068
+      },
+      "routes_agree_pct": 31.180157338076448,
+      "world_value": 0.55,
+      "seconds": 2678.3
+    },
+    {
+      "beta": 6.2,
+      "dim": 4,
+      "alpha_V": 0.20803111400952853,
+      "sigma_lat": 0.026380983896724105,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 0.9677419354838709,
+        "Lambda_L_a": 0.0018725967275078981,
+        "Lambda_MSbar_a": 0.05394951171950254,
+        "sqrt_sigma_lat": 0.16242223953856844,
+        "Lambda_MSbar_over_sqrtsigma": 0.33215594042275104
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.20803111400952853,
+        "Lambda_V_a": 0.06420098670982095,
+        "Lambda_MSbar_a": 0.07584450416589593,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.46695886216915544
+      },
+      "routes_agree_pct": 33.73806149233499,
+      "world_value": 0.55,
+      "seconds": 2687.1
+    }
+  ],
+  "Lambda_MSbar_over_sqrtsigma_route1": [
+    0.3311971764062865,
+    0.2971133246889444,
+    0.33215594042275104
+  ],
+  "mean_route1": 0.320155480505994,
+  "gate_28_81_consistent": false,
+  "verdict": "NP cross-check: with the 28.81 Wilson gate, Lambda_MSbar/sqrt(sigma) = 0.320 (mean over beta) vs world ~0.55 -> gate NOT yet in the scaling window (use larger beta / more stats). This confirms the number the PT route must reproduce; the rule's 1.78 = 1.299 (exact) x 1.365 (=1/q*a, the one open factor) then follows once q*a is pinned."
+}

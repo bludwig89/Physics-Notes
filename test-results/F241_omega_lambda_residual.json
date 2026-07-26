@@ -1,0 +1,96 @@
+{
+  "finding": "F241",
+  "title": "The last O(1) factor Omega_Lambda~0.685 is not derivable from the F190/F183 holographic sector (fixes ceiling Omega=1); it is the why-now coincidence residual = 1 - Omega_m",
+  "timestamp": "2026-07-03 - 14:35",
+  "n_pass": 6,
+  "n_total": 6,
+  "results": {
+    "C1_residual_is_omega_lambda": {
+      "pass": true,
+      "residual_omega_L": 0.6847,
+      "dlog10_from_ceiling": 0.1644996721326812,
+      "_seconds": 0.0,
+      "_desc": "residual = rho_Lambda/rho_crit = Omega_L = 0.6847; 0.165 dex below ceiling"
+    },
+    "C2_ceiling_theorem": {
+      "pass": true,
+      "ceiling_omega": 1.0,
+      "observed_below_ceiling": true,
+      "_seconds": 0.0,
+      "_desc": "BH/holographic capacity fixes Omega<=1 (a ceiling, not an interior value)"
+    },
+    "C3_event_horizon_route_circular": {
+      "pass": true,
+      "R_EH_now_over_cH0": 1.1498440742843372,
+      "omega_from_EH_now": 0.7563487563853469,
+      "omega_asymptote_equals_input": 0.6847000000000001,
+      "route_is_circular": true,
+      "_seconds": 0.041,
+      "_desc": "event-horizon route is circular; dS fixed point = 1, not 0.685"
+    },
+    "C4_feh_w0_not_minus_one": {
+      "pass": true,
+      "w0_feh_d1": -0.8849773409243802,
+      "w0_obs": -1.03,
+      "tension": 0.14502265907561984,
+      "_seconds": 0.0,
+      "_desc": "FEH d=1 predicts w0=-0.885 (not -1): not even a clean fit"
+    },
+    "C5_flatness_identity_needs_omega_m": {
+      "pass": true,
+      "omega_m_needed": 0.3153,
+      "identity_omega_L_eq_1_minus_omega_m": true,
+      "a_equality": 0.7722203003443452,
+      "z_equality": 0.29496725164319604,
+      "dlog10_past_equality": 0.13653032353129996,
+      "_seconds": 0.0,
+      "_desc": "Omega_L = 1 - Omega_m; closure needs Omega_m (F197-199 open)"
+    },
+    "C6_near_hits_are_numerology": {
+      "pass": true,
+      "n_simple_constants_within_0p02dex": 9,
+      "constants": [
+        [
+          "2/3",
+          0.6667
+        ],
+        [
+          "4/6",
+          0.6667
+        ],
+        [
+          "5/7",
+          0.7143
+        ],
+        [
+          "6/9",
+          0.6667
+        ],
+        [
+          "7/10",
+          0.7
+        ],
+        [
+          "8/12",
+          0.6667
+        ],
+        [
+          "ln2",
+          0.6931
+        ],
+        [
+          "e/4",
+          0.6796
+        ],
+        [
+          "1/sqrt2",
+          0.7071
+        ]
+      ],
+      "band_fractional_width": 0.09213596202946364,
+      "_seconds": 0.0,
+      "_desc": "numerology density: >=4 simple constants within 0.02 dex; band ~9% wide"
+    }
+  },
+  "seconds": 0.042
+}

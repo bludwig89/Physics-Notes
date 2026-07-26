@@ -1,0 +1,80 @@
+{
+  "constants": {
+    "Mpl_kg": 2.176434342051127e-08,
+    "Mpl_GeV": 1.2208901282098643e+19,
+    "H_inf_max_GeV": 60000000000000.0
+  },
+  "checks": [
+    {
+      "check": "S1_gravball_dwave_binds",
+      "pass": true,
+      "detail": "L=2 D-wave ground energy num=-0.055556 vs Coulomb -1/(2n^2)=-0.055556 (n=3), rel_err=1.29e-05 => two gravitons BIND to J=2 (1/r always binds)"
+    },
+    {
+      "check": "S2_self_binding_needs_planck",
+      "pass": true,
+      "detail": "frac binding (m/M_Pl)^4/36: at m=1e-3 M_Pl =2.78e-14 (shallow, mu~2m); self-binding at m~2.45 M_Pl; geon virial mu=sqrt(2) M_Pl=1.414 M_Pl = 1.727e+19 GeV (WIMPzilla regime)"
+    },
+    {
+      "check": "S3_nuR_nuR_nogo",
+      "pass": true,
+      "detail": "gravity-only alpha_g=(M_R/M_Pl)^2; max frac binding over M_R in [keV..1e14 GeV] =1.25e-22 << 1 => NO self-bound sub-Planckian J=2 nu_R nu_R state. No other model force binds it (Majorana mass = self-energy). Clean no-go."
+    },
+    {
+      "check": "S4_relic_gravitational_suppressed",
+      "pass": true,
+      "detail": "mu/H_inf^max = 2.88e+05 >> 1 => CGPP suppression ~10^(-7.852e+05); even with unsuppressed prefactor ceiling 1.15e+12, Omega h^2 ~ 10^(-7.852e+05) << 0.12 => gravitational production FAILS."
+    },
+    {
+      "check": "S5_relic_channel_band",
+      "pass": true,
+      "detail": "CGPP log10(Omega h^2) over (H_inf,T_RH) grid all < -30 (never reaches 0.12); => abundance must come from Planck-mass relics (PBH remnants) / preheating, Omega TUNABLE via the PBH mass function (extra input) -- the soft number."
+    },
+    {
+      "check": "S6_data_battery_vs_mu",
+      "pass": true,
+      "detail": "mu=sqrt2 M_Pl=1.73e+28 eV: lambda_dB=1.71e-32 m << kpc (cold); above fuzzy floor by 49 orders; dN_eff=0.0; sigma/m=1.72e-50 cm^2/g << SIDM 1.0 (collisionless/Bullet); n_local=1.74e-20 cm^-3 (undetectable, ~1 per (40 km)^3). ALL screens pass."
+    }
+  ],
+  "nuR_channel": {
+    "1 keV (F201 light sterile)": {
+      "alpha_g": 6.708830750342084e-51,
+      "frac_binding": 1.2502336121315424e-102
+    },
+    "7.1 keV (F200 nuMSM)": {
+      "alpha_g": 3.3819215812474457e-49,
+      "frac_binding": 3.1770537726964505e-99
+    },
+    "1e9 GeV (nuMSM heavy)": {
+      "alpha_g": 6.708830750342086e-21,
+      "frac_binding": 1.2502336121315432e-42
+    },
+    "1e14 GeV (GUT seesaw)": {
+      "alpha_g": 6.708830750342085e-11,
+      "frac_binding": 1.2502336121315426e-22
+    }
+  },
+  "cgpp_band_log10_Omega": {
+    "H=1e+09,T_RH=1e+05": -47114627265.37856,
+    "H=1e+09,T_RH=1e+09": -47114627261.37856,
+    "H=1e+11,T_RH=1e+07": -471146270.1327094,
+    "H=1e+11,T_RH=1e+11": -471146266.1327094,
+    "H=1e+13,T_RH=1e+09": -4711456.220251033,
+    "H=1e+13,T_RH=1e+13": -4711452.220251033,
+    "H=6e+13,T_RH=6e+09": -785235.725291475,
+    "H=6e+13,T_RH=6e+13": -785231.725291475
+  },
+  "summary": {
+    "graviton_graviton_binds": true,
+    "mu_geon_over_Mpl": 1.4142135623730951,
+    "mu_geon_GeV": 1.726599377481817e+19,
+    "regime": "Planckian / WIMPzilla",
+    "nuR_nuR_J2": "no-go (gravity-only, negligible binding)",
+    "relic_gravitational_production": "exponentially suppressed (mu >> H_inf) -> Omega << 0.12",
+    "relic_viable_route": "Planck-mass relics (PBH remnants) / preheating, Omega tunable",
+    "data_battery": "cold + collisionless + non-fuzzy + dNeff~0 -> all pass",
+    "verdict": "graviton-graviton J=2 geon BINDS at mu~sqrt2 M_Pl (perfect CDM structurally); nu_R nu_R does NOT bind; the obstruction migrates from 'does it bind / what mass' (SOLVED) to 'production' (abundance is the soft number, needs a relic/preheating channel)",
+    "n_pass": 6,
+    "n_total": 6
+  }
+}

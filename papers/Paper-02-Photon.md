@@ -89,7 +89,7 @@ Direct evaluation of (3.1) gives:
 - **Transverse, spin-1:** the field has two transverse polarisations, $|\mathbf E\!\cdot\!\hat{\mathbf k}|/|\mathbf E|=1.8\times10^{-17}$; it is real ($10^{-15}$) and norm-conserving ($6\times10^{-15}$).
 - **"Only as a pair":** the pair phase equals the constituent sum $\omega^+(\mathbf k/2)+\omega^-(\mathbf k/2)$ exactly (residual $0$); an unpaired single branch would carry $\Omega^\pm$, which differs (median split $5.3\times10^{-3}$).
 
-The two transverse polarisations and the masslessness together give the photon its spin-1 content without any spin-1 field being fundamental: the spin-1 object is the symmetric combination of two spin-$\tfrac12$ constituents ($\tfrac12\otimes\tfrac12 = 1\oplus0$, with the antisymmetric singlet being the pseudoscalar partner — the pion-channel sibling of Paper XI).
+The two transverse polarisations and the masslessness together give the photon its spin-1 content without any spin-1 field being fundamental: the spin-1 object is the symmetric combination of two spin-$\tfrac12$ constituents ($\tfrac12\otimes\tfrac12 = 1\oplus0$, with the antisymmetric singlet being the pseudoscalar partner — the pion-channel sibling of Paper X).
 
 ---
 
@@ -148,7 +148,7 @@ Underlying findings: F69 (paired-spinor photon), F67/F68 (even-law vs bilinear; 
 
 **What is retained for other sectors.** The chiral $\sigma$-bilinear is *not* discarded wholesale: it remains the correct *field construction* for the massive and non-Abelian sectors — $W$, $Z$, and gluons (Papers V, VI) — which are massive or confined and carry no astrophysical vacuum-birefringence bound. Indeed the pairing classification theorem (F91) shows the propagator *law* (even vs chiral) is forced sector by sector: $\gamma$ even (forced), $W^\pm$ chiral (forced; left-projector coupling), $Z$ even for its vector part with a mass-suppressed axial split, gluon even (forced; colour coupling is branch-blind).
 
-**Open items.** (i) A genuine two-constituent bound-state simulation of the pair — the "negative binding energy" of the notebook and the massless-pair condition — beyond the present dispersion-level treatment (partly addressed by the bound-state machinery of Findings F73/F74 used in Paper XI). (ii) Whether a clean paired construction exists for the massive sectors.
+**Open items.** (i) A genuine two-constituent bound-state simulation of the pair — the "negative binding energy" of the notebook and the massless-pair condition — beyond the present dispersion-level treatment (partly addressed by the bound-state machinery of Findings F73/F74 used in Paper X). (ii) Whether a clean paired construction exists for the massive sectors.
 
 ---
 

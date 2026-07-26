@@ -122,16 +122,71 @@
 | F202 | `F202-leptogenesis-from-intrinsic-L-violation` | Can the model source the lepton asymmetry resonant keV-DM production needs? Yes: all three Sakharov conditions are met by the model's own structure… |  |
 | F203 | `F203-dark-sector-falsifiability-battery` | The dark-sector falsifiability battery: the six observational tests of `dark-sector-overview.md` §4, built out as quantified, currently-evaluable falsifiers… |  |
 | F204 | `F204-alcubierre-warp-structural-exclusion` | The Alcubierre warp family under the model's induced-gravity / beable source: the superluminal branch is **structurally excluded** (stronger than the… |  |
+| F205 | `F205-sterile-qke-boltzmann-margins` | The full Boltzmann (quantum-kinetic) computation of keV sterile-neutrino dark matter: momentum-resolved active→sterile production (non-resonant Dodelson-Widrow… |  |
 | F206 | `F206-tierB-internucleon-nn-binding` | Tier-B inter-nucleon NN one-boson-exchange binding (closes the F195 frontier) |  |
 | F207 | `F207-casimir-effect-source-channel-and-gravitation` | The Casimir effect in the BCC Weyl-QCA model: the force is reproduced exactly from the F69 photon as a source/$H_\text{int}$ effect, consistent with F193 (the… |  |
 | F208 | `F208-relativistic-scf-ionization-energies` | Relativistic (F125 Dirac–Coulomb) ionization energies in the multi-electron SCF, and the light-element accuracy map |  |
+| F209 | `F209-modulated-casimir-beable-template-degeneracy` | Time-modulating a Casimir cavity does **not** break the F207-G1 degeneracy: the beable-source weight and the SEP vacuum-buoyancy weight coincide at **every**… |  |
 | F21 | `F21-curl-residual-geometry-independence` | The composite-photon curl residual is geometry-independent: $\text{curl}/\|k\| = c_\text{lat}/\sqrt2$ |  |
+| F210 | `F210-electrical-superconductivity` | Electrical superconductivity on the lattice: the electric S-dual of F86 |  |
+| F211 | `F211-tc-magnitude-real-superconductors` | T_c magnitude from real superconductors: feeding the F210 gap equation real couplings |  |
+| F212 | `F212-dynamical-entanglement-generation` | The lattice substrate generates entanglement entropy it is not given: a genuine 2ⁿ tensor-product register with a native spinor-exchange entangler drives a… |  |
+| F213 | `F213-hopfield-firstprinciples-and-gap-renormalization` | First-principles Hopfield η from the F64 deformation potential; the mass renormalization and the non-universal gap ratio |  |
+| F214 | `F214-superexchange-and-live-entanglement-channel` | The F212 entangler's coupling is **derived** from the `ca_dirac` hopping (antiferromagnetic super-exchange $J=\tfrac12(\sqrt{U^2+16t^2}-U)$, $t$ measured from… |  |
+| F215 | `F215-eliashberg-solver` | Imaginary-axis Eliashberg solver on the F210 kernel: the mass renormalization, dynamically |  |
+| F216 | `F216-massive-spin2-dark-mode` | Does the induced gravity sector admit a massive bound mode or a second polarization branch, and could it be dark matter? The metric graviton stays massless (2… |  |
+| F217 | `F217-field-native-fermion-entanglement` | Field-native second quantization: the super-exchange $J$ and two-site spin entanglement **emerge** from genuine fermion hopping (Jordan–Wigner Fock space… |  |
+| F218 | `F218-algorithm-through-the-engine` | The substrate **computes**: CZ/CNOT compile **exactly** from the lattice exchange interaction ($\boldsymbol\sigma\!\cdot\!\boldsymbol\sigma$ commutes with… |  |
+| F218 | `F218-alpha2F-firstprinciples-and-pade-gap-ratio` | First-principles α²F(ω) and the dynamic strong-coupling gap ratio via Padé continuation |  |
 | F22 | `F22-velocity-addition-deformed-formula` | QCA Velocity Addition: Exact Deformed Formula from the Arccos Dispersion |  |
+| F220 | `F220-field-native-execution` | The substrate computes on **genuine matter**: quantum gates and a full Deutsch–Jozsa run directly on the second-quantized fermionic Fock sector — single-qubit… |  |
+| F221 | `F221-noise-error-correction` | The engine gains **fault-tolerance machinery**: Kraus decoherence channels + stabilizer codes built on the native gate set. The 3-qubit code's corrected… |  |
+| F222 | `F222-scaled-quantum-algorithms` | The substrate's quantum algorithms **scale**: a native controlled-phase + fully-compiled native CCZ extend the exact universality proof to 3-qubit controlled… |  |
+| F223 | `F223-spin2-bound-state-binding-and-relic` | The F216 massive spin-2 dark mode, resolved: the graviton–graviton J=2 "geon" **binds** at the Planckian virial mass $\mu\simeq\sqrt2\,M_\text{Pl}$ (a… |  |
+| F224 | `F224-qc-si-coldatom` | Route 1 to a real-world test: the derived super-exchange is **SI-anchored** and confronts measured cold-atom data. The sector reduces exactly to the two-site… |  |
+| F225 | `F225-doublon-leakage-spinqubit` | Route 2 to a real-world test: the model's native **doublon leakage** reproduces measured semiconductor exchange-qubit leakage. The closed-form leakage… |  |
+| F226 | `F226-bell-tsirelson-indistinguishable` | Route 3: the lattice register saturates Tsirelson $S_\text{CHSH}=2\sqrt2$ **exactly**, so it is **Bell-indistinguishable** from QM; the only discreteness entry… |  |
+| F227 | `F227-decoherence-unitarity-floor` | Route 4: the discrete substrate has **no observable intrinsic-decoherence floor** — the effective-theory unitarity floor is exactly zero, any residual is… |  |
+| F228 | `F228-geon-production-and-stability` | How the F223 geon is produced, and whether it is stable: the graviton–graviton J=2 geon is **stable** as the F190/F107 **one-cell Planck-mass black-hole… |  |
 | F23 | `F23-smearing-ruled-out-curl-residual-is-phase-locked` | Smearing is ruled out; the c_lat/√2 curl coefficient is algebraically phase-locked |  |
+| F230 | `F230-lepton-angle-geometric-nogo` | E1: deriving $\delta^*=\tfrac29$ rad from the crystal-field / equipartition geometry closes **negative** — geometry fixes only the phase-coordinate… |  |
+| F231 | `F231-weinberg-2over9-onshell-face-of-1over4` | E2: $\sin^2\theta_W=\tfrac29$ is the **on-shell face** of $\sin^2\theta_W=\tfrac14$, not a competing tree value — the exact bridge $8/9$ decomposes into… |  |
+| F232 | `F232-lattice-spacing-degeneracy-scale-invariance` | L3: pinning the lattice spacing $a$ independently of mass — the light-deflection route is **degenerate** (a scale-invariance theorem), and the mass-independent… |  |
+| F233 | `F233-mass-scale-N-transmutation-supersedes-F119` | The overall mass scale $N$ is **not** the deepest free number: F119's "no running channel" no-go is superseded by F144's dimensional transmutation… |  |
+| F234 | `F234-Wvc-triple-closed-delta-2-9-pins-brake` | The self-consistent $(W,v,c)$ triple is **closed**: existence was already established (F118, spontaneous-$E_g$ branch), and the derived shape angle… |  |
+| F235 | `F235-sqrt-sigma-fpi-scale-setting-unifies-with-d1` | $\sqrt\sigma/f_\pi$ scale-setting: the exact chiral factor $7.04$ stands, the $+12\%$ confinement-factor residual is **not** removable by any principled BCC… |  |
+| F236 | `F236-three-generation-seesaw-pmns` | The full 3×3 Higgs-free see-saw: the F93/F76/F201 $E_g$ generation texture fixes the three light active masses (reducing exactly to F47 per generation), but… | 5/5 PASS |
+| F237 | `F237-kev-sterile-resolution` | The keV-sterile resolution attempt (open-derivation D2): can resonant Shi-Fuller production plus late **entropy dilution** thread the current X-ray + Lyman-α… |  |
+| F238 | `F238-geon-relic-abundance` | The geon relic **abundance** is a genuinely free input, and here is exactly why: closing the F228 residual by *proving* the primordial-black-hole fraction… |  |
+| F239 | `F239-scheme-conversion-factorizes-exact-VtoMSbar-times-open-lattice-d1` | The $g_s=\tfrac12$ lattice$\to\overline{\rm MS}$ **scheme** conversion factorises **exactly** into a derived piece and one open piece: $\Lambda_{\overline{\rm… |  |
 | F24 | `F24-sl2c-boost-4current-covariance` | Weyl SL(2,ℂ) Boost: Lorentz 4-Current Covariance |  |
+| F240 | `F240-omega-coupling-from-vector-sector` | The ω NN coupling from the model's vector-meson sector: KSFR × universality × baryon coherence, and the full-OBE deuteron | 10/10 PASS |
+| F241 | `F241-omega-lambda-o1-residual-anthropic` | The last $O(1)$ factor of the cosmological constant, $\Omega_\Lambda\approx0.685$, is **not** derivable from the F190 area-entropy / F183 black-hole scaling… |  |
+| F242 | `F242-mustar-from-f64-dielectric` | Morel–Anderson μ* derived from the F64 EM-connection dielectric |  |
+| F243 | `F243-f3-lowdensity-lensing-not-falsified` | F3 low-density lensing: falsification attempt fails (prediction survives) |  |
+| F244 | `F244-emqg-1overb-3d-lensing` | 1/b scaling of 3-D EMQG lensing (isolated Green's function, no free α) |  |
+| F245 | `F245-curl-subleading-closed-forms` | Closed forms for the composite-photon curl-residual subleading coefficients (L1) |  |
+| F246 | `F246-f26-even-dispersion-subleading` | Subleading coefficients of the F26 even-rotation curl law: closed form + exact even-power vanishing (L2) |  |
+| F247 | `F247-omega-coupling-free-input-degeneracy` | The absolute ω-NN coupling is a genuine free input: universality overshoot + deuteron core/ω degeneracy (Q3) |  |
+| F248 | `F248-tt-graviton-bcc-explicit` | The explicit transverse-traceless graviton on the BCC lattice: the two helicity-$\pm2$ modes are constructed for every direction, ride the **one** scalar… |  |
+| F249 | `F249-qed-comparison-battery` | Quantitative QED comparison battery for the paired-spinor photon |  |
 | F25 | `F25-real-rotation-exact-discrete-time-maxwell` | Real-rotation formula holds to machine precision; Maxwell curl holds only to O(k) |  |
+| F250 | `F250-allk-gauge-pole-paired-photon` | The all-k gauge pole of the dual-spinor (paired) photon: a single massless transverse pole across the whole Brillouin zone |  |
+| F251 | `F251-qed-vacuum-polarization-running-alpha` | The interacting one-loop QED photon self-energy Π^μν(q) and the running coupling α(q²) |  |
+| F252 | `F252-qed-vertex-ae-lamb-shift` | The one-loop QED vertex Λ^μ: the electron anomalous moment a_e = α/2π and the hydrogen Lamb shift |  |
+| F253 | `F253-weight-as-phase-scale-nogo` | E1: the weight→phase principle behind $\delta^*=\tfrac29$ rad **reduces to one named normalization** (POSIT-N: the $E_g$ generator norm) and the **topological… |  |
+| F254 | `F254-t2g-pmns-selector-nogo` | No lattice selector for the PMNS $T_{2g}$ channel: the three neutrino-mixing amplitudes transform as **three inequivalent 1-d irreps** ($B_{1g}, B_{2g}… | 4/4 PASS |
+| F255 | `F255-generator-norm-fixed-by-F118-schur` | E1 follow-up: the F118/F234 self-consistent solve **does** implicitly fix the $E_g$ generator norm ($R=1$) — the condensate phase is the *canonical*… |  |
+| F256 | `F256-lambda6-sextic-derivative-nogo` | E1: "derive $\lambda_6=0.243$" is **structurally misposed** — the sextic brake is *derivative*, not fundamental; the dynamical Landau route… |  |
+| F257 | `F257-bethe-log-from-model-spectrum` | The hydrogen Bethe logarithm derived from the model's own Coulomb spectrum (no literature input) |  |
+| F258 | `F258-electron-self-energy` | The one-loop QED electron self-energy Σ(p): mass renormalization δm, wavefunction renormalization Z₂, and Z₁=Z₂ proven from the loop integrals |  |
+| F259 | `F259-ir-bremsstrahlung` | The infrared sector of QED: soft bremsstrahlung and the Bloch–Nordsieck cancellation of IR divergences |  |
 | F26 | `F26-bcc-spin-axis-scalar-contamination` | BCC Spin Axis n̂(k) and Scalar Contamination \|ψᵀψ\|² = 1 − n̂_y² |  |
 | F26 | `F26-speed-of-light-as-rotation-rate` | The speed of light is the angular rotation rate of the (E, B) pair per unit wavenumber |  |
+| F260 | `F260-qed-scattering-smatrix` | The tree-level QED S-matrix on the model's fields, and the positron / charge-conjugation + crossing sector |  |
+| F261 | `F261-twoloop-qed-ae-amu` | Two-loop QED: the electron anomalous moment $A_2=-0.328478965$, the two-loop running of $\alpha$, and the muon $a_\mu$ with lepton universality |  |
+| F262 | `F262-positronium-hydrogen-hyperfine-lamb` | Bound-state QED: positronium (reduced-mass spectrum + ortho–para hyperfine + decay rates), hydrogen 21 cm, and Lamb-shift completeness (recoil + finite size) |  |
+| F263 | `F263-euler-heisenberg-schwinger-nonlinear-qed` | Nonlinear & non-perturbative QED: the Euler–Heisenberg effective Lagrangian, light-by-light scattering, field-induced vacuum birefringence, and Schwinger pair… |  |
 | F27 | `F27-complex-mass-chiral-su2` | Chiral SU(2) from β-gauging: Higgs-free mass coupling | 9/9 PASS |
 | F28 | `F28-grb-dispersion-test` | F26 photon-dispersion prediction is consistent with all current LIV bounds, but below sensitivity by ~15 decades |  |
 | F29 | `F29-w-triplet-bilinear-su2-bridge` | W-triplet bilinear bridges F26 (photon rotation law) to F27 (chiral SU(2)) | 8/8 PASS |

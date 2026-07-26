@@ -278,6 +278,113 @@ def two_mode_squeezing(g, t, steps=400, ncut=24):
     return ts, na, nb, float(np.max(np.abs(na - nb))), float(np.max(np.abs(na - sinh2)))
 
 
+# ══════════════════════════════════════════════════════════════════
+#  F209 — MODULATED Casimir: can time-modulation break the F207-G1
+#  degeneracy between the beable-source and SEP-vacuum-buoyancy weight?
+#  (adds only the *time-dependent* source; reuses the F207 statics)
+# ══════════════════════════════════════════════════════════════════
+
+def _E_C_ideal_SI(area, L_sep):
+    """Continuum EM Casimir energy of an ideal cavity (SI, J): −π²ħcA/720L³."""
+    return -np.pi ** 2 * HBAR * C_SI * area / (720.0 * L_sep ** 3)
+
+
+def casimir_energy_reflectivity(area, L_sep, eta):
+    """Renormalised (beable) Casimir energy of a cavity whose mirror
+    reflectivity is parametrised by η∈[0,1] (0=transparent, 1=perfect).
+    Concrete smooth switch E_C(η)=η²·E_C_ideal — η² because the plate–plate
+    interaction is second order in the single-plate reflection amplitude r∝η
+    (Lifshitz/Jaffe C4).  Any monotone f with f(0)=0 gives the same degeneracy
+    verdict; only the finite configuration energy enters (the divergent bulk
+    self-energy is renormalised into the mirrors' rest mass, F207 C4)."""
+    return eta ** 2 * _E_C_ideal_SI(area, L_sep)
+
+
+def weight_beable(area, L_sep, eta, g=9.81):
+    """Beable-source weight shift.  Feed E_C(η) as beable T⁰⁰ into the F106/F178
+    dielectric ∇²lnK=−(8πG/c⁴)T⁰⁰; the Gauss-law closure (F207 G1) returns
+    M_grav=E_C/c² independent of the distribution, so ΔW=g·E_C/c²."""
+    E_C = casimir_energy_reflectivity(area, L_sep, eta)
+    M = dielectric_enclosed_mass_gauss(E_C)     # = E_C / c²  (F207 Gauss closure)
+    return g * M
+
+
+def weight_sep_buoyancy(area, L_sep, eta, g=9.81):
+    """SEP vacuum-buoyancy weight shift (Calloni/Avino Archimedes), computed
+    from the buoyancy definition — a body displacing vacuum energy of density u
+    feels a buoyant force equal to the weight of the displaced energy.  The
+    cavity's energy content relative to free vacuum is exactly E_C(η), so
+    ΔW=g·E_C/c².  Independent formula from weight_beable; they coincide because
+    the F178 dielectric IS GR in the weak field (PPN β=γ=1)."""
+    E_C = casimir_energy_reflectivity(area, L_sep, eta)
+    m_displaced = E_C / C_SI ** 2               # displaced-vacuum-energy weight
+    return g * m_displaced
+
+
+def modulated_weight_signals(area, L_sep, eta0, deta, f_mod,
+                             n_period=4, n_t=4096, g=9.81):
+    """Both weight signals over n_period modulation cycles with
+    η(t)=η0+δη·cos(2π f_mod t).  Returns
+    (t, W_beable, W_sep, max|W_beable−W_sep|, max|FFT diff over all harmonics|).
+    A zero in BOTH the time-domain and every Fourier harmonic = the F207-G1
+    degeneracy survives modulation to all orders."""
+    T = n_period / f_mod
+    t = np.linspace(0.0, T, n_t, endpoint=False)
+    eta = eta0 + deta * np.cos(2.0 * np.pi * f_mod * t)
+    Wb = weight_beable(area, L_sep, eta, g)
+    Ws = weight_sep_buoyancy(area, L_sep, eta, g)
+    Fb = np.fft.rfft(Wb)
+    Fs = np.fft.rfft(Ws)
+    return (t, Wb, Ws, float(np.max(np.abs(Wb - Ws))),
+            float(np.max(np.abs(Fb - Fs))))
+
+
+def homogeneous_offset_differential(rho0, area, L_sep, eta_ref, eta_sig, g=9.81):
+    """The beable-vs-template dispute is ENTIRELY about the homogeneous
+    zero-point offset ρ0 (J/m³).  It fills all space equally in both the
+    reference (η_ref) and signal (η_sig) states (present inside AND outside the
+    cavity — F193 A4), so a tared/differential weighing W(sig)−W(ref) cancels it
+    EXACTLY, while the configuration-dependent beable Casimir energy survives.
+    Returns (offset_differential [N] = 0 exactly, beable_differential [N])."""
+    V = area * L_sep
+    offset_abs = g * (rho0 * V) / C_SI ** 2         # same in BOTH states
+    offset_differential = offset_abs - offset_abs   # ≡ 0 (structural)
+    dE_C = (casimir_energy_reflectivity(area, L_sep, eta_sig)
+            - casimir_energy_reflectivity(area, L_sep, eta_ref))
+    beable_differential = g * dE_C / C_SI ** 2
+    return offset_differential, beable_differential
+
+
+def dce_radiated_gravitating_mass(Omega_d, gcoup, t, n_modes=1):
+    """Dynamical Casimir (F207 D1): a parametric drive at Ω_d down-converts into
+    mode pairs (ω_a+ω_b=Ω_d).  After time t the beable radiated energy is
+    E_rad=ħΩ_d·sinh²(g t)·n_modes (n_a=n_b=sinh²(g t), F207 D1).  These are REAL
+    on-shell quanta ⇒ gravitate, Δm=E_rad/c².  The SAME energy is SUPPLIED BY
+    THE DRIVE (energy conservation), so the SEP/energy-conservation accounting
+    weighs an identical Δm — the drive-work IS the gravitating energy in both
+    pictures.  Model structure: one DCE event = two F69 photons = four Weyl
+    quanta (doubly paired) — a counting/correlation signature, not a weight
+    difference.  Returns (E_rad [J], dm_beable [kg], dm_sep [kg], residual)."""
+    n = np.sinh(gcoup * t) ** 2
+    E_rad = HBAR * Omega_d * n * n_modes
+    dm_beable = E_rad / C_SI ** 2       # real quanta gravitate
+    dm_sep = E_rad / C_SI ** 2          # drive-supplied energy gravitates (GR)
+    return E_rad, dm_beable, dm_sep, float(np.abs(dm_beable - dm_sep))
+
+
+def dce_change_beable_vs_template(Omega_d, gcoup, t, n_modes=1):
+    """The change in the TEMPLATE ⟨T⁰⁰⟩ and in the BEABLE T⁰⁰ from a DCE event.
+    Template: ⟨T⁰⁰⟩ = Σ½ħω (offset) + n·ħω_real → the CHANGE is +E_rad.
+    Beable:   T⁰⁰ = 0 (offset absent, F193) + n·ħω_real → the CHANGE is +E_rad.
+    A weighing measures the CHANGE (tared), which is E_rad in both ⇒ degenerate;
+    the pictures differ only in the unchanging, unweighable absolute offset.
+    Returns (template_change [J], beable_change [J], residual)."""
+    E_rad, *_ = dce_radiated_gravitating_mass(Omega_d, gcoup, t, n_modes)
+    template_change = E_rad
+    beable_change = E_rad
+    return template_change, beable_change, float(abs(template_change - beable_change))
+
+
 if __name__ == "__main__":
     print("C1 1D sin  :", fit_coeff_1d(np.arange(40, 121, 10), kind="sin")[0],
           "target", -np.pi * C_LAT / 24)

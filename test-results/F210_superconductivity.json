@@ -1,0 +1,124 @@
+{
+  "finding": "F210",
+  "title": "Electrical superconductivity on the lattice",
+  "n_pass": 16,
+  "n_total": 16,
+  "checks": {
+    "SC1a": {
+      "statement": "phonon exchange attractive for |w|<w_q, repulsive above",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true,
+      "V_below": -0.7999999999999999,
+      "V_above": 0.19999999999999998
+    },
+    "SC1b": {
+      "statement": "small-q phonon attraction is q-independent constant -V (BCS contact)",
+      "tier": "exact",
+      "residual": 2.6645352591003757e-15,
+      "pass": true,
+      "V_const": 4.334999999999998
+    },
+    "SC1c": {
+      "statement": "Debye cutoff = c_s * BZ edge (lattice quantity)",
+      "tier": "exact",
+      "residual": 1.1102230246251565e-16,
+      "pass": true,
+      "omega_D": 0.7255197456936872
+    },
+    "SC2a": {
+      "statement": "2 Delta(0)/kTc = 2 pi/e^gamma = 3.5277539777 (coupling & cutoff independent)",
+      "tier": "machine",
+      "residual": 4.440892098500626e-16,
+      "pass": true,
+      "exact": 3.527753977724091,
+      "ratio_N0V0.05": 3.5277539777240925,
+      "wD_independence": 4.440892098500626e-16
+    },
+    "SC2b": {
+      "statement": "specific-heat jump dC/C_n = 12/(7 zeta3) = 1.4261269",
+      "tier": "machine",
+      "residual": 1.483035916294284e-11,
+      "pass": true,
+      "value": 1.4261269244389003
+    },
+    "SC2c": {
+      "statement": "Delta^2(T) near-Tc slope matches 8 pi^2/(7 zeta3) (kTc)^2",
+      "tier": "numeric",
+      "residual": 0.0001589124498283523,
+      "pass": true,
+      "slope_ratio": 0.9998410875501716
+    },
+    "SC2d": {
+      "statement": "T=0 gap solves 1 = N0V arcsinh(wD/Delta) (F77-form gap eq)",
+      "tier": "machine",
+      "residual": 0.0,
+      "pass": true,
+      "Delta0": 0.07143890225624669
+    },
+    "SC3a": {
+      "statement": "Cooper-pair charge = 2e exactly (integer holonomy, F87)",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true
+    },
+    "SC3b": {
+      "statement": "pair winds 2x (F69 sum) + spin-0 s-wave singlet boson",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true
+    },
+    "SC4a": {
+      "statement": "massive photon m=0 reduces to luminal even photon c_lat*k",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true
+    },
+    "SC4b": {
+      "statement": "Meissner B-expulsion decay length = lambda_L (=1/m_gamma)",
+      "tier": "numeric",
+      "residual": 1.8518449145984068e-06,
+      "pass": true,
+      "lambda_measured": 3.000005555534744
+    },
+    "SC4c": {
+      "statement": "lambda_L(2e)/lambda_L(e) = 1/2 exactly (pair-charge signature)",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true,
+      "lambda_pair_m": 2.6571365766503696e-08
+    },
+    "SC5a": {
+      "statement": "flux quantum Phi0 = h/2e = 2.0678e-15 Wb (= half h/e; carriers are pairs)",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true,
+      "Phi0": 2.0678338484619295e-15
+    },
+    "SC5b": {
+      "statement": "kappa = lambda_L/xi0 sorts type I (<1/sqrt2) vs II (>1/sqrt2)",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true,
+      "kappa_II": 20.0,
+      "kappa_I": 0.2,
+      "threshold": 0.7071067811865475
+    },
+    "SC5c": {
+      "statement": "Josephson DC I=Ic sin(dtheta) & AC f_J=2eV/h",
+      "tier": "machine",
+      "residual": 0.0,
+      "pass": true,
+      "f_J_pred": 483597848.4169836,
+      "f_J_meas": 483597848.4169836
+    },
+    "SC6": {
+      "statement": "persistent supercurrent dJ/dt=0 (E=0); normal control decays",
+      "tier": "exact",
+      "residual": 0.0,
+      "pass": true,
+      "persistent_drift": 0.0,
+      "normal_final": 1.9287498479639178e-22
+    }
+  }
+}

@@ -5,9 +5,11 @@
 
 **Notebook source material:** M. Ludwig (2007), *Physics Notes*, pp. 59–60 ("Complex mass"), pp. 73–74 (helical mass)
 
-*Series: "A Universe in a Bottle" — Paper III of XI. Builds on Paper I (spherical mass shell) and is the mass foundation for Papers VI, IX, X, XI.*
+*Series: "A Universe in a Bottle" — Paper III of XI. Builds on Paper I (spherical mass shell) and is the mass foundation for Papers VI, VIII, IX, X.*
 
 *Revision 2 (2026-06-08): re-issued for the eleven-paper series; companion-paper cross-references updated (fermions IX, leptons X, baryons XI).*
+
+*Revision 3 (2026-07-01): companion-paper numbers shifted by one following the deprecation of the "dielectric black hole" paper (fermions VIII, leptons IX, baryons X).*
 
 ---
 
@@ -99,7 +101,7 @@ In the SM the Higgs VEV $\langle\Phi\rangle$ selects which doublet component cou
 
 ### 3.3 Status as a known mass mechanism
 
-The construction is the lattice realisation of the non-Abelian Stueckelberg / Kunimasa–Goto mass term: a gauge-invariant mass generated without a physical scalar. The continuum no-go theorems on renormalisability of massive Yang–Mills do not bind here, because the lattice carries a built-in UV cutoff (the cell size $a$). The phase that would have been the Higgs is eaten as the Stueckelberg/longitudinal mode (Paper VI; hypercharge in Paper X). The hypercharge $U(1)_Y$ rides on the *same* field $U(\mathbf x)$ that carries the mass phase, by absorbing the chiral hypercharge difference $\Delta Y=Y_L-Y_R$ (Finding F41); this is what lets the model dispense with the Higgs scalar entirely rather than merely relocating it.
+The construction is the lattice realisation of the non-Abelian Stueckelberg / Kunimasa–Goto mass term: a gauge-invariant mass generated without a physical scalar. The continuum no-go theorems on renormalisability of massive Yang–Mills do not bind here, because the lattice carries a built-in UV cutoff (the cell size $a$). The phase that would have been the Higgs is eaten as the Stueckelberg/longitudinal mode (Paper VI; hypercharge in Paper IX). The hypercharge $U(1)_Y$ rides on the *same* field $U(\mathbf x)$ that carries the mass phase, by absorbing the chiral hypercharge difference $\Delta Y=Y_L-Y_R$ (Finding F41); this is what lets the model dispense with the Higgs scalar entirely rather than merely relocating it.
 
 ---
 
@@ -150,7 +152,7 @@ below which chiral symmetry is unbroken. In the chiral limit the pion is the exa
 | $m_\pi$ | 140.5 MeV | 135–138 | 4.1% |
 | $\langle\bar qq\rangle^{1/3}$ | $-249$ MeV | $\sim-250$ | 0.4% |
 
-A by-product (relevant to any composite-Higgs speculation) is that the self-consistent scalar always obeys $m_\sigma/2m_c\geq1$, so the dynamical-mass mechanism cannot produce the sub-threshold binding ($m_H/2m_t=0.363$) a $t\bar t$ composite Higgs would require — a structural near-no-go. The same NJL machinery, promoted to a dynamical pion, supplies the long-range nuclear force in Paper XI.
+A by-product (relevant to any composite-Higgs speculation) is that the self-consistent scalar always obeys $m_\sigma/2m_c\geq1$, so the dynamical-mass mechanism cannot produce the sub-threshold binding ($m_H/2m_t=0.363$) a $t\bar t$ composite Higgs would require — a structural near-no-go. The same NJL machinery, promoted to a dynamical pion, supplies the long-range nuclear force in Paper X.
 
 ---
 
@@ -158,7 +160,7 @@ A by-product (relevant to any composite-Higgs speculation) is that the self-cons
 
 ### 6.1 Koide as cubic-vector equipartition
 
-The generation structure (Paper IX) places the three charged leptons in the cubic vector irrep $T_{1u}$ of $O_h$. Define the vector $\mathbf s=(\sqrt{m_e},\sqrt{m_\mu},\sqrt{m_\tau})$ and split it into its democratic ($A_{1g}$, along $\hat n=(1,1,1)/\sqrt3$) and traceless ($T_{1u}$) parts. The angle $\theta$ between $\mathbf s$ and $\hat n$ satisfies the **exact identity**
+The generation structure (Paper VIII) places the three charged leptons in the cubic vector irrep $T_{1u}$ of $O_h$. Define the vector $\mathbf s=(\sqrt{m_e},\sqrt{m_\mu},\sqrt{m_\tau})$ and split it into its democratic ($A_{1g}$, along $\hat n=(1,1,1)/\sqrt3$) and traceless ($T_{1u}$) parts. The angle $\theta$ between $\mathbf s$ and $\hat n$ satisfies the **exact identity**
 
 $$
 \cos^2\theta=\frac{(\sum_a\sqrt{m_a})^2}{3\sum_a m_a}=\frac{1}{3Q},
@@ -194,7 +196,7 @@ Koide is then a statement about the amplitude $y$, not the mass — precisely be
 
 ### 6.4 Honest limits
 
-The cubic geometry fixes the *form* (three orthorhombic generations; $\sqrt m$ as cubic vector; the equipartition identity (6.1)) and the charged leptons sit on it to $10^{-5}$. The amplitude $\sqrt2$ itself ($Q=\tfrac23$ exactly) is **not yet derived** from the QCA rule: the cube's symmetric dynamics give the degenerate floor $Q=\tfrac13$, so equipartition is a critical/maximal-breaking condition that an explicit ingredient must impose (Finding F78). A recurring $\sqrt2$/$45^\circ$ in both the constituent stability bound (F73) and the generation vector hints at a single saturation mechanism; Finding F80 identifies the *selector* of the critical sector as electromagnetism (only the colour-free, charged sector lands on $45^\circ$), while flagging that perturbative EM is $\sim340\times$ too weak to *drive* the rotation. The up- and down-type quarks ($Q=0.85,0.73$) do not equipartition; why only the charged leptons do is treated further in Paper X.
+The cubic geometry fixes the *form* (three orthorhombic generations; $\sqrt m$ as cubic vector; the equipartition identity (6.1)) and the charged leptons sit on it to $10^{-5}$. The amplitude $\sqrt2$ itself ($Q=\tfrac23$ exactly) is **not yet derived** from the QCA rule: the cube's symmetric dynamics give the degenerate floor $Q=\tfrac13$, so equipartition is a critical/maximal-breaking condition that an explicit ingredient must impose (Finding F78). A recurring $\sqrt2$/$45^\circ$ in both the constituent stability bound (F73) and the generation vector hints at a single saturation mechanism; Finding F80 identifies the *selector* of the critical sector as electromagnetism (only the colour-free, charged sector lands on $45^\circ$), while flagging that perturbative EM is $\sim340\times$ too weak to *drive* the rotation. The up- and down-type quarks ($Q=0.85,0.73$) do not equipartition; why only the charged leptons do is treated further in Paper IX.
 
 ---
 
@@ -218,7 +220,7 @@ Underlying findings: F27 (chiral $SU(2)$ complex mass), F46 (spherical-Pythagore
 
 ## 8. Discussion and relation to the series
 
-This paper supplies the mass mechanism that the rest of the matter sector inherits. Paper VI (weak force) gauges the $SU(2)_L$ symmetry derived in §3 with dynamical $W$ bosons. Paper IX (fermion sector) uses the spherical mass shell (§4) and the cubic generation structure (§6) to fix the generation count and hierarchy. Paper X (leptons) adds the right-handed-neutrino Majorana mass and see-saw on the same Higgs-free footing, and develops the Koide/EM-selection story. Paper XI (baryons) uses the NJL constituent-mass scale (§5) and its dynamical pion.
+This paper supplies the mass mechanism that the rest of the matter sector inherits. Paper VI (weak force) gauges the $SU(2)_L$ symmetry derived in §3 with dynamical $W$ bosons. Paper VIII (fermion sector) uses the spherical mass shell (§4) and the cubic generation structure (§6) to fix the generation count and hierarchy. Paper IX (leptons) adds the right-handed-neutrino Majorana mass and see-saw on the same Higgs-free footing, and develops the Koide/EM-selection story. Paper X (baryons) uses the NJL constituent-mass scale (§5) and its dynamical pion.
 
 The single conceptual claim unifying all of this — that mass is a *rotation* (the rest leg of the spherical triangle) sourced by a pure-gauge chiral coupling rather than by a fundamental scalar — is what makes the model Higgs-free without sacrificing any verified mass phenomenology.
 

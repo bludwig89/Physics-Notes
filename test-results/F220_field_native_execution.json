@@ -1,0 +1,83 @@
+{
+  "finding": "F220",
+  "date": "2026-07-01",
+  "title": "Field-native execution in the fermion chain",
+  "tests": {
+    "G1_single_qubit_exact": {
+      "worst_err": 8.289755688637866e-16
+    },
+    "G2_entangler_convergence": {
+      "0.5": {
+        "U_over_t": 3.9219794076389647,
+        "fidelity": 0.9792076456604425,
+        "weight": 0.8092269602087208,
+        "entropy": 0.68015917395498
+      },
+      "0.8": {
+        "U_over_t": 10.025454913917315,
+        "fidelity": 0.9999936026619117,
+        "weight": 0.9996535056271572,
+        "entropy": 0.6931344459823612
+      },
+      "0.9": {
+        "U_over_t": 16.664379907541036,
+        "fidelity": 0.9999807205898243,
+        "weight": 0.9972540223501356,
+        "entropy": 0.6931124130680364
+      },
+      "0.95": {
+        "U_over_t": 26.03561476314537,
+        "fidelity": 0.999995837029898,
+        "weight": 0.9985744902807845,
+        "entropy": 0.6931398735785386
+      },
+      "0.98": {
+        "U_over_t": 44.67417695345349,
+        "fidelity": 0.9999960229355763,
+        "weight": 0.9960312444364818,
+        "entropy": 0.6931471648591674
+      }
+    },
+    "G3_field_native_cnot": {
+      "0.9": {
+        "U_over_t": 16.664379907541036,
+        "max_basis_err": 0.004994868368405662
+      },
+      "0.95": {
+        "U_over_t": 26.03561476314537,
+        "max_basis_err": 0.002385170935656037
+      },
+      "0.98": {
+        "U_over_t": 44.67417695345349,
+        "max_basis_err": 0.003989514877405455
+      }
+    },
+    "G4_field_native_dj": {
+      "const0": {
+        "verdict": "constant",
+        "p1": 6.096563286111885e-32,
+        "weight": 0.9999999999999997
+      },
+      "const1": {
+        "verdict": "constant",
+        "p1": 5.999894391391322e-32,
+        "weight": 0.9999999999999992
+      },
+      "balanced_id": {
+        "verdict": "balanced",
+        "p1": 0.9999958384924535,
+        "weight": 0.9975014596768413
+      },
+      "balanced_not": {
+        "verdict": "balanced",
+        "p1": 0.9999958384924535,
+        "weight": 0.9975014596768409
+      }
+    },
+    "G5_live_engine": {
+      "final_argmax": 3,
+      "final_weight": 0.9975014596768413,
+      "checkpoint_err": 0.0
+    }
+  }
+}

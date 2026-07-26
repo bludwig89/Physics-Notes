@@ -1,0 +1,36 @@
+{
+  "A_generator_norm": {
+    "p_perp_to_111 (should be ~0)": 2.315680609582486e-16,
+    "delta_geometric_rad": 0.22222963148971583,
+    "delta_koide_rad": 0.22222963148971564,
+    "geom_equals_koide": true,
+    "delta_vs_2_9_pct": 0.0033341703720435323,
+    "r_ratio_A_over_ybar": 1.7320348158442054,
+    "verdict_a": "delta is the literal arg of the E_g doublet in the deviation simplex (p perp (1,1,1)) -> a GENUINE radian with NO free scale. The F118 functional therefore FIXES the generator norm to R=1 GEOMETRICALLY (not posited): POSIT-N part (a) is supplied by the solve."
+  },
+  "A_schur_isotropy": {
+    "max|D^T D - I|": 4.440892098500626e-16,
+    "E_g_metric_isotropic": true,
+    "note": "E_g is a 2D irrep of O_h; by Schur its invariant bilinear is unique up to overall scale (here the generators act orthogonally, D^T D=I). Overall scale does not change angles => the E_g-plane phase delta is CANONICAL, a genuine radian. R=1 is FORCED by representation theory, not a free normalization (this upgrades F253's POSIT-N part (a))."
+  },
+  "B_angle_identity_circular": {
+    "cos3delta_at_2_9": 0.785887260776948,
+    "C_req_from_assuming_2_9": 0.03620112122936515,
+    "e6_implied": 0.14897580752825165,
+    "e_implied": 0.7280914950756188,
+    "delta_if_lambda6_eq_0.243": 0.22222222222222213,
+    "delta_if_lambda6_eq_1/4": 0.23382950249557125,
+    "lambda6_quarter_gives_2_9_pct": 5.223276123007066,
+    "verdict_b": "cos3d*=-B/2C fixes delta ONLY given C (i.e. lambda6). F234 gets lambda6=0.243 by ASSUMING delta*=2/9 -> using it to derive 2/9 is CIRCULAR. The suggestive lambda6=1/4 (F115 rotor) gives delta~0.250, a ~12.5% miss from 2/9, so 1/4 does NOT independently reproduce the weight. POSIT-N part (b) is NOT supplied by the solve."
+  },
+  "B2_independent_lambda6": {
+    "sea_loop_can_source_C": false,
+    "reason": "F118 B1: C_loop(sat)=-0.018<0 (anti-brake); B2: C_loop~ybar^7 wrong scaling",
+    "independent_value_of_lambda6": "none (only pinned via delta*=2/9, F234) -> circular"
+  },
+  "VERDICT": {
+    "does_solve_fix_generator_norm_R": "YES for the NORMALIZATION (R=1): the F118 angle delta is the genuine arg of the E_g doublet in the deviation simplex (p perp (1,1,1)), a true radian with no free scale. This REMOVES F253's 'free R' escape hatch -- the weight->radian bridge is not a free normalization.",
+    "does_solve_close_E1": "NO. The remaining half of POSIT-N -- that this genuine radian EQUALS the weight 2/9 -- is set dynamically by cos3d*=-B/2C, i.e. by lambda6. F234 fixes lambda6 FROM 2/9 (circular); F118 B1/B2 show the sea loop cannot source it; lambda6=1/4 (rotor) misses by ~12.5%. So E1 does not close.",
+    "net_refinement": "E1's residual SHARPENS and MOVES: no longer 'a normalization (R) + an identity', but the SINGLE coupling lambda6 = C/e^6 = 0.243 -- the E_g sextic clock self-interaction. The generator-norm question is ANSWERED (R=1, geometric). E1 = 'derive lambda6=0.243 (~1/4) independently, or a reason the genuine dynamical E_g angle lands on the weight 2/9'."
+  }
+}

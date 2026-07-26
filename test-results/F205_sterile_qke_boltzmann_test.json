@@ -1,0 +1,72 @@
+{
+  "finding": "F205",
+  "title": "Full Boltzmann (QKE) computation of keV sterile dark matter \u2014 narrowing F203 T1/T2",
+  "timestamp": "2026-06-30 - 23:40",
+  "n_pass": 8,
+  "n_total": 8,
+  "results": {
+    "V1_linearity": {
+      "pass": true,
+      "ratio_doubling": 1.9999999999843026,
+      "note": "Omega exactly linear in sin^2(2theta) -> one-run rescale is valid",
+      "_seconds": 0.04,
+      "_desc": "Omega linear in sin2 (rescale valid)"
+    },
+    "V2_DW_abundance": {
+      "pass": true,
+      "sin2_DW": 6.079820412476475e-09,
+      "note": "DW mixing for Omega_DM at 7.1 keV reproduces the literature to within ~factor 2",
+      "_seconds": 0.0,
+      "_desc": "DW mixing for Omega_DM in literature band"
+    },
+    "V3_DW_xray_excluded": {
+      "pass": true,
+      "excess_dex": 2.5534418297657804,
+      "note": "DW X-ray excluded by >2 dex (F203 T1 order-of-magnitude -> 2.55 dex)",
+      "_seconds": 0.0,
+      "_desc": "DW X-ray excluded by >2 dex"
+    },
+    "V4_resonant_enhancement": {
+      "pass": true,
+      "enhancement": 582.1576078972874,
+      "L_first_xray_allowed": 0.002,
+      "note": "resonant production >100x more efficient than DW; clears X-ray bound for L>~2e-3",
+      "_seconds": 0.0,
+      "_desc": ">100x resonant enhancement, clears X-ray"
+    },
+    "V5_NRP_lyman_alpha_floor": {
+      "pass": true,
+      "floor_nonresonant_keV": 41.21827697432513,
+      "note": "non-resonant Lyman-alpha floor ~41 keV reproduces the cited combined X-ray+Lya bound",
+      "_seconds": 0.0,
+      "_desc": "NRP Lyman-alpha floor ~41 keV"
+    },
+    "V6_resonant_colder": {
+      "pass": true,
+      "coldest_ratio": 0.4774364274363289,
+      "floor_coldest_keV": 15.3807401682038,
+      "note": "coldest resonant spectrum <eps> ~0.48x DW; relaxes the Lyman-alpha floor 41 -> 15 keV",
+      "_seconds": 0.0,
+      "_desc": "coldest resonant spectrum relaxes the floor"
+    },
+    "V7_model_under_pressure": {
+      "pass": true,
+      "model_ms_keV": 5.6,
+      "floor_coldest_conservative_keV": 8.845046801333334,
+      "note": "5.6/7.1 keV below the ~9 keV coldest+conservative floor -> under pressure, quantified",
+      "_seconds": 0.0,
+      "_desc": "5.6/7.1 keV below floor -> pressure confirmed"
+    },
+    "V8_spectrum_converged": {
+      "pass": true,
+      "mean_eps_2000": 3.2888387702355826,
+      "mean_eps_4000": 3.288838770224048,
+      "rel_change": 3.5072479809702803e-12,
+      "note": "<eps> converged under grid refinement -> L-dependence is physical, not an artifact",
+      "_seconds": 0.08,
+      "_desc": "<eps> grid-converged"
+    }
+  },
+  "verdict": "Full Boltzmann narrows the F203 margins to computed numbers. (1) ABUNDANCE/X-ray: non-resonant DW for 100% DM needs sin^2 2theta = 6.1e-09, 2.55 dex ABOVE the aggregate X-ray bound -> DW is X-ray excluded (was order-of-magnitude, now 2.5 dex). (2) RESONANT: production reaches Omega_DM at up to ~582x smaller mixing; it clears the X-ray bound for L>~2e-03, and cold spectra (<eps> down to 1.57 vs DW 3.29) exist - but in this fixed-L pass the X-ray-allowed and cold-spectrum regimes DON'T coincide (the 7.1 keV edge tension). (3) LYMAN-alpha: the mass floor is 41 keV non-resonant -> 15 keV at the coldest resonant spectrum (Viel) -> 9 keV (coldest + conservative bound). The model's 5.6 keV and the 7.1 keV benchmark sit BELOW even the most relaxed floor -> the keV sterile is under quantified pressure as 100% DM, viable only as a sub-dominant component or if the full L-depletion QKE threads the cold + X-ray-allowed corner. NET: F203 T1/T2 pressure CONFIRMED and QUANTIFIED (2.5 dex X-ray exclusion of DW; ~9 keV Lyman-alpha floor vs a 5.6 keV model), not removed.",
+  "seconds": 0.12
+}

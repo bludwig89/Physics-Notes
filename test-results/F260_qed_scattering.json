@@ -1,0 +1,348 @@
+{
+  "summary": {
+    "finding": "F260",
+    "title": "Tree-level QED S-matrix + positron/crossing sector",
+    "checks": 11,
+    "passed": 11,
+    "failed": 0,
+    "alpha_inv_used": 137.035999177,
+    "m_e_MeV": 0.51099895,
+    "m_mu_MeV": 105.6583755,
+    "verdict": "Positron sector established (C exact, v=C ubar^T completeness); Klein-Nishina reproduced and reducing to Thomson; Moller, Bhabha, Dirac annihilation and e+e- -> mu+mu- cross sections reproduced vs textbook closed forms; Ward identities and crossing exact. The model's QED has a working tree S-matrix."
+  },
+  "detail": {
+    "G1_charge_conjugation": {
+      "C_gamma_Cinv_eq_minus_gammaT": true,
+      "C_antisymmetric": true,
+      "C_unitary": true,
+      "C_squared_minus1": true,
+      "gate_pass": true,
+      "statement": "C gamma^mu C^{-1} = -(gamma^mu)^T exactly (literal 0); C^T=-C, C unitary, C^2=-1. Promotes the F27/F46 electron to the positron v = C ubar^T and underlies crossing."
+    },
+    "G2_positron_completeness": {
+      "residuals": {
+        "dirac_u": 6.280369834735101e-16,
+        "dirac_v": 6.280369834735101e-16,
+        "comp_u": 4.441032145415821e-16,
+        "comp_v": 4.441032145415821e-16
+      },
+      "tol": 1e-11,
+      "gate_pass": true,
+      "statement": "positron v = C ubar^T satisfies (pslash+m)v=0 and the completeness sum v vbar = pslash - m; electron sum u ubar = pslash + m. Model's own u,v completeness (no eig), machine precision."
+    },
+    "G3_crossing": {
+      "moller_to_bhabha_s_u_crossing": true,
+      "compton_to_annihilation_crossing": true,
+      "gate_pass": true,
+      "statement": "Bhabha = Moller|_{s<->u} and annihilation = -Compton|_{a->-a} exactly (sympy): one analytic amplitude across channels."
+    },
+    "C1_compton_M2": {
+      "points": [
+        {
+          "x": 0.01,
+          "cos_theta": 0.1,
+          "trace": 2.020160555003559,
+          "textbook": 2.020160555004958,
+          "rel_err": 6.926801420662888e-13
+        },
+        {
+          "x": 0.1,
+          "cos_theta": 0.3,
+          "trace": 2.189158878504627,
+          "textbook": 2.1891588785046716,
+          "rel_err": 2.0285837369346282e-14
+        },
+        {
+          "x": 0.5,
+          "cos_theta": -0.4,
+          "trace": 2.8964705882352977,
+          "textbook": 2.8964705882352937,
+          "rel_err": 1.379887268624281e-15
+        },
+        {
+          "x": 2.0,
+          "cos_theta": 0.8,
+          "trace": 3.508571428571428,
+          "textbook": 3.508571428571429,
+          "rel_err": 2.531453150611106e-16
+        },
+        {
+          "x": 10.0,
+          "cos_theta": -0.6,
+          "trace": 32.83764705882353,
+          "textbook": 32.83764705882353,
+          "rel_err": 0.0
+        }
+      ],
+      "worst_rel_err": 6.926801420662888e-13,
+      "gate_pass": true,
+      "statement": "s+u channel spin-averaged |M|^2 equals the Klein-Nishina Mandelstam form to machine precision at all kinematics."
+    },
+    "C2_compton_ward": {
+      "worst_k_dot_M_incoming": 2.220446049250313e-16,
+      "worst_k_dot_M_outgoing": 1.6653345369377348e-16,
+      "gate_pass": true,
+      "statement": "k_mu M^{mu nu} = k'_nu M^{mu nu} = 0 (Ward): replacing a photon polarisation by its momentum kills the amplitude, so the F250 transverse pol sum is exact."
+    },
+    "C3_klein_nishina": {
+      "kn_total": [
+        {
+          "x": 0.01,
+          "sigma_num": 0.00043742133705599207,
+          "sigma_closed": 0.00043742134389426936,
+          "rel_err": 1.5633158695745206e-08
+        },
+        {
+          "x": 0.1,
+          "sigma_num": 0.00037533566893939766,
+          "sigma_closed": 0.00037533567517209794,
+          "rel_err": 1.6605669790578595e-08
+        },
+        {
+          "x": 1.0,
+          "sigma_num": 0.00019215521906552132,
+          "sigma_closed": 0.00019215522965577812,
+          "rel_err": 5.511302932695938e-08
+        },
+        {
+          "x": 5.0,
+          "sigma_num": 8.507813783831944e-05,
+          "sigma_closed": 8.507817615058765e-05,
+          "rel_err": 4.5031840056496117e-07
+        }
+      ],
+      "worst_rel_err_vs_closed": 4.5031840056496117e-07,
+      "sigma_over_thomson_at_x_1e-6": 0.999800038644157,
+      "thomson_sigma_T_barn_model": 0.6652458719056219,
+      "thomson_sigma_T_barn_codata": 0.66524587,
+      "thomson_rel_err": 2.864537712220892e-09,
+      "gate_pass": true,
+      "statement": "KN total sigma(x) reproduces the closed Klein-Nishina form; sigma(x->0) -> Thomson sigma_T (F249 A5 tie); sigma_T from model alpha,m_e matches CODATA to <0.3%."
+    },
+    "M1_moller": {
+      "points": [
+        {
+          "cos_theta": 0.3,
+          "trace": 46.12051684579157,
+          "textbook": 46.12051684579157,
+          "rel_err": 0.0
+        },
+        {
+          "cos_theta": -0.5,
+          "trace": 75.11111111111113,
+          "textbook": 75.11111111111114,
+          "rel_err": 1.8919776987694968e-16
+        },
+        {
+          "cos_theta": 0.7,
+          "trace": 187.3141099577086,
+          "textbook": 187.3141099577086,
+          "rel_err": 0.0
+        },
+        {
+          "cos_theta": -0.2,
+          "trace": 40.111111111111114,
+          "textbook": 40.111111111111114,
+          "rel_err": 0.0
+        }
+      ],
+      "worst_rel_err": 1.8919776987694968e-16,
+      "gate_pass": true,
+      "statement": "Moller (t/u channels) reproduces the standard massless differential cross section to machine precision."
+    },
+    "M2_bhabha": {
+      "points": [
+        {
+          "cos_theta": 0.3,
+          "trace": 19.48591836734694,
+          "textbook": 19.485918367346937,
+          "rel_err": 1.8232210624231476e-16
+        },
+        {
+          "cos_theta": -0.5,
+          "trace": 4.6944444444444455,
+          "textbook": 4.694444444444445,
+          "rel_err": 1.8919776987694973e-16
+        },
+        {
+          "cos_theta": 0.7,
+          "trace": 135.33444444444447,
+          "textbook": 135.33444444444447,
+          "rel_err": 0.0
+        },
+        {
+          "cos_theta": -0.2,
+          "trace": 6.417777777777778,
+          "textbook": 6.417777777777778,
+          "rel_err": 0.0
+        }
+      ],
+      "worst_rel_err": 1.8919776987694973e-16,
+      "gate_pass": true,
+      "statement": "Bhabha (s/t channels) reproduces the standard massless differential cross section to machine precision."
+    },
+    "M3_moller_bhabha_diff": {
+      "E_beam_MeV": 1000.0,
+      "cos_theta": 0.5,
+      "moller_dsigma_dOmega_barn_sr": 9.733920673684558e-08,
+      "bhabha_dsigma_dOmega_barn_sr": 5.475330378947564e-08,
+      "gate_pass": true,
+      "statement": "CM differential cross sections dsigma/dOmega=|M|^2/64pi^2 s for Moller and Bhabha at sqrt(s)=2000 MeV."
+    },
+    "A1_annihilation": {
+      "M2_points": [
+        {
+          "Ecm": 2.5,
+          "cos_theta": 0.3,
+          "trace": 6.059401243531427,
+          "textbook": 6.0594012435314255
+        },
+        {
+          "Ecm": 5.0,
+          "cos_theta": -0.4,
+          "trace": 6.44755211305141,
+          "textbook": 6.447552113051411
+        },
+        {
+          "Ecm": 10.0,
+          "cos_theta": 0.7,
+          "trace": 11.664333111234832,
+          "textbook": 11.664333111234832
+        }
+      ],
+      "worst_rel_err_M2": 2.93157156624437e-16,
+      "bose_symmetry_worst_rel": 0.0,
+      "ward_both_photons_worst": 7.216449660063518e-16,
+      "total_cross_section": [
+        {
+          "Ecm": 2.5,
+          "sigma_num": 0.00014954002453341264,
+          "sigma_closed": 0.00014954002482755728,
+          "rel_err": 1.966996100513601e-09
+        },
+        {
+          "Ecm": 4.0,
+          "sigma_num": 5.9321165653040916e-05,
+          "sigma_closed": 5.932116791737086e-05,
+          "rel_err": 3.8170690578568924e-08
+        },
+        {
+          "Ecm": 10.0,
+          "sigma_num": 1.3054500799776886e-05,
+          "sigma_closed": 1.3054521293670996e-05,
+          "rel_err": 1.5698694459076481e-06
+        }
+      ],
+      "worst_rel_err_sigma": 1.5698694459076481e-06,
+      "gate_pass": true,
+      "statement": "e-e+->gamma gamma: |M|^2 = Dirac textbook form (crossing of Compton) to machine precision; Bose-symmetric under k<->k'; Ward exact on both photons; total sigma reproduces the closed Dirac cross section."
+    },
+    "U1_mupair": {
+      "M2_points": [
+        {
+          "Ecm": 3.0,
+          "trace": 1.5125,
+          "textbook": 1.5125
+        },
+        {
+          "Ecm": 5.0,
+          "trace": 1.2629,
+          "textbook": 1.2629000000000001
+        },
+        {
+          "Ecm": 20.0,
+          "trace": 1.131275,
+          "textbook": 1.1312749999999998
+        }
+      ],
+      "worst_rel_err_M2": 1.962781860511647e-16,
+      "total_cross_section": [
+        {
+          "sqrt_s_MeV": 250.0,
+          "beta": 0.5343441699399966,
+          "sigma_num_barn": 1.0078347401821296e-06,
+          "sigma_closed_barn": 1.0078347434965867e-06,
+          "sigma_4pia2_3s_barn": 1.389671627546049e-06,
+          "rel_err": 3.288691046680101e-09
+        },
+        {
+          "sqrt_s_MeV": 1000.0,
+          "beta": 0.9774176337404621,
+          "sigma_num_barn": 8.678853668063845e-08,
+          "sigma_closed_barn": 8.678853794849458e-08,
+          "sigma_4pia2_3s_barn": 8.685447672162806e-08,
+          "rel_err": 1.4608566338316254e-08
+        },
+        {
+          "sqrt_s_MeV": 10000.0,
+          "beta": 0.999776701222562,
+          "sigma_num_barn": 8.685446886908947e-10,
+          "sigma_closed_barn": 8.68544702259599e-10,
+          "sigma_4pia2_3s_barn": 8.685447672162805e-10,
+          "rel_err": 1.5622344113508774e-08
+        }
+      ],
+      "worst_rel_err_sigma": 1.5622344113508774e-08,
+      "m_mu_MeV": 105.6583755,
+      "gate_pass": true,
+      "statement": "e-e+->mu-mu+ s-channel: |M|^2 = textbook trace form; total sigma = (4pi a^2/3s) beta (1+2m^2/s) -> 4pi a^2/3s at high energy (the R-ratio unit)."
+    }
+  },
+  "checks": {
+    "G1_charge_conjugation": {
+      "quantity": "C gamma^mu C^-1 = -(gamma^mu)^T (positron/crossing)",
+      "statement": "C gamma^mu C^{-1} = -(gamma^mu)^T exactly (literal 0); C^T=-C, C unitary, C^2=-1. Promotes the F27/F46 electron to the positron v = C ubar^T and underlies crossing.",
+      "pass": true
+    },
+    "G2_positron_completeness": {
+      "quantity": "v = C ubar^T; sum v vbar = pslash - m (no eig)",
+      "statement": "positron v = C ubar^T satisfies (pslash+m)v=0 and the completeness sum v vbar = pslash - m; electron sum u ubar = pslash + m. Model's own u,v completeness (no eig), machine precision.",
+      "pass": true
+    },
+    "G3_crossing": {
+      "quantity": "Bhabha=Moller|s<->u; annih=-Compton|a->-a",
+      "statement": "Bhabha = Moller|_{s<->u} and annihilation = -Compton|_{a->-a} exactly (sympy): one analytic amplitude across channels.",
+      "pass": true
+    },
+    "C1_compton_M2": {
+      "quantity": "Compton |M|^2 (trace) = Klein-Nishina Mandelstam form",
+      "statement": "s+u channel spin-averaged |M|^2 equals the Klein-Nishina Mandelstam form to machine precision at all kinematics.",
+      "pass": true
+    },
+    "C2_compton_ward": {
+      "quantity": "Ward k_mu M^{mu nu} = 0 (gauge invariance)",
+      "statement": "k_mu M^{mu nu} = k'_nu M^{mu nu} = 0 (Ward): replacing a photon polarisation by its momentum kills the amplitude, so the F250 transverse pol sum is exact.",
+      "pass": true
+    },
+    "C3_klein_nishina": {
+      "quantity": "KN total sigma(x) vs closed; -> Thomson sigma_T (F249 A5)",
+      "statement": "KN total sigma(x) reproduces the closed Klein-Nishina form; sigma(x->0) -> Thomson sigma_T (F249 A5 tie); sigma_T from model alpha,m_e matches CODATA to <0.3%.",
+      "pass": true
+    },
+    "M1_moller": {
+      "quantity": "Moller |M|^2 vs textbook",
+      "statement": "Moller (t/u channels) reproduces the standard massless differential cross section to machine precision.",
+      "pass": true
+    },
+    "M2_bhabha": {
+      "quantity": "Bhabha |M|^2 vs textbook",
+      "statement": "Bhabha (s/t channels) reproduces the standard massless differential cross section to machine precision.",
+      "pass": true
+    },
+    "M3_moller_bhabha_diff": {
+      "quantity": "Moller/Bhabha differential cross sections",
+      "statement": "CM differential cross sections dsigma/dOmega=|M|^2/64pi^2 s for Moller and Bhabha at sqrt(s)=2000 MeV.",
+      "pass": true
+    },
+    "A1_annihilation": {
+      "quantity": "e+e- -> gamma gamma: |M|^2, Bose, Ward, total sigma",
+      "statement": "e-e+->gamma gamma: |M|^2 = Dirac textbook form (crossing of Compton) to machine precision; Bose-symmetric under k<->k'; Ward exact on both photons; total sigma reproduces the closed Dirac cross section.",
+      "pass": true
+    },
+    "U1_mupair": {
+      "quantity": "e+e- -> mu+mu-: |M|^2, total sigma -> 4 pi a^2/3s",
+      "statement": "e-e+->mu-mu+ s-channel: |M|^2 = textbook trace form; total sigma = (4pi a^2/3s) beta (1+2m^2/s) -> 4pi a^2/3s at high energy (the R-ratio unit).",
+      "pass": true
+    }
+  }
+}

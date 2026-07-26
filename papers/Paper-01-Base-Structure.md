@@ -5,9 +5,11 @@
 
 **Notebook source material:** M. Ludwig (2007), *Physics Notes* (unpublished)
 
-*Series: "A Universe in a Bottle" — Paper I of XI. This paper establishes the substrate, update rule, and emergent special-relativistic kinematics on which all subsequent papers (the photon, mass, the four interactions, the dielectric black hole, and the fermion/lepton/baryon sectors) are built.*
+*Series: "A Universe in a Bottle" — Paper I of XI. This paper establishes the substrate, update rule, and emergent special-relativistic kinematics on which all subsequent papers (the photon, mass, the four interactions, and the fermion/lepton/baryon sectors) are built.*
 
 *Revision 2 (2026-06-08): re-issued as Paper I of the eleven-paper series (the matter sector is now split across three papers — fermions IX, leptons X, baryons XI — and the dielectric black hole is given its own Paper VIII). All numerical results carried over from Revision 1 are unchanged.*
+
+*Revision 3 (2026-07-01): the horizon-free "dielectric black hole" paper (formerly Paper VIII, F114) is deprecated following the adoption of the full-tensor induced Einstein equation (F178, Paper VII §4.2) — the exact strong-field object is Schwarzschild/Kerr. Subsequent papers are renumbered consecutively (fermions VIII, leptons IX, baryons X, unification XI, Koide angle XII).*
 
 ---
 
@@ -23,7 +25,7 @@ The hypothesis examined in this series is the oldest dream of digital physics: t
 
 This is not a new aspiration (Zuse 1969; Fredkin 1990; 't Hooft 2016), but two ingredients make the present attempt tractable. First, the QCA uniqueness theorems of Bisio *et al.* (2015) show that the requirements of locality, homogeneity, unitarity and isotropy are so restrictive that, in three spatial dimensions, the simplest non-trivial one-particle QCA is essentially **forced** to be the Weyl walk on the BCC lattice. The free dynamics are not chosen; they are derived. Second, modern numerical tooling allows every algebraic claim to be checked to floating-point precision, so the model can be falsified continuously as it is built. Throughout this series we hold to a strict standard of evidence: a structural claim is "exact" only if it reduces to an algebraic identity (ideally bit-for-bit over the rationals), and "machine-precision" if it is verified numerically at the $10^{-14}$–$10^{-16}$ level.
 
-The remainder of the series treats the photon (Paper II), the Higgs-free origin of mass (Paper III), the four interactions (Papers IV–VII: electromagnetism, the strong force, the weak force, gravity), the strong-field gravitational object — the horizon-free dielectric black hole (Paper VIII) — and the matter content split into the fermion (Paper IX), lepton (Paper X) and baryon (Paper XI) sectors. The present paper supplies the common substrate and the two foundational reinterpretations — light as rotation, and mass as a second rotation composing spherically with the first — on which every later result depends.
+The remainder of the series treats the photon (Paper II), the Higgs-free origin of mass (Paper III), the four interactions (Papers IV–VII: electromagnetism, the strong force, the weak force, gravity — the last including the strong-field regime, exact Schwarzschild/Kerr under the full-tensor source), and the matter content split into the fermion (Paper VIII), lepton (Paper IX) and baryon (Paper X) sectors. The present paper supplies the common substrate and the two foundational reinterpretations — light as rotation, and mass as a second rotation composing spherically with the first — on which every later result depends.
 
 ### 1.1 Standing design decisions
 
@@ -44,7 +46,7 @@ A fifth philosophical commitment runs through the series: the conviction that th
 
 A one-particle QCA assigns to every lattice site a finite-dimensional internal state and updates it by a unitary operator that is local (couples only neighbouring sites), homogeneous (the same rule everywhere) and isotropic (covariant under the lattice point group). Bisio, D'Ariano, Perinotti and Tosini (2015) proved that in $d=3$ these constraints admit, at minimal internal dimension $s=2$, exactly the **Weyl automaton on the BCC lattice** (and its parity conjugate). The simple-cubic lattice admits only the trivial automaton; the BCC lattice, whose nearest-neighbour shell is the eight body-diagonal vertices of the surrounding cube, is the unique non-trivial host.
 
-We therefore take the vacuum to be the BCC lattice $\Lambda_\text{BCC}$, with a two-component complex spinor $\psi(\mathbf x,t)\in\mathbb C^2$ at each site. The relevant discrete symmetry group is the cubic point group $O_h$ (order $48$); its representation theory will later (Paper IX) fix the number of fermion generations at exactly three, and the same count enters the mode count $g_*=48$ that fixes Newton's constant (Paper VII).
+We therefore take the vacuum to be the BCC lattice $\Lambda_\text{BCC}$, with a two-component complex spinor $\psi(\mathbf x,t)\in\mathbb C^2$ at each site. The relevant discrete symmetry group is the cubic point group $O_h$ (order $48$); its representation theory will later (Paper VIII) fix the number of fermion generations at exactly three, and the same count enters the mode count $g_*=48$ that fixes Newton's constant (Paper VII).
 
 ### 2.2 The free Weyl walk and its exact dispersion
 
@@ -56,7 +58,7 @@ $$
 \tag{2.1}
 $$
 
-The two branches $\pm$ are the two chiralities/helicities of the walk; they are exchanged by parity, $\omega^+(-\mathbf k)=\omega^-(\mathbf k)$, an identity that becomes load-bearing for the photon in Paper II and for the chirality–helicity correspondence in Paper IX. Linearising (2.1) about $\mathbf k=0$ gives $\omega^\pm\to|\mathbf k|/\sqrt3$, i.e. an isotropic light cone with slope $1/\sqrt3$; the leading anisotropy is $O(k^2)$ off the cube axes and $O(k)$ along the body diagonals. We confirm the slope directly: along a cube axis $\omega(k,0,0)/k = 0.57735027$ at $k=10^{-4}$, matching $1/\sqrt3 = 0.57735027$ to eight figures.
+The two branches $\pm$ are the two chiralities/helicities of the walk; they are exchanged by parity, $\omega^+(-\mathbf k)=\omega^-(\mathbf k)$, an identity that becomes load-bearing for the photon in Paper II and for the chirality–helicity correspondence in Paper VIII. Linearising (2.1) about $\mathbf k=0$ gives $\omega^\pm\to|\mathbf k|/\sqrt3$, i.e. an isotropic light cone with slope $1/\sqrt3$; the leading anisotropy is $O(k^2)$ off the cube axes and $O(k)$ along the body diagonals. We confirm the slope directly: along a cube axis $\omega(k,0,0)/k = 0.57735027$ at $k=10^{-4}$, matching $1/\sqrt3 = 0.57735027$ to eight figures.
 
 ### 2.3 Conventions used throughout the series
 
@@ -64,7 +66,7 @@ The two branches $\pm$ are the two chiralities/helicities of the walk; they are 
 - $c_\text{lat}\equiv 1/\sqrt d = 1/\sqrt3$ in three dimensions; we set $c_\text{lat}=1$ except where SI numbers are quoted.
 - The rotation angle a field pair traverses per tick is written $\Omega$; for the paired photon $\Omega_\text{pair}=\omega^+(\mathbf k/2)+\omega^-(\mathbf k/2)$ (Paper II).
 - Pauli matrices $\boldsymbol\sigma=(\sigma_1,\sigma_2,\sigma_3)$; weak isospin generators $\tau^a/2$; colour generators $T^a=\lambda^a/2$ (Gell-Mann).
-- $u\equiv GM/(rc^2)=-\phi/c^2$ is the dimensionless gravitational potential (Papers VII–VIII).
+- $u\equiv GM/(rc^2)=-\phi/c^2$ is the dimensionless gravitational potential (Paper VII).
 
 ---
 
@@ -137,7 +139,7 @@ a quadratic-in-frequency ($n=2$) correction testable in principle by gamma-ray-b
 
 ## 5. Mass as a second rotation: the spherical-Pythagorean mass shell
 
-The free walk of §2 is massless. Mass enters (Papers III, IX) through a second rotation that mixes the two chiralities $\eta\leftrightarrow\chi$ at rate $\Omega_\text{rest}(m)=\arcsin m$ per tick — Ludwig's chiral-$SU(2)$ complex-mass step (§5.1 below; full treatment in Paper III). The remarkable structural fact is how the two rotations compose.
+The free walk of §2 is massless. Mass enters (Papers III, VIII) through a second rotation that mixes the two chiralities $\eta\leftrightarrow\chi$ at rate $\Omega_\text{rest}(m)=\arcsin m$ per tick — Ludwig's chiral-$SU(2)$ complex-mass step (§5.1 below; full treatment in Paper III). The remarkable structural fact is how the two rotations compose.
 
 For the exact-QCA Dirac propagator
 
@@ -206,9 +208,8 @@ These caveats are honest limits of a research programme, not defects of the subs
 
 - **Paper II (Photon)** builds the $(\mathbf E,\mathbf B)$ pair of §3 from two lattice quanta and shows the physical photon is their bound, non-birefringent pair.
 - **Paper III (Mass)** develops the chiral-$SU(2)$ mass rotation of §5.1 into a complete Higgs-free mass mechanism and the Koide relation.
-- **Papers IV–VII** gauge the substrate into electromagnetism, the strong and weak forces, and gravity (the last as a position-dependent renormalisation of the rotation rate of §4).
-- **Paper VIII** pushes the gravitational dielectric into the strong field and derives the horizon-free black hole.
-- **Papers IX–XI** populate the lattice with the fermion, lepton and baryon content, with the generation count fixed by the $O_h$ representation theory introduced in §2.1.
+- **Papers IV–VII** gauge the substrate into electromagnetism, the strong and weak forces, and gravity (the last as a position-dependent renormalisation of the rotation rate of §4, extended to the full-tensor strong field — exact Schwarzschild/Kerr — per F178).
+- **Papers VIII–X** populate the lattice with the fermion, lepton and baryon content, with the generation count fixed by the $O_h$ representation theory introduced in §2.1.
 
 ---
 

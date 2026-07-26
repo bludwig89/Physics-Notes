@@ -1,0 +1,122 @@
+{
+  "targets": {
+    "wilson_gate": 28.81,
+    "lambda_ratio_rule": 1.78,
+    "pt_bracket": [
+      1.33,
+      2.25
+    ],
+    "world_Lambda_over_sqrtsigma": 0.55
+  },
+  "rows": [
+    {
+      "beta": 5.9,
+      "dim": 4,
+      "alpha_V": 0.09984831305895088,
+      "sigma_lat": 0.09942654767946674,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 1.0169491525423728,
+        "Lambda_L_a": 0.0026256180123170056,
+        "Lambda_MSbar_a": 0.07564405493485293,
+        "sqrt_sigma_lat": 0.3153197546609897,
+        "Lambda_MSbar_over_sqrtsigma": 0.2398963395622969
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.09984831305895088,
+        "Lambda_V_a": 0.0032775334273574476,
+        "Lambda_MSbar_a": 0.0038719482429239497,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.012279434401713283
+      },
+      "routes_agree_pct": 180.5224202012906,
+      "world_value": 0.55,
+      "seconds": 40329.8
+    },
+    {
+      "beta": 6.1,
+      "dim": 4,
+      "alpha_V": 0.15566413228197049,
+      "sigma_lat": 0.053100081410526204,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 0.9836065573770493,
+        "Lambda_L_a": 0.0020961536131343037,
+        "Lambda_MSbar_a": 0.060390185594399286,
+        "sqrt_sigma_lat": 0.23043454908178634,
+        "Lambda_MSbar_over_sqrtsigma": 0.2620708823179352
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.15566413228197049,
+        "Lambda_V_a": 0.025490991192039583,
+        "Lambda_MSbar_a": 0.030114047878982423,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.13068373644046874
+      },
+      "routes_agree_pct": 66.90546188498776,
+      "world_value": 0.55,
+      "seconds": 44412.9
+    },
+    {
+      "beta": 6.3,
+      "dim": 4,
+      "alpha_V": 0.1700979506612087,
+      "sigma_lat": 0.030380193175926946,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 0.9523809523809524,
+        "Lambda_L_a": 0.0016726989656819723,
+        "Lambda_MSbar_a": 0.04819045720129762,
+        "sqrt_sigma_lat": 0.17429914852324135,
+        "Lambda_MSbar_over_sqrtsigma": 0.2764813116391778
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.1700979506612087,
+        "Lambda_V_a": 0.0348028048533736,
+        "Lambda_MSbar_a": 0.04111465591046394,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.23588558096129564
+      },
+      "routes_agree_pct": 15.846352004456046,
+      "world_value": 0.55,
+      "seconds": 40265.3
+    },
+    {
+      "beta": 6.5,
+      "dim": 4,
+      "alpha_V": 0.15184482577532057,
+      "sigma_lat": 0.027357068710520648,
+      "V_scheme_lock_alpha_V_at_cutoff": 0.019894367886486918,
+      "route1_bare": {
+        "g0^2": 0.9230769230769231,
+        "Lambda_L_a": 0.0013342213878679006,
+        "Lambda_MSbar_a": 0.038438918184474216,
+        "sqrt_sigma_lat": 0.1653997240339918,
+        "Lambda_MSbar_over_sqrtsigma": 0.2324001349396116
+      },
+      "route2_measured": {
+        "ok": true,
+        "alpha_V": 0.15184482577532057,
+        "Lambda_V_a": 0.023243581912157307,
+        "Lambda_MSbar_a": 0.027459047524222614,
+        "Lambda_MSbar_over_Lambda_V": 1.1813604128656459,
+        "Lambda_MSbar_over_sqrtsigma": 0.16601628379125602
+      },
+      "routes_agree_pct": 33.32385314833032,
+      "world_value": 0.55,
+      "seconds": 44849.9
+    }
+  ],
+  "Lambda_MSbar_over_sqrtsigma_route1": [
+    0.2398963395622969,
+    0.2620708823179352,
+    0.2764813116391778,
+    0.2324001349396116
+  ],
+  "mean_route1": 0.25271216711475536,
+  "gate_28_81_consistent": false,
+  "verdict": "NP cross-check: with the 28.81 Wilson gate, Lambda_MSbar/sqrt(sigma) = 0.253 (mean over beta) vs world ~0.55 -> gate NOT yet in the scaling window (use larger beta / more stats). This confirms the number the PT route must reproduce; the rule's 1.78 = 1.299 (exact) x 1.365 (=1/q*a, the one open factor) then follows once q*a is pinned."
+}

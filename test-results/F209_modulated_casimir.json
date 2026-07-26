@@ -1,0 +1,93 @@
+{
+  "finding": "F209",
+  "checks": {
+    "M1_archimedes_modulation_degenerate": {
+      "pass": true,
+      "note": "beable(Gauss) vs SEP(buoyancy) coincide in time+all harmonics",
+      "detail": {
+        "f1.0_e0.5_0.5": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 4.730332994441742e-24
+        },
+        "f1.0_e0.7_0.3": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 3.973479715331063e-24
+        },
+        "f1.0_e0.9_0.1": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 1.7029198779990265e-24
+        },
+        "f3.7_e0.5_0.5": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 4.730332994441742e-24
+        },
+        "f3.7_e0.7_0.3": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 3.973479715331063e-24
+        },
+        "f3.7_e0.9_0.1": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 1.7029198779990265e-24
+        },
+        "f1000.0_e0.5_0.5": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 4.730332994441742e-24
+        },
+        "f1000.0_e0.7_0.3": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 3.973479715331063e-24
+        },
+        "f1000.0_e0.9_0.1": {
+          "time_max_diff": 0.0,
+          "fft_max_diff": 0.0,
+          "ptp_Wb": 1.7029198779990265e-24
+        }
+      }
+    },
+    "M2_homogeneous_offset_cancels": {
+      "pass": true,
+      "note": "beable-vs-template split lives in \u03c10, which cancels in a tared weighing",
+      "detail": {
+        "rho0_0.000e+00": {
+          "offset_differential": 0.0,
+          "beable_differential": -4.730332994441742e-24
+        },
+        "rho0_6.000e-10": {
+          "offset_differential": 0.0,
+          "beable_differential": -4.730332994441742e-24
+        },
+        "rho0_3.460e+111": {
+          "offset_differential": 0.0,
+          "beable_differential": -4.730332994441742e-24
+        }
+      }
+    },
+    "M3_dce_pair_gravitation_degenerate": {
+      "pass": true,
+      "E_rad_J": 1.7076353808311028e-26,
+      "dm_beable_kg": 1.9000006022008685e-43,
+      "dm_sep_kg": 1.9000006022008685e-43,
+      "beable_minus_sep": 0.0,
+      "template_change_minus_beable_change": 0.0,
+      "note": "radiated beable energy = drive work; both gravitate identically"
+    },
+    "M4_signals_unweighable": {
+      "pass": true,
+      "archimedes_weight_N": 4.730332994441742e-24,
+      "dce_weight_N": 7.449392466335688e-36,
+      "note": "both regimes degenerate AND far below balance sensitivity"
+    }
+  },
+  "ts": "2026-07-01 01:07",
+  "all_pass": true,
+  "n_pass": 4,
+  "n_total": 4
+}

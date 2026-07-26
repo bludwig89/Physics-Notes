@@ -1,0 +1,1019 @@
+{
+  "finding": "F264",
+  "title": "All-orders QED: renormalizability closure, Ward-Takahashi Z1=Z2 and charge universality, the Callan-Symanzik equation, and the ABJ anomaly with Nielsen-Ninomiya consistency",
+  "checks": {
+    "R1_superficial_degree": {
+      "quantity": "D = 4 - (3/2) E_f - E_gamma, independent of V and L",
+      "tier": "exact",
+      "D_expr": "-3*E_f/2 - E_g + 4",
+      "dD_dV": "0",
+      "dD_dL": "0",
+      "order_independent": true,
+      "pass": true
+    },
+    "R2_divergence_census": {
+      "quantity": "only Sigma, Pi, Lambda diverge; 4-photon box finite; four-fermion not generated",
+      "tier": "exact",
+      "divergent": [
+        "photon self-energy  Pi^munu",
+        "electron self-energy  Sigma",
+        "vertex  Lambda^mu"
+      ],
+      "counterterms": [
+        "Z_1",
+        "Z_2",
+        "Z_3",
+        "delta m"
+      ],
+      "n_counterterms": 4,
+      "D_four_fermion": -2,
+      "pass": true
+    },
+    "R3_operator_basis": {
+      "quantity": "gauge/Lorentz/P/C-allowed local operators of dim <= 4",
+      "tier": "exact",
+      "allowed": [
+        "psibar psi",
+        "psibar i gamma^mu partial_mu psi",
+        "e psibar gamma^mu A_mu psi",
+        "F_munu F^munu"
+      ],
+      "excluded_by_gauge": [
+        "A_mu",
+        "A_mu A^mu",
+        "A_mu A^mu A_nu A^nu"
+      ],
+      "excluded_by_parity": [
+        "psibar gamma_5 psi",
+        "F_munu Ftilde^munu"
+      ],
+      "pass": true
+    },
+    "R4_photon_insertion_telescope": {
+      "quantity": "S(p') qslash S(p) = S(p) - S(p'); chain telescope n=1..4",
+      "tier": "exact (core symbolic; chains exact-rational)",
+      "core_zero": true,
+      "closed_form_propagator_exact": true,
+      "telescope": {
+        "n=1": true,
+        "n=2": true,
+        "n=3": true,
+        "n=4": true
+      },
+      "pass": true
+    },
+    "R5_z1_eq_z2_all_orders": {
+      "quantity": "differential WT => Z_1 = Z_2 (unique solution, every mu)",
+      "tier": "exact",
+      "Z1_solution": [
+        "Z_2"
+      ],
+      "one_loop_difference": "0",
+      "pass": true
+    },
+    "R6_charge_universality": {
+      "quantity": "e_R = Z_3^(1/2) e_0, independent of fermion species",
+      "tier": "exact",
+      "species_Z2_differs": true,
+      "e_R_difference": "0",
+      "pass": true
+    },
+    "R7_callan_symanzik": {
+      "quantity": "CS equation; beta from F251 b0=4/3; gamma_3; beta = e gamma_3",
+      "tier": "exact",
+      "beta": "e**3/(12*pi**2)",
+      "b0_read_back": "4/3",
+      "gamma_3": "e**2/(12*pi**2)",
+      "gamma_2": "alpha/(4*pi)",
+      "structural_beta_eq_e_gamma3": true,
+      "pass": true
+    },
+    "R8_landau_pole": {
+      "quantity": "one-loop Landau scale vs the F107 lattice cutoff",
+      "tier": "quantitative",
+      "landau_log10_GeV": 277.16143499878916,
+      "cutoff_log10_GeV": 18.26727748528106,
+      "decades_above_cutoff": 258.8941575135081,
+      "pass": true
+    },
+    "A1_gamma5_traces": {
+      "quantity": "gamma_5 algebra; Tr[g5 gggg] = -4i eps (256); Tr[g5 sig sig] = +4i eps (256)",
+      "tier": "exact",
+      "gggg_ok": true,
+      "sigsig_ok": true,
+      "n_combinations": 512,
+      "pass": true
+    },
+    "A2_classical_divergences": {
+      "quantity": "vector conserved (any m); axial = 2 i m psibar g5 psi",
+      "tier": "exact",
+      "gamma5_anticommutes_kinetic": true,
+      "gamma5_commutes_mass": true,
+      "pass": true
+    },
+    "A3_fujikawa_coefficient": {
+      "quantity": "|anomaly coeff| = 1/16pi^2, regulator cancels",
+      "tier": "exact",
+      "signed": "-e**2/(16*pi**2)",
+      "magnitude": "1/(16*pi**2)",
+      "gaussian": "Lambda**4/(16*pi**2)",
+      "regulator_cancels": true,
+      "EdotB_form": "2*alpha/pi",
+      "pass": true
+    },
+    "A4_surface_term": {
+      "quantity": "shift surface term = 1/32pi^2, D-independent; ratio 2",
+      "tier": "exact",
+      "surface": "1/(32*pi**2)",
+      "D_independent": true,
+      "ratio": "2",
+      "pass": true
+    },
+    "A5_vector_safe_axial_anomalous": {
+      "quantity": "A_vector = 0, A_axial = -2 A_0; branch-blind U(1)",
+      "tier": "exact",
+      "A_vector": "0",
+      "A_axial": "-2*A_0",
+      "branch_blind": true,
+      "pass": true
+    },
+    "A6_weyl_census": {
+      "quantity": "true fcc BZ: 2 Weyl points per branch, sum chi = 0; mirror partner at omega = pi",
+      "tier": "exact",
+      "copies_of_bz_in_cube": "4",
+      "n_weyl_per_branch": {
+        "+": 2,
+        "-": 2
+      },
+      "chirality_sums": {
+        "+": 0,
+        "-": 0
+      },
+      "light_dirac_points": [
+        "Gamma"
+      ],
+      "mirror_points": [
+        "R"
+      ],
+      "pass": true
+    },
+    "A7_weyl_scan": {
+      "quantity": "independent BZ scan; 8 zeros mod 2pi fold to 2 under fcc",
+      "tier": "numerical",
+      "per_branch": {
+        "+": {
+          "mod2pi": 8,
+          "fcc": 2
+        },
+        "-": {
+          "mod2pi": 8,
+          "fcc": 2
+        }
+      },
+      "pass": true
+    },
+    "A8_nielsen_ninomiya": {
+      "quantity": "exactly one NN hypothesis fails (conserved chiral charge)",
+      "tier": "structural",
+      "failing": [
+        "exactly_conserved_local_chiral_charge"
+      ],
+      "chirality_sum_still_zero": true,
+      "honest_correction": "NOT the mechanism",
+      "pass": true
+    },
+    "A9_pi0_width": {
+      "quantity": "Gamma(pi0->gamma gamma) = alpha^2 m^3/64pi^3 f_pi^2 vs PDG",
+      "tier": "quantitative",
+      "width_eV": 7.749314365093901,
+      "pdg_eV": 7.8,
+      "rel_err": 0.006498158321294731,
+      "n_sigma": 0.4223802908841575,
+      "Nc_sensitivity": {
+        "N_c=2": 3.4441397178195112,
+        "N_c=3": 7.749314365093901,
+        "N_c=4": 13.776558871278045
+      },
+      "pass": true
+    }
+  },
+  "n_pass": 17,
+  "n_total": 17,
+  "all_pass": true,
+  "detail": {
+    "renormalization": {
+      "R1a": {
+        "D_expr": "-3*E_f/2 - E_g + 4",
+        "D_target": "4 - 3*E_f/2 - E_gamma",
+        "residual": "0",
+        "residual_is_zero": true,
+        "dD_dV": "0",
+        "dD_dL": "0",
+        "order_independent": true,
+        "I_f_solved": "-E_f/2 + V",
+        "I_g_solved": "-E_g/2 + V/2",
+        "L_solved": "-E_f/2 - E_g/2 + V/2 + 1",
+        "gate_pass": true
+      },
+      "R1b": {
+        "rows": [
+          {
+            "E_f": 0,
+            "E_gamma": 0,
+            "name": "vacuum bubble",
+            "D_naive": 4,
+            "D_effective": 4,
+            "verdict": "no external legs \u2014 unobservable (cancels in normalisation)",
+            "counterterm": null
+          },
+          {
+            "E_f": 0,
+            "E_gamma": 1,
+            "name": "photon 1-point (tadpole)",
+            "D_naive": 3,
+            "D_effective": 3,
+            "verdict": "VANISHES by Furry / C-parity (odd photon number)",
+            "counterterm": null
+          },
+          {
+            "E_f": 0,
+            "E_gamma": 2,
+            "name": "photon self-energy  Pi^munu",
+            "D_naive": 2,
+            "D_effective": 0,
+            "verdict": "log-divergent after transversality (F251/Pi1): no photon mass, only Pi(q^2)",
+            "counterterm": "Z_3"
+          },
+          {
+            "E_f": 0,
+            "E_gamma": 3,
+            "name": "three-photon amplitude",
+            "D_naive": 1,
+            "D_effective": -2,
+            "verdict": "VANISHES by Furry / C-parity (odd photon number)",
+            "counterterm": null
+          },
+          {
+            "E_f": 0,
+            "E_gamma": 4,
+            "name": "four-photon amplitude (box)",
+            "D_naive": 0,
+            "D_effective": -4,
+            "verdict": "FINITE: gauge invariance costs 4 momentum factors, D_eff = -4 (F263 Euler-Heisenberg)",
+            "counterterm": null
+          },
+          {
+            "E_f": 2,
+            "E_gamma": 0,
+            "name": "electron self-energy  Sigma",
+            "D_naive": 1,
+            "D_effective": 1,
+            "verdict": "linearly divergent by naive count; Lorentz structure A pslash + B m makes both coefficients LOG-divergent",
+            "counterterm": "delta m, Z_2"
+          },
+          {
+            "E_f": 2,
+            "E_gamma": 1,
+            "name": "vertex  Lambda^mu",
+            "D_naive": 0,
+            "D_effective": 0,
+            "verdict": "log-divergent",
+            "counterterm": "Z_1"
+          }
+        ],
+        "n_rows_D_nonneg": 7,
+        "divergent_amplitudes": [
+          "photon self-energy  Pi^munu",
+          "electron self-energy  Sigma",
+          "vertex  Lambda^mu"
+        ],
+        "counterterms": [
+          "Z_1",
+          "Z_2",
+          "Z_3",
+          "delta m"
+        ],
+        "n_counterterms": 4,
+        "n_counterterms_expected": 4,
+        "D_four_fermion": -2,
+        "four_fermion_generated": false,
+        "gate_pass": true
+      },
+      "R1c": {
+        "catalogue": [
+          {
+            "operator": "1 (unit operator / vacuum energy)",
+            "dim": 0,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "not observable in flat space; absorbed in the normalisation"
+          },
+          {
+            "operator": "A_mu",
+            "dim": 1,
+            "gauge_invariant": false,
+            "P_even": false,
+            "C_even": false,
+            "role": "not gauge invariant, not a Lorentz scalar"
+          },
+          {
+            "operator": "A_mu A^mu",
+            "dim": 2,
+            "gauge_invariant": false,
+            "P_even": true,
+            "C_even": true,
+            "role": "PHOTON MASS \u2014 excluded by gauge invariance (F251/Pi1, F250)"
+          },
+          {
+            "operator": "psibar psi",
+            "dim": 3,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "MASS COUNTERTERM  ->  delta m"
+          },
+          {
+            "operator": "psibar gamma_5 psi",
+            "dim": 3,
+            "gauge_invariant": true,
+            "P_even": false,
+            "C_even": true,
+            "role": "pseudoscalar mass \u2014 excluded by parity"
+          },
+          {
+            "operator": "A_mu A^mu A_nu A^nu",
+            "dim": 4,
+            "gauge_invariant": false,
+            "P_even": true,
+            "C_even": true,
+            "role": "not gauge invariant"
+          },
+          {
+            "operator": "psibar i gamma^mu partial_mu psi",
+            "dim": 4,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "KINETIC COUNTERTERM  ->  Z_2"
+          },
+          {
+            "operator": "e psibar gamma^mu A_mu psi",
+            "dim": 4,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "VERTEX COUNTERTERM  ->  Z_1   (gauge invariance pairs it with Z_2 into psibar i gamma.D psi)"
+          },
+          {
+            "operator": "F_munu F^munu",
+            "dim": 4,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "PHOTON KINETIC COUNTERTERM  ->  Z_3"
+          },
+          {
+            "operator": "F_munu Ftilde^munu",
+            "dim": 4,
+            "gauge_invariant": true,
+            "P_even": false,
+            "C_even": true,
+            "role": "theta term \u2014 excluded by parity; total derivative.  This is the operator the AXIAL ANOMALY multiplies (see ca_chiral_anomaly.py)"
+          },
+          {
+            "operator": "(psibar psi)^2",
+            "dim": 6,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "dimension 6 \u2014 NOT generated: D = -2 < 0 (R1b)"
+          },
+          {
+            "operator": "(F_munu F^munu)^2",
+            "dim": 8,
+            "gauge_invariant": true,
+            "P_even": true,
+            "C_even": true,
+            "role": "dimension 8 \u2014 NOT generated: the 4-photon box is finite (F263)"
+          }
+        ],
+        "allowed_dim_le_4": [
+          "psibar psi",
+          "psibar i gamma^mu partial_mu psi",
+          "e psibar gamma^mu A_mu psi",
+          "F_munu F^munu"
+        ],
+        "n_allowed": 4,
+        "excluded_by_gauge_invariance": [
+          "A_mu",
+          "A_mu A^mu",
+          "A_mu A^mu A_nu A^nu"
+        ],
+        "excluded_by_parity": [
+          "psibar gamma_5 psi",
+          "F_munu Ftilde^munu"
+        ],
+        "not_generated_dim_gt_4": [
+          "(psibar psi)^2",
+          "(F_munu F^munu)^2"
+        ],
+        "gate_pass": true
+      },
+      "R2a": {
+        "clifford_2eta": true,
+        "closed_form_propagator_exact": true,
+        "core_identity": "S(p') qslash S(p) = S(p) - S(p')",
+        "core_identity_tier": "exact (fully symbolic: 4 symbolic momenta + symbolic m)",
+        "core_residual_is_zero": true,
+        "telescope": {
+          "n=1": {
+            "n_insertion_points": 2,
+            "rhs_built_without_qslash": true,
+            "n_generic_draws": 3,
+            "tier": "exact rational arithmetic (literal 0 in Q), generic momenta",
+            "residual_is_zero": true
+          },
+          "n=2": {
+            "n_insertion_points": 3,
+            "rhs_built_without_qslash": true,
+            "n_generic_draws": 3,
+            "tier": "exact rational arithmetic (literal 0 in Q), generic momenta",
+            "residual_is_zero": true
+          },
+          "n=3": {
+            "n_insertion_points": 4,
+            "rhs_built_without_qslash": true,
+            "n_generic_draws": 3,
+            "tier": "exact rational arithmetic (literal 0 in Q), generic momenta",
+            "residual_is_zero": true
+          },
+          "n=4": {
+            "n_insertion_points": 5,
+            "rhs_built_without_qslash": true,
+            "n_generic_draws": 3,
+            "tier": "exact rational arithmetic (literal 0 in Q), generic momenta",
+            "residual_is_zero": true
+          }
+        },
+        "telescope_all_zero": true,
+        "proof_note": "the telescope is a ONE-LINE INDUCTION from (*) (see docstring); the chain checks are exact-arithmetic confirmations, not the proof",
+        "wt_identity": "q_mu Gamma^mu(p',p) = S^-1(p') - S^-1(p)",
+        "all_orders": "the argument is order-independent: internal photons and loop momenta are spectators to the telescope",
+        "gate_pass": true
+      },
+      "R2b": {
+        "differential_wt": "Gamma^mu(p,p) = d S^-1(p) / d p_mu",
+        "renormalized_inputs": [
+          "S^-1 = Z_2^-1 (pslash - m)",
+          "Gamma^mu(p,p) = Z_1^-1 gamma^mu"
+        ],
+        "per_mu": {
+          "mu=0": {
+            "rhs_equals_Z2inv_gamma": true,
+            "n_nonzero_entries": 4,
+            "entry_solutions_for_Z1": [
+              "Z_2"
+            ],
+            "unique_solution_is_Z2": true
+          },
+          "mu=1": {
+            "rhs_equals_Z2inv_gamma": true,
+            "n_nonzero_entries": 4,
+            "entry_solutions_for_Z1": [
+              "Z_2"
+            ],
+            "unique_solution_is_Z2": true
+          },
+          "mu=2": {
+            "rhs_equals_Z2inv_gamma": true,
+            "n_nonzero_entries": 4,
+            "entry_solutions_for_Z1": [
+              "Z_2"
+            ],
+            "unique_solution_is_Z2": true
+          },
+          "mu=3": {
+            "rhs_equals_Z2inv_gamma": true,
+            "n_nonzero_entries": 4,
+            "entry_solutions_for_Z1": [
+              "Z_2"
+            ],
+            "unique_solution_is_Z2": true
+          }
+        },
+        "all_mu_ok": true,
+        "Z1_solution": [
+          "Z_2"
+        ],
+        "Z1_equals_Z2": true,
+        "one_loop_instance": {
+          "Z1": "-alpha*log(Lambda**2/m**2)/(4*pi) + 1",
+          "Z2": "-alpha*log(Lambda**2/m**2)/(4*pi) + 1",
+          "difference": "0",
+          "difference_is_zero": true,
+          "source": "Z_1 from F252 (Lambda), Z_2 from F258 (Sigma), Feynman gauge"
+        },
+        "order_independent": true,
+        "gate_pass": true
+      },
+      "R2c": {
+        "e_R_definition": "e_R = Z_1^-1 Z_2 Z_3^(1/2) e_0",
+        "with_Z1_eq_Z2": "e_R = Z_3^(1/2) e_0",
+        "species_Z2_difference": "log((m_1/m_2)**(alpha/(2*pi)))",
+        "species_Z2_actually_differs": true,
+        "e_R_species_1": "sqrt(Z_3)*e_0",
+        "e_R_species_2": "sqrt(Z_3)*e_0",
+        "e_R_difference": "0",
+        "e_R_is_universal": true,
+        "collapses_to_Z3_only": true,
+        "Z3_one_loop": "-alpha*log(Lambda**2/m_1**2)/(3*pi) + 1",
+        "physical_statement": "|q_e| = |q_mu| = |q_tau| = |q_p| exactly, though the masses differ by orders of magnitude",
+        "gate_pass": true
+      },
+      "R3a": {
+        "cs_equation": "[ mu d/dmu + beta(e) d/de + n gamma_2(e) + m gamma_3(e) ] Gamma^(n,m) = 0",
+        "beta_from_F251_b0": "e**3/(12*pi**2)",
+        "beta_target": "e**3/(12*pi**2)",
+        "beta_residual": "0",
+        "beta_matches": true,
+        "b0_read_back": "4/3",
+        "b0_target": "4/3",
+        "b0_residual": "0",
+        "b0_matches": true,
+        "gamma_3_one_loop_alpha": "alpha/(3*pi)",
+        "gamma_3_one_loop_e": "e**2/(12*pi**2)",
+        "gamma_3_target": "e**2/(12*pi**2)",
+        "gamma_3_residual": "0",
+        "gamma_3_matches": true,
+        "gamma_2_one_loop": "alpha/(4*pi)",
+        "gamma_2_gauge_dependent": true,
+        "structural_relation": "beta(e) = e * gamma_3(e)  (exact, all orders; consequence of Z_1 = Z_2)",
+        "structural_residual": "0",
+        "structural_holds": true,
+        "gate_pass": true
+      },
+      "R3c": {
+        "alpha_0_inv": 137.035999,
+        "running_solution": "alpha(mu) = alpha_0 / (1 - (alpha_0/3pi) ln(mu^2/mu_0^2))",
+        "landau_scale_GeV": 1.4502237018915371e+277,
+        "landau_scale_log10_GeV": 277.16143499878916,
+        "lattice_cutoff_GeV": 1.8504505561463e+18,
+        "lattice_cutoff_log10_GeV": 18.26727748528106,
+        "decades_landau_above_cutoff": 258.8941575135081,
+        "landau_pole_inside_theory": false,
+        "alpha_at_scales": {
+          "m_e": {
+            "mu_GeV": 0.00051099895,
+            "alpha": 0.007297352573756914,
+            "alpha_inv": 137.035999
+          },
+          "1 GeV": {
+            "mu_GeV": 1.0,
+            "alpha": 0.0073840162170169974,
+            "alpha_inv": 135.42765489807945
+          },
+          "M_Z (91.19)": {
+            "mu_GeV": 91.1876,
+            "alpha": 0.007436603857948586,
+            "alpha_inv": 134.46998375893773
+          },
+          "1 TeV": {
+            "mu_GeV": 1000.0,
+            "alpha": 0.007464815504674464,
+            "alpha_inv": 133.96178370032058
+          },
+          "Lambda_a (lattice)": {
+            "mu_GeV": 1.8504505561463e+18,
+            "alpha": 0.007905024008338155,
+            "alpha_inv": 126.50182958903201
+          }
+        },
+        "honest_note": "the Landau pole is (i) a one-loop extrapolation artefact and (ii) ~250 decades above this model's own Brillouin-zone cutoff Lambda_a = hbar c / a (F107), so it lies outside the lattice theory's domain of definition",
+        "gate_pass": true
+      }
+    },
+    "anomaly": {
+      "A1": {
+        "clifford_2eta": true,
+        "gamma5_def": "gamma_5 = i gamma^0 gamma^1 gamma^2 gamma^3",
+        "gamma5_squared_is_1": true,
+        "gamma5_hermitian": true,
+        "gamma5_anticommutes_all_mu": true,
+        "chiral_projectors_ok": true,
+        "trace_g5_gg_all_zero": true,
+        "n_trace_g5_gg": 16,
+        "trace_g5_gggg_eq_m4i_eps": true,
+        "n_trace_g5_gggg": 256,
+        "trace_g5_gggg_failures": [],
+        "trace_g5_sigsig_eq_p4i_eps": true,
+        "n_trace_g5_sigsig": 256,
+        "trace_g5_sigsig_failures": [],
+        "gate_pass": true
+      },
+      "A2": {
+        "vector_divergence": "d_mu (psibar gamma^mu psi) = 0   (any m)",
+        "axial_divergence": "d_mu (psibar gamma^mu gamma_5 psi) = 2 i m psibar gamma_5 psi",
+        "gamma5_anticommutes_kinetic": true,
+        "gamma5_commutes_mass": true,
+        "kinetic_sign_under_gamma5": -1,
+        "mass_sign_under_gamma5": 1,
+        "vector_terms_cancel": true,
+        "axial_kinetic_cancels": true,
+        "axial_mass_survives": true,
+        "classical_axial_conserved_iff_massless": true,
+        "model_electron_is_massive": "yes \u2014 F27/F46 complex mass couples the two chiral branches, so no exactly conserved chiral charge exists (relevant to NN)",
+        "anomaly_is": "the failure of the RHS to vanish as m -> 0: the quantum theory adds an m-independent term (A3/A4)",
+        "gate_pass": true
+      },
+      "A3": {
+        "route": "Fujikawa measure Jacobian (heat-kernel regulator)",
+        "dslash_squared_identity": "Dslash^2 = D^2 + (e/2) sigma^munu F_munu",
+        "clifford_split_ok": true,
+        "trace_order0_zero": true,
+        "trace_order1_all_zero": true,
+        "trace_order2_eq_p4i_eps": true,
+        "only_second_order_survives": true,
+        "gaussian": "Lambda**4/(16*pi**2)",
+        "gaussian_target": "Lambda**4/(16*pi**2)",
+        "gaussian_residual": "0",
+        "gaussian_matches": true,
+        "regulator_cancels": true,
+        "anomaly_coefficient_signed": "-e**2/(16*pi**2)",
+        "anomaly_coefficient_magnitude": "1/(16*pi**2)",
+        "anomaly_magnitude_target": "1/(16*pi**2)",
+        "anomaly_residual": "0",
+        "anomaly_matches": true,
+        "sign_convention_note": "the gate tests the MAGNITUDE 1/16pi^2, which is what is physical and regulator-independent; the overall sign is fixed by a convention chain (eps^{0123} = +1, gamma_5 = i g^0 g^1 g^2 g^3, sign of e, Euclidean continuation route) and is recorded, not tuned",
+        "result": "d_mu j_5^mu = 2 i m psibar gamma_5 psi - (e^2/16pi^2) eps^{munurhosig} F_munu F_rhosig   (sign in the stated convention)",
+        "form_EdotB": "2*alpha/pi",
+        "form_EdotB_target": "2*alpha/pi",
+        "form_EdotB_matches": true,
+        "form_alpha_over_4pi_consistent": true,
+        "scheme_note": "the Lambda^4 of the Gaussian cancels the 1/Lambda^4 of the second-order heat kernel exactly, so the rational 1/16pi^2 is regulator-INDEPENDENT",
+        "gate_pass": true
+      },
+      "A4": {
+        "route": "illegitimate shift of a linearly divergent integral (surface term)",
+        "integrand": "f^mu(k) = k^mu/(k^2 + D)^2  (Euclidean)",
+        "each_piece_log_divergent": true,
+        "difference_integrand_simplifies": true,
+        "radial_integral": "1/2",
+        "radial_target": "1/2",
+        "radial_matches": true,
+        "D_independent": true,
+        "measure_factor": "1/(16*pi**2)",
+        "measure_matches": true,
+        "surface_term": "1/(32*pi**2)",
+        "surface_term_target": "1/(32*pi**2)",
+        "surface_residual": "0",
+        "surface_matches": true,
+        "ratio_anomaly_over_surface": "2",
+        "ratio_is_two_chiralities": true,
+        "two_route_agreement": "Fujikawa (A3) and this surface term reach 1/16pi^2 and 1/32pi^2 = half of it by wholly independent arguments",
+        "gate_pass": true
+      },
+      "A5": {
+        "vector_decomposition_ok": true,
+        "axial_decomposition_ok": true,
+        "vector_branch_weights": [
+          1,
+          1
+        ],
+        "axial_branch_weights": [
+          -1,
+          1
+        ],
+        "A_vector": "0",
+        "gauge_anomaly_vanishes": true,
+        "A_axial": "-2*A_0",
+        "axial_anomaly_doubles": true,
+        "charge_cube_sum": "0",
+        "charge_cube_vanishes_vectorlike": true,
+        "identity_channel_branch_blind": true,
+        "identity_channel_commutes_with_chirality": true,
+        "structural_statement": "the F68/F87 coupling P = exp(i q A.dl) * I_2 is proportional to the identity in branch space, so the model's U(1) is vector-like BY CONSTRUCTION and the gauge anomaly is structurally zero \u2014 not an imposed charge-assignment condition",
+        "gate_pass": true
+      },
+      "NN1": {
+        "reciprocal_lattice_generators": [
+          "pi(1,1,0)",
+          "pi(1,0,1)",
+          "pi(0,1,1)"
+        ],
+        "all_generators_valid": true,
+        "true_bz_volume": "2*pi**3",
+        "naive_cube_volume": "8*pi**3",
+        "copies_of_bz_in_cube": "4",
+        "census": {
+          "+": {
+            "points": {
+              "Gamma": {
+                "q_over_pi": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "u": "1",
+                "omega": "0",
+                "is_weyl_point": true,
+                "chirality": -1,
+                "det_dn_dq": "-1",
+                "partner_branch_u": "1",
+                "partner_branch_omega": "0",
+                "partner_gapless": true,
+                "partner_at_band_top": false
+              },
+              "R": {
+                "q_over_pi": [
+                  "1/2",
+                  "1/2",
+                  "1/2"
+                ],
+                "u": "1",
+                "omega": "0",
+                "is_weyl_point": true,
+                "chirality": 1,
+                "det_dn_dq": "1",
+                "partner_branch_u": "-1",
+                "partner_branch_omega": "pi",
+                "partner_gapless": false,
+                "partner_at_band_top": true
+              }
+            },
+            "n_weyl_points": 2,
+            "chirality_sum": 0,
+            "nielsen_ninomiya_satisfied": true
+          },
+          "-": {
+            "points": {
+              "Gamma": {
+                "q_over_pi": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "u": "1",
+                "omega": "0",
+                "is_weyl_point": true,
+                "chirality": 1,
+                "det_dn_dq": "1",
+                "partner_branch_u": "1",
+                "partner_branch_omega": "0",
+                "partner_gapless": true,
+                "partner_at_band_top": false
+              },
+              "R": {
+                "q_over_pi": [
+                  "1/2",
+                  "1/2",
+                  "-1/2"
+                ],
+                "u": "1",
+                "omega": "0",
+                "is_weyl_point": true,
+                "chirality": -1,
+                "det_dn_dq": "-1",
+                "partner_branch_u": "-1",
+                "partner_branch_omega": "pi",
+                "partner_gapless": false,
+                "partner_at_band_top": true
+              }
+            },
+            "n_weyl_points": 2,
+            "chirality_sum": 0,
+            "nielsen_ninomiya_satisfied": true
+          }
+        },
+        "light_dirac_points": [
+          "Gamma"
+        ],
+        "mirror_points_gapped_at_band_top": [
+          "R"
+        ],
+        "n_light_dirac_points": 1,
+        "n_mirror_points": 1,
+        "minimal_weyl_pair": true,
+        "gate_pass": true
+      },
+      "NN2": {
+        "grid": 61,
+        "per_branch": {
+          "+": {
+            "n_raw_grid_hits": 17,
+            "n_zeros_mod_2pi": 8,
+            "zeros_mod_2pi_over_pi": [
+              [
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              [
+                -0.5,
+                0.5,
+                -0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                1.0
+              ],
+              [
+                0.5,
+                -0.5,
+                -0.5
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                1.0,
+                0.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "n_inequivalent_after_fcc_folding": 2,
+            "folded_points_over_pi": [
+              [
+                -0.5,
+                -0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "gamma_present": true,
+            "n_mirrors": 1,
+            "mirror_is_half_integer_corner": true
+          },
+          "-": {
+            "n_raw_grid_hits": 17,
+            "n_zeros_mod_2pi": 8,
+            "zeros_mod_2pi_over_pi": [
+              [
+                -0.5,
+                -0.5,
+                -0.5
+              ],
+              [
+                -0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                1.0
+              ],
+              [
+                0.5,
+                -0.5,
+                0.5
+              ],
+              [
+                0.5,
+                0.5,
+                -0.5
+              ],
+              [
+                1.0,
+                0.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "n_inequivalent_after_fcc_folding": 2,
+            "folded_points_over_pi": [
+              [
+                -0.5,
+                -0.5,
+                -0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "gamma_present": true,
+            "n_mirrors": 1,
+            "mirror_is_half_integer_corner": true
+          }
+        },
+        "note": "8 zeros on the cube is an artefact of the cube holding 4 copies of the true fcc BZ; after folding there are 2 \u2014 the minimal Nielsen-Ninomiya pair",
+        "consistent_with_census": true,
+        "gate_pass": true
+      },
+      "NN3": {
+        "no_go_statement": "local + translation-invariant + hermitian + exactly conserved local chiral charge  =>  sum of Weyl chiralities = 0  =>  anomaly cancels",
+        "hypotheses": {
+          "locality": {
+            "holds": true,
+            "reason": "8 nearest-neighbour BCC hops; finite range"
+          },
+          "translation_invariance": {
+            "holds": true,
+            "reason": "the walk is a convolution; diagonal in Fourier space"
+          },
+          "hermiticity_unitarity": {
+            "holds": true,
+            "reason": "U(q) = u I - i sigma.n with u^2 + |n|^2 = 1 (unitary)"
+          },
+          "exactly_conserved_local_chiral_charge": {
+            "holds": false,
+            "reason": "the physical fermion is the F27/F46 DIRAC electron; its mass couples the two chiral branches and anticommutes with gamma_5 (A2), so no exactly conserved chiral charge exists \u2014 this is the hypothesis that fails"
+          }
+        },
+        "failing_hypotheses": [
+          "exactly_conserved_local_chiral_charge"
+        ],
+        "n_failing": 1,
+        "chirality_sum_still_zero": true,
+        "nn_respected_not_evaded": true,
+        "light_sector": {
+          "point": [
+            "Gamma"
+          ],
+          "mechanism": "both branches gapless at Gamma (u^+ = u^- = 1 exactly) -> the F27/F46 mass pairs them into one light Dirac mode",
+          "carries_anomaly": true
+        },
+        "mirror_sector": {
+          "point": [
+            "R"
+          ],
+          "mechanism": "at R = (pi/2)(1,1,1) the partner branch has u = -1, i.e. omega = pi, the band TOP \u2014 no light Dirac partner",
+          "gapped_at_cutoff": true
+        },
+        "analogy": "momentum-space analogue of domain-wall / overlap fermions: the NN-mandated mirror chirality is present but exiled to the cutoff, here by the +-branch structure instead of an extra dimension",
+        "gauge_current": {
+          "anomaly_free": true,
+          "reason": "branch-blind F68/F87 identity-channel coupling => U(1) is vector-like by construction (A5)",
+          "boson_side": "F250: a single massless transverse pole, no doubler copy"
+        },
+        "honest_correction": {
+          "claim_examined": "that the F250 paired-photon doubler folding is what keeps the axial anomaly uncancelled",
+          "verdict": "NOT the mechanism",
+          "why": "the anomaly comes from a fermion loop integrated over the whole FERMION Brillouin zone, so it samples every Weyl point regardless of the external photon momenta; restricting the photon's BZ cannot remove a doubler from a loop",
+          "actual_mechanism": "mirror-point gapping in the FERMION spectrum (partner branch at the band top at R)",
+          "shared_root_cause": "both follow from the +-branch pairing of F69, which is why they are easy to conflate"
+        },
+        "gate_pass": true
+      },
+      "A6": {
+        "formula": "Gamma = alpha^2 m_pi^3 / (64 pi^3 f_pi^2)",
+        "inputs": {
+          "m_pi0_MeV": 134.9768,
+          "f_pi_MeV": 92.28,
+          "alpha": 0.007297352573756914,
+          "N_c": 3
+        },
+        "colour_factor_sum_q_Nc_qu2_minus_qd2": 1.0,
+        "width_eV": 7.749314365093901,
+        "pdg_eV": 7.8,
+        "pdg_err_eV": 0.12,
+        "rel_err": 0.006498158321294731,
+        "n_sigma": 0.4223802908841575,
+        "colour_count_sensitivity": {
+          "N_c=2": {
+            "width_eV": 3.4441397178195112,
+            "rel_err_vs_PDG": 0.5584436259205755
+          },
+          "N_c=3": {
+            "width_eV": 7.749314365093901,
+            "rel_err_vs_PDG": 0.006498158321294731
+          },
+          "N_c=4": {
+            "width_eV": 13.776558871278045,
+            "rel_err_vs_PDG": 0.7662254963176981
+          }
+        },
+        "note": "tests the 1/16pi^2 anomaly coefficient AND N_c = 3 (F75) simultaneously; N_c = 2 or 4 would miss by (N_c/3)^2",
+        "gate_pass": true
+      }
+    }
+  }
+}

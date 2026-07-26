@@ -1,0 +1,150 @@
+{
+  "finding": "F205",
+  "method": "momentum-resolved quantum-kinetic (Boltzmann) production; Y_s=n_s/s entropy-normalised; free-streaming via frozen spectrum <eps> matched to Viel Lyman-alpha thermal bound",
+  "nonresonant_DW": {
+    "m_s_keV": 7.1,
+    "sin2_2theta_for_OmegaDM": 6.079820412476475e-09,
+    "xray_bound": 1.7e-11,
+    "xray_excluded": true,
+    "excess_over_xray_dex": 2.5534418297657804,
+    "mean_eps_spectrum": 3.2888387702355826,
+    "note": "DW production for 100% DM requires a mixing ~2.6 dex above the XRISM X-ray bound -> non-resonant sterile is X-ray excluded (quantified)"
+  },
+  "resonant_ShiFuller": {
+    "m_s_keV": 7.1,
+    "L_first_xray_allowed": 0.002,
+    "xray_allowed_point": {
+      "L": 0.002,
+      "sin2_2theta": 1.0443598657821136e-11,
+      "margin_vs_xray_dex": -0.21159874762249692,
+      "mean_eps": 3.0262295618782633
+    },
+    "coldest_point": {
+      "L": 0.0002,
+      "sin2_2theta": 5.569481009031512e-10,
+      "margin_vs_xray_dex": 1.5153658060369029,
+      "mean_eps": 1.570211432875366,
+      "colder_than_DW_ratio": 0.4774364274363289
+    },
+    "resonant_enhancement_factor": 582.1576078972874,
+    "xray_bound": 1.7e-11,
+    "L_scan": [
+      {
+        "L": 0.0001,
+        "sin2_2theta_for_OmegaDM": 4.063924002882842e-09,
+        "xray_excluded": true,
+        "margin_vs_xray_dex": 2.378496656480949,
+        "mean_eps": 2.914115493899042,
+        "colder_ratio": 0.8860621324073911
+      },
+      {
+        "L": 0.0002,
+        "sin2_2theta_for_OmegaDM": 5.569481009031512e-10,
+        "xray_excluded": true,
+        "margin_vs_xray_dex": 1.5153658060369029,
+        "mean_eps": 1.570211432875366,
+        "colder_ratio": 0.4774364274363289
+      },
+      {
+        "L": 0.0004,
+        "sin2_2theta_for_OmegaDM": 8.748851971262547e-11,
+        "xray_excluded": true,
+        "margin_vs_xray_dex": 0.7115021470433036,
+        "mean_eps": 3.0285788494435217,
+        "colder_ratio": 0.9208657100653742
+      },
+      {
+        "L": 0.0007,
+        "sin2_2theta_for_OmegaDM": 4.3485229982090806e-11,
+        "xray_excluded": true,
+        "margin_vs_xray_dex": 0.40789284990923247,
+        "mean_eps": 3.031605966780502,
+        "colder_ratio": 0.9217861313898782
+      },
+      {
+        "L": 0.001,
+        "sin2_2theta_for_OmegaDM": 2.734302011396183e-11,
+        "xray_excluded": true,
+        "margin_vs_xray_dex": 0.206397560557614,
+        "mean_eps": 3.0571403618394815,
+        "colder_ratio": 0.9295500860385734
+      },
+      {
+        "L": 0.002,
+        "sin2_2theta_for_OmegaDM": 1.0443598657821136e-11,
+        "xray_excluded": false,
+        "margin_vs_xray_dex": -0.21159874762249692,
+        "mean_eps": 3.0262295618782633,
+        "colder_ratio": 0.9201513887716337
+      },
+      {
+        "L": 0.004,
+        "sin2_2theta_for_OmegaDM": 4.586890782682666e-12,
+        "xray_excluded": false,
+        "margin_vs_xray_dex": -0.5689305220012387,
+        "mean_eps": 3.260123742747123,
+        "colder_ratio": 0.9912689464292582
+      }
+    ],
+    "edge_tension": "in the fixed-L pass the X-ray-allowed point (L=2e-03, <eps>=3.03) is WARM and the coldest point (L=2e-04, <eps>=1.57) is X-ray-EXCLUDED by 1.5 dex -> the 7.1 keV sterile sits at the X-ray/Lyman-alpha edge; threading BOTH needs the full L-depletion QKE",
+    "note": "resonant production reaches Omega_DM at ~582x smaller mixing than DW; a cold spectrum (<eps> down to 1.57, 0.48x DW) is achievable but at an X-ray-excluded L"
+  },
+  "free_streaming_lyman_alpha": {
+    "mean_eps_DW": 3.2888387702355826,
+    "mean_eps_coldest_resonant": 1.570211432875366,
+    "lyman_alpha_floor_nonresonant_keV": 41.21827697432513,
+    "lyman_alpha_floor_xray_allowed_pt_keV": 36.88945291214213,
+    "lyman_alpha_floor_coldest_keV": 15.3807401682038,
+    "lyman_alpha_floor_coldest_conservative_keV": 8.845046801333334,
+    "model_ms_keV": 5.6,
+    "benchmark_ms_keV": 7.1,
+    "model_passes_coldest_floor": false,
+    "model_passes_coldest_conservative_floor": false,
+    "benchmark_passes_coldest_conservative_floor": false,
+    "note": "Lyman-alpha mass floor: ~41 keV (non-resonant, reproduces the cited combined bound) -> ~15 keV at the coldest resonant spectrum (Viel 5.3 keV bound) -> ~9 keV (coldest + conservative 3.5 keV bound). Model 5.6 keV and benchmark 7.1 keV sit below all -> under pressure, quantified"
+  },
+  "dw_mass_scan": [
+    {
+      "m_s_keV": 2.0,
+      "sin2_DW_for_OmegaDM": 4.3060485994711867e-08,
+      "xray_bound": 9.584968427187497e-09,
+      "dw_over_xray_dex": 0.6524882404507821,
+      "dw_xray_excluded": true
+    },
+    {
+      "m_s_keV": 5.6,
+      "sin2_DW_for_OmegaDM": 8.776880285832973e-09,
+      "xray_bound": 5.569298940724276e-11,
+      "dw_over_xray_dex": 2.1975396448003255,
+      "dw_xray_excluded": true
+    },
+    {
+      "m_s_keV": 7.1,
+      "sin2_DW_for_OmegaDM": 6.079820412476475e-09,
+      "xray_bound": 1.7e-11,
+      "dw_over_xray_dex": 2.5534418297657804,
+      "dw_xray_excluded": true
+    },
+    {
+      "m_s_keV": 15.0,
+      "sin2_DW_for_OmegaDM": 1.8524704416302454e-09,
+      "xray_bound": 4.039097806353909e-13,
+      "dw_over_xray_dex": 3.661466917326274,
+      "dw_xray_excluded": true
+    },
+    {
+      "m_s_keV": 30.0,
+      "sin2_DW_for_OmegaDM": 5.795635893338523e-10,
+      "xray_bound": 1.2622180644855965e-14,
+      "dw_over_xray_dex": 4.661966702041986,
+      "dw_xray_excluded": true
+    }
+  ],
+  "caveats": {
+    "abundance_normalisation": "absolute DW/RP normalisation carries a known ~factor-2 QCD-epoch g_*(T) uncertainty; DW sin2=6.1e-9 for Omega_DM at 7.1 keV reproduces the literature ~3-4e-9 to within it. Robust outputs are RATIOS (X-ray-exclusion dex, coldness, floor).",
+    "resonant_model": "FIXED lepton number L (no back-reaction depletion) \u2014 a standard first-pass. It captures the resonant enhancement and the existence of cold spectra, but the anti-correlation (cold<->X-ray-excluded) is likely exaggerated vs the self-regulating full QKE; whether one (L,sin2) threads both X-ray and Lyman-alpha needs sterile-dm-class L-depletion codes.",
+    "hydro": "no 3D hydrodynamic Lyman-alpha simulation run (out of sandbox scope, as stated); linear free-streaming <eps> matched to published simulated flux-power bounds (Viel 2005/2013) \u2014 the standard field methodology.",
+    "eps_convergence": "spectrum <eps> converged to <0.1%% under 4x eps/T refinement and 10x lower T_lo (so the L-dependence of <eps> is physical, not a grid artifact)."
+  },
+  "verdict": "Full Boltzmann narrows the F203 margins to computed numbers. (1) ABUNDANCE/X-ray: non-resonant DW for 100% DM needs sin^2 2theta = 6.1e-09, 2.55 dex ABOVE the aggregate X-ray bound -> DW is X-ray excluded (was order-of-magnitude, now 2.5 dex). (2) RESONANT: production reaches Omega_DM at up to ~582x smaller mixing; it clears the X-ray bound for L>~2e-03, and cold spectra (<eps> down to 1.57 vs DW 3.29) exist - but in this fixed-L pass the X-ray-allowed and cold-spectrum regimes DON'T coincide (the 7.1 keV edge tension). (3) LYMAN-alpha: the mass floor is 41 keV non-resonant -> 15 keV at the coldest resonant spectrum (Viel) -> 9 keV (coldest + conservative bound). The model's 5.6 keV and the 7.1 keV benchmark sit BELOW even the most relaxed floor -> the keV sterile is under quantified pressure as 100% DM, viable only as a sub-dominant component or if the full L-depletion QKE threads the cold + X-ray-allowed corner. NET: F203 T1/T2 pressure CONFIRMED and QUANTIFIED (2.5 dex X-ray exclusion of DW; ~9 keV Lyman-alpha floor vs a 5.6 keV model), not removed."
+}

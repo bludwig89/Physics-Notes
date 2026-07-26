@@ -1,0 +1,71 @@
+{
+  "S0_pdg": {
+    "Q": 0.6666605114773856,
+    "cosQ": 0.7858910669452444,
+    "delta_rad": 0.22222963148971564,
+    "3delta": 0.6666888944691469,
+    "cos3delta_data": 0.7858735155809631,
+    "3delta_vs_Q_resid": 2.8382991761333187e-05,
+    "cos3d_vs_cosQ_resid": 1.755136428127635e-05,
+    "delta_vs_2_9_pct": 0.0033341703720435323
+  },
+  "S1_B_sea": {
+    "ybar": 0.42026993392879414,
+    "A": 0.5943514404197453,
+    "e": 0.7279288784582866,
+    "B(F95)": -0.0569,
+    "C(F118)": 0.0362,
+    "lambda6(F118)": 0.24331835742010516,
+    "e^6": 0.14877627970132282,
+    "note": "B DERIVED from sea (F95, sign<0); C an INDUCED condensate coupling (F150); |B|,C in F118 convention."
+  },
+  "S2_landau_lambda6": {
+    "lambda6_required_for_exact": 0.24332471530745908,
+    "is_clean_rational?": "no -- sits strictly between 2/9=0.2222 and 1/4=0.2500",
+    "candidates": {
+      "2/9 (Fierz F145)": {
+        "lambda6": 0.2222222222222222,
+        "delta_rad": 0.1781687616758714,
+        "3delta": 0.5345062850276142,
+        "delta_pct_off_2_9": 19.82405724585787
+      },
+      "1/4 (rotor F144)": {
+        "lambda6": 0.25,
+        "delta_rad": 0.23329985754692537,
+        "3delta": 0.6998995726407761,
+        "delta_pct_off_2_9": 4.98493589611642
+      },
+      "lam6_req(exact 3d=Q)": {
+        "lambda6": 0.24332471530745908,
+        "delta_rad": 0.22222017049246187,
+        "3delta": 0.6666605114773856,
+        "delta_pct_off_2_9": 0.0009232783921522825
+      }
+    }
+  },
+  "S3_exactness_obstruction": {
+    "d(3delta)/d(lambda6)": 5.223135015205993,
+    "lambda6_must_be_tuned_to": 0.24332471530745908,
+    "tuning_window_for_observed_resid": 5.434091149989889e-06,
+    "argument": "(I) dynamical minimiser: B is a Dirac-SEA integral (F95), C an INDUCED condensate coupling (F150) -- independent O(1) origins with NO locking relation. So -B/2C = cos(2/3) has no mechanism to be EXACT; it is a 1.7e-5 near-coincidence, and lambda6=0.243 is merely the value that makes it so (not a clean rational, not fundamental). The dynamical route is STRUCTURALLY INCAPABLE of exact 3delta=Q."
+  },
+  "S4_weight_as_phase": {
+    "delta_star": "2/9 (exact, canonical E_g angle, R=1 derived F255)",
+    "lambda6_output": 0.24332589376506147,
+    "note": "If the weight-as-phase PRINCIPLE sets delta=2/9 (primary), then C (hence lambda6) is an OUTPUT: lambda6 = |B|/(2 e^6 cos(2/3)). F234's arrow. So 'derive lambda6' is backwards -- lambda6 is derivative, not fundamental."
+  },
+  "S5_self_dual": {
+    "candidates_examined": [
+      "cubic=sextic at min (gives x=1, no)",
+      "equal radial/angular stiffness (units mismatch, no)",
+      "minimiser=Q directly (that IS the target, not a mechanism)"
+    ],
+    "result": "No natural saturation self-duality forces 3delta=Q: the radial invariant Q (delta-blind, F199) and the angular minimiser live in decoupled sectors with different dimensions. No lock found."
+  },
+  "VERDICT": {
+    "can_lambda6_be_derived_directly": "NO -- and the request is structurally misposed. lambda6 is NOT a fundamental constant in either picture: (I) in the dynamical Landau route it is the fitted value making the sea/induced ratio -B/2C approximate cos(2/3) to 1.7e-5 (B and C have independent O(1) origins, no locking -> no exact mechanism); (II) in the weight-as-phase route delta=2/9 is primary and lambda6 is an OUTPUT (F234 arrow).",
+    "dichotomy": "The dynamical route is PROVABLY unable to deliver EXACT 3delta=Q (independent sea B vs induced C; observed match is a 1.7e-5 coincidence). Therefore EXACT closure of E1 can ONLY come from the weight-as-phase PRINCIPLE (delta=2/9 as the primary object) -- which F255 already reduced to the single canonical-angle=weight identity (R=1 derived). Deriving lambda6 is a dead end; it is derivative in both pictures.",
+    "bracket": "Consistent with F150: any induced O(1) coupling of this type lies in [2/9, 1/4]; 0.243 sits strictly between and is NOT uniquely selected by colour/flavour rationals -> confirms lambda6 is not a clean fundamental.",
+    "net_for_E1": "E1's residual is NOT 'derive lambda6=0.243'. It is: establish the weight-as-phase identity (canonical E_g angle = E_g weight 2/9). The lambda6/dynamical route cannot close it exactly. This redirects the last open EW/lepton target away from a dead end."
+  }
+}

@@ -1,6 +1,6 @@
 # casim exactness inventory (auto-generated)
 
-_Generated 2026-06-16 - 14:54 by `casim inventory` (casim.analysis.inventory). 14/14 checks pass._
+_Generated 2026-07-26 - 06:17 by `casim inventory` (casim.analysis.inventory). 13/13 checks pass._
 
 Auto-generated from `casim.verify.run_all()`; do not edit by hand. This is scoped to the `casim` engine and does **not** replace the repository's hand-maintained `docs/status/exactness-inventory.md`.
 
@@ -17,9 +17,8 @@ Auto-generated from `casim.verify.run_all()`; do not edit by hand. This is scope
 | resume_bit_identical | weyl_bcc | exact | 0.000e+00 | 1e-12 | ✅ |
 | kernel_fidelity | fermion↔W | exact | 0.000e+00 | 1e-12 | ✅ |
 | kernel_fidelity | beta_decay | exact | 0.000e+00 | 1e-12 | ✅ |
-| charge_continuity | charge_photon | machine-precision | 4.141e-16 | 1e-10 | ✅ |
+| charge_continuity | charge_photon | machine-precision | 8.058e-16 | 1e-10 | ✅ |
 | kernel_fidelity | gauge_mc | exact | 0.000e+00 | 1e-12 | ✅ |
-| kernel_fidelity | refraction_2d | exact | 0.000e+00 | 1e-12 | ✅ |
 
 ## Classes
 

@@ -1,0 +1,92 @@
+{
+  "finding": "F215",
+  "title": "Eliashberg (Z,Delta) solver on the F210 kernel",
+  "n_pass": 5,
+  "n_total": 5,
+  "checks": {
+    "EL1": {
+      "statement": "Z(i omega_0) -> 1+lambda across couplings (mass renormalization)",
+      "tier": "numeric",
+      "residual": 0.059553786564245176,
+      "pass": true,
+      "rel_err": {
+        "Al": 0.008060467250634631,
+        "Sn": 0.014472539382011535,
+        "In": 0.018228639065467397,
+        "Ta": 0.013908492595043603,
+        "Nb": 0.02355361280016792,
+        "Pb": 0.05485868191716821,
+        "Hg": 0.059553786564245176
+      }
+    },
+    "EL2": {
+      "statement": "weak-coupling Eliashberg T_c matches Allen-Dynes (both 1+lambda-dressed)",
+      "tier": "numeric",
+      "residual": 0.08994064564366246,
+      "pass": true,
+      "Tc_eliashberg": 1.0163390255361093,
+      "Tc_allen_dynes": 0.9324719007390647
+    },
+    "EL3": {
+      "statement": "(1+lambda) mass renorm suppresses Eliashberg T_c far below naive BCS",
+      "tier": "numeric",
+      "residual": 0.24091473541561265,
+      "pass": true,
+      "Tc_Eliashberg_over_BCS": {
+        "Al": 0.15520583269168253,
+        "Sn": 0.1839613463021662,
+        "In": 0.197155935946716,
+        "Ta": 0.18681838804548684,
+        "Nb": 0.21159849303441958,
+        "Pb": 0.23791986300304577,
+        "Hg": 0.24091473541561265
+      }
+    },
+    "EL4": {
+      "statement": "Eliashberg T_c reproduces measured T_c of 7 elements (r>0.97)",
+      "tier": "numeric",
+      "residual": 0.024776731523094675,
+      "pass": true,
+      "corr_with_exp": 0.9752232684769053,
+      "per_element": {
+        "Al": [
+          2.47,
+          1.18
+        ],
+        "Sn": [
+          4.05,
+          3.72
+        ],
+        "In": [
+          4.6,
+          3.41
+        ],
+        "Ta": [
+          5.06,
+          4.48
+        ],
+        "Nb": [
+          11.03,
+          9.25
+        ],
+        "Pb": [
+          7.58,
+          7.19
+        ],
+        "Hg": [
+          4.1,
+          4.15
+        ]
+      }
+    },
+    "EL5": {
+      "statement": "rho(T) monotone through 1 at T_c (well-defined transition)",
+      "tier": "numeric",
+      "residual": 1.4824566796356464e-07,
+      "pass": true,
+      "rho_0.7Tc": 1.193076504264777,
+      "rho_Tc": 0.999999851754332,
+      "rho_1.4Tc": 0.8353804562455152
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "checks": [
+    {
+      "check": "A_tt_basis_any_direction",
+      "pass": true,
+      "detail": {
+        "n_directions": 200,
+        "max_trace": "3.89e-16",
+        "max_asymmetry": "0.00e+00",
+        "max_transverse_khat_dot_e": "2.58e-16",
+        "max_gram_minus_I": "6.66e-16",
+        "max_helicity_phase_residual": "2.00e-16",
+        "note": "two real TT tensors per direction; complex combos carry helicity +/-2 exactly"
+      }
+    },
+    {
+      "check": "B_projector_and_common_pole",
+      "pass": true,
+      "detail": {
+        "max_Lambda^2_minus_Lambda": "1.91e-16",
+        "max_TT_fixed_point_residual": "3.33e-16",
+        "max_longitudinal_annihilated": "1.55e-16",
+        "max_trace_annihilated": "1.45e-16",
+        "f2_at_q=0": "0",
+        "poles_q0": "[sqrt(3)*sqrt(qx**2 + qy**2 + qz**2)/3]",
+        "note": "both helicities are eigenvalue-1 of Lambda => share f2(Q^2)=A Q^2 => common pole q0 = c_lat|q|; spin-1/0 parts are gauge (eigenvalue 0)"
+      }
+    },
+    {
+      "check": "C_bcc_dispersion_nonbirefringent",
+      "pass": true,
+      "detail": {
+        "birefringence_max_|dOmega|": "0.00e+00",
+        "kmag_small": 0.001,
+        "slope_by_direction_at_small_k": {
+          "[100]": "0.57735027",
+          "[110]": "0.57735027",
+          "[111]": "0.57735026",
+          "random": "0.57735027"
+        },
+        "c_lat": "0.57735027",
+        "rel_slope_dev_from_c_lat": {
+          "[100]": "4.55e-10",
+          "[110]": "3.12e-09",
+          "[111]": "7.33e-09",
+          "random": "4.61e-09"
+        },
+        "anisotropy_[111]_k2overk1_ratio": "4.000 (O(k^2) expects 4.0)",
+        "note": "two helicities share one scalar BCC Omega(k) => exact non-birefringence; k->0 slope = 1/sqrt(3) isotropically (inherited from BCC); residual anisotropy is a helicity-blind O((k a)^2) lattice correction"
+      }
+    },
+    {
+      "check": "D_realspace_bcc_wavefront",
+      "pass": true,
+      "detail": {
+        "carrier_k0": 0.15,
+        "speeds_measured": {
+          "e_plus": "0.57725",
+          "e_cross": "0.57725"
+        },
+        "mean_speed": "0.57725",
+        "group_velocity_dOmega_dk_at_k0": "0.57735",
+        "c_lat_luminal_limit": "0.57735",
+        "measured_over_group_velocity": "0.9998",
+        "polarisation_speed_difference": "0.00e+00",
+        "max_transverse_khat_dot_e": "0.00e+00",
+        "max_trace": "0.00e+00",
+        "note": "quasi-1D one-way TT graviton packet on the genuine BCC even law: energy centroid travels at the group velocity (= c_lat in the small-k limit) for BOTH polarisations identically (biref < 1e-12); TT exact"
+      }
+    },
+    {
+      "check": "E_bcc_tensor_bubble_degenerate",
+      "pass": true,
+      "detail": {
+        "qmags": [
+          0.1,
+          0.15,
+          0.2,
+          0.25
+        ],
+        "proj_plus": [
+          "1.292197e+02",
+          "1.285075e+02",
+          "1.275371e+02",
+          "1.263318e+02"
+        ],
+        "proj_cross": [
+          "1.292197e+02",
+          "1.285075e+02",
+          "1.275371e+02",
+          "1.263318e+02"
+        ],
+        "helicity_degeneracy_rel": "4.46e-16",
+        "quadratic_fit_resid_rel": "1.42e-04",
+        "longitudinal_leakage_rel_static_vertex": "2.17e-01",
+        "note": "explicit BCC constituent loop with tensor vertices: the two helicity projections are degenerate to machine precision (non-birefringent) and the spin-2 form factor is quadratic in |q| (the Q^2 pole of B). Exact transversality/gauge structure is analytic (check B)."
+      }
+    }
+  ],
+  "summary": {
+    "c_lat": 0.5773502691896258,
+    "n_pass": 5,
+    "n_total": 5,
+    "all_pass": true
+  }
+}

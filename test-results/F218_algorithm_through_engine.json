@@ -1,0 +1,35 @@
+{
+  "finding": "F218",
+  "date": "2026-07-01",
+  "title": "Quantum algorithm through the engine",
+  "tests": {
+    "G1_native_gates": {
+      "zz": 4.965068306494546e-16,
+      "cz": 5.823616499062727e-16,
+      "cnot": 6.364603414576886e-16,
+      "hadamard": 6.123233995736766e-17
+    },
+    "G2_grover_direct": {
+      "0": 0.9999999999999978,
+      "1": 0.9999999999999978,
+      "2": 0.9999999999999976,
+      "3": 0.9999999999999978
+    },
+    "G3_grover_live": {
+      "0": 0.9999999999999978,
+      "1": 0.9999999999999978,
+      "2": 0.9999999999999976,
+      "3": 0.9999999999999978
+    },
+    "G4_deutsch_jozsa": {
+      "const0": "constant",
+      "const1": "constant",
+      "balanced_id": "balanced",
+      "balanced_not": "balanced"
+    },
+    "G5_checkpoint": {
+      "psi_max_err": 0.0,
+      "answer": 2
+    }
+  }
+}

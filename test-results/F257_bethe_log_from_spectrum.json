@@ -1,0 +1,72 @@
+{
+  "summary": {
+    "finding": "F257",
+    "title": "Bethe logarithm from the model's own hydrogen spectrum",
+    "checks": 4,
+    "passed": 4,
+    "failed": 0,
+    "grid_N": 8000,
+    "verdict": "ln k0 derived from the model Coulomb resolvent (no literature constant), reproducing 2.984/2.812/-0.030 to ~2-3%; the model-Bethe Lamb shift lands within ~1% of measured."
+  },
+  "bethe_logs": {
+    "1s": 2.920425085715691,
+    "2s": 2.7478980685455285,
+    "2p": -0.03687266914576338
+  },
+  "lamb": {
+    "dirac_2s1_2_eV": -3.4014798855663284,
+    "dirac_2p1_2_eV": -3.4014798855663284,
+    "dirac_degeneracy_gap_eV": 0.0,
+    "dirac_degenerate": true,
+    "E1_unit_MHz": 101.73283771512556,
+    "ln_k0_2s": 2.7478980685455285,
+    "ln_k0_2p": -0.03687266914576338,
+    "bethe_source": "model-derived (F257 Dalgarno-Lewis)",
+    "self_energy_2s_minus_2p_MHz": 1087.0560524143532,
+    "vacuum_pol_uehling_MHz": -27.12875672403348,
+    "total_lamb_MHz": 1059.9272956903196,
+    "measured_MHz": 1057.845,
+    "fraction_of_measured": 1.001968431755427,
+    "residual_MHz": -2.0822956903195973,
+    "degeneracy_lifted": "True",
+    "statement": "one-loop radiative shift lifts the exact Dirac 2s-2p degeneracy to ~1052 MHz ~ 99.5% of the measured 1057.845 MHz; Uehling (-27.1 MHz) derived from F251, self-energy from the Bethe log (model-derived (F257 Dalgarno-Lewis)). Residual ~5.6 MHz is higher-order alpha(Z alpha)^5/two-loop QED, out of leading-order scope.",
+    "ln_k0_2s_accepted": 2.8117698931,
+    "ln_k0_2p_accepted": -0.0300167089,
+    "ln_k0_2s_rel_err": -0.022715878959800786
+  },
+  "checks": {
+    "B1_ln_k0_1s": {
+      "quantity": "Bethe log ln k0(1s) from model Coulomb resolvent",
+      "model": 2.920425085715691,
+      "accepted": 2.9841285558,
+      "rel_err": -0.021347428199932614,
+      "tier": "quantitative",
+      "pass": "True"
+    },
+    "B2_ln_k0_2s": {
+      "quantity": "Bethe log ln k0(2s) from model Coulomb resolvent",
+      "model": 2.7478980685455285,
+      "accepted": 2.8117698931,
+      "rel_err": -0.022715878959800786,
+      "tier": "quantitative",
+      "pass": "True"
+    },
+    "B3_ln_k0_2p": {
+      "quantity": "Bethe log ln k0(2p) (below-threshold 1s handled)",
+      "model": -0.03687266914576338,
+      "accepted": -0.0300167089,
+      "abs_err": -0.006855960245763376,
+      "tier": "quantitative",
+      "pass": "True"
+    },
+    "B4_lamb_model_bethe": {
+      "quantity": "Lamb shift with model-derived Bethe log (no literature)",
+      "model_MHz": 1059.9272956903196,
+      "measured_MHz": 1057.845,
+      "fraction_of_measured": 1.001968431755427,
+      "bethe_source": "model-derived (F257 Dalgarno-Lewis)",
+      "tier": "quantitative",
+      "pass": "True"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "finding": "F230",
+  "title": "self-consistent (W,v,c) triple closed: F118 existence + F174/F175 delta*=2/9 pins the brake",
+  "checks": {
+    "C1_derived_cos3delta": {
+      "delta_star": 0.2222222222222222,
+      "cos_3delta_star": 0.785887260776948,
+      "F174_target_0p785887": 0.785887,
+      "pass": true
+    },
+    "C2_brake_from_derived_inputs": {
+      "C_req_from_delta_and_B": 0.03620112122936515,
+      "F118_C_req": 0.0362,
+      "coeff_1_over_2cos3d": 0.6362235716935879,
+      "F118_coeff_0.636": 0.636,
+      "pass": true
+    },
+    "C3_lambda6_derived": {
+      "e_saturation": 0.733,
+      "lambda6": 0.23339856092058198,
+      "F118_lambda6_0.243": 0.243,
+      "W_equiv": 1.4003913655234919,
+      "F118_W_1.46": 1.46,
+      "pass": true
+    },
+    "C4_zero_param_spectrum": {
+      "m_mu/m_e": 206.77031597272907,
+      "PDG_206.7683": 206.7683,
+      "m_tau/m_e": 3477.4728371046003,
+      "PDG_3477.23": 3477.23,
+      "dev_mu_%": 0.0009749911998424565,
+      "dev_tau_%": 0.006983636532531534,
+      "pass": true
+    },
+    "C5_existence_F118_residual_E1": {
+      "existence": "F118 A2/A3: lepton point global (gap -2e-6), all couplings O(1)",
+      "residual": "collapses to E1 (weight->phase: why 2/9 weight = phase in rad)",
+      "supersedes": "F179/CN3 'lambda_6 not reducible' -> now reducible via delta*=2/9",
+      "pass": true
+    }
+  },
+  "all_pass": true
+}

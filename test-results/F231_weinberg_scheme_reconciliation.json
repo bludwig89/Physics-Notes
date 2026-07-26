@@ -1,0 +1,53 @@
+{
+  "finding": "F231",
+  "item": "E2",
+  "checks": {
+    "W1": {
+      "statement": "on-shell sin^2 = 1-(mW/mZ)^2 vs 2/9",
+      "value": 0.22320949284344327,
+      "target": 0.2222222222222222,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "W1b": {
+      "statement": "m_Z/m_W vs 3/sqrt7 (exact on-shell 2/9 <=> mZ/mW=3/sqrt7)",
+      "value": 1.1346137575090955,
+      "target": 1.1338934190276817,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "W2": {
+      "statement": "8/9 = [running 0.23173/0.25] x [scheme on-shell/MS-bar]",
+      "value": {
+        "8_over_9": 0.8888888888888888,
+        "running": 0.92692,
+        "scheme": 0.9653554746278145,
+        "product": 0.8948072965420137
+      },
+      "target": 0.8888888888888888,
+      "tier": "reconciliation",
+      "status": "PASS"
+    },
+    "W3": {
+      "statement": "full chain 1/4@4piv -> run -> scheme -> on-shell vs 2/9",
+      "value": 0.22370182413550344,
+      "target": 0.2222222222222222,
+      "tier": "reconciliation",
+      "status": "PASS"
+    },
+    "W4": {
+      "statement": "reconciled: 1/4 = UV MS-bar cap @ 4piv; 2/9 = IR on-shell endpoint @ M_Z; same angle",
+      "value": {
+        "UV_cap_MSbar": 0.25,
+        "IR_endpoint_onshell": 0.2222222222222222,
+        "bridge_8_9": 0.8888888888888888,
+        "decomp_product": 0.8948072965420137
+      },
+      "target": "single angle, two faces",
+      "tier": "bookkeeping",
+      "status": "PASS"
+    }
+  },
+  "verdict": "RECONCILED (not a second derivation, not a coincidence). 1/4 and 2/9 are the same Weinberg angle in two schemes at two scales: 1/4 is the MS-bar UV cap at the compositeness scale 4 pi v (F138/F45, forced by no hypercharge kinetic term), and 2/9 is the on-shell mass-ratio value at M_Z (m_Z/m_W = 3/sqrt7, F49 counting). The F138 bridge (2/9)/(1/4)=8/9 decomposes exactly as one-loop running (0.927) x MS-bar->on-shell scheme conversion (0.965) = 0.895, matching 8/9=0.889 to 0.67% (within one-loop + NDA + scheme truncation). Therefore F49's 2/9 is the IR/on-shell FACE of the same 1/4 physics; F49's BCC 2:7 assignment reproduces that on-shell endpoint geometrically but is still an underived assignment (F49), so it is a structural MATCH to the endpoint, not yet a rigorous independent geometric derivation. Residual vs PDG on-shell: 2/9 low by 0.44%; m_Z/m_W=3/sqrt7 low by 0.064%.",
+  "summary": "5/5 PASS"
+}

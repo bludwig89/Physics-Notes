@@ -1,0 +1,55 @@
+{
+  "Q1_exact_factorization": {
+    "passed": true,
+    "a1_nf6": 3.6666666666666665,
+    "a1_is_11_over_3": true,
+    "delta_scheme_VtoMSbar": 0.29178,
+    "delta_lattice_ruletoV": 0.3465,
+    "delta_sum": 0.63829,
+    "delta_target": 0.64,
+    "Lambda_factor_scheme_EXACT": 1.2994,
+    "Lambda_factor_lattice_OPEN": 1.3648,
+    "Lambda_factor_full": 1.7734,
+    "lattice_equals_inv_qstar": true,
+    "factorization_exact": true,
+    "statement": "Lambda_MSbar/Lambda_rule = 1.299 (EXACT V->MSbar via a1=11/3) x 1.365 (OPEN rule->V = 1/q*). Half the scheme factor is derived."
+  },
+  "Q2_propagator_vs_vertex_split": {
+    "passed": true,
+    "n": 12,
+    "dB_wilson_propagator": -0.07886,
+    "dB_rule_propagator": -0.01256,
+    "rule_over_wilson_prop_ratio": 0.1592,
+    "rule_propagator_shift_small": true,
+    "statement": "rule propagator-driven finite shift ~ -0.008 (a tenth of Wilson's -0.079, ~0 vs the tadpole-free target): the pull-down from band top q*~0.97 to implied 0.733 is VERTEX-form-factor dominated, not propagator. The open leg = lattice 3g+ghost vertex form factors (F162-G3), Wilson-28.81-gated."
+  },
+  "Q3_bracket_and_reconciliation": {
+    "passed": true,
+    "qstar_band": [
+      0.5774,
+      0.979
+    ],
+    "qstar_implied": 0.7327,
+    "open_factor_1_over_qstar": [
+      1.021,
+      1.732
+    ],
+    "open_factor_implied": 1.365,
+    "full_lambda_ratio_bracket": [
+      1.327,
+      2.251
+    ],
+    "lambda_ratio_target": 1.78,
+    "wilson_contrast": 28.81,
+    "F235_reconciliation": "F235 said Q1=Q2=E3=d1; F239 SHARPENS: only the lattice->V leg (1/q*) is the shared d1. Q2's true SCHEME leg (V->MSbar, 1.30) is closed exactly, so Q2 is NOT wholly the open number.",
+    "statement": "open leg 1/q* in [1.02,1.73] (implied 1.365); full scheme factor in [1.33,2.25] (target 1.78); far below Wilson 28.81."
+  },
+  "summary": {
+    "passed": 3,
+    "total": 3,
+    "all_pass": true,
+    "outcome": "HONEST PARTIAL \u2014 scheme leg (V->MSbar) DERIVED EXACTLY (a1=11/3, factor 1.30); lattice->V leg (1/q*=1.365) = the shared open d1 (vertex form factors). alpha_s(M_Z) reproduced when q* pinned; residual = the one vertex-form-factor integral (F162-G3).",
+    "alpha_s_MZ_when_qstar_pinned": 0.118,
+    "derived_fraction": "scheme leg exact; lattice leg open (bracketed)"
+  }
+}
