@@ -1,242 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.gauge.su3_ladder`.
+
+Roadmap D6 (C4): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.gauge.su3_ladder`.
 """
-ca_su3_ladder.py — SU(3) electric Casimir ladder and the SU(3) character rotor
-==============================================================================
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-Created: 2026-06-07 — companion to `ca_link_hamiltonian.py` (F110/F111).
-Resolves the "SU(3) Casimir ladder" scope item of F110: the F98–F101
-A-vs-C caveat (Abelian/centre N-ality vs SU(3) Casimir scaling) made
-explicit and computable.
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-Content
--------
-1. **The electric Casimir ladder** — exact rational data for SU(3) irreps
-   (p,q): quadratic Casimir C₂ = (p²+q²+pq+3p+3q)/3, dimension
-   d = (p+1)(q+1)(p+q+2)/2, conjugation (p,q)↔(q,p), triality (p−q) mod 3.
-   In Kogut–Susskind theory a link carrying irrep R costs electric energy
-   (g²/2)C₂(R): the ladder IS the strong-coupling spectrum of a link.
+import casim.engine.gauge.su3_ladder as _target
 
-2. **The gauge-invariant flux chain** — static charges R, R̄ at the ends of
-   a chain of L links: at λ=0 Gauss's law at the intermediate (matter-free)
-   sites forces every link into the SAME irrep R (the singlet appears in
-   A⊗B̄ iff A=B, multiplicity 1 — verified programmatically over the
-   ladder), so
+_warnings.warn(
+    "ca-simulation/ca_su3_ladder.py has moved to casim.engine.gauge.su3_ladder; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-       V_R(L) = (g²/2) · C₂(R) · L      (exact, Fractions)
-
-   ⇒ **Casimir scaling**: σ_R/σ_3 = C₂(R)/C₂(3); exactly 9/4 (adjoint),
-   5/2 (sextet), 9/2 (decuplet).  Contrast: the ℤ₃ centre theory
-   (`ca_link_hamiltonian`, symmetric residue) sees only triality —
-   σ(q=2) = σ(q=1) exactly.  This is the A-vs-C dichotomy of F98–F101 as
-   two computable laws.
-
-3. **The SU(3) character rotor** — the F101 compact rotor with the U(1)
-   charge basis replaced by the SU(3) irrep (character) basis:
-
-       H = (g²/2) Ĉ₂  −  (λ/2)(χ_F + χ_F̄)        (multiplication operator)
-
-   χ_F·χ_R = Σ_{R'∈F⊗R} χ_{R'} (fundamental fusion, multiplicity-free), so
-   the magnetic term is the fusion adjacency matrix — the direct analogue of
-   cos φ̂ shifting the U(1) charge by ±1.  The centre order parameter is
-   s₁ = ⟨(1/3)χ_F⟩ and σ₁ = −ln s₁ (F99/F101 convention).
-
-   Strong-coupling PT (first order): the singlet mixes only with 3 and 3̄,
-   a₃ = (λ/2)/((g²/2)C₂(F)) = 3λ/(4g²), giving
-
-       s₁ → (1/3)(a₃+a₃̄) = λ/(2g²)  =  2λχ  at  χ = 1/(4g²)
-
-   — the SAME leading non-perturbative log law σ₁ → −ln(λ/(2g²)) as the
-   F101 U(1) rotor under the F110 χ-map.  The group changes the string
-   tension ladder (Casimir scaling); it does not change the leading
-   strong-coupling logarithm.  (Verified asymptotically, F111 T7.)
-
-Conventions: unnormalised characters in the magnetic term (χ = e^{iφ} is
-the U(1) case); truncation by p+q ≤ cut with checked convergence (the F101
-S1 policy).  Exact statements use `fractions.Fraction`.
-"""
-
-from fractions import Fraction
-
-import numpy as np
-
-
-# ══════════════════════════════════════════════════════════════════
-#  Irrep data — exact
-# ══════════════════════════════════════════════════════════════════
-
-def casimir2(p, q):
-    """Quadratic Casimir C₂(p,q) = (p²+q²+pq+3p+3q)/3, exact Fraction.
-    Normalisation: C₂(1,0) = 4/3 (fundamental), C₂(1,1) = 3 (adjoint)."""
-    return Fraction(p * p + q * q + p * q + 3 * p + 3 * q, 3)
-
-
-def dim_irrep(p, q):
-    """dim(p,q) = (p+1)(q+1)(p+q+2)/2 (always an integer)."""
-    num = (p + 1) * (q + 1) * (p + q + 2)
-    assert num % 2 == 0
-    return num // 2
-
-
-def conjugate(p, q):
-    return (q, p)
-
-
-def triality(p, q):
-    """N-ality (centre ℤ₃ charge) of the irrep: (p − q) mod 3."""
-    return (p - q) % 3
-
-
-def fuse_F(p, q):
-    """3 ⊗ (p,q) = (p+1,q) ⊕ (p−1,q+1) ⊕ (p,q−1), invalid labels dropped.
-    Multiplicity-free."""
-    return [t for t in ((p + 1, q), (p - 1, q + 1), (p, q - 1))
-            if t[0] >= 0 and t[1] >= 0]
-
-
-def fuse_Fbar(p, q):
-    """3̄ ⊗ (p,q) = (p,q+1) ⊕ (p+1,q−1) ⊕ (p−1,q)."""
-    return [t for t in ((p, q + 1), (p + 1, q - 1), (p - 1, q))
-            if t[0] >= 0 and t[1] >= 0]
-
-
-def irrep_ladder(cut):
-    """All (p,q) with p+q ≤ cut, sorted by (C₂, p):  the electric ladder."""
-    reps = [(p, q) for p in range(cut + 1) for q in range(cut + 1 - p)]
-    return sorted(reps, key=lambda r: (casimir2(*r), r))
-
-
-def fusion_dim_identity_residual(cut):
-    """Σ_{R'∈F⊗R} dim R' − 3·dim R, maximised over the ladder (no edge
-    truncation inside the check).  Exactly 0 — the fusion bookkeeping is
-    dimension-exact."""
-    worst = 0
-    for (p, q) in irrep_ladder(cut):
-        s = sum(dim_irrep(*t) for t in fuse_F(p, q))
-        worst = max(worst, abs(s - 3 * dim_irrep(p, q)))
-    return worst
-
-
-def singlet_in_product(A, B):
-    """Multiplicity of the singlet in A ⊗ B, computed from the fusion data:
-    repeatedly fuse A with fundamentals to reach B̄ ... for the chain
-    constraint we only need the standard fact mult = δ_{B,Ā}; this verifies
-    it on the ladder via character orthogonality on the maximal torus."""
-    return 1 if B == conjugate(*A) else 0
-
-
-def singlet_multiplicity_torus(A, B, n_grid=64):
-    """
-    Independent NUMERICAL verification of mult(1 ∈ A⊗B) by Weyl-torus
-    character integration  ∫ χ_A χ_B dU  over SU(3) Haar (class measure).
-    Characters evaluated DIVISION-FREE via the Jacobi–Trudi determinant
-    χ_{(p,q)} = s_λ(z), λ = (p+q, q, 0), s_λ = det[h_{λ_i−i+j}] — no Weyl
-    ratio, so no 0/0 at degenerate torus points; the periodic rectangle
-    rule is then spectrally accurate.  Certifies `singlet_in_product`.
-    """
-    phi = (np.arange(n_grid) + 0.5) * 2.0 * np.pi / n_grid
-    P1, P2 = np.meshgrid(phi, phi, indexing='ij')
-    P3 = -(P1 + P2)
-    z = (np.exp(1j * P1), np.exp(1j * P2), np.exp(1j * P3))
-    d12 = 2.0 * (1.0 - np.cos(P1 - P2))
-    d13 = 2.0 * (1.0 - np.cos(P1 - P3))
-    d23 = 2.0 * (1.0 - np.cos(P2 - P3))
-    meas = d12 * d13 * d23
-    meas = meas / meas.sum()                  # ∫ dμ_Haar(class) = 1
-
-    k_max = A[0] + A[1] + B[0] + B[1] + 2
-    h = [np.ones_like(z[0]), z[0] + z[1] + z[2]]   # h₀, h₁
-    for k in range(2, k_max + 1):                  # Newton-free recursion:
-        # h_k(z1,z2,z3) = Σ_a z3^a · h_{k−a}(z1,z2), h built incrementally
-        hk = np.zeros_like(z[0])
-        for a in range(k + 1):
-            # h_{k−a}(z1, z2) = Σ_b z1^b z2^{k−a−b}
-            m = k - a
-            h12 = np.zeros_like(z[0])
-            for b in range(m + 1):
-                h12 = h12 + z[0] ** b * z[1] ** (m - b)
-            hk = hk + z[2] ** a * h12
-        h.append(hk)
-
-    def hh(k):
-        if k < 0:
-            return np.zeros_like(z[0])
-        return h[k]
-
-    def schur(p, q):
-        lam = (p + q, q, 0)
-        M = [[hh(lam[i] - i + j) for j in range(3)] for i in range(3)]
-        return (M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
-                - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
-                + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]))
-
-    val = np.sum(schur(*A) * schur(*B) * meas)
-    return float(np.real(val))
-
-
-# ══════════════════════════════════════════════════════════════════
-#  Flux chain — Casimir-scaled string energies (exact)
-# ══════════════════════════════════════════════════════════════════
-
-def chain_energy(R, L, g2=Fraction(1)):
-    """
-    λ=0 energy of a length-L flux chain with static R, R̄ end charges:
-    Gauss's law forces every link into R (singlet_in_product), so
-    E = (g²/2)·C₂(R)·L, exact Fraction.
-    """
-    g2 = Fraction(g2)
-    return g2 / 2 * casimir2(*R) * L
-
-
-def casimir_scaling_table(g2=Fraction(1)):
-    """σ_R/σ_F for the ladder rungs used in F111 T6 — exact Fractions."""
-    F = (1, 0)
-    table = {}
-    for name, R in (('3', (1, 0)), ('3bar', (0, 1)), ('6', (2, 0)),
-                    ('8', (1, 1)), ('10', (3, 0)), ('15', (2, 1))):
-        sigma = Fraction(g2) / 2 * casimir2(*R)
-        table[name] = (R, sigma, sigma / (Fraction(g2) / 2 * casimir2(*F)))
-    return table
-
-
-# ══════════════════════════════════════════════════════════════════
-#  The SU(3) character rotor
-# ══════════════════════════════════════════════════════════════════
-
-def su3_rotor_hamiltonian(g2, lam, cut):
-    """
-    H = (g²/2)Ĉ₂ − (λ/2)(χ_F + χ_F̄) in the irrep (character) basis,
-    truncated at p+q ≤ cut.  Returns (H dense real symmetric, reps list,
-    M_F) with (M_F)_{R'R} = [R' ∈ F⊗R] (the fusion adjacency; M_F̄ = M_Fᵀ).
-    """
-    reps = irrep_ladder(cut)
-    pos = {r: n for n, r in enumerate(reps)}
-    n = len(reps)
-    H = np.zeros((n, n))
-    M_F = np.zeros((n, n))
-    for r in reps:
-        H[pos[r], pos[r]] = 0.5 * g2 * float(casimir2(*r))
-        for t in fuse_F(*r):
-            if t in pos:
-                M_F[pos[t], pos[r]] = 1.0
-    H -= 0.5 * lam * (M_F + M_F.T)
-    return H, reps, M_F
-
-
-def su3_rotor_sigma1(g2, lam, cut=14):
-    """
-    σ₁ = −ln s₁,  s₁ = ⟨(1/3)χ_F⟩ in the rotor ground state.
-    The ground state is conjugation-symmetric (C₂(R)=C₂(R̄), magnetic term
-    F+F̄), so ⟨χ_F⟩ is real.
-    """
-    H, reps, M_F = su3_rotor_hamiltonian(g2, lam, cut)
-    w, v = np.linalg.eigh(H)
-    a = v[:, 0]
-    if a[0] < 0:
-        a = -a
-    s1 = float(a @ (M_F @ a)) / 3.0
-    return -np.log(s1), s1
-
-
-def su3_rotor_strong_coupling_slope(g2=1.0):
-    """First-order PT slope: s₁ → λ/(2g²) — equals the F101 U(1) rotor's
-    2λχ at χ = 1/(4g²) (the F110 single-plaquette map)."""
-    return 1.0 / (2.0 * g2)
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

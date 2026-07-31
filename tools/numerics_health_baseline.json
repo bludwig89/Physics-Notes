@@ -1,0 +1,10 @@
+{
+ "by_module": {
+  "ca_fft": 42,
+  "numpy": 167,
+  "scipy": 7
+ },
+ "fft_call_sites": 0,
+ "files_with_direct_imports": 167,
+ "scanned": 219
+}

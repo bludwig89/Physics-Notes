@@ -1,83 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.forks.gravity.gr3_fork_B_anisotropic`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.forks.gravity.gr3_fork_B_anisotropic`.
 """
-Fork B — ANISOTROPIC METRIC (g_00 and g_ii independent)
-========================================================
-Finding 14.5(b):  abandon the isotropic single-c ansatz and introduce
-an explicit anisotropic metric  (g_00(x), g_ii(x)).
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-Use the textbook isotropic-Schwarzschild assignment at leading order:
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-    g_00(x) = -(1 + 2 phi(x) / c_0^2)        =>  A = 1 + 2 phi/c^2
-    g_ii(x) =  (1 - 2 phi(x) / c_0^2)        =>  B = 1 - 2 phi/c^2
+import casim.engine.forks.gravity.gr3_fork_B_anisotropic as _target
 
-From these:
-    c_photon(x) = c_0 * sqrt(|g_00|/g_ii) = c_0 * sqrt(A/B)
-                ~ c_0 * (1 + 2 phi/c_0^2 + 2 phi^2/c_0^4 + ...)         (factor 2)
-    tau_rate(x) = sqrt(|g_00|)            ~  1 +  phi/c_0^2             (factor 1)
+_warnings.warn(
+    "ca-simulation/forks/gr3_fork_B_anisotropic.py has moved to casim.engine.forks.gravity.gr3_fork_B_anisotropic; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-The factor-4 deflection comes from the *difference* between A and B in
-the eikonal integrand; the factor-1 redshift comes from A alone.
-
-Predicted outcome (textbook GR):
-  GR-1  K       -> 4         (Einstein, recovered)
-  GR-2  ratio   -> 1         (recovered)
-  GR-3  ratio_GR -> 1        (FIXED)
-  GR-4  Δω      -> matches GR Schwarzschild (1.5% baseline; same since
-                               isotropic-Schwarzschild already used the
-                               (A, B) split — Fork B just exposes the two
-                               separately throughout the stack)
-
-Cost of the fix: introduces a per-cell two-component metric instead of
-a single c(x).  No new sources are added — both A and B are sourced by
-the same phi.  This is the most physically defensible fork; effectively
-it makes the lattice reproduce GR in isotropic coordinates by
-construction.  Loses the "single emergent variable" parsimony of v2.
-"""
-
-from __future__ import annotations
-import numpy as np
-
-
-NAME = "fork_B_anisotropic"
-DESCRIPTION = "Anisotropic metric A=1+2phi/c^2, B=1-2phi/c^2 (isotropic-Schwarzschild)."
-
-
-def _AB(phi: np.ndarray, c_0: float):
-    A = 1.0 + 2.0 * phi / c_0**2
-    B = 1.0 - 2.0 * phi / c_0**2
-    return A, B
-
-
-def c_photon(phi: np.ndarray, c_0: float) -> np.ndarray:
-    """c_photon = c_0 * sqrt(A/B).
-
-    At leading order: c_0 * (1 + 2 phi/c^2), reproducing the Paper 6
-    factor-2 form by accident from the (A,B) combination — this is how
-    we keep the GR-1/GR-2 results unchanged.
-    """
-    A, B = _AB(phi, c_0)
-    return c_0 * np.sqrt(np.abs(A) / B)
-
-
-def c_matter(phi: np.ndarray, c_0: float) -> np.ndarray:
-    """Matter follows the same metric — c_matter equals c_photon at this
-    order; the difference between photons and matter shows up in the
-    timelike geodesic equation, not in the scalar c."""
-    A, B = _AB(phi, c_0)
-    return c_0 * np.sqrt(np.abs(A) / B)
-
-
-def tau_rate(phi: np.ndarray, c_0: float) -> np.ndarray:
-    """Local clock rate = sqrt(|g_00|) = sqrt(A).
-
-    Leading-order:  tau_rate ~ 1 + phi/c^2  (factor 1, matches GR).
-    """
-    A, _ = _AB(phi, c_0)
-    return np.sqrt(np.abs(A))
-
-
-def metric(phi: np.ndarray, c_0: float):
-    """Return (A, B) directly — by construction this is the isotropic-
-    Schwarzschild metric.  GR-4 should match the baseline result at the
-    same precision (the Mercury test already used these A,B in its 1PN
-    EOM)."""
-    return _AB(phi, c_0)
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

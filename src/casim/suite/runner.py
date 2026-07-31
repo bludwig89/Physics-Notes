@@ -37,14 +37,45 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from .tiers import (TIERS, DEFAULT_TIER, OVERRIDES, plan_size, SizePlan,
                     base_L_of, lattice_dims)
 
-# Group → list of pytest test directories (relative to repo root).
+# Group → test directory (relative to repo root).
+#
+# Roadmap P1.1 — three honest tiers:
+#   gate     tests/casim, run by bare `pytest` and `make gate`. Fast, asserting.
+#   battery  everything below. Hours; run explicitly via `casim test`.
+#   archive  files the supersession ledger marks fully superseded. Excluded.
+#
+# `tests/runners` (45 files) was previously in an opt-in `numerical` group that
+# was not in DEFAULT_GROUPS, so nothing ever ran it. It is in the battery now.
 BATTERY_GROUPS = {
     "casim": "tests/casim",
     "priority": "tests/priority",
     "findings": "tests/findings",
+    "runners": "tests/runners",
 }
 
 DEFAULT_GROUPS = ("battery", "scenarios", "realspace")
+
+
+def _archived_paths(repo_root: str) -> set:
+    """Fully-superseded files, from docs/theory/supersessions.yaml.
+
+    Only `fully_superseded` is excluded. `partially_superseded` files keep
+    running: their dead claims are named in a docstring banner, but the live
+    checks around them are load-bearing (see the ledger's `retained:` fields).
+    """
+    path = os.path.join(repo_root, "docs", "theory", "supersessions.yaml")
+    try:
+        import yaml
+        with open(path, encoding="utf-8") as fh:
+            led = yaml.safe_load(fh)
+    except Exception:
+        return set()
+    out = set()
+    for rec in led.get("supersessions", []):
+        for entry in rec.get("tests") or []:
+            if entry.get("status") == "fully_superseded":
+                out.add(os.path.normpath(os.path.join(repo_root, entry["path"])))
+    return out
 
 # Scenarios routed to the realspace group (block-spin / physical-patch).
 REALSPACE_SCENARIOS = {
@@ -344,9 +375,14 @@ def _classify_battery_files(group_dir: str) -> Tuple[List[str], List[str]]:
     tokens (e.g. the whole tests/priority battery)."""
     pytest_files: List[str] = []
     script_files: List[str] = []
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(group_dir))) \
+        if os.path.isabs(group_dir) else os.getcwd()
+    archived = _archived_paths(repo_root)
     for path in sorted(_glob.glob(os.path.join(group_dir, "*.py"))):
         if os.path.basename(path) in ("__init__.py", "conftest.py"):
             continue
+        if os.path.normpath(os.path.abspath(path)) in archived:
+            continue                        # archive tier — see the ledger
         try:
             with open(path, "r", errors="replace") as fh:
                 text = fh.read()
@@ -392,13 +428,66 @@ def run_battery_pytest(sub: str, pytest_files: List[str], repo_root: str,
                       metrics=metrics)
 
 
+def _result_drift(repo_root: str, before_mtimes: Dict[str, float]) -> List[str]:
+    """Result JSONs a script just rewrote whose NUMBERS moved against git.
+
+    Roadmap P1.2. Most of the battery cannot fail: 232 of 344 test files have
+    no `assert`, and a script that exits 0 without printing a PASS token lands
+    in `RAN`, which reads like success. But those scripts do write their numbers
+    to test-results/, and those files are committed — so HEAD is the baseline
+    and drift is a real, checkable failure. No test file needs editing for this.
+    """
+    try:
+        from casim.baselines import drift_report
+    except Exception:
+        return []
+    touched = []
+    for rel, was in before_mtimes.items():
+        full = os.path.join(repo_root, rel)
+        try:
+            if os.path.getmtime(full) > was:
+                touched.append(rel)
+        except OSError:
+            continue
+    if not touched:
+        return []
+    report = drift_report(touched, ref="HEAD", cwd=repo_root)
+    return [f"{p}: " + "; ".join(
+        f"{d.path} {d.before!r}->{d.after!r}" for d in deltas[:3])
+        for p, deltas in sorted(report.items())]
+
+
+def _result_mtimes(repo_root: str) -> Dict[str, float]:
+    out: Dict[str, float] = {}
+    rdir = os.path.join(repo_root, "test-results")
+    for dirpath, dirnames, filenames in os.walk(rdir):
+        dirnames[:] = [d for d in dirnames
+                       if d not in ("__pycache__", "figures", "logs", "suite")]
+        for fn in filenames:
+            if fn.endswith(".json") and fn != "manifest.json":
+                full = os.path.join(dirpath, fn)
+                rel = os.path.relpath(full, repo_root).replace(os.sep, "/")
+                try:
+                    out[rel] = os.path.getmtime(full)
+                except OSError:
+                    pass
+    return out
+
+
 def run_battery_script(sub: str, path: str, repo_root: str, reporter: Reporter,
-                       scale: str, timeout: float) -> ItemResult:
-    """Run one standalone test script (``python file.py``); classify by exit
-    code and the PASS/FAIL tokens it prints."""
+                       scale: str, timeout: float,
+                       check_drift: bool = True) -> ItemResult:
+    """Run one standalone test script (``python file.py``).
+
+    Classified by exit code, the PASS/FAIL tokens it prints, and — new in P1.2
+    — whether the numbers in any result artifact it rewrote drifted from git.
+    That last check is what gives the ~232 assertion-free scripts a failure
+    mode without touching them.
+    """
     name = f"{sub}::{os.path.splitext(os.path.basename(path))[0]}"
     t0 = time.time()
     reporter.heartbeat(f"battery/{name}: running script", force=True)
+    before = _result_mtimes(repo_root) if check_drift else {}
     try:
         proc = subprocess.run([sys.executable, path], capture_output=True,
                               text=True, env=_battery_env(repo_root, scale),
@@ -410,7 +499,9 @@ def run_battery_script(sub: str, path: str, repo_root: str, reporter: Reporter,
     out = (proc.stdout or "") + "\n" + (proc.stderr or "")
     n_fail = len(_FAIL_TOKEN.findall(out))
     n_pass = len(_PASS_TOKEN.findall(out))
-    metrics = {"exit": proc.returncode, "pass_tokens": n_pass, "fail_tokens": n_fail}
+    drift = _result_drift(repo_root, before) if check_drift else []
+    metrics = {"exit": proc.returncode, "pass_tokens": n_pass,
+               "fail_tokens": n_fail, "drifted_results": len(drift)}
     if proc.returncode != 0:
         tail = out.strip().splitlines()
         return ItemResult("battery", name, "ERROR", secs,
@@ -422,11 +513,27 @@ def run_battery_script(sub: str, path: str, repo_root: str, reporter: Reporter,
         return ItemResult("battery", name, "FAIL", secs,
                           f"{n_fail} FAIL token(s); first: {fail_line[:100]}",
                           metrics=metrics)
+    if drift:
+        # Numbers moved. This outranks a printed PASS: the script's own gates
+        # may still be satisfied while a physical value has changed underneath.
+        return ItemResult("battery", name, "FAIL", secs,
+                          f"result drift vs HEAD — {drift[0][:160]}",
+                          metrics=metrics)
     if n_pass:
         return ItemResult("battery", name, "PASS", secs,
                           f"{n_pass} PASS token(s), exit 0", metrics=metrics)
+    if before and metrics["drifted_results"] == 0 and any(
+            os.path.getmtime(os.path.join(repo_root, r)) > w
+            for r, w in before.items()
+            if os.path.exists(os.path.join(repo_root, r))):
+        # No assertion, no token — but it reproduced its committed numbers.
+        # That is a genuine pass, and naming it as one is the point of P1.2.
+        return ItemResult("battery", name, "PASS", secs,
+                          "no PASS token, but result artifact reproduced HEAD "
+                          "exactly (baseline match)", metrics=metrics)
     return ItemResult("battery", name, "RAN", secs,
-                      "exit 0; no PASS/FAIL token printed", metrics=metrics)
+                      "exit 0; no PASS/FAIL token, no result artifact to diff "
+                      "— this test has no failure mode", metrics=metrics)
 
 
 def _parse_junit(xml_path: str) -> Tuple[int, int, int, int]:

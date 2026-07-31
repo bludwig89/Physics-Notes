@@ -1,4 +1,16 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon]
+
+  DEAD:
+    FG6.1-FG6.6 as PHOTON claims (two-helicity branch split, dOmega =
+    -sqrt(3)/27 k^2 — the birefringent photon).
+
+  STILL LIVE:
+    The same dOmega / chiral-propagation machinery for W/Z (F67's exact
+    |dOmega|/2 separation is load-bearing in F91-W2); FG6.7-FG6.9 triplet W^a;
+    FG6.10 Riemann-Silberstein identity.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_FG6_two_helicity_photon.py
 ================================
 

@@ -1,0 +1,1363 @@
+version: 1
+sector: particles
+about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it runs, at what parameters,
+  and how it fails. `casim test` and `pytest` both execute THESE records (src/casim/tests/), so they cannot
+  diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
+  on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
+  adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
+  not undo it.'
+tests:
+- id: 02-QM1-CHSH
+  path: tests/priority/test_02_QM1_CHSH.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T02_QM1_CHSH.json
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 291
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T02_QM1_CHSH.json
+    artifact_rule:
+      test-results/top10_T02_QM1_CHSH.json: local
+    artifacts_read_only: []
+    summary: 'Top-10 priority Test #2 — QM-1: Bell / CHSH inequality'
+- id: 04-GR3-pound-rebka
+  path: tests/priority/test_04_GR3_pound_rebka.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T04_GR3_pound_rebka.json
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 238
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T04_GR3_pound_rebka.json
+    artifact_rule:
+      test-results/top10_T04_GR3_pound_rebka.json: local
+    artifacts_read_only: []
+    summary: 'Top-10 priority Test #4 — GR-3: gravitational redshift (Pound–Rebka)'
+- id: 08-QM2-tunneling
+  path: tests/priority/test_08_QM2_tunneling.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T08_QM2_tunneling.json
+  findings:
+  - F41
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 265
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T08_QM2_tunneling.json
+    artifact_rule:
+      test-results/top10_T08_QM2_tunneling.json: local
+    artifacts_read_only: []
+    summary: 'Top-10 priority Test #8 — QM-2: Quantum tunneling   [RETIRED 2026-05-26]'
+- id: 10-QG4-charge
+  path: tests/priority/test_10_QG4_charge.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T10_QG4_charge.json
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 219
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T10_QG4_charge.json
+    artifact_rule:
+      test-results/top10_T10_QG4_charge.json: local
+    artifacts_read_only: []
+    summary: 'Top-10 priority Test #10 — QG-4: Discrete-Noether charge conservation'
+- id: 13-QFT8-CPT
+  path: tests/priority/test_13_QFT8_CPT.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/test_13_QFT8_CPT.json
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 257
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/test_13_QFT8_CPT.json
+    artifact_rule:
+      test-results/test_13_QFT8_CPT.json: local
+    artifacts_read_only: []
+    summary: 'test_13_QFT8_CPT.py  —  QFT-8: CPT-invariance  (particle vs antiparticle)'
+- id: F109-f92-bridge-construction
+  path: tests/findings/test_F109_f92_bridge_construction.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F109_f92_bridge_construction.json
+  findings:
+  - F27
+  - F46
+  - F73
+  - F92
+  - F93
+  - F95
+  - F96
+  - F101
+  - F108
+  - F109
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 398
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F109_f92_bridge_construction.json
+    artifact_rule:
+      test-results/F109_f92_bridge_construction.json: local
+    artifacts_read_only: []
+    summary: test_F109_f92_bridge_construction.py
+- id: F113-repulsive-core
+  path: tests/findings/test_F113_repulsive_core.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F113_repulsive_core.json
+  findings:
+  - F71
+  - F103
+  - F113
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 208
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F113_repulsive_core.json
+    artifact_rule:
+      test-results/F113_repulsive_core.json: local
+    artifacts_read_only: []
+    summary: test_F113_repulsive_core.py
+- id: F126-sigma-attraction
+  path: tests/findings/test_F126_sigma_attraction.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F126_sigma_attraction.json
+  findings:
+  - F77
+  - F103
+  - F104
+  - F113
+  - F126
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 190
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F126_sigma_attraction.json
+    artifact_rule:
+      test-results/F126_sigma_attraction.json: local
+    artifacts_read_only: []
+    summary: test_F126_sigma_attraction.py
+- id: F128-omega-repulsion
+  path: tests/findings/test_F128_omega_repulsion.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F128_omega_repulsion.json
+  findings:
+  - F69
+  - F77
+  - F89
+  - F113
+  - F126
+  - F128
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 313
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F128_omega_repulsion.json
+    artifact_rule:
+      test-results/F128_omega_repulsion.json: local
+    artifacts_read_only: []
+    summary: test_F128_omega_repulsion.py
+- id: F135-blockspin-wavepacket-realtime
+  path: tests/findings/test_F135_blockspin_wavepacket_realtime.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F135_blockspin_wavepacket_realtime.json
+  - test-results/F135_blockspin_wavepacket_realtime_summary.md
+  findings:
+  - F129
+  - F130
+  - F131
+  - F132
+  - F135
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 349
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F135_blockspin_wavepacket_realtime.json
+    - test-results/F135_blockspin_wavepacket_realtime_summary.md
+    artifact_rule:
+      test-results/F135_blockspin_wavepacket_realtime.json: local
+      test-results/F135_blockspin_wavepacket_realtime_summary.md: local
+    artifacts_read_only: []
+    summary: F135 — Real-time wave-packet dynamics under block-spin coarse-graining (Phase 2)
+- id: F135-realspace-confinement
+  path: tests/findings/test_F135_realspace_confinement.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F70
+  - F86
+  - F134
+  - F135
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 147
+    n_test_funcs: 3
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F135 — Real-space confinement (U1): the proton holds together as a'
+- id: F140-coarse-grained-baryon
+  path: tests/findings/test_F140_coarse_grained_baryon.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F122
+  - F130
+  - F132
+  - F140
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 125
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F140_coarse_grained_baryon.py
+- id: F147-induced-stiffness-loop
+  path: tests/findings/test_F147_induced_stiffness_loop.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F49
+  - F51
+  - F138
+  - F141
+  - F147
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 179
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F147_induced_stiffness_loop.json
+    artifact_rule:
+      test-results/F147_induced_stiffness_loop.json: file
+    artifacts_read_only: []
+    summary: F147 — the induced gauge-stiffness one-loop on the BCC walk
+  results:
+  - test-results/F147_induced_stiffness_loop.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F148-modular-element-assembler
+  path: tests/findings/test_F148_modular_element_assembler.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F148_modular_element_assembler.json
+  findings:
+  - F122
+  - F125
+  - F148
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 205
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F148_modular_element_assembler.json
+    artifact_rule:
+      test-results/F148_modular_element_assembler.json: local
+    artifacts_read_only: []
+    summary: test_F148_modular_element_assembler.py
+- id: F149-condensate-channel-splitting
+  path: tests/findings/test_F149_condensate_channel_splitting.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F38
+  - F49
+  - F141
+  - F147
+  - F149
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 176
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F149_condensate_channel_splitting.json
+    artifact_rule:
+      test-results/F149_condensate_channel_splitting.json: file
+    artifacts_read_only: []
+    summary: 'F149 — the condensate-sector response: mass is the unique channel-splitting'
+  results:
+  - test-results/F149_condensate_channel_splitting.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F150-eg-sextic-brake
+  path: tests/findings/test_F150_eg_sextic_brake.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F45
+  - F49
+  - F80
+  - F92
+  - F93
+  - F95
+  - F115
+  - F118
+  - F124
+  - F144
+  - F145
+  - F147
+  - F150
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 114
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F150 — The E_g sextic brake C/W from the model architecture (F145 + F147).
+- id: F153-diamagnetic-chargeblind-multiplicity
+  path: tests/findings/test_F153_diamagnetic_chargeblind_multiplicity.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F153_diamagnetic_chargeblind_multiplicity.json
+  findings:
+  - F118
+  - F141
+  - F153
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: false
+    lines: 206
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F153_diamagnetic_chargeblind_multiplicity.json
+    artifact_rule:
+      test-results/F153_diamagnetic_chargeblind_multiplicity.json: local
+    artifacts_read_only: []
+    summary: F153 — the diamagnetic Peierls contact is charge-blind (exact), the channel
+- id: F157-manybody-atoms
+  path: tests/findings/test_F157_manybody_atoms.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F148
+  - F157
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 82
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F157 — Phase 2(iii): multi-nucleon nuclei and multi-electron clouds.'
+- id: F174-shape-angle-2-9
+  path: tests/findings/test_F174_shape_angle_2_9.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F174_shape_angle_2_9.json
+  findings:
+  - F49
+  - F93
+  - F96
+  - F118
+  - F145
+  - F172
+  - F174
+  - F175
+  - F253
+  - F255
+  - F256
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 175
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F174_shape_angle_2_9.json
+    artifact_rule:
+      test-results/F174_shape_angle_2_9.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase]'
+    ledger_status: partially_superseded
+    ledger_record: S6-F253-weight-as-phase
+- id: F177-bps-self-duality-completion
+  path: tests/findings/test_F177_bps_self_duality_completion.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F177_bps_self_duality_completion.json
+  findings:
+  - F73
+  - F82
+  - F101
+  - F118
+  - F119
+  - F150
+  - F172
+  - F174
+  - F175
+  - F176
+  - F177
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 139
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F177_bps_self_duality_completion.json
+    artifact_rule:
+      test-results/F177_bps_self_duality_completion.json: local
+    artifacts_read_only: []
+    summary: 'F177 — Completing the self-duality condition from the BPS structure: the RADIAL'
+- id: F179-lambda6-relabel
+  path: tests/findings/test_F179_lambda6_relabel.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F92
+  - F95
+  - F115
+  - F118
+  - F145
+  - F150
+  - F179
+  - F253
+  - F255
+  - F256
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 171
+    n_test_funcs: 1
+    artifacts_written:
+    - test-results/F179_lambda6_relabel.json
+    artifact_rule:
+      test-results/F179_lambda6_relabel.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase]'
+    ledger_status: partially_superseded
+    ledger_record: S6-F253-weight-as-phase
+- id: F200-eg-sextic-coupling-computation
+  path: tests/findings/test_F200_eg_sextic_coupling_computation.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F118
+  - F145
+  - F152
+  - F154
+  - F199
+  - F200
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 157
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F200_eg_sextic_coupling.json
+    artifact_rule:
+      test-results/F200_eg_sextic_coupling.json: local
+    artifacts_read_only: []
+    summary: F200 — The saturated-condensate induced-coupling computation of the E_g sextic
+- id: F217-field-native-fermion-entanglement
+  path: tests/findings/test_F217_field_native_fermion_entanglement.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F214
+  - F217
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 168
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F217_field_native_fermion_entanglement.json
+    artifact_rule:
+      test-results/F217_field_native_fermion_entanglement.json: local
+    artifacts_read_only: []
+    summary: 'F217 — Field-native two-fermion second quantization: super-exchange J and'
+- id: F220-field-native-execution
+  path: tests/findings/test_F220_field_native_execution.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F214
+  - F217
+  - F218
+  - F219
+  - F220
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 188
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F220_field_native_execution.json
+    artifact_rule:
+      test-results/F220_field_native_execution.json: local
+    artifacts_read_only: []
+    summary: 'F220 — Field-native execution: quantum gates and a full algorithm run on the'
+- id: F224-qc-si-coldatom
+  path: tests/findings/test_F224_qc_si_coldatom.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F214
+  - F224
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 127
+    n_test_funcs: 4
+    artifacts_written:
+    - test-results/F224_qc_si_coldatom.json
+    artifact_rule:
+      test-results/F224_qc_si_coldatom.json: local
+    artifacts_read_only: []
+    summary: F224 — SI-anchoring the super-exchange sector and testing it against measured
+- id: F225-doublon-leakage-spinqubit
+  path: tests/findings/test_F225_doublon_leakage_spinqubit.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F217
+  - F220
+  - F225
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 130
+    n_test_funcs: 4
+    artifacts_written:
+    - test-results/F225_doublon_leakage_spinqubit.json
+    artifact_rule:
+      test-results/F225_doublon_leakage_spinqubit.json: local
+    artifacts_read_only: []
+    summary: 'F225 — Route 2 to a real-world test: the model''s native doublon leakage vs'
+- id: F234-Wvc-triple-closed
+  path: tests/findings/test_F234_Wvc_triple_closed.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F234_Wvc_triple_closed.json
+  findings:
+  - F95
+  - F108
+  - F118
+  - F150
+  - F174
+  - F175
+  - F179
+  - F234
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 135
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F234_Wvc_triple_closed.json
+    artifact_rule:
+      test-results/F234_Wvc_triple_closed.json: local
+    artifacts_read_only: []
+    summary: test_F234_Wvc_triple_closed.py
+  entry: main
+  params:
+    delta_star: 2/9
+    B_F95: -0.0569
+  expect:
+    exactness: quantitative
+    tol: 0.001
+  notes: 'C7.4: entry-driven and sweepable. delta*/B no longer literals in the test (they resolve from
+    casim.constants, D7) — this was the third local redefinition of 2/9, named in roadmap C5.'
+- id: F236-three-generation-seesaw
+  path: tests/findings/test_F236_three_generation_seesaw.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F47
+  - F76
+  - F93
+  - F201
+  - F236
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 319
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F236_three_generation_seesaw.json
+    artifact_rule:
+      test-results/F236_three_generation_seesaw.json: local
+    artifacts_read_only: []
+    summary: test_F236_three_generation_seesaw.py
+- id: F240-omega-coupling-derivation
+  path: tests/findings/test_F240_omega_coupling_derivation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F240_omega_coupling_derivation.json
+  findings:
+  - F104
+  - F113
+  - F126
+  - F128
+  - F240
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 245
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F240_omega_coupling_derivation.json
+    artifact_rule:
+      test-results/F240_omega_coupling_derivation.json: local
+    artifacts_read_only: []
+    summary: test_F240_omega_coupling_derivation.py
+- id: F254-t2g-pmns-selector
+  path: tests/findings/test_F254_t2g_pmns_selector.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F254_t2g_pmns_selector.json
+  findings:
+  - F92
+  - F236
+  - F254
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 170
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F254_t2g_pmns_selector.json
+    artifact_rule:
+      test-results/F254_t2g_pmns_selector.json: local
+    artifacts_read_only: []
+    summary: test_F254_t2g_pmns_selector.py
+- id: F255-generator-norm-from-F118
+  path: tests/findings/test_F255_generator_norm_from_F118.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F118
+  - F234
+  - F253
+  - F255
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 68
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F255 -- E1 follow-up: the F118/F234 solve fixes the E_g generator norm (R=1)'
+- id: F256-lambda6-sextic-nogo
+  path: tests/findings/test_F256_lambda6_sextic_nogo.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F95
+  - F118
+  - F150
+  - F256
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 72
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F256 -- E1: ''derive lambda6=0.243'' is structurally misposed; the dynamical'
+- id: F262-positronium-hyperfine
+  path: tests/findings/test_F262_positronium_hyperfine.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F125
+  - F252
+  - F257
+  - F260
+  - F262
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 160
+    n_test_funcs: 10
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F262_positronium_hyperfine.py — F262: bound-state QED (two-body + hyperfine).'
+- id: F46-pythagorean-mass
+  path: tests/findings/test_F46_pythagorean_mass.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F46_pythagorean_mass.json
+  findings:
+  - F25
+  - F26
+  - F27
+  - F46
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 575
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/F46_pythagorean_mass.json
+    artifact_rule:
+      test-results/F46_pythagorean_mass.json: local
+    artifacts_read_only: []
+    summary: 'F46 — Spherical Pythagorean identity for lattice mass:'
+- id: F50-gravity-fork-dirac
+  path: tests/findings/test_F50_gravity_fork_dirac.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F50_gravity_fork_dirac.json
+  findings:
+  - F46
+  - F50
+  - F64
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 423
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/F50_gravity_fork_dirac.json
+    artifact_rule:
+      test-results/F50_gravity_fork_dirac.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]'
+    ledger_status: partially_superseded
+    ledger_record: S3-F64-dielectric-gravity
+- id: F68-minimal-coupling-forces-even-photon
+  path: tests/findings/test_F68_minimal_coupling_forces_even_photon.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F68_minimal_coupling_forces_even_photon.json
+  findings:
+  - F39
+  - F66
+  - F67
+  - F68
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 192
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F68_minimal_coupling_forces_even_photon.json
+    artifact_rule:
+      test-results/F68_minimal_coupling_forces_even_photon.json: local
+    artifacts_read_only: []
+    summary: test_F68_minimal_coupling_forces_even_photon.py
+- id: F92-per-constituent-phase
+  path: tests/findings/test_F92_per_constituent_phase.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F92_per_constituent_phase.json
+  findings:
+  - F27
+  - F46
+  - F69
+  - F73
+  - F78
+  - F80
+  - F81
+  - F84
+  - F92
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 233
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F92_per_constituent_phase.json
+    artifact_rule:
+      test-results/F92_per_constituent_phase.json: local
+    artifacts_read_only: []
+    summary: test_F92_per_constituent_phase.py
+- id: FA06-np-splitting
+  path: tests/findings/test_FA06_np_splitting.py
+  kind: assertion
+  tier: battery
+  findings:
+  - FA06
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 164
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/FA06_np.json
+    artifact_rule:
+      test-results/FA06_np.json: local
+    artifacts_read_only: []
+    summary: test_FA06_np_splitting.py
+- id: FB04-hydrogen-rydberg
+  path: tests/findings/test_FB04_hydrogen_rydberg.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB04_hydrogen_rydberg.json
+  findings:
+  - F74
+  - F120
+  - F121
+  - F125
+  - FB04
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 289
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FB04_hydrogen_rydberg.json
+    artifact_rule:
+      test-results/FB04_hydrogen_rydberg.json: local
+    artifacts_read_only: []
+    summary: test_FB04_hydrogen_rydberg.py
+- id: FB06-positronium
+  path: tests/findings/test_FB06_positronium.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB06_positronium.json
+  findings:
+  - F125
+  - FB04
+  - FB05
+  - FB06
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 228
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FB06_positronium.json
+    artifact_rule:
+      test-results/FB06_positronium.json: local
+    artifacts_read_only: []
+    summary: test_FB06_positronium.py
+- id: FB07-deuteron
+  path: tests/findings/test_FB07_deuteron.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB07_deuteron.json
+  findings:
+  - F77
+  - F103
+  - F104
+  - F113
+  - F126
+  - F128
+  - FB07
+  - FB08
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 350
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FB07_deuteron.json
+    artifact_rule:
+      test-results/FB07_deuteron.json: local
+    artifacts_read_only: []
+    summary: test_FB07_deuteron.py
+- id: FB08-nn-repulsive-core
+  path: tests/findings/test_FB08_nn_repulsive_core.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB08_nn_repulsive_core.json
+  findings:
+  - F104
+  - F113
+  - FB07
+  - FB08
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 261
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FB08_nn_repulsive_core.json
+    artifact_rule:
+      test-results/FB08_nn_repulsive_core.json: local
+    artifacts_read_only: []
+    summary: test_FB08_nn_repulsive_core.py
+- id: FB10-lamb-shift-boundary
+  path: tests/findings/test_FB10_lamb_shift_boundary.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB10_lamb_shift_boundary.json
+  findings:
+  - F125
+  - FB05
+  - FB10
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: false
+    lines: 212
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FB10_lamb_shift_boundary.json
+    artifact_rule:
+      test-results/FB10_lamb_shift_boundary.json: local
+    artifacts_read_only: []
+    summary: 'FB10 — Lamb shift boundary: 2s_{1/2} == 2p_{1/2} at Dirac order.'
+- id: FB11-condensate-angle
+  path: tests/findings/test_FB11_condensate_angle.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB11_condensate_angle.json
+  findings:
+  - F93
+  - F96
+  - F101
+  - F112
+  - F118
+  - F119
+  - FA05
+  - FB01
+  - FB11
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 418
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FA05_koide_relation.json
+    - test-results/FB01_charged_lepton_spectrum_checks.json
+    - test-results/FB11_condensate_angle.json
+    artifact_rule:
+      test-results/FA05_koide_relation.json: file
+      test-results/FB01_charged_lepton_spectrum_checks.json: file
+      test-results/FB11_condensate_angle.json: local
+    artifacts_read_only: []
+    summary: FB11 — Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg.
+- id: FB11-condensate-angle.runners
+  path: tests/runners/FB11_condensate_angle.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FB11_condensate_angle.json
+  findings:
+  - F78
+  - F93
+  - F101
+  - F112
+  - F118
+  - F119
+  - FA05
+  - FB01
+  - FB11
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 313
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FB11_condensate_angle.json
+    artifact_rule:
+      test-results/FB11_condensate_angle.json: local
+    artifacts_read_only: []
+    summary: FB11 — Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg.
+- id: P2-baryon-bound-state
+  path: tests/findings/test_P2_baryon_bound_state.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/P2_baryon_bound_state.json
+  findings:
+  - F71
+  - F74
+  - F97
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 234
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/P2_baryon_bound_state.json
+    artifact_rule:
+      test-results/P2_baryon_bound_state.json: local
+    artifacts_read_only: []
+    summary: test_P2_baryon_bound_state.py
+- id: P3-pion
+  path: tests/findings/test_P3_pion.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/P3_pion.json
+  findings:
+  - F74
+  - F77
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 217
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/P3_pion.json
+    artifact_rule:
+      test-results/P3_pion.json: local
+    artifacts_read_only: []
+    summary: test_P3_pion.py
+- id: P4-deuteron
+  path: tests/findings/test_P4_deuteron.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/P4_deuteron.json
+  findings:
+  - F74
+  - F77
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 261
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/P4_deuteron.json
+    artifact_rule:
+      test-results/P4_deuteron.json: local
+    artifacts_read_only: []
+    summary: test_P4_deuteron.py
+- id: P5-hydrogen
+  path: tests/findings/test_P5_hydrogen.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/P5_hydrogen.json
+  findings:
+  - F69
+  - F74
+  - F120
+  - F121
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 343
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/P5_hydrogen.json
+    artifact_rule:
+      test-results/P5_hydrogen.json: local
+    artifacts_read_only: []
+    summary: test_P5_hydrogen.py
+- id: SR2-time-dilation
+  path: tests/findings/test_SR2_time_dilation.py
+  kind: legacy_script
+  tier: battery
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 437
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_SR2_time_dilation.py — SR-2 from lattice-vs-spacetime-tests.md
+- id: complex-mass-chiral
+  path: tests/findings/test_complex_mass_chiral.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F27
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 770
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_complex_mass_chiral.py — Test suite for the SU(2) complex-mass coupling in ca_dirac
+- id: emergent-time-T1
+  path: tests/findings/test_emergent_time_T1.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F1
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 427
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_emergent_time_T1.py — Phase T1 (Lazy-update + tick heatmap) tests
+- id: emergent-time-T5
+  path: tests/findings/test_emergent_time_T5.py
+  kind: legacy_script
+  tier: battery
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 359
+    n_test_funcs: 3
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_emergent_time_T5.py — Phase T5 (Predictions unique to tick reading)
+- id: fork-D-doppler
+  path: tests/findings/test_fork_D_doppler.py
+  kind: legacy_script
+  tier: battery
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 216
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_fork_D_doppler.py  —  Fork D / Phase L1:'
+- id: run-FC05-qm-battery
+  path: tests/runners/run_FC05_qm_battery.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC05_qm_battery.json
+  findings:
+  - F41
+  - FC05
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 551
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FC05_qm_battery.json
+    artifact_rule:
+      test-results/FC05_qm_battery.json: local
+    artifacts_read_only: []
+    summary: FC05 — Quantum-mechanics regression battery (consolidated)
+- id: run-FC06-cpt-lorentz
+  path: tests/runners/run_FC06_cpt_lorentz.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC06_cpt_lorentz.json
+  findings:
+  - F22
+  - F24
+  - F53
+  - F54
+  - FA01
+  - FC06
+  sector: particles
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 469
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FA01_liv_tof.json
+    - test-results/FC06_cpt_lorentz.json
+    artifact_rule:
+      test-results/FA01_liv_tof.json: file
+      test-results/FC06_cpt_lorentz.json: local
+    artifacts_read_only: []
+    summary: 'run_FC06_cpt_lorentz.py — FC06: CPT invariance and Lorentz covariance'
+- id: run-L192-phaseF-tests
+  path: tests/runners/run_L192_phaseF_tests.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F1
+  - F2
+  - F3
+  - F4
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 325
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_L192_phaseF_tests.py  —  Phase F test suite capped at L=192
+- id: run-phaseF-tests
+  path: tests/runners/run_phaseF_tests.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F1
+  - F2
+  - F3
+  - F4
+  sector: particles
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 690
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'run_phaseF_tests.py  —  Phase F: Higgs + Yukawa proposition tests'

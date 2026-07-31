@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import casim as _casim  # noqa: F401
 
-import ca_photon_pair as ca_photon_pair  # noqa: E402
-from ca_photon_pair import (  # noqa: E402
+from casim.engine.gauge import photon as ca_photon_pair  # noqa: E402
+from casim.engine.gauge.photon import (  # noqa: E402
     pair_dispersion,
     pair_birefringence,
     photon_step_spectral,

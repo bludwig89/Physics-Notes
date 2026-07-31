@@ -17,7 +17,7 @@
       "pass": true,
       "log10_overshoot": 120.76046750008447,
       "rho_vac_J_m3": 3.45635824918628e+111,
-      "_seconds": 0.16,
+      "_seconds": 0.18,
       "_desc": "reproduces F164 ~10^120 overshoot"
     },
     "V3_open_status": {
@@ -29,5 +29,5 @@
       "_desc": "candidate cancellations all underived (open)"
     }
   },
-  "seconds": 0.16
+  "seconds": 0.18
 }

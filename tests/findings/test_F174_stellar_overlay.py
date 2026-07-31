@@ -1,4 +1,12 @@
-"""
+"""[HISTORICAL BASELINE 2026-06-29 — ledger S4-F178-full-stress-energy]
+
+  NOTE:
+    N3/N4/N5 energy-only departures are no longer predictions, but the finding
+    records them as the DIAGNOSIS that forced F178, so the file is the
+    standing exclusion record. N1/N2 are live canon.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F174_stellar_overlay.py  --  GR-TOV vs dielectric-model neutron stars.
 
 Closes the open observable of FC09/F173: solve each theory's own hydrostatic

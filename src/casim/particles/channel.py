@@ -47,10 +47,12 @@ from typing import Any, Dict
 
 import numpy as np
 
-from ..engine.channel import Channel, register
-from ..engine.coupled import gaussian_packet, su2_expmap
-from ..engine.observers import Observer, register_observer
+from ..engine.core.channel import Channel, register
+from ..engine.core.coupled import gaussian_packet, su2_expmap
+from ..engine.core.observers import Observer, register_observer
 from .spec import ParticleSpec, get_spec, doublet_specs, DOUBLETS
+from casim.constants import c_lat as c_lat_registry
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 # P2 (2026-06-05): em and strong promoted from source-only to coupled —
 # U(1) Stueckelberg wrap / SU(3) rotate-then-step (ca_minimal_coupling).
@@ -306,8 +308,8 @@ class ParticleChannel(Channel):
         return V if n_used else None
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_bcc
-        import ca_minimal_coupling as mc
+        from casim.engine.lattice import bcc as ca_bcc
+        from casim.engine.gauge import minimal_coupling as mc
         sign = self.config.get("sign", "+")
         prev_centroid = _centroid(self._density(state), lattice.L)
         alpha = self._em_alpha(context)
@@ -334,7 +336,7 @@ class ParticleChannel(Channel):
                       if self.config.get("confine", {}).get(
                           "mode", "scalar") != "vector" else None)
             if V_conf is not None:
-                from ca_dirac_bcc import dirac_step_3d_bcc_varm_splitstep
+                from casim.engine.particles.dirac_bcc import dirac_step_3d_bcc_varm_splitstep
                 m_field = self.mass + V_conf
                 eu, ed, xu, xd = dirac_step_3d_bcc_varm_splitstep(
                     eu, ed, xu, xd, m_field=m_field, m0=self.mass, sign=sign)
@@ -345,7 +347,7 @@ class ParticleChannel(Channel):
                 eu, ed, xu, xd = mc.u1_wrap_dirac_step_3d_bcc(
                     eu, ed, xu, xd, a, q, m=self.mass, sign=sign)
             else:
-                from ca_dirac_bcc import dirac_step_3d_bcc_splitstep
+                from casim.engine.particles.dirac_bcc import dirac_step_3d_bcc_splitstep
                 eu, ed, xu, xd = dirac_step_3d_bcc_splitstep(
                     eu, ed, xu, xd, m=self.mass, sign=sign)
             if sqrtA is not None:
@@ -370,7 +372,8 @@ class ParticleChannel(Channel):
             f_nu, f_e = _w(state["f_nu"], "nu"), _w(state["f_e"], "e")
             g_nu, g_e = _w(state["g_nu"], "nu"), _w(state["g_e"], "e")
             if "weak" in self.couplings and context:
-                import ca_wmu
+                from casim.engine.gauge import weak_wmu as ca_wmu
+
                 eps = float(self.config.get("eps", 0.05))
                 A = context[self.couplings["weak"]]["A"]
                 U_a, U_b = su2_expmap(eps * A)
@@ -602,7 +605,7 @@ class ColourDiracQuarkChannel(ParticleChannel):
         return np.asarray(self._density(state))
 
     def step(self, state, lattice, context=None, rng=None):
-        from ca_dirac_bcc import (dirac_step_3d_bcc_varm_splitstep,
+        from casim.engine.particles.dirac_bcc import (dirac_step_3d_bcc_varm_splitstep,
                                   dirac_step_3d_bcc_splitstep)
         sign = self.config.get("sign", "+")
         prev = _centroid(self._density(state), lattice.L)
@@ -613,7 +616,7 @@ class ColourDiracQuarkChannel(ParticleChannel):
         if "strong" in self.couplings and context:
             gs = context.get(self.couplings["strong"])
             if gs is not None and "A" in gs and np.any(gs["A"]):
-                from ca_gluon import _su3_expmap_field
+                from casim.engine.gauge.gluon import _su3_expmap_field
                 eps = float(self.config.get("eps_strong", 0.05))
                 V = _su3_expmap_field(eps * gs["A"])
                 eu = np.einsum('xyzij,jxyz->ixyz', V, eu)
@@ -762,7 +765,7 @@ class NonRelElectronChannel(Channel):
         pot = np.exp(-V * dtau / 2.0)
         for _ in range(int(steps)):
             psi = pot * psi
-            psi = np.fft.ifftn(kin * np.fft.fftn(psi))
+            psi = _fft.ifftn(kin * _fft.fftn(psi))
             psi = pot * psi
             nrm = np.sqrt(float((np.abs(psi) ** 2).sum()))
             if nrm > 0:
@@ -811,7 +814,7 @@ class NonRelElectronChannel(Channel):
         kin = np.exp(-1j * k2 / (2.0 * self.mass) * self.dt)
         pot = np.exp(-1j * V * self.dt / 2.0)
         psi = pot * psi
-        psi = np.fft.ifftn(kin * np.fft.fftn(psi))
+        psi = _fft.ifftn(kin * _fft.fftn(psi))
         psi = pot * psi
         new = {"psi": psi, "_relaxed": True, "centroid_prev": prev}
         if "_rho_ext" in state:
@@ -823,12 +826,12 @@ class NonRelElectronChannel(Channel):
         psi = state["psi"]
         state["rho_em"] = self.charge * np.abs(psi) ** 2
         # probability current J = q·Im(ψ* ∇ψ)/m (spectral gradient)
-        ft = np.fft.fftn(psi)
+        ft = _fft.fftn(psi)
         k = 2.0 * np.pi * np.fft.fftfreq(psi.shape[0])
         KX, KY, KZ = np.meshgrid(k, k, k, indexing="ij")
         J = np.zeros((3,) + psi.shape)
         for ax, Kc in enumerate((KX, KY, KZ)):
-            grad = np.fft.ifftn(1j * Kc * ft)
+            grad = _fft.ifftn(1j * Kc * ft)
             J[ax] = self.charge * np.imag(np.conj(psi) * grad) / self.mass
         state["J_em"] = J
 
@@ -905,7 +908,7 @@ class CompositeParticleChannel(Channel):
         return np.asarray(self._density(state))
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_bcc
+        from casim.engine.lattice import bcc as ca_bcc
         sign = self.config.get("sign", "+")
         prev = _centroid(self._density(state), lattice.L)
         f, g = state["f"], state["g"]
@@ -1067,7 +1070,7 @@ def _gauss_smear(rho, lam):
     k = 2.0 * np.pi * np.fft.fftfreq(L)
     KX, KY, KZ = np.meshgrid(k, k, k, indexing="ij")
     ker = np.exp(-0.5 * lam ** 2 * (KX ** 2 + KY ** 2 + KZ ** 2))
-    return np.real(np.fft.ifftn(np.fft.fftn(rho) * ker))
+    return np.real(_fft.ifftn(_fft.fftn(rho) * ker))
 
 
 @register
@@ -1410,9 +1413,9 @@ class TwoGridAtomChannel(Channel):
             self._fine_chs.append(ch)
 
     def _fine_lat(self):
-        from ..engine.simulation import LatticeSpec
+        from ..engine.core.simulation import LatticeSpec
         return LatticeSpec(L=self.Lf, topology="bcc",
-                           c_lat=1.0 / float(np.sqrt(3.0)))
+                           c_lat=float(c_lat_registry))
 
     def _proton_charge_density(self, fine_states):
         """Summed quark rho_em on the fine grid (total ≈ +1)."""
@@ -1426,7 +1429,7 @@ class TwoGridAtomChannel(Channel):
     def _coarse_well(self, rho_fine):
         """R_b-reduce the fine proton charge to a point source on the coarse
         grid and return the electron Coulomb well V(x)=−k·Q/r (live coupling)."""
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         Q = float(np.sum(rho_fine))                 # total charge (R_b-conserved)
         rms_c = mg._rms(np.asarray(rho_fine, float)) / max(self.b, 1)
         cc = self.Lc // 2
@@ -1435,7 +1438,7 @@ class TwoGridAtomChannel(Channel):
                                          src_rms_cells=min(rms_c, 0.0)), Q
 
     def init_state(self, lattice, rng):
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         flat = self._fine_lat()
         fine = [ch.init_state(flat, rng) for ch in self._fine_chs]
         rho = self._proton_charge_density(fine)
@@ -1457,7 +1460,7 @@ class TwoGridAtomChannel(Channel):
         return [state[f"fine::{nm}"] for nm in self._fine_names]
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         flat = self._fine_lat()
         fine = self._fine_states(state)
         ctx = {nm: fs for nm, fs in zip(self._fine_names, fine)}
@@ -1493,7 +1496,7 @@ class TwoGridAtomChannel(Channel):
         return e
 
     def observables(self, state, lattice) -> dict:
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         pd = self._proton_density(state)
         ed = np.abs(state["psi"]) ** 2
         rp = mg._rms(pd)                      # proton RMS (fine cells)
@@ -1587,7 +1590,7 @@ def _spatial_orbitals(Z):
     subshell the m-orbitals are singly filled first (Hund), then paired.
 
     Returns a list of dicts {n, l, mi, occ} ordered by Aufbau binding."""
-    import ca_manybody as mb
+    from casim.engine.core import manybody as mb
     cfg = mb.aufbau_configuration(Z)              # [(n, 'l', occ)]
     L_OF = {"s": 0, "p": 1, "d": 2, "f": 3}
     orbs = []
@@ -1725,7 +1728,7 @@ class ElementAtomChannel(Channel):
                 rho_q += blob                   # each integrates to +1 → total +Z
         self._rho_charge_fine = rho_q
         self._rho_matter_fine = rho_m
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         self._nuc_rms_fine = mg._rms(rho_m)
         self._nuc_charge = float(rho_q.sum())   # ≈ Z to machine precision
 
@@ -1765,8 +1768,8 @@ class ElementAtomChannel(Channel):
         A=2 variational reproduces the MODEL deuteron binding — no experimental
         nucleus calibrates it.  Caches V_pair and its derivative for the live
         inter-nucleon force."""
-        import ca_nuclear as ncl
-        import ca_manybody as mb
+        from casim.engine.particles import nuclear as ncl
+        from casim.engine.core import manybody as mb
         HBARC, M_PI, M_N = ncl.HBARC, ncl.M_PI_DEFAULT, ncl.M_N
         anchor = mb._model_deuteron_binding()
         R0 = HBARC / M_PI
@@ -1828,7 +1831,7 @@ class ElementAtomChannel(Channel):
         (`_mix_eta_chi_3d`, the same "Mix" factor the intra-nucleon string uses)
         — an operator-split inter-nucleon factor after the channel's kinetic +
         intra-confine step.  Norm-preserving for any θ."""
-        from ca_dirac_bcc import _mix_eta_chi_3d
+        from casim.engine.particles.dirac_bcc import _mix_eta_chi_3d
         coms = self._nucleon_coms(fine_states)
         Lf = self.Lf
         ax = np.arange(Lf)
@@ -1853,14 +1856,14 @@ class ElementAtomChannel(Channel):
                 self._fine_ch_by_name[nm]._publish_currents(fs)
 
     def _fine_lat(self):
-        from ..engine.simulation import LatticeSpec
+        from ..engine.core.simulation import LatticeSpec
         return LatticeSpec(L=self.Lf, topology="bcc",
-                           c_lat=1.0 / float(np.sqrt(3.0)))
+                           c_lat=float(c_lat_registry))
 
     # -- coarse potentials --------------------------------------------------
     def _nuclear_well(self, Q):
         """V_nuc(x) = −k·Q/r on the coarse grid (R_b-reduced +Z point)."""
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         cc = self.Lc // 2
         return mg.coarse_point_potential(self.Lc, (cc, cc, cc), k=self.e_k * Q)
 
@@ -1888,7 +1891,7 @@ class ElementAtomChannel(Channel):
 
     # -- initial orbital relaxation (SCF) -----------------------------------
     def _seed_orbitals(self):
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         cc = self.Lc // 2
         ax = np.arange(self.Lc)
         X, Y, Z = np.meshgrid(ax, ax, ax, indexing="ij")
@@ -1903,7 +1906,7 @@ class ElementAtomChannel(Channel):
         return _gram_schmidt(psis)
 
     def _scf_relax(self, V_nuc):
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         psis = self._seed_orbitals()
         block = max(1, self.e_relax // max(1, self.e_scf))
         for _ in range(self.e_scf):
@@ -1934,7 +1937,7 @@ class ElementAtomChannel(Channel):
         return st
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         psis = state["psis"]
         tick = int(state.get("tick", 0)) + 1
         V_nuc = state["V_nuc"]
@@ -2006,7 +2009,7 @@ class ElementAtomChannel(Channel):
         return e
 
     def observables(self, state, lattice) -> dict:
-        import ca_multigrid as mg
+        from casim.engine.lattice import multigrid as mg
         psis = state["psis"]
         cc = self.Lc // 2
         nuc_d = self._nucleus_density_fine(state)

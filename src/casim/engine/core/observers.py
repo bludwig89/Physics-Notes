@@ -1,4 +1,4 @@
-"""casim.engine.observers — diagnostics that run every N ticks.
+"""casim.engine.core.observers — diagnostics that run every N ticks.
 
 Observers replace the inline diagnostics duplicated across the historical
 ``run_*`` scripts.  Each declares an ``exactness`` class (``"exact"`` |
@@ -267,3 +267,209 @@ class FieldSnapshot(Observer):
                 entry.update(obs_fn(st, sim.lattice))
             rec["channels"][cname] = entry
         self.records.append(rec)
+
+
+@register_observer
+class FieldDump(Observer):
+    """Dump real 3-D field volumes to disk for offline rendering.
+
+    The visualisation seam (``docs/design/visualization.md``): the engine never
+    imports a renderer.  It writes VTK ImageData (``.vti``, via the
+    dependency-free :mod:`casim.io.vtk` writer) and/or ``.npz``, and ParaView,
+    PyVista, napari, or plain numpy read the result afterwards.  This keeps
+    long native runs inspectable after the fact — the same motivation as
+    checkpoint/resume — and means no GUI toolkit is on the physics path.
+
+    What gets written
+    -----------------
+    Always ``density`` — the channel's :meth:`Channel.density_field`, the same
+    real scalar volume the GUI point cloud renders, so the file and the live
+    view cannot disagree.  With ``components: true``, additionally the channel's
+    own arrays reduced to real parts: spinors as ``f_re/f_im/g_re/g_im``, gauge
+    fields as ``E``/``B`` (3-vectors when component-shaped), the dielectric as
+    ``K``.
+
+    Complex data is **never** written implicitly.  Every complex array is split
+    into explicitly named real and imaginary volumes, because a renderer that
+    silently drops the imaginary part produces a picture that looks fine and is
+    wrong (CLAUDE.md's standing caution on chiral transforms).
+
+    Scenario keys
+    -------------
+    ``dir``         output directory (default ``test-results/fields/<run>``)
+    ``channels``    optional list of channel names to restrict to
+    ``format``      ``"vti"`` (default) | ``"npz"`` | ``"both"``
+    ``components``  also dump the raw real components (default ``False``)
+    ``stride``      spatial downsample factor (default 1 = full resolution)
+    ``precision``   ``"float32"`` (default) | ``"float64"``
+    ``max_mb``      write budget; dumping stops when exceeded (default 512)
+
+    Example::
+
+        observers:
+          - {type: field_dump, every: 10, format: vti, stride: 2, max_mb: 256}
+    """
+    name = "field_dump"
+    label = "Field Dump"
+    exactness = "quantitative"
+
+    def __init__(self, every: int = 1, **config: Any):
+        super().__init__(every=every, **config)
+        self._files: List[Dict[str, Any]] = []
+        self._bytes = 0
+        self._stopped = False
+        self._skipped: Dict[str, str] = {}
+
+    # -- reduction: channel state → {name: real ndarray} -------------------
+    @staticmethod
+    def _real_arrays(ch, state, components: bool) -> Dict[str, Any]:
+        out: Dict[str, Any] = {}
+        try:
+            d = np.asarray(ch.density_field(state))
+        except Exception as exc:  # channel has no renderable volume
+            raise ValueError(f"no density field: {exc}") from exc
+        if d.ndim not in (2, 3):
+            raise ValueError(f"density has shape {d.shape}, not a 2-/3-D volume")
+        out["density"] = np.real(d) if np.iscomplexobj(d) else d
+
+        if not components:
+            return out
+        for key in ("f", "g"):
+            if key in state:
+                a = np.asarray(state[key])
+                if a.ndim not in (2, 3):
+                    continue
+                if np.iscomplexobj(a):
+                    out[f"{key}_re"] = a.real
+                    out[f"{key}_im"] = a.imag
+                else:
+                    out[key] = a
+        for key in ("E", "B"):
+            if key in state:
+                a = np.asarray(state[key])
+                if np.iscomplexobj(a):
+                    out[f"{key}_re"], out[f"{key}_im"] = a.real, a.imag
+                elif a.ndim in (2, 3, 4):
+                    out[key] = a
+        if "K" in state:
+            a = np.asarray(state["K"])
+            if a.ndim in (2, 3):
+                out["K"] = np.real(a) if np.iscomplexobj(a) else a
+        return out
+
+    @staticmethod
+    def _stride(a: np.ndarray, s: int) -> np.ndarray:
+        if s <= 1:
+            return a
+        if a.ndim == 4:
+            return a[:, ::s, ::s, ::s]
+        if a.ndim == 3:
+            return a[::s, ::s, ::s]
+        return a[::s, ::s]
+
+    # -- the per-tick dump --------------------------------------------------
+    def observe(self, sim) -> None:
+        if self._stopped:
+            return
+        import os
+
+        from ...io.vtk import write_image_data
+
+        run = getattr(sim, "name", None) or "run"
+        outdir = self.config.get("dir") or os.path.join(
+            "test-results", "fields", str(run))
+        only = self.config.get("channels")
+        fmt = str(self.config.get("format", "vti")).lower()
+        components = bool(self.config.get("components", False))
+        stride = max(1, int(self.config.get("stride", 1)))
+        dtype = (np.float64 if str(self.config.get("precision", "float32"))
+                 == "float64" else np.float32)
+        max_bytes = float(self.config.get("max_mb", 512)) * 1024 * 1024
+
+        rec: Dict[str, Any] = {"tick": sim.tick, "files": []}
+        for cname, ch in sim.channels.items():
+            if only and cname not in only:
+                continue
+            try:
+                arrays = self._real_arrays(ch, sim.states[cname], components)
+            except Exception as exc:
+                # Compute-once spectral channels and the 2^n many-body register
+                # hold no spatial volume; record why and move on rather than
+                # failing a run over a diagnostic.
+                self._skipped.setdefault(cname, str(exc))
+                continue
+            arrays = {k: self._stride(np.asarray(v), stride)
+                      for k, v in arrays.items()}
+
+            stem = os.path.join(outdir, f"{cname}_t{sim.tick:06d}")
+            written: List[str] = []
+            if fmt in ("vti", "both"):
+                written.append(write_image_data(
+                    stem + ".vti", arrays,
+                    spacing=(stride, stride, stride),
+                    dtype=dtype,
+                    field_data={"tick": sim.tick,
+                                "energy": ch.energy(sim.states[cname]),
+                                "c_lat": float(getattr(sim.lattice,
+                                                       "c_lat", 0.0)),
+                                "block": float(getattr(sim.lattice,
+                                                       "block", 1))},
+                ))
+            if fmt in ("npz", "both"):
+                os.makedirs(outdir, exist_ok=True)
+                np.savez_compressed(
+                    stem + ".npz",
+                    **{k: v.astype(dtype) for k, v in arrays.items()})
+                written.append(os.path.abspath(stem + ".npz"))
+
+            for path in written:
+                size = os.path.getsize(path)
+                self._bytes += size
+                entry = {"tick": sim.tick, "channel": cname,
+                         "path": path, "bytes": size,
+                         "fields": sorted(arrays)}
+                self._files.append(entry)
+                rec["files"].append(entry)
+
+        rec["cumulative_bytes"] = self._bytes
+        self.records.append(rec)
+
+        if self._bytes > max_bytes:
+            self._stopped = True
+            rec["stopped"] = (
+                f"write budget max_mb={self.config.get('max_mb', 512)} "
+                f"exceeded at tick {sim.tick}; dumping halted"
+            )
+
+    # -- end of run: index the series --------------------------------------
+    def summary(self) -> Dict[str, Any]:
+        if not self._files:
+            return {"files_written": 0, "skipped_channels": self._skipped}
+        import os
+
+        from ...io.vtk import write_pvd
+
+        collections: Dict[str, str] = {}
+        by_channel: Dict[str, List] = {}
+        for e in self._files:
+            if e["path"].endswith(".vti"):
+                by_channel.setdefault(e["channel"], []).append(
+                    (float(e["tick"]), os.path.basename(e["path"])))
+        for cname, entries in by_channel.items():
+            outdir = os.path.dirname(
+                next(e["path"] for e in self._files
+                     if e["channel"] == cname and e["path"].endswith(".vti")))
+            collections[cname] = write_pvd(
+                os.path.join(outdir, f"{cname}.pvd"), sorted(entries))
+
+        return {
+            "files_written": len(self._files),
+            "total_mb": round(self._bytes / (1024 * 1024), 3),
+            "collections": collections,
+            "skipped_channels": self._skipped,
+            "stopped_early": self._stopped,
+            "note": ("ImageData is a uniform grid: a BCC lattice is written "
+                     "with cubic indexing (array layout is exact; geometric "
+                     "BCC offsets are not applied). Open the .pvd in ParaView "
+                     "to load the run as a time series."),
+        }

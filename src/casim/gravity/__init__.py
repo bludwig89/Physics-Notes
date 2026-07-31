@@ -20,8 +20,8 @@ import importlib as _il
 import casim as _casim  # noqa: F401
 
 # The gravity field element (pure numpy, always available).
-import ca_gravity as ca_gravity  # noqa: E402
-from ca_gravity import (  # noqa: E402
+from casim.engine.interactions import gravity as ca_gravity  # noqa: E402
+from casim.engine.interactions.gravity import (  # noqa: E402
     C_LAT_BCC, F106_COEFF_LATTICE, G_LATTICE,
     K_canonical, dielectric_from_phi,
     T00_dirac_rest, T00_field_energy, phi_source,
@@ -30,8 +30,8 @@ from ca_gravity import (  # noqa: E402
 )
 
 # Always-available, pure-numpy Poisson background.
-import poisson_open as poisson_open  # noqa: E402
-from poisson_open import (  # noqa: E402
+from casim.engine.lattice import poisson_open as poisson_open  # noqa: E402
+from casim.engine.lattice.poisson_open import (  # noqa: E402
     solve_poisson_3d_open,
     gaussian_mass_3d,
 )
@@ -45,14 +45,19 @@ def _lazy(name):
         return None
 
 
+# C6: both loaders name their ENGINE path. They load by string, so neither the
+# import rewriter nor the C3.4 shim checker can see them — the old bare names
+# would have kept resolving through the ca-simulation shims right up to the
+# moment C9 deletes those shims, and then failed silently into `None` (the
+# `except` branch), which is the worst possible failure mode for a lazy loader.
 def ca_curved():
     """Return the ``ca_curved`` module (dynamical varc stepper) or None."""
-    return _lazy("ca_curved")
+    return _lazy("casim.engine.lattice.curved")
 
 
 def ca_emqg():
     """Return the ``ca_emqg`` module or None."""
-    return _lazy("ca_emqg")
+    return _lazy("casim.engine.interactions.gravity_emqg")
 
 
 __all__ = [

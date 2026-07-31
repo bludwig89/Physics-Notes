@@ -1,73 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.forks.gravity.gr3_fork_C_restricted_c`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.forks.gravity.gr3_fork_C_restricted_c`.
 """
-Fork C — RESTRICTED-c PROPAGATOR (photon c != matter c)
-=========================================================
-Finding 14.5(c):  single potential phi, but two coupling exponents — the
-photon sector sees the full Paper 6 factor of 2, while the matter sector
-sees a *halved* coupling so that clock rates pick up only factor 1.
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-    c_photon(x) = c_0 / (1 - 2 phi(x) / c_0^2)        (Paper 6, unchanged)
-    c_matter(x) = c_0 / (1 -   phi(x) / c_0^2)        (halved exponent)
-    tau_rate(x)  = c_matter(x) / c_0  ~  1 + phi/c^2  (factor 1)
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-Physical interpretation: the lattice's `c(x)` is sector-dependent —
-photons (the composite-bilinear E_G/B_G of Paper 1 Eq. 35) couple to
-the EMQG vacuum index with coupling 2, while massive fermions couple
-with coupling 1.  The two couplings come from different bilinears of
-the underlying Weyl pair; no new field is introduced, just two distinct
-scaling rules for the same phi.
+import casim.engine.forks.gravity.gr3_fork_C_restricted_c as _target
 
-Predicted outcome:
-  GR-1  K       -> 4         (photons see the full 2*phi factor)
-  GR-2  ratio   -> 1         (photons see the full 2*phi factor)
-  GR-3  ratio_GR -> 1        (matter clocks see only phi/c^2 — FIXED)
-  GR-4  Δω      -> SMALLER   (~ 0.5 x baseline, because the matter
-                               geodesic now has only half the metric
-                               perturbation in BOTH g_00 and g_ii)
+_warnings.warn(
+    "ca-simulation/forks/gr3_fork_C_restricted_c.py has moved to casim.engine.forks.gravity.gr3_fork_C_restricted_c; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-The Mercury prediction is the critical *discriminator* against Fork A
-and Fork B.  If the lattice records ~0.75% Mercury instead of ~1.5%
-baseline, Fork C is the right ansatz; if it records ~1.5%, Forks A/B
-are favoured.
-
-Cost of the fix: introduces sector-dependent coupling without a derived
-rule.  The closest literature analog is a *scalar-tensor* theory where
-the photon and the fermion couple to different conformal factors of the
-same metric (Brans-Dicke style).
-"""
-
-from __future__ import annotations
-import numpy as np
-
-
-NAME = "fork_C_restricted_c"
-DESCRIPTION = "Photon coupling 2; matter coupling 1.  Single phi, sector-specific exponents."
-
-
-def c_photon(phi: np.ndarray, c_0: float) -> np.ndarray:
-    return c_0 / (1.0 - 2.0 * phi / c_0**2)
-
-
-def c_matter(phi: np.ndarray, c_0: float) -> np.ndarray:
-    return c_0 / (1.0 - phi / c_0**2)
-
-
-def tau_rate(phi: np.ndarray, c_0: float) -> np.ndarray:
-    """Matter clocks tick at c_matter / c_0 ~ 1 + phi/c^2 (factor 1)."""
-    return (c_0 / (1.0 - phi / c_0**2)) / c_0
-
-
-def metric(phi: np.ndarray, c_0: float):
-    """Matter metric components, halved-coupling.
-
-    At leading order:
-        A_C = 1 +   phi/c^2     (vs baseline 1 + 2 phi/c^2)
-        B_C = 1 -   phi/c^2     (vs baseline 1 - 2 phi/c^2)
-    These are the components the timelike Mercury geodesic uses.  The
-    GR formula  Δω = 6 pi GM / (a (1-e^2) c^2)  is calibrated against
-    the *full* metric perturbation; with halved couplings the predicted
-    advance is halved at leading order.  Mercury (1.5% baseline) should
-    show ~ 0.75% in Fork C — that is the falsifier.
-    """
-    A = 1.0 +       phi / c_0**2
-    B = 1.0 -       phi / c_0**2
-    return A, B
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

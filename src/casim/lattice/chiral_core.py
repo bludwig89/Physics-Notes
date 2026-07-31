@@ -18,8 +18,21 @@ Every complex multiply is done on **explicit real (re, im) pairs** — no relian
 on numpy's complex dtype handling, no `np.linalg` on chiral matrices — so the
 arithmetic is fully auditable and a future numba/GPU backend can operate on plain
 real arrays.  The core is registered through `casim.lattice.backend` (the
-`chiral_transform` seam) and is verified bit-for-bit against the audited kernels
-(F134 tests).
+`chiral_transform` seam) and is verified against the audited kernels (F134
+tests).
+
+**Accuracy, measured rather than asserted (roadmap C1.4).** This module used to
+claim it matched those kernels "bit-for-bit". It does not, and never did:
+explicit-real multiplication associates differently from numpy's complex
+multiply, so at L=32 the gap is
+
+    weyl_step      vs ca_bcc.weyl_step_3d_bcc          1.4e-15
+    chiral_rs_step vs ca_wmu.w_propagation_step_chiral 1.8e-15
+
+— a few ULP, three orders below `casim.baselines.MACHINE_FLOOR`, so it cannot
+move any gate the model asserts. But "bit-for-bit" is a specific claim and this
+is not it; the numbers are stated so a future change that makes them worse is
+visible instead of hidden behind a word.
 
 Only the per-mode 2×2 algebra is hand-rolled; the FFT itself routes through the
 backend (the FFT is not the chiral-sensitive step — the 2×2 mode mix is).
@@ -28,9 +41,38 @@ from __future__ import annotations
 
 import numpy as np
 
-import ca_fft as _fft
-from ca_lattice import make_kgrid_3d
-from ca_bcc import _bcc_uvec, bcc_dispersion
+from casim.numerics import fft as _fft   # roadmap C1.3: the seam, not ca_fft
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.engine.lattice.bcc import _bcc_uvec, bcc_dispersion
+
+# ----------------------------------------------------------------------
+# Mode-structure caches (roadmap C1.4)
+#
+# `weyl_step` rebuilt `make_kgrid_3d` AND the full 2x2 unitary on EVERY call,
+# and `_chiral_branch_rates` rebuilt the k-grid, both dispersion branches, the
+# Nyquist mask and the cos/sin tables on every call. That was a straight
+# regression against the kernels this module exists to mirror:
+# `ca_bcc` has had `_weyl_cache` and `ca_wmu` `_disp_cache` all along.
+#
+# None of it depends on the field being propagated — only on (shape, sign,
+# block) — so it is computed once per geometry. Cached arrays are marked
+# read-only: a caller that mutates one would otherwise silently corrupt every
+# later tick, and a loud `ValueError` is much better than a wrong universe.
+# ----------------------------------------------------------------------
+_weyl_cache: dict = {}          # (shape, sign, block) -> (Uff, Ufg, Ugf, Ugg)
+_rates_cache: dict = {}         # (shape, block)       -> (Op, Om, cp, sp, cm, sm)
+
+
+def _freeze(*arrays):
+    for a in arrays:
+        a.flags.writeable = False
+    return arrays
+
+
+def clear_caches() -> None:
+    """Drop the mode-structure caches (tests that vary geometry in a loop)."""
+    _weyl_cache.clear()
+    _rates_cache.clear()
 
 
 # ----------------------------------------------------------------------
@@ -77,13 +119,18 @@ def weyl_unitary_real(KX, KY, KZ, sign='+'):
 def weyl_step(f, g, sign='+', block=1):
     """Hand-rolled BCC Weyl tick (optionally block-renormalised by ``block``).
 
-    Matches `ca_bcc.weyl_step_3d_bcc` (block=1) / `blockspin.renormalized_weyl_step`
-    (block>1) bit-for-bit, but every 2×2 mode mix uses `su2_apply` on explicit
-    real/imag parts."""
+    Matches `ca_bcc.weyl_step_3d_bcc` (block=1) /
+    `blockspin.renormalized_weyl_step` (block>1) to ~1.4e-15 (a few ULP — see
+    the module docstring; NOT bit-for-bit), with every 2×2 mode mix done by
+    `su2_apply` on explicit real/imag parts."""
     shape = f.shape[-3:]
-    KX, KY, KZ = make_kgrid_3d(*shape)
-    inv = 1.0 / float(block)
-    U = weyl_unitary_real(KX * inv, KY * inv, KZ * inv, sign=sign)
+    key = (shape, sign, float(block))
+    U = _weyl_cache.get(key)
+    if U is None:
+        KX, KY, KZ = make_kgrid_3d(*shape)
+        inv = 1.0 / float(block)
+        U = _freeze(*weyl_unitary_real(KX * inv, KY * inv, KZ * inv, sign=sign))
+        _weyl_cache[key] = U
     F = _fft.fftn(f)
     G = _fft.fftn(g)
     F_new, G_new = su2_apply(*U, F, G)
@@ -94,6 +141,12 @@ def weyl_step(f, g, sign='+', block=1):
 # Hand-rolled W± chiral RS rotation (F134 block-aware)
 # ----------------------------------------------------------------------
 def _chiral_branch_rates(shape, block):
+    """The two branch rates for a geometry. Cached — see the C1.4 note above."""
+    key = (tuple(shape), float(block))
+    hit = _rates_cache.get(key)
+    if hit is not None:
+        return hit[0], hit[1]
+
     KX, KY, KZ = make_kgrid_3d(*shape)
     inv = 1.0 / float(block)
     op = 2.0 * bcc_dispersion(KX * inv / 2, KY * inv / 2, KZ * inv / 2, sign='+')
@@ -108,7 +161,18 @@ def _chiral_branch_rates(shape, block):
         even = op + om
         op = np.where(nyq, 0.5 * even, op)
         om = np.where(nyq, 0.5 * even, om)
+    # cos/sin ride along: they are functions of the same geometry, and
+    # recomputing four transcendental tables per tick was most of the cost.
+    _rates_cache[key] = _freeze(op, om, np.cos(op), np.sin(op),
+                                np.cos(om), np.sin(om))
     return op, om
+
+
+def _chiral_phase_tables(shape, block):
+    """(cos, sin) for both branches, from the same cache as the rates."""
+    _chiral_branch_rates(shape, block)
+    _, _, cp, sp, cm, sm = _rates_cache[(tuple(shape), float(block))]
+    return cp, sp, cm, sm
 
 
 def chiral_rs_step(E, B, block=1):
@@ -116,16 +180,16 @@ def chiral_rs_step(E, B, block=1):
 
     F^± = E ± iB ride e^{∓iΩ^±}; the phase rotation e^{-iΩ} = (cosΩ, −sinΩ) is
     applied via `cmul` on explicit real parts.  Matches
-    `ca_wmu.w_propagation_step_chiral` (block=1) bit-for-bit."""
+    `ca_wmu.w_propagation_step_chiral` (block=1) to ~1.8e-15 — a few ULP, not
+    bit-for-bit; see the module docstring."""
     shape = E.shape[-3:]
-    Op, Om = _chiral_branch_rates(shape, block)
     Ek = _fft.fftn(E, axes=(-3, -2, -1))
     Bk = _fft.fftn(B, axes=(-3, -2, -1))
     # F± = Ek ± i Bk
     Fp = Ek + 1j * Bk
     Fm = Ek - 1j * Bk
-    cp, sp = np.cos(Op), np.sin(Op)        # e^{-iΩ⁺}
-    cm, sm = np.cos(Om), np.sin(Om)        # e^{+iΩ⁻}
+    # e^{-iΩ⁺} and e^{+iΩ⁻}, cached with the rates (roadmap C1.4)
+    cp, sp, cm, sm = _chiral_phase_tables(shape, block)
     Fp_r, Fp_i = cmul(cp, -sp, Fp.real, Fp.imag)
     Fm_r, Fm_i = cmul(cm, +sm, Fm.real, Fm.imag)
     Fp_new = Fp_r + 1j * Fp_i

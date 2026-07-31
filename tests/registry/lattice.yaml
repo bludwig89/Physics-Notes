@@ -1,0 +1,753 @@
+version: 1
+sector: lattice
+about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it runs, at what parameters,
+  and how it fails. `casim test` and `pytest` both execute THESE records (src/casim/tests/), so they cannot
+  diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
+  on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
+  adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
+  not undo it.'
+tests:
+- id: 01b-GR1-openBC
+  path: tests/priority/test_01b_GR1_openBC.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T01b_GR1_openBC.json
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 147
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T01b_GR1_openBC.json
+    artifact_rule:
+      test-results/top10_T01b_GR1_openBC.json: local
+    artifacts_read_only: []
+    summary: GR-1 Stage A re-test with OPEN-BOUNDARY Poisson kernel
+- id: 05b-GR2-openBC
+  path: tests/priority/test_05b_GR2_openBC.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T05b_GR2_openBC.json
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 153
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T05b_GR2_openBC.json
+    artifact_rule:
+      test-results/top10_T05b_GR2_openBC.json: local
+    artifacts_read_only: []
+    summary: GR-2 absolute Shapiro time delay — OPEN-BOUNDARY Poisson kernel re-test
+- id: 06-QG2-planck-LV
+  path: tests/priority/test_06_QG2_planck_LV.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/top10_T06_QG2_LV.json
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 184
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/top10_T06_QG2_LV.json
+    artifact_rule:
+      test-results/top10_T06_QG2_LV.json: local
+    artifacts_read_only: []
+    summary: 'Top-10 priority Test #6 — QG-2: Planck-scale Lorentz-violation bound'
+- id: 11-SR4-doppler
+  path: tests/priority/test_11_SR4_doppler.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/test_11_SR4_doppler.json
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 278
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/test_11_SR4_doppler.json
+    artifact_rule:
+      test-results/test_11_SR4_doppler.json: local
+    artifacts_read_only: []
+    summary: 'test_11_SR4_doppler.py  —  SR-4: Relativistic Doppler shift'
+- id: 15-QM6-twoslit
+  path: tests/priority/test_15_QM6_twoslit.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/test_15_QM6_twoslit.json
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 253
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/test_15_QM6_twoslit.json
+    artifact_rule:
+      test-results/test_15_QM6_twoslit.json: local
+    artifacts_read_only: []
+    summary: 'test_15_QM6_twoslit.py  —  QM-6: Two-slit interference / fringe visibility'
+- id: F101-one-heavy-branch-fit-W
+  path: tests/findings/test_F101_one_heavy_branch_fit_W.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F101_one_heavy_branch_fit_W.json
+  findings:
+  - F46
+  - F83
+  - F92
+  - F95
+  - F96
+  - F101
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 411
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F101_one_heavy_branch_fit_W.json
+    artifact_rule:
+      test-results/F101_one_heavy_branch_fit_W.json: local
+    artifacts_read_only: []
+    summary: test_F101_one_heavy_branch_fit_W.py
+- id: F108-democratic-no-go-and-bubble
+  path: tests/findings/test_F108_democratic_no_go_and_bubble.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F108_democratic_no_go_and_bubble.json
+  findings:
+  - F46
+  - F95
+  - F96
+  - F101
+  - F108
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 659
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F108_democratic_no_go_and_bubble.json
+    artifact_rule:
+      test-results/F108_democratic_no_go_and_bubble.json: local
+    artifacts_read_only: []
+    summary: test_F108_democratic_no_go_and_bubble.py
+- id: F118-self-consistent-Wvc-and-C
+  path: tests/findings/test_F118_self_consistent_Wvc_and_C.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F118_self_consistent_Wvc_and_C.json
+  findings:
+  - F46
+  - F92
+  - F93
+  - F95
+  - F96
+  - F101
+  - F108
+  - F109
+  - F118
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 364
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F118_self_consistent_Wvc_and_C.json
+    artifact_rule:
+      test-results/F118_self_consistent_Wvc_and_C.json: local
+    artifacts_read_only: []
+    summary: test_F118_self_consistent_Wvc_and_C.py
+- id: F119-kg-scale-three-routes
+  path: tests/findings/test_F119_kg_scale_three_routes.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F119_kg_scale_three_routes.json
+  findings:
+  - F46
+  - F79
+  - F83
+  - F95
+  - F96
+  - F101
+  - F107
+  - F115
+  - F116
+  - F118
+  - F119
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 341
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F119_kg_scale_three_routes.json
+    artifact_rule:
+      test-results/F119_kg_scale_three_routes.json: local
+    artifacts_read_only: []
+    summary: test_F119_kg_scale_three_routes.py
+- id: F127-alpha-em-derivation
+  path: tests/findings/test_F127_alpha_em_derivation.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F45
+  - F115
+  - F127
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 318
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F127_alpha_em_derivation.json
+    artifact_rule:
+      test-results/F127_alpha_em_derivation.json: file
+    artifacts_read_only: []
+    summary: 'F127 — Deriving α_em from the lattice rule: four-avenue investigation'
+- id: F130-blockspin-gauge-gravity
+  path: tests/findings/test_F130_blockspin_gauge_gravity.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F30
+  - F64
+  - F91
+  - F106
+  - F110
+  - F129
+  - F130
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 279
+    n_test_funcs: 19
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F130_blockspin_gauge_gravity.py
+- id: F131-blockspin-bound-state
+  path: tests/findings/test_F131_blockspin_bound_state.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F130
+  - F131
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 153
+    n_test_funcs: 10
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F131_blockspin_bound_state.py
+- id: F132-blockspin-dynamical-bound-states
+  path: tests/findings/test_F132_blockspin_dynamical_bound_states.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F74
+  - F103
+  - F104
+  - F122
+  - F130
+  - F132
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 140
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F132_blockspin_dynamical_bound_states.py
+- id: F133-blockspin-engine
+  path: tests/findings/test_F133_blockspin_engine.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F130
+  - F133
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 230
+    n_test_funcs: 11
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F133_blockspin_engine.py
+- id: F159-multigrid-scale-separation
+  path: tests/findings/test_F159_multigrid_scale_separation.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F159
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 94
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F159 — U4: the block-spin two-grid multigrid (scale separation).'
+- id: F167-restmass-from-rule
+  path: tests/findings/test_F167_restmass_from_rule.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F167_restmass_from_rule.json
+  findings:
+  - F26
+  - F27
+  - F46
+  - F119
+  - F120
+  - F121
+  - F167
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 232
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F167_restmass_from_rule.json
+    artifact_rule:
+      test-results/F167_restmass_from_rule.json: local
+    artifacts_read_only: []
+    summary: 'F167 — rest-mass from the QCA rule: closing the conceptual->algebraic gap G1.'
+- id: F168-paired-photon-binding
+  path: tests/findings/test_F168_paired_photon_binding.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F27
+  - F37
+  - F68
+  - F69
+  - F73
+  - F74
+  - F168
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 150
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F168_paired_photon_binding.json
+    artifact_rule:
+      test-results/F168_paired_photon_binding.json: file
+    artifacts_read_only: []
+    summary: F168 — Is the paired-photon binding dynamical / symmetry-protected, or merely kinematic?
+  results:
+  - test-results/F168_paired_photon_binding.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F250-allk-gauge-pole
+  path: tests/findings/test_F250_allk_gauge_pole.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F68
+  - F69
+  - F168
+  - F250
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 289
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/F250_allk_gauge_pole.json
+    artifact_rule:
+      test-results/F250_allk_gauge_pole.json: file
+    artifacts_read_only: []
+    summary: F250 — The all-k gauge pole of the dual-spinor (paired) photon.
+- id: F49-bcc-weinberg-2over9
+  path: tests/findings/test_F49_bcc_weinberg_2over9.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F47_bcc_weinberg_2over9.json
+  findings:
+  - F30
+  - F45
+  - F47
+  - F49
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 376
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F47_bcc_weinberg_2over9.json
+    artifact_rule:
+      test-results/F47_bcc_weinberg_2over9.json: local
+    artifacts_read_only: []
+    summary: F47 derivation attempt — try to derive sin^2 theta_W = 2/9 (notebook's
+- id: F93-orthorhombic-Eg-vacuum
+  path: tests/findings/test_F93_orthorhombic_Eg_vacuum.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F93_orthorhombic_Eg_vacuum.json
+  findings:
+  - F30
+  - F49
+  - F75
+  - F76
+  - F84
+  - F93
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: false
+    lines: 491
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F93_orthorhombic_Eg_vacuum.json
+    artifact_rule:
+      test-results/F93_orthorhombic_Eg_vacuum.json: local
+    artifacts_read_only: []
+    summary: test_F93_orthorhombic_Eg_vacuum.py
+- id: F95-BC-from-qca-loop
+  path: tests/findings/test_F95_BC_from_qca_loop.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F95_BC_from_qca_loop.json
+  findings:
+  - F46
+  - F57
+  - F61
+  - F76
+  - F78
+  - F79
+  - F80
+  - F83
+  - F92
+  - F93
+  - F95
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 351
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F95_BC_from_qca_loop.json
+    artifact_rule:
+      test-results/F95_BC_from_qca_loop.json: local
+    artifacts_read_only: []
+    summary: test_F95_BC_from_qca_loop.py
+- id: F96-second-shell-Eg-gap
+  path: tests/findings/test_F96_second_shell_Eg_gap.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F96_second_shell_Eg_gap.json
+  findings:
+  - F46
+  - F73
+  - F78
+  - F83
+  - F92
+  - F93
+  - F95
+  - F96
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 403
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F96_second_shell_Eg_gap.json
+    artifact_rule:
+      test-results/F96_second_shell_Eg_gap.json: local
+    artifacts_read_only: []
+    summary: test_F96_second_shell_Eg_gap.py
+- id: P6-si-scale
+  path: tests/findings/test_P6_si_scale.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/P6_si_scale.json
+  findings:
+  - F77
+  - F97
+  - F103
+  - F104
+  - F107
+  - F112
+  - F122
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 183
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/P6_si_scale.json
+    artifact_rule:
+      test-results/P6_si_scale.json: local
+    artifacts_read_only: []
+    summary: test_P6_si_scale.py
+- id: SR5-photon-frame-invariance
+  path: tests/findings/test_SR5_photon_frame_invariance.py
+  kind: result_dump
+  tier: battery
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 435
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/SR5_photon_frame_invariance.json
+    artifact_rule:
+      test-results/SR5_photon_frame_invariance.json: file
+    artifacts_read_only: []
+    summary: test_SR5_photon_frame_invariance.py  —  SR-5
+  results:
+  - test-results/SR5_photon_frame_invariance.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: analyse-su3-runs
+  path: tests/runners/analyse_su3_runs.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/su3_static_potential_summary.json
+  findings:
+  - F155
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 158
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/su3_static_potential_summary.json
+    artifact_rule:
+      test-results/su3_static_potential_summary.json: local
+    artifacts_read_only: []
+    summary: analyse_su3_runs.py — consolidate the native production SU(3) static-potential
+- id: emergent-time-shapiro
+  path: tests/findings/test_emergent_time_shapiro.py
+  kind: legacy_script
+  tier: battery
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 456
+    n_test_funcs: 3
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_emergent_time_shapiro.py — Phase T2 (tick-language re-derivations)
+- id: fork-B-fresnel
+  path: tests/findings/test_fork_B_fresnel.py
+  kind: legacy_script
+  tier: battery
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 256
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_fork_B_fresnel.py  —  Fork B: Fizeau/refractive-index test'
+- id: run-FC02-shapiro
+  path: tests/runners/run_FC02_shapiro.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC02_shapiro.json
+  findings:
+  - F64
+  - FC02
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 287
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FC02_shapiro.json
+    artifact_rule:
+      test-results/FC02_shapiro.json: local
+    artifacts_read_only: []
+    summary: FC02 — Shapiro time delay (GR-2), Tier C consistency regression
+- id: run-qca-verifications
+  path: tests/runners/run_qca_verifications.py
+  kind: legacy_script
+  tier: battery
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 757
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_qca_verifications.py — V1–V9 from qca-papers-1-4-overview.md
+- id: run-simulation
+  path: tests/runners/run_simulation.py
+  kind: legacy_script
+  tier: battery
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 352
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'run_simulation.py  —  Main runner: all five CA stages'
+- id: run-u4-multigrid
+  path: tests/runners/run_u4_multigrid.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/u4_multigrid.json
+  findings:
+  - F159
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 140
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/u4_multigrid.json
+    artifact_rule:
+      test-results/u4_multigrid.json: local
+    artifacts_read_only: []
+    summary: run_u4_multigrid.py — U4 block-spin two-grid multigrid, PRODUCTION run.
+- id: run-u4-sigma-carry
+  path: tests/runners/run_u4_sigma_carry.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/u4_sigma_carry.json
+  findings:
+  - F131
+  - F135
+  - F146
+  sector: lattice
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 78
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/u4_sigma_carry.json
+    artifact_rule:
+      test-results/u4_sigma_carry.json: local
+    artifacts_read_only: []
+    summary: run_u4_sigma_carry.py — U4 scale carry of the SU(3)-measured string tension
+- id: scenario-bcc-weyl
+  kind: scenario
+  sector: lattice
+  tier: gate
+  findings:
+  - F26
+  - F41
+  scenario: scenarios/bcc_weyl.yaml
+  params:
+    ticks: 8
+  expect:
+    exactness: machine
+    gates: all
+  notes: 'C7.1: BCC Weyl base-layer smoke run.'
+- id: sublattice-hypercharge
+  path: tests/findings/test_sublattice_hypercharge.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/sublattice_hypercharge.json
+  findings:
+  - F38
+  - F41
+  - F51
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 215
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/sublattice_hypercharge.json
+    artifact_rule:
+      test-results/sublattice_hypercharge.json: local
+    artifacts_read_only: []
+    summary: test_sublattice_hypercharge.py

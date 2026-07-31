@@ -15,10 +15,23 @@ _MODULES = [
     "ca_gluon", "ca_strong", "ca_colour_condensate", "ca_colour_dielectric",
     "ca_dual_gl_backreaction", "ca_confinement", "spinor_color",
 ]
+# Old bare name -> new casim.engine path (roadmap C4). Migrated kernels import
+# from their engine location; ca_dual_gl_backreaction is a C6 kernel not yet
+# migrated, so it stays on its bare name (ca-simulation shim) until then.
+_PATHS = {
+    "ca_gluon": "casim.engine.gauge.gluon",
+    "ca_strong": "casim.engine.gauge.strong",
+    "ca_colour_condensate": "casim.engine.gauge.colour_condensate",
+    "ca_colour_dielectric": "casim.engine.gauge.colour_dielectric",
+    "ca_confinement": "casim.engine.gauge.confinement",
+    # C6: the last bare name C4 left here, now that its kernel has migrated.
+    "ca_dual_gl_backreaction": "casim.engine.interactions.gravity_backreaction",
+    "spinor_color": "casim.engine.core._viz_spinor_color",
+}
 _loaded = {}
 for _m in _MODULES:
     try:
-        _loaded[_m] = _il.import_module(_m)
+        _loaded[_m] = _il.import_module(_PATHS.get(_m, _m))
         globals()[_m] = _loaded[_m]
     except Exception:  # pragma: no cover
         globals()[_m] = None

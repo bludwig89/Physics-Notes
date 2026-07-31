@@ -1,4 +1,15 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon]
+
+  DEAD:
+    B1's identification of the single-branch isospin-singlet sigma-bilinear as
+    THE PHOTON.
+
+  STILL LIVE:
+    A1 SU(2) invariance of c_lat/Omega(k); B2-B5b W-triplet adjoint transform,
+    magnitude invariance, transversality, rotation rate.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_su2_photon_bridge.py
 =========================
 

@@ -32,116 +32,116 @@
   "A2": {
     "PASS": true,
     "detail": {
-      "alpha_s_MZ_1loop": 0.11954571992369065,
-      "alpha_s_MZ_4loop": 0.12797713503836028,
-      "dev_1loop_%": 1.3099321387208818,
-      "dev_4loop_%": 8.455199185051088,
+      "alpha_s_MZ_1loop": 0.11954572797218371,
+      "alpha_s_MZ_4loop": 0.12797714462679347,
+      "dev_1loop_%": 1.30993895947773,
+      "dev_4loop_%": 8.455207310841928,
       "PDG": 0.118,
-      "loop_spread_2to3": 1.784748532035474e-05,
-      "loop_spread_3to4": 2.6160797293894866e-05
+      "loop_spread_2to3": 1.784748774480427e-05,
+      "loop_spread_3to4": 2.6160805397468234e-05
     }
   },
   "A3": {
     "PASS": true,
     "detail": {
-      "Lambda3_GeV": 0.5285700209266841,
+      "Lambda3_GeV": 0.5285702181632388,
       "FLAG_GeV": 0.343,
-      "ratio_vs_FLAG": 1.5410204691740061,
-      "hierarchy_N_pred": 2.856448865557499e-19,
+      "ratio_vs_FLAG": 1.5410210442076933,
+      "hierarchy_N_pred": 2.8564484874859277e-19,
       "N_F119": 5.5e-19,
-      "ratio_vs_F119": 0.5193543391922726,
+      "ratio_vs_F119": 0.5193542704519869,
       "note": "19-decade hierarchy landed with zero tuning; F119's 'no running channel' gap closed"
     }
   },
   "A4": {
     "PASS": true,
     "detail": {
-      "alpha_measured_at_mu0": 0.019644134278948608,
-      "one_over_alpha_measured": 50.90578112529182,
+      "alpha_measured_at_mu0": 0.019644134060362577,
+      "one_over_alpha_measured": 50.90578169173535,
       "one_over_alpha_rule": 50.26548245743669,
-      "delta_inv_alpha": 0.6402986678551272,
-      "equiv_Lambda_ratio": 1.7766520816907994,
+      "delta_inv_alpha": 0.6402992342986593,
+      "equiv_Lambda_ratio": 1.7766529850093935,
       "wilson_reference_Lambda_ratio": 28.809
     }
   },
   "A5": {
     "PASS": true,
     "detail": {
-      "alpha_MZ_mu0=pi_over_a_1loop": 0.141050199068929,
-      "dev_%": 19.534067007566946,
+      "alpha_MZ_mu0=pi_over_a_1loop": 0.14105021027346695,
+      "dev_%": 19.534076502938102,
       "note": "mu0=1/a is the standard scheme-bare convention; pi/a spans the F124 BZ-edge ambiguity"
     }
   },
   "ALL_PASS": true,
   "report": {
-    "mu0_GeV": 1.8504445407725583e+18,
+    "mu0_GeV": 1.8504454761879992e+18,
     "alpha_s_uv": 0.019894367886486918,
     "one_over_alpha_uv": 50.26548245743669,
     "1loop": {
-      "alpha_s_MZ": 0.11954571992369065,
-      "dev_vs_PDG_%": 1.3099321387208818,
-      "Lambda5_GeV": 0.22732055183087646,
-      "Lambda3_GeV": 0.27174665107552753,
-      "Lambda3_dev_vs_FLAG_%": -20.77357111500655,
-      "hierarchy_N": 1.4685479358493696e-19,
+      "alpha_s_MZ": 0.11954572797218371,
+      "dev_vs_PDG_%": 1.30993895947773,
+      "Lambda5_GeV": 0.22732065171694868,
+      "Lambda3_GeV": 0.27174673792285914,
+      "Lambda3_dev_vs_FLAG_%": -20.773545795084804,
+      "hierarchy_N": 1.4685476628183048e-19,
       "scheme_diag": {
-        "alpha_measured_at_mu0": 0.019851093656508993,
-        "one_over_alpha_measured": 50.37505828663043,
+        "alpha_measured_at_mu0": 0.019851093434579255,
+        "one_over_alpha_measured": 50.375058849809655,
         "one_over_alpha_rule": 50.26548245743669,
-        "delta_inv_alpha": 0.1095758291937372,
-        "equiv_Lambda_ratio": 1.103354444237092,
+        "delta_inv_alpha": 0.1095763923729649,
+        "equiv_Lambda_ratio": 1.103355001992275,
         "wilson_reference_Lambda_ratio": 28.809
       }
     },
     "2loop": {
-      "alpha_s_MZ": 0.12796882172638674,
-      "dev_vs_PDG_%": 8.448154005412501,
-      "Lambda5_GeV": 0.34904647261909943,
-      "Lambda3_GeV": 0.4902833073517328,
-      "Lambda3_dev_vs_FLAG_%": 42.939739752691764,
-      "hierarchy_N": 2.649543374842459e-19,
+      "alpha_s_MZ": 0.1279688313091408,
+      "dev_vs_PDG_%": 8.448162126390525,
+      "Lambda5_GeV": 0.349046631415286,
+      "Lambda3_GeV": 0.49028347254336335,
+      "Lambda3_dev_vs_FLAG_%": 42.939787913517,
+      "hierarchy_N": 2.6495429281892127e-19,
       "scheme_diag": {
-        "alpha_measured_at_mu0": 0.019644224595885076,
-        "one_over_alpha_measured": 50.905547079189496,
+        "alpha_measured_at_mu0": 0.019644224377294822,
+        "one_over_alpha_measured": 50.90554764563876,
         "one_over_alpha_rule": 50.26548245743669,
-        "delta_inv_alpha": 0.6400646217528063,
-        "equiv_Lambda_ratio": 1.776278883084591,
+        "delta_inv_alpha": 0.6400651882020725,
+        "equiv_Lambda_ratio": 1.776279786222579,
         "wilson_reference_Lambda_ratio": 28.809
       }
     },
     "3loop": {
-      "alpha_s_MZ": 0.12795097424106638,
-      "dev_vs_PDG_%": 8.433029017852878,
-      "Lambda5_GeV": 0.34875080422421073,
-      "Lambda3_GeV": 0.513215911168589,
-      "Lambda3_dev_vs_FLAG_%": 49.625630078305825,
-      "hierarchy_N": 2.7734736159902526e-19,
+      "alpha_s_MZ": 0.127950983821396,
+      "dev_vs_PDG_%": 8.433037136776278,
+      "Lambda5_GeV": 0.34875096289119606,
+      "Lambda3_GeV": 0.5132160924185429,
+      "Lambda3_dev_vs_FLAG_%": 49.62568292085798,
+      "hierarchy_N": 2.7734731934700997e-19,
       "scheme_diag": {
-        "alpha_measured_at_mu0": 0.019644637818484564,
-        "one_over_alpha_measured": 50.90447628711449,
+        "alpha_measured_at_mu0": 0.01964463759988762,
+        "one_over_alpha_measured": 50.904476853557256,
         "one_over_alpha_rule": 50.26548245743669,
-        "delta_inv_alpha": 0.6389938296778013,
-        "equiv_Lambda_ratio": 1.7745724493146866,
+        "delta_inv_alpha": 0.638994396120566,
+        "equiv_Lambda_ratio": 1.774573351574693,
         "wilson_reference_Lambda_ratio": 28.809
       }
     },
     "4loop": {
-      "alpha_s_MZ": 0.12797713503836028,
-      "dev_vs_PDG_%": 8.455199185051088,
-      "Lambda5_GeV": 0.34918425080541216,
-      "Lambda3_GeV": 0.5285700209266841,
-      "Lambda3_dev_vs_FLAG_%": 54.102046917400614,
-      "hierarchy_N": 2.856448865557499e-19,
+      "alpha_s_MZ": 0.12797714462679347,
+      "dev_vs_PDG_%": 8.455207310841928,
+      "Lambda5_GeV": 0.34918440973721687,
+      "Lambda3_GeV": 0.5285702181632388,
+      "Lambda3_dev_vs_FLAG_%": 54.10210442076932,
+      "hierarchy_N": 2.8564484874859277e-19,
       "scheme_diag": {
-        "alpha_measured_at_mu0": 0.019644134278948608,
-        "one_over_alpha_measured": 50.90578112529182,
+        "alpha_measured_at_mu0": 0.019644134060362577,
+        "one_over_alpha_measured": 50.90578169173535,
         "one_over_alpha_rule": 50.26548245743669,
-        "delta_inv_alpha": 0.6402986678551272,
-        "equiv_Lambda_ratio": 1.7766520816907994,
+        "delta_inv_alpha": 0.6402992342986593,
+        "equiv_Lambda_ratio": 1.7766529850093935,
         "wilson_reference_Lambda_ratio": 28.809
       }
     },
-    "band_mu0_pi_over_a_1loop_alpha_MZ": 0.141050199068929
+    "band_mu0_pi_over_a_1loop_alpha_MZ": 0.14105021027346695
   },
   "CALIBRATION_NOTE": "Zero free parameters: g_s=1/2 derived (A1: rule circularity => chi=1; F110 C7 => chi=1/(4g^2)); mu0 = hbar c/a from F107; running is standard MS-bar (Higgs-independent). PDG alpha_s(M_Z), FLAG Lambda3, F119 N are TARGETS only. Open coefficient: the rule->MS-bar scheme constant, bounded by A4 to an equivalent Lambda-ratio 1.78 (Wilson: 28.81)."
 }

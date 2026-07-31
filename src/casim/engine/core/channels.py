@@ -1,4 +1,4 @@
-"""casim.engine.channels — concrete field channels.
+"""casim.engine.core.channels — concrete field channels.
 
 Each channel is a thin, faithful wrapper over an audited ``ca-simulation``
 kernel.  Wrapping (not reimplementing) is what guarantees the engine reproduces
@@ -15,6 +15,7 @@ from __future__ import annotations
 import numpy as np
 
 from .channel import Channel, register
+from casim.constants import c_lat as c_lat_registry
 
 ROOT3 = float(np.sqrt(3.0))
 
@@ -61,7 +62,7 @@ class PhotonPairChannel(Channel):
         if block > 1:
             # coarse lattice: use the renormalised rule Ω_coarse(κ)=Ω(κ/block)
             # so the physical dynamics stays faithful (F130 T1/T2, F133).
-            from casim.engine.blockspin import renormalized_even_step
+            from casim.engine.core.blockspin import renormalized_even_step
             E, B = renormalized_even_step(state["E"], state["B"], block)
         else:
             from casim.fields.photon import photon_step_spectral
@@ -106,7 +107,7 @@ class WeylBCCChannel(Channel):
         sign = self.config.get("sign", "+")
         block = int(getattr(lattice, "block", 1))
         if block > 1:
-            from casim.engine.blockspin import renormalized_weyl_step
+            from casim.engine.core.blockspin import renormalized_weyl_step
             f, g = renormalized_weyl_step(state["f"], state["g"], block, sign=sign)
         else:
             from casim.lattice import weyl_step_3d_bcc
@@ -157,7 +158,7 @@ class WChiralChannel(Channel):
     def step(self, state, lattice, context=None, rng=None):
         block = int(getattr(lattice, "block", 1))
         if block > 1:
-            from casim.engine.blockspin import renormalized_chiral_step
+            from casim.engine.core.blockspin import renormalized_chiral_step
             E, B = renormalized_chiral_step(state["E"], state["B"], block)
         else:
             from casim.fields.electroweak import w_propagation_step_chiral
@@ -273,7 +274,7 @@ class GravityDielectricChannel(Channel):
         M = float(self.config.get("M", 1.0))
         sigma = float(self.config.get("sigma", 3.0))
         G = float(self.config.get("G", 1.0))
-        c = float(getattr(lattice, "c_lat", 1.0 / ROOT3))
+        c = float(getattr(lattice, "c_lat", c_lat_registry))
         if M:
             rho = gaussian_mass_3d(L, M=M, sigma=sigma)
             phi = solve_poisson_3d_open(rho, G_N=G)

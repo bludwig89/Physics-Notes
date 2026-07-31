@@ -20,7 +20,7 @@ from typing import Any, Dict, List, Optional
 import numpy as np
 
 from ..engine import Simulation, LatticeSpec
-from ..engine.channel import build_channel
+from ..engine.core.channel import build_channel
 from . import render
 
 # ----------------------------------------------------------------------

@@ -1,4 +1,16 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]
+
+  DEAD:
+    H1/H1b/H2 — Poisson sourced by REST-MASS density rho = |Psi|^2 (replaced
+    by F106 T^00, then F178 full T_munu).
+
+  STILL LIVE:
+    H3/H3b factor-2 discriminator: isotropic K = 4 is still canonical per
+    F178; rest-leg-only K = 2 is the standing regression against the factor-1
+    error.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F52_restleg_backreaction.py — Gravity as a self-consistent rest-leg field
 ==============================================================================
 Tests the F52 hypothesis (forks/gr_fork_F52_restleg_backreaction.py): the lapse

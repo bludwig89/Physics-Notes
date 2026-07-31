@@ -1,4 +1,16 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]
+
+  DEAD:
+    G1 continuum reduction of the two-leg Omega as the MECHANISM; G4 negative
+    control; G5 fork stepper.
+
+  STILL LIVE:
+    G2 rest-leg Omega = sqrt(A) arcsin(m) redshift — exactly what production
+    lapse_mix_half implements; G3 c_eff = c0 sqrt(A/B), which under canonical
+    A=1/K, B=K is the dielectric's c/K.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F50_gravity_fork_dirac.py — Gravity fork via the F46 spherical triangle
 ============================================================================
 Verifies the covariant restatement of Finding 46 implemented in

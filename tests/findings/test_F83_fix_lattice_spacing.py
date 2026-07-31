@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""
+"""[PARTIALLY SUPERSEDED 2026-06-06 by F107, F79 — ledger S5-F107-canonical-ruler]
+
+  DEAD:
+    T3, which pins a = a_F61 ~ 3.81 ell_P.
+
+  STILL LIVE:
+    T1 algebra; T2 top-quark ceiling, which the F107 GRB gate uses.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 F83 - Attempt to fix the lattice spacing `a` from a measured fermion mass
       through the F46/F12 lattice-mass map.
 

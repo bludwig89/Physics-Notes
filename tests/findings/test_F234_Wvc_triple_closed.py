@@ -27,15 +27,30 @@ principle (weight->phase: why the E_g weight 2/9 is the phase in radians).
 This supersedes the F179/CN3 "lambda_6 not reducible to first principles" relabel.
 
 Real arithmetic only (stdlib), no scipy.
+
+Roadmap C7.4 (2026-07-30 - 18:40): the two inputs are no longer literals here.
+`delta_star` and `B_F95` came from module constants defined in this file — the
+THIRD local redefinition of delta*=2/9, which the C-roadmap names explicitly
+(§C5). They now resolve from `casim.constants` (D7) and are `main()` keyword
+arguments, which is what makes this a sweepable registry entry:
+
+    casim test --id F234-Wvc-triple-closed --param delta_star=0.2
+
+runs this same closure at a perturbed angle and reports how far the numbers move
+against the committed baseline. Defaults are the registry values, so an
+unparametrised run is bit-identical to the pre-C7 one.
 """
 from __future__ import annotations
 import os, json, math
 
-B_F95 = -5.69e-2                 # F95 derived full-BZ sea cubic
-DELTA_STAR = 2.0 / 9.0           # F174/F175 derived E_g rep weight (radians)
+from casim.constants import B_sea_cubic, delta_star as DELTA_STAR_REGISTRY
 
 
-def main() -> dict:
+def main(delta_star: float | None = None,
+         B_F95: float | None = None) -> dict:
+    """The F234 closure. `None` means "use the registry value" (C2/D7)."""
+    DELTA_STAR = float(DELTA_STAR_REGISTRY if delta_star is None else delta_star)
+    B_F95 = float(B_sea_cubic if B_F95 is None else B_F95)
     checks = {}
 
     # C1 - the derived angle reproduces the cosine F118/F174 used

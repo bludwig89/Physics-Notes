@@ -1,4 +1,4 @@
-"""casim.engine.simulation — the Simulation engine and LatticeSpec.
+"""casim.engine.core.simulation — the Simulation engine and LatticeSpec.
 
 The one genuinely new component (roadmap §2).  The engine advances a set of
 field *channels* one CA tick at a time and runs *observers* on a cadence.  It
@@ -15,6 +15,7 @@ import numpy as np
 
 from .channel import Channel, build_channel
 from .observers import Observer, build_observer
+from casim.constants import c_lat as C_LAT_REGISTRY
 
 ROOT3 = float(np.sqrt(3.0))
 
@@ -53,7 +54,7 @@ class LatticeSpec:
     L: int = 32
     dims: int = 3
     topology: str = "cubic"        # "cubic" | "bcc"
-    c_lat: float = 1.0 / ROOT3     # F26 rotation-rate speed of light
+    c_lat: float = C_LAT_REGISTRY  # F26 rotation-rate speed of light
     block: int = 1                 # physical cells per super-cell per axis (R_b)
 
     @property
@@ -148,7 +149,7 @@ class Simulation:
             L=L,
             dims=int(lat.get("dims", 3)),
             topology=str(lat.get("topology", "cubic")),
-            c_lat=float(lat.get("c_lat", 1.0 / ROOT3)),
+            c_lat=float(lat.get("c_lat", C_LAT_REGISTRY)),
             block=block,
         )
         channels = [build_channel(c) for c in scenario.get("channels", [])]

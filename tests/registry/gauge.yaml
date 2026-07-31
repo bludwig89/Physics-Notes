@@ -1,0 +1,1737 @@
+version: 1
+sector: gauge
+about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it runs, at what parameters,
+  and how it fails. `casim test` and `pytest` both execute THESE records (src/casim/tests/), so they cannot
+  diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
+  on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
+  adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
+  not undo it.'
+tests:
+- id: E2E-nonabelian-bilinear
+  path: tests/findings/test_E2E_nonabelian_bilinear.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/E2E_nonabelian_bilinear.json
+  findings:
+  - F36
+  - F43
+  - F67
+  - F68
+  - F69
+  - F89
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 635
+    n_test_funcs: 14
+    artifacts_written:
+    - test-results/E2E_nonabelian_bilinear.json
+    artifact_rule:
+      test-results/E2E_nonabelian_bilinear.json: local
+    artifacts_read_only: []
+    summary: test_E2E_nonabelian_bilinear.py
+- id: F100-gamma-from-transfer-operator
+  path: tests/findings/test_F100_gamma_from_transfer_operator.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F100_gamma_from_transfer_operator.json
+  findings:
+  - F100
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 212
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F100_gamma_from_transfer_operator.json
+    artifact_rule:
+      test-results/F100_gamma_from_transfer_operator.json: local
+    artifacts_read_only: []
+    summary: ''
+- id: F101-strong-coupling-sigma
+  path: tests/findings/test_F101_strong_coupling_sigma.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F101_strong_coupling_sigma.json
+  findings:
+  - F101
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 175
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F101_strong_coupling_sigma.json
+    artifact_rule:
+      test-results/F101_strong_coupling_sigma.json: local
+    artifacts_read_only: []
+    summary: ''
+- id: F110-link-hamiltonian-realtime
+  path: tests/findings/test_F110_link_hamiltonian_realtime.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F110
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 302
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F110_link_hamiltonian_realtime.json
+    artifact_rule:
+      test-results/F110_link_hamiltonian_realtime.json: file
+    artifacts_read_only: []
+    summary: ''
+  results:
+  - test-results/F110_link_hamiltonian_realtime.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F111-tree-gauge-su3-ladder
+  path: tests/findings/test_F111_tree_gauge_su3_ladder.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F111
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 326
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F111_tree_gauge_su3_ladder.json
+    artifact_rule:
+      test-results/F111_tree_gauge_su3_ladder.json: file
+    artifacts_read_only: []
+    summary: ''
+  results:
+  - test-results/F111_tree_gauge_su3_ladder.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F129-blockspin-free-photon
+  path: tests/findings/test_F129_blockspin_free_photon.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F129_blockspin_free_photon.json
+  - test-results/F129_blockspin_free_photon_summary.md
+  findings:
+  - F30
+  - F105
+  - F129
+  - F130
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 382
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F129_blockspin_free_photon.json
+    - test-results/F129_blockspin_free_photon_summary.md
+    artifact_rule:
+      test-results/F129_blockspin_free_photon.json: local
+      test-results/F129_blockspin_free_photon_summary.md: local
+    artifacts_read_only: []
+    summary: F129 — Block-spin RG for the FREE PAIRED-PHOTON sector (Phase 1, roadmap-scale-to-real-space)
+- id: F134-phase4-completion
+  path: tests/findings/test_F134_phase4_completion.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F133
+  - F134
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 233
+    n_test_funcs: 13
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F134_phase4_completion.py
+- id: F155-lpt-vertex
+  path: tests/findings/test_F155_lpt_vertex.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F155_lpt_vertex.json
+  findings:
+  - F155
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 65
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F155_lpt_vertex.json
+    artifact_rule:
+      test-results/F155_lpt_vertex.json: local
+    artifacts_read_only: []
+    summary: F155 follow-up — the cubic expansion / 3-gluon vertex EXTRACTOR validated
+- id: F155-lpt-wilson-core
+  path: tests/findings/test_F155_lpt_wilson_core.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F155_lpt_wilson_core.json
+  findings:
+  - F155
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 61
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F155_lpt_wilson_core.json
+    artifact_rule:
+      test-results/F155_lpt_wilson_core.json: local
+    artifacts_read_only: []
+    summary: F155 follow-up — the lattice-PT BZ-integration CORE validated on the canonical
+- id: F155-qstar-self-energy
+  path: tests/findings/test_F155_qstar_self_energy.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F155_qstar_self_energy.json
+  findings:
+  - F26
+  - F129
+  - F151
+  - F154
+  - F155
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 126
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F155_qstar_self_energy.json
+    artifact_rule:
+      test-results/F155_qstar_self_energy.json: local
+    artifacts_read_only: []
+    summary: F155 — Residual A attacked with the one-loop self-energy machinery, and the
+- id: F155-ward-identity
+  path: tests/findings/test_F155_ward_identity.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F155_ward_identity.json
+  findings:
+  - F155
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 53
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F155_ward_identity.json
+    artifact_rule:
+      test-results/F155_ward_identity.json: local
+    artifacts_read_only: []
+    summary: F155 follow-up — the 3-gluon vertex closed form + Ward-Takahashi identity,
+- id: F161-atomic-emission
+  path: tests/findings/test_F161_atomic_emission.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F125
+  - F156
+  - F161
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 63
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F161 — Dynamical-processes layer P1: photon emission from atoms.'
+- id: F162-bgfield-loop
+  path: tests/findings/test_F162_bgfield_loop.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F162_bgfield_loop.json
+  findings:
+  - F155
+  - F162
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 89
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F162_bgfield_loop.json
+    artifact_rule:
+      test-results/F162_bgfield_loop.json: local
+    artifacts_read_only: []
+    summary: 'F162 — the background-field one-loop gluon self-energy: the b0 = 11/3 C_A'
+- id: F163-wilson-selfenergy
+  path: tests/findings/test_F163_wilson_selfenergy.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F163
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 90
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F163_wilson_selfenergy.py — the full Wilson lattice background-field gluon
+- id: F166-triple-gluon-branch
+  path: tests/findings/test_F166_triple_gluon_branch.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F166_triple_gluon_branch.json
+  findings:
+  - F91
+  - F162
+  - F163
+  - F166
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 165
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F166_triple_gluon_branch.json
+    artifact_rule:
+      test-results/F166_triple_gluon_branch.json: local
+    artifacts_read_only: []
+    summary: 'F166 — triple-gluon vertex branch structure: closing audit C3.'
+- id: F169-photon-bound-state
+  path: tests/findings/test_F169_photon_bound_state.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F69
+  - F74
+  - F168
+  - F169
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 141
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F169_photon_bound_state.json
+    artifact_rule:
+      test-results/F169_photon_bound_state.json: file
+    artifacts_read_only: []
+    summary: F169 — The interacting two-body bound-state wavefunction of the paired photon.
+  results:
+  - test-results/F169_photon_bound_state.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F185-rotation
+  path: tests/findings/test_F185_rotation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F185_rotation.json
+  findings:
+  - F185
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 68
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F185_rotation.json
+    artifact_rule:
+      test-results/F185_rotation.json: local
+    artifacts_read_only: []
+    summary: test_F185_rotation.py  --  Slow-rotation frame dragging & moment of inertia (S2)
+- id: F239-scheme-factor-factorization
+  path: tests/findings/test_F239_scheme_factor_factorization.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F239_scheme_factor_factorization.json
+  findings:
+  - F110
+  - F144
+  - F151
+  - F155
+  - F162
+  - F235
+  - F239
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 195
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F239_scheme_factor_factorization.json
+    artifact_rule:
+      test-results/F239_scheme_factor_factorization.json: local
+    artifacts_read_only: []
+    summary: 'F239 — Q2 (open-derivations prompt #9): the lattice->MSbar SCHEME conversion for'
+- id: F249-qed-comparison-battery
+  path: tests/findings/test_F249_qed_comparison_battery.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F69
+  - F87
+  - F125
+  - F169
+  - F249
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 494
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'qed_comparison_battery.py  —  F249: quantitative QED comparison battery'
+- id: F264-qed-allorders-anomaly
+  path: tests/findings/test_F264_qed_allorders_anomaly.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F68
+  - F87
+  - F107
+  - F251
+  - F252
+  - F258
+  - F264
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 355
+    n_test_funcs: 18
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F264_qed_allorders_anomaly.py — F264: the ALL-ORDERS / STRUCTURAL'
+- id: F265-bcc-gauge-geometry
+  path: tests/findings/test_F265_bcc_gauge_geometry.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F264
+  - F265
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 585
+    n_test_funcs: 11
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F265 — The gauge sectors live on the genuine BCC lattice.
+- id: F37-delta-omega
+  path: tests/findings/test_F37_delta_omega.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F37_delta_omega.json
+  findings:
+  - F30
+  - F37
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 458
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F37_delta_omega.json
+    artifact_rule:
+      test-results/F37_delta_omega.json: local
+    artifacts_read_only: []
+    summary: 'test_F37_delta_omega.py  —  F37 chirality split: measure ΔΩ vs F30 analytical value'
+- id: F67-option1-even-law-photon
+  path: tests/findings/test_F67_option1_even_law_photon.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F67_option1_even_law_photon.json
+  findings:
+  - F37
+  - F39
+  - F64
+  - F65
+  - F66
+  - F67
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 339
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F67_option1_even_law_photon.json
+    artifact_rule:
+      test-results/F67_option1_even_law_photon.json: local
+    artifacts_read_only: []
+    summary: test_F67_option1_even_law_photon.py
+- id: F69-paired-photon
+  path: tests/findings/test_F69_paired_photon.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F69_paired_photon.json
+  findings:
+  - F65
+  - F66
+  - F67
+  - F69
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 232
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F69_paired_photon.json
+    artifact_rule:
+      test-results/F69_paired_photon.json: local
+    artifacts_read_only: []
+    summary: test_F69_paired_photon.py
+- id: F72-universal-even-propagator
+  path: tests/findings/test_F72_universal_even_propagator.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F72_universal_even_propagator.json
+  findings:
+  - F67
+  - F68
+  - F69
+  - F70
+  - F72
+  - F91
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 225
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F72_universal_even_propagator.json
+    artifact_rule:
+      test-results/F72_universal_even_propagator.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-06-04 by F91 — ledger S2-F91-gluon-chiral-to-even]'
+    ledger_status: partially_superseded
+    ledger_record: S2-F91-gluon-chiral-to-even
+- id: F87-charge-coupling-paired-photon
+  path: tests/findings/test_F87_charge_coupling_paired_photon.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F87_charge_coupling_paired_photon.json
+  findings:
+  - F68
+  - F87
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 401
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F87_charge_coupling_paired_photon.json
+    artifact_rule:
+      test-results/F87_charge_coupling_paired_photon.json: local
+    artifacts_read_only: []
+    summary: test_F87_charge_coupling_paired_photon.py
+- id: F89-singlet-bilinear-is-paired-photon
+  path: tests/findings/test_F89_singlet_bilinear_is_paired_photon.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F29
+  - F39
+  - F68
+  - F69
+  - F89
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 354
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F89_singlet_bilinear_paired_photon.json
+    artifact_rule:
+      test-results/F89_singlet_bilinear_paired_photon.json: file
+    artifacts_read_only: []
+    summary: test_F89_singlet_bilinear_is_paired_photon.py
+  results:
+  - test-results/F89_singlet_bilinear_paired_photon.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F91-pairing-classification
+  path: tests/findings/test_F91_pairing_classification.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F37
+  - F45
+  - F67
+  - F68
+  - F69
+  - F89
+  - F91
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 456
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F91_pairing_classification.json
+    artifact_rule:
+      test-results/F91_pairing_classification.json: file
+    artifacts_read_only: []
+    summary: test_F91_pairing_classification.py
+    ledger_status: live
+    ledger_record: S2-F91-gluon-chiral-to-even
+  results:
+  - test-results/F91_pairing_classification.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F98-enforcer-is-binder
+  path: tests/findings/test_F98_enforcer_is_binder.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F98_enforcer_is_binder.json
+  findings:
+  - F98
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 191
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F98_enforcer_is_binder.json
+    artifact_rule:
+      test-results/F98_enforcer_is_binder.json: local
+    artifacts_read_only: []
+    summary: ''
+- id: F99-sigma-from-qca-rule
+  path: tests/findings/test_F99_sigma_from_qca_rule.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F99_sigma_from_qca_rule.json
+  findings:
+  - F99
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 225
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F99_sigma_from_qca_rule.json
+    artifact_rule:
+      test-results/F99_sigma_from_qca_rule.json: local
+    artifacts_read_only: []
+    summary: ''
+- id: FA-vs-FC-comparison
+  path: tests/findings/test_FA_vs_FC_comparison.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FA_vs_FC_comparison.json
+  findings:
+  - F70
+  - F86
+  - F87
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 250
+    n_test_funcs: 4
+    artifacts_written:
+    - test-results/FA_vs_FC_comparison.json
+    - test-results/lgt_confinement.json
+    artifact_rule:
+      test-results/FA_vs_FC_comparison.json: local
+      test-results/lgt_confinement.json: file
+    artifacts_read_only: []
+    summary: test_FA_vs_FC_comparison.py — Option A (lattice-gauge MC) vs Option C (colour-dielectric)
+- id: FA02-vacuum-birefringence
+  path: tests/findings/test_FA02_vacuum_birefringence.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F26
+  - F67
+  - F68
+  - F69
+  - FA02
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 229
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: FA02 — Vacuum birefringence is exactly zero.
+- id: FG2-quark-complex-mass
+  path: tests/findings/test_FG2_quark_complex_mass.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F27
+  - FG2
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 667
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FG2_quark_complex_mass.json
+    artifact_rule:
+      test-results/FG2_quark_complex_mass.json: file
+    artifacts_read_only: []
+    summary: FG-2 — F27 complex-mass adoption for the quark sector.
+  results:
+  - test-results/FG2_quark_complex_mass.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: FG3-quark-electroweak
+  path: tests/findings/test_FG3_quark_electroweak.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F27
+  - F31
+  - F34
+  - FG3
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 390
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FG3_quark_electroweak.json
+    artifact_rule:
+      test-results/FG3_quark_electroweak.json: file
+    artifacts_read_only: []
+    summary: FG-3 — Electroweak wiring of the quark doublet (2D analog of F34).
+  results:
+  - test-results/FG3_quark_electroweak.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: FG4-dynamical-Z
+  path: tests/findings/test_FG4_dynamical_Z.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG4_dynamical_Z.json
+  findings:
+  - F35
+  - F45
+  - FG4
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 596
+    n_test_funcs: 12
+    artifacts_written:
+    - test-results/FG4_dynamical_Z.json
+    artifact_rule:
+      test-results/FG4_dynamical_Z.json: local
+    artifacts_read_only: []
+    summary: test_FG4_dynamical_Z.py
+- id: FG6-two-helicity-photon
+  path: tests/findings/test_FG6_two_helicity_photon.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG6_two_helicity_photon.json
+  findings:
+  - F29
+  - F30
+  - F37
+  - F67
+  - F69
+  - F91
+  - FG6
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 669
+    n_test_funcs: 10
+    artifacts_written:
+    - test-results/FG6_two_helicity_photon.json
+    artifact_rule:
+      test-results/FG6_two_helicity_photon.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon]'
+    ledger_status: partially_superseded
+    ledger_record: S1-F69-sigma-bilinear-photon
+- id: FG7-gluon-dynamics
+  path: tests/findings/test_FG7_gluon_dynamics.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG7_gluon_dynamics.json
+  findings:
+  - F29
+  - F33
+  - F36
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 488
+    n_test_funcs: 20
+    artifacts_written:
+    - test-results/FG7_gluon_dynamics.json
+    artifact_rule:
+      test-results/FG7_gluon_dynamics.json: local
+    artifacts_read_only: []
+    summary: 'test_FG7_gluon_dynamics.py — FG-7: dynamical SU(3) gluon sector'
+- id: FG7b-gradient-flow
+  path: tests/findings/test_FG7b_gradient_flow.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG7b_gradient_flow.json
+  findings:
+  - F43
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 282
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/FG7b_gradient_flow.json
+    artifact_rule:
+      test-results/FG7b_gradient_flow.json: local
+    artifacts_read_only: []
+    summary: test_FG7b_gradient_flow.py — SU(3) Wilson gradient flow / cooling driver
+- id: FG7c-confinement
+  path: tests/findings/test_FG7c_confinement.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG7c_confinement.json
+  findings:
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 263
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/FG7c_confinement.json
+    artifact_rule:
+      test-results/FG7c_confinement.json: local
+    artifacts_read_only: []
+    summary: test_FG7c_confinement.py — static quark potential, string tension, confinement
+- id: FG7d-baryon-singlet
+  path: tests/findings/test_FG7d_baryon_singlet.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG10_baryon_singlet.json
+  findings:
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 230
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/FG10_baryon_singlet.json
+    artifact_rule:
+      test-results/FG10_baryon_singlet.json: local
+    artifacts_read_only: []
+    summary: test_FG7d_baryon_singlet.py — colour-singlet three-quark (proton) construction
+- id: FG7d-colour-dielectric
+  path: tests/findings/test_FG7d_colour_dielectric.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG7d_colour_dielectric.json
+  findings:
+  - F43
+  - F64
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 304
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/FG7d_colour_dielectric.json
+    artifact_rule:
+      test-results/FG7d_colour_dielectric.json: local
+    artifacts_read_only: []
+    summary: test_FG7d_colour_dielectric.py — confinement as a colour-dielectric / dual superconductor
+- id: FG7e-colour-condensate
+  path: tests/findings/test_FG7e_colour_condensate.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG7e_colour_condensate.json
+  findings:
+  - F26
+  - F43
+  - F86
+  - F88
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 249
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/FG7e_colour_condensate.json
+    artifact_rule:
+      test-results/FG7e_colour_condensate.json: local
+    artifacts_read_only: []
+    summary: test_FG7e_colour_condensate.py — the colour-magnetic condensate arising within the model
+- id: FG7f-gluon-dielectric-gap
+  path: tests/findings/test_FG7f_gluon_dielectric_gap.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG7f_gluon_dielectric_gap.json
+  findings:
+  - F86
+  - F88
+  - F91
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 270
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/FG7f_gluon_dielectric_gap.json
+    artifact_rule:
+      test-results/FG7f_gluon_dielectric_gap.json: local
+    artifacts_read_only: []
+    summary: test_FG7f_gluon_dielectric_gap.py — gap-coupled colour-dielectric gluon propagator
+- id: FG8-beta-decay
+  path: tests/findings/test_FG8_beta_decay.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG8_beta_decay.json
+  findings:
+  - F29
+  - F34
+  - F35
+  - F36
+  - F48
+  - FG8
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 277
+    n_test_funcs: 10
+    artifacts_written:
+    - test-results/FG8_beta_decay.json
+    artifact_rule:
+      test-results/FG8_beta_decay.json: local
+    artifacts_read_only: []
+    summary: test_FG8_beta_decay.py
+- id: FG9-C-CP-per-species
+  path: tests/findings/test_FG9_C_CP_per_species.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FG9_C_CP_per_species.json
+  findings:
+  - F27
+  - F34
+  - FG9
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 523
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FG9_C_CP_per_species.json
+    artifact_rule:
+      test-results/FG9_C_CP_per_species.json: local
+    artifacts_read_only: []
+    summary: 'test_FG9_C_CP_per_species.py  —  FG-9: antiparticle / per-species C and CP'
+- id: P0-dynamical-fermions
+  path: tests/findings/test_P0_dynamical_fermions.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/P0_dynamical_fermions.json
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 340
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/P0_dynamical_fermions.json
+    artifact_rule:
+      test-results/P0_dynamical_fermions.json: local
+    artifacts_read_only: []
+    summary: ''
+- id: SR2-3D-time-dilation
+  path: tests/findings/test_SR2_3D_time_dilation.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 462
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_SR2_3D_time_dilation.py — SR-2 expansion to 3D using the BCC lattice
+- id: f26-rotation-law
+  path: tests/findings/test_f26_rotation_law.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F25
+  - F26
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 224
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_f26_rotation_law.py  —  F26 Rotation-law EM propagator test suite
+- id: hypercharge
+  path: tests/findings/test_hypercharge.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/hypercharge_fork.json
+  findings:
+  - F27
+  - F34
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 333
+    n_test_funcs: 7
+    artifacts_written:
+    - test-results/hypercharge_fork.json
+    artifact_rule:
+      test-results/hypercharge_fork.json: local
+    artifacts_read_only: []
+    summary: test_hypercharge.py — U(1)_Y hypercharge gauging on the
+- id: hypercharge-extension
+  path: tests/findings/test_hypercharge_extension.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/hypercharge_extension.json
+  findings:
+  - F41
+  - F42
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 367
+    n_test_funcs: 8
+    artifacts_written:
+    - test-results/hypercharge_extension.json
+    artifact_rule:
+      test-results/hypercharge_extension.json: local
+    artifacts_read_only: []
+    summary: 'test_hypercharge_extension.py — F42 extension of F41:'
+- id: run-10x-tests
+  path: tests/runners/run_10x_tests.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 417
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_10x_tests.py  —  Comprehensive 10× scale test run
+- id: run-FC04-deflection-dynamical
+  path: tests/runners/run_FC04_deflection_dynamical.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC04_deflection_dyn.json
+  findings:
+  - F26
+  - F64
+  - FA09
+  - FC04
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 330
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FA09_deflection.json
+    - test-results/FC04_deflection_dyn.json
+    artifact_rule:
+      test-results/FA09_deflection.json: file
+      test-results/FC04_deflection_dyn.json: local
+    artifacts_read_only: []
+    summary: FC04 — Light deflection, dynamical open-BC (GR-1)
+- id: run-FC07-charge-anomaly-beta
+  path: tests/runners/run_FC07_charge_anomaly_beta.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC07_charge_anomaly.json
+  findings:
+  - F38
+  - F47
+  - F54
+  - FG1
+  - FG8
+  - FC07
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 427
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FC07_beta.json
+    - test-results/FC07_charge_anomaly.json
+    artifact_rule:
+      test-results/FC07_beta.json: file
+      test-results/FC07_charge_anomaly.json: local
+    artifacts_read_only: []
+    summary: run_FC07_charge_anomaly_beta.py
+- id: run-L-tests
+  path: tests/runners/run_L_tests.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 403
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_L_tests.py  —  Test suite for the v2 layered build (L1–L4)
+- id: run-L192-tests
+  path: tests/runners/run_L192_tests.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 359
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_L192_tests.py  —  Full phase-A–E test suite capped at L=192
+- id: run-bgfield-loop
+  path: tests/runners/run_bgfield_loop.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F155
+  - F162
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 97
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F162_bgfield_loop_highres.json
+    artifact_rule:
+      test-results/F162_bgfield_loop_highres.json: file
+    artifacts_read_only: []
+    summary: run_bgfield_loop.py — NATIVE runner for the background-field one-loop gluon
+  results:
+  - test-results/F162_bgfield_loop_highres.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-confinement-mc
+  path: tests/runners/run_confinement_mc.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/confinement_mc.json
+  - test-results/confinement_mc.md
+  findings:
+  - FG7
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 162
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/confinement_mc.json
+    - test-results/confinement_mc.md
+    artifact_rule:
+      test-results/confinement_mc.json: local
+      test-results/confinement_mc.md: local
+    artifacts_read_only: []
+    summary: run_confinement_mc.py — production Monte-Carlo confirmation of the 2D area law
+- id: run-d1-selfenergy
+  path: tests/runners/run_d1_selfenergy.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 116
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_d1_selfenergy.py — NATIVE runner for the d1 exact-vertex self-energy
+- id: run-d1-vertex-formfactor
+  path: tests/runners/run_d1_vertex_formfactor.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F26
+  - F144
+  - F151
+  - F155
+  - F162
+  - F239
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 307
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/d1_vertex_formfactor.json
+    artifact_rule:
+      test-results/d1_vertex_formfactor.json: file
+    artifacts_read_only: []
+    summary: 'run_d1_vertex_formfactor.py — NATIVE runner for the d1 CALCULATION (Route A-PT):'
+  results:
+  - test-results/d1_vertex_formfactor.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-kns-seagull
+  path: tests/runners/run_kns_seagull.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F163
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 157
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_kns_seagull.py — NATIVE driver for the full Kawai-Nakayama-Seo quartic
+- id: run-lpt-vertex-continuum
+  path: tests/runners/run_lpt_vertex_continuum.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 88
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_lpt_vertex_continuum.py — NATIVE large-L continuum-limit validation of the
+- id: run-lpt-wilson-selfenergy
+  path: tests/runners/run_lpt_wilson_selfenergy.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F163
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 61
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F163_wilson_selfenergy_highres.json
+    artifact_rule:
+      test-results/F163_wilson_selfenergy_highres.json: file
+    artifacts_read_only: []
+    summary: run_lpt_wilson_selfenergy.py — NATIVE high-resolution driver for the full Wilson
+  results:
+  - test-results/F163_wilson_selfenergy_highres.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-lpt-wilson-validation
+  path: tests/runners/run_lpt_wilson_validation.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 84
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_lpt_wilson_validation.py — NATIVE high-resolution validation of the lattice-PT
+- id: run-phase-tests
+  path: tests/runners/run_phase_tests.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 570
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_phase_tests.py  —  End-to-end test suite for all implemented phases
+- id: run-phase2-f26-tests
+  path: tests/runners/run_phase2_f26_tests.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/phase2_f26_results.json
+  findings:
+  - F26
+  - F27
+  - F29
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 278
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/phase2_f26_results.json
+    artifact_rule:
+      test-results/phase2_f26_results.json: local
+    artifacts_read_only: []
+    summary: run_phase2_f26_tests.py  —  F26 Phase 2 full test suite runner
+- id: run-propagation-demo
+  path: tests/runners/run_propagation_demo.py
+  kind: legacy_script
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 270
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: propagation_demo.py — Fresh propagation demonstration on the BCC lattice
+- id: run-residual-AB-highres
+  path: tests/runners/run_residual_AB_highres.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F154
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 129
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/residual_AB_highres.json
+    artifact_rule:
+      test-results/residual_AB_highres.json: file
+    artifacts_read_only: []
+    summary: run_residual_AB_highres.py — HIGH-RESOLUTION verification of the strong-sector
+  results:
+  - test-results/residual_AB_highres.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-su3-3d-string-tension
+  path: tests/runners/run_su3_3d_string_tension.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F70
+  - F135
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 422
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: su3_3d_string_tension.py — string tension sigma(beta) from the MODEL's own
+- id: scenario-gluon-bcc
+  kind: scenario
+  sector: gauge
+  tier: gate
+  findings:
+  - F91
+  scenario: scenarios/gluon_bcc.yaml
+  params:
+    ticks: 6
+  expect:
+    exactness: machine
+    gates: all
+  notes: 'C7.1: even-propagator BCC gluon smoke run (F91 migration).'
+- id: scenario-photon-pair
+  kind: scenario
+  sector: gauge
+  tier: gate
+  findings:
+  - F67
+  - F68
+  - F69
+  - F250
+  scenario: scenarios/photon_pair.yaml
+  params:
+    ticks: 8
+  expect:
+    exactness: machine
+    gates: all
+  notes: 'C7.1: the paired-spinor photon smoke run that tools/run_gate.py drove by hand. Now a registry
+    record, so the gate and `casim test --tier gate` select the same object.'
+- id: su2-photon-bridge
+  path: tests/findings/test_su2_photon_bridge.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F26
+  - F27
+  - F69
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 484
+    n_test_funcs: 8
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon]'
+    ledger_status: partially_superseded
+    ledger_record: S1-F69-sigma-bilinear-photon
+- id: su3-noether
+  path: tests/findings/test_su3_noether.py
+  kind: result_dump
+  tier: battery
+  sector: gauge
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 553
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/V13_su3_noether.json
+    artifact_rule:
+      test-results/V13_su3_noether.json: file
+    artifacts_read_only: []
+    summary: test_su3_noether.py — V13 strong-sector gate
+  results:
+  - test-results/V13_su3_noether.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: wmu-phase1
+  path: tests/findings/test_wmu_phase1.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase1.json
+  findings:
+  - F27
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 384
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/wmu_phase1.json
+    artifact_rule:
+      test-results/wmu_phase1.json: local
+    artifacts_read_only: []
+    summary: 'test_wmu_phase1.py — Phase 1 tests: SU(2) link variables & covariant BCC hopping'
+- id: wmu-phase2
+  path: tests/findings/test_wmu_phase2.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase2.json
+  findings:
+  - F26
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 267
+    n_test_funcs: 4
+    artifacts_written:
+    - test-results/wmu_phase2.json
+    artifact_rule:
+      test-results/wmu_phase2.json: local
+    artifacts_read_only: []
+    summary: 'test_wmu_phase2.py — Phase 2: Free W propagation (F26 rotation law per a-component)'
+- id: wmu-phase3
+  path: tests/findings/test_wmu_phase3.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase3.json
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 258
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/wmu_phase3.json
+    artifact_rule:
+      test-results/wmu_phase3.json: local
+    artifacts_read_only: []
+    summary: 'test_wmu_phase3.py — Phase 3: Non-Abelian Self-Coupling (Yang–Mills)'
+- id: wmu-phase4
+  path: tests/findings/test_wmu_phase4.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase4.json
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 395
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/wmu_phase4.json
+    artifact_rule:
+      test-results/wmu_phase4.json: local
+    artifacts_read_only: []
+    summary: 'test_wmu_phase4.py — Phase 4: Fermion–W_μ Vertex (Covariant Derivative)'
+- id: wmu-phase5-stueckelberg
+  path: tests/findings/test_wmu_phase5_stueckelberg.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase5_stueckelberg.json
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 293
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/wmu_phase5_stueckelberg.json
+    artifact_rule:
+      test-results/wmu_phase5_stueckelberg.json: local
+    artifacts_read_only: []
+    summary: 'test_wmu_phase5_stueckelberg.py — Phase 5B: Stueckelberg W Mass Generation'
+- id: wmu-phase6
+  path: tests/findings/test_wmu_phase6.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase6.json
+  findings:
+  - F26
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 342
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/wmu_phase6.json
+    artifact_rule:
+      test-results/wmu_phase6.json: local
+    artifacts_read_only: []
+    summary: 'test_wmu_phase6.py — Phase 6: Electroweak Mixing (W³ ↔ B ↔ γ)'
+- id: wmu-phase6-rank1
+  path: tests/findings/test_wmu_phase6_rank1.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/wmu_phase6_rank1.json
+  findings:
+  - F34
+  - F41
+  - F44
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 653
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/wmu_phase6_rank1.json
+    artifact_rule:
+      test-results/wmu_phase6_rank1.json: local
+    artifacts_read_only: []
+    summary: test_wmu_phase6_rank1.py — F44 numerical confirmation
+- id: wmu-phase7-backreaction
+  path: tests/findings/test_wmu_phase7_backreaction.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/phase7_backreaction_results.json
+  sector: gauge
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 327
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/phase7_backreaction_results.json
+    artifact_rule:
+      test-results/phase7_backreaction_results.json: local
+    artifacts_read_only: []
+    summary: test_wmu_phase7_backreaction.py

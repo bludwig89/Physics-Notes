@@ -15,8 +15,8 @@ from typing import Any, Dict, List
 import numpy as np
 
 from .engine import Simulation, LatticeSpec
-from .engine.channel import build_channel
-from .engine.observers import NormConservation, DispersionFit
+from .engine.core.channel import build_channel
+from .engine.core.observers import NormConservation, DispersionFit
 from .analysis import TOL
 
 
@@ -43,7 +43,7 @@ def _check(name, channel, exactness, residual) -> Check:
 # Bit-identical kernel-fidelity checks (engine == raw kernel, same seed).
 # ----------------------------------------------------------------------
 def fidelity_photon_pair(L=12, seed=5, ticks=8) -> Check:
-    import ca_photon_pair as pp
+    from casim.engine.gauge import photon as pp
     sim = Simulation(LatticeSpec(L=L, topology="cubic"),
                      [build_channel({"type": "photon_pair", "init": "random"})],
                      [], seed=seed)
@@ -58,7 +58,7 @@ def fidelity_photon_pair(L=12, seed=5, ticks=8) -> Check:
 
 
 def fidelity_weyl_bcc(L=12, seed=0, ticks=20) -> Check:
-    import ca_bcc as bcc
+    from casim.engine.lattice import bcc as bcc
     sim = Simulation(LatticeSpec(L=L, topology="bcc"),
                      [build_channel({"type": "weyl_bcc", "sign": "+"})], [], seed=seed)
     sim.step(ticks)
@@ -73,7 +73,8 @@ def fidelity_weyl_bcc(L=12, seed=0, ticks=20) -> Check:
 
 
 def fidelity_w_chiral(L=10, seed=11, ticks=12) -> Check:
-    import ca_wmu
+    from casim.engine.gauge import weak_wmu as ca_wmu
+
     sim = Simulation(LatticeSpec(L=L, topology="cubic"),
                      [build_channel({"type": "w_chiral"})], [], seed=seed)
     sim.step(ticks)
@@ -87,7 +88,8 @@ def fidelity_w_chiral(L=10, seed=11, ticks=12) -> Check:
 
 
 def fidelity_z_even(L=10, seed=2, ticks=12) -> Check:
-    import ca_z_field
+    from casim.engine.gauge import weak_z as ca_z_field
+
     sim = Simulation(LatticeSpec(L=L, topology="cubic"),
                      [build_channel({"type": "z_even"})], [], seed=seed)
     sim.step(ticks)
@@ -101,7 +103,8 @@ def fidelity_z_even(L=10, seed=2, ticks=12) -> Check:
 
 
 def fidelity_gluon_bcc(L=10, seed=7, ticks=12) -> Check:
-    import ca_gluon
+    from casim.engine.gauge import gluon as ca_gluon
+
     sim = Simulation(LatticeSpec(L=L, topology="bcc"),
                      [build_channel({"type": "gluon_bcc"})], [], seed=seed)
     sim.step(ticks)
@@ -171,8 +174,9 @@ def resume_roundtrip(L=10, seed=3, ticks=120) -> Check:
 # ----------------------------------------------------------------------
 def fidelity_backreaction(L=8, ticks=20, g_lat=0.5, eps=0.05) -> Check:
     """Engine fermion↔W loop == the E2E `_run_loop` kernel, bit-for-bit."""
-    import ca_wmu
-    from .engine.coupled import gaussian_packet, su2_expmap
+    from casim.engine.gauge import weak_wmu as ca_wmu
+
+    from .engine.core.coupled import gaussian_packet, su2_expmap
     # reference loop
     f_nu = gaussian_packet(L, (L // 2, L // 2, L // 2), 1.5, k0=(0.5, 0, 0))
     f_e = gaussian_packet(L, (L // 2 - 1, L // 2, L // 2), 1.5)
@@ -200,7 +204,7 @@ def fidelity_backreaction(L=8, ticks=20, g_lat=0.5, eps=0.05) -> Check:
 
 def fidelity_beta_decay(L=16, ticks=10, g_lat=0.8, m_W=0.6) -> Check:
     """Engine β-decay W trajectory == emit_w_minus + Proca loop, bit-for-bit."""
-    import ca_charged_current as cc
+    from casim.engine.gauge import charged_current as cc
     profA = cc.gaussian_blob((L, L, L), (L // 4, L // 2, L // 2), 1.5)
     f_u = profA.astype(complex) * (0.9 + 0.0j)
     f_d = profA.astype(complex) * (0.7 * np.exp(0.3j))
@@ -234,7 +238,7 @@ def charge_photon_continuity(L=13) -> Check:
 def fidelity_gauge_mc(L=4, D=4, beta=5.6, ticks=5, seed=7) -> Check:
     """Engine gauge-MC Markov chain == the lgt_fork_A_mc heat-bath loop,
     bit-for-bit (same engine RNG, cold start)."""
-    import lgt_fork_A_mc as mc
+    from casim.engine.forks.gauge import lgt_fork_A_mc as mc
     ref_rng = np.random.default_rng(seed)
     U = mc.cold_links(L, D)
     for _ in range(ticks):
@@ -251,10 +255,10 @@ def fidelity_refraction(L=64, ticks=10) -> Check | None:
     """Engine variable-c refraction == ca_curved Strang loop, bit-for-bit.
     Returns None (skipped) where SciPy / ca_curved is unavailable."""
     try:
-        import ca_curved as cv
+        from casim.engine.lattice import curved as cv
     except Exception:
         return None
-    from .engine.channel import build_channel as _bc
+    from .engine.core.channel import build_channel as _bc
     sim = Simulation(LatticeSpec(L=L, topology="cubic"),
                      [_bc({"type": "refraction_2d", "n_sub": 4})], [], seed=0)
     st0 = sim.states["refraction_2d"]
@@ -278,7 +282,7 @@ ALL_CHECKS = [
 # green where SciPy is absent, e.g. the sandbox).
 def _maybe_refraction():
     try:
-        import ca_curved  # noqa: F401
+        from casim.engine.lattice import curved  # noqa: F401
         return [fidelity_refraction]
     except Exception:
         return []

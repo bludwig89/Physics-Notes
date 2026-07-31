@@ -1,0 +1,351 @@
+# ---------------------------------------------------------------------------
+# The machine-readable face of docs/theory/key-decisions.md.
+# ---------------------------------------------------------------------------
+version: 1
+updated: "2026-07-29 - 20:15"
+
+about: >
+  Roadmap P0.3. key-decisions.md is the human narrative; this file is what
+  tooling reads. Every supersession in the project appears here exactly once,
+  with the findings on both sides, the code and tests affected, and — crucially
+  — what SURVIVED. Almost nothing in this project is superseded wholesale.
+
+  Granularity matters. An earlier audit flagged ~14 test files as "testing
+  superseded physics"; on inspection exactly ONE was fully superseded. The rest
+  were partial (a dead verdict wrapped around live algebra) or false positives.
+  So the unit here is a CHECK, not a file: `dead_checks` and `live_checks` name
+  the specific gate IDs inside a test. Marking a whole file superseded when only
+  its conclusion is dead would silently retire working coverage — a worse
+  outcome than the sprawl this file replaces.
+
+status_vocabulary:
+  fully_superseded:   Everything the file tests has been replaced. Safe to mark.
+  partially_superseded: Some claims dead, others load-bearing. Never blanket-mark.
+  historical_baseline: Deliberately retains the superseded object as the standing
+                       exclusion record or regression comparison. Not a defect.
+
+kind_vocabulary:
+  superseded:   Replaced outright by a later result.
+  reclassified: Still true, but its STATUS changed (e.g. fundamental law ->
+                limiting case). The equations are unchanged.
+  demoted:      Downgraded from anchor/input to consistency check.
+  deprecated:   Removed from the active series; a documentation decision.
+
+supersessions:
+
+  # =========================================================================
+  - id: S1-F69-sigma-bilinear-photon
+    date: 2026-06-01
+    kind: superseded
+    by: [F69]
+    superseded: [F65, F66, F67]
+    scope: >
+      The composite sigma-bilinear photon (ca_maxwell.py), which assigned each
+      helicity to its own chiral branch (Omega^pm) and is therefore
+      BIREFRINGENT. The photon is instead a bound PAIR of two spin-1/2 Weyl
+      quanta each carrying k/2 on opposite branches, giving the
+      helicity-symmetric Omega_pair = Omega_even.
+    reason: >
+      The branch-split photon is excluded by GRB/AGN polarimetry at the F64
+      cell size. The pairing is also the physical realization of the U(1)
+      identity channel that minimal coupling FORCES (F68) — so the correct
+      photon was not merely permitted, it was required.
+    retained: >
+      The sigma-bilinear FIELD CONSTRUCTION survives for the massive and
+      non-Abelian sectors (W / Z / gluon), which are not under the polarimetry
+      bound. Only the photon attribution died.
+    decision_ref: "key-decisions.md — De Broglie Paired-Spinor Photon"
+    code:
+      - path: ca-simulation/ca_maxwell.py
+        note: retained for W/Z/gluon; no longer the photon
+      - path: ca-simulation/ca_photon_pair.py
+        note: the canonical photon
+    tests:
+      - path: tests/findings/test_su2_photon_bridge.py
+        status: partially_superseded
+        dead: "B1's identification of the single-branch isospin-singlet
+               sigma-bilinear as THE PHOTON."
+        live: "A1 SU(2) invariance of c_lat/Omega(k); B2-B5b W-triplet adjoint
+               transform, magnitude invariance, transversality, rotation rate."
+      - path: tests/findings/test_FG6_two_helicity_photon.py
+        status: partially_superseded
+        dead: "FG6.1-FG6.6 as PHOTON claims (two-helicity branch split,
+               dOmega = -sqrt(3)/27 k^2 — the birefringent photon)."
+        live: "The same dOmega / chiral-propagation machinery for W/Z (F67's
+               exact |dOmega|/2 separation is load-bearing in F91-W2);
+               FG6.7-FG6.9 triplet W^a; FG6.10 Riemann-Silberstein identity."
+
+  # =========================================================================
+  - id: S2-F91-gluon-chiral-to-even
+    date: 2026-06-04
+    kind: superseded
+    by: [F91]
+    superseded: []
+    scope: >
+      The chiral BCC gluon propagator. The even-vs-chiral rotation law is FORCED
+      by the branch structure of each coupling, not chosen: the colour coupling
+      is branch-blind, so the gluon is even (the F68 commutator argument
+      verbatim in colour).
+    reason: >
+      Conformance to the forcing principle. No observable changes — gluons are
+      confined — so this is a correctness migration, not a phenomenological one.
+    retained: >
+      The pre-migration chiral step survives as
+      ca_gluon.gluon_rotation_step_spectral_bcc_chiral for historical
+      comparison. That RETAINED FUNCTION is the historical object; the tests
+      that call the even step are live.
+    decision_ref: "key-decisions.md — Pairing classification of the propagator"
+    code:
+      - path: ca-simulation/ca_gluon.py
+        note: "gluon_rotation_step_spectral_bcc is even (canonical);
+               ..._bcc_chiral retained for comparison"
+    tests:
+      - path: tests/findings/test_F91_pairing_classification.py
+        status: live
+        note: "This test IS the supersession authority. Do not mark."
+      - path: tests/findings/test_F72_universal_even_propagator.py
+        status: partially_superseded
+        dead: "C2's LABEL attaching 'chiral faithful' to the gluon."
+        live: "C1 U(1) identity commutes -> even forced; C2's numeric assertion;
+               C3 split is O(k^2); C4 even law erases W parity content; C5 code
+               map (already records the migration)."
+
+  # =========================================================================
+  - id: S3-F64-dielectric-gravity
+    date: 2026-05-31
+    kind: superseded
+    by: [F64]
+    superseded: [F50, F52, F62, F55]
+    scope: >
+      The two-leg REST-MASS-SOURCED metric as the gravity mechanism. Gravity is
+      a single impedance-matched lattice dielectric (the EM-connection route)
+      with K = exp(2GM/rc^2), A = 1/K, B = K, AB == 1 exact.
+    reason: >
+      The dielectric is impedance-locked (D-EM5, derived from the
+      position-dependent (E,B)-rotation rule) and gives PPN beta = gamma = 1,
+      GR-identical (Mercury 42.98"/cy, bending 4GM/bc^2, D-EM9). The earlier
+      weak-field fit K = (1-u)^-2 is its O(u) linearisation (beta = 1/2,
+      Mercury 50.1"/cy) and is EXCLUDED.
+    retained: >
+      K = (1-u)^-2 survives only for the D-EM1/D-EM9 form comparison. More
+      importantly, F62's LAPSE-MIX SIGN CONVENTION is still production code
+      (ca_gravity.lapse_mix_half) — F62's source claim died, its sign did not.
+    decision_ref: "key-decisions.md — Finding 64"
+    code:
+      - path: src/casim/engine/interactions/gravity.py
+        note: "canonical dielectric; cites 'F62 sign-corrected local lapse mix'.
+               Migrated from ca-simulation/ca_gravity.py at roadmap C6; the
+               C6 review found NOTHING to strip — the module already implements
+               only the canonical F64 dielectric, F106 T00 sourcing and the
+               retained F62 lapse-mix sign, so the code-level cleanup of the
+               rest-mass path had already happened at F64/F106/F178. The
+               superseded two-leg mechanism survives only in the gravity forks,
+               which are the falsification record and keep it deliberately."
+    tests:
+      - path: tests/findings/test_F50_gravity_fork_dirac.py
+        status: partially_superseded
+        dead: "G1 continuum reduction of the two-leg Omega as the MECHANISM;
+               G4 negative control; G5 fork stepper."
+        live: "G2 rest-leg Omega = sqrt(A) arcsin(m) redshift — exactly what
+               production lapse_mix_half implements; G3 c_eff = c0 sqrt(A/B),
+               which under canonical A=1/K, B=K is the dielectric's c/K."
+      - path: tests/findings/test_F52_restleg_backreaction.py
+        status: partially_superseded
+        dead: "H1/H1b/H2 — Poisson sourced by REST-MASS density rho = |Psi|^2
+               (replaced by F106 T^00, then F178 full T_munu)."
+        live: "H3/H3b factor-2 discriminator: isotropic K = 4 is still canonical
+               per F178; rest-leg-only K = 2 is the standing regression against
+               the factor-1 error."
+      - path: tests/findings/test_F62_dirac_gravity_fork.py
+        status: partially_superseded
+        dead: "D3a backreaction/self-redshift — lapse self-sourced from
+               rest-mass rho."
+        live: "D2a Rindler free-fall, THE SIGN CONVENTION cited by production
+               ca_gravity.py (wrong sign => a mass gradient repels); D1 flat
+               Weyl regression; D2b sqrt(A) redshift; D2c eikonal K ~ 4.
+               Duplicate sign coverage in tests/casim/test_gravity_element.py."
+      - path: tests/findings/test_F55_spatial_metric_backreaction.py
+        status: partially_superseded
+        dead: "Rest-mass-sourced two-leg spatial-metric backreaction."
+        live: "J1 trace-reversal identity; J3 factor-2 deflection."
+
+  # =========================================================================
+  - id: S4-F178-full-stress-energy
+    date: 2026-06-29
+    kind: reclassified
+    by: [F178]
+    superseded: [F114]
+    reclassified: [F106, F173, F174]
+    scope: >
+      The induced Einstein equation G_munu = (8 pi G/c^4) T_munu is adopted as
+      the canonical/fundamental gravity law. The energy-only sourcing
+      lap ln K = -(8 pi G/c^4) T^00 (F106) is RECLASSIFIED as its static
+      weak-field reduction in a preferred frame — not the fundamental law.
+    reason: >
+      (a) A T^00-only source is not Lorentz covariant: T^00 is frame-dependent
+      and mixes with momentum density and stress under boosts, so it can only be
+      a static approximation. (b) F106 already names G_munu = 8 pi G T_munu as
+      the parent. (c) The energy-only law has NO neutron-star maximum mass and
+      is excluded by PSR J0740+6620.
+    entails: >
+      By F173 a single impedance-locked scalar (AB == 1) forces anisotropic
+      stress and cannot match a perfect fluid under full Einstein, so inside
+      matter the metric gains a second independent function and the dynamics are
+      GR/TOV. The single-scalar dielectric survives only as the vacuum /
+      weak-field representation.
+    retained: >
+      In vacuum and for p << rho c^2: factor-2 light bending, beta = gamma = 1,
+      Mercury, Shapiro, redshift (F64 D-EM9, FA09); the structural
+      G = a^2 c^3/(8 pi sqrt(3) hbar) (F79/F107); and the conceptual origin —
+      gravity as the induced renormalisation of the (E,B) rotation rate.
+    also_superseded:
+      - "F114 horizon-free dielectric black hole (+4.6% shadow) -> the exact
+         vacuum solution is Schwarzschild; the exponential K = e^{2u} is only
+         PPN-order, differing at O(u^2)."
+      - "F173/F174 energy-only neutron-star departures -> artifacts of the
+         weak-field reduction, not predictions."
+      - "Paper VII/XI 'one field, one source (energy)' -> weakened to 'the
+         rotation field's FULL stress-energy sources gravity'."
+    decision_ref: "key-decisions.md — Gravity sources from the full stress-energy tensor"
+    code:
+      - path: src/casim/engine/interactions/gravity.py
+        note: "canonical in vacuum / weak field (lensing, PPN). Migrated from
+               ca-simulation/ca_gravity.py at roadmap C6."
+      - path: src/casim/engine/interactions/stellar.py
+        note: "strong-field/interior canonical solver, theory='gr'. Migrated
+               from ca-simulation/ca_stellar.py at roadmap C6."
+      - path: src/casim/engine/interactions/raytrace.py
+        note: "RESOLVED at roadmap C6 (was: 'STALE: still computes
+               F114_enlargement_pct. Flagged for P6.'). The quantity is KEPT and
+               relabelled, not cut: only shadow_uas_GR is compared to data, and
+               the two *_F114 fields are the standing EXCLUSION RECORD that
+               test_F186 T2 actively gates on (GR shadow < F114 shadow;
+               enlargement pinned to +4.63%). eht_predictions()'s docstring now
+               states this outright, so the numbers cannot be read as a
+               prediction. Deleting them would have removed a live falsification
+               gate and drifted a committed baseline key for no gain."
+    tests:
+      - path: deprecated/tests/test_F114_dielectric_black_hole.py
+        status: fully_superseded
+        replacement: tests/findings/test_F183_blackhole.py
+        retired: 2026-07-30 - 18:55
+        note: "The only file in the project that is superseded wholesale. Its
+               one non-BH check (D1, sigma=2 -> alpha_2=4pi) is duplicated by
+               the live test_F111_second_order_deflection.py D3, so no unique
+               coverage is lost. RETIRED at roadmap C7.6: moved from
+               tests/findings/ to deprecated/tests/. It stays checkable — the
+               banner and this record are the whole point of not deleting it."
+      - path: tests/findings/test_F173_tolman_pressure.py
+        status: partially_superseded
+        dead: "P3 pressure-source omission 3w/(1+3w); P4 neutron-star 2-42%
+               central-redshift departure."
+        live: "P1/P2 exact sympy tensor algebra — the finding banner states this
+               algebra stands and MOTIVATED F178."
+      - path: tests/findings/test_F174_stellar_overlay.py
+        status: historical_baseline
+        note: "N3/N4/N5 energy-only departures are no longer predictions, but the
+               finding records them as the DIAGNOSIS that forced F178, so the
+               file is the standing exclusion record. N1/N2 are live canon."
+
+  # =========================================================================
+  - id: S5-F107-canonical-ruler
+    date: 2026-06-06
+    kind: demoted
+    by: [F107, F79]
+    superseded: []
+    demoted: [F83]
+    scope: >
+      The lattice spacing is adopted at the F79 parameter-free value
+      a = sqrt(8 pi) 3^{1/4} ell_P = 6.5978 ell_P. F83's fermion-mass map is
+      demoted from ANCHOR to CONSISTENCY CHECK.
+    reason: >
+      Two passed campaigns (F107, 6/6). The L4 absolute lensing check on the
+      canonical K = e^{2u} is exact at all field strengths. The GRB gate
+      observationally discriminates the anchors: the even-channel n=2 scale
+      clears LHAASO by 1.9e7 at the F79 value but is excluded by ~9 decades at
+      the F83 ceiling.
+    retained: >
+      F83's top-quark ceiling is still used — the GRB gate needs it as the
+      contrasting anchor. Only its role as THE anchor died.
+    falsification: >
+      Any n=2 time-of-flight bound above 1.36e19 GeV kills the adopted cell.
+    decision_ref: "key-decisions.md — Canonical SI ruler"
+    tests:
+      - path: tests/findings/test_F83_fix_lattice_spacing.py
+        status: partially_superseded
+        dead: "T3, which pins a = a_F61 ~ 3.81 ell_P."
+        live: "T1 algebra; T2 top-quark ceiling, which the F107 GRB gate uses."
+
+  # =========================================================================
+  - id: S6-F253-weight-as-phase
+    date: 2026-07-16
+    kind: superseded
+    by: [F253, F255, F256]
+    superseded: [F179]
+    scope: >
+      Weight-as-phase is adopted as a FOUNDING PRINCIPLE: the charged-lepton
+      condensate shape-angle equals the second-shell E_g representation weight,
+      delta* = dim(E_g)/dim(T_1u x T_1u) = 2/9 rad. delta* is PRIMARY;
+      lambda_6 = 0.243 (equivalently W = 6 lambda_6 = 1.46) is an OUTPUT via the
+      F234 arrow, not a fit. Supersedes the F179/CN3 "lambda_6 not reducible /
+      spectrum is a one-angle fit" relabel.
+    reason: >
+      Every alternative route is closed. (a) F175: 2/9 is the exact E_g weight.
+      (b) F255: the angle is a genuine radian with R = 1 FORCED by Schur
+      isotropy of the E_g irrep metric — derived, not posited. (c) F253: a
+      scale-free topological origin is excluded (the only E_g holonomy on the
+      BCC second shell is 2 pi/3). (d) F256: the dynamical Landau route
+      provably cannot give exact 3 delta* = Q, because B (Dirac sea, F95) and
+      C (induced coupling, F150) are independent O(1) objects with no locking
+      relation — hence the 1.7e-5 near-coincidence.
+    entails: >
+      The entire charged-lepton SHAPE follows from {delta* = 2/9, eta^2 = 1/2}
+      to <= 0.007% with ZERO shape parameters.
+    falsification: >
+      An improved m_tau that moves delta* off 2/9 (currently -0.89 sigma,
+      0.003%) falsifies the principle.
+    decision_ref: "key-decisions.md — Weight-as-phase is a founding principle"
+    code:
+      - path: src/casim/engine/particles/derive_generator_norm.py
+        note: "Pre-decision framing. Its R=1 derivation is the F255 content and
+               stands; its VERDICT ('E1 does not close') is what the decision
+               reverses — E1 closes by ADOPTING a principle, precisely because
+               F256 proves the dynamical route cannot. Banner added 2026-07-29.
+               Migrated from ca-simulation/derive_generator_norm_from_F118.py at
+               roadmap C5 (2026-07-30) WITH THE BANNER INTACT — the roadmap's
+               named example of why C0.2 proposes and a human accepts."
+      - path: src/casim/engine/particles/derive_lambda6_sextic.py
+        note: "Already carries the weight-as-phase section (S4). Migrated from
+               ca-simulation/derive_lambda6_sextic.py at roadmap C5."
+    tests:
+      - path: tests/findings/test_F179_lambda6_relabel.py
+        status: partially_superseded
+        dead: "D5 verdict bookkeeping: 'one-angle consistency fit ... NOT
+               zero-parameter' and listing delta* among fitted_inputs."
+        live: "D1 condensate invariants; D2 lambda_6 not a clean rational
+               (re-affirmed by F256); D3 3 delta* = Q = 2/3 within 1 sigma — now
+               the canonical falsification handle; D4 spectrum to ~0.01%."
+      - path: tests/findings/test_F174_shape_angle_2_9.py
+        status: partially_superseded
+        dead: "S2's conclusion that a rational radian signals a TOPOLOGICAL/flux
+               phase rather than a group-theoretic projection — inverted by F175
+               and excluded by F253."
+        live: "S1 value extraction; S3 model home/triangulation; S4 caveat."
+
+  # =========================================================================
+  - id: S7-paper-08-deprecated
+    date: 2026-07-01
+    kind: deprecated
+    by: [F178]
+    superseded: []
+    scope: >
+      Paper VIII (Dielectric Black Hole) is removed from the active series and
+      moved to deprecated/. Papers IX-XIII renumbered consecutively to VIII-XII.
+    reason: >
+      Downstream of S4. With the horizon-free dielectric black hole
+      reclassified as a PPN-order representation artifact, the paper devoted to
+      it has no active subject.
+    retained: >
+      The underlying physics record (F114, F178, F183) is unchanged. This is a
+      documentation/series-structure decision, not a new finding.
+    decision_ref: "key-decisions.md — Paper VIII deprecated"

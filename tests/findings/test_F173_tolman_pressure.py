@@ -1,4 +1,15 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-06-29 by F178 — ledger S4-F178-full-stress-energy]
+
+  DEAD:
+    P3 pressure-source omission 3w/(1+3w); P4 neutron-star 2-42%
+    central-redshift departure.
+
+  STILL LIVE:
+    P1/P2 exact sympy tensor algebra — the finding banner states this algebra
+    stands and MOTIVATED F178.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F173_tolman_pressure.py  --  GR-vs-model pressure / Tolman sector.
 
 Checks

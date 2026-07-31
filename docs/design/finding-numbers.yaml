@@ -1,0 +1,174 @@
+# ---------------------------------------------------------------------------
+# Declared finding-number exceptions — roadmap C8.2.
+#
+# `casim index` audits findings/ for numbers used twice and for gaps, and FAILS
+# on anything not declared here. That is the point: finding numbers have
+# collided across concurrent sessions three times by the roadmap's count
+# (F110, F129, F262), and the collisions were only ever found by reading. This
+# file makes the known set explicit so the NEXT one is loud.
+#
+# `status:` on a duplicate is human-owned:
+#   unreviewed  — C8 detected it and recorded both titles. NOT blessed: a
+#                 physics owner still has to decide which file keeps the number
+#                 (or that both should be renumbered). `casim index` prints the
+#                 unreviewed count on every run.
+#   accepted    — deliberate; the reason says why the collision is harmless.
+#   resolved    — renumbered; the entry stays as the record of what happened.
+#
+# Detecting a collision is not resolving one. C8 did the first and says so.
+# ---------------------------------------------------------------------------
+version: 1
+updated: 2026-07-31 - 05:45
+about: >-
+  Declared exceptions for the C8.2 finding-number audit. Duplicates are numbers
+  with two finding files; gaps are missing numbers between F1 and the maximum.
+  Every entry needs a reason; `casim index --check` fails on an undeclared one.
+
+duplicates:
+  26:
+    status: unreviewed
+    files:
+      - F26-speed-of-light-as-rotation-rate.md
+      - F26-bcc-spin-axis-scalar-contamination.md
+    reason: >-
+      Two different findings share F26. The rotation-rate one is CANONICAL — it
+      is CLAUDE.md core design decision 2 (c_lat = dOmega/d|k|) and is cited as
+      "Finding 26" throughout, using the older "Finding N" style. The spin-axis /
+      scalar-contamination file is separate physics under the same number.
+      Renumbering the rotation-rate finding would invalidate a founding citation,
+      so the likely resolution is to renumber the spin-axis file.
+  101:
+    status: unreviewed
+    files:
+      - F101-one-heavy-branch-fit-W.md
+      - F101-strong-coupling-sigma-compact-rotor.md
+    reason: >-
+      Lepton-sector "one heavy branch located and fitted (W*)" vs strong-sector
+      "full strong-coupling sigma from the compact-rotor transfer operator".
+      Different sectors, same number; both are cited live (W* is a registered
+      constant with F101 in its provenance).
+  102:
+    status: unreviewed
+    files:
+      - F102-coupled-rotors-crossover-survives.md
+      - F102-particle-layer-em-su3-backaction.md
+    reason: >-
+      "Coupling several rotors: the Gaussian<->confinement crossover survives"
+      vs "EM and SU(3) back-action on the particle layer (roadmap P2)".
+  134:
+    status: unreviewed
+    files:
+      - F134-unified-real-space-integration.md
+      - F134-phase4-chiral-blockspin-completion.md
+    reason: >-
+      The roadmap names F134 as a KNOWN concurrent-session collision (with F110
+      and F129). Both files exist and both are referenced: the unified
+      real-space integration is the F134-F137 arc, and the Phase-4 chiral
+      block-spin completion is the block-spin line.
+  136:
+    status: unreviewed
+    files:
+      - F136-colour-triplet-dirac-quark-confinement.md
+      - F136-realspace-scalar-confinement.md
+    reason: >-
+      NOT a physics collision — a FILENAME defect, and the cheapest of the ten
+      to fix. `F136-realspace-scalar-confinement.md` opens with "# F135 —
+      Real-space confinement (U1)", i.e. its content is F135, while
+      `F135-blockspin-wavepacket-realtime.md` holds a different F135. So F135 is
+      also used twice, invisibly, because one of the two carries an F136
+      filename. Resolution is a rename plus a decision about the real F135.
+  174:
+    status: unreviewed
+    files:
+      - F174-shape-angle-2-9-topological.md
+      - F174-stellar-structure-overlay.md
+    reason: >-
+      Lepton shape angle (delta* = 2/9, the F175/F253 line) vs the NICER stellar
+      overlay (the gravity/astrophysics line). Both are load-bearing: the ledger
+      names the stellar overlay as a `historical_baseline` and the shape-angle
+      file is upstream of a founding decision.
+  176:
+    status: unreviewed
+    files:
+      - F176-covariant-dielectric-tov-recovery.md
+      - F176-saturation-self-duality-principle.md
+    reason: >-
+      Covariant-dielectric TOV recovery (gravity) vs the saturation
+      self-duality principle behind delta* = 2/9 (lepton).
+  199:
+    status: unreviewed
+    files:
+      - F199-amplitude-mode-stability-nogo.md
+      - F199-angular-self-duality-derivation-forced-posit.md
+    reason: >-
+      Amplitude-mode stability no-go vs the angular self-duality
+      C/|B| = 1/(2 cos(2/3)) derivation. Both are in the same lepton-shape
+      programme, which makes the shared number especially confusing to cite.
+  200:
+    status: unreviewed
+    files:
+      - F200-eg-sextic-coupling-computed.md
+      - F200-sterile-neutrino-dark-matter.md
+    reason: >-
+      The saturated-condensate induced-coupling computation (lepton/strong) vs
+      the F47 sterile right-handed neutrino dark-matter relic (dark sector).
+  218:
+    status: unreviewed
+    files:
+      - F218-algorithm-through-the-engine.md
+      - F218-alpha2F-firstprinciples-and-pade-gap-ratio.md
+    reason: >-
+      "The substrate computes: CZ/CNOT compile exactly" (quantum info) vs
+      "first-principles alpha^2F and the Pade dynamic gap ratio"
+      (superconductivity).
+
+# ---------------------------------------------------------------------------
+# Gaps: numbers with no finding file.
+# ---------------------------------------------------------------------------
+gap_ranges:
+  - from: 2
+    to: 15
+    status: accepted
+    reason: >-
+      Findings 1-15 predate the one-file-per-finding convention and live
+      together in `findings/F01-F15-findings.md`. Nothing is missing; the
+      numbering is simply older than the layout. (This is also why the inventory
+      cites "Finding 1", "Finding 7" rather than "F1", "F7".)
+
+gaps:
+  111:
+    status: unreviewed
+    reason: >-
+      No finding file, but TWO tests claim the number —
+      `test_F111_second_order_deflection.py` and
+      `test_F111_tree_gauge_su3_ladder.py` — so F111 is a collision in the test
+      tree with no finding file on either side. Both tests are live and produce
+      committed artifacts.
+  127:
+    status: unreviewed
+    reason: >-
+      No finding file; `tests/findings/test_F127_alpha_em_derivation.py` exists
+      and is live. The finding was never written up.
+  219:
+    status: resolved
+    reason: >-
+      Abandoned after a collision — the changelog records "concurrent session
+      took F219 for spin-2 DM", and the work was renumbered. The number is
+      deliberately unused.
+  229:
+    status: resolved
+    reason: >-
+      Abandoned after a collision — the changelog records that F229-F232 were
+      taken by a concurrent session and this line was renamed to F233-F235. The
+      numbers are deliberately unused.
+
+# ---------------------------------------------------------------------------
+# Filenames whose leading token is not `F<number>-`.
+# ---------------------------------------------------------------------------
+unnumbered:
+  F01-F15-findings.md: >-
+    The combined findings 1-15 file (see `gap_ranges`). Zero-padded, so it does
+    not match the `F<n>-` pattern.
+  F34b-wmu-mass-stueckelberg.md: >-
+    Deliberate letter suffix: a follow-on to F34 rather than a new number.
+    Accepted convention, not a defect.

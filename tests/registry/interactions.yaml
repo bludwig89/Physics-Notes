@@ -1,0 +1,1227 @@
+version: 1
+sector: interactions
+about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it runs, at what parameters,
+  and how it fails. `casim test` and `pytest` both execute THESE records (src/casim/tests/), so they cannot
+  diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
+  on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
+  adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
+  not undo it.'
+tests:
+- id: F124-qcd-scale-ratio
+  path: tests/findings/test_F124_qcd_scale_ratio.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F124_qcd_scale_ratio.json
+  findings:
+  - F70
+  - F77
+  - F86
+  - F88
+  - F101
+  - F116
+  - F123
+  - F124
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 161
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F124_qcd_scale_ratio.json
+    artifact_rule:
+      test-results/F124_qcd_scale_ratio.json: local
+    artifacts_read_only: []
+    summary: test_F124_qcd_scale_ratio.py
+- id: F139-dual-gl-backreaction
+  path: tests/findings/test_F139_dual_gl_backreaction.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F86
+  - F137
+  - F139
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 162
+    n_test_funcs: 4
+    artifacts_written:
+    - test-results/F139_dual_gl_backreaction.json
+    artifact_rule:
+      test-results/F139_dual_gl_backreaction.json: file
+    artifacts_read_only: []
+    summary: F139 — Self-consistent dual-Ginzburg-Landau back-reaction (closes F137 §5).
+- id: F144-route-a-alpha-s
+  path: tests/findings/test_F144_route_a_alpha_s.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F144_route_a_alpha_s.json
+  findings:
+  - F26
+  - F101
+  - F107
+  - F110
+  - F119
+  - F144
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 155
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F144_route_a_alpha_s.json
+    artifact_rule:
+      test-results/F144_route_a_alpha_s.json: local
+    artifacts_read_only: []
+    summary: 'F144 — Route A of the QCD calibration block: alpha_s from the rule by'
+- id: F145-route-c-induced-njl
+  path: tests/findings/test_F145_route_c_induced_njl.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F145_route_c_induced_njl.json
+  findings:
+  - F77
+  - F88
+  - F116
+  - F117
+  - F124
+  - F144
+  - F145
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 146
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F145_route_c_induced_njl.json
+    artifact_rule:
+      test-results/F145_route_c_induced_njl.json: local
+    artifacts_read_only: []
+    summary: 'F145 — Route C of the QCD calibration block: the NJL coupling ghat = G Lambda^2'
+- id: F151-scheme-constant
+  path: tests/findings/test_F151_scheme_constant.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F151_scheme_constant.json
+  findings:
+  - F88
+  - F110
+  - F117
+  - F124
+  - F144
+  - F145
+  - F151
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 155
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F151_scheme_constant.json
+    artifact_rule:
+      test-results/F151_scheme_constant.json: local
+    artifacts_read_only: []
+    summary: F151 — the shared scheme/scale constant of F144-A4 / F145-N5 / F124 §5,
+- id: F152-ir-coupling
+  path: tests/findings/test_F152_ir_coupling.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F145
+  - F150
+  - F151
+  - F152
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 74
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F152 — The IR FACE of the strong coupling (the object F151-S5 split off).
+- id: F154-residuals-A-B
+  path: tests/findings/test_F154_residuals_A_B.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F77
+  - F151
+  - F152
+  - F154
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 98
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F154 — Building and solving the two strong-sector residuals A (UV scheme scale
+- id: F171-slowlight
+  path: tests/findings/test_F171_slowlight.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F171
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 216
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F171_slowlight.json
+    artifact_rule:
+      test-results/F171_slowlight.json: file
+    artifacts_read_only: []
+    summary: 'test_F171_slowlight.py  --  Track 1.b: slow-light / EIT as a test of the'
+  results:
+  - test-results/F171_slowlight.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F173-tolman-pressure
+  path: tests/findings/test_F173_tolman_pressure.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F106
+  - F173
+  - F178
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 114
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F173_tolman_pressure.json
+    artifact_rule:
+      test-results/F173_tolman_pressure.json: file
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-06-29 by F178 — ledger S4-F178-full-stress-energy]'
+    ledger_status: partially_superseded
+    ledger_record: S4-F178-full-stress-energy
+  results:
+  - test-results/F173_tolman_pressure.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F174-stellar-overlay
+  path: tests/findings/test_F174_stellar_overlay.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F106
+  - F173
+  - F174
+  - F178
+  - FC09
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 134
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F174_stellar_overlay.json
+    artifact_rule:
+      test-results/F174_stellar_overlay.json: file
+    artifacts_read_only: []
+    summary: '[HISTORICAL BASELINE 2026-06-29 — ledger S4-F178-full-stress-energy]'
+    ledger_status: historical_baseline
+    ledger_record: S4-F178-full-stress-energy
+  results:
+  - test-results/F174_stellar_overlay.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F176-covariant-stellar
+  path: tests/findings/test_F176_covariant_stellar.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F174
+  - F176
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 131
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F176_covariant_stellar.json
+    artifact_rule:
+      test-results/F176_covariant_stellar.json: file
+    artifacts_read_only: []
+    summary: test_F176_covariant_stellar.py  --  How much of TOV does the covariant
+  results:
+  - test-results/F176_covariant_stellar.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F181-covariant-interior-battery
+  path: tests/findings/test_F181_covariant_interior_battery.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F181_covariant_interior_battery.json
+  findings:
+  - F62
+  - F64
+  - F173
+  - F178
+  - F181
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 405
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F181_covariant_interior_battery.json
+    artifact_rule:
+      test-results/F181_covariant_interior_battery.json: local
+    artifacts_read_only: []
+    summary: test_F181_covariant_interior_battery.py
+- id: F182-friedmann-pressure
+  path: tests/findings/test_F182_friedmann_pressure.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F182_friedmann_pressure.json
+  findings:
+  - F173
+  - F178
+  - F182
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 182
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F182_friedmann_pressure.json
+    artifact_rule:
+      test-results/F182_friedmann_pressure.json: local
+    artifacts_read_only: []
+    summary: test_F182_friedmann_pressure.py
+- id: F183-blackhole
+  path: tests/findings/test_F183_blackhole.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F183_blackhole.json
+  findings:
+  - F114
+  - F178
+  - F183
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 243
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F183_blackhole.json
+    artifact_rule:
+      test-results/F183_blackhole.json: local
+    artifacts_read_only: []
+    summary: test_F183_blackhole.py
+- id: F184-tabulated-ns
+  path: tests/findings/test_F184_tabulated_ns.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F184_tabulated_ns.json
+  findings:
+  - F106
+  - F174
+  - F181
+  - F184
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 89
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F184_tabulated_ns.json
+    artifact_rule:
+      test-results/F184_tabulated_ns.json: local
+    artifacts_read_only: []
+    summary: test_F184_tabulated_ns.py
+- id: F186-shadow-raytrace
+  path: tests/findings/test_F186_shadow_raytrace.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F186_shadow_raytrace.json
+  findings:
+  - F186
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 64
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F186_shadow_raytrace.json
+    artifact_rule:
+      test-results/F186_shadow_raytrace.json: local
+    artifacts_read_only: []
+    summary: test_F186_shadow_raytrace.py  --  BH shadow ray-tracer + mu-as predictions (S3)
+- id: F187-qnm
+  path: tests/findings/test_F187_qnm.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F187_qnm.json
+  findings:
+  - F187
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 65
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F187_qnm.json
+    artifact_rule:
+      test-results/F187_qnm.json: local
+    artifacts_read_only: []
+    summary: test_F187_qnm.py  --  Quasinormal-mode ringdown spectrum (WKB) (S4)
+- id: F188-lcdm
+  path: tests/findings/test_F188_lcdm.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F188_lcdm.json
+  findings:
+  - F188
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 63
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F188_lcdm.json
+    artifact_rule:
+      test-results/F188_lcdm.json: local
+    artifacts_read_only: []
+    summary: test_F188_lcdm.py  --  Multi-component (LCDM) cosmology under the full tensor (S5)
+- id: F189-inspiral
+  path: tests/findings/test_F189_inspiral.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F189_inspiral.json
+  findings:
+  - F189
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 62
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F189_inspiral.json
+    artifact_rule:
+      test-results/F189_inspiral.json: local
+    artifacts_read_only: []
+    summary: test_F189_inspiral.py  --  PN binary inspiral / GW phasing (S6)
+- id: F190-horizon-entropy
+  path: tests/findings/test_F190_horizon_entropy.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F190_horizon_entropy.json
+  findings:
+  - F190
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 60
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F190_horizon_entropy.json
+    artifact_rule:
+      test-results/F190_horizon_entropy.json: local
+    artifacts_read_only: []
+    summary: test_F190_horizon_entropy.py  --  Lattice microstates & S=A/4 (S7, speculative)
+- id: F191-darkmatter
+  path: tests/findings/test_F191_darkmatter.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F191_darkmatter.json
+  findings:
+  - F191
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 68
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F191_darkmatter.json
+    artifact_rule:
+      test-results/F191_darkmatter.json: local
+    artifacts_read_only: []
+    summary: test_F191_darkmatter.py  --  Rotation curves & Bullet-Cluster test (S8, speculative)
+- id: F192-vacuum-energy
+  path: tests/findings/test_F192_vacuum_energy.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F192_vacuum_energy.json
+  findings:
+  - F192
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 64
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F192_vacuum_energy.json
+    artifact_rule:
+      test-results/F192_vacuum_energy.json: local
+    artifacts_read_only: []
+    summary: test_F192_vacuum_energy.py  --  Cosmological constant under the full tensor (S9, open)
+- id: F194-emergent-gravity-bullet
+  path: tests/findings/test_F194_emergent_gravity_bullet.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F194_emergent_gravity_bullet.json
+  findings:
+  - F164
+  - F192
+  - F194
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 181
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F194_emergent_gravity_bullet.json
+    artifact_rule:
+      test-results/F194_emergent_gravity_bullet.json: local
+    artifacts_read_only: []
+    summary: test_F194_emergent_gravity_bullet.py
+- id: F200-alcubierre-structural
+  path: tests/findings/test_F200_alcubierre_structural.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F200_alcubierre_structural.json
+  findings:
+  - F181
+  - F193
+  - F200
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 273
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F200_alcubierre_structural.json
+    artifact_rule:
+      test-results/F200_alcubierre_structural.json: local
+    artifacts_read_only: []
+    summary: test_F200_alcubierre_structural.py
+- id: F207-casimir
+  path: tests/findings/test_F207_casimir.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F26
+  - F69
+  - F106
+  - F107
+  - F178
+  - F193
+  - F207
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 167
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F207_casimir.json
+    artifact_rule:
+      test-results/F207_casimir.json: file
+    artifacts_read_only: []
+    summary: test_F207_casimir.py  —  The Casimir effect in the BCC Weyl-QCA model
+  results:
+  - test-results/F207_casimir.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F209-modulated-casimir
+  path: tests/findings/test_F209_modulated_casimir.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F193
+  - F207
+  - F209
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: false
+    lines: 126
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F209_modulated_casimir.json
+    artifact_rule:
+      test-results/F209_modulated_casimir.json: file
+    artifacts_read_only: []
+    summary: test_F209_modulated_casimir.py  —  Can a *time-modulated* Casimir cavity break
+  results:
+  - test-results/F209_modulated_casimir.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F210-superconductivity
+  path: tests/findings/test_F210_superconductivity.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F86
+  - F210
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 304
+    n_test_funcs: 16
+    artifacts_written:
+    - test-results/F210_superconductivity.json
+    artifact_rule:
+      test-results/F210_superconductivity.json: local
+    artifacts_read_only: []
+    summary: test_F210_superconductivity.py
+- id: F211-tc-real-materials
+  path: tests/findings/test_F211_tc_real_materials.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F210
+  - F211
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 132
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F211_tc_real_materials.json
+    artifact_rule:
+      test-results/F211_tc_real_materials.json: local
+    artifacts_read_only: []
+    summary: test_F211_tc_real_materials.py
+- id: F212-entanglement-generation
+  path: tests/findings/test_F212_entanglement_generation.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F26
+  - F212
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 187
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F212_entanglement_generation.json
+    artifact_rule:
+      test-results/F212_entanglement_generation.json: local
+    artifacts_read_only: []
+    summary: F212 — Does the lattice substrate GENERATE entanglement it isn't given?
+- id: F213-hopfield-and-gap-renormalization
+  path: tests/findings/test_F213_hopfield_and_gap_renormalization.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F64
+  - F210
+  - F211
+  - F213
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 167
+    n_test_funcs: 7
+    artifacts_written:
+    - test-results/F213_hopfield_and_gap_renormalization.json
+    artifact_rule:
+      test-results/F213_hopfield_and_gap_renormalization.json: local
+    artifacts_read_only: []
+    summary: test_F213_hopfield_and_gap_renormalization.py
+- id: F214-live-entanglement-superexchange
+  path: tests/findings/test_F214_live_entanglement_superexchange.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F212
+  - F214
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 171
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F214_live_entanglement_superexchange.json
+    artifact_rule:
+      test-results/F214_live_entanglement_superexchange.json: local
+    artifacts_read_only: []
+    summary: F214 — Super-exchange J derived from the ca_dirac hopping + a LIVE casim
+- id: F215-eliashberg-solver
+  path: tests/findings/test_F215_eliashberg_solver.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F210
+  - F211
+  - F213
+  - F215
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 134
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F215_eliashberg_solver.json
+    artifact_rule:
+      test-results/F215_eliashberg_solver.json: local
+    artifacts_read_only: []
+    summary: test_F215_eliashberg_solver.py
+- id: F218-algorithm-through-engine
+  path: tests/findings/test_F218_algorithm_through_engine.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F212
+  - F218
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 151
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F218_algorithm_through_engine.json
+    artifact_rule:
+      test-results/F218_algorithm_through_engine.json: local
+    artifacts_read_only: []
+    summary: 'F218 — A quantum ALGORITHM run through the engine: native exchange→CZ/CNOT'
+- id: F218-alpha2F-and-pade-gap
+  path: tests/findings/test_F218_alpha2F_and_pade_gap.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F215
+  - F218
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 171
+    n_test_funcs: 7
+    artifacts_written:
+    - test-results/F218_alpha2F_and_pade_gap.json
+    artifact_rule:
+      test-results/F218_alpha2F_and_pade_gap.json: local
+    artifacts_read_only: []
+    summary: test_F218_alpha2F_and_pade_gap.py
+- id: F221-noise-error-correction
+  path: tests/findings/test_F221_noise_error_correction.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F218
+  - F219
+  - F220
+  - F221
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 169
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F221_noise_error_correction.json
+    artifact_rule:
+      test-results/F221_noise_error_correction.json: local
+    artifacts_read_only: []
+    summary: 'F221 — Decoherence channels + stabilizer error correction: the engine studies'
+- id: F222-scaled-quantum-algorithms
+  path: tests/findings/test_F222_scaled_quantum_algorithms.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F218
+  - F222
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 189
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F222_scaled_quantum_algorithms.json
+    artifact_rule:
+      test-results/F222_scaled_quantum_algorithms.json: local
+    artifacts_read_only: []
+    summary: F222 — Scaling the substrate's quantum algorithms to many qubits, and proving
+- id: F226-bell-tsirelson
+  path: tests/findings/test_F226_bell_tsirelson.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F212
+  - F214
+  - F226
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 155
+    n_test_funcs: 1
+    artifacts_written:
+    - test-results/F226_bell_tsirelson.json
+    artifact_rule:
+      test-results/F226_bell_tsirelson.json: local
+    artifacts_read_only: []
+    summary: 'F226 — Route 3: CHSH / Tsirelson on the genuine 2^n lattice register'
+- id: F227-decoherence-floor
+  path: tests/findings/test_F227_decoherence_floor.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F26
+  - F105
+  - F130
+  - F180
+  - F220
+  - F225
+  - F227
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 116
+    n_test_funcs: 1
+    artifacts_written:
+    - test-results/F227_decoherence_floor.json
+    artifact_rule:
+      test-results/F227_decoherence_floor.json: local
+    artifacts_read_only: []
+    summary: 'F227 — Route 4: intrinsic-decoherence / unitarity floor from discreteness'
+- id: F233-mass-scale-N-transmutation
+  path: tests/findings/test_F233_mass_scale_N_transmutation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F233_mass_scale_N_transmutation.json
+  findings:
+  - F119
+  - F124
+  - F144
+  - F154
+  - F233
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 100
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F233_mass_scale_N_transmutation.json
+    artifact_rule:
+      test-results/F233_mass_scale_N_transmutation.json: local
+    artifacts_read_only: []
+    summary: test_F233_mass_scale_N_transmutation.py
+- id: F242-mustar-from-dielectric
+  path: tests/findings/test_F242_mustar_from_dielectric.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F242_mustar_from_dielectric.json
+  findings:
+  - F64
+  - F242
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 103
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F242_mustar_from_dielectric.json
+    artifact_rule:
+      test-results/F242_mustar_from_dielectric.json: local
+    artifacts_read_only: []
+    summary: test_F242 — Morel-Anderson mu* derived from the F64 EM-connection dielectric.
+- id: F243-f3-lowdensity-lensing
+  path: tests/findings/test_F243_f3_lowdensity_lensing.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F243_f3_lowdensity_lensing.json
+  findings:
+  - F3
+  - F243
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 84
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F243_f3_lowdensity_lensing.json
+    artifact_rule:
+      test-results/F243_f3_lowdensity_lensing.json: local
+    artifacts_read_only: []
+    summary: 'test_F243 — Falsification attempt: F3 lensing prediction failure at low'
+- id: F244-emqg-1overb-scan
+  path: tests/findings/test_F244_emqg_1overb_scan.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F244_emqg_1overb_scan.json
+  findings:
+  - F3
+  - F244
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 112
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F244_emqg_1overb_scan.json
+    artifact_rule:
+      test-results/F244_emqg_1overb_scan.json: local
+    artifacts_read_only: []
+    summary: test_F244 — 1/b scaling of 3-D EMQG lensing.
+- id: F251-vacuum-polarization
+  path: tests/findings/test_F251_vacuum_polarization.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F251
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 118
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F251_vacuum_polarization.py — F251: the interacting one-loop QED photon'
+- id: F252-vertex-ae-lamb
+  path: tests/findings/test_F252_vertex_ae_lamb.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F251
+  - F252
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 115
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F252_vertex_ae_lamb.py — F252: the one-loop QED vertex correction'
+- id: F257-bethe-log-from-spectrum
+  path: tests/findings/test_F257_bethe_log_from_spectrum.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F257
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 114
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F257_bethe_log_from_spectrum.py — F257: the hydrogen Bethe logarithm'
+- id: F258-electron-self-energy
+  path: tests/findings/test_F258_electron_self_energy.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F251
+  - F252
+  - F258
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 136
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F258_electron_self_energy.py — F258: the one-loop QED electron self-energy'
+- id: F259-ir-bremsstrahlung
+  path: tests/findings/test_F259_ir_bremsstrahlung.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F87
+  - F250
+  - F252
+  - F259
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 135
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F259_ir_bremsstrahlung.py — F259: the IR sector of QED — soft real-photon'
+- id: F260-qed-scattering
+  path: tests/findings/test_F260_qed_scattering.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F249
+  - F260
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 117
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F260_qed_scattering.py — F260: the tree-level QED S-matrix on the model''s'
+- id: F261-twoloop-ae-amu
+  path: tests/findings/test_F261_twoloop_ae_amu.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F251
+  - F261
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 167
+    n_test_funcs: 3
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F261_twoloop_ae_amu.py — F261: two-loop QED. The electron anomalous moment'
+- id: F263-euler-heisenberg-schwinger
+  path: tests/findings/test_F263_euler_heisenberg_schwinger.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F263
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 136
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'test_F263_euler_heisenberg_schwinger.py — F263: the nonlinear / non-perturbative'
+- id: F52-restleg-backreaction
+  path: tests/findings/test_F52_restleg_backreaction.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F52_restleg_backreaction.json
+  findings:
+  - F50
+  - F52
+  - F64
+  - F106
+  - F178
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 336
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F52_restleg_backreaction.json
+    artifact_rule:
+      test-results/F52_restleg_backreaction.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]'
+    ledger_status: partially_superseded
+    ledger_record: S3-F64-dielectric-gravity
+- id: F55-spatial-metric-backreaction
+  path: tests/findings/test_F55_spatial_metric_backreaction.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F55_spatial_metric_backreaction.json
+  findings:
+  - F52
+  - F55
+  - F64
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 287
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F55_spatial_metric_backreaction.json
+    artifact_rule:
+      test-results/F55_spatial_metric_backreaction.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]'
+    ledger_status: partially_superseded
+    ledger_record: S3-F64-dielectric-gravity
+- id: run-F261-twoloop-qed
+  path: tests/runners/run_F261_twoloop_qed.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F261
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 78
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F261_twoloop_qed.json
+    artifact_rule:
+      test-results/F261_twoloop_qed.json: file
+    artifacts_read_only: []
+    summary: run_F261_twoloop_qed.py — standalone runner for the F261 two-loop QED sector.
+  results:
+  - test-results/F261_twoloop_qed.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-F263-euler-heisenberg-schwinger
+  path: tests/runners/run_F263_euler_heisenberg_schwinger.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F263
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 58
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F263_euler_heisenberg_schwinger.json
+    artifact_rule:
+      test-results/F263_euler_heisenberg_schwinger.json: file
+    artifacts_read_only: []
+    summary: run_F263_euler_heisenberg_schwinger.py — standalone runner for the F263 nonlinear
+  results:
+  - test-results/F263_euler_heisenberg_schwinger.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-warp-openitems-explore
+  path: tests/runners/run_warp_openitems_explore.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F181
+  - F185
+  - F204
+  sector: interactions
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 191
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: warp_openitems_explore.py

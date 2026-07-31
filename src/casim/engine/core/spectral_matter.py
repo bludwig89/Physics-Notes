@@ -1,4 +1,4 @@
-"""casim.engine.spectral_matter — compute-once matter-sector channels.
+"""casim.engine.core.spectral_matter — compute-once matter-sector channels.
 
 These three channels wrap the audited *momentum-space* matter solvers
 (``ca_meson``, ``ca_si_scale``, ``ca_qcd_scale_ratio``) so the falsification
@@ -29,6 +29,10 @@ from __future__ import annotations
 from typing import Any, Dict
 
 from .channel import Channel, register
+from casim.constants import (
+    f_pi_anchor_MeV as _f_pi_anchor_MeV,
+    f_pi_pdg_target_MeV as _f_pi_pdg_target_MeV,
+)
 
 
 def _f(x) -> float:
@@ -55,10 +59,10 @@ class NJLMesonChannel(Channel):
     topologies = ("cubic", "bcc")
 
     # PDG / lattice anchors (MeV) used only for scoring, never as inputs.
-    TARGETS = {"m_c": 325.0, "m_pi": 137.0, "f_pi": 92.4}
+    TARGETS = {"m_c": 325.0, "m_pi": 137.0, "f_pi": _f_pi_pdg_target_MeV}
 
     def _solve(self) -> Dict[str, Any]:
-        import ca_meson as M
+        from casim.engine.particles import meson as M
         cfg = self.config
         kw = {}
         for k in ("Lam", "GLam2", "m0", "g_rhopipi"):
@@ -130,8 +134,8 @@ class NJLNucleonChannel(Channel):
     PDG = {"m_p": 938.272, "m_n": 939.565, "n_minus_p": 1.293, "m_N_third": 312.97}
 
     def init_state(self, lattice, rng):
-        import ca_si_scale as S
-        f_pi = float(self.config.get("f_pi_MeV", 92.07))
+        from casim.engine.lattice import si_scale as S
+        f_pi = float(self.config.get("f_pi_MeV", _f_pi_anchor_MeV))
         reg = S.si_registry(f_pi_phys=f_pi)
         strong, nuc = reg["strong"], reg["nucleon"]
         nps = reg.get("np_split") or S.np_splitting(f_pi)
@@ -178,7 +182,7 @@ class StringTensionFpiChannel(Channel):
     topologies = ("cubic", "bcc")
 
     def init_state(self, lattice, rng):
-        import ca_qcd_scale_ratio as Q
+        from casim.engine.interactions import running_scale_ratio as Q
         s = Q.summary()
         emp = s["empirical"]["sqrt_sigma_over_f_pi"]
         axis = s["model"]["condensate_axis"]["sqrt_sigma_over_f_pi"]

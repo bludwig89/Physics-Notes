@@ -1,4 +1,4 @@
-"""casim.engine.blockspin — the block-spin RG as a first-class engine operation
+"""casim.engine.core.blockspin — the block-spin RG as a first-class engine operation
 (Phase 4)
 ================================================================================
 
@@ -38,6 +38,7 @@ from __future__ import annotations
 
 from typing import Any, Dict
 import numpy as np
+from casim.constants import c_lat
 
 ROOT3 = float(np.sqrt(3.0))
 
@@ -91,7 +92,7 @@ def block_state(state: Dict[str, Any], b: int,
             out[key] = val.copy()          # non-spatial array — leave as is
 
     if is_gravity:
-        c = float(state.get("c", 1.0 / ROOT3))
+        c = float(state.get("c", c_lat))
         # φ is the LINEAR Poisson potential → block-average is exact; rebuild K
         # (= exp(−2φ/c²)) so the reciprocal lock A·B ≡ 1 is preserved (F130 T3b).
         out["K"] = np.exp(-2.0 * out["phi"] / (c ** 2))
@@ -111,9 +112,9 @@ def renormalized_even_step(E: np.ndarray, B: np.ndarray, block: int):
     Ω(κ/b) — the F130 coarse rule that keeps the physical speed (T1) and makes
     the lattice-artifact corrections irrelevant (T2).
     """
-    import ca_fft as _fft
-    from ca_lattice import make_kgrid_3d
-    from ca_wmu import _f26_rotation_step
+    from casim.numerics import fft as _fft  # C1.3: the seam
+    from casim.engine.lattice.geometry import make_kgrid_3d
+    from casim.engine.gauge.weak_wmu import _f26_rotation_step
 
     shape = E.shape[-3:]
     KX, KY, KZ = make_kgrid_3d(*shape)
@@ -130,8 +131,8 @@ def _renormalized_chiral_dispersions(shape, block):
     """(Ω⁺, Ω⁻) at the renormalised momenta κ/block, with the coarse-grid
     Nyquist correction (self-conjugate bins → even average) that keeps the real
     field unitary — the F134 chiral analogue of `ca_wmu._chiral_dispersions`."""
-    from ca_lattice import make_kgrid_3d
-    from ca_bcc import bcc_dispersion
+    from casim.engine.lattice.geometry import make_kgrid_3d
+    from casim.engine.lattice.bcc import bcc_dispersion
 
     KX, KY, KZ = make_kgrid_3d(*shape)
     inv = 1.0 / float(block)
@@ -158,7 +159,7 @@ def renormalized_chiral_step(E, B, block):
     F± Riemann–Silberstein eigenstates ride their own branch (F91 chiral, forced),
     each rescaled by 1/block so the coarse run keeps the physical dispersion.
     """
-    import ca_fft as _fft
+    from casim.numerics import fft as _fft  # C1.3: the seam
 
     shape = E.shape[-3:]
     Op, Om = _renormalized_chiral_dispersions(shape, block)
@@ -181,9 +182,9 @@ def renormalized_weyl_step(f, g, block, sign='+'):
     Fourier space; the closed-form `bcc_unitary` (u·I − i n·σ, no np.linalg.eig)
     is evaluated at κ/block so the spinor walk stays physically faithful.
     """
-    import ca_fft as _fft
-    from ca_lattice import make_kgrid_3d
-    from ca_bcc import bcc_unitary
+    from casim.numerics import fft as _fft  # C1.3: the seam
+    from casim.engine.lattice.geometry import make_kgrid_3d
+    from casim.engine.lattice.bcc import bcc_unitary
 
     shape = f.shape[-3:]
     KX, KY, KZ = make_kgrid_3d(*shape)
@@ -219,5 +220,5 @@ def patch_summary(lattice) -> Dict[str, Any]:
         "physical_L": physical_L(lattice),
         "cells_per_supercell": cell_factor(lattice),
         "physical_cells_total": physical_L(lattice) ** int(lattice.dims),
-        "c_lat": float(getattr(lattice, "c_lat", 1.0 / ROOT3)),   # RG-fixed (T1)
+        "c_lat": float(getattr(lattice, "c_lat", c_lat)),         # RG-fixed (T1)
     }

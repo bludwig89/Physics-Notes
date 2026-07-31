@@ -1,4 +1,13 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]
+
+  DEAD:
+    Rest-mass-sourced two-leg spatial-metric backreaction.
+
+  STILL LIVE:
+    J1 trace-reversal identity; J3 factor-2 deflection.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F55_spatial_metric_backreaction.py — Einstein's factor-2 from trace reversal
 =================================================================================
 Tests the F55 hypothesis (forks/gr_fork_F55_spatial_metric_backreaction.py):

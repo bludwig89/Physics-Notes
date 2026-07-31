@@ -1,4 +1,16 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]
+
+  DEAD:
+    D3a backreaction/self-redshift — lapse self-sourced from rest-mass rho.
+
+  STILL LIVE:
+    D2a Rindler free-fall, THE SIGN CONVENTION cited by production
+    ca_gravity.py (wrong sign => a mass gradient repels); D1 flat Weyl
+    regression; D2b sqrt(A) redshift; D2c eikonal K ~ 4. Duplicate sign
+    coverage in tests/casim/test_gravity_element.py.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F62_dirac_gravity_fork.py — Dynamical Dirac CA on a curved background (D2)
 + linearized backreaction (D3a)
 ==============================================================================

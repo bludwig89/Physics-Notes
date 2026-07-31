@@ -103,14 +103,14 @@ class CompositeSpec:
         Delegates to the audited F71 ``ca_baryon.singlet_charge_residual``."""
         if not self.is_colour_singlet:
             return float("nan")
-        import ca_baryon
+        from casim.engine.particles import baryon as ca_baryon
         return float(ca_baryon.singlet_charge_residual())
 
     def colour_casimir(self) -> float:
         """Quadratic Casimir on the singlet (0 for a true singlet, F71)."""
         if not self.is_colour_singlet:
             return float("nan")
-        import ca_baryon
+        from casim.engine.particles import baryon as ca_baryon
         return float(ca_baryon.singlet_casimir())
 
 
@@ -153,7 +153,7 @@ def beta_decay_ledger() -> Dict[str, object]:
     and the composite-level neutron β-decay  n → p + e⁻ + ν̄_e built from them.
     Every Δ is exactly 0.
     """
-    import ca_charged_current as cc
+    from casim.engine.gauge import charged_current as cc
     vertex = cc.conservation_residuals(["d"], ["u", "W-"])
     wdecay = cc.conservation_residuals(["W-"], ["e", "nubar"])
     full = cc.conservation_residuals(["d"], ["u", "e", "nubar"])

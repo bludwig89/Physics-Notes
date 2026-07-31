@@ -18,6 +18,19 @@ dependencies = [
 
 [project.optional-dependencies]
 gui = ["vispy", "PyQt6"]
+# Roadmap P2.1. `ca_fft` has always PREFERRED pyfftw (ca_fft.py:57-63) and has
+# always exposed set_workers for it — but pyfftw was never declared anywhere,
+# so every run in this project's history silently fell back to single-threaded
+# scipy. Six of the eight channel types are FFT-bound, so this is the cheapest
+# real speedup available.
+#
+# It is an EXTRA rather than a hard dependency because pyfftw needs the FFTW C
+# library and a wheel for your platform; making it required would mean a failed
+# wheel build blocks `pip install -e .` entirely, i.e. a performance option
+# would become an availability risk. The fallback chain stays, but is no longer
+# silent — `casim backend` and the gate both print which backend is live.
+fast = ["pyfftw>=0.13"]
+dev = ["pytest>=7.0"]
 
 [project.scripts]
 casim = "casim.cli:main"
@@ -30,7 +43,15 @@ markers = [
     "exact: result is algebraically exact (residual == 0)",
     "machine_precision: result holds to FFT/float round-off (<1e-12)",
     "slow: long run, excluded from default selection",
+    # Roadmap P0.4. Granularity note: `superseded` means the WHOLE file is dead
+    # (currently exactly one file). Where only some checks are superseded the
+    # file keeps running and carries a PARTIALLY SUPERSEDED docstring banner
+    # instead — marking it would retire live coverage. See
+    # docs/theory/supersessions.yaml.
+    "superseded: every claim in this file has been replaced; excluded from the gate",
+    "historical_baseline: retains a superseded object as the standing exclusion record",
 ]
 # Default `pytest` = fast casim package suite (matches pre-reorg behaviour).
 # Finding/priority tests are run explicitly: pytest tests/findings/test_F124_... etc.
 testpaths = ["tests/casim"]
+addopts = "-m 'not superseded'"

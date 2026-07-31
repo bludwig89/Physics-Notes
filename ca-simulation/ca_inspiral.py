@@ -1,88 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.interactions.inspiral`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.interactions.inspiral`.
 """
-ca_inspiral.py  --  Compact-binary inspiral & GW phasing (post-Newtonian)
-=========================================================================
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-Scenario S6.  The two-body / gravitational-wave sector of the F178 gravity
-model.  The graviton speed is already fixed to c_lat = c_photon (F180); here we
-build the leading-order (quadrupole / 0PN) inspiral: the chirp-mass-driven
-frequency sweep, the time to merger, and the GW150914-like waveform, against
-which the model makes standard-GR predictions.
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-Quadrupole results (geometric G=c=1; SI conversions provided):
-    chirp mass  Mc = (m1 m2)^{3/5} / (m1+m2)^{1/5}
-    df/dt = (96/5) pi^{8/3} Mc^{5/3} f^{11/3}            (GW frequency f = 2 f_orb)
-    time to merger from f:  tau = (5/256) Mc^{-5/3} (pi f)^{-8/3}
-    strain amplitude  h ~ (4/D)(pi f)^{2/3} Mc^{5/3}
+import casim.engine.interactions.inspiral as _target
 
-Self-contained: numpy + a local RK4.  Date: 2026-06-30 (F189).
-"""
+_warnings.warn(
+    "ca-simulation/ca_inspiral.py has moved to casim.engine.interactions.inspiral; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-from __future__ import annotations
-
-import numpy as np
-
-G = 6.67430e-11; C = 2.99792458e8
-MSUN = 1.98892e30; MPC = 3.0856775814913673e22
-T_SUN = G * MSUN / C**3          # solar mass in seconds (geometric) = 4.925e-6 s
-
-
-def chirp_mass_solar(m1, m2):
-    return (m1 * m2) ** 0.6 / (m1 + m2) ** 0.2
-
-
-def df_dt(f, Mc_solar):
-    """GW-frequency chirp rate df/dt (Hz/s) at frequency f (Hz)."""
-    Mc = Mc_solar * T_SUN                     # seconds
-    return (96.0 / 5.0) * np.pi ** (8.0 / 3.0) * Mc ** (5.0 / 3.0) * f ** (11.0 / 3.0)
-
-
-def time_to_merger(f, Mc_solar):
-    """Coalescence time from GW frequency f (Hz) -> seconds (0PN)."""
-    Mc = Mc_solar * T_SUN
-    return (5.0 / 256.0) * Mc ** (-5.0 / 3.0) * (np.pi * f) ** (-8.0 / 3.0)
-
-
-def isco_gw_frequency(M_total_solar):
-    """GW frequency at the Schwarzschild ISCO of the total mass (Hz):
-    f_GW = 2 f_orb = (1/pi) (1/6^{3/2}) / (G M/c^3)."""
-    M = M_total_solar * T_SUN
-    f_orb = (1.0 / (2.0 * np.pi)) * 6.0 ** (-1.5) / M
-    return 2.0 * f_orb
-
-
-def evolve_chirp(m1, m2, f_start=35.0, f_end=None):
-    """Integrate f(t) from f_start to the ISCO frequency; return t, f, and the
-    quadrupole waveform h(t) ~ amplitude(f) cos(phase)."""
-    Mc = chirp_mass_solar(m1, m2)
-    if f_end is None:
-        f_end = isco_gw_frequency(m1 + m2)
-    f = f_start; t = 0.0
-    ts, fs = [t], [f]
-    dt = 1e-4
-    while f < f_end:
-        k1 = df_dt(f, Mc)
-        k2 = df_dt(f + dt/2 * k1, Mc)
-        k3 = df_dt(f + dt/2 * k2, Mc)
-        k4 = df_dt(f + dt * k3, Mc)
-        f = f + dt/6 * (k1 + 2*k2 + 2*k3 + k4)
-        t += dt
-        ts.append(t); fs.append(min(f, f_end))
-    ts = np.array(ts); fs = np.array(fs)
-    # phase = integral 2 pi f dt
-    phase = np.concatenate([[0], np.cumsum(0.5 * (fs[1:] + fs[:-1]) * np.diff(ts))]) * 2 * np.pi
-    amp = (np.pi * fs) ** (2.0 / 3.0) * (Mc * T_SUN) ** (5.0 / 3.0)
-    h = amp * np.cos(phase)
-    return {"t": ts, "f": fs, "h": h, "Mc_solar": Mc,
-            "f_isco_Hz": f_end, "duration_s": float(ts[-1])}
-
-
-def gw150914():
-    """Canonical-source check against GW150914 (m1=36, m2=29 M_sun)."""
-    m1, m2 = 36.0, 29.0
-    Mc = chirp_mass_solar(m1, m2)
-    f_isco = isco_gw_frequency(m1 + m2)
-    tau = time_to_merger(35.0, Mc)            # from 35 Hz GW frequency
-    ev = evolve_chirp(m1, m2, f_start=35.0)
-    return {"Mc_solar": Mc, "f_isco_Hz": f_isco,
-            "time_from_35Hz_s": tau, "evolved_duration_s": ev["duration_s"],
-            "M_total": m1 + m2}
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

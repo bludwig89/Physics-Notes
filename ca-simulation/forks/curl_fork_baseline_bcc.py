@@ -1,40 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.forks.gauge.curl_fork_baseline_bcc`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.forks.gauge.curl_fork_baseline_bcc`.
 """
-Fork: BCC BASELINE geometry  (curl-O(k) investigation)
-=======================================================
-Not a candidate fix — the existing BCC Weyl QCA (Paper 1 Eq. 15,
-`ca_bcc.py`), wrapped to the common curl-fork interface so the harness
-can run the same diagnostics on it as on the simple-cubic candidate.
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-Reference outcomes (already established):
-  c_lat (small-k)       = 1/√3            (Finding 10, exact algebraic)
-  fermion doublers      = 1               (QCA uniqueness, no doubling)
-  curl residual scaling = O(k), coeff 1/√6   (Finding 2)
-"""
-import numpy as np
-import ca_bcc as _bcc
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-GEOMETRY_NAME = "BCC (baseline)"
-C_LAT = 1.0 / np.sqrt(3.0)
+import casim.engine.forks.gauge.curl_fork_baseline_bcc as _target
 
+_warnings.warn(
+    "ca-simulation/forks/curl_fork_baseline_bcc.py has moved to casim.engine.forks.gauge.curl_fork_baseline_bcc; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-def uvec(kx, ky, kz, sign="+"):
-    return _bcc._bcc_uvec(kx, ky, kz, sign=sign)
-
-
-def dispersion(kx, ky, kz, sign="+"):
-    return _bcc.bcc_dispersion(kx, ky, kz, sign=sign)
-
-
-def unitary(kx, ky, kz, sign="+"):
-    return _bcc.bcc_unitary(kx, ky, kz, sign=sign)
-
-
-def eigenmodes(kx, ky, kz, sign="+"):
-    """Return (psi_plus, psi_minus, omega): U·psi_± = e^{∓iω} psi_±, ω≥0."""
-    U_ff, U_fg, U_gf, U_gg = _bcc.bcc_unitary(kx, ky, kz, sign=sign)
-    M = np.array([[U_ff, U_fg], [U_gf, U_gg]], dtype=complex)
-    w, v = np.linalg.eig(M)
-    phases = -np.angle(w)
-    ip = int(np.argmax(phases))
-    im = 1 - ip
-    return v[:, ip], v[:, im], float(phases[ip])
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

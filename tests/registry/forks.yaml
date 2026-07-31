@@ -1,0 +1,1147 @@
+version: 1
+sector: forks
+about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it runs, at what parameters,
+  and how it fails. `casim test` and `pytest` both execute THESE records (src/casim/tests/), so they cannot
+  diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
+  on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
+  adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
+  not undo it.'
+tests:
+- id: F106-psi-K-sourcing
+  path: tests/findings/test_F106_psi_K_sourcing.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F26
+  - F62
+  - F64
+  - F79
+  - F106
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 135
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F106_psi_K_sourcing.json
+    artifact_rule:
+      test-results/F106_psi_K_sourcing.json: file
+    artifacts_read_only: []
+    summary: test_F106_psi_K_sourcing.py — the ψ→K sourcing derivation.
+  results:
+  - test-results/F106_psi_K_sourcing.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F107-canonical-a-L4-grb-gate
+  path: tests/findings/test_F107_canonical_a_L4_grb_gate.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F107_canonical_a_L4_grb_gate.json
+  findings:
+  - F28
+  - F30
+  - F64
+  - F66
+  - F67
+  - F69
+  - F79
+  - F83
+  - F107
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 344
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F107_canonical_a_L4_grb_gate.json
+    artifact_rule:
+      test-results/F107_canonical_a_L4_grb_gate.json: local
+    artifacts_read_only: []
+    summary: test_F107_canonical_a_L4_grb_gate.py — Adopt a = sqrt(8*pi)*3^(1/4) ell_P (F79)
+- id: F111-second-order-deflection
+  path: tests/findings/test_F111_second_order_deflection.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F111_second_order_deflection.json
+  findings:
+  - F64
+  - F107
+  - F111
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: false
+    lines: 189
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F111_second_order_deflection.json
+    artifact_rule:
+      test-results/F111_second_order_deflection.json: local
+    artifacts_read_only: []
+    summary: 'F111 — Second-order light deflection: canonical dielectric K=e^{2u} vs GR.'
+- id: F115-coupling-magnitudes
+  path: tests/findings/test_F115_coupling_magnitudes.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F45
+  - F79
+  - F100
+  - F101
+  - F107
+  - F110
+  - F115
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 214
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F115 — Gauge coupling magnitudes e, g, g_s from the model.
+- id: F172-residual-algebraic-or-computed
+  path: tests/findings/test_F172_residual_algebraic_or_computed.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F172_residual_algebraic_or_computed.json
+  findings:
+  - F92
+  - F96
+  - F124
+  - F144
+  - F145
+  - F150
+  - F151
+  - F155
+  - F163
+  - F164
+  - F170
+  - F172
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 146
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F172_residual_algebraic_or_computed.json
+    artifact_rule:
+      test-results/F172_residual_algebraic_or_computed.json: local
+    artifacts_read_only: []
+    summary: F172 — Is the one shared IR residual an algebraic connection or a computed
+- id: F180-gw-speed
+  path: tests/findings/test_F180_gw_speed.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F180
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 61
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F180 — gravitational-wave speed from the dielectric rotation rule.
+- id: F193-ontic-vacuum
+  path: tests/findings/test_F193_ontic_vacuum.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F193_ontic_vacuum_test.json
+  findings:
+  - F164
+  - F192
+  - F193
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 84
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F193_ontic_vacuum_test.json
+    artifact_rule:
+      test-results/F193_ontic_vacuum_test.json: local
+    artifacts_read_only: []
+    summary: test_F193_ontic_vacuum.py  --  CA-native ontic vacuum gravitates as zero (candidate (i)),
+- id: F196-dilution-exponent
+  path: tests/findings/test_F196_dilution_exponent.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F196_dilution_exponent_test.json
+  findings:
+  - F193
+  - F196
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 86
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F196_dilution_exponent_test.json
+    artifact_rule:
+      test-results/F196_dilution_exponent_test.json: local
+    artifacts_read_only: []
+    summary: test_F196_dilution_exponent.py  --  deriving the p=2 holographic dilution exponent
+- id: F197-first-excitation-dark
+  path: tests/findings/test_F197_first_excitation_dark.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F197_first_excitation_dark_test.json
+  findings:
+  - F69
+  - F93
+  - F191
+  - F193
+  - F197
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 112
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F197_first_excitation_dark_test.json
+    artifact_rule:
+      test-results/F197_first_excitation_dark_test.json: local
+    artifacts_read_only: []
+    summary: test_F197_first_excitation_dark.py
+- id: F198-angular-misalignment
+  path: tests/findings/test_F198_angular_misalignment.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F198_angular_misalignment_test.json
+  findings:
+  - F197
+  - F198
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 95
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F198_angular_misalignment_test.json
+    artifact_rule:
+      test-results/F198_angular_misalignment_test.json: local
+    artifacts_read_only: []
+    summary: test_F198_angular_misalignment.py
+- id: F199-amplitude-mode-stability
+  path: tests/findings/test_F199_amplitude_mode_stability.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F199_amplitude_mode_stability_test.json
+  findings:
+  - F73
+  - F93
+  - F198
+  - F199
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 95
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F199_amplitude_mode_stability_test.json
+    artifact_rule:
+      test-results/F199_amplitude_mode_stability_test.json: local
+    artifacts_read_only: []
+    summary: test_F199_amplitude_mode_stability.py
+- id: F199-angular-self-duality-derivation
+  path: tests/findings/test_F199_angular_self_duality_derivation.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F92
+  - F176
+  - F177
+  - F179
+  - F199
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 218
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F199_angular_self_duality.json
+    artifact_rule:
+      test-results/F199_angular_self_duality.json: local
+    artifacts_read_only: []
+    summary: F199 — First-principles attempt at the angular self-duality C/|B| = 1/(2 cos 2/3).
+- id: F200-sterile-neutrino-dm
+  path: tests/findings/test_F200_sterile_neutrino_dm.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F200_sterile_neutrino_dm_test.json
+  findings:
+  - F47
+  - F199
+  - F200
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 100
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F200_sterile_neutrino_dm_test.json
+    artifact_rule:
+      test-results/F200_sterile_neutrino_dm_test.json: local
+    artifacts_read_only: []
+    summary: test_F200_sterile_neutrino_dm.py
+- id: F201-kev-from-eg-texture
+  path: tests/findings/test_F201_kev_from_eg_texture.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F201_kev_from_eg_texture_test.json
+  findings:
+  - F76
+  - F93
+  - F201
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 94
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F201_kev_from_eg_texture_test.json
+    artifact_rule:
+      test-results/F201_kev_from_eg_texture_test.json: local
+    artifacts_read_only: []
+    summary: test_F201_kev_from_eg_texture.py
+- id: F202-leptogenesis-sakharov
+  path: tests/findings/test_F202_leptogenesis_sakharov.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F202_leptogenesis_sakharov_test.json
+  findings:
+  - F47
+  - F53
+  - F200
+  - F202
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 93
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F202_leptogenesis_sakharov_test.json
+    artifact_rule:
+      test-results/F202_leptogenesis_sakharov_test.json: local
+    artifacts_read_only: []
+    summary: test_F202_leptogenesis_sakharov.py
+- id: F203-dark-sector-falsifiers
+  path: tests/findings/test_F203_dark_sector_falsifiers.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F203_dark_sector_falsifiers_test.json
+  findings:
+  - F203
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 161
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F203_dark_sector_falsifiers_test.json
+    artifact_rule:
+      test-results/F203_dark_sector_falsifiers_test.json: local
+    artifacts_read_only: []
+    summary: test_F203_dark_sector_falsifiers.py
+- id: F205-sterile-qke-boltzmann
+  path: tests/findings/test_F205_sterile_qke_boltzmann.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F205_sterile_qke_boltzmann_test.json
+  findings:
+  - F203
+  - F205
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 140
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F205_sterile_qke_boltzmann_test.json
+    artifact_rule:
+      test-results/F205_sterile_qke_boltzmann_test.json: local
+    artifacts_read_only: []
+    summary: test_F205_sterile_qke_boltzmann.py
+- id: F216-massive-spin2
+  path: tests/findings/test_F216_massive_spin2.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F216
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 41
+    n_test_funcs: 3
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Test wrapper for F216 — massive spin-2 / second-polarization dark-sector fork.
+- id: F223-spin2-binding-relic
+  path: tests/findings/test_F223_spin2_binding_relic.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F216
+  - F223
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 54
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Test wrapper for F223 — does the F216 massive spin-2 DM bound state form?
+- id: F228-geon-production-stability
+  path: tests/findings/test_F228_geon_production_stability.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F107
+  - F182
+  - F188
+  - F190
+  - F223
+  - F228
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 83
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Test wrapper for F228 — how is the F223 geon produced, and is it stable?
+- id: F230-lepton-angle-geometric-nogo
+  path: tests/findings/test_F230_lepton_angle_geometric_nogo.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F230_lepton_angle_geometric_nogo.json
+  findings:
+  - F75
+  - F76
+  - F78
+  - F80
+  - F179
+  - F199
+  - F230
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 98
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F230_lepton_angle_geometric_nogo.json
+    artifact_rule:
+      test-results/F230_lepton_angle_geometric_nogo.json: local
+    artifacts_read_only: []
+    summary: 'F230 — E1: attempt to derive the lepton spectrum angle delta* = 2/9 rad'
+- id: F232-lattice-spacing-degeneracy
+  path: tests/findings/test_F232_lattice_spacing_degeneracy.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F232_lattice_spacing_degeneracy.json
+  findings:
+  - F55
+  - F79
+  - F83
+  - F107
+  - F232
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 108
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F232_lattice_spacing_degeneracy.json
+    artifact_rule:
+      test-results/F232_lattice_spacing_degeneracy.json: local
+    artifacts_read_only: []
+    summary: 'F232 — L3: Pin the lattice spacing a independently of any mass.'
+- id: F237-kev-sterile-resolution
+  path: tests/findings/test_F237_kev_sterile_resolution.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F205
+  - F223
+  - F228
+  - F237
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 166
+    n_test_funcs: 1
+    artifacts_written:
+    - test-results/F237_kev_sterile_resolution.json
+    artifact_rule:
+      test-results/F237_kev_sterile_resolution.json: local
+    artifacts_read_only: []
+    summary: test_F237_kev_sterile_resolution.py
+- id: F238-geon-relic-abundance
+  path: tests/findings/test_F238_geon_relic_abundance.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F223
+  - F228
+  - F238
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 95
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Test wrapper for F238 -- can the F223/F228 geon relic abundance be derived?
+- id: F241-omega-lambda-residual
+  path: tests/findings/test_F241_omega_lambda_residual.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F241_omega_lambda_residual.json
+  findings:
+  - F183
+  - F190
+  - F196
+  - F241
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 180
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F241_omega_lambda_residual.json
+    artifact_rule:
+      test-results/F241_omega_lambda_residual.json: local
+    artifacts_read_only: []
+    summary: test_F241_omega_lambda_residual.py  --  the last O(1) factor of the cosmological
+- id: F248-tt-graviton-bcc
+  path: tests/findings/test_F248_tt_graviton_bcc.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F180
+  - F248
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 96
+    n_test_funcs: 6
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Test wrapper for F248 — the explicit transverse-traceless (TT) graviton mode
+- id: F56-einstein-coupling-derivation
+  path: tests/findings/test_F56_einstein_coupling_derivation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F56_einstein_coupling_derivation.json
+  findings:
+  - F25
+  - F26
+  - F55
+  - F56
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 171
+    n_test_funcs: 3
+    artifacts_written:
+    - test-results/F56_einstein_coupling_derivation.json
+    artifact_rule:
+      test-results/F56_einstein_coupling_derivation.json: local
+    artifacts_read_only: []
+    summary: test_F56_einstein_coupling_derivation.py — deriving 16πG/c⁴ from the lattice
+- id: F57-induced-eh-from-backreaction
+  path: tests/findings/test_F57_induced_eh_from_backreaction.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F57_induced_eh_from_backreaction.json
+  findings:
+  - F26
+  - F56
+  - F57
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 164
+    n_test_funcs: 3
+    artifacts_written:
+    - test-results/F57_induced_eh_from_backreaction.json
+    artifact_rule:
+      test-results/F57_induced_eh_from_backreaction.json: local
+    artifacts_read_only: []
+    summary: test_F57_induced_eh_from_backreaction.py — induced EH term from matter loops
+- id: F58-clockrate-coupling-derivation
+  path: tests/findings/test_F58_clockrate_coupling_derivation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F58_clockrate_coupling_derivation.json
+  findings:
+  - F25
+  - F26
+  - F52
+  - F58
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 179
+    n_test_funcs: 5
+    artifacts_written:
+    - test-results/F58_clockrate_coupling_derivation.json
+    artifact_rule:
+      test-results/F58_clockrate_coupling_derivation.json: local
+    artifacts_read_only: []
+    summary: test_F58_clockrate_coupling_derivation.py
+- id: F59-induced-eh-prefactor
+  path: tests/findings/test_F59_induced_eh_prefactor.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F59_induced_eh_prefactor.json
+  findings:
+  - F59
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 36
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F59_induced_eh_prefactor.json
+    artifact_rule:
+      test-results/F59_induced_eh_prefactor.json: local
+    artifacts_read_only: []
+    summary: F59 test runner — induced-EH prefactor + Finding-10 selection.
+- id: F60-channel-reconciliation
+  path: tests/findings/test_F60_channel_reconciliation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F60_channel_reconciliation.json
+  findings:
+  - F60
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 25
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F60_channel_reconciliation.json
+    artifact_rule:
+      test-results/F60_channel_reconciliation.json: local
+    artifacts_read_only: []
+    summary: F60 test runner — tree-vs-loop reconciliation of the two induced-G channels.
+- id: F61-weyl-eta-gstar
+  path: tests/findings/test_F61_weyl_eta_gstar.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F61_weyl_eta_gstar.json
+  findings:
+  - F61
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 27
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F61_weyl_eta_gstar.json
+    artifact_rule:
+      test-results/F61_weyl_eta_gstar.json: local
+    artifacts_read_only: []
+    summary: F61 test runner — Weyl heat-kernel eta and gravitating mode count g_*.
+- id: F62-dirac-gravity-fork
+  path: tests/findings/test_F62_dirac_gravity_fork.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F62_dirac_gravity_fork.json
+  - test-results/F62_dirac_gravity_fork.md
+  findings:
+  - F46
+  - F50
+  - F62
+  - F64
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 161
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F62_dirac_gravity_fork.json
+    - test-results/F62_dirac_gravity_fork.md
+    artifact_rule:
+      test-results/F62_dirac_gravity_fork.json: local
+      test-results/F62_dirac_gravity_fork.md: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]'
+    ledger_status: partially_superseded
+    ledger_record: S3-F64-dielectric-gravity
+- id: F63-spin-torsion-estimate
+  path: tests/findings/test_F63_spin_torsion_estimate.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F63_spin_torsion_estimate.json
+  findings:
+  - F62
+  - F63
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 44
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F63_spin_torsion_estimate.json
+    artifact_rule:
+      test-results/F63_spin_torsion_estimate.json: local
+    artifacts_read_only: []
+    summary: F63 test runner — Einstein-Cartan spin-torsion magnitude estimate.
+- id: F64-em-connection
+  path: tests/findings/test_F64_em_connection.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F64_em_connection.json
+  - test-results/F64_em_connection.md
+  findings:
+  - F25
+  - F26
+  - F50
+  - F52
+  - F62
+  - F64
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 441
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F64_em_connection.json
+    - test-results/F64_em_connection.md
+    artifact_rule:
+      test-results/F64_em_connection.json: local
+      test-results/F64_em_connection.md: local
+    artifacts_read_only: []
+    summary: test_F64_em_connection.py — Electromagnetic-connection gravity fork
+- id: F66-allsky-birefringence-anisotropy
+  path: tests/findings/test_F66_allsky_birefringence_anisotropy.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F64
+  - F65
+  - F66
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 230
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F66_allsky_birefringence_anisotropy.py
+- id: F73-spin0-bound-pair
+  path: tests/findings/test_F73_spin0_bound_pair.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F73_spin0_bound_pair.json
+  findings:
+  - F46
+  - F69
+  - F73
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 228
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F73_spin0_bound_pair.json
+    artifact_rule:
+      test-results/F73_spin0_bound_pair.json: local
+    artifacts_read_only: []
+    summary: test_F73_spin0_bound_pair.py
+- id: F79-structural-G
+  path: tests/findings/test_F79_structural_G.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F79_structural_G.json
+  findings:
+  - F79
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 93
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F79_structural_G.json
+    artifact_rule:
+      test-results/F79_structural_G.json: local
+    artifacts_read_only: []
+    summary: Test harness for F79 - Newton's constant from the lattice structure (Sakharov-free).
+- id: F83-fix-lattice-spacing
+  path: tests/findings/test_F83_fix_lattice_spacing.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F83_fix_lattice_spacing.json
+  findings:
+  - F10
+  - F12
+  - F27
+  - F46
+  - F59
+  - F61
+  - F79
+  - F83
+  - F107
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 257
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F83_fix_lattice_spacing.json
+    artifact_rule:
+      test-results/F83_fix_lattice_spacing.json: local
+    artifacts_read_only: []
+    summary: '[PARTIALLY SUPERSEDED 2026-06-06 by F107, F79 — ledger S5-F107-canonical-ruler]'
+    ledger_status: partially_superseded
+    ledger_record: S5-F107-canonical-ruler
+- id: FA-lgt-mc
+  path: tests/findings/test_FA_lgt_mc.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FA_lgt_mc.json
+  findings:
+  - FA1
+  - FA2
+  - FA3
+  - FA4
+  - FA5
+  - FA6
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 255
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/FA_lgt_mc.json
+    artifact_rule:
+      test-results/FA_lgt_mc.json: local
+    artifacts_read_only: []
+    summary: test_FA_lgt_mc.py — correctness battery for the Option-A SU(3) lattice-gauge MC fork
+- id: FA01-liv-tof
+  path: tests/findings/test_FA01_liv_tof.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FA01_liv_tof.json
+  findings:
+  - F30
+  - F79
+  - F107
+  - FA01
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 254
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FA01_liv_tof.json
+    artifact_rule:
+      test-results/FA01_liv_tof.json: local
+    artifacts_read_only: []
+    summary: FA01 — Lorentz-violation time-of-flight scale (sharp falsifier).
+- id: FA09-deflection-coefficient
+  path: tests/findings/test_FA09_deflection_coefficient.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FA09_deflection.json
+  findings:
+  - F64
+  - F79
+  - F107
+  - FA09
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 322
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FA09_deflection.json
+    artifact_rule:
+      test-results/FA09_deflection.json: local
+    artifacts_read_only: []
+    summary: FA09 — Light-bending coefficient = -4 and absolute solar deflection
+- id: FA10-black-hole-shadow
+  path: tests/findings/test_FA10_black_hole_shadow.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FA10_shadow.json
+  findings:
+  - F64
+  - F114
+  - FA10
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 239
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FA10_shadow.json
+    artifact_rule:
+      test-results/FA10_shadow.json: local
+    artifacts_read_only: []
+    summary: 'test_FA10_black_hole_shadow.py — Tier-A falsifier: the +4.63% horizon-free shadow'
+- id: FC01-mercury-perihelion
+  path: tests/runners/FC01_mercury_perihelion.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC01_mercury.json
+  findings:
+  - F16
+  - F64
+  - F112
+  - FC01
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 330
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FC01_mercury.json
+    artifact_rule:
+      test-results/FC01_mercury.json: local
+    artifacts_read_only: []
+    summary: FC01 — Mercury perihelion precession (Tier C consistency regression)
+- id: FC03-redshift
+  path: tests/runners/FC03_redshift.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/FC03_redshift.json
+  findings:
+  - F64
+  - FA10
+  - FC03
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 248
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/FC03_redshift.json
+    artifact_rule:
+      test-results/FC03_redshift.json: local
+    artifacts_read_only: []
+    summary: FC03 — Gravitational redshift (Pound-Rebka)
+- id: compare-F64-F62
+  path: tests/runners/compare_F64_F62.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F64_vs_F62_comparison.json
+  - test-results/F64_vs_F62_comparison.md
+  findings:
+  - F46
+  - F62
+  - F64
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 227
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/F62_dirac_gravity_fork.json
+    - test-results/F64_em_connection.json
+    - test-results/F64_vs_F62_comparison.json
+    - test-results/F64_vs_F62_comparison.md
+    artifact_rule:
+      test-results/F62_dirac_gravity_fork.json: file
+      test-results/F64_em_connection.json: file
+      test-results/F64_vs_F62_comparison.json: local
+      test-results/F64_vs_F62_comparison.md: local
+    artifacts_read_only: []
+    summary: 'compare_F64_F62.py — Head-to-head: EM-connection (F64) vs emergent-gravity (F62)'
+- id: majorana-fork
+  path: tests/findings/test_majorana_fork.py
+  kind: result_dump
+  tier: battery
+  findings:
+  - F27
+  - F41
+  - F43
+  sector: forks
+  evidence:
+    pytest_funcs: true
+    has_assert: false
+    has_main: true
+    lines: 554
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/majorana_fork.json
+    artifact_rule:
+      test-results/majorana_fork.json: file
+    artifacts_read_only: []
+    summary: test_majorana_fork.py — F43 bare ν_R Majorana mass step and see-saw
+  results:
+  - test-results/majorana_fork.json
+  notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-heavy-rerun
+  path: tests/runners/run_heavy_rerun.py
+  kind: legacy_script
+  tier: battery
+  findings:
+  - F64
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 52
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_heavy_rerun.py — the two suite items too slow for the in-session sandbox.
+- id: run-lgt-confinement
+  path: tests/runners/run_lgt_confinement.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/lgt_confinement.json
+  sector: forks
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 177
+    n_test_funcs: 0
+    artifacts_written:
+    - test-results/lgt_confinement.json
+    artifact_rule:
+      test-results/lgt_confinement.json: local
+    artifacts_read_only: []
+    summary: run_lgt_confinement.py — production 3+1D SU(3) string-tension measurement (P1 Option A)

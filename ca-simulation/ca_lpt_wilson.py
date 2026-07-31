@@ -1,156 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.gauge.lpt_wilson`.
+
+Roadmap D6 (C4): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.gauge.lpt_wilson`.
 """
-ca_lpt_wilson.py — Wilson-action lattice perturbation theory: the BZ-integration
-CORE for the q* matching-constant computation, validated against the canonical
-Wilson one-loop integrals (F155 follow-up; the "validation gate" of
-docs/design/qstar-gluon-d1-computation-plan.md).
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-WHY this module exists
-----------------------
-Pinning q* needs the rule's one-loop background-field gluon self-energy: a finite
-4D Brillouin-zone quadrature. Before trusting a bespoke integral on the rule's
-Omega_even action, the BZ-quadrature machinery must reproduce KNOWN lattice
-integrals. This module is that validated core, exercised on the Wilson action.
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-WHAT is validated here (machine precision, certain values)
-----------------------------------------------------------
-  * tadpole_Z0(): the famous Wilson tadpole Z0 = int_BZ d^4k/(2pi)^4 1/Khat(k),
-    Khat = 4 sum_mu sin^2(k_mu/2). Published value 0.1549333902 (Hasenfratz^2;
-    the dominant contribution to the Wilson Lambda_MSbar/Lambda_L = 28.809, and
-    EXACTLY the term that is structurally absent for the rule, F155-A0).
-  * sum_rule(): the exact propagator sum rule int_BZ khat_mu^2/Khat = 1/4
-    (one per direction, summing to 1). A zero-uncertainty check of the engine.
-  * convergence(): both vs BZ resolution n -> production-grade values.
+import casim.engine.gauge.lpt_wilson as _target
 
-WHAT is NOT done here (scope, stated honestly)
-----------------------------------------------
-  The full Wilson Lambda-ratio 28.809 also needs the 3-/4-gluon vertex + ghost
-  finite constants (the non-tadpole, vertex-driven part). Those are the SAME
-  vertex pieces the rule's d1 needs, and they are the next increment (the
-  cubic/quartic expansion of the action, per the design doc). This module
-  validates the INTEGRATION CORE + the tadpole sector and lays out the assembly;
-  it does NOT re-derive the vertex constants from scratch. The literature value
-  28.809 is recorded as the target the completed pipeline must hit.
+_warnings.warn(
+    "ca-simulation/ca_lpt_wilson.py has moved to casim.engine.gauge.lpt_wilson; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-Pure numpy. The 4D integrals at production n are memory-heavy -> see
-tests/runners/run_lpt_wilson_validation.py for the native high-res run.
-"""
-from __future__ import annotations
-
-import math
-
-import numpy as np
-
-Z0_PUBLISHED = 0.154933390231  # Wilson tadpole, SU(N)-independent (Hasenfratz^2)
-LAMBDA_RATIO_WILSON_SU3 = 28.8086  # Lambda_MSbar/Lambda_L, SU(3) (literature)
-B0_SU3 = 11.0 * 3.0 / (48.0 * math.pi ** 2)  # 1/g^2 convention: 1/g^2 = 2 b0 ln(mu/Lambda)
-
-
-def _axis(n: int) -> np.ndarray:
-    """Midpoint BZ grid on (-pi, pi), avoiding k=0."""
-    return (np.arange(n) + 0.5) / n * 2 * math.pi - math.pi
-
-
-def wilson_khat2(grids) -> np.ndarray:
-    """Wilson kinetic kernel Khat(k) = 4 sum_mu sin^2(k_mu/2) = sum_mu khat_mu^2."""
-    return sum(4.0 * np.sin(g / 2.0) ** 2 for g in grids)
-
-
-def bz_integral(integrand_fn, n: int, d: int = 4) -> float:
-    """Midpoint BZ quadrature of integrand_fn(grids) over (-pi,pi)^d, normalised
-    as int d^dk/(2pi)^d (so the average value times 1 = the mean). This is the
-    reusable core the rule's d1 quadrature will call."""
-    ax = _axis(n)
-    grids = np.meshgrid(*([ax] * d), indexing="ij")
-    return float(np.mean(integrand_fn(grids)))
-
-
-# ----------------------------------------------------------------------
-#  Validation 1 — the Wilson tadpole Z0 (dominant in 28.809; absent for the rule)
-# ----------------------------------------------------------------------
-def tadpole_Z0(n: int = 64) -> dict:
-    val = bz_integral(lambda g: 1.0 / wilson_khat2(g), n, d=4)
-    return {"Z0": val, "published": Z0_PUBLISHED,
-            "abs_dev": abs(val - Z0_PUBLISHED),
-            "rel_dev": abs(val / Z0_PUBLISHED - 1.0), "n": n,
-            "note": "dominant piece of Wilson 28.809; STRUCTURALLY ABSENT for the "
-                    "rule (F155-A0, u0=1 exact) -> the rule's Lambda-ratio is O(1)"}
-
-
-# ----------------------------------------------------------------------
-#  Validation 2 — the exact propagator sum rule int khat_mu^2 / Khat = 1/4
-# ----------------------------------------------------------------------
-def sum_rule(n: int = 64) -> dict:
-    def integ(g):
-        kh = wilson_khat2(g)
-        return (4.0 * np.sin(g[0] / 2.0) ** 2) / kh     # khat_x^2 / Khat
-    val = bz_integral(integ, n, d=4)
-    return {"int_khatx2_over_Khat": val, "exact": 0.25,
-            "abs_dev": abs(val - 0.25), "n": n,
-            "note": "exact sum rule (sum over 4 directions = 1); zero-uncertainty "
-                    "engine check"}
-
-
-# ----------------------------------------------------------------------
-#  Convergence (production-relevant)
-# ----------------------------------------------------------------------
-def convergence(n_list=(24, 32, 48, 64)) -> dict:
-    rows = []
-    for n in n_list:
-        z = tadpole_Z0(n)
-        s = sum_rule(n)
-        rows.append({"n": n, "Z0": z["Z0"], "Z0_rel_dev": z["rel_dev"],
-                     "sum_rule": s["int_khatx2_over_Khat"],
-                     "sum_rule_dev": s["abs_dev"]})
-    return {"rows": rows,
-            "Z0_converged": rows[-1]["Z0"], "Z0_rel_dev": rows[-1]["Z0_rel_dev"],
-            "sum_rule_converged": rows[-1]["sum_rule"]}
-
-
-# ----------------------------------------------------------------------
-#  Lambda-ratio assembly (context + the tadpole leg; vertex legs flagged)
-# ----------------------------------------------------------------------
-def lambda_ratio_context() -> dict:
-    """The Wilson Lambda_MSbar/Lambda_L = 28.809 decomposes (Lepage-Mackenzie)
-    into a dominant TADPOLE piece (set by Z0, computed+validated here) and a
-    sub-dominant vertex/ghost finite part (the cubic/quartic-vertex constants,
-    the next increment). We record the target and the validated tadpole leg, and
-    the contrast with the rule (tadpole = 0)."""
-    return {
-        "target_Lambda_MSbar_over_Lambda_L_SU3": LAMBDA_RATIO_WILSON_SU3,
-        "ln_target": math.log(LAMBDA_RATIO_WILSON_SU3),
-        "tadpole_leg": "Z0 = 0.154933 (validated below) — the dominant, "
-                       "tadpole-improvement piece (Lepage-Mackenzie); the rest is "
-                       "the vertex+ghost finite constant (next increment)",
-        "rule_contrast": "the rule has Z0-leg = 0 exactly (F155-A0), so its "
-                         "Lambda-ratio is O(1) (target 1.78), not ~29",
-        "status": "INTEGRATION CORE + tadpole leg validated here; full 28.809 "
-                  "needs the vertex set (docs/design/qstar-gluon-d1-computation-plan.md)"}
-
-
-def report(n: int = 64) -> dict:
-    return {"tadpole_Z0": tadpole_Z0(n),
-            "sum_rule": sum_rule(n),
-            "convergence": convergence(),
-            "lambda_ratio_context": lambda_ratio_context()}
-
-
-def qstar_validation_highres(n_list=(64, 96, 128)) -> dict:
-    """Entry point for the native high-res runner: the canonical Wilson integrals
-    at production BZ resolution, confirming the core converges to the published
-    values. (The vertex-driven 28.809 completion fires here once built.)"""
-    rows = []
-    for n in n_list:
-        z = tadpole_Z0(n); s = sum_rule(n)
-        rows.append({"n": n, "Z0": z["Z0"], "Z0_rel_dev": z["rel_dev"],
-                     "sum_rule_dev": s["abs_dev"]})
-    return {"rows": rows, "Z0_published": Z0_PUBLISHED,
-            "Z0_final": rows[-1]["Z0"], "Z0_final_rel_dev": rows[-1]["Z0_rel_dev"],
-            "verdict": "BZ-integration core validated to the quoted precision on "
-                       "the canonical Wilson integrals (tadpole Z0 + exact sum "
-                       "rule); this is the reusable machinery for the rule's d1. "
-                       "Vertex+ghost finite part = next increment."}
-
-
-if __name__ == "__main__":
-    import json
-    print(json.dumps(report(), indent=2, default=float))
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

@@ -1,17 +1,23 @@
 {
   "name": "photon_pair",
+  "title": "Paired-Spinor Photon",
+  "description": "Even-law (E,B) rotation of the F69 paired-spinor photon: checks the field stays real and norm-conserving, and that the pair dispersion equals the even-law rate (PP1/PP5).",
   "seed": 5,
-  "ticks": 40,
+  "ticks": 2,
   "lattice": {
     "L": 16,
     "dims": 3,
     "topology": "cubic",
-    "c_lat": 0.5773502691896258
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
   },
   "channels": {
     "photon_pair": {
       "name": "photon_pair",
       "type": "photon_pair",
+      "label": "Photon Pair",
       "propagator": "even",
       "topologies": [
         "cubic"
@@ -21,6 +27,7 @@
   "observers": {
     "norm_conservation": {
       "type": "norm_conservation",
+      "label": "Norm Conservation",
       "exactness": "machine-precision",
       "every": 5,
       "records": [
@@ -32,99 +39,22 @@
               "rel_drift": 0.0
             }
           }
-        },
-        {
-          "tick": 5,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310395,
-              "rel_drift": 7.368626290683606e-16
-            }
-          }
-        },
-        {
-          "tick": 10,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310417,
-              "rel_drift": 1.6210977839503934e-15
-            }
-          }
-        },
-        {
-          "tick": 15,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.59717631044,
-              "rel_drift": 2.505332938832426e-15
-            }
-          }
-        },
-        {
-          "tick": 20,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310454,
-              "rel_drift": 3.094823042087115e-15
-            }
-          }
-        },
-        {
-          "tick": 25,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310475,
-              "rel_drift": 3.9790581969691474e-15
-            }
-          }
-        },
-        {
-          "tick": 30,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310494,
-              "rel_drift": 4.7159208260375085e-15
-            }
-          }
-        },
-        {
-          "tick": 35,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310515,
-              "rel_drift": 5.600155980919541e-15
-            }
-          }
-        },
-        {
-          "tick": 40,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310526,
-              "rel_drift": 6.042273558360557e-15
-            }
-          }
         }
       ],
       "summary": {
         "max_rel_drift": {
-          "photon_pair": 6.042273558360557e-15
+          "photon_pair": 0.0
         }
       }
     },
     "dispersion_fit": {
       "type": "dispersion_fit",
+      "label": "Dispersion Fit",
       "exactness": "machine-precision",
       "every": 40,
       "records": [
         {
           "tick": 0,
-          "channels": {
-            "photon_pair": 0.0
-          }
-        },
-        {
-          "tick": 40,
           "channels": {
             "photon_pair": 0.0
           }
@@ -134,6 +64,7 @@
     },
     "field_snapshot": {
       "type": "field_snapshot",
+      "label": "Field Snapshot",
       "exactness": "quantitative",
       "every": 40,
       "records": [
@@ -142,14 +73,6 @@
           "channels": {
             "photon_pair": {
               "energy": 24685.597176310377
-            }
-          }
-        },
-        {
-          "tick": 40,
-          "channels": {
-            "photon_pair": {
-              "energy": 24685.597176310526
             }
           }
         }

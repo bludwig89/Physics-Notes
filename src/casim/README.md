@@ -151,6 +151,37 @@ every N ticks. `casim resume <snapshot.npz>` rebuilds the run and continues —
 bit-identical to an uninterrupted run. This is how long jobs that exceed the
 sandbox time limit are run: checkpoint, resume, repeat.
 
+## Field dumps for visualisation (`field_dump`)
+
+The engine never imports a renderer. The `field_dump` observer writes real 3-D
+volumes to disk and any frontend reads them afterwards — ParaView, PyVista,
+napari, or plain numpy. Full rationale in `docs/design/visualization.md`.
+
+```yaml
+observers:
+  - {type: field_dump, every: 10, format: vti, stride: 2, max_mb: 256}
+```
+
+Writes `test-results/fields/<run>/<channel>_t000010.vti` per tick per channel,
+plus a `<channel>.pvd` collection that opens the whole run as a ParaView time
+series. Keys: `dir`, `channels` (filter), `format` (`vti` | `npz` | `both`),
+`components` (also dump raw fields, default off), `stride` (spatial downsample),
+`precision` (`float32` | `float64`), `max_mb` (write budget; dumping halts when
+exceeded).
+
+Always written: `density` — the channel's `density_field`, the same volume the
+GUI point cloud renders, so file and live view cannot disagree. With
+`components: true`, spinors additionally appear as `f_re`/`f_im`/`g_re`/`g_im`
+and gauge fields as `E`/`B`. **Complex arrays are never written implicitly** —
+`casim.io.vtk` refuses them, because a renderer that silently drops Im(ψ) yields
+a plausible wrong picture (CLAUDE.md's caution on chiral transforms). Channels
+with no spatial volume (compute-once spectral solves, the 2ⁿ many-body register)
+are skipped and listed in the observer summary rather than failing the run.
+
+Caveat: ImageData is a uniform grid, so a BCC lattice is written with cubic
+indexing — exact for every array-indexed field, but geometric BCC sublattice
+offsets are not applied. Topology travels in the sidecar metadata.
+
 ## Adding a scenario
 
 ```yaml

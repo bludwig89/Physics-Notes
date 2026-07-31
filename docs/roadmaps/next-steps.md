@@ -73,7 +73,13 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
   
     - proposed test - extend the bilinear construction to both branches, see how the two polarisations pick up $\Omega^\pm$, then confront the predicted birefringence with polarisation bounds.
 
-    - If the composite BCC plaquette has structural O(ε) cross-direction contributions. What could be the cause and what could be a transform modification that reduces the Blanchi residual to zero?
+    - ~~***Complete (F265, 2026-07-29)*** - If the composite BCC plaquette has structural O(ε) cross-direction contributions. What could be the cause and what could be a transform modification that reduces the Blanchi residual to zero?~~ **Answered negatively: no transform should.** The cross-direction terms are physical content. The composite plaquette collapsed the 8 BCC links into three straight ⟨100⟩ composites and was blind to one of the four ⟨111⟩ link axes — exactly 1/3 of the curvature-carrying content (rank $2N_s-4$ vs $3N_s-3$), with an exact kernel on which $S_\text{SC}\equiv0$ while the genuine BCC action is O(1). Its *small* Bianchi residual was the symptom: three coplanar planes on one simple-cubic sublattice satisfy the cube-face product as an exact lattice identity, giving O((ka)³) instead of the generic O((ka)²). The action is now the BCC minimal loop (4-bond rhombus, 6 orientations, ⟨110⟩ normals) in `ca_bcc_gauge.py`. A BCC-native closed-surface Bianchi diagnostic replacing the SC Cartesian curl is **scoped, not built**.
+
+    - **(F265 follow-on, open)** Still-cubic gauge layers, in priority order: (1) the 4D hypercubic Wilson `ca_lpt_*` one-loop chain — F155/F239 already name the BCC-BZ vertex computation as the one remaining production-grade job, and F265 adds that the BZ *measure* is also wrong there; (2) `ca_bgfield_loop`, which folds a BCC propagator against continuum vertices on the **cubic** BZ with a mod-2π wrap, over-counting the spatial measure by exactly 4 (`ca_lattice.make_kgrid_bcc` now supplies the fix; not yet applied or re-run); (3) `ca_hypercharge`, whose docstring claims a BCC kinetic step but which calls `ca_dirac._weyl_half_step_2c` and is 2D; (4) the F94 (4D cubic) and F146 (3D cubic) Monte-Carlo actions, to be rebuilt on the rhombic action.
+
+    - **(F265 follow-on, open)** Re-run the induced-stiffness / F49 channel census against the migrated action. F147/F149 pinned the F49 gap at exactly 8/7 and flagged hops:axes; F153 tested it on the fermion loop and found no clean count. F265 shows that census could not have been complete — the gauge action carried 3 manufactured ⟨100⟩ channels and discarded the 4th ⟨111⟩ axis. The count is now 4 link axes and 6 plaquette orientations. Newly testable route to $\sin^2\theta_W=2/9$; **not** a claim.
+
+    - **(F265 follow-on, open)** The √3 question. The link side is now the integer BCC lattice (hop $d$, `np.roll` exact) while the fermion walk uses $e^{ik\cdot d/\sqrt3}$ — the same lattice at a different unit of length ($q=k/\sqrt3$), consistent as a rescaling. But the walk is evaluated on the cubic FFT cube, which per F265 §2 holds 4 BZ copies. Does the fermion sector need the same factor-4 measure correction?
   
     - ~~***Complete*** - review and build a markdown for each of the axial-kinetic-theory, quantum-kinetic-theory, and stueckelberg-field papers in references and determine if they can help our model with mass coupling and kinetic steps without w_mu or the higgs field.~~
   
@@ -270,14 +276,27 @@ All from project-audit-inputs-dynamism
 
 ## CASIM Structure
 
-- ~~update scenarios to have a clear name with a short description for each and what it is doing/testing.~~
+- we want CASIM to be our main operating and modelling program that builds all the physics modules together. I want to build out a roadmap plan to:
+  - CASIM be the main runner for any new tests
+  - CASIM regenerate code-index, docs-index, findings-index and tests-index.
+  - any and all tests are parameter settings run through it, not built as standalone tests/modules/runners.
+    - change tests to work with a registry, some tests will have a results dump, some will be pass/fail, build this structure out.
+  - numpy, scipy, etc. are imported into every module file, can we pull them as libraries and include them by default in the main program engine? 
+  - use the constants registries as a source of truth for every module that calls back to those constants. 
+  - under engine, we want the bcc lattice as the base layer, then split by by folders into gauge fields, particles, interactions, so that it is more easily human-readable and logically makes sense 
+  - move files and source-of-truth from ca-simulation and make them engine modules that also have their own registry system. 
+- make copies of files that have dead or superceded code in them, move the originials into the deprecated/code folder, then remove all unused or superceded code from the new copies. (basically so there's a complete backup before making changes)
+- move any files or tests that are dead or superceded to the deprecated/code and deprecated/tests folders.
 
-- ~~write a series of scenarios that are simple photon beams through all fields along an axis to observe propagation.~~
+review roadmap-unified-program.md and p0-completion-overview, and p1-completion-overview for already completed steps then build out a complete documented roadmap plan to accomplish this as if each phase is a separate claude session. 
 
-- we want the base lattice construct, along with each of the four fundamental fields built in/on it. (EM, Strong nuclear, weak nuclear, gravity)
-  - particles, depending on their type, should interact via each force when applicable (e.g. quarks are affected by all four, but leptons have no color-charge so the strong force does not affect them)
-  - we want the program structure to allow particle construction to stack on the lattice, with the fundamental fields as the particle-interaction methods. This way building particles and tests are more modular.
-  - basically, we want to be able to see particles on the lattice interacting with others through the fields, with readouts of test values, field and particle data along the sidebar.
+to prevent the download failure of scipy/pyfftw/pytest in every sandbox session, can we add them locally to the project and update claude.md to pull them from there?
+
+- audit all of the engine modules and determine if scipy could be used to improve speed, operation, or accuracy of the physics.
+  
+- read roadmap-casim-consolidation.md and roadmap-unified-program.md, then update claude.md with the new module conventions, registries, and libraries so that when any new session builds a new module or updates an existing one it gets incorporated into casim.
+
+- change claude.md so that when a question is posed or a model element is being researched, the finding and test numbers are claimed at the start of the session, then built out as used. That way when parallel sessions are operating at the same time their findings or tests aren't taking over each other or messing each other up.
 
 ## Email Disclaimer
 P.S. — A disclaimer. I'm a physicist only by proximity. My father held a PhD in theoretical physics and treated problems like this as a hobby; I recently transcribed one of his notebooks and found a section on universal structure as cellular automata. I'm a computer guy, not a physicist, but with AI's help I started turning his notes into a working model — and I know enough to suspect it might interest you.

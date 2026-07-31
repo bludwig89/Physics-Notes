@@ -1,4 +1,15 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase]
+
+  DEAD:
+    S2's conclusion that a rational radian signals a TOPOLOGICAL/flux phase
+    rather than a group-theoretic projection — inverted by F175 and excluded
+    by F253.
+
+  STILL LIVE:
+    S1 value extraction; S3 model home/triangulation; S4 caveat.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 F174 — The shape-angle algebraic connection: the lepton-condensate angle is
 delta* = 2/9 rad (3 delta* = 2/3 rad) — a TOPOLOGICAL (rational-radian) phase,
 not a geometric (algebraic-cosine) angle — corroborated independently, with a

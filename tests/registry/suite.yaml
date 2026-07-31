@@ -1,0 +1,229 @@
+version: 1
+sector: suite
+about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it runs, at what parameters,
+  and how it fails. `casim test` and `pytest` both execute THESE records (src/casim/tests/), so they cannot
+  diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
+  on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
+  adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
+  not undo it.'
+tests:
+- id: backend
+  path: tests/casim/test_backend.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 112
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'Backend seam (roadmap §8 / Phase G): the default round-trips exactly, and an'
+- id: casim-exactness
+  path: tests/casim/test_casim_exactness.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 114
+    n_test_funcs: 14
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Exactness/fidelity suite for the casim engine (roadmap Phase F).
+- id: chiral-core-caching
+  path: tests/casim/test_chiral_core_caching.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 145
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Roadmap C1.4 — the chiral-core mode caches must be free.
+- id: constants-consistency
+  path: tests/casim/test_constants_consistency.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 366
+    n_test_funcs: 12
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Roadmap C2.4 — the constants gate, with its polarity flipped.
+- id: engine-reproduces-kernels
+  path: tests/casim/test_engine_reproduces_kernels.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 184
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'Engine fidelity: casim.engine must reproduce the raw ca-simulation kernels'
+- id: fft-backend-equivalence
+  path: tests/casim/test_fft_backend_equivalence.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 303
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Roadmap P2.1 — every FFT library must agree to the round-off floor.
+- id: field-dump-vtk
+  path: tests/casim/test_field_dump_vtk.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 181
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'Tests for the visualisation seam: casim.io.vtk + the field_dump observer.'
+- id: gravity-element
+  path: tests/casim/test_gravity_element.py
+  kind: assertion
+  tier: gate
+  findings:
+  - F62
+  - F64
+  - F79
+  - F106
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 247
+    n_test_funcs: 6
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'Gravity-element suite — the F64 fork mainlined (audit B.2 #1, 2026-06-06).'
+- id: gui-render-spinor
+  path: tests/casim/test_gui_render_spinor.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 75
+    n_test_funcs: 6
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Headless tests for Bloch-sphere spinor colouring (casim.gui.render).
+- id: index-integrity
+  path: tests/casim/test_index_integrity.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 133
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: '`casim index` is idempotent, complete, and able to say no — roadmap C8.'
+- id: particle-layer
+  path: tests/casim/test_particle_layer.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 637
+    n_test_funcs: 23
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Particle-layer suite (roadmap-particle-layer.md, Phase P1).
+- id: registry-entries
+  path: tests/casim/test_registry_entries.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 50
+    n_test_funcs: 2
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Run the gate-tier registry entry points under pytest — roadmap C7.3 (**D9**).
+- id: registry-integrity
+  path: tests/casim/test_registry_integrity.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 157
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: The test registry is complete, valid, and identical to what pytest runs.
+- id: supersession-ledger
+  path: tests/casim/test_supersession_ledger.py
+  kind: assertion
+  tier: gate
+  findings:
+  - F52
+  - F62
+  - F178
+  - F179
+  sector: suite
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 240
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Roadmap P0.3/P0.4 — the supersession ledger gate.

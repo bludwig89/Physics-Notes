@@ -13,10 +13,20 @@ import casim as _casim  # noqa: F401
 _MODULES = [
     "ca_wmu", "ca_weak", "ca_z_field", "ca_charged_current", "ca_hypercharge",
 ]
+# Old bare name -> new casim.engine path (roadmap C4). Migrated kernels are
+# imported from their engine location, not the ca-simulation shim, so this
+# re-export layer survives the shims being deleted at C9.
+_PATHS = {
+    "ca_wmu": "casim.engine.gauge.weak_wmu",
+    "ca_weak": "casim.engine.gauge.weak",
+    "ca_z_field": "casim.engine.gauge.weak_z",
+    "ca_charged_current": "casim.engine.gauge.charged_current",
+    "ca_hypercharge": "casim.engine.gauge.hypercharge",
+}
 _loaded = {}
 for _m in _MODULES:
     try:
-        _loaded[_m] = _il.import_module(_m)
+        _loaded[_m] = _il.import_module(_PATHS.get(_m, _m))
         globals()[_m] = _loaded[_m]
     except Exception as _e:  # pragma: no cover
         globals()[_m] = None

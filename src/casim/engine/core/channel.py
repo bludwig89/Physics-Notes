@@ -1,4 +1,4 @@
-"""casim.engine.channel — the Channel abstraction and registry.
+"""casim.engine.core.channel — the Channel abstraction and registry.
 
 A *channel* is one field sector evolving on the lattice.  Each channel owns its
 own state representation (real-space arrays, k-space arrays, or anything else —

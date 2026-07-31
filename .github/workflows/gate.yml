@@ -1,0 +1,82 @@
+# Roadmap P0.5 — the first automated enforcement this repository has had.
+#
+# Deliberately narrow. This gate protects provenance and the fast package
+# suite; it does NOT run the findings battery (hours) or the scaled scenario
+# tiers. Those are `casim test`, invoked by hand.
+#
+# The same checks run locally via `make gate`, so a green local run means a
+# green CI run.
+name: gate
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[fast]'
+          pip install pytest
+
+      # P2.1: the `fast` extra must actually take effect. If a pyfftw wheel
+      # stops being available for a Python version, CI should say so loudly
+      # rather than quietly reverting to the slow path — that silence is the
+      # exact failure mode P2.1 exists to end.
+      - name: FFT backend is pyfftw
+        run: |
+          python -m casim.cli backend --bench --L 48
+          python - <<'PY'
+          import sys; sys.path.insert(0, "ca-simulation")
+          import ca_fft
+          if ca_fft.get_backend() != "pyfftw":
+              print(f"::error::expected pyfftw, got {ca_fft.get_backend()}")
+              sys.exit(1)
+          PY
+
+      - name: Gate
+        run: python tools/run_gate.py --verbose
+
+      # Run pytest explicitly as well as through the gate. The gate falls back
+      # to standalone entry points when pytest is missing, and two files in
+      # tests/casim have no __main__ block — this step guarantees CI never
+      # silently runs the reduced path.
+      - name: pytest tests/casim
+        run: pytest tests/casim -q -m "not superseded and not slow"
+
+      - name: Confirm the gate can fail
+        # A gate nobody has seen fail is a gate nobody should trust. Perturb a
+        # structural constant and require a non-zero exit.
+        run: |
+          cp ca-simulation/ca_gravity.py /tmp/ca_gravity.bak
+          sed -i 's|^G_LATTICE = 1.0 / (72.0 \* np.pi)|G_LATTICE = 1.0 / (71.0 * np.pi)|' \
+            ca-simulation/ca_gravity.py
+          if python tests/casim/test_constants_consistency.py; then
+            echo "::error::the constants gate did NOT catch a perturbed G_LATTICE"
+            cp /tmp/ca_gravity.bak ca-simulation/ca_gravity.py
+            exit 1
+          fi
+          cp /tmp/ca_gravity.bak ca-simulation/ca_gravity.py
+          echo "gate correctly rejected the perturbation"

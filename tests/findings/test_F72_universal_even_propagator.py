@@ -1,4 +1,15 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-06-04 by F91 — ledger S2-F91-gluon-chiral-to-even]
+
+  DEAD:
+    C2's LABEL attaching 'chiral faithful' to the gluon.
+
+  STILL LIVE:
+    C1 U(1) identity commutes -> even forced; C2's numeric assertion; C3 split
+    is O(k^2); C4 even law erases W parity content; C5 code map (already
+    records the migration).
+
+  See docs/theory/supersessions.yaml for the full record.
+
 F70 — Can the F69 paired/even-law photon propagator be adopted *universally*,
 retiring the chiral propagator (w_propagation_step_chiral) for the W/Z/gluon
 sectors too?

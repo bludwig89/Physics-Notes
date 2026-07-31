@@ -11,8 +11,15 @@ from __future__ import annotations
 import importlib as _il
 import casim as _casim  # noqa: F401  (ensures ca-simulation is on sys.path)
 
+# C6: `ca_entanglement` migrated to `casim.engine.interactions.qi_entanglement`.
+# The old name still resolves through the ca-simulation shim, but that shim is
+# deleted at C9 — and because this module loads by STRING, neither the import
+# rewriter nor the C3.4 shim-import checker can see it. So the engine path is
+# named explicitly, exactly as C4 did for fields/em|strong|electroweak.py.
+_PATH = "casim.engine.interactions.qi_entanglement"
+
 try:
-    ca_entanglement = _il.import_module("ca_entanglement")
+    ca_entanglement = _il.import_module(_PATH)
 except Exception:  # pragma: no cover
     ca_entanglement = None
 

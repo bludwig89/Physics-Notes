@@ -32,6 +32,23 @@ See `INDEX.md` for the full annotated map. In brief:
 - `scenarios/` — CASIM scenario YAMLs + RUN-GUIDE
 - `tools/` — maintenance scripts (`regen_indexes.py`)
 - `deprecated/` — superseded docs/plans (see its README for why each item landed there)
+- `.vendor/` — pre-installed sandbox Python packages (git-ignored); see below
+
+## Sandbox Python dependencies (scipy / numpy / pyfftw / pytest)
+
+Do **not** `pip install` these in the sandbox — proxy downloads are slow/flaky and
+fail. They are already vendored in `.vendor/` (CPython 3.10, Linux aarch64). At the
+start of any bash session that needs them, activate via `PYTHONPATH` — no download:
+
+```bash
+source "$PWD/.vendor/activate.sh"      # run from the repo root
+python3 -m pytest tests/casim -q       # note: use `python3 -m pytest`, not bare `pytest`
+```
+
+Equivalently: `export PYTHONPATH="$PWD/.vendor/py310-linux-aarch64:$PYTHONPATH"`.
+Offline reinstall / adding packages: see `.vendor/README.md`. If a new package is
+needed, add its cp310-aarch64 wheel to `.vendor/wheels/` first, then install with
+`--no-index --find-links .vendor/wheels --target .vendor/py310-linux-aarch64`.
 
 ## Context
 
@@ -73,10 +90,16 @@ Use the important elements of a new theory, it must explain existing scientific 
 - Document any new physics finds, or possible new finds, to the Findings folder with each new finding being a new markdown file. Use the convention `F99-name.md`.
 ## Index maintenance
 
-`INDEX.md`, `findings-index.md`, `project-status-index.md`, `tests-index.md`, `code-index.md`, and `docs-index.md` are compact indexes used to keep context usage low. Regenerate them after any session that adds findings, tests, modules, docs, or project-status entries:
+`findings-index.md`, `project-status-index.md`, `tests-index.md`, `code-index.md`, and `docs-index.md` are compact indexes used to keep context usage low. Since roadmap C8 they are generated **from the registries** — the module registry (`casim.engine.registry`, D11) and the test registry (`tests/registry/*.yaml`, D9) — not scraped from the filesystem, together with `test-results/manifest.json` and the generated blocks of `docs/status/exactness-inventory.md`. Regenerate after any session that adds findings, tests, modules or docs:
 
 ```bash
-python3 tools/regen_indexes.py        # rebuilds all auto-generated indexes
+make indexes                  # = casim index   (all seven targets)
+casim index --check           # exit 1 if anything is stale; `make gate` runs this
+casim index --only tests      # one target: findings,status,tests,code,docs,results,exactness
 ```
+
+`casim index` also **refuses** a finding number that is used twice, or a gap in `findings/`, unless it is declared in `docs/design/finding-numbers.yaml` with a reason. Numbers have collided across concurrent sessions repeatedly (ten numbers are currently used twice, all recorded there as `unreviewed`), so when you add a finding: check the max first — `casim index` prints it — and if a collision has to stand, declare it.
+
+`tools/regen_indexes.py` and `tools/gen_exactness_inventory.py` are deprecation shims onto `casim index`, removed at C9.
 
 INDEX.md is hand-maintained — update it only when the directory layout itself changes.

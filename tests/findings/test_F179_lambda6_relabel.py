@@ -1,4 +1,16 @@
-"""
+"""[PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase]
+
+  DEAD:
+    D5 verdict bookkeeping: 'one-angle consistency fit ... NOT zero-parameter'
+    and listing delta* among fitted_inputs.
+
+  STILL LIVE:
+    D1 condensate invariants; D2 lambda_6 not a clean rational (re-affirmed by
+    F256); D3 3 delta* = Q = 2/3 within 1 sigma — now the canonical
+    falsification handle; D4 spectrum to ~0.01%.
+
+  See docs/theory/supersessions.yaml for the full record.
+
 F179 — The E_g sextic brake lambda_6 / C: derivation attempt closes negative;
 the lepton spectrum is honestly relabelled as a ONE-ANGLE consistency fit whose
 single parameter is the convention-independent condensate angle delta* (not the

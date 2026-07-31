@@ -1,68 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.interactions.horizon_entropy`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.interactions.horizon_entropy`.
 """
-ca_horizon_entropy.py  --  Lattice microstates & the Bekenstein-Hawking area law
-================================================================================
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-Scenario S7 (speculative).  With a true horizon restored (F183), the model owes
-a microscopic account of black-hole entropy.  This module sets up the horizon
-as a tiling of F107 canonical cells and asks what per-cell entropy reproduces
-S = A/(4 l_P^2) (k_B = 1).  The area law S ~ A is automatic from the tiling;
-the coefficient 1/4 then *fixes* the required per-cell entropy in closed form.
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-F107 cell:  a = sqrt(8 pi) 3^{1/4} l_P  =>  a^2 = 8 pi sqrt3 l_P^2.
-N_cells on the horizon = A / a^2.  Requiring N_cells * s_cell = A/(4 l_P^2):
+import casim.engine.interactions.horizon_entropy as _target
 
-    s_cell = a^2 / (4 l_P^2) = 8 pi sqrt3 / 4 = 2 pi sqrt3 nats  (≈ 10.88).
+_warnings.warn(
+    "ca-simulation/ca_horizon_entropy.py has moved to casim.engine.interactions.horizon_entropy; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-So Bekenstein-Hawking is reproduced iff each horizon cell carries 2 pi sqrt3
-nats (~e^{10.9} ≈ 5.4e4 microstates).  This is a consistency relation tying the
-F107 cell to S = A/4; deriving s_cell = 2 pi sqrt3 from the lattice degrees of
-freedom is the open step.
-
-Self-contained: numpy only.  Date: 2026-06-30 (F190).
-"""
-
-from __future__ import annotations
-
-import numpy as np
-
-G = 6.67430e-11; C = 2.99792458e8; HBAR = 1.054571817e-34
-MSUN = 1.98892e30; KB = 1.380649e-23
-ELLP = 1.616255e-35
-A_CELL = np.sqrt(8 * np.pi) * 3 ** 0.25 * ELLP        # F107 canonical cell
-ELLP2 = ELLP ** 2
-
-
-def horizon_area_m2(M_solar):
-    r_h = 2.0 * G * (M_solar * MSUN) / C ** 2
-    return 4.0 * np.pi * r_h ** 2
-
-
-def bekenstein_hawking_entropy(M_solar):
-    """S = A / (4 l_P^2)  (dimensionless, k_B = 1)."""
-    return horizon_area_m2(M_solar) / (4.0 * ELLP2)
-
-
-def lattice_cell_count(M_solar):
-    """Number of F107 cells tiling the horizon, N = A / a^2."""
-    return horizon_area_m2(M_solar) / A_CELL ** 2
-
-
-def required_entropy_per_cell():
-    """Closed form: s_cell = a^2/(4 l_P^2) = 2 pi sqrt3 nats."""
-    return A_CELL ** 2 / (4.0 * ELLP2)        # == 2 pi sqrt3
-
-
-def summary(M_solar=1.0):
-    S = bekenstein_hawking_entropy(M_solar)
-    N = lattice_cell_count(M_solar)
-    s_cell = S / N
-    return {"M_solar": M_solar, "S_BH": S, "N_cells": N,
-            "s_per_cell": s_cell, "s_per_cell_closed_form": 2 * np.pi * np.sqrt(3),
-            "microstates_per_cell": float(np.exp(s_cell)),
-            "area_m2": horizon_area_m2(M_solar)}
-
-
-def area_law_check(M1=1.0, M2=2.0):
-    """S ~ A ~ M^2: S(M2)/S(M1) should equal (M2/M1)^2 exactly."""
-    return {"ratio_S": bekenstein_hawking_entropy(M2) / bekenstein_hawking_entropy(M1),
-            "ratio_M2_expected": (M2 / M1) ** 2}
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

@@ -8,23 +8,23 @@
       "pass": true
     },
     "C2_N_from_transmutation": {
-      "N_pred_converged": 2.856448865557499e-19,
-      "N_pred_1loop": 1.4685479358493696e-19,
+      "N_pred_converged": 2.8564484874859277e-19,
+      "N_pred_1loop": 1.4685476628183048e-19,
       "N_F119": 5.5e-19,
-      "factor_conv_vs_F119": 0.5193543391922726,
+      "factor_conv_vs_F119": 0.5193542704519869,
       "pass": true
     },
     "C3_residual_is_scheme_constant": {
-      "equiv_Lambda_ratio_converged": 1.7766520816907994,
+      "equiv_Lambda_ratio_converged": 1.7766529850093935,
       "wilson_reference": 28.809,
-      "near_continuum_factor_vs_wilson": 16.21533011268201,
+      "near_continuum_factor_vs_wilson": 16.215321868185576,
       "pass": true
     },
     "C4_alpha_s_MZ_crosscheck": {
-      "alpha_s_MZ_1loop": 0.11954571992369065,
-      "alpha_s_MZ_converged": 0.12797713503836028,
+      "alpha_s_MZ_1loop": 0.11954572797218371,
+      "alpha_s_MZ_converged": 0.12797714462679347,
       "PDG": 0.118,
-      "dev_conv_%": 8.455199185051088,
+      "dev_conv_%": 8.455207310841928,
       "pass": true
     },
     "C5_unification_E3_Q1_Q2": {

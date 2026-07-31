@@ -7,3 +7,5 @@ __pycache__/
 .DS_Store
 # Ephemeral per-run output of the `casim test` suite (timestamped dirs)
 test-results/suite/
+# Vendored sandbox Python packages (binary wheels + installed site dir) — machine-specific, not for git
+.vendor/

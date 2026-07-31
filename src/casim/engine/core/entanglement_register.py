@@ -1,4 +1,4 @@
-"""casim.engine.manybody — the live genuine-many-body entanglement channel.
+"""casim.engine.core.entanglement_register — the live genuine-many-body entanglement channel.
 
 Every other casim sector is first-quantised / mean-field: a product of single-cell
 amplitudes, Hilbert dimension ~O(cells), zero entanglement by construction
@@ -212,10 +212,14 @@ class CircuitReadoutObserver(Observer):
 
 
 def _SQ():
-    """Lazy handle to the ca_second_quant kernel."""
+    """Lazy handle to the second-quantization kernel.
+
+    Migrated at roadmap C5: `ca_second_quant` -> `casim.engine.particles
+    .second_quant`. Imported by STRING, so the C3.4 shim checker cannot see it
+    — the path is spelled out here deliberately rather than left to the shim.
+    """
     import importlib
-    import casim as _casim  # noqa: F401  (ensures ca-simulation on sys.path)
-    return importlib.import_module("ca_second_quant")
+    return importlib.import_module("casim.engine.particles.second_quant")
 
 
 @register
@@ -253,7 +257,7 @@ class FermionChainChannel(Channel):
 
     def init_state(self, lattice, rng):
         SQ = _SQ()
-        import ca_entanglement as E
+        from casim.engine.interactions import qi_entanglement as E
         n_sites = int(self.config.get("n_sites", 2))
         m = float(self.config.get("m", 0.5))
         init = str(self.config.get("init", "neel"))
@@ -325,7 +329,7 @@ class FermionAlgorithmChannel(Channel):
         return self._fc
 
     def init_state(self, lattice, rng):
-        import ca_entanglement as E
+        from casim.engine.interactions import qi_entanglement as E
         n_sites = int(self.config.get("n_sites", 2))
         m = float(self.config.get("m", 0.9))
         program = self.config.get("program", [])
@@ -420,8 +424,9 @@ class FermionEntanglementObserver(Observer):
 def _QN():
     """Lazy handle to the ca_quantum_noise kernel (F221)."""
     import importlib
-    import casim as _casim  # noqa: F401  (ensures ca-simulation on sys.path)
-    return importlib.import_module("ca_quantum_noise")
+    # C6: engine path, not the bare `ca_quantum_noise` shim name — this loads by
+    # string, so the import rewriter cannot see it and C9 would break it.
+    return importlib.import_module("casim.engine.interactions.qi_noise")
 
 
 @register

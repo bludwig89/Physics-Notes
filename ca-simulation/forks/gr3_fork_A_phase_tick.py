@@ -1,74 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.forks.gravity.gr3_fork_A_phase_tick`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.forks.gravity.gr3_fork_A_phase_tick`.
 """
-Fork A — SEPARATE PHASE-TICK FIELD
-===================================
-Finding 14.5(a):  keep the Paper 6 c(x) for spatial propagation (so GR-1
-deflection and GR-2 Shapiro stay correct), but route gravitational
-redshift through a *separate* clock-rate field tau(x) that does not
-feed back into the propagator.
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-    c_photon(x) = c_matter(x) = c_0 / (1 - 2 phi(x) / c_0^2)     [unchanged]
-    tau_rate(x)                = 1 + phi(x) / c_0^2              [factor 1, NEW]
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-Physical interpretation: the lattice has two emergent variables.  c(x)
-encodes the spatial propagation rate of the unitary update (governs
-light deflection, Shapiro, and the timelike Mercury geodesic just as
-in the baseline).  tau(x) is the rate at which the discrete phase
-*tick* advances per spatial step — a temporal-only book-keeping field
-that decouples from spatial transport.  Pound-Rebka measures
-tau_emit / tau_receive, which is now factor 1.
+import casim.engine.forks.gravity.gr3_fork_A_phase_tick as _target
 
-Predicted outcome:
-  GR-1  K       -> 4         (unchanged from baseline open-BC: 3.88)
-  GR-2  ratio   -> 1         (unchanged from baseline open-BC: 1.0006)
-  GR-3  ratio_GR -> 1        (FIXED, this is what the fork is designed to do)
-  GR-4  Δω      -> ≈ baseline (matter still feels Paper 6 c(x) in
-                               the spatial sector; geodesic identical)
+_warnings.warn(
+    "ca-simulation/forks/gr3_fork_A_phase_tick.py has moved to casim.engine.forks.gravity.gr3_fork_A_phase_tick; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-Cost of the fix: introduces a *second* scalar field with no derivation
-from a Poisson source.  tau(x) is defined by hand from phi(x); in a
-"real" physics theory it would need its own field equation.  The closest
-literature analog is a *bimetric* gravity, where the photon metric and
-the matter metric are independent.
-"""
-
-from __future__ import annotations
-import numpy as np
-
-
-NAME = "fork_A_phase_tick"
-DESCRIPTION = "Separate phase-tick field; c(x) unchanged from Paper 6, tau(x) decoupled."
-
-
-def c_photon(phi: np.ndarray, c_0: float) -> np.ndarray:
-    return c_0 / (1.0 - 2.0 * phi / c_0**2)
-
-
-def c_matter(phi: np.ndarray, c_0: float) -> np.ndarray:
-    # Same as baseline: matter follows the c(x) sector.  Only the
-    # *clock-tick readout* tau(x) is independent.
-    return c_0 / (1.0 - 2.0 * phi / c_0**2)
-
-
-def tau_rate(phi: np.ndarray, c_0: float) -> np.ndarray:
-    """Linear-in-phi clock rate, factor 1 by construction.
-
-    Equivalent to Schwarzschild g_00:  -(c dt_proper)^2 = -(1 + 2phi/c^2)
-    (c dt_coord)^2  =>  dt_proper / dt_coord = sqrt(1 + 2phi/c^2)
-                                              = 1 + phi/c^2 + O(phi^2).
-    """
-    return 1.0 + phi / c_0**2
-
-
-def metric(phi: np.ndarray, c_0: float):
-    """Effective metric for the Mercury geodesic test.
-
-    Fork A keeps the spatial metric identical to baseline (matter and
-    photons share c(x)), so g_ii = (1 - 2 phi/c^2)^{-1} ~ 1 + 2 phi/c^2.
-    The temporal piece is set by tau_rate^2:  g_00 = -(tau_rate)^2.
-    Linearising both:
-        A = 1 + 2 phi/c^2,    B = 1 - 2 phi/c^2   (same as Schwarzschild)
-    so GR-4 prediction is identical to baseline.
-    """
-    A = 1.0 + 2.0 * phi / c_0**2
-    B = 1.0 - 2.0 * phi / c_0**2
-    return A, B
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

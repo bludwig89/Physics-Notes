@@ -1,25 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.forks.__init__`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.forks.__init__`.
 """
-GR-3 candidate-fix forks
-========================
-Three variants of the L4 metric ansatz that attempt to resolve the Finding
-14.5 factor-of-2 Pound-Rebka problem without breaking GR-1 (deflection) or
-GR-2 (Shapiro).  Each fork exposes the same three callables so the cross-
-fork harness in `gr3_fork_harness.py` can run identical line integrals on
-each:
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-    c_photon(phi, c_0)     — effective light speed seen by photons
-    c_matter(phi, c_0)     — effective light speed seen by matter packets
-    tau_rate(phi, c_0)     — local proper-time tick rate (1 at infinity)
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-* Baseline (Paper 6)     — c_photon == c_matter, tau_rate = c/c_0 (factor 2)
-* Fork A  (phase-tick)   — c_photon = c_matter = Paper 6;  tau_rate = 1+phi/c^2
-* Fork B  (anisotropic)  — c_photon = c_0 sqrt(|g00|/g_xx);  tau_rate = sqrt(|g00|)
-* Fork C  (restricted-c) — c_photon = Paper 6;  c_matter = c_0/(1-phi/c^2)
+import casim.engine.forks.__init__ as _target
 
-The harness then composes:
-  GR-1 (deflection)   uses c_photon line integral
-  GR-2 (Shapiro)      uses c_photon line integral
-  GR-3 (Pound-Rebka)  uses tau_rate at two cells
-  GR-4 (Mercury)      uses the timelike geodesic of (g00, g_ii) recovered
-                       from (c_matter, tau_rate)
-"""
+_warnings.warn(
+    "ca-simulation/forks/__init__.py has moved to casim.engine.forks.__init__; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
+
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

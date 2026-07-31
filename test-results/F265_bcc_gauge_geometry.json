@@ -1,0 +1,215 @@
+{
+ "G10": {
+  "composite_plaquette_dev": 1.1108901271115532e-15,
+  "S_SC": 2.42861286636753e-16,
+  "bcc_plaquette_dev": 1.9229268927648702,
+  "S_BCC": 0.9991207371317096,
+  "eps_scan": [
+   {
+    "eps": 1.0,
+    "S_SC": -3.95516952522712e-16,
+    "S_BCC": 1.0559455046572381,
+    "S_BCC_over_eps2": 1.0559455046572381
+   },
+   {
+    "eps": 0.3,
+    "S_SC": -6.707597440443654e-17,
+    "S_BCC": 0.19633147581432778,
+    "S_BCC_over_eps2": 2.1814608423814197
+   },
+   {
+    "eps": 0.1,
+    "S_SC": 6.013708050052931e-17,
+    "S_BCC": 0.02326486817429189,
+    "S_BCC_over_eps2": 2.326486817429189
+   },
+   {
+    "eps": 0.03,
+    "S_SC": 1.133352670971514e-16,
+    "S_BCC": 0.002109222832781701,
+    "S_BCC_over_eps2": 2.343580925313001
+   },
+   {
+    "eps": 0.01,
+    "S_SC": 1.1796119636642288e-16,
+    "S_BCC": 0.00023450896694183232,
+    "S_BCC_over_eps2": 2.345089669418323
+   }
+  ]
+ },
+ "G11": {
+  "per_L": {
+   "4": {
+    "N_sites": 16,
+    "link_vars": 64,
+    "rank_BCC": 45,
+    "rank_SC": 28,
+    "blind_dirs": 17,
+    "blind_frac_of_link_space": 0.265625,
+    "blind_frac_of_curvature_content": 0.37777777777777777
+   },
+   "6": {
+    "N_sites": 54,
+    "link_vars": 216,
+    "rank_BCC": 159,
+    "rank_SC": 104,
+    "blind_dirs": 55,
+    "blind_frac_of_link_space": 0.25462962962962965,
+    "blind_frac_of_curvature_content": 0.34591194968553457
+   },
+   "8": {
+    "N_sites": 128,
+    "link_vars": 512,
+    "rank_BCC": 381,
+    "rank_SC": 252,
+    "blind_dirs": 129,
+    "blind_frac_of_link_space": 0.251953125,
+    "blind_frac_of_curvature_content": 0.33858267716535434
+   }
+  },
+  "formulae": {
+   "link_vars": "4 N_s",
+   "rank_BCC": "3 N_s - 3",
+   "rank_SC": "2 N_s - 4",
+   "blind": "N_s + 1"
+  },
+  "asymptotic_blind_fraction_of_link_space": 0.25,
+  "asymptotic_blind_fraction_of_curvature": 0.3333333333333333
+ },
+ "G12": {
+  "convergence": [
+   {
+    "L": 16,
+    "ka": 0.39269908169872414,
+    "rel_bianchi": 0.021100270842282616,
+    "slope": NaN
+   },
+   {
+    "L": 24,
+    "ka": 0.2617993877991494,
+    "rel_bianchi": 0.009394766715562504,
+    "slope": 1.995567703583895
+   },
+   {
+    "L": 32,
+    "ka": 0.19634954084936207,
+    "rel_bianchi": 0.005324847146018408,
+    "slope": 1.9735981140802998
+   },
+   {
+    "L": 48,
+    "ka": 0.1308996938995747,
+    "rel_bianchi": 0.0023744295334094025,
+    "slope": 1.991852758436025
+   }
+  ],
+  "observed_order": 2,
+  "note": "O((ka)^2); the composite-SC O((ka)^3) came from its exact SC cube-face identity, which is the same restriction that makes it blind (G10/G11)"
+ },
+ "G1": {
+  "span_equals_same_parity": true,
+  "index_in_Z3": 4,
+  "site_fraction": [
+   0.25,
+   0.25,
+   0.25,
+   0.25
+  ],
+  "num_hops": 8,
+  "num_link_axes": 4
+ },
+ "G2": {
+  "V_BZ_over_pi3": 2.000000000000001,
+  "copies_in_cube": 4,
+  "bz_mask_counts": {
+   "4": [
+    16,
+    16
+   ],
+   "6": [
+    54,
+    54
+   ],
+   "8": [
+    128,
+    128
+   ],
+   "12": [
+    432,
+    432
+   ],
+   "16": [
+    1024,
+    1024
+   ]
+  },
+  "fcc_shift_phase_mismatch": 1.0990647210786425e-15
+ },
+ "G3": {
+  "num_3bond_loops": 0,
+  "num_orientations": 6,
+  "area": 2.8284271247461903,
+  "normals_are_110": true,
+  "distinct_normal_axes": 6,
+  "oh_orbit_size": 6
+ },
+ "G4": {
+  "MtM": [
+   [
+    4.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    4.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    4.0
+   ]
+  ],
+  "equals_4I_exactly": true
+ },
+ "G5": {
+  "F_max": 0.0,
+  "action": 0.0,
+  "reversal_residual": 0.0
+ },
+ "G6": {
+  "S_BCC": -6.099373406891292e-17,
+  "S_SC": -1.295260195396016e-16,
+  "F_max": 5.551534089486742e-17
+ },
+ "G7": {
+  "recovered": {
+   "xy": 0.30999995478133574,
+   "xz": -0.16999997139466785,
+   "yz": 0.22999996313866855
+  },
+  "input": {
+   "xy": 0.31,
+   "xz": -0.17,
+   "yz": 0.23
+  },
+  "abs_err": {
+   "xy": 4.5218664257440366e-08,
+   "xz": 2.8605332158537777e-08,
+   "yz": 3.6861331459414615e-08
+  },
+  "site_spread": {
+   "xy": 4.8074067159589095e-17,
+   "xz": 5.099024833164444e-17,
+   "yz": 5.0515910130503314e-17
+  },
+  "reconstruction_residual": 4.240000513053345e-08
+ },
+ "G8_G9": {
+  "ratio_BCC": 8,
+  "ratio_SC": 8,
+  "difference": 0,
+  "note": "identical continuum limit; defect is invisible to weak-field normalisation checks"
+ }
+}

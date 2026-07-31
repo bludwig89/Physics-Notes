@@ -1,4 +1,4 @@
-"""casim.engine.tier3 — non-unitary / heavy channels (migration-map Tier-3).
+"""casim.engine.core.tier3 — non-unitary / heavy channels (migration-map Tier-3).
 
 Two channel types that don't fit the unitary CA tick loop:
 
@@ -41,7 +41,7 @@ class GaugeMonteCarloChannel(Channel):
     topologies = ("cubic",)
 
     def _mc(self):
-        import lgt_fork_A_mc as mc
+        from casim.engine.forks.gauge import lgt_fork_A_mc as mc
         return mc
 
     def init_state(self, lattice, rng):
@@ -98,7 +98,7 @@ class DynamicalRefractionChannel(Channel):
     topologies = ("cubic",)
 
     def _cv(self):
-        import ca_curved as cv
+        from casim.engine.lattice import curved as cv
         return cv
 
     def init_state(self, lattice, rng):

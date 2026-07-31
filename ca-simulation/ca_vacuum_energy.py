@@ -1,81 +1,47 @@
+"""DEPRECATED shim — this module moved to `casim.engine.interactions.vacuum_energy`.
+
+Roadmap D6 (C6): `ca-simulation/` is being retired into `src/casim/`.
+This file exists only so unmigrated tests keep importing successfully; it is
+deleted wholesale at C9. New code must import from `casim.engine.interactions.vacuum_energy`.
 """
-ca_vacuum_energy.py  --  The cosmological constant under the full-tensor source
-===============================================================================
+import os as _os
+import sys as _sys
+import warnings as _warnings
 
-Scenario S9 (speculative / open).  F178 makes vacuum energy gravitate through
-the full tensor: the vacuum has w = -1, so rho + 3p = -2 rho < 0 -- it
-accelerates the expansion, exactly the dark-energy role.  But the *magnitude*
-remains the F164 problem: the bare BCC zero-point density overshoots the
-observed Lambda by ~10^120.  This module reframes F164 under the full-tensor
-source and tabulates the candidate cancellations (none yet derived to zero) --
-it quantifies the problem, it does not solve it.
+# Put `src/` on sys.path before importing the target.
+#
+# This is not optional. `casim/__init__.py` locates `ca-simulation/` and adds
+# it to sys.path, so `import ca_bcc` works from inside the package — but the
+# reverse has never been true. Dozens of test files do
+# `sys.path.insert(0, "ca-simulation")` and import a kernel with NO reference
+# to `src/` anywhere, relying on PYTHONPATH being set. Without this bootstrap
+# every one of them would start failing with `ModuleNotFoundError: casim` the
+# moment its kernel was migrated — a breakage caused entirely by the move and
+# nothing to do with the physics.
+# Walk up looking for a `src/casim`, mirroring `casim._locate_legacy`. A plain
+# walk handles both `ca-simulation/` and `ca-simulation/forks/` without any
+# depth arithmetic to get wrong.
+_d = _os.path.dirname(_os.path.abspath(__file__))
+while True:
+    _src = _os.path.join(_d, "src")
+    if _os.path.isdir(_os.path.join(_src, "casim")):
+        if _src not in _sys.path:
+            _sys.path.insert(0, _src)
+        break
+    _parent = _os.path.dirname(_d)
+    if _parent == _d:
+        break
+    _d = _parent
 
-Reuses the F164 fork for the bare zero-point integral.  Date: 2026-06-30 (F192).
-"""
+import casim.engine.interactions.vacuum_energy as _target
 
-from __future__ import annotations
+_warnings.warn(
+    "ca-simulation/ca_vacuum_energy.py has moved to casim.engine.interactions.vacuum_energy; this shim is removed at roadmap C9",
+    DeprecationWarning, stacklevel=2)
 
-import os
-import sys
-import numpy as np
-
-_FORKS = os.path.join(os.path.dirname(__file__), "forks")
-if _FORKS not in sys.path:
-    sys.path.insert(0, _FORKS)
-import gr_fork_F164_cosmological_constant as f164   # noqa: E402
-
-RHO_LAMBDA_OBS = 6.0e-10        # J/m^3 (observed dark-energy density)
-
-
-def vacuum_equation_of_state():
-    """Vacuum w = -1: the full-tensor source term is rho + 3p = -2 rho < 0,
-    i.e. vacuum accelerates the expansion (dark-energy sign).  The demoted
-    energy-only law would have used rho > 0 -> deceleration (wrong sign)."""
-    w = -1.0
-    accel_full = -(1.0 + 3.0 * w)     # sign of -(rho+3p)/... : +2 -> accelerating
-    accel_energy_only = -1.0          # uses rho only -> decelerating (wrong)
-    return {"w_vacuum": w, "rho_plus_3p_over_rho": 1 + 3 * w,
-            "full_tensor_accelerates": accel_full > 0,
-            "energy_only_sign": "decelerates (wrong)",
-            "note": "pressure of the vacuum is what makes Lambda accelerate; "
-                    "the full-tensor source gets the SIGN right automatically"}
-
-
-def bare_overshoot():
-    """Bare BCC zero-point density vs observed Lambda (reuses F164)."""
-    I_cc, _ = f164.zero_point_integral(n=160)
-    rho_vac = f164.vacuum_energy_density(I_cc, g_star=2)     # J/m^3
-    ratio = rho_vac / RHO_LAMBDA_OBS
-    return {"I_cc": I_cc, "rho_vac_J_m3": rho_vac,
-            "rho_Lambda_obs_J_m3": RHO_LAMBDA_OBS,
-            "overshoot_ratio": ratio, "log10_overshoot": float(np.log10(ratio))}
-
-
-def cancellation_ledger():
-    """Candidate cancellations carried over from F164 -- what each would buy and
-    whether it is derived.  None reaches the observed value from first
-    principles; this is the honest open status."""
-    return {
-        "boson_fermion_sign": {
-            "mechanism": "fermion loops contribute with opposite sign to bosons; "
-                         "net depends on the BCC mode content g_*",
-            "buys": "could cancel leading quartic if Bose/Fermi DOF balance",
-            "derived": False, "issue": "all-fermion content gives the WRONG sign (F164)"},
-        "CA_native_tHooft_vacuum": {
-            "mechanism": "the discrete 't Hooft-type vacuum reorganises zero-point modes",
-            "buys": "leading candidate per F164", "derived": False},
-        "F64_sequestering": {
-            "mechanism": "the dielectric/conformal structure sequesters the vacuum trace",
-            "buys": "removes the trace piece that would gravitate", "derived": False},
-        "F69_marginal_binding": {
-            "mechanism": "marginal binding of the paired-photon vacuum (F69)",
-            "buys": "soft suppression", "derived": False},
-    }
-
-
-def summary():
-    return {"equation_of_state": vacuum_equation_of_state(),
-            "bare_overshoot": bare_overshoot(),
-            "candidates": cancellation_ledger(),
-            "status": "full-tensor fixes the dark-energy SIGN (w=-1 accelerates); "
-                      "the ~10^120 MAGNITUDE problem (F164) remains open"}
+# Re-export everything, including private names — a `from x import *` would
+# silently drop every `_`-prefixed symbol, and several kernels expose those to
+# their tests.
+globals().update({k: v for k, v in vars(_target).items()
+                  if k not in ("__name__", "__file__", "__loader__",
+                               "__spec__", "__package__", "__doc__")})

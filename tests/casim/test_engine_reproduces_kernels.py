@@ -132,10 +132,23 @@ def test_gluon_bcc_bit_identical():
     return {"ok": True}
 
 
-def test_resume_bit_identical(tmp_path="/tmp"):
+def test_resume_bit_identical(tmp_path=None):
     """A checkpointed+resumed run equals an uninterrupted run, bit-for-bit,
-    including observer records (roadmap §4 acceptance)."""
+    including observer records (roadmap §4 acceptance).
+
+    Fixed 2026-07-30 (roadmap C0): this signature read `tmp_path="/tmp"`.
+    pytest does **not** inject a fixture for a parameter that carries a
+    default, so the default silently defeated the `tmp_path` fixture and every
+    run wrote its checkpoint to a shared, world-writable `/tmp` under a fixed
+    name — a cross-session collision waiting to happen, which duly happened.
+    `None` restores fixture injection; the standalone path makes its own
+    private temp dir.
+    """
     import os
+    import tempfile
+
+    if tmp_path is None:
+        tmp_path = tempfile.mkdtemp(prefix="casim_resume_")
 
     def build():
         return Simulation(

@@ -1,4 +1,4 @@
-"""casim.engine.coupled — Tier-2 sourced / coupled channels.
+"""casim.engine.core.coupled — Tier-2 sourced / coupled channels.
 
 These channels read a *partner* channel's live state via the engine's coupling
 context (see ``Channel.step``), so a gauge field can be sourced by a matter
@@ -83,7 +83,8 @@ class WSourcedChannel(Channel):
         return {"E": z.copy(), "B": z.copy(), "A": z.copy()}
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_wmu
+        from casim.engine.gauge import weak_wmu as ca_wmu
+
         partner = self.config.get("fermion", "fermion_doublet")
         g_lat = float(self.config.get("g_lat", 0.5))
         fs = context[partner]
@@ -118,7 +119,8 @@ class FermionDoubletChannel(Channel):
                 "g_nu": np.zeros_like(f_nu), "g_e": np.zeros_like(f_e)}
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_wmu
+        from casim.engine.gauge import weak_wmu as ca_wmu
+
         partner = self.config.get("w_field", "w_sourced")
         eps = float(self.config.get("eps", 0.05))
         sign = self.config.get("sign", "+")
@@ -154,9 +156,9 @@ class ChargePhotonChannel(Channel):
     topologies = ("cubic",)
 
     def init_state(self, lattice, rng):
-        import ca_charge_coupling as cc
-        import ca_fft as _fft
-        from ca_lattice import make_kgrid_3d
+        from casim.engine.gauge import charge_coupling as cc
+        from casim.numerics import fft as _fft  # C1.3: the seam
+        from casim.engine.lattice.geometry import make_kgrid_3d
         L = lattice.L
         amp = float(self.config.get("amp", 0.2))
         sigma = float(self.config.get("sigma", 2.0))
@@ -179,7 +181,7 @@ class ChargePhotonChannel(Channel):
                 "J": J}
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_charge_coupling as cc
+        from casim.engine.gauge import charge_coupling as cc
         dt = float(self.config.get("dt", 0.1))
         E, B = cc.maxwell_curl_step(state["E"], state["B"], J=state["J"], dt=dt)
         return {"E": E, "B": B, "J": state["J"]}
@@ -188,7 +190,7 @@ class ChargePhotonChannel(Channel):
         return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
 
     def observables(self, state, lattice) -> dict:
-        import ca_charge_coupling as cc
+        from casim.engine.gauge import charge_coupling as cc
         # Charge continuity: ρ should track −∫ i C·J dt; here we report the
         # divergence of the current (should be ~0 for the loop source) and the
         # field energy injected.
@@ -212,7 +214,7 @@ class BetaDecayChannel(Channel):
     topologies = ("bcc",)
 
     def init_state(self, lattice, rng):
-        import ca_charged_current as cc
+        from casim.engine.gauge import charged_current as cc
         L = lattice.L
         sigma = float(self.config.get("sigma", 1.5))
         site_A = (L // 4, L // 2, L // 2)
@@ -223,7 +225,7 @@ class BetaDecayChannel(Channel):
                 "f_u": f_u, "f_d": f_d, "emitted": 0}
 
     def step(self, state, lattice, context=None, rng=None):
-        import ca_charged_current as cc
+        from casim.engine.gauge import charged_current as cc
         g_lat = float(self.config.get("g_lat", 0.8))
         m_W = float(self.config.get("m_W", 0.6))
         if not state["emitted"]:
