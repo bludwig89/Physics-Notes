@@ -27,7 +27,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 161
+    lines: 162
     n_test_funcs: 0
     artifacts_written:
     - test-results/F124_qcd_scale_ratio.json
@@ -48,7 +48,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 162
+    lines: 163
     n_test_funcs: 4
     artifacts_written:
     - test-results/F139_dual_gl_backreaction.json
@@ -74,7 +74,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 155
+    lines: 156
     n_test_funcs: 0
     artifacts_written:
     - test-results/F144_route_a_alpha_s.json
@@ -101,7 +101,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 146
+    lines: 147
     n_test_funcs: 0
     artifacts_written:
     - test-results/F145_route_c_induced_njl.json
@@ -109,6 +109,55 @@ tests:
       test-results/F145_route_c_induced_njl.json: local
     artifacts_read_only: []
     summary: 'F145 — Route C of the QCD calibration block: the NJL coupling ghat = G Lambda^2'
+- id: F15-closed-form-lv-coefficients
+  path: tests/findings/test_F15_closed_form_beta_LV.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F12
+  - F15
+  module: tests.findings.test_F15_closed_form_beta_LV
+  entry: check_all
+  params:
+    lead_denom: 6
+    next_num: 11
+    next_denom: 90
+    tol: 0.0001
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F15_closed_form_beta_LV.json
+  note: 'Closed-form SR-2 Lorentz-violation coefficients (2D-square QCA, m in (0,1) open at both ends).
+    The load-bearing check W1 does NOT restate the module: the module expands acos(n cos u) in u and reverts
+    the series u -> beta, while W1 uses the exact change of variable t = cos u, which closes R(beta) in
+    finite terms, and expands THAT. Two routes, exact agreement (8.3e-17 worst residual at exact rational
+    m). W3 closes the item the original finding left open -- gamma_LV never flips sign, because tan(theta)
+    > theta makes every term of every coefficient negative on (0,1). W5 shows the lattice spacing a is
+    decorative: beta_LV is independent of a (spread 1.3e-54 at 50 dps) because omega depends on k only
+    via u = k a and c_lat = a. W6 documents that the numerical floor is subtractive cancellation ~eps/(|beta_LV|
+    beta^2), NOT the "FFT/round-off floor" the original finding claimed -- there is no FFT in the module.
+
+    FAILURE MODE (attack 7): lead_denom, next_num and next_denom are the small-m rational constants -m^2/6
+    - 11 m^4/90. W4 runs in mpmath at 50 dps and asserts the m^6 residual converges to the third coefficient
+    -191/1890; perturbing any of the three params fails the record. Verified 2026-08-03: lead_denom=7,
+    next_num=12 and next_denom=91 each give 5/6.
+
+    W4/W5/W6 are mpmath because in float64 they are destroyed by the very cancellation W6 diagnoses --
+    a float64 W4 reports noise (spread 390) and would have to be loosened until it could no longer fail.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 391
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F15 — Closed-form SR-2 Lorentz-violation coefficients, verified independently.
 - id: F151-scheme-constant
   path: tests/findings/test_F151_scheme_constant.py
   kind: result_dump
@@ -128,7 +177,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 155
+    lines: 156
     n_test_funcs: 0
     artifacts_written:
     - test-results/F151_scheme_constant.json
@@ -156,6 +205,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F152 — The IR FACE of the strong coupling (the object F151-S5 split off).
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F154-residuals-A-B
   path: tests/findings/test_F154_residuals_A_B.py
   kind: legacy_script
@@ -176,6 +228,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F154 — Building and solving the two strong-sector residuals A (UV scheme scale
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F171-slowlight
   path: tests/findings/test_F171_slowlight.py
   kind: result_dump
@@ -187,7 +242,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 216
+    lines: 218
     n_test_funcs: 0
     artifacts_written:
     - test-results/F171_slowlight.json
@@ -212,7 +267,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 114
+    lines: 116
     n_test_funcs: 0
     artifacts_written:
     - test-results/F173_tolman_pressure.json
@@ -241,7 +296,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 134
+    lines: 136
     n_test_funcs: 0
     artifacts_written:
     - test-results/F174_stellar_overlay.json
@@ -267,7 +322,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 131
+    lines: 133
     n_test_funcs: 0
     artifacts_written:
     - test-results/F176_covariant_stellar.json
@@ -296,7 +351,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 405
+    lines: 406
     n_test_funcs: 0
     artifacts_written:
     - test-results/F181_covariant_interior_battery.json
@@ -366,7 +421,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 89
+    lines: 90
     n_test_funcs: 0
     artifacts_written:
     - test-results/F184_tabulated_ns.json
@@ -387,7 +442,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 64
+    lines: 65
     n_test_funcs: 0
     artifacts_written:
     - test-results/F186_shadow_raytrace.json
@@ -408,7 +463,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 65
+    lines: 66
     n_test_funcs: 0
     artifacts_written:
     - test-results/F187_qnm.json
@@ -429,7 +484,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 63
+    lines: 64
     n_test_funcs: 0
     artifacts_written:
     - test-results/F188_lcdm.json
@@ -450,7 +505,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 62
+    lines: 63
     n_test_funcs: 0
     artifacts_written:
     - test-results/F189_inspiral.json
@@ -471,7 +526,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 60
+    lines: 61
     n_test_funcs: 0
     artifacts_written:
     - test-results/F190_horizon_entropy.json
@@ -492,7 +547,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 68
+    lines: 69
     n_test_funcs: 0
     artifacts_written:
     - test-results/F191_darkmatter.json
@@ -513,7 +568,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 64
+    lines: 65
     n_test_funcs: 0
     artifacts_written:
     - test-results/F192_vacuum_energy.json
@@ -536,7 +591,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 181
+    lines: 183
     n_test_funcs: 0
     artifacts_written:
     - test-results/F194_emergent_gravity_bullet.json
@@ -584,7 +639,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 167
+    lines: 169
     n_test_funcs: 0
     artifacts_written:
     - test-results/F207_casimir.json
@@ -609,7 +664,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: false
-    lines: 126
+    lines: 128
     n_test_funcs: 0
     artifacts_written:
     - test-results/F209_modulated_casimir.json
@@ -633,7 +688,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 304
+    lines: 306
     n_test_funcs: 16
     artifacts_written:
     - test-results/F210_superconductivity.json
@@ -653,7 +708,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 132
+    lines: 134
     n_test_funcs: 5
     artifacts_written:
     - test-results/F211_tc_real_materials.json
@@ -673,7 +728,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 187
+    lines: 189
     n_test_funcs: 5
     artifacts_written:
     - test-results/F212_entanglement_generation.json
@@ -695,7 +750,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 167
+    lines: 169
     n_test_funcs: 7
     artifacts_written:
     - test-results/F213_hopfield_and_gap_renormalization.json
@@ -715,7 +770,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 171
+    lines: 170
     n_test_funcs: 6
     artifacts_written:
     - test-results/F214_live_entanglement_superexchange.json
@@ -737,7 +792,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 134
+    lines: 136
     n_test_funcs: 5
     artifacts_written:
     - test-results/F215_eliashberg_solver.json
@@ -777,7 +832,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 171
+    lines: 173
     n_test_funcs: 7
     artifacts_written:
     - test-results/F218_alpha2F_and_pade_gap.json
@@ -785,6 +840,66 @@ tests:
       test-results/F218_alpha2F_and_pade_gap.json: local
     artifacts_read_only: []
     summary: test_F218_alpha2F_and_pade_gap.py
+- id: F22-rho-identity
+  path: tests/findings/test_F22_rho_identity.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F22
+  sector: interactions
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 81
+    n_test_funcs: 6
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F22 — the ρ identity, its negative control, and the O(vk) off-shell coefficient.
+    ledger_status: live
+    ledger_record: S19-F22-velocity-addition-review-retraction
+- id: F22-rho-identity-and-offshell
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F15
+  - F22
+  module: casim.engine.interactions.derive_velocity_addition
+  entry: check_offshell_and_control
+  params:
+    m: 0.5
+    k: 0.001
+    v: 1.0e-06
+    tol: 1.0e-14
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F22_rho_identity_and_offshell.json
+  notes: 'path dropped 2026-08-08: this record declared BOTH a pytest file and an `entry:`, so conftest.pytest_ignore_collect
+    hid the file and its test functions never ran anywhere -- the ambiguity tests/casim/test_registry_entries.py
+    refuses. Dropping `entry:` instead was wrong: a gate-tier record whose path sits outside tests/casim/
+    MUST be entry-driven or test_registry_integrity''s `bare pytest == the gate tier` equality breaks.
+    So the gate contract stays here as a registry-only record (the shape F20-wavepacket-group-velocity,
+    F301 and F314-photon-packet-propagation already use), and tools/gen_test_registry.py scaffolds a separate
+    battery record for the file, whose own test functions now run.'
+  note: 'F22 remediation (review 2026-08-04, verdict OVERSTATED). Replaces a check that could not fail.
+    The module previously "verified" rho = 1 - 2*beta_LV by writing beta_LV_sym = (1 - rho)/2 and then
+    simplifying rho - (1 - 2*beta_LV_sym) -- which is x - (1 - 2(1-x)/2) == 0 for ANY expression; the
+    referee got residual 0 from a deliberately wrong rho = m/asin(m) and then from rho = 42. Now the two
+    sides have separate origins: LEFT is sympy''s limit of u_p/u_g taken from the dispersion acos(n cos(k/sqrt2))
+    itself, RIGHT is 1 - 2*beta_LV with beta_LV imported from casim.engine.interactions.derive_beta_LV,
+    which carries its own gate record (F15-closed-form-lv-coefficients) asserting that closed form against
+    the Legendre construction defining it. The acos(sqrt(1-m^2)) = asin(m) step sympy will not close on
+    its own is asserted separately at 50 dps over 199 points (residual 6.7e-50). REAL FAILURE MODE, and
+    it is asserted directly: `control_fails` requires the same check to go RED under rho_override="42".
+    The record also carries the corrected content of F22 claim 1 -- the linear SR boost does NOT preserve
+    the arccos mass shell, failing at first order in v with coefficient 1/rho - 1 (measured -0.0930513
+    vs predicted -0.0931003 at m=0.5, rel 5.3e-4) -- asserted as NONZERO, i.e. the test asserts the failure
+    the finding claimed did not occur. Retracting claim 1 in the finding''s own headline is ESCALATED
+    to Ben; this record measures it either way.'
 - id: F221-noise-error-correction
   path: tests/findings/test_F221_noise_error_correction.py
   kind: assertion
@@ -840,7 +955,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 155
+    lines: 157
     n_test_funcs: 1
     artifacts_written:
     - test-results/F226_bell_tsirelson.json
@@ -865,7 +980,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 116
+    lines: 118
     n_test_funcs: 1
     artifacts_written:
     - test-results/F227_decoherence_floor.json
@@ -890,7 +1005,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 100
+    lines: 102
     n_test_funcs: 0
     artifacts_written:
     - test-results/F233_mass_scale_N_transmutation.json
@@ -912,7 +1027,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 103
+    lines: 105
     n_test_funcs: 0
     artifacts_written:
     - test-results/F242_mustar_from_dielectric.json
@@ -934,7 +1049,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 84
+    lines: 86
     n_test_funcs: 0
     artifacts_written:
     - test-results/F243_f3_lowdensity_lensing.json
@@ -956,7 +1071,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 112
+    lines: 114
     n_test_funcs: 0
     artifacts_written:
     - test-results/F244_emqg_1overb_scan.json
@@ -964,6 +1079,91 @@ tests:
       test-results/F244_emqg_1overb_scan.json: local
     artifacts_read_only: []
     summary: test_F244 — 1/b scaling of 3-D EMQG lensing.
+- id: F245-l1-curl-coefficient
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.derive_curl_subleading
+  entry: check_closed_forms
+  expect:
+    exactness: machine
+    tol: 1.0e-11
+  findings:
+  - F7
+  - F245
+  summary: 'F245 (open-derivation L1) — closed forms for the composite-photon curl-residual subleading
+    coefficients. Six checks. 2D: alpha(p) = (cos 4p - 9)/768 at eight angles (worst 2.8e-19), on-axis
+    exactly -1/96 as a rational compare (the leg F245 derives algebraically), and the independent algebraic
+    series sqrt2 sin(k/(2 sqrt2))/k returning the same -1/96. 3D: beta(k_hat) = -(sqrt2/12) kx ky kz across
+    six rational directions, vanishing on every coordinate plane (the T2/xyz cubic harmonic), and Finding
+    7''s reported 0.01883 reproduced as beta at one random direction — the leg that stops a later reader
+    re-promoting a seed artifact to a fundamental constant. Written 2026-08-03 by gap #5 of the 2026-08-02
+    completeness sweep: the module was registered dead_candidate while backing four live exactness-inventory
+    rows, and its verify() only printed, so the claim could not fail. Records one measured discrepancy:
+    F245 reports the 3D worst residual as 9e-15; re-measured it is 4.0e-12 (Richardson conditioning, not
+    a failure of the closed form).
+
+    '
+- id: F246-l2-curl-coefficient
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.derive_f26_dispersion
+  entry: check_closed_forms
+  expect:
+    exactness: machine
+    tol: 1.0e-17
+  findings:
+  - F26
+  - F30
+  - F246
+  summary: 'F246 (open-derivation L2) — subleading coefficients of the F26 even-rotation curl law. Five
+    checks. The structural leg is the strongest: all EVEN-power dispersion corrections vanish identically
+    because Omega_even is an even function of the scalar k, and it is checked DIFFERENTIALLY — c2 and
+    c4 go to the fit floor for the even law while the single-chirality law keeps them at -0.032 and -2.0e-4,
+    so the vanishing is the even symmetrisation doing work rather than a fit artifact. Then the closed
+    form c3(k_hat) = -(sqrt3/216)(p + 3q) across ten directions (worst 4.5e-19), exact luminality along
+    <100>, and the body-diagonal extremum c3(111) = -sqrt3/486. Asserts the physical reading too: the
+    F26 photon carries no CPT-odd k^2 Lorentz violation, so its leading vacuum-dispersion signature is
+    the CPT-even cubic |k|^3 — the form the GRB/AGN bounds constrain. Written 2026-08-03 by gap #5 of
+    the 2026-08-02 completeness sweep.
+
+    '
+- id: F247-q3-omega-degeneracy
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.run_q3_omega_degeneracy
+  entry: check_degeneracy
+  params:
+    N: 500
+    R_max: 20.0
+    b: 0.55
+    target_Eb: 2.224
+  expect:
+    exactness: quantitative
+    tol: 0.01
+  findings:
+  - F113
+  - F240
+  - F247
+  results:
+  - test-results/Q3_omega_degeneracy.json
+  summary: 'F247 (open-derivation Q3) — the absolute omega-NN coupling is a genuine free input. Four checks,
+    built so that a NEGATIVE result can still regress. D1 maps the binding valley (bisect the omega coupling
+    that binds the deuteron to E_b = 2.224 MeV at four core strengths), reproducing F247''s 11.15 / 8.25
+    / 5.39 / 2.56. D2 asserts the valley is near-LINEAR, 11.13 - 0.313 g_cm with max residual 0.017 —
+    linearity IS the degeneracy, since a curved or flat-bottomed valley would mean the deuteron does separate
+    omega from the F113 quark-Pauli core and the finding would be wrong. D3 asserts the degeneracy is
+    wide (span > 4x), so F240''s bracket [5.4, 11.1] is a slice of the valley rather than an uncertainty
+    on omega. D4 guards F247''s correction to F240 in both directions: the physical quench at the N-Delta-derived
+    core is 0.208, not the 0.43 core-off figure. ~13 s. Written 2026-08-03 by gap #5 of the 2026-08-02
+    completeness sweep; the same pass repointed this module''s working-directory-relative artifact path
+    at _results_path and routed its bare numpy import through the D8 facade. Records one measured discrepancy:
+    F247''s table prints the g_cm = 9.155 row as 8.26 where the solver returns 8.2549, a rounding slip
+    in the finding.
+
+    '
 - id: F251-vacuum-polarization
   path: tests/findings/test_F251_vacuum_polarization.py
   kind: assertion
@@ -975,7 +1175,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 118
+    lines: 113
     n_test_funcs: 1
     artifacts_written: []
     artifact_rule: {}
@@ -993,7 +1193,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 115
+    lines: 110
     n_test_funcs: 1
     artifacts_written: []
     artifact_rule: {}
@@ -1010,7 +1210,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 114
+    lines: 109
     n_test_funcs: 1
     artifacts_written: []
     artifact_rule: {}
@@ -1029,7 +1229,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 136
+    lines: 131
     n_test_funcs: 1
     artifacts_written: []
     artifact_rule: {}
@@ -1049,7 +1249,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 135
+    lines: 130
     n_test_funcs: 1
     artifacts_written: []
     artifact_rule: {}
@@ -1067,7 +1267,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 117
+    lines: 112
     n_test_funcs: 1
     artifacts_written: []
     artifact_rule: {}
@@ -1085,7 +1285,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 167
+    lines: 162
     n_test_funcs: 3
     artifacts_written: []
     artifact_rule: {}
@@ -1102,12 +1302,1078 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 136
+    lines: 131
     n_test_funcs: 7
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'test_F263_euler_heisenberg_schwinger.py — F263: the nonlinear / non-perturbative'
+- id: F281-measurement-pointer-born-rg
+  path: tests/findings/test_F281_measurement.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_measurement
+  entry: check_measurement
+  params:
+    coupling: minimal
+    flip_angle_over_pi: 0.5
+    block_b: 2
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F281
+  - F227
+  - F226
+  - F212
+  - F130
+  results:
+  - test-results/F281_measurement_pointer_born_rg.json
+  control:
+  - params:
+      coupling: nonminimal
+    reds:
+    - M1a
+    - M1b
+    - M1f
+    reason: 'a sigma^x coupling in place of the model''s minimal one: the pointer commutator stops vanishing
+      and the predictability sieve moves off the site basis.'
+  - params:
+      flip_angle_over_pi: 1.0
+    reds:
+    - M2c
+    - M2e
+    reason: the rotor at theta = pi is -I, a global phase, which satisfies every envariance identity vacuously.
+      This is the defect the first draft of the module actually had.
+  - params:
+      block_b: 1
+    reds:
+    - M3c
+    reason: R_b becomes the identity, so no coherence is suppressed, the eigenvalue is 1 and the irrelevance
+      claim is unsupported.
+  notes: 'Completeness-2026-08-04 row A8 (ABSENT, zero hits repo-wide) and row A6 (Born rule PARTIAL).
+    17 checks over three legs. THREE declared controls, one per leg, each verified to go red in the driver
+    itself: `--param coupling=nonminimal` reds M1a/M1b (the pointer basis stops being position), `--param
+    flip_angle_over_pi=1.0` reds M2c/M2e (the rotor at pi is -I, a global phase, which satisfies every
+    envariance identity vacuously -- this is the defect the first draft of the module actually had), `--param
+    block_b=1` reds M3c (R_b is the identity, so nothing is suppressed). Two checks are exact in the literal
+    sense (0.0, not 1e-16): the pointer commutator and the ell^2 change under a real BCC Weyl tick.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 113
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F281 — the measurement problem on the lattice (completeness-2026-08-04 row A8,
+- id: F282-inflaton-candidate-slowroll
+  path: tests/findings/test_F282_primordial_sector_nogo.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F26
+  - F79
+  - F107
+  - F118
+  - F130
+  - F193
+  - F216
+  - F234
+  - F238
+  - F282
+  module: tests.findings.test_F282_primordial_sector_nogo
+  entry: check_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F282_primordial_sector_nogo.json
+  note: 'Primordial-sector no-go (completeness-2026-08-02 gap #1, rubric row K4). The load-bearing legs
+    are re-derived with sympy independently of the module: a/ell_reduced = 3^(1/4) exactly, so r_min =
+    M_Pl^2/Lambda^2 = sqrt(3) = 1/c_lat; the E_g clock coefficient K = 9 exactly at cos(6 delta) = 1/3;
+    and n_s <= 1 - p^2 r for any periodic direction.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 184
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F282 — The model admits no slow-roll inflaton direction.
+- id: F283-elastic-lattice-excluded
+  path: tests/findings/test_F283_F284_lattice_elasticity.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F26
+  - F79
+  - F107
+  - F180
+  - F182
+  - F188
+  - F216
+  - F282
+  - F283
+  - F284
+  module: casim.engine.interactions.cosmology_lattice_elasticity
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F283_F284_lattice_elasticity.json
+  note: 'Elastic-lattice exclusion (F283) and the rigid-lattice account of expansion (F284) -- one computation,
+    one record. The load-bearing leg E1 is re-derived in sympy with every symbol free: under a -> s*a,
+    F79''s G ~ a^2 makes M_Pl and Lambda_UV both scale as 1/s, so r = sqrt(3) = 1/c_lat is invariant and
+    dr/ds = 0 identically. That is what CORRECTS F282 falsifier #5. F1 fixes the first resolvable epoch
+    H_max = 3^(-3/4) M_Pl, t_min = 1/c_lat = sqrt(3) ticks; F4 is the regression that the correction moved
+    the falsifier and not the number.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 185
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F283/F284 — Can the BCC lattice be elastic, and what is expansion if not?
+- id: F285-initial-condition-measure
+  path: tests/findings/test_F285_initial_condition_measure.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F106
+  - F107
+  - F130
+  - F238
+  - F282
+  - F284
+  - F285
+  module: casim.engine.interactions.cosmology_initial_conditions
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F285_initial_condition_measure.json
+  note: 'Executes the three initial-condition directions F284 handed on. D0 re-derives the spectral bridge
+    P_rho ~ k^(n_s) in sympy from the model''s OWN F106 Poisson law; D3 proves the Kadanoff dilation maps
+    A k^n -> b^-(3+n) A k^n for general symbolic n, so the tilt is an exactly marginal label. D5 is the
+    consistency guard that F285 uses the same lattice spacing as F284 and that D3''s marginality concerns
+    a DIFFERENT object from F282 C3''s operator gap.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 166
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F285 — What n_s can an initial-condition measure on the lattice give?
+- id: F286-second-scale-classification
+  path: tests/findings/test_F286_second_scale.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F79
+  - F130
+  - F175
+  - F282
+  - F284
+  - F285
+  - F286
+  module: casim.engine.interactions.cosmology_second_scale
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F286_second_scale.json
+  note: 'What could supply the 3.5% spectral tilt on a rigid lattice. T1 is re-derived in sympy independently
+    of the module: for n_s - 1 = F(k xi), dn_s/dlnk = x F''(x), so Planck''s RUNNING bounds |dlnF/dlnx|
+    < 0.32 and every LENGTH scale is excluded by the shape of its k-dependence (integer p) while the log
+    route at 1/L = 0.0075 survives. T5 is a pre-registered look-elsewhere count that REJECTS the delta*/(2pi)
+    = 1/(9 pi) near-miss (6 hits in 396 candidates, p = 0.32); the test asserts the rejection AND the
+    exactness of the underlying identity, so the verdict cannot be mistaken for an arithmetic slip. T6
+    guards that L is F285''s number rather than a reintroduced input.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 157
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F286 — What could supply the 3.5% spectral tilt on a rigid lattice?
+- id: F288-structure-formation-growth
+  path: tests/findings/test_F288_structure_formation.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F64
+  - F79
+  - F106
+  - F130
+  - F178
+  - F188
+  - F203
+  - F266
+  - F284
+  - F295
+  - F288
+  module: casim.engine.interactions.cosmology_growth
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F288_structure_formation.json
+  note: 'K11 (completeness-2026-08-04, graded ABSENT on four keyword sweeps). Thirteen checks. Four are
+    sympy LITERAL zeros -- S1 (AB=1 forces the linear-order slip coefficient to 0), S2 (F106 collapses
+    to Poisson with mu == 1 and d mu/dk == 0), D1 (gamma_g = 6/11, and c = 1 iff mu = 1), D2 (Meszaros
+    D(y) = 1 + 3y/2, both modes). S3 is the constraint count and asserts the three closures come from
+    three DISTINCT sources, so it cannot be one fact wearing three hats. D3a validates the RK4 against
+    Carroll-Press-Turner (an INDEPENDENT published result, so it can fail); D4 asserts A_s is declared
+    FREE in the artifact every run and that n_s is read LIVE from cosmology_anomalous_dimension so F288
+    and F295 cannot drift; D5 asserts the weak shape-only bound is reported as ABSENT rather than quoted
+    at the scan floor. B2 is asserted as a NEGATIVE (sigma_8 must NOT discriminate K7''s dark-matter candidates)
+    with a vacuity guard. C1 is the CONTROL required by completeness gap #2: it drives the same code path
+    at mu = 0.90 -- a value S2 forbids -- and PASSES ONLY WHEN THREE LEGS GO RED (sigma_8 moves -32.0%,
+    delta chi^2 = +86.0). Sweep handle: `casim test --id F288-structure-formation-growth --param mu=0.90`.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 225
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F288 — Structure formation with zero free functions (K11).
+- id: F289-spin-statistics
+  path: tests/findings/test_F289_spin_statistics.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_spin_statistics
+  entry: check_spin_statistics
+  params:
+    rotation_turns: 1.0
+    exchange_alpha: 0.0
+    jw_string: true
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F289
+  - F291
+  - F292
+  - F217
+  - F68
+  results:
+  - test-results/F289_spin_statistics.json
+  control:
+  - params:
+      rotation_turns: 2.0
+    reds:
+    - S1
+    - S6
+    reason: 4pi gives +1, so the double-valuedness the theorem rests on is gone.
+  - params:
+      exchange_alpha: 0.5
+    reds:
+    - S3
+    reason: an anyonic exchange is still a perfectly good unitary (S3b asserts exactly that), so what
+      excludes it is the DIMENSION -- which is what makes F291/F292 load-bearing here.
+  - params:
+      jw_string: false
+    reds:
+    - S4
+    reason: drop the Jordan-Wigner string and the statistics are no longer carried by the representation.
+  notes: 'Completeness-2026-08-04 row A9 (ABSENT: "implemented, not derived"). 11 checks. NOT a new proof
+    of the spin-statistics theorem, and the finding says so: the standard topological derivation needs
+    the spatial dimension and the 2pi rotation phase as INPUTS, and this model supplies both as OUTPUTS
+    (F291/F292 derive d=3; the rotor gives R(2pi) = -1 exactly). Three declared controls, each verified
+    red in the driver and asserted to go red ONLY where expected: rotation_turns=2.0 reds S1/S6 (4pi gives
+    +1, the double-valuedness is gone), exchange_alpha=0.5 reds S3 (an anyonic exchange is still a perfectly
+    good unitary -- S3b asserts that -- so what excludes it is the DIMENSION, which is what makes F291/F292
+    load-bearing here), jw_string=false reds S4. Five residuals are literal 0.0. S5c is written as a projector
+    RANK rather than as `phi (x) phi - phi (x) phi`, which would be a tautology of subtraction.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 95
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F289 — the spin-statistics connection (completeness-2026-08-04 row A9).
+- id: F290-cluster-decomposition
+  path: tests/findings/test_F290_cluster.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_cluster
+  entry: check_cluster
+  params:
+    locality: local
+    cone_slack: 0
+    mass: 0.5
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  findings:
+  - F290
+  - F227
+  - F226
+  - F281
+  results:
+  - test-results/F290_cluster_decomposition.json
+  control:
+  - params:
+      locality: nonlocal
+    reds:
+    - C1
+    reason: 'apply the probe unitary ACROSS the cut instead of on A alone: no-signalling is a statement
+      about locality, not about partial traces.'
+  - params:
+      cone_slack: -1
+    reds:
+    - C2
+    reason: shrink the claimed cone by one cell so points genuinely inside it are tested as if outside.
+      This is what pins the cone radius rather than merely asserting some cone exists.
+  - params:
+      mass: 0.0
+    reds:
+    - C3
+    - C3b
+    - C3d
+    reason: 'the gapless chain: the decay is power-law, so there is no finite correlation length and clustering
+      holds only algebraically.'
+  notes: 'Completeness-2026-08-04 row A10 (ABSENT). 10 checks. The CA-specific result is C2c: a generic
+    Lieb-Robinson system has an EXPONENTIAL tail outside the light cone, an automaton has exactly zero
+    -- the bound evaluated at the same points is 7.39 while the measured difference is 6.9e-16. The cone
+    is measured TIGHT (1 site per brick-wall layer) rather than quoted conservatively; the first draft
+    claimed 2t, which made the cone_slack control unable to fire, and that was caught and fixed. C2d reconciles
+    the tight cone with F227''s r > 4t numerically rather than in prose. C3b quotes the MEASURED exponent
+    -0.9268 (8x gap range, R^2 = 0.9994), not the continuum -1: pushing to smaller mass makes it worse
+    (-0.85) because xi then exceeds what a finite chain resolves, so claiming -1 would be an overclaim.
+    Three declared controls, each verified red and only where expected.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 90
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F290 — cluster decomposition and exact no-signalling (row A10).
+- id: F295-tilt-is-an-anomalous-dimension
+  path: tests/findings/test_F295_anomalous_dimension.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F138
+  - F145
+  - F175
+  - F282
+  - F284
+  - F285
+  - F286
+  - F295
+  module: casim.engine.interactions.cosmology_anomalous_dimension
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F295_anomalous_dimension.json
+  note: 'Corrects F286''s FRAMING (not its algebra): T1''s allowed p = 0 branch is a scale-free anomalous
+    dimension, so Delta^2 ~ k^(-2 gamma) and dn_s/dlnk = 0 EXACTLY with no second scale -- re-derived
+    in sympy to a literal zero. A1b asserts p = 0 sits inside F286''s own live bound so the two findings
+    cannot drift apart. A3 answers Ben''s inverse problem: alpha would need evaluating 68 decades above
+    the model''s own cutoff, and G''s coupling is a POWER that T1 kills on shape. A4b is a DISCIPLINE
+    GUARD: it asserts this finding does not claim the 2/9 value is significant and that F286''s look-elsewhere
+    rejection is still intact, so a later edit cannot quietly promote the coincidence.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 170
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F295 — The tilt is an anomalous dimension, not a second scale.
+- id: F296-holographic-anomalous-dimension
+  path: tests/findings/test_F296_holographic.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F27
+  - F47
+  - F282
+  - F284
+  - F285
+  - F286
+  - F295
+  - F296
+  module: casim.engine.interactions.cosmology_holographic
+  entry: run
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-06
+  results:
+  - test-results/F296_holographic.json
+  note: 'Literature placement for F295''s structure, and a VALIDATION of F286 T1. L2a asserts T1''s diagnostic
+    on holographic cosmology''s own fitted spectrum (g = -0.00703, ln beta = 0.877; Afshordi et al PRL
+    118 041301) against F286''s LIVE bound rather than a copied constant, so the two findings cannot drift
+    apart: 0.675 vs 0.32, over by 2.1x, implied dn_s/dlnk = +0.015 at 2.9 sigma -- recovering the published
+    2.2 sigma disfavour from a bound built with no knowledge of HC. L5a computes r on the model''s OWN
+    content (48 Weyl fermions, 2 E_g scalars) and finds 0.32-0.97 vs BK18''s 0.036. L5b is a DISCIPLINE
+    GUARD: placement is not a duality claim, and the test asserts the exclusion stays in the verdict.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 155
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F296 — Holographic cosmology names the operator and validates F286 T1.
+- id: F297-bbn-light-elements
+  path: tests/findings/test_F297_bbn.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_bbn
+  entry: check_k2
+  params:
+    law: full
+  expect:
+    exactness: quantitative
+    tol: 0.03
+  findings:
+  - F297
+  - F178
+  - F182
+  - F122
+  - F284
+  results:
+  - test-results/F297_bbn_light_elements.json
+  control:
+  - params:
+      delta_m_mev: 1.51
+    reds:
+    - K2-11
+    - K2-12
+    reason: 're-run the whole network at the model''s OWN neutron-proton splitting rather than the measured
+      one. This is the 36.6 sigma exclusion turned into a failure mode: if the battery passes at 1.51
+      MeV it is not sensitive to the splitting at all.'
+  notes: 'Completeness-2026-08-04 row K2 (ABSENT). 12 checks. First module in the tree that COMPUTES a
+    light-element abundance rather than quoting a BBN bound -- nine findings cite BBN and all nine use
+    it as an external limit. Expansion side is entirely model-native: structural G (F79/F107), the F178
+    source law, Gdot/G identically 0 (F284), N_eff = 3.044 forced by the model''s own content (nu_R a
+    total singlet, F165/F279, plus Higgs-free so no light scalar). eta_b is external BY CONSTRUCTION --
+    F238 proves the model cannot fix it -- so this is a consistency test at fixed eta, exactly as standard
+    BBN is. TWO RESULTS. (1) K2-6: the DEMOTED energy-only law is excluded at 17.6 sigma in Y_p. The expansion
+    normalisation S = sqrt(kappa/2) is DERIVED from power-matching the acceleration equation, not posited,
+    and the conditionality is stated in the module: this excludes the law read as a DYNAMICAL law; read
+    as a constraint equation that is simply inconsistent (F182 A1) the history is identical and BBN says
+    nothing. (2) K2-8/K2-9: BBN + tau_n bound m_n - m_p to +-0.0056 MeV where F122''s own check S8b used
+    +-1 MeV, a factor 179, and the model''s +1.51 MeV is excluded at 36.6 sigma in Y_p, 22.6 sigma in
+    D/H, and predicts a 331 s neutron against 878.4 +- 0.4 s. The SIGN F122 actually claimed survives;
+    the value does not. K2-10 is a declared NULL: the model''s B_d differs from PDG by 0.026% and moves
+    D/H by 0.078 sigma, so BBN cannot see the deuteron binding and nobody should later cite it as confirming
+    one. LITHIUM IS EXCLUDED FROM THE BATTERY AND SAID SO: the A=7 chain is 92% low against the same reference
+    the other species are validated on, so four rate fits are wrong here; Li7 is still returned rather
+    than suppressed. Absolute numbers carry the network''s measured ~0.9% offset (K2-1/K2-2); every model-level
+    conclusion is a difference computed inside the same network so the offset cancels. Two declared controls,
+    each verified red and only at K2-11/K2-12.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 99
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F297 — K2: Big-Bang nucleosynthesis and the light-element abundances.'
+- id: F300-lattice-thermodynamics
+  path: tests/findings/test_F300_thermodynamics.py
+  kind: assertion
+  tier: gate
+  findings:
+  - F110
+  - F190
+  - F297
+  - F300
+  sector: interactions
+  control:
+  - params:
+      linear_control: true
+    reds:
+    - G10-3
+    - G10-4
+    - G10-5
+    - G10-6
+    reason: dispersion replaced by exactly linear c|k|, so every lattice correction -- the three Theta^2
+      closed forms and the parameter-free C_u/C_w ratio -- must vanish. Measured 2026-08-07; the measured
+      set is what is written here.
+  - params:
+      nonunitary_control: true
+    reds:
+    - G10-7
+    - G10-9
+    - G10-10
+    reason: mode decimation in the propagator. Entropy conservation and the GGE plateau cannot survive
+      a non-unitary step, so a run that still passes them is not measuring unitarity.
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 99
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F300 — G10: lattice-native thermodynamics.'
+  module: casim.engine.interactions.thermodynamics
+  entry: check_g10
+  params:
+    L: 8
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F300_lattice_thermodynamics.json
+  notes: 'F300 (rubric row G10). ARMED 2026-08-07, AND RENAMED: the record was `F300-thermodynamics`,
+    an auto-scaffolded legacy_script/battery stub, while the finding, the module docstring and tests/findings/test_F300_thermodynamics.py
+    all name `F300-lattice-thermodynamics` at tier gate — that test file''s docstring tells a reader to
+    run `casim test --id F300-lattice-thermodynamics`, which returned ''no registry record matches that
+    selection''. TWO DECLARED CONTROLS, both verified red and only where declared: `--param linear_control=True`
+    (dispersion replaced by exactly linear c|k|) reds G10-3/4/5/6; `--param nonunitary_control=True` (mode
+    decimation in the propagator) reds G10-7/9/10. Both measured on 2026-08-07, and the measured sets
+    are what is written here — the finding''s prose says 3/4/5/6 and 7/9/10 and the module docstring says
+    3/4/5 and 7; the measurement agrees with the finding.'
+- id: F301-boost-covariance-defect
+  sector: interactions
+  kind: assertion
+  tier: gate
+  module: casim.engine.interactions.derive_boost_covariance
+  entry: check_boost_covariance
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  findings:
+  - F301
+  - F22
+  - F24
+  - F26
+  - F246
+  results:
+  - test-results/F301_boost_covariance.json
+  notes: 'F301 (rubric row A2). ARMED 2026-08-07. The finding declared `record F301-boost-covariance-defect
+    (tier gate, entry check_boost_covariance)`; NO record of any kind existed, and because the module
+    owns no file under tests/findings/ the auto-scaffolder never even made a stub — so findings-index.md
+    read ''no test record'' for the finding this project''s own completeness rubric cites as closing A2''s
+    finite-a boost seam. REGISTRY-ONLY record (no `path:`), like the scenario records. FAILURE MODE: 30
+    asserts inside the entry itself, so a violated threshold raises rather than returning a number — the
+    entry returns a dict with no boolean verdict key, and `casim test`''s _interpret_return reads a verdict-less
+    dict as PASS, so the asserts ARE the whole failure mode and must not be removed. NO PARAMETER CONTROL
+    EXISTS: F301''s six declared controls (B1, B2, B4, B6, B8, B9, B10) are internal legs of the same
+    run, not `--param` perturbations, so there is no override that reddens this record from outside. That
+    is weaker than the F298/F299/F300/F303 records above and is recorded rather than papered over.'
+- id: F304-born-rule-gleason
+  path: tests/findings/test_F304_born_gleason.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_born_gleason
+  entry: check_born_gleason
+  params:
+    coupling: minimal
+    locality: local
+    gleason_dim: 3
+    zonal: jacobi
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F304
+  - F281
+  - F290
+  - F227
+  results:
+  - test-results/F304_born_rule_gleason.json
+  control:
+  - params:
+      coupling: contextual
+    reds:
+    - B2a
+    - B2b
+    reason: a basis-referencing generator, which exists nowhere in this model -- key decision 3 is what
+      closes the alternatives. Non-contextuality is a PREMISE of the derivation, so this is the control
+      that matters most.
+  - params:
+      locality: nonlocal
+    reds:
+    - B3a
+    reason: a coupling outside the F227 cone.
+  - params:
+      gleason_dim: 2
+    reds:
+    - B5a
+    reason: the analysis forced onto the d=2 hole, where every odd k survives.
+  - params:
+      zonal: naive
+    reds:
+    - B7a
+    reason: b_k -> (-1)^k/(d-1)^k, which is CORRECT at k=0 and k=1 and wrong only from k=2, so the control
+      shows B7a tests more than the two trivial modes.
+  notes: 'Completeness-2026-08-04 row A6 (Born rule, PARTIAL: "reproduced in tests, never derived"). F281
+    supplied two legs and named the undischarged hypothesis under each; CL253 refuses to carry the Born
+    leg and asks for a card "when one of those two hypotheses is closed". This record closes leg 1''s
+    by supplying GLEASON''S TWO PREMISES FROM THE RULE rather than assuming them, and since 2026-08-06
+    - 18:20 it also PROVES the theorem those premises feed. dim >= 3 (B1): a measurement needs a record
+    and a record needs cells, so the smallest measurement Hilbert space is 4; the free step''s 2-dim momentum
+    blocks are invariant (leakage 2.2e-16) but are NOT pointer contexts (norm of [Pi_k, n_hat] = 0.17539,
+    matching sqrt(2/N - 2/N^2) with residual 0.0) -- invariant but unreadable, which is the objection
+    that had to be answered. Non-contextuality (B2): the record channel is H_int, a fixed operator of
+    the rule carrying no reference to the measured basis, so five contexts sharing a ray write the same
+    record -- weight spread literal 0.0, record ray infidelity 2.2e-16. B3: remote contexts blocked by
+    exact no-signalling, 9.7e-17, consistent with F290. B4/B5 compute the dichotomy that makes the dimension
+    premise load-bearing rather than decorative -- the frame-function space has dimension d^2 at d=3,4
+    for every polynomial degree tested, but at d=2 it is 1+sum_{odd l<=deg}(2l+1) = 4,4,11,11,22,22, every
+    entry matching its closed form as an INTEGER and growing without bound, with an explicit non-Born
+    frame function exhibited (frame condition 1.1e-15, best-fit density-operator residual 0.14713). B7
+    IS THE THEOREM, PROVED. Averaging the frame condition over the bases containing a fixed ray gives
+    f + (d-1)Bf = W with B the mean over the unit sphere of v^perp; B is U(d)-equivariant, hence scalar
+    b_k on each isotypic component of L^2(CP^{d-1}), and b_k = (-1)^k / C(k+d-2,k) (Jacobi P_k^{(d-2,0)}
+    at -1 over at +1). A component survives iff 1 + (d-1)b_k = 0, and ONE formula gives both halves: at
+    d=2, C(k,k)=1 so every odd k survives (the hole, DERIVED rather than exhibited by example); at d>=3,
+    C(k+d-2,k) is strictly increasing and exceeds d-1 for k>=2, so only k=0,1 survive and the space has
+    dimension 1+(d^2-1) = d^2. Verified: B''s spectrum vs the closed form WITH dim V_k multiplicities
+    at six (d,k) points, <= 1.6e-15; 1+(d-1)b_1 = 0 exactly in Fraction arithmetic for d=2..12; d>=3,
+    k<=40 strictly positive with min gap 0.5; and B7e shows the proof PREDICTS the integers B5a/B5b had
+    merely measured, with no fitting. FOUR declared controls, each verified red on its own leg in the
+    driver: coupling=contextual reds B2a/B2b (a basis-referencing generator, which exists nowhere in this
+    model -- key decision 3 is what closes the alternatives), locality=nonlocal reds B3a (a coupling outside
+    the F227 cone), gleason_dim=2 reds B5a (the analysis forced onto the hole), and zonal=naive reds B7a
+    (b_k -> (-1)^k/(d-1)^k, which is CORRECT at k=0 and k=1 and wrong only from k=2, so the control shows
+    B7a tests more than the trivial modes). STILL CITED, and it is now one lemma rather than a theorem:
+    Cooke-Keane-Moran regularity, i.e. that a non-negative frame function is automatically continuous.
+    B7''s proof is complete for f in L^2, and every bounded MEASURABLE weight on a compact ray space is
+    in L^2 -- what the lemma excludes is a non-measurable weight assignment. One premise also stays irreducible
+    (that an exhaustive record set carries weights summing to one), and it is strictly weaker than either
+    hypothesis F281 had to carry.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 150
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F304 — the Born rule as a theorem on the lattice (completeness row A6).
+- id: F309-gstar-model-content
+  path: tests/findings/test_F309_gstar.py
+  kind: assertion
+  tier: gate
+  findings:
+  - F121
+  - F297
+  - F300
+  - F309
+  sector: interactions
+  control:
+  - params:
+      branch_odd_control: true
+    reds:
+    - GS-3
+    - GS-4
+    - GS-5
+    reason: both BCC branches replaced by their average, which deletes the branch-odd term b(nhat) and
+      nothing else. Every fermionic Theta^2 coefficient must then fall to 4/7 of its closed form, because
+      the branch-odd term carries 3 of the 7 parts of <a> + 3<b^2>. GS-7 (C_u/C_w = 15/2) must SURVIVE
+      -- the ratio is invariant under the deletion, and that invariance is the structural half of the
+      claim. Measured 2026-08-11; the measured set is what is written here.
+  - params:
+      sm_content_control: true
+    reds:
+    - GS-8
+    - GS-9
+    reason: nu_R thermalised -- the one content statement the model makes that the Standard Model does
+      not share. g_*(10 MeV) leaves 10.75 by +5.25 and the (4/11) entropy endpoint no longer holds. This
+      is the control that proves the content check is a check on CONTENT and not a restatement of a textbook
+      number.
+  module: casim.engine.interactions.thermodynamics_gstar
+  entry: check_gstar
+  params:
+    n: 1200
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F309_gstar_model_content.json
+  notes: 'F309 (rubric rows K2 and G10). Closes gap #4 of docs/status/completeness-2026-08-07.md and next
+    step #1 of F300. F300 sec. 7.2 named the blocker as "the fermionic BZ sums with the branch-odd term
+    handled" -- handled means KEPT: a single Weyl branch carries omega = c|k|[1 -/+ b|k| - a|k|^2] with
+    b = n_x n_y n_z/sqrt3, the paired photon cancels the b term (F67/F68 non-birefringence) and a fermion
+    does not, and although <b> = 0 by parity the term enters SQUARED at exactly the order the anisotropic
+    term does and supplies 3/7 = 42.86 % of the coefficient. C_u^F = 310 pi^2/441, C_w^F = 124 pi^2/1323,
+    C_s^F = 31 pi^2/49, each exactly 31/4 = 7 x 31/28 times F300''s photon value. TWO DECLARED CONTROLS,
+    both verified red and only where declared, on 2026-08-11.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 123
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F309 — K2/G10: g_*(T) and g_*s(T) from the model''s own field content.'
+- id: F310-critical-measure
+  path: tests/findings/test_F310_critical_measure.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F106
+  - F130
+  - F284
+  - F285
+  - F295
+  - F296
+  - F310
+  module: casim.engine.interactions.cosmology_critical_measure
+  entry: check_critical_measure
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F310_critical_measure.json
+  control:
+  - params:
+      protected_stress_tensor: false
+    reason: 'Delta_T = d holds because the stress tensor is conserved; it is the one protected dimension
+      in the problem and the whole C6 prediction rests on it. Shifting it by 1/2 must make n_t != 2 and
+      redden C6. No `reds:` -- this driver asserts rather than emitting a checks list before it can be
+      compared leg by leg, so the claim is the verdict flip (the F291/F292 idiom). Verified RED 2026-08-11:
+      raises on C6-nt.'
+  - params:
+      integer_spectrum_control: true
+    reason: 'C3 asserts that every exponent F130 measured is an integer, i.e. that the model has no anomalous
+      dimension anywhere in its measured RG spectrum. Injecting ONE non-integer exponent (1.0176, the
+      value the tilt would need) must redden C3 -- a scan that cannot see the thing it claims is absent
+      is not evidence of absence, which is the F298 pattern. Verified RED 2026-08-11: raises on C3.'
+  note: 'F310 (ledger row G2, rubric rows K3/K12). Takes the in-repo step open-derivations.md named: does
+    the model claim a 3D dual at all? No, and it needs none -- the t=0 state of a rigid 3D automaton (F284)
+    IS a measure on 3D field configurations, so the 3D theory holographic cosmology reaches for by DUALITY
+    is present here by construction, and F296 L5''s r exclusion (an artifact of the dictionary) does not
+    transfer. C1 is the load-bearing identity: with Delta_eps = d - 1/nu and F285''s own Poisson bridge,
+    n_s = 3 - 2y and gamma == y - 1 EXACTLY, so gamma is the anomalous part of the model''s own block-spin
+    relevant eigenvalue. C3 explains every earlier failure in one line -- an anomalous dimension is a
+    NON-INTEGER RG exponent and F130''s measured spectrum is all-integer. C4 runs F130''s y = 1 through
+    C1 and gets Harrison-Zel''dovich, excluded at 9.94/9.38 sigma on the two 2025 datasets, re-deriving
+    F285''s headline from the RG side. C2 corrects F285 D1 row 2 exactly and in F285''s favour (critical
+    Gaussian squared is pi^3/k, n_s = -1, not k^0; F285''s own hypothesis was "integrable P_phi" and the
+    critical case is not integrable). C6 is the only zero-parameter number: Delta_T = d is protected by
+    conservation, so n_t = 2 exactly and log10 r(k_*) ~ -118 against F296''s naive-dual 0.32-0.97. C8
+    is a target and asserts that it is not a derivation; its C8-no-hit leg goes RED if any model field
+    count ever lands inside 1 sigma, so a coincidence must be read by a human before it can be claimed.
+    Three comparator datasets are carried as a table rather than one literal, per the 2026-08-08 lesson.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 145
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F310 — K3/G2: gamma is a block-spin eigenvalue, and the model needs no dual.'
+- id: F311-gap5-adjudication
+  path: tests/findings/test_F311_gap5_adjudication.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F79
+  - F192
+  - F193
+  - F196
+  - F251
+  - F277
+  - F311
+  module: casim.engine.interactions.derive_gap5_adjudication
+  entry: check_gap5
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F311_gap5_adjudication.json
+  control:
+  - params:
+      two_loop_control: true
+    reason: 'drops the zeta(3) - 5/24 constant from the Kallen-Sabry two-loop form, keeping only the leading
+      log. The identification of B9''s residual with the two-loop term must then degrade visibly -- an
+      identification that survives deleting the non-leading-log half is not an identification. No `reds:`:
+      this driver asserts rather than emitting a comparable checks list, so the claim is the verdict flip
+      (F291/F292 idiom). Verified RED 2026-08-11 on A2-two-loop-explains-residual.'
+  - params:
+      volatile_control: true
+    reason: reinstates the pre-fix behaviour of casim.baselines._VOLATILE_RE, in which a LEADING UNDERSCORE
+      defeats the filter. B1 must then go red on exactly the three keys (_seconds, __seconds, _elapsed_s)
+      that made F182/F184/F200 permanently red for six weeks. A filter that cannot be shown to have been
+      broken is not a fix. Verified RED 2026-08-11 with n_unmatched = 3.
+  note: 'F311 -- completeness-2026-08-07 gap #5, "the three numbers no report has re-derived". All three
+    are instrument or bookkeeping artifacts, not physics defects, and that common shape is the result.
+    A1 proves B9''s Delta_alpha(M_Z) untouched by S12-F277 by REINSTATING the removed refold rather than
+    reading the call graph: Pi4 (leptonic_running, analytic, where B9''s number lives) returns a bit-identical
+    payload while Pi3 (lattice_b0_consistency, what F277 fixed) moves its spread 3 orders -- so S12 is
+    a PARTIAL supersession. A2/A3 identify the 0.24 % residual as the two-loop leptonic term the one-loop
+    formula omits by construction: Kallen-Sabry 0.77568e-4 vs measured residual 0.77072e-4 (100.6 %) and
+    published 0.77621e-4 (0.07 %), taking B9 from 0.245 % to 0.00158 %, 155x, zero fitted parameters.
+    B1 fixes the third instance of one hole in casim.baselines._VOLATILE_RE (a leading underscore), which
+    is why three of the ten `candidate` baselines were permanently red on pure wall-clock; F182/F184/F200
+    now report "reproduced HEAD exactly". B2/B3 dispose all ten: 5 clean, 3 timing, 1 float-floor, 1 undeclared
+    input -- ZERO regressions, ZERO supersessions. C adjudicates K9: the two Lambda pictures are SEQUENTIAL
+    not parallel (F193 postdates F192 by 13 h and closes its candidate (i); F196 then closed F193''s own
+    obstruction), F192''s w=-1 sign result is VACUOUS rather than contradicted under rho_vac = 0, and
+    its 1e121 overshoot double-counts the mode sum F79 uses to induce 1/G. Derives no new number in C
+    and says so.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 119
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F311 — completeness gap #5: the three numbers no report had re-derived.'
+- id: F312-born-nonabelian
+  path: tests/findings/test_F312_born_nonabelian.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F27
+  - F41
+  - F281
+  - F304
+  - F312
+  module: casim.engine.interactions.qi_born_nonabelian
+  entry: check_born_nonabelian
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-13
+  results:
+  - test-results/F312_born_nonabelian.json
+  control:
+  - params:
+      abelian_control: true
+    reason: 'sets f^abc -> 0, i.e. pretends the group is Abelian. The closure legs must then go red: a
+      check that still passes with the structure constants DELETED is not testing the non-Abelian structure,
+      and the non-Abelian structure is the whole subject. No `reds:` -- this driver asserts rather than
+      emitting a comparable checks list, so the claim is the verdict flip (F291/F292 idiom). Verified
+      RED 2026-08-11 on G1-closure.'
+  - params:
+      break_singlet: true
+    reason: weights n_hat by the internal index, i.e. builds a colour-RESOLVING record. No such operator
+      exists in the tree -- occupation is what a cell holds, not what colour it holds -- and G3 must go
+      red, because [J^a, n_hat] = 0 is a consequence of the record being a singlet and not a coincidence.
+      Verified RED 2026-08-11 on G3.
+  - params:
+      contextual_coupling: true
+    reason: swaps the gauge term's pointer-side factor for the projectors of the SPECIFIC context (F304
+      B2's control, carried into the non-Abelian setting). Exists nowhere in this tree; built only so
+      G4/G5 have a way to fail, and they do. Verified RED 2026-08-11 on G4.
+  note: 'F312 (rubric row A6, downgraded EXACT -> PARTIAL in completeness-2026-08-07 on F304''s own residual
+    3). Closes the seam with ONE theorem rather than two more special cases. G1/G2 write out the commutator
+    F304 said was not written out, [J^a(x), J^b(y)] = i delta_xy f^abc J^c(x): the algebra closes (SU(2)
+    literally 0.0 with f = Levi-Civita literally 0.0; SU(3) 1.1e-16, f_123 = 1, f_458 = sqrt3/2) AND the
+    off-site commutator is literally 0.0 for both, so the entire non-Abelian structure is INTRA-SITE --
+    which is why it cannot reach a measurement context, an inter-site object. G3: [J^a(x), n_hat(y)] =
+    0 literally, the record being the internal TRACE. G4/G5 re-run F304 B2 with the sector genuinely present
+    (dims 64 and 96): weight spread literally 0.0. G6 is the general theorem -- sum_a T^a T^a is a multiple
+    of the identity with the exact value (N^2-1)/2N, so an invariant frame function factorises and F304
+    sec.5''s dichotomy is untouched for ANY compact group. G7 strengthens F304: dim = d_p * N, so SU(3)_c
+    clears Gleason''s d >= 3 with NO reference to the pointer, and the d=2 hole is unreachable in any
+    charged sector. G8/G9 are two premises U(1) never had to check because a phase is a scalar. Does NOT
+    prove Gleason (F304 sec.5) and does NOT close the Cooke-Keane-Moran regularity lemma, which stays
+    A6''s other named residual.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 130
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F312 — A6: Gleason''s premises on SU(2)_L and SU(3)_c, and the Schur reduction.'
+- id: F319-uv-completion
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qed_uv_completion
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F319
+  - F264
+  - F164
+  - F116
+  - F284
+  - F59
+  - F79
+  - F251
+  - F301
+  results:
+  - test-results/F319_uv_completion.json
+  control:
+  - params:
+      zero_point_weight: 1.0e-121
+    reds:
+    - U8-reproduces-F164
+    - U8-uniform-channel-excluded
+    - U8-selectivity-required
+    reason: uniform lambda on the zero-point sum set to the value that would fix the CC; the overshoot,
+      the 2x2 solve and the required selectivity must all stop holding
+  - params:
+      linear_control: true
+    reds:
+    - U5-closed-form-exact
+    - U5-engine-faithful
+    - U5-no-dim5
+    reason: dispersion replaced by exactly linear c_lat|k|, so every measured deviation leg must go red
+      while the two legs that only evaluate the closed form stay green -- which is the point of splitting
+      them
+  - params:
+      scheme_b: wilson
+    reds:
+    - U4-scheme-constant-nonzero
+    reason: both lattice schemes made identical, so the scheme constant collapses to 0; the two-routes-agree
+      leg correctly stays green because 0 == 0
+  - params:
+      break_universality: 1.001
+    reds:
+    - U3-log-universal-wilson
+    - U3-log-universal-symanzik
+    reason: the measured log coefficient rescaled by 1e-3, which must break universality against 1/(16
+      pi^2) in both lattice schemes while the sympy closed forms are untouched
+  summary: 'F319 -- the UV sector reconciled. A physical Brillouin-zone cutoff and a counterterm program
+    are the same statement: on a compact BZ the Z''s are FINITE reparametrisations, and F264''s power-counting
+    theorem (re-derived here, U9) reads "finitely many operator coefficients carry the cutoff" rather
+    than "finitely many counterterms absorb the infinities". U1-U4 supply the licence -- scheme differences
+    are IR-independent (drift 2.0e-12 over six decades of m) and the log coefficient 1/(16 pi^2) is universal
+    across four schemes while the constant is not. U5 is the leading irrelevant operator in exact closed
+    form, with NO dimension-5 term (exponent p = 2). U8 is the no-go: the Lambda^4 and Lambda^2 Sakharov
+    sectors are two moments of one measure, so the 2x2 solve for (lambda, a) returns a 8.3 Gpc cell --
+    excluding F164''s own leading cancellation channel. U9 is the ledger: exactly two unabsorbable coefficients.
+
+    '
+- id: F322-b9-running-rederived
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.running_alpha_lattice_bound
+  entry: check_b9_rederivation
+  params:
+    n_grid:
+    - 20
+    - 24
+    - 28
+  expect:
+    exactness: quantitative
+  findings:
+  - F322
+  - F251
+  - F277
+  - F261
+  - F138
+  results:
+  - test-results/F322_b9_running_rederivation.json
+  control:
+  - params:
+      refold_control: true
+    reds:
+    - B9-3
+    - B9-4
+    reason: 'restores the exact F277 modular refold in the rule kernel: the bound on the lattice contribution
+      to Delta alpha jumps from 0.09-0.22x the PDG shortfall to 183-190x it, and stops falling with n
+      (ratio 0.965 vs 0.398), which is the signature of a genuine spurious log.'
+  - params:
+      b1_control: 0
+    reds:
+    - B9-5
+    reason: removes F261's sympy-exact two-loop coefficient b1 = 1, so the 0.245% shortfall reopens and
+      the agreement stops improving over one loop.
+  summary: 'F322 — B9 re-derived post-F277. B9-1 the 0.24% is bitwise refold-independent (disjoint call
+    closure, measured under a 7.3x+0.5 kernel perturbation); B9-2 the B -> Delta alpha calibration is
+    f = 4 pi alpha exactly, from the module''s own b0^QED = 4/3; B9-3/B9-4 q-flatness of Delta = B_rule
+    - B_cont IS Delta alpha invariance, and the post-F277 bound is below the PDG shortfall and shrinking;
+    B9-5 F261''s b1 = 1 closes 79.8% of the shortfall, 0.245% -> 0.0495%; B9-6 F138''s EW +0.222% is reproduced
+    and doubles on the model''s own leptonic-only alpha, which is what B9 pays for deferring the hadronic
+    piece to row G3.
+
+    '
 - id: F52-restleg-backreaction
   path: tests/findings/test_F52_restleg_backreaction.py
   kind: result_dump
@@ -1125,7 +2391,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 336
+    lines: 337
     n_test_funcs: 5
     artifacts_written:
     - test-results/F52_restleg_backreaction.json
@@ -1150,7 +2416,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 287
+    lines: 288
     n_test_funcs: 5
     artifacts_written:
     - test-results/F55_spatial_metric_backreaction.json
@@ -1171,7 +2437,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 78
+    lines: 74
     n_test_funcs: 0
     artifacts_written:
     - test-results/F261_twoloop_qed.json
@@ -1194,7 +2460,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 58
+    lines: 54
     n_test_funcs: 0
     artifacts_written:
     - test-results/F263_euler_heisenberg_schwinger.json
@@ -1219,9 +2485,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 191
+    lines: 187
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: warp_openitems_explore.py
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'

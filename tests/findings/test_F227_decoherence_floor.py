@@ -32,8 +32,10 @@ import numpy as np
 
 THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
-sys.path.insert(0, os.path.join(ROOT, 'ca-simulation'))
-import ca_decoherence_floor as D
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import qi_decoherence_floor as D
 
 RES = {'finding': 'F227', 'date': '2026-07-02',
        'title': 'Intrinsic-decoherence / unitarity floor (Route 4)', 'tests': {}}

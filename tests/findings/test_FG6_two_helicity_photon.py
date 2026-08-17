@@ -81,14 +81,16 @@ from __future__ import annotations
 
 import sys, os, time, json
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 
-import ca_bcc as bcc
-import ca_fft as _fft
-import ca_maxwell as cm
-from ca_maxwell import (
+from casim.engine.lattice import bcc as bcc
+from casim.numerics import fft as _fft
+from casim.engine.gauge import bilinear as cm
+from casim.engine.gauge.bilinear import (
     weyl_eigenmodes_3d_bcc,
     EM_bilinears_branch,
     EM_bilinears_two_helicity,
@@ -100,8 +102,8 @@ from ca_maxwell import (
     _singlet_bilinear_H,
     _triplet_bilinear_H,
 )
-from ca_lattice import make_kgrid_3d
-from ca_wmu import w_propagation_step_spectral
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.engine.gauge.weak_wmu import w_propagation_step_spectral
 
 
 SQRT3 = np.sqrt(3.0)

@@ -1,0 +1,110 @@
+{
+  "finding": "F287",
+  "date": "2026-08-02",
+  "subject": "F162 background-field apparatus, soundness post-F272/F277",
+  "A_period_lattice": {
+    "max_abs_deviation": {
+      "2pi_(1,0,0,0)_the_refold": 76.48971829935005,
+      "2pi_(1,1,0,0)_plain_fcc": 36.5055601161254,
+      "sqrt3*2pi_(1,1,0,0)": 1.4210854715202004e-14,
+      "sqrt3*2pi_(2,0,0,0)": 2.1316282072803006e-14,
+      "2pi_in_TIME_(0,0,0,1)": 78.79850346944531
+    },
+    "refold_is_a_period": false,
+    "sqrt3_fcc_is_a_period": true,
+    "time_leg_is_periodic": false,
+    "verdict": "the 2pi-per-axis refold is NOT a period of the kernel bgfield_loop evaluates; sqrt3*fcc IS (spatial legs). The Euclidean-time leg is continuum kt^2 and has NO period at all, so the refold was inequivalent in 4 directions, not 3."
+  },
+  "D_subcell_slope_diagnostic": {
+    "n": 26,
+    "Qs": [
+      0.08,
+      0.1,
+      0.13,
+      0.17,
+      0.22
+    ],
+    "minus_Bcont": [
+      0.49189848803629643,
+      0.48710829008324896,
+      0.47752364939460484,
+      0.4613150099634648,
+      0.43952062312586904
+    ],
+    "slope_measured": 0.05139512830779092,
+    "slope_target_b0_11": 0.13931662750821444,
+    "slope_ratio": 0.3689087887571822,
+    "b0_measured": 4.0579966763290045,
+    "b0_exact_symbolic": 11.0,
+    "b0_rel_error": 0.6310912112428178,
+    "fit_max_residual": 0.0055726167429822615,
+    "grid_spacing_2pi_over_n": 0.241660973353061,
+    "all_Q_below_one_cell": true,
+    "interpretation": "ILL-POSED BY CONSTRUCTION, recorded as a hazard: all Q are sub-cell, so b0 comes out 37% of true from a fit whose residual looks fine. The apparatus has a resolution floor Q >~ 2*(2 pi/n). Real slope test: run_f287_slope.py D1/D2."
+  },
+  "BC_convergence": {
+    "Qs": [
+      0.1,
+      0.15,
+      0.2,
+      0.3
+    ],
+    "rows": [
+      {
+        "n": 10,
+        "wilson_mean": -0.07895233221487438,
+        "wilson_spread": 0.00012259882898690844,
+        "rule_mean": -0.012543345120280824,
+        "rule_spread": 2.5233133234270344e-05
+      },
+      {
+        "n": 14,
+        "wilson_mean": -0.07875602768980586,
+        "wilson_spread": 0.00018013557537394087,
+        "rule_mean": -0.01257489740319484,
+        "rule_spread": 2.962927023913986e-05
+      },
+      {
+        "n": 18,
+        "wilson_mean": -0.07869058442518474,
+        "wilson_spread": 0.00015927401645476902,
+        "rule_mean": -0.012591048742804048,
+        "rule_spread": 3.686185226625671e-05
+      },
+      {
+        "n": 22,
+        "wilson_mean": -0.078673822991265,
+        "wilson_spread": 8.03046078252101e-05,
+        "rule_mean": -0.012597854343120038,
+        "rule_spread": 2.76127384901681e-05
+      },
+      {
+        "n": 26,
+        "wilson_mean": -0.07867651515323892,
+        "wilson_spread": 6.92926066157562e-05,
+        "rule_mean": -0.012600117387396664,
+        "rule_spread": 1.7831793097666804e-05
+      }
+    ],
+    "rule_mean_rel_step_last": 0.00017960501533819062,
+    "wilson_mean_rel_step_last": 3.4218114117985844e-05,
+    "rule_spread_final": 1.7831793097666804e-05,
+    "wilson_spread_final": 6.92926066157562e-05,
+    "rule_sign_stable": true,
+    "monotone_after_onset": true
+  },
+  "checks": {
+    "A_refold_is_not_a_period": true,
+    "B_rule_shift_converges": true,
+    "B_rule_shift_q_flat": true,
+    "B_rule_sign_stable": true,
+    "C_wilson_control_converges": true,
+    "D_subcell_hazard_reproduced": true
+  },
+  "summary": {
+    "passed": 6,
+    "total": 6,
+    "all_pass": true,
+    "seconds": 23.6
+  }
+}

@@ -4,6 +4,7 @@
 # field_snapshot observer dumps m_c, m_pi, m_sigma, f_pi, <qbar q>, the GMOR
 # residual, and the chiral-limit Goldstone check (m0->0 => m_pi->0) to JSON.
 # Sandbox-fast pure-numpy quadrature; lattice geometry is nominal (unused).
+version: 2
 name: njl_pion
 title: "NJL Pion Sector (FB03)"
 description: "Dynamical light-meson spectrum from the canonical SU(2) NJL fit: pion/sigma poles, f_pi, condensate, GMOR slope, and the chiral-limit Goldstone theorem."

@@ -45,17 +45,12 @@ import os
 import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-for _cand in (
-    os.path.join(_HERE, "ca-simulation"),
-    os.path.join(_HERE, "..", "..", "ca-simulation"),
-    os.path.join(_HERE, "..", "ca-simulation"),
-):
-    _cand = os.path.abspath(_cand)
-    if os.path.isdir(_cand) and _cand not in sys.path:
-        sys.path.insert(0, _cand)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_chiral_anomaly as an  # noqa: E402
-import ca_qed_renormalization as rn  # noqa: E402
+from casim.engine.gauge import chiral_anomaly as an  # noqa: E402
+from casim.engine.interactions import qed_renormalization as rn  # noqa: E402
 
 
 def run_all(scan_n: int = 61) -> dict:

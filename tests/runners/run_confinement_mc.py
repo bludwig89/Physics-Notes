@@ -23,11 +23,13 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_confinement as cf          # noqa: E402
-import ca_strong as cs               # noqa: E402
-import ca_cooling as cc              # noqa: E402
+from casim.engine.gauge import confinement as cf          # noqa: E402
+from casim.engine.gauge import strong as cs               # noqa: E402
+from casim.engine.gauge import cooling as cc              # noqa: E402
 
 
 def run(beta=2.2, L=12, n_therm=400, n_meas=2000, measure_every=4,
@@ -124,7 +126,7 @@ def run(beta=2.2, L=12, n_therm=400, n_meas=2000, measure_every=4,
 
 
 def cg_loop(U, r, t):
-    import ca_gluon as cg
+    from casim.engine.gauge import gluon as cg
     return cg.wilson_loop_2d_avg(U, r, t) / 3.0
 
 

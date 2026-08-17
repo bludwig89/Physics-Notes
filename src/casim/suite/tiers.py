@@ -39,6 +39,68 @@ _BYTES_PER_CELL = 16
 _STATE_ARRAYS_GUESS = 6      # spinor (f,g) + gauge (E,B) + scratch, typical
 _FFT_OVERHEAD = 3.0          # out-of-place transforms keep a few copies live
 
+# ---------------------------------------------------------------------------
+# Wall-time model — roadmap P2.6
+#
+# `--list` predicted memory but not duration, so nobody could size a multi-day
+# run before launching it: the only way to find out that a 1000x tier would take
+# a week was to start it. This is the missing half.
+#
+# **What it is: a measured per-scenario anchor times a computed cost ratio.**
+# The anchors below are the sandbox wall-clock times recorded in
+# `scenarios/RUN-GUIDE.md` at each scenario's shipped size. The estimate is
+#
+#     seconds ~= anchor * cost_factor * log_correction
+#
+# where `cost_factor` is (L^dims * ticks) / (base_L^dims * base_ticks) — already
+# computed for the memory model — and `log_correction` accounts for the FFT's
+# N log N rather than N, which a pure cell-count ratio misses.
+#
+# **What it is not: a benchmark.** Three honest caveats, all of which make it a
+# lower bound on a big tier:
+#   * the anchors are one machine (the sandbox), and the roadmap's P2.1/P2.4
+#     throughput claim has never been measured on Ben's hardware, so a real run
+#     may be faster;
+#   * cache behaviour degrades once the working set leaves L3, which this does
+#     not model at all;
+#   * `gauge_mc` is not FFT-bound (it is an L^4 link update with a per-site
+#     reunitarisation), so its log correction is deliberately disabled.
+# An estimate that says "about a day" when the truth is "about three days" is
+# still the difference between a decision and a surprise, which is why this
+# ships labelled rather than waiting for a benchmark rig.
+# ---------------------------------------------------------------------------
+
+#: Measured sandbox wall-clock at each scenario's *shipped* size, from
+#: `scenarios/RUN-GUIDE.md`. A scenario with no anchor reports `None` rather
+#: than a guess.
+_SMOKE_SECONDS: Dict[str, float] = {
+    "photon_pair": 0.8,
+    "bcc_weyl": 0.7,
+    "w_chiral": 0.7,
+    "z_even": 0.5,
+    "gluon_bcc": 1.1,
+    "gravity_deflection": 0.3,
+    "fermion_w_backreaction": 0.5,
+    "beta_decay": 0.5,
+    "charge_photon": 0.5,
+    "refraction_2d": 1.3,
+    "gauge_mc": 6.0,
+    "photon_beam_all_fields": 3.0,
+    "bcc_fields_companion": 0.7,
+    "gravity_dynamic_selfsourced": 2.5,
+}
+
+#: Scenarios whose cost is not FFT-dominated, so no N log N correction applies.
+_NOT_FFT_BOUND = frozenset({"gauge_mc"})
+
+
+def _log_correction(compute_cells: int, base_cells: int) -> float:
+    """The `log N` in `N log N`, as a ratio. 1.0 when the sizes match."""
+    import math
+    if compute_cells <= 1 or base_cells <= 1:
+        return 1.0
+    return math.log2(compute_cells) / math.log2(base_cells)
+
 
 @dataclass(frozen=True)
 class Tier:
@@ -155,11 +217,28 @@ class SizePlan:
     mem_bytes: int
     realspace: bool
     skipped: bool
+    #: P2.6 wall-time ESTIMATE in seconds, or None when the scenario has no
+    #: measured anchor. See the module header for the model and its caveats.
+    wall_seconds: Optional[float] = None
     note: str = ""
 
     @property
     def mem_gb(self) -> float:
         return self.mem_bytes / 1024 ** 3
+
+    @property
+    def wall_human(self) -> str:
+        """The estimate as something a human can decide on, or `?`."""
+        s = self.wall_seconds
+        if s is None:
+            return "?"
+        if s < 90:
+            return f"{s:.0f}s"
+        if s < 5400:
+            return f"{s / 60:.0f}m"
+        if s < 172800:
+            return f"{s / 3600:.1f}h"
+        return f"{s / 86400:.1f}d"
 
     def as_overrides(self) -> Dict[str, int]:
         """The ``--L`` / ``--ticks`` overrides to feed the engine."""
@@ -225,6 +304,16 @@ def plan_size(name: str, scenario: Dict, tier_name: str) -> SizePlan:
     mem_bytes = int(compute_cells * _BYTES_PER_CELL
                     * _STATE_ARRAYS_GUESS * _FFT_OVERHEAD)
 
+    # P2.6 wall-time estimate. `None` when there is no measured anchor — an
+    # absent estimate is honest, a fabricated one is not.
+    anchor = _SMOKE_SECONDS.get(name)
+    if anchor is None:
+        wall_seconds = None
+    else:
+        corr = (1.0 if name in _NOT_FFT_BOUND
+                else _log_correction(compute_cells, base_L ** dims))
+        wall_seconds = float(anchor) * float(cost_factor) * corr
+
     return SizePlan(
         scenario=name, tier=tier_name, dims=dims,
         base_L=base_L, base_ticks=base_ticks,
@@ -232,7 +321,7 @@ def plan_size(name: str, scenario: Dict, tier_name: str) -> SizePlan:
         physical_L=physical_L, represented_cells=represented_cells,
         compute_cells=compute_cells, cost_factor=cost_factor,
         mem_bytes=mem_bytes, realspace=ov.realspace, skipped=skipped,
-        note=ov.note,
+        wall_seconds=wall_seconds, note=ov.note,
     )
 
 

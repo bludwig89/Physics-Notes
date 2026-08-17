@@ -39,12 +39,13 @@ import sys
 
 import numpy as np
 
-CA = os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation")
-sys.path.insert(0, os.path.abspath(CA))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_photon_pair as cpp          # noqa: E402
-from ca_bcc import bcc_dispersion     # noqa: E402
-from ca_lattice import make_kgrid_3d  # noqa: E402
+from casim.engine.gauge import photon as cpp          # noqa: E402
+from casim.engine.lattice.bcc import bcc_dispersion     # noqa: E402
+from casim.engine.lattice.geometry import make_kgrid_3d  # noqa: E402
 
 GATE = 1e-13
 

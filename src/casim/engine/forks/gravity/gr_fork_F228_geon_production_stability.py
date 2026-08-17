@@ -399,7 +399,7 @@ RESULTS["summary"] = {
     "n_pass": sum(c["pass"] for c in CHECKS),
     "n_total": len(CHECKS),
 }
-# C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+# C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
 # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
 outdir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "test-results"))
 os.makedirs(outdir, exist_ok=True)

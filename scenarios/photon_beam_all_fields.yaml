@@ -17,6 +17,7 @@
 #
 # Sandbox smoke:   casim run scenarios/photon_beam_all_fields.yaml
 # Production:      casim run scenarios/photon_beam_all_fields.yaml --L 96 --ticks 300
+version: 2
 name: photon_beam_all_fields
 title: "Photon Beam Through All Cubic Fields"
 description: "A travelling Gaussian photon beam (one-sided F = E + iB packet) crosses a lattice carrying live W, Z, and F64 gravity channels: tracks beam speed vs dΩ_pair/dk|k0, per-channel norm conservation, and Tier-1 non-interaction."

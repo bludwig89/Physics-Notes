@@ -40,6 +40,7 @@ References
 
 import numpy as np
 
+from casim.numerics import linalg as _linalg
 from casim.engine.gauge import strong as cstr
 
 
@@ -48,8 +49,24 @@ from casim.engine.gauge import strong as cstr
 # ══════════════════════════════════════════════════════════════════
 
 def _mm(A, B):
-    """Batched matrix product A·B over trailing 3×3 blocks."""
-    return np.einsum('...ij,...jk->...ik', A, B)
+    """Batched matrix product A·B over trailing 3×3 blocks.
+
+    Roadmap **P2.5**. This was ``np.einsum('...ij,...jk->...ik', A, B)``, and it
+    was **54% of a `gauge_mc` sweep** — measured by profile, not guessed: at
+    L=6, D=4, three heat-bath sweeps spend 0.130 s of 0.241 s inside
+    `c_einsum`. `einsum` does not dispatch a batched 3×3 product to BLAS;
+    `casim.numerics.linalg.batched_matmul` does (`zgemm`), for a measured
+    **2.9–3.0×** on exactly this shape.
+
+    **Numerically this is a 1–2 ULP change, not an identity.** C1 measured and
+    recorded the same thing when it added `batched_matmul`: max relative
+    difference from `einsum` is ~1e-16 here, four orders below the `machine`
+    floor of 1e-12, because BLAS associates the sum differently. Every
+    `Re Tr` observable built on this therefore moves in its last bits. That is
+    disclosed rather than hidden — see the P2.5 changelog entry for the measured
+    per-test deltas.
+    """
+    return _linalg.batched_matmul(A, B)
 
 
 def _dag(A):
@@ -102,8 +119,14 @@ def su3_project(M):
     Project a batched general 3×3 field to the nearest SU(3) matrix.
 
     Polar/SVD unitarisation  M = W Σ Vh → U = W·Vh, then remove the residual
-    determinant phase so det = 1.  Used by cooling (the SU(3) element that
-    maximises Re Tr[U Σ†] is the unitary part of the staple Σ).
+    determinant phase so det = 1.  This is the *maximal-projection* answer — the
+    SU(3) element maximising Re Tr[U Σ†] — and it is what cooling and the
+    gradient flow need, because there the projection **is** the physics.
+
+    Roadmap P2.5 note: for Monte-Carlo *reunitarisation* the requirement is
+    weaker (undo accumulated round-off on a matrix already within ~1e-13 of
+    SU(3)), and :func:`su3_reunitarise` does that ~3x faster. Do not substitute
+    it here — see its docstring for why the two are not interchangeable.
     """
     W, _, Vh = np.linalg.svd(M)
     U = _mm(W, Vh)
@@ -111,6 +134,64 @@ def su3_project(M):
     # divide out det^{1/3} (principal cube root) to land in SU(3)
     phase = det ** (1.0 / 3.0)
     return U / phase[..., None, None]
+
+
+def su3_reunitarise(U):
+    """Cheap reunitarisation of an *almost*-SU(3) field. Roadmap **P2.5**.
+
+    Gram–Schmidt on the three rows, then divide out the determinant phase. No
+    SVD, no eigendecomposition: three normalisations, three projections, one
+    cross product.
+
+    **Why this is a different function rather than a faster `su3_project`.**
+    They agree only when the input is already close to unitary. `su3_project`
+    answers "which SU(3) matrix is *nearest* to this arbitrary matrix", which is
+    a genuine optimisation and is the physics in cooling and gradient flow.
+    Gram–Schmidt answers "orthonormalise these rows in order", which is
+    basis-order-dependent and would silently bias a projection of a far-from-
+    unitary staple.
+
+    **How closely they agree, measured rather than asserted.** On a field
+    perturbed off SU(3) by $\\delta = 10^{-13}$ the two answers differ by
+    $4\\times10^{-13}$ — i.e. they agree to $O(\\delta)$, *not* to round-off,
+    because each returns a different point inside the perturbation ball. Both
+    then land at the same quality: unitarity residual $8.9\\times10^{-16}$ (this
+    function) vs $1.6\\times10^{-15}$ (SVD), determinant residual
+    $1.1\\times10^{-15}$ for both. That is the correct property for
+    reunitarisation — restore exact unitarity, do not care which nearby unitary
+    — and the wrong property for a maximal projection.
+
+    Measured on the `gauge_mc` shape (L=6, D=4): **13.4 ms → 2.4 ms, 5.5x.**
+    """
+    U = np.array(U, dtype=complex, copy=True)
+    r0, r1, r2 = U[..., 0, :], U[..., 1, :], U[..., 2, :]
+
+    def _norm(v):
+        n = np.sqrt(np.sum(np.abs(v) ** 2, axis=-1))
+        return v / np.where(n > 1e-300, n, 1.0)[..., None]
+
+    def _proj_out(v, e):
+        # remove the component of v along the already-unit row e
+        c = np.sum(np.conj(e) * v, axis=-1)[..., None]
+        return v - c * e
+
+    e0 = _norm(r0)
+    e1 = _norm(_proj_out(r1, e0))
+    # The third row is fixed up to a phase by the first two: conj of their cross
+    # product is the unique unit vector completing a det=+1 frame. Using the
+    # cross product rather than another Gram-Schmidt pass is what makes the
+    # determinant come out at +1 without a second correction.
+    e2 = np.conj(np.cross(e0, e1))
+    # Guard: if the input was so degenerate that the cross product vanished,
+    # fall back to orthogonalising the original third row.
+    bad = np.sum(np.abs(e2) ** 2, axis=-1) < 1e-24
+    if np.any(bad):
+        alt = _norm(_proj_out(_proj_out(r2, e0), e1))
+        e2 = np.where(bad[..., None], alt, e2)
+
+    out = np.stack([e0, e1, e2], axis=-2)
+    det = np.linalg.det(out)
+    return out / (det ** (1.0 / 3.0))[..., None, None]
 
 
 # ══════════════════════════════════════════════════════════════════

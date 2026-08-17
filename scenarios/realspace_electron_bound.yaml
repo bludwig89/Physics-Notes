@@ -19,6 +19,7 @@
 # control (realspace_electron_free.yaml, same orbital, no well) disperses
 # ballistically to box saturation.  Structure is the deliverable; absolute
 # fm/eV stay P6/scale-gated (F123).
+version: 2
 name: realspace_electron_bound
 title: "Real-Space EM-Bound Electron (U2)"
 description: "Non-relativistic electron orbital held in a bounded cloud by a static +1 Coulomb well (started in the ground state); RMS stays flat vs the free dispersing control."

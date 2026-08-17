@@ -13,6 +13,8 @@ target                       source
 ``project-status-index.md``  prose scrape
 ``test-results/manifest.json`` result artifacts (the P1.4 builder, imported)
 ``docs/status/exactness-inventory.md``  artifacts ⨝ D9 (C8.4)
+``docs/claims/registry.yaml``  the claim cards (D12) — generation runs
+``claims-index.md``            BACKWARDS here; see ``claims.py``
 ===========================  ==============================================
 
 Two design rules that make ``--check`` meaningful:
@@ -28,7 +30,7 @@ Two design rules that make ``--check`` meaningful:
 2. **The manifest builder is imported, not re-implemented.** ``tools/
    gen_manifest.py`` is loaded by path and called, so ``casim index`` produces a
    byte-identical ``manifest.json`` and there is no second copy of the linking
-   logic to drift. C5 set this precedent by importing ``migrate_module.py``'s
+   logic to drift. C5 set this precedent by importing the migration tool's
    templates rather than copying them.
 
 ``INDEX.md`` stays hand-maintained: it maps the directory layout, which no
@@ -48,7 +50,7 @@ from .common import repo_root
 __all__ = ["build", "check", "TARGETS", "repo_root"]
 
 TARGETS = ("findings", "status", "tests", "code", "docs", "results",
-           "exactness")
+           "exactness", "claims")
 
 # Every generated markdown file is timestamp-free by construction, so `--check`
 # is a byte comparison. The ONE exception is `test-results/manifest.json`:
@@ -81,6 +83,14 @@ def _gen_manifest_module(repo: str):
     return mod
 
 
+#: Extra files a target owns beyond its primary output, as
+#: ``{target: [(rel_path, text), ...]}``. Populated by `_render` and consumed by
+#: `build`, so that `check=True` stays strictly read-only — the D12 registry is
+#: a second artifact of the `claims` target and must be compared, not written,
+#: during a check.
+_SIDECARS: dict[str, list[tuple[str, str]]] = {}
+
+
 def _render(target: str, repo: str) -> tuple[str, str, int]:
     """(repo-relative path, full new text, entry count) for one target."""
     if target == "findings":
@@ -101,6 +111,14 @@ def _render(target: str, repo: str) -> tuple[str, str, int]:
     if target == "exactness":
         from . import exactness
         return exactness.render(repo)
+    if target == "claims":
+        # Two files, one target (D12): `registry.yaml` is a projection of the
+        # cards and `claims-index.md` a projection of the registry, so they are
+        # generated together and cannot go stale against each other.
+        from . import claims as _c
+        rel_r, text_r, _ = _c.render_registry(repo)
+        _SIDECARS["claims"] = [(rel_r, text_r)]
+        return _c.render_index(repo)
     if target == "results":
         import json
         mod = _gen_manifest_module(repo)
@@ -118,26 +136,30 @@ def build(targets: tuple[str, ...] = TARGETS, repo: str | None = None,
     repo = repo or repo_root()
     out: dict = {"repo": repo, "targets": {}, "stale": [], "errors": []}
     for target in targets:
+        _SIDECARS.pop(target, None)
         try:
             rel, text, n = _render(target, repo)
         except Exception as exc:                              # noqa: BLE001
             out["errors"].append(f"{target}: {type(exc).__name__}: {exc}")
             continue
-        full = os.path.join(repo, rel)
-        current = None
-        if os.path.exists(full):
-            with open(full, encoding="utf-8") as fh:
-                current = fh.read()
-        changed = current is None or _strip_stamp(current) != _strip_stamp(text)
-        out["targets"][target] = {"path": rel, "entries": n, "changed": changed}
-        if check:
-            if changed:
-                out["stale"].append(rel)
-            continue
-        if changed:
+        changed = False
+        for rel_i, text_i in [(rel, text)] + _SIDECARS.get(target, []):
+            full = os.path.join(repo, rel_i)
+            current = None
+            if os.path.exists(full):
+                with open(full, encoding="utf-8") as fh:
+                    current = fh.read()
+            differs = current is None or _strip_stamp(current) != _strip_stamp(text_i)
+            changed = changed or differs
+            if not differs:
+                continue
+            if check:
+                out["stale"].append(rel_i)
+                continue
             os.makedirs(os.path.dirname(full) or ".", exist_ok=True)
             with open(full, "w", encoding="utf-8") as fh:
-                fh.write(text)
+                fh.write(text_i)
+        out["targets"][target] = {"path": rel, "entries": n, "changed": changed}
 
     # ---- the audits that make `casim index` able to say no -----------------
     from . import findings as _f

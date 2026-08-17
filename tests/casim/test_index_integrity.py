@@ -102,6 +102,21 @@ def test_finding_numbers_are_declared():
         f"finding-numbers.yaml declares duplicates that no longer exist "
         f"{a['stale_declared_duplicates']} — a stale exception silently re-arms "
         f"the next collision")
+    # The gaps-side twin, live since 2026-08-05. Under block reservation a gap
+    # was permanent and a gap entry could not go stale; under one-at-a-time
+    # allocation `status: free` MEANS "the next finding spends this", so an
+    # entry naming a number whose file now exists is a spent number still
+    # advertising itself as available — which hands the same number to two
+    # sessions. Deleting the entry is the act of spending it.
+    assert not a["stale_declared_gaps"], (
+        f"finding-numbers.yaml still marks {a['stale_declared_gaps']} "
+        f"`status: free` but the file(s) now exist — delete the entry; "
+        f"deleting it IS the act of spending the number")
+    # And the allocator must hand back a number nobody wrote at. If this ever
+    # points at an existing file the backlog logic has inverted and the next
+    # session is being told to create a duplicate.
+    assert a["next_free"] not in a["numbers_used"], (
+        f"NEXT FREE NUMBER F{a['next_free']} already has a finding file")
 
 
 def test_module_registry_reaches_the_code_index():

@@ -355,6 +355,131 @@ def bcc_norm_drift_test(L=16, n_steps=200, sign='+', seed=0):
     return norm1 / norm0 - 1.0
 
 
+def check_lattice_constant_identities():
+    """
+    F278 — the walk's crystal is BCC with conventional cube edge a = 2/√3.
+
+    Registry entry point for `F278-bcc-lattice-constant` (the record F278 §9
+    specified but did not add; gap #5 of the 2026-08-02 completeness sweep).
+    Nine checks, matching that section one-for-one.
+
+    `a` is deliberately NOT a registered constant and NOT a literal: it is
+    derived here as `2 * c_lat`, per F278 §8 and D7 (a constant that is a
+    function of another constant is not registered separately).  A decimal
+    literal transcribed from an independent evaluation of 2/√3 lands one ulp
+    away — that is the caveat F278 §2 records, and it is why check 2 compares
+    the raw IEEE-754 bits rather than a tolerance.
+
+    Failure mode (this is the point of the record): any change to `c_lat`, to
+    the hop-phase convention in `bcc_fractional_shift`, or to `_bcc_uvec`
+    breaks check 2, 6 or 9.  Audit item V-016 found nothing guarding the
+    `c_lat` separation; this guards it.
+
+    Returns the result dict; raises AssertionError on any failure.
+    """
+    import struct as _struct
+
+    import sympy as sp
+
+    out = {}
+    a_f = 2.0 * c_lat                     # F278 §2: a = 2 c_lat, derived not written
+    a_s = 2 * sp.Rational(1, 1) / sp.sqrt(3)   # the same a, symbolically
+
+    # ---- 1. a = 2/√3 from a/2 = 1/√3 — the hop-length match (algebra) -----
+    out["c1_a_over_2_is_c_lat"] = (a_f / 2.0 == float(c_lat))
+    assert out["c1_a_over_2_is_c_lat"], "a/2 must BE c_lat, not merely equal it"
+
+    # ---- 2. a/2 and c_lat are the same double (0x3fe279a74590331d) -------
+    bits = lambda x: _struct.pack(">d", x).hex()
+    out["c2_bit_pattern"] = bits(a_f / 2.0)
+    out["c2_c_lat_bit_pattern"] = bits(float(c_lat))
+    assert out["c2_bit_pattern"] == out["c2_c_lat_bit_pattern"], "bit mismatch"
+    assert out["c2_bit_pattern"] == "3fe279a74590331d", (
+        f"c_lat has moved: {out['c2_bit_pattern']} != 3fe279a74590331d")
+
+    # ---- 3-7: sympy, residual identically zero (F278 §9 method column) ----
+    # The float path is deliberately NOT used here: 3(a/2)^2 - 1 is 2.2e-16 in
+    # doubles, and F278's claim is an algebraic identity, not a tolerance.
+
+    # 3. |(a/2)(1,1,1)| = 1 exactly.
+    r3 = sp.simplify(sp.sqrt(3 * (a_s / 2) ** 2) - 1)
+    out["c3_nn_length_residual"] = str(r3)
+    assert r3 == 0, r3
+
+    # 4. primitive cell volume a³/2 = 4√3/9.
+    v_prim_s = a_s ** 3 / 2
+    r4 = sp.simplify(v_prim_s - 4 * sp.sqrt(3) / 9)
+    out["c4_residual_vs_4root3_over_9"] = str(r4)
+    assert r4 == 0, r4
+
+    # 5. 4√3/9 = 4/(3√3) — the form F267 measured it in.
+    r5 = sp.simplify(4 * sp.sqrt(3) / 9 - 4 / (3 * sp.sqrt(3)))
+    out["c5_residual_vs_4_over_3root3"] = str(r5)
+    assert r5 == 0, r5
+
+    # 6. V_cube / V_BZ = a³/2.  The FFT grid samples (-π,π]³, the BZ of a simple
+    #    cubic lattice of edge 1 (primitive volume exactly 1), so the ratio IS
+    #    the BCC primitive-cell volume.
+    v_cube = (2 * sp.pi) ** 3
+    v_bz = (2 * sp.pi) ** 3 / v_prim_s
+    r6 = sp.simplify(v_cube / v_bz - v_prim_s)
+    out["c6_residual"] = str(r6)
+    assert r6 == 0, r6
+
+    # 7. 4π/a = 2π√3 — F273's measured "√3 · fcc" reciprocal period.
+    r7 = sp.simplify(4 * sp.pi / a_s - 2 * sp.pi * sp.sqrt(3))
+    out["c7_residual"] = str(r7)
+    assert r7 == 0, r7
+
+    # ---- 8-9: float, evaluated at Γ–H, far from the k→0 conditioning ------
+    # 8. 2π/a = π√3  (Γ–H).
+    #
+    # CORRECTION to F278 §9, recorded 2026-08-03 when this record was written.
+    # F278 tabulates check 8 as float residual "0.0".  It is not: 1/c_lat is
+    # one ulp BELOW np.sqrt(3) (0x3ffbb67ae8584ca9 vs ...caa), so 2π/a and
+    # π√3 differ by exactly one ulp of the result, 8.88e-16.  This is F278's
+    # OWN §2 ulp caveat — the one that says not to transcribe a decimal for
+    # a — applied to its own check 8, where the finding did not apply it.
+    # The identity is exact (check 7 proves it in sympy); only the float
+    # evaluation carries the ulp.  Asserted at 1 ulp, not at zero, so the
+    # record states something true.
+    out["c8_gamma_H"] = 2.0 * np.pi / a_f
+    out["c8_residual"] = abs(2.0 * np.pi / a_f - np.pi * np.sqrt(3.0))
+    out["c8_residual_ulps"] = out["c8_residual"] / np.spacing(np.pi * np.sqrt(3.0))
+    assert out["c8_residual_ulps"] <= 1.0, out["c8_residual_ulps"]
+
+    v_prim = float(v_prim_s)
+    out["c4_v_prim"] = v_prim
+    out["c7_four_pi_over_a"] = 4.0 * np.pi / a_f
+
+    # 9. ω±(π√3, 0, 0) = π on BOTH branches — the shipped dispersion agrees.
+    #    Evaluated far from the k→0 regime audit V-015 found ill-conditioned
+    #    (F278 limitation 2).
+    gh = np.pi * np.sqrt(3.0)
+    w_plus = float(bcc_dispersion(gh, 0.0, 0.0, sign='+'))
+    w_minus = float(bcc_dispersion(gh, 0.0, 0.0, sign='-'))
+    out["c9_omega_plus"] = w_plus
+    out["c9_omega_minus"] = w_minus
+    out["c9_residual_plus"] = abs(w_plus - np.pi)
+    out["c9_residual_minus"] = abs(w_minus - np.pi)
+    assert out["c9_residual_plus"] == 0.0, out["c9_residual_plus"]
+    assert out["c9_residual_minus"] == 0.0, out["c9_residual_minus"]
+
+    # The two constants F278 promotes from measured to closed form, as exact
+    # rationals-of-radicals in the form the findings reported them.
+    out["f267_cube_over_bz_ratio"] = v_prim
+    out["f273_reciprocal_factor"] = out["c7_four_pi_over_a"] / (2.0 * np.pi)
+    out["n_checks"] = 9
+    out["verdict"] = (
+        "The BCC walk is a faithful crystal walk with conventional cube edge "
+        "a = 2/sqrt3 = 2*c_lat. F267's measured cube/BZ ratio 4/(3 sqrt3) IS "
+        "the primitive-cell volume a^3/2; F273's measured 'sqrt3 . fcc' period "
+        "IS its reciprocal lattice 4 pi / a. Two measurements become one "
+        "geometric statement, and a is not a new parameter."
+    )
+    return out
+
+
 def bcc_smallk_to_weyl_residual(k_mag=0.05, n_dirs=8, sign='+', seed=1):
     """
     For |k| → 0 the BCC dispersion linearises to ω ≈ (1/√3) |k|.

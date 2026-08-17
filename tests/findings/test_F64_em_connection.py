@@ -1,7 +1,7 @@
 """
 test_F64_em_connection.py — Electromagnetic-connection gravity fork
 ====================================================================
-Exercises `ca-simulation/forks/gr_fork_F64_em_connection.py`, the logical fork
+Exercises `src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py`, the logical fork
 that replaces the "gravity-is-emergent" rest-leg route (F50/F52/F62) with a
 single lattice dielectric K(x) — a position-dependent renormalisation of the
 (E,B) rotation rule (F25/F26).
@@ -33,12 +33,13 @@ import sys
 import time
 
 THIS = os.path.dirname(__file__)
-SIM = os.path.abspath(os.path.join(THIS, "..", "..", "ca-simulation"))
-FORKS = os.path.join(SIM, "forks")
-for p in (SIM, FORKS):
-    if p not in sys.path:
-        sys.path.insert(0, p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import gr_fork_F64_em_connection as em      # noqa: E402
 
 STAMP = "2026-05-31 - 16:00"
@@ -109,7 +110,7 @@ def run() -> dict:
         "finding": "F64",
         "title": "Electromagnetic-connection gravity — single lattice dielectric K(x)",
         "timestamp": STAMP,
-        "module": "ca-simulation/forks/gr_fork_F64_em_connection.py",
+        "module": "src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py",
         "n_pass": sum(1 for r in implemented if r.get("pass")),
         "n_implemented": len(implemented),
         "n_total": len(results),

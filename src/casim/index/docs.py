@@ -16,7 +16,11 @@ from .common import HEADER_NOTE, esc, md_title
 _DOC_GROUPS = [
     ("docs/theory", "internal theory derivations & key decisions"),
     ("docs/roadmaps", "active roadmaps & next steps"),
-    ("docs/status", "project status, changelog, completion overviews, exactness"),
+    ("docs/roadmaps/completed", "spent one-off prompts — the finding that closed "
+     "each is in docs/audits/consolidation-plan-2026-08-04.md \u00a73.1"),
+    ("docs/status", "project status, changelog, exactness — what is CURRENT"),
+    ("docs/status/completions", "finished engineering phases (P0-P1, C0-C9). "
+     "Complete, not superseded — see deprecated/ for that"),
     ("docs/audits", "one-off reviews & audits"),
     ("docs/design", "internal design docs, registries & manifests"),
     ("papers", "the paper series"),
@@ -30,7 +34,8 @@ def render_docs(repo: str) -> tuple[str, str, int]:
              "*One line per document. PDFs in `references/` are listed by their "
              "markdown summaries only. `deprecated/` is included on purpose: a "
              "superseded plan that cannot be found is a plan someone will "
-             "rewrite.*", ""]
+             "rewrite. `docs/claims/` is **not** listed here \u2014 251 claim "
+             "cards would drown the prose; see `claims-index.md` (D12).*", ""]
     n = 0
     for d, blurb in _DOC_GROUPS:
         full = os.path.join(repo, d)

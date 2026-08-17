@@ -33,8 +33,10 @@ Run:  python tests/findings/test_F173_tolman_pressure.py
 import os, sys, json
 import sympy as sp
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_tolman as tol
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import tolman as tol
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "..", "test-results", "F173_tolman_pressure.json")
 results = {}

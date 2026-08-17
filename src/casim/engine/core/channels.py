@@ -1,6 +1,6 @@
 """casim.engine.core.channels — concrete field channels.
 
-Each channel is a thin, faithful wrapper over an audited ``ca-simulation``
+Each channel is a thin, faithful wrapper over an audited the legacy
 kernel.  Wrapping (not reimplementing) is what guarantees the engine reproduces
 the original scripts to machine precision: ``Channel.step`` calls exactly the
 same pure function the historical scripts called.
@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from .channel import Channel, register
+from .channel import Channel, field_energy, register
 from casim.constants import c_lat as c_lat_registry
 
 ROOT3 = float(np.sqrt(3.0))
@@ -58,7 +58,37 @@ class PhotonPairChannel(Channel):
         return {"E": np.asarray(E, float), "B": np.asarray(B, float)}
 
     def step(self, state, lattice, context=None, rng=None):
+        # P3.6 — read the F64 dielectric from a named gravity partner and mix it
+        # Strang-wise around the homogeneous spectral step.  `read_K` returns
+        # None when no partner is wired or the field is flat, so the no-gravity
+        # path below is the pre-P3.6 code reached by the same branch it always
+        # took, and stays bit-identical.
+        # P3.6 — read the F64 dielectric from a named gravity partner. `read_K`
+        # returns None when no partner is wired or the field is flat, so the
+        # no-gravity path is the pre-P3.6 code reached by the same branch it
+        # always took, and stays bit-identical.
+        K = self.read_K(context)
         block = int(getattr(lattice, "block", 1))
+
+        if K is not None:
+            if block > 1:
+                raise NotImplementedError(
+                    f"channel {self.name!r}: gravity coupling under block-spin "
+                    f"(block={block}) is not derived. The renormalised rule "
+                    f"Ω_b(κ)=Ω(κ/b) and the dielectric's own coarse-graining "
+                    f"have not been shown to commute (F133 covers the free rule "
+                    f"only), and guessing would put an unverified factor inside "
+                    f"a gravity result.")
+            # F271: the k-resolved dielectric propagator. Ω(k)/K(x) is diagonal
+            # in neither basis, so it is Strang-split about the exact spectral
+            # rotation, with Weyl-ordered, second-order perturbation half-steps.
+            # No free parameter — this replaces the eikonal ω₀ mix.
+            from casim.fields.photon import photon_step_dielectric
+            E, B = photon_step_dielectric(
+                state["E"], state["B"], K,
+                n_sub=int(self.config.get("grav_n_sub", 4)))
+            return {"E": E, "B": B}
+
         if block > 1:
             # coarse lattice: use the renormalised rule Ω_coarse(κ)=Ω(κ/block)
             # so the physical dynamics stays faithful (F130 T1/T2, F133).
@@ -70,7 +100,7 @@ class PhotonPairChannel(Channel):
         return {"E": E, "B": B}
 
     def energy(self, state) -> float:
-        return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
+        return field_energy(state["E"], state["B"])
 
     # F69 PP1: pair dispersion equals the even-law rotation rate (algebraic).
     def dispersion_residual(self, lattice, rng) -> float:
@@ -166,7 +196,7 @@ class WChiralChannel(Channel):
         return {"E": E, "B": B}
 
     def energy(self, state) -> float:
-        return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
+        return field_energy(state["E"], state["B"])
 
 
 # ======================================================================
@@ -193,7 +223,7 @@ class ZEvenChannel(Channel):
         return {"E": E, "B": B}
 
     def energy(self, state) -> float:
-        return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
+        return field_energy(state["E"], state["B"])
 
 
 # ======================================================================
@@ -221,7 +251,7 @@ class GluonBCCChannel(Channel):
         return {"E": E, "B": B}
 
     def energy(self, state) -> float:
-        return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
+        return field_energy(state["E"], state["B"])
 
 
 # ======================================================================

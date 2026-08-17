@@ -8,7 +8,7 @@ F124 — derive sqrt(sigma)/f_pi (the ratio of the model's two QCD calibrations:
 the P1 confinement scale and the F77 chiral scale), closing the open debt
 flagged in F123.
 
-Engine: `ca-simulation/ca_qcd_scale_ratio.py`.  Factorisation
+Engine: `src/casim/engine/interactions/running_scale_ratio.py`.  Factorisation
     sqrt(sigma)/f_pi = (Lambda/f_pi) x (sqrt(sigma)/Lambda)
 with the chiral factor an EXACT NJL output and the confinement factor from the
 F86/F88 condensate (or the F101 bare rotor), regulated at the F116 BZ edge.
@@ -43,9 +43,10 @@ import os
 import sys
 import json
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                 "..", "..", "ca-simulation")))
-import ca_qcd_scale_ratio as Q  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import running_scale_ratio as Q  # noqa: E402
 
 results = {"finding": "F124",
            "title": "derivation of sqrt(sigma)/f_pi (two QCD calibrations)",

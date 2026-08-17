@@ -12,18 +12,20 @@ Tests W6.1–W6.5 from roadmap-wmu-implementation.md.
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 import json, time
 
-from ca_wmu import (weinberg_mix, weinberg_unmix, ew_charge,
+from casim.engine.gauge.weak_wmu import (weinberg_mix, weinberg_unmix, ew_charge,
                     hypercharge_propagation_step,
                     measure_photon_dispersion_from_mix,
                     w_propagation_step_spectral)
-from ca_bcc import bcc_dispersion
-from ca_lattice import make_kgrid_3d as _kgrid3d
-import ca_fft as _fft
+from casim.engine.lattice.bcc import bcc_dispersion
+from casim.engine.lattice.geometry import make_kgrid_3d as _kgrid3d
+from casim.numerics import fft as _fft
 
 L = 16
 rng = np.random.default_rng(seed=42)

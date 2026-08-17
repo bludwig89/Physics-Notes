@@ -31,9 +31,11 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-sys.path.insert(0, os.path.join(ROOT, "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_emergent_gravity as eg   # noqa: E402
+from casim.engine.interactions import gravity_emergent as eg   # noqa: E402
 
 GRID_CELL_MPC = 3.0 / 128          # ~0.0234 Mpc; peak resolution
 

@@ -63,9 +63,11 @@ import os, sys, math, json
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(THIS, '..', '..', 'ca-simulation')))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_dirac
+from casim.engine.particles import dirac as ca_dirac
 
 
 def gaussian_packet(L, kx, x0, sigma_x):

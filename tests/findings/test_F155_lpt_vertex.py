@@ -17,10 +17,11 @@ rule's Omega_even propagator + ghost loop for d1 is the remaining work.
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_lpt_vertex as v
+from casim.engine.gauge import lpt_vertex as v
 
 
 def run():

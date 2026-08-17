@@ -38,8 +38,10 @@ import os, sys, json, math
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(THIS, '..', '..', 'ca-simulation')))
-import ca_entanglement as E
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import qi_entanglement as E
 
 LN2 = math.log(2.0)
 RESULTS = {'finding': 'F212', 'date': '2026-07-01',

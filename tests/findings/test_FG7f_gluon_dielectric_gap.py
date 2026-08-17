@@ -2,7 +2,7 @@
 test_FG7f_gluon_dielectric_gap.py — gap-coupled colour-dielectric gluon propagator
 ==================================================================================
 
-Verifies Part D of `ca-simulation/ca_colour_dielectric.py` (added 2026-06-08):
+Verifies Part D of `src/casim/engine/gauge/colour_dielectric.py` (added 2026-06-08):
 the colour-dielectric renormalisation wired into the *time-evolved* gluon
 propagator, and the ca_colour_condensate (F88) gap coupled into the dynamical
 gluon field.  The thesis: one measured number — the condensate VEV v — sets the
@@ -25,7 +25,7 @@ lambda = 1/m_V and the tension sigma = 2 pi v^2 at once.
        expelled (dual Meissner realised in time evolution).  eps_c=1 control
        transmits freely; eps_c=1 everywhere is bit-for-bit the free step. [tier 3]
 
-Module under test:  ca-simulation/ca_colour_dielectric.py  (Part D)
+Module under test:  src/casim/engine/gauge/colour_dielectric.py  (Part D)
 Created:            2026-06-08
 """
 import sys
@@ -34,11 +34,13 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_colour_dielectric as cd   # noqa: E402
-import ca_gluon as cg               # noqa: E402
-import ca_wmu as cwmu               # noqa: E402
+from casim.engine.gauge import colour_dielectric as cd   # noqa: E402
+from casim.engine.gauge import gluon as cg               # noqa: E402
+from casim.engine.gauge import weak_wmu as cwmu               # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

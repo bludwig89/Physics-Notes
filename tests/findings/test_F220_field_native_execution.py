@@ -34,8 +34,8 @@ THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 import casim  # noqa: F401
-import ca_entanglement as E
-import ca_second_quant as SQ
+from casim.engine.interactions import qi_entanglement as E
+from casim.engine.particles import second_quant as SQ
 from casim.engine import Simulation, LatticeSpec, build_channel, build_observer
 
 RESULTS = {'finding': 'F220', 'date': '2026-07-01',

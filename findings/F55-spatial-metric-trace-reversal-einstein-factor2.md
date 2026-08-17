@@ -1,5 +1,14 @@
 # F55 — Spatial metric from trace reversal: Einstein's factor-2 from mass
 
+> **[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]**
+>
+> **DEAD:** The trace-reversal route to Einstein's factor 2 FROM REST MASS.
+>
+> **STILL LIVE:** K = (1-u)^-2 survives for the D-EM1/D-EM9 form comparison -- it is the O(u) linearisation of the canonical exponential K and is retained as the excluded beta = 1/2 control, not as a fallback.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-05-29 - 17:40
 **Status:** Confirmed — 5/5 tests PASS (J1, J5 bit-for-bit exact; J2–J4 quantitative).
 **Module:** new `ca-simulation/forks/gr_fork_F55_spatial_metric_backreaction.py` (additive; reuses `gr_fork_F52_restleg_backreaction` Poisson + `gr_fork_E_tensor` for the consistency check).

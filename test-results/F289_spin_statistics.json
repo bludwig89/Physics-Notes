@@ -1,0 +1,108 @@
+{
+  "checks": [
+    {
+      "name": "S1 R(2pi) = -1 exactly",
+      "ok": true,
+      "value": 1.7319121124709866e-16
+    },
+    {
+      "name": "S2 axis-independent over 60 axes",
+      "ok": true,
+      "value": 1.7319121124709868e-16
+    },
+    {
+      "name": "S3 exchange^2 = 1 (d>=3 forbids anyons)",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S3b the anyonic alternative is still UNITARY (control)",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S3c spectrum exactly {+1 x3, -1 x1}",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S4 JW operators anticommute (string carries the -1)",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S4b removing the string breaks it (control)",
+      "ok": true,
+      "value": 4.0
+    },
+    {
+      "name": "S5 Pauli exclusion c^dag c^dag = 0 exactly",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S5c antisymmetriser kills same-mode, KEEPS distinct (rank C(n,2))",
+      "ok": true,
+      "value": [
+        6,
+        6
+      ]
+    },
+    {
+      "name": "S5b sector dims = C(n,k) exactly, != bosonic count",
+      "ok": true,
+      "value": [
+        1,
+        6,
+        15,
+        20,
+        15,
+        6,
+        1
+      ]
+    },
+    {
+      "name": "S6 paired-spinor photon: (-1)^2 = +1, a BOSON",
+      "ok": true,
+      "value": 3.463824224941973e-16
+    }
+  ],
+  "passed": true,
+  "n_pass": 11,
+  "n_total": 11,
+  "params": {
+    "rotation_turns": 1.0,
+    "exchange_alpha": 0.0,
+    "jw_string": true
+  },
+  "summary": {
+    "A9_R2pi_residual": 1.7319121124709866e-16,
+    "A9_R4pi_residual": 3.463824224941973e-16,
+    "A9_axis_independence_worst": 1.7319121124709868e-16,
+    "A9_swap_involution_residual": 0.0,
+    "A9_swap_eigenvalues": [
+      -1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "A9_anyons_all_unitary": true,
+    "A9_anyons_none_involutive": true,
+    "A9_jw_anticommutator_cc": 0.0,
+    "A9_jw_anticommutator_c_cdag": 0.0,
+    "A9_control_nostring": 4.0,
+    "A9_pauli_cdag_squared": 0.0,
+    "A9_sector_dims": [
+      1,
+      6,
+      15,
+      20,
+      15,
+      6,
+      1
+    ],
+    "A9_sector_dims_match_fermi": true,
+    "A9_sector_dims_differ_from_bose": true,
+    "A9_photon_pair_2pi_residual": 3.463824224941973e-16
+  }
+}

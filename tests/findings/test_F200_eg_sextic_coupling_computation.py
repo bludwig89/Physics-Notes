@@ -32,9 +32,11 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_eg_sextic_coupling as eg   # noqa: E402
+from casim.engine.particles import eg_sextic as eg   # noqa: E402
 
 RESULTS = {}
 PASS = {}

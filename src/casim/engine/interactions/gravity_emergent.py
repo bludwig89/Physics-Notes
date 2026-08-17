@@ -42,7 +42,7 @@ from __future__ import annotations
 
 import numpy as np
 from casim.constants import c_SI as _c_SI
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 # ---------------------------------------------------------------- constants ---
 # Gravitational constant in (Mpc, km/s, 1e12 Msun) units.

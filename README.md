@@ -62,7 +62,7 @@ The exact law is the full trigonometric rotation; Maxwell is its linearization.
 
 - Folder - `Findings`
   - `findings.md` was getting too big so I told it to split each one out as its own thing in the `Findings` folder.
-- `ca-simulation` folder has all the python code for the model and it's associated tests.
+- `src/casim/` has all the python code for the model; `tests/` has its tests. (Before roadmap C9 the physics lived in a separate flat kernel folder; it was folded into `src/casim/engine/` and deleted — see `docs/theory/key-decisions.md` §"Engineering decisions".)
 - See `findings.md` for the so-far-coolest stuff we've uncovered.
 - See  `docs/theory/ca-reference.md` for our current reference data and the list of current exact vs calculated results.
 - `docs/status/changelog.md` is our software model change log.

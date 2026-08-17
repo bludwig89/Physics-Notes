@@ -257,11 +257,11 @@ record("S5_no_beta_attractor",
 # STEP 6 -- THE MISSING SECTOR: no inflaton / no primordial spectrum in the model
 # ===========================================================================
 # Check the model has no inflaton finding and no primordial-power-spectrum module.
-# C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+# C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
 # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
 repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."))
 findings_dir = os.path.join(repo, "findings")
-casim_fork_dir = os.path.join(repo, "ca-simulation")
+casim_fork_dir = os.path.join(repo, "src", "casim", "engine", "interactions")
 def _list(d):
     try: return os.listdir(d)
     except Exception: return []
@@ -273,9 +273,9 @@ inflaton_modules = [f for f in _list(casim_fork_dir)
 no_inflaton_sector = (len(inflaton_findings) == 0 and len(inflaton_modules) == 0)
 record("S6_no_inflaton_sector_in_model",
        no_inflaton_sector,
-       f"Searched findings/ and ca-simulation/: inflaton/preheating/primordial-spectrum "
+       f"Searched findings/ and casim.engine.interactions: inflaton/preheating/primordial "
        f"findings={inflaton_findings or 'NONE'}, modules={inflaton_modules or 'NONE'}. The model "
-       f"has NO inflaton finding and NO primordial-power-spectrum machinery (ca_cosmology.py "
+       f"has NO inflaton finding and NO primordial-power-spectrum machinery (cosmology.py "
        f"starts at the hot Big Bang). So sigma(k) at the PBH scale is an EXTERNAL input.")
 
 # ===========================================================================
@@ -334,7 +334,7 @@ RESULTS["summary"] = {
     "n_pass": sum(c["pass"] for c in CHECKS),
     "n_total": len(CHECKS),
 }
-# C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+# C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
 # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
 outdir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "test-results"))
 os.makedirs(outdir, exist_ok=True)

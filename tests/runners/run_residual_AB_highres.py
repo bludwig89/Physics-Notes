@@ -32,14 +32,13 @@ import os
 import sys
 import time
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 # also support running from repo root
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "ca-simulation"))
 
-import ca_gap_solve as gap          # noqa: E402
-import ca_qstar_logmoment as qs     # noqa: E402
+from casim.engine.interactions import running_gap_solve as gap          # noqa: E402
+from casim.engine.interactions import running_qstar_logmoment as qs     # noqa: E402
 
 
 def verify_B(Ls, masses):
@@ -88,7 +87,7 @@ def hook_A_self_energy():
     exists, import it and call its high-resolution q* / Lambda-ratio routine here,
     then assert q* a == 0.733 (+- band) / Lambda_MS/Lambda_rule == 1.78."""
     try:
-        import ca_gluon_self_energy as se   # noqa: F401
+        from casim.engine.gauge import gluon_self_energy as se   # noqa: F401
         return se.qstar_highres()            # next session defines this
     except Exception as e:
         return {"status": "NOT BUILT YET",

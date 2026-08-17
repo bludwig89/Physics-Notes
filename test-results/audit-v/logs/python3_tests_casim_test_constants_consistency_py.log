@@ -1,0 +1,12 @@
+
+[constants] 43 registered, 37 sweepable, 10 MeasuredConstant records
+[constants] C7 backlog: 272 unregistered literals in tests/, 13 recorded literal sites
+FAIL  test_no_unregistered_literals_in_src_or_kernels
+
+[constants] 11 PASS, 0 skipped, 1 FAIL
+
+--- FAIL test_no_unregistered_literals_in_src_or_kernels: 2 unregistered literal(s) matching a registry constant:
+  src/casim/io/templates.py:26: _HYDROGEN = 0.5773502691896258 -> c_lat | q_star_a_band_lo
+  src/casim/io/templates.py:61: _PHOTON = 0.5773502691896258 -> c_lat | q_star_a_band_lo
+
+See the docstring of this test for the three ways to fix it.

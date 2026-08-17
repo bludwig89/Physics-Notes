@@ -59,8 +59,8 @@ _SIM = os.path.abspath(os.path.join(_THIS, ".."))
 if _SIM not in sys.path:
     sys.path.insert(0, _SIM)
 
-import ca_bcc as bcc                                  # noqa: E402  F26 dispersion ω(k)
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.engine.lattice import bcc as bcc  # noqa: E402  F26 dispersion ω(k)
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 
 # ════════════════════════════════════════════════════════════════════

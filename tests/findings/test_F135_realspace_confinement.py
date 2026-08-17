@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
 
 import casim  # noqa: E402,F401
 from casim.engine import Simulation, LatticeSpec  # noqa: E402
-from casim.engine.channel import build_channel  # noqa: E402
+from casim.engine.core.channel import build_channel  # noqa: E402
 
 L = 16
 P = ["q1", "q2", "q3"]
@@ -42,7 +42,7 @@ _IDX = np.indices((L, L, L))
 # K1 — the variable-mass kernel itself
 # ----------------------------------------------------------------------
 def test_K1_varm_kernel_reduction_and_unitarity():
-    import ca_dirac_bcc as db
+    from casim.engine.particles import dirac_bcc as db
     rng = np.random.default_rng(0)
 
     def rnd():

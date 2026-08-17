@@ -1,5 +1,14 @@
 # F52 — Gravity as a self-consistent rest-leg (clock-rate) field
 
+> **[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]**
+>
+> **DEAD:** Gravity as a self-consistent REST-LEG (clock-rate) field sourced by rest mass. The source is the full stress-energy tensor (F178) and the vacuum representation is F64's impedance-matched dielectric.
+>
+> **STILL LIVE:** H3 and H3b remain the standing regressions; the factor-2 discriminator is still canonical under F178. 78 code/test references.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-05-29 - 17:05
 **Status:** Confirmed — 5/5 tests PASS (H1/H1b loop closure, H2 redshift factor-1, H3/H3b deflection discriminator).
 **Module:** new `ca-simulation/forks/gr_fork_F52_restleg_backreaction.py` (additive; reuses `gr_fork_E_tensor` metric map and `ca_emqg.solve_poisson_3d`).

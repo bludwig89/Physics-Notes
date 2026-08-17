@@ -1,0 +1,132 @@
+{
+  "B1_massive_shell_worst_residual": "1.314e-46",
+  "B1_control_wrong_n2_residual": "0.00099",
+  "B2_axis_worst_deviation_and_defect": "3.503e-46",
+  "B2_control_111_defect": "0.00178",
+  "B3_photon_closed_form_worst_rel": "2.083e-5",
+  "B3_radial_minus_p_plus_3q_over_18": {
+    "(1, 1, 1)": [
+      "-0.0246913580249",
+      "-0.0246913580247"
+    ],
+    "(1, 1, 0)": [
+      "-0.0138888888889",
+      "-0.0138888888889"
+    ],
+    "(2, 1, 1)": [
+      "-0.0169753086421",
+      "-0.016975308642"
+    ],
+    "(3, 1, 2)": [
+      "-0.0160754778102",
+      "-0.0160754778102"
+    ]
+  },
+  "B3_radial_worst_abs": "1.72e-13",
+  "B3_anchors": {
+    "<111>": "-2/81",
+    "<110>": "-1/72",
+    "<100>": "0"
+  },
+  "B4_b2_richardson_worst": "7.92e-10",
+  "B4_b2_residual_is_O_k2_worst_rel": "0.002124",
+  "B4_b2_residual_by_direction": {
+    "(1, 1, 1)": "7.92e-10",
+    "(2, 1, 1)": "3.85e-10",
+    "(1, 1, 0)": "1.754e-13",
+    "(3, 1, 2)": "3.07e-10",
+    "(5, 3, 2)": "3.549e-10",
+    "(1, 0, 0)": "1.112e-36"
+  },
+  "B4_b2_series_fit_worst": "1.722e-14",
+  "B4_c2_111_vs_minus_sqrt3_over_54": "5.474e-48",
+  "B4_c2_211_vs_minus_sqrt6_over_108": "5.474e-48",
+  "B4_even_c2_vs_single_c2": [
+    "-1.184e-13",
+    "-0.03207501496"
+  ],
+  "B5_branch_closed_form_worst_rel": "9.28e-10",
+  "B5_chirality_odd_ratio_at_k_0.02_0.01": [
+    "0.008849",
+    "0.004435"
+  ],
+  "B6_1d_D_over_k_equals_one_over_rho_minus_one": {
+    "0.3": [
+      "-0.0311391098365",
+      "-0.0311391098365"
+    ],
+    "0.5": [
+      "-0.0931003178829",
+      "-0.0931003178829"
+    ],
+    "0.7": [
+      "-0.208936324898",
+      "-0.208936324898"
+    ],
+    "0.95": [
+      "-0.588081280451",
+      "-0.588081280451"
+    ]
+  },
+  "B6_control_wrong_rho_gap": "0.1403",
+  "B6_bcc_massive_rho": {
+    "0.3": [
+      "-0.03113907328",
+      "-0.03113910984"
+    ],
+    "0.5": [
+      "-0.09310028238",
+      "-0.09310031788"
+    ],
+    "0.7": [
+      "-0.2089362918",
+      "-0.2089363249"
+    ]
+  },
+  "B6_bcc_massive_worst_rel": "1.174e-6",
+  "B7_residual_is_v_times_D_rel_err_at_v_1e-4_1e-6": {
+    "even": [
+      "1.359e-5",
+      "1.36e-7"
+    ],
+    "branch+": [
+      "6.894e-5",
+      "6.893e-7"
+    ]
+  },
+  "B8_deformed_shell_worst": "1.314e-46",
+  "B8_deformed_closure_worst": "4.379e-47",
+  "B8_control_canonical_k_shell_violation": "0.02103",
+  "B9_universality_gap_one_third_kxkykz": {
+    "(1, 1, 1)": [
+      "0.06415002912",
+      "0.06415002991"
+    ],
+    "(2, 1, 1)": [
+      "0.04536092078",
+      "0.04536092116"
+    ],
+    "(3, 1, 2)": [
+      "0.03818017711",
+      "0.03818017742"
+    ]
+  },
+  "B9_universality_worst_abs": "7.92e-10",
+  "B9_control_coordinate_plane_gap": "4.811e-8",
+  "B10_KH_defect_is_D": [
+    "0",
+    "0",
+    "0"
+  ],
+  "B10_D_invariant_under_K_plus_f": "0",
+  "B10_KP_exact_for_arbitrary_Omega": true,
+  "B10_KK_defect_reduces_to_D": [
+    "0",
+    "0",
+    "0"
+  ],
+  "B10_control_wrong_D_nonzero": true,
+  "n_checks": 10,
+  "n_controls": 6,
+  "verdict": "Finite-a boost covariance on BCC is BROKEN, with an exact order, an exact coefficient and an exact reason. The whole Poincare defect is the gradient of one scalar, Phi = (Omega^2 - c^2 k^2)/2c^2 -- boost covariance IS the non-running of the off-shell invariant mass, and [K,P] never fails while the [K,K] defect reduces to the same D_i. It is EXACT to all orders on the three cubic axes; O(|k|^3) for the F26 even photon, D.khat = -(1/18)(p+3q)|k|^3 with rational anchors -2/81 on <111> and -1/72 on <110>; and one order worse, O(|k|^2), on a chiral branch, D = -s c_lat (kykz, kzkx, kxky). The even law's extra order is the chirality-oddness of b2(khat) = -(1/3)kxkykz -- the same helicity symmetrisation that kills birefringence. In 1D the defect reduces to F22's 1/rho - 1, and the BCC massive branch reproduces the same rho(m) F22 said had no BCC analogue. A deformed (E,P) realisation IS exact -- sin^2 w - (1-m^2) sin^2 w_0 = m^2 identically, at finite a, for every m -- but it is not universal: Omega_even - omega_+ = (1/3) khatx khaty khatz |k|^2, so no single momentum map serves the photon and the fermion."
+}

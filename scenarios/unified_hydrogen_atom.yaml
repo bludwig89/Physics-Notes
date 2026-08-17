@@ -16,6 +16,7 @@
 # norm is conserved.  COMPRESSED SCALE (one tractable lattice holds both; the
 # physical proton:orbit ~1e4 size ratio is restored at U4 via the block-spin
 # multigrid).  Structure is the deliverable; absolute fm/eV stay P6-gated (F123).
+version: 2
 name: unified_hydrogen_atom
 title: "Neutral Hydrogen Atom (real-space U3)"
 description: "Confined uud proton (scalar Y-string) + non-relativistic bound electron on one BCC lattice: neutral, electron cloud tracks the proton, both bounded, norms conserved."

@@ -1,0 +1,167 @@
+{
+  "closed_forms": {
+    "onaxis_u_residual_plus": 0.0,
+    "onaxis_u_residual_minus": 0.0,
+    "offaxis_u_residual": 0.7225156296823915,
+    "onaxis_dispersion_residual": 1.3493546557885594e-14,
+    "arccos_bound": 7.053810091881877e-14,
+    "onaxis_velocity_residual": 1.2920775560587572e-12,
+    "onaxis_curvature": 5.551115123125783e-10,
+    "closed_form_residual_per_axis": [
+      7.985440086955009e-11,
+      3.420241867502227e-11,
+      9.097405467839437e-11
+    ],
+    "closed_form_residual": 9.097405467839437e-11,
+    "checks": {
+      "onaxis_u_exact_plus": true,
+      "onaxis_u_exact_minus": true,
+      "offaxis_control_nonzero": true,
+      "onaxis_omega_linear": true,
+      "onaxis_velocity_is_c_lat": true,
+      "onaxis_flat": true,
+      "closed_form_all_axes": true
+    },
+    "n_pass": 7,
+    "n_checks": 7,
+    "ok": true
+  },
+  "propagation": {
+    "lstsq_slope": 0.5728449064271062,
+    "asymptotic_drift": 0.5728449064271057,
+    "predicted_vg": 0.5728449064271062,
+    "rel_err_drift": 7.752346313418298e-16,
+    "rel_err_lstsq": 0.0,
+    "per_tick_std": 7.582912660688195e-15,
+    "first_tick_displacement": 0.5728449064271146,
+    "edge_weight": 1.604778670703045e-19,
+    "k0_sigma_axis": 5.890486225480862,
+    "centroid_bias_bound": 1.28e-13,
+    "energy_rel_drift": 3.666681077064478e-15,
+    "vs_c_lat": -0.007803517211213713,
+    "deficit_measured": 0.007803517211213751,
+    "deficit_predicted": 0.007803517211212974,
+    "deficit_f105_approx": 0.007352104028468954,
+    "k0": 1.1780972450961724,
+    "shape": [
+      128,
+      48,
+      48
+    ],
+    "sigma": [
+      5.0,
+      7.0,
+      7.0
+    ],
+    "m_index": 24,
+    "axis": 0,
+    "pol_axis": 1,
+    "n_steps": 24,
+    "tail_ticks": 8,
+    "centroid_start": 32.0,
+    "centroid_end": 45.74827775425055,
+    "pol_axis_2_drift": 0.5728449064271057,
+    "pol_independence": 0.0,
+    "tol": 1e-12,
+    "bias_bound_relative": 2.2344616939748919e-13,
+    "transient_frac": 1.5504692626836607e-14,
+    "approx_error_frac_of_deficit": 0.05784740015635238,
+    "checks": {
+      "drift_matches_closed_form": true,
+      "wrap_free": true,
+      "one_sided_carrier": true,
+      "energy_conserved": true,
+      "subluminal": true,
+      "aperture_deficit_is_real": true,
+      "polarisation_independent": true,
+      "no_transient": true
+    },
+    "n_pass": 8,
+    "n_checks": 8,
+    "ok": true
+  },
+  "propagation_L256": {
+    "lstsq_slope": 0.5751473587493815,
+    "asymptotic_drift": 0.5751473587493814,
+    "predicted_vg": 0.5751473587493807,
+    "rel_err_drift": 1.158196772777601e-15,
+    "rel_err_lstsq": 1.3512295682405346e-15,
+    "per_tick_std": 1.2433551626992536e-14,
+    "first_tick_displacement": 0.5751473587493905,
+    "edge_weight": 2.7096706623024203e-26,
+    "k0_sigma_axis": 7.0685834705770345,
+    "centroid_bias_bound": 2.56e-13,
+    "energy_rel_drift": 8.03066573726785e-15,
+    "vs_c_lat": -0.0038155528070273176,
+    "deficit_measured": 0.003815552807027278,
+    "deficit_predicted": 0.0038155528070284994,
+    "deficit_f105_approx": 0.0036025309739497885,
+    "k0": 1.1780972450961724,
+    "shape": [
+      256,
+      64,
+      64
+    ],
+    "sigma": [
+      6.0,
+      10.0,
+      10.0
+    ],
+    "m_index": 48,
+    "axis": 0,
+    "pol_axis": 1,
+    "n_steps": 44,
+    "tail_ticks": 14,
+    "centroid_start": 60.0,
+    "centroid_end": 85.30648378497278
+  },
+  "propagation_undersampled_carrier": {
+    "lstsq_slope": 0.5628330204676272,
+    "asymptotic_drift": 0.5628331639454487,
+    "predicted_vg": 0.562832554736809,
+    "rel_err_drift": 1.0823976589817931e-06,
+    "rel_err_lstsq": 8.274766877176557e-07,
+    "per_tick_std": 1.3296895095236283e-07,
+    "first_tick_displacement": 0.5628328201432353,
+    "edge_weight": 1.8217662177679133e-08,
+    "k0_sigma_axis": 3.141592653589793,
+    "centroid_bias_bound": 1.28e-13,
+    "energy_rel_drift": 2.4103040032013066e-15,
+    "vs_c_lat": -0.02514436386173942,
+    "deficit_measured": 0.02514436386173946,
+    "deficit_predicted": 0.025145419042055694,
+    "deficit_f105_approx": 0.02251581858718617,
+    "k0": 0.7853981633974483,
+    "shape": [
+      128,
+      48,
+      48
+    ],
+    "sigma": [
+      4.0,
+      6.0,
+      6.0
+    ],
+    "m_index": 16,
+    "axis": 0,
+    "pol_axis": 1,
+    "n_steps": 20,
+    "tail_ticks": 8,
+    "centroid_start": 32.00000000000001,
+    "centroid_end": 43.25666047804438
+  },
+  "inphase_transverse_diagnostic": {
+    "net_drift": 1.0060701605141276e-08,
+    "rms_start": 3.539362338371598,
+    "rms_end": 11.92738605599044,
+    "rms_ratio": 3.369925120884355,
+    "centroid_shift": 9.320100247123264e-08,
+    "shape": [
+      128,
+      48,
+      48
+    ],
+    "m_index": 16,
+    "n_steps": 20
+  }
+}

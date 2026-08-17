@@ -1,0 +1,60 @@
+{
+  "F22_rho_and_offshell": {
+    "identity": {
+      "m_probe": 0.5,
+      "rho_symbolic": "Mul(Symbol('m', positive=True), Pow(Add(Integer(1), Mul(Integer(-1), Pow(Symbol('m', positive=True), Integer(2)))), Rati",
+      "symbolic_residual": "0",
+      "rho_from_limit": 1.102657790843584,
+      "rho_from_f15_module": 1.1026577908435842,
+      "numeric_residual": 2.220446049250313e-16,
+      "acos_asin_lemma_residual": 6.674603434226331e-50,
+      "tol": 1e-14,
+      "checks": {
+        "acos_asin_lemma": true,
+        "symbolic_identity": true,
+        "numeric_identity": true,
+        "rho_gt_one": true
+      },
+      "n_pass": 4,
+      "n_checks": 4,
+      "ok": true
+    },
+    "negative_control_must_fail": {
+      "m_probe": 0.5,
+      "rho_symbolic": "Integer(42)",
+      "symbolic_residual": "-m/(sqrt(1 - m**2)*asin(m)) + 42",
+      "rho_from_limit": 42.0,
+      "rho_from_f15_module": 1.1026577908435842,
+      "numeric_residual": 40.89734220915641,
+      "acos_asin_lemma_residual": 6.674603434226331e-50,
+      "tol": 1e-14,
+      "checks": {
+        "acos_asin_lemma": true,
+        "symbolic_identity": false,
+        "numeric_identity": false,
+        "rho_gt_one": true
+      },
+      "n_pass": 2,
+      "n_checks": 4,
+      "ok": false
+    },
+    "offshell": {
+      "m": 0.5,
+      "k": 0.001,
+      "v": 1e-06,
+      "delta": -9.305134440751317e-11,
+      "delta_over_vk": -0.09305134440751317,
+      "predicted_1_over_rho_minus_1": -0.09310031788289108,
+      "rel_err": 0.0005260290887461213
+    },
+    "checks": {
+      "identity_holds": true,
+      "control_fails": true,
+      "offshell_matches_closed_form": true,
+      "offshell_is_nonzero": true
+    },
+    "n_pass": 4,
+    "n_checks": 4,
+    "ok": true
+  }
+}

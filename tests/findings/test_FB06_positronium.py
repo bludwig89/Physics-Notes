@@ -18,7 +18,7 @@ The dimensionless radial solver supplies the shared -1/n^2 eigenvalues; they
 cancel in the ratio, so the 0.5 identity is analytic (machine precision), while
 the -1/n^2 series itself is a grid-floor prediction.
 
-Engine reuse: ca-simulation/ca_atom.py  (the FB04/F125 1/r radial Coulomb
+Engine reuse: src/casim/engine/particles/atom.py  (the FB04/F125 1/r radial Coulomb
 solver).  All arithmetic is REAL — the eigenproblem is a real symmetric
 tridiagonal matrix (scipy.linalg.eigh_tridiagonal); no complex/chiral
 transforms are involved, so the numpy/scipy CLAUDE.md caveat does not bite.
@@ -40,8 +40,10 @@ import sys
 import json
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_atom as atom  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import atom as atom  # noqa: E402
 
 N_GRID = 6000
 PS_GROUND_MEASURED_EV = -6.8028   # 1/4 Ry_inf, the equal-mass reduction (measured ~ -6.8 eV)

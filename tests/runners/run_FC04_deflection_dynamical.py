@@ -47,9 +47,11 @@ import numpy as np
 
 THIS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
-sys.path.insert(0, os.path.join(ROOT, 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from poisson_open import solve_poisson_3d_open, gaussian_mass_3d  # noqa: E402
+from casim.engine.lattice.poisson_open import solve_poisson_3d_open, gaussian_mass_3d  # noqa: E402
 
 
 # ----------------------------------------------------------------------
@@ -58,9 +60,9 @@ from poisson_open import solve_poisson_3d_open, gaussian_mass_3d  # noqa: E402
 def propagator_realness_check(L=32):
     """Confirm the photon-pair even-law rotation stays REAL (no chiral
     mangling by numpy) and reproduces the luminal pair speed c = 1/sqrt(3)."""
-    from ca_photon_pair import pair_dispersion
-    from ca_wmu import _f26_rotation_step
-    from ca_lattice import make_kgrid_3d
+    from casim.engine.gauge.photon import pair_dispersion
+    from casim.engine.gauge.weak_wmu import _f26_rotation_step
+    from casim.engine.lattice.geometry import make_kgrid_3d
 
     KX, KY, KZ = make_kgrid_3d(L, L, L)
     Om = pair_dispersion(KX, KY, KZ)

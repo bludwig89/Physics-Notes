@@ -35,9 +35,9 @@ import numpy as np
 THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
-import casim  # noqa: F401  (puts ca-simulation on sys.path)
-import ca_entanglement as E
-import ca_quantum_algorithms as QA
+import casim  # noqa: F401  (package bootstrap)
+from casim.engine.interactions import qi_entanglement as E
+from casim.engine.interactions import qi_algorithms as QA
 from casim.engine import Simulation, LatticeSpec, build_channel, build_observer
 
 RESULTS = {'finding': 'F222', 'date': '2026-07-01',

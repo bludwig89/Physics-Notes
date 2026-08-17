@@ -25,11 +25,12 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..",
-                                "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 pytest.importorskip("scipy")
-import ca_baryon_blockspin as bb        # noqa: E402
+from casim.engine.lattice import blockspin_baryon as bb        # noqa: E402
 
 
 # ════════════════════════════════════════════════════════════════════
@@ -45,7 +46,7 @@ def test_K5_closed_form_constants():
 #  K1 — reproduces the ECG baryon (calibrated once, σ-independent)
 # ════════════════════════════════════════════════════════════════════
 def test_K1_matches_ecg_across_sigma():
-    import ca_baryon_dynamics as bd
+    from casim.engine.particles import baryon_dynamics as bd
     for s in (0.5, 1.0, 2.0, 4.0):
         E = bb.hyperradial_baryon(s, m=1.0, N=1200)["E_rel"]
         E_ecg = bd.ground_state_relative_energy(
@@ -114,9 +115,7 @@ def test_K4_confinement_is_relevant():
 def test_K4_matches_F130_C1_eigenvalue():
     """The element's confining flow is the same relevant eigenvalue λ_σ=b proved
     in F130-C1."""
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..",
-                                    "ca-simulation"))
-    import ca_blockspin as cb
+    from casim.engine.lattice import blockspin as cb
     for b in (2, 3):
         assert bb.confinement_relevant_flow(b) == cb.confinement_eigenvalue(b)
 

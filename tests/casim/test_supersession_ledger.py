@@ -38,9 +38,28 @@ _LEDGER_PATH = os.path.join(_REPO, "docs", "theory", "supersessions.yaml")
 
 sys.path.insert(0, os.path.join(_REPO, "tools"))
 
-KINDS = {"superseded", "reclassified", "demoted", "deprecated"}
+# `methodology` was added at roadmap C9 for the D2 -> D6 reversal. It is a
+# separate kind rather than an overload of `superseded` because it has no
+# findings on either side: `by:` and `superseded:` name DECISIONS (D-ids). The
+# finding-existence assertion below therefore skips it.
+KINDS = {"superseded", "reclassified", "demoted", "deprecated", "methodology",
+         "retracted_by_review"}
+DECISION_KINDS = {"methodology"}
+# `retracted_by_review` (2026-08-04): a claim inside a finding withdrawn by an
+# independent review rather than replaced by a successor finding. `superseded:`
+# is legitimately EMPTY on such a record -- nothing took the claim's place --
+# so the per-file `findings:` entry carries the dead/live split instead.
+BASELINE_STATUSES = {"stale_by_design", "candidate", "live"}
 STATUSES = {"fully_superseded", "partially_superseded", "historical_baseline",
-            "live"}
+            "sub_claim_superseded", "live"}
+
+# A `methodology` record's `by:` names a decision -- usually a D-number, but
+# sometimes a ROADMAP PHASE, because some decisions were taken at a phase
+# boundary and never got a D-id (S14 retired the vispy viewer at P5.1). The
+# pattern accepted both from 2026-08-04; before that S14 was red, which the
+# 2026-08-04 triage recorded as an already-red baseline rather than a new break.
+_DECISION_ID_RE = r"D\d+|[PC]\d+(?:\.\d+)?"
+_FINDING_ID_RE = r"F\d+[a-z]?"
 BANNER_RE = re.compile(
     r"\A\[(SUPERSEDED|PARTIALLY SUPERSEDED|HISTORICAL BASELINE|"
     r"PRE-DECISION FRAMING)\b[^\]]*\]")
@@ -49,7 +68,14 @@ _BANNER_FOR = {
     "fully_superseded": "SUPERSEDED",
     "partially_superseded": "PARTIALLY SUPERSEDED",
     "historical_baseline": "HISTORICAL BASELINE",
+    "sub_claim_superseded": "SUB-CLAIM SUPERSEDED",
 }
+
+# Markdown banner (findings/, deprecated/findings/) -- the same labels, rendered
+# as a blockquote after the H1. Added 2026-08-04 with the tool's markdown path.
+MD_BANNER_RE = re.compile(
+    r"\A> \*\*\[(SUPERSEDED|PARTIALLY SUPERSEDED|HISTORICAL BASELINE|"
+    r"SUB-CLAIM SUPERSEDED)\b[^\]]*\]\*\*")
 
 
 def _ledger() -> dict:
@@ -72,6 +98,26 @@ def _entries():
             yield rec, e
 
 
+def _finding_entries():
+    """The `findings:` blocks — markdown, blockquote banner.
+
+    Separate from `_entries()` because the two carry DIFFERENT banner syntaxes
+    in different file types, and collapsing them is how the original mechanism
+    ended up reading `tests:` only.
+    """
+    for rec in _ledger()["supersessions"]:
+        for e in rec.get("findings") or []:
+            yield rec, e
+
+
+def _md_head(rel_path: str) -> str:
+    """Everything after the H1 — where a markdown banner lives."""
+    with open(os.path.join(_REPO, rel_path), "r", encoding="utf-8") as fh:
+        src = fh.read()
+    m = re.match(r"\A(?:\ufeff)?(#[^\n]*\n)", src)
+    return src[m.end():].lstrip("\n") if m else src.lstrip("\n")
+
+
 # ---------------------------------------------------------------------------
 @pytest.mark.exact
 def test_ledger_schema_is_well_formed():
@@ -87,10 +133,20 @@ def test_ledger_schema_is_well_formed():
         assert rec.get("scope", "").strip(), f"{rid}: no scope"
         assert rec.get("reason", "").strip() or rec["kind"] == "deprecated", \
             f"{rid}: no reason given"
+        pat = (_DECISION_ID_RE if rec["kind"] in DECISION_KINDS
+               else _FINDING_ID_RE)
         for f in list(rec["by"]) + list(rec.get("superseded") or []):
-            assert re.fullmatch(r"F\d+", f), f"{rid}: malformed finding id {f!r}"
-        for e in rec.get("tests") or []:
+            assert re.fullmatch(pat, f), \
+                f"{rid}: malformed {'decision' if pat[0] == 'D' else 'finding'}" \
+                f" id {f!r}"
+        for e in (list(rec.get("tests") or [])
+                  + list(rec.get("findings") or [])):
             assert e["status"] in STATUSES, f"{rid}: bad status {e['status']!r}"
+        # `baselines:` — artifact provenance (2026-07-31). Validated by
+        # casim.tests.ledger so the rules live with the code that reads them.
+        for e in rec.get("baselines") or []:
+            assert e["status"] in BASELINE_STATUSES, \
+                f"{rid}: bad baseline status {e['status']!r}"
 
 
 @pytest.mark.exact
@@ -98,7 +154,7 @@ def test_every_ledger_path_exists():
     """A ledger that cites a moved file is a ledger nobody can trust."""
     missing = []
     for rec in _ledger()["supersessions"]:
-        for key in ("tests", "code"):
+        for key in ("tests", "code", "baselines", "findings"):
             for item in rec.get(key) or []:
                 if not os.path.exists(os.path.join(_REPO, item["path"])):
                     missing.append(f"{rec['id']} -> {item['path']}")
@@ -111,12 +167,69 @@ def test_every_ledger_path_exists():
 
 
 @pytest.mark.exact
+def test_baseline_provenance_is_well_formed():
+    """Every `baselines:` entry names a real artifact and can be cleared.
+
+    The teeth are in casim.tests.ledger.validate: a `stale_by_design` or
+    `candidate` entry with no `clears_by:` is a permanent excuse, and a `live`
+    entry with no `accepted_by:` is a re-blessing with no author.
+    """
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(_REPO, "src"))
+    from casim.tests import ledger
+    errs = ledger.validate(_REPO)
+    assert not errs, "baseline provenance errors:\n  " + "\n  ".join(errs)
+
+
+@pytest.mark.exact
+def test_a_candidate_baseline_never_suppresses_a_failure():
+    """`candidate` must not excuse drift — only a decided entry may.
+
+    This is the one property of the whole baseline-provenance mechanism that can
+    quietly rot. If `candidate` ever started suppressing failures, the category
+    would become a place to park inconvenient reds, which is exactly the failure
+    mode P0.4 documented for file-level supersession claims.
+    """
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(_REPO, "src"))
+    from casim.tests import ledger
+    for b in ledger.candidates(_REPO):
+        assert not b.suppresses_drift, (
+            f"{b.path}: a `candidate` entry is suppressing drift")
+    for b in ledger.stale_by_design(_REPO):
+        assert b.suppresses_drift, f"{b.path}: stale_by_design does not suppress"
+    # And the all-or-nothing rule: a mixed set is not stale.
+    stale = [b.path for b in ledger.stale_by_design(_REPO)]
+    cand = [b.path for b in ledger.candidates(_REPO)]
+    if stale and cand:
+        assert not ledger.all_stale(stale + cand[:1], _REPO), (
+            "all_stale() accepted a mixed set — an undeclared drifted artifact "
+            "must keep the record red")
+
+
+@pytest.mark.exact
 def test_every_finding_referenced_has_a_finding_file():
-    findings_dir = os.path.join(_REPO, "findings")
-    have = {m.group(0) for f in os.listdir(findings_dir)
-            if (m := re.match(r"F\d+", f))}
+    """A finding the ledger names must exist as a file — live or retired.
+
+    ``deprecated/findings/`` was added 2026-08-03 when F16-F19 were retired
+    (see that directory's acceptance rule in ``deprecated/README.md``). A
+    retirement MOVES a finding, it does not delete it, so the invariant this
+    test defends — the ledger never names a finding that cannot be read — is
+    unchanged; only the search path widened. Checking `findings/` alone would
+    have made the ledger's own supersession entries the thing that broke it,
+    which is backwards: naming a superseded finding is the point of the record.
+    """
+    have = set()
+    for d in ("findings", os.path.join("deprecated", "findings")):
+        full = os.path.join(_REPO, d)
+        if not os.path.isdir(full):
+            continue
+        have |= {m.group(0) for f in os.listdir(full)
+                 if (m := re.match(r"F\d+", f))}
     missing = []
     for rec in _ledger()["supersessions"]:
+        if rec["kind"] in DECISION_KINDS:
+            continue                      # names decisions (D6…), not findings
         for f in (list(rec["by"]) + list(rec.get("superseded") or [])
                   + list(rec.get("reclassified") or [])
                   + list(rec.get("demoted") or [])):
@@ -146,6 +259,31 @@ def test_classified_file_carries_its_banner(path, status):
 
 
 @pytest.mark.exact
+@pytest.mark.parametrize(
+    "path,status",
+    [(e["path"], e["status"]) for _, e in _finding_entries()
+     if e["status"] != "live"],
+    ids=[f"{os.path.basename(e['path'])}:{e['status']}"
+         for _, e in _finding_entries() if e["status"] != "live"],
+)
+def test_classified_finding_carries_its_banner(path, status):
+    """The half of the mechanism that did not exist until 2026-08-04.
+
+    `findings/` is where a *reader* meets a superseded result, and it was the
+    one directory with no banner enforcement at all — the tool returned
+    `no-docstring` for markdown and never read `findings:`.
+    """
+    head = _md_head(path)
+    m = MD_BANNER_RE.match(head)
+    assert m, (
+        f"{path} is classified {status!r} in the ledger but carries no banner "
+        f"after its H1. Run `python3 tools/apply_supersession_banners.py`.")
+    assert m.group(1) == _BANNER_FOR[status], (
+        f"{path} carries a {m.group(1)!r} banner but the ledger says "
+        f"{status!r}. One of the two is wrong.")
+
+
+@pytest.mark.exact
 def test_no_orphan_banners():
     """A tombstone the ledger does not know about is a lie with a timestamp."""
     known = {e["path"] for _, e in _entries()}
@@ -155,8 +293,10 @@ def test_no_orphan_banners():
         for item in rec.get("code") or []:
             known.add(item["path"])
 
+    known |= {e["path"] for _, e in _finding_entries()}
+
     orphans = []
-    for root in ("tests", "ca-simulation", "src"):
+    for root in ("tests", "src"):
         for dirpath, dirnames, filenames in os.walk(os.path.join(_REPO, root)):
             dirnames[:] = [d for d in dirnames
                            if d not in ("__pycache__", ".pytest_cache")]
@@ -170,6 +310,25 @@ def test_no_orphan_banners():
                 doc = _module_docstring(rel)
                 if doc and BANNER_RE.match(doc.lstrip("\n")):
                     orphans.append(rel)
+
+    # findings/ and deprecated/findings/ — the directories this sweep did not
+    # walk until 2026-08-04, and the ones where four orphan tombstones (F20,
+    # F22, F64, F176b) had been sitting since May. Only GENERATED banners count:
+    # a finding may still carry hand-written editorial notes as blockquotes, and
+    # flagging those would make the check noise.
+    for d in ("findings", "deprecated/findings"):
+        full = os.path.join(_REPO, d)
+        if not os.path.isdir(full):
+            continue
+        for fn in sorted(os.listdir(full)):
+            if not fn.endswith(".md") or fn == "README.md":
+                continue
+            rel = f"{d}/{fn}"
+            if rel in known:
+                continue
+            if MD_BANNER_RE.match(_md_head(rel)):
+                orphans.append(rel)
+
     assert not orphans, (
         "files carry a supersession banner but are absent from the ledger:\n  "
         + "\n  ".join(orphans) +
@@ -221,6 +380,13 @@ def _run_standalone() -> int:
         checks.append((
             f"banner {os.path.basename(e['path'])}",
             lambda p=e["path"], s=e["status"]: test_classified_file_carries_its_banner(p, s),
+        ))
+    for rec, e in _finding_entries():
+        if e["status"] == "live":
+            continue
+        checks.append((
+            f"md banner {os.path.basename(e['path'])}",
+            lambda p=e["path"], s=e["status"]: test_classified_finding_carries_its_banner(p, s),
         ))
     failures = []
     for label, fn in checks:

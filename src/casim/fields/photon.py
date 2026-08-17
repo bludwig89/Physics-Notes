@@ -13,7 +13,7 @@ from casim.engine.gauge import photon as ca_photon_pair  # noqa: E402
 from casim.engine.gauge.photon import (  # noqa: E402
     pair_dispersion,
     pair_birefringence,
-    photon_step_spectral,
+    photon_step_spectral, photon_step_dielectric,
     build_pair_mode,
     build_beam_packet,
     group_velocity,
@@ -22,7 +22,7 @@ from casim.engine.gauge.photon import (  # noqa: E402
 
 __all__ = [
     "ca_photon_pair",
-    "pair_dispersion", "pair_birefringence", "photon_step_spectral",
+    "pair_dispersion", "pair_birefringence", "photon_step_spectral", "photon_step_dielectric",
     "build_pair_mode", "build_beam_packet",
     "group_velocity", "group_velocity_at",
 ]

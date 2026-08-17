@@ -194,23 +194,62 @@ def b0_gate_symbolic() -> dict:
 # ======================================================================
 def _Bcoeff_numeric(Q, n, kernel):
     """B = coeff of q_m q_n in Pi_{mn} (continuum vertices) = (Pi00-Pi11)/Q^2 for
-    q=(Q,0,0,0). kernel in {'cont','wilson','rule'}; lattice kernels wrap k+q."""
+    q=(Q,0,0,0). kernel in {'cont','wilson','rule'}.
+
+    **F272 (2026-08-01): the `mod 2 pi` refold of k+q is GONE, and its removal
+    is the fix, not a simplification.**
+
+    The old code wrapped k+q into the cubic cell, `((kq+pi) % 2pi) - pi`, before
+    evaluating either lattice kernel. Refolding a lattice propagator is only
+    legitimate when you refold by one of its OWN periods, and the two kernels do
+    not share one:
+
+      * Wilson (4 sum sin^2(k_mu/2)) IS 2 pi-periodic per axis, so for it the
+        wrap is an exact no-op -- measured to 2e-14, and that is what makes
+        removing it safe rather than a change of result.
+      * The rule kernel is NOT. `omega_even(k) = w+(k/2) + w-(k/2)` inherits the
+        half-angle arguments, and its period lattice was measured to be
+        **sqrt(3) x fcc** -- the F267 signature. Neither 2 pi per axis, nor even
+        the plain fcc vectors, are periods of it. So the wrap mapped k+q to a
+        genuinely INEQUIVALENT momentum and evaluated the propagator there.
+
+    No refold is needed at all: `omega_even` is a closed form, correct at any k,
+    so evaluating it at the unwrapped k+q already gives the periodic-correct
+    value. Folding is an array-indexing device, and there is no array here.
+
+    Why this survived, and why it was getting worse: a grid point only crosses
+    the cell face when Q > pi/n, so the artifact is INVISIBLE at coarse grids and
+    switches on as the grid is refined -- the opposite of a convergent scheme.
+    Measured wrap-induced shift in `delta_rule` at Q=0.3: 0.0 at n=10,
+    +1.6e-2 at n=14, +2.1e-2 at n=18.
+
+    The cost was the function's entire claim. `delta_rule` must be q-FLAT (that
+    is how it shows b0 is propagator-independent); the wrap manufactured a
+    spurious q-dependence indistinguishable from the residual log the test
+    exists to detect. Flatness spread: **1.58e-2 with the wrap, 2.96e-5
+    without** -- a factor of 530, and now better than Wilson's 1.8e-4.
+
+    Note what is NOT done here: the roadmap prescribed `make_kgrid_bcc` for this
+    module, on F265's reading that the cube over-counts an fcc zone by 4. That
+    prescription is wrong for this integrand -- its mask marks the *fcc* BZ,
+    which is not a fundamental domain of a sqrt(3)-fcc-periodic function.
+    Applying it would have inserted a spurious factor. See F272.
+    """
     ax = (np.arange(n) + 0.5) / n * 2 * math.pi - math.pi
     G = np.meshgrid(ax, ax, ax, ax, indexing='ij')
     k = np.stack(G, axis=-1)
     qv = np.array([Q, 0.0, 0.0, 0.0])
     kq = k + qv
-    kqw = ((kq + math.pi) % (2 * math.pi)) - math.pi
     if kernel == 'cont':
         denom = np.sum(k**2, -1) * np.sum(kq**2, -1)
     elif kernel == 'wilson':
         Kf = lambda g: 4*(np.sin(g[..., 0]/2)**2 + np.sin(g[..., 1]/2)**2
                           + np.sin(g[..., 2]/2)**2 + np.sin(g[..., 3]/2)**2)
-        denom = Kf(k) * Kf(kqw)
+        denom = Kf(k) * Kf(kq)
     elif kernel == 'rule':
         from casim.engine.gauge import gluon_self_energy as se
         Kr = lambda g: se.K_true_4d(g[..., 0], g[..., 1], g[..., 2], g[..., 3])
-        denom = Kr(k) * Kr(kqw)
+        denom = Kr(k) * Kr(kq)
     else:
         raise ValueError(kernel)
     W = gammaF_tensor_continuum(k, qv)

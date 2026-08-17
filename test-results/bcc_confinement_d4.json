@@ -1,0 +1,75 @@
+{
+  "generated": "2026-08-17 - 20:42",
+  "elapsed_s": 0.72,
+  "lattice": {
+    "geometry": "BCC_3 spatial x Z Euclidean time",
+    "shape": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "N": 2,
+    "n_loops_per_site": 10,
+    "rhombus_area": 2.8284271247461903,
+    "mixed_area_over_at": 1.7320508075688772,
+    "sites": 64
+  },
+  "couplings": {
+    "beta_s": 2.0,
+    "beta_t": 2.0,
+    "xi_note": "beta_t/beta_s is a CONVENTION; xi = a_s/a_t is not derived here"
+  },
+  "run": {
+    "start": "hot",
+    "therm": 15,
+    "meas": 8,
+    "n_or": 1,
+    "r_max": 2,
+    "t_max": 2
+  },
+  "therm_history": [
+    0.35566,
+    0.439582,
+    0.503563,
+    0.514083,
+    0.630163,
+    0.641209,
+    0.634312,
+    0.671716,
+    0.653598,
+    0.66989,
+    0.676239,
+    0.673665,
+    0.655307,
+    0.667547,
+    0.660531
+  ],
+  "plaquette": {
+    "spatial": 0.6566876479380441,
+    "temporal": 0.6486541291889386,
+    "all": 0.6534742404384019
+  },
+  "polyakov_abs": 0.21174227231615866,
+  "unitarity_residual": 5.55251990181548e-16,
+  "wilson_loops": {
+    "1x1": 0.6486541291889386,
+    "1x2": 0.4732670588952599,
+    "2x1": 0.4635990024791651,
+    "2x2": 0.2930748201492924
+  },
+  "wilson_loops_err": {
+    "1x1": 0.010330438428883492,
+    "1x2": 0.01640854155283557,
+    "2x1": 0.013756746783917717,
+    "2x2": 0.01663887086762067
+  },
+  "creutz_ratios": {
+    "2x2": 0.1433522143782238
+  },
+  "static_potential_at_Tmax": {
+    "1": 0.3152398101109267,
+    "2": 0.4585920244891505
+  },
+  "scope": "Wilson loops and Creutz ratios on the model's own BCC action. NOT a claim of an area law or a string tension: row B7's residual is a missing transfer matrix with positivity, which no amount of sampling supplies."
+}

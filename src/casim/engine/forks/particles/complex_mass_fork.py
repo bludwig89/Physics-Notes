@@ -89,9 +89,9 @@ _FORK_DIR  = os.path.dirname(__file__)
 _SIM_ROOT  = os.path.abspath(os.path.join(_FORK_DIR, '..'))
 sys.path.insert(0, _SIM_ROOT)
 
-import ca_core_exact as _ce
-import ca_dirac as _cd
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.engine.lattice import core_exact as _ce
+from casim.engine.particles import dirac as _cd
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 
 # ══════════════════════════════════════════════════════════════════════════════

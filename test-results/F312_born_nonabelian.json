@@ -1,0 +1,210 @@
+{
+  "G1_su2_current_algebra": {
+    "N": 2,
+    "abelian_control": false,
+    "closure_residual": 0.0,
+    "delta_xy_holds": true,
+    "exactness": "exact",
+    "f_equals_levi_civita_residual": 0.0,
+    "f_totally_antisymmetric_residual": 0.0,
+    "group": "SU(2)_L",
+    "leg": "G1",
+    "n_generators": 3,
+    "offsite_commutator_max": 0.0,
+    "onsite_closure_residual": 0.0
+  },
+  "G2_su3_current_algebra": {
+    "N": 3,
+    "abelian_control": false,
+    "closure_residual": 1.1102230246251565e-16,
+    "delta_xy_holds": true,
+    "exactness": "exact",
+    "f_123": 1.0,
+    "f_458": 0.8660254037844388,
+    "f_458_exact": 0.8660254037844386,
+    "f_totally_antisymmetric_residual": 0.0,
+    "group": "SU(3)_c",
+    "leg": "G2",
+    "n_generators": 8,
+    "offsite_commutator_max": 0.0,
+    "onsite_closure_residual": 1.1102230246251565e-16
+  },
+  "G3_singlet_record": {
+    "SU(2)_L": {
+      "break_singlet": false,
+      "commutes_elementwise": true,
+      "exactness": "exact",
+      "group": "SU(2)_L",
+      "leg": "G3",
+      "max_commutator": 0.0,
+      "record_operator": "sum_c psi^dag_c psi_c  (the internal TRACE)",
+      "why": "occupation is what a cell HOLDS, not what colour it holds, so n_hat is a singlet by construction rather than by coincidence"
+    },
+    "SU(3)_c": {
+      "break_singlet": false,
+      "commutes_elementwise": true,
+      "exactness": "exact",
+      "group": "SU(3)_c",
+      "leg": "G3",
+      "max_commutator": 0.0,
+      "record_operator": "sum_c psi^dag_c psi_c  (the internal TRACE)",
+      "why": "occupation is what a cell HOLDS, not what colour it holds, so n_hat is a singlet by construction rather than by coincidence"
+    }
+  },
+  "G4_context_blindness_su2": {
+    "N": 2,
+    "context_blind": true,
+    "contextual_coupling": false,
+    "exactness": "machine",
+    "gauge_term": "sum_a g_a (n_hat (x) T^a) \u2014 minimal coupling, singlet on the pointer side",
+    "group": "SU(2)_L",
+    "hilbert_dim": 64,
+    "leg": "G4",
+    "n_contexts": 5,
+    "weight_spread": 0.0,
+    "weights": [
+      0.758999637485027,
+      0.758999637485027,
+      0.758999637485027,
+      0.758999637485027,
+      0.758999637485027
+    ]
+  },
+  "G5_context_blindness_su3": {
+    "N": 3,
+    "context_blind": true,
+    "contextual_coupling": false,
+    "exactness": "machine",
+    "gauge_term": "sum_a g_a (n_hat (x) T^a) \u2014 minimal coupling, singlet on the pointer side",
+    "group": "SU(3)_c",
+    "hilbert_dim": 96,
+    "leg": "G5",
+    "n_contexts": 5,
+    "weight_spread": 0.0,
+    "weights": [
+      0.7589996374850271,
+      0.7589996374850271,
+      0.7589996374850271,
+      0.7589996374850271,
+      0.7589996374850271
+    ]
+  },
+  "G6_schur_reduction": {
+    "all_schur": true,
+    "exactness": "exact",
+    "generality": "any compact G, any irrep \u2014 this is why two more special cases were not needed",
+    "leg": "G6",
+    "per_group": {
+      "SU(2)_L": {
+        "C2_exact": 0.75,
+        "C2_residual_vs_exact": 0.0,
+        "C2_value": 0.75,
+        "N": 2,
+        "deviation_from_multiple_of_identity": 0.0,
+        "is_a_multiple_of_identity": true
+      },
+      "SU(3)_c": {
+        "C2_exact": 1.3333333333333333,
+        "C2_residual_vs_exact": 0.0,
+        "C2_value": 1.3333333333333333,
+        "N": 3,
+        "deviation_from_multiple_of_identity": 2.220446049250313e-16,
+        "is_a_multiple_of_identity": true
+      }
+    },
+    "statement": "the internal factor contributes a MULTIPLICATIVE CONSTANT to any invariant frame function, so F304 sec.5's dichotomy applies unchanged; the group enters only through C_2 and cancels out of the ray weight"
+  },
+  "G7_dimension_premise": {
+    "d2_hole_reachable_in_a_charged_sector": false,
+    "d2_hole_requires": "a total gauge singlet with a two-dimensional pointer",
+    "exactness": "exact",
+    "leg": "G7",
+    "per_group": {
+      "SU(2)_L": {
+        "N": 2,
+        "clears_gleason_d3_alone": false,
+        "clears_gleason_d3_with_pointer": true,
+        "dim_with_minimal_record_pointer": 4,
+        "dim_with_trivial_pointer": 2
+      },
+      "SU(3)_c": {
+        "N": 3,
+        "clears_gleason_d3_alone": true,
+        "clears_gleason_d3_with_pointer": true,
+        "dim_with_minimal_record_pointer": 6,
+        "dim_with_trivial_pointer": 3
+      }
+    },
+    "strengthens_F304": "F304 sec.5 had to force d >= 3 separately; an internal index of dimension >= 2 supplies it, and SU(3)_c supplies it with no reference to the pointer at all"
+  },
+  "G8_superposition": {
+    "SU(2)_L": {
+      "exactness": "machine",
+      "group": "SU(2)_L",
+      "leg": "G8",
+      "linearity_residual": 2.3714374201337736e-16,
+      "n_probe": 8,
+      "scope": "physical asymptotic states are colour singlets (F86/F110), so this is a statement about the rule's linearity, not about an asymptotic observable",
+      "superposition_preserved": true,
+      "unitarity_residual": 1.5543749085791441e-15,
+      "why_not_vacuous": "a U(1) phase is a scalar and acts trivially on a singlet; an SU(N) rotation genuinely moves internal states, so linearity on V is a real premise here"
+    },
+    "SU(3)_c": {
+      "exactness": "machine",
+      "group": "SU(3)_c",
+      "leg": "G8",
+      "linearity_residual": 2.7755575615628914e-16,
+      "n_probe": 8,
+      "scope": "physical asymptotic states are colour singlets (F86/F110), so this is a statement about the rule's linearity, not about an asymptotic observable",
+      "superposition_preserved": true,
+      "unitarity_residual": 1.5543566293160141e-15,
+      "why_not_vacuous": "a U(1) phase is a scalar and acts trivially on a singlet; an SU(N) rotation genuinely moves internal states, so linearity on V is a real premise here"
+    }
+  },
+  "G9_gauge_rotation": {
+    "SU(2)_L": {
+      "exactness": "machine",
+      "gauge_rotation_is_not_a_context": true,
+      "group": "SU(2)_L",
+      "leg": "G9",
+      "max_weight_change_under_gauge_rotation": 1.3322676295501878e-15,
+      "n_probe": 8,
+      "why_not_vacuous": "for U(1) on a singlet record this is trivial; for SU(N) the rotation moves the internal state and the weight still must not move"
+    },
+    "SU(3)_c": {
+      "exactness": "machine",
+      "gauge_rotation_is_not_a_context": true,
+      "group": "SU(3)_c",
+      "leg": "G9",
+      "max_weight_change_under_gauge_rotation": 1.3322676295501878e-15,
+      "n_probe": 8,
+      "why_not_vacuous": "for U(1) on a singlet record this is trivial; for SU(N) the rotation moves the internal state and the weight still must not move"
+    }
+  },
+  "all_pass": true,
+  "checks": {
+    "G1-antisym": true,
+    "G1-closure": true,
+    "G1-delta-xy": true,
+    "G1-onsite": true,
+    "G2-antisym": true,
+    "G2-closure": true,
+    "G2-delta-xy": true,
+    "G2-f458": true,
+    "G2-onsite": true,
+    "G3": true,
+    "G4": true,
+    "G5": true,
+    "G6-casimir": true,
+    "G6-schur": true,
+    "G7-no-hole": true,
+    "G7-su3-alone": true,
+    "G8": true,
+    "G9": true
+  },
+  "closes": "F304 residual 3 (non-contextuality proved for U(1) only)",
+  "finding": "F312",
+  "n_checks": 18,
+  "rubric_row": "A6",
+  "still_open": "the Cooke-Keane-Moran regularity lemma (F304 sec.5.5)"
+}

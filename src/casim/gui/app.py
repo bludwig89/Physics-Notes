@@ -1,6 +1,6 @@
 """casim.gui.app — interactive viewer driven by a casim.engine Simulation.
 
-Roadmap Phase E.  This grows ``ca-simulation/live_display.py`` (a vispy point
+Roadmap Phase E.  This grows the legacy `live_display.py` (a vispy point
 cloud with a hard-coded module-level step loop) into a program that consumes a
 ``Simulation``: the old controls become engine calls, and a Qt dock adds
 scenario-aware controls (run/pause/step/run-to-tick, channel + threshold

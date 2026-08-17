@@ -38,8 +38,10 @@ import os
 import sys
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_photon_bs as bs                          # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.gauge import photon_bound_state as bs                          # noqa: E402
 
 RESULT = os.path.join(
     os.path.dirname(__file__), "..", "..", "test-results",

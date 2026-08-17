@@ -17,7 +17,7 @@ _MODULES = [
 ]
 # Old bare name -> new casim.engine path (roadmap C4). Migrated kernels import
 # from their engine location; ca_dual_gl_backreaction is a C6 kernel not yet
-# migrated, so it stays on its bare name (ca-simulation shim) until then.
+# migrated, so it stays on its bare name (legacy shim) until then.
 _PATHS = {
     "ca_gluon": "casim.engine.gauge.gluon",
     "ca_strong": "casim.engine.gauge.strong",

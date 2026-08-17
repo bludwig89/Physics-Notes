@@ -1,4 +1,19 @@
-"""F165 — Hypercharge quantisation from anomaly cancellation + mass-step gauge invariance.
+"""[PARTIALLY SUPERSEDED 2026-08-02 by F279 — ledger S13-F279-hypercharge-attribution]
+
+  DEAD:
+    The reading of the [grav]^2 U(1) row as an independent constraint, and
+    F165 section 3's claim that colour multiplicity gates the closure. The
+    test's own arithmetic is correct and still passes -- it is the
+    interpretation of the 5-row system that moved.
+
+  STILL LIVE:
+    Q1 dimension-1 result, Q2 cubic-identically-zero, Q3 F38 table
+    reproduction, Q4 GMN electric charges. All four still hold and are
+    re-derived independently by F279.
+
+  See docs/theory/supersessions.yaml for the full record.
+
+F165 — Hypercharge quantisation from anomaly cancellation + mass-step gauge invariance.
 
 Claim: given the lattice-fixed representation content of one Standard-Model
 generation (colour-triplet quarks, SU(2)_L doublets/singlets, the F51

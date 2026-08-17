@@ -1,5 +1,16 @@
 # F62 — Dynamical Dirac CA on a curved background (D2) + linearized backreaction (D3a)
 
+> **[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]**
+>
+> **DEAD:** The rest-mass source claim. F62's source died; see this record's scope.
+>
+> **STILL LIVE:** F62's LAPSE-MIX SIGN CONVENTION is still production code (casim.engine.interactions.gravity.lapse_mix_half) -- the source claim died, the sign did not. The curved-background Dirac stepper, the equivalence principle, redshift and factor-2 bend checks are live, with 140 code/test references, the most of any finding in this record.
+>
+> **NOTE:** The latent delta-m sign error this finding flagged in dirac_step_2d_varm_splitstep is a separate live item and is NOT superseded.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-05-30 - 15:30
 **Status:** Confirmed — 6/6 tests PASS.
 **Module:** new `ca-simulation/forks/dirac_gravity_fork.py` (additive; reuses `ca_dirac` primitives, `ca_curved.CayleyVarcSolver2D`).

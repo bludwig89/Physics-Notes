@@ -79,6 +79,7 @@ __all__ = [
     "test_files", "unregistered_files", "check_coverage",
     "validate", "validate_all", "counts", "registry_dir",
     "parse_param", "REGISTRY_DIR",
+    "CONTROL_KEYS", "normalise_controls",
 ]
 
 # ---------------------------------------------------------------------------
@@ -99,6 +100,45 @@ TIERS = {
     "gate": "fast and asserting; runs on every change (`make gate`)",
     "battery": "the full scaled suite; hours, run explicitly",
     "archive": "fully superseded per docs/theory/supersessions.yaml; excluded",
+}
+
+# ---------------------------------------------------------------------------
+# Negative controls (gap #3 of docs/status/completeness-2026-08-07.md, row H2).
+#
+# The practice already existed, in prose. Ten gate records say things like
+# "`--param tower=symmetric` reds L2 and L3" and "all four controls verified red
+# on their own legs" in their `notes:` — a sentence no machine reads, written by
+# the same sessions whose ratchet numbers did not move for three days. A norm
+# that lives in a paragraph is a norm that is re-decided every session.
+#
+# A `control:` block is that sentence as data:
+#
+#     control:
+#       - params: {linear_control: true}
+#         reds:   [G10-3, G10-4, G10-5, G10-6]
+#         reason: dispersion replaced by exactly linear c|k|, so every lattice
+#                 correction must vanish
+#
+# and the contract it declares has THREE parts, all three of which the prose
+# already claims and none of which anything checked:
+#
+#   1. the named legs are GREEN without the perturbation  (else it proves nothing)
+#   2. the named legs are RED with it                     (the check can fail)
+#   3. nothing else goes red                              ("and only where declared")
+#
+# Part 3 is not decoration. A perturbation that reddens the whole run is a
+# broken run, not a control, and it is the cheap way to fake part 2.
+CONTROL_KEYS = {
+    "params": "the perturbation, as `casim test --param k=v` would apply it",
+    "reds": "leg ids that MUST go red under it; omit to require only that the "
+            "record's overall verdict flips PASS -> FAIL",
+    "reason": "why a sound check must fail here. REQUIRED — a control whose "
+              "point is not stated cannot be reviewed",
+    "only": "default true: legs outside `reds` must stay green. Set false when "
+            "the perturbation is legitimately global, and say so in `reason`",
+    "test": "weak form, for records with no `entry:`: the name of the in-file "
+            "pytest function that IS the negative control. Proves one exists "
+            "and runs; does NOT prove the harness can perturb the physics",
 }
 
 # The module-registry sectors, plus the one home that is not a physics sector.
@@ -138,6 +178,7 @@ class TestRecord:
     superseded_by: str | None = None   # supersession-ledger record id
     notes: str = ""
     timeout: float | None = None       # seconds; None = the runner's default
+    control: tuple[dict[str, Any], ...] = ()   # declared negative controls
     evidence: dict[str, Any] = field(default_factory=dict)   # GENERATED
     source_file: str | None = None     # which registry YAML it came from
 
@@ -180,6 +221,39 @@ class TestRecord:
                 gates == "all" or bool(gates) or self.expect.get("tol") is not None)
         return False
 
+    @property
+    def has_control(self) -> bool:
+        return bool(self.control)
+
+    @property
+    def control_strength(self) -> str:
+        """``none`` | ``weak`` | ``strong``.
+
+        ``strong`` means at least one control the harness applies itself, by
+        overriding a parameter the entry point actually takes. ``weak`` means
+        the record only points at a pytest function that calls itself a negative
+        control — worth having, and not the same claim. Keeping the two apart is
+        the whole reason this is a vocabulary and not a boolean: a checker that
+        scored them alike would let the easy half absorb the hard half, which is
+        the A10 mistake this report already had to correct once.
+        """
+        if not self.control:
+            return "none"
+        if any(c.get("params") for c in self.control):
+            return "strong"
+        return "weak"
+
+    @property
+    def needs_control(self) -> bool:
+        """Scope of the D9 requirement: gate-tier ``assertion`` records.
+
+        Deliberately not all 400. `kind: result_dump` already fails by baseline
+        diff and `kind: scenario` by a gated observable; the kind with no
+        second opinion is the one that asserts, which is also the kind the
+        58-record gate tier is made of.
+        """
+        return self.kind == "assertion" and self.tier == "gate"
+
     def as_yaml_record(self) -> dict[str, Any]:
         """The human-owned + generated payload, in a stable field order."""
         out: dict[str, Any] = {"id": self.id, "kind": self.kind,
@@ -204,6 +278,8 @@ class TestRecord:
             out["superseded_by"] = self.superseded_by
         if self.timeout is not None:
             out["timeout"] = self.timeout
+        if self.control:
+            out["control"] = [dict(c) for c in self.control]
         if self.notes:
             out["notes"] = self.notes
         if self.evidence:
@@ -250,6 +326,60 @@ def validate(rec: TestRecord) -> list[str]:
             f"`legacy_script` (declared debt). A record may not declare neither.")
     if rec.entry and not (rec.module or rec.path):
         errs.append("`entry:` needs a `module:` or a `path:` to find it in")
+    errs += _validate_controls(rec)
+    return errs
+
+
+def _validate_controls(rec: TestRecord) -> list[str]:
+    """Shape of the `control:` blocks. Presence is the ratchet's job, not this.
+
+    The split matters. Refusing every gate record that has no control would turn
+    54 of 55 red on the day this lands, and a gate that is red for a week is a
+    gate people learn to run with `|| true`. So a MISSING control is a counted
+    debt (`gate_assertion_no_control`, ratcheted to zero in audit_tests.py) and a
+    MALFORMED one is an immediate error — the same shape as `legacy_script`,
+    which is the one migration ramp in this repo that actually drained.
+    """
+    errs: list[str] = []
+    for i, c in enumerate(rec.control):
+        where = f"control[{i}]"
+        if not isinstance(c, dict):
+            errs.append(f"{where} is not a mapping")
+            continue
+        unknown = sorted(set(c) - set(CONTROL_KEYS))
+        if unknown:
+            errs.append(f"{where}: unknown key(s) {unknown}; "
+                        f"allowed {sorted(CONTROL_KEYS)}")
+        if not str(c.get("reason") or "").strip():
+            errs.append(f"{where}: `reason:` is required — a perturbation "
+                        f"whose point is not written down cannot be reviewed, "
+                        f"only re-run")
+        has_params = bool(c.get("params"))
+        has_test = bool(c.get("test"))
+        if not has_params and not has_test:
+            errs.append(f"{where}: needs `params:` (the perturbation) or "
+                        f"`test:` (the in-file negative control)")
+        if has_params and not isinstance(c.get("params"), dict):
+            errs.append(f"{where}: `params:` must be a mapping of k: v")
+        if has_params and not rec.entry:
+            errs.append(
+                f"{where}: `params:` cannot be injected into a record with no "
+                f"`entry:` — the runner would drop the override and the control "
+                f"would pass by doing nothing. Give the record a "
+                f"`module:`/`entry:` (C7.4), or use the weak `test:` form")
+        reds = c.get("reds")
+        if reds is not None:
+            if not isinstance(reds, (list, tuple)) or not reds:
+                errs.append(f"{where}: `reds:` must be a non-empty list of "
+                            f"leg ids")
+            elif not all(isinstance(x, str) and x.strip() for x in reds):
+                errs.append(f"{where}: `reds:` entries must be leg id strings")
+        if has_test and reds:
+            errs.append(f"{where}: `reds:` needs a `params:` perturbation to "
+                        f"attribute the reddening to; the `test:` form cannot "
+                        f"say which legs moved")
+        if "only" in c and not isinstance(c["only"], bool):
+            errs.append(f"{where}: `only:` must be true or false")
     return errs
 
 
@@ -291,6 +421,31 @@ def _coerce(v: Any) -> Any:
     return v
 
 
+def normalise_controls(raw: Any) -> tuple[dict[str, Any], ...]:
+    """Accept one control block or a list of them; coerce param literals.
+
+    ``2/9`` in YAML is a string, and a control that perturbs an exact rational
+    has to perturb it as a ``Fraction`` or the override silently changes type as
+    well as value — which would make the run go red for the wrong reason and
+    still be scored as a sound control.
+    """
+    if raw is None:
+        return ()
+    blocks = raw if isinstance(raw, list) else [raw]
+    out: list[dict[str, Any]] = []
+    for b in blocks:
+        if not isinstance(b, dict):
+            out.append(b)                      # let validate() report it
+            continue
+        c = dict(b)
+        if isinstance(c.get("params"), dict):
+            c["params"] = {k: _coerce(v) for k, v in c["params"].items()}
+        if isinstance(c.get("reds"), (list, tuple)):
+            c["reds"] = [str(x) for x in c["reds"]]
+        out.append(c)
+    return tuple(out)
+
+
 def _record_from_dict(d: dict[str, Any], source_file: str) -> TestRecord:
     params = {k: _coerce(v) for k, v in (d.get("params") or {}).items()}
     return TestRecord(
@@ -309,6 +464,7 @@ def _record_from_dict(d: dict[str, Any], source_file: str) -> TestRecord:
         superseded_by=d.get("superseded_by"),
         notes=str(d.get("notes") or ""),
         timeout=d.get("timeout"),
+        control=normalise_controls(d.get("control")),
         evidence=dict(d.get("evidence") or {}),
         source_file=source_file,
     )
@@ -418,7 +574,32 @@ def counts() -> dict[str, int]:
         # failure mode is a validation error, so this can only ever count
         # legacy_script records. It is the debt, named.
         "no_failure_mode": sum(1 for r in recs if not r.has_failure_mode),
+        # Baseline provenance (supersessions.yaml `baselines:`, 2026-07-31).
+        # `stale_baselines` are decided; `candidate_baselines` are a triage queue
+        # that still fails, so it belongs next to the debt count, not hidden.
+        "stale_baselines": len(_ledger_counts()[0]),
+        "candidate_baselines": len(_ledger_counts()[1]),
+        # Gap #3 / row H2. The one number the 2026-08-07 report could not print:
+        # how many gate-tier assertions declare a perturbation that must redden
+        # them. `gate_assertion_no_control` is the ratcheted one, and it is a
+        # count of records, not of controls, so adding a fifth control to a
+        # record that already had four does not move it.
+        "needs_control": sum(1 for r in recs if r.needs_control),
+        "gate_assertion_no_control": sum(1 for r in recs if r.needs_control
+                                         and not r.has_control),
+        "control_strong": sum(1 for r in recs
+                              if r.control_strength == "strong"),
+        "control_weak": sum(1 for r in recs if r.control_strength == "weak"),
+        "controls_declared": sum(len(r.control) for r in recs),
     }
+
+
+def _ledger_counts() -> tuple[list, list]:
+    try:
+        from . import ledger
+        return ledger.stale_by_design(), ledger.candidates()
+    except Exception:                                    # pragma: no cover
+        return [], []
 
 
 # ---------------------------------------------------------------------------

@@ -18,7 +18,7 @@ Executes the two F212 follow-ups:
       θ=J/4, so a Bell pair forms in τ=(π/8)/(J/4)=π/(2J) ticks.
 
   (2) WIRE it into the live engine.  A genuine 2ⁿ register
-      (`casim.engine.manybody.EntanglementRegisterChannel`) on n lattice cells,
+      (`casim.engine.core.manybody.EntanglementRegisterChannel`) on n lattice cells,
       initialised as a PRODUCT, entangled tick-by-tick by the derived exchange
       gate, with an `entanglement_entropy` observer.  Beyond every mean-field
       sector — and it checkpoints/resumes bit-identically.
@@ -40,9 +40,8 @@ import numpy as np
 
 THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
-sys.path.insert(0, os.path.join(ROOT, 'ca-simulation'))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
-import ca_entanglement as E
+from casim.engine.interactions import qi_entanglement as E
 from casim.engine import Simulation, LatticeSpec, build_channel, build_observer
 
 LN2 = math.log(2.0)

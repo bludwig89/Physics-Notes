@@ -2,6 +2,25 @@
 
 Load the right context, work through the physics, produce tests.
 
+## Step 0 — Claim your TOPIC (before any physics). Not numbers.
+
+A question has been posed, so say so on the board now: append a claim to
+`docs/design/session-claims.yaml` with your session handle, `status: open`, sector and a one-line
+topic. **No finding numbers** — a claim reserves none (revision 2, 2026-08-05). This is one small
+append and it is the whole collision-avoidance mechanism: its value is warning a parallel session
+off your question before either of you has done the work.
+
+Numbers come later and one at a time. When you actually write a finding, run `casim index`, take
+the **`NEXT FREE NUMBER`**, and in the same edit create the file, add it to your claim's `used:`
+map, and delete that number's `status: free` entry from `docs/design/finding-numbers.yaml`. Full
+protocol: CLAUDE.md "Concurrency".
+
+Why not reserve up front: nobody knows at Step 0 how many findings a question will produce, so
+reserving guesses — and the guess used to be 3–5 while most sessions land one. The remainder
+stranded as gaps. Reading the current max finding number is still not a reservation, and taking
+max+1 by hand is still wrong; the allocator hands out the lowest free number, which is usually
+below the maximum.
+
 ## Step 1 — Load minimal context
 
 Always read these (small, always relevant):
@@ -22,7 +41,7 @@ Then read only the specific `findings/F{N}-*.md` files that appear relevant (2�
 
 If the question involves a specific module, also locate the source:
 ```
-grep -rn "KEYWORD" ca-simulation/ --include="*.py" -l
+grep -rn "KEYWORD" src/casim/engine/ --include="*.py" -l
 ```
 
 If the question requires foundational derivations not in a finding file, read the relevant section of `references/physics-notes-complete.md` — but only after the index search comes up short.
@@ -51,8 +70,9 @@ One test per claim. Each test must:
 - Use only `stdlib + numpy` — no scipy on chiral/spinor quantities without checking first
 - Verify rotation laws match F91 classification (even vs chiral) for any propagator
 
-Save to `tests/findings/test_F{N}_name.py`.
-
+`{N}` is a number you hold on the claim board — claiming `F{N}` claims the `F{N}-*` test-ID
+namespace with it. A registry ID that does *not* derive from a number you hold (`run-*`, `fork-*`,
+`scenario-*`) must be listed explicitly in your claim's `tests:`.
 ## Step 6 — After passing tests
 
 Remind user to run:

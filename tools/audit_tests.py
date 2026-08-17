@@ -149,6 +149,17 @@ def audit() -> dict:
         totals["registry_unregistered"] = reg["unregistered"]
         totals["registry_result_dump"] = reg["result_dump"]
         totals["registry_assertion"] = reg["assertion"]
+        # Gap #3 / row H2 (2026-08-07). The instrument-level complaint against
+        # H2 was that its three numbers were bit-identical across three days and
+        # fourteen findings, while every new finding's `notes:` claimed declared
+        # negative controls in prose. This is that claim as a counter: gate-tier
+        # `kind: assertion` records with no `control:` block. Fifth ratchet key.
+        totals["gate_assertion_no_control"] = reg.get(
+            "gate_assertion_no_control", 0)
+        totals["needs_control"] = reg.get("needs_control", 0)
+        totals["control_strong"] = reg.get("control_strong", 0)
+        totals["control_weak"] = reg.get("control_weak", 0)
+        totals["controls_declared"] = reg.get("controls_declared", 0)
 
     return {
         "totals": totals,
@@ -167,8 +178,16 @@ def audit() -> dict:
 # three are P1's, and `unfalsifiable` keeps its manifest-derived definition on
 # purpose — relabelling it against the registry would make the number improve
 # without any test improving.
+#
+# `gate_assertion_no_control` (gap #3, 2026-08-07) is the fifth, and it is the
+# first one that measures whether a check can FAIL rather than whether it exists.
+# The other four all ask about the presence of a mechanism; a record can satisfy
+# every one of them and still be a tautology, which is what F22 was for months.
+# Its end state is zero and its scope is the 58-record gate tier, not all 400 —
+# `kind: result_dump` already fails by baseline diff and `kind: scenario` by a
+# gated observable, so the kind with no second opinion is the one that asserts.
 _RATCHET_KEYS = ("unfalsifiable", "import_time_work", "no_assert",
-                 "legacy_script")
+                 "legacy_script", "gate_assertion_no_control")
 
 
 def main() -> int:
@@ -177,6 +196,9 @@ def main() -> int:
                     help="fail if any tracked count regressed")
     ap.add_argument("--update-baseline", action="store_true",
                     help="record current counts as the new high-water mark")
+    ap.add_argument("--reason", default=None,
+                    help="why the baseline moved; REQUIRED when a tracked count "
+                         "gets worse, and stored in the baseline file")
     ap.add_argument("--list", choices=["unfalsifiable", "import_time_work"],
                     help="print the offending files")
     args = ap.parse_args()
@@ -212,11 +234,46 @@ def main() -> int:
               f"(failure mode = baseline diff vs HEAD)")
         print(f"  LEGACY_SCRIPT        {t['legacy_script']}  "
               f"(declared debt — ratcheted to zero)")
+    if "gate_assertion_no_control" in t:
+        print(f"\ncheck soundness (D9 / rubric row H2)")
+        print(f"  gate-tier assertions {t['needs_control']}")
+        print(f"  declared controls    {t['controls_declared']}  "
+              f"(strong {t['control_strong']}, weak {t['control_weak']})")
+        print(f"  NO CONTROL           {t['gate_assertion_no_control']}  "
+              f"(asserts, but nothing shows it can fail — ratcheted to zero)")
+        print(f"  verify with          make control     "
+              f"(python3 tools/check_control_soundness.py --run)")
 
     if args.update_baseline:
+        old = {}
+        if os.path.exists(BASELINE):
+            with open(BASELINE, encoding="utf-8") as fh:
+                old = json.load(fh)
+        worse = [k for k in _RATCHET_KEYS
+                 if k in old and isinstance(old[k], int) and t[k] > old[k]]
+        # A ratchet whose baseline can be raised silently is not a ratchet. Any
+        # raise has to carry a written reason, which lands in the file next to the
+        # number so the next reader sees the justification, not just a bigger
+        # figure.
+        if worse and not args.reason:
+            print(f"\nREFUSING to raise the baseline for {worse} without "
+                  f"--reason. A count that got worse needs an explanation "
+                  f"recorded next to it.", file=sys.stderr)
+            return 2
+        payload = {k: t[k] for k in _RATCHET_KEYS}
+        history = list(old.get("history") or [])
+        if args.reason:
+            history.append({
+                "when": __import__("datetime").datetime.now().strftime(
+                    "%Y-%m-%d - %H:%M"),
+                "changed": {k: [old.get(k), t[k]] for k in _RATCHET_KEYS
+                            if old.get(k) != t[k]},
+                "reason": args.reason,
+            })
+        if history:
+            payload["history"] = history
         with open(BASELINE, "w", encoding="utf-8") as fh:
-            json.dump({k: t[k] for k in _RATCHET_KEYS}, fh, indent=1,
-                      sort_keys=True)
+            json.dump(payload, fh, indent=1, sort_keys=True)
             fh.write("\n")
         print(f"\nrecorded high-water mark in "
               f"{os.path.relpath(BASELINE, _REPO)}")
@@ -229,6 +286,7 @@ def main() -> int:
             return 2
         with open(BASELINE, encoding="utf-8") as fh:
             base = json.load(fh)
+        base = {k: v for k, v in base.items() if k != "history"}
         regressions = [(k, base[k], t[k]) for k in _RATCHET_KEYS
                        if t[k] > base.get(k, 10 ** 9)]
         improvements = [(k, base[k], t[k]) for k in _RATCHET_KEYS

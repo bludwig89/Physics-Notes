@@ -38,9 +38,11 @@ import sys
 import sympy as sp
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(ROOT / "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_colour_dielectric as cd            # Option C (F86)
+from casim.engine.gauge import colour_dielectric as cd            # Option C (F86)
 import forks.lgt_fork_A_mc as A              # Option A (F94)
 
 t0 = time.time()

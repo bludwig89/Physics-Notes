@@ -3,100 +3,128 @@
   "date": "2026-06-04",
   "n_tests": 6,
   "n_passed": 6,
-  "total_elapsed_s": 8.299025878999998,
+  "total_elapsed_s": 24.341221385999233,
   "results": [
     {
       "test": "FA1",
       "name": "heat-bath+OR preserve SU(3)",
       "passed": true,
-      "residual": 1.1102230246251565e-15,
+      "residual": 8.973060965396649e-16,
       "tier": 2,
       "detail": {
-        "unitarity": 1.1102230246251565e-15,
-        "det": 8.925587349040472e-16
+        "unitarity": 8.881823397555663e-16,
+        "det": 8.973060965396649e-16
       },
-      "elapsed_s": 0.48998508300002186
+      "elapsed_s": 0.367161626003508
     },
     {
       "test": "FA2",
       "name": "over-relaxation preserves Wilson action",
       "passed": true,
-      "residual": 1.230360004444957e-16,
+      "residual": 3.6910800133348703e-16,
       "tier": 1,
       "detail": {
-        "S_before": 3696.051149611376,
-        "S_after": 3696.0511496113754
+        "S_before": 3696.051149611377,
+        "S_after": 3696.051149611378
       },
-      "elapsed_s": 0.18977987499999927
+      "elapsed_s": 0.16054183400410693
     },
     {
       "test": "FA3",
       "name": "staple/action-gradient identity (ratio=4)",
       "passed": true,
-      "residual": 8.881784197001252e-16,
+      "residual": 1.7763568394002505e-15,
       "tier": 1,
       "detail": {
-        "ratio": 3.999999999999999
+        "ratio": 4.000000000000002
       },
-      "elapsed_s": 0.03521520800001099
+      "elapsed_s": 0.045097416994394735
     },
     {
       "test": "FA4",
       "name": "mean plaquette matches known SU(3) \u27e8P\u27e9",
       "passed": true,
-      "residual": 0.01720147229655926,
+      "residual": 0.01593280267775246,
       "tier": 3,
       "detail": {
         "beta=5.7": {
-          "plaq": 0.5588504888797297,
+          "plaq": 0.5581534817911572,
           "known": 0.5494,
-          "rel": 0.01720147229655926
+          "rel": 0.01593280267775246,
+          "sem": 0.0017106108519306328,
+          "sem_rel": 0.003113598201548294,
+          "chains": 6,
+          "per_chain": [
+            0.5646758695566132,
+            0.5570518233975065,
+            0.5588671450209307,
+            0.5602534936477155,
+            0.5556500357130773,
+            0.5524225234111003
+          ]
         },
         "beta=6.0": {
-          "plaq": 0.5969336679530698,
+          "plaq": 0.5959499024852467,
           "known": 0.5937,
-          "rel": 0.0054466362692770515
+          "rel": 0.003789628575453431,
+          "sem": 0.001554530155534061,
+          "sem_rel": 0.0026183765462928434,
+          "chains": 6,
+          "per_chain": [
+            0.5954869120759216,
+            0.5890314003074161,
+            0.5972749443120159,
+            0.5993752983815179,
+            0.5991976035498097,
+            0.5953332562847999
+          ]
         }
       },
-      "elapsed_s": 4.93754050199999
+      "statistics": {
+        "chains": 6,
+        "worst_sem_rel": 0.003113598201548294,
+        "sem_budget": 0.008333333333333333,
+        "statistically_adequate": true
+      },
+      "elapsed_s": 21.416267385000538
     },
     {
       "test": "FA5",
       "name": "strong-coupling \u27e8plaq\u27e9 \u2192 \u03b2/18",
       "passed": true,
-      "residual": 0.14450651042725646,
+      "residual": 0.08000880464615517,
       "tier": 3,
       "detail": {
         "beta=0.5": {
-          "plaq": 0.02766127436617386,
+          "plaq": 0.026855433069312214,
           "beta/18": 0.027777777777777776,
-          "rel": 0.004194122817740925
+          "rel": 0.03320440950476025
         },
         "beta=1.0": {
-          "plaq": 0.06358369502373647,
+          "plaq": 0.06000048914700862,
           "beta/18": 0.05555555555555555,
-          "rel": 0.14450651042725646
+          "rel": 0.08000880464615517
         }
       },
-      "elapsed_s": 1.7906306259999951
+      "elapsed_s": 1.3822471680032322
     },
     {
       "test": "FA6",
       "name": "multilevel agrees with & sharpens direct correlator",
       "passed": true,
-      "residual": 0.009086612527545238,
+      "residual": 0.06489529617960152,
       "tier": 3,
       "detail": {
-        "direct_mean": -0.012959829968919988,
-        "direct_err": 0.0617237856387803,
-        "twolevel_mean": -0.00387321744137475,
-        "twolevel_err": 0.013436919628977253,
+        "direct_mean": 0.06367987677108988,
+        "direct_err": 0.052041262727420566,
+        "twolevel_mean": -0.0012154194085116372,
+        "twolevel_err": 0.007797890668544601,
         "agree_within_4sigma": true,
-        "variance_reduction_factor": 84.40451155536907,
-        "direct_var": 0.07619651427164204,
-        "twolevel_var": 0.0009027540455779711
+        "variance_reduction_factor": 178.15637162184458,
+        "direct_var": 0.05416586052528826,
+        "twolevel_var": 0.00030403549439287486
       },
-      "elapsed_s": 0.8557865829999969
+      "elapsed_s": 0.9698004169986234
     }
   ]
 }

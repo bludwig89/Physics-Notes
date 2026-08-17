@@ -8,9 +8,9 @@
   },
   "A3_d1_subtraction_convergent": {
     "passed": true,
-    "d1_bubble": 0.1664680107641233,
-    "convergence_spread": 0.00017660535999114435,
-    "b0_slope_ratio": 0.9933321107386444
+    "d1_bubble": 0.16509076226718142,
+    "convergence_spread": 9.919850795478413e-05,
+    "b0_slope_ratio": 1.0000542047819057
   },
   "A5_qstar_bracketed": {
     "passed": true,

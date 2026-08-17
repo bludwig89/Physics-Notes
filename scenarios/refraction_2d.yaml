@@ -1,16 +1,29 @@
-# Tier-3 dynamical variable-c refraction (F64 time-domain, ca_curved).
-# A 2-D Weyl wave packet crosses a c(x) step (c_left → c_right) and refracts by
-# Snell's law. Exact-unitary (Strang) but SciPy-dependent, so this runs where
-# SciPy is installed (verify with tools/verify_tier3_gravity.py).
+# Tier-3 dynamical variable-c refraction (F64 time-domain, lattice.curved).
+# A 2-D Weyl wave packet crosses a c(x) step (c_left → c_right).
+# SciPy-dependent, so this runs where SciPy is installed (verify with
+# tools/verify_tier3_gravity.py).
+#
+# TWO CLAIM CORRECTIONS, audit V / F276 (2026-08-01):
+#   * "Exact-unitary (Strang)" was wrong. The pre-F276 stepper's norm drift on
+#     this exact scenario was 9.15e-2 and did NOT fall with sub-stepping. F276
+#     (Weyl-symmetric ordering + the h²W²/2 term) brings it to 6.80e-7 here and
+#     makes it converge as 1/n_sub³ — unitary to O(h³), which is the honest
+#     description. It is not exact; `weyl_step_2d_varc_cayley` is.
+#   * "refracts by Snell's law" is NOT measured by anything. The exit-angle
+#     diagnostic in `curved.measure_refraction` returns ~165° against a ~13°
+#     prediction under every stepper including the exactly-unitary Cayley one,
+#     because the lattice is periodic and the packet wraps. A quantitative
+#     Snell confrontation needs open boundaries and is unbuilt.
+version: 2
 name: refraction_2d
 title: "Refraction 2D"
-description: "Tier-3 F64 time-domain variable-c propagation: a 2-D Weyl packet crosses a c(x) step and refracts by Snell's law (exact-unitary Strang stepper; needs SciPy)."
+description: "Tier-3 F64 time-domain variable-c propagation: a 2-D Weyl packet crosses a c(x) step (Weyl-ordered 2nd-order Strang stepper, unitary to O(h^3) per F276; needs SciPy)."
 lattice: {L: 128, dims: 2, topology: cubic, c_lat: 0.5}
 seed: 0
 ticks: 80
 channels:
   - {type: refraction_2d, c_left: 0.5, c_right: 0.25, k_in: [0.4, 0.2], sigma: 6.0, n_sub: 4}
 observers:
-  - {type: norm_conservation, every: 20}   # exact-unitary → drift at float floor
+  - {type: norm_conservation, every: 20}   # F276: ~7e-7 at n_sub=4, converging as 1/n_sub^3
 output:
   json: test-results/casim_refraction_2d.json

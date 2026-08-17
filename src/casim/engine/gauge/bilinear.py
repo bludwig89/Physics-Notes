@@ -210,10 +210,37 @@ def EM_bilinears(psi, phi, n_half):
     Returns:
       E_G, B_G : complex 3-vectors (after transverse projection)
 
-    Paper 1 Eq. 35 uses |n(k/2)| times the transverse G_T.  Here we
-    return the *raw* complex E_G, B_G; the transversality test is run
-    separately so we can also measure how transverse the construction
-    is at finite |k|.
+    Paper 1 Eq. 35 uses |n(k/2)| times the transverse G_T, and that is
+    exactly what is returned: ``_transverse_part(G, n_hat)`` is applied
+    below, so **E_G and B_G are transverse by construction.**
+
+    CORRECTED 2026-08-03 (F20 review, attack 4).  This docstring used to
+    say it returned the *raw* complex E_G, B_G and that transversality
+    was measured separately — contradicting line 225 three lines down.
+    Anything that then "measures" ``n_hat . E`` on this output is
+    measuring a projection the code enforced, not a property of the
+    construction, and will read machine-precision zero whatever the
+    physics does.  F20 drew exactly that conclusion and reported a
+    4.6e-17 "transversality gate".  To measure how transverse the raw
+    bilinear actually is, call :func:`bilinear_G` and project yourself.
+
+    Sharper still, and worth knowing before using this at all: when psi
+    and phi are the *same* helicity eigenspinor, the transverse part
+    obeys the exact identity
+
+        ||G_T|| = sqrt(2) * |n_hat_y|,      ||G|| = sqrt(1 + n_hat_y^2)
+
+    so E_G and B_G are identically zero **on the whole n_hat_y = 0
+    surface** — which includes the x and z axes exactly.  A measurement
+    taken along one of those directions with a same-helicity pair is a
+    ratio of two round-off numbers, not a physical residual.  (The
+    singling out of *y* is real, not a bug: sigma_y is the antisymmetric
+    Pauli matrix, so G^y vanishes identically for the transpose bilinear
+    with phi = psi.  That asymmetry is the same non-covariance F302
+    measured -- U^T sigma U != R sigma -- and it is why the transpose
+    bilinear survives nowhere.)  Corrected 2026-08-04 after the F21 blind
+    re-derivation; the first version of this note said the collapse was
+    generic, which is true only on that measure-zero set.
     """
     G = bilinear_G(psi, phi)
     nmag = np.linalg.norm(n_half)
@@ -2346,3 +2373,302 @@ if __name__ == '__main__':
           f'  (expect < 1e-12)')
     print(f'  Per-mode rotation residual:               {pl["max_mode_error"]:.2e}'
           f'  (expect < 1e-12)')
+
+
+# ══════════════════════════════════════════════════════════════════
+#  F24 remediation (review 2026-08-04, verdict CONFIRMED-NARROWER)
+# ══════════════════════════════════════════════════════════════════
+
+def sl2c_rotation(n_hat, theta):
+    """SL(2,ℂ) rotation for a Weyl 2-spinor: R = exp(−i θ/2 · σ·n̂).
+
+    Added 2026-08-04. The pre-existing covariance check used **pure boosts
+    only**, and a pure boost ``A = cosh − sinh(σ·v̂)`` is **Hermitian** — so
+    ``A† = A`` and the sandwich ``A† σ̄^μ A`` cannot tell ``A`` from ``A†``.
+    Rotations are unitary (``R† = R⁻¹``), which is exactly where that placement
+    bites. Without this branch the "SL(2,ℂ) → SO(1,3) homomorphism" claim was
+    tested on a subgroup that could not detect the error it is meant to guard.
+    """
+    n = np.asarray(n_hat, dtype=float)
+    n = n / np.linalg.norm(n)
+    sigma_n = n[0] * _S_X + n[1] * _S_Y + n[2] * _S_Z
+    return (np.cos(theta / 2.0) * np.eye(2, dtype=complex)
+            - 1j * np.sin(theta / 2.0) * sigma_n)
+
+
+def _four_current(psi):
+    return np.array([
+        np.real(psi.conj() @ psi),
+        np.real(psi.conj() @ _S_X @ psi),
+        np.real(psi.conj() @ _S_Y @ psi),
+        np.real(psi.conj() @ _S_Z @ psi),
+    ])
+
+
+def _lorentz_boost_matrix(v_hat, zeta, sign=-1.0):
+    """4×4 boost. ``sign=-1`` matches this module's Λ^0i = −sinh ζ · v̂^i."""
+    v = np.asarray(v_hat, float)
+    v = v / np.linalg.norm(v)
+    ch, sh = np.cosh(zeta), np.sinh(zeta)
+    L = np.eye(4)
+    L[0, 0] = ch
+    for i in range(3):
+        L[0, i + 1] = sign * sh * v[i]
+        L[i + 1, 0] = sign * sh * v[i]
+        for j in range(3):
+            L[i + 1, j + 1] = (1.0 if i == j else 0.0) + (ch - 1.0) * v[i] * v[j]
+    return L
+
+
+def _so3_rotation_matrix(n_hat, theta):
+    """4×4 spatial rotation (Rodrigues) embedded with Λ^0_0 = 1."""
+    n = np.asarray(n_hat, float)
+    n = n / np.linalg.norm(n)
+    K = np.array([[0.0, -n[2], n[1]], [n[2], 0.0, -n[0]], [-n[1], n[0], 0.0]])
+    R3 = np.eye(3) + np.sin(theta) * K + (1.0 - np.cos(theta)) * (K @ K)
+    L = np.eye(4)
+    L[1:, 1:] = R3
+    return L
+
+
+def sl2c_covariance_full(n_draws: int = 2000, zeta_scale: float = 2.0,
+                         seed: int = 24):
+    """Worst-case SL(2,ℂ) → SO(1,3) covariance over boosts, rotations and products.
+
+    Three things the original boost-only check could not report:
+
+    1. **Rotations.** ``R`` is unitary, so ``R† ≠ R`` and the sandwich placement
+       is finally exercised (see :func:`sl2c_rotation`).
+    2. **Compositions.** ``A·R`` must map to ``Λ_boost · Λ_rot``. A homomorphism
+       claim that is only checked on two separate one-parameter subgroups has
+       not been checked as a homomorphism.
+    3. **A worst case rather than a benign draw.** The residual here is limited
+       by *conditioning*, not by eps: the single-Weyl current is null
+       (``j·j = 0``), so an anti-aligned boost makes ``j'^0`` a near-total
+       cancellation and the relative error grows like ``e^{2ζ}·eps``. Quoting one
+       favourable sample as "the IEEE-754 floor" understates it by orders of
+       magnitude — measured worst case here is ~1e-13 at ζ ≈ 5, against 3.7e-16
+       for the original 12-draw sample.
+
+    Returns the worst relative residual in each channel plus the measured
+    nullity of the current.
+    """
+    rng = np.random.default_rng(seed)
+    worst = {"boost": 0.0, "rotation": 0.0, "composition": 0.0}
+    worst_null = 0.0
+    worst_zeta = 0.0
+    for _ in range(int(n_draws)):
+        psi = rng.normal(size=2) + 1j * rng.normal(size=2)
+        j = _four_current(psi)
+        worst_null = max(worst_null,
+                         abs(j[0] ** 2 - j[1] ** 2 - j[2] ** 2 - j[3] ** 2)
+                         / max(j[0] ** 2, 1e-300))
+
+        vh = rng.normal(size=3); vh /= np.linalg.norm(vh)
+        nh = rng.normal(size=3); nh /= np.linalg.norm(nh)
+        zeta = float(rng.normal() * zeta_scale)
+        theta = float(rng.uniform(-np.pi, np.pi))
+
+        A = sl2c_boost(vh, zeta)
+        R = sl2c_rotation(nh, theta)
+        LB = _lorentz_boost_matrix(vh, zeta)
+        LR = _so3_rotation_matrix(nh, theta)
+
+        for key, M, L in (("boost", A, LB), ("rotation", R, LR),
+                          ("composition", A @ R, LB @ LR)):
+            jp = _four_current(M @ psi)
+            ref = L @ j
+            r = np.linalg.norm(jp - ref) / max(np.linalg.norm(ref), 1e-300)
+            if r > worst[key]:
+                worst[key] = r
+                if key == "boost":
+                    worst_zeta = zeta
+
+    res = {
+        "n_draws": int(n_draws),
+        "worst_rel_boost": worst["boost"],
+        "worst_rel_rotation": worst["rotation"],
+        "worst_rel_composition": worst["composition"],
+        "worst_boost_zeta": worst_zeta,
+        "worst_nullity": worst_null,
+        "legacy_12_draw_value": float(weyl_sl2c_4current_covariance()),
+    }
+    res["checks"] = {
+        # Conditioning-limited, NOT eps. The bound is pre-registered from the
+        # e^{2ζ}·eps growth on the null cone, not read off the residual.
+        "boost_covariant": worst["boost"] <= 1e-10,
+        "rotation_covariant": worst["rotation"] <= 1e-12,
+        "composition_covariant": worst["composition"] <= 1e-10,
+        "current_is_null": worst_null <= 1e-12,
+        # The legacy single-sample number must NOT be presented as a floor.
+        "legacy_sample_is_optimistic": worst["boost"] > res["legacy_12_draw_value"],
+    }
+    res["n_pass"] = int(sum(res["checks"].values()))
+    res["n_checks"] = len(res["checks"])
+    res["ok"] = res["n_pass"] == res["n_checks"]
+    return res
+
+
+if __name__ == "__main__":  # pragma: no cover — artifact write is guarded
+    import json as _json
+    import os as _os
+    if _os.environ.get("CASIM_F24") != "1":
+        raise SystemExit(0)
+    from casim.engine.particles._results_path import results_path
+    _out = {"F24_sl2c_covariance_full": sl2c_covariance_full()}
+    print(_json.dumps(_out, indent=2))
+    with open(results_path("F24_sl2c_covariance_full.json"), "w") as _fh:
+        _json.dump(_out, _fh, indent=2)
+
+
+# ══════════════════════════════════════════════════════════════════
+#  F306 — the curl residual under the analytic-amplitude reading
+# ══════════════════════════════════════════════════════════════════
+
+def maxwell_curl_residual_analytic(k_mag=0.05, n_dirs=8, seed=0, exact_dt=True):
+    """Curl residual with E, B read as **analytic amplitudes** — closes at O(k^3).
+
+    Added 2026-08-04 (F306). This is a SIBLING of :func:`maxwell_curl_residual`,
+    not a replacement: that function is left bit-for-bit unchanged because four
+    other call sites depend on its numbers (``tests/runners/run_L_tests.py``,
+    ``bilinear_2d.maxwell_curl_residual_2d``, and the F21/F23 fork harnesses).
+
+    Why a second function is needed
+    -------------------------------
+    ``EM_bilinears`` returns ``E = |n|(G_T + G_T*)`` and ``B = i|n|(G_T* - G_T)``,
+    which are **real** 3-vectors, and the residual's right-hand side
+    ``i·2n x B`` is **pure imaginary**. Worse than the type clash: measured,
+    ``B = n_hat x E`` exactly, so ``n_hat x B = -E`` — the two sides are
+    **orthogonal 3-vectors of equal length** (‖LHS‖/‖RHS‖ = 1.0000000000 at every
+    k), and the residual is sqrt(2) times either one. That sqrt(2), times
+    ``c_lat`` from ``|n(k/2)| -> c_lat|k|/2``, is the whole of the "law"
+    ``curl/|k| -> c_lat/sqrt(2)``. Dropping the ``i`` does not help, and neither
+    does ``dt -> 0``: the mismatch is directional, not a discretisation artifact.
+
+    The (E, B) built as ``2Re``/``2Im`` of one complex amplitude are the
+    **time-quadrature pair** of a single circularly polarised mode, not a Maxwell
+    electric/magnetic pair.
+
+    What this function does instead
+    -------------------------------
+    Reads the amplitudes analytically: ``E_hat = |n| G_T`` and
+    ``B_hat = n_hat x E_hat``. The equation then collapses to the scalar
+    condition ``Omega = 2|n|``, i.e. ``omega(k/2) = sin omega(k/2)``, and
+
+        R = |Omega - 2|n||/(2|k|) -> c_lat^3 k^2 / 48 = k^2/(144 sqrt3)
+
+    so the curl violation is **O(k^3)** — which is the pass criterion recorded at
+    ``references/qca-papers-1-4-overview.md:407``.
+
+    ``exact_dt=True`` uses the exact time derivative ``-i Omega E_hat``;
+    ``exact_dt=False`` uses the one-tick difference ``(e^{-i Omega} - 1) E_hat``,
+    which is O(k) with coefficient ``c_lat^2/4`` — the genuine finite-Delta-t
+    error, and the only place Delta t legitimately enters.
+    """
+    dirs = _random_dirs(n_dirs, seed=seed)
+    worst = 0.0
+    for d in dirs:
+        khat = d / np.linalg.norm(d)
+        k_c = k_mag * khat
+        psi, phi, _ = weyl_eigenmodes_3d_bcc(k_c[0] / 2, k_c[1] / 2, k_c[2] / 2)
+        u, nx, ny, nz = _bcc_uvec_local(k_c[0] / 2, k_c[1] / 2, k_c[2] / 2)
+        n_half = np.array([nx, ny, nz])
+        nmag = np.linalg.norm(n_half)
+        if nmag < 1e-15:
+            continue
+        n_hat = n_half / nmag
+        Omega = 2.0 * np.arccos(np.clip(u, -1.0, 1.0))
+
+        G = bilinear_G(psi, phi)
+        G_T = _transverse_part(G, n_hat)
+        if np.linalg.norm(G_T) < 1e-12:
+            continue                      # n_hat_y = 0 surface: G_T vanishes
+        E_hat = nmag * G_T
+        B_hat = np.cross(n_hat, E_hat)
+
+        dE = (-1j * Omega * E_hat if exact_dt
+              else (np.exp(-1j * Omega) - 1.0) * E_hat)
+        rhs = 1j * np.cross(2.0 * n_half, B_hat)
+        den = (np.linalg.norm(E_hat) + np.linalg.norm(B_hat)) * k_mag
+        worst = max(worst, float(np.linalg.norm(dE - rhs) / den))
+    return worst
+
+
+def _bcc_uvec_local(kx, ky, kz, sign='+'):
+    from casim.engine.lattice.bcc import _bcc_uvec
+    return _bcc_uvec(kx, ky, kz, sign=sign)
+
+
+def check_curl_closes_at_k3(k_values=(1e-1, 1e-2, 1e-3), n_dirs=8, seed=0):
+    """F306 gate entry. The curl equation closes at O(k^3) under analytic amplitudes.
+
+    Asserts four things, each able to fail:
+
+    1. the analytic-amplitude residual matches the closed form c_lat^3 k^2/48;
+    2. it FALLS by ~100x per decade in k (i.e. it is genuinely O(k^2) normalised,
+       not a constant);
+    3. the ORIGINAL real-pair residual does NOT fall — it sits at c_lat/sqrt(2)
+       across the same decades. This is the control: without it the first two
+       checks would not establish that the difference is the reading;
+    4. B = n_hat x E exactly, which is the geometric reason the original residual
+       is quadrature rather than a physical failure.
+    """
+    from casim.constants import c_lat
+    rows = []
+    for k in k_values:
+        r_an = maxwell_curl_residual_analytic(k_mag=k, n_dirs=n_dirs, seed=seed)
+        closed = c_lat ** 3 * k * k / 48.0
+        rows.append({"k": float(k), "analytic": r_an, "closed_form": closed,
+                     "rel": abs(r_an - closed) / closed})
+
+    # Control: the ORIGINAL real-pair residual at the same k values. Note
+    # `maxwell_curl_residual` returns the UN-normalised residual (it omits the
+    # 1/|k| divisor), so divide here to compare like with like.
+    orig = [float(np.max(maxwell_curl_residual(k_mag=k, n_dirs=n_dirs, seed=seed))) / k
+            for k in k_values]
+
+    # geometry: B = n_hat x E
+    d = _random_dirs(4, seed=seed + 3)
+    cos_worst = 1.0
+    for dd in d:
+        khat = dd / np.linalg.norm(dd)
+        k_c = 1e-3 * khat
+        psi, phi, _ = weyl_eigenmodes_3d_bcc(k_c[0] / 2, k_c[1] / 2, k_c[2] / 2)
+        u, nx, ny, nz = _bcc_uvec_local(k_c[0] / 2, k_c[1] / 2, k_c[2] / 2)
+        nh = np.array([nx, ny, nz]); nm = np.linalg.norm(nh); nh = nh / nm
+        G_T = _transverse_part(bilinear_G(psi, phi), nh)
+        if np.linalg.norm(G_T) < 1e-12:
+            continue
+        g = nm * G_T
+        E = (g + np.conj(g)).real
+        B = (1j * (np.conj(g) - g)).real
+        cr = np.cross(nh, E)
+        cos_worst = min(cos_worst, float(np.dot(B, cr) /
+                                         (np.linalg.norm(B) * np.linalg.norm(cr))))
+
+    decades = rows[0]["analytic"] / rows[-1]["analytic"]
+    res = {
+        "rows": rows,
+        "original_real_pair": orig,
+        "c_lat_over_sqrt2": float(c_lat / np.sqrt(2.0)),
+        "analytic_drop_over_two_decades": decades,
+        "worst_cos_B_nhat_cross_E": cos_worst,
+    }
+    # The closed form is isotropic; the measured value is a MAX over directions and
+    # inherits the O(k) BCC anisotropy of Omega - 2|n|, plus transverse-projection
+    # round-off that does not scale with the residual. Both are worst at the
+    # smallest k, so the closed-form match is asserted for k >= 1e-2 (where it is
+    # 1.4% and 0.14%) and the small-k rows carry the k^2 SCALING check instead.
+    match_rows = [r for r in rows if r["k"] >= 1e-2]
+    res_match = all(r["rel"] < 0.05 for r in match_rows) and len(match_rows) >= 2
+    res["checks"] = {
+        "analytic_matches_closed_form": res_match,
+        "analytic_falls_like_k2": decades > 5e3,
+        "original_does_not_fall": (max(orig) - min(orig)) < 1e-2,
+        "original_sits_at_c_over_sqrt2": abs(orig[-1] - c_lat / np.sqrt(2.0)) < 1e-4,
+        "B_equals_nhat_cross_E": cos_worst > 1.0 - 1e-9,
+    }
+    res["n_pass"] = int(sum(res["checks"].values()))
+    res["n_checks"] = len(res["checks"])
+    res["ok"] = res["n_pass"] == res["n_checks"]
+    return res

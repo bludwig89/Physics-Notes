@@ -20,6 +20,7 @@
 # P6/scale-gated, F123). The absolute +1.51 MeV n–p value lives in the
 # njl_nucleon spectral channel (FA06); here the pair EXHIBITS the isospin
 # structure (mass + charge) dynamically. Tiers grow the represented patch.
+version: 2
 name: realspace_proton_1fm
 title: "Real-Space Proton ~1 fm (block-spin patch, isospin-split)"
 description: "Confined uud colour-singlet (bag F137) with the FA06/F40 isospin structure — down-quark heavier by the 2.51 MeV current-mass gap (scaled), fractional charges + photon Coulomb (net +1, EM self-energy) — on a block-spin physical patch: L super-cells represent a nucleon-scale (L·block)^3 block of physical cells."

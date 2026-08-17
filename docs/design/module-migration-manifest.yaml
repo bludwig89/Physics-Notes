@@ -10,7 +10,7 @@
 # proposals. Accepted entries are preserved across regeneration.
 # ---------------------------------------------------------------------------
 version: 1
-updated: 2026-07-31 - 05:42 UTC
+updated: 2026-07-31 - 14:37 UTC
 about: 'Roadmap C0.3. One record per file under ca-simulation/. Phases C1-C9 execute this file; a file
   with no record does not move. CLASSIFICATION (sector/target) is hand-authored in tools/gen_migration_manifest.py;
   EVIDENCE is generated from the module graph, dead-code proposal, results manifest and supersession ledger.
@@ -62,7 +62,7 @@ summary:
     fork_unclaimed: 23
     fork_live: 24
   accepted_dead_symbols: 0
-  proposed_dead_symbols: 5
+  proposed_dead_symbols: 0
 claims:
   gauge:
     session: sharp-focused-mayer
@@ -83,14 +83,43 @@ claims:
     session: nifty-great-volta
     phase: C6
     claimed: 2026-07-30 - 21:02
-    note: Interactions sector migration in progress (roadmap C6) — gravity, astrophysics, QED precision,
-      lattice PT, running/scale, quantum-info/condensed. One session, one sector.
+    released: 2026-07-31 - 14:30
+    release_note: 'RELEASED — C6 complete; see docs/status/C6-completion-overview.md. All 51 records migrated.
+      Zero dead symbols accepted: both ledger cleanups resolved to RELABEL rather than cut — `F114_enlargement_pct`
+      in raytrace is a LIVE falsification gate (test_F186 T2 asserts the GR shadow is smaller and pins
+      the enlargement to +4.63%) and a committed baseline key, and gravity.py already carried only the
+      canonical F64 dielectric, F106 T00 sourcing and the ledger-retained F62 lapse-mix sign. NOT done
+      and needing their own manifest records before they can move: src/casim/gravity/* and src/casim/fields/*
+      are still hand-written re-export layers over these kernels.'
+    note: Interactions sector migration (roadmap C6) — gravity, astrophysics, QED precision, lattice PT,
+      running/scale, quantum-info/condensed. One session, one sector.
   forks:
     session: nifty-great-volta
     phase: C6
     claimed: 2026-07-30 - 21:02
-    note: Forks migration in progress (roadmap C6). Claimed with `interactions` because C6 owns both;
-      fork/mainline status is preserved and only fork_rejected may be stripped.
+    released: 2026-07-31 - 14:30
+    release_note: 'RELEASED — C6 complete. All 47 records migrated to engine/forks/<subsector>/ with fork_live
+      (24) / fork_unclaimed (23) preserved and now QUERYABLE via casim.engine.registry''s new `status`
+      field. Nothing stripped: a fork nothing imports is a recorded negative result, not dead code. The
+      move''s one real hazard was `__file__` depth — 20 repo-root walks across 19 forks were 2 levels
+      from ca-simulation/forks/ and are 5 from here; expanded and verified, otherwise they would have
+      written finding JSON into src/casim/engine/test-results/. Still open for C9: four forks (F59/F60/F61/F63)
+      write their JSON beside themselves, now inside src/.'
+    note: Forks migration (roadmap C6). Claimed with `interactions` because C6 owns both sectors.
+  numerics:
+    session: nifty-great-volta
+    phase: C6
+    claimed: 2026-07-31 - 14:20
+    released: 2026-07-31 - 14:30
+    release_note: RELEASED — both moved (`numerics/benchmark.py`, `numerics/lazy.py`), the one consumer
+      rewired (`casim/lattice/__init__.py`, which kept the legacy `ca_lazy` NAME because callers import
+      it), and ca_lazy's three emergent-time tests re-run. `ca-simulation/` is now 171 files, ALL shims
+      — C6's acceptance criterion and C9's precondition.
+    note: 'Claimed by C6''s CLOSING pass, not by C6''s scope. C1 completed leaving its last two records
+      unmoved (`benchmark_jax.py`, `ca_lazy.py`), and C6''s own acceptance gate says `ca-simulation/`
+      contains only shims — which cannot be true while they sit there, and C9 deletes the directory. Two
+      leaf files, no physics: moved to close the gate and unblock C9. C1''s numerics façade itself is
+      untouched.'
   tests:
     session: vibrant-charming-cannon
     phase: C7
@@ -123,6 +152,55 @@ claims:
       tests/registry/, src/casim/tests/, tools/audit_tests.py and the pytest collector. It touches NO
       `modules:` record, so it does not conflict with a concurrent C4/C5/C6 session; it is recorded here
       because the manifest is the project's only claim board.
+  program-p4-p5:
+    session: cowork-p4-p5
+    phase: P4-P5
+    claimed: 2026-07-31 - 22:45
+    note: 'Roadmap-unified-program P4 (scenario language v2) + P5 (GUI workbench, checkable core). Not a
+      module engine sector — this claim covers the PROGRAM LAYER: src/casim/io/ (scenario schema v2),
+      src/casim/cli.py, src/casim/viz/, src/casim/gui/render.py, scenarios/*.yaml, and the registry
+      `status` field on the four engine/core/_viz_* modules (P5.1 retirement). Touches no physics kernel.
+      Recorded here because the manifest is the project''s only claim board.'
+  audit-v:
+    session: modest-beautiful-wright
+    phase: V0-V9
+    claimed: 2026-07-31 - 23:40
+    note: 'Physics Audit V (docs/audits/physics-audit-2026-08-01-full-rerun-prompt.md), items V0-V9.
+      READ-MOSTLY: this claim covers docs/audits/physics-audit-report-2026-08-01.md,
+      tools/audit_v_battery.sh, test-results/audit-v/, any new findings/F{N}-*.md the audit raises,
+      and the changelog entry. Authority is limited by the prompt §0.1 — plumbing fixes and
+      regenerated indexes only; NO physics number, derivation, coefficient or constant value is
+      changed, and no drifted baseline is staged. Does not conflict with the open program-p4-p5
+      claim: the audit does not write src/casim/io/, cli.py, viz/, gui/ or scenarios/.'
+  v023-refold-fix:
+    session: pensive-friendly-pascal
+    phase: V-023
+    claimed: 2026-08-02 - 07:19
+    note: 'Fixing audit-V item V-023 — F272''s `% 2pi` refold defect, still live in three modules.
+      NARROW claim, three files and their consequences: src/casim/engine/interactions/qed_vacuum_polarization.py,
+      src/casim/engine/interactions/qed_electron_self_energy.py,
+      src/casim/engine/gauge/gluon_self_energy.py, plus the baselines they write
+      (test-results/F251_vacuum_polarization.json, F258_electron_self_energy.json,
+      F155_qstar_self_energy.json), findings/F277-*.md, docs/theory/supersessions.yaml and the
+      changelog. Does NOT touch bgfield_loop (already fixed by F272) or the lpt_* Wilson sites
+      (V4.4 classifies their wrap as an exact no-op). Does not conflict with program-p4-p5
+      (no program-layer file) or with audit-v (which is complete and explicitly did not fix this).'
+  f278-lattice-constant-and-claim-register:
+    session: trusting-keen-sagan
+    phase: post-audit-V
+    claimed: 2026-08-02 - 10:15
+    note: 'Two audit-V follow-ons, DOCUMENTATION AND ONE NEW FINDING, no engine module touched.
+      (1) findings/F278-*.md — the BCC lattice constant a=2/sqrt(3) derived, showing F267''s
+      measured cube/BZ ratio IS the primitive cell volume a^3/2=4sqrt3/9 and F273''s "sqrt3*fcc"
+      IS the reciprocal constant 4pi/a=2pi*sqrt3. Promotes two measured numbers to closed form;
+      changes NO physics number and no baseline. (2) papers/Claims-and-Falsifiers-Summary.md and
+      papers/Outreach-Emails.md — correcting audit items V-024 (horizon-free BH withdrawn per
+      F178), V-030 (m_Z/m_W headline 1.77% -> F138''s 0.064%), V6.8 ("theorem" -> hypothesis on
+      three generations per F75''s own status line) and V-029 (alpha_s and deuteron residuals
+      re-checked against PDG 2025). Also docs/status/exactness-inventory.md (curated Tier-1
+      block only) and the changelog. Does NOT touch src/, tests/, test-results/ or the
+      constants/test/module registries. No conflict with v023-refold-fix (disjoint files;
+      F277 vs F278) or program-p4-p5 (no program-layer file).'
 modules:
 - id: benchmark_jax.py
   source: ca-simulation/benchmark_jax.py
@@ -131,11 +209,11 @@ modules:
   phase: C1
   role: derivation
   status: dead_candidate
-  reach: unreferenced
+  reach: package-only
   reachable_from: []
-  lines: 128
+  lines: 48
   findings: []
-  summary: 'benchmark_jax.py — Compare propagation step performance:'
+  summary: DEPRECATED shim — this module moved to `casim.numerics.benchmark`.
   dead_symbols: []
   dead_symbols_proposed: []
   protected_symbols: []
@@ -143,11 +221,11 @@ modules:
   tests: []
   baselines: []
   numerics_sites:
-    np: 10
+    np: 0
     scipy: 0
     fft: 0
   constants_sites: []
-  migrated: null
+  migrated: 2026-07-31 - 09:18
 - id: ca_alpha_s_running.py
   source: ca-simulation/ca_alpha_s_running.py
   target: src/casim/engine/interactions/running_alpha_s.py
@@ -2379,17 +2457,11 @@ modules:
   - w_chiral
   - weyl_bcc
   - z_even
-  lines: 334
-  findings:
-  - F1
-  summary: ca_lazy.py  —  Lazy-update / tick-counter wrapper for emergent-time work
+  lines: 48
+  findings: []
+  summary: DEPRECATED shim — this module moved to `casim.numerics.lazy`.
   dead_symbols: []
-  dead_symbols_proposed:
-  - extract_dirac_2d
-  - lazy_position_space_kick
-  - per_cell_residual_scalar
-  - sync_vs_lazy_residual
-  - time_loop
+  dead_symbols_proposed: []
   protected_symbols: []
   ledger: []
   tests:
@@ -2398,11 +2470,11 @@ modules:
   - tests/findings/test_emergent_time_shapiro.py
   baselines: []
   numerics_sites:
-    np: 12
+    np: 0
     scipy: 0
     fft: 0
   constants_sites: []
-  migrated: null
+  migrated: 2026-07-31 - 09:18
 - id: ca_link_hamiltonian.py
   source: ca-simulation/ca_link_hamiltonian.py
   target: src/casim/engine/gauge/link_hamiltonian.py

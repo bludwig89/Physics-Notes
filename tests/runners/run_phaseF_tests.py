@@ -28,13 +28,15 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_core as ca
-import ca_dirac as dirac
-import ca_higgs as hg
-import ca_unified as un
-import ca_curved as cc
+from casim.engine.lattice import core as ca
+from casim.engine.particles import dirac as dirac
+from casim.engine.particles import higgs as hg
+from casim.engine.interactions import unified as un
+from casim.engine.lattice import curved as cc
 
 FIGURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'test-results', 'figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)
@@ -636,7 +638,7 @@ def test_F4():
     # Reference: pure exact-QCA Weyl evolution (Paper 1 Eq. 16).  At
     # m=0 the exact-QCA Dirac reduces to diag(W_k, W'_k); the η-block
     # matches `weyl_step_2d_arccos_splitstep` bit-for-bit (Finding 9).
-    import ca_core_exact as ce
+    from casim.engine.lattice import core_exact as ce
     f_ref, g_ref = ca.gaussian_spinor_2d(shape, sigma=30.0, helicity='left')
     for _ in range(50):
         f_ref, g_ref = ce.weyl_step_2d_arccos_splitstep(f_ref, g_ref)

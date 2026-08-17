@@ -39,12 +39,14 @@ import json
 import time
 from fractions import Fraction
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 
-import ca_charged_current as cc
-from ca_charged_current import (
+from casim.engine.gauge import charged_current as cc
+from casim.engine.gauge.charged_current import (
     su2_raising_algebra_residuals, raise_isospin, lower_isospin,
     KET_UP, KET_DOWN,
     charged_current_plus, charged_current_minus, charged_current_from_isospin,
@@ -54,13 +56,13 @@ from ca_charged_current import (
     fermi_constant, w_exchange_amplitude, fermi_limit_relative_deviation,
     run_beta_decay_pipeline,
 )
-from ca_wmu import (
+from casim.engine.gauge.weak_wmu import (
     make_w_link_field, fermion_isospin_current,
     w_massive_propagation_step_spectral, measure_massive_w_dispersion,
 )
-from ca_bcc import bcc_dispersion
-from ca_lattice import make_kgrid_3d
-import ca_fft as _fft
+from casim.engine.lattice.bcc import bcc_dispersion
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.numerics import fft as _fft
 
 
 # ---------------------------------------------------------------------------

@@ -69,7 +69,7 @@ from casim.constants import (
     q_star_a_band_lo as _q_star_a_band_lo,
 )
 from casim.constants import M0_constituent_lattice as _M0_constituent_lattice
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 # ----------------------------------------------------------------------
 C_A, T_F = 3.0, 0.5
@@ -101,7 +101,7 @@ def a1_ledger() -> dict:
 def static_energy_lock(R_list=(1, 2, 3, 4), g2: float = 0.25) -> dict:
     """F110 lambda=0: V(R) = (g^2/2) q^2 R exactly (dual rep, H diagonal).
     The coupling is DEFINED by the static-source energy => V-scheme."""
-    import ca_link_hamiltonian as lh
+    from casim.engine.gauge import link_hamiltonian as lh
 
     geom = lh.PlaquetteGrid(4, 2)
     devs = []

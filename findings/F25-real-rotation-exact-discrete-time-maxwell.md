@@ -1,7 +1,37 @@
 # Finding 25 — Real-rotation formula holds to machine precision; Maxwell curl holds only to O(k)
 
+> **[PARTIALLY SUPERSEDED 2026-08-04 by F306 — ledger S18-curl-residual-representation-artifact]**
+>
+> **DEAD:** '## Physical interpretation' items 3 and 4, and the framing that the O(k) curl failure is physical. The curl equation closes at O(k^3) with coefficient c_lat^3/48 = 1/(144 sqrt3) -- the pass criterion recorded at references/qca-papers-1-4-overview.md:407. The construction met it all along.
+>
+> **STILL LIVE:** The real-rotation law E' = cos(Omega) E + sin(Omega) B, B' = -sin(Omega) E + cos(Omega) B, exactly right including its handedness -- but it is an IDENTITY (the 2x2 real form of multiplication by e^{-i Omega}), not a prediction competing with Maxwell.
+>
+> **NOTE:** The ROTATION-RATE IDENTIFICATION of F25/F26 is untouched by this record and by all three reviews; it is founding decision 2 and claim card CL001.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-05-23  
 **Status:** Confirmed — machine precision (real-rotation), O(k) coefficient exact (Maxwell gap)  
+**Reviewed:** 2026-08-04 — **OVERSTATED** ([independent review](../docs/reviews/F25-review-2026-08-04.md))  
+**Superseded:** 2026-08-04 by [[F306-curl-closes-at-k3-representation-artifact]] — ledger `S18-curl-residual-representation-artifact`
+
+> **⚠ SUPERSEDED INTERPRETATION 2026-08-04.** Both numbers are right and both
+> interpretations are wrong. The real-rotation law is an **identity** — the
+> $2\times2$ real form of multiplying a complex number by $e^{-i\Omega}$ — not a
+> prediction competing with Maxwell; the tell is that its residual is
+> $5\times10^{-17}$ at $k=0.1$ **and the same at $k=2.0$**. And Maxwell is **not**
+> recovered as $\Delta t\to0$: $B=\hat n\times E$ exactly, so $\partial_t E$ points
+> along $B$ while $\nabla\times B$ points along $-E$ — orthogonal at every
+> $\Delta t$. The $O(k)$ residual is not a Planck-scale signature; the two sides
+> agree in *magnitude* to 1 part in $10^8$.
+>
+> **DEAD:** `## Physical interpretation` items 3 and 4.
+> **LIVE:** the rotation law itself, exactly right including its handedness.
+> **This finding was one substitution from the answer** — analytic amplitudes
+> collapse the equation to $\omega=\sin\omega$ and close it at $O(k^3)$.
+>
+> See F306 and `docs/theory/supersessions.yaml`.
 **Source:** `ca-simulation/ca_maxwell.py::real_rotation_vs_maxwell_curl` and `real_rotation_k_scan`
 
 ---

@@ -6,7 +6,7 @@
 **Module:** `ca-simulation/ca_ns_eos.py` (uses `ca_interior_metric` / F181)
 **Script:** `tests/findings/test_F184_tabulated_ns.py` (~23 s)
 **Results:** `test-results/F184_tabulated_ns.json`
-**Cross-references:** [[F181-covariant-interior-kernel-battery]] (the genuine GR/TOV interior), [[F176-covariant-dielectric-tov-recovery]] (the recommended tabulated-EoS follow-up this delivers), [[F174-stellar-structure-overlay]] (the literal-F106 exclusion). External: Read, Lackey, Owen & Friedman PRD 79, 124032 (2009); PSR J0740+6620 (2.08±0.07 M⊙); NICER J0030/J0740 radii.
+**Cross-references:** [[F181-covariant-interior-kernel-battery]] (the genuine GR/TOV interior), [[F176b-covariant-dielectric-tov-recovery]] (the recommended tabulated-EoS follow-up this delivers), [[F174-stellar-structure-overlay]] (the literal-F106 exclusion). External: Read, Lackey, Owen & Friedman PRD 79, 124032 (2009); PSR J0740+6620 (2.08±0.07 M⊙); NICER J0030/J0740 radii.
 
 ---
 

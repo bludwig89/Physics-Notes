@@ -35,10 +35,12 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
-sys.path.insert(0, os.path.join(REPO, 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_core as ca          # weyl_step_2d_splitstep
-import ca_dirac as dirac      # _dirac_dispersion, _dirac_plus_eigenvector, dirac_step_2d_splitstep
+from casim.engine.lattice import core as ca          # weyl_step_2d_splitstep
+from casim.engine.particles import dirac as dirac      # _dirac_dispersion, _dirac_plus_eigenvector, dirac_step_2d_splitstep
 
 RESULTS_DIR = os.path.join(REPO, 'test-results')
 os.makedirs(RESULTS_DIR, exist_ok=True)

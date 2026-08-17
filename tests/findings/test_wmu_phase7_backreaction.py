@@ -20,9 +20,11 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from ca_wmu import (
+from casim.engine.gauge.weak_wmu import (
     fermion_isospin_current,
     w_sourced_propagation_step,
     w_massive_propagation_step_spectral,
@@ -238,8 +240,8 @@ def test_WB5_massless_limit():
     Residual = max |E_massive − E_even| + max |B_massive − B_even|
     Expected: residual ≤ machine precision (~1e-14)
     """
-    from ca_wmu import _f26_rotation_step, _kgrid3d
-    import ca_fft as _fft
+    from casim.engine.gauge.weak_wmu import _f26_rotation_step, _kgrid3d
+    from casim.numerics import fft as _fft
 
     rng = np.random.default_rng(99)
     L = 12

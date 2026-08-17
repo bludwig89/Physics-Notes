@@ -10,7 +10,7 @@ Implements the four gates defined in `docs/design/ca-strong-design.md`:
   V13b3 — global SU(3) gauge invariance (adjoint rotation of Q^a)
   V13b4 — local SU(3) gauge invariance of observables
 
-Run from the ca-simulation/ directory:
+Run from the repo root:
     python test_su3_noether.py
 
 Reports residuals and PASS/FAIL by tolerance.
@@ -22,8 +22,8 @@ from pathlib import Path
 
 import numpy as np
 
-import ca_dirac as cdir
-import ca_strong as cs
+from casim.engine.particles import dirac as cdir
+from casim.engine.gauge import strong as cs
 
 
 # ══════════════════════════════════════════════════════════════════

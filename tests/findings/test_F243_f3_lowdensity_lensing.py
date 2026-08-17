@@ -13,9 +13,11 @@ import json, os, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 RESULTS = os.path.join(HERE, '..', '..', 'test-results')
-import ca_unified as un
+from casim.engine.interactions import unified as un
 
 
 def run_density(rho_frac, L=128, sigma=12.0, mu2=0.5, lam=0.5, y=0.2,

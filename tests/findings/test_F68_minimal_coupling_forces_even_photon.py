@@ -34,10 +34,12 @@ the closed-form 2x2; no np.linalg.eig on chiral matrices (CLAUDE.md).
 """
 
 import sys, os, json, time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
-from ca_bcc import bcc_unitary, _bcc_uvec, bcc_dispersion
+from casim.engine.lattice.bcc import bcc_unitary, _bcc_uvec, bcc_dispersion
 
 SX = np.array([[0, 1], [1, 0]], complex)
 SY = np.array([[0, -1j], [1j, 0]], complex)
@@ -84,7 +86,7 @@ def section_1(n=4000, seed=0):
 #       Use the real complex-mass U(1) step to source the phase.
 # ----------------------------------------------------------------------
 def section_2(seed=1):
-    from ca_dirac import mass_step_1flavor_u1
+    from casim.engine.particles.dirac import mass_step_1flavor_u1
     rng = np.random.default_rng(seed)
     # helicity eigenstates of n.sigma at a generic k: build psi^pm explicitly,
     # apply the gauge phase, read each one's phase advance.

@@ -1,13 +1,13 @@
 """Test wrapper for F216 — massive spin-2 / second-polarization dark-sector fork.
 
 Runs the self-contained real-arithmetic battery in
-ca-simulation/forks/gr_fork_F216_massive_spin2.py and asserts all checks pass.
+src/casim/engine/forks/gravity/gr_fork_F216_massive_spin2.py and asserts all checks pass.
 """
 import importlib.util, os, json
 
 HERE = os.path.dirname(__file__)
 FORK = os.path.abspath(os.path.join(
-    HERE, "..", "..", "ca-simulation", "forks", "gr_fork_F216_massive_spin2.py"))
+    HERE, "..", "..", "src", "casim", "engine", "forks", "gravity", "gr_fork_F216_massive_spin2.py"))
 
 
 def _run():

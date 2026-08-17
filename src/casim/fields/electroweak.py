@@ -14,7 +14,7 @@ _MODULES = [
     "ca_wmu", "ca_weak", "ca_z_field", "ca_charged_current", "ca_hypercharge",
 ]
 # Old bare name -> new casim.engine path (roadmap C4). Migrated kernels are
-# imported from their engine location, not the ca-simulation shim, so this
+# imported from their engine location, not a shim, so this
 # re-export layer survives the shims being deleted at C9.
 _PATHS = {
     "ca_wmu": "casim.engine.gauge.weak_wmu",

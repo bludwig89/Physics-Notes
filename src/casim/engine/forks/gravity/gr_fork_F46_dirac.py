@@ -260,7 +260,7 @@ def make_kinetic_solver(c_eff_field, dt=1.0, n_sub=4):
     sim_root = os.path.abspath(os.path.join(_THIS, ".."))
     if sim_root not in sys.path:
         sys.path.insert(0, sim_root)
-    from ca_curved import CayleyVarcSolver2D
+    from casim.engine.lattice.curved import CayleyVarcSolver2D
     return CayleyVarcSolver2D(c_eff_field, dt=dt, n_sub=n_sub)
 
 
@@ -298,7 +298,7 @@ def gravity_dirac_step_2d(eta_u, eta_d, chi_u, chi_d,
     sim_root = os.path.abspath(os.path.join(_THIS, ".."))
     if sim_root not in sys.path:
         sys.path.insert(0, sim_root)
-    from ca_dirac import _mix_eta_chi, _weyl_half_step_2c
+    from casim.engine.particles.dirac import _mix_eta_chi, _weyl_half_step_2c
 
     theta_half = np.sqrt(np.abs(A_field)) * m * dt * 0.5   # redshifted rest leg
 

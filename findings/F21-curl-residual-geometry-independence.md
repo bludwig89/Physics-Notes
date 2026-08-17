@@ -1,6 +1,38 @@
 # Finding 21 — The composite-photon curl residual is geometry-independent: $\text{curl}/|k| = c_\text{lat}/\sqrt2$
 
+> **[PARTIALLY SUPERSEDED 2026-08-04 by F306 — ledger S18-curl-residual-representation-artifact]**
+>
+> **DEAD:** Interpretation sections 2 and 4, and the 'Geometry is ruled out as the cause' verdict -- the framing that treats c_lat/sqrt2 as a physical coefficient. It is c_lat times a quadrature factor, by c_lat's own definition. Look-elsewhere factor 1; evidential weight zero.
+>
+> **STILL LIVE:** The closed form R = sqrt2 sin(Omega/2)/|k| (exact at all k, for any walk U = uI - i sigma.n with u^2 + |n|^2 = 1) and the three lemmas -- G_T is a complex NULL vector for a helicity eigenspinor, hence ||E|| = ||B|| exactly and n_hat x B = -+E. These are genuine structural results the finding did not claim. Every MEASUREMENT was reproduced bit-for-bit by the review.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 *Recorded 2026-05-22 - 13:42. Run: `ca-simulation/forks/curl_fork_harness.py`. Result: `test-results/curl_fork_results_2026-05-22.json`. Forks: `forks/curl_fork_baseline_bcc.py`, `forks/curl_fork_cubic.py`.*
+
+**Reviewed:** 2026-08-04 — **REFUTED** ([independent review](../docs/reviews/F21-review-2026-08-04.md))
+**Superseded:** 2026-08-04 by [[F306-curl-closes-at-k3-representation-artifact]] — ledger `S18-curl-residual-representation-artifact`
+
+> **⚠ SUPERSEDED INTERPRETATION 2026-08-04.** Every number below is correct and was
+> reproduced bit-for-bit. The *conclusion* is not. The residual measures a **real**
+> $E_G,B_G$ pair against a **pure imaginary** $i\,2\tilde n\times B_G$, and
+> $B=\hat n\times E$ exactly — so the two sides are orthogonal 3-vectors of equal
+> length ($\lVert$LHS$\rVert/\lVert$RHS$\rVert = 1.0000000000$ at every $k$) and the
+> residual is $\sqrt2$ times either one. $c_\text{lat}/\sqrt2$ is $c_\text{lat}$ —
+> by its own definition $c_\text{lat}\equiv d\Omega/d\lvert k\rvert$ — times a
+> quadrature factor. **Read as analytic amplitudes the curl equation closes at
+> $O(k^3)$** with coefficient $c_\text{lat}^3/48$. Geometry was never the variable,
+> and "geometry is ruled out as the cause" is right for the wrong reason.
+>
+> **DEAD:** Interpretation §2 and §4, and the verdict section.
+> **LIVE:** the closed form $R=\sqrt2\sin(\Omega/2)/\lvert k\rvert$ (exact at all
+> $k$ for any walk $U=uI-i\sigma\cdot n$), and the three lemmas — $G_T$ is a complex
+> **null** vector for a helicity eigenspinor, hence $\lVert E\rVert=\lVert B\rVert$
+> exactly and $\hat n\times B=\mp E$. Those are genuine structural results this
+> finding did not claim.
+>
+> See F306 and `docs/theory/supersessions.yaml`.
 
 ## Question
 

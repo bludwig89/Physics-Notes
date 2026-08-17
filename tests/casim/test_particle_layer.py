@@ -31,7 +31,7 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))), "src"))
 
-import casim  # noqa: E402,F401  (puts ca-simulation on sys.path)
+import casim  # noqa: E402,F401  (package bootstrap)
 from casim.engine import Simulation, LatticeSpec, build_channel  # noqa: E402
 from casim.particles import (  # noqa: E402
     REGISTRY, get_spec, doublet_specs, anomaly_traces,
@@ -104,8 +104,8 @@ def test_P1_2_coupling_matrix():
 
 @mark.exact
 def test_P1_3_free_particle_bit_identical_to_kernel():
-    import ca_bcc
-    from casim.engine.coupled import gaussian_packet
+    from casim.engine.lattice import bcc as ca_bcc
+    from casim.engine.core.coupled import gaussian_packet
     L, ticks = 8, 12
     lat = _lattice(L)
     ch = build_channel({"type": "particle", "name": "e", "species": "e_R",
@@ -260,14 +260,14 @@ def test_P1_9_checkpoint_resume_bit_identical():
 # Phase P2 — two-way em/strong back-action + F27 mass (ca_minimal_coupling)
 # ======================================================================
 def _packet(L, center, width, k0=None):
-    from casim.engine.coupled import gaussian_packet
+    from casim.engine.core.coupled import gaussian_packet
     return gaussian_packet(L, center, width, k0=k0)
 
 
 @mark.exact
 def test_P2_1_u1_wrap_alpha0_bit_identical():
-    import ca_bcc
-    import ca_minimal_coupling as mc
+    from casim.engine.lattice import bcc as ca_bcc
+    from casim.engine.gauge import minimal_coupling as mc
     L = 8
     f = _packet(L, (4, 4, 4), 1.5, k0=(0.4, 0, 0))
     g = np.zeros_like(f)
@@ -281,7 +281,7 @@ def test_P2_1_u1_wrap_alpha0_bit_identical():
 def test_P2_2_u1_wrap_exact_gauge_covariance():
     """S[α+β](e^{iqβ}ψ) = e^{iqβ} S[α](ψ) — exact for any β(x) (3D BCC port
     of the F41/F42 covariance statement)."""
-    import ca_minimal_coupling as mc
+    from casim.engine.gauge import minimal_coupling as mc
     rng = np.random.default_rng(11)
     L, q = 8, -1.0
     f = _packet(L, (4, 4, 4), 1.5, k0=(0.3, 0.2, 0))
@@ -299,7 +299,7 @@ def test_P2_2_u1_wrap_exact_gauge_covariance():
 
 @mark.machine_precision
 def test_P2_3_u1_wrap_unitary():
-    import ca_minimal_coupling as mc
+    from casim.engine.gauge import minimal_coupling as mc
     rng = np.random.default_rng(5)
     L = 8
     f = _packet(L, (4, 4, 4), 1.5)
@@ -321,7 +321,7 @@ def test_P2_4_bloch_acceleration_exact_force_law():
     mode by exactly −q·(2π/L)·x̂ — one k-bin per tick (Bloch acceleration).
     After N ticks the momentum spectrum is the initial spectrum rolled by
     −qN bins, to FFT round-off.  Sign check: −q∇α is the kick direction."""
-    import ca_minimal_coupling as mc
+    from casim.engine.gauge import minimal_coupling as mc
     L, N = 8, 3
     x = np.arange(L)
     X = np.meshgrid(x, x, x, indexing="ij")[0].astype(float)
@@ -346,8 +346,8 @@ def test_P2_4_bloch_acceleration_exact_force_law():
 
 @mark.exact
 def test_P2_5_su3_A0_bit_identical_and_unitary():
-    import ca_bcc
-    import ca_minimal_coupling as mc
+    from casim.engine.lattice import bcc as ca_bcc
+    from casim.engine.gauge import minimal_coupling as mc
     rng = np.random.default_rng(3)
     L = 8
     f_c = np.zeros((3, L, L, L), complex)
@@ -371,8 +371,8 @@ def test_P2_5_su3_A0_bit_identical_and_unitary():
 def test_P2_6_su3_global_ward_identity():
     """V·S_A(q) = S_{VAV†}(V·q) for constant V ∈ SU(3) — the audited SU(2)
     Ward statement, colour version."""
-    import ca_minimal_coupling as mc
-    import ca_strong as cstr
+    from casim.engine.gauge import minimal_coupling as mc
+    from casim.engine.gauge import strong as cstr
     rng = np.random.default_rng(7)
     L = 8
     f_c = (rng.standard_normal((3, L, L, L))
@@ -394,7 +394,7 @@ def test_P2_6_su3_global_ward_identity():
 def test_P2_7_massive_dirac_particle():
     """mass config → exact BCC Dirac split-step; bit-identical to the raw
     kernel; norm conserved; doublet/quark mass refused."""
-    from ca_dirac_bcc import dirac_step_3d_bcc_splitstep
+    from casim.engine.particles.dirac_bcc import dirac_step_3d_bcc_splitstep
     L, m, ticks = 8, 0.3, 10
     ch = build_channel({"type": "particle", "name": "e", "species": "e_R",
                         "mass": m,

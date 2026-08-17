@@ -2,6 +2,7 @@
 # The orbitals are seeded compact and propagate ballistically, so the
 # bounded-vs-dispersing contrast is EXHIBITED (the bound cloud RMS stays ~2-4
 # cells; the free cloud RMS grows toward the box) rather than asserted.
+version: 2
 name: stable_atom_helium_free
 title: "He free control (F195) — no binding, ballistic dispersal"
 description: "Matched control: He electron orbitals with the nuclear well and e-e Hartree field switched off; the cloud disperses, certifying the bound run is genuinely bound."

@@ -5,7 +5,7 @@
 **Status:** **Mechanism for one light sterile, derived from the existing texture; the keV value accommodated (two inputs).** The texture and its node are exact; the charged-lepton reproduction is the known F76/F93 result; the keV landing requires the overall scale M_R0 and a node-proximity. 5/5 checks PASS.
 **Module:** `ca-simulation/forks/gr_fork_F201_kev_from_eg_texture.py` (self-contained, real arithmetic).
 **Tests / results:** `tests/findings/test_F201_kev_from_eg_texture.py` → `test-results/F201_kev_from_eg_texture_test.json` (5/5); fork dump `test-results/F201_kev_from_eg_texture.json`.
-**Cross-references:** [[F200-sterile-neutrino-dark-matter]] (the keV sterile whose scale this addresses), [[F47-majorana-seesaw-higgs-free]] (the M_R the texture is applied to; the 3×3 sterile spectrum), [[F93-orthorhombic-Eg-vacuum]] / [[F76-generation-mass-hierarchy-crystal-field]] (the Z₃/E_g texture √m_a = M_0[1+√2cos(δ+2πa/3)] and its angle), [[F75-three-generations-from-bcc-irrep-selection]] (three generations of the same singlet), [[F92-per-constituent-phase-consistency]] (the √2 equipartition amplitude). External: νMSM mass split (keV DM sterile + GeV heavy steriles).
+**Cross-references:** [[F266-sterile-neutrino-dark-matter]] (the keV sterile whose scale this addresses), [[F47-majorana-seesaw-higgs-free]] (the M_R the texture is applied to; the 3×3 sterile spectrum), [[F93-orthorhombic-Eg-vacuum]] / [[F76-generation-mass-hierarchy-crystal-field]] (the Z₃/E_g texture √m_a = M_0[1+√2cos(δ+2πa/3)] and its angle), [[F75-three-generations-from-bcc-irrep-selection]] (three generations of the same singlet), [[F92-per-constituent-phase-consistency]] (the √2 equipartition amplitude). External: νMSM mass split (keV DM sterile + GeV heavy steriles).
 
 ---
 

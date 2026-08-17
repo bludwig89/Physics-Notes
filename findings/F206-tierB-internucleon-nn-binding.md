@@ -5,7 +5,7 @@
 **Module:** `src/casim/particles/channel.py` — `ElementAtomChannel._setup_nn_potential` + `_apply_nn_binding` (wiring), `nn_binding`/`g_nn` config.
 **Tests:** `tests/findings/test_F206_internucleon_nn_binding.py`
 **Results:** `test-results/F206_internucleon_nn_binding.json`
-**Cross-refs:** [[F195-blockspin-element-atom]] (the Tier-B atom whose frontier this closes), [[F104-p4-deuteron-tensor-bound-nucleus]] / [[F126-nn-intermediate-range-sigma-attraction]] / [[F128-nn-short-range-omega-repulsion]] / [[F113-nn-short-range-repulsive-core]] (the four OBE channels assembled), [[F136-realspace-scalar-confinement]] (the MIT-bag scalar-mass mechanism reused), [[F157-manybody-nuclei-and-electron-clouds]] (the static A-body variational cousin)
+**Cross-refs:** [[F195-blockspin-element-atom]] (the Tier-B atom whose frontier this closes), [[F104-p4-deuteron-tensor-bound-nucleus]] / [[F126-nn-intermediate-range-sigma-attraction]] / [[F128-nn-short-range-omega-repulsion]] / [[F113-nn-short-range-repulsive-core]] (the four OBE channels assembled), [[F135b-realspace-scalar-confinement]] (the MIT-bag scalar-mass mechanism reused), [[F157-manybody-nuclei-and-electron-clouds]] (the static A-body variational cousin)
 
 ---
 

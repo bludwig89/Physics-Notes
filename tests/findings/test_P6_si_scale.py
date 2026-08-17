@@ -11,7 +11,7 @@ hadron result into an absolute MeV number.  Each row is scored against PDG with
 an honesty tier (PREDICTION / CONSISTENCY / FALSIFIER), exactly as F112 did for
 the gravity/EW sector.
 
-Engine: `ca-simulation/ca_si_scale.py` (imports the validated F77/F103 NJL meson
+Engine: `src/casim/engine/lattice/si_scale.py` (imports the validated F77/F103 NJL meson
 solver `ca_meson` and the F122 three-body baryon solver `ca_baryon_dynamics`).
 
 CHECKS
@@ -42,9 +42,10 @@ import os
 import sys
 import json
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                 "..", "..", "ca-simulation")))
-import ca_si_scale as SI  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.lattice import si_scale as SI  # noqa: E402
 
 results = {"finding": "F123", "phase": "P6",
            "title": "SI absolute-scale closure for the matter sector "

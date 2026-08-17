@@ -1,0 +1,245 @@
+{
+  "checks": [
+    {
+      "name": "B1 hypercharge nullspace is 1-D for EVERY N_c",
+      "ok": true,
+      "value": 1
+    },
+    {
+      "name": "B1b grav and cubic anomalies identically 0 in N_c \u21d2 anomalies select nothing",
+      "ok": true,
+      "value": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "B2 the O_h 3-cycle IS an SU(3) element (det +1)",
+      "ok": true,
+      "value": "(1+0j)"
+    },
+    {
+      "name": "B2b ... and does NOT commute with colour \u21d2 identification excluded",
+      "ok": true,
+      "value": 2.4494897427831788
+    },
+    {
+      "name": "B2c control: a genuine internal index DOES commute",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "B3 the Z_3 centre route is circular, and is recorded as such",
+      "ok": true,
+      "value": "the centre of SU(3)"
+    },
+    {
+      "name": "B5 alpha_s(mu_0) = 1/(16 pi) carries no N_c and no Casimir",
+      "ok": true,
+      "value": 0.019894367886486918
+    },
+    {
+      "name": "B5b the selector returns N_c = 3 to better than 1%",
+      "ok": true,
+      "value": 2.9981000650417005
+    },
+    {
+      "name": "B5g Lambda spans ~28 decades over N_c=2..4; only N_c=3 lands at the observed hadronic scale",
+      "ok": true,
+      "value": [
+        28.289677217743634,
+        [
+          3
+        ]
+      ]
+    },
+    {
+      "name": "B5h circularity audited: alpha_s(M_Z) IS N_c-contaminated and is labelled so",
+      "ok": true,
+      "value": "the alpha_s inversion is precise but partly circular; the La"
+    },
+    {
+      "name": "B5i the one physical flavour threshold moves N_c by <0.2%",
+      "ok": true,
+      "value": [
+        2.9981000650417005,
+        2.995007947418998
+      ]
+    },
+    {
+      "name": "B5c among integers only N_c=3 lands alpha_s(M_Z)",
+      "ok": true,
+      "value": [
+        0.11858254450732647,
+        0.03295411254205222
+      ]
+    },
+    {
+      "name": "B5d N_c >= 4 puts the Landau pole ABOVE M_Z",
+      "ok": true,
+      "value": 255992.67498563882
+    },
+    {
+      "name": "B5e log-robust: F280's factor-8 scheme band moves N_c by 0.21, vs a gap of 1 to the neighbouring integers",
+      "ok": true,
+      "value": [
+        2.8981367959166437,
+        3.1097693768443277,
+        0.211632580927684
+      ]
+    },
+    {
+      "name": "B5f ... but the COUPLING is the fragile direction (falsifier)",
+      "ok": true,
+      "value": 0.02317112153248746
+    },
+    {
+      "name": "B6 F294: the C7 chi-map is MEASURED N-free across Z_2..Z_9 and U(1)",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "B6b F294: ... but ONLY the implemented reading gives 3 (H2 -> 1.28, H3 -> no root)",
+      "ok": true,
+      "value": [
+        [
+          "H1 centre / U(1)",
+          [
+            2.9981000650417
+          ]
+        ],
+        [
+          "H2 fundamental Casimir",
+          [
+            1.284486750667019
+          ]
+        ],
+        [
+          "H3 adjoint Casimir",
+          []
+        ]
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 17,
+  "n_total": 17,
+  "params": {
+    "alpha_s_MZ": 0.118,
+    "mu0_factor": 1.0,
+    "alpha0_factor": 1.0
+  },
+  "N_c_selected": 2.9981000650417005,
+  "summary": {
+    "B10_anomaly_nullspace_dim": 1,
+    "B10_anomaly_dim_one_for_every_Nc": true,
+    "B10_grav_identically_zero": true,
+    "B10_cubic_identically_zero": true,
+    "B10_hypercharge_ratios": [
+      "1",
+      "N_c + 1",
+      "1 - N_c",
+      "-N_c",
+      "-2*N_c",
+      "0",
+      "N_c"
+    ],
+    "B10_C3_commutator_with_colour": 2.4494897427831788,
+    "B10_control_internal_commutes": 0.0,
+    "B10_alpha_s_mu0": 0.019894367886486918,
+    "B10_N_c_selected": 2.9981000650417005,
+    "B10_integer_scan": [
+      {
+        "N_c": 2,
+        "alpha_s_MZ": 0.03295411254205222,
+        "ratio_to_PDG": 0.2792721401868833,
+        "Lambda_QCD_GeV": 1.313863720729643e-23,
+        "landau_pole_above_MZ": false
+      },
+      {
+        "N_c": 3,
+        "alpha_s_MZ": 0.11858254450732647,
+        "ratio_to_PDG": 1.004936817858699,
+        "Lambda_QCD_GeV": 0.047053301995314475,
+        "landau_pole_above_MZ": false
+      },
+      {
+        "N_c": 4,
+        "alpha_s_MZ": -Infinity,
+        "ratio_to_PDG": null,
+        "Lambda_QCD_GeV": 255992.67498563882,
+        "landau_pole_above_MZ": true
+      },
+      {
+        "N_c": 5,
+        "alpha_s_MZ": -Infinity,
+        "ratio_to_PDG": null,
+        "Lambda_QCD_GeV": 498568561.41318357,
+        "landau_pole_above_MZ": true
+      }
+    ],
+    "B10_N_c_band_scheme": [
+      2.8981367959166437,
+      3.1097693768443277
+    ],
+    "B10_N_c_at_mu0_factor_100": 2.789746277492224,
+    "B10_dNc_per_percent_coupling": 0.02317112153248746,
+    "B10_z3_circular": true,
+    "B10_N_c_thresholded": 2.995007947418998,
+    "B10_lambda_selector": [
+      {
+        "N_c": 2,
+        "Lambda_GeV": 1.313863720729643e-23,
+        "log10_Lambda": -22.88144967922409,
+        "within_observed_hadronic_scale": false
+      },
+      {
+        "N_c": 3,
+        "Lambda_GeV": 0.047053301995314475,
+        "log10_Lambda": -1.3274098942765564,
+        "within_observed_hadronic_scale": true
+      },
+      {
+        "N_c": 4,
+        "Lambda_GeV": 255992.67498563882,
+        "log10_Lambda": 5.408227538519544,
+        "within_observed_hadronic_scale": false
+      },
+      {
+        "N_c": 5,
+        "Lambda_GeV": 498568561.41318357,
+        "log10_Lambda": 8.697724889419968,
+        "within_observed_hadronic_scale": false
+      }
+    ],
+    "B10_lambda_span_decades": 28.289677217743634,
+    "B10_alpha_s_pdg_is_Nc_contaminated": true,
+    "B10_nf_sensitivity_probe": {
+      "n_f=3": 2.452645519587155,
+      "n_f=4": 2.634463701405337,
+      "n_f=5": 2.816281883223519,
+      "n_f=6": 2.9981000650417005
+    },
+    "F294_c7_chi_N_independent": true,
+    "F294_c7_worst_deviation": 0.0,
+    "F294_c7_groups_tested": [
+      "Z_2",
+      "Z_3",
+      "Z_4",
+      "Z_5",
+      "Z_7",
+      "Z_9",
+      "U(1)"
+    ],
+    "F294_translation_roots": {
+      "H1 centre / U(1)": [
+        2.9981000650417
+      ],
+      "H2 fundamental Casimir": [
+        1.284486750667019
+      ],
+      "H3 adjoint Casimir": []
+    },
+    "F294_only_implemented_reading_gives_three": true
+  }
+}

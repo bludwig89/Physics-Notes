@@ -15,7 +15,7 @@ IR face: the gap-saturated effective coupling alpha_eff* ~ 0.39.
 """
 import math
 
-import ca_ir_coupling as irc
+from casim.engine.interactions import running_ir_coupling as irc
 
 
 def run():

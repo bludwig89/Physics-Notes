@@ -12,17 +12,18 @@ coefficients (dipole matrix element + Δl=±1 selection rule).
   E4  selection rule: 2s→1s (Δl=0) is dipole-forbidden (A=0)
 
 Runs under pytest, or standalone:
-    PYTHONPATH=ca-simulation python tests/findings/test_F161_atomic_emission.py
+    PYTHONPATH=src python tests/findings/test_F161_atomic_emission.py
 """
 from __future__ import annotations
 
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__)))), "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_emission as em      # noqa: E402
+from casim.engine.gauge import emission as em      # noqa: E402
 
 
 def test_E1_spectral_lines():

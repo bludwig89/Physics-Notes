@@ -1,7 +1,7 @@
 """Test wrapper for F228 — how is the F223 geon produced, and is it stable?
 
 Runs the self-contained real-arithmetic battery in
-ca-simulation/forks/gr_fork_F228_geon_production_stability.py and asserts all checks
+src/casim/engine/forks/gravity/gr_fork_F228_geon_production_stability.py and asserts all checks
 pass, plus the physics verdicts: (Step 0) stable as the F190/F107 one-cell Planck-mass
 BH remnant; (Step 1) PBH remnants are the only viable route, all field-theoretic
 channels exponentially forbidden, with the hand-rolled Bogoliubov integrator validated
@@ -12,7 +12,7 @@ import importlib.util, os
 
 HERE = os.path.dirname(__file__)
 FORK = os.path.abspath(os.path.join(
-    HERE, "..", "..", "ca-simulation", "forks", "gr_fork_F228_geon_production_stability.py"))
+    HERE, "..", "..", "src", "casim", "engine", "forks", "gravity", "gr_fork_F228_geon_production_stability.py"))
 
 
 def _run():

@@ -24,7 +24,7 @@ EXACTNESS POLICY (CLAUDE.md):
     cross-checked here with a hand-rolled (pure-Python complex) projector, and
     the right-branch weight ‖P_R ψ_L‖ is verified ≡ 0 independently of numpy.
 
-Run:  PYTHONPATH=src:ca-simulation python3 tests/runners/run_FC07_charge_anomaly_beta.py
+Run:  PYTHONPATH=src python3 tests/runners/run_FC07_charge_anomaly_beta.py
 JSON: test-results/FC07_charge_anomaly.json
 """
 
@@ -38,7 +38,6 @@ from fractions import Fraction
 
 THIS = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(THIS, "..", ".."))
-sys.path.insert(0, os.path.join(REPO, "ca-simulation"))
 sys.path.insert(0, os.path.join(REPO, "src"))
 
 
@@ -193,7 +192,7 @@ def verify_beta_chirality():
     # Cross-check against the in-repo charged-current implementation if present
     repo_resid = None
     try:
-        import ca_charged_current as ccc
+        from casim.engine.gauge import charged_current as ccc
         rr, rl = ccc.va_vertex_kills_right_handed()
         repo_resid = {"resid_right": rr, "resid_left": rl}
     except Exception as exc:  # pragma: no cover
@@ -292,7 +291,7 @@ def summarize_casim_run(path):
     """Pull the W⁻ energy trace from the L=64 ticks=1000 CASIM run."""
     if not os.path.exists(path):
         return {"present": False, "native_run_needed": True,
-                "command": ("PYTHONPATH=src:ca-simulation python3 -m casim.cli "
+                "command": ("PYTHONPATH=src python3 -m casim.cli "
                             "run scenarios/beta_decay.yaml --L 64 --ticks 1000 "
                             "--out test-results/FC07_beta.json")}
     d = json.load(open(path))

@@ -4,9 +4,10 @@ Subtrees: casim/ (package suite), findings/ (test_F*.py finding verifications),
 priority/ (GR/QM/QFT priority battery), runners/ (standalone run_* scripts),
 falsification/ (spec briefs, no collectable tests).
 
-Registers the exactness markers, puts src/ and ca-simulation/ on sys.path so
-every subtree imports without an editable install, and after a run regenerates
-the casim-scoped exactness inventory.
+Registers the exactness markers, puts src/ on sys.path so every subtree imports
+without an editable install, and after a run regenerates the casim-scoped
+exactness inventory. (Before C9 this also added the legacy kernel tree;
+that tree is gone and every test imports from `casim.engine`.)
 
 Roadmap C7.3 — **pytest delegates to the test registry.**
 --------------------------------------------------------
@@ -32,9 +33,9 @@ import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(_HERE)
-for _p in (os.path.join(_REPO, "src"), os.path.join(_REPO, "ca-simulation")):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+_p = os.path.join(_REPO, "src")
+if _p not in sys.path:
+    sys.path.insert(0, _p)
 
 
 def _registry_index():

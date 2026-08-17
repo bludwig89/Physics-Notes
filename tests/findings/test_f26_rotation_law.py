@@ -12,8 +12,8 @@ References
 ----------
 - findings/F26-speed-of-light-as-rotation-rate.md
 - findings/F25-real-rotation-exact-discrete-time-maxwell.md
-- ca-simulation/ca_maxwell.py::rotation_step_em_spectral
-- ca-simulation/ca_maxwell_2d.py::rotation_step_em_spectral_2d
+- src/casim/engine/gauge/bilinear.py::rotation_step_em_spectral
+- src/casim/engine/gauge/bilinear_2d.py::rotation_step_em_spectral_2d
 - docs/status/exactness-inventory.md Tier-1 #59–60, Tier-2 #16–17
 """
 
@@ -22,10 +22,12 @@ import os
 import numpy as np
 
 # Allow running from tests/findings/ or from the project root
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_maxwell as mx
-import ca_maxwell_2d as mx2
+from casim.engine.gauge import bilinear as mx
+from casim.engine.gauge import bilinear_2d as mx2
 
 
 # ── Tolerances ────────────────────────────────────────────────────────────────

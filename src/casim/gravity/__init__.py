@@ -23,8 +23,9 @@ import casim as _casim  # noqa: F401
 from casim.engine.interactions import gravity as ca_gravity  # noqa: E402
 from casim.engine.interactions.gravity import (  # noqa: E402
     C_LAT_BCC, F106_COEFF_LATTICE, G_LATTICE,
-    K_canonical, dielectric_from_phi,
-    T00_dirac_rest, T00_field_energy, phi_source,
+    K_canonical, dielectric_from_phi, dielectric_mix_half,
+    T00_dirac_rest, T00_dirac_kinetic, T0i_dirac,
+    T00_field_energy, phi_source,
     lap_nd, solve_phi_poisson, phi_wave_step, phi_field_energy,
     lapse_mix_half,
 )
@@ -47,7 +48,7 @@ def _lazy(name):
 
 # C6: both loaders name their ENGINE path. They load by string, so neither the
 # import rewriter nor the C3.4 shim checker can see them — the old bare names
-# would have kept resolving through the ca-simulation shims right up to the
+# would have kept resolving through the legacy shims right up to the
 # moment C9 deletes those shims, and then failed silently into `None` (the
 # `except` branch), which is the worst possible failure mode for a lazy loader.
 def ca_curved():
@@ -63,8 +64,9 @@ def ca_emqg():
 __all__ = [
     "ca_gravity",
     "C_LAT_BCC", "F106_COEFF_LATTICE", "G_LATTICE",
-    "K_canonical", "dielectric_from_phi",
-    "T00_dirac_rest", "T00_field_energy", "phi_source",
+    "K_canonical", "dielectric_from_phi", "dielectric_mix_half",
+    "T00_dirac_rest", "T00_dirac_kinetic", "T0i_dirac",
+    "T00_field_energy", "phi_source",
     "lap_nd", "solve_phi_poisson", "phi_wave_step", "phi_field_energy",
     "lapse_mix_half",
     "poisson_open", "solve_poisson_3d_open", "gaussian_mass_3d",

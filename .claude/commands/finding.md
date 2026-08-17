@@ -4,13 +4,32 @@ You are creating a new finding file for the Physics CA project.
 
 ## Steps
 
-1. List the files in `findings/` and find the highest F-number currently used (e.g. `F126-*.md` → 126). The next number is that + 1.
+1. **Take the number from `casim index`; do not compute it, and take exactly one.** Run `casim index`
+   and read the **`NEXT FREE NUMBER`** line. That is the lowest number declared `status: free` in
+   `docs/design/finding-numbers.yaml` — one nobody ever wrote at. Claims reserve no numbers
+   (`session-claims.yaml` revision 2, 2026-08-05); you take one at the moment you write the file.
 
-2. Ask the user (if not already provided in $ARGUMENTS):
+   - **Never** derive the number by listing `findings/` and adding one, and never take max+1 by
+     hand. Listing-and-adding is the move that collided at F110, F129, F219, F229–F232 and F262;
+     max+1 is what left seventeen interior gaps between F291 and F314.
+   - **Expect a number well below the maximum.** The allocator drains the backlog the old
+     block-reservation scheme left behind, so a finding written today lands in the F280s while
+     `max` reads F314. That is correct — spending it *closes* a gap rather than opening one.
+   - No open claim for this session? Open one *now* (see CLAUDE.md "Concurrency"): session handle,
+     `status: open`, sector, one-line topic. **No numbers** — there is no block to size.
+   - Writing a second finding? Re-read `NEXT FREE NUMBER` then. Do not take two now.
+
+   **One edit does all three things:** create `findings/F{N}-{slug}.md`, add
+   `{N}: findings/F{N}-{slug}.md` to your claim's `used:` map, and **delete that number's
+   `status: free` entry from `docs/design/finding-numbers.yaml`**. Deleting the entry *is* the act
+   of spending the number — leave it and `casim index --check` fails, correctly, because the entry
+   is then advertising a spent number as available.
+
+1. Ask the user (if not already provided in $ARGUMENTS):
    - **Title**: short kebab-case name for the file slug and a human-readable title
    - **Summary**: one-sentence description of what was found
 
-3. Get the current date/time with `date "+%Y-%m-%d - %H:%M"`.
+2. Get the current date/time with `date "+%Y-%m-%d - %H:%M"`.
 
 > **Note — pipes in tables:** a literal `|` (e.g. `|k|`, `|ψ|²`, absolute-value bars) breaks
 > Markdown tables and the auto-generated `findings-index.md`. In the **title** and any **table cell**,

@@ -12,7 +12,7 @@ Pass  --dt 1e-3  on the command line if you want the higher-precision integrator
 (adds ~22 s per fork).
 
 Run:
-    cd ca-simulation
+    cd src
     python forks/gr3_forks_AB_extended.py          # default: dt=5e-3
     python forks/gr3_forks_AB_extended.py --dt 1e-3  # high-accuracy mode
 
@@ -38,7 +38,7 @@ SIM_ROOT = os.path.abspath(os.path.join(THIS, '..'))
 sys.path.insert(0, SIM_ROOT)
 sys.path.insert(0, THIS)
 
-from poisson_open import solve_poisson_3d_open, gaussian_mass_3d
+from casim.engine.lattice.poisson_open import solve_poisson_3d_open, gaussian_mass_3d
 from casim.engine.forks.gravity import gr3_fork_A_phase_tick as fork_A  # noqa: E402
 from casim.engine.forks.gravity import gr3_fork_B_anisotropic as fork_B  # noqa: E402
 

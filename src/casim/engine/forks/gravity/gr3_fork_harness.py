@@ -35,7 +35,7 @@ SIM_ROOT = os.path.abspath(os.path.join(THIS, '..'))
 sys.path.insert(0, SIM_ROOT)
 sys.path.insert(0, THIS)
 
-from poisson_open import solve_poisson_3d_open, gaussian_mass_3d
+from casim.engine.lattice.poisson_open import solve_poisson_3d_open, gaussian_mass_3d
 
 from casim.engine.forks.gravity import gr3_fork_baseline as fork_baseline  # noqa: E402
 from casim.engine.forks.gravity import gr3_fork_A_phase_tick as fork_A  # noqa: E402
@@ -411,11 +411,11 @@ def write_markdown(results: dict, path: str) -> None:
     lines.append('')
     lines.append('## Files')
     lines.append('')
-    lines.append('- `ca-simulation/forks/gr3_fork_baseline.py`')
-    lines.append('- `ca-simulation/forks/gr3_fork_A_phase_tick.py`')
-    lines.append('- `ca-simulation/forks/gr3_fork_B_anisotropic.py`')
-    lines.append('- `ca-simulation/forks/gr3_fork_C_restricted_c.py`')
-    lines.append('- `ca-simulation/forks/gr3_fork_harness.py`')
+    lines.append('- `forks/gravity/gr3_fork_baseline.py`')
+    lines.append('- `forks/gravity/gr3_fork_A_phase_tick.py`')
+    lines.append('- `forks/gravity/gr3_fork_B_anisotropic.py`')
+    lines.append('- `forks/gravity/gr3_fork_C_restricted_c.py`')
+    lines.append('- `forks/gravity/gr3_fork_harness.py`')
 
     with open(path, 'w') as f:
         f.write('\n'.join(lines))
@@ -427,7 +427,7 @@ def main():
     print('=' * 70)
     print()
     results = run_harness()
-    # C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+    # C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
     # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
     out_dir = os.path.abspath(os.path.join(THIS, '..', '..', '..', '..', '..', 'test-results'))
     os.makedirs(out_dir, exist_ok=True)

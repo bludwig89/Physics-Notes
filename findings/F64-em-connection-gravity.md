@@ -1,6 +1,13 @@
 # F64 — Electromagnetic-connection gravity (single lattice dielectric)
 
-> **⚠ Reclassified by [[F178-gravity-full-tensor-adoption]] (2026-06-29):** gravity sources from the full stress-energy tensor (induced Einstein equation canonical). this dielectric is now the **vacuum/weak-field representation**, not the strong-field law; the fundamental law is the induced Einstein equation $G_{\mu\nu}=8\pi G\,T_{\mu\nu}$.
+> **[PARTIALLY SUPERSEDED 2026-06-29 by F178 — ledger S4-F178-full-stress-energy]**
+>
+> **DEAD:** The single lattice dielectric read as the FUNDAMENTAL law. It is the vacuum/weak-field REPRESENTATION of the induced Einstein equation; inside matter a single scalar forces anisotropic stress (F173), so the interior dynamics are GR/TOV.
+>
+> **STILL LIVE:** In vacuum and for p << rho c^2, everything: factor-2 light bending, beta = gamma = 1, Mercury, Shapiro, redshift (D-EM9, FA09), the impedance-matched reciprocal lock AB = 1, and the conceptual origin -- gravity as the induced renormalisation of the (E,B) rotation rate. This is founding decision 4 and is not going away.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 
 **Date:** 2026-05-30 - 21:30 (updated 2026-05-31 - 17:05 — canonical K=e^{2u} adopted; G pinned (D-EM10); co-evolving self-redshift (D-EM11))
 **Status:** **Model element — 16/16 tests PASS.** Static eikonal/field-level (D-EM1 exact/algebraic; D-EM2, D-EM3 lattice); a full dynamic time-domain battery (D-EM-D1 flat regression, D-EM-D2a free-fall/EP, D-EM-D2b dynamical redshift, D-EM-D2c deflection, D-EM-D3a backreaction-norm, D-EM4 self-sourced redshift+bend) mirroring F62; the build-out/maturation steps D-EM5 (derive ε=μ=K from the rotation rule), D-EM6 (dynamical light-bends-light), D-EM7 (absolute 3-D K_bend→4 on a ray), D-EM8 (Φ a dynamical field, finite c_g), D-EM9 (strong-field PPN); **and the closing steps D-EM10 (the 4πG coupling pinned to the cell scale — Newton's constant no longer by hand) and D-EM11 (the fully co-evolving self-redshift, removing D-EM4's fixed-radius workaround).**

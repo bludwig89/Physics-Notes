@@ -2,7 +2,7 @@
 F147 — the induced gauge-stiffness one-loop on the BCC walk
 (the F138 induced-Y-kinetic-term loop; the dynamical half of F141's U2).
 
-Checks (module: ca-simulation/ca_induced_stiffness.py):
+Checks (module: src/casim/engine/particles/induced_stiffness.py):
 
   L1  hop decomposition A(q) = Σ_d e^{i d·q} C_d exact (both branches)
   L2  parity theorem ω(q+Q) = π−ω(q), n(q+Q) = −n(q) (from F51 S1)
@@ -35,8 +35,10 @@ from fractions import Fraction
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "ca-simulation")))
-import ca_induced_stiffness as cis  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import induced_stiffness as cis  # noqa: E402
 
 RESULTS = os.path.normpath(
     os.path.join(HERE, "..", "..", "test-results", "F147_induced_stiffness_loop.json"))

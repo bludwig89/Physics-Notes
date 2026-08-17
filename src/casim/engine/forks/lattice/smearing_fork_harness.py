@@ -67,15 +67,15 @@ import numpy as np
 # ── path resolution ──────────────────────────────────────────────────────────
 HERE  = os.path.dirname(os.path.abspath(__file__))
 CASIM = os.path.dirname(HERE)
-for _cand in (CASIM, HERE,
-              "/sessions/awesome-vibrant-feynman/mnt/Physics Notes/ca-simulation"):
-    if os.path.isfile(os.path.join(_cand, "ca_bcc.py")):
+# C9: the kernels are a package now, so there is nothing to probe for —
+# `src/` (five levels up) is the one path that matters.
+CASIM = os.path.abspath(os.path.join(HERE, *([".."] * 5), "src"))
+for _cand in (CASIM, HERE):
+    if _cand not in sys.path:
         sys.path.insert(0, _cand)
-        CASIM = _cand
-        break
 
-import ca_maxwell as mx
-import ca_bcc     as bcc
+from casim.engine.gauge import bilinear as mx
+from casim.engine.lattice import bcc as bcc
 from casim.constants import c_lat
 
 # ── constants ─────────────────────────────────────────────────────────────────

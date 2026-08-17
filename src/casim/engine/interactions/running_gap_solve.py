@@ -43,7 +43,7 @@ from casim.constants import (
     M0_constituent_lattice as _M0_constituent_lattice,
     m0_current_quark_MeV as _m0_current_quark_MeV,
 )
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 LAMBDA_NJL = njl.LAMBDA_NJL          # 0.6515 GeV (BZ edge)
 GEV_PER_UNIT = _GeV_per_lattice_unit  # 0.2074 GeV per lattice unit (q=0..pi map)

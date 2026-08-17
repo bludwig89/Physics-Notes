@@ -62,11 +62,13 @@ import sympy as sp
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 RESULTS = os.path.join(REPO, "test-results")
-sys.path.insert(0, os.path.join(REPO, "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_blockspin as bs
-from ca_photon_pair import pair_dispersion, photon_step_spectral, build_pair_mode
-from ca_lattice import make_kgrid_3d
+from casim.engine.lattice import blockspin as bs
+from casim.engine.gauge.photon import pair_dispersion, photon_step_spectral, build_pair_mode
+from casim.engine.lattice.geometry import make_kgrid_3d
 
 C_LAT = 1.0 / np.sqrt(3.0)
 report = {"finding": "F129", "title": "Block-spin RG — free paired-photon sector",

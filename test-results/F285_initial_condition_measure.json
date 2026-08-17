@@ -1,0 +1,115 @@
+{
+  "D1_measures": {
+    "best_candidate": "scale_free_in_the_metric",
+    "best_deviation_sigma": 8.357142857142863,
+    "candidates": {
+      "local_short_range_correlated": {
+        "P_rho_slope": 0.0,
+        "deviation_sigma": 229.73809523809524,
+        "n_s": 0.0
+      },
+      "locally_conserved_causal": {
+        "P_rho_slope": 4.0,
+        "deviation_sigma": 722.6428571428571,
+        "n_s": 4.0
+      },
+      "scale_free_in_the_metric": {
+        "P_rho_slope": 1.0,
+        "deviation_sigma": 8.357142857142863,
+        "n_s": 1.0
+      },
+      "uniform_max_entropy": {
+        "P_rho_slope": 0.0,
+        "deviation_sigma": 229.73809523809524,
+        "n_s": 0.0
+      }
+    },
+    "generic_measures_bracket_without_hitting": true,
+    "n_s_observed": 0.9649,
+    "sigma": 0.0042
+  },
+  "D1b_non_genericity": {
+    "a_metres": 1.0663754173481642e-34,
+    "comment": "the initial state must carry ~56 decades LESS large-scale power than white noise, and ~177 decades MORE than conserved-causal \u2014 non-generic in both directions",
+    "decades_below_BZ": 58.25962028864585,
+    "enhancement_vs_conserved_causal_decades": 176.82377353806902,
+    "k_BZ_per_m": 2.946047519927107e+34,
+    "k_pivot_per_m": 1.6203896447221827e-24,
+    "pivot_over_BZ": 5.500215572769428e-59,
+    "suppression_vs_white_noise_decades": 56.21470761651438
+  },
+  "D2_brillouin_zone": {
+    "correction_decades": 115.52494083190342,
+    "decades_below_BZ": 58.25962028864585,
+    "k_times_a_at_pivot": 1.727943683657261e-58,
+    "leading_correction_ka_squared": 2.9857893738910245e-116,
+    "time_independent_because_lattice_is_rigid": true,
+    "verdict": "closed \u2014 and permanently, since a rigid lattice (F284) keeps k/k_BZ fixed at every epoch"
+  },
+  "D3_blockspin": {
+    "b": 2,
+    "conclusion": "block-spin gives the power-law FORM for free and cannot select the tilt",
+    "contrast_with_F282_C3": "F282 C3: the DYNAMICAL operator spectrum has an O(1) gap around marginality (nothing to be a slow-roll field). Here: the INITIAL-STATE spectral index is exactly marginal (nothing to fix the tilt). Different objects, same direction of damage.",
+    "every_power_law_preserved": true,
+    "exponent_is_marginal": true,
+    "fixed_point_set": "a one-parameter LINE of power laws",
+    "general_exponent_out": "n",
+    "rows": {
+      "n=+0": {
+        "amplitude_factor": "b**(-3)",
+        "exponent_preserved": true,
+        "image": "A/b**3",
+        "input_exponent": 0,
+        "recovered_exponent": 0
+      },
+      "n=+1": {
+        "amplitude_factor": "b**(-4)",
+        "exponent_preserved": true,
+        "image": "A*k/b**4",
+        "input_exponent": 1,
+        "recovered_exponent": 1
+      },
+      "n=+2": {
+        "amplitude_factor": "b**(-5)",
+        "exponent_preserved": true,
+        "image": "A*k**2/b**5",
+        "input_exponent": 2,
+        "recovered_exponent": 2
+      },
+      "n=+4": {
+        "amplitude_factor": "b**(-7)",
+        "exponent_preserved": true,
+        "image": "A*k**4/b**7",
+        "input_exponent": 4,
+        "recovered_exponent": 4
+      },
+      "n=-1": {
+        "amplitude_factor": "b**(-2)",
+        "exponent_preserved": true,
+        "image": "A/(b**2*k)",
+        "input_exponent": -1,
+        "recovered_exponent": -1
+      },
+      "n=-2": {
+        "amplitude_factor": "1/b",
+        "exponent_preserved": true,
+        "image": "A/(b*k**2)",
+        "input_exponent": -2,
+        "recovered_exponent": -2
+      }
+    }
+  },
+  "finding": "F285",
+  "key_relation": "P_rho(k) ~ k^(n_s), via Poisson + Delta^2 = k^3 P",
+  "question": "what n_s can an initial-condition measure actually give?",
+  "synthesis": {
+    "hz_exact_deviation_sigma": 8.357142857142863,
+    "inflation_supplies_tilt_as": "n_s - 1 = -6 eps + 2 eta (a slow-roll ratio)",
+    "lattice_scale_imprint_at_pivot": 2.9857893738910245e-116,
+    "lattice_scales_available": 1,
+    "only_scale_free_choice_is_ns_1": true,
+    "tilt_magnitude": 0.03510000000000002,
+    "verdict": "the hard observation is NOT the scale invariance \u2014 it is the 3.5% DEPARTURE from it, which needs a slowly-evolving second scale, i.e. exactly what F282 excluded"
+  },
+  "verdict": "all three directions close: generic measures give n_s = 0 or 4, the one scale-free choice gives exactly 1 (8.4 sigma off), the BZ edge is 58 decades away permanently, and block-spin fixes the shape but leaves the tilt marginal"
+}

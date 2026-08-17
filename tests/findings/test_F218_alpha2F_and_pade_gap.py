@@ -16,7 +16,7 @@ F218 — closes the two extensions F215 left:
           ~4.7 (Pb, Hg), tracking the measured trend; the first-principles Debye
           spectrum tightens it (the gap ratio IS shape-sensitive, unlike T_c).
 
-Standalone or pytest.  Module: ca-simulation/ca_superconductivity.py (mpmath).
+Standalone or pytest.  Module: src/casim/engine/interactions/superconductivity.py (mpmath).
 """
 from __future__ import annotations
 import os, sys, json, math
@@ -24,8 +24,10 @@ import numpy as np
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(os.path.dirname(_HERE))
-sys.path.insert(0, os.path.join(_REPO, "ca-simulation"))
-import ca_superconductivity as sc  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import superconductivity as sc  # noqa: E402
 
 RESULTS = {}
 MEAS_RATIO = {"Al": 3.40, "Sn": 3.50, "In": 3.65, "Ta": 3.60,

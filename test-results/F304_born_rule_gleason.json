@@ -1,0 +1,770 @@
+{
+  "checks": [
+    {
+      "id": "B1a[n=1]",
+      "desc": "pointer algebra maximal abelian",
+      "pass": true,
+      "value": 2
+    },
+    {
+      "id": "B1a[n=2]",
+      "desc": "pointer algebra maximal abelian",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "id": "B1a[n=3]",
+      "desc": "pointer algebra maximal abelian",
+      "pass": true,
+      "value": 8
+    },
+    {
+      "id": "B1b",
+      "desc": "no record without environment cells; min measurement dim = 4",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "id": "B1c",
+      "desc": "the free step's 2-dim momentum blocks are invariant but NOT pointer contexts",
+      "pass": true,
+      "value": [
+        2.2204460492503136e-16,
+        0.1753901900050285
+      ]
+    },
+    {
+      "id": "B2a",
+      "desc": "record ray identical across contexts sharing a ray",
+      "pass": true,
+      "value": -2.220446049250313e-16
+    },
+    {
+      "id": "B2b",
+      "desc": "weight identical across contexts sharing a ray",
+      "pass": true,
+      "value": 0.0
+    },
+    {
+      "id": "B2c",
+      "desc": "weight invariant under outcome-label permutation",
+      "pass": true,
+      "value": 2.220446049250313e-16
+    },
+    {
+      "id": "B3a",
+      "desc": "local marginal invariant under remote context change",
+      "pass": true,
+      "value": 9.720644932127638e-17
+    },
+    {
+      "id": "B4a",
+      "desc": "d=2: an explicit non-Born frame function exists",
+      "pass": true,
+      "value": 0.14713452674296523
+    },
+    {
+      "id": "B4b",
+      "desc": "d=3: the same family fails the frame condition",
+      "pass": true,
+      "value": 0.3572357479725724
+    },
+    {
+      "id": "B5a",
+      "desc": "d>=3: frame-function space dimension = d^2 at every degree",
+      "pass": true,
+      "value": [
+        [
+          3,
+          1,
+          9
+        ],
+        [
+          3,
+          2,
+          9
+        ],
+        [
+          3,
+          3,
+          9
+        ],
+        [
+          4,
+          1,
+          16
+        ],
+        [
+          4,
+          2,
+          16
+        ],
+        [
+          4,
+          3,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "B5b",
+      "desc": "d=2: dimension = 1 + sum_{odd l<=deg}(2l+1), unbounded",
+      "pass": true,
+      "value": [
+        [
+          1,
+          4,
+          4
+        ],
+        [
+          2,
+          4,
+          4
+        ],
+        [
+          3,
+          11,
+          11
+        ],
+        [
+          4,
+          11,
+          11
+        ],
+        [
+          5,
+          22,
+          22
+        ],
+        [
+          6,
+          22,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "B5c",
+      "desc": "the d>=3 solution space IS the Hermitian forms",
+      "pass": true,
+      "value": 4.884981308350689e-15
+    },
+    {
+      "id": "B7a",
+      "desc": "averaging operator spectrum = the closed form b_k, with dim V_k multiplicities",
+      "pass": true,
+      "value": [
+        [
+          2,
+          1,
+          4,
+          "8.9e-16"
+        ],
+        [
+          2,
+          3,
+          16,
+          "1.6e-15"
+        ],
+        [
+          3,
+          1,
+          9,
+          "8.9e-16"
+        ],
+        [
+          3,
+          2,
+          36,
+          "1.4e-15"
+        ],
+        [
+          4,
+          1,
+          16,
+          "1.2e-15"
+        ],
+        [
+          4,
+          2,
+          100,
+          "1.2e-15"
+        ]
+      ]
+    },
+    {
+      "id": "B7b",
+      "desc": "the k=1 resonance 1+(d-1)b_1 is an EXACT rational zero, d=2..12",
+      "pass": true,
+      "value": "0 exactly"
+    },
+    {
+      "id": "B7c",
+      "desc": "d>=3: no other component survives (exact, k<=40, strict gap)",
+      "pass": true,
+      "value": 0.5
+    },
+    {
+      "id": "B7d",
+      "desc": "d=2: the survivors are EXACTLY the odd k \u2014 the hole, derived",
+      "pass": true,
+      "value": [
+        1,
+        3,
+        5,
+        7,
+        9,
+        11
+      ]
+    },
+    {
+      "id": "B7e",
+      "desc": "the proof predicts B5a/B5b as integers, with no fitting",
+      "pass": true,
+      "value": [
+        [
+          1,
+          4,
+          4
+        ],
+        [
+          2,
+          4,
+          4
+        ],
+        [
+          3,
+          11,
+          11
+        ],
+        [
+          4,
+          11,
+          11
+        ],
+        [
+          5,
+          22,
+          22
+        ],
+        [
+          6,
+          22,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "B6a",
+      "desc": "record-channel weight = |<v|psi>|^2 on a lattice state",
+      "pass": true,
+      "value": 2.220446049250313e-16
+    },
+    {
+      "id": "B6b",
+      "desc": "l^2 uniquely conserved by a genuine BCC Weyl tick (F281 leg 1, corollary)",
+      "pass": true,
+      "value": [
+        0.0,
+        0.03351723165284666
+      ]
+    }
+  ],
+  "n_pass": 21,
+  "n_total": 21,
+  "n_fail": 0,
+  "all_pass": true,
+  "params": {
+    "coupling": "minimal",
+    "locality": "local",
+    "gleason_dim": 3
+  },
+  "detail": {
+    "B1a_pointer_commutant": [
+      {
+        "n_sys": 1,
+        "hilbert_dim": 2,
+        "commutant_dim": 2,
+        "expected": 2,
+        "maximal_abelian": true
+      },
+      {
+        "n_sys": 2,
+        "hilbert_dim": 4,
+        "commutant_dim": 4,
+        "expected": 4,
+        "maximal_abelian": true
+      },
+      {
+        "n_sys": 3,
+        "hilbert_dim": 8,
+        "commutant_dim": 8,
+        "expected": 8,
+        "maximal_abelian": true
+      }
+    ],
+    "B1b_record_requires_environment": {
+      "n_env_zero_factor": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "n_env_zero_max_dev_from_1": 0.0,
+      "n_env_one_factor": [
+        0.9774011348268636,
+        0.7102099032535508,
+        0.3393291792859696,
+        0.4998183010132471
+      ],
+      "n_env_one_varies": 0.638071955540894,
+      "min_measurement_dim": 4,
+      "gleason_dimension_premise_met": true
+    },
+    "B1c_momentum_block_not_a_context": {
+      "L": 4,
+      "N_sites": 64,
+      "block_leakage": 2.2204460492503136e-16,
+      "block_is_invariant": true,
+      "commutator_with_pointer": 0.1753901900050285,
+      "commutator_closed_form": 0.1753901900050285,
+      "closed_form_residual": 0.0,
+      "is_a_pointer_context": false
+    },
+    "B2ab_context_blindness": {
+      "coupling": "minimal",
+      "n_contexts": 5,
+      "weight_spread": 0.0,
+      "record_ray_infidelity": -2.220446049250313e-16,
+      "context_blind": true
+    },
+    "B2c_label_permutation": {
+      "weights_by_slot": [
+        0.7589996374850266,
+        0.7589996374850267,
+        0.7589996374850267,
+        0.7589996374850265
+      ],
+      "spread": 2.220446049250313e-16,
+      "permutation_symmetric": true
+    },
+    "B3a_remote_context": {
+      "locality": "local",
+      "max_marginal_deviation": 9.720644932127638e-17,
+      "no_signalling": true
+    },
+    "B4a_d2_hole": {
+      "frame_condition_max_dev": 1.1102230246251565e-15,
+      "born_fit_max_residual": 0.14713452674296523,
+      "born_fit_rms_residual": 0.058225149052127424,
+      "is_a_frame_function": true,
+      "is_not_born": true
+    },
+    "B4b_d3_closes": {
+      "mean": 0.9989846291790734,
+      "std": 0.05370659020956269,
+      "min": 0.8204944295355389,
+      "max": 1.1777301775081113,
+      "spread": 0.3572357479725724,
+      "fails_frame_condition": true
+    },
+    "B5_dichotomy": {
+      "rigid_rows": [
+        {
+          "d": 3,
+          "deg": 1,
+          "dim_sym": 3,
+          "params": 9,
+          "n_bases": 69,
+          "frame_dim": 9,
+          "d_squared": 9,
+          "hermitian_contained_residual": 4.884981308350689e-15,
+          "rigid": true
+        },
+        {
+          "d": 3,
+          "deg": 2,
+          "dim_sym": 6,
+          "params": 36,
+          "n_bases": 96,
+          "frame_dim": 9,
+          "d_squared": 9,
+          "hermitian_contained_residual": 2.1094237467877974e-15,
+          "rigid": true
+        },
+        {
+          "d": 3,
+          "deg": 3,
+          "dim_sym": 10,
+          "params": 100,
+          "n_bases": 160,
+          "frame_dim": 9,
+          "d_squared": 9,
+          "hermitian_contained_residual": 4.2049697057677804e-15,
+          "rigid": true
+        },
+        {
+          "d": 4,
+          "deg": 1,
+          "dim_sym": 4,
+          "params": 16,
+          "n_bases": 76,
+          "frame_dim": 16,
+          "d_squared": 16,
+          "hermitian_contained_residual": 2.5066754227864863e-15,
+          "rigid": true
+        },
+        {
+          "d": 4,
+          "deg": 2,
+          "dim_sym": 10,
+          "params": 100,
+          "n_bases": 160,
+          "frame_dim": 16,
+          "d_squared": 16,
+          "hermitian_contained_residual": 3.802513859341161e-15,
+          "rigid": true
+        },
+        {
+          "d": 4,
+          "deg": 3,
+          "dim_sym": 20,
+          "params": 400,
+          "n_bases": 533,
+          "frame_dim": 16,
+          "d_squared": 16,
+          "hermitian_contained_residual": 4.107825191113079e-15,
+          "rigid": true
+        }
+      ],
+      "all_rigid": true,
+      "max_hermitian_containment_residual": 4.884981308350689e-15,
+      "d2_rows": [
+        {
+          "d": 2,
+          "deg": 1,
+          "dim_sym": 2,
+          "params": 4,
+          "n_bases": 64,
+          "frame_dim": 4,
+          "d_squared": 4,
+          "hermitian_contained_residual": 1.2212453270876722e-15,
+          "rigid": true,
+          "closed_form": 4,
+          "matches_closed_form": true
+        },
+        {
+          "d": 2,
+          "deg": 2,
+          "dim_sym": 3,
+          "params": 9,
+          "n_bases": 69,
+          "frame_dim": 4,
+          "d_squared": 4,
+          "hermitian_contained_residual": 6.494804694057166e-15,
+          "rigid": true,
+          "closed_form": 4,
+          "matches_closed_form": true
+        },
+        {
+          "d": 2,
+          "deg": 3,
+          "dim_sym": 4,
+          "params": 16,
+          "n_bases": 76,
+          "frame_dim": 11,
+          "d_squared": 4,
+          "hermitian_contained_residual": 1.6653345369377348e-15,
+          "rigid": false,
+          "closed_form": 11,
+          "matches_closed_form": true
+        },
+        {
+          "d": 2,
+          "deg": 4,
+          "dim_sym": 5,
+          "params": 25,
+          "n_bases": 85,
+          "frame_dim": 11,
+          "d_squared": 4,
+          "hermitian_contained_residual": 3.552713678800501e-15,
+          "rigid": false,
+          "closed_form": 11,
+          "matches_closed_form": true
+        },
+        {
+          "d": 2,
+          "deg": 5,
+          "dim_sym": 6,
+          "params": 36,
+          "n_bases": 96,
+          "frame_dim": 22,
+          "d_squared": 4,
+          "hermitian_contained_residual": 4.3298697960381105e-15,
+          "rigid": false,
+          "closed_form": 22,
+          "matches_closed_form": true
+        },
+        {
+          "d": 2,
+          "deg": 6,
+          "dim_sym": 7,
+          "params": 49,
+          "n_bases": 109,
+          "frame_dim": 22,
+          "d_squared": 4,
+          "hermitian_contained_residual": 3.885780586188048e-15,
+          "rigid": false,
+          "closed_form": 22,
+          "matches_closed_form": true
+        }
+      ],
+      "d2_closed_form_exact": true,
+      "d2_max_excess": 18,
+      "d2_unbounded": true
+    },
+    "B7a_operator_spectrum": [
+      {
+        "d": 2,
+        "k": 1,
+        "function_space_dim": 4,
+        "function_space_dim_predicted": 4,
+        "max_eigenvalue_deviation": 8.881784197001252e-16,
+        "max_imaginary_part": 0.0,
+        "sym_rank_exact": true,
+        "zonal": "jacobi",
+        "closed_form": [
+          "1",
+          "-1"
+        ]
+      },
+      {
+        "d": 2,
+        "k": 3,
+        "function_space_dim": 16,
+        "function_space_dim_predicted": 16,
+        "max_eigenvalue_deviation": 1.5543122344752192e-15,
+        "max_imaginary_part": 2.1916390919688182e-16,
+        "sym_rank_exact": true,
+        "zonal": "jacobi",
+        "closed_form": [
+          "1",
+          "-1",
+          "1",
+          "-1"
+        ]
+      },
+      {
+        "d": 3,
+        "k": 1,
+        "function_space_dim": 9,
+        "function_space_dim_predicted": 9,
+        "max_eigenvalue_deviation": 8.881784197001252e-16,
+        "max_imaginary_part": 0.0,
+        "sym_rank_exact": true,
+        "zonal": "jacobi",
+        "closed_form": [
+          "1",
+          "-1/2"
+        ]
+      },
+      {
+        "d": 3,
+        "k": 2,
+        "function_space_dim": 36,
+        "function_space_dim_predicted": 36,
+        "max_eigenvalue_deviation": 1.3877787807814457e-15,
+        "max_imaginary_part": 3.365184701171237e-16,
+        "sym_rank_exact": true,
+        "zonal": "jacobi",
+        "closed_form": [
+          "1",
+          "-1/2",
+          "1/3"
+        ]
+      },
+      {
+        "d": 4,
+        "k": 1,
+        "function_space_dim": 16,
+        "function_space_dim_predicted": 16,
+        "max_eigenvalue_deviation": 1.2212453270876722e-15,
+        "max_imaginary_part": 2.7052788744732945e-16,
+        "sym_rank_exact": true,
+        "zonal": "jacobi",
+        "closed_form": [
+          "1",
+          "-1/3"
+        ]
+      },
+      {
+        "d": 4,
+        "k": 2,
+        "function_space_dim": 100,
+        "function_space_dim_predicted": 100,
+        "max_eigenvalue_deviation": 1.2212453270876722e-15,
+        "max_imaginary_part": 3.597533769998862e-16,
+        "sym_rank_exact": true,
+        "zonal": "jacobi",
+        "closed_form": [
+          "1",
+          "-1/3",
+          "1/6"
+        ]
+      }
+    ],
+    "B7bcd_selection_exact": {
+      "d_max": 12,
+      "k_max": 40,
+      "k1_resonance_is_exact_zero": true,
+      "binomial_strictly_increasing_in_k": true,
+      "d2_survivors_are_exactly_the_odd_k": true,
+      "d_ge_3_survivors_are_exactly_{1}": true,
+      "min_strict_gap_d_ge_3_k_ge_2": 0.5,
+      "survivors_by_d": {
+        "2": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11
+        ],
+        "3": [
+          1
+        ],
+        "4": [
+          1
+        ],
+        "5": [
+          1
+        ],
+        "6": [
+          1
+        ],
+        "7": [
+          1
+        ],
+        "8": [
+          1
+        ],
+        "9": [
+          1
+        ],
+        "10": [
+          1
+        ],
+        "11": [
+          1
+        ],
+        "12": [
+          1
+        ]
+      }
+    },
+    "B7e_proof_predicts_measurements": {
+      "d2_rows": [
+        {
+          "deg": 1,
+          "predicted": 4,
+          "measured": 4,
+          "agree": true
+        },
+        {
+          "deg": 2,
+          "predicted": 4,
+          "measured": 4,
+          "agree": true
+        },
+        {
+          "deg": 3,
+          "predicted": 11,
+          "measured": 11,
+          "agree": true
+        },
+        {
+          "deg": 4,
+          "predicted": 11,
+          "measured": 11,
+          "agree": true
+        },
+        {
+          "deg": 5,
+          "predicted": 22,
+          "measured": 22,
+          "agree": true
+        },
+        {
+          "deg": 6,
+          "predicted": 22,
+          "measured": 22,
+          "agree": true
+        }
+      ],
+      "d_ge_3_rows": [
+        {
+          "d": 3,
+          "deg": 1,
+          "predicted": 9,
+          "measured": 9,
+          "agree": true
+        },
+        {
+          "d": 3,
+          "deg": 2,
+          "predicted": 9,
+          "measured": 9,
+          "agree": true
+        },
+        {
+          "d": 3,
+          "deg": 3,
+          "predicted": 9,
+          "measured": 9,
+          "agree": true
+        },
+        {
+          "d": 4,
+          "deg": 1,
+          "predicted": 16,
+          "measured": 16,
+          "agree": true
+        },
+        {
+          "d": 4,
+          "deg": 2,
+          "predicted": 16,
+          "measured": 16,
+          "agree": true
+        },
+        {
+          "d": 4,
+          "deg": 3,
+          "predicted": 16,
+          "measured": 16,
+          "agree": true
+        }
+      ],
+      "all_agree_as_integers": true,
+      "d_squared_identity": true
+    },
+    "B6a_born_value": {
+      "max_deviation": 2.220446049250313e-16,
+      "n_rays": 4,
+      "born": true
+    },
+    "B6b_l2_corollary": {
+      "relative_change": {
+        "p=1": 0.04750910335403962,
+        "p=1.5": 0.03351723165284666,
+        "p=2": 0.0,
+        "p=2.5": 0.05167785310437416,
+        "p=3": 0.12153928607178083,
+        "p=4": 0.32064048445373466
+      },
+      "p2_change": 0.0,
+      "min_other_change": 0.03351723165284666,
+      "l2_uniquely_conserved": true
+    }
+  }
+}

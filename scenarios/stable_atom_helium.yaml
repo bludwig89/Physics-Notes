@@ -11,6 +11,7 @@
 # nucleus (2p2n, F157 α −30.1 MeV).  Net charge ≡ 0 (machine precision), norms
 # conserved ~1e-15, every radius bounded, cloud surrounds nucleus.  Structure +
 # scale ratio are the deliverable; absolute fm/eV stay P6/scale-gated (F123).
+version: 2
 name: stable_atom_helium
 title: "Fully Stable Block-Spin Atom — Helium (F195)"
 description: "Live element atom He(2,2): A=4 coarse-grained nucleus → +2 point, 1s² closed shell with live Hartree + Gram-Schmidt Pauli; net charge 0, norms machine-precision, bounded over a long run."

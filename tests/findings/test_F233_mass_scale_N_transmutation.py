@@ -20,8 +20,10 @@ import os, sys, json, math
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-sys.path.insert(0, os.path.join(ROOT, "ca-simulation"))
-import ca_alpha_s_running as R  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import running_alpha_s as R  # noqa: E402
 
 
 def main() -> dict:

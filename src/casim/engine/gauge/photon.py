@@ -107,6 +107,186 @@ def photon_step_spectral(E, B):
     return E_new, B_new
 
 
+def _pair_omega(shape):
+    """Cached Ω_pair(k) grid for a spatial ``shape``."""
+    key = ("omega", shape)
+    if key not in _photon_disp_cache:
+        KX, KY, KZ = make_kgrid_3d(*shape)
+        Om = pair_dispersion(KX, KY, KZ)
+        Om.setflags(write=False)
+        _photon_disp_cache[key] = Om
+    return _photon_disp_cache[key]
+
+
+def _even_rotate(E, B, tau):
+    """Rotate the (E,B) pair by ``Ω_pair(k)·tau`` per mode — exactly unitary.
+
+    ``photon_step_spectral`` is this at ``tau = 1``.  Splitting it out is what
+    lets the homogeneous part of a dielectric step stay exact.
+    """
+    Om = _pair_omega(E.shape[1:])
+    c, s = np.cos(Om * tau), np.sin(Om * tau)
+    Ek = _fft.fftn(E, axes=(-3, -2, -1))
+    Bk = _fft.fftn(B, axes=(-3, -2, -1))
+    return (_fft.ifftn(c * Ek + s * Bk, axes=(-3, -2, -1)).real,
+            _fft.ifftn(-s * Ek + c * Bk, axes=(-3, -2, -1)).real)
+
+
+def _M_weyl(V, Om, delta):
+    """Apply :math:`M=\\tfrac12(\\delta\\,\\Omega + \\Omega\\,\\delta)` to ``V``.
+
+    **Weyl (symmetric) ordering, and it is not a refinement — it is the
+    resolution of a genuine ambiguity.**  The classical quantity being promoted
+    to an operator is the product :math:`\\delta(x)\\,\\Omega(k)`.  Position and
+    momentum do not commute, so "the" operator is not defined until an ordering
+    is chosen, and the two obvious choices are not equivalent.
+
+    The asymmetric choice :math:`\\delta\\,\\Omega` is **not self-adjoint**, so
+    the generator :math:`\\delta\\Omega J` is not antisymmetric and the evolution
+    it produces is **not orthogonal — at any step size**.  Measured: with the
+    asymmetric ordering the norm drift *plateaus* at :math:`1.1\\times10^{-5}`
+    and stops improving, because sub-stepping reduces the Trotter error but
+    cannot remove a non-unitarity that is present in the generator itself.
+
+    The symmetric (Weyl) product is self-adjoint by construction, :math:`J` is
+    real antisymmetric with :math:`J^2=-\\mathbb{I}`, so :math:`MJ` is a real
+    antisymmetric operator on the doubled :math:`(E,B)` space and its exponential
+    is **exactly orthogonal**.  The only residual is then Taylor truncation,
+    which converges — measured norm drift falls like :math:`1/n_\\text{sub}^3`,
+    reaching :math:`2\\times10^{-10}` at ``n_sub=64``.
+
+    Costs one extra FFT round trip over the asymmetric form.  Worth it: it is
+    the difference between an error that converges and one that does not.
+    """
+    a = delta * _fft.ifftn(Om * _fft.fftn(V, axes=(-3, -2, -1)),
+                           axes=(-3, -2, -1)).real
+    b = _fft.ifftn(Om * _fft.fftn(delta * V, axes=(-3, -2, -1)),
+                   axes=(-3, -2, -1)).real
+    return 0.5 * (a + b)
+
+
+def _dielectric_half(E, B, delta, h):
+    """Half-step of the inhomogeneous generator :math:`M J`, to second order.
+
+    :math:`\\Omega(k)` acts in Fourier space (exact, k-resolved) and
+    :math:`\\delta(x)` in position space — that non-commutation *is* the
+    difficulty, and it is why no single homogeneous FFT can do this.  Lifted
+    from ``lattice.curved._half_step_dH``, the audited variable-c construction,
+    with two derived corrections (see below and :func:`_M_weyl`).
+
+    **Second order, because :math:`J` makes it free to derive.**  :math:`J`
+    commutes with :math:`M` (it acts on the two-component :math:`(E,B)` index,
+    :math:`M` on space) and :math:`J^2=-\\mathbb{I}`, so exactly
+
+    .. math:: e^{hMJ} = \\cos(hM)\\,\\mathbb{I} + \\sin(hM)\\,J
+              = \\mathbb{I} - \\tfrac{h^2M^2}{2} + hMJ + O(h^3)
+
+    Keeping only :math:`\\mathbb{I}+hMJ` — what the 2-D reference does — leaves
+    an :math:`O(h^2)` local error that Strang symmetrisation does **not** cancel,
+    so the scheme is globally **first** order: measured convergence exponent
+    1.0.  Carrying the :math:`-h^2M^2/2` term restores the second order the
+    Strang composition is supposed to deliver: measured exponent **2.00**, and
+    the error at ``n_sub=8`` drops from :math:`3.0\\times10^{-2}` to
+    :math:`3.7\\times10^{-4}` — a factor of 80.
+
+    Note this is a defect of the 2-D reference as well; see F271.
+    """
+    Om = _pair_omega(E.shape[1:])
+    P_E = _M_weyl(E, Om, delta)
+    P_B = _M_weyl(B, Om, delta)
+    E_new = E + h * P_B - 0.5 * h * h * _M_weyl(P_E, Om, delta)
+    B_new = B - h * P_E - 0.5 * h * h * _M_weyl(P_B, Om, delta)
+    return E_new, B_new
+
+
+def photon_step_dielectric(E, B, K, dt=1.0, n_sub=4):
+    """Photon step through the F64 dielectric ``K(x)`` — **k-resolved**, no free
+    parameter.
+
+    *Added 2026-08-01 (roadmap P3.6 follow-through, F271). Supersedes the
+    eikonal* ``gravity.dielectric_mix_half`` *for the photon channel.*
+
+    **The physics.** For the impedance-matched F64 dielectric ($A=1/K$, $B=K$,
+    $AB\\equiv1$) the metric is $ds^2=-A c^2dt^2+B\\,dx^2$, so the local
+    coordinate light speed is $c\\sqrt{A/B}=c/K$. F64 states the mechanism as a
+    renormalisation of the rotation *rate*, which on the lattice means the
+    (E,B) pair turns at
+
+    .. math:: \\Omega_K(x,k) = \\Omega_\\text{pair}(k)\\,/\\,K(x)
+
+    — a rate that is **position-dependent and momentum-dependent at once**, and
+    therefore diagonal in neither basis. That is the whole obstruction, and it
+    is why the deflection lived only in the F64 fork.
+
+    **The resolution, lifted rather than invented.** Write $s(x)=1/K(x)$ and
+    split it about its mean, $s = s_0 + \\delta(x)$:
+
+    * $s_0\\,\\Omega(k)$ — diagonal in $k$, applied as an **exact unitary**
+      rotation by $s_0\\Omega(k)\\,dt$;
+    * $\\delta(x)\\,\\Omega(k)$ — applied to first order, $\\Omega$ in Fourier
+      space and $\\delta$ in position space, symmetrised Strang-wise around the
+      exact part and sub-cycled ``n_sub`` times.
+
+    This is exactly the decomposition ``lattice.curved.weyl_step_2d_varc_strang``
+    uses for the variable-$c$ Weyl walk — the construction that already
+    reproduces Snell's law in this codebase. Nothing new is posited.
+
+    **What it buys over the eikonal.**
+
+    * **No free parameter.** ``dielectric_mix_half`` needed a stated central
+      rate $\\omega_0$; here the rate is $\\Omega(k)$, mode by mode.
+    * **A uniform dielectric is EXACT.** If $K$ is constant then
+      $\\delta\\equiv0$, the perturbation vanishes identically, and the step is
+      the exact unitary rotation at $\\Omega(k)/K$ — so the group velocity is
+      $c/K$ to machine precision at every $k$. The eikonal cannot do this: it
+      would need $\\omega_0=\\Omega(k)$, which is the thing it replaces with a
+      number.
+    * **The error is controlled, not uncontrolled.** The residual is the Trotter
+      error of the split, $O(dt^2\\,|\\nabla K|)$ per tick, falling like
+      $1/n_\\text{sub}^2$ — measurable and convergent, where the eikonal's
+      $\\omega_0$ error is $O(1)$ and does not converge to anything.
+
+    **Accuracy, measured.** The perturbation half-step uses Weyl-symmetric
+    ordering (:func:`_M_weyl`) and is carried to second order
+    (:func:`_dielectric_half`); both are *derived*, not tuned. Together:
+
+    ======  ===================  ===================
+    n_sub   Trotter error        norm drift
+    ======  ===================  ===================
+    2       5.7e-03              7.6e-06
+    8       3.7e-04              1.2e-07
+    32      2.3e-05              1.9e-09
+    ======  ===================  ===================
+
+    Convergence exponent **2.00** in the field and **~3** in the norm. Neither
+    plateaus; the asymmetric ordering the 2-D reference uses does plateau, at
+    1.1e-05, and no amount of sub-stepping removes it.
+
+    **What it does not claim.** The half-step is still a truncated exponential,
+    so the step is not unitary to machine precision at finite ``n_sub`` — it is
+    *convergently* unitary. A closed form exists (:math:`e^{hMJ}=\\cos(hM)+\\sin(hM)J`
+    with :math:`M` self-adjoint) but needs operator functions of a non-diagonal
+    :math:`M`; that is the remaining refinement and it is not attempted here.
+
+    ``K ≡ 1`` returns ``photon_step_spectral`` exactly, so an ungravitated run
+    is bit-identical.
+    """
+    K = np.asarray(K, dtype=np.float64)
+    s = 1.0 / K
+    s0 = float(s.mean())
+    delta = s - s0
+    if not np.any(delta):                      # uniform dielectric ⇒ exact
+        return _even_rotate(E, B, s0 * dt)
+    n = max(1, int(n_sub))
+    dts = float(dt) / n
+    h = 0.5 * dts
+    for _ in range(n):
+        E, B = _dielectric_half(E, B, delta, h)
+        E, B = _even_rotate(E, B, s0 * dts)
+        E, B = _dielectric_half(E, B, delta, h)
+    return E, B
+
+
 # ----------------------------------------------------------------------
 # Pair construction helper: build the photon (E,B) from a transverse
 # polarization, and confirm both helicities ride the single rate Ω_pair.

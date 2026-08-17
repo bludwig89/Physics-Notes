@@ -1,6 +1,49 @@
 {
- "import_time_work": 320,
- "legacy_script": 38,
+ "gate_assertion_no_control": 48,
+ "history": [
+  {
+   "changed": {
+    "legacy_script": [
+     38,
+     47
+    ]
+   },
+   "reason": "C7 close-out arming pass: legacy_script 38 -> 47 is a RETRACTION, not a regression. tools/arm_test_registry.py ran all 226 result_dump records and found 9 whose run never rewrites the baseline they declared, so the C7 promotion gave them no failure mode; they are demoted back to declared debt. The count went up because it is now measured rather than inferred from a source-text heuristic. Armed and proven: 164.",
+   "when": "2026-07-31 - 09:35"
+  },
+  {
+   "changed": {
+    "import_time_work": [
+     320,
+     323
+    ]
+   },
+   "reason": "F287 (2026-08-02). The two counts this ratchet is actually for did NOT move -- unfalsifiable held at 70 and no_assert at 231 -- which is the condition _has_import_time_work's own docstring names for moving the baseline rather than contorting a file to dodge a proxy. Attribution of the +3, measured file-by-file against HEAD: +1 was ALREADY COMMITTED before this session (HEAD measures 321, not the recorded 320, so a prior session moved it without updating this file); +1 is tests/findings/test_F279_hypercharge_attribution.py from the concurrent stoic-amazing-noether session; +2 are this session's tests/runners/run_f287_bgfield_apparatus.py and run_f287_slope.py. All of them are the documented blunt edge: a module-level sys.path preamble is required before any test can import a kernel, so every new test file costs one count. Both F287 runners assert their checks and write result artifacts, and run_f287_slope.py was restructured to load its sibling lazily inside the call rather than exec'ing it at module scope -- so neither does physics at import.",
+   "when": "2026-08-02 - 13:05"
+  },
+  {
+   "changed": {
+    "gate_assertion_no_control": [
+     null,
+     50
+    ]
+   },
+   "reason": "New ratchet key, gap #3 of docs/status/completeness-2026-08-07.md (rubric row H2). Gate-tier `kind: assertion` records with no `control:` block -- a declared perturbation that MUST redden named legs, verified by `make control` and journalled in test-results/control-soundness.json. It is the first of the five keys that measures whether a check CAN fail rather than whether a mechanism is present: a record can satisfy the other four and still be a tautology, which is what F22's identity check was for months. Armed at 50 of 61, with 11 records / 25 controls declared and all 25 verified RED at their current code fingerprint. The 11 were not written this session -- F281/F289/F290/F293/F297/F298/F299/F300/F303/F304 already declared their controls in PROSE in `notes:`; this pass transcribed them into data and measured them, and the measurement corrected two of the prose sets (F290 mass=0.0 reds C3/C3b/C3d, not C3 alone; F281 coupling=nonminimal reds M1a/M1b/M1f, not M1a/M1b). End state is zero. NOTE: the other four keys are NOT re-baselined here. unfalsifiable 70->72, import_time_work 323->328 and no_assert 231->233 were already red on entry to this session, are recorded on docs/design/session-claims.yaml as not belonging to the F304 session either, and are left red on purpose -- raising a baseline to absorb somebody else's regression is the one thing this file's --reason guard exists to prevent.",
+   "when": "2026-08-07 - 17:35"
+  },
+  {
+   "changed": {
+    "gate_assertion_no_control": [
+     50,
+     48
+    ]
+   },
+   "reason": "F291 and F292 armed with two declared controls each (cell_dim=4 / d_scan_max=3; clifford_D_max=2 / n_blocks_max=1), all four verified RED. Scan-truncation controls in the F298 idiom -- 'a scan that cannot see d>=4 cannot claim an upper bound at 3'. Both use the no-`reds:` verdict-flip form because these drivers assert (39 and 30 asserts) rather than emitting a `checks` list.",
+   "when": "2026-08-08 - 10:20"
+  }
+ ],
+ "import_time_work": 323,
+ "legacy_script": 47,
  "no_assert": 231,
  "unfalsifiable": 70
 }

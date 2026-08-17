@@ -5,7 +5,7 @@
 **Modules:** `ca-simulation/ca_superconductivity.py` (added `wigner_seitz_rs`, `mu_coulomb_jellium`, `mustar_from_dielectric`; constants `BOHR_A0`, `_C_RS`)
 **Tests:** `tests/findings/test_F242_mustar_from_dielectric.py` (5/5, pure numpy)
 **Results:** `test-results/F242_mustar_from_dielectric.json`
-**Cross-references:** [[F218-alpha2F-firstprinciples-and-pade-gap-ratio]] (its "open/next" #1 asked for exactly this; **partially corrects** its hypothesis that μ* would settle the whole residual), [[F215-eliashberg-solver]] (the solver fed the derived μ*), [[F211-tc-magnitude-real-superconductors]] (the (λ, μ*, ω_log) set; μ* was the last fit input), [[F213-hopfield-firstprinciples-and-gap-renormalization]] (the F64 deformation potential — the phonon-side use of the same dielectric), [[F64-em-connection-gravity]] (the dielectric $K$ whose electronic long-wavelength limit is the screening).
+**Cross-references:** [[F218b-alpha2F-firstprinciples-and-pade-gap-ratio]] (its "open/next" #1 asked for exactly this; **partially corrects** its hypothesis that μ* would settle the whole residual), [[F215-eliashberg-solver]] (the solver fed the derived μ*), [[F211-tc-magnitude-real-superconductors]] (the (λ, μ*, ω_log) set; μ* was the last fit input), [[F213-hopfield-firstprinciples-and-gap-renormalization]] (the F64 deformation potential — the phonon-side use of the same dielectric), [[F64-em-connection-gravity]] (the dielectric $K$ whose electronic long-wavelength limit is the screening).
 
 ---
 

@@ -49,9 +49,11 @@ import numpy as np
 import sympy as sp
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(ROOT / "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_confinement as conf                 # F70 area-law w(beta), -ln w
+from casim.engine.gauge import confinement as conf                 # F70 area-law w(beta), -ln w
 import forks.lgt_fork_A_mc as A               # F94 real SU(3) links
 
 t0 = time.time()

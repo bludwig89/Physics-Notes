@@ -52,9 +52,11 @@ import math
 import numpy as np
 
 _HERE = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(_HERE, "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_nuclear as N        # deuteron coupled-channel solver (F104/F113/F126/F128)  # noqa: E402
+from casim.engine.particles import nuclear as N        # deuteron coupled-channel solver (F104/F113/F126/F128)  # noqa: E402
 
 # ---------------------------------------------------------------------------
 PASS = True

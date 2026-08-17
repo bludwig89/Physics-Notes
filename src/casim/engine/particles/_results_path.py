@@ -4,7 +4,7 @@ Three migrated derivation scripts (`derive_generator_norm`,
 `derive_lambda6_sextic`, `derive_weight_as_phase`) wrote their JSON to the
 literal path ``"../test-results/<name>.json"``. That is relative to the
 **working directory**, not to the file, so it only ever resolved when the script
-was run from inside `ca-simulation/`; from the repo root it wrote outside the
+was run from inside the legacy flat tree; from the repo root it wrote outside the
 repo, and after C5 moved the files four levels deeper it raised
 ``FileNotFoundError`` on import. The move exposed the bug rather than causing
 it, and a path that depends on where you happened to `cd` is not something to

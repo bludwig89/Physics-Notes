@@ -5,7 +5,9 @@
     casim export checkpoints/run_t1000.npz [--out PATH] [--stride N]
     casim analyze test-results/photon_pair.json [--table]
     casim list-channels
-    casim gui [scenario.yaml]            # Phase E (not yet implemented)
+    casim scenario-check [scenario.yaml]  # validate against the v2 schema (P4)
+    casim compare A.json B.json           # diff two run results (P5.4)
+    casim gui [scenario.yaml]             # interactive viewer (needs casim[gui])
 """
 from __future__ import annotations
 
@@ -171,6 +173,34 @@ def _cmd_test_registry(args) -> int:
             print(f"    {e}")
         return 2
 
+    if getattr(args, "control", False):
+        # Gap #3 / H2. A different question from `casim test`: not "did the
+        # failure mode trip?" but "can it?" A record that cannot go red under any
+        # declared perturbation is green for a reason that has nothing to do with
+        # the physics.
+        targets = [r for r in recs if r.needs_control or r.control]
+        if not targets:
+            print("[casim] nothing in this selection needs or declares a "
+                  "control (the requirement is gate-tier `kind: assertion`).")
+            return 0
+        print(f"[casim] verifying declared controls on {len(targets)} "
+              f"record(s)")
+
+        def echo_ctl(res: "trunner.RunResult") -> None:
+            print(f"  [{res.status:8s}] {res.id:46s} ({res.seconds:6.1f}s)"
+                  + (f"  — {res.detail[:100]}" if res.detail else ""),
+                  flush=True)
+
+        rep = trunner.control_selection(targets, timeout=args.timeout,
+                                        on_result=echo_ctl,
+                                        journal=getattr(args, "journal", None))
+        print(trunner.format_control_report(rep))
+        if rep["no_control"]:
+            print(f"\n[casim] {len(rep['no_control'])} record(s) declare no "
+                  f"control — counted debt, not a failure "
+                  f"(`gate_assertion_no_control`, ratcheted to zero).")
+        return 1 if rep["unsound"] else 0
+
     print(f"[casim] running {len(recs)} registry record(s)"
           + (f"; swept params {overrides}" if overrides else ""))
 
@@ -197,7 +227,7 @@ def _cmd_test_registry(args) -> int:
 def _cmd_test(args) -> int:
     registry_mode = any([args.id, args.finding, args.sector, args.kind,
                          args.tier, args.exactness, args.path, args.param,
-                         args.registry])
+                         args.registry, args.control])
     if registry_mode:
         return _cmd_test_registry(args)
     from .suite import run_suite, build_plan, tier_names
@@ -221,10 +251,12 @@ def _cmd_test(args) -> int:
                     print(f"  {grp}/{s['name']:26s} patch={s['physical_L']}^? "
                           f"block={s['block']}  ~{s['represented_cells']:.2e} cells  "
                           f"compute={s['compute_cells']:.2e}  ~{s['mem_gb']:.2f} GB"
+                          f"  ~{s.get('wall', '?'):>6s}"
                           + ("  [skip]" if s['skipped'] else ""))
                 else:
                     print(f"  {grp}/{s['name']:26s} L={s['L']:<5d} ticks={s['ticks']:<6d} "
                           f"×{s['cost_factor']:<7.0f} ~{s['mem_gb']:.2f} GB"
+                          f"  ~{s.get('wall', '?'):>6s}"
                           + ("  [skip]" if s['skipped'] else ""))
         return 0
 
@@ -233,6 +265,8 @@ def _cmd_test(args) -> int:
         report_every=args.report_every, checkpoint_every=args.checkpoint_every,
         mem_limit_gb=args.mem_gb, only=only, repo_root=repo_root,
         script_timeout=args.script_timeout, run_scripts=not args.no_scripts,
+        resume=bool(getattr(args, "resume", False)),
+        redo=getattr(args, "redo", None),
     )
     c = report["counts"]
     return 0 if (c.get("FAIL", 0) == 0 and c.get("ERROR", 0) == 0) else 1
@@ -276,6 +310,15 @@ def _cmd_index(args) -> int:
           f"{len(num['unreviewed_duplicates'])} declared but UNREVIEWED)")
     print(f"  gaps                {len(num['gaps'])} "
           f"({len(num['undeclared_gaps'])} undeclared)")
+    # The allocation pointer. Numbers are taken ONE AT A TIME, at write time,
+    # and the one to take is the LOWEST FREE number — printing it is what makes
+    # that rule mechanical instead of a manual scan. Every free number here is
+    # one nobody ever wrote, so taking it closes a gap rather than making one.
+    free = num.get("free") or []
+    print(f"  NEXT FREE NUMBER    F{num['next_free']}"
+          + (f"   (backlog: {len(free)} free, "
+             f"{free[:8]}{' ...' if len(free) > 8 else ''})" if free else
+             "   (no gaps — this is max+1)"))
 
     st = res.get("staleness") or {}
     if "findings_behind" in st:
@@ -304,6 +347,12 @@ def _cmd_index(args) -> int:
             f"finding-numbers.yaml declares duplicate(s) that no longer exist "
             f"{num['stale_declared_duplicates']} — remove the exception, or it "
             f"silently re-arms the next collision")
+    if num.get("stale_declared_gaps"):
+        problems.append(
+            f"finding-numbers.yaml still marks {num['stale_declared_gaps']} "
+            f"`status: free` but the file now exists — delete the entry. "
+            f"Deleting it IS the act of spending the number; leaving it "
+            f"advertises a spent number as available")
     if st.get("findings_behind"):
         problems.append(f"exactness inventory is {st['findings_behind']} "
                         f"findings behind — run `casim index`")
@@ -321,6 +370,50 @@ def _cmd_index(args) -> int:
               f"{num['unreviewed_duplicates']}. Recorded, not resolved.")
     else:
         print("\n[casim index] ok")
+    return 0
+
+
+def _cmd_scenario_check(args) -> int:
+    """Validate scenario YAML(s) against the strict v2 schema (roadmap P4).
+
+    With no path, validates every scenarios/*.yaml and exits 1 if any fails —
+    the "every shipped scenario validates strictly" acceptance gate.
+    """
+    import glob
+    from .io import validate_scenario_file
+
+    paths = ([args.path] if args.path
+             else sorted(glob.glob("scenarios/*.yaml")))
+    if not paths:
+        print("[casim] no scenarios to check.")
+        return 1
+    n_bad = 0
+    for p in paths:
+        errs = validate_scenario_file(p)
+        if errs:
+            n_bad += 1
+            print(f"  FAIL  {p}")
+            for e in errs[: (None if args.path else 4)]:
+                print(f"        {e}")
+        elif args.path or args.verbose:
+            print(f"  ok    {p}")
+    print(f"\n[casim] {len(paths) - n_bad}/{len(paths)} scenario(s) valid "
+          f"under schema v2.")
+    return 1 if n_bad else 0
+
+
+def _cmd_compare(args) -> int:
+    """Diff two run-result JSONs and report which observables moved (P5.4)."""
+    from .analysis.compare import compare_runs, format_comparison
+
+    res = compare_runs(args.a, args.b, strict_floor=args.strict_floor)
+    print(format_comparison(args.a, args.b, res, limit=args.limit))
+    if args.json:
+        path = write_results(res, args.json)
+        print(f"\n[casim] wrote {path}")
+    # A pure report; nonzero only when asked to gate on identity.
+    if args.fail_on_diff and not res["identical"]:
+        return 1
     return 0
 
 
@@ -456,6 +549,12 @@ def build_parser() -> argparse.ArgumentParser:
                    help="per standalone battery script timeout (s)")
     t.add_argument("--no-scripts", action="store_true",
                    help="battery: run only pytest-style files, skip standalone scripts")
+    t.add_argument("--resume", action="store_true",
+                   help="P2.6: continue the newest test-results/suite/<scale>_* "
+                        "run, skipping items already decided (or --out DIR)")
+    t.add_argument("--redo", action="append", metavar="GROUP/NAME", default=None,
+                   help="with --resume, re-run this item anyway; bare "
+                        "--redo=failures re-runs every non-PASS")
     t.add_argument("--list", action="store_true",
                    help="dry-run: print the plan (sizes/cost/memory) and exit")
     # ---- roadmap C7.2 / D9: the test-registry selectors ----
@@ -483,6 +582,15 @@ def build_parser() -> argparse.ArgumentParser:
                             metavar="K=V",
                             help="override a record parameter and report the "
                                  "drift (repeatable); e.g. --param delta_star=2/9")
+    treg_group.add_argument("--control", action="store_true",
+                            help="verify each selected record's declared "
+                                 "negative control(s) instead of running it: "
+                                 "apply the perturbation and require the "
+                                 "declared legs to go RED (D9/H2)")
+    treg_group.add_argument("--journal", default=None, metavar="PATH",
+                            help="with --control: write verdicts after every "
+                                 "record and reuse matching ones on re-run "
+                                 "(resumable past the 45 s sandbox ceiling)")
     treg_group.add_argument("--registry", action="store_true",
                             help="registry mode with no filter: every record")
     treg_group.add_argument("--include-archive", action="store_true",
@@ -500,6 +608,27 @@ def build_parser() -> argparse.ArgumentParser:
                     help="comma list of targets: findings,status,tests,code,"
                          "docs,results,exactness")
     ix.set_defaults(func=_cmd_index)
+
+    sc = sub.add_parser("scenario-check",
+                        help="validate scenario YAML against the v2 schema (P4)")
+    sc.add_argument("path", nargs="?", default=None,
+                    help="one scenario file (default: all scenarios/*.yaml)")
+    sc.add_argument("--verbose", "-v", action="store_true",
+                    help="also list the files that pass")
+    sc.set_defaults(func=_cmd_scenario_check)
+
+    cmp = sub.add_parser("compare",
+                         help="diff two run-result JSONs; show what moved (P5.4)")
+    cmp.add_argument("a", help="first result JSON")
+    cmp.add_argument("b", help="second result JSON")
+    cmp.add_argument("--strict-floor", action="store_true",
+                     help="treat sub-1e-12 differences as changes too")
+    cmp.add_argument("--limit", type=int, default=40,
+                     help="max moved observables to print")
+    cmp.add_argument("--json", default=None, help="also write the diff as JSON")
+    cmp.add_argument("--fail-on-diff", action="store_true",
+                     help="exit 1 if any observable moved (for scripts)")
+    cmp.set_defaults(func=_cmd_compare)
 
     g = sub.add_parser("gui", help="interactive viewer (needs casim[gui])")
     g.add_argument("scenario", nargs="?", default=None)

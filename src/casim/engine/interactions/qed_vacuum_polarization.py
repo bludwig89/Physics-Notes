@@ -62,7 +62,7 @@ import math
 
 import numpy as np
 
-import ca_bcc as bcc
+from casim.engine.lattice import bcc as bcc
 from casim.constants import c_lat
 
 SQRT3 = math.sqrt(3.0)
@@ -289,8 +289,12 @@ def _fermion_B(Q, n, kernel):
         denom = (KX ** 2 + KY ** 2 + KZ ** 2 + KT ** 2) \
                 * ((KX + Q) ** 2 + KY ** 2 + KZ ** 2 + KT ** 2)
     elif kernel == "rule":
-        kxpw = ((KX + Q + math.pi) % (2 * math.pi)) - math.pi
-        denom = _K_lat(KX, KY, KZ, KT) * _K_lat(kxpw, KY, KZ, KT)
+        # F277/F272: do NOT refold KX+Q into the cubic cell. _K_lat's period
+        # lattice is sqrt3 * fcc (F267), not 2*pi per axis, so ((k+pi) % 2pi) - pi
+        # maps k+Q to a genuinely INEQUIVALENT momentum. _K_lat is a closed form
+        # valid at any k, so the unwrapped shift is already periodic-correct;
+        # folding is an array-indexing device and there is no array here.
+        denom = _K_lat(KX, KY, KZ, KT) * _K_lat(KX + Q, KY, KZ, KT)
     else:
         raise ValueError(kernel)
     return (float(np.mean(N(0, 0) / denom)) - float(np.mean(N(1, 1) / denom))) / Q ** 2

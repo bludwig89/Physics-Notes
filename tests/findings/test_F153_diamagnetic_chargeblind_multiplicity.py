@@ -22,8 +22,10 @@ Checks
 import sys, os, json
 import numpy as np
 from fractions import Fraction
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
-import ca_induced_stiffness as cis  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import induced_stiffness as cis  # noqa: E402
 
 results = {"finding": "F153", "checks": {}}
 def check(name, ok, msg):

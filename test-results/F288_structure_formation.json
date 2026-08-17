@@ -1,0 +1,283 @@
+{
+  "B1_discreteness_bound": {
+    "R8_m": 3.6647002155479424e+23,
+    "a_cell_m": 1.0663754173481642e-34,
+    "a_cell_source": "a/ell_P = sqrt(8 pi) 3^(1/4) (F79/F107), x ell_P",
+    "cells_across_R8": 3.4365948013516924e+57,
+    "note": "The lattice is invisible to structure formation by ~113 orders even at the smallest scale the observations reach. This is the licence to use the continuum growth equation at all -- it is a load-bearing bound, not a curiosity.",
+    "pass": true,
+    "relative_correction_at_R8": 8.467268710685101e-116,
+    "relative_correction_at_horizon": 6.02116886093163e-121,
+    "relative_correction_at_lyman_alpha": 1.3270174995071222e-112,
+    "scaling": "O((k a)^2), from F130 block-spin irrelevance lambda_n = b^-n"
+  },
+  "B2_dm_free_streaming": {
+    "geon": {
+      "half_mode_k_h_per_Mpc": 4.392232749186209e+28,
+      "mass_keV": 1.1361661664291622e+25,
+      "verdict": "pure CDM -- free-streaming scale is ~22 orders below a cell"
+    },
+    "pass": true,
+    "sigma8_CDM": 0.8203888529185288,
+    "sigma8_discriminates": false,
+    "sigma8_fractional_suppression": 2.6928104853718438e-06,
+    "sigma8_scale_k_h_per_Mpc": 0.125,
+    "sigma8_sterile_5p6keV": 0.8203866437668236,
+    "sterile_F266": {
+      "half_mode_k_h_per_Mpc": 45.881076549913,
+      "mass_keV": 5.6,
+      "verdict": "half-mode far beyond the sigma_8 scale"
+    },
+    "verdict": "sigma_8 is BLIND to the model's dark-matter identity: the 5.6 keV half-mode sits ~2.5 decades in k above the 8 h^-1 Mpc scale, so the suppression there is far below the measurement error. The observable that is NOT blind is the Lyman-alpha forest (k ~ 1-20 h/Mpc), which is exactly where F203's 9-15 keV floor already puts the F266 sterile under pressure. K11 does not settle K7; it says WHICH probe does."
+  },
+  "C1_control_goes_red": {
+    "baseline_all_green": true,
+    "chi2_base": 7.081294642757626,
+    "chi2_perturbed": 93.05494562853548,
+    "delta_chi2": 85.97365098577785,
+    "fsigma8_leg_red": true,
+    "growth_leg_red": true,
+    "mu_probe": 0.9,
+    "n_legs_that_went_red": 3,
+    "note": "A 10% perturbation of a quantity the model derives to be exactly 1 moves sigma_8 by ~32% and delta chi^2 by ~86. The amplification is the ~7 e-folds of growth integration (D5), and it is why this sector is a real test of the structural claim rather than a restatement of it.",
+    "pass": true,
+    "sigma8_base": 0.8203888529185288,
+    "sigma8_fractional_shift": -0.31961102264156904,
+    "sigma8_leg_red": true,
+    "sigma8_perturbed": 0.5581835326734941
+  },
+  "D1_growth_index_6_over_11": {
+    "c_at_mu_0p90": 0.9384864324004714,
+    "c_at_mu_1": "1",
+    "c_closed_form": "sqrt(24*mu + 1)/4 - 1/4",
+    "c_is_exactly_1_iff_mu_is_1": true,
+    "gamma_g_exact": "6/11",
+    "gamma_g_float": 0.5454545454545454,
+    "gamma_g_is_6_over_11": true,
+    "note": "gamma_g = 6/11 is a PREDICTION here rather than a fit because mu = 1 is forced (S2/S3): a general modified-gravity theory carries gamma_g as a free parameter. Note the order-0 leg -- f -> 1 as Omega_m -> 1 holds IFF mu = 1, so any mu != 1 is visible in the amplitude of f as well as in gamma_g.",
+    "order0_residual": "c**2 + c/2 - 3*mu/2",
+    "order1_residual_at_mu1": "3 - 11*gamma/2",
+    "pass": true
+  },
+  "D2_meszaros_exact": {
+    "decaying_mode_is_zero": true,
+    "decaying_mode_residual": "0",
+    "growing_mode": "3*y/2 + 1",
+    "logarithmic_stagnation": "delta grows by only 5/2 across the whole radiation era, y: 0 -> 1 -- the Meszaros effect, and the origin of the T(k) ~ ln k / k^2 large-k falloff",
+    "pass": true,
+    "residual": "0",
+    "residual_is_literal_zero": true
+  },
+  "D3a_growth_on_background": {
+    "D_at_z0": 0.7879851843577804,
+    "D_carroll_press_turner": 0.7871856782053448,
+    "D_normalisation": "D -> a in matter domination (matter + Lambda)",
+    "D_vs_CPT_relative": 0.0010156512936800866,
+    "Omega_m_at_z0": 0.3153,
+    "f_at_z0": 0.5273860676466701,
+    "f_radiation_sensitivity": 3.8308825994204376e-05,
+    "f_vs_Omega_m_0p55": 0.5300272324169948,
+    "gamma_g_exact_limit": 0.5454545454545454,
+    "gamma_g_numerical": 0.5543280174172871,
+    "gamma_g_offset": 0.008873471962741686,
+    "note": "The 6/11 limit is the Omega_m -> 1 value; at Omega_m = 0.3153 the effective index sits slightly above it. Both are consequences of mu = 1 with nothing free. The CPT leg is the integrator's own falsification test: a wrong initial condition or a wrong source coefficient moves D(1) by percent, and the tolerance is 0.3%.",
+    "pass": true
+  },
+  "D3b_fsigma8_vs_rsd": {
+    "caveat": "DIAGONAL chi^2. The three BOSS DR12 points are correlated and their covariance is not applied, so this is a consistency statement, not a likelihood.",
+    "chi2": 7.081294642757626,
+    "chi2_per_point": 1.0116135203939467,
+    "max_abs_pull": 1.8027509606580605,
+    "mu": 1.0,
+    "n_points": 7,
+    "pass": true,
+    "rows": [
+      {
+        "model": 0.44965617397277236,
+        "obs": 0.4497,
+        "pull_sigma": -0.0007997450224020734,
+        "sigma": 0.0548,
+        "source": "DESI DR1 peculiar-velocity survey, consensus",
+        "z": 0.07
+      },
+      {
+        "model": 0.4817152766967929,
+        "obs": 0.497,
+        "pull_sigma": -0.33966051784904605,
+        "sigma": 0.045,
+        "source": "BOSS DR12 consensus",
+        "z": 0.38
+      },
+      {
+        "model": 0.4797689792550829,
+        "obs": 0.459,
+        "pull_sigma": 0.5465520856600754,
+        "sigma": 0.038,
+        "source": "BOSS DR12 consensus",
+        "z": 0.51
+      },
+      {
+        "model": 0.4743802800305338,
+        "obs": 0.436,
+        "pull_sigma": 1.1288317656039348,
+        "sigma": 0.034,
+        "source": "BOSS DR12 consensus",
+        "z": 0.61
+      },
+      {
+        "model": 0.4676270301788744,
+        "obs": 0.473,
+        "pull_sigma": -0.13104804441769663,
+        "sigma": 0.041,
+        "source": "eBOSS DR16 LRG",
+        "z": 0.698
+      },
+      {
+        "model": 0.45351312044460546,
+        "obs": 0.315,
+        "pull_sigma": 1.4580328467853205,
+        "sigma": 0.095,
+        "source": "eBOSS DR16 ELG",
+        "z": 0.845
+      },
+      {
+        "model": 0.3808762067703873,
+        "obs": 0.462,
+        "pull_sigma": -1.8027509606580605,
+        "sigma": 0.045,
+        "source": "eBOSS DR16 QSO",
+        "z": 1.48
+      }
+    ],
+    "sigma8_input": 0.8203888529185288
+  },
+  "D4_sigma8_with_budget": {
+    "R8_Mpc": 11.876484560570072,
+    "S_8": 0.8410486319842757,
+    "claim": "sigma_8 is NOT predicted. It is LINEAR in sqrt(A_s) and A_s is provably free (K5). What is predicted is the GROWTH that maps A_s to sigma_8, and that has zero free functions.",
+    "derived_here": [
+      "the growth factor D(a) that multiplies all of it",
+      "the Meszaros stagnation the T(k) shape encodes",
+      "gamma_g = 6/11"
+    ],
+    "f_nu": 0.00450284387418447,
+    "import_budget": {
+      "A_s": "2.1e-09  -- FREE INPUT, K5 EXCLUDED, no route (F282/F284/F285)",
+      "Omega_m, Omega_b, h": "Planck 2018 -- measured, same inputs K1/F188 takes",
+      "T(k) coefficients": "Eisenstein & Hu 1998 no-wiggle fit -- IMPORTED",
+      "n_s": "0.9649  -- fitted; F295 routes it to gamma = 0.017550, which is a relabelling, not a derivation",
+      "sum m_nu": "0.06 eV, Planck baseline -- applied as -4 f_nu on sigma_8"
+    },
+    "n_s_source": "cosmology_anomalous_dimension.NS_OBS -- the same number F295's gamma = (1 - n_s)/2 is defined from, imported live so the two cannot drift",
+    "n_s_used": 0.9649,
+    "nu_suppression_factor": 0.9819886245032621,
+    "pass": true,
+    "residual_budget": "the ~1% left after the neutrino correction is the EH98 NO-WIGGLE fit itself, which drops the acoustic oscillations and is documented at the 1-2% level in sigma_8. It is an imported-fit residual, not a model residual.",
+    "sigma_8": 0.8203888529185288,
+    "sigma_8_massless_nu": 0.8354362081674028,
+    "sigma_8_planck": 0.8111,
+    "sigma_8_relative_to_planck": 0.01145216732650578
+  },
+  "D5_mu_is_pinned_by_growth": {
+    "amplitude_anchored": {
+      "half_width": 0.01100000000000001,
+      "hit_scan_limit": false,
+      "leans_on": "EH98 no-wiggle T(k) + A_s",
+      "mu_hi_1sigma": 1.008,
+      "mu_lo_1sigma": 0.986
+    },
+    "dlnsigma8_dmu_analytic": 4.144653167389282,
+    "dp_dmu_at_1": "3/5",
+    "model_value": 1.0,
+    "model_value_is_inside_both": true,
+    "note": "The derived value mu = 1 is not merely consistent with the data, it is PINNED by it: growth integrates the exponent p(mu) over ~7 e-folds, so percent-level agreement in sigma_8 is sub-percent-level agreement in mu. That amplification is also why the mu sweep is a usable control -- a 10% perturbation moves sigma_8 by ~32%.",
+    "p_of_mu": "sqrt(24*mu + 1)/4 - 1/4",
+    "pass": true,
+    "shape_only": {
+      "half_width": 0.3280000000000003,
+      "hit_scan_limit": true,
+      "honest_reading": "the low side runs off the scan floor at 0.5: with the amplitude marginalised, a suppressed growth rate is degenerate with a larger A_s, so the SHAPE alone does not bound mu from below at all. Only the upper edge is a bound. Reported this way on purpose -- quoting 0.5 as a limit would be quoting the scan range as physics.",
+      "leans_on": "nothing but the f sigma_8 redshift shape",
+      "mu_hi_1sigma": 1.1560000000000001,
+      "mu_lo_1sigma": 0.49999999999999956
+    }
+  },
+  "F_s8_falsifier": {
+    "S8_model": 0.8410486319842757,
+    "can_relieve_S8": false,
+    "cmb_minus_desy6_sigma": 2.7124163270763737,
+    "current_status": "SPLIT, not resolved: DES Y6 low at 2.7 sigma, KiDS-Legacy shifted UP by 0.056 into consistency, eROSITA clusters 1.5 sigma HIGH. The model sides with 'the spread is systematics'. Euclid decides.",
+    "falsifier": "If the DES Y6 direction consolidates as physical rather than as photo-z / baryonic-feedback systematics, the model's gravity sector is FALSIFIED. mu = 1 is forced by F106 with no k dependence, so there is no screened regime in which growth could be suppressed on small scales while linear-scale bounds are evaded. The model has nothing to tune, which is exactly why the test can fire.",
+    "has_screening": false,
+    "mu_is_k_independent": true,
+    "pass": true,
+    "probes": {
+      "DES_Y6_3x2pt": {
+        "S8": 0.789,
+        "err": 0.012,
+        "n_sigma": 3.003777855237002
+      },
+      "KiDS_Legacy": {
+        "S8": 0.815,
+        "err": 0.0185,
+        "n_sigma": 1.1666815736039673
+      },
+      "combined_CMB": {
+        "S8": 0.836,
+        "err": 0.0125,
+        "n_sigma": 0.2855937529437338
+      }
+    }
+  },
+  "S1_zero_linear_slip": {
+    "AB_product": "1",
+    "Sigma": 1.0,
+    "eta_minus_1_linear_coefficient": 2.0,
+    "eta_residual_at_Phi_1e-5": 2e-05,
+    "linear_slip_is_exactly_zero": true,
+    "note": "A B == 1 is the impedance match, the same condition as PPN gamma = 1 (F64 D-EM9). Slip enters at 2PN, i.e. first order in the potential AMPLITUDE, ~2e-5 -- four orders below any current constraint. Scope: this is the GRAVITY sector; free-streaming neutrinos still carry anisotropic stress and source the usual GR slip in the radiation era.",
+    "pass": true,
+    "slip_closed_form": "1 - cosh(2*Phi)",
+    "slip_linear_coefficient": "0",
+    "slip_quadratic_coefficient": "-2"
+  },
+  "S2_mu_is_one": {
+    "Phi_GR": "4*pi*G*rho/k**2",
+    "Phi_from_F106": "4*pi*G*rho/k**2",
+    "dmu_dk": "0",
+    "mu": "1",
+    "mu_is_exactly_one": true,
+    "mu_is_scale_free": true,
+    "pass": true,
+    "regime": "static, weak-field, sub-horizon, quasi-static -- exactly where F178 left the energy-only law live. NOT valid super-horizon or for relativistic radiation-era modes."
+  },
+  "S3_zero_free_functions": {
+    "closures": {
+      "Sigma_via_zero_slip": {
+        "source": "F64 D-EM9",
+        "why": "A B == 1 impedance match == PPN gamma = 1"
+      },
+      "mu_k_independence": {
+        "source": "F106/F178",
+        "why": "F106 Poisson coefficient, no k"
+      },
+      "mu_time_independence": {
+        "source": "F79/F284",
+        "why": "G structural on a rigid substrate => Gdot/G == 0 exactly"
+      }
+    },
+    "distinct_sources": [
+      "F106/F178",
+      "F64 D-EM9",
+      "F79/F284"
+    ],
+    "eft_free_functions": 2,
+    "model_free_functions": 0,
+    "n_distinct_sources": 3,
+    "note": "Three closures from three independently-derived findings. The model is MORE constrained than GR-as-an-EFT in this sector, and it has no screening mechanism because mu = 1 is k-independent by derivation, not by choice.",
+    "pass": true,
+    "screening_mechanism": null
+  },
+  "n_checks": 13,
+  "verdict": "K11: linear growth is fixed by the model's own gravity law with ZERO free functions where the EFT of dark energy has two -- mu = 1 with no k (F106/F178), no time dependence (F79/F284), no slip (F64 AB=1). gamma_g = 6/11 and the Meszaros solution are exact. mu is pinned to 1.1% by the data. sigma_8 = 0.8204 is REPORTED with A_s declared free (K5), never claimed. The lattice is invisible by ~113 orders. sigma_8 is blind to K7's dark-matter identity; Lyman-alpha is not. Falsifier: no screening exists, so the DES Y6 low-S8 direction cannot be accommodated -- 3.0 sigma today."
+}

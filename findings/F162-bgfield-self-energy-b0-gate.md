@@ -1,5 +1,14 @@
 # F162 — The background-field one-loop gluon self-energy is **assembled and the $b_0=\tfrac{11}{3}C_A=11$ recovery gate PASSES exactly** (transverse, gluon : ghost $=10:1$), and the lattice running is confirmed propagator-independent — but the finite $d_1$ that pins $q_\ast$ to the digit stays **open** (the vertex form-factor part, with its Wilson-28.81 gate), so the F155 bracket $q_\ast a\in[1/\sqrt3,\sim0.97]$ stands
 
+> **[PARTIALLY SUPERSEDED 2026-08-01 by F272 — ledger S11-F272-bgfield-refold-removed]**
+>
+> **DEAD:** Every number produced through the refolded _Bcoeff_numeric. The `mod 2 pi` refold of k+q evaluated the propagator at a genuinely inequivalent momentum -- omega_even's period lattice is sqrt3*fcc, so 2 pi per axis is not a period of it -- and manufactured a spurious q-dependence indistinguishable from the residual log the test existed to detect. Flatness spread moved 1.58e-2 -> 2.96e-5, a factor 530.
+>
+> **STILL LIVE:** The background-field apparatus itself, which F287 re-verified SOUND post-F272/F277 and which recovers b_0 = 11. The Wilson control is unaffected: Wilson IS 2 pi-periodic, so for it the refold was an exact no-op (2e-14), which is what made the removal safe rather than a change of result.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-06-18 - 14:30
 **Status:** Partial — the **b₀ gate is PASSED** (exact, continuum + lattice-propagator-independent), which is the loop-assembly validation F155 lacked; the **finite $d_1$ to the digit is NOT closed** (it needs the bespoke lattice 3-gluon + ghost form factors, validated against Wilson's $\Lambda_{\overline{\rm MS}}/\Lambda_L=28.81$ — not executed). 3/3 checks PASS. G1 exact (b₀=11, transverse, gluon:ghost 10:1 — symbolic/machine); G2 well-conditioned (lattice b₀ = continuum b₀, subtracted shift q-flat to $<10^{-3}$); G3 scope-sharp.
 **Honest headline:** F155 said *"the loop assembly + b₀ recovery is the open computation."* This finding **does** the assembly and **passes b₀ exactly** — the background-field self-energy (gluon loop $\Gamma^F\Gamma^F$ + ghost loop $-2(2k{+}q)(2k{+}q)$, Abbott $\xi{=}1$) is exactly transverse with $b_0=\tfrac{11}{3}C_A=11$. The remaining piece is now sharply isolated: the **finite vertex form-factor constant**, whose validation gate is reproducing Wilson's 28.81 with the full lattice vertices+tadpole. That is not done here, so $q_\ast$ remains **bracketed**, not pinned.

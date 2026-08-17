@@ -1,7 +1,7 @@
 """Test wrapper for F238 -- can the F223/F228 geon relic abundance be derived?
 
 Prompt D3.  Runs the self-contained real-arithmetic battery in
-ca-simulation/forks/gr_fork_F238_geon_relic_abundance.py and asserts the derivation
+src/casim/engine/forks/gravity/gr_fork_F238_geon_relic_abundance.py and asserts the derivation
 attempt and its HONEST NEGATIVE RESULT:
 
   * (S1) the geon side is fully pinned (reuse F228 M_rem + entropy-conserved yield);
@@ -21,7 +21,7 @@ import importlib.util, os
 
 HERE = os.path.dirname(__file__)
 FORK = os.path.abspath(os.path.join(
-    HERE, "..", "..", "ca-simulation", "forks", "gr_fork_F238_geon_relic_abundance.py"))
+    HERE, "..", "..", "src", "casim", "engine", "forks", "gravity", "gr_fork_F238_geon_relic_abundance.py"))
 
 PLANCK_BAND = (0.117, 0.123)   # Omega_DM h^2 = 0.120 +- ~0.003 (Planck 2018)
 

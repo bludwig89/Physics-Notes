@@ -48,9 +48,11 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 RESULTS = os.path.join(REPO, "test-results")
-sys.path.insert(0, os.path.join(REPO, "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from ca_dirac import (dirac_step_2d_splitstep, dirac_norm,
+from casim.engine.particles.dirac import (dirac_step_2d_splitstep, dirac_norm,
                       _weyl_blocks, _apply_D_k, _kinetic_n, _dirac_dispersion,
                       _dirac_plus_eigenvector)
 

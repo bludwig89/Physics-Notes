@@ -506,7 +506,7 @@ def V7_a0_zero_audit(L=16):
     # Inject a uniform mode (k=0)
     f[:] = 1.0 + 0j
     g[:] = 0.5 + 0.5j
-    from ca_core import weyl_step_2d_splitstep
+    from casim.engine.lattice.core import weyl_step_2d_splitstep
     f_new, g_new = weyl_step_2d_splitstep(f, g, c=0.5)
     resid_f = float(np.max(np.abs(f_new - f)))
     resid_g = float(np.max(np.abs(g_new - g)))

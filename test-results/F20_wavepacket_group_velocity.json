@@ -1,0 +1,190 @@
+{
+  "closed_forms": {
+    "onaxis_u_residual": 0.0,
+    "onaxis_u_residual_minus": 0.0,
+    "offaxis_u_residual": 1.9543269717390714,
+    "onaxis_residual": 3.5449074231586053e-15,
+    "onaxis_residual_minus": 3.5449074231586053e-15,
+    "arccos_bound": 7.053810091881877e-14,
+    "onaxis_curvature": -2.220446049250313e-10,
+    "weyl_closed_form_residual": 4.715666745980229e-11,
+    "dirac_closed_form_residual": 2.134598053871173e-11,
+    "checks": {
+      "onaxis_u_exact_plus": true,
+      "onaxis_u_exact_minus": true,
+      "offaxis_control_nonzero": true,
+      "onaxis_omega_plus": true,
+      "onaxis_omega_minus": true,
+      "onaxis_flat": true,
+      "weyl_closed_form": true,
+      "dirac_closed_form": true
+    },
+    "n_pass": 8,
+    "n_checks": 8,
+    "ok": true
+  },
+  "dirac_m0.3": {
+    "lstsq_slope": 0.46542578184118233,
+    "asymptotic_drift": 0.4654257818411815,
+    "predicted_vg": 0.4654257818411823,
+    "rel_err_lstsq": 1.1926960945665868e-16,
+    "rel_err_drift": 1.6697745323932213e-15,
+    "vs_c_lat": -0.1938588986986056,
+    "first_tick_displacement": 0.46542578184117644,
+    "edge_weight": 2.511507861714032e-28,
+    "shape": [
+      256,
+      64,
+      64
+    ],
+    "sigma": [
+      6.0,
+      10.0,
+      10.0
+    ],
+    "k0": [
+      0.8,
+      0.0,
+      0.0
+    ],
+    "n_steps": 44,
+    "sample": 2,
+    "m": 0.3,
+    "tail_ticks": 14,
+    "seed": "branch-pure",
+    "centroid_start": 60.00227713225993,
+    "centroid_end": 80.48101153327192,
+    "tol": 1e-12,
+    "checks": {
+      "drift_matches_closed_form": true,
+      "wrap_free": true,
+      "subluminal": true
+    },
+    "n_pass": 3,
+    "n_checks": 3,
+    "ok": true
+  },
+  "dirac_m0.5": {
+    "lstsq_slope": 0.34850632590047226,
+    "asymptotic_drift": 0.34850632590047226,
+    "predicted_vg": 0.3485063259004728,
+    "rel_err_lstsq": 1.592830520015032e-15,
+    "rel_err_drift": 1.592830520015032e-15,
+    "vs_c_lat": -0.39636933678122477,
+    "first_tick_displacement": 0.34850632590047326,
+    "edge_weight": 3.13141568607805e-26,
+    "shape": [
+      256,
+      64,
+      64
+    ],
+    "sigma": [
+      6.0,
+      10.0,
+      10.0
+    ],
+    "k0": [
+      0.8,
+      0.0,
+      0.0
+    ],
+    "n_steps": 44,
+    "sample": 2,
+    "m": 0.5,
+    "tail_ticks": 14,
+    "seed": "branch-pure",
+    "centroid_start": 60.00153236135688,
+    "centroid_end": 75.33581070097769,
+    "tol": 1e-12,
+    "checks": {
+      "drift_matches_closed_form": true,
+      "wrap_free": true,
+      "subluminal": true
+    },
+    "n_pass": 3,
+    "n_checks": 3,
+    "ok": true
+  },
+  "weyl_branch_pure": {
+    "lstsq_slope": 0.572303148428254,
+    "asymptotic_drift": 0.5723031484286493,
+    "predicted_vg": 0.5723031484273745,
+    "rel_err_lstsq": 1.536805594246456e-12,
+    "rel_err_drift": 2.227417550257234e-12,
+    "vs_c_lat": -0.008741869589947123,
+    "first_tick_displacement": 0.5723031484277712,
+    "edge_weight": 9.09937324441426e-14,
+    "shape": [
+      256,
+      64,
+      64
+    ],
+    "sigma": [
+      6.0,
+      10.0,
+      10.0
+    ],
+    "k0": [
+      0.8,
+      0.0,
+      0.0
+    ],
+    "n_steps": 44,
+    "sample": 2,
+    "m": 0.0,
+    "tail_ticks": 14,
+    "seed": "branch-pure",
+    "centroid_start": 60.002529581255004,
+    "centroid_end": 85.18386811209861,
+    "tol": 1e-11,
+    "checks": {
+      "drift_matches_closed_form": true,
+      "wrap_free": true,
+      "subluminal": true
+    },
+    "n_pass": 3,
+    "n_checks": 3,
+    "ok": true
+  },
+  "weyl_fixed_seed": {
+    "lstsq_slope": 0.5673401379668715,
+    "asymptotic_drift": 0.5673504143636217,
+    "predicted_vg": 0.567350560014216,
+    "rel_err_lstsq": 1.8369678429876696e-05,
+    "rel_err_drift": 2.5672063205412525e-07,
+    "vs_c_lat": -0.01732025662695208,
+    "first_tick_displacement": 0.5773502691896226,
+    "edge_weight": 4.3677759568195436e-17,
+    "shape": [
+      256,
+      64,
+      64
+    ],
+    "sigma": [
+      6.0,
+      10.0,
+      10.0
+    ],
+    "k0": [
+      0.8,
+      0.0,
+      0.0
+    ],
+    "n_steps": 44,
+    "sample": 2,
+    "m": 0.0,
+    "tail_ticks": 14,
+    "seed": "fixed",
+    "centroid_start": 60.0,
+    "centroid_end": 84.96842449548936,
+    "tol": 1e-06,
+    "checks": {
+      "drift_matches_closed_form": true,
+      "wrap_free": true,
+      "subluminal": true
+    },
+    "n_pass": 3,
+    "n_checks": 3,
+    "ok": true
+  }
+}

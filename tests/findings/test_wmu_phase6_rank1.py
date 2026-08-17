@@ -27,9 +27,11 @@ import json
 import numpy as np
 
 # Path setup so this runs from tests/findings/ exactly like the other phase-6 tests
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from ca_wmu import (  # noqa: E402
+from casim.engine.gauge.weak_wmu import (  # noqa: E402
     weinberg_mix, weinberg_unmix,
     covariant_stueckelberg_lagrangian_uniform,
     covariant_stueckelberg_lagrangian,

@@ -24,9 +24,9 @@ This module exposes:
 """
 
 import numpy as np
-import ca_higgs as hg
-import ca_dirac as dirac
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.engine.particles import higgs as hg
+from casim.engine.particles import dirac as dirac
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 
 # ══════════════════════════════════════════════════════════════════

@@ -77,12 +77,21 @@ def main() -> int:
     # Roadmap P2.1: print the FFT backend on every gate run. This project spent
     # its whole history on single-threaded scipy while ca_fft advertised FFTW,
     # purely because nothing ever said which one was live.
+    # C9: the probe used to reach `ca_fft` through the legacy directory. After
+    # deletion that import fails — and because the return code was never
+    # checked, the gate would have gone quietly back to not reporting which
+    # backend is live, which is the exact defect P2.1 existed to fix. So the
+    # probe now imports the façade (D8) and a failure is *reported*.
     probe = subprocess.run(
-        [py, "-c", "import sys; sys.path.insert(0, 'ca-simulation'); "
-                   "import ca_fft; print(ca_fft.describe())"],
-        cwd=_REPO, capture_output=True, text=True)
+        [py, "-c", "from casim.numerics import fft; print(fft.describe())"],
+        cwd=_REPO, capture_output=True, text=True,
+        env={**os.environ, "PYTHONPATH": os.pathsep.join(
+            ["src", os.environ.get("PYTHONPATH", "")])})
     if probe.returncode == 0:
         print(f"\n{DIM}fft backend: {probe.stdout.strip()}{RESET}")
+    else:
+        print(f"\n{DIM}fft backend: UNKNOWN — probe failed: "
+              f"{(probe.stderr or '').strip().splitlines()[-1:]}{RESET}")
 
     # -- 1. Provenance -----------------------------------------------------
     print("\nprovenance")
@@ -106,6 +115,24 @@ def main() -> int:
              [py, "tools/check_test_registry.py"])
     gate.run("test registry is current",
              [py, "tools/gen_test_registry.py", "--check"])
+    # D9, added 2026-08-07 - 17:05 by the gap #2 pass: every test record a
+    # finding DECLARES in its header exists, at the tier it claims, and the count
+    # of gate entries that cannot fail at all is a ratchet at ceiling 8. Restored
+    # here at 17:45 after a concurrent session (gap #3) committed a copy of this
+    # file staged before 17:05 and dropped the line -- the collision CLAUDE.md's
+    # concurrency section warns about, in the file that enforces the rest.
+    gate.run("findings' declared records exist and can fail (D9)",
+             [py, "tools/check_finding_records.py"])
+    # Gap #3 / rubric row H2 (2026-08-07). The three checks above ask whether a
+    # failure mode is DECLARED. This one asks whether it can trip. It is static —
+    # shape of every `control:` block, plus a journalled CONTROL verdict at the
+    # current code fingerprint — because verifying 55 records for real costs
+    # minutes and this barrier costs seconds. `make control` does the running and
+    # commits the journal; touching a driver moves its fingerprint and turns this
+    # red with the record named, which is the same bargain `result_dump` records
+    # already make with their committed baselines.
+    gate.run("declared negative controls are sound (D9/H2)",
+             [py, "tools/check_control_soundness.py", "--gate"])
     # Roadmap C8. ONE check replaces three: the results manifest, the exactness
     # inventory section, and the five markdown indexes were each verified by
     # their own generator, and each could be stale while the others were clean.
@@ -115,23 +142,26 @@ def main() -> int:
     gate.run("indexes, manifest and inventory are current (C8)",
              [py, "-m", "casim.cli", "index", "--check"])
 
-    # -- 1c. Migration readiness (roadmap C0) ------------------------------
-    # The manifest check is the C0 acceptance gate as an assertion: full
-    # coverage of every file under ca-simulation/, unique target paths, known
-    # sectors and phases, and no accepted dead symbol that the supersession
-    # ledger names in a `retained:` field. A file with no record does not move.
-    print("\nmigration readiness")
+    # -- 1c. Structure (roadmap C0-C9) -------------------------------------
+    # Four checks were retired at C9 with the tree they guarded: the migration
+    # manifest's coverage assertion, migrate_module's self-test, and the C3.4
+    # shim-import check. The legacy tree no longer exists, so nothing can move
+    # out of it, no manifest coverage can regress, and no shim can be imported.
+    # The manifest itself stays live as the migration's provenance record —
+    # `check_deprecated.py` reads it to verify all 171 backups.
+    print("\nstructure")
     gate.run("module graph is current", [py, "tools/gen_module_graph.py", "--check"])
-    gate.run("migration manifest covers every file",
-             [py, "tools/gen_migration_manifest.py", "--check"])
-    gate.run("migrate_module self-test",
-             [py, "tools/migrate_module.py", "--self-test"])
     gate.run("deprecated/ has no unaccounted files",
              [py, "tools/check_deprecated.py"])
     gate.run("module registry covers every engine module (D11)",
              [py, "tools/check_module_registry.py"])
-    gate.run("no src code imports a ca-simulation shim path (C3.4)",
-             [py, "tools/check_shim_imports.py"])
+    # Roadmap D12. The claims layer: closed vocabularies, referential
+    # integrity, the debt ratchets, and THE rule -- a `status: live` card whose
+    # every supporting finding is named in a `superseded:` list in the ledger.
+    # That last one is the machine-checkable form of "overstated"; it is what
+    # Claims-and-Falsifiers revisions 2 and 3 corrected by hand, months late.
+    gate.run("claim cards are well-formed and not overstated (D12)",
+             [py, "tools/check_claims.py"])
 
     # -- 2. Package suite --------------------------------------------------
     print("\npackage suite")

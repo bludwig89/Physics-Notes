@@ -1,0 +1,190 @@
+{
+  "checks": [
+    {
+      "name": "T0a",
+      "ok": true,
+      "value": {
+        "n_loops": 20,
+        "n_missing_reverse": 0,
+        "closed": true
+      },
+      "note": "the rule's 20 oriented minimal rhombi are CLOSED UNDER REVERSAL -- the premise of every reality result below, and a property of the loop set rather than of a Re() anyone inserted"
+    },
+    {
+      "name": "T0b",
+      "ok": true,
+      "value": {
+        "n_loops": 12,
+        "n_missing_reverse": 0,
+        "closed": true
+      },
+      "note": "the hypercubic reference set is closed too, so T0a is measuring a property and not a BCC accident"
+    },
+    {
+      "name": "T1a",
+      "ok": true,
+      "value": 1.2434497875801753e-14,
+      "note": "Im S = 0 on Haar-random SU(3) 4-D configurations -- and in Euclidean signature the theta-term is the UNIQUE purely-imaginary invariant, so this IS theta_QCD = 0, non-perturbatively"
+    },
+    {
+      "name": "T1b",
+      "ok": true,
+      "value": 0.9969570477569998,
+      "note": "the configurations are genuinely DISORDERED -- Re S sits at less than half its ordered-limit value -- so T1a is a cancellation inside a non-trivial sum of 20 x N_sites complex traces, not a vanishing one"
+    },
+    {
+      "name": "T1c",
+      "ok": true,
+      "value": 2.864289338439558e-14,
+      "note": "S is CP-invariant on the same configurations"
+    },
+    {
+      "name": "T1d",
+      "ok": true,
+      "value": 3.1776437161565096e-14,
+      "note": "and P-invariant alone -- which is the leg that matters, since theta E.B is P-odd"
+    },
+    {
+      "name": "T2a",
+      "ok": true,
+      "value": 0.0,
+      "note": "2-point: every position-space coefficient is REAL at literal zero, which is V(-k) = conj(V(k)) for all k"
+    },
+    {
+      "name": "T2b",
+      "ok": true,
+      "value": 0.0,
+      "note": "3-point: literal zero -- this is the vertex the 2026-06-29 audit's G1 caveat named as unanalysed"
+    },
+    {
+      "name": "T2c",
+      "ok": true,
+      "value": 0.0,
+      "note": "4-point: literal zero, so the quartic self-coupling carries no imaginary part either"
+    },
+    {
+      "name": "T2d",
+      "ok": true,
+      "value": 0.0,
+      "note": "the hypercubic reference path agrees, through the same code"
+    },
+    {
+      "name": "T2e",
+      "ok": true,
+      "value": [
+        [
+          4.0,
+          0.5,
+          0.9999999999999998
+        ],
+        [
+          20,
+          38,
+          112
+        ]
+      ],
+      "note": "the sampled coefficients are O(1) and the samples are non-empty, so T2a-d are identities on non-vanishing objects"
+    },
+    {
+      "name": "T3a",
+      "ok": true,
+      "value": [
+        0.0,
+        0.0
+      ],
+      "note": "both projections are exact: sum_i d_i d_i^T = 4I on the 4 <111> temporal rhombi and M^T M = 4I on the 6 <110> spatial ones, so E, B and hence Q need no pseudo-inverse"
+    },
+    {
+      "name": "T3b",
+      "ok": true,
+      "value": 2.0777001001624806,
+      "note": "Q = sum_a E^a.B^a is NON-ZERO on these configurations -- without this leg T1 and T2 would be statements about an operator the lattice does not carry, i.e. vacuous"
+    },
+    {
+      "name": "T3c",
+      "ok": true,
+      "value": 0.0,
+      "note": "injecting theta by hand gives Im S = -theta * sum Q EXACTLY, over theta in {0.1, 0.3, -0.7, 2.0}: the slope IS the topological charge, so T1a has full sensitivity and its zero is a measurement rather than a statement about an operator the lattice does not carry"
+    },
+    {
+      "name": "T3d",
+      "ok": true,
+      "value": [
+        2.4868995751603507e-14,
+        0.0
+      ],
+      "note": "and the discrete symmetry is exact: S is invariant under U -> U* while the one-sense loop functional is odd under it at LITERAL zero -- so reality is a symmetry of the rule, not an accident of a configuration"
+    },
+    {
+      "name": "T4a",
+      "ok": true,
+      "value": 0.0,
+      "note": "the F26 EVEN propagation law is P-even, so the conclusion does not depend on resolving lpt_bcc_vertex's declared action fork"
+    },
+    {
+      "name": "T4b",
+      "ok": true,
+      "value": 1.9846377227667324,
+      "note": "the retained CHIRAL law is not P-even, so T4a measures something -- and F91's 'gluon even (forced)' is what puts the rule on the P-even branch"
+    },
+    {
+      "name": "T5a",
+      "ok": true,
+      "value": 1.4874168143337463e-17,
+      "note": "at one generation arg det M_q is INDEPENDENT of the F27 phase over {0, pi/3, pi/2, 2, pi} -- this is the quantity F53's P5 measures, and completeness B11 attributes it to theta_QCD, which F53 itself disclaims"
+    },
+    {
+      "name": "T5b",
+      "ok": true,
+      "value": 0.0,
+      "note": "and it is not merely constant, it is ZERO: F53 quotes the off-diagonal PRODUCT (i m e^{+i th})(i m e^{-i th}) = -m^2, and the determinant of an off-diagonal 2x2 is minus that product, so det = +m^2 and arg det = 0 exactly.  Hence theta-bar = 0 + 0 at one generation -- the first term from T1/T2 and the second from here"
+    },
+    {
+      "name": "T5c",
+      "ok": true,
+      "value": {
+        "theta_QCD": "0 (T1, T2)",
+        "arg_det_M_q": "open: E6/E7"
+      },
+      "note": "theta-bar = theta_QCD + arg det M_q.  The first term is closed here; the second is the quark mass texture and is NOT closed here.  So ledger parameter #19 stops being an independent input and becomes a function of E6/E7 -- which is a parameter-count result, not a solution of the strong CP problem"
+    }
+  ],
+  "n_pass": 20,
+  "n_total": 20,
+  "verdict": "PASS",
+  "params": {
+    "reverse_senses": true,
+    "theta_injected": 0.0,
+    "flat_links": false,
+    "vertex_one_sense": false,
+    "shape": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "B11_im_S_max": 1.2434497875801753e-14,
+  "B11_re_S_scale": 62.179767642204226,
+  "B11_disorder": 0.9969570477569998,
+  "B11_cp_defect": 2.864289338439558e-14,
+  "B11_parity_defect": 3.1776437161565096e-14,
+  "B11_vertex_defect": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "B11_Q_magnitude": 2.0777001001624806,
+  "B11_theta_linearity_defect": 0.0,
+  "B11_conjugation_defect": 2.4868995751603507e-14,
+  "B11_one_sense_odd_defect": 0.0,
+  "B11_even_law_defect": 0.0,
+  "B11_chiral_law_defect": 1.9846377227667324,
+  "B11_arg_det_spread": 1.4874168143337463e-17,
+  "B11_n_loops": 20
+}

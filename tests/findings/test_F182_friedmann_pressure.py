@@ -37,11 +37,11 @@ import sympy as sp
 
 THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, "..", ".."))
-SIM = os.path.join(ROOT, "ca-simulation")
-if SIM not in sys.path:
-    sys.path.insert(0, SIM)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_cosmology as cc                  # noqa: E402
+from casim.engine.interactions import cosmology as cc                  # noqa: E402
 
 STAMP = "2026-06-30 - 02:45"
 

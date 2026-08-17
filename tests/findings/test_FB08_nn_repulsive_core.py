@@ -34,10 +34,12 @@ import json
 from fractions import Fraction as Fr
 
 _HERE = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(_HERE, "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_nuclear_core as C       # exact rational core derivation (F113)  # noqa: E402
-import ca_nuclear as N            # deuteron coupled-channel solver         # noqa: E402
+from casim.engine.particles import nuclear_core as C       # exact rational core derivation (F113)  # noqa: E402
+from casim.engine.particles import nuclear as N            # deuteron coupled-channel solver         # noqa: E402
 
 # ---------------------------------------------------------------------------
 PASS = True

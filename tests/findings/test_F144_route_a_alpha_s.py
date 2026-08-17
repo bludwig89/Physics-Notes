@@ -39,9 +39,10 @@ import math
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                "..", "..", "ca-simulation")))
-import ca_alpha_s_running as RA  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import running_alpha_s as RA  # noqa: E402
 
 results = {}
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))

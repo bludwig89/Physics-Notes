@@ -32,6 +32,16 @@ from casim.engine.lattice.bcc import bcc_dispersion, bcc_unitary, weyl_step_3d_b
 from casim.constants import c_lat
 
 # ── JAX acceleration (optional) ──────────────────────────────────────────────
+#
+# P2.7: this is a *device path*, and it is opt-in via `use_jax()` rather than
+# auto-selected for the same reason the CuPy/MLX backends are — see
+# `casim.numerics.precision` for the float32 policy both now share. The eight
+# `jnp.fft` calls below are deliberate and deliberately NOT routed through
+# `casim.numerics.fft`: the point of the path is that the transforms and the
+# phase multiply fuse inside one `@jax.jit`, which a host-side FFT call cannot
+# do. `tools/audit_numerics.py` counts them under `device_fft` so the D8 ratchet
+# can see this class of call instead of being blind to anything not spelled
+# `np.fft`.
 _JAX_AVAILABLE = False
 _USE_JAX = False
 try:
@@ -40,6 +50,8 @@ try:
     _JAX_AVAILABLE = True
 except ImportError:
     pass
+
+from casim.numerics import precision as _precision   # noqa: E402  (policy owner)
 
 # Dispersion + kernel cache: keyed by shape-tuples to avoid per-tick recomputation
 _disp_cache: dict = {}
@@ -756,15 +768,64 @@ def use_jax(enabled: bool = True) -> None:
     """
     Enable or disable the JAX-JIT backend for W-field propagation steps.
 
-    When True, w_propagation_step_spectral and w_massive_propagation_step_spectral
-    use a JIT-compiled JAX kernel.  Requires ``pip install jax``.  On CPU the
-    first call compiles (~0.5 s); subsequent calls run the compiled kernel.
-    On GPU (jax[cuda]) speedups of 10–100× are typical.
+    When True, ``w_propagation_step_spectral`` and
+    ``w_massive_propagation_step_spectral`` use a JIT-compiled JAX kernel.
+    Requires ``pip install jax``. On CPU the first call compiles (~0.5 s);
+    subsequent calls run the compiled kernel. On GPU (jax[cuda]) speedups of
+    10–100× are typical.
+
+    Precision (roadmap **P2.7**)
+    ---------------------------
+    **This used to be the one unguarded precision hole in the tree.** JAX
+    defaults to float32 and *silently downcasts* a `complex128` input, so
+    before P2.7 `use_jax(True)` ran the W propagator five orders above the
+    `machine` gate (float32 eps 1.2e-7 vs 1e-12) with no gate and no test —
+    while `casim.numerics`' MLX backend had both, because it is a registered
+    backend and this is a fused kernel that bypassed the registry.
+
+    So enabling now goes through the shared policy in
+    `casim.numerics.precision`: x64 is requested and then **verified against
+    the live dtype** (`jax_enable_x64` is ignored once arrays exist, so a
+    successful `update()` call is not evidence), and if it did not take, this
+    raises unless ``CASIM_ALLOW_FLOAT32=1``.
     """
     global _USE_JAX
-    if enabled and not _JAX_AVAILABLE:
+    if not enabled:
+        _USE_JAX = False
+        return
+    if not _JAX_AVAILABLE:
         raise RuntimeError("JAX not installed — run: pip install jax")
-    _USE_JAX = enabled
+    _precision.require_float64("weak_wmu's JAX path", is_float64=_jax_is_x64())
+    _USE_JAX = True
+
+
+def _jax_is_x64() -> bool:
+    """Is this JAX actually giving us complex128? Measured, not assumed."""
+    try:
+        jax.config.update("jax_enable_x64", True)
+    except Exception:                                    # pragma: no cover
+        pass
+    try:
+        return jnp.zeros(1, dtype=jnp.complex128).dtype == np.complex128
+    except Exception:                                    # pragma: no cover
+        return False
+
+
+def jax_precision_report() -> dict:
+    """What the JAX path would run at, without enabling it.
+
+    Exists so a test (and `casim backend`) can assert the guard rather than
+    trust it, and so the answer is available on a machine where JAX is absent.
+    """
+    if not _JAX_AVAILABLE:
+        return {"available": False, "x64": None, "allowed": None}
+    x64 = _jax_is_x64()
+    return {
+        "available": True,
+        "x64": bool(x64),
+        "allowed": bool(x64 or _precision.allow_float32()),
+        "devices": sorted({d.platform for d in jax.devices()}),
+    }
 
 
 _jax_kernels: dict = {}

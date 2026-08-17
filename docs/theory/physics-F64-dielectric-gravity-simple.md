@@ -1,6 +1,6 @@
 # F64 — Gravity as the Vacuum Acting Like Glass, Explained Simply
 
-*2026-05-31 — A plain-language tour of the F64 "electromagnetic-connection" gravity fork: what it claims, how it ties to the light (E,B) field the rest of the model is built on, what the 16 tests actually show, and whether it helps pin the model's units to SI. Written for someone technically sharp but not a physicist. Every claim traces to a finding (F##) or to the test module `ca-simulation/forks/gr_fork_F64_em_connection.py` and its battery `tests/findings/test_F64_em_connection.py` (16/16 PASS). Where something is assumed rather than derived, it says so.*
+*2026-05-31 — A plain-language tour of the F64 "electromagnetic-connection" gravity fork: what it claims, how it ties to the light (E,B) field the rest of the model is built on, what the 16 tests actually show, and whether it helps pin the model's units to SI. Written for someone technically sharp but not a physicist. Every claim traces to a finding (F##) or to the test module `casim.engine.forks.gravity.gr_fork_F64_em_connection` and its battery `tests/findings/test_F64_em_connection.py` (16/16 PASS). Where something is assumed rather than derived, it says so.*
 
 ---
 
@@ -113,4 +113,4 @@ When pushed beyond the weak field, the simplest index that fit the weak-field da
 
 F64 makes gravity the optics of a vacuum whose ε and μ rise near energy — one impedance-matched dielectric field, built from the very (E,B) rotation that the model already uses for light and mass. It reproduces the equivalence principle, gravitational redshift, full Einstein light-bending, and causal gravitational waves; it predicts that light gravitates light (which the rest-mass route cannot); it forced its own nonlinear law to the GR-correct exponential when confronted with Mercury; and, tied back into the main model, it delivers the long-missing third unit anchor — pinning the lattice cell to a few Planck lengths in a way that is automatically consistent with the model's light-speed rule.
 
-*Modules: `ca-simulation/forks/gr_fork_F64_em_connection.py`; tests `tests/findings/test_F64_em_connection.py` (16/16), `tests/runners/compare_F64_F62.py`. Findings: `findings/F64-em-connection-gravity.md`; related F25/F26 (rotation), F46 (mass geometry), F50/F52/F62 (rest-leg gravity), F58/F59/F61 (induced G, cell scale), F10/F30 (`deprecated/si-units-options.md`).*
+*Modules: `casim.engine.forks.gravity.gr_fork_F64_em_connection`; tests `tests/findings/test_F64_em_connection.py` (16/16), `tests/runners/compare_F64_F62.py`. Findings: `findings/F64-em-connection-gravity.md`; related F25/F26 (rotation), F46 (mass geometry), F50/F52/F62 (rest-leg gravity), F58/F59/F61 (induced G, cell scale), F10/F30 (`deprecated/si-units-options.md`).*

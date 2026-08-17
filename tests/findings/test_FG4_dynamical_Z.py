@@ -26,11 +26,13 @@ Run:  python3 tests/findings/test_FG4_dynamical_Z.py
 """
 
 import sys, os, json, time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 
-from ca_z_field import (
+from casim.engine.gauge.weak_z import (
     SPECIES, T3_TABLE, Q_TABLE, THETA_W_F45,
     z_couplings, z_coupling_strength, photon_coupling_strength,
     z_mass_from_w,
@@ -42,13 +44,13 @@ from ca_z_field import (
     z_from_w3_b, photon_from_w3_b,
     source_basis_identity_residual,
 )
-from ca_wmu import (
+from casim.engine.gauge.weak_wmu import (
     weinberg_mix, weinberg_unmix, ew_charge,
     hypercharge_propagation_step,
 )
-from ca_bcc import bcc_dispersion
-from ca_lattice import make_kgrid_3d as _kgrid3d
-import ca_fft as _fft
+from casim.engine.lattice.bcc import bcc_dispersion
+from casim.engine.lattice.geometry import make_kgrid_3d as _kgrid3d
+from casim.numerics import fft as _fft
 
 
 L = 16

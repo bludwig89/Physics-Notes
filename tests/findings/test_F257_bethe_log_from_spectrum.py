@@ -22,17 +22,12 @@ from __future__ import annotations
 import os, sys, json, argparse
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-for _cand in (
-    os.path.join(_HERE, "ca-simulation"),
-    os.path.join(_HERE, "..", "..", "ca-simulation"),
-    os.path.join(_HERE, "..", "ca-simulation"),
-):
-    _cand = os.path.abspath(_cand)
-    if os.path.isdir(_cand) and _cand not in sys.path:
-        sys.path.insert(0, _cand)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bethe_log as bl        # noqa: E402
-import ca_vertex_loop as vx      # noqa: E402
+from casim.engine.interactions import qed_bethe_log as bl        # noqa: E402
+from casim.engine.interactions import qed_vertex_loop as vx      # noqa: E402
 
 # modest grid keeps the standalone/pytest run fast; the finding quotes finer grids
 _N = 8000

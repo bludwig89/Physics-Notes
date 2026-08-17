@@ -1,5 +1,14 @@
 # F155 — Residual A attacked with the one-loop self-energy machinery: the tadpole sector is **exactly empty** (the Wilson 28.81 is structurally absent), the lattice−continuum **subtraction** machinery is built and convergent, and the matching scale is **bracketed** $q_\ast a\in[1/\sqrt3,\,\sim0.97]$ (implied $0.733$ inside, $\Lambda$-ratio $O(1)$ — not Wilson) — with the Residual-B freeze value $\approx0.39$ now **bracketed anchor-free** to a narrow window $[0.31,0.38]$ by the L-stable χSB onset
 
+> **[PARTIALLY SUPERSEDED 2026-08-02 by F277 — ledger S12-F277-refold-removed-qed-and-gluon]**
+>
+> **DEAD:** Numbers reached through the refolded site in the one-loop self-energy machinery.
+>
+> **STILL LIVE:** The tadpole sector, which this finding's own status line records as EXACT, and the Residual-A attack it set up. 97 code/test references.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-06-13 - 11:30
 **Status:** Partial (Residual A **sharpened to a convergent bracket**, not pinned to the digit; the B freeze **bracketed anchor-free**) — 5/5 checks PASS. A0 exact (tadpole empty, gluon luminal — machine precision); A3 convergent (the $d_1$ subtraction machinery, n-stable); A5 bracket (subtracted LM moment converges to the band top, $q_\ast$ bracketed, $\Lambda$-ratio $O(1)$); Bf anchor-free (L-stable onset window); C falsification-sharp. **Honest headline:** the moment/abelian routes pin $q_\ast$ to the *upper* edge of F151's band (the near-perfect-action signature); the remaining pull-down to the implied $0.733$ is the **gluonic 3-gluon + ghost finite part**, which is the one production computation still open (or, gauge-fixing-free, the high-resolution static-potential measurement — Route A-NP, whose machinery is built here).
 **Modules:** `ca-simulation/ca_gluon_self_energy.py` (A-PT machinery + the runner hook `qstar_highres`), `ca-simulation/ca_gap_solve.py` (B freeze: new `chiSB_onset`, `freeze_window`), `tests/runners/run_su3_3d_string_tension.py` (A-NP: extended with the Cornell/Coulomb $\alpha_V$ fit, thermalisation flags, JSON `--out`).

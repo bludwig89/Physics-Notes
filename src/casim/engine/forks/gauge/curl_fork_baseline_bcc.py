@@ -11,7 +11,7 @@ Reference outcomes (already established):
   curl residual scaling = O(k), coeff 1/√6   (Finding 2)
 """
 import numpy as np
-import ca_bcc as _bcc
+from casim.engine.lattice import bcc as _bcc
 from casim.constants import c_lat
 
 GEOMETRY_NAME = "BCC (baseline)"

@@ -62,9 +62,13 @@ import numpy as np
 # ── Path bootstrap ────────────────────────────────────────────────────
 _THIS = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.abspath(os.path.join(_THIS, '..', '..'))
-sys.path.insert(0, os.path.join(_ROOT, 'ca-simulation'))
-sys.path.insert(0, os.path.join(_ROOT, 'ca-simulation', 'forks'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import hypercharge_fork as hf  # noqa: E402
 
 

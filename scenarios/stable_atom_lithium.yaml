@@ -7,6 +7,7 @@
 #     Hartree mean field + Gram-Schmidt Pauli each tick.
 # Open shells (Li/C) are the F157-flagged frontier; Li is certified stable here
 # over a long run with the uniform deep coarse config.
+version: 2
 name: stable_atom_lithium
 title: "Fully Stable Block-Spin Atom — Lithium (F195)"
 description: "Live element atom Li(3,4): A=7 coarse-grained nucleus → +3 point, 1s²2s¹ open shell with live Hartree + Gram-Schmidt Pauli; the diffuse 2s binds inside the box, net charge 0, norms machine-precision."

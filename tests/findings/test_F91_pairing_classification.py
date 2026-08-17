@@ -86,14 +86,16 @@ import sys
 from fractions import Fraction
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_fft as _fft
-import ca_bcc as bcc
-import ca_photon_pair as pp
-import ca_z_field as zf
-from ca_wmu import _f26_rotation_step, w_propagation_step_chiral
-from ca_lattice import make_kgrid_3d
+from casim.numerics import fft as _fft
+from casim.engine.lattice import bcc as bcc
+from casim.engine.gauge import photon as pp
+from casim.engine.gauge import weak_z as zf
+from casim.engine.gauge.weak_wmu import _f26_rotation_step, w_propagation_step_chiral
+from casim.engine.lattice.geometry import make_kgrid_3d
 
 RESULTS_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'test-results',
                             'F91_pairing_classification.json')

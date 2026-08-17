@@ -1,6 +1,13 @@
-# Roadmap — CASIM Consolidation (C0–C9)
+# Roadmap — CASIM Consolidation (C0–C9) — **COMPLETE 2026-07-31 - 18:20**
 
-*Created 2026-07-30 - 09:30. Companion to `docs/roadmaps/roadmap-unified-program.md` (P0–P6), whose **P0 and P1 are complete** — see `docs/status/P0-completion-overview.md` and `docs/status/P1-completion-overview.md`.*
+> **All ten phases are executed.** `ca-simulation/` and its 171 shims are deleted, D2 is
+> reversed by D6, and D6–D11 are recorded in `docs/theory/key-decisions.md`
+> §"Engineering decisions" plus ledger record `S8-D2-reversed-casim-is-the-program`.
+> Per-phase evidence: `docs/status/C{0..8}-completion-overview.md` and
+> `docs/status/C9-readiness.md` (which carries a CLOSED banner naming the three
+> things it got wrong). Text below is unchanged from execution, as the record.
+
+*Created 2026-07-30 - 09:30. Companion to `docs/roadmaps/roadmap-unified-program.md` (P0–P6), **rewritten 2026-07-31 against measurement** — P0–P2 are complete, B1–B5 are untouched, and P3 is the critical path.*
 
 *This roadmap covers the arc the P-roadmap deliberately deferred: **collapsing the two-layer structure into one program.** It supersedes decision D2 and absorbs P2.2–P2.4 and P1.3.*
 
@@ -278,7 +285,7 @@ Module(
 
 Each subpackage self-registers on import. This is the data `casim index` consumes at C8 and the field that answers P6's reachability question permanently.
 
-**C3.3 — BCC as the base layer.** Migrate, in this order, via `migrate_module.py`: `ca_lattice.py`, `ca_bcc.py`, `ca_core.py`, `ca_core_exact.py`, `ca_fft.py` (→ already folded into `casim.numerics` at C1 — the manifest records it as absorbed, not moved), `ca_bcc_gauge.py`, `ca_blockspin.py`, `ca_multigrid.py`.
+**C3.3 — BCC as the base layer.** Migrate, in this order, via `migrate_module.py`: `ca_lattice.py`, `ca_bcc.py`, `ca_core.py`, `ca_core_exact.py`, `ca_fft.py` (→d already folded into `casim.numerics` at C1 — the manifest records it as absorbed, not moved), `ca_bcc_gauge.py`, `ca_blockspin.py`, `ca_multigrid.py`.
 
 **Two known defects to resolve while here, not later:**
 
@@ -538,4 +545,4 @@ C0 ──┬──> C1 ──┬──> C3 ──┬──> C4 ──┐
 
 ---
 
-*Cross-references: `docs/roadmaps/roadmap-unified-program.md` (P0–P6; P0/P1 complete), `docs/status/P0-completion-overview.md`, `docs/status/P1-completion-overview.md`, `docs/theory/key-decisions.md`, `docs/theory/supersessions.yaml`, `docs/roadmaps/roadmap-unified-real-space.md`, `deprecated/roadmap-standalone-program.md` (Phases A–G, complete), `INDEX.md`, `src/casim/README.md`.*
+*Cross-references: `docs/roadmaps/roadmap-unified-program.md` (P0–P6; P0–P2 complete, P3 the critical path), `docs/status/P0-completion-overview.md`, `docs/status/P1-completion-overview.md`, `docs/theory/key-decisions.md`, `docs/theory/supersessions.yaml`, `docs/roadmaps/roadmap-unified-real-space.md`, `deprecated/roadmap-standalone-program.md` (Phases A–G, complete), `INDEX.md`, `src/casim/README.md`.*

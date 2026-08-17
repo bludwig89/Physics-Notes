@@ -15,7 +15,7 @@ Measured (PDG): +1.29333 MeV.
 
 The decomposition is plain real arithmetic (no chiral/Dirac transforms), so the
 CLAUDE.md numpy/scipy caveat does not apply here; we still route through the
-audited engine `ca-simulation/ca_baryon_dynamics.neutron_minus_proton` (the same
+audited engine `casim.engine.particles.baryon_dynamics.neutron_minus_proton` (the same
 channel CASIM's `njl_nucleon` scenario reads) so the test exercises shipped code.
 
 Gate (from the brief):
@@ -33,12 +33,11 @@ import sys
 from datetime import datetime, timezone
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-for sub in ("ca-simulation", "src"):
-    p = os.path.join(REPO, sub)
-    if p not in sys.path:
-        sys.path.insert(0, p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_baryon_dynamics as BAR  # noqa: E402
+from casim.engine.particles import baryon_dynamics as BAR  # noqa: E402
 
 # F40 / PDG current masses (MeV). m_d/m_u ~ 2 is consistent with the F40 quark-Y
 # down-up gap; EM self-energies are the external P5 inputs (proton's two +2/3
@@ -145,7 +144,7 @@ def main():
             "python3 tests/findings/test_FA06_np_splitting.py",
             "pytest tests/findings/test_FA06_np_splitting.py",
         ],
-        "engine": "ca-simulation/ca_baryon_dynamics.neutron_minus_proton "
+        "engine": "casim.engine.particles.baryon_dynamics.neutron_minus_proton "
                   "(via scenarios/njl_nucleon.yaml -> casim njl_nucleon channel)",
         "provenance": "F123 H3 (sharpest matter prediction), F40 (quark Y / down-up gap), "
                       "F122 (dynamical baryon three-body)",

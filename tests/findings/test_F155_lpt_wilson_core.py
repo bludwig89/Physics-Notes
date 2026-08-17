@@ -15,10 +15,11 @@ the rule's d1) — that is the next module.
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_lpt_wilson as w
+from casim.engine.gauge import lpt_wilson as w
 
 
 def run():

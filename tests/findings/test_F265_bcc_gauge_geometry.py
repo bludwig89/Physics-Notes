@@ -73,10 +73,12 @@ except ModuleNotFoundError:  # allow standalone __main__ JSON dump without pytes
 
     pytest = _Pytest()
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_lattice as cl  # noqa: E402
-import ca_bcc_gauge as bg  # noqa: E402
+from casim.engine.lattice import geometry as cl  # noqa: E402
+from casim.engine.gauge import bcc_action as bg  # noqa: E402
 
 RESULT = os.path.join(
     os.path.dirname(__file__), "..", "..", "test-results",
@@ -522,7 +524,7 @@ def test_G12_bianchi_converges_at_second_order_in_ka():
     contributions" roadmap item: the cross terms are physical content, not an
     artefact to be transformed away.
     """
-    import ca_wmu as cw
+    from casim.engine.gauge import weak_wmu as cw
     idx = {tuple(d): i for i, d in enumerate(cl.BCC_HOP_DIRS)}
 
     def build(L, g=0.01):

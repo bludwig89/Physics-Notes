@@ -62,13 +62,11 @@ import json
 from fractions import Fraction as Fr
 import numpy as np
 
-sys.path.insert(0, os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..', '..', 'ca-simulation'))
-sys.path.insert(0, os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    'ca-simulation'))
-import ca_dirac as dirac          # noqa: E402
-import ca_z_field as zf           # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import dirac as dirac          # noqa: E402
+from casim.engine.gauge import weak_z as zf           # noqa: E402
 
 RESULTS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -162,7 +160,7 @@ def part2_C_violation(L=16):
     print('=' * 74)
     print('  W couples to the LEFT (upper-Weyl) sector only; the C-image of a')
     print('  left state is right-handed and sources exactly zero current.')
-    import ca_wmu as wmu
+    from casim.engine.gauge import weak_wmu as wmu
     rng = np.random.default_rng(7)
 
     print(f'\n  {"doublet":>10}  {"‖J(left)‖":>14}  {"‖J(C-image=right)‖":>20}  '
@@ -312,7 +310,7 @@ def part5_phase_pure_gauge():
     print('  FG-9 P5 — CP-phase θ is pure gauge: dispersion θ-independent')
     print('=' * 74)
 
-    from ca_core_exact import exact2d_unitary
+    from casim.engine.lattice.core_exact import exact2d_unitary
 
     # representative (uncalibrated, Tier-A) masses per charged species
     masses = {'e': 0.20, 'u': 0.15, 'd': 0.18}

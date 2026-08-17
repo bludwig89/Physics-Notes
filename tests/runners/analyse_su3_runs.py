@@ -31,8 +31,9 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 SQRT_SIGMA_PHYS_GEV = 0.44     # physical string tension anchor (F124/F146)
 HBARC_GEV_FM = 0.1973
@@ -113,7 +114,7 @@ def summarise(results_dir="test-results"):
     # the block-spin module make the prediction and compare to the MC.
     if len(bs) >= 2:
         try:
-            import ca_blockspin as _bs
+            from casim.engine.lattice import blockspin as _bs
             anchor = max(bs, key=lambda b: out["per_beta"][b]["n_seeds"])  # best stats
             sq_a = out["per_beta"][anchor]["sqrt_sigma"]
             preds = {}

@@ -83,11 +83,12 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bgfield_loop as bg              # noqa: E402  (b0 gate, continuum vertex)
-import ca_gluon_self_energy as se         # noqa: E402  (rule kernel, lambda_ratio)
+from casim.engine.gauge import bgfield_loop as bg              # noqa: E402  (b0 gate, continuum vertex)
+from casim.engine.gauge import gluon_self_energy as se         # noqa: E402  (rule kernel, lambda_ratio)
 
 FOUR_PI = 4.0 * math.pi
 SIXTEEN_PI2 = 16.0 * math.pi ** 2
@@ -131,14 +132,18 @@ def _Bcoeff_lattice_ff(Q, n, kernel):
     k = np.stack(G, axis=-1)
     qv = np.array([Q, 0.0, 0.0, 0.0])
     kq = k + qv
-    kqw = ((kq + math.pi) % (2 * math.pi)) - math.pi        # wrap into BZ
+    # F277/F272: the shifted momentum is NOT refolded. Wilson is 2*pi-periodic
+    # per axis so the wrap was an exact no-op for it (verified 2e-14, F272); the
+    # RULE kernel's period lattice is sqrt3 * fcc (F267), so the wrap sent k+q to
+    # a genuinely inequivalent momentum. Both kernels are closed forms valid at
+    # any k, so the unwrapped shift is already the periodic-correct value.
 
     if kernel == "wilson":
         Kf = lambda g: 4.0 * np.sum(np.sin(g / 2.0) ** 2, axis=-1)
-        denom = Kf(k) * Kf(kqw)
+        denom = Kf(k) * Kf(kq)
     elif kernel == "rule":
         Kr = lambda g: se.K_true_4d(g[..., 0], g[..., 1], g[..., 2], g[..., 3])
-        denom = Kr(k) * Kr(kqw)
+        denom = Kr(k) * Kr(kq)
     else:
         raise ValueError(kernel)
 

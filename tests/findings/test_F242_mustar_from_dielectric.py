@@ -14,9 +14,11 @@ import json, math, os, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 RESULTS = os.path.join(HERE, '..', '..', 'test-results')
-import ca_superconductivity as sc
+from casim.engine.interactions import superconductivity as sc
 
 NA = 6.02214076e23
 KB_J = 1.380649e-23

@@ -6,16 +6,19 @@ whose speed is exactly c_grav = c_lat = 1/sqrt(3), the same light cone as the
 paired photon, so |c_grav - c_photon|/c = 0 identically (GW170817 survived).
 
 See findings/F180-gravitational-wave-speed.md and
-ca-simulation/forks/gr_fork_F180_gw_speed.py.
+src/casim/engine/forks/gravity/gr_fork_F180_gw_speed.py.
 """
 import os
 import sys
 
 import pytest
 
-sys.path.insert(
-    0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation", "forks")
-)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import gr_fork_F180_gw_speed as gw  # noqa: E402
 
 

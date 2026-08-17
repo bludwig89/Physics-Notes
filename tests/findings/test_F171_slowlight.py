@@ -21,8 +21,10 @@ Run:  python tests/findings/test_F171_slowlight.py
 import os, sys, json
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_slowlight as sl
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import slowlight as sl
 
 C = sl.C_VAC
 OUT = os.path.join(os.path.dirname(__file__), "..", "..", "test-results", "F171_slowlight.json")

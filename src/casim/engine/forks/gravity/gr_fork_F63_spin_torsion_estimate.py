@@ -51,8 +51,10 @@ import numpy as np
 
 OUT = os.path.dirname(os.path.abspath(__file__))
 _THIS = os.path.dirname(os.path.abspath(__file__))
+# C9: `src/` (five levels up) is what makes `casim.*` importable when this
+# fork is run directly; the sibling fork directory covers bare-name fork loads.
 for p in (_THIS, os.path.abspath(os.path.join(_THIS, "..")),
-          os.path.abspath(os.path.join(_THIS, "..", "ca-simulation"))):
+          os.path.abspath(os.path.join(_THIS, *([".."] * 5), "src"))):
     if p not in sys.path:
         sys.path.insert(0, p)
 

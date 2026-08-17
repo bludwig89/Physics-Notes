@@ -44,12 +44,13 @@ import sys
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-SIM = os.path.abspath(os.path.join(THIS, "..", "..", "ca-simulation"))
-FORKS = os.path.join(SIM, "forks")
-for p in (SIM, FORKS):
-    if p not in sys.path:
-        sys.path.insert(0, p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import gr_fork_F58_clockrate_coupling_derivation as f58   # noqa: E402
 
 

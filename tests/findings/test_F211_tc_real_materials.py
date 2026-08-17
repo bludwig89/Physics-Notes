@@ -15,7 +15,7 @@ factors), and the model-native Task-1 kernel V=D^2/(rho c_s^2) reproduces the
 tabulated lambda in Hopfield form.  Plain weak-coupling BCS overestimates,
 documenting the need for the (1+lambda) mass renormalisation.
 
-Standalone or pytest.  Module: ca-simulation/ca_superconductivity.py.
+Standalone or pytest.  Module: src/casim/engine/interactions/superconductivity.py.
 """
 from __future__ import annotations
 import os, sys, json, math
@@ -23,8 +23,10 @@ import numpy as np
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(os.path.dirname(_HERE))
-sys.path.insert(0, os.path.join(_REPO, "ca-simulation"))
-import ca_superconductivity as sc  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import superconductivity as sc  # noqa: E402
 
 RESULTS = {}
 

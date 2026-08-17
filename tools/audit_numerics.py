@@ -38,7 +38,7 @@ _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASELINE = os.path.join(_REPO, "tools", "numerics_health_baseline.json")
 
 # Scanned: everything that is or will become a physics module.
-ROOTS = ("ca-simulation", "src/casim")
+ROOTS = ("src/casim",)
 
 # Not physics modules, or the façade itself.
 EXEMPT_PREFIXES = (
@@ -49,9 +49,23 @@ EXEMPT_PREFIXES = (
 
 BANNED_ROOTS = {"numpy", "scipy", "ca_fft"}
 
+_TRANSFORMS = r"(fftn|ifftn|fft2|ifft2|rfftn|irfftn|rfft|irfft|fft|ifft)"
+
 # `np.fft.<transform>(` — NOT fftfreq/rfftfreq (pure index arithmetic).
 _FFT_CALL = __import__("re").compile(
-    r"\b(?:np|numpy)\.fft\.(fftn|ifftn|fft2|ifft2|rfftn|irfftn|rfft|irfft|fft|ifft)\b(?!freq)")
+    r"\b(?:np|numpy)\.fft\." + _TRANSFORMS + r"\b(?!freq)")
+
+# **P2.7.** The same call spelled on a device array namespace. The original
+# ratchet matched `np|numpy` only, which is why 8 `jnp.fft` calls in
+# `gauge/weak_wmu.py` sat outside the D8 seam *and* outside its enforcement for
+# as long as they existed: a re-added numpy transform tripped the ratchet, a JAX
+# one did not. Counted separately rather than folded into the hard-zero above,
+# because a fused `@jax.jit` kernel routing its own transforms is a legitimate
+# device path — what is not legitimate is it being invisible. Every site counted
+# here must sit behind `casim.numerics.precision.require_float64`.
+_DEVICE_FFT_CALL = __import__("re").compile(
+    r"\b(?:jnp|jax\.numpy|cp|cupy|mx|mlx\.core|torch)\.fft\." + _TRANSFORMS
+    + r"\b(?!freq)")
 
 # `ca_fft` is TRANSITIONAL, not a violation of the same kind as the others.
 # Since C1.1 it is a shim onto `casim.numerics.fft`, so a call through it DOES
@@ -107,6 +121,12 @@ def _offending_imports(path: str) -> list[str]:
     return sorted(hits)
 
 
+def _device_fft_call_sites(path: str) -> int:
+    """Device-namespace transform calls (P2.7). See `_DEVICE_FFT_CALL`."""
+    with open(os.path.join(_REPO, path), encoding="utf-8", errors="replace") as fh:
+        return len(_DEVICE_FFT_CALL.findall(fh.read()))
+
+
 def _fft_call_sites(path: str) -> int:
     """Direct `np.fft.<transform>` calls — the thing C1.3 removed.
 
@@ -121,6 +141,7 @@ def _fft_call_sites(path: str) -> int:
 def scan() -> dict:
     per_file: dict[str, list[str]] = {}
     calls: dict[str, int] = {}
+    dev_calls: dict[str, int] = {}
     for rel in _py_files():
         hits = _offending_imports(rel)
         if hits:
@@ -128,6 +149,9 @@ def scan() -> dict:
         n = _fft_call_sites(rel)
         if n:
             calls[rel] = n
+        d = _device_fft_call_sites(rel)
+        if d:
+            dev_calls[rel] = d
     by_root: dict[str, int] = {}
     for hits in per_file.values():
         for h in hits:
@@ -136,9 +160,12 @@ def scan() -> dict:
         "files_with_direct_imports": len(per_file),
         "by_module": by_root,
         "fft_call_sites": sum(calls.values()),
+        "device_fft_call_sites": sum(dev_calls.values()),
+        "device_fft_files": len(dev_calls),
         "scanned": len(_py_files()),
         "_per_file": per_file,
         "_calls": calls,
+        "_dev_calls": dev_calls,
     }
 
 
@@ -165,6 +192,11 @@ def main() -> int:
     print(f"  direct np.fft transform calls   {cur['fft_call_sites']:>5d}"
           + (f"   (was {was_calls})" if was_calls is not None else "")
           + "   <- C1.3's metric; must be 0")
+    was_dev = base.get("device_fft_call_sites")
+    print(f"  device-namespace fft calls      {cur['device_fft_call_sites']:>5d}"
+          + (f"   (was {was_dev})" if was_dev is not None else "")
+          + f"   <- P2.7; in {cur['device_fft_files']} file(s), each must sit"
+            f" behind require_float64")
     print(f"  files importing numpy/scipy/ca_fft   "
           f"{cur['files_with_direct_imports']:>5d}"
           + (f"   (was {base['files_with_direct_imports']})" if base else ""))
@@ -178,6 +210,10 @@ def main() -> int:
         if cur["_calls"]:
             print("\n  files STILL calling np.fft directly:")
             for rel, n in sorted(cur["_calls"].items(), key=lambda x: -x[1]):
+                print(f"    {n:>4d}  {rel}")
+        if cur["_dev_calls"]:
+            print("\n  device-namespace fft calls (P2.7):")
+            for rel, n in sorted(cur["_dev_calls"].items(), key=lambda x: -x[1]):
                 print(f"    {n:>4d}  {rel}")
         print("\n  still importing numpy/scipy/ca_fft:")
         for rel, hits in sorted(cur["_per_file"].items()):
@@ -202,6 +238,16 @@ def main() -> int:
             bad.append(f"direct np.fft transform calls "
                        f"{base.get('fft_call_sites', 0)} -> "
                        f"{cur['fft_call_sites']}")
+        # P2.7: a device-namespace transform is allowed to exist but not to
+        # multiply unnoticed. Every site must sit behind
+        # `casim.numerics.precision.require_float64`, and adding one is a
+        # decision that has to be taken deliberately.
+        if cur["device_fft_call_sites"] > base.get("device_fft_call_sites", 0):
+            bad.append(f"device-namespace fft calls "
+                       f"{base.get('device_fft_call_sites', 0)} -> "
+                       f"{cur['device_fft_call_sites']} — a new device transform "
+                       f"bypasses casim.numerics; gate it with "
+                       f"require_float64 and `--update` the baseline")
         if cur["files_with_direct_imports"] > base["files_with_direct_imports"]:
             bad.append(f"files_with_direct_imports "
                        f"{base['files_with_direct_imports']} -> "

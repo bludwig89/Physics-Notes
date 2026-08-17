@@ -33,13 +33,13 @@ c_grav = c_lat = c_photon by construction.
 This module verifies that chain with five independent checks (sympy + hand-rolled
 real arithmetic; numpy only for grid sums, no complex/chiral transforms).
 
-Run:  python3 ca-simulation/forks/gr_fork_F180_gw_speed.py
+Run:  python3 src/casim/engine/forks/gravity/gr_fork_F180_gw_speed.py`
 """
 
 from __future__ import annotations
 import numpy as np
 from casim.constants import c_lat
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 C_LAT = c_lat
 

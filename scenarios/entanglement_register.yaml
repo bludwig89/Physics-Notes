@@ -3,6 +3,7 @@
 # Starts from a PRODUCT (Néel) state and lets the DERIVED spinor-exchange gate
 # (θ = J/4, super-exchange from the ca_dirac hopping at mass m) generate
 # entanglement live: the recorded von Neumann entropy rises from 0 toward ln2.
+version: 2
 name: entanglement_register
 title: "Live Entanglement Generation"
 description: "A genuine 2^n register on n lattice cells: from a product Néel state, the derived nearest-neighbour spinor-exchange gate generates entanglement entropy live (0 → ln2). Rate set by the super-exchange J(m) derived from the ca_dirac hopping."

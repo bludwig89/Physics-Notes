@@ -73,8 +73,10 @@ import math
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "ca-simulation"))
-import ca_nuclear as nuc  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import nuclear as nuc  # noqa: E402
 
 results = {"finding": "F128",
            "title": "NN short-range repulsion from the isoscalar-vector (ω) meson",

@@ -28,11 +28,12 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..",
-                                "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 pytest.importorskip("scipy")
-import ca_blockspin_binding as bb   # noqa: E402
+from casim.engine.lattice import blockspin_binding as bb   # noqa: E402
 
 # Canonical harmonic problem: well wide enough to be smooth (IR) yet contained
 # in the L=24 box.

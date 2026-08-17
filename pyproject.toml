@@ -42,6 +42,10 @@ where = ["src"]
 markers = [
     "exact: result is algebraically exact (residual == 0)",
     "machine_precision: result holds to FFT/float round-off (<1e-12)",
+    # Part of the project's own exactness vocabulary (see
+    # docs/status/exactness-inventory.md), used since before P0 but never
+    # registered, so every use warned. Registered at P2.6.
+    "quantitative: a measured number with a tolerance, not an identity",
     "slow: long run, excluded from default selection",
     # Roadmap P0.4. Granularity note: `superseded` means the WHOLE file is dead
     # (currently exactly one file). Where only some checks are superseded the

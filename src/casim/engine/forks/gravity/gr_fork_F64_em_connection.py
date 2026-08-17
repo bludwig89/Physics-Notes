@@ -83,7 +83,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 import sympy as sp
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 # ───────────────────────────────────────────────────────────────────
 #  Exact symbolic core

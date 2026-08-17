@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "name": "C1 local op on A leaves rho_B exactly unchanged",
+      "ok": true,
+      "value": 7.771566176549823e-16
+    },
+    {
+      "name": "C1b a NON-local unitary does move rho_B (control)",
+      "ok": true,
+      "value": 0.4610845267596821
+    },
+    {
+      "name": "C2 outside the cone the reduced state is EXACTLY equal",
+      "ok": true,
+      "value": 6.866507698581549e-16
+    },
+    {
+      "name": "C2b inside the cone it is NOT (control)",
+      "ok": true,
+      "value": 1.067569710084502
+    },
+    {
+      "name": "C2c a generic Lieb-Robinson tail would be NONZERO here",
+      "ok": true,
+      "value": 7.38905609893065
+    },
+    {
+      "name": "C2d cone is TIGHT at 1 site/layer, and reconciles with F227",
+      "ok": true,
+      "value": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "C3 gapped correlations decay exponentially",
+      "ok": true,
+      "value": 0.9962105374414606
+    },
+    {
+      "name": "C3b xi ~ Delta^-1 (measured -0.93, continuum -1)",
+      "ok": true,
+      "value": -0.9267945051881044
+    },
+    {
+      "name": "C3d both sublattices give the same xi",
+      "ok": true,
+      "value": 0.07519187874124723
+    },
+    {
+      "name": "C3c the GAPLESS point is power-law, not exponential (control)",
+      "ok": true,
+      "value": [
+        0.998799017862196,
+        0.8711969347105718
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 10,
+  "n_total": 10,
+  "params": {
+    "locality": "local",
+    "cone_slack": 0,
+    "mass": 0.5
+  },
+  "summary": {
+    "A10_no_signalling_residual": 7.771566176549823e-16,
+    "A10_nonlocal_control": 0.4610845267596821,
+    "A10_max_delta_outside_cone": 6.866507698581549e-16,
+    "A10_max_delta_inside_cone": 1.067569710084502,
+    "A10_n_outside_points": 21,
+    "A10_lieb_robinson_at_same_points": 7.38905609893065,
+    "A10_xi_gap_product_mean": 1.7519090956884376,
+    "A10_xi_gap_product_spread": 0.169036347933182,
+    "A10_min_gapped_exp_fit_r2": 0.9962105374414606,
+    "A10_gapless_exp_fit_r2": 0.8711969347105718,
+    "A10_gapless_power_fit_r2": 0.998799017862196,
+    "A10_gapless_power_exponent": 0.8867113733789198
+  }
+}

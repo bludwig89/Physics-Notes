@@ -5,6 +5,7 @@
 # the colour-magnetic condensate f(x) is MELTED where the quark colour charge
 # sits (the bag the quarks dig), and the bag wall S(x)=M_bag·f²(x) confines
 # them (F86 ε_c→0 in the vacuum = flux expelled = ∞ effective mass).
+version: 2
 name: proton_bag
 title: "Confined Proton — live colour-dielectric bag (U3 Part 2)"
 description: "uud colour quarks confined by a LIVE colour-dielectric bag field sourced by their own J_colour (F86): the condensate melts where the quarks sit; the bag wall confines them. Replaces the geometric string."

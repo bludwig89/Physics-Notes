@@ -14,6 +14,12 @@ Status vocabulary — deliberately not four synonyms for "fine":
              It is P1's `RAN` limbo, renamed to what it is and counted.
   ``SWEEP``  a ``--param`` run at a perturbed value; the drift IS the output, so
              calling it pass or fail would be a category error.
+  ``STALE``  the numbers moved, and the supersession ledger says this baseline
+             predates a deliberate model change (``baselines:`` /
+             ``stale_by_design``). Not a pass and not a failure: the physics was
+             replaced on purpose and the committed value was never re-blessed.
+             Only a DECIDED ledger entry produces this; a ``candidate`` still
+             reports ``FAIL``.
 
 Two rules worth stating because they were easy to get wrong:
 
@@ -44,10 +50,33 @@ from . import registry as treg
 
 __all__ = [
     "RunResult", "run_record", "run_selection", "format_report",
-    "DEFAULT_TIMEOUT", "GATE_TIMEOUT", "STATUSES",
+    "run_control", "control_selection", "format_control_report",
+    "record_fingerprint", "leg_map", "resolve_leg", "probe_can_fail",
+    "DEFAULT_TIMEOUT", "GATE_TIMEOUT", "STATUSES", "CONTROL_STATUSES",
 ]
 
-STATUSES = ("PASS", "FAIL", "ERROR", "SKIP", "DEBT", "SWEEP")
+STATUSES = ("PASS", "FAIL", "ERROR", "SKIP", "DEBT", "SWEEP", "STALE",
+            "CONTROL", "LEAK", "SPILL", "INVALID", "NOCTRL")
+
+# The control verdicts, which are a different question from the run statuses.
+# A run asks "did this record's failure mode trip?"; a control asks "CAN it?"
+#
+#   ``CONTROL``  the declared perturbation reddened exactly the declared legs.
+#                The check is sound: it has a demonstrated way to fail.
+#   ``LEAK``     the perturbation was applied and the record stayed green. This
+#                is the H2 defect, caught: whatever the record asserts, it does
+#                not assert it against this. **Not ok.**
+#   ``SPILL``    it reddened legs it did not declare. The prose form of this
+#                contract has always said "and only where declared", because a
+#                perturbation that breaks the whole run is a broken run and is
+#                also the cheapest way to fake a red. **Not ok.**
+#   ``INVALID``  the control could not be judged — a declared leg does not
+#                exist, or was already red before the perturbation, or the run
+#                crashed rather than failing. A control that proves nothing is
+#                reported, never rounded to sound. **Not ok.**
+#   ``NOCTRL``   the record declares no control. Counted debt, not a verdict;
+#                `ok` so it cannot wall the gate, and ratcheted to zero.
+CONTROL_STATUSES = ("CONTROL", "LEAK", "SPILL", "INVALID", "NOCTRL")
 
 DEFAULT_TIMEOUT = 900.0
 GATE_TIMEOUT = 300.0
@@ -75,8 +104,14 @@ class RunResult:
         mode, so it cannot fail, and pretending otherwise would make the gate
         red for 200 files that C7 has not reached yet. The ratchet — not the
         gate's colour — is what drives that count to zero.
+
+        ``STALE`` likewise: the ledger has *decided* that these numbers predate a
+        model change, so failing the gate on them would punish the project for
+        improving its own physics. The countable pressure is the ledger entry and
+        its `clears_by:`, not a red gate.
         """
-        return self.status in ("PASS", "SKIP", "DEBT", "SWEEP")
+        return self.status in ("PASS", "SKIP", "DEBT", "SWEEP", "STALE",
+                              "CONTROL", "NOCTRL")
 
 
 def _jsonable(v: Any) -> Any:
@@ -210,7 +245,6 @@ def _child_env(repo_root: str) -> dict[str, str]:
     env = dict(os.environ)
     env["PYTHONPATH"] = os.pathsep.join(
         [os.path.join(repo_root, "src"),
-         os.path.join(repo_root, "ca-simulation"),
          env.get("PYTHONPATH", "")]).strip(os.pathsep)
     env["MPLBACKEND"] = "Agg"
     env.setdefault("CASIM_TEST_REGISTRY", "1")
@@ -395,6 +429,20 @@ def _run_result_dump(rec: treg.TestRecord, repo_root: str, timeout: float,
                          "declared baselines are untracked at HEAD — nothing to "
                          "diff against yet (commit them to arm this record)")
     if lines:
+        # Ledger-declared supersession (2026-07-31). A baseline the ledger marks
+        # `stale_by_design` is EXPECTED to differ, so the verdict is STALE — but
+        # only if EVERY drifted artifact is declared, otherwise the undeclared one
+        # is still a real failure and must stay red.
+        from . import ledger as _led
+        drifted_paths = [ln.split(":", 1)[0] for ln in lines]
+        if _led.all_stale(drifted_paths, repo_root):
+            b = _led.status_of(drifted_paths[0], repo_root)
+            return RunResult(rec.id, rec.kind, "STALE", secs,
+                             f"baseline predates {b.record} "
+                             f"(stale_by_design) — {lines[0][:150]}",
+                             {"compared": n, "drift": lines, "floor": floor,
+                              "ledger_record": b.record,
+                              "clears_by": b.clears_by})
         return RunResult(rec.id, rec.kind, "FAIL", secs,
                          f"result drift vs HEAD — {lines[0][:200]}",
                          {"compared": n, "drift": lines, "floor": floor})
@@ -562,4 +610,698 @@ def format_report(report: dict[str, Any]) -> str:
         for rid in report["failed"]:
             it = by_id[rid]
             lines.append(f"  {it['status']:6s} {rid}  — {it['detail'][:110]}")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Negative controls — gap #3 of docs/status/completeness-2026-08-07.md, row H2.
+#
+# The report's smallest next step, verbatim: "Make a declared-and-verified
+# perturbation a D9 requirement for `kind: assertion` records, retro-fitted to
+# the 58 gate-tier records rather than all 400."
+#
+# What is being closed is narrow and specific. `check_test_registry` already
+# refuses a record with no *declared* failure mode. Nothing checked whether the
+# declared one can actually trip — and the repo has one worked example of the
+# difference: F22's headline verification was `x - (1 - 2(1-x)/2)`, identically
+# zero for any expression at all, which returned residual 0 from a deliberately
+# wrong rho and then from rho = 42. It was green for months. Everything below
+# exists to make that class of green impossible to hold.
+# ---------------------------------------------------------------------------
+_LEG_ID_KEYS = ("id", "name", "key", "leg", "label", "check")
+_LEG_OK_KEYS = ("pass", "passed", "ok", "gate", "holds")
+
+
+def leg_map(payload: Any) -> dict[str, bool]:
+    """``{leg id -> passed}`` from an entry point's return value.
+
+    Three shapes are in use in this repo and all three are read, because the
+    alternative is a checker that quietly sees no legs and reports the record
+    sound on the strength of its overall verdict:
+
+      * ``{"checks": [{"id": "G10-3", "pass": True}, ...]}``  (F300, F298, F299)
+      * ``{"checks": {"symbolic_identity": True, ...}}``       (F22)
+      * a flat payload with no ``checks`` at all -> ``{}``, and the caller falls
+        back to the overall verdict.
+    """
+    if not isinstance(payload, dict):
+        return {}
+    checks = payload.get("checks")
+    out: dict[str, bool] = {}
+    if isinstance(checks, dict):
+        for k, v in checks.items():
+            if isinstance(v, bool):
+                out[str(k)] = v
+            elif isinstance(v, dict):
+                for ok_key in _LEG_OK_KEYS:
+                    if isinstance(v.get(ok_key), bool):
+                        out[str(k)] = v[ok_key]
+                        break
+    elif isinstance(checks, (list, tuple)):
+        for i, c in enumerate(checks):
+            if not isinstance(c, dict):
+                continue
+            lid = next((str(c[k]) for k in _LEG_ID_KEYS if c.get(k) is not None),
+                       f"#{i}")
+            ok = next((c[k] for k in _LEG_OK_KEYS
+                       if isinstance(c.get(k), bool)), None)
+            if ok is not None:
+                out[lid] = bool(ok)
+    return out
+
+
+def resolve_leg(declared: str, legs: dict[str, bool]) -> tuple[str | None, str]:
+    """Match a declared leg tag against the payload's leg keys.
+
+    Half these drivers emit the tag and its description as one string —
+    ``"L2 the C7 identity exists ONLY for N <= 3"`` — so requiring an exact key
+    would mean pasting a sentence into the registry and re-pasting it whenever the
+    wording changed. A control block names the tag the finding already uses in
+    prose (``L2``, ``G10-3``, ``M1a``) and it is resolved here.
+
+    The boundary is deliberate rather than a prefix test: ``S4`` must not match
+    ``S4b``, which is a different leg in F299 and one that its second control
+    declares on its own. An ambiguous tag is reported, never guessed — silently
+    picking one of two legs would be a checker inventing the thing it audits.
+    """
+    if declared in legs:
+        return declared, ""
+    hits = [k for k in legs
+            if k.startswith(declared)
+            and (len(k) == len(declared) or not (k[len(declared)].isalnum()
+                                                 or k[len(declared)] in "_-."))]
+    if len(hits) == 1:
+        return hits[0], ""
+    if len(hits) > 1:
+        return None, (f"leg tag {declared!r} is ambiguous — it matches "
+                      f"{len(hits)}: {sorted(hits)[:4]}")
+    return None, ""
+
+
+def _overall(payload: Any) -> bool | None:
+    """The record's own verdict, if it states one."""
+    if isinstance(payload, dict):
+        for key in ("all_pass", "passed", "pass", "ok", "gate"):
+            if isinstance(payload.get(key), bool):
+                return payload[key]
+    if isinstance(payload, bool):
+        return payload
+    return None
+
+
+def _sha(path: str) -> str:
+    import hashlib
+    try:
+        with open(path, "rb") as fh:
+            return hashlib.sha256(fh.read()).hexdigest()[:16]
+    except OSError:
+        return "missing"
+
+
+def record_fingerprint(rec: treg.TestRecord, repo_root: str | None = None) -> str:
+    """A hash over everything a control verdict depends on.
+
+    This is what lets `make gate` stay fast and still have teeth. Verifying a
+    control costs a baseline run plus one perturbed run per control — far past a
+    two-minute barrier at 55 records. So the verdicts are journalled, and the
+    gate checks the journal against this fingerprint instead of re-running.
+    Change the physics module, the test file, the params or the control block and
+    the fingerprint moves, the journal entry goes stale, and the gate says so.
+
+    It is the `result_dump` contract applied one level up: a `result_dump` record
+    is armed by committing its baseline, and a control is armed by committing a
+    verdict that names the code it was measured against.
+    """
+    import hashlib
+    repo_root = repo_root or _REPO
+    parts = [rec.id, rec.kind, rec.tier, str(rec.entry), str(rec.module),
+             json.dumps(_jsonable(dict(rec.params)), sort_keys=True),
+             json.dumps(_jsonable([dict(c) for c in rec.control]),
+                        sort_keys=True, default=str)]
+    if rec.path:
+        parts.append(_sha(os.path.join(repo_root, rec.path)))
+    if rec.module:
+        try:
+            mod = importlib.import_module(rec.module)
+            src = getattr(mod, "__file__", None)
+            parts.append(_sha(src) if src else "nofile")
+        except Exception:                                  # noqa: BLE001
+            parts.append("unimportable")
+    # This file too. A verdict is only as good as the machinery that reached it,
+    # and the first re-run of this pass replayed four stale INVALIDs from the
+    # journal *because the checker had been fixed and the fingerprint had not
+    # noticed* — which is the same class of defect the whole layer exists to
+    # catch, one level up again. Editing the runner therefore invalidates every
+    # banked verdict, which is the conservative direction.
+    parts.append(_sha(os.path.abspath(__file__).replace(".pyc", ".py")))
+    return hashlib.sha256("|".join(parts).encode()).hexdigest()[:16]
+
+
+_GUARD_LINE_CACHE: dict[str, frozenset[int] | None] = {}
+
+
+def _guard_lines(path: str) -> frozenset[int] | None:
+    """Line numbers of every ``assert``/``raise`` in one file, or None."""
+    if path in _GUARD_LINE_CACHE:
+        return _GUARD_LINE_CACHE[path]
+    result: frozenset[int] | None = None
+    try:
+        import ast as _ast
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            tree = _ast.parse(fh.read(), filename=path)
+        result = frozenset(n.lineno for n in _ast.walk(tree)
+                           if isinstance(n, (_ast.Assert, _ast.Raise)))
+    except (OSError, SyntaxError, ValueError):
+        result = None
+    _GUARD_LINE_CACHE[path] = result
+    return result
+
+
+def _record_own_files(rec: treg.TestRecord, repo_root: str) -> dict[str, frozenset[int]]:
+    """{file -> guard lines} for the record's OWN file and module file only.
+
+    Scope, and it is a correctness decision as much as a speed one. A first cut
+    traced every file under the repo, which is unusable — a heavy record calls
+    into engine code inside inner loops and the tracer never finished. Narrowing
+    it here is also the right question: "can THIS record fail?" is about the
+    guards the record owns. A guard deep in a shared kernel fires for reasons that
+    have nothing to do with what this record asserts, and counting it would let a
+    record inherit a failure mode it never wrote.
+
+    Consequence to keep in mind: a record whose entry is a thin wrapper delegating
+    all its asserts to another module reads as cannot-fail here. That is a real
+    property worth seeing, not a false positive — the record does not own a
+    failure mode, its callee does.
+    """
+    out: dict[str, frozenset[int]] = {}
+    cands: list[str] = []
+    if rec.path:
+        cands.append(os.path.join(repo_root, rec.path))
+    if rec.module:
+        try:
+            mod = importlib.import_module(rec.module)
+            src = getattr(mod, "__file__", None)
+            if src:
+                cands.append(src)
+        except Exception:                                  # noqa: BLE001
+            pass
+    for c in cands:
+        real = os.path.realpath(c)
+        gl = _guard_lines(real)
+        if gl is not None:
+            out[real] = gl
+    return out
+
+
+def probe_can_fail(rec: treg.TestRecord, repo_root: str | None = None,
+                   timeout: float | None = None) -> dict[str, Any]:
+    """Run the record's entry and report whether a guard actually EXECUTED.
+
+    The empirical answer to "can this check fail?", and it exists because the
+    static answer was wrong. `check_finding_records.py` walked the call graph from
+    the entry through `ast.Call` nodes; three records dispatch through a
+    module-level table —
+
+        for name, fn in CHECKS:      # the only Call node is on a loop variable
+            out[name] = fn()
+
+    — so the walk returned zero reachable guards for files holding 41, 39 and 30
+    of them, and the 2026-08-07 report concluded that A1's evidence was
+    "unfalsifiable in the mechanical sense". It was not. Any static reachability
+    analysis loses to indirection: dispatch tables, ``getattr``, decorators,
+    registries of callables, ``functools.partial``.
+
+    Execution does not. This traces one real run and asks which ``assert``/
+    ``raise`` lines the interpreter actually reached, which is both stricter and
+    laxer than the AST in the right directions:
+
+      * an ``assert`` behind a branch nothing takes is **dead**, and the AST
+        counts it as reachable;
+      * an ``assert`` reached through a dispatch table is **live**, and the AST
+        counts it as absent.
+
+    Returns ``{can_fail, guards_executed, guard_lines_total, status, seconds,
+    …}``. ``guards_executed`` stops counting at the first hit — one executed
+    guard is the whole question, and continuing to trace after that is a tax on
+    the healthy case.
+    """
+    repo_root = repo_root or _REPO
+    t0 = time.time()
+    files = _record_own_files(rec, repo_root)
+    total = sum(len(v) for v in files.values())
+    limit = timeout or 120.0
+
+    found: list[tuple[str, int]] = []
+    timed_out: list[bool] = []
+
+    def tracer(frame, event, arg):                         # noqa: ANN001
+        if found or timed_out:
+            return None
+        if event == "call":
+            return tracer if os.path.realpath(
+                frame.f_code.co_filename) in files else None
+        if event == "line":
+            gl = files.get(os.path.realpath(frame.f_code.co_filename))
+            if gl and frame.f_lineno in gl:
+                found.append((frame.f_code.co_filename, frame.f_lineno))
+                return None
+            if time.time() - t0 > limit:
+                timed_out.append(True)
+                return None
+        return tracer
+
+    status, detail = "PASS", ""
+    verdict_route = False
+    prior = sys.gettrace()
+    try:
+        fn = _load_callable(rec)
+        if not files:
+            return {"id": rec.id, "can_fail": None,
+                    "verdict": "INCONCLUSIVE",
+                    "guards_executed": 0, "guard_lines_total": 0,
+                    "status": "SKIP",
+                    "detail": "no own file to trace (no `path:` and no importable "
+                              "`module:`)",
+                    "seconds": round(time.time() - t0, 2),
+                    "fingerprint": record_fingerprint(rec, repo_root)}
+        sys.settrace(tracer)
+        try:
+            value = _call(fn, rec.params)
+        finally:
+            sys.settrace(prior)
+        ok, detail, _ = _interpret_return(value)
+        status = "PASS" if ok else "FAIL"
+        # THE SECOND ROUTE. `_interpret_return` scores a run FAIL either because
+        # something raised or because the payload carries its own verdict key
+        # (`all_pass`/`passed`/`pass`/`ok`/`gate`). A leg-based driver like F300
+        # asserts nothing and returns `all_pass`; tracing alone called it
+        # cannot-fail, which is as wrong as the AST walk was and in the mirror
+        # direction. The question is "has the harness ANY way to score this FAIL",
+        # and there are exactly two.
+        if _overall(value) is not None:
+            verdict_route = True
+        else:
+            verdict_route = False
+    except AssertionError as exc:
+        # An AssertionError IS the answer, whether or not the tracer saw the line.
+        found.append(("<raised>", 0))
+        status, detail = "FAIL", f"AssertionError: {exc}"[:200]
+    except Exception as exc:                               # noqa: BLE001
+        status, detail = "ERROR", f"{type(exc).__name__}: {exc}"[:200]
+    finally:
+        sys.settrace(prior)
+
+    # A timeout is NOT evidence of anything, and must never be recorded as
+    # cannot-fail. That conflation is how the defect this tool replaces got into
+    # a status report in the first place: an absence of evidence written down as
+    # evidence of absence.
+    if found or verdict_route:
+        verdict, can = "CAN_FAIL", True
+    elif timed_out:
+        verdict, can = "INCONCLUSIVE", None
+        detail = (f"tracing exceeded {limit:.0f}s with no guard reached — "
+                  f"inconclusive, NOT cannot-fail. Re-run with a longer "
+                  f"--timeout, or read the record by hand.")
+    else:
+        verdict, can = "CANNOT_FAIL", False
+
+    return {
+        "id": rec.id,
+        "can_fail": can,
+        "verdict": verdict,
+        "guards_executed": len(found),
+        "guard_line_hit": (f"{os.path.relpath(found[0][0], repo_root)}"
+                           f":{found[0][1]}") if found and found[0][0] != "<raised>"
+        else ("<AssertionError raised>" if found else None),
+        "guard_lines_total": total,
+        "route": ("guard" if found else ("verdict_key" if verdict_route else None)),
+        "traced_files": [os.path.relpath(f, repo_root) for f in files],
+        "status": status,
+        "detail": detail,
+        "seconds": round(time.time() - t0, 2),
+        "fingerprint": record_fingerprint(rec, repo_root),
+    }
+
+
+def _entry_payload(rec: treg.TestRecord, overrides: dict[str, Any] | None
+                   ) -> tuple[str, Any, str]:
+    """``(status, payload, detail)`` for one entry-point call.
+
+    Unlike :func:`_run_assertion` this hands back the payload, because a leg map
+    is the whole point: "the perturbation reddens L2 and L3" is a claim about
+    legs and cannot be judged from a single boolean.
+    """
+    r = treg.with_params(rec, overrides or {})
+    try:
+        fn = _load_callable(r)
+        value = _call(fn, r.params)
+    except AssertionError as exc:
+        return "FAIL", None, f"AssertionError: {exc}"[:300]
+    except Exception as exc:                               # noqa: BLE001
+        tb = traceback.format_exc().strip().splitlines()
+        return "ERROR", None, (f"{type(exc).__name__}: {exc} | "
+                               f"{tb[-1] if tb else ''}")[:300]
+    ok, detail, _ = _interpret_return(value)
+    return ("PASS" if ok else "FAIL"), value, detail
+
+
+def _accepts_param(rec: treg.TestRecord, key: str) -> bool | None:
+    """Does the entry point actually take this keyword? ``None`` if unknowable.
+
+    ``_call`` drops keywords a signature does not accept, on purpose — a record
+    may carry a param for documentation. That kindness is a hazard here: an
+    override the entry point ignores is a perturbation that perturbs nothing, and
+    the record would stay green and be scored a LEAK, blaming the physics for a
+    typo in the control. Naming the real cause is cheap, so it is named.
+    """
+    import inspect
+    try:
+        fn = _load_callable(rec)
+        sig = inspect.signature(fn)
+    except Exception:                                      # noqa: BLE001
+        return None
+    if any(p.kind is inspect.Parameter.VAR_KEYWORD
+           for p in sig.parameters.values()):
+        return True
+    return key in sig.parameters
+
+
+def _run_pytest_k(rel_path: str, k: str, repo_root: str,
+                  timeout: float) -> tuple[str, str, dict]:
+    """Run one named pytest function. Status from JUnit XML, never stdout."""
+    tmp = tempfile.mkdtemp(prefix="casim_ctl_")
+    xml = os.path.join(tmp, "j.xml")
+    cmd = [sys.executable, "-m", "pytest", rel_path, "-q", "--no-header",
+           "--tb=line", f"--junit-xml={xml}", "-p", "no:cacheprovider",
+           "-k", k, "-m", "not superseded and not slow"]
+    try:
+        proc = subprocess.run(cmd, cwd=repo_root, env=_child_env(repo_root),
+                              capture_output=True, text=True, timeout=timeout)
+        from casim.suite.runner import _parse_junit
+        passed, failed, errors, skipped = _parse_junit(xml)
+        metrics = {"passed": passed, "failed": failed, "errors": errors,
+                   "skipped": skipped}
+        if passed + failed + errors == 0:
+            return "INVALID", (f"pytest collected no test matching "
+                               f"-k {k!r} in {rel_path} (rc={proc.returncode})"
+                               ), metrics
+        if failed or errors:
+            return "INVALID", (f"the named negative control is itself red "
+                               f"({failed} failed, {errors} errors) — it cannot "
+                               f"witness anything until it passes"), metrics
+        return "CONTROL", f"{passed} negative-control test(s) passed", metrics
+    except subprocess.TimeoutExpired:
+        return "INVALID", f"pytest timed out after {timeout:.0f}s", {}
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def run_control(rec: treg.TestRecord, repo_root: str | None = None,
+                timeout: float | None = None,
+                baseline: tuple[str, Any] | None = None) -> list[RunResult]:
+    """Verify every control this record declares. One RunResult per control.
+
+    Pass ``baseline`` to reuse an unperturbed run across several controls on the
+    same record — four controls on F304 would otherwise pay for five runs of the
+    same driver instead of five total.
+    """
+    repo_root = repo_root or _REPO
+    limit = timeout or rec.timeout or (
+        GATE_TIMEOUT if rec.tier == "gate" else DEFAULT_TIMEOUT)
+    fp = record_fingerprint(rec, repo_root)
+
+    if not rec.control:
+        return [RunResult(rec.id, rec.kind, "NOCTRL", 0.0,
+                          "no `control:` declared — this record asserts, and "
+                          "nothing shows it can fail (D9/H2 debt)",
+                          {"fingerprint": fp})]
+
+    out: list[RunResult] = []
+    base_status = base_payload = None
+    base_legs: dict[str, bool] = {}
+
+    for i, ctl in enumerate(rec.control):
+        t0 = time.time()
+        tag = f"{rec.id}#control{i}"
+        reason = str(ctl.get("reason") or "").strip()
+        params = ctl.get("params") or {}
+        meta = {"fingerprint": fp, "control_index": i, "reason": reason,
+                "params": _jsonable(dict(params)),
+                "reds": list(ctl.get("reds") or ()),
+                "strength": "strong" if params else "weak"}
+
+        # -- weak form: an in-file pytest function that IS the control --------
+        if not params:
+            name = str(ctl.get("test") or "")
+            if not rec.path:
+                out.append(RunResult(tag, rec.kind, "INVALID", 0.0,
+                                     "`test:` control on a record with no "
+                                     "`path:` to collect it from", meta))
+                continue
+            if not _pytest_available():
+                out.append(RunResult(tag, rec.kind, "SKIP", 0.0,
+                                     "pytest absent; cannot run the named "
+                                     "negative control", meta))
+                continue
+            status, detail, m = _run_pytest_k(rec.path, name, repo_root, limit)
+            meta.update(m)
+            out.append(RunResult(tag, rec.kind, status, time.time() - t0,
+                                 detail, meta))
+            continue
+
+        # -- strong form: the harness applies the perturbation itself ---------
+        if not rec.entry:
+            out.append(RunResult(tag, rec.kind, "INVALID", 0.0,
+                                 "`params:` control needs an `entry:` — the "
+                                 "runner cannot inject into a path-only record "
+                                 "(C7.4)", meta))
+            continue
+        unaccepted = [k for k in params if _accepts_param(rec, k) is False]
+        if unaccepted:
+            out.append(RunResult(
+                tag, rec.kind, "INVALID", time.time() - t0,
+                f"{rec.entry}() does not take {unaccepted} — the override would "
+                f"be dropped and the 'perturbed' run would be the unperturbed "
+                f"one", meta))
+            continue
+
+        if base_status is None:
+            b0 = time.time()
+            base_status, base_payload, base_detail = _entry_payload(rec, None)
+            base_legs = leg_map(base_payload)
+            meta["baseline_seconds"] = round(time.time() - b0, 2)
+            if base_status != "PASS":
+                out.append(RunResult(
+                    tag, rec.kind, "INVALID", time.time() - t0,
+                    f"the record is {base_status} BEFORE the perturbation "
+                    f"({base_detail[:120]}) — a control cannot be read off a "
+                    f"run that is already red", meta))
+                continue
+        meta["baseline_legs"] = len(base_legs)
+
+        p_status, p_payload, p_detail = _entry_payload(rec, dict(params))
+        p_legs = leg_map(p_payload)
+        want_red = [str(x) for x in (ctl.get("reds") or ())]
+        only = bool(ctl.get("only", True))
+        secs = time.time() - t0
+
+        if p_status == "ERROR":
+            out.append(RunResult(
+                tag, rec.kind, "INVALID", secs,
+                f"the perturbed run CRASHED rather than failing its checks "
+                f"({p_detail[:140]}) — an exception is not a negative control; "
+                f"it shows the driver cannot reach the perturbed point",
+                meta))
+            continue
+
+        # No named legs: the weaker, still-real claim that the verdict flips.
+        if not want_red:
+            if p_status == "FAIL":
+                out.append(RunResult(tag, rec.kind, "CONTROL", secs,
+                                     "verdict flipped PASS -> FAIL under the "
+                                     "perturbation (no legs named)", meta))
+            else:
+                out.append(RunResult(
+                    tag, rec.kind, "LEAK", secs,
+                    "the perturbation was applied and the record stayed GREEN — "
+                    "whatever it asserts, it does not assert it against this",
+                    meta))
+            continue
+
+        resolved: list[str] = []
+        missing: list[str] = []
+        ambiguous: list[str] = []
+        for lg in want_red:
+            hit, why = resolve_leg(lg, p_legs)
+            if hit is None:
+                (ambiguous if why else missing).append(why or lg)
+            else:
+                resolved.append(hit)
+        if ambiguous:
+            out.append(RunResult(tag, rec.kind, "INVALID", secs,
+                                 "; ".join(ambiguous), meta))
+            continue
+        if missing:
+            shown = [k.split()[0] if " " in k else k for k in sorted(p_legs)]
+            out.append(RunResult(
+                tag, rec.kind, "INVALID", secs,
+                f"declared leg(s) {missing} do not exist in the payload; legs "
+                f"present: {shown[:12]}{'...' if len(shown) > 12 else ''}"
+                f" — a control naming a leg the driver no longer emits has "
+                f"silently stopped testing anything", meta))
+            continue
+        want_red = resolved
+        meta["reds_resolved"] = resolved
+        already = [lg for lg in want_red if base_legs.get(lg) is False]
+        if already:
+            out.append(RunResult(
+                tag, rec.kind, "INVALID", secs,
+                f"leg(s) {already} are red WITHOUT the perturbation, so their "
+                f"redness is not evidence about it", meta))
+            continue
+
+        still_green = [_tag(lg) for lg in want_red
+                       if p_legs.get(lg) is not False]
+        spilled = sorted(_tag(lg) for lg, ok in p_legs.items()
+                         if ok is False and lg not in want_red
+                         and base_legs.get(lg) is not False)
+        meta.update({"legs_total": len(p_legs), "reddened": len(want_red),
+                     "spilled": spilled})
+
+        if still_green:
+            out.append(RunResult(
+                tag, rec.kind, "LEAK", secs,
+                f"leg(s) {still_green} stayed GREEN under `{_fmt(params)}` — "
+                f"declared as the thing this control reddens. {reason[:90]}",
+                meta))
+        elif spilled and only:
+            out.append(RunResult(
+                tag, rec.kind, "SPILL", secs,
+                f"reddened {len(spilled)} undeclared leg(s) {spilled[:6]} as "
+                f"well — 'and only where declared' is part of the contract, "
+                f"because a perturbation that breaks everything is a broken run "
+                f"and is also the cheapest way to fake a red. Widen `reds:` if "
+                f"they belong, or set `only: false` and say why in `reason:`",
+                meta))
+        else:
+            out.append(RunResult(
+                tag, rec.kind, "CONTROL", secs,
+                f"`{_fmt(params)}` reddens exactly "
+                f"{[_tag(x) for x in want_red]} of {len(p_legs)} leg(s)"
+                + (f"; {len(spilled)} other(s) also red, allowed by "
+                   f"`only: false`" if spilled else ""), meta))
+    return out
+
+
+def _fmt(params: dict[str, Any]) -> str:
+    return " ".join(f"--param {k}={_jsonable(v)}" for k, v in params.items())
+
+
+def _tag(leg: str) -> str:
+    """``"L2 the C7 identity exists ONLY for N <= 3"`` -> ``"L2"``, for messages."""
+    return leg.split()[0] if " " in leg else leg
+
+
+def control_selection(records: Iterable[treg.TestRecord],
+                      repo_root: str | None = None,
+                      timeout: float | None = None,
+                      on_result: Callable[[RunResult], None] | None = None,
+                      journal: str | None = None) -> dict[str, Any]:
+    """Verify controls across a selection, journalling as it goes.
+
+    The journal is written after **every** record, not at the end. A single bash
+    call in this sandbox is killed at ~45 s (CLAUDE.md), and the barrier this
+    feeds has to be resumable rather than all-or-nothing: a pass that loses its
+    work on the timeout is a pass nobody runs twice.
+    """
+    repo_root = repo_root or _REPO
+    recs = list(records)
+    t0 = time.time()
+    results: list[RunResult] = []
+    prior = _read_journal(journal) if journal else {}
+    prior_items = list(prior.get("items") or [])
+    selected = {r.id for r in recs}
+    # Verdicts for records OUTSIDE this selection are carried forward, not
+    # dropped. The 45 s sandbox ceiling means this pass is run in slices —
+    # `--id F298,F303`, then `--id F300` — and a journal that kept only the last
+    # slice would make the gate demand a re-verify of everything but the slice
+    # just run, which is a resumable pass that never finishes.
+    carried = [it for it in prior_items
+               if str(it.get("id", "")).split("#")[0] not in selected]
+
+    for rec in recs:
+        fp = record_fingerprint(rec, repo_root)
+        cached = [RunResult(**it) for it in prior_items
+                  if str(it.get("id", "")).split("#")[0] == rec.id
+                  and it.get("metrics", {}).get("fingerprint") == fp]
+        got = cached or run_control(rec, repo_root, timeout)
+        for r in got:
+            if cached:
+                r.detail = (r.detail + "  [journalled]").strip()
+            results.append(r)
+            if on_result:
+                on_result(r)
+        if journal:
+            _write_journal(journal, results, t0, carried=carried)
+
+    counts: dict[str, int] = {}
+    for r in results:
+        counts[r.status] = counts.get(r.status, 0) + 1
+    unsound = [r.id for r in results if not r.ok]
+    report = {
+        "generated": time.strftime("%Y-%m-%d - %H:%M"),
+        "elapsed_s": round(time.time() - t0, 2),
+        "n_records": len(recs),
+        "n": len(results),
+        "counts": counts,
+        "unsound": unsound,
+        "no_control": [r.id for r in results if r.status == "NOCTRL"],
+        "items": [asdict(r) for r in results],
+    }
+    if journal:
+        _write_journal(journal, results, t0, report, carried=carried)
+    return report
+
+
+def _read_journal(path: str) -> dict[str, Any]:
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _write_journal(path: str, results: list[RunResult], t0: float,
+                   report: dict[str, Any] | None = None,
+                   carried: list[dict] | None = None) -> None:
+    items = [asdict(r) for r in results] + list(carried or [])
+    payload = dict(report or {})
+    payload.update({
+        "generated": payload.get("generated") or time.strftime("%Y-%m-%d - %H:%M"),
+        "elapsed_s": payload.get("elapsed_s", round(time.time() - t0, 2)),
+        "n": payload.get("n", len(results)),
+        "n_journalled": len(items),
+        "items": items,
+    })
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    tmp = path + ".part"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh, indent=2, default=str)
+    os.replace(tmp, path)
+
+
+def format_control_report(report: dict[str, Any]) -> str:
+    c = report["counts"]
+    order = [s for s in CONTROL_STATUSES + ("SKIP",) if s in c]
+    head = "  ".join(f"{s}: {c[s]}" for s in order)
+    lines = [f"\n{report['n']} control(s) over {report['n_records']} record(s), "
+             f"{report['elapsed_s']:.1f}s   {head}"]
+    if report["unsound"]:
+        lines.append("\nNOT SOUND — these checks are not shown to be able to "
+                     "fail:")
+        by_id = {i["id"]: i for i in report["items"]}
+        for rid in report["unsound"]:
+            it = by_id[rid]
+            lines.append(f"  {it['status']:8s} {rid}\n"
+                         f"           {it['detail'][:190]}")
     return "\n".join(lines)

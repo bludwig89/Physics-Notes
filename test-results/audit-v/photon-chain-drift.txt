@@ -1,0 +1,55 @@
+### F67_option1_even_law_photon
+  S1.S_chiral_measured: 7.924217e-02 -> 7.924217e-02  rel=1.12e-14
+  S1.chiral_resid: 8.881784e-16 -> 0.000000e+00  rel=1.00e+00
+  S1.S_even_measured: -8.881784e-16 -> 0.000000e+00  rel=1.00e+00
+  S1.even_birefringence_resid: 8.881784e-16 -> 0.000000e+00  rel=1.00e+00
+  S2.real_field_max_imag_50steps: 6.612864e-16 -> 8.094907e-16  rel=2.24e-01
+  S2.norm_drift_rel_50steps: 6.777861e-15 -> 8.545999e-15  rel=2.61e-01
+  (6 numeric delta(s))
+### F69_paired_photon
+  PP2.S_paired_photon: -8.881784e-16 -> 0.000000e+00  rel=1.00e+00
+  PP2.S_paired_resid_from_zero: 8.881784e-16 -> 0.000000e+00  rel=1.00e+00
+  PP2.S_retired_chiral: 7.924217e-02 -> 7.924217e-02  rel=1.12e-14
+  PP5.max_imag_40steps: 6.370772e-16 -> 6.847139e-16  rel=7.48e-02
+  PP5.norm_drift_rel_40steps: 5.452783e-15 -> 6.926509e-15  rel=2.70e-01
+  (5 numeric delta(s))
+### F72_universal_even_propagator
+  sections.C4_even_erases_W_branch_content.S_chiral (keeps branch split): 7.924217e-02 -> 7.924217e-02  rel=1.12e-14
+  sections.C4_even_erases_W_branch_content.S_even (paired law, erases it): -8.881784e-16 -> 0.000000e+00  rel=1.00e+00
+  wall_seconds: 5.000000e-01 -> 5.900000e-01  rel=1.80e-01
+  (3 numeric delta(s))
+### F87_charge_coupling_paired_photon
+  AB1_coulomb_gauge.div_A_max: 1.214306e-17 -> 8.673617e-18  rel=2.86e-01
+  AB2_holonomy_stokes.holo_minus_flux_loopA: 0.000000e+00 -> 1.110223e-16  rel=1.11e+284
+  AB2_holonomy_stokes.holo_minus_flux_loopB: 6.661338e-16 -> 4.440892e-16  rel=3.33e-01
+  AB2_holonomy_stokes.path_independence_A_vs_B: 6.661338e-16 -> 5.551115e-16  rel=1.67e-01
+  AB2_holonomy_stokes.holo_both_tubes_netzero: 2.927346e-16 -> 2.341877e-16  rel=2.00e-01
+  AB2_holonomy_stokes.holo_no_tube: 4.640385e-17 -> 6.722053e-18  rel=8.55e-01
+  AB2_holonomy_stokes.holo_value: 7.000000e-01 -> 7.000000e-01  rel=1.59e-16
+  AB3_field_free_path.holo: 1.000000e+00 -> 1.000000e+00  rel=1.11e-16
+  MX3_charge_conservation.gauss_residual_max_100steps: 1.788649e-12 -> 1.047418e-12  rel=4.14e-01
+  MX4_magnetic_gauss.magnetic_gauss_max_50steps: 1.516931e-11 -> 6.637118e-12  rel=5.62e-01
+  MX5_magnetostatics.ampere_residual_resolved: 1.366036e-15 -> 1.406292e-15  rel=2.95e-02
+  E2E_charge_to_phase.curl_minus_B_max: 6.973588e-16 -> 7.424616e-16  rel=6.47e-02
+  E2E_charge_to_phase.holo_minus_flux: 1.776357e-15 -> 5.329071e-15  rel=2.00e+00
+  E2E_charge_to_phase.holo_value: 1.586134e+01 -> 1.586134e+01  rel=4.48e-16
+  _summary.checks[1].val: 1.214306e-17 -> 8.673617e-18  rel=2.86e-01
+  _summary.checks[2].val: 0.000000e+00 -> 1.110223e-16  rel=1.11e+284
+  _summary.checks[3].val: 6.661338e-16 -> 5.551115e-16  rel=1.67e-01
+  _summary.checks[4].val: 2.927346e-16 -> 2.341877e-16  rel=2.00e-01
+  _summary.checks[5].val: 4.640385e-17 -> 6.722053e-18  rel=8.55e-01
+  _summary.checks[7].val: 1.000000e+00 -> 1.000000e+00  rel=1.11e-16
+  _summary.checks[13].val: 1.788649e-12 -> 1.047418e-12  rel=4.14e-01
+  _summary.checks[14].val: 1.516931e-11 -> 6.637118e-12  rel=5.62e-01
+  _summary.checks[15].val: 1.366036e-15 -> 1.406292e-15  rel=2.95e-02
+  _summary.checks[16].val: 6.973588e-16 -> 7.424616e-16  rel=6.47e-02
+  _summary.checks[18].val: 1.776357e-15 -> 5.329071e-15  rel=2.00e+00
+  _summary.runtime_s: 7.217436e-01 -> 4.584179e-01  rel=3.65e-01
+  (26 numeric delta(s))
+### F91_pairing_classification
+  checks.G3_even_octet_step_clean.S_even: 4.440892e-16 -> 0.000000e+00  rel=1.00e+00
+  checks.G3_even_octet_step_clean.norm_drift: 6.006914e-15 -> 4.900377e-15  rel=1.84e-01
+  (2 numeric delta(s))
+### F100_gamma_from_transfer_operator
+  runtime_s: 5.600000e-02 -> 8.300000e-02  rel=4.82e-01
+  (1 numeric delta(s))

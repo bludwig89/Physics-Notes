@@ -12,6 +12,7 @@
 # the scalar profile stays in the small-Strang regime.  Result: the cluster
 # RMS radius stays BOUNDED (~3.7, capped) while the free control (confined_
 # baryon_free.yaml) disperses to box saturation (~9).
+version: 2
 name: confined_baryon_free
 title: "Confined Baryon — free control"
 description: "Three massive Dirac constituents bound by the F86/F70 scalar confining string toward the singlet COM (Y-string): the cluster RMS stays bounded vs free dispersal — real-space confinement."

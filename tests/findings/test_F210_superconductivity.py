@@ -14,7 +14,7 @@ tests that this is genuine BCS, not a fit:
     SC2b  dC/C_n          =  12 / (7 zeta(3)) = 1.4261269     (machine precision)
 
 Runs standalone (`python3 test_F210_superconductivity.py`) or under pytest.
-Pure numpy; no scipy.  Module: ca-simulation/ca_superconductivity.py.
+Pure numpy; no scipy.  Module: src/casim/engine/interactions/superconductivity.py.
 """
 from __future__ import annotations
 
@@ -27,8 +27,10 @@ import numpy as np
 # --- import the kernel (mirror repo convention; conftest also adds this) ----
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(os.path.dirname(_HERE))
-sys.path.insert(0, os.path.join(_REPO, "ca-simulation"))
-import ca_superconductivity as sc  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import superconductivity as sc  # noqa: E402
 
 RESULTS = {}
 

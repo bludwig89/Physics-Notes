@@ -91,7 +91,7 @@ import math
 
 import numpy as np
 
-import ca_bcc as bcc
+from casim.engine.lattice import bcc as bcc
 from casim.constants import c_lat
 
 SQRT3 = math.sqrt(3.0)
@@ -427,8 +427,11 @@ def _selfenergy_AB(P, n, kernel, m=0.2, mu=0.05):
     if kernel == "cont":
         Dg = (KX - P) ** 2 + KY ** 2 + KZ ** 2 + KT ** 2 + mu ** 2
     elif kernel == "rule":
-        kxp = ((KX - P + math.pi) % (2 * math.pi)) - math.pi
-        Dg = _K_lat(kxp, KY, KZ, KT) + mu ** 2
+        # F277/F272: no refold. _K_lat is sqrt3*fcc-periodic (F267), not
+        # 2*pi-per-axis, so wrapping KX-P into the cubic cell evaluates the
+        # propagator at an inequivalent momentum. The closed form is valid at
+        # any k, so the unwrapped shift is the periodic-correct value.
+        Dg = _K_lat(KX - P, KY, KZ, KT) + mu ** 2
     else:
         raise ValueError(kernel)
     A = float(np.mean((-2.0 * pdotk / p2) / (De * Dg)))

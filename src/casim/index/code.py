@@ -14,9 +14,10 @@ All four are registry fields now, so each row answers them:
   P6's "67 of 106 kernels are unreachable" as a *field* rather than a survey.
 * **Tests** — how many registry records (D9) depend on the module.
 
-`ca-simulation/` still appears, as a shim column: 169 of its 171 files are now
-`DeprecationWarning` shims onto `casim.engine`, and pretending they are gone
-before C9 deletes them would make the index lie in the other direction.
+Since C9 there is one tree: the legacy flat-kernel directory and its 171
+deprecation shims are deleted, so the index no longer carries a shim section.
+The pre-clean original of every migrated file is in `deprecated/code/`, indexed
+by its own README and by `docs/design/module-migration-manifest.yaml`.
 """
 from __future__ import annotations
 
@@ -107,35 +108,4 @@ def render(repo: str) -> tuple[str, str, int]:
             lines.append(f"| `{entry}` | {esc(first_doc_line(sub))} |")
             n_pkg += 1
 
-    # ---- the shim layer, until C9 -----------------------------------------
-    sim = os.path.join(repo, "ca-simulation")
-    shims, non_shims = 0, []
-    if os.path.isdir(sim):
-        for dirpath, dirnames, filenames in os.walk(sim):
-            dirnames[:] = [d for d in dirnames if d != "__pycache__"]
-            for fn in sorted(filenames):
-                if not fn.endswith(".py"):
-                    continue
-                head = ""
-                try:
-                    with open(os.path.join(dirpath, fn), encoding="utf-8",
-                              errors="replace") as fh:
-                        head = fh.read(600)
-                except OSError:
-                    pass
-                if "DeprecationWarning" in head and "has moved to" in head:
-                    shims += 1
-                else:
-                    rel = os.path.relpath(os.path.join(dirpath, fn), sim)
-                    non_shims.append(rel)
-    lines += [
-        "",
-        "## `ca-simulation/` — the shim layer (deleted at C9)", "",
-        f"**{shims} deprecation shim(s)** onto `casim.engine`, plus "
-        f"{len(non_shims)} file(s) that are not shims: "
-        + (", ".join(f"`{p}`" for p in sorted(non_shims)) if non_shims else "none")
-        + ". Nothing new should import a `ca-simulation` path — "
-          "`tools/check_shim_imports.py` is the gate for that (C3.4).",
-        "",
-    ]
     return "code-index.md", "\n".join(lines), n + n_pkg

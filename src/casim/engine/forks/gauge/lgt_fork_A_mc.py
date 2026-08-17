@@ -46,12 +46,16 @@ import sys as _sys, os as _os
 _CA = _os.path.join(_os.path.dirname(__file__), '..')
 if _CA not in _sys.path:
     _sys.path.insert(0, _CA)
-import ca_cooling as _cc            # _mm, _dag, su3_project, su3_exp_algebra
-import ca_strong as _cs            # su3_haar
+from casim.engine.gauge import cooling as _cc  # _mm, _dag, su3_project, su3_exp_algebra
+from casim.engine.gauge import strong as _cs  # su3_haar
 
 _mm = _cc._mm
 _dag = _cc._dag
 su3_project = _cc.su3_project
+# P2.5: the MC needs *reunitarisation* (undo round-off on an almost-SU(3)
+# matrix), not maximal projection. 5.5x cheaper; see su3_reunitarise's docstring
+# for why they are not interchangeable.
+su3_reunit = _cc.su3_reunitarise
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -261,7 +265,13 @@ def _parity_mask(L, D):
 
 
 def _update_direction(U, mu, beta, rng, kind, reunit):
-    """Update all U_mu links via checkerboard; kind in {'heatbath','overrelax'}."""
+    """Update all U_mu links via checkerboard; kind in {'heatbath','overrelax'}.
+
+    ``reunit`` is truthy to reunitarise this direction after the sweep. P2.5
+    made it a *cadence* at the caller (see :func:`heatbath_sweep`); here it stays
+    a plain flag because a partial reunitarisation of one direction is not a
+    thing anyone wants.
+    """
     D = U.shape[0]
     L = U.shape[1]
     even = _parity_mask(L, D)
@@ -269,6 +279,17 @@ def _update_direction(U, mu, beta, rng, kind, reunit):
         # Recompute the staple for each parity: R_mu(x) depends on neighbouring
         # mu-links (the U_mu(x+nu) factor), so the second parity must see the
         # links updated in the first.
+        #
+        # **P2.5 investigated removing this and found it must stay.** The
+        # roadmap listed "reuse staple_field across parities instead of
+        # recomputing per direction *and* parity" as the phase's first item;
+        # that is a misdiagnosis. Measured directly: after the even half-sweep,
+        # the max change in the ODD-parity staples is 5.8 (order unity, not
+        # round-off) while the even ones move by exactly 0 — because a staple
+        # excludes its own link but does contain U_mu(x±nu), and x±nu has the
+        # opposite parity. Caching across parities would use a stale staple for
+        # half of every sweep and break detailed balance, i.e. silently sample
+        # the wrong distribution. The recompute is the checkerboard working.
         Sigma_full = staple_field(U, mu)
         Sig = Sigma_full[par]                  # (M,3,3) staple completion R
         for (i, j) in _SUBGROUPS:
@@ -286,28 +307,59 @@ def _update_direction(U, mu, beta, rng, kind, reunit):
             Umu[par] = Up_new
             U[mu] = Umu
     if reunit:
-        U[mu] = su3_project(U[mu])
+        U[mu] = su3_reunit(U[mu])
     return U
 
 
-def heatbath_sweep(U, beta, rng, n_or=0, reunit_every=True):
+def heatbath_sweep(U, beta, rng, n_or=0, reunit_every=True, sweep_index=None):
     """
     One full lattice sweep: for each direction, a pseudo-heat-bath update of
     both parities, optionally followed by `n_or` over-relaxation updates.
+
+    ``reunit_every`` — roadmap **P2.5**. Was a bool, is now a **cadence**:
+
+      * ``True``  — reunitarise every sweep (the old behaviour, still default)
+      * ``False`` / ``0`` — never
+      * ``n`` (int > 1) — every n-th sweep, which needs ``sweep_index``
+
+    Why a cadence is safe: the SU(2)-subgroup update multiplies a link by an
+    *exactly* unit SU(2) embedding, so unitarity decays only through
+    accumulated float round-off — measured below 1e-14 per sweep at L=6 — not
+    through the algorithm. Reunitarising every sweep therefore spends real time
+    correcting an error that is four orders under the tolerance. Passing
+    ``sweep_index`` lets a driver choose e.g. every 10th sweep; without it an
+    integer cadence is treated as ``True``, because silently reunitarising
+    *never* would be the dangerous reading of an ambiguous argument.
     """
     D = U.shape[0]
+    if reunit_every is True or reunit_every is False:
+        do_reunit = bool(reunit_every)
+    else:
+        n = int(reunit_every)
+        if n <= 0:
+            do_reunit = False
+        elif sweep_index is None:
+            do_reunit = True                 # ambiguous -> the safe reading
+        else:
+            do_reunit = (int(sweep_index) % n) == 0
     for mu in range(D):
-        U = _update_direction(U, mu, beta, rng, 'heatbath', reunit_every)
+        U = _update_direction(U, mu, beta, rng, 'heatbath', do_reunit)
         for _ in range(n_or):
-            U = _update_direction(U, mu, beta, rng, 'overrelax', reunit_every)
+            U = _update_direction(U, mu, beta, rng, 'overrelax', do_reunit)
     return U
 
 
-def thermalise(U, beta, rng, n_sweeps, n_or=1, record=False):
-    """Run n_sweeps heat-bath(+OR) sweeps.  Returns (U, plaq_history)."""
+def thermalise(U, beta, rng, n_sweeps, n_or=1, record=False,
+               reunit_every=True):
+    """Run n_sweeps heat-bath(+OR) sweeps.  Returns (U, plaq_history).
+
+    ``reunit_every`` accepts the P2.5 cadence and the sweep index is threaded
+    through, so ``reunit_every=10`` genuinely means every tenth sweep here.
+    """
     hist = []
-    for _ in range(n_sweeps):
-        U = heatbath_sweep(U, beta, rng, n_or=n_or)
+    for i in range(n_sweeps):
+        U = heatbath_sweep(U, beta, rng, n_or=n_or,
+                           reunit_every=reunit_every, sweep_index=i)
         if record:
             hist.append(mean_plaquette(U))
     return U, hist
@@ -488,7 +540,7 @@ def _interior_update(U, beta, rng, n_blocks, dt, t_axis, reunit):
                 Umu[mask] = _mm(E, Up)
                 U[mu] = Umu
         if reunit:
-            U[mu] = su3_project(U[mu])
+            U[mu] = su3_reunit(U[mu])
     return U
 
 

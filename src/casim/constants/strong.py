@@ -29,7 +29,7 @@ from . import Constant, Site, register
 # ---------------------------------------------------------------------------
 # The colour-Fierz 2/9 — the THIRD distinct 2/9 in the model (C2.4 found it).
 #
-# The C2 sweep flagged 42 occurrences of 0.2222... in ca-simulation/ as
+# The C2 sweep flagged 42 occurrences of 0.2222... in the legacy flat tree as
 # "delta_star | sin2_thetaW_onshell".  Reading them showed most were neither:
 # they are the colour-Fierz coefficient of the one-gluon-exchange -> NJL
 # scalar channel, which the project already names in F256 ("the Fierz 2/9").
@@ -539,6 +539,8 @@ register(Constant(
         Site("src/casim/engine/gauge/gluon_self_energy.py", "QSTAR_IMPLIED",
              kind="import"),
         Site("src/casim/engine/gauge/bgfield_loop.py", "QSTAR_IMPLIED", kind="import"),
+        Site("src/casim/engine/gauge/lpt_d1_subtracted.py", "_q_star_a_implied",
+             kind="import"),
     ),
     notes="C2.4 surfaced this: the sweep flagged 0.7327 as e_saturation (0.733, "
           "5e-3 tolerance) and reading the sites showed a completely different "

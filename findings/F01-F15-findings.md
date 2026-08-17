@@ -2,6 +2,8 @@
 
 This file documents new physics observations or possible new finds that arise during the CA simulation work, per the CLAUDE.md guidance.
 
+**Reviewed:** 2026-08-03 — **UNDER-EVIDENCED** ([independent review](../docs/reviews/F01-F15-review-2026-08-03.md)) — representative claim (Finding 15, closed-form $\beta_\text{LV}$) independently re-derived and **CONFIRMED** by a different route; the *artifact* fails on test coverage, index credit, supersession reachability and two misquoted external bounds.
+
 ---
 
 ## Finding 84 — Why the generation rotation is flat: it is the same orthorhombic break F76 needed for three distinct masses (closure of the F75→F84 descent)
@@ -2218,152 +2220,42 @@ artefact — and is therefore unaffected by the open-BC upgrade.
 **"PASS at 0.1% gate; PPN $\gamma = 1$"**.
 
 
-## Finding 15 — Closed-form $\beta_\text{LV}(m)$: SR-2 Lorentz-violation coefficient derived analytically
+## Finding 15 — Closed-form SR-2 Lorentz-violation coefficients — **PROMOTED, see `findings/F15-closed-form-lorentz-violation-coefficients.md`**
 
-*2026-05-19 - 23:30*
+*2026-05-19 - 23:30 · promoted out of this bundle 2026-08-03 - 10:30*
 
-*Amended 2026-05-22 - 01:14 — added the $\beta^6$ coefficient $\delta_\text{LV}(m)$ (closed form, sympy-confirmed bit-zero against the series) and corrected the tabulated $\gamma_\text{LV}$ values, which had been carried over from a superseded expression, to the derived closed form.*
+**This section has been superseded by its own finding file.** The full writeup, with a gate-tier
+registry record and four corrections, is
+[findings/F15-closed-form-lorentz-violation-coefficients.md](F15-closed-form-lorentz-violation-coefficients.md).
+Do not cite this section; cite F15.
 
-This finding closes the "**Does not derive $\beta_\text{LV}$ analytically**" item flagged at the end of Finding 12 (§"What this does *not* close"). The leading Lorentz-violation coefficient that controls the SR-2 ratio's departure from the continuum-SR $1/\gamma$ is now a closed-form function of the dimensionless mass $m$.
+**The result** (unchanged, and independently re-derived blind by a different route on 2026-08-03,
+agreeing to $8.3\times10^{-17}$): for the 2D-square QCA dispersion $\cos\omega=\sqrt{1-m^2}\cos(ka)$,
+the departure of the SR-2 ratio from continuum SR is
 
-### Setup
+$$R(\beta)-\sqrt{1-\beta^2}=\beta_\text{LV}\beta^2+\gamma_\text{LV}\beta^4+\delta_\text{LV}\beta^6+\varepsilon_\text{LV}\beta^8+\mathcal O(\beta^{10}),$$
 
-The exact-QCA 2D Dirac dispersion along the $x$-axis ($k_y = 0$) is the implicit relation
+$$\beta_\text{LV}(m)=\frac12\left(1-\frac{m}{\sqrt{1-m^2}\,\arcsin m}\right)=-\frac{m^2}{6}-\frac{11m^4}{90}+\mathcal O(m^6),$$
 
-$$\cos\omega(k) = n\cos(ka),\qquad n=\sqrt{1-m^2},\qquad a = \frac{1}{\sqrt 2} = c_\text{lat}.$$
+all four coefficients strictly negative on $m\in(0,1)$. It also corrects Finding 12's parenthetical
+claim that $\beta_\text{LV}$ is *positive* — that sign is wrong, and Finding 12 above still carries it.
 
-Three quantities feed the SR-2 ratio:
+**Why it moved, and what was wrong with this version** — from
+[`docs/reviews/F01-F15-review-2026-08-03.md`](../docs/reviews/F01-F15-review-2026-08-03.md), which
+confirmed the physics and graded the *bundle* UNDER-EVIDENCED:
 
-- $\omega_\text{static} = \omega(0) = \arccos(n) = \arcsin(m)$ (Finding 12, Part A).
-- $v_g(k) = \partial\omega/\partial k = a\,\omega'(u)$ with $u = ka$.
-- $\omega_\text{moving} = \omega(k) - k\,v_g(k)$.
+| # | Defect in the version that used to sit here | Corrected in F15 |
+|---|---|---|
+| 1 | No test record of any kind, while backing four "exact algebraic" rows of the exactness inventory; the module was registered `dead_candidate` | Gate record `F15-closed-form-lv-coefficients`, `expect.exactness: exact`, perturbation-verified failure mode |
+| 2 | Numerical floor attributed to "the FFT/round-off floor (~1e-8)" — there is no FFT in the module; it is subtractive cancellation $\sim\varepsilon/(\lvert\beta_\text{LV}\rvert\beta^2)$ | Restated, and the accuracy corrected — the series is right to $5\times10^{-16}$, six digits better than claimed here |
+| 3 | Quoted $E_\text{LV}\gtrsim10^{19}$ GeV (the **linear** Fermi GRB 090510 bound) for a mechanism identified one line later as $\mathcal O(k^4)$, i.e. $n=2$ | The $n=2$ bound $1.3\times10^{11}$ GeV — which Finding 28 already carries correctly, 150 lines below |
+| 4 | Used "CERN g−2 precision ($\sim10^{-7}$)" as a *time-dilation* precision | Bailey et al. 1977, dilation confirmed to $2\times10^{-3}$ |
+| 5 | SI conversion routed through Finding 10's $\sqrt d$ identification, which the project replaced | F232 lightcone + F107 lattice spacing |
 
-The lattice's analog of $1/\gamma$ is $R(k) = \omega_\text{moving}/\omega_\text{static}$, to be compared with $1/\gamma_\text{SR} = \sqrt{1-\beta^2}$, $\beta = v_g/c_\text{lat}$.
-
-### Step 1 — Series of $\omega(u)$
-
-Differentiating the implicit relation $\cos\omega = n\cos u$ twice at $u=0$ (using $\omega(0) = \omega_0$, $\cos\omega_0 = n$, $\sin\omega_0 = m$) gives $\omega''(0) = n/m$; a fourth-order pass yields $\omega''''(0) = -(n/m^3)(3 - 2m^2)$. All odd derivatives vanish by parity. So
-
-$$\omega(u) = \omega_0 + \frac{n}{2m}u^2 - \frac{n(3-2m^2)}{24\,m^3}u^4 + \mathcal O(u^6).$$
-
-### Step 2 — Form $\omega_\text{moving}$ in $u$
-
-Differentiating term-by-term, $u\,\omega'(u) = (n/m)u^2 - (n(3-2m^2)/(6m^3))u^4 + \mathcal O(u^6)$, so
-
-$$\omega_\text{moving}(u) = \omega(u) - u\,\omega'(u) = \omega_0 - \frac{n}{2m}u^2 + \frac{n(3-2m^2)}{8\,m^3}u^4 + \mathcal O(u^6).$$
-
-The $u^2$ coefficient flips sign relative to $\omega(u)$, and the $u^4$ coefficient triples in magnitude.
-
-### Step 3 — Re-express in $\beta = v_g/c_\text{lat} = \omega'(u)$
-
-$$\beta = \frac{n}{m}u - \frac{n(3-2m^2)}{6\,m^3}u^3 + \mathcal O(u^5).$$
-
-Inverting series-wise,
-
-$$u(\beta) = \frac{m}{n}\beta + \frac{m(3-2m^2)}{6\,n^3}\beta^3 + \mathcal O(\beta^5).$$
-
-Substituting $u(\beta)$ into $R(u) = \omega_\text{moving}/\omega_0$ and expanding:
-
-$$R(\beta) = 1 - \frac{m}{2\,n\,\omega_0}\beta^2 - \frac{m(3-2m^2)}{24\,n^3\,\omega_0}\beta^4 - \frac{m(8m^4-20m^2+15)}{240\,n^5\,\omega_0}\beta^6 + \mathcal O(\beta^8).$$
-
-### Step 4 — Subtract $1/\gamma_\text{SR}$ Taylor expansion
-
-$1/\gamma_\text{SR} = \sqrt{1-\beta^2} = 1 - \beta^2/2 - \beta^4/8 - \beta^6/16 - \mathcal O(\beta^8)$. Subtracting:
-
-$$R(\beta) - \frac{1}{\gamma_\text{SR}} = \beta_\text{LV}(m)\,\beta^2 + \gamma_\text{LV}(m)\,\beta^4 + \delta_\text{LV}(m)\,\beta^6 + \mathcal O(\beta^8),$$
-
-with
-
-$$\boxed{\;\beta_\text{LV}(m) = \frac{1}{2}\left(1 - \frac{m}{\sqrt{1-m^2}\,\arcsin m}\right) = \frac{\sqrt{1-m^2}\,\arcsin m - m}{2\sqrt{1-m^2}\,\arcsin m}\;}$$
-
-and
-
-$$\gamma_\text{LV}(m) = \frac{1}{8} - \frac{m\,(3 - 2m^2)}{24\,(1-m^2)^{3/2}\,\arcsin m}.$$
-
-The same implicit-function recursion, carried one order further (series of $\omega(u)$ to $u^8$, $v_g(u)\to u(\beta)$ inverted through $\beta^7$), gives the $\beta^6$ coefficient (added 2026-05-21; `derive_beta_LV.py::delta_LV`)
-
-$$\delta_\text{LV}(m) = \frac{1}{16} - \frac{m\,(8m^4 - 20m^2 + 15)}{240\,(1-m^2)^{5/2}\,\arcsin m}.$$
-
-The rational constant $1/16$ is the SR Taylor coefficient of $-\sqrt{1-\beta^2}$ at $\beta^6$; the numerator polynomial is $P_3(m) = 15m - 20m^3 + 8m^5$, matching the $\beta_\text{LV}$ ($P_1 = m$) and $\gamma_\text{LV}$ ($P_2 = 3m - 2m^3$) pattern.
-
-### Step 5 — Sign and small-$m$ expansion
-
-Since $\arcsin m < m/\sqrt{1-m^2}$ for every $m\in(0,1)$ (compare derivatives at $m=0$), we have $\sqrt{1-m^2}\,\arcsin m < m$, hence
-
-$$\beta_\text{LV}(m) < 0\quad\text{for all }m\in(0,1).$$
-
-This **contradicts the parenthetical claim in Finding 12 that $\beta_\text{LV}$ is "positive"** — the magnitudes are correct but the sign was misread from an unsigned $|\Delta|$ column. The lattice ratio is always *below* $1/\gamma_\text{SR}$ at finite $\beta$, i.e. the QCA over-dilates relative to continuum SR.
-
-Small-$m$ expansion: $\arcsin m = m + m^3/6 + 3m^5/40 + \dots$ and $\sqrt{1-m^2} = 1 - m^2/2 - m^4/8 - \dots$ give $\sqrt{1-m^2}\,\arcsin m = m - m^3/3 - 2m^5/15 + \dots$, so
-
-$$\beta_\text{LV}(m) = -\frac{m^2}{6} - \frac{11\,m^4}{90} + \mathcal O(m^6).$$
-
-The leading $-m^2/6$ is the *only* place where $m$ enters at this order — the lattice's deformation of SR vanishes in the massless limit, consistent with the Weyl sector being a fixed point of the Lorentz group on the lattice. The two higher coefficients share the same $m^2$ suppression: $\gamma_\text{LV}(m) = -\tfrac{m^2}{12} + \mathcal O(m^4)$ and $\delta_\text{LV}(m) = -\tfrac{m^2}{16} + \mathcal O(m^4)$ (leading coefficients $-\tfrac16, -\tfrac1{12}, -\tfrac1{16}$ for $\beta^2, \beta^4, \beta^6$), so the entire LV tower vanishes as $m\to 0$.
-
-### Step 6 — Numerical verification
-
-`ca-simulation/derive_beta_LV.py` does the symbolic check (sympy) and a numerical scan. Highlights:
-
-| $m$ | $k_x$ | $\beta = v_g/c_\text{lat}$ | $\Delta_\text{meas} = R - 1/\gamma_\text{SR}$ | $+\,\gamma_\text{LV}\beta^4$ | $+\,\delta_\text{LV}\beta^6$ | rel.err β⁴ | rel.err β⁶ |
-|---|---|---|---|---|---|---|---|
-| 0.05 | 0.0010 | 0.01412 | $-8.327\times 10^{-8}$ | $-8.327\times 10^{-8}$ | $-8.327\times 10^{-8}$ | $8.7\times 10^{-8}$ | $1.0\times 10^{-7}$ |
-| 0.10 | 0.0010 | 0.00704 | $-8.311\times 10^{-8}$ | $-8.311\times 10^{-8}$ | $-8.311\times 10^{-8}$ | $3.3\times 10^{-8}$ | $3.2\times 10^{-8}$ |
-| 0.20 | 0.0010 | 0.00346 | $-8.243\times 10^{-8}$ | $-8.243\times 10^{-8}$ | $-8.243\times 10^{-8}$ | $2.6\times 10^{-8}$ | $2.6\times 10^{-8}$ |
-| 0.50 | 0.0010 | 0.00122 | $-7.699\times 10^{-8}$ | $-7.699\times 10^{-8}$ | $-7.699\times 10^{-8}$ | $3.6\times 10^{-9}$ | $3.6\times 10^{-9}$ |
-| 0.50 | 0.0500 | 0.06111 | $-1.921\times 10^{-4}$ | $-1.921\times 10^{-4}$ | $-1.921\times 10^{-4}$ | $6.3\times 10^{-6}$ | $2.2\times 10^{-8}$ |
-
-The $\beta^2$ truncation matches the measured residual to $\sim 10^{-3}$ relative at the working SR-2 grid points; adding the $\gamma_\text{LV}\beta^4$ term sharpens the match by another two to four orders of magnitude, and the $\delta_\text{LV}\beta^6$ term sharpens it again at the larger-$\beta$ rows (e.g. $m=0.5$, $k=0.05$: $6.3\times10^{-6}\to2.2\times10^{-8}$). At the very smallest residual rows the $\beta^6$ improvement saturates against the FFT/round-off floor ($\sim 10^{-8}$), so rel.err β⁶ tracks rel.err β⁴ there rather than improving further. At the smallest residual point in Finding 12's scan ($m=0.5$, $k=0.001$, $|\Delta|=7.7\times 10^{-8}$) the analytic prediction is correct to nine significant figures.
-
-The sympy half of `derive_beta_LV.py` expands the symbolic series of $\omega(u)$, inverts $v_g(u)\to u(\beta)$ algebraically, and emits
-
-```
-β_LV(symbolic) − β_LV(closed form): 0
-γ_LV(symbolic) − γ_LV(closed form): 0
-δ_LV(symbolic) − δ_LV(closed form): 0
->>> All three closed-form formulas confirmed symbolically. <<<
-```
-
-### Tabulated values
-
-| $m$ | $\beta_\text{LV}(m)$ | $\gamma_\text{LV}(m)$ | $\delta_\text{LV}(m)$ |
-|---|---|---|---|
-| 0.01 | $-1.6668\times 10^{-5}$ | $-8.3342\times 10^{-6}$ | $-6.2508\times 10^{-6}$ |
-| 0.05 | $-4.1743\times 10^{-4}$ | $-2.0887\times 10^{-4}$ | $-1.5677\times 10^{-4}$ |
-| 0.10 | $-1.6790\times 10^{-3}$ | $-8.4204\times 10^{-4}$ | $-6.3344\times 10^{-4}$ |
-| 0.20 | $-6.8689\times 10^{-3}$ | $-3.4772\times 10^{-3}$ | $-2.6406\times 10^{-3}$ |
-| 0.50 | $-5.1329\times 10^{-2}$ | $-2.8147\times 10^{-2}$ | $-2.3262\times 10^{-2}$ |
-
-*The $\gamma_\text{LV}$ column was corrected on 2026-05-22 to the derived closed form $\tfrac18 - m(3-2m^2)/(24\,n^3\arcsin m)$; the previous column (e.g. $-1.110\times10^{-1}$ at $m=0.5$) came from a superseded expression. All values above are reproduced by `derive_beta_LV.py`'s `beta_LV`, `gamma_LV`, `delta_LV`.*
-
-### Status — exactness inventory
-
-This is an **exact algebraic result** in the same sense as the dispersion identity (Finding 12 Part A): $\beta_\text{LV}$, $\gamma_\text{LV}$, and $\delta_\text{LV}$ are all closed-form analytic functions of $m$, derived without invoking any approximation other than the small-$\beta$ Taylor expansion that defines the coefficient. The leading $-m^2/6$ is exact (no fitted constants); the $-11 m^4/90$ next-order term is exact. All three closed forms reduce the symbolic-minus-closed-form residual to bit-zero in sympy.
-
-### Connection to QG-2 (Planck-scale Lorentz violation)
-
-QG-2 sets the gate $E_\text{LV} \gtrsim 10^{19}$ GeV from gamma-ray-burst time-of-flight (Fermi GRB 090510). With the closed-form $\beta_\text{LV}$ in hand, the SI conversion from Finding 10 maps directly:
-
-- For photon-like modes the relevant limit is $m \to 0$, where $\beta_\text{LV} \to -m^2/6 \to 0$. Lorentz violation in the SR-2 sense vanishes in the massless limit; the QG-2 signature instead comes from the $\mathcal O(k^4)$ dispersion correction in $\omega(k)$, *not* the SR-2 ratio.
-- For a massive probe (electron, muon, …) the lattice predicts a *velocity*-dependent deformation of $\tau/\tau_0$, with coefficient $\beta_\text{LV}(m)$ at the dimensionless level. Converting to SI via Finding 10's $\sqrt d$ identification turns this into a $\beta_\text{LV}\,(v/c)^2$ multiplicative correction to muon-storage-ring time dilation; at CERN g–2 precision ($\sim 10^{-7}$) and $\beta_\text{LV}(m_\mu)$ extremely small in lattice units (the dimensionless lattice $m$ at the muon scale is $m_\mu a/\hbar c \ll 1$), the deviation is far below any existing measurement.
-
-The interpretation is sharper than what Finding 12 stated: SR-2's "predicted Planck-scale Lorentz violation" is not a single dimensionless number but a *function* $\beta_\text{LV}(m)$ that vanishes as $m\to 0$. The Weyl sector is exactly Lorentz-invariant at this order; only the Dirac sector picks up the deformation, and it is suppressed by $m^2$ at small mass.
-
-### Where this lives
-
-- `ca-simulation/derive_beta_LV.py` — symbolic + numerical derivation script.
-- `findings.md` Finding 12 (the open item that this closure resolves).
-- `docs/theory/ca-reference.md` — closed-form formulas now in the exact-algebraic ledger.
-- `docs/status/exactness-inventory.md` — three rows ($\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$ exact analytic).
-
-### What this does *not* close
-
-- **Sign of $\gamma_\text{LV}$ for large $m$.** $\gamma_\text{LV}(m)$ is negative throughout $m \in (0, m_\star)$ for some $m_\star$ that depends on whether the $\arcsin$-denominator wins or the constant $1/8$ does. A separate calculation would confirm whether $\gamma_\text{LV}$ ever flips sign as $m \to 1$, but at the working SR-2 mass range ($m \le 0.5$) both coefficients are negative.
-- **3D BCC analog.** The derivation above is for the 2D-square dispersion $\omega = \arccos(\sqrt{1-m^2}\cos(ka))$. The BCC analog uses $\omega = \arccos(\sqrt{1-m^2}(c_xc_yc_z \pm s_xs_ys_z))$ and has different leading-order coefficients (Finding 13's $\sim 10\times$ larger numerical $\beta_\text{LV}$ at matched $v_g/c_\text{lat}$ already suggested this). Deriving the 3D-BCC $\beta_\text{LV}^\text{(3D)}(m, \hat k)$ closed form is a clean follow-up: the same implicit-differentiation method applies; only the $\omega''(0)$ value changes, and it now carries a $\hat k$-dependent piece.
-- **Higher orders.** The pattern $\omega(u) = \sum_{n\ge 0} a_{2n}(m) u^{2n}$ with $a_{2n}$ a rational function of $\arcsin m$ and $\sqrt{1-m^2}$ continues indefinitely; the recursion is the implicit-function expansion of $\arccos(n \cos u)$. We now have $\beta_\text{LV}$, $\gamma_\text{LV}$, and $\delta_\text{LV}$ (the $\beta^6$ coefficient, added 2026-05-21) in closed form; $\beta^8$ and beyond are mechanically obtainable from the same recursion (raise the series order and add $c_9$ to the $u(\beta)$ ansatz) but not pursued here.
-
-### Cross-reference to memory
-
-The "no closed form extracted" hedge in Finding 12 is now retired; future SR-2 / QG-2 work can use the boxed formula above. The sign flip relative to Finding 12's parenthetical "positive" is recorded in [[finding-12-correction]] for the memory layer.
+F15 additionally closes an item this version left open — $\gamma_\text{LV}$ never flips sign, because
+$\tan\theta>\theta$ makes every term of every coefficient negative — and records three things this
+version did not state: the exact non-perturbative $R(\beta)$, the fact that $a=1/\sqrt2$ is decorative
+($\beta_\text{LV}$ is independent of $a$), and that the expansion domain is $\beta\in[0,\sqrt{1-m^2})$.
 
 ---
 

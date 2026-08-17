@@ -1,0 +1,5050 @@
+# ---------------------------------------------------------------------------
+# GENERATED from docs/claims/CL*.md by `casim index --only claims` (D12).
+# DO NOT HAND-EDIT. The card's front matter is the record; this file is a
+# projection of it. Editing here changes nothing and will be overwritten.
+# ---------------------------------------------------------------------------
+version: 1
+count: 280
+next_claim: CL281
+
+claims:
+  - id: CL001
+    file: docs/claims/CL001-light-is-a-rotation-rate.md
+    title: 'The speed of light is a rotation rate, not a phase velocity'
+    tier: headline
+    kind: reinterpretation
+    status: live
+    domain: [SR, QM]
+    exactness: exact
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F25, F26]
+    tests: []
+    modules: [casim.engine.gauge.wmu]
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL002
+    file: docs/claims/CL002-photon-is-a-bound-weyl-pair.md
+    title: 'The photon is a bound pair of two spin-half Weyl quanta, not a fundamental spin-1 boson'
+    tier: headline
+    kind: reinterpretation
+    status: live
+    domain: [QM, QFT, SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F65, F66, F67, F68, F69, F105]
+    tests: [scenario-photon-pair]
+    modules: [casim.engine.gauge.photon]
+    constants: [c_lat]
+    supersessions: [S1-F69-sigma-bilinear-photon]
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL003
+    file: docs/claims/CL003-mass-without-a-higgs-field.md
+    title: 'Mass without a Higgs field: a chiral SU(2) complex-mass step carries weak isospin exactly'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: machine
+    falsifier: unset
+    review_state: authored
+    confidence: high
+    findings: [F27, F41]
+    tests: []
+    modules: [casim.engine.particles.dirac, casim.engine.gauge.hypercharge]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL004
+    file: docs/claims/CL004-exactly-three-fermion-generations.md
+    title: 'Exactly three fermion generations'
+    tier: headline
+    kind: derivation
+    status: contingent
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F75]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL005
+    file: docs/claims/CL005-koide-two-thirds-as-45-degree-equipartition.md
+    title: 'The Koide relation Q = 2/3 is an exact 45-degree equipartition of the cubic amplitude sqrt(m)'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F92, F93]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL006
+    file: docs/claims/CL006-confinement-exact-2d-centre-closure-4d.md
+    title: 'Confinement: exact in 2D, and a Z3 centre-phase colour-dielectric dual superconductor in 3+1D'
+    tier: headline
+    kind: derivation
+    status: narrowed
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: authored
+    confidence: medium
+    findings: [F97, F101, F110, F142]
+    tests: []
+    modules: [casim.engine.gauge.confinement, casim.engine.gauge.link_hamiltonian]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL007
+    file: docs/claims/CL007-weinberg-angle-derived-with-its-scale.md
+    title: 'The Weinberg angle is derived, with its scale'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F41, F49, F138]
+    tests: []
+    modules: []
+    constants: [sin2_thetaW_onshell]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL008
+    file: docs/claims/CL008-gravity-sourced-by-full-stress-energy.md
+    title: 'Gravity is sourced by the full stress-energy tensor, and Newton''''s constant is structural'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F64, F79, F106, F107, F178]
+    tests: []
+    modules: [casim.engine.interactions.gravity]
+    constants: [G_LATTICE]
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL009
+    file: docs/claims/CL009-gravitational-waves-travel-at-the-photon-speed.md
+    title: 'Gravitational waves travel at exactly the photon speed'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F180]
+    tests: []
+    modules: []
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL010
+    file: docs/claims/CL010-charge-quantisation-derived.md
+    title: 'Charge quantisation is derived, not assumed'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: authored
+    confidence: high
+    findings: [F165, F279, F47, F27, F41]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-02'
+  - id: CL011
+    file: docs/claims/CL011-quantum-gravity-dispersion-scale.md
+    title: 'A quadratic vacuum dispersion at E_QG,2 = sqrt(54) hbar c / a = 1.36e19 GeV'
+    tier: headline
+    kind: prediction
+    status: live
+    domain: [QM, GR]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F28, F30, F107]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL012
+    file: docs/claims/CL012-vacuum-birefringence-exactly-zero.md
+    title: 'The physical photon is exactly non-birefringent — structurally, not within a tolerance'
+    tier: headline
+    kind: prediction
+    status: live
+    domain: [QM, SR, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F30, F66, F67, F105]
+    tests: []
+    modules: [casim.engine.gauge.photon]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL002
+    first_issued: '2026-06-08'
+  - id: CL013
+    file: docs/claims/CL013-gravitational-wave-speed-threshold.md
+    title: 'c_grav = c_gamma exactly, with no free coefficient'
+    tier: headline
+    kind: prediction
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F180]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: CL009
+    first_issued: '2026-06-08'
+  - id: CL014
+    file: docs/claims/CL014-weinberg-angle-threshold.md
+    title: 'The chain is committed to sin^2(theta_W) = 1/4 at 4*pi*v and 2/9 on shell'
+    tier: headline
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F49, F138, F231]
+    tests: []
+    modules: []
+    constants: [sin2_thetaW_onshell]
+    supersessions: []
+    rolls_up_to: CL007
+    first_issued: '2026-06-08'
+  - id: CL015
+    file: docs/claims/CL015-mercury-precession-ppn-consistency.md
+    title: 'PPN beta = gamma = 1 (Mercury 42.98 arcsec/cy); the linear dielectric is excluded'
+    tier: headline
+    kind: prediction
+    status: narrowed
+    domain: [GR]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F64, F178]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: CL008
+    first_issued: '2026-06-08'
+  - id: CL016
+    file: docs/claims/CL016-mw-and-mz-absolute-not-claimed.md
+    title: 'm_W and m_Z in absolute terms are not predicted — only their ratio'
+    tier: headline
+    kind: non_claim
+    status: withdrawn
+    domain: [SM]
+    exactness: external
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F138, F320]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: CL007
+    first_issued: '2026-08-02'
+  - id: CL017
+    file: docs/claims/CL017-ckm-and-cp-violation-out-of-scope.md
+    title: 'The CKM matrix and measured CP violation are out of scope'
+    tier: headline
+    kind: non_claim
+    status: not_claimed
+    domain: [SM]
+    exactness: exact
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F53]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-02'
+  - id: CL018
+    file: docs/claims/CL018-neutrino-mass-scale-not-fixed.md
+    title: 'No absolute neutrino mass is predicted — the see-saw supplies a mechanism, not a scale'
+    tier: headline
+    kind: non_claim
+    status: not_claimed
+    domain: [SM]
+    exactness: external
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F47]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-02'
+  - id: CL019
+    file: docs/claims/CL019-muon-g-2-beyond-qed-not-computed.md
+    title: 'Muon g-2 beyond the QED piece is not computed and not claimed'
+    tier: headline
+    kind: non_claim
+    status: not_claimed
+    domain: [QFT, SM]
+    exactness: machine
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F261, F249]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-02'
+  - id: CL020
+    file: docs/claims/CL020-no-doublers-has-a-domain.md
+    title: '\"No doublers\" holds on the cubic FFT grid; on the true BCC zone the omega = pi mode sits at corner H'
+    tier: headline
+    kind: non_claim
+    status: narrowed
+    domain: [QFT, SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F278]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-02'
+  - id: CL021
+    file: docs/claims/CL021-cosmological-constant-not-derived.md
+    title: 'The cosmological constant is not derived — the 121-order problem is reduced to the Omega_Lambda coincidence'
+    tier: headline
+    kind: non_claim
+    status: not_claimed
+    domain: [cosmology, GR]
+    exactness: quantitative
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F164, F193, F196]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-02'
+  - id: CL022
+    file: docs/claims/CL022-alpha-s-at-mz-open-tension.md
+    title: 'alpha_s(M_Z) = 0.11955 is the register''''s largest open tension, at 2.1 sigma'
+    tier: headline
+    kind: deviation
+    status: open
+    domain: [QCD]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F144, F115, F124, F299, F303]
+    tests: [F303-coupling-normalisation]
+    modules: [casim.engine.gauge.derive_coupling_normalisation]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-06-08'
+  - id: CL023
+    file: docs/claims/CL023-horizon-free-dielectric-black-hole-withdrawn.md
+    title: 'WITHDRAWN — black holes are horizon-free dielectric condensates'
+    tier: headline
+    kind: reinterpretation
+    status: withdrawn
+    domain: [GR]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F114, F178, F183]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: CL008
+    first_issued: '2026-06-08'
+  - id: CL024
+    file: docs/claims/CL024-photon-ring-shadow-plus-4-63-percent-withdrawn.md
+    title: 'WITHDRAWN — photon-ring imaging at +4.63% shadow radius'
+    tier: headline
+    kind: prediction
+    status: withdrawn
+    domain: [GR]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F114, F178, F186]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: CL023
+    first_issued: '2026-06-08'
+  - id: CL025
+    file: docs/claims/CL025-ringdown-echoes-withdrawn.md
+    title: 'WITHDRAWN — gravitational-wave ringdown echoes'
+    tier: headline
+    kind: prediction
+    status: withdrawn
+    domain: [GR]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F114, F178, F187]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: CL023
+    first_issued: '2026-06-08'
+  - id: CL026
+    file: docs/claims/CL026-absent-hawking-spectrum-withdrawn.md
+    title: 'WITHDRAWN — absence of a thermal Hawking spectrum'
+    tier: headline
+    kind: prediction
+    status: withdrawn
+    domain: [GR, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F114, F178, F190]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: CL023
+    first_issued: '2026-06-08'
+  - id: CL027
+    file: docs/claims/CL027-four-pi-second-order-bending-withdrawn.md
+    title: 'WITHDRAWN — the 4*pi second-order light-bending coefficient'
+    tier: headline
+    kind: prediction
+    status: withdrawn
+    domain: [GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F111, F114, F178]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: [S4-F178-full-stress-energy]
+    rolls_up_to: CL023
+    first_issued: '2026-06-08'
+  - id: CL028
+    file: docs/claims/CL028-lepton-shape-angle-is-a-representation-weight.md
+    title: 'The charged-lepton condensate angle IS the E_g representation weight, delta* = 2/9 rad'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F175, F234, F253, F255, F256]
+    tests: [F234-Wvc-triple-closure]
+    modules: [casim.engine.particles.eg_sextic]
+    constants: [delta_star, lambda6]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-07-16'
+  - id: CL029
+    file: docs/claims/CL029-closed-form-sr-2-lorentz-violation-coefficients-as.md
+    title: 'Closed-form SR-2 Lorentz-violation coefficients: $\beta_\text{LV}$, $\\gamma_\text{LV}$, $\\delta_\text{LV}$, $\varepsilon_\text{LV}$ as exact functions of the ma'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [SR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F15]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL030
+    file: docs/claims/CL030-wavepackets-propagate-across-the-bcc-lattice-at-the.md
+    title: 'Wavepackets propagate across the BCC lattice at the group velocity the automaton''''s own dispersion predicts'
+    tier: supporting
+    kind: prediction
+    status: withdrawn
+    domain: [SR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F20]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL031
+    file: docs/claims/CL031-the-composite-photon-curl-residual-is-geometry-independent.md
+    title: 'The composite-photon curl residual is geometry-independent: $\text{curl}/|k| = c_\text{lat}/\\sqrt2$'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F21]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL032
+    file: docs/claims/CL032-qca-velocity-addition-exact-deformed-formula-from-the.md
+    title: 'QCA Velocity Addition: Exact Deformed Formula from the Arccos Dispersion'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [SR]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F22]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL033
+    file: docs/claims/CL033-smearing-is-ruled-out-the-clat-2-curl.md
+    title: 'Smearing is ruled out; the c_lat/√2 curl coefficient is algebraically phase-locked'
+    tier: supporting
+    kind: no_go
+    status: withdrawn
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F23]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL034
+    file: docs/claims/CL034-weyl-sl-2-boost-lorentz-4-current-covariance.md
+    title: 'Weyl SL(2,ℂ) Boost: Lorentz 4-Current Covariance'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F24]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL035
+    file: docs/claims/CL035-bcc-spin-axis-n-k-and-scalar-contamination.md
+    title: 'BCC Spin Axis n̂(k) and Scalar Contamination |ψᵀψ|² = 1 − n̂_y²'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F26b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL036
+    file: docs/claims/CL036-w-triplet-bilinear-bridges-f26-photon-rotation-law.md
+    title: 'W-triplet bilinear bridges F26 (photon rotation law) to F27 (chiral SU(2))'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F29]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL037
+    file: docs/claims/CL037-w-phase-1-su-2-link-variables-exact.md
+    title: 'W_μ Phase 1: SU(2) Link Variables & Exact Covariant BCC Hopping'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F31]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL038
+    file: docs/claims/CL038-w-phase-2-free-w-propagation-f26-rotation.md
+    title: 'W_μ Phase 2: Free W Propagation — F26 Rotation Law per Isospin Component'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F32]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL039
+    file: docs/claims/CL039-w-phase-3-yang-mills-self-coupling-on.md
+    title: 'W_μ Phase 3: Yang–Mills Self-Coupling on the BCC Lattice'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F33]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL040
+    file: docs/claims/CL040-w-phase-4-covariant-dirac-doublet-fermion-w.md
+    title: 'W_μ Phase 4: Covariant Dirac Doublet — Fermion-W Vertex'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F34]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL041
+    file: docs/claims/CL041-w-phase-5b-stueckelberg-w-boson-mass-generation.md
+    title: 'W_μ Phase 5B: Stueckelberg W-Boson Mass Generation'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F34b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL042
+    file: docs/claims/CL042-w-phase-6-electroweak-mixing-weinberg-angle-z.md
+    title: 'W_μ Phase 6: Electroweak Mixing — Weinberg Angle, Z Boson, Gell-Mann–Nishijima'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F35]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL043
+    file: docs/claims/CL043-yang-mills-back-reaction-and-massive-w-dispersion.md
+    title: 'Yang-Mills Back-Reaction and Massive W Dispersion (Proca)'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F36]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL044
+    file: docs/claims/CL044-riemann-silberstein-eigenstates-correspond-exactly-to-bcc-chirality.md
+    title: 'Riemann–Silberstein Eigenstates Correspond Exactly to BCC Chirality Branches'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F37]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL045
+    file: docs/claims/CL045-first-generation-anomaly-cancellation-fg-1-all-six.md
+    title: 'First-Generation Anomaly Cancellation (FG-1, all six traces exactly zero)'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F38]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL046
+    file: docs/claims/CL046-two-helicity-composite-photon-at-the-bilinear-level.md
+    title: 'Two-Helicity Composite Photon at the Bilinear Level (FG-6)'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F39]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL047
+    file: docs/claims/CL047-f27-complex-mass-adoption-for-the-quark-sector.md
+    title: 'F27 complex-mass adoption for the quark sector + Phase-4 electroweak wiring'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F40]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL048
+    file: docs/claims/CL048-hypercharge-extended-to-the-quark-sector-and-right.md
+    title: 'Hypercharge $U(1)_Y$ extended to the quark sector AND right-handed singlets promoted to dynamical $Y$-coupled fields in the kinetic step'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F42]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL049
+    file: docs/claims/CL049-fg-7-dynamical-su-3-gluon-sector-rotation.md
+    title: 'FG-7: dynamical SU(3) gluon sector  (rotation law, self-coupling, confinement diagnostic)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F43]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL050
+    file: docs/claims/CL050-falls-out-of-the-f34b-f41-stueckelberg-construction.md
+    title: '$m_A = 0$ falls out of the F34b+F41 Stueckelberg construction as a rank-deficient mass matrix; the notebook''''s \"anomalous\" cross term is the off-diagonal entry t'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F44]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL051
+    file: docs/claims/CL051-sin-w-from-the-swap-geometry-on-the.md
+    title: 'sin²θ_W from the σ ↔ τ swap geometry on the BCC lattice'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F45]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL052
+    file: docs/claims/CL052-spherical-pythagorean-identity-for-lattice-mass-a-geometric.md
+    title: 'Spherical Pythagorean identity for lattice mass: a geometric derivation of $E^2 = p^2c^2 + m^2c^4$'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F46]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL053
+    file: docs/claims/CL053-fg-4-dynamical-z-neutral-current-sector.md
+    title: 'FG-4: Dynamical Z neutral-current sector'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F48]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL054
+    file: docs/claims/CL054-gravity-fork-from-f46-which-leg-of-the.md
+    title: 'Gravity fork from F46: which leg of the spherical triangle carries gravitational redshift'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F50]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL055
+    file: docs/claims/CL055-the-bipartite-sublattice-dof-carries-hypercharge-as-a.md
+    title: 'The bipartite sublattice DOF carries hypercharge as a matter of representation theory on the BCC walk'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F51]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL056
+    file: docs/claims/CL056-gravity-as-a-self-consistent-rest-leg-clock.md
+    title: 'Gravity as a self-consistent rest-leg (clock-rate) field'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F52]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL057
+    file: docs/claims/CL057-fg-8-end-to-end-decay-charged-current.md
+    title: 'FG-8: End-to-end β-decay charged-current integration'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F54]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL058
+    file: docs/claims/CL058-spatial-metric-from-trace-reversal-einstein-s-factor.md
+    title: 'Spatial metric from trace reversal: Einstein''''s factor-2 from mass'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F55]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL059
+    file: docs/claims/CL059-deriving-the-einstein-coupling-16-g-c-from.md
+    title: 'Deriving the Einstein coupling 16πG/c⁴ from the lattice + F25/F26 phase-matching'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F56]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL060
+    file: docs/claims/CL060-reducing-the-einstein-hilbert-term-from-leg-field.md
+    title: 'Reducing the Einstein–Hilbert term from leg-field back-reaction'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F57]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL061
+    file: docs/claims/CL061-does-the-clock-rate-rest-mass-coupling-4.md
+    title: 'Does the clock-rate ↔ rest-mass coupling 4πG follow from the neighbour rule?'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F58]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL062
+    file: docs/claims/CL062-the-induced-eh-prefactor-and-the-convention-it.md
+    title: 'The induced-EH prefactor, and the $(a,\tau)$ convention it selects'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F59]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL063
+    file: docs/claims/CL063-reconciling-the-two-induced-channels-f58-s-is.md
+    title: 'Reconciling the two induced-$G$ channels: F58''''s $c_\text{lat}^2$ is tree-level, F59''''s $1/c_\text{lat}$ is loop-induced, gap $=c_\text{lat}^3$'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F60]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL064
+    file: docs/claims/CL064-the-weyl-heat-kernel-coefficient-and-the-mode.md
+    title: 'The Weyl heat-kernel coefficient $\eta=1/12$ and the mode count $g_*$: turning $P_\text{pre}$ into a number'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F61]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL065
+    file: docs/claims/CL065-dynamical-dirac-ca-on-a-curved-background-d2.md
+    title: 'Dynamical Dirac CA on a curved background (D2) + linearized backreaction (D3a)'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F62]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL066
+    file: docs/claims/CL066-the-cost-of-the-torsion-free-assumption-einstein.md
+    title: 'The cost of the torsion-free assumption: Einstein–Cartan spin-torsion is ≲0.3% at F62 densities, O(1) only above ~3 quanta per cell'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F63]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL067
+    file: docs/claims/CL067-wilson-gradient-flow-cooling-driver-exact-2d-confinement.md
+    title: 'Wilson gradient flow / cooling driver + exact 2D confinement (static potential, string tension)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F70]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL068
+    file: docs/claims/CL068-colour-singlet-three-quark-construction-the-proton.md
+    title: 'Colour-singlet three-quark construction (the proton)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F71]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL069
+    file: docs/claims/CL069-the-paired-even-law-photon-propagator-cannot-be.md
+    title: 'The paired/even-law photon propagator cannot be adopted universally: the propagator law is fixed by the coupling channel (identity → even, σ-vector → chiral)'
+    tier: supporting
+    kind: no_go
+    status: withdrawn
+    domain: [QFT]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F72]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL070
+    file: docs/claims/CL070-the-spin-0-bound-pair-scalar-the-cooper.md
+    title: 'The spin-0 bound-pair scalar: the \"Cooper-pair\" Higgs candidate, and the exact lattice mass it predicts'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F73]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL071
+    file: docs/claims/CL071-dynamical-two-constituent-bound-state-the-binding-depth.md
+    title: 'Dynamical two-constituent bound state: the binding depth, and why the F73 ceiling is robust'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F74]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL072
+    file: docs/claims/CL072-the-generation-mass-hierarchy-a-crystal-field-splitting.md
+    title: 'The generation mass hierarchy: a crystal-field splitting of the F75 $T_{1u}$ triplet, and the Koide relation as its cubic-vector signature'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F76]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL073
+    file: docs/claims/CL073-self-consistent-njl-gap-rpa-one-coupling-fixes.md
+    title: 'Self-consistent NJL gap + RPA: one coupling fixes both $m_c$ and $E_b$, and it confirms the F74 ceiling'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F77]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL074
+    file: docs/claims/CL074-why-the-cooper-pair-bilinear-and-the-equipartition.md
+    title: 'Why $\sqrt m$: the Cooper-pair bilinear, and the equipartition amplitude as the democratic–hierarchical midpoint'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F78]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL075
+    file: docs/claims/CL075-one-45-the-charged-lepton-koide-point-and.md
+    title: 'One 45°: the charged-lepton Koide point and the F73 bound-pair cap are the same SO(2) equipartition, selected by electromagnetism'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F80]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL076
+    file: docs/claims/CL076-why-45-the-charged-lepton-equipartition-is-the.md
+    title: 'Why 45°: the charged-lepton equipartition is the phase saturation of a two-constituent pair, and Q reads off N = 2'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F81]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL077
+    file: docs/claims/CL077-why-the-charged-lepton-pair-sits-at-saturation.md
+    title: 'Why the charged-lepton pair sits at saturation: the composite mass peaks there, so any binding lands the rotation at 45° regardless of coupling strength'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F82]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL078
+    file: docs/claims/CL078-fixing-the-lattice-spacing-from-a-measured-fermion.md
+    title: 'Fixing the lattice spacing $a$ from a measured fermion mass: the F46/F12 map gives a relation, not a value; the heaviest fermion sets the ceiling'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F83]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL079
+    file: docs/claims/CL079-why-the-generation-rotation-is-flat-it-is.md
+    title: 'Why the generation rotation is flat: it is the same orthorhombic break that F76 needed for three distinct masses (closure of the F75→F84 descent)'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F84]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL080
+    file: docs/claims/CL080-p0-the-electron-and-the-up-down-quarks.md
+    title: 'P0: the electron and the up/down quarks certified as dynamical, real-time wavepackets'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F85]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL081
+    file: docs/claims/CL081-confinement-as-a-colour-dielectric-dual-superconductor-p1.md
+    title: 'Confinement as a colour-dielectric / dual superconductor (P1, Option C)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F86]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL082
+    file: docs/claims/CL082-the-u-1-charge-coupling-path-re-verified.md
+    title: 'the U(1) charge-coupling path re-verified end-to-end on the paired photon'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F87]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL083
+    file: docs/claims/CL083-the-colour-magnetic-condensate-arising-within-the-model.md
+    title: 'The colour-magnetic condensate arising within the model (F86''''s input, derived)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F88]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL084
+    file: docs/claims/CL084-one-entity-two-channels-the-singlet-bilinear-of.md
+    title: 'One entity, two channels: the singlet bilinear of the same Weyl constituents IS the paired photon; the σ-vector channel IS the W/Z/gluon law'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F89]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL085
+    file: docs/claims/CL085-e2e-certification-of-the-non-abelian-w-z.md
+    title: 'E2E certification of the non-Abelian W/Z/gluon couplings on the σ-bilinear + the full fermion/radiation back-reaction loop; chiral-Proca birefringence is mass-s'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F90]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL086
+    file: docs/claims/CL086-pairing-classification-theorem-the-branch-structure-of-each.md
+    title: 'Pairing classification theorem: the branch structure of each coupling forces its channel — γ even (forced), W± chiral (forced), Z mixed (derived), gluon even (f'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F91, F317]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL087
+    file: docs/claims/CL087-confinement-from-3-1d-lattice-gauge-monte-carlo.md
+    title: 'Confinement from 3+1D lattice-gauge Monte-Carlo (P1 Option A), tested against Option C (F86)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F94]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL088
+    file: docs/claims/CL088-b-and-c-from-the-qca-rule-the.md
+    title: 'B and C from the QCA rule: the Dirac-sea loop derives the cubic invariant completely (form, origin, sign, closed form $B=-3\sqrt2\,I_2\,\bar y^4$) and proves th'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QFT]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F95]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL089
+    file: docs/claims/CL089-the-second-shell-gap-computation-at-saturation-amplitude.md
+    title: 'The second-shell $E_g$ gap computation at saturation amplitude: a two-value theorem excludes the strictly quadratic theory, the exact massless-electron texture '
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [condensed-matter]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F96]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL090
+    file: docs/claims/CL090-the-enforcer-of-the-centre-phase-budget-is.md
+    title: 'The enforcer of the centre-phase budget is itself the binder (closing the F97 §4/§8 bridge)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F98]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL091
+    file: docs/claims/CL091-the-string-tension-derived-from-the-qca-rule.md
+    title: 'The string tension σ derived from the QCA rule as the centre-twist Lagrange multiplier of $\mathbb{Z}_N$ non-closure'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F99]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL092
+    file: docs/claims/CL092-the-map-from-the-qca-rule-s-transfer.md
+    title: 'The $\gamma(\Omega)$ map from the QCA rule''''s transfer operator: the centre-weight disorder is the vacuum flux variance, a Brillouin-zone average of the inverse '
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F100]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL093
+    file: docs/claims/CL093-the-one-heavy-lepton-branch-located-and-exactly.md
+    title: 'The one-heavy lepton branch located and exactly fitted: the sea cliff pins $m_\tau$ at saturation, the closed-form coupling family carries the exact spectrum, F'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F101b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL094
+    file: docs/claims/CL094-coupling-several-rotors-the-gaussian-confinement-crossover-survives.md
+    title: 'Coupling several rotors: the Gaussian↔confinement crossover survives, plaquettes decouple at strong coupling, and coupling organises the crossover into a transi'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F102]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL095
+    file: docs/claims/CL095-em-and-su-3-back-action-on-the.md
+    title: 'EM and SU(3) back-action on the particle layer (roadmap P2)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F102b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL096
+    file: docs/claims/CL096-p3-matter-binding-the-dynamical-pion-as-the.md
+    title: 'P3 (matter-binding): the dynamical pion as the q-qbar pseudoscalar Goldstone'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F103]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL097
+    file: docs/claims/CL097-p4-matter-binding-the-deuteron-the-first-nucleus.md
+    title: 'P4 (matter-binding): the deuteron, the first nucleus, bound by the pion tensor force'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [QCD]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F104]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL098
+    file: docs/claims/CL098-the-global-stability-invariant-attacked-an-exact-no.md
+    title: 'The global-stability invariant attacked: an exact no-go theorem excludes the entire democratic class flagged in F101-A2, the working geometry is localized to a '
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F108]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL099
+    file: docs/claims/CL099-the-f92-bridge-executed-as-a-dynamical-construction.md
+    title: 'The F92 bridge executed as a dynamical construction: the pair-sum law is derived from the update rule ($U\otimes U$ rotates the symmetric two-quantum channel by'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F109]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL100
+    file: docs/claims/CL100-3d-tree-gauge-ks-link-hamiltonian-the-su.md
+    title: '3D tree-gauge KS link Hamiltonian + the SU(3) Casimir ladder / character rotor'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F111b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL101
+    file: docs/claims/CL101-the-si-prediction-registry-every-measurable-the-canonical.md
+    title: 'The SI prediction registry: every measurable the canonical cell now produces, gated against current data'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F112]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL102
+    file: docs/claims/CL102-the-nn-short-range-repulsive-core-derived-from.md
+    title: 'The NN short-range repulsive core, derived from the model'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F113]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL103
+    file: docs/claims/CL103-njl-calibration-the-cutoff-is-the-brillouin-zone.md
+    title: 'NJL calibration: the cutoff $\Lambda$ is the Brillouin-zone edge (not a fit), the contact $G$ is an induced coupling from the confining colour dielectric, and t'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F116]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL104
+    file: docs/claims/CL104-the-gap-coupled-colour-dielectric-gluon-propagator-the.md
+    title: 'The gap-coupled colour-dielectric gluon propagator (the condensate wired into time evolution)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F117]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL105
+    file: docs/claims/CL105-the-self-consistent-derivation-closes-on-the-spontaneous.md
+    title: 'The self-consistent $(W,v,c)$ derivation closes on the spontaneous-$E_g$ (Mexican-hat) branch, the $\kappa_E>0$ branch is excluded, and the brake $C$ is localiz'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F118]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL106
+    file: docs/claims/CL106-tying-the-kilogram-into-the-mass-sector-the.md
+    title: 'Tying the kilogram into the mass sector: the overall scale $N$ factorises cleanly out of the derived spectrum, but all three closure routes converge on the same'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [GR]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F119]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL107
+    file: docs/claims/CL107-calibrating-the-single-mass-scale-on-the-electron.md
+    title: 'Calibrating the single mass scale on the electron: the locked-cell shape predicts the charged-lepton spectrum to 0.1 % from one mass and reads every fermion out'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F120]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL108
+    file: docs/claims/CL108-the-adopted-as-the-canonical-mass-scale-anchor.md
+    title: 'The τ adopted as the canonical mass-scale anchor: wall-pinned ⇒ exactly δ-stable, so it contributes zero anchor error and gives the standard lepton/kg readout ('
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F121]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL109
+    file: docs/claims/CL109-p2-the-dynamical-baryon-a-real-time-non.md
+    title: 'P2: the dynamical baryon — a real-time, non-dispersing, mass-measured three-quark bound state (proton, then neutron)'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F122]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL110
+    file: docs/claims/CL110-p6-si-absolute-scale-closure-for-the-matter.md
+    title: 'P6: SI absolute-scale closure for the matter sector — the canonical cell + a single f_π anchor put the nucleon at 3m_c within ~1 % of 938 MeV'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F123]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL111
+    file: docs/claims/CL111-p5-the-atom-hydrogen-as-an-electromagnetic-bound.md
+    title: 'P5: the atom — hydrogen as an electromagnetic bound state, Rydberg series + Dirac fine structure'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F125]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL112
+    file: docs/claims/CL112-the-nn-intermediate-range-attraction-scalar-isoscalar-exchange.md
+    title: 'The NN intermediate-range attraction (scalar-isoscalar σ exchange)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F126]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL113
+    file: docs/claims/CL113-deriving-from-the-lattice-rule-a-four-avenue.md
+    title: 'Deriving $\alpha_\text{em}$ from the lattice rule: a four-avenue no-go'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [SR]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F127]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL114
+    file: docs/claims/CL114-the-nn-short-range-repulsion-from-the-isoscalar.md
+    title: 'The NN short-range repulsion from the isoscalar-vector (ω) meson, derived from existing model elements'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F128]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL115
+    file: docs/claims/CL115-block-spin-rg-for-the-free-paired-photon.md
+    title: 'Block-spin RG for the free paired-photon: c_lat is an exact RG fixed point and the lattice-artifact (LIV) operators are irrelevant ($\lambda_n=b^{-n}$), so a co'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F129]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL116
+    file: docs/claims/CL116-a-proven-block-spin-rg-scheme-gauge-gravity.md
+    title: 'A proven block-spin RG scheme (gauge + gravity sectors)'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F130]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL117
+    file: docs/claims/CL117-phase-2-a-coarse-grained-bound-state-reproduces.md
+    title: 'Phase-2: a coarse-grained bound state reproduces the fine spectrum'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F131]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL118
+    file: docs/claims/CL118-coarse-graining-the-dynamical-relativistic-bound-states.md
+    title: 'Coarse-graining the dynamical / relativistic bound states'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F132]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL119
+    file: docs/claims/CL119-unified-real-space-integration-the-full-chain-on.md
+    title: 'Unified real-space integration: the full chain on one BCC lattice (proton quarks ↔ gluon, charge ↔ photon ↔ electron), and where real-space binding actually com'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F134]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL120
+    file: docs/claims/CL120-real-time-wave-packet-dynamics-survive-block-spin.md
+    title: 'Real-time wave-packet dynamics survive block-spin: a moving, spreading massive Dirac packet coarse-grains faithfully, and mass is the matter sector''''s one releva'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F135]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL121
+    file: docs/claims/CL121-real-space-confinement-u1-the-proton-holds-together.md
+    title: 'Real-space confinement (U1): the proton holds together as a scalar-confined three-body bound state, and why vector confinement Klein-tunnels'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F135b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL122
+    file: docs/claims/CL122-the-scalar-confining-string-on-genuine-su-3.md
+    title: 'The scalar confining string on genuine SU(3) colour-triplet quarks: a real-space confined proton'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F136]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL123
+    file: docs/claims/CL123-the-live-colour-dielectric-flux-tube-field-the.md
+    title: 'The live colour-dielectric flux-tube field: the proton digs its own confining bag'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F137]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL124
+    file: docs/claims/CL124-the-self-consistent-dual-ginzburg-landau-back-reaction.md
+    title: 'The self-consistent dual-Ginzburg-Landau back-reaction: the flux that the condensate confines is what melts it'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F139]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL125
+    file: docs/claims/CL125-the-coarse-grained-baryon-element.md
+    title: 'The coarse-grained baryon element'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F140]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL126
+    file: docs/claims/CL126-the-7-bond-axes-of-f49-are-the.md
+    title: 'The \"7 bond axes\" of F49 are the Wigner–Seitz facet axes of BCC (exact lemma), and the 2 : 7 assignment is an on-shell mass-counting statement: $m_W^2 : m_Z^2 ='
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F141]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL127
+    file: docs/claims/CL127-the-lattice-fermion-loop-of-the-induced-wrap.md
+    title: 'The lattice fermion loop of the induced $U(1)_Y$ wrap stiffness on $U(x)$: transverse channel exactly zero (conjugation no-go), longitudinal channel per-mille o'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F143]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL128
+    file: docs/claims/CL128-route-c-the-njl-coupling-as-an-induced.md
+    title: 'Route C: the NJL coupling as an induced coupling — exact Fierz $c=\tfrac29$ (all four chiral channels), a bare-coupling no-go, and χSB guaranteed by Route A''''s r'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F145]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL129
+    file: docs/claims/CL129-the-string-tension-measured-from-the-model-s.md
+    title: 'The string tension measured from the model''''s own 3D SU(3) gauge dynamics, fed into the confining bag (closing the imported-σ gap up to the U4 scale factor)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F146]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL130
+    file: docs/claims/CL130-the-peierls-gauged-walk-loop-the-one-tick.md
+    title: 'The Peierls-gauged walk loop: the one-tick sea is gauge-rigid (zero induced stiffness in every channel, exact), and in the stroboscopic sea the F51 hypercharge '
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F147]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL131
+    file: docs/claims/CL131-the-modular-element-assembler-any-element-as-nucleus.md
+    title: 'The modular element assembler: any element as NUCLEUS(Z,N) + ELECTRON CLOUD(Z), verified stable on hydrogen'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F148]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL132
+    file: docs/claims/CL132-the-condensate-sector-response-mass-is-the-unique.md
+    title: 'The condensate-sector response: mass is the unique channel-splitting agent (F147''''s lock breaks ∝ m² with kinematics still locked), the one-tick rigidity survive'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F149]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL133
+    file: docs/claims/CL133-the-sextic-brake-from-the-architecture-f147-s.md
+    title: 'The $E_g$ sextic brake $C/W$ from the architecture: F147''''s rigidity theorem + F95''''s per-axis no-go close the **source** (a condensate self-coupling, two-route),'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F150]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL134
+    file: docs/claims/CL134-the-shared-scheme-scale-constant-determined-tree-exact.md
+    title: 'The shared scheme/scale constant determined: $\alpha_\text{rule}=\alpha_V$ (tree-exact), the one-loop conversion is the known $a_1=\tfrac{11}{3}$, and the resid'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F151]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL135
+    file: docs/claims/CL135-the-ir-face-of-the-strong-coupling-the.md
+    title: 'The **IR face** of the strong coupling: the $\alpha_\text{eff}^\ast\approx0.39$ that F151-S5 split off is the gap-saturated frozen coupling — its scale is the d'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F152]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL136
+    file: docs/claims/CL136-the-diamagnetic-peierls-contact-is-charge-blind-exact.md
+    title: 'The diamagnetic Peierls contact is charge-blind (exact, machine precision): the electroweak channel splitting is **purely paramagnetic**, the small-$\tilde q$ r'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F153]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL137
+    file: docs/claims/CL137-building-and-solving-the-two-strong-sector-residuals.md
+    title: 'Building and solving the two strong-sector residuals: **Residual B is solved** (the self-consistent gap fixes the IR coupling $\alpha_\text{eff}^\ast=0.376/0.41'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F154]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL138
+    file: docs/claims/CL138-residual-a-attacked-with-the-one-loop-self.md
+    title: 'Residual A attacked with the one-loop self-energy machinery: the tadpole sector is **exactly empty** (the Wilson 28.81 is structurally absent), the lattice−cont'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F155]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL139
+    file: docs/claims/CL139-u2-a-real-space-real-time-em-bound.md
+    title: 'U2: a real-space, real-time EM-bound electron (stationary cloud)'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F156]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL140
+    file: docs/claims/CL140-phase-2-iii-multi-nucleon-nuclei-and-multi.md
+    title: 'Phase 2(iii): multi-nucleon nuclei and multi-electron clouds'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F157]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL141
+    file: docs/claims/CL141-u3-neutral-hydrogen-as-one-dynamic-real-space.md
+    title: 'U3: neutral hydrogen as one dynamic real-space object'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F158]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL142
+    file: docs/claims/CL142-u4-the-block-spin-two-grid-multigrid-defeats.md
+    title: 'U4: the block-spin two-grid multigrid defeats the scale-separation wall'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F159]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL143
+    file: docs/claims/CL143-dynamical-processes-layer-p1-photon-emission-from-atoms.md
+    title: 'Dynamical-processes layer P1: photon emission from atoms'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F161]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL144
+    file: docs/claims/CL144-the-background-field-one-loop-gluon-self-energy.md
+    title: 'The background-field one-loop gluon self-energy is **assembled and the $b_0=\tfrac{11}{3}C_A=11$ recovery gate PASSES exactly** (transverse, gluon : ghost $=10:'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F162]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL145
+    file: docs/claims/CL145-the-lattice-3-gluon-ghost-vertices-are-transcribed.md
+    title: 'The lattice 3-gluon + ghost vertices are **transcribed with their cos(k/2) form factors and validated** (continuum limit exact to O(a²)), the full Wilson backgr'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F163]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL146
+    file: docs/claims/CL146-the-triple-gluon-vertex-is-branch-blind-no.md
+    title: 'The triple-gluon vertex is branch-blind (no chiral component): the gluon \"even\" classification is upgraded from forced-at-free-field (F91 G1) to forced-at-the-i'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F166]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL147
+    file: docs/claims/CL147-rest-mass-derived-from-the-qca-rule-it.md
+    title: 'Rest mass derived from the QCA rule: it is the unique, unitarity-and-symmetry-forced zero-wavenumber rotation rate of the rule''''s generator — the same generator '
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F167]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL148
+    file: docs/claims/CL148-the-paired-photon-binding-is-gauge-protected-not.md
+    title: 'The paired-photon binding is gauge-protected, not kinematic: zero binding energy is forced by structure'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F168]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL149
+    file: docs/claims/CL149-the-photon-s-interacting-two-body-wavefunction-a.md
+    title: 'The photon''''s interacting two-body wavefunction: a normalizable threshold bound state whose masslessness is inherited from gapless constituents'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F169]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL150
+    file: docs/claims/CL150-route-a2-why-the-lepton-condensate-scale-equals.md
+    title: 'Route A2: why the lepton / $E_g$-condensate scale equals $O(1)\times\Lambda_\text{QCD}$ — the link is *derived at the mechanism level* (the $E_g$ condensate has'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F170]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL151
+    file: docs/claims/CL151-slow-light-eit-does-not-distinguish-the-rotation.md
+    title: 'Slow light / EIT does not distinguish the rotation-rate picture from phase velocity: they are isomorphic, and the front always stays luminal'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [condensed-matter]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F171]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL152
+    file: docs/claims/CL152-is-the-one-shared-ir-residual-an-algebraic.md
+    title: 'Is the one shared IR residual an *algebraic connection* or a *computed number*? A wide review: the \"one number\" is one IR fixed-point coupling dressed by exact '
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F172]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL153
+    file: docs/claims/CL153-the-pressure-tolman-discriminator-the-single-scalar-dielectric.md
+    title: 'The pressure/Tolman discriminator: the single-scalar dielectric sources gravity from energy density only, omitting GR''''s 3p term — null in the solar system, but '
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F173]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL154
+    file: docs/claims/CL154-the-nicer-overlay-solving-both-theories-hydrostatic-structure.md
+    title: 'The NICER overlay: solving both theories'''' hydrostatic structure shows the literal energy-only dielectric has no maximum neutron-star mass and is excluded by PSR'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F174]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL155
+    file: docs/claims/CL155-the-shape-angle-algebraic-connection-built-out-the.md
+    title: 'The shape-angle algebraic connection, built out: the lepton-condensate angle is **$\delta^*=\tfrac29$ rad** ($3\delta^*=\tfrac23$ rad) — a **topological rationa'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F174b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL156
+    file: docs/claims/CL156-the-dynamical-principle-behind-saturation-self-duality-the.md
+    title: 'The dynamical principle behind $\delta^*=\tfrac29$: **saturation self-duality**. The saturated $E_g$ condensate sits where its **angular invariant equals its ra'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F176]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL157
+    file: docs/claims/CL157-how-much-of-tov-the-covariant-dielectric-recovers.md
+    title: 'How much of TOV the covariant dielectric recovers: curvature feedback restores the maximum mass, the pressure source matches GR to 0.4%, and a ~2 km AB≡1 residu'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F176b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL158
+    file: docs/claims/CL158-completing-the-self-duality-condition-from-the-bps.md
+    title: 'Completing the self-duality condition from the BPS structure: the **radial** half *is* derived (the 45° self-dual pair rotation $\Rightarrow Q=\tfrac23$), but t'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F177]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL159
+    file: docs/claims/CL159-the-sextic-brake-the-first-principles-derivation-attempt.md
+    title: 'The $E_g$ sextic brake $\lambda_6$: the first-principles derivation attempt closes **negative**, so the charged-lepton spectrum is honestly relabelled as a **on'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F179]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL160
+    file: docs/claims/CL160-the-covariant-two-function-interior-kernel-scoped-by.md
+    title: 'The covariant two-function interior kernel scoped by F178: the genuine GR/TOV interior (A, B independent, AB≠1) sources an isotropic perfect fluid where the sin'
+    tier: supporting
+    kind: no_go
+    status: withdrawn
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F181]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL161
+    file: docs/claims/CL161-cosmology-under-the-f178-full-tensor-source-pressure.md
+    title: 'Cosmology under the F178 full-tensor source: pressure gravitates, so radiation enters the acceleration equation as ρ+3p=2ρ → standard Friedmann; the demoted ene'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F182]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL162
+    file: docs/claims/CL162-tabulated-eos-neutron-stars-on-the-f181-kernel.md
+    title: 'Tabulated-EoS neutron stars on the F181 kernel: SLy gives M_max=2.08 M⊙ and R(1.4)=11.1 km, consistent with PSR J0740 and NICER (scenario S1)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F184]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL163
+    file: docs/claims/CL163-slow-rotation-frame-dragging-and-moment-of-inertia.md
+    title: 'Slow-rotation frame dragging and moment of inertia on the F181 kernel: I/MR²≈0.31, I≈0.6×10⁴⁵ g cm², Lense-Thirring drag recovered (scenario S2)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F185]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL164
+    file: docs/claims/CL164-multi-component-cosmology-under-the-full-tensor-source.md
+    title: 'Multi-component cosmology under the full-tensor source: z_eq≈3430, z_acc≈0.63, age≈13.8 Gyr — standard ΛCDM, with pressure setting every transition (scenario S5'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [cosmology]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F188]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL165
+    file: docs/claims/CL165-compact-binary-inspiral-and-gw-phasing-gw150914-chirp.md
+    title: 'Compact-binary inspiral and GW phasing: GW150914 chirp mass 28.1 M⊙, ISCO 67.6 Hz, ~0.19 s in band — standard quadrupole chirp on the F178 sector (scenario S6)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F189]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL166
+    file: docs/claims/CL166-dark-matter-under-f178-rotation-curves-cannot-separate.md
+    title: 'Dark matter under F178: rotation curves cannot separate a dark halo from modified gravity, but the Bullet-Cluster lensing offset favours a dark *source* over a '
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [cosmology]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F191]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL167
+    file: docs/claims/CL167-the-cosmological-constant-under-the-full-tensor-source.md
+    title: 'The cosmological constant under the full-tensor source: vacuum w=−1 gives ρ+3p=−2ρ so it accelerates (sign correct), but the ~10¹²¹ magnitude overshoot (F164) r'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F192]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL168
+    file: docs/claims/CL168-the-model-native-emergent-gravity-dark-matter-without.md
+    title: 'The model-native emergent-gravity (\"dark matter without dark matter\") route, falsified by the Bullet-Cluster lensing/gas offset'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [cosmology]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F194]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL169
+    file: docs/claims/CL169-fully-stable-block-spin-atom-for-a-general.md
+    title: 'Fully stable block-spin atom for a general element (Z, N)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F195]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL170
+    file: docs/claims/CL170-the-first-excitation-channel-as-a-unified-dark.md
+    title: 'The first excitation channel as a unified dark sector: a near-vacuum channel can be both dark energy and dark matter **iff** it has a gapped branch — the F93 $E'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F197]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL171
+    file: docs/claims/CL171-the-f197-relic-obstruction-computed-vacuum-misalignment-of.md
+    title: 'The F197 relic obstruction, computed: vacuum-misalignment of the $E_g$ **angular** mode under-produces by ~15 orders at the condensate scale ($\Omega\propto f^2'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F198]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL172
+    file: docs/claims/CL172-the-angular-self-duality-the-first-principles-derivation.md
+    title: 'The angular self-duality $C/\lvert B\rvert=1/(2\cos\tfrac23)=0.63622$: the first-principles derivation is attempted along the full F176→F177→F179 program and **'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F199]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL173
+    file: docs/claims/CL173-working-out-the-amplitude-mode-from-f73-f93.md
+    title: 'Working out the amplitude mode from F73/F93: $\Omega_\text{DM}=0.26$ does **not** fall out, because stability fails before abundance — the EW radial mode is the'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F199b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL174
+    file: docs/claims/CL174-the-saturated-condensate-induced-coupling-computation-built-end.md
+    title: 'The saturated-condensate induced-coupling computation, built end-to-end: $C/\lvert B\rvert$ assembled from the full-BZ sea cubic $B$, the saturation amplitude $'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F200]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL175
+    file: docs/claims/CL175-does-the-lattice-prefer-a-kev-sterile-the.md
+    title: 'Does the lattice prefer a keV sterile? The F93/F76 Z₃ (E_g) generation texture, applied to the F47 Majorana matrix M_R, has cancellation nodes where one eigenva'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F201]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL176
+    file: docs/claims/CL176-can-the-model-source-the-lepton-asymmetry-resonant.md
+    title: 'Can the model source the lepton asymmetry resonant keV-DM production needs? Yes: all three Sakharov conditions are met by the model''''s own structure — L-violatio'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F202]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL177
+    file: docs/claims/CL177-the-dark-sector-falsifiability-battery-the-six-observational.md
+    title: 'The dark-sector falsifiability battery: the six observational tests of `dark-sector-overview.md` §4, built out as quantified, currently-evaluable falsifiers — n'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F203]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL178
+    file: docs/claims/CL178-the-alcubierre-warp-family-under-the-model-s.md
+    title: 'The Alcubierre warp family under the model''''s induced-gravity / beable source: the superluminal branch is **structurally excluded** (stronger than the quantum-in'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F204]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL179
+    file: docs/claims/CL179-the-full-boltzmann-quantum-kinetic-computation-of-kev.md
+    title: 'The full Boltzmann (quantum-kinetic) computation of keV sterile-neutrino dark matter: momentum-resolved active→sterile production (non-resonant Dodelson-Widrow '
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [QCD]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F205]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL180
+    file: docs/claims/CL180-tier-b-inter-nucleon-nn-one-boson-exchange.md
+    title: 'Tier-B inter-nucleon NN one-boson-exchange binding (closes the F195 frontier)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F206]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL181
+    file: docs/claims/CL181-the-casimir-effect-in-the-bcc-weyl-qca.md
+    title: 'The Casimir effect in the BCC Weyl-QCA model: the force is reproduced exactly from the F69 photon as a source/$H_\text{int}$ effect, consistent with F193 (the h'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F207]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL182
+    file: docs/claims/CL182-relativistic-f125-dirac-coulomb-ionization-energies-in-the.md
+    title: 'Relativistic (F125 Dirac–Coulomb) ionization energies in the multi-electron SCF, and the light-element accuracy map'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F208]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL183
+    file: docs/claims/CL183-time-modulating-a-casimir-cavity-does-not-break.md
+    title: 'Time-modulating a Casimir cavity does **not** break the F207-G1 degeneracy: the beable-source weight and the SEP vacuum-buoyancy weight coincide at **every** or'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [condensed-matter]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F209]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL184
+    file: docs/claims/CL184-electrical-superconductivity-on-the-lattice-the-electric-s.md
+    title: 'Electrical superconductivity on the lattice: the electric S-dual of F86'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [condensed-matter]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F210]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL185
+    file: docs/claims/CL185-tc-magnitude-from-real-superconductors-feeding-the-f210.md
+    title: 'T_c magnitude from real superconductors: feeding the F210 gap equation real couplings'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [condensed-matter]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F211]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL186
+    file: docs/claims/CL186-the-lattice-substrate-generates-entanglement-entropy-it-is.md
+    title: 'The lattice substrate generates entanglement entropy it is not given: a genuine 2ⁿ tensor-product register with a native spinor-exchange entangler drives a **pr'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F212]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL187
+    file: docs/claims/CL187-first-principles-hopfield-from-the-f64-deformation-potential.md
+    title: 'First-principles Hopfield η from the F64 deformation potential; the mass renormalization and the non-universal gap ratio'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [condensed-matter]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F213]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL188
+    file: docs/claims/CL188-the-f212-entangler-s-coupling-is-derived-from.md
+    title: 'The F212 entangler''''s coupling is **derived** from the `ca_dirac` hopping (antiferromagnetic super-exchange $J=\tfrac12(\sqrt{U^2+16t^2}-U)$, $t$ measured from o'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F214]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL189
+    file: docs/claims/CL189-imaginary-axis-eliashberg-solver-on-the-f210-kernel.md
+    title: 'Imaginary-axis Eliashberg solver on the F210 kernel: the mass renormalization, dynamically'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [GR]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F215]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL190
+    file: docs/claims/CL190-does-the-induced-gravity-sector-admit-a-massive.md
+    title: 'Does the induced gravity sector admit a massive bound mode or a second polarization branch, and could it be dark matter? The metric graviton stays massless (2 d'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F216]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL191
+    file: docs/claims/CL191-field-native-second-quantization-the-super-exchange-and.md
+    title: 'Field-native second quantization: the super-exchange $J$ and two-site spin entanglement **emerge** from genuine fermion hopping (Jordan–Wigner Fock space, Hubba'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F217]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL192
+    file: docs/claims/CL192-the-substrate-computes-cz-cnot-compile-exactly-from.md
+    title: 'The substrate **computes**: CZ/CNOT compile **exactly** from the lattice exchange interaction ($\boldsymbol\sigma\!\cdot\!\boldsymbol\sigma$ commutes with $ZZ$;'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F218]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL193
+    file: docs/claims/CL193-first-principles-f-and-the-dynamic-strong-coupling.md
+    title: 'First-principles α²F(ω) and the dynamic strong-coupling gap ratio via Padé continuation'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F218b]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL194
+    file: docs/claims/CL194-the-substrate-computes-on-genuine-matter-quantum-gates.md
+    title: 'The substrate computes on **genuine matter**: quantum gates and a full Deutsch–Jozsa run directly on the second-quantized fermionic Fock sector — single-qubit g'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F220]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL195
+    file: docs/claims/CL195-the-engine-gains-fault-tolerance-machinery-kraus-decoherence.md
+    title: 'The engine gains **fault-tolerance machinery**: Kraus decoherence channels + stabilizer codes built on the native gate set. The 3-qubit code''''s corrected fidelit'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F221]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL196
+    file: docs/claims/CL196-the-substrate-s-quantum-algorithms-scale-a-native.md
+    title: 'The substrate''''s quantum algorithms **scale**: a native controlled-phase + fully-compiled native CCZ extend the exact universality proof to 3-qubit controlled ga'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F222]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL197
+    file: docs/claims/CL197-the-f216-massive-spin-2-dark-mode-resolved.md
+    title: 'The F216 massive spin-2 dark mode, resolved: the graviton–graviton J=2 \"geon\" **binds** at the Planckian virial mass $\mu\simeq\sqrt2\,M_\text{Pl}$ (a structura'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F223]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL198
+    file: docs/claims/CL198-route-1-to-a-real-world-test-the.md
+    title: 'Route 1 to a real-world test: the derived super-exchange is **SI-anchored** and confronts measured cold-atom data. The sector reduces exactly to the two-site Hu'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F224]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL199
+    file: docs/claims/CL199-route-2-to-a-real-world-test-the.md
+    title: 'Route 2 to a real-world test: the model''''s native **doublon leakage** reproduces measured semiconductor exchange-qubit leakage. The closed-form leakage $d=\tfrac'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F225]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL200
+    file: docs/claims/CL200-route-3-the-lattice-register-saturates-tsirelson-exactly.md
+    title: 'Route 3: the lattice register saturates Tsirelson $S_\text{CHSH}=2\sqrt2$ **exactly**, so it is **Bell-indistinguishable** from QM; the only discreteness entry '
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F226]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL201
+    file: docs/claims/CL201-route-4-the-discrete-substrate-has-no-observable.md
+    title: 'Route 4: the discrete substrate has **no observable intrinsic-decoherence floor** — the effective-theory unitarity floor is exactly zero, any residual is Planck'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F227]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL202
+    file: docs/claims/CL202-how-the-f223-geon-is-produced-and-whether.md
+    title: 'How the F223 geon is produced, and whether it is stable: the graviton–graviton J=2 geon is **stable** as the F190/F107 **one-cell Planck-mass black-hole remnant'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F228]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL203
+    file: docs/claims/CL203-e1-deriving-rad-from-the-crystal-field-equipartition.md
+    title: 'E1: deriving $\delta^*=\tfrac29$ rad from the crystal-field / equipartition geometry closes **negative** — geometry fixes only the phase-coordinate **endpoints*'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F230]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL204
+    file: docs/claims/CL204-l3-pinning-the-lattice-spacing-independently-of-mass.md
+    title: 'L3: pinning the lattice spacing $a$ independently of mass — the light-deflection route is **degenerate** (a scale-invariance theorem), and the mass-independent '
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F232]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL205
+    file: docs/claims/CL205-the-overall-mass-scale-is-not-the-deepest.md
+    title: 'The overall mass scale $N$ is **not** the deepest free number: F119''''s \"no running channel\" no-go is superseded by F144''''s dimensional transmutation — colour-sect'
+    tier: supporting
+    kind: no_go
+    status: withdrawn
+    domain: [QCD]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F233]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL206
+    file: docs/claims/CL206-scale-setting-the-exact-chiral-factor-stands-the.md
+    title: '$\sqrt\sigma/f_\pi$ scale-setting: the exact chiral factor $7.04$ stands, the $+12\%$ confinement-factor residual is **not** removable by any principled BCC Bri'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F235]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL207
+    file: docs/claims/CL207-the-full-3-3-higgs-free-see-saw.md
+    title: 'The full 3×3 Higgs-free see-saw: the F93/F76/F201 $E_g$ generation texture fixes the three light active masses (reducing exactly to F47 per generation), but for'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F236]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL208
+    file: docs/claims/CL208-the-kev-sterile-resolution-attempt-open-derivation-d2.md
+    title: 'The keV-sterile resolution attempt (open-derivation D2): can resonant Shi-Fuller production plus late **entropy dilution** thread the current X-ray + Lyman-α wi'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F237]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL209
+    file: docs/claims/CL209-the-geon-relic-abundance-is-a-genuinely-free.md
+    title: 'The geon relic **abundance** is a genuinely free input, and here is exactly why: closing the F228 residual by *proving* the primordial-black-hole fraction $\bet'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F238]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL210
+    file: docs/claims/CL210-the-lattice-scheme-conversion-factorises-exactly-into-a.md
+    title: 'The $g_s=\tfrac12$ lattice$\to\overline{\rm MS}$ **scheme** conversion factorises **exactly** into a derived piece and one open piece: $\Lambda_{\overline{\rm M'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F239]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL211
+    file: docs/claims/CL211-the-nn-coupling-from-the-model-s-vector.md
+    title: 'The ω NN coupling from the model''''s vector-meson sector: KSFR × universality × baryon coherence, and the full-OBE deuteron'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F240]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL212
+    file: docs/claims/CL212-the-last-factor-of-the-cosmological-constant-is.md
+    title: 'The last $O(1)$ factor of the cosmological constant, $\Omega_\Lambda\approx0.685$, is **not** derivable from the F190 area-entropy / F183 black-hole scaling: th'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F241]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL213
+    file: docs/claims/CL213-morel-anderson-derived-from-the-f64-em-connection.md
+    title: 'Morel–Anderson μ* derived from the F64 EM-connection dielectric'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [condensed-matter]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F242]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL214
+    file: docs/claims/CL214-f3-low-density-lensing-falsification-attempt-fails-prediction.md
+    title: 'F3 low-density lensing: falsification attempt fails (prediction survives)'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F243]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL215
+    file: docs/claims/CL215-1-b-scaling-of-3-d-emqg-lensing.md
+    title: '1/b scaling of 3-D EMQG lensing (isolated Green''''s function, no free α)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F244]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL216
+    file: docs/claims/CL216-closed-forms-for-the-composite-photon-curl-residual.md
+    title: 'Closed forms for the composite-photon curl-residual subleading coefficients (L1)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [condensed-matter]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F245]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL217
+    file: docs/claims/CL217-subleading-coefficients-of-the-f26-even-rotation-curl.md
+    title: 'Subleading coefficients of the F26 even-rotation curl law: closed form + exact even-power vanishing (L2)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F246]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL218
+    file: docs/claims/CL218-the-absolute-nn-coupling-is-a-genuine-free.md
+    title: 'The absolute ω-NN coupling is a genuine free input: universality overshoot + deuteron core/ω degeneracy (Q3)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F247]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL219
+    file: docs/claims/CL219-the-explicit-transverse-traceless-graviton-on-the-bcc.md
+    title: 'The explicit transverse-traceless graviton on the BCC lattice: the two helicity-$\pm2$ modes are constructed for every direction, ride the **one** scalar induce'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F248]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL220
+    file: docs/claims/CL220-the-all-k-gauge-pole-of-the-dual.md
+    title: 'The all-k gauge pole of the dual-spinor (paired) photon: a single massless transverse pole across the whole Brillouin zone'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F250]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL221
+    file: docs/claims/CL221-the-interacting-one-loop-qed-photon-self-energy.md
+    title: 'The interacting one-loop QED photon self-energy Π^μν(q) and the running coupling α(q²)'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F251]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL222
+    file: docs/claims/CL222-the-one-loop-qed-vertex-the-electron-anomalous.md
+    title: 'The one-loop QED vertex Λ^μ: the electron anomalous moment a_e = α/2π and the hydrogen Lamb shift'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F252]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL223
+    file: docs/claims/CL223-no-lattice-selector-for-the-pmns-channel-the.md
+    title: 'No lattice selector for the PMNS $T_{2g}$ channel: the three neutrino-mixing amplitudes transform as **three inequivalent 1-d irreps** ($B_{1g}, B_{2g}, B_{3g}$'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F254]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL224
+    file: docs/claims/CL224-the-hydrogen-bethe-logarithm-derived-from-the-model.md
+    title: 'The hydrogen Bethe logarithm derived from the model''''s own Coulomb spectrum (no literature input)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F257]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL225
+    file: docs/claims/CL225-the-one-loop-qed-electron-self-energy-p.md
+    title: 'The one-loop QED electron self-energy Σ(p): mass renormalization δm, wavefunction renormalization Z₂, and Z₁=Z₂ proven from the loop integrals'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F258]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL226
+    file: docs/claims/CL226-the-infrared-sector-of-qed-soft-bremsstrahlung-and.md
+    title: 'The infrared sector of QED: soft bremsstrahlung and the Bloch–Nordsieck cancellation of IR divergences'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F259]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL227
+    file: docs/claims/CL227-the-tree-level-qed-s-matrix-on-the.md
+    title: 'The tree-level QED S-matrix on the model''''s fields, and the positron / charge-conjugation + crossing sector'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F260]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL228
+    file: docs/claims/CL228-bound-state-qed-positronium-reduced-mass-spectrum-ortho.md
+    title: 'Bound-state QED: positronium (reduced-mass spectrum + ortho–para hyperfine + decay rates), hydrogen 21 cm, and Lamb-shift completeness (recoil + finite size)'
+    tier: supporting
+    kind: prediction
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F262]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL229
+    file: docs/claims/CL229-nonlinear-non-perturbative-qed-the-euler-heisenberg-effective.md
+    title: 'Nonlinear & non-perturbative QED: the Euler–Heisenberg effective Lagrangian, light-by-light scattering, field-induced vacuum birefringence, and Schwinger pair p'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F263]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL230
+    file: docs/claims/CL230-all-orders-qed-renormalizability-closure-ward-takahashi-and.md
+    title: 'All-orders QED: renormalizability closure, Ward–Takahashi $Z_1=Z_2$ and charge universality, the Callan–Symanzik equation, and the ABJ anomaly with Nielsen–Nino'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F264]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL231
+    file: docs/claims/CL231-the-gauge-sectors-were-bcc-in-the-propagator.md
+    title: 'The gauge sectors were BCC in the propagator and cubic in the action; the composite plaquette is blind to 1/3 of the curvature'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [QCD]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F265]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL232
+    file: docs/claims/CL232-the-model-native-dark-matter-relic-the-f47.md
+    title: 'The model-native dark-matter relic: the F47 sterile right-handed neutrino. It is a total SM singlet ($Y=0$ structurally forced), cosmologically long-lived ($\ta'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [cosmology]
+    exactness: quantitative
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F266]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL233
+    file: docs/claims/CL233-the-fermion-walk-s-brillouin-zone-is-not.md
+    title: 'The fermion walk''''s Brillouin zone is not the cubic FFT cube, and the gauge side''''s factor 4 does not transfer'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [SM]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F267]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL234
+    file: docs/claims/CL234-one-energy-convention-a-global-conservation-gate-and.md
+    title: 'One energy convention, a global conservation gate, and the closed gravity loop'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F270]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL235
+    file: docs/claims/CL235-the-k-resolved-dielectric-photon-propagator-weyl-ordering.md
+    title: 'The k-resolved dielectric photon propagator: Weyl ordering and the second-order half-step'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [QFT]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F271]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL236
+    file: docs/claims/CL236-the-background-field-loop-refolded-k-q-by.md
+    title: 'The background-field loop refolded k+q by a period the rule kernel does not have'
+    tier: supporting
+    kind: no_go
+    status: withdrawn
+    domain: [QFT]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F272]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL237
+    file: docs/claims/CL237-the-mode-sum-audit-every-dispersion-is-3.md
+    title: 'The mode-sum audit: every dispersion is √3·fcc-periodic, and the cube is a *biased* sub-region'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SR]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F273]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL238
+    file: docs/claims/CL238-the-variable-weyl-stepper-had-global-order-zero.md
+    title: 'The variable-$c$ Weyl stepper had global order **zero**; Weyl ordering plus the $h^2W^2/2$ term makes it second order and unitary'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [condensed-matter]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F276]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL239
+    file: docs/claims/CL239-the-f272-refold-defect-was-in-four-places.md
+    title: 'The F272 refold defect was in four places, and in vacuum polarization it flipped a sign'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QFT]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F277]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL240
+    file: docs/claims/CL240-the-model-admits-no-slow-roll-inflaton-the.md
+    title: 'The model admits **no** slow-roll inflaton: the F107 cell puts the lattice cutoff at $\Lambda=3^{-1/4}M_\text{Pl}=\sqrt{c_\text{lat}}\,M_\text{Pl}$ **exactly**,'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F282]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL241
+    file: docs/claims/CL241-an-elastic-lattice-is-excluded-four-ways-and.md
+    title: 'An elastic lattice is excluded four ways, and it **cannot** rescue F282: because F79 ties $G$ to $a^2$, the ratio $M_\text{Pl}/\Lambda_\text{UV}=3^{1/4}$ is **i'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F283]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL242
+    file: docs/claims/CL242-on-a-rigid-lattice-cosmic-expansion-is-the.md
+    title: 'On a rigid lattice, cosmic expansion is the conformal mode of $K$, not the substrate stretching: this predicts $\dot G/G\equiv0$ **exactly** (vs $2H_0$ for a co'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F284]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL243
+    file: docs/claims/CL243-all-three-initial-condition-routes-close-via-poisson.md
+    title: 'All three initial-condition routes close: via Poisson the primordial index is just the density slope, $P_\rho\propto k^{n_s}$, and the generic measures give $n_'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F285]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL244
+    file: docs/claims/CL244-a-second-scale-for-the-tilt-must-be.md
+    title: 'A second scale for the tilt must be a **logarithm, not a length**: Planck''''s own running bounds the tilt''''s log-derivative at $|d\ln F/d\ln x|<0.32$, which exclud'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F286]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL245
+    file: docs/claims/CL245-the-f162-background-field-apparatus-is-sound-post.md
+    title: 'The F162 background-field apparatus is **sound** post-F272/F277: $b_0=11$ is now recovered **numerically** as well as symbolically, and the one thing it must no'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F287]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL246
+    file: docs/claims/CL246-why-3-1-two-independent-selectors-already-fix.md
+    title: 'Why 3+1: two independent selectors already fix $d=3$; only the \"+1\" is by construction'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F291, F318]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL247
+    file: docs/claims/CL247-three-is-the-only-multiple-of-three-and.md
+    title: 'Three is the only multiple of three: $d=6$ and $d=9$ excluded, and a reducible $d=3n$ freezes'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [SM]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F292]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL248
+    file: docs/claims/CL248-freeing-and-does-not-narrow-the-loop-would.md
+    title: 'Freeing $\alpha$ and $G$ does **not** narrow the loop ($\alpha$ would need evaluating 68 decades above the model''''s own cutoff; $G$''''s coupling is a *power*, kill'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F295]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL249
+    file: docs/claims/CL249-f295-s-structure-has-a-published-home-holographic.md
+    title: 'F295''''s structure has a published home: **holographic cosmology** computes $n_s-1$ from a 3D QFT with no inflaton, and it delivers four things — (i) **F286 T1 is'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: unset
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F296]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL250
+    file: docs/claims/CL250-i-is-the-object-that-makes-a-transpose.md
+    title: 'ε = iσ₂ is the object that makes a transpose bilinear a 3-vector; and no live gauge sector was ever on the form that lacks it'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [SR]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F302]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL251
+    file: docs/claims/CL251-the-composite-photon-curl-equation-closes-at-the.md
+    title: 'The composite-photon curl equation closes at $O(k^3)$; the reported $O(k)$ failure was a representation artifact'
+    tier: supporting
+    kind: derivation
+    status: withdrawn
+    domain: [SM]
+    exactness: machine
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F306]
+    tests: []
+    modules: []
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-04'
+  - id: CL252
+    file: docs/claims/CL252-d1-tadpole-free-band-subtracted-against-wilson.md
+    title: 'The lattice-to-MSbar constant for the rule action is bracketed: Lambda_MSbar/Lambda_rule in [1, 7.980], containing the required 1.7734 and excluding Wilson''''s 28.8086'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F280, F287, F163, F162, F155, F239]
+    tests: [F280-d1-subtracted]
+    modules: [src/casim/engine/gauge/lpt_d1_subtracted.py]
+    constants: [q_star_a_implied]
+    supersessions: []
+    rolls_up_to: CL022
+    first_issued: '2026-08-05'
+  - id: CL253
+    file: docs/claims/CL253-measurement-pointer-born-rg.md
+    title: 'The lattice''s minimal coupling forces the einselected pointer basis to be site charge density, and its exact block-spin operator makes coherence irrelevant at b^-2 per dimension while populations stay marginal'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F281]
+    tests: [F281-measurement-pointer-born-rg]
+    modules: [casim.engine.interactions.qi_measurement]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-05'
+  - id: CL254
+    file: docs/claims/CL254-structure-formation-zero-free-functions.md
+    title: 'The model''s gravity law fixes linear structure formation with zero free functions where the EFT of dark energy has two, giving mu = Sigma = 1 with no scale or time dependence, the growth index 6/11 exactly, and no screening mechanism with which to relieve the S8 tension'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [cosmology, GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F288]
+    tests: [F288-structure-formation-growth]
+    modules: [casim.engine.interactions.cosmology_growth]
+    constants: [a_over_ellP]
+    supersessions: []
+    rolls_up_to: CL008
+    first_issued: '2026-08-05'
+  - id: CL255
+    file: docs/claims/CL255-spin-statistics-premises-derived.md
+    title: 'The two premises the topological spin-statistics argument needs — the spatial dimension and the 2-pi rotation phase — are both outputs of this model rather than inputs, so Fermi statistics for spin-half and Bose for the paired-spinor photon follow'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F289]
+    tests: [F289-spin-statistics]
+    modules: [casim.engine.interactions.qi_spin_statistics]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-05'
+  - id: CL256
+    file: docs/claims/CL256-strict-causal-cone-no-signalling.md
+    title: 'The automaton''s causal cone is strictly finite where a generic Lieb-Robinson system has only an exponential tail, so no-signalling holds exactly rather than asymptotically, and the clustering length is the gap'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [QM, QFT]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F290]
+    tests: [F290-cluster-decomposition]
+    modules: [casim.engine.interactions.qi_cluster]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-05'
+  - id: CL257
+    file: docs/claims/CL257-ncolour-selected-not-derived.md
+    title: 'N_c is not derived here — two routes are closed exactly, one is circular, the C7 identity supplies a structural N_c <= 3 bound that consumes no measured number, and the 28-decade Lambda-scale selector that picks 3 rests on a bare-coupling normalisation the model''s own confinement engine contradicts'
+    tier: supporting
+    kind: derivation
+    status: narrowed
+    domain: [QCD, SM]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
+    confidence: low
+    findings: [F293, F294, F298, F299, F303]
+    tests: [F293-why-three-colours, F298-casimir-ladder, F299-casimir-scaling, F303-coupling-normalisation]
+    modules: [casim.engine.gauge.derive_ncolour, casim.engine.gauge.casimir_ladder, casim.engine.gauge.casimir_scaling]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-05'
+  - id: CL258
+    file: docs/claims/CL258-bbn-light-elements.md
+    title: 'The model reproduces the primordial light elements on a structurally derived G with a zero-freedom N_eff, and BBN independently excludes the demoted energy-only gravitational law at 17.6 sigma'
+    tier: supporting
+    kind: derivation
+    status: contingent
+    domain: [cosmology, GR, SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F297, F178, F182, F284, F79, F202]
+    tests: [F297-bbn-light-elements]
+    modules: [src/casim/engine/interactions/cosmology_bbn.py]
+    constants: [G_CODATA, g_A]
+    supersessions: []
+    rolls_up_to: CL008
+    first_issued: '2026-08-05'
+  - id: CL259
+    file: docs/claims/CL259-bbn-bounds-np-splitting.md
+    title: 'BBN and the free-neutron lifetime bound m_n - m_p to +-0.0056 MeV, and the model''''s own derived +1.51 MeV is excluded — the sign F122 claimed survives, the value does not'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QCD, cosmology, SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F297, F122, F123, F40]
+    tests: [F297-bbn-light-elements]
+    modules: [src/casim/engine/interactions/cosmology_bbn.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-05'
+  - id: CL260
+    file: docs/claims/CL260-lattice-radiation-equation-of-state.md
+    title: 'The continuum radiation equation of state is a theorem of the lattice, with closed-form corrections of order (T/T_lattice)^2'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT, GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F300, F69, F26, F107]
+    tests: [F300-lattice-thermodynamics]
+    modules: [casim.engine.interactions.thermodynamics]
+    constants: [c_lat, a_over_ellP]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-06'
+  - id: CL261
+    file: docs/claims/CL261-cell-entropy-is-not-a-state-count.md
+    title: 'The Bekenstein-Hawking per-cell entropy 2 pi sqrt3 cannot be a microstate count of any finite cell Hilbert space'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR, QM]
+    exactness: exact
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F300, F190]
+    tests: [F300-lattice-thermodynamics]
+    modules: [casim.engine.interactions.thermodynamics]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-06'
+  - id: CL262
+    file: docs/claims/CL262-finite-a-boost-defect-is-one-scalar.md
+    title: 'At finite lattice spacing the entire failure of Poincare covariance is the gradient of one scalar, the off-shell invariant mass, and it is exact on the cubic axes, O(k^3) for the paired-spinor photon and O(k^2) on a chiral branch'
+    tier: headline
+    kind: deviation
+    status: live
+    domain: [SR, QFT]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F301]
+    tests: [F301-boost-covariance-defect]
+    modules: [casim.engine.interactions.derive_boost_covariance]
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-06'
+  - id: CL263
+    file: docs/claims/CL263-no-universal-momentum-map.md
+    title: 'No single momentum reparametrisation can restore exact Lorentz covariance for both the photon and the fermion on this lattice, and the obstruction is the chiral k^2 dispersion term with coefficient one third of kx ky kz'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [SR, QFT]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F301]
+    tests: [F301-boost-covariance-defect]
+    modules: [casim.engine.interactions.derive_boost_covariance]
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: CL262
+    first_issued: '2026-08-06'
+  - id: CL264
+    file: docs/claims/CL264-born-rule-gleason-premises-forced.md
+    title: 'The rule supplies both premises of Gleason''s theorem — a measurement here cannot live in dimension 2, and the record channel is a fixed operator that carries no reference to the measured basis — so the Born rule follows rather than being assumed'
+    tier: headline
+    kind: derivation
+    status: contingent
+    domain: [QM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F304, F312, F281, F290, F227]
+    tests: [F304-born-rule-gleason, F312-born-nonabelian]
+    modules: [casim.engine.interactions.qi_born_gleason]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-06'
+  - id: CL265
+    file: docs/claims/CL265-lattice-fermion-equation-of-state.md
+    title: 'The lattice corrections to a relativistic Fermi gas are closed-form pure numbers exactly 31/4 times the photon''''s, 3/7 of the coefficient is carried by a branch-odd term the photon cancels, and C_u/C_w = 15/2 holds for both because it is a homogeneity theorem'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT, SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F309, F300, F26, F67, F107]
+    tests: [F309-gstar-model-content]
+    modules: [casim.engine.interactions.thermodynamics_gstar]
+    constants: [c_lat, a_over_ellP]
+    supersessions: []
+    rolls_up_to: CL260
+    first_issued: '2026-08-11'
+  - id: CL266
+    file: docs/claims/CL266-gstar-from-model-content.md
+    title: 'The relativistic degree-of-freedom count is derived from the model''''s own content, not imported: it reproduces g_* = 10.75 through the BBN window, and above the top threshold it differs from the Standard Model by exactly one degree of freedom in either direction, so 106.75 is unavailable to it'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM, cosmology]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F309, F297, F47, F165, F279, F121]
+    tests: [F309-gstar-model-content]
+    modules: [casim.engine.interactions.thermodynamics_gstar, casim.engine.interactions.cosmology_bbn]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-11'
+  - id: CL267
+    file: docs/claims/CL267-tilt-is-a-blockspin-eigenvalue.md
+    title: 'The primordial tilt''s anomalous dimension is the anomalous part of the model''s own block-spin eigenvalue, and the same structure predicts n_t = 2 exactly and r ~ 1e-118'
+    tier: headline
+    kind: prediction
+    status: contingent
+    domain: [cosmology, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F310, F285, F296, F130]
+    tests: [F310-critical-measure]
+    modules: [src/casim/engine/interactions/cosmology_critical_measure.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-11'
+  - id: CL268
+    file: docs/claims/CL268-noncontextuality-holds-for-any-compact-gauge-group.md
+    title: 'Gleason''s non-contextuality premise holds on every gauge factor of this model, and holds for any compact group — the non-Abelian structure is exactly intra-site, the record observable is a gauge singlet, and Schur''s lemma factors the internal index out of the frame condition; one consequence is that colour alone clears the dimension premise, so the d=2 hole is unreachable in any charged sector'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F312, F304, F281, F27, F41]
+    tests: [F312-born-nonabelian]
+    modules: [casim.engine.interactions.qi_born_nonabelian]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL264
+    first_issued: '2026-08-11'
+  - id: CL269
+    file: docs/claims/CL269-one-time-from-update-commutant.md
+    title: 'For an s = 2 QCA on an infinite BCC Cayley graph, the local-homogeneous commutant of the update splits by det into exactly the monomial shift group and an infinite-cyclic group generated by the update itself, so the update is the unique flow up to shifts and powers and d_time = 1 at the minimal cell'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM, SR, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F313, F291, F292, F315, F316, F318]
+    tests: [F313-time-signature, F315-V-interaction, F316-laurent-pell]
+    modules: [casim.engine.lattice.time_signature, casim.engine.lattice.time_signature_interacting, casim.engine.lattice.laurent_pell]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-12'
+  - id: CL270
+    file: docs/claims/CL270-second-clock-is-an-artifact-of-freeness.md
+    title: 'The second dispersive clock that a free composite cell carries is an artifact of freeness — the model''s interactions break it maximally and obstruct every O(G) deformation of it, so the rank-one time count is the count of the interacting theory at any cell, not only at the minimal one'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QM, SR, QFT]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F315, F313]
+    tests: [F315-V-interaction]
+    modules: [casim.engine.lattice.time_signature_interacting]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL269
+    first_issued: '2026-08-12'
+  - id: CL271
+    file: docs/claims/CL271-colour-structure-forced-by-one-index.md
+    title: 'Granted one internal index the rule does not read, the colour gauge group''s unitarity, tracelessness, locality, connection, vector-like coupling and gluon count are all forced — so colour is one imposition, not six'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F317, F91, F27, F68, F279, F293, F298, F289]
+    tests: [F317-su3-structure]
+    modules: [casim.engine.gauge.derive_su3_structure]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-16'
+  - id: CL272
+    file: docs/claims/CL272-cell-carries-the-internal-index-free.md
+    title: 'An internal tensor factor costs the model zero spatial directions and zero time directions — the spatial bound depends on the hop''s anticommuting rank rather than on the cell dimension, and the enlarged commutant is entirely non-dispersive — so the cell permits the colour index freely, forces its shape, and does not force its existence'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QFT, QCD, SR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F318, F317, F291, F313, F315, F289]
+    tests: [F318-cell-internal-index]
+    modules: [casim.engine.lattice.cell_internal_index]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL271
+    first_issued: '2026-08-16'
+  - id: CL273
+    file: docs/claims/CL273-uv-sensitivity-ledger-two-unabsorbable-coefficients.md
+    title: 'The model''s UV sensitivity reduces to exactly two operator coefficients with no free parameter, and both are Sakharov sectors'
+    tier: headline
+    kind: reinterpretation
+    status: live
+    domain: [QFT, GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F319, F264, F164, F59, F79, F116, F284]
+    tests: [F319-uv-completion]
+    modules: [casim.engine.interactions.qed_uv_completion]
+    constants: [c_lat, a_over_ellP, ell_P_m]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-16'
+  - id: CL274
+    file: docs/claims/CL274-no-dimension-5-photon-operator.md
+    title: 'The model has no dimension-5 Lorentz-violating photon operator, and the dimension-6 coefficient is the exact rational -[(1-sum n^4)/144 + (nx ny nz)^2/24]'
+    tier: headline
+    kind: prediction
+    status: live
+    domain: [QFT, SR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F319, F69, F67, F301, F26]
+    tests: [F319-uv-completion]
+    modules: [casim.engine.interactions.qed_uv_completion, casim.engine.gauge.photon]
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: CL273
+    first_issued: '2026-08-16'
+  - id: CL275
+    file: docs/claims/CL275-uniform-zero-point-reweighting-excluded.md
+    title: 'A uniform reweighting of the zero-point sum cannot solve the cosmological-constant problem, because the Lambda^4 and Lambda^2 Sakharov sectors are two moments of one measure'
+    tier: headline
+    kind: no_go
+    status: live
+    domain: [GR, QFT, cosmology]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F319, F164, F59, F79, F107]
+    tests: [F319-uv-completion]
+    modules: [casim.engine.interactions.qed_uv_completion]
+    constants: [a_over_ellP, ell_P_m, c_lat]
+    supersessions: []
+    rolls_up_to: CL273
+    first_issued: '2026-08-16'
+  - id: CL276
+    file: docs/claims/CL276-absolute-gauge-boson-masses-two-inputs.md
+    title: 'm_W and m_Z are predicted absolutely from two electroweak inputs, where the Standard Model needs three'
+    tier: headline
+    kind: prediction
+    status: live
+    domain: [SM]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F320, F141, F138, F231, F49, F51]
+    tests: [F320-gauge-boson-masses]
+    modules: [src/casim/engine/gauge/derive_gauge_boson_masses.py]
+    constants: [sin2_thetaW_onshell]
+    supersessions: []
+    rolls_up_to: CL007
+    first_issued: '2026-08-16'
+  - id: CL277
+    file: docs/claims/CL277-rho-equals-one-from-rank-not-custodial.md
+    title: 'rho = 1 exactly, from the rank of the Higgs-free breaking rather than from custodial SU(2)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F320, F41, F27, F51, F141]
+    tests: [F320-gauge-boson-masses]
+    modules: [src/casim/engine/gauge/derive_gauge_boson_masses.py]
+    constants: [Y_LEPTON_L, Y_E_R]
+    supersessions: []
+    rolls_up_to: CL007
+    first_issued: '2026-08-16'
+  - id: CL278
+    file: docs/claims/CL278-theta-qcd-zero-from-loop-set-reversal-closure.md
+    title: 'The rule contains no theta-term, and no loop generates one — theta_QCD = 0 because the minimal-loop set is closed under reversal'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QCD, SM, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F321, F53, F43, F305, F307, F265, F91]
+    tests: [F321-strong-cp]
+    modules: [casim.engine.gauge.colour_theta, casim.engine.gauge.lpt_bcc_vertex]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-17'
+  - id: CL279
+    file: docs/claims/CL279-theta-bar-not-predicted-strong-cp-not-solved.md
+    title: 'The model does not predict theta-bar and does not solve the strong CP problem — the residual is arg det M_q'
+    tier: supporting
+    kind: non_claim
+    status: not_claimed
+    domain: [QCD, SM]
+    exactness: exact
+    falsifier: none
+    review_state: authored
+    confidence: high
+    findings: [F321, F53]
+    tests: [F321-strong-cp]
+    modules: [casim.engine.gauge.colour_theta]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-17'
+  - id: CL280
+    file: docs/claims/CL280-running-alpha-leptonic-lattice-bounded-and-two-loop.md
+    title: 'The model''s leptonic running of alpha reproduces PDG Delta alpha(M_Z) to 0.0495%, and its lattice contribution is bounded below that residual'
+    tier: supporting
+    kind: derivation
+    status: contingent
+    domain: [QFT, SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F322, F251, F277, F261, F138]
+    tests: [F322-b9-running-rederived]
+    modules: [casim.engine.interactions.running_alpha_lattice_bound, casim.engine.interactions.qed_vacuum_polarization, casim.engine.interactions.qed_twoloop_ae]
+    constants: [sin2_thetaW_uv]
+    supersessions: [S12-F277-refold-removed-qed-and-gluon]
+    rolls_up_to: null
+    first_issued: '2026-08-17'

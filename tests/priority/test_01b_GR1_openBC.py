@@ -18,9 +18,11 @@ import os, sys, math, json
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(THIS, '..', '..', 'ca-simulation')))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from poisson_open import solve_poisson_3d_open, gaussian_mass_3d
+from casim.engine.lattice.poisson_open import solve_poisson_3d_open, gaussian_mass_3d
 
 
 def eikonal_K(L, M=1.0, b=18, sigma=6.0, G_N=0.005, c_0=0.4, factor=2.0):

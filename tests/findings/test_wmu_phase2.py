@@ -17,16 +17,18 @@ Note on dispersion (W2.1):
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 import json, time
 
-from ca_wmu import (w_propagation_step_spectral, w_free_dispersion_check,
+from casim.engine.gauge.weak_wmu import (w_propagation_step_spectral, w_free_dispersion_check,
                     extract_EW_BW, make_w_link_field)
-from ca_bcc import bcc_dispersion
-from ca_lattice import make_kgrid_3d
-import ca_fft as _fft
+from casim.engine.lattice.bcc import bcc_dispersion
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.numerics import fft as _fft
 
 L = 16
 rng = np.random.default_rng(seed=77)

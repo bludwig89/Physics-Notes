@@ -65,7 +65,7 @@ from casim.constants import (
     G_Lambda2_NJL as _G_Lambda2_NJL,
     c_fierz_colour_f as _c_fierz_colour_f,
 )
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 # ----------------------------------------------------------------------
 #  Constants / model inputs (all measured or derived upstream)

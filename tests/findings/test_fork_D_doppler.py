@@ -29,10 +29,12 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_core as ca
-import ca_dirac as dirac
+from casim.engine.lattice import core as ca
+from casim.engine.particles import dirac as dirac
 
 FIGURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'test-results', 'figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)

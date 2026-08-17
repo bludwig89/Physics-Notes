@@ -41,25 +41,20 @@ from __future__ import annotations
 import os, sys, json, argparse
 import numpy as np
 
-# ---- put ca-simulation on the path (works standalone and under pytest) --------
+# ---- put src on the path (works standalone and under pytest) ------------------
 _HERE = os.path.dirname(os.path.abspath(__file__))
-for _cand in (
-    os.path.join(_HERE, "ca-simulation"),
-    os.path.join(_HERE, "..", "..", "ca-simulation"),
-    os.path.join(_HERE, "..", "ca-simulation"),
-):
-    _cand = os.path.abspath(_cand)
-    if os.path.isdir(_cand) and _cand not in sys.path:
-        sys.path.insert(0, _cand)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from ca_bcc import bcc_dispersion                      # noqa: E402
-from ca_photon_pair import (                           # noqa: E402
+from casim.engine.lattice.bcc import bcc_dispersion                      # noqa: E402
+from casim.engine.gauge.photon import (                           # noqa: E402
     pair_dispersion, pair_birefringence, group_velocity, photon_step_spectral,
     build_pair_mode,
 )
-from ca_charge_coupling import bcc_curl_symbol, _cross_k, _dot_k  # noqa: E402
-from ca_lattice import make_kgrid_3d                   # noqa: E402
-import ca_fft as _fft                                  # noqa: E402
+from casim.engine.gauge.charge_coupling import bcc_curl_symbol, _cross_k, _dot_k  # noqa: E402
+from casim.engine.lattice.geometry import make_kgrid_3d                   # noqa: E402
+from casim.numerics import fft as _fft                                  # noqa: E402
 
 ROOT3 = np.sqrt(3.0)
 C_LAT = 1.0 / ROOT3
@@ -138,7 +133,7 @@ def tierA():
     # Green's function; a nonzero gap m^2 would give Yukawa e^{-mr}/r. We fit the
     # pole direction-resolved (position-space 1/r is spoiled by periodic-box /
     # BZ-fold artifacts, so we test the pole itself, which is the physics).
-    from ca_bcc import _bcc_uvec
+    from casim.engine.lattice.bcc import _bcc_uvec
 
     def _Cod2(kv):
         up, nxp, nyp, nzp = _bcc_uvec(kv[0] / 2, kv[1] / 2, kv[2] / 2, sign='+')
@@ -277,8 +272,8 @@ def tierB():
 # 2pi are exact, and the running / Lamb shift are computed with honest scope
 # (leptonic-only running; leading-order Lamb shift).
 def tierC():
-    import ca_vacuum_polarization as vp   # F251
-    import ca_vertex_loop as vx           # F252
+    from casim.engine.interactions import qed_vacuum_polarization as vp   # F251
+    from casim.engine.interactions import qed_vertex_loop as vx           # F252
     out = {}
 
     # C1 — electron g-2 from the one-loop vertex (F252 V2) --------------------
@@ -349,7 +344,7 @@ def tierC():
 # e+e- -> mu+mu- — plus the positron/charge-conjugation + crossing sector are
 # built in F260 (ca_qed_scattering). This tier surfaces them as PASSes here.
 def tierD():
-    import ca_qed_scattering as qs
+    from casim.engine.interactions import qed_scattering as qs
     out = {}
 
     comp = qs.compton_M2_vs_textbook()

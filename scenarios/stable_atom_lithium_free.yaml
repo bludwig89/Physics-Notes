@@ -1,4 +1,5 @@
 # F195 — matched CONTROL for stable_atom_lithium (no nuclear well, no e-e field).
+version: 2
 name: stable_atom_lithium_free
 title: "Li free control (F195) — no binding, ballistic dispersal"
 description: "Matched control: Li orbitals with binding switched off; the cloud disperses toward the box."

@@ -5,9 +5,10 @@ from __future__ import annotations
 import json, os, sys, time
 import numpy as np
 THIS = os.path.dirname(__file__); ROOT = os.path.abspath(os.path.join(THIS, "..", ".."))
-SIM = os.path.join(ROOT, "ca-simulation")
-if SIM not in sys.path: sys.path.insert(0, SIM)
-import ca_rotation as rot, ca_interior_metric as im   # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.gauge import rotation as rot, ca_interior_metric as im   # noqa: E402
 STAMP = "2026-06-30 - 04:15"
 EOS = im.Polytrope(K=100.0, Gamma=2.0)
 

@@ -10,31 +10,33 @@ reason: importing a `tests/findings` module executes its physics and rewrites
 JSON artifacts, so a graph builder that imported its subjects would be slow,
 destructive, and would corrupt the very baselines C0.4 relies on.
 
+**One tree (C9).** Until C9 this walked two roots — the legacy flat-kernel
+directory and `src/` — and assigned a file's role from its prefix. That
+directory is gone (D6): the roles are now read off the position inside
+`src/casim/`, which is where every kernel, fork and derivation script lives.
+
 Three things this handles that a naive import scan gets wrong:
 
-  1. **The kernels are imported flat.** `casim/__init__.py` puts
-     `ca-simulation/` on `sys.path`, so `import ca_bcc` inside `src/` resolves
-     to a file the scanner must know is a repo module, not a third-party one.
+  1. **Compatibility shims import by string.** `casim.fields.*` and friends do
+     `importlib.import_module(_m)` over a list of literals, so an `ast.Import`
+     walk sees *nothing*. String literals matching a known module name are
+     therefore collected as a separate, weaker evidence class — recorded as
+     `dynamic`, never merged with `static`.
 
-  2. **The `casim.fields.*` shims import by string.** They do
-     `importlib.import_module(_m)` over a `_MODULES` list of literals, so an
-     `ast.Import` walk sees *nothing*. String literals matching a known module
-     name are therefore collected as a separate, weaker evidence class —
-     recorded as `dynamic`, never merged with `static`.
+  2. **Forks are referenced under two different names.** A fork is a recorded
+     alternative, loaded by *file path* (`spec_from_file_location`) or as a bare
+     module after its sector directory goes on `sys.path` — not as
+     `casim.engine.forks.gravity.x`. Both the dotted key and the bare stem are
+     registered for the same node; without the alias, 46 of 47 forks scan as
+     unreferenced, which is false.
 
-  3. **Forks are imported under two different names.** `tests/findings` does
-     both `import forks.lgt_fork_A_mc` and bare `import lgt_fork_A_mc` (after
-     `sys.path.insert(0, FORKS)`). Both are registered as keys for the same
-     node; without the alias, 46 of 47 forks scan as unreferenced, which is
-     false.
-
-  4. **Reachability has three defensible definitions and they disagree.**
-     `ca_cooling` executes during a `casim run` via `forks/lgt_fork_A_mc` while
-     being invisible to a direct-reference scan. Rather than pick silently, this
+  3. **Reachability has three defensible definitions and they disagree.**
+     `engine.gauge.cooling` executes during a `casim run` via
+     `forks/gauge/lgt_fork_A_mc` while being invisible to a direct-reference scan. Rather than pick silently, this
      reports all three and names `driven` — the least flattering — as the
      headline. (Recommended by `docs/audits/2026-07-29-kernel-coverage-addendum.md`.)
 
-  5. **A `derive_*.py` script is not a library.** The ten derivation scripts and
+  4. **A `derive_*.py` script is not a library.** The ten derivation scripts and
      the `run_*` / `benchmark_*` entry points are meant to be executed, not
      imported, so "nothing imports it" is their normal state and not evidence of
      death. They carry role `derivation` and are counted separately, so the
@@ -44,7 +46,7 @@ Usage:
     python3 tools/gen_module_graph.py             # write the graph
     python3 tools/gen_module_graph.py --check     # exit 1 if stale
     python3 tools/gen_module_graph.py --report    # human summary, no write
-    python3 tools/gen_module_graph.py --why ca_cooling   # explain one module
+    python3 tools/gen_module_graph.py --why cooling      # explain one module
 """
 from __future__ import annotations
 
@@ -61,37 +63,42 @@ _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(_REPO, "docs", "design", "module-graph.json")
 MANIFEST = os.path.join(_REPO, "test-results", "manifest.json")
 
-# Roots scanned, in the order their nodes are keyed.
-KERNEL_DIRS = ("ca-simulation", "ca-simulation/forks")
+# Roots scanned, in the order their nodes are keyed. One tree since C9.
 PKG_ROOT = "src"
+ENGINE_ROOT = "src/casim/engine"
+FORKS_ROOT = "src/casim/engine/forks"
 TEST_DIRS = ("tests/findings", "tests/priority", "tests/casim",
              "tests/runners", "tests/falsification")
 TOOL_DIR = "tools"
 
 _SKIP = {"__pycache__", ".pytest_cache", "casim.egg-info"}
 
-# The roles that live under `ca-simulation/` and therefore migrate under D6.
-# Every one of these needs a manifest record at C0.3.
-MIGRATABLE = ("kernel", "fork", "derivation", "support")
+# The physics roles — the ones the reachability tally is about. Before C9 these
+# were exactly the files that had to migrate under D6; now they are the engine
+# itself, and `reach` is what the module registry's `reachable_from` field (D11)
+# and `casim index` (C8) report.
+ENGINE_ROLES = ("kernel", "fork", "derivation", "support")
 
-# A bare `ca_foo` / `derive_foo` name appearing as a string literal is treated as
-# a dynamic module reference. Deliberately narrow: it must be the WHOLE literal,
-# so a docstring mentioning ca_gluon in a sentence does not count.
-_MODULE_LITERAL = re.compile(r"^(ca_[a-z0-9_]+|derive_[a-z0-9_]+|poisson_open|"
-                             r"spinor_color|live_display|viz|tick_heatmap)$")
+# A dotted `casim.…` name or a bare fork stem appearing as a whole string
+# literal is treated as a dynamic module reference. Deliberately narrow: it must
+# be the WHOLE literal, so a docstring mentioning a module in a sentence does
+# not count.
+_MODULE_LITERAL = re.compile(r"^(casim(?:\.[a-z0-9_]+)+|[a-z0-9_]*fork[a-z0-9_]*|"
+                             r"poisson_open|spinor_color|live_display|viz|"
+                             r"tick_heatmap)$")
 
 # Call-site counts. Regex, not AST, and labelled as such in the output: these
 # are sizing numbers for C1/C2 planning, not correctness claims.
 #
 # `scipy` deliberately does NOT match a bare `sp.`. It did in the first
-# version, which reported 1,124 scipy sites in `ca-simulation/` — against 13
+# version, which reported 1,124 scipy sites in the legacy flat tree — vs 13
 # actual scipy imports in the whole tree. The repo aliases **sympy** as `sp`
 # (63 files do `import sympy as sp`), so nearly every hit was symbolic algebra
 # counted as a numerical dependency. C1 sizes its work from these numbers, so
 # an inflated one is worse than an absent one.
 _NP_SITE = re.compile(r"\b(?:np|numpy)\.")
 _SP_SITE = re.compile(r"\bscipy\b")
-_FFT_SITE = re.compile(r"\b(?:np|numpy)\.fft\.|\bca_fft\.")
+_FFT_SITE = re.compile(r"\b(?:np|numpy)\.fft\.")
 
 # Finding IDs: F107, FA03, FG7. The trailing boundary must NOT be \b —
 # filenames read `F107_canonical_...` and `_` is a word character, so \b never
@@ -133,24 +140,21 @@ def _py_files(reldir: str, recurse: bool) -> list[str]:
 def _keys_for(rel: str) -> list[str]:
     """Every name another file could use to import this one, best first.
 
-    Kernels are flat (`ca_bcc`); the package is dotted
-    (`casim.engine.channels`); tests and tools are keyed by path because nothing
-    imports them by name.
+    The package is dotted (`casim.engine.lattice.bcc`); tests and tools are
+    keyed by path because nothing imports them by name.
 
-    Forks get **two** keys — `forks.lgt_fork_A_mc` and bare `lgt_fork_A_mc` —
-    because `tests/findings` uses both spellings depending on whether the file
-    put `ca-simulation/` or `ca-simulation/forks/` on `sys.path`. Registering
-    only the dotted form makes 46 of 47 forks scan as unreferenced.
+    Forks get **three** keys — the dotted path, `forks.<stem>`, and the bare
+    `<stem>` — because a fork is loaded by file path or as a bare module after
+    its sector directory goes on `sys.path`, not as a package submodule.
+    Registering only the dotted form makes 46 of 47 forks scan as unreferenced.
     """
-    if rel.startswith("ca-simulation/forks/"):
-        stem = os.path.basename(rel)[:-3]
-        return [f"forks.{stem}", stem]
-    if rel.startswith("ca-simulation/"):
-        return [os.path.basename(rel)[:-3]]
     if rel.startswith("src/"):
         dotted = rel[len("src/"):-3].replace("/", ".")
         if dotted.endswith(".__init__"):
             dotted = dotted[:-len(".__init__")]
+        if rel.startswith(FORKS_ROOT + "/") and not rel.endswith("__init__.py"):
+            stem = os.path.basename(rel)[:-3]
+            return [dotted, f"forks.{stem}", stem]
         return [dotted]
     return [rel]
 
@@ -165,15 +169,17 @@ def _role_for(rel: str) -> str:
     evidence of death. Keeping them out of the `kernel` bucket is what stops the
     `unreferenced` list from being padded with ten healthy scripts."""
     base = os.path.basename(rel)
-    if rel.startswith("ca-simulation/forks/"):
+    if rel.startswith(FORKS_ROOT + "/"):
         return "fork"
-    if rel.startswith("ca-simulation/"):
+    if rel.startswith(ENGINE_ROOT + "/"):
         if base.startswith(("derive_", "run_", "benchmark_")):
             return "derivation"
-        if base.startswith("ca_"):
-            return "kernel"
-        return "support"          # poisson_open, viz, live_display, spinor_color...
+        if base == "__init__.py" or base == "registry.py":
+            return "package"
+        return "kernel"
     if rel.startswith("src/"):
+        if base.startswith(("derive_", "run_", "benchmark_")):
+            return "derivation"
         return "package"
     if rel.startswith("tools/"):
         return "tool"
@@ -323,8 +329,6 @@ def _resolve(name: str, nodes: dict[str, dict], by_key: dict[str, str]) -> str |
 
 def build() -> dict:
     files: list[str] = []
-    for d in KERNEL_DIRS:
-        files += _py_files(d, recurse=False)
     files += _py_files(PKG_ROOT, recurse=True)
     for d in TEST_DIRS:
         files += _py_files(d, recurse=False)
@@ -398,7 +402,7 @@ def build() -> dict:
         rec["reachable_from"] = sorted(reach_from[rel])
         rec["package_reachable"] = rel in pkg_reachable
         rec["test_referenced"] = rel in test_referenced
-        if rec["role"] in MIGRATABLE:
+        if rec["role"] in ENGINE_ROLES:
             rec["reach"] = ("driven" if rec["driven"]
                             else "package-only" if rec["package_reachable"]
                             else "test-only" if rec["test_referenced"]
@@ -413,7 +417,7 @@ def build() -> dict:
             manifest = json.load(fh)
     mtests = manifest.get("tests", {})
     for rel, rec in nodes.items():
-        if rec["role"] not in MIGRATABLE:
+        if rec["role"] not in ENGINE_ROLES:
             continue
         tests = sorted(t for t in rec["imported_by"] if nodes[t]["role"] == "test")
         rec["tests"] = tests
@@ -425,7 +429,7 @@ def build() -> dict:
 
     tally: dict[str, dict[str, int]] = {}
     for n in nodes.values():
-        if n["role"] not in MIGRATABLE:
+        if n["role"] not in ENGINE_ROLES:
             continue
         tally.setdefault(n["role"], {})
         tally[n["role"]][n["reach"]] = tally[n["role"]].get(n["reach"], 0) + 1
@@ -449,7 +453,7 @@ def build() -> dict:
         },
         "summary": {
             "files": len(nodes),
-            "migratable": sum(1 for n in nodes.values() if n["role"] in MIGRATABLE),
+            "engine": sum(1 for n in nodes.values() if n["role"] in ENGINE_ROLES),
             "kernels": sum(1 for n in nodes.values() if n["role"] == "kernel"),
             "forks": sum(1 for n in nodes.values() if n["role"] == "fork"),
             "derivations": sum(1 for n in nodes.values() if n["role"] == "derivation"),
@@ -476,8 +480,8 @@ def report(g: dict) -> None:
     s = g["summary"]
     print(f"\nmodule graph  (git {g['git_sha']})")
     print(f"  files scanned        {s['files']}")
-    print(f"    MIGRATABLE         {s['migratable']}   "
-          f"(everything under ca-simulation/ — needs a C0.3 manifest record)")
+    print(f"    engine             {s['engine']}   "
+          f"(the engine: kernels, forks and derivation scripts)")
     print(f"      kernels          {s['kernels']}")
     print(f"      forks            {s['forks']}")
     print(f"      derivations      {s['derivations']}")
@@ -494,7 +498,7 @@ def report(g: dict) -> None:
     print("\n  reachability, by role")
     cols = ("driven", "package-only", "test-only", "entry-script", "unreferenced")
     print(f"    {'':<12s}" + "".join(f"{c:>14s}" for c in cols))
-    for role in MIGRATABLE:
+    for role in ENGINE_ROLES:
         row = s["reach"].get(role, {})
         print(f"    {role:<12s}" + "".join(f"{row.get(c, 0):>14d}" for c in cols))
     if s["unparseable"]:

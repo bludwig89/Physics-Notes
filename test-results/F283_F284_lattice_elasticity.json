@@ -1,0 +1,87 @@
+{
+  "E1_invariance": {
+    "M_Pl_over_Lambda": "3**(1/4)",
+    "corrects": "F282 falsifier #5 (a rescaling of a CANNOT falsify the no-go)",
+    "dr_ds": "0",
+    "invariant": true,
+    "r": "sqrt(3)",
+    "r_equals_inverse_c_lat": true,
+    "r_float": 1.7320508075688772
+  },
+  "E2_varying_G": {
+    "H0_per_yr": 6.892948935293519e-11,
+    "bbn": {
+      "delta_G_0.1": {
+        "q_max": 0.0025243632472120832
+      },
+      "delta_G_0.2": {
+        "q_max": 0.0050487264944241664
+      }
+    },
+    "comoving_G_BBN_over_G0": 6.24999996875e-18,
+    "comoving_Gdot_over_G_per_yr": 1.3785897870587038e-10,
+    "comoving_bbn_decades_off": 17.204119984827397,
+    "fully_comoving_excluded": true,
+    "llr": {
+      "conservative": {
+        "bound_per_yr": 4e-13,
+        "exclusion_factor": 344.6474467646759,
+        "q_max": 0.0029015157645511194
+      },
+      "hofmann_muller_2018_2sigma": {
+        "bound_per_yr": 1.5e-13,
+        "exclusion_factor": 919.059858039136,
+        "q_max": 0.0010880684117066698
+      }
+    },
+    "q_max": 0.0010880684117066698,
+    "rigid_to_percent": 0.10880684117066698,
+    "z_BBN": 400000000.0
+  },
+  "E3_volume_mode": {
+    "alpha_max": 0.0033911844909295177,
+    "alpha_squared_max": 1.1500132251520894e-05,
+    "branch_A": "the volume mode IS ln K \u2014 constrained, not free (F79 zero tree stiffness; F180 sourced wave equation; F216 exactly 2 propagating dof). Nothing is added; see F284.",
+    "branch_B": "a genuinely new independent scalar dof \u2014 breaks F216's 2-dof count and appears as a PPN scalar.",
+    "cassini_gamma_minus_1": 2.3e-05,
+    "graviton_dof_F216": 2,
+    "natural_alpha_for_a_substrate_mode": 1.0,
+    "suppression_required": 294.88221672242366
+  },
+  "E4_graviton_cone": {
+    "c_grav_equals_c_lat_source": "F180 (induced loop inherits the matter cone)",
+    "cs_squared_offset_assumed": 1.0,
+    "decades_below_unity": 14.221848749616356,
+    "gw170817_dc_over_c": 3e-15,
+    "tree_elastic_fraction_max": 6e-15
+  },
+  "F284_cell_budget": {
+    "R_H_in_cells": 1.2870672116156982e+60,
+    "R_H_metres": 1.3724968349418282e+26,
+    "comoving_mode_wavelength_in_cells": "constant \u2014 the lattice does not stretch",
+    "hubble_volume_in_cells": 2.1320809021520374e+180,
+    "trans_planckian_problem": false
+  },
+  "F284_earliest_epoch": {
+    "H_max_closed_form": 0.4386913376508308,
+    "H_max_over_MPl": 0.4386913376508309,
+    "a_metres": 1.0663754173481642e-34,
+    "power_of_three_ladder": {
+      "H_max_over_MPl": "3^(-3/4)",
+      "Lambda_UV_over_MPl": "3^(-1/4)",
+      "c_lat": "3^(-1/2)",
+      "r_min": "3^(+1/2)"
+    },
+    "singularity_in_substrate": false,
+    "t_min_over_planck_time": 11.427752340277129,
+    "t_min_seconds": 6.160983552126205e-43,
+    "t_min_ticks": 1.732050807568877,
+    "t_min_ticks_closed_form": 1.7320508075688772
+  },
+  "findings": [
+    "F283",
+    "F284"
+  ],
+  "question": "can the BCC lattice be elastic, and if not what is expansion?",
+  "verdict": "the lattice is rigid (q < 1e-3); elasticity cannot rescue F282 (dr/ds = 0 exactly); cosmic expansion is the conformal mode of K on a fixed substrate, predicting Gdot/G = 0 exactly"
+}

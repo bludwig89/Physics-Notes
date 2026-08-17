@@ -19,10 +19,10 @@ import os
 import sys
 import numpy as np
 
-# C6: the F164 fork moved with this module (ca-simulation/forks/ ->
+# C6: the F164 fork moved with this module (legacy forks/ ->
 # casim.engine.forks.gravity/), so the old `<my dir>/forks` sys.path insert no
 # longer names anything. Imported as a package module instead of by sys.path
-# injection — same object, and it survives the C9 deletion of ca-simulation/.
+# injection — same object, and it survives the C9 deletion of the legacy tree.
 from casim.engine.forks.gravity import (                       # noqa: E402
     gr_fork_F164_cosmological_constant as f164)
 

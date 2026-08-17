@@ -46,7 +46,7 @@ F64 fork (`forks/gr_fork_F64_em_connection.py`) into the main model structure:
 Everything here is plain numpy (no scipy), real coefficients, exactly-unitary
 matter-side operators.  The fork remains the test bed for the full dynamic
 battery (16/16); this module is the production element the casim channel layer
-wraps (`casim.engine.channels.GravityDielectricChannel`, dynamic mode).
+wraps (`casim.engine.core.channels.GravityDielectricChannel`, dynamic mode).
 
 Provenance: F64 (dielectric, D-EM5/8/9), F79 (structural G), F106 (psi->K
 sourcing), F62 (lapse-mix sign convention).
@@ -59,7 +59,7 @@ from casim.constants import (  # noqa: E501
     F106_COEFF_LATTICE as _F106_COEFF,
     G_LATTICE as _G_LATTICE,
 )
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 # ---------------------------------------------------------------------------
 # Structural constants (F26 / F79 / F106)
@@ -103,13 +103,171 @@ def T00_dirac_rest(eta_u, eta_d, chi_u, chi_d, m, sqrtA=1.0):
     """Rest-leg energy density of a massive Dirac state (F106-E5).
 
     T00 = sqrt(A(x)) * m * |Psi|^2 — exact for a rest eigenstate, the
-    leading (nonrelativistic) source for a slow packet.  The fully
-    relativistic T00 adds the kinetic term (fork-level; D-EM3 demands a fast
-    packet gravitate by total energy — flagged, not yet in the production
-    source)."""
+    leading (nonrelativistic) source for a slow packet.  See
+    :func:`T00_dirac_kinetic` for the D-EM3 kinetic leg.
+
+    **Roadmap P3.4 / blocker B5, fixed 2026-07-31 - 23:10.**  This function did
+    not sum a leading component axis, while ``T00_field_energy`` thirteen lines
+    below always did.  A colour-carrying spinor — a ``quark_dirac`` named in a
+    ``gravity_dielectric`` channel's ``sources:`` — has shape ``(3, L, L, L)``,
+    so the returned density kept its colour axis, broadcast against the ``(L, L,
+    L)`` potential, and **silently promoted the entire gravity state to rank 4**.
+    The run did not crash: it produced a three-copy gravitational field, one per
+    colour, and reported success.  Colour is not a spatial index and a quark
+    does not gravitate three times; the axis is summed, which is the same
+    contraction ``T00_field_energy`` performs for the (8,L,L,L) gluon.
+
+    Real states are untouched (a rank-3 input has nothing to sum), so no
+    existing result moves — the bug could only fire in a configuration that had
+    never been run, which is exactly why it survived.
+    """
     d = (np.abs(eta_u) ** 2 + np.abs(eta_d) ** 2
          + np.abs(chi_u) ** 2 + np.abs(chi_d) ** 2)
+    d = np.asarray(d, dtype=np.float64)
+    while d.ndim > 3:                       # colour / component axes (P3.4)
+        d = d.sum(axis=0)
     return sqrtA * float(m) * d
+
+
+def T00_dirac_kinetic(eta_u, eta_d, chi_u, chi_d, c0=C_LAT_BCC, sqrtA=1.0):
+    """Kinetic-leg energy density of a Dirac state (D-EM3, roadmap P3.4).
+
+    The gradient energy the rest leg omits:
+
+    .. math:: u_\\text{kin} = \\sqrt{A}\\,\\frac{c^2}{2}\\sum_\\text{comp}
+              |\\nabla\\psi|^2
+
+    evaluated with the same centred difference the lattice Laplacian
+    (:func:`lap_nd`) uses, so the two agree on the same field at the same order
+    and a gradient energy cannot disagree with the potential it sources.
+
+    Why this matters and is not cosmetic: ``T00_dirac_rest``'s own docstring
+    flagged the kinetic term as "fork-level, not yet in the production source",
+    and **D-EM3 demands that a fast packet gravitate by its total energy**.  With
+    only the rest leg, a packet boosted to relativistic momentum sources exactly
+    the same gravity as one at rest — the equivalence of mass and energy is
+    absent from the production gravity source.  This restores it.
+
+    The leg is additive: ``T00_dirac_rest(...) + T00_dirac_kinetic(...)`` is the
+    total.  It is supplied as a separate function rather than folded into the
+    rest leg so every committed rest-leg result stays reproducible and the two
+    can be compared, which is what makes the D-EM3 claim testable.
+    """
+    out = None
+    for comp in (eta_u, eta_d, chi_u, chi_d):
+        psi = np.asarray(comp)
+        if psi.size == 0:
+            continue
+        acc = np.zeros(psi.shape, dtype=np.float64)
+        for ax in range(psi.ndim):
+            d = 0.5 * (np.roll(psi, -1, ax) - np.roll(psi, 1, ax))
+            acc = acc + np.abs(d) ** 2
+        out = acc if out is None else out + acc
+    if out is None:
+        return 0.0
+    while out.ndim > 3:                     # colour / component axes
+        out = out.sum(axis=0)
+    return sqrtA * 0.5 * float(c0) ** 2 * out
+
+
+def T0i_dirac(eta_u, eta_d, chi_u, chi_d, c0=C_LAT_BCC):
+    """Momentum density :math:`T^{0i} = c\\,\\mathrm{Im}(\\psi^\\dagger\\partial_i\\psi)`.
+
+    Roadmap P3.4 asks for "momentum density :math:`T^{0i}` at minimum, since a
+    scalar :math:`\\Phi` cannot represent a moving source" — a static potential
+    sourced from :math:`T^{00}` alone knows a packet's *location* but not its
+    *motion*, so frame-dragging and the gravitomagnetic sector are structurally
+    absent rather than small.
+
+    Returns an array with a leading axis of length ``ndim`` (the spatial index
+    :math:`i`), each component a real density on the lattice.  Component and
+    colour axes are summed, as everywhere else in this module.
+    """
+    comps = [np.asarray(c) for c in (eta_u, eta_d, chi_u, chi_d)
+             if np.asarray(c).size]
+    if not comps:
+        return np.zeros((3,))
+    ndim = min(c.ndim for c in comps)
+    spatial = min(ndim, 3)
+    legs = []
+    for ax in range(spatial):
+        acc = None
+        for psi in comps:
+            a = psi.ndim - spatial + ax     # spatial axes are trailing
+            d = 0.5 * (np.roll(psi, -1, a) - np.roll(psi, 1, a))
+            t = np.imag(np.conj(psi) * d)
+            acc = t if acc is None else acc + t
+        acc = np.asarray(acc, dtype=np.float64)
+        while acc.ndim > 3:
+            acc = acc.sum(axis=0)
+        legs.append(float(c0) * acc)
+    return np.asarray(legs)
+
+
+def dielectric_mix_half(E, B, K, omega0, dt=1.0):
+    """Half-step eikonal dielectric mix for an (E,B) pair — roadmap P3.6.
+
+    **SUPERSEDED (F271, 2026-08-01) for the photon channel** by
+    ``casim.engine.gauge.photon.photon_step_dielectric``, which resolves
+    Omega(k)/K(x) mode by mode instead of about a single stated rate omega0,
+    has NO free parameter, is EXACT for a uniform K, and converges at second
+    order. Retained as the comparison object and because it is exactly
+    orthogonal pointwise, which the k-resolved form is only convergently —
+    that makes it a useful control, not a fallback. Do not wire it into a new
+    channel.
+
+    The gauge-sector counterpart of :func:`lapse_mix_half`.  The F64 dielectric
+    renormalises the *local* rotation rate of the real (E,B) pair: where K > 1
+    the pair turns more slowly, which is what makes a ray bend.  This applies
+    the accumulated rate difference as a **rotation in the (E,B) plane**
+
+    .. math:: \\begin{pmatrix}E\\\\B\\end{pmatrix} \\leftarrow
+              \\begin{pmatrix}\\cos\\delta & -\\sin\\delta\\\\
+                              \\sin\\delta & \\cos\\delta\\end{pmatrix}
+              \\begin{pmatrix}E\\\\B\\end{pmatrix},\\qquad
+              \\delta(x) = \\tfrac{\\Delta t}{2}\\,\\omega_0
+              \\left(\\tfrac{1}{K(x)} - 1\\right)
+
+    used Strang-wise around the homogeneous spectral step, exactly as
+    :func:`lapse_mix_half` is used around the spectral kinetic step for the
+    fermion rest leg (F62-D2a/D2b).
+
+    Two properties are worth stating because they are what make it safe:
+
+    * **Exactly norm-preserving.**  The mix is a real orthogonal rotation at
+      every site, so :math:`E^2+B^2` is conserved *pointwise*, not just in sum.
+      The dielectric therefore cannot manufacture or leak field energy, and the
+      P3.5 ``TotalEnergy`` gate stays meaningful with gravity switched on.
+    * **Exactly the identity at K ≡ 1.**  :math:`\\delta \\equiv 0`, so a
+      scenario with no gravity partner — or a flat one — is bit-identical to the
+      pre-P3.6 engine.  No committed result moves.
+
+    **This is the eikonal (leading-order) coupling, and it is labelled as such
+    deliberately.**  :math:`\\omega_0` is a single representative rotation rate,
+    so the mix is exact only in the geometric-optics limit where the packet is
+    narrow in k.  The rate difference is genuinely k-dependent
+    (:math:`\\Omega(k)/K` versus :math:`\\Omega(k)`), and a position-dependent,
+    k-dependent rate cannot be applied by one homogeneous FFT — which is exactly
+    why the spectral BCC kernels were called homogeneous and the deflection was
+    left fork-only.  The exact treatment needs either a variable-c stepper of
+    the ``weyl_step_2d_varc_strang`` kind lifted to 3-D (E,B), or a multiplicative
+    operator split with a k-resolved local rate; **that derivation is open and
+    is not claimed here.**  What is claimed is narrower and checkable: the
+    production engine now closes the loop at eikonal order, deflection is
+    measurable outside the fork, and the coupling is unitary.
+
+    ``omega0`` is required, not defaulted, because a silently-chosen central
+    rate is a fitted parameter wearing a default's clothing.
+    """
+    K = np.asarray(K, dtype=np.float64)
+    delta = 0.5 * float(dt) * float(omega0) * (1.0 / K - 1.0)
+    c, s = np.cos(delta), np.sin(delta)
+    E = np.asarray(E)
+    B = np.asarray(B)
+    if E.ndim > K.ndim:                 # (components, L, L, L) against (L,L,L)
+        c = c[None, ...]
+        s = s[None, ...]
+    return c * E - s * B, s * E + c * B
 
 
 def T00_field_energy(E, B):
@@ -222,8 +380,9 @@ def lapse_mix_half(eta_u, eta_d, chi_u, chi_d, sqrtA, m, dt=1.0):
 
 __all__ = [
     "C_LAT_BCC", "F106_COEFF_LATTICE", "G_LATTICE",
-    "K_canonical", "dielectric_from_phi",
-    "T00_dirac_rest", "T00_field_energy", "phi_source",
+    "K_canonical", "dielectric_from_phi", "dielectric_mix_half",
+    "T00_dirac_rest", "T00_dirac_kinetic", "T0i_dirac",
+    "T00_field_energy", "phi_source",
     "lap_nd", "solve_phi_poisson", "phi_wave_step", "phi_field_energy",
     "lapse_mix_half",
 ]

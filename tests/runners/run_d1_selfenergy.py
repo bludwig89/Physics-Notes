@@ -47,10 +47,11 @@ import os
 import sys
 import time
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_lpt_selfenergy as se        # noqa: E402
+from casim.engine.gauge import lpt_selfenergy as se        # noqa: E402
 
 WILSON_TARGET_16PI2 = 73.9            # c=0.4682 (1/g^2) x 16 pi^2 (status doc)
 
@@ -92,6 +93,29 @@ def compute(ns, Qs) -> dict:
     return out
 
 
+def compute_refold_rerun():
+    """F308 — the three rows of the committed sweep the refold repair can move."""
+    import math
+    from casim.engine.gauge import bgfield_loop as bgf
+    S = 16.0 * math.pi ** 2
+    out = {"affected_rows": [], "unaffected_by_construction": {
+        "wilson_all_n": "fp='exact' fold is a global sign, cancels in t(x)t; khat^2 "
+                        "is 2 pi-periodic. Measured 0.0.",
+        "n8_all_Q": "pi/8 = 0.3927 > max(Qs) = 0.3, so the fold never fires."}}
+    for n, Q in [(12, 0.3), (16, 0.2), (16, 0.3)]:
+        t0 = time.time(); row = {"n": n, "Q": Q, "kernel": "rule", "fp": "exact"}
+        for tag, refold in (("repaired", False), ("pre_repair", True)):
+            Pi = se._pi_bgfield(Q, n, kernel="rule", fp="exact", refold=refold)
+            B = float((Pi[0, 0] - Pi[1, 1]).real) / Q ** 2
+            row[tag] = {"B_bgfield_lat": B,
+                        "C": S * (B - bgf._Bcoeff_numeric(Q, n, "cont"))}
+        row["dC"] = row["repaired"]["C"] - row["pre_repair"]["C"]
+        row["seconds"] = round(time.time() - t0, 1)
+        out["affected_rows"].append(row)
+        print(f"n={n} Q={Q}: dC = {row['dC']:+.6f}  ({row['seconds']} s)", flush=True)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, nargs="+", default=[8, 12, 16],
@@ -99,11 +123,22 @@ def main():
     ap.add_argument("--Q", type=float, nargs="+", default=[0.1, 0.15, 0.2, 0.3])
     ap.add_argument("--out", type=str, default="test-results/d1_selfenergy.json")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--refold-rerun", action="store_true",
+                    help="F308: re-run ONLY the rows the refold repair can move — "
+                         "(n=12,Q=0.3) and (n=16,Q=0.2,0.3) on the rule kernel, each "
+                         "computed both repaired and pre-repair. ~16 min native, "
+                         "against ~1.2 h for the full sweep. The other 21 rows are "
+                         "unchanged for reasons stated in closed form: the fold fires "
+                         "iff Q >= pi/n (so no n=8 row fires) and the fp=exact + "
+                         "wilson branch is exactly fold-invariant.")
     args = ap.parse_args()
     ns = [6] if args.smoke else args.n  # use EVEN n: odd n puts a grid point on k=0
     Qs = [0.15, 0.25] if args.smoke else args.Q
 
-    out = compute(ns, Qs)
+    if args.refold_rerun:
+        out = compute_refold_rerun()
+    else:
+        out = compute(ns, Qs)
     outpath = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                            "..", "..", args.out)
     os.makedirs(os.path.dirname(outpath), exist_ok=True)

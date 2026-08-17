@@ -32,13 +32,15 @@ from fractions import Fraction
 
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc as bcc                      # noqa: E402
-import ca_dirac_bcc as cdb                # noqa: E402
-import ca_strong as cs                    # noqa: E402
-import ca_charged_current as ccur         # noqa: E402
-from ca_lattice import make_kgrid_3d      # noqa: E402
+from casim.engine.lattice import bcc as bcc                      # noqa: E402
+from casim.engine.particles import dirac_bcc as cdb                # noqa: E402
+from casim.engine.gauge import strong as cs                    # noqa: E402
+from casim.engine.gauge import charged_current as ccur         # noqa: E402
+from casim.engine.lattice.geometry import make_kgrid_3d      # noqa: E402
 
 # Representative dimensionless lattice masses (see header note).
 M_E = 0.05          # electron — light

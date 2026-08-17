@@ -16,18 +16,16 @@ only the resolution changes.  The invariant radius is the TRUE confinement
 size set by the measured sigma — resolving F135's loose RMS (a coarse-box
 zitterbewegung artifact, not the well size).
 
-    PYTHONPATH=ca-simulation python tests/runners/run_u4_sigma_carry.py
+    PYTHONPATH=src python tests/runners/run_u4_sigma_carry.py
 """
 from __future__ import annotations
 import os, sys, json
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__)))), "ca-simulation"))
-for p in ("ca-simulation", "../ca-simulation", "../../ca-simulation"):
-    if os.path.isdir(p):
-        sys.path.insert(0, p)
-import ca_blockspin_binding as bb   # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.lattice import blockspin_binding as bb   # noqa: E402
 
 SIGMA = 0.31      # sigma_phys * a_g^2, MEASURED (F146 §2, Creutz plateau)
 MASS = 0.9        # constituent mass in units 1/a_g (the F135 value)

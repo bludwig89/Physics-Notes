@@ -27,15 +27,13 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..",
-                                "ca-simulation"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 
-import casim.engine.blockspin as bsm                      # noqa: E402
+import casim.engine.core.blockspin as bsm                      # noqa: E402
 import casim.lattice.chiral_core as cc                    # noqa: E402
 from casim.lattice import backend                          # noqa: E402
-from ca_bcc import weyl_step_3d_bcc                         # noqa: E402
-from ca_wmu import w_propagation_step_chiral               # noqa: E402
+from casim.engine.lattice.bcc import weyl_step_3d_bcc                         # noqa: E402
+from casim.engine.gauge.weak_wmu import w_propagation_step_chiral               # noqa: E402
 
 
 def _bandlimited_real(L, nc=3, seed=0):
@@ -205,7 +203,7 @@ def test_F_fft_floor_stable(L):
 # ════════════════════════════════════════════════════════════════════
 def test_G_w_chiral_channel_coarse_run():
     from casim.engine import Simulation, LatticeSpec
-    from casim.engine.channels import WChiralChannel
+    from casim.engine.core.channels import WChiralChannel
     sim = Simulation(LatticeSpec(L=8, block=2, topology="cubic"),
                      [WChiralChannel(name="w")], seed=1)
     e0 = sim.channels["w"].energy(sim.states["w"])
@@ -216,7 +214,7 @@ def test_G_w_chiral_channel_coarse_run():
 
 def test_G_weyl_channel_blockspin_preserves_complex():
     from casim.engine import Simulation, LatticeSpec
-    from casim.engine.channels import WeylBCCChannel
+    from casim.engine.core.channels import WeylBCCChannel
     sim = Simulation(LatticeSpec(L=16, topology="bcc"),
                      [WeylBCCChannel(name="w", sign="+")], seed=2)
     sim.step(2)

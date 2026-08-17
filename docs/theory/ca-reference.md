@@ -1,6 +1,6 @@
 # Weyl Spinor Cellular Automaton — Reference
 
-*Based on physics notebook pages 35–39, Mark Ludwig (2007–08). Implementation in `ca-simulation/ca_core.py`.*
+*Based on physics notebook pages 35–39, Mark Ludwig (2007–08). Implementation in `casim.engine.lattice.core`.*
 
 ---
 
@@ -35,14 +35,14 @@ Paper 6 (the full 100-page Ostoma–Trushyk treatise) adds the macroscopic EMQG 
 - **Variable-$c$ as an *established published hypothesis*, not project-internal speculation.** Paper 6 Eqs. 18.51–18.52 give $c(t) = c(1 \pm gt/c)$ — a position- and direction-dependent local light speed near a mass, identical in form to the refractive-index profile used in `weyl_step_2d_varc_cayley`. The Phase C1 / F3b $c(\mathbf{x})$ ansatz is the same kind of model; what F3b lacks is a derivation of the depth profile $c(|\Phi|)$ from microscopic physics. Paper 6 supplies an external published target (modified Poisson equation 19.7) for that derivation.
 - **EMQG weak-field equation: modified Poisson with retardation.** $\nabla^2\phi - c^{-2}\partial_t^2\phi = 4\pi G \rho$ (Paper 6 Eq. 19.7). The acceleration field $\mathbf{a} = \nabla\phi$ is what drives both inertia and gravity in EMQG, and is the gradient that would set the local $c$ profile in any EMQG-aligned `ca_curved.py` implementation. **Test V11 in `qca-papers-1-4-overview.md` proposes solving this equation on the lattice for a static spherical mass and feeding the result into the variable-$c$ stepper.**
 - **Three mass definitions.** Inertial $m_i$ (resistance to acceleration via EM coupling to virtual vacuum), gravitational $m_g$ (graviton-mediated, almost equal to $m_i$), and "low-level mass charge" (pure graviton emission rate, not directly measurable). Our F3b uses a single mass parameter; no friction with this currently, but if F3b is ever extended to include differential-mass falling tests (paper's $10^{-40}$ WEP violation), the three-mass framework would be the natural starting point.
-- **Equivalence principle as a derived coincidence, not a postulate.** The vacuum state appears the same in accelerated and gravitational frames with reversed acceleration vectors. Paper 6's derivation in §17.3 is purely verbal/heuristic; a lattice realisation would need both an inertial-EMQG sector (charged matter coupling to a charged-virtual-vacuum field) and a graviton sector (mass-charged matter coupling to a separate exchange field). Neither exists in `ca-simulation/`.
+- **Equivalence principle as a derived coincidence, not a postulate.** The vacuum state appears the same in accelerated and gravitational frames with reversed acceleration vectors. Paper 6's derivation in §17.3 is purely verbal/heuristic; a lattice realisation would need both an inertial-EMQG sector (charged matter coupling to a charged-virtual-vacuum field) and a graviton sector (mass-charged matter coupling to a separate exchange field). Neither exists in `casim.engine`.
 - **Photon and graviton both carry inertial/gravitational mass via $E/c^2$, but no low-level mass charge.** Resolves the canonical-quantum-gravity renormalization tangle (graviton-graviton self-coupling) by analogy with QED's photon non-self-coupling. Compatible with our model's treatment of U(1) and (eventual) gravitational sectors as separate per-cell phases.
 - **Cosmology — Milne kinematic.** Paper 6 §20: matter moves outward through pre-existing flat low-level CA space; apparent expansion is the changing curvature of light's path through density-varying accelerated vacuum. Not relevant to any current Phase A–F test, but rules out any future test that assumes expanding-cell semantics in our lattice (consistent with our toroidal `L^3` topology).
 - **Fizeau analog for the speed of light in vacuum**: Paper 6 Eq. 18.31 gives $v_c = c/n + (1 - 1/n^2)V$ for light through a medium of refractive index $n$ moving at velocity $V$. **Test V12** in the overview proposes running this in reverse: set up a linear $c(z)$ profile in `ca_curved.py` and verify the gravitational redshift $\Delta\nu/\nu \approx -|\nabla c|\,L/c$ falls out of the propagator's measured frequency shift. This would be a direct lattice check of Paper 6's central scattering claim.
 
 ### SU(3) strong-force sector (added 2026-05-21)
 
-The strong sector follows the standard Wilson–Kogut–Susskind lattice-gauge construction rather than the per-cell-phase pattern used for U(1) and SU(2). The driver is gauge-covariance: a per-cell phase suffices for the SU(2) parity-violation gate (only the W^a_0 time component enters) but cannot give the colour-rotating quark kinetic term its required local gauge covariance, nor can it support gauge-invariant Wilson-loop observables. The full design is in `docs/design/ca-strong-design.md`; the implementation is `ca-simulation/ca_strong.py` and the V13 gate suite is `test_su3_noether.py`.
+The strong sector follows the standard Wilson–Kogut–Susskind lattice-gauge construction rather than the per-cell-phase pattern used for U(1) and SU(2). The driver is gauge-covariance: a per-cell phase suffices for the SU(2) parity-violation gate (only the W^a_0 time component enters) but cannot give the colour-rotating quark kinetic term its required local gauge covariance, nor can it support gauge-invariant Wilson-loop observables. The full design is in `docs/design/ca-strong-design.md`; the implementation is `casim.engine.gauge.strong` and the V13 gate suite is `test_su3_noether.py`.
 
 - **State:** per cell, three flavours $f\in\{u,d,s\}$ × three colours $c\in\{r,g,b\}$ × four Dirac components = 36 complex numbers. Quarks. Plus per forward direction $\mu$, one $3\times 3$ SU(3) link matrix $U_\mu(\mathbf x)$ — 18 complex per cell in 2D, 72 in 3D BCC.
 - **Gauge transformation (local SU(3)):** $q(\mathbf x) \to V(\mathbf x) q(\mathbf x)$ and $U_\mu(\mathbf x) \to V(\mathbf x) U_\mu(\mathbf x) V^\dagger(\mathbf x+\hat\mu)$. The covariant lattice derivative $D_\mu q(\mathbf x) = U_\mu(\mathbf x) q(\mathbf x+\hat\mu) - q(\mathbf x)$ rotates as $V(\mathbf x) D_\mu q$, and the plaquette $\mathrm{Tr}\,U_\square$ is invariant.
@@ -654,9 +654,9 @@ The numerator polynomials follow a pattern: $P_1 = m$, $P_2 = 3m - 2m^3$, $P_3 =
 
 | Construct | Exactness | Where it lives |
 |---|---|---|
-| SR-2 $\beta_\text{LV}(m)$ closed form (2D-square QCA) | **Exact algebraic** — closed-form analytic function of $m$, no fitted constants; sympy-confirmed; numerical match to FFT floor at small $k$ | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 15 |
-| SR-2 $\gamma_\text{LV}(m)$ closed form (2D-square QCA, $\beta^4$ coefficient) | **Exact algebraic** — same | `ca-simulation/derive_beta_LV.py`, `findings.md` Finding 15 |
-| SR-2 $\delta_\text{LV}(m)$ closed form (2D-square QCA, $\beta^6$ coefficient, 2026-05-22) | **Exact algebraic** — same; sympy bit-zero against series, sharpens the $\beta^4$ fit on the SR-2 grid | `ca-simulation/derive_beta_LV.py::delta_LV`, `findings.md` Finding 15 |
+| SR-2 $\beta_\text{LV}(m)$ closed form (2D-square QCA) | **Exact algebraic** — closed-form analytic function of $m$, no fitted constants; sympy-confirmed; numerical match to FFT floor at small $k$ | `casim.engine.interactions.derive_beta_LV`, `findings.md` Finding 15 |
+| SR-2 $\gamma_\text{LV}(m)$ closed form (2D-square QCA, $\beta^4$ coefficient) | **Exact algebraic** — same | `casim.engine.interactions.derive_beta_LV`, `findings.md` Finding 15 |
+| SR-2 $\delta_\text{LV}(m)$ closed form (2D-square QCA, $\beta^6$ coefficient, 2026-05-22) | **Exact algebraic** — same; sympy bit-zero against series, sharpens the $\beta^4$ fit on the SR-2 grid | `casim.engine.interactions.derive_beta_LV::delta_LV`, `findings.md` Finding 15 |
 
 **Updated total:** 16 exact-algebraic / bit-zero results (13 prior + 3 new: $\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$).
 
@@ -700,7 +700,7 @@ Full summary and comparison in `references/mohr-2010-maxwell-photon-wf-summary.m
 
 ## Composite-photon curl residual — geometry independence (2026-05-22 - 13:42)
 
-*From the geometry forks `ca-simulation/forks/curl_fork_{cubic,baseline_bcc,harness}.py`; full writeup `findings/F21-curl-residual-geometry-independence.md`.*
+*From the geometry forks `casim.engine.forks.gauge.curl_fork_{cubic,baseline_bcc,harness}`; full writeup `findings/F21-curl-residual-geometry-independence.md`.*
 
 The pointwise composite-photon bilinear (Paper 1 Eq. 35) satisfies the free-Maxwell curl equation only to $O(k)$ (Finding 2). Building a simple-cubic Weyl QCA ($s_i=\sin k_i$, $\omega=\sqrt{\sum_i \sin^2 k_i}$, so $c_\text{lat}=1$) and a baseline-BCC fork, and running identical curl/$c$/doubler diagnostics, gives the **geometry-independent law**:
 
@@ -723,7 +723,7 @@ Geometry comparison ($|k|=0.1$ for isotropy; doublers on the $N=12$ FFT grid):
 
 ## Complex-mass / Chiral SU(2) fork (2026-05-23 - 12:00)
 
-*From `ca-simulation/forks/complex_mass_fork.py`; full writeup `findings/F27-complex-mass-chiral-su2.md`. Source: physics_notes_0708.pdf pages 59–60.*
+*From `casim.engine.forks.particles.complex_mass_fork`; full writeup `findings/F27-complex-mass-chiral-su2.md`. Source: physics_notes_0708.pdf pages 59–60.*
 
 ### Construction
 

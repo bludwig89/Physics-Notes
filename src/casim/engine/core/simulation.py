@@ -8,6 +8,7 @@ spectral, BCC, and dielectric channels all coexist behind one loop.
 from __future__ import annotations
 
 import json
+import re
 import os
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
@@ -15,11 +16,17 @@ import numpy as np
 
 from .channel import Channel, build_channel
 from .observers import Observer, build_observer
+from .clock import Clock, ClockError, reconcile
+from .graph import BusError, ChannelGraph, build_graph
 from casim.constants import c_lat as C_LAT_REGISTRY
 
 ROOT3 = float(np.sqrt(3.0))
 
-CHECKPOINT_VERSION = 1
+#: Bumped to 2 by roadmap P3.2/P3.3: a checkpoint now round-trips the clock
+#: (tick + dt + resolved mode) and the resolved bus order.  Version 1 files
+#: still load — they are read as a synchronous unit-dt clock in declared order,
+#: which is exactly what they were.
+CHECKPOINT_VERSION = 2
 
 
 def _parse_blockspin_schedule(spec: Any) -> Dict[int, int]:
@@ -38,6 +45,39 @@ def _parse_blockspin_schedule(spec: Any) -> Dict[int, int]:
         if factor < 1:
             raise ValueError(f"blockspin factor must be ≥ 1, got {factor}")
         out[at] = factor
+    return out
+
+
+def _blockspin_merge(scenario: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Combine a scenario's legacy ``blockspin:`` field with any ``do: blockspin``
+    entries in its P4 ``events:`` timeline, as a list ``_parse_blockspin_schedule``
+    accepts."""
+    legacy = scenario.get("blockspin")
+    combined: List[Dict[str, Any]] = []
+    if isinstance(legacy, dict):
+        combined.append(legacy)
+    elif isinstance(legacy, list):
+        combined.extend(legacy)
+    combined.extend(_blockspin_from_events(scenario.get("events")))
+    return combined
+
+
+def _blockspin_from_events(events: Any) -> List[Dict[str, Any]]:
+    """Extract ``do: blockspin`` entries from a P4 ``events:`` timeline.
+
+    The generic events timeline (P4) is validated by ``casim.io.schema``; here
+    the engine consumes the one action it already has native machinery for —
+    a timed block-spin — by translating it into the ``{at, factor}`` form
+    ``_parse_blockspin_schedule`` accepts.  Other actions are left for the
+    engine's event dispatch to grow into and are ignored here rather than
+    silently dropped elsewhere.
+    """
+    if not events:
+        return []
+    out: List[Dict[str, Any]] = []
+    for ev in events:
+        if isinstance(ev, dict) and ev.get("do") == "blockspin" and "at" in ev:
+            out.append({"at": ev["at"], "factor": ev.get("factor", 2)})
     return out
 
 
@@ -94,10 +134,14 @@ class Simulation:
         name: str = "run",
         checkpoint_every: int = 0,
         checkpoint_dir: str = "checkpoints",
+        checkpoint_compress: bool = True,
+        checkpoint_keep: int = 3,
         target_ticks: int = 0,
         title: str = "",
         description: str = "",
         blockspin_schedule: Any = None,
+        clock: Optional[Dict[str, Any]] = None,
+        bus: Optional[Dict[str, Any]] = None,
     ):
         self.lattice = lattice
         self.name = name
@@ -110,6 +154,10 @@ class Simulation:
         self.tick = 0
         self.checkpoint_every = int(checkpoint_every)
         self.checkpoint_dir = checkpoint_dir
+        #: P2.6 — compress snapshots (field states compress well) and keep only
+        #: the newest N auto-checkpoints so a multi-day run cannot fill a disk.
+        self.checkpoint_compress = bool(checkpoint_compress)
+        self.checkpoint_keep = int(checkpoint_keep)
         self.target_ticks = int(target_ticks)
         #: scheduled block-spin events {tick: factor} (Phase 4); applied in step()
         self._blockspin_schedule = _parse_blockspin_schedule(blockspin_schedule)
@@ -129,6 +177,61 @@ class Simulation:
 
         self.observers: List[Observer] = list(observers or [])
         self.results: Dict[str, Any] = {}
+
+        # --- P3.2: the engine owns physical time -------------------------
+        # Built AFTER the channels so it can read their configs, and before any
+        # step so an unreconcilable clock is a build-time error.
+        self._clock_spec = dict(clock or {})
+        self.clock: Clock = reconcile(list(self.channels.values()),
+                                      self._clock_spec)
+        self.clock.tick = self.tick
+
+        # --- P3.3: the typed exchange bus --------------------------------
+        self._bus_spec = dict(bus or {})
+        self.graph: ChannelGraph = self._build_bus()
+
+    # ------------------------------------------------------------------
+    def _build_bus(self) -> ChannelGraph:
+        """Resolve the exchange bus and decide the execution order.
+
+        ``bus.order``:
+
+        ``auto`` (default)
+            Apply the topological order **only when it already equals the
+            declared order**.  Otherwise keep the declared order and record the
+            violation.  This is what makes P3.3 land without moving a single
+            committed baseline: reordering a scenario's channels is a *physics*
+            change (it turns a same-tick coupling into a lagged one), so it is
+            opt-in per scenario rather than a side effect of an engine upgrade.
+        ``topological``
+            Apply the sorted order.  The correct target state.
+        ``declared``
+            Never reorder; still validate names and report violations.
+
+        ``bus.strict`` (default ``True``) makes a ``consumes`` name that nothing
+        provides a build-time :class:`BusError` instead of a silent ``None``.
+        """
+        spec = dict(self._bus_spec)
+        mode = str(spec.pop("order", "auto")).lower()
+        if mode not in ("auto", "topological", "declared"):
+            raise BusError(
+                f"bus.order must be 'auto', 'topological' or 'declared', "
+                f"got {mode!r}")
+        g = build_graph(list(self.channels.values()), spec,
+                        strict=bool(spec.get("strict", True)))
+        declared = list(self.channels.keys())
+        g.order_violations = [n for n, d in zip(declared, g.order) if n != d]
+        g.order_mode = mode
+        if mode == "declared" or (mode == "auto" and g.order_violations):
+            g.applied_order = declared
+        else:
+            g.applied_order = list(g.order)
+        return g
+
+    @property
+    def step_order(self) -> List[str]:
+        """Channel names in the order ``step()`` walks them this tick."""
+        return list(getattr(self.graph, "applied_order", list(self.channels)))
 
     # ------------------------------------------------------------------
     @classmethod
@@ -166,22 +269,50 @@ class Simulation:
             target_ticks=int(scenario.get("ticks", 0)),
             title=str(scenario.get("title", "")),
             description=str(scenario.get("description", "")),
-            blockspin_schedule=scenario.get("blockspin", None),
+            blockspin_schedule=_blockspin_merge(scenario),
+            clock=scenario.get("clock", None),
+            bus=scenario.get("bus", None),
         )
 
     # ------------------------------------------------------------------
     def step(self, n: int = 1) -> None:
-        """Advance all channels by ``n`` ticks, running observers on cadence."""
+        """Advance all channels by ``n`` engine ticks, observers on cadence.
+
+        One engine tick is ``self.clock.dt`` of physical time (P3.2).  Channels
+        walk :attr:`step_order` — the bus-resolved order (P3.3), which defaults
+        to registration order — and each is stepped ``clock.n_sub(name)`` times,
+        so a channel whose native step is finer than the global ``dt`` catches
+        up instead of silently running slow.
+
+        Cycle scheme (P3.3).  Under ``gauss_seidel`` the context mapping is
+        updated in place, so a channel sees the *already-updated* states of
+        those before it and the *pre-tick* states of those after it — the
+        historical behaviour.  Under ``jacobi`` every channel in a declared
+        cycle reads a frozen pre-tick snapshot, so the result does not depend on
+        order within the cycle at all.
+        """
+        jacobi = (self.graph.cycle_scheme == "jacobi"
+                  and bool(self.graph.cycles))
+        cycle_members = self.graph.cycle_members() if jacobi else set()
+        order = self.step_order
         for _ in range(n):
-            # Channels step in registration order, reading siblings' live
-            # states via the shared mapping (Tier-2 coupling); the mapping is
-            # updated in place so later channels see earlier channels' new
-            # states this tick.
-            for cname, ch in self.channels.items():
-                self.states[cname] = ch.step(
-                    self.states[cname], self.lattice,
-                    context=self.states, rng=self.rng)
+            frozen = ({c: self.states[c] for c in cycle_members}
+                      if jacobi else None)
+            for cname in order:
+                ch = self.channels[cname]
+                ctx = self.states
+                if jacobi and cname in cycle_members:
+                    # Pre-tick view of the cycle, live view of everything else.
+                    ctx = dict(self.states)
+                    ctx.update(frozen)
+                st = self.states[cname]
+                for _s in range(self.clock.n_sub(cname)):
+                    st = ch.step(st, self.lattice, context=ctx, rng=self.rng)
+                    if not jacobi:
+                        self.states[cname] = st
+                self.states[cname] = st
             self.tick += 1
+            self.clock.tick = self.tick
             self._run_observers()
             if self.tick in self._blockspin_schedule:
                 self.block_spin(self._blockspin_schedule[self.tick])
@@ -250,6 +381,18 @@ class Simulation:
             "channels": {c: ch.describe() for c, ch in self.channels.items()},
             "observers": {obs.name: obs.result() for obs in self.observers},
         }
+        # P3.2/P3.3 — the clock and the bus are reported on every run, including
+        # when they changed nothing.  A desynchronised scenario that produces a
+        # normal-looking results file is exactly the failure this phase exists
+        # to end, so `synchronous: false` has to be visible in the artifact.
+        self.results["clock"] = self.clock.to_dict()
+        self.results["bus"] = {
+            **self.graph.to_dict(),
+            "order_mode": getattr(self.graph, "order_mode", "auto"),
+            "applied_order": self.step_order,
+            "order_violations": getattr(self.graph, "order_violations", []),
+            "unresolved": getattr(self.graph, "unresolved", []),
+        }
         if self.lattice.block > 1 or self.blockspin_events:
             from .blockspin import patch_summary
             self.results["physical_patch"] = patch_summary(self.lattice)
@@ -269,7 +412,32 @@ class Simulation:
         return os.path.join(self.checkpoint_dir, f"{self.name}_t{self.tick}.npz")
 
     def checkpoint(self, path: str) -> str:
-        """Write a resumable snapshot to ``path`` (NPZ).  Returns the path."""
+        """Write a resumable snapshot to ``path`` (NPZ).  Returns the path.
+
+        Roadmap **P2.6**: atomic, optionally compressed, and rotating.
+
+        The pre-P2.6 version was a bare ``np.savez`` called from inside the tick
+        loop with no rotation — the likeliest single way a multi-day run loses
+        everything, because a kill during the write leaves a truncated file
+        *at the name the resume path looks for*, so the crash destroys the
+        previous good checkpoint as well as the current one. Three changes:
+
+        * **atomic** — write to ``<path>.tmp-<pid>`` then ``os.replace``, which
+          is atomic on POSIX and Windows. A kill mid-write now leaves the last
+          good checkpoint intact and a stray ``.tmp`` file.
+        * **compressed** — ``savez_compressed`` when :attr:`checkpoint_compress`
+          is set (the default). Field states are smooth arrays and compress
+          well; the cost is CPU on a path that is already I/O-bound.
+        * **rotating** — keep the last :attr:`checkpoint_keep` auto-checkpoints
+          and unlink the rest, so a long run cannot fill the disk. Only files
+          matching this run's own auto-checkpoint pattern are ever removed, and
+          an explicit ``checkpoint(path)`` call is never rotated away.
+
+        Note the sandbox caveat recorded in CLAUDE.md: this mount refuses
+        ``unlink``, so rotation is best-effort and a failure to remove an old
+        checkpoint is logged into the return value's directory, never raised —
+        losing a rotation is not worth losing a run over.
+        """
         os.makedirs(os.path.dirname(os.path.abspath(path)) or ".", exist_ok=True)
         arrays: Dict[str, np.ndarray] = {}
         state_layout: Dict[str, Dict[str, Any]] = {}
@@ -301,17 +469,86 @@ class Simulation:
             "state_layout": state_layout,
             "checkpoint_every": self.checkpoint_every,
             "checkpoint_dir": self.checkpoint_dir,
+            # P2.6: carried so `resume()` can restore it. Its absence was a
+            # silent-wrong bug, not a missing feature — see `resume()`.
+            "blockspin_schedule": {str(k): int(v)
+                                   for k, v in self._blockspin_schedule.items()},
+            "blockspin_events": self.blockspin_events,
+            # P3.2/P3.3. Carried for the same reason `blockspin_schedule` is:
+            # a resumed run that silently reverts to a different clock or a
+            # different channel order completes and reports success while doing
+            # different physics. Round-trip the *spec*, not the resolved Clock —
+            # the resolution is deterministic from the spec plus the channels,
+            # so re-deriving it on resume also proves the two agree.
+            "clock_spec": self._clock_spec,
+            "bus_spec": self._bus_spec,
         }
         arrays["__meta__"] = np.frombuffer(
             json.dumps(meta).encode("utf-8"), dtype=np.uint8)
-        np.savez(path, **arrays)
-        if not path.endswith(".npz"):
-            path = path + ".npz"
-        return os.path.abspath(path)
+
+        final = path if path.endswith(".npz") else path + ".npz"
+        # Atomic. Note np.savez *appends* `.npz` to a path that lacks it, so
+        # passing a temp *name* would silently produce `<tmp>.npz` and the
+        # rename would then fail on a file that does not exist. Handing it an
+        # open file object writes exactly where told, with no name rewriting.
+        tmp = f"{final}.tmp-{os.getpid()}"
+        saver = np.savez_compressed if self.checkpoint_compress else np.savez
+        try:
+            with open(tmp, "wb") as fh:
+                saver(fh, **arrays)
+            os.replace(tmp, final)
+        except BaseException:
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
+            raise
+        self._rotate_checkpoints()
+        return os.path.abspath(final)
+
+    def _rotate_checkpoints(self) -> None:
+        """Keep the newest ``checkpoint_keep`` auto-checkpoints of THIS run.
+
+        Deliberately narrow: it only ever considers files matching this run's
+        own ``{name}_t{tick}.npz`` pattern in ``checkpoint_dir``, and sorts by
+        the tick parsed out of the filename rather than by mtime — a resumed run
+        rewrites old ticks with new mtimes, so mtime order would delete the
+        wrong ones. ``checkpoint_keep <= 0`` disables rotation.
+        """
+        keep = int(self.checkpoint_keep)
+        if keep <= 0:
+            return
+        pat = re.compile(rf"^{re.escape(self.name)}_t(\d+)\.npz$")
+        try:
+            entries = os.listdir(self.checkpoint_dir)
+        except OSError:
+            return
+        found: List[tuple] = []
+        for fn in entries:
+            m = pat.match(fn)
+            if m:
+                found.append((int(m.group(1)), fn))
+        for _, fn in sorted(found, reverse=True)[keep:]:
+            try:
+                os.remove(os.path.join(self.checkpoint_dir, fn))
+            except OSError:
+                # This mount refuses unlink (CLAUDE.md). A failed rotation is
+                # disk pressure; raising here would lose the run instead.
+                pass
 
     @classmethod
     def resume(cls, path: str) -> "Simulation":
-        """Rebuild a Simulation from a checkpoint, ready to continue stepping."""
+        """Rebuild a Simulation from a checkpoint, ready to continue stepping.
+
+        Roadmap **P2.6** fixed a silent-wrong bug here: this method did not pass
+        ``blockspin_schedule`` to the constructor, so a resumed run had an empty
+        schedule and **skipped every remaining scheduled $R_b$ event** while
+        reporting success. That is worse than a crash — the run completes, the
+        results file looks normal, and the block-spin physics the scenario asked
+        for simply did not happen. The schedule and the applied-event log are
+        now both round-tripped, and `tests/casim/test_checkpoint_ops.py` asserts
+        it rather than trusting it.
+        """
         with np.load(path, allow_pickle=False) as data:
             meta = json.loads(bytes(data["__meta__"]).decode("utf-8"))
             lat = meta["lattice"]
@@ -330,7 +567,21 @@ class Simulation:
                 target_ticks=int(meta.get("target_ticks", 0)),
                 title=str(meta.get("title", "")),
                 description=str(meta.get("description", "")),
+                # P2.6. `_parse_blockspin_schedule` wants the scenario shape
+                # (`[{at, factor}]`), so convert back from the stored map. A
+                # pre-P2.6 checkpoint has no such key and resumes with an empty
+                # schedule, exactly as it did before — old files stay loadable.
+                blockspin_schedule=[
+                    {"at": int(k), "factor": int(v)}
+                    for k, v in (meta.get("blockspin_schedule") or {}).items()
+                ],
+                # A version-1 checkpoint has neither key and resumes as a
+                # synchronous unit-dt clock in declared order — which is
+                # precisely what it was, so old files stay loadable.
+                clock=meta.get("clock_spec") or None,
+                bus=meta.get("bus_spec") or None,
             )
+            sim.blockspin_events = list(meta.get("blockspin_events") or [])
             # Restore exact state (overwriting the fresh init_state above).
             layout = meta["state_layout"]
             for cname in sim.channels:
@@ -339,6 +590,7 @@ class Simulation:
                     st[key] = np.array(data[f"state::{cname}::{key}"])
                 sim.states[cname] = st
             sim.tick = int(meta["tick"])
+            sim.clock.tick = sim.tick
             sim.rng.bit_generator.state = meta["rng_state"]
             sim._energy0 = {k: float(v) for k, v in meta["energy0"].items()}
             for obs, recs in zip(sim.observers, meta["observer_records"]):

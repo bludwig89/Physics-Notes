@@ -14,7 +14,7 @@ This is the standard accurate route: the partial-wave-reduced radial 1/r
 Schroedinger solver (NOT the full 3-D lattice Coulomb, which carries the
 short-distance 1/r regularisation issue -> deferred to P6).
 
-It REUSES the F125 engine `ca-simulation/ca_atom.py` (the attractive-1/r
+It REUSES the F125 engine `src/casim/engine/particles/atom.py` (the attractive-1/r
 analogue of the F74 contact solver: a real symmetric tridiagonal radial
 Coulomb eigenproblem).  All arithmetic is REAL (no chiral/complex transforms),
 so the CLAUDE.md numpy caveat does not bite.
@@ -47,9 +47,11 @@ import numpy as np
 # --- reuse the F125 attractive-1/r engine ---------------------------------
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-sys.path.insert(0, os.path.join(ROOT, "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_atom  # noqa: E402
+from casim.engine.particles import atom as ca_atom  # noqa: E402
 
 # ---------------------------------------------------------------------------
 #  Constants exactly as the FB04 brief specifies.
@@ -273,7 +275,7 @@ def main():
             "m_e_MeV": M_E_MEV, "m_p_MeV": M_P_MEV, "alpha": ALPHA,
             "grid_N": N_grid, "hbar_c_eVnm": HBARC_EVNM,
         },
-        "engine": "ca-simulation/ca_atom.py (F125 attractive-1/r radial solver; F74 analogue)",
+        "engine": "src/casim/engine/particles/atom.py (F125 attractive-1/r radial solver; F74 analogue)",
         "commands": ["python3 tests/findings/test_FB04_hydrogen_rydberg.py"],
         "timestamp": "2026-06-16",
     }

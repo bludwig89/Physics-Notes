@@ -22,6 +22,7 @@ For the exact-but-still-CA-friendly path, see C1 in
 sub-stepping).  That is left as a follow-up.
 """
 
+import math
 import numpy as np
 import scipy.sparse as sp
 import scipy.sparse.linalg as spla
@@ -82,39 +83,71 @@ def weyl_step_2d_varc(f, g, c_field):
 #     ψ → exp(-i δH dt/2) · exp(-i H_0 dt) · exp(-i δH dt/2) · ψ
 #
 # H_0 = c_0·σ·p̂ is FFT-diagonal — apply via the existing split-step.
-# δH = δc(x)·σ·p̂ is position-space but with a momentum-operator core;
-# we approximate exp(-i δH dt/2) ≈ I - i δH dt/2 using centered finite
-# differences for ∂̂.  First-order error per half-step is O((δc·dt)²).
-# Sub-stepping (n_sub > 1) reduces total Trotter error like 1/n_sub².
+# δH = δc(x)·σ·p̂ is position-space but with a momentum-operator core.
+#
+# ── F276 (2026-08-01), porting F271's two derived corrections ────────────
+# Both defects F271 found and fixed in the 3-D (E,B) dielectric propagator
+# were present here, in the 2-D construction F271 was itself lifted from:
+#
+#   (i)  ORDERING.  δc(x)·σ·p̂ has an operator-ordering ambiguity, and the
+#        asymmetric choice is not self-adjoint, so the generator is not
+#        anti-Hermitian and the evolution is not unitary AT ANY STEP SIZE.
+#        Measured before the fix: norm drift PLATEAUED at 6.08e-2 and a 32x
+#        refinement moved it 0.23%.  Weyl-symmetric ordering makes the
+#        generator exactly anti-Hermitian, so the residual is pure Taylor
+#        truncation and CONVERGES.
+#   (ii) TRUNCATION ORDER.  exp(-hW) = I - hW + h²W²/2 + O(h³); keeping only
+#        I - hW leaves an O(h²) local error Strang does not cancel, so the
+#        scheme was globally FIRST order despite the symmetric composition.
+#        The h²W²/2 term is free to derive and restores second order.
+#
+# See `casim.engine.gauge.photon._M_weyl` / `_dielectric_half` for the same
+# two corrections in the (E,B) sector, and F271/F276 for the measurements.
 # ══════════════════════════════════════════════════════════════════
 
-def _half_step_dH(f, g, dc, dt, use_fft=True):
-    """
-    Apply  exp(-i δH dt) ψ  to first order, where δH = δc(x)·σ·p̂ and
-    σ·p̂ = -i·σ·∇  (Pauli momentum operator).
+_kgrid2d_cache: dict = {}
 
-    First-order Taylor: ψ → ψ - i δH dt ψ.
-    Working it out:
-        -i δH dt ψ = -i·δc·(-i σ·∇)·dt·ψ = -δc·dt·σ·∇ψ
-    With σ·∇ψ for ψ = (f, g):
+
+def _kgrid_2d(Lx, Ly):
+    """Cached (KX, KY) spectral first-derivative multipliers, Nyquist-zeroed.
+
+    The Nyquist zeroing is required, not cosmetic.  For even ``L`` the FFT
+    frequency set contains ``-pi`` with no ``+pi`` partner, so the symbol
+    ``ik`` is not odd there and the spectral derivative is **not**
+    anti-Hermitian at that bin — which would reintroduce exactly the
+    non-unitarity correction (i) exists to remove.  Zeroing the Nyquist
+    multiplier is the standard spectral remedy and is what the centred
+    finite-difference path does automatically.
+    """
+    key = (Lx, Ly)
+    if key not in _kgrid2d_cache:
+        kx = np.fft.fftfreq(Lx) * 2.0 * np.pi
+        ky = np.fft.fftfreq(Ly) * 2.0 * np.pi
+        if Lx % 2 == 0:
+            kx[Lx // 2] = 0.0
+        if Ly % 2 == 0:
+            ky[Ly // 2] = 0.0
+        KX, KY = np.meshgrid(kx, ky, indexing='ij')
+        KX.setflags(write=False)
+        KY.setflags(write=False)
+        _kgrid2d_cache[key] = (KX, KY)
+    return _kgrid2d_cache[key]
+
+
+def _sigma_grad_2d(f, g, use_fft=True):
+    """Apply ``σ·∇`` to the 2-spinor ψ = (f, g).
+
         (σ·∇ψ)_top = ∂_x g − i ∂_y g
         (σ·∇ψ)_bot = ∂_x f + i ∂_y f
 
-    If use_fft=True, derivatives are computed exactly via FFT (multiply
-    by ik in Fourier space).  If False, centered finite differences are
-    used.  FFT is more accurate but costs two extra FFTs per half-step.
-
-    Error per call: O((δc·dt)²) — not exactly unitary.  Symmetric Strang
-    composition lifts the leading error to O(dt²)·|∇c|, so sub-stepping
-    helps quadratically.
+    ``σ·∇`` is anti-Hermitian on the periodic lattice — spectrally once the
+    Nyquist bin is zeroed (see :func:`_kgrid_2d`), and identically for the
+    centred difference, which is anti-symmetric by construction.
     """
     if use_fft:
-        Lx, Ly = f.shape
-        kx_grid = np.fft.fftfreq(Lx) * 2.0 * np.pi
-        ky_grid = np.fft.fftfreq(Ly) * 2.0 * np.pi
-        KX, KY = np.meshgrid(kx_grid, ky_grid, indexing='ij')
-        F = _fft.fft2(f); G = _fft.fft2(g)
-        # σ·∇ψ via FFT: ∂_h ↔ multiply by ik_h
+        KX, KY = _kgrid_2d(*f.shape)
+        F = _fft.fft2(f)
+        G = _fft.fft2(g)
         sg_f = _fft.ifft2(1j * KX * G + KY * G)   # ikx·g − i·iky·g
         sg_g = _fft.ifft2(1j * KX * F - KY * F)   # ikx·f + i·iky·f
     else:
@@ -124,9 +157,64 @@ def _half_step_dH(f, g, dc, dt, use_fft=True):
         dfy = (np.roll(f, -1, axis=1) - np.roll(f, 1, axis=1)) * 0.5
         sg_f = dgx - 1j * dgy
         sg_g = dfx + 1j * dfy
+    return sg_f, sg_g
 
-    f_new = f - dc * dt * sg_f
-    g_new = g - dc * dt * sg_g
+
+def _W_dH(f, g, dc, use_fft=True, ordering='weyl'):
+    """The generator ``W`` of the inhomogeneous half-step, ``exp(-h W)``.
+
+    ``δH = δc(x)·σ·p̂`` with ``σ·p̂ = -i σ·∇``, so ``-i δH = -W`` with
+
+        W = ½ {δc, σ·∇}      (Weyl / symmetric — the canonical choice)
+        W = δc · (σ·∇)       (asymmetric — SUPERSEDED, retained for F276)
+
+    ``δc`` is Hermitian and ``σ·∇`` anti-Hermitian, so their **anticommutator**
+    is anti-Hermitian and ``exp(-hW)`` is exactly unitary.  The asymmetric
+    product is neither, which is why its norm error plateaus rather than
+    converging.
+
+    ``ordering='asymmetric'`` reproduces the pre-F276 operator bit-for-bit and
+    exists so the superseded scheme stays measurable, not as a supported mode.
+    """
+    if ordering == 'asymmetric':
+        a_f, a_g = _sigma_grad_2d(f, g, use_fft)
+        return dc * a_f, dc * a_g
+    if ordering != 'weyl':
+        raise ValueError(f"ordering must be 'weyl' or 'asymmetric', got {ordering!r}")
+    a_f, a_g = _sigma_grad_2d(f, g, use_fft)              # (σ·∇)ψ  → then δc·
+    b_f, b_g = _sigma_grad_2d(dc * f, dc * g, use_fft)    # (σ·∇)(δc ψ)
+    return 0.5 * (dc * a_f + b_f), 0.5 * (dc * a_g + b_g)
+
+
+def _half_step_dH(f, g, dc, dt, use_fft=True, ordering='weyl', order=2):
+    """Apply ``exp(-i δH dt) ψ`` to second order, ``δH = δc(x)·σ·p̂``.
+
+    With ``W = ½{δc, σ·∇}`` anti-Hermitian (:func:`_W_dH`),
+
+    .. math:: e^{-hW} = \\mathbb{I} - hW + \\tfrac{h^2}{2}W^2 + O(h^3)
+
+    and both retained terms are cheap: ``W²`` is one more application of the
+    same operator.  The truncation is unitary to ``O(h³)`` and, crucially,
+    its norm error **converges** with sub-stepping instead of plateauing,
+    because the generator itself is now anti-Hermitian.
+
+    Parameters
+    ----------
+    ordering : {'weyl', 'asymmetric'}
+        ``'asymmetric'`` restores the pre-F276 non-self-adjoint product.
+    order : {1, 2}
+        ``1`` restores the pre-F276 first-order truncation.
+
+    The two legacy switches are how F276's before/after is measured; neither
+    is a supported production setting.
+    """
+    W_f, W_g = _W_dH(f, g, dc, use_fft, ordering)
+    f_new = f - dt * W_f
+    g_new = g - dt * W_g
+    if order >= 2:
+        WW_f, WW_g = _W_dH(W_f, W_g, dc, use_fft, ordering)
+        f_new = f_new + 0.5 * dt * dt * WW_f
+        g_new = g_new + 0.5 * dt * dt * WW_g
     return f_new, g_new
 
 
@@ -278,7 +366,8 @@ def weyl_step_2d_varc_cayley(f, g, c_field, dt=1.0, n_sub=4):
     return solver.step(f, g)
 
 
-def weyl_step_2d_varc_strang(f, g, c_field, n_sub=4):
+def weyl_step_2d_varc_strang(f, g, c_field, n_sub=4,
+                             ordering='weyl', order=2):
     """
     Variable-c Weyl propagator using proper Strang operator splitting.
 
@@ -286,8 +375,18 @@ def weyl_step_2d_varc_strang(f, g, c_field, n_sub=4):
     ----------
     c_field : (Lx, Ly) array — position-dependent c.
     n_sub : int — number of sub-steps in one timestep (default 4).
-                  Trotter error drops like 1/n_sub², norm drift drops
-                  like 1/n_sub.
+    ordering, order : passed through to :func:`_half_step_dH`; the defaults
+        are the F276 Weyl-symmetric second-order scheme.  The legacy values
+        ``('asymmetric', 1)`` reproduce the pre-F276 stepper bit-for-bit.
+
+    Convergence (F276, measured — supersedes the pre-F276 docstring's
+    "Trotter error drops like 1/n_sub², norm drift drops like 1/n_sub",
+    which described a scheme that was globally first order and whose norm
+    error did not drop at all):
+
+    * norm drift **converges** instead of plateauing at 6.08e-2;
+    * global order **2**, which is what the Strang composition was always
+      supposed to deliver.
 
     Returns
     -------
@@ -299,13 +398,65 @@ def weyl_step_2d_varc_strang(f, g, c_field, n_sub=4):
 
     for _ in range(n_sub):
         # Half-step δH
-        f, g = _half_step_dH(f, g, dc, dt_sub * 0.5)
+        f, g = _half_step_dH(f, g, dc, dt_sub * 0.5, ordering=ordering, order=order)
         # Full kinetic step (FFT, exact unitary)
         f, g = weyl_step_2d_splitstep(f, g, c0 * dt_sub)
         # Second half-step δH
-        f, g = _half_step_dH(f, g, dc, dt_sub * 0.5)
+        f, g = _half_step_dH(f, g, dc, dt_sub * 0.5, ordering=ordering, order=order)
 
     return f, g
+
+
+def f276_convergence_check(L=48, ticks=10, dc_amp=0.05) -> bool:
+    """F276 falsification handle, as a registry entry point (D9).
+
+    Two sharp claims, both of which the algebra fixes and neither of which is
+    fitted:
+
+    1. **Global order is exactly 2.**  Self-convergence against a refined
+       reference must show exponent 2 to within 0.1.  The pre-F276 scheme
+       measures **0.00** here — it does not converge to the true operator at
+       all — so this assertion cannot pass by accident.
+    2. **Norm error converges as** :math:`1/n_\\text{sub}^3`, because the Weyl
+       generator is anti-Hermitian.  Ratio per doubling must be >= 6 (ideal 8).
+       The pre-F276 ratio is 1.00, a plateau.
+
+    Returns True, or raises AssertionError naming the measurement that failed.
+    """
+    x = np.arange(L) - L / 2
+    f0 = (np.exp(-(x[:, None] ** 2 + x[None, :] ** 2) / 64).astype(complex)
+          * np.exp(1j * 0.4 * x[:, None]))
+    g0 = f0 * 0.3
+    c_field = 0.5 + dc_amp * np.tanh(x[:, None] / 8.0) * np.ones((L, L))
+    n0 = float(np.sum(np.abs(f0) ** 2 + np.abs(g0) ** 2))
+
+    def run(n_sub):
+        f, g = f0.copy(), g0.copy()
+        for _ in range(ticks):
+            f, g = weyl_step_2d_varc_strang(f, g, c_field, n_sub=n_sub)
+        return f, g
+
+    # (1) global order
+    ref = run(256)
+    errs = []
+    for n in (2, 4, 8):
+        f, g = run(n)
+        errs.append(max(float(np.abs(f - ref[0]).max()),
+                        float(np.abs(g - ref[1]).max())))
+    orders = [math.log(errs[i] / errs[i + 1]) / math.log(2.0)
+              for i in range(len(errs) - 1)]
+    assert all(abs(o - 2.0) < 0.1 for o in orders), \
+        f"F276: global order must be 2, measured {orders}"
+
+    # (2) norm-error convergence rate
+    drifts = []
+    for n in (2, 4, 8, 16):
+        f, g = run(n)
+        drifts.append(abs(float(np.sum(np.abs(f) ** 2 + np.abs(g) ** 2)) - n0) / n0)
+    ratios = [drifts[i] / drifts[i + 1] for i in range(len(drifts) - 1)]
+    assert all(r >= 6.0 for r in ratios), \
+        f"F276: norm error must converge as 1/n^3 (ratio>=6), measured {ratios}"
+    return True
 
 
 def measure_refraction(L=128, n_steps=80, c_left=0.5, c_right=0.25,
@@ -325,6 +476,30 @@ def measure_refraction(L=128, n_steps=80, c_left=0.5, c_right=0.25,
     -------
     dict with measured incoming and outgoing direction angles and the
     Snell-predicted outgoing angle.
+
+    .. warning::
+
+       **The outgoing-angle diagnostic does not work, and this is a defect of
+       the MEASUREMENT, not of any stepper** (audit V, F276).  At the shipped
+       defaults it returns ``theta_out_deg`` ~165 deg against
+       ``theta_out_pred_deg`` ~13 deg, and it does so for **all three**
+       methods — including ``method='cayley'``, which is exactly unitary by
+       construction (~172 deg).  A quantity that is equally wrong under an
+       exact stepper is not measuring the stepper.
+
+       The cause is the geometry, not the physics: the lattice is **periodic**,
+       so the packet wraps and re-enters, and the right-region centroid in the
+       late-time fit window is a mixture of transmitted, reflected and wrapped
+       amplitude.  ``arctan2`` of a backward-drifting centroid then lands near
+       180 deg.
+
+       Nothing in the test registry asserts this function's angles — its only
+       callers are two ``legacy_script`` runners — so no published claim rests
+       on it.  **But no published claim is supported by it either**: a
+       quantitative Snell confrontation needs open/absorbing boundaries and a
+       transmitted-component projection, and that is unbuilt.  ``norm_drift``
+       in the returned dict *is* meaningful and is what F276 improved
+       (0.0915 -> 0.0 at the defaults).
     """
     xs = np.arange(L)
     X, Y = np.meshgrid(xs, xs, indexing='ij')

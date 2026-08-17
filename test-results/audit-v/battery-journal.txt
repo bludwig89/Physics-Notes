@@ -1,0 +1,8 @@
+2026-08-01 - 13:27  === Audit V Tier-B battery, run started ===
+2026-08-01 - 13:27  repo=/sessions/modest-beautiful-wright/mnt/Physics Notes  arm=0  force=0  only=B3
+2026-08-01 - 13:27  START B3  (est 10 min)  -> B3_doublers_large_L.json
+2026-08-01 - 13:27  OK    B3  (0 min)
+2026-08-01 - 13:27  SKIP  B7 — the 55 F270 2x-dump re-run is destructive; pass --arm to include it.
+2026-08-01 - 13:27  === battery finished ===
+2026-08-01 - 13:27  journal: /sessions/modest-beautiful-wright/mnt/Physics Notes/test-results/audit-v/battery-journal.txt
+2026-08-01 - 13:27  next: read test-results/audit-v/MANIFEST.md for which V-item each JSON closes.

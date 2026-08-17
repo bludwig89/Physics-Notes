@@ -33,11 +33,12 @@ import time
 import numpy as np
 
 _THIS = os.path.dirname(os.path.abspath(__file__))
-_SIM  = os.path.abspath(os.path.join(_THIS, '..', '..', 'ca-simulation'))
-sys.path.insert(0, _SIM)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_dirac as cd
-import ca_strong as cs
+from casim.engine.particles import dirac as cd
+from casim.engine.gauge import strong as cs
 
 PASS = "\033[92mPASS\033[0m"
 FAIL = "\033[91mFAIL\033[0m"

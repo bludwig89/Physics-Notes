@@ -1,0 +1,204 @@
+{
+ "G1_two_point": {
+  "action": "bcc",
+  "K_mean": 1.0000000000000002,
+  "K_spread": 1.1102230246251565e-15,
+  "structure_spread": 8.881784197001252e-15,
+  "max_imag": 7.771561172376096e-16,
+  "pass": true,
+  "statement": "Gamma_ij(k) = delta_ij sum_l khat_l^2 - khat_i khat_j, K = 1"
+ },
+ "G2_isotropy": {
+  "sum_d_dT": [
+   [
+    4.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    4.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    4.0
+   ]
+  ],
+  "deviation_from_4I": 0.0,
+  "quartic_coefficient_measured": [
+   -0.33322224206135115,
+   -0.33330555679583757
+  ],
+  "quartic_coefficient_exact": -0.3333333333333333,
+  "pass": true,
+  "statement": "sum_i d_i d_i^T = 4 I EXACTLY => isotropic continuum limit with normalisation 4; on axis S = 4k^2 - k^4/3."
+ },
+ "G3_three_point": {
+  "action": "bcc",
+  "rows": [
+   {
+    "scale": 0.01,
+    "K_re": -7.876941834129808e-16,
+    "K_im": 0.9999541127196019,
+    "rel_spread": 8.583462099828453e-05
+   },
+   {
+    "scale": 0.001,
+    "K_re": -9.702869185718197e-15,
+    "K_im": 0.9999995411174889,
+    "rel_spread": 8.583542282269276e-07
+   },
+   {
+    "scale": 0.0001,
+    "K_re": -2.1818359744492958e-13,
+    "K_im": 0.9999999954111738,
+    "rel_spread": 8.583542807611518e-09
+   }
+  ],
+  "order_ratios": [
+   99.99906585838123,
+   99.99999387965723
+  ],
+  "pass": true,
+  "statement": "K = i (the generator's U = exp(iA) convention) and the deviation from the continuum tensor falls as a^2."
+ },
+ "G4_antisymmetry": {
+  "action": "bcc",
+  "max_residual": 1.5700924586837752e-16,
+  "pass": true,
+  "statement": "antisymmetric under simultaneous (axis, momentum) exchange"
+ },
+ "G5_ward": {
+  "action": "bcc",
+  "max_relative_residual": 2.3659767465197036e-16,
+  "pass": true,
+  "statement": "sum_j Gamma_ij khat_j = 0 exactly at finite lattice spacing"
+ },
+ "G6_mode_fork": {
+  "rows": [
+   {
+    "scale": 0.001,
+    "eigs": [
+     -2.2926304167864904e-21,
+     5.334547101662232e-06,
+     5.334547101662233e-06,
+     5.334547101662234e-06,
+     5.334547101662236e-06
+    ],
+    "n_zero": 1,
+    "nhat_rayleigh_over_S": 0.9999999999999968
+   },
+   {
+    "scale": 0.01,
+    "eigs": [
+     -3.388131789017203e-20,
+     0.00031773701715854256,
+     0.00031773701715854256,
+     0.00031773701715854256,
+     0.0003177370171585426
+    ],
+    "n_zero": 1,
+    "nhat_rayleigh_over_S": 0.9999999999999838
+   },
+   {
+    "scale": 0.5,
+    "eigs": [
+     -2.891477240775853e-17,
+     0.8354343969919783,
+     0.8354343969919786,
+     0.8354343969919787,
+     0.835434396991979
+    ],
+    "n_zero": 1,
+    "nhat_rayleigh_over_S": 0.9999714428251412
+   }
+  ],
+  "nhat": [
+   -0.5,
+   0.5,
+   0.5,
+   0.5,
+   0.0
+  ],
+  "nhat_perturb": 0.0,
+  "nhat_eigenvector_in_continuum_limit": true,
+  "nhat_gauge_mixing_vs_scale": [
+   {
+    "scale": 0.001,
+    "1_minus_rayleigh": 3.219646771412954e-15
+   },
+   {
+    "scale": 0.01,
+    "1_minus_rayleigh": 1.6209256159527285e-14
+   },
+   {
+    "scale": 0.5,
+    "1_minus_rayleigh": 2.8557174858834244e-05
+   }
+  ],
+  "n_zero_modes": 1,
+  "n_propagating_bcc": 4,
+  "n_propagating_continuum_4d": 3,
+  "vertex_coupling_to_nhat": 0.5000122862354831,
+  "projector_isometry_residual": 0.0,
+  "pass": true,
+  "statement": "one gauge zero mode and FOUR massless modes (continuum 4-D YM has three): the redundant link-axis combination NHAT is an exact massless eigenvector AND couples to the 3-gluon vertex, so it is dynamical unless projected. P P^T = I exactly, so the projected branch's continuum limit IS 4-D Yang-Mills."
+ },
+ "G7_brillouin_zone": {
+  "det_primitive_cell": 4.0,
+  "V_reciprocal_cell": 62.01255336059966,
+  "cube_over_bz": 3.9999999999999982,
+  "ws_fraction_of_cube_mc": 0.249675,
+  "implied_copies": 4.0052067687994395,
+  "periodicity_residual": 7.993605777301127e-15,
+  "pass": true,
+  "statement": "cube/BZ = 4 EXACTLY by primitive-cell volume (F278 confirmed for the gauge link lattice); the quadratic form is exactly periodic under the reciprocal lattice."
+ },
+ "propagator_split": {
+  "ratio_at_generic_k": [
+   0.20831148402197855,
+   0.1696369166991641,
+   0.7028748014745146,
+   0.16617711582823771,
+   0.13842557100204864,
+   0.16330635951124686
+  ],
+  "worst_generic_deviation": 0.8615744289979513,
+  "small_k": [
+   {
+    "k": 0.010364842983597437,
+    "ratio": 0.9999862963788805
+   },
+   {
+    "k": 0.0008762202908513666,
+    "ratio": 0.999999887890705
+   }
+  ],
+  "agree_in_continuum": true,
+  "pass": true,
+  "statement": "S/4 -> 3 Omega_even^2 as k -> 0 but differs by O(1) at generic k: the rule's gauge ACTION and its PROPAGATOR are not yet the same object at finite a. Declared gap."
+ },
+ "checks": {
+  "G1_two_point": true,
+  "G2_isotropy": true,
+  "G3_three_point": true,
+  "G4_antisymmetry": true,
+  "G5_ward": true,
+  "G6_mode_fork": true,
+  "G7_brillouin_zone": true,
+  "propagator_split": true
+ },
+ "legs": {
+  "G1_two_point": true,
+  "G2_isotropy": true,
+  "G3_three_point": true,
+  "G4_antisymmetry": true,
+  "G5_ward": true,
+  "G6_mode_fork": true,
+  "G7_brillouin_zone": true,
+  "propagator_split": true
+ },
+ "pass": true
+}

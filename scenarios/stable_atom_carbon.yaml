@@ -7,6 +7,7 @@
 #     orthogonal (overlap ~1e-15).
 # Carbon exercises Hund filling and the four-orbital live SCF — certified stable
 # over a long run with the uniform deep coarse config.
+version: 2
 name: stable_atom_carbon
 title: "Fully Stable Block-Spin Atom — Carbon (F195)"
 description: "Live element atom C(6,6): A=12 coarse-grained nucleus → +6 point, 1s²2s²2p² with Hund filling, live Hartree + Gram-Schmidt Pauli over four orbitals; net charge 0, norms machine-precision, all radii bounded."

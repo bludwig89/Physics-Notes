@@ -44,7 +44,7 @@ Tests (all targets machine ε)
                        dΩ/d|k||_{k→0, m>0} = 0 (massive at rest)
 
 Run:
-    cd ca-simulation && python ../tests/findings/test_F46_pythagorean_mass.py
+    python tests/findings/test_F46_pythagorean_mass.py
 
 Writes test-results/F46_pythagorean_mass.json.
 """
@@ -54,15 +54,16 @@ from __future__ import annotations
 import os, sys, json, time
 import numpy as np
 
-# Make ca-simulation importable.
+# Make the casim package importable.
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.abspath(os.path.join(_HERE, '..', '..'))
-_SIM  = os.path.join(_ROOT, 'ca-simulation')
-sys.path.insert(0, _SIM)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_dirac as cd
-import ca_bcc   as cb
-import ca_core_exact as ce
+from casim.engine.particles import dirac as cd
+from casim.engine.lattice import bcc as cb
+from casim.engine.lattice import core_exact as ce
 
 
 # ──────────────────────────────────────────────────────────────────────────────

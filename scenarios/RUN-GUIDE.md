@@ -45,6 +45,50 @@ shipped YAMLs are effectively the dev/smoke tier.
 | bcc_fields_companion | 16 / 60 | 0.7 s | weyl + gluon + gravity (added 2026-06-06) |
 | gravity_dynamic_selfsourced | 24 / 60 | 2.5 s | two-way ψ↔K loop: massive packet sources its own dynamical dielectric (F106) and free-falls in it (F62 mix); F64 mainlined (added 2026-06-06) |
 
+## gauge_mc after P2.5 (2026-07-31)
+
+`gauge_mc` was the worst scenario in the suite and is not FFT-bound, so P2.1–P2.4
+did nothing for it. P2.5 profiled it and changed the two things the profile named.
+**Controlled A/B in one process, D=4, β=5.7, heat-bath only:**
+
+| L | before | after | speedup | + reunit cadence 10 | speedup |
+|---|---|---|---|---|---|
+| 4 | 22.3 ms/sweep | 14.7 | **1.52×** | 13.8 | **1.62×** |
+| 6 | 83.9 ms/sweep | 40.8 | **2.06×** | 37.8 | **2.22×** |
+| 8 | 237.7 ms/sweep | 99.8 | **2.38×** | 91.6 | **2.59×** |
+
+What changed, in profile order: `np.einsum('...ij,...jk->...ik')` → BLAS `zgemm`
+via `casim.numerics.linalg.batched_matmul` (was **54%** of a sweep), and the
+per-site SVD reunitarisation → Gram–Schmidt (`su3_reunitarise`, 13.4 ms → 2.4 ms,
+**5.5×** on its own). `reunit_every` is now a **cadence** — `thermalise(...,
+reunit_every=10)` reunitarises every tenth sweep, and unitarity still holds at
+~3e-15 because the SU(2)-subgroup update is exactly unitary and only round-off
+accumulates.
+
+**The production ceiling moves L=12 → ~15, not to 16–20 as the roadmap hoped.**
+Cost is $L^4$, so 2.4× buys $2.4^{1/4} = 1.24×$ in $L$. Reaching L=16 needs 3.2×
+and L=20 needs 7.7×, and the remaining profile is 44% BLAS matmul (already
+optimal in numpy), ~18% heat-bath RNG sampling, and a staple recompute that is
+*physically required*. So the rest of that gap is a compiled or GPU path — P2.4's
+problem, not P2.5's.
+
+**Two roadmap items were measured and declined**, both recorded in the code:
+
+- *"Reuse `staple_field` across parities"* — **wrong**. After the even half-sweep
+  the odd-parity staples change by order 5.8 (the even ones by exactly 0), because
+  a staple contains $U_\mu(x\pm\nu)$ at the opposite parity. Caching would use a
+  stale staple for half of every sweep and break detailed balance.
+- *"Eliminate the ~18 full-array `np.roll` copies via halo buffers"* — **not worth
+  it**. `np.roll` measures at **7%** of a sweep; removing it entirely would give
+  1.07× for a substantial refactor.
+
+One test changed with this: **FA4** averaged a single Monte-Carlo chain, and any
+bit-level perturbation re-rolls a chaotic trajectory. At HEAD's own code, 1 seed
+in 8 already failed its 2.5% tolerance. It now averages 6 independent chains and
+asserts statistical adequacy; the tolerance is unchanged. The physics is
+untouched — ensemble mean 0.559021 ± 0.001411 vs 0.558816 ± 0.001271 at HEAD, a
+**0.15σ** difference.
+
 ## gauge_mc scaling (the only one that hits the cap)
 
 Measured / extrapolated on the `L⁴` curve at 40 sweeps:
@@ -89,6 +133,53 @@ casim run scenarios/refraction_2d.yaml --L 512 --ticks 400 \
 
 Adjust L/ticks to taste — the curves above let you predict wall time before
 committing a long run.
+
+## Long runs — sizing, resuming, checkpoints (roadmap P2.6)
+
+**Size it before you start it.** `--list` now prints a wall-clock estimate next
+to the memory projection:
+
+```bash
+casim test --list --scale 1000x        # L, ticks, cost factor, ~GB, ~wall
+```
+
+The estimate is a **measured per-scenario anchor** (the table above) times the
+computed cost ratio, with an `N log N` correction for the FFT-bound scenarios.
+It is not a benchmark: the anchors are this sandbox, cache behaviour past L3 is
+not modelled, and `gauge_mc` is not FFT-bound so its log correction is off. Treat
+it as a lower bound with the right order of magnitude — enough to decide, not
+enough to quote. A scenario with no anchor prints `?` rather than a guess.
+
+**Resume instead of restarting.** A suite run that dies part-way used to restart
+from item 1, and its timestamped `out_dir` meant it could not even find its own
+checkpoints:
+
+```bash
+casim test --scale 1000x                    # dies at item 9 of 14
+casim test --scale 1000x --resume           # picks up at item 10
+casim test --scale 1000x --resume --redo=failures   # also re-runs non-PASS items
+casim test --scale 1000x --resume --redo scenarios/gluon_bcc   # one item
+```
+
+`--resume` reuses the newest `test-results/suite/<scale>_*` directory (or the
+`--out` you name) and treats the `suite_report.json` it already rewrites after
+every item as the journal, so nothing extra is persisted and a resumed run keeps
+the verdicts already earned.
+
+**Checkpoints are now safe to kill.** Writes are atomic (temp file plus
+`os.replace`), so a kill mid-write leaves the *previous* good snapshot intact
+rather than a truncated file at the name the resume path looks for. They are
+compressed by default and rotated — the newest three auto-checkpoints per run are
+kept, ordered by tick rather than mtime, and an explicitly-named
+`checkpoint(path)` is never rotated away. Tune with `Simulation(...,
+checkpoint_compress=..., checkpoint_keep=...)`; `checkpoint_keep=0` disables
+rotation.
+
+> One bug worth knowing about if you have results from before 2026-07-31:
+> `Simulation.resume()` did not restore the block-spin schedule, so **a resumed
+> run silently skipped every remaining scheduled $R_b$ event** and still reported
+> success. Any resumed real-space/block-spin result from before that date should
+> be re-run.
 
 ## Handing results back to Claude
 

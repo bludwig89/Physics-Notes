@@ -22,13 +22,15 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_core as ca
-import ca_dirac as dirac
-import ca_curved as cv
-import ca_weak as wk
-import spinor_color as sc
+from casim.engine.lattice import core as ca
+from casim.engine.particles import dirac as dirac
+from casim.engine.lattice import curved as cv
+from casim.engine.gauge import weak as wk
+from casim.engine.core import _viz_spinor_color as sc
 
 FIGURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'test-results', 'figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)
@@ -339,7 +341,7 @@ def test_C1():
 def test_D1():
     section('Phase D1 — Dirac CA (exact-QCA, Paper 1 Eq. 23 / Finding 9)')
 
-    import ca_core_exact as ce
+    from casim.engine.lattice import core_exact as ce
 
     # Weyl regression at m=0.  The exact-QCA Dirac at m=0 reduces to
     # diag(W_k, W'_k) — two decoupled exact-QCA Weyl propagators (Paper 1
@@ -483,7 +485,7 @@ def test_E3_continuity():
     is between 2.5 and 5.5, confirming residual = O(dt²).
     """
     section('Phase E3 — Discrete current conservation (∂_t ρ + ∇·J = 0)')
-    import ca_dirac as dirac
+    from casim.engine.particles import dirac as dirac
 
     L = 64; shape = (L, L)
     # Kinetic coefficient n = √(1−m²) for m=0 → n = 1.  Used to be `c`
@@ -507,7 +509,7 @@ def test_E3_continuity():
     # ---- (b) SU(2): isospin doublet (η_ν, η_e) total charge ----
     # The SU(2) stepper rotates between ν and e isospin components but
     # preserves the total |η_ν|² + |η_e|² at every cell.  Verify directly.
-    import ca_weak as wk
+    from casim.engine.gauge import weak as wk
     L2 = 32; shape2 = (L2, L2)
     # Build a flat doublet  (η_ν=G, η_e=0) and apply one SU(2) step at
     # nonzero W^3.  The total local density should be invariant.

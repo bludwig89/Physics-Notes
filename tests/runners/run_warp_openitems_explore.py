@@ -25,12 +25,8 @@ import os, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-for cand in [os.path.join(HERE, "ca-simulation"),
-             os.path.join(HERE, "..", "..", "ca-simulation"),
-             "/sessions/relaxed-clever-johnson/mnt/Physics Notes/ca-simulation"]:
-    if os.path.isdir(cand):
-        sys.path.insert(0, os.path.abspath(cand)); break
-import ca_interior_metric as cim   # noqa
+sys.path.insert(0, os.path.abspath(os.path.join(HERE, "..", "..", "src")))
+from casim.engine.interactions import interior_metric as cim   # noqa
 
 C_LAT = 1.0/np.sqrt(3.0)
 np.set_printoptions(precision=4, suppress=True)

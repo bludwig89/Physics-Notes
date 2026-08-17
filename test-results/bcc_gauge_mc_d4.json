@@ -1,0 +1,146 @@
+{
+  "checks": [
+    {
+      "name": "C1a",
+      "ok": true,
+      "value": 0.0,
+      "note": "every one of the 10 loops is the identity on the ordered start"
+    },
+    {
+      "name": "C1b",
+      "ok": true,
+      "value": 0.0,
+      "note": "Wilson action vanishes identically at zero field strength"
+    },
+    {
+      "name": "C1c",
+      "ok": true,
+      "value": 10,
+      "note": "6 minimal rhombi + 4 mixed rectangles; NOT the hypercubic 6"
+    },
+    {
+      "name": "H1a",
+      "ok": true,
+      "value": 7.999814476500012e-16,
+      "note": "all 5 stored fields are in SU(N) on the disordered start"
+    },
+    {
+      "name": "H1b",
+      "ok": true,
+      "value": 1.5544536260786935e-15,
+      "note": "every loop is a unitary holonomy, so the reversal identity closes"
+    },
+    {
+      "name": "G1a",
+      "ok": true,
+      "value": 3.122502256758253e-17,
+      "note": "all 10 plaquette traces are invariant under a random SU(N) gauge rotation -- the action is a function of the connection, not the gauge"
+    },
+    {
+      "name": "G1b",
+      "ok": true,
+      "value": 2.42861286636753e-17,
+      "note": "every R x T Wilson loop is gauge invariant, so it measures a holonomy and not a gauge artifact"
+    },
+    {
+      "name": "S1a",
+      "ok": true,
+      "value": 2.6645352591003757e-14,
+      "note": "sum_links Re tr(U A) == 4 sum_loops beta Re tr P, isotropic couplings"
+    },
+    {
+      "name": "S1b",
+      "ok": true,
+      "value": 8.616385965854964e-16,
+      "note": "same identity with beta_t != beta_s -- the anisotropy is carried correctly through the 24-slot enumeration"
+    },
+    {
+      "name": "S1c",
+      "ok": true,
+      "value": {
+        "s0": [
+          6,
+          2
+        ],
+        "s1": [
+          6,
+          2
+        ],
+        "s2": [
+          6,
+          2
+        ],
+        "s3": [
+          6,
+          2
+        ],
+        "t0": [
+          0,
+          8
+        ]
+      },
+      "note": "exact bond counting: a spatial axis sits in 6 rhombi (6 orientations x 4 slots / 4 axes) and 2 mixed rectangles (its own, twice); the time field sits in 8 (4 rectangles x 2 temporal slots) and in no rhombus. 40 slots over 5 fields, and the split -- not just the total -- is what catches a mis-enumeration"
+    },
+    {
+      "name": "B1a",
+      "ok": true,
+      "value": 64,
+      "note": "genuine BCC sites are 1/4 of the cubic array (index 4 in Z^3)"
+    },
+    {
+      "name": "B1b",
+      "ok": true,
+      "value": true,
+      "note": "every <111> hop maps the even class into the odd class -- the BCC nearest-neighbour graph is bipartite, which is what makes the checkerboard heat-bath valid on a rhombic lattice"
+    },
+    {
+      "name": "O1a",
+      "ok": true,
+      "value": 0.0,
+      "note": "microcanonical reflection R2 = (V2^dag)^2 leaves the action invariant -- fails if a staple is reused across links that share a plaquette"
+    },
+    {
+      "name": "W1a",
+      "ok": true,
+      "value": 6.938893903907228e-18,
+      "note": "W(1,1) IS the mixed rectangle of the action -- the loop builder and the action are the same object, not two implementations"
+    },
+    {
+      "name": "W1b",
+      "ok": true,
+      "value": 0.0,
+      "note": "all R x T loops are 1 on the ordered start"
+    },
+    {
+      "name": "W1c",
+      "ok": true,
+      "value": 0.029446697399124727,
+      "note": "|Re tr W / N| <= 1 for every measured loop"
+    },
+    {
+      "name": "P1a",
+      "ok": true,
+      "value": true,
+      "note": "straight <111> walks preserve coordinate parity, so an R x T rectangle closes on the BCC site set for every R"
+    },
+    {
+      "name": "T1a",
+      "ok": true,
+      "value": 0.0,
+      "note": "the staple construction is translation covariant -- shifting the configuration shifts the staple by the same vector, for a cubic translation, a time step and a <111> hop (which swaps the two parity classes). Catches any indexing error that survives the trace"
+    }
+  ],
+  "n_pass": 18,
+  "n_total": 18,
+  "verdict": "PASS",
+  "params": {
+    "L": 4,
+    "Lt": 4,
+    "N": 2,
+    "beta_s": 1.7,
+    "beta_t": 1.7,
+    "include_mixed": true,
+    "skip_checkerboard": false,
+    "bad_reverse_shift": false
+  }
+}

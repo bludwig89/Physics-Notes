@@ -232,3 +232,5 @@ byte-identical to what was there before.
 | 2026-07-30 - 16:09 | `ca-simulation/forks/hypercharge_fork.py` | `src/casim/engine/forks/electroweak/hypercharge_fork.py` | moved unchanged |
 | 2026-07-30 - 16:09 | `ca-simulation/forks/lgt_fork_A_mc.py` | `src/casim/engine/forks/gauge/lgt_fork_A_mc.py` | moved unchanged |
 | 2026-07-30 - 16:09 | `ca-simulation/forks/smearing_fork_harness.py` | `src/casim/engine/forks/lattice/smearing_fork_harness.py` | moved unchanged |
+| 2026-07-31 - 09:18 | `ca-simulation/benchmark_jax.py` | `src/casim/numerics/benchmark.py` | moved unchanged |
+| 2026-07-31 - 09:18 | `ca-simulation/ca_lazy.py` | `src/casim/numerics/lazy.py` | moved unchanged |

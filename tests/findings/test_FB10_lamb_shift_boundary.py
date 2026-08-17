@@ -24,7 +24,7 @@ Provenance: F125 §I (test ledger item I).
 
 Reuse note: the hand-rolled radial-Dirac integrator (RK4, inward+outward
 Wronskian matching of the large/small components G,F, in real arithmetic — NO
-scipy for the Dirac pieces, per CLAUDE.md) lives in ca-simulation/ca_atom.py.
+scipy for the Dirac pieces, per CLAUDE.md) lives in src/casim/engine/particles/atom.py.
 That is the same Dirac route exercised by the P5 test (FB05's fine-structure
 solve). We import and reuse it directly rather than re-implementing.
 
@@ -41,11 +41,11 @@ import math
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-CASIM_DIR = os.path.join(ROOT, "ca-simulation")
-if CASIM_DIR not in sys.path:
-    sys.path.insert(0, CASIM_DIR)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_atom as atom  # hand-rolled radial-Dirac integrator + Sommerfeld closed form
+from casim.engine.particles import atom as atom  # hand-rolled radial-Dirac integrator + Sommerfeld closed form
 
 # Measured Lamb shift (the thing we are explicitly NOT predicting at Dirac order)
 LAMB_SHIFT_MHZ_MEASURED = 1057.8          # 2s_{1/2} - 2p_{1/2}, QED
@@ -57,7 +57,7 @@ results = {
     "name": "Lamb shift boundary: 2s_1/2 == 2p_1/2 at Dirac order (Lamb shift is QED-beyond-sector)",
     "tier": "B",
     "model_element": "F125 §I — pure Dirac-Coulomb 2s_1/2 / 2p_1/2 degeneracy; explicit QED/QFT-4 boundary",
-    "provenance": "F125 §I (test ledger item I); reuses ca-simulation/ca_atom.py radial-Dirac integrator (same Dirac route as the P5/FB05 fine-structure solve)",
+    "provenance": "F125 §I (test ledger item I); reuses src/casim/engine/particles/atom.py radial-Dirac integrator (same Dirac route as the P5/FB05 fine-structure solve)",
 }
 
 print("=" * 72)
@@ -193,7 +193,7 @@ results.update({
         "integrator": ("hand-rolled radial-Dirac RK4, inward+outward Wronskian "
                        "matching of large/small components G,F, real arithmetic "
                        "(no scipy for Dirac pieces); reused from "
-                       "ca-simulation/ca_atom.py — same Dirac route as the "
+                       "src/casim/engine/particles/atom.py — same Dirac route as the "
                        "P5/FB05 fine-structure solve"),
     },
     "boundary_statement": boundary_statement,

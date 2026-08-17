@@ -2,7 +2,7 @@
 test_FG7d_baryon_singlet.py — colour-singlet three-quark (proton) construction
 ==============================================================================
 
-Verifies `ca-simulation/ca_baryon.py`: the ε_{abc} three-quark operator is a
+Verifies `src/casim/engine/particles/baryon.py`: the ε_{abc} three-quark operator is a
 colour singlet with the proton's quantum numbers and Fermi statistics, and is
 energetically bound by the exact string tension.
 
@@ -15,7 +15,7 @@ energetically bound by the exact string tension.
   BS7  full wavefunction antisymmetric under quark exchange (Pauli/Fermi)
   BS8  energetic binding: V(R)=σR → ∞ (a free quark costs infinite energy)
 
-Module under test:  ca-simulation/ca_baryon.py
+Module under test:  src/casim/engine/particles/baryon.py
 Created:            2026-06-01
 """
 import sys
@@ -24,10 +24,12 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_baryon as cb         # noqa: E402
-import ca_strong as cs         # noqa: E402
+from casim.engine.particles import baryon as cb         # noqa: E402
+from casim.engine.gauge import strong as cs         # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

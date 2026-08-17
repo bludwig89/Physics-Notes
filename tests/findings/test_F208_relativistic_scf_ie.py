@@ -13,11 +13,12 @@ import os
 import sys
 import json
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__)))), "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np                                       # noqa: E402
-import ca_manybody as mb                                  # noqa: E402
+from casim.engine.core import manybody as mb                                  # noqa: E402
 
 _RESULTS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "..", "..", "test-results",

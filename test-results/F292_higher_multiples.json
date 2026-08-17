@@ -1,0 +1,106 @@
+{
+  "A1_bivector_overcount": {
+    "multiples_passing": [
+      3
+    ],
+    "overcount_by_d": {
+      "3": "1",
+      "6": "5/2",
+      "9": "4",
+      "12": "11/2",
+      "15": "7"
+    }
+  },
+  "A2_integer_roots": {
+    "excluded": [
+      6,
+      9,
+      12
+    ],
+    "roots": [
+      0,
+      3
+    ]
+  },
+  "B1_clifford_algebra_valid": {
+    "rep_dim_by_D": {
+      "2": 2,
+      "3": 2,
+      "4": 4,
+      "5": 4,
+      "6": 8,
+      "7": 8,
+      "8": 16
+    }
+  },
+  "B2_chirality_parity": {
+    "chirality_by_D": {
+      "2": true,
+      "3": false,
+      "4": true,
+      "5": false,
+      "6": true,
+      "7": false,
+      "8": true
+    },
+    "d6_chiral": false,
+    "d9_chiral": true,
+    "d_odd_required": true
+  },
+  "B3_d_two_excluded_twice": {
+    "S2_rejects_d2_real_mass": true,
+    "S4_rejects_d2_no_chirality": true,
+    "d2_excluded_by_both": true,
+    "surviving_dimension": 3
+  },
+  "C1_reducible_collapse": {
+    "by_dimension": {
+      "3": {
+        "coker": 0,
+        "ker": 0,
+        "rank": 3
+      },
+      "6": {
+        "coker": 0,
+        "ker": 3,
+        "rank": 3
+      },
+      "9": {
+        "coker": 0,
+        "ker": 6,
+        "rank": 3
+      },
+      "12": {
+        "coker": 0,
+        "ker": 9,
+        "rank": 3
+      }
+    },
+    "founding_decision_1_untouched": true
+  },
+  "C2_bigger_cell_does_not_rescue": {
+    "minimal_spinor_dim": {
+      "3": 2,
+      "6": 8,
+      "9": 16,
+      "12": 64
+    },
+    "s_independent": [
+      "S3'",
+      "S4"
+    ]
+  },
+  "D1_verdict": {
+    "d6_fails": [
+      "S3'",
+      "S4"
+    ],
+    "d9_fails": [
+      "S3'",
+      "S1"
+    ],
+    "d9_frozen_directions": 6
+  },
+  "n_checks": 8,
+  "verdict": "d = 3 is the only multiple of three. d = 6 fails twice (even spacetime dimension, no chirality; and (d-1)/2 = 5/2). d = 9 survives chirality but fails the bivector condition. Read reducibly as n copies of R^3, d = 3n has rank 3 and freezes 3(n-1) directions -- degeneracy, not compactification -- while leaving coker = 0 and founding decision 1 intact."
+}

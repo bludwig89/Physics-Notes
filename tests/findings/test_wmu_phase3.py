@@ -12,12 +12,14 @@ Tests W3.1–W3.5 from roadmap-wmu-implementation.md.
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 import json, time
 
-from ca_wmu import (plaquette_field_strength, bianchi_residual,
+from casim.engine.gauge.weak_wmu import (plaquette_field_strength, bianchi_residual,
                     w_self_interaction_step, link_unitarity_residual,
                     make_w_link_field, gauge_transform_links)
 

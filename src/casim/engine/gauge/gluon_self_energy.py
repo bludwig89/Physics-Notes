@@ -169,10 +169,14 @@ def _bubble(n: int, p: float) -> tuple:
     The external momentum p is along the x (spatial) axis. Returns (lat, cont)."""
     ax = (np.arange(n) + 0.5) / n * 2 * math.pi - math.pi
     KX, KY, KZ, KT = np.meshgrid(ax, ax, ax, ax, indexing="ij")
-    # lattice: shift wrapped back into the BZ (periodic kernel)
-    kxpw = ((KX + p + math.pi) % (2 * math.pi)) - math.pi
+    # lattice: the shift is NOT wrapped. F277/F272 — K_true_4d's period lattice
+    # is sqrt3 * fcc (F267), not 2*pi per axis, so the old
+    # ((KX+p+pi) % 2pi) - pi refold evaluated the propagator at a genuinely
+    # inequivalent momentum. K_true_4d is a closed form valid at any k, so the
+    # unwrapped shift already returns the periodic-correct value; folding is an
+    # array-indexing device and there is no array here.
     kl = K_true_4d(KX, KY, KZ, KT)
-    klp = K_true_4d(kxpw, KY, KZ, KT)
+    klp = K_true_4d(KX + p, KY, KZ, KT)
     # continuum: |k|^2 with the SAME box cutoff (unwrapped shift)
     k2 = KX ** 2 + KY ** 2 + KZ ** 2 + KT ** 2
     k2p = (KX + p) ** 2 + KY ** 2 + KZ ** 2 + KT ** 2

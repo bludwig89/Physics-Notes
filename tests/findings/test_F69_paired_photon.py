@@ -32,14 +32,16 @@ Imports the real model: ca_photon_pair (new), ca_wmu.w_propagation_step_chiral
 """
 
 import sys, os, json, time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
-import ca_fft as _fft
-from ca_bcc import bcc_dispersion
-from ca_wmu import w_propagation_step_chiral, _f26_rotation_step
-from ca_lattice import make_kgrid_3d
-import ca_photon_pair as pp
+from casim.numerics import fft as _fft
+from casim.engine.lattice.bcc import bcc_dispersion
+from casim.engine.gauge.weak_wmu import w_propagation_step_chiral, _f26_rotation_step
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.engine.gauge import photon as pp
 
 ROOT3 = np.sqrt(3.0)
 

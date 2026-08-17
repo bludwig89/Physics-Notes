@@ -24,13 +24,15 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
-import ca_core as ca
-import ca_dirac as dirac
-import ca_curved as cv
-import ca_weak as wk
-import spinor_color as sc
-import ca_core_exact as ce
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.lattice import core as ca
+from casim.engine.particles import dirac as dirac
+from casim.engine.lattice import curved as cv
+from casim.engine.gauge import weak as wk
+from casim.engine.core import _viz_spinor_color as sc
+from casim.engine.lattice import core_exact as ce
 
 FIGURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'test-results', 'figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)

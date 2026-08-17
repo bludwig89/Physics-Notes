@@ -49,11 +49,12 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bgfield_loop as bg
-import ca_lpt_vertex as lpt
+from casim.engine.gauge import bgfield_loop as bg
+from casim.engine.gauge import lpt_vertex as lpt
 
 # Branch (BCC chirality) space is 2D: the (+, -) Weyl branches.
 GAMMA5 = np.diag([1.0, -1.0])          # the model's branch chirality operator

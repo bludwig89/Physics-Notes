@@ -269,7 +269,7 @@ RESULTS["VERDICT"] = {
 }
 
 # Roadmap C5. The WRITE is guarded; the derivation above is not. As a
-# `ca-simulation/` script this only ever ran when invoked, so an unguarded
+# legacy top-level script this only ever ran when invoked, so an unguarded
 # write was harmless. Inside the package it is not: anything that imports the
 # module recursively — `pkgutil.walk_packages`, pytest collecting `src/`,
 # coverage, `casim index` at C8 — would silently overwrite a COMMITTED baseline

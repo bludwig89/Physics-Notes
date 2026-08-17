@@ -1,0 +1,270 @@
+{
+  "C0_no_dual_needed": {
+    "answer": "no, and it does not need one",
+    "consequence_for_F296_L5": "HC's r formula counts the DUAL's fields via the dictionary; with no dictionary there is no such formula, so the 9.5-28.5x exclusion does not transfer \u2014 see C6, which computes r from the identity reading instead",
+    "leg": "C0",
+    "question": "does the model claim a 3D dual at all?",
+    "reason": "holographic cosmology reaches for a 3D QFT by DUALITY (a bulk/boundary dictionary); this model's t=0 state on a rigid 3D lattice (F284) IS a measure on 3D field configurations, i.e. a 3D Euclidean statistical field theory, and F285's Poisson relation makes the primordial spectrum literally its energy-energy correlator",
+    "what_is_not_proved": "that the t=0 measure is critical. That is inferred from the observed power law over four decades, not derived",
+    "what_is_still_free": "the initial condition itself; F282/F284/F285 are untouched. What narrows is its SHAPE: a free function P(k) becomes a choice of universality class, one discrete label fixing n_s, n_t, r and dn_s/dlnk with no further parameters"
+  },
+  "C1_dimension_relation": {
+    "Delta_eps": "d - 1/nu",
+    "exactness": "exact",
+    "gamma_is_the_anomalous_part_of_the_eigenvalue": true,
+    "gamma_of_y": "y - 1",
+    "leg": "C1",
+    "n_s_of_nu": "3 - 2/nu",
+    "n_s_of_y": "3 - 2*y",
+    "nu_1_spherical_gives_n_s": 1,
+    "nu_half_meanfield_gives_n_s": -1,
+    "poisson_bridge_consistent_with_F285": true,
+    "protected_stress_tensor": true
+  },
+  "C2_critical_gaussian": {
+    "F285_row2_said": 0,
+    "P_rho": "pi**3/k",
+    "bracket_is_pi_squared_over_two": true,
+    "bracket_lower_half": "pi**2/4",
+    "bracket_total": "pi**2/2",
+    "coefficient": 31.00627668029982,
+    "correction_direction": "further from the observed 0.965, so F285's conclusion is strengthened, not weakened",
+    "corrects_F285": true,
+    "exactness": "exact",
+    "leg": "C2",
+    "log_slope": "-1",
+    "n_s": -1
+  },
+  "C2b_gapped": {
+    "F285_row2_correct_for_this_subcase": true,
+    "analytic_at_k0": true,
+    "exactness": "exact",
+    "leg": "C2b",
+    "n_s": 0
+  },
+  "C3_rg_spectrum": {
+    "all_exponents_integer": true,
+    "anomalous_dimensions_present": false,
+    "exactness": "exact",
+    "leg": "C3",
+    "n_entries": 7,
+    "n_exact": 5,
+    "spectrum": [
+      {
+        "exactness": "exact",
+        "exponent_of_b": 0,
+        "operator": "c_lat (continuum light speed)"
+      },
+      {
+        "exactness": "exact",
+        "exponent_of_b": 1,
+        "operator": "sigma (confinement, the one relevant direction)"
+      },
+      {
+        "exactness": "exact",
+        "exponent_of_b": -2,
+        "operator": "LIV operator n=2"
+      },
+      {
+        "exactness": "exact",
+        "exponent_of_b": -3,
+        "operator": "LIV operator n=3"
+      },
+      {
+        "exactness": "exact",
+        "exponent_of_b": -4,
+        "operator": "LIV operator n=4"
+      },
+      {
+        "exactness": "machine",
+        "exponent_of_b": -2,
+        "operator": "gravity discretisation error"
+      },
+      {
+        "exactness": "quantitative",
+        "exponent_of_b": -2,
+        "operator": "deconfining lambda"
+      }
+    ],
+    "why": "lambda_n = b^-n is an algebraic identity of the LINEAR block average (F130: 'a round-off-floor identity, independent of fit'), and a Gaussian calculation cannot generate an anomalous dimension"
+  },
+  "C4_model_rg_predicts_hz": {
+    "exactness": "exact",
+    "gamma_predicted": 0.0,
+    "is_harrison_zeldovich": true,
+    "lambda_sigma_exponent_measured_by_F130": 1,
+    "leg": "C4",
+    "n_s_predicted": 1,
+    "reproduces_F285_headline_from_the_RG_side": true,
+    "vs_data": {
+      "cmb_bao_desi_dr2": {
+        "exclusion_sigma": 9.379310344827587,
+        "n_s_obs": 0.9728,
+        "sigma": 0.0029
+      },
+      "cmb_only_2025": {
+        "exclusion_sigma": 9.937500000000016,
+        "n_s_obs": 0.9682,
+        "sigma": 0.0032
+      },
+      "planck2018": {
+        "exclusion_sigma": 8.357142857142863,
+        "n_s_obs": 0.9649,
+        "sigma": 0.0042
+      }
+    },
+    "worst_exclusion_sigma": 8.357142857142863
+  },
+  "C5_required_eigenvalue": {
+    "exactness": "computed",
+    "leg": "C5",
+    "per_dataset": {
+      "cmb_bao_desi_dr2": {
+        "gamma": 0.013600000000000001,
+        "gamma_sigma": 0.00145,
+        "n_s": 0.9728,
+        "nu_required": 0.9865824782951854,
+        "percent_anomalous": 1.36,
+        "y_required": 1.0136
+      },
+      "cmb_only_2025": {
+        "gamma": 0.015900000000000025,
+        "gamma_sigma": 0.0016,
+        "n_s": 0.9682,
+        "nu_required": 0.984348853233586,
+        "percent_anomalous": 1.5900000000000025,
+        "y_required": 1.0159
+      },
+      "planck2018": {
+        "gamma": 0.01755000000000001,
+        "gamma_sigma": 0.0021,
+        "n_s": 0.9649,
+        "nu_required": 0.9827526902854897,
+        "percent_anomalous": 1.755000000000001,
+        "y_required": 1.01755
+      }
+    },
+    "statement": "the model needs exactly one non-integer block-spin eigenvalue, lambda = b^(1+gamma), with gamma of order 1.4-1.8 percent"
+  },
+  "C6_tensor": {
+    "BK18_bound": 0.034,
+    "Delta_T": "d",
+    "F296_excluded_by_factor": {
+      "conformal": 8.978675645342314,
+      "minimal": 26.936026936026938
+    },
+    "F296_naive_dual_r": {
+      "conformal": 0.32323232323232326,
+      "minimal": 0.9696969696969697
+    },
+    "decades_below_BZ": 58.25962028864585,
+    "exactness": "exact (n_t); computed (the suppression)",
+    "identity_reading_repairs_F296_L5": true,
+    "leg": "C6",
+    "n_t": 2.0,
+    "n_t_is_two_exactly": true,
+    "per_dataset": {
+      "cmb_bao_desi_dr2": {
+        "clears_BK18": true,
+        "log10_r_at_pivot": -118.10390224914288
+      },
+      "cmb_only_2025": {
+        "clears_BK18": true,
+        "log10_r_at_pivot": -118.37189650247063
+      },
+      "planck2018": {
+        "clears_BK18": true,
+        "log10_r_at_pivot": -118.56415324942316
+      }
+    },
+    "pivot_over_BZ": 5.500215572769428e-59,
+    "stress_tensor_protected": true
+  },
+  "C7_running": {
+    "exactness": "exact",
+    "leg": "C7",
+    "n_s_minus_1": "-2*gamma",
+    "reproduces_F295_A1": true,
+    "running": "0",
+    "running_is_identically_zero": true
+  },
+  "C8_large_n_target": {
+    "N_required": {
+      "cmb_bao_desi_dr2": 80.54835430578282,
+      "cmb_only_2025": 69.05304181953953,
+      "planck2018": 62.66248534260892
+    },
+    "candidates": {
+      "192 real Grassmann components": {
+        "N": 192,
+        "n_s_predicted": 0.98867836171799,
+        "sigma": {
+          "cmb_bao_desi_dr2": 5.475297144134466,
+          "cmb_only_2025": 6.399488036871875,
+          "planck2018": 5.661514694759517
+        }
+      },
+      "48 Weyl fields": {
+        "N": 48,
+        "n_s_predicted": 0.9539310834582655,
+        "sigma": {
+          "cmb_bao_desi_dr2": -6.506522945425692,
+          "cmb_only_2025": -4.459036419292017,
+          "planck2018": -2.611646795651068
+        }
+      },
+      "96 + 12 gauge + 2 E_g": {
+        "N": 110,
+        "n_s_predicted": 0.9801548507837259,
+        "sigma": {
+          "cmb_bao_desi_dr2": 2.5361554426640986,
+          "cmb_only_2025": 3.7358908699143543,
+          "planck2018": 3.632107329458549
+        }
+      },
+      "96 fermionic modes per site (F300 G10-13)": {
+        "N": 96,
+        "n_s_predicted": 0.977227814210782,
+        "sigma": {
+          "cmb_bao_desi_dr2": 1.5268324864765441,
+          "cmb_only_2025": 2.821191940869383,
+          "planck2018": 2.935193859709999
+        }
+      }
+    },
+    "closest_candidate": "96 fermionic modes per site (F300 G10-13)",
+    "closest_sigma": 1.5268324864765441,
+    "drift_discriminator": "as the data improved, F295's 2/9 moved AWAY (-0.06 -> -2.82 sigma) while N=96 moved TOWARD (+2.94 -> +1.53 sigma); opposite drifts, and the next dataset separates them for free",
+    "exactness": "computed",
+    "is_a_derivation": false,
+    "leg": "C8",
+    "look_elsewhere_discipline": "F286 T5 / F253 / F256 \u2014 a shape argument does not improve a value's statistics, and no candidate count lands in the band",
+    "sign_of_tilt_is_forced": "finite N gives nu < 1 hence n_s < 1; the RED tilt is free, the magnitude is not"
+  },
+  "all_pass": true,
+  "checks": {
+    "C0": true,
+    "C1-identity": true,
+    "C1-limits": true,
+    "C1-poisson": true,
+    "C2": true,
+    "C2b": true,
+    "C3": true,
+    "C4-excluded": true,
+    "C4-excluded-current": true,
+    "C4-hz": true,
+    "C5": true,
+    "C6-nt": true,
+    "C6-r": true,
+    "C7": true,
+    "C8-no-hit": true,
+    "C8-not-a-derivation": true
+  },
+  "finding": "F310",
+  "ledger_row": "G2",
+  "n_checks": 16,
+  "rubric_rows": [
+    "K3",
+    "K12"
+  ]
+}

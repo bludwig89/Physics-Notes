@@ -14,6 +14,7 @@
 # so the mechanism and the loop consistency are exhibited on one lattice; the
 # physical scale separation is restored at U4 via the block-spin multigrid.
 # Structure is the deliverable; absolute fm/eV remain P6/scale-gated (F123).
+version: 2
 name: unified_hydrogen_free
 title: "Unified Hydrogen (real-space U0)"
 description: "Full chain on one BCC lattice: uud quarks↔gluon (confinement loop) + (p,e) charge↔photon Coulomb α (EM loop) + F64 gravity background, with the unification readout."

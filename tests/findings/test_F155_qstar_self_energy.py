@@ -31,11 +31,12 @@ import math
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_gluon_self_energy as se
-import ca_gap_solve as gap
+from casim.engine.gauge import gluon_self_energy as se
+from casim.engine.interactions import running_gap_solve as gap
 
 
 def run():

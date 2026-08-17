@@ -1,6 +1,6 @@
 """casim.numerics.fft — the FFT surface. Roadmap C1.1 (D8).
 
-Migrated from `ca-simulation/ca_fft.py` (pre-clean original in
+Migrated from the legacy `ca_fft.py` (pre-clean original in
 `deprecated/code/ca_fft.py`; a deprecation shim remains at the old path until
 C9). The library-selection `if/elif` that used to live in every wrapper now
 lives in `casim.numerics.backends` as backend *objects*, so choosing pyfftw and

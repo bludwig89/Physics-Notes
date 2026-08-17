@@ -12,7 +12,7 @@ Brings the colour sector to the level the W reached:
 Tested on both lattices: 2D-square (`ca_strong.py` native) and 3D BCC
 (`ca_wmu.py` style), per the design in `docs/design/ca-strong-design.md`.
 
-Module under test:  ca-simulation/ca_gluon.py
+Module under test:  src/casim/engine/gauge/gluon.py
 Created:            2026-05-27
 """
 import sys
@@ -21,10 +21,12 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_gluon as cg          # noqa: E402
-import ca_strong as cs         # noqa: E402
+from casim.engine.gauge import gluon as cg          # noqa: E402
+from casim.engine.gauge import strong as cs         # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

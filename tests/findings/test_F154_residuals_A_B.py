@@ -23,8 +23,8 @@ q*) and B (IR gap-saturated coupling alpha_eff*).
 """
 import math
 
-import ca_gap_solve as gap
-import ca_qstar_logmoment as qs
+from casim.engine.interactions import running_gap_solve as gap
+from casim.engine.interactions import running_qstar_logmoment as qs
 
 
 def run():

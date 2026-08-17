@@ -1,7 +1,7 @@
 """Test wrapper for F223 — does the F216 massive spin-2 DM bound state form?
 
 Runs the self-contained real-arithmetic battery in
-ca-simulation/forks/gr_fork_F223_spin2_binding_relic.py and asserts all checks pass,
+src/casim/engine/forks/gravity/gr_fork_F223_spin2_binding_relic.py and asserts all checks pass,
 plus the physics verdicts (graviton-graviton binds at mu~sqrt2 M_Pl; nu_R nu_R no-go;
 gravitational production under-produces).
 """
@@ -9,7 +9,7 @@ import importlib.util, os
 
 HERE = os.path.dirname(__file__)
 FORK = os.path.abspath(os.path.join(
-    HERE, "..", "..", "ca-simulation", "forks", "gr_fork_F223_spin2_binding_relic.py"))
+    HERE, "..", "..", "src", "casim", "engine", "forks", "gravity", "gr_fork_F223_spin2_binding_relic.py"))
 
 
 def _run():

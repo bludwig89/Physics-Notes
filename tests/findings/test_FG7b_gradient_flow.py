@@ -2,7 +2,7 @@
 test_FG7b_gradient_flow.py — SU(3) Wilson gradient flow / cooling driver
 ========================================================================
 
-Verifies the smoother delivered in `ca-simulation/ca_cooling.py`, which
+Verifies the smoother delivered in `src/casim/engine/gauge/cooling.py`, which
 closes the F43/FG-7 follow-up "real-time link evolution from a near-identity
 start (gradient flow / cooling)".
 
@@ -14,7 +14,7 @@ The correctness contract for a Wilson flow:
   GF5  flow is gauge-covariant: flow(U^g)=flow(U)^g  (machine ε)
   GF6  flow acts as the lattice Laplacian (diffusion): decay rate ∝ k̂²
 
-Module under test:  ca-simulation/ca_cooling.py
+Module under test:  src/casim/engine/gauge/cooling.py
 Created:            2026-06-01
 """
 import sys
@@ -23,10 +23,12 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_cooling as cc        # noqa: E402
-import ca_strong as cs         # noqa: E402
+from casim.engine.gauge import cooling as cc        # noqa: E402
+from casim.engine.gauge import strong as cs         # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

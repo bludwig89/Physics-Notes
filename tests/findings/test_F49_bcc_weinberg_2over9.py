@@ -33,12 +33,13 @@ from fractions import Fraction
 
 import numpy as np
 
-# add ca-simulation to path
+# add src to path
 _HERE = os.path.dirname(os.path.abspath(__file__))
-_CA = os.path.normpath(os.path.join(_HERE, "..", "..", "ca-simulation"))
-sys.path.insert(0, _CA)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc  # noqa: E402
+from casim.engine.lattice import bcc as ca_bcc  # noqa: E402
 
 
 # ======================================================================

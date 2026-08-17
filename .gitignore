@@ -9,3 +9,15 @@ __pycache__/
 test-results/suite/
 # Vendored sandbox Python packages (binary wheels + installed site dir) — machine-specific, not for git
 .vendor/
+# CASIM run checkpoints — NPZ state snapshots, regenerable by re-running the scenario.
+# Local only: two of these (12 MB + 14 MB) were committed and broke repo sync twice.
+# INDEX.md has described this directory as gitignored/transient since the reorg; now it is.
+checkpoints/
+src/casim/checkpoints/
+# NB: deliberately NOT a blanket `*.npz` — test-results/F108_pitable_L16.npz is a
+# committed baseline artifact and must stay tracked.
+# Session scratch: gate/pytest logs, one-shot edit scripts, tarballs, recovery
+# notes. Everything here is regenerable or already applied to a tracked file, and
+# it was showing up in `git status` alongside real work. Nothing tracked is
+# affected — the directory has never been committed.
+.tmp/

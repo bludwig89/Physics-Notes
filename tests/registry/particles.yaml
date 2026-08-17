@@ -18,7 +18,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 291
+    lines: 293
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T02_QM1_CHSH.json
@@ -37,7 +37,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 238
+    lines: 240
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T04_GR3_pound_rebka.json
@@ -58,7 +58,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 265
+    lines: 267
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T08_QM2_tunneling.json
@@ -77,7 +77,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 219
+    lines: 221
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T10_QG4_charge.json
@@ -87,16 +87,14 @@ tests:
     summary: 'Top-10 priority Test #10 — QG-4: Discrete-Noether charge conservation'
 - id: 13-QFT8-CPT
   path: tests/priority/test_13_QFT8_CPT.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
-  results:
-  - test-results/test_13_QFT8_CPT.json
   sector: particles
   evidence:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 257
+    lines: 259
     n_test_funcs: 0
     artifacts_written:
     - test-results/test_13_QFT8_CPT.json
@@ -104,6 +102,9 @@ tests:
       test-results/test_13_QFT8_CPT.json: local
     artifacts_read_only: []
     summary: 'test_13_QFT8_CPT.py  —  QFT-8: CPT-invariance  (particle vs antiparticle)'
+  notes: 'DEMOTED result_dump -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run
+    did not rewrite the declared baseline, so the promotion gave it no failure mode. Declared debt is
+    the honest state.'
 - id: F109-f92-bridge-construction
   path: tests/findings/test_F109_f92_bridge_construction.py
   kind: result_dump
@@ -126,7 +127,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 398
+    lines: 400
     n_test_funcs: 0
     artifacts_written:
     - test-results/F109_f92_bridge_construction.json
@@ -149,7 +150,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 208
+    lines: 210
     n_test_funcs: 0
     artifacts_written:
     - test-results/F113_repulsive_core.json
@@ -174,7 +175,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 190
+    lines: 192
     n_test_funcs: 0
     artifacts_written:
     - test-results/F126_sigma_attraction.json
@@ -200,7 +201,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 313
+    lines: 315
     n_test_funcs: 0
     artifacts_written:
     - test-results/F128_omega_repulsion.json
@@ -226,7 +227,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 349
+    lines: 351
     n_test_funcs: 0
     artifacts_written:
     - test-results/F135_blockspin_wavepacket_realtime.json
@@ -270,7 +271,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 125
+    lines: 124
     n_test_funcs: 9
     artifacts_written: []
     artifact_rule: {}
@@ -291,7 +292,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 179
+    lines: 181
     n_test_funcs: 0
     artifacts_written:
     - test-results/F147_induced_stiffness_loop.json
@@ -318,7 +319,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 205
+    lines: 207
     n_test_funcs: 0
     artifacts_written:
     - test-results/F148_modular_element_assembler.json
@@ -341,7 +342,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 176
+    lines: 178
     n_test_funcs: 0
     artifacts_written:
     - test-results/F149_condensate_channel_splitting.json
@@ -382,6 +383,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F150 — The E_g sextic brake C/W from the model architecture (F145 + F147).
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F153-diamagnetic-chargeblind-multiplicity
   path: tests/findings/test_F153_diamagnetic_chargeblind_multiplicity.py
   kind: result_dump
@@ -397,7 +401,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: false
-    lines: 206
+    lines: 208
     n_test_funcs: 0
     artifacts_written:
     - test-results/F153_diamagnetic_chargeblind_multiplicity.json
@@ -417,7 +421,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 82
+    lines: 83
     n_test_funcs: 5
     artifacts_written: []
     artifact_rule: {}
@@ -533,7 +537,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 157
+    lines: 159
     n_test_funcs: 6
     artifacts_written:
     - test-results/F200_eg_sextic_coupling.json
@@ -553,7 +557,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 168
+    lines: 167
     n_test_funcs: 5
     artifacts_written:
     - test-results/F217_field_native_fermion_entanglement.json
@@ -596,7 +600,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 127
+    lines: 126
     n_test_funcs: 4
     artifacts_written:
     - test-results/F224_qc_si_coldatom.json
@@ -617,7 +621,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 130
+    lines: 129
     n_test_funcs: 4
     artifacts_written:
     - test-results/F225_doublon_leakage_spinqubit.json
@@ -702,7 +706,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 245
+    lines: 247
     n_test_funcs: 0
     artifacts_written:
     - test-results/F240_omega_coupling_derivation.json
@@ -788,7 +792,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 160
+    lines: 155
     n_test_funcs: 10
     artifacts_written: []
     artifact_rule: {}
@@ -810,7 +814,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 575
+    lines: 576
     n_test_funcs: 8
     artifacts_written:
     - test-results/F46_pythagorean_mass.json
@@ -833,7 +837,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 423
+    lines: 430
     n_test_funcs: 8
     artifacts_written:
     - test-results/F50_gravity_fork_dirac.json
@@ -859,7 +863,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 192
+    lines: 194
     n_test_funcs: 0
     artifacts_written:
     - test-results/F68_minimal_coupling_forces_even_photon.json
@@ -888,7 +892,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 233
+    lines: 234
     n_test_funcs: 0
     artifacts_written:
     - test-results/F92_per_constituent_phase.json
@@ -907,7 +911,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 164
+    lines: 163
     n_test_funcs: 5
     artifacts_written:
     - test-results/FA06_np.json
@@ -932,7 +936,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 289
+    lines: 291
     n_test_funcs: 0
     artifacts_written:
     - test-results/FB04_hydrogen_rydberg.json
@@ -956,7 +960,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 228
+    lines: 230
     n_test_funcs: 0
     artifacts_written:
     - test-results/FB06_positronium.json
@@ -984,7 +988,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 350
+    lines: 352
     n_test_funcs: 0
     artifacts_written:
     - test-results/FB07_deuteron.json
@@ -1008,7 +1012,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 261
+    lines: 263
     n_test_funcs: 0
     artifacts_written:
     - test-results/FB08_nn_repulsive_core.json
@@ -1116,7 +1120,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 234
+    lines: 235
     n_test_funcs: 0
     artifacts_written:
     - test-results/P2_baryon_bound_state.json
@@ -1138,7 +1142,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 217
+    lines: 219
     n_test_funcs: 0
     artifacts_written:
     - test-results/P3_pion.json
@@ -1160,7 +1164,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 261
+    lines: 262
     n_test_funcs: 0
     artifacts_written:
     - test-results/P4_deuteron.json
@@ -1184,7 +1188,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 343
+    lines: 345
     n_test_funcs: 0
     artifacts_written:
     - test-results/P5_hydrogen.json
@@ -1201,12 +1205,15 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 437
+    lines: 439
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_SR2_time_dilation.py — SR-2 from lattice-vs-spacetime-tests.md
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: complex-mass-chiral
   path: tests/findings/test_complex_mass_chiral.py
   kind: legacy_script
@@ -1218,12 +1225,15 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 770
+    lines: 771
     n_test_funcs: 9
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_complex_mass_chiral.py — Test suite for the SU(2) complex-mass coupling in ca_dirac
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: emergent-time-T1
   path: tests/findings/test_emergent_time_T1.py
   kind: legacy_script
@@ -1235,12 +1245,16 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 427
+    lines: 429
     n_test_funcs: 4
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_emergent_time_T1.py — Phase T1 (Lazy-update + tick heatmap) tests
+  notes: 'DEBT CATEGORY (C7 close-out): the file names a result artifact that is not committed and not
+    on disk, so there is no baseline to diff — run it once, review the numbers, `git add` the artifact,
+    then promote with `tools/gen_test_registry.py --promote`. Cheapest of the three debt categories to
+    clear.'
 - id: emergent-time-T5
   path: tests/findings/test_emergent_time_T5.py
   kind: legacy_script
@@ -1250,12 +1264,16 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 359
+    lines: 361
     n_test_funcs: 3
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_emergent_time_T5.py — Phase T5 (Predictions unique to tick reading)
+  notes: 'DEBT CATEGORY (C7 close-out): the file names a result artifact that is not committed and not
+    on disk, so there is no baseline to diff — run it once, review the numbers, `git add` the artifact,
+    then promote with `tools/gen_test_registry.py --promote`. Cheapest of the three debt categories to
+    clear.'
 - id: fork-D-doppler
   path: tests/findings/test_fork_D_doppler.py
   kind: legacy_script
@@ -1265,12 +1283,15 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 216
+    lines: 218
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'test_fork_D_doppler.py  —  Fork D / Phase L1:'
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-FC05-qm-battery
   path: tests/runners/run_FC05_qm_battery.py
   kind: result_dump
@@ -1285,7 +1306,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 551
+    lines: 553
     n_test_funcs: 0
     artifacts_written:
     - test-results/FC05_qm_battery.json
@@ -1311,7 +1332,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 469
+    lines: 471
     n_test_funcs: 0
     artifacts_written:
     - test-results/FA01_liv_tof.json
@@ -1335,10 +1356,12 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 325
+    lines: 327
     n_test_funcs: 5
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/phaseF_L192.json
+    artifact_rule:
+      test-results/phaseF_L192.json: local
     artifacts_read_only: []
     summary: run_L192_phaseF_tests.py  —  Phase F test suite capped at L=192
 - id: run-phaseF-tests
@@ -1355,7 +1378,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 690
+    lines: 692
     n_test_funcs: 7
     artifacts_written: []
     artifact_rule: {}

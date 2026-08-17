@@ -1,10 +1,55 @@
 # F165 — Hypercharge quantisation: the SM Y-values are forced, up to one normalisation
 
+> **[SUB-CLAIM SUPERSEDED 2026-08-02 by F279 — ledger S13-F279-hypercharge-attribution]**
+>
+> **DEAD:** Two steps INSIDE the finding, not its conclusion. (1) Section 2 lists the [grav]^2 U(1) anomaly as one of five independent constraints; it is not -- once nu_R is carried as a field with a hypercharge and its own Dirac mass step, the grav row is identically satisfied by the other five, and F165 reached dimension 1 only by omitting nu_R from the gravitational trace, which is numerically identical to imposing y_nu = 0 without saying so. (2) The attribution of what closes the system.
+>
+> **STILL LIVE:** EVERYTHING F165 CONCLUDES. The hypercharges ARE forced up to one overall normalisation; the ratios 1:4:-2:-3:-6 stand; y_phi = 3 y_Q stands; the normalised values reproduce the F38 table and the SM electric charges over Q; the residual input is one charge unit, not five values; y_u = y_Q + y_phi is genuinely OUTPUT by the [SU(3)]^2 U(1) row; and the single shared mass phase (F27/F41) is correctly identified as load-bearing.
+>
+> **NOTE:** The closing constraint is the F47 Higgs-free Majorana step, not the gravitational anomaly. This is the finding whose contradiction with Claims-and-Falsifiers revision 2 -- asserted on the same day -- is the reason the claims layer (D12) exists. Carried live as claim card CL010.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-06-29 - 16:59
 **Status:** Confirmed — exact-rational derivation; 4/4 checks PASS over ℚ (literal integer zero, not float)
 **Modules touched:** none (analytical study + verification harness only)
 **Verification script:** `tests/findings/test_hypercharge_quantisation.py`
 **Result file:** `test-results/hypercharge_quantisation.json`
+
+> ## ⚠ Partially superseded by [F279](F279-hypercharge-constraint-attribution.md) (2026-08-02, S13)
+>
+> **The conclusion of this finding stands in full** — the hypercharges are forced up to one
+> overall normalisation, the ratios $1:4:-2:-3:-6$ are right, $y_\phi=3y_Q$, the normalised
+> values reproduce the F38 table and the SM electric charges over ℚ, the residual is one
+> charge unit rather than five values, the up-type relation $y_u=y_Q+y_\phi$ really is
+> *output* by the $[SU(3)_c]^2U(1)$ row, and the single shared mass phase really is
+> load-bearing. F279 re-derived all of it independently and it all holds.
+>
+> **Two steps below are wrong.**
+>
+> 1. **§2 — the $[\text{grav}]^2U(1)$ row is not an independent constraint.** The system
+>    below omits $\nu_R$. Carry it (the model has one — F47's see-saw needs it, and
+>    `hypercharge.py` encodes its conjugate mass phase) and the grav row becomes *identically*
+>    satisfied by the other five: rank 5 with it and without it. The remaining system is
+>    **two-dimensional**, with $y_Q$ and $y_\phi$ both free. This finding reached dimension 1
+>    only by leaving $\nu_R$ out of the gravitational trace, which is numerically identical to
+>    imposing $y_\nu=0$ without saying so.
+>
+>    **What actually closes the system is the F47 Majorana step:** $\nu_R^{\mathsf T}C\nu_R$
+>    carries hypercharge $2y_\nu$, so gauge invariance of that term forces $y_\nu=0$ exactly.
+>    Adding that row gives rank 6, dimension 1, and this finding's line — with *both* the grav
+>    and cubic anomalies then identically zero on it, i.e. two consistency checks rather than
+>    one. The corrected route is **stronger**: it rests on the model's own Higgs-free see-saw
+>    rather than on the imported Minahan–Ramond–Warner / Geng–Marshak theorem.
+>
+> 2. **§3 — the colour claim is false.** "Remove colour … and the system no longer closes to a
+>    single line" is not true. It closes to a one-dimensional line for **every** $N_c$, with
+>    ratios $1:(1+N_c):(1-N_c):-N_c:-2N_c$ (checked at $N_c=1{-}5$ and symbolically), and the
+>    cubic anomaly vanishes identically for every $N_c$. Commensurability is derived for any
+>    $N_c$; that the unit is a **third** is $N_c=3$, which this model takes as an input.
+>
+> Read §2 and §3 below with those corrections applied. Everything else is current.
 
 Closes the audit gap **G4** (`docs/audits/physics-audit-report-2026-06-29.md`, §G4 / next-step 5): *"charge quantisation not derived — the specific charge assignments (Y_L=−1, Y_eR=−2, Y_Q=+1/3, …) are SM values put in by hand."* This finding shows they are **not** free inputs: given the lattice-fixed representation content, the five generation hypercharges are the **unique** solution — up to a single overall normalisation — of anomaly cancellation together with mass-step gauge invariance.
 

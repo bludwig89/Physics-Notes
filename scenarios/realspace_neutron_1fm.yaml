@@ -17,6 +17,7 @@
 # No SI fm/cell asserted (F107 ruler Planck-scale; absolute fm/eV P6-gated,
 # F123). The absolute +1.51 MeV value lives in the njl_nucleon spectral channel
 # (FA06); here the pair EXHIBITS the isospin mass+charge structure dynamically.
+version: 2
 name: realspace_neutron_1fm
 title: "Real-Space Neutron ~1 fm (block-spin patch, isospin-split)"
 description: "Confined udd colour-singlet (bag F137) with the FA06/F40 isospin structure — two heavy down quarks (current-mass gap 2.51 MeV, scaled) and net-0 charge so EM self-energy cancels (vs proton +1) — on a block-spin physical patch: L super-cells represent a nucleon-scale (L·block)^3 block of physical cells. Heavier than the proton by the n–p split, correct sign."

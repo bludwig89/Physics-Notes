@@ -418,18 +418,86 @@ def _rendered(records: dict[str, list[dict[str, Any]]]) -> dict[str, str]:
         for sector, recs in sorted(records.items())}
 
 
+_DEBT_NOTES = {
+    "absent_artifact": (
+        "DEBT CATEGORY (C7 close-out): the file names a result artifact that is "
+        "not committed and not on disk, so there is no baseline to diff — run it "
+        "once, review the numbers, `git add` the artifact, then promote with "
+        "`tools/gen_test_registry.py --promote`. Cheapest of the three debt "
+        "categories to clear."),
+    "emits_nothing": (
+        "DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a "
+        "baseline diff cannot give it a failure mode. Needs either an `assert` or "
+        "an entry function returning a dict that a `result_dump` record can "
+        "write. Until then it runs and cannot fail, which is what "
+        "`legacy_script` says."),
+}
+
+
+def classify_debt() -> int:
+    """Write a measured debt category into every unannotated legacy_script record.
+
+    Roadmap C7 close-out. The 47 debt records are not one problem: 9 were demoted
+    by the arming pass (they already carry that note), 11 name an artifact nobody
+    ever committed, and 27 emit nothing at all. Those need different work, so the
+    record says which — otherwise the next session re-derives the split, which
+    took a full scan to establish.
+
+    One-way: a record that already has notes is left alone.
+    """
+    tracked = _tracked_files()
+    records = build()
+    changed = 0
+    counts: dict[str, int] = {}
+    for sector, recs in records.items():
+        for rec in recs:
+            if rec.get("kind") != "legacy_script" or rec.get("notes"):
+                continue
+            ev = rec.get("evidence") or {}
+            src_path = rec.get("path")
+            lits = set()
+            if src_path and os.path.exists(os.path.join(_REPO, src_path)):
+                with open(os.path.join(_REPO, src_path), encoding="utf-8",
+                          errors="replace") as fh:
+                    text = fh.read()
+                for lit in _ARTIFACT_RE.findall(text):
+                    if "{" in lit or "%" in lit:
+                        continue
+                    norm = lit.lstrip("./")
+                    lits.add(norm if norm.startswith("test-results/")
+                             else "test-results/" + os.path.basename(norm))
+            cat = ("emits_nothing" if not lits
+                   else "absent_artifact" if not (lits & tracked)
+                   else None)
+            if cat is None:
+                continue                      # tracked artifact: not plain debt
+            rec["notes"] = _DEBT_NOTES[cat]
+            counts[cat] = counts.get(cat, 0) + 1
+            changed += 1
+    if changed:
+        write(records)
+    print(f"[test-registry] annotated {changed} debt record(s): "
+          + "  ".join(f"{k}={v}" for k, v in sorted(counts.items())))
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true",
                     help="exit 1 if the registry on disk is stale")
     ap.add_argument("--report", action="store_true",
                     help="print a summary and exit without writing")
+    ap.add_argument("--classify-debt", action="store_true",
+                    help="C7 close-out: write a measured debt category into every "
+                         "unannotated legacy_script record (one-way)")
     ap.add_argument("--promote", action="store_true",
                     help="C7.5: upgrade legacy_script records whose file writes "
                          "a committed artifact to result_dump (one-way; never "
                          "removes a failure mode)")
     args = ap.parse_args()
 
+    if args.classify_debt:
+        return classify_debt()
     records = build(promote=args.promote)
     n = sum(len(v) for v in records.values())
     kinds: dict[str, int] = {}

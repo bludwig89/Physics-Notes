@@ -31,10 +31,12 @@ matrices.
 """
 
 import sys, os, json, time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
-import ca_casimir as cc
+from casim.engine.interactions import qed_casimir as cc
 
 RESULTS = os.path.join(os.path.dirname(__file__), '..', '..', 'test-results',
                        'F207_casimir.json')

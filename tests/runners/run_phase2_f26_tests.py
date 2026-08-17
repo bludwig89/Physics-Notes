@@ -24,8 +24,9 @@ import json
 import time
 import traceback
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 
@@ -49,8 +50,8 @@ def record(results, name, ok, detail='', value=None):
 
 def run_group_A(results):
     banner('Group A — F26 rotation-law suite (T1–T9)')
-    import ca_maxwell as mx
-    import ca_maxwell_2d as mx2
+    from casim.engine.gauge import bilinear as mx
+    from casim.engine.gauge import bilinear_2d as mx2
 
     # T1
     r = mx.c_from_rotation_rate(eps=1e-5, n_dirs=12)
@@ -132,7 +133,7 @@ def run_group_A(results):
 
 def run_group_B(results):
     banner('Group B — L3c Phase 2: full-lattice rotation propagator')
-    import ca_maxwell as mx
+    from casim.engine.gauge import bilinear as mx
 
     pl = mx.composite_photon_propagation_full_lattice(
         n_steps=100, L=16, n_modes=8, seed=77)
@@ -168,7 +169,7 @@ def run_group_C(results):
 def run_group_D(results):
     banner('Group D — F27 complex-mass chiral SU(2) regression')
     try:
-        import ca_dirac as cdir
+        from casim.engine.particles import dirac as cdir
         # Use 1-flavour stepper which has simpler API
         # gaussian_doublet returns 8-tuple; use first component as eta_u
         parts = cdir.gaussian_doublet((32, 32), sigma=4.0)
@@ -192,9 +193,9 @@ def run_group_D(results):
 
 def run_group_E(results):
     banner('Group E — L1/L2/L3a regression (BCC + 2D + photon kinematics)')
-    import ca_bcc as bcc
-    import ca_core_exact as ce
-    import ca_maxwell as mx
+    from casim.engine.lattice import bcc as bcc
+    from casim.engine.lattice import core_exact as ce
+    from casim.engine.gauge import bilinear as mx
 
     # L1 BCC unitarity — check at a few random k directions
     rng_l1 = np.random.default_rng(42)

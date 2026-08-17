@@ -1,0 +1,21 @@
+{
+  "F24_sl2c_covariance_full": {
+    "n_draws": 2000,
+    "worst_rel_boost": 1.1139464289517726e-13,
+    "worst_rel_rotation": 5.850224895104897e-16,
+    "worst_rel_composition": 4.1867310185070417e-14,
+    "worst_boost_zeta": -6.895645722108909,
+    "worst_nullity": 8.661742267106245e-16,
+    "legacy_12_draw_value": 3.707420040408194e-16,
+    "checks": {
+      "boost_covariant": true,
+      "rotation_covariant": true,
+      "composition_covariant": true,
+      "current_is_null": true,
+      "legacy_sample_is_optimistic": true
+    },
+    "n_pass": 5,
+    "n_checks": 5,
+    "ok": true
+  }
+}

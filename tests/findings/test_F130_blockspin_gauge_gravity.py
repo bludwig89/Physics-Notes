@@ -32,10 +32,11 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..",
-                                "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_blockspin as bs   # noqa: E402
+from casim.engine.lattice import blockspin as bs   # noqa: E402
 
 ROOT3_INV = 1.0 / np.sqrt(3.0)
 

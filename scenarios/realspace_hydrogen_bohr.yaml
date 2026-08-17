@@ -11,6 +11,7 @@
 # unified_hydrogen.yaml: STRUCTURE and loop-consistency are the deliverable;
 # absolute fm/eV remain P6/scale-gated (F123).  Tiers grow `block` (the
 # represented patch) by orders of magnitude.
+version: 2
 name: realspace_hydrogen_bohr
 title: "Real-Space Hydrogen ~Bohr (block-spin patch)"
 description: "Full chain on one BCC lattice (uud↔gluon confinement loop + (p,e) charge↔photon Coulomb α + F64 gravity) on a block-spin physical patch: L super-cells represent an atom-scale (L·block)^3 block of physical cells. Tiers grow the represented patch."

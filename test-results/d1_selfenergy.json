@@ -1,0 +1,56 @@
+{
+  "affected_rows": [
+    {
+      "n": 12,
+      "Q": 0.3,
+      "kernel": "rule",
+      "fp": "exact",
+      "repaired": {
+        "B_bgfield_lat": -0.2611681040113732,
+        "C": 16.708735736040257
+      },
+      "pre_repair": {
+        "B_bgfield_lat": -0.26125104879386246,
+        "C": 16.695637620995402
+      },
+      "dC": 0.013098115044854808,
+      "seconds": 263.7
+    },
+    {
+      "n": 16,
+      "Q": 0.2,
+      "kernel": "rule",
+      "fp": "exact",
+      "repaired": {
+        "B_bgfield_lat": -0.30731463836016554,
+        "C": 16.608004853989218
+      },
+      "pre_repair": {
+        "B_bgfield_lat": -0.3073282917353162,
+        "C": 16.605848799405596
+      },
+      "dC": 0.0021560545836223355,
+      "seconds": 838.7
+    },
+    {
+      "n": 16,
+      "Q": 0.3,
+      "kernel": "rule",
+      "fp": "exact",
+      "repaired": {
+        "B_bgfield_lat": -0.2809311755010307,
+        "C": 16.813925162877226
+      },
+      "pre_repair": {
+        "B_bgfield_lat": -0.2811169987396991,
+        "C": 16.784581133210246
+      },
+      "dC": 0.02934402966698002,
+      "seconds": 4344.2
+    }
+  ],
+  "unaffected_by_construction": {
+    "wilson_all_n": "fp='exact' fold is a global sign, cancels in t(x)t; khat^2 is 2 pi-periodic. Measured 0.0.",
+    "n8_all_Q": "pi/8 = 0.3927 > max(Qs) = 0.3, so the fold never fires."
+  }
+}

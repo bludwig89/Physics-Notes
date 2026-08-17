@@ -30,8 +30,8 @@ Tests:
 
 import numpy as np
 
-from ca_curved import CayleyVarcSolver2D
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.engine.lattice.curved import CayleyVarcSolver2D
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 
 # ══════════════════════════════════════════════════════════════════

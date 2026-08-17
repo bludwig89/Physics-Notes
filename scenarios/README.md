@@ -2,7 +2,7 @@
 
 Each YAML here is a reproducible run: `casim run scenarios/<name>.yaml`.
 One driver + a committed config + seed reproduces a historical run; every
-scenario is verified bit-identical to its raw `ca-simulation` kernel in
+scenario is verified bit-identical to its pre-migration kernel in
 `tests/test_engine_reproduces_kernels.py`.
 
 | scenario | channel | propagator (F91) | topology | what it checks |

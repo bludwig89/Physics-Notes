@@ -5,6 +5,7 @@
 # dual-Ginzburg-Landau loop — the flux that the condensate confines is itself
 # what melts it). Closes the F137 §5 open edge: the tube stays connected and
 # linear to arbitrary separation instead of pinching off at ~2λ.
+version: 2
 name: proton_bag_sc
 title: "Confined Proton — self-consistent dual-GL bag (F139)"
 description: "uud colour quarks confined by a self-consistent dual-Ginzburg-Landau bag: the colour-electric flux the condensate confines is what melts it, the two fields solved to mutual consistency each tick. Closes F137's mean-field pinch-off."

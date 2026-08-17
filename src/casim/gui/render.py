@@ -1,7 +1,10 @@
 """casim.gui.render — pure (numpy-only) rendering helpers for the point cloud.
 
 No vispy/Qt import here, so this is unit-testable headless.  The vispy/Qt app
-(``casim.gui.app``) consumes these.
+(``casim.gui.app``) consumes these, and :mod:`casim.viz` re-exports them as the
+project's single static-figure / colour-map API (roadmap P5.1).  This is the
+**canonical** ``density_to_rgba`` — the copy in ``engine/core/_viz_live_display``
+(retired, imported by nothing) duplicated it on the same colour stops.
 """
 from __future__ import annotations
 
@@ -39,7 +42,7 @@ def bloch_rgb(f: np.ndarray, g: np.ndarray, amp: np.ndarray | None = None,
               vmax: float | None = None) -> np.ndarray:
     """Bloch-sphere colouring of a 2-spinor (f, g) → RGBA (float32).
 
-    Mirrors ``ca-simulation/spinor_color.py``: a spinor ψ=(f,g) up to overall
+    Mirrors the legacy `spinor_color.py`: a spinor ψ=(f,g) up to overall
     phase/amplitude is a point on ℂP¹≅S² (the Bloch sphere), mapped to colour so
     *orientation* and *phase* are visible rather than just |ψ|².
 

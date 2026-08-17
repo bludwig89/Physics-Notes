@@ -35,7 +35,7 @@ These are in Capitani's review (hep-lat/0211036, §5.2) and Kawai–Nakayama–S
 
 ## Update 2026-07-15 - 21:10 — automated vertex generator BUILT and validated
 
-`ca-simulation/ca_lpt_generator.py` now **derives** the Wilson vertices from the action (HiPPy/HPsrc-style: expand the links $U=\exp(igA)$ order by order, read off the momentum-space coefficient), so no coefficient is transcribed/fabricated. Validation gates all PASS at machine precision:
+`casim.engine.core.lpt_generator` now **derives** the Wilson vertices from the action (HiPPy/HPsrc-style: expand the links $U=\exp(igA)$ order by order, read off the momentum-space coefficient), so no coefficient is transcribed/fabricated. Validation gates all PASS at machine precision:
 
 | Vertex | Gate | Result |
 |---|---|---|
@@ -79,7 +79,7 @@ Executed the four recommended steps. Net: wiring the **exact** generated vertice
 
 **(5) NP static-potential run — command written + verified.** `tests/runners/run_d1_np.sh` (writes to an L-tagged file so it never clobbers existing results). Diagnosis of the existing `test-results/d1_static_potential.json` (L=10, β∈{5.8,6.0,6.2}): $\Lambda_{\overline{\rm MS}}/\sqrt\sigma=0.320$ vs world 0.55, routes 1 & 2 disagreeing ~33 % ⇒ **below the scaling window + finite-volume-limited**. Fix baked into the command: larger L (16→20), β∈{5.9,6.1,6.3,6.5}, more stats (ntherm 600 / nmeas 800), wider Cornell window (rmax=tmax=8). Native, multi-hour job.
 
-**(1) Exact vertices wired in.** New `ca-simulation/ca_lpt_selfenergy.py`: the 3-gluon loop is assembled from the **exact generated** Wilson vertices (colour factorises, $V_3^{abc}=f^{abc}T$; the generator's $U=e^{iA}$ gives $V_3=i f^{abc}T$, stripped by $1/(if^{123})$). Pointwise wiring gate: the colour-stripped grid tensor → the continuum YM tensor (ratio → 1, spread $2\times10^{-7}$). Result: gluon+ghost transverse constant **C ≈ 70** (n=6, Q-spread 1.3; needs even-n convergence via the native runner).
+**(1) Exact vertices wired in.** New `casim.engine.gauge.lpt_selfenergy`: the 3-gluon loop is assembled from the **exact generated** Wilson vertices (colour factorises, $V_3^{abc}=f^{abc}T$; the generator's $U=e^{iA}$ gives $V_3=i f^{abc}T$, stripped by $1/(if^{123})$). Pointwise wiring gate: the colour-stripped grid tensor → the continuum YM tensor (ratio → 1, spread $2\times10^{-7}$). Result: gluon+ghost transverse constant **C ≈ 70** (n=6, Q-spread 1.3; needs even-n convergence via the native runner).
 
 **(2) Haar measure term — DERIVED (first principles).** From the adjoint exp-map Jacobian $\ln J(X)=\mathrm{tr}_{\rm adj}\ln[(I-e^{-\mathrm{ad}_X})/\mathrm{ad}_X]=-\tfrac{C_A}{24}\sum_a(X^a)^2+O(X^4)$ (structure constants only, no transcription): coefficient $=C_A/24=\tfrac18$ for SU(3), machine-exact (std $3\times10^{-10}$). ⇒ mass counterterm $\Pi^{\rm meas}_{\mu\nu}=-\delta_{\mu\nu}\,C_A/12$, which cancels the seagull's quadratic divergence. Seagull $Z_0(n)\to0.15493$ reproduced. Ghost loop added with the lattice FP vertex $(\hat k+\widehat{k+q})_\mu$.
 
@@ -125,8 +125,8 @@ So the exact ghost form factor is a **single sine of the mean ghost momentum**, 
 - `tests/runners/run_d1_vertex_formfactor.py` — PT route (b0 gate exact, leading-vertex finite constant, Wilson gate; reaches 26 %).
 - `tests/runners/run_d1_static_potential.py` — NP cross-check (pure-gauge, nf=0; the tractable pin).
 - `tests/runners/run_d1_np.sh` — **(step 5)** ready-to-run NP command (scaling-window β sweep, larger L, safe output file).
-- `ca-simulation/ca_lpt_selfenergy.py` — **(steps 1–3)** exact-vertex gluon+ghost self-energy, derived Haar measure term, scheme diagnosis.
+- `casim.engine.gauge.lpt_selfenergy` — **(steps 1–3)** exact-vertex gluon+ghost self-energy, derived Haar measure term, scheme diagnosis.
 - `tests/runners/run_d1_selfenergy.py` — native convergence runner (even n; n≥8 exceeds the sandbox cap).
-- `ca-simulation/ca_lpt_generator.py` — extended with `vertex_bqq_vec` (background-field split link).
+- `casim.engine.core.lpt_generator` — extended with `vertex_bqq_vec` (background-field split link).
 - `ca_lpt_selfenergy.py` (updated) — `gauge_fixing_vertex_continuum`/`_lattice`, `gauge_fixing_identity_check` (0/64 proof), `finite_constant_bgfield` (scheme-consistent lattice-Abbott constant, Wilson+rule kernels), `ghost_vertex_lattice_exact` (2 sin((p+p')/2)), `validate_fp_dressing` (exact FP gate).
 - `tests/runners/run_d1_sweep.sh` — n-convergence sweep (native; both kernels, exact FP dressing).

@@ -4,7 +4,7 @@
 **Numbering:** F177 was taken by a concurrent session; this is **F178** (re-checked per CLAUDE.md).
 **Status:** Decision / reclassification (no new test — it changes the canonical status of the gravity sector and records the supersession map). Cross-checked against the exact results it rests on: F173 (single scalar ⇒ anisotropic stress, sympy-exact), F174 (energy-only ⇒ no maximum mass, 5/5), F176 (covariant recovery, 5/5).
 **Decision note:** `docs/theory/key-decisions.md` (2026-06-29 entry).
-**Cross-references:** [[F64-em-connection-gravity]], [[F106-psi-K-sourcing-derivation]], [[F173-pressure-tolman-discriminator]], [[F174-stellar-structure-overlay]], [[F176-covariant-dielectric-tov-recovery]], [[F114-dielectric-black-hole]], [[F79-structural-newton-constant]], [[F107-canonical-a-adoption-L4-grb-gate]]; papers `Paper-07-Gravity.md`, `Paper-12-Unification-Rotation-Currency.md`; brief `FC09`.
+**Cross-references:** [[F64-em-connection-gravity]], [[F106-psi-K-sourcing-derivation]], [[F173-pressure-tolman-discriminator]], [[F174-stellar-structure-overlay]], [[F176b-covariant-dielectric-tov-recovery]], [[F114-dielectric-black-hole]], [[F79-structural-newton-constant]], [[F107-canonical-a-adoption-L4-grb-gate]]; papers `Paper-07-Gravity.md`, `Paper-12-Unification-Rotation-Currency.md`; brief `FC09`.
 
 ---
 
@@ -39,7 +39,7 @@ By F173 (exact), the impedance-locked single scalar ($A=1/K,\ B=K$, $AB\equiv1$)
 | [[F114-dielectric-black-hole]] | **superseded** — exact vacuum is Schwarzschild (horizon present); the horizon-free throat and $+4.6\%$ shadow were consequences of treating the exponential metric as fundamental |
 | [[F173-pressure-tolman-discriminator]] | the energy-only $\rho$-vs-$\rho{+}3p$ departure is now understood as a **weak-field-reduction artifact**, not a prediction; the exact tensor analysis it contains stands |
 | [[F174-stellar-structure-overlay]] | the no-maximum-mass result is the **diagnosis** that forced this decision, not a model prediction |
-| [[F176-covariant-dielectric-tov-recovery]] | the covariant solve confirms the full-tensor source recovers TOV; the $\sim2$ km $AB\equiv1$ residual exists only if one insists on keeping the single scalar in matter — which this decision does **not** |
+| [[F176b-covariant-dielectric-tov-recovery]] | the covariant solve confirms the full-tensor source recovers TOV; the $\sim2$ km $AB\equiv1$ residual exists only if one insists on keeping the single scalar in matter — which this decision does **not** |
 | Paper VII / Paper XII | "one field, one source (energy)" weakened to "the rotation field's **full** stress-energy sources gravity"; the $E=mc^2$ "one currency" hinge is retained as the *origin* story, not as "energy is the only source" |
 
 ## Net effect

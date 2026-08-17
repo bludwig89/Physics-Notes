@@ -14,8 +14,8 @@
   "G2_lattice_b0_propagator_independent": {
     "passed": true,
     "wilson_shift_spread": 0.00015927402577570193,
-    "wilson_shift_mean": -0.07869058442756195,
-    "rule_shift_mean": -0.005071300575511986,
+    "wilson_shift_mean": -0.07869058442756056,
+    "rule_shift_mean": -0.012591048743328725,
     "n": 18
   },
   "G3_finite_d1_open_bracket_stands": {

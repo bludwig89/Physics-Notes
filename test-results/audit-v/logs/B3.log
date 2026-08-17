@@ -1,0 +1,45 @@
+{
+ "L=64": {
+  "+": {
+   "n_zero": 1,
+   "n_pi": 0,
+   "zero_at_origin": true,
+   "omega_max": 3.11355278186234
+  },
+  "-": {
+   "n_zero": 1,
+   "n_pi": 0,
+   "zero_at_origin": true,
+   "omega_max": 3.11355278186234
+  }
+ },
+ "L=96": {
+  "+": {
+   "n_zero": 1,
+   "n_pi": 0,
+   "zero_at_origin": true,
+   "omega_max": 3.11355278186234
+  },
+  "-": {
+   "n_zero": 1,
+   "n_pi": 0,
+   "zero_at_origin": true,
+   "omega_max": 3.11355278186234
+  }
+ },
+ "L=128": {
+  "+": {
+   "n_zero": 1,
+   "n_pi": 0,
+   "zero_at_origin": true,
+   "omega_max": 3.120616460063202
+  },
+  "-": {
+   "n_zero": 1,
+   "n_pi": 0,
+   "zero_at_origin": true,
+   "omega_max": 3.120616460063202
+  }
+ },
+ "verdict": "no doubler at any L"
+}

@@ -2,8 +2,10 @@
 """Range-based SCF IE sweep that APPENDS to a persistent JSON (so it can run in
 sub-45s chunks).  Usage: python3 sweep_chunk.py Zlo Zhi"""
 import os, sys, json
-sys.path.insert(0, "/sessions/jolly-upbeat-meitner/mnt/Physics Notes/ca-simulation")
-import ca_manybody as mb
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.core import manybody as mb
 
 NIST = {1: 13.59844, 2: 24.58738, 3: 5.39171, 4: 9.32269, 5: 8.29803,
         6: 11.26030, 7: 14.53414, 8: 13.61806, 9: 17.42282, 10: 21.5646,

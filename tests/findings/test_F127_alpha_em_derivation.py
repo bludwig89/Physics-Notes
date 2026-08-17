@@ -25,8 +25,7 @@ import sys
 import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'casim'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
-from ca_bcc import bcc_dispersion
+from casim.engine.lattice.bcc import bcc_dispersion
 
 RESULTS = {}
 

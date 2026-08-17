@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "name": "S1 sextet and antitriplet share triality 2 while C_2 = 10/3 vs 4/3, exactly over Q",
+      "ok": true,
+      "value": {
+        "C2_6": "10/3",
+        "C2_3bar": "4/3",
+        "triality_both": 2
+      }
+    },
+    {
+      "name": "S2 the laws SEPARATE on this tower (F298's degeneracy is the k-string restriction, not N=3)",
+      "ok": true,
+      "value": [
+        "6",
+        "8",
+        "10",
+        "15",
+        "15p",
+        "27"
+      ]
+    },
+    {
+      "name": "S2b control: inside the antisymmetric tower they provably cannot separate",
+      "ok": true,
+      "value": true
+    },
+    {
+      "name": "S3 the generalised quadrature reproduces confinement.string_tension in the fundamental to <1e-12",
+      "ok": true,
+      "value": 1.1102230246251565e-16
+    },
+    {
+      "name": "S4 at the model's own beta the engine follows Casimir scaling to <1.5% on every rung",
+      "ok": true,
+      "value": 0.013610206686462178
+    },
+    {
+      "name": "S4b ... and centre dominance is excluded: the nearest SEPARATING rung misses its centre value by >0.4",
+      "ok": true,
+      "value": 1.4911511149713048
+    },
+    {
+      "name": "S5 the residual to exact Casimir scaling falls monotonically to zero as beta grows",
+      "ok": true,
+      "value": 0.0001688719263510663
+    },
+    {
+      "name": "S6 grid convergence: n=160 and n=480 agree to <1e-10",
+      "ok": true,
+      "value": 5.773159728050814e-15
+    },
+    {
+      "name": "S7 higher-rep loops are polynomial in the fundamental loop matrix (residual < 1e-9), so F94 needs no new sampling",
+      "ok": true,
+      "value": 8.946847088422788e-15
+    },
+    {
+      "name": "S8 H2 needs mu_0 several decades ABOVE the Planck mass while H1 lands on the model's own mu_0",
+      "ok": true,
+      "value": {
+        "H1": 1.7821436255800957e+18,
+        "H2": 6.059962115036124e+24
+      }
+    }
+  ],
+  "passed": true,
+  "n_pass": 10,
+  "n_total": 10,
+  "params": {
+    "tower": "full",
+    "beta": null,
+    "n_grid": 240
+  },
+  "summary": {
+    "F299_beta_model": 24.0,
+    "F299_separating_reps": [
+      "6",
+      "8",
+      "10",
+      "15",
+      "15p",
+      "27"
+    ],
+    "F299_kstring_degenerate": true,
+    "F299_sextet_measured": 2.491151114971305,
+    "F299_sextet_casimir_law": 2.5,
+    "F299_sextet_centre_law": 1.0,
+    "F299_worst_dev_from_casimir": 0.013610206686462178,
+    "F299_law_selected": "casimir",
+    "F299_mu0_required_H2_GeV": 6.059962115036124e+24,
+    "F299_mu0_required_H1_GeV": 1.7821436255800957e+18,
+    "F299_ratios": {
+      "3": 1.0,
+      "3bar": 1.0,
+      "6": 2.491151114971305,
+      "8": 2.2433554688722337,
+      "10": 4.463496381947841,
+      "15": 3.972094131850849,
+      "15p": 6.904728553194765,
+      "27": 5.9314777105747245
+    }
+  }
+}

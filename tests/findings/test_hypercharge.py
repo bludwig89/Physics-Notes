@@ -42,13 +42,15 @@ import numpy as np
 # ── Path bootstrap ────────────────────────────────────────────────────
 _THIS = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.abspath(os.path.join(_THIS, '..', '..'))
-sys.path.insert(0, os.path.join(_ROOT, 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from ca_dirac import (
+from casim.engine.particles.dirac import (
     mass_step_doublet_su2,
     make_su2_field,
 )
-import ca_hypercharge as hyf  # noqa: E402  (merged from forks/hypercharge_fork.py 2026-05-26 - 17:45)
+from casim.engine.gauge import hypercharge as hyf  # noqa: E402  (merged from forks/hypercharge_fork.py 2026-05-26 - 17:45)
 
 
 # ── Helpers ───────────────────────────────────────────────────────────

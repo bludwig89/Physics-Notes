@@ -1,0 +1,4 @@
+[test-registry] 360 record(s) cover 357 test file(s), all valid (D9).
+    kinds: assertion=93  result_dump=217  scenario=3  legacy_script=47
+    tiers: gate=26  archive=0   declared debt (no failure mode): 47
+    baselines: 2 stale_by_design (drift reports STALE), 10 candidate (drift still FAILS)

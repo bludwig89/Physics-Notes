@@ -2,7 +2,7 @@
 test_FA_lgt_mc.py — correctness battery for the Option-A SU(3) lattice-gauge MC fork
 ====================================================================================
 
-Fast, sandbox-sized certificates for `ca-simulation/forks/lgt_fork_A_mc.py`
+Fast, sandbox-sized certificates for `src/casim/engine/forks/gauge/lgt_fork_A_mc.py`
 (P1 Option A).  These do NOT measure the physical string tension (that needs
 the heavy `run_lgt_confinement.py`); they verify the engine is a correct SU(3)
 heat-bath so that any σ it later produces is trustworthy.
@@ -24,9 +24,13 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation', 'forks'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import lgt_fork_A_mc as A          # noqa: E402
 
 
@@ -109,22 +113,80 @@ def test_FA3_staple_identity():
             'detail': {'ratio': float(ratio)}}
 
 
+#: FA4 averages this many INDEPENDENT chains. See the docstring for why one is
+#: not enough; six puts the standard error ~7x under the tolerance.
+_FA4_CHAINS = 6
+
+
 def test_FA4_plaquette_matches_known():
-    """FA4 — heat-bath mean plaquette matches published SU(3) values."""
-    rng = np.random.default_rng(7)
+    """FA4 — heat-bath mean plaquette matches published SU(3) values.
+
+    Roadmap **P2.5** rewrote this from one chain to an ensemble, because as a
+    single chain **it was passing by luck of the RNG stream.** Measured at HEAD's
+    own code, over 8 independent seeds at β=5.7: ⟨P⟩ = 0.5596 ± 0.0041 (sd),
+    giving |rel| from 0.35% to **2.69%** against a 2.5% tolerance — so **1 seed
+    in 8 failed** before anything changed. A Monte-Carlo trajectory is chaotic,
+    so *any* bit-level perturbation re-rolls that die; P2.5's `batched_matmul`
+    (1–2 ULP) and Gram–Schmidt reunitarisation (agreeing to O(δ), δ~1e-15) were
+    each enough to do it, and the resulting FAIL said nothing about the physics.
+
+    That the physics is untouched was checked directly rather than assumed: the
+    **ensemble mean** over 10 seeds is 0.559021 ± 0.001411 with P2.5 against
+    0.558816 ± 0.001271 at HEAD — a **0.15 σ** difference.
+
+    So the test now averages :data:`_FA4_CHAINS` independent chains and reports
+    the standard error alongside the mean. The 2.5% tolerance is unchanged and is
+    still the L=4 **finite-volume** allowance: the residual bias is real physics
+    (⟨P⟩ sits ~1.9% above the infinite-volume literature value at β=5.7), and
+    what the ensemble removes is only the sampling scatter that was riding on
+    top of it. This is strictly a stronger test than the one it replaces.
+    """
     known = {5.7: 0.5494, 6.0: 0.5937}
     out = {}
     worst = 0.0
     for beta, kv in known.items():
-        U = A.cold_links(4, 4)
-        U, h = A.thermalise(U, beta, rng, n_sweeps=45, n_or=3, record=True)
-        p = float(np.mean(h[-18:]))
+        ps = []
+        for c in range(_FA4_CHAINS):
+            # One independent stream per chain: chains must not share a
+            # generator, or they are not independent and the sem is a fiction.
+            rng = np.random.default_rng(7000 + 97 * c)
+            U = A.cold_links(4, 4)
+            U, h = A.thermalise(U, beta, rng, n_sweeps=45, n_or=3, record=True)
+            ps.append(float(np.mean(h[-18:])))
+        ps = np.asarray(ps)
+        p = float(ps.mean())
+        sem = float(ps.std(ddof=1) / np.sqrt(len(ps)))
         rel = abs(p - kv) / kv
-        out[f'beta={beta}'] = {'plaq': p, 'known': kv, 'rel': rel}
+        out[f'beta={beta}'] = {
+            'plaq': p, 'known': kv, 'rel': rel,
+            'sem': sem, 'sem_rel': sem / kv, 'chains': int(_FA4_CHAINS),
+            'per_chain': [float(x) for x in ps],
+        }
         worst = max(worst, rel)
-    passed = bool(worst < 0.025)     # L=4 finite-volume tolerance
+
+    # Two criteria, and the second is the one this rewrite adds.
+    #
+    #   1. the ensemble mean sits inside the L=4 finite-volume allowance;
+    #   2. the ensemble is precise enough for (1) to MEAN anything — the
+    #      standard error must be at least 3x under the tolerance.
+    #
+    # Without (2) a noisy ensemble can pass by luck exactly as the old
+    # single chain did, so the test would have been rewritten and still be
+    # fragile. Re-rolling the chain seeds gives worst-rel 1.59% / 1.45% /
+    # 2.27% across three independent bases — all passing, but note the third
+    # is close, so the margin here is thin and (2) is what keeps a thin
+    # margin honest rather than lucky. If (2) ever fails, raise
+    # `_FA4_CHAINS`; do NOT widen the tolerance, which is physics.
+    worst_sem_rel = max(v['sem_rel'] for v in out.values())
+    stat_ok = bool(worst_sem_rel < 0.025 / 3.0)
+    passed = bool(worst < 0.025) and stat_ok      # tolerance unchanged
     return {'test': 'FA4', 'name': 'mean plaquette matches known SU(3) ⟨P⟩',
-            'passed': passed, 'residual': float(worst), 'tier': 3, 'detail': out}
+            'passed': passed, 'residual': float(worst), 'tier': 3,
+            'detail': out,
+            'statistics': {'chains': int(_FA4_CHAINS),
+                           'worst_sem_rel': float(worst_sem_rel),
+                           'sem_budget': 0.025 / 3.0,
+                           'statistically_adequate': stat_ok}}
 
 
 def test_FA5_strong_coupling():

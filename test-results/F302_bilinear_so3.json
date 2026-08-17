@@ -1,0 +1,177 @@
+{
+  "finding": "F302",
+  "symbolic_core_residuals": {
+    "U_T_eps_U_minus_detU_eps": 0.0,
+    "eps_sigma_asymmetry": 0.0,
+    "sigma2_symmetry": 0.0,
+    "cartan_self_dot": 0.0,
+    "transpose_self_dot_minus_fierz": 0.0,
+    "psi_T_sigma2_psi": 0.0
+  },
+  "so3_covariance_max_rel_err": {
+    "transpose_bilinear_G": 1.9619652434458312,
+    "cartan_eps_sigma": 3.9644940398444746e-16,
+    "hermitian_singlet_H": 6.003104363732089e-16,
+    "hermitian_triplet_H": 3.717241473967793e-16,
+    "weak_wmu_fermion_current_isospin": 3.1472491710409217e-16,
+    "gluon_quark_colour_octet_bilinear_bcc": 3.7518934947235156e-16,
+    "gluon_quark_colour_octet_bilinear_2d": 2.382991930912804e-16
+  },
+  "amplitude_rows": [
+    {
+      "direction": "x_hat",
+      "n_dot_y": 3.1205587616340084e-15,
+      "amp_transpose": 1.9477594204938718e-29,
+      "law_2_ny_sq": 1.947577396962155e-29,
+      "amp_cartan": 2.000000000000001,
+      "cartan_longitudinal": 4.3352322019407555e-31,
+      "cartan_self_dot": 9.713328929771143e-30
+    },
+    {
+      "direction": "y_hat",
+      "n_dot_y": -1.0,
+      "amp_transpose": 2.000000000000001,
+      "law_2_ny_sq": 2.0,
+      "amp_cartan": 2.000000000000001,
+      "cartan_longitudinal": 9.840001965937144e-30,
+      "cartan_self_dot": 1.0788298921454233e-31
+    },
+    {
+      "direction": "z_hat",
+      "n_dot_y": 0.0,
+      "amp_transpose": 0.0,
+      "law_2_ny_sq": 0.0,
+      "amp_cartan": 2.0,
+      "cartan_longitudinal": 0.0,
+      "cartan_self_dot": 0.0
+    },
+    {
+      "direction": "(1,1,1)",
+      "n_dot_y": -0.5708275565258915,
+      "amp_transpose": 0.6516881985786395,
+      "law_2_ny_sq": 0.6516881985786396,
+      "amp_cartan": 2.0000000000000004,
+      "cartan_longitudinal": 6.144032319159963e-17,
+      "cartan_self_dot": 1.6175346837434134e-16
+    },
+    {
+      "direction": "(1,0,1)",
+      "n_dot_y": 0.014434257844415368,
+      "amp_transpose": 0.0004166955990381334,
+      "law_2_ny_sq": 0.0004166955990381332,
+      "amp_cartan": 2.0000000000000004,
+      "cartan_longitudinal": 4.111132152415334e-17,
+      "cartan_self_dot": 8.629307625087552e-17
+    },
+    {
+      "direction": "(1,2,3)",
+      "n_dot_y": -0.530004362936593,
+      "amp_transpose": 0.5618092494636477,
+      "law_2_ny_sq": 0.5618092494636476,
+      "amp_cartan": 2.0000000000000004,
+      "cartan_longitudinal": 8.711303338812687e-18,
+      "cartan_self_dot": 1.6501448439792468e-17
+    },
+    {
+      "direction": "rand_+0.619_-0.775_+0.127",
+      "n_dot_y": 0.7759444772478853,
+      "amp_transpose": 1.204179663542988,
+      "law_2_ny_sq": 1.204179663542988,
+      "amp_cartan": 2.0,
+      "cartan_longitudinal": 1.595885567598497e-17,
+      "cartan_self_dot": 1.28834454380473e-16
+    },
+    {
+      "direction": "rand_-0.750_-0.598_-0.285",
+      "n_dot_y": 0.6014590284017354,
+      "amp_transpose": 0.7235059256919194,
+      "law_2_ny_sq": 0.7235059256919191,
+      "amp_cartan": 2.000000000000001,
+      "cartan_longitudinal": 6.490374495449273e-17,
+      "cartan_self_dot": 1.0675395302954956e-16
+    },
+    {
+      "direction": "rand_-0.914_-0.105_-0.392",
+      "n_dot_y": 0.11514287684249831,
+      "amp_transpose": 0.02651576417513348,
+      "law_2_ny_sq": 0.026515764175133467,
+      "amp_cartan": 2.000000000000001,
+      "cartan_longitudinal": 9.651386602995233e-18,
+      "cartan_self_dot": 1.162051562359614e-16
+    },
+    {
+      "direction": "rand_+0.992_+0.067_-0.105",
+      "n_dot_y": -0.0703962358818227,
+      "amp_transpose": 0.009911260052658443,
+      "law_2_ny_sq": 0.009911260052658443,
+      "amp_cartan": 2.0000000000000004,
+      "cartan_longitudinal": 2.566985661318019e-17,
+      "cartan_self_dot": 2.8328990195563875e-17
+    }
+  ],
+  "amplitude_summary": {
+    "max_dev_transpose_from_2_ny_sq": 8.881784197001252e-16,
+    "max_dev_cartan_from_2": 8.881784197001252e-16,
+    "max_cartan_self_dot": 1.6175346837434134e-16,
+    "max_cartan_longitudinal": 6.490374495449273e-17,
+    "hermitian_singlet_equals_n_hat": 0.0,
+    "hermitian_singlet_transverse_amp": 0.0
+  },
+  "sector_audit": [
+    {
+      "sector": "photon (canonical, F69)",
+      "module": "gauge/photon.py",
+      "form": "none",
+      "note": "paired-spinor; builds no sigma-bilinear at all"
+    },
+    {
+      "sector": "photon (retired, F65-F67)",
+      "module": "gauge/bilinear.py",
+      "form": "transpose",
+      "note": "bilinear_G; retired as the photon, diagnostics only"
+    },
+    {
+      "sector": "W triplet",
+      "module": "gauge/bilinear.py:_triplet_bilinear_H",
+      "form": "hermitian",
+      "note": "F29 construction"
+    },
+    {
+      "sector": "W current (production)",
+      "module": "gauge/weak_wmu.py:fermion_current_isospin",
+      "form": "hermitian",
+      "note": "eta^dag sigma^i tau^a eta"
+    },
+    {
+      "sector": "W (SU(2) action)",
+      "module": "gauge/weak.py",
+      "form": "none",
+      "note": "SU(2) acts ON the doublet; no field built from spinors"
+    },
+    {
+      "sector": "Z",
+      "module": "gauge/weak_z.py",
+      "form": "none",
+      "note": "independent (E_Z,B_Z) pair; scalar site-density currents only"
+    },
+    {
+      "sector": "charged current",
+      "module": "gauge/charged_current.py",
+      "form": "none",
+      "note": "scalar isospin ladder, no sigma^i"
+    },
+    {
+      "sector": "gluon / colour octet",
+      "module": "gauge/gluon.py:quark_colour_octet_bilinear_{2d,bcc}",
+      "form": "hermitian",
+      "note": "own comment: transpose fails SU(3) too, Hermitian only"
+    },
+    {
+      "sector": "strong / su3_ladder / colour_*",
+      "module": "gauge/{strong,su3_ladder,colour_*}.py",
+      "form": "none",
+      "note": "link variables and irrep labels; no spinor bilinear"
+    }
+  ],
+  "n_transpose_sectors": 1
+}

@@ -1,0 +1,68 @@
+{
+  "L1_framework": {
+    "fitted_to_planck": true,
+    "global_disfavour_sigma": 2.2,
+    "name": "holographic cosmology (McFadden-Skenderis; Afshordi et al 2017)",
+    "no_inflaton": true,
+    "spectrum_from": "2-point function of the 3D stress-tensor trace"
+  },
+  "L2_t1_retrodiction": {
+    "hc_coupling_is_dimensionful": true,
+    "hc_implied_dns_dlnk": 0.015058367375047926,
+    "hc_log_derivative": 0.6753845998713293,
+    "hc_power_p_nominal": -1,
+    "over_bound_factor": 2.110576874597904,
+    "planck_dns_dlnk": -0.0045,
+    "planck_sigma": 0.0067,
+    "published_global_disfavour_sigma": 2.2,
+    "retrodiction_agrees": true,
+    "t1_bound": 0.32,
+    "t1_flags_hc": true,
+    "tension_sigma": 2.919159309708646,
+    "why_it_matters": "T1 was built from Planck's running alone, with no knowledge of holographic cosmology. Recovering HC's published tension makes T1 a usable instrument rather than a private construction."
+  },
+  "L3_branch": {
+    "hc_branch": "super-renormalizable 3D QFT, dimensionful g_YM^2, f1 != 0",
+    "hc_tilt_shape_p": -1,
+    "literature_analyses_model_branch": false,
+    "model_branch": "dimensionless coupling => conformal dual, f1 = 0",
+    "model_tilt_shape_p": 0,
+    "prl_footnote": "PRL 118 041301 footnote 2: 'This assumes f1 != 0. A separate analysis is required, where f1 = 0.'",
+    "status": "acknowledged gap in the published literature, not a re-tread"
+  },
+  "L4_operator": {
+    "answers_F295_open_question": true,
+    "caveat": "this NAMES a candidate operator from an external framework; it does not establish that the model has such a dual \u2014 see L5, where the naive reading is excluded",
+    "gamma_is": "the anomalous dimension of that operator",
+    "gamma_required": 0.01755000000000001,
+    "holographic_formula": "Delta^2_R(q) = -q^3/(4 pi^2) / Im <<T(q) T(-q)>>",
+    "operator": "T^i_i \u2014 the trace of the 3-dimensional stress tensor"
+  },
+  "L5_tensor_ratio": {
+    "cases": {
+      "conformal": {
+        "excluded": true,
+        "over_BK18_factor": 8.978675645342314,
+        "r": 0.32323232323232326,
+        "xi": 0.125
+      },
+      "minimal": {
+        "excluded": true,
+        "over_BK18_factor": 26.936026936026938,
+        "r": 0.9696969696969697,
+        "xi": 0.0
+      }
+    },
+    "matches_published_exclusion": "the PRL rules out 'Yang-Mills coupled to fermions only'; this model is fermion-dominated",
+    "model_has": 2,
+    "n_phi_needed_for_bound": 791.8888888888889,
+    "n_real_scalars": 2,
+    "n_weyl_fermions": 48,
+    "naive_holographic_reading_excluded": true,
+    "r_BK18_bound": 0.036,
+    "shortfall_factor": 395.94444444444446
+  },
+  "finding": "F296",
+  "question": "where does F295's structure live in the literature?",
+  "verdict": "F295's structure has an established home; F286 T1 is VALIDATED by retrodicting holographic cosmology's published tension (0.675 vs 0.32, and 2.9 sigma running); the model sits in the f1 = 0 CFT branch the literature explicitly leaves unanalysed; the operator is NAMED as the 3D stress-tensor trace; but the model's own field content read as that dual is EXCLUDED by r at 9-27x"
+}

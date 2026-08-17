@@ -1,4 +1,14 @@
 """
+RETIRED (roadmap P5.1, 2026-07-31) — superseded by ``casim.gui.app`` (the live
+vispy viewer re-pointed at a ``casim.engine.Simulation``) and ``casim.gui.render``
+(the numpy-only colour maps, now re-exported as the single ``casim.viz`` API).
+This module is imported by nothing (module graph: ``reach: unreferenced``;
+registry: ``status: dead_candidate``) and its ``density_to_rgba`` below duplicates
+``casim.gui.render.density_to_rgba`` on the identical colour stops. It is kept
+only as the original 2007–08 vispy display of record; its physical move to
+``deprecated/code/`` needs ``git mv`` (an ``unlink`` this mount refuses — see
+CLAUDE.md "Sandbox operational notes") and is handed back for Ben's machine.
+
 live_display.py  —  Real-time 3D Weyl CA  (point-cloud renderer)
 =================================================================
 Displays the Weyl spinor CA as a glowing 3D point cloud.  The top

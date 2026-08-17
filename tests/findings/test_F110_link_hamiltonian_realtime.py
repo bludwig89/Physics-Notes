@@ -46,9 +46,11 @@ import sys
 import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(ROOT / "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_link_hamiltonian as lh
+from casim.engine.gauge import link_hamiltonian as lh
 
 OUT = ROOT / "test-results" / "F110_link_hamiltonian_realtime.json"
 t0 = time.time()

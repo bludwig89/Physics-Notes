@@ -26,14 +26,12 @@ from __future__ import annotations
 import os, sys, json, time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 # allow running from the project too
-for p in ("ca-simulation", "../ca-simulation"):
-    if os.path.isdir(p):
-        sys.path.insert(0, p)
 try:
-    import ca_strong as cstr
+    from casim.engine.gauge import strong as cstr
     _HAVE_MODEL = True
 except Exception:
     _HAVE_MODEL = False

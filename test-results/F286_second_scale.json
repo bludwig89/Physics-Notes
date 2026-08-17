@@ -1,0 +1,110 @@
+{
+  "T1_classification": {
+    "conclusion": "only an RG-type logarithm can supply a constant tilt; every length scale is excluded by the SHAPE of its k-dependence, not by its distance",
+    "leading_lattice_correction_p": 2,
+    "length_scales_excluded": true,
+    "log_type_allowed": true,
+    "log_type_log_derivative": "-1",
+    "log_type_value": 0.007454468116193523,
+    "observed_bound_on_log_derivative": 0.3190883190883189,
+    "power_law_log_derivative": "p",
+    "power_law_p_allowed": "|p| < 0.319"
+  },
+  "T2_running_prediction": {
+    "L": 134.1477332001294,
+    "consistent_with_planck": true,
+    "decades": 58.25962028864585,
+    "dns_dlnk_observed": -0.0045,
+    "dns_dlnk_predicted": -0.0002616518308783928,
+    "dns_dlnk_sigma": 0.0067,
+    "sigma_below_current_error": 25.606547362987655,
+    "testable_today": false
+  },
+  "T3_required_coefficient": {
+    "C": 4.708585435324545,
+    "is_order_unity": true,
+    "percent_from_3pi_over_2": 0.08071373301264537,
+    "three_pi_over_two": 4.71238898038469,
+    "verdict": "the tilt is NOT unnaturally small \u2014 it is one one-loop log across the model's own 58 decades with an O(1) coefficient. What is missing is the loop, not a small number."
+  },
+  "T4_inventory": {
+    "G": {
+      "Gdot_over_G": 0.0,
+      "runs": false,
+      "verdict": "does NOT run: F79 structural + F284 Gdot/G = 0 exactly. The model's sharpest prediction removes its most natural candidate second scale"
+    },
+    "alpha_em": {
+      "shortfall_factor": 30.22189239904884,
+      "tilt_if_one_loop": 0.0011614097335977778,
+      "verdict": "~30x too small, and barely runs at CMB momenta"
+    },
+    "alpha_s": {
+      "Lambda_QCD_eV": 200000000.0,
+      "decades_below_Lambda_QCD": 38.30102999566398,
+      "k_pivot_eV": 1e-30,
+      "value_at_MZ": 0.11955,
+      "verdict": "cannot be evaluated at CMB momenta \u2014 deeply confined"
+    },
+    "any_candidate_works": false,
+    "blockspin": {
+      "tilt_is_marginal": true,
+      "verdict": "F285 D3: the spectral index is exactly marginal under it"
+    }
+  },
+  "T5_coincidence": {
+    "best": {
+      "expr": "1/9/pi",
+      "sigma": 0.0637536027457763,
+      "value": 0.035367765131532294
+    },
+    "candidates": 396,
+    "delta_star_over_2pi": 0.035367765131532294,
+    "distinct_hits": 6,
+    "equals_one_over_9pi": true,
+    "expected_within_best_sigma_by_chance": 0.38252161647465777,
+    "hit_fraction_percent": 1.5151515151515151,
+    "hits": [
+      {
+        "expr": "1/9/pi",
+        "sigma": 0.0637536027457763,
+        "value": 0.035367765131532294
+      },
+      {
+        "expr": "1/3/pi^2",
+        "sigma": -0.31577907600494326,
+        "value": 0.03377372788077926
+      },
+      {
+        "expr": "4/11/pi^2",
+        "sigma": 0.41525399500760446,
+        "value": 0.03684406677903192
+      },
+      {
+        "expr": "3/8/pi^2",
+        "sigma": 0.6893913966373099,
+        "value": 0.037995443865876666
+      },
+      {
+        "expr": "alpha_s/pi",
+        "sigma": 0.7033206888743114,
+        "value": 0.03805394689327218
+      },
+      {
+        "expr": "1/10/pi",
+        "sigma": -0.7783360432430823,
+        "value": 0.03183098861837907
+      }
+    ],
+    "p_at_least_one_by_chance": 0.3178608546264703,
+    "survives_look_elsewhere": false,
+    "verdict": "NOT evidence: six comparably-simple expressions land in the same window, so being the closest of six is unremarkable. Recorded as a coincidence under the F253/F256 standard; it would become evidence only if a mechanism predicted the shape first.",
+    "window": [
+      0.03090000000000002,
+      0.03930000000000002
+    ],
+    "window_halfwidth_percent": 11.965811965811959
+  },
+  "finding": "F286",
+  "question": "what could supply the 3.5% tilt on a rigid lattice?",
+  "verdict": "a second scale must be a LOG, not a length; the whole class predicts dn_s/dlnk = -2.6e-4 with no free parameter; the required coefficient is a natural O(1); but the model owns no coupling that supplies the logarithm, and the delta*/(2pi) coincidence does not survive a look-elsewhere count"
+}

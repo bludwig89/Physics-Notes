@@ -1,0 +1,93 @@
+{
+  "cutoff": {
+    "Lambda_over_MPl": 0.7598356856515925,
+    "Lambda_over_MPl_closed_form": 0.7598356856515927,
+    "a_over_ellP": 6.597816664747605,
+    "a_over_ell_reduced": 1.3160740129524924,
+    "a_over_ell_reduced_closed_form": 1.3160740129524924,
+    "r_min": 1.732050807568877,
+    "r_min_closed_form": 1.732050807568877,
+    "sub_planckian": true
+  },
+  "eg_clock_angle": {
+    "J_required": 779.4228634059948,
+    "K": 9.000000000000002,
+    "K_closed_form": 9.000000000000002,
+    "K_numeric": 9.000073722151168,
+    "amplitude_A": 0.037690345750370856,
+    "argmin_cos6delta": 0.33332969274321617,
+    "argmin_delta": 0.20516054646117965,
+    "f_over_MPl_required": 21.21320343559643,
+    "r_required": 0.002222222222222222,
+    "value_at_J_unity": 15.588457268119896
+  },
+  "eg_radial_magnitude": {
+    "J_required": 512.8178699837788,
+    "K": 5.921510705607705,
+    "K_numeric": 5.921510705607705,
+    "V0_forced_by_F193": 0.24083117807890433,
+    "argmin_e": 0.30063482133250163,
+    "c_quartic": 1.1,
+    "e_min": 0.6549901316759172,
+    "e_saturation_F118": 0.733,
+    "eta_over_r_at_hilltop": -8.952329250715298,
+    "f_over_MPl_required": 17.206845593553318,
+    "kappa_E": -2.156,
+    "lambda_6": 0.243,
+    "r_required": 0.00337751648089733,
+    "value_at_J_unity": 10.256357399675577
+  },
+  "finding": "F282",
+  "n_scalar_directions_available": 2,
+  "n_scalar_directions_required_Nflation": 779.4228634059948,
+  "periodic_ns_bound_p1_J1": {
+    "J": 1.0,
+    "deviation_sigma": 404.0359065640183,
+    "harmonic_p": 1,
+    "ns_max": -0.732050807568877,
+    "ns_observed": 0.9649,
+    "r": 1.732050807568877,
+    "sigma": 0.0042
+  },
+  "periodic_ns_bound_p6_J1": {
+    "J": 1.0,
+    "deviation_sigma": 14837.79263630466,
+    "harmonic_p": 6,
+    "ns_max": -61.35382907247957,
+    "ns_observed": 0.9649,
+    "r": 1.732050807568877,
+    "sigma": 0.0042
+  },
+  "question": "does the CA model admit a slow-roll inflaton direction?",
+  "rg_marginality": {
+    "any_nearly_marginal_scalar": false,
+    "b": 2.0,
+    "eigenvalues": {
+      "LIV_n2": 0.25,
+      "LIV_n3": 0.125,
+      "LIV_n4": 0.0625,
+      "confinement_sigma": 2.0,
+      "deconfining_lambda": 0.25
+    },
+    "exponents": {
+      "LIV_n2": -2.0,
+      "LIV_n3": -3.0,
+      "LIV_n4": -4.0,
+      "confinement_sigma": 1.0,
+      "deconfining_lambda": -2.0
+    },
+    "gap_to_marginality": 1.0,
+    "marginal_exponent": 0.0
+  },
+  "starobinsky": {
+    "c2_induced": 0.10554289962743518,
+    "c2_required": 493096646.94280076,
+    "lattice_cutoff_over_MPl": 0.7598356856515927,
+    "n_dof": 100.0,
+    "scalaron_above_cutoff": true,
+    "scalaron_mass_over_MPl_induced": 0.8885765876316732,
+    "shortfall": 4672002083.355909,
+    "shortfall_decades": 9.669503027766538
+  },
+  "verdict": "no slow-roll direction; primordial P(k) is an initial condition"
+}

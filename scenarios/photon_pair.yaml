@@ -1,6 +1,7 @@
 # Paired-spinor photon (F67/F68/F69) — even-law (E,B) rotation.
 # Propagates a random (E,B) field and checks it stays real, norm-conserving,
 # and that the pair dispersion equals the even-law rate (PP1/PP5 of F69).
+version: 2
 name: photon_pair
 title: "Paired-Spinor Photon"
 description: "Even-law (E,B) rotation of the F69 paired-spinor photon: checks the field stays real and norm-conserving, and that the pair dispersion equals the even-law rate (PP1/PP5)."

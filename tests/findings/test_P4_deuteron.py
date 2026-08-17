@@ -46,8 +46,10 @@ import json
 import math
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_nuclear as nuc  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import nuclear as nuc  # noqa: E402
 
 results = {"phase": "P4", "title": "deuteron — ³S₁–³D₁ coupled-channel OPEP (tensor force)",
            "checks": {}, "derived": {}, "notes": []}
@@ -71,8 +73,7 @@ print("=" * 82)
 
 # Use the model's own m_pi, f_pi (P3 / F77) for the coupling; g_A external.
 try:
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-    import ca_meson as meson  # noqa: E402
+    from casim.engine.particles import meson as meson  # noqa: E402
     spec = meson.solve_meson_spectrum()
     m_pi = spec["m_pi"] * 1e3          # GeV -> MeV
     f_pi = spec["f_pi"] * 1e3

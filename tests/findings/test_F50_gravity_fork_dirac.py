@@ -14,7 +14,7 @@
 test_F50_gravity_fork_dirac.py — Gravity fork via the F46 spherical triangle
 ============================================================================
 Verifies the covariant restatement of Finding 46 implemented in
-`ca-simulation/forks/gr_fork_F46_dirac.py`:
+`src/casim/engine/forks/gravity/gr_fork_F46_dirac.py`:
 
     cos Ω_Dirac^coord(x,k,m) = cos(√A(x)·arcsin m) · cos ω_kin(k; c_eff(x))
 
@@ -49,14 +49,21 @@ import sys
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-SIM = os.path.abspath(os.path.join(THIS, "..", "..", "ca-simulation"))
-FORKS = os.path.join(SIM, "forks")
-for p in (SIM, FORKS):
+SRC = os.path.abspath(os.path.join(THIS, "..", "..", "src"))
+# C9: the gravity forks live at casim/engine/forks/gravity/. They are still
+# loaded by *file path* (spec_from_file_location) rather than imported, because
+# a fork is a recorded alternative and must not be reachable as a package
+# module — so the directory itself goes on sys.path, as it did before.
+FORKS = os.path.join(SRC, "casim", "engine", "forks", "gravity")
+for p in (SRC, FORKS):
     if p not in sys.path:
         sys.path.insert(0, p)
 
 import importlib.util  # noqa: E402
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import gr_fork_F46_dirac as gf       # noqa: E402
 
 
@@ -209,7 +216,7 @@ def test_G4_kinetic_only_fails_redshift():
 # ───────────────────────────────────────────────────────────────────
 
 def test_G5_stepper_norm():
-    from ca_dirac import gaussian_dirac_2d, dirac_norm
+    from casim.engine.particles.dirac import gaussian_dirac_2d, dirac_norm
     L = 48
     xs = np.arange(L)
     X, Y = np.meshgrid(xs, xs, indexing="ij")
@@ -307,7 +314,7 @@ def test_G8_qca_stepper_phase_match():
     """Propagate a Weyl plane-wave eigenstate (m=0) with the gravity stepper's
     exact-QCA kinetic path at a uniform rate r=√(A/B), and check the measured
     per-tick phase equals the bounded leg r·arccos(c_x c_y) at machine ε."""
-    import ca_core_exact as ce
+    from casim.engine.lattice import core_exact as ce
 
     L = 32
     # uniform background: pick a constant well so r_kin is a scalar

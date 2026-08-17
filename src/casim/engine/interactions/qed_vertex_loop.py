@@ -191,7 +191,7 @@ def _dirac_degeneracy_eV():
     """Pure one-body Dirac-Coulomb: 2s_{1/2} (kappa=-1) and 2p_{1/2} (kappa=+1)
     share the same Sommerfeld energy (same n, j) => exactly degenerate. Returns
     (E_2s1/2, E_2p1/2, gap) in eV from ca_atom."""
-    import ca_atom as atom
+    from casim.engine.particles import atom as atom
     E_2s = atom.sommerfeld_binding_eV(2, -1)     # 2s_1/2, kappa=-1
     E_2p = atom.sommerfeld_binding_eV(2, +1)     # 2p_1/2, kappa=+1
     return E_2s, E_2p, (E_2s - E_2p)

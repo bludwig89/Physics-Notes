@@ -47,7 +47,7 @@ This module supplies the *metric* half (E2, with E1's derivation made
 explicit in the docstring).  E3 is a propagator change tracked separately.
 
 ----------------------------------------------------------------------------
-Interface (matches ca-simulation/forks/gr3_fork_*.py so it drops straight
+Interface (matches the legacy `forks/gr3_fork_*.py` so it drops straight
 into gr3_fork_harness.py):
 
     c_photon(phi, c_0)   c_matter(phi, c_0)   tau_rate(phi, c_0)

@@ -21,20 +21,22 @@ Tests W1.1–W1.5 from roadmap-wmu-implementation.md.
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 import json
 import time
 
-from ca_wmu import (make_w_link_field, link_unitarity_residual,
+from casim.engine.gauge.weak_wmu import (make_w_link_field, link_unitarity_residual,
                     covariant_weyl_step_3d_bcc,
                     covariant_weyl_step_3d_bcc_exact,
                     verify_spinor_matrix_decomp,
                     gauge_transform_links,
                     gauge_transform_links_kspace,
                     _su2_product)
-from ca_bcc import weyl_step_3d_bcc
+from casim.engine.lattice.bcc import weyl_step_3d_bcc
 
 L = 16
 rng = np.random.default_rng(seed=42)

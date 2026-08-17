@@ -1,6 +1,7 @@
 # BCC Weyl walk (exact unitary QCA) — per-branch propagator.
 # Propagates a random 2-spinor field; checks norm conservation (FFT floor),
 # unitarity ||U†U−I||=0 (exact), and the measured-vs-analytic dispersion.
+version: 2
 name: bcc_weyl
 title: "BCC Weyl Walk"
 description: "Exact-unitary Weyl walk on the BCC lattice: checks norm conservation (FFT floor), unitarity ||U†U−I||=0 (exact), and measured-vs-analytic dispersion (F49 substrate)."

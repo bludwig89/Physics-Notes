@@ -42,9 +42,11 @@ import math
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_element as E    # noqa: E402
-import ca_atom as atom    # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import element as E    # noqa: E402
+from casim.engine.particles import atom as atom    # noqa: E402
 
 RESULTS = {"finding": "F148", "checks": [], "derived": {}}
 _PASS = []

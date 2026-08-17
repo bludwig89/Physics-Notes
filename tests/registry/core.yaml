@@ -18,7 +18,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 219
+    lines: 221
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T01_GR1_light_deflection.json
@@ -37,7 +37,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 214
+    lines: 216
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T05_GR2_shapiro.json
@@ -56,7 +56,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 250
+    lines: 252
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T07_QFT5_neutrino.json
@@ -75,7 +75,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 255
+    lines: 257
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T09_GR4_mercury.json
@@ -85,10 +85,8 @@ tests:
     summary: 'Top-10 priority Test #9 — GR-4: Mercury perihelion precession'
 - id: 12-QM3-heisenberg
   path: tests/priority/test_12_QM3_heisenberg.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
-  results:
-  - test-results/test_12_QM3_heisenberg.json
   sector: core
   evidence:
     pytest_funcs: false
@@ -102,12 +100,13 @@ tests:
       test-results/test_12_QM3_heisenberg.json: local
     artifacts_read_only: []
     summary: 'test_12_QM3_heisenberg.py  —  QM-3: Heisenberg uncertainty principle'
+  notes: 'DEMOTED result_dump -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run
+    did not rewrite the declared baseline, so the promotion gave it no failure mode. Declared debt is
+    the honest state.'
 - id: 14-QM4-zeno
   path: tests/priority/test_14_QM4_zeno.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
-  results:
-  - test-results/test_14_QM4_zeno.json
   sector: core
   evidence:
     pytest_funcs: false
@@ -121,6 +120,9 @@ tests:
       test-results/test_14_QM4_zeno.json: local
     artifacts_read_only: []
     summary: 'test_14_QM4_zeno.py  —  QM-4: Quantum Zeno effect'
+  notes: 'DEMOTED result_dump -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run
+    did not rewrite the declared baseline, so the promotion gave it no failure mode. Declared debt is
+    the honest state.'
 - id: F102-coupled-rotors
   path: tests/findings/test_F102_coupled_rotors.py
   kind: result_dump
@@ -189,6 +191,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'F116 — NJL calibration from the model: the cutoff Lambda is the Brillouin-zone'
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F120-electron-calibrated-spectrum
   path: tests/findings/test_F120_electron_calibrated_spectrum.py
   kind: result_dump
@@ -565,7 +570,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 102
+    lines: 103
     n_test_funcs: 7
     artifacts_written: []
     artifact_rule: {}
@@ -641,6 +646,30 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'F253 -- E1 weight->phase principle: sharpened no-go + topological exclusion.'
+- id: F272-F273-bz-period-lattices
+  path: tests/casim/test_bz_period_lattices.py
+  kind: assertion
+  tier: gate
+  sector: core
+  findings:
+  - F272
+  - F273
+  - F267
+  - F277
+  module: casim.engine.gauge.bgfield_loop
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 260
+    n_test_funcs: 12
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Which period lattice does each dispersion actually have? — F272 / F267.
 - id: F28-grb-dispersion
   path: tests/findings/test_F28_grb_dispersion.py
   kind: result_dump
@@ -711,6 +740,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_F65_helicity_chirality_map.py
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F74-bound-state-binding
   path: tests/findings/test_F74_bound_state_binding.py
   kind: result_dump
@@ -1125,12 +1157,14 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_FB07_deuteron_binding.py
+  notes: 'DEBT CATEGORY (C7 close-out): the file names a result artifact that is not committed and not
+    on disk, so there is no baseline to diff — run it once, review the numbers, `git add` the artifact,
+    then promote with `tools/gen_test_registry.py --promote`. Cheapest of the three debt categories to
+    clear.'
 - id: FG1-anomaly-cancellation
   path: tests/findings/test_FG1_anomaly_cancellation.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
-  results:
-  - test-results/FG1_anomaly_cancellation.json
   findings:
   - FG1
   sector: core
@@ -1146,12 +1180,76 @@ tests:
       test-results/FG1_anomaly_cancellation.json: local
     artifacts_read_only: []
     summary: FG-1 — Anomaly cancellation across a single first-generation Standard-Model
+  notes: 'DEMOTED result_dump -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run
+    did not rewrite the declared baseline, so the promotion gave it no failure mode. Declared debt is
+    the honest state.'
+- id: P3.2-engine-clock
+  path: tests/casim/test_engine_clock.py
+  kind: assertion
+  tier: gate
+  sector: core
+  findings:
+  - F268
+  module: casim.engine.core.clock
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 208
+    n_test_funcs: 9
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Engine clock — roadmap P3.2, blocker B2, finding F268.
+- id: P3.3-exchange-bus
+  path: tests/casim/test_exchange_bus.py
+  kind: assertion
+  tier: gate
+  sector: core
+  findings:
+  - F269
+  module: casim.engine.core.graph
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 269
+    n_test_funcs: 10
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Typed exchange bus — roadmap P3.3, blocker B3, finding F269.
+- id: P3.4-P3.6-total-energy-and-gravity-loop
+  path: tests/casim/test_total_energy_and_gravity_loop.py
+  kind: assertion
+  tier: gate
+  sector: core
+  findings:
+  - F270
+  module: casim.engine.core.observers
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 392
+    n_test_funcs: 13
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Total energy, stress-energy and the closed gravity loop — P3.4/P3.5/P3.6, F270.
 - id: f45-sigma-tau-weinberg
   path: tests/findings/test_f45_sigma_tau_weinberg.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
-  results:
-  - test-results/F45_sigma_tau_weinberg.json
   findings:
   - F45
   sector: core
@@ -1167,6 +1265,9 @@ tests:
       test-results/F45_sigma_tau_weinberg.json: local
     artifacts_read_only: []
     summary: 'F45 — σ ↔ τ swap-symmetric Weinberg angle: algebraic verification.'
+  notes: 'DEMOTED result_dump -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run
+    did not rewrite the declared baseline, so the promotion gave it no failure mode. Declared debt is
+    the honest state.'
 - id: hypercharge-quantisation
   path: tests/findings/test_hypercharge_quantisation.py
   kind: result_dump
@@ -1180,14 +1281,16 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 134
+    lines: 149
     n_test_funcs: 0
     artifacts_written:
     - test-results/hypercharge_quantisation.json
     artifact_rule:
       test-results/hypercharge_quantisation.json: file
     artifacts_read_only: []
-    summary: F165 — Hypercharge quantisation from anomaly cancellation + mass-step gauge invariance.
+    summary: '[PARTIALLY SUPERSEDED 2026-08-02 by F279 — ledger S13-F279-hypercharge-attribution]'
+    ledger_status: partially_superseded
+    ledger_record: S13-F279-hypercharge-attribution
   results:
   - test-results/hypercharge_quantisation.json
   notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
@@ -1210,6 +1313,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'F139 dev — Part B production: induced wrap stiffness by eigenvalue PT on the'
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-F143-wrap-stiffness-slab
   path: tests/runners/run_F143_wrap_stiffness_slab.py
   kind: legacy_script
@@ -1228,6 +1334,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'F139 — slab-chunked version: partial BZ sums over kx in [i0,i1).'
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-F206-breathing-decompose
   path: tests/runners/run_F206_breathing_decompose.py
   kind: legacy_script
@@ -1246,6 +1355,10 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: Decompose the Tier-B He 'breathing' into INTER-nucleon COM spread (what the
+  notes: 'DEBT CATEGORY (C7 close-out): the file names a result artifact that is not committed and not
+    on disk, so there is no baseline to diff — run it once, review the numbers, `git add` the artifact,
+    then promote with `tools/gen_test_registry.py --promote`. Cheapest of the three debt categories to
+    clear.'
 - id: run-F208-ie-sweep
   path: tests/runners/run_F208_ie_sweep.py
   kind: legacy_script
@@ -1257,12 +1370,15 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 44
+    lines: 46
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: Range-based SCF IE sweep that APPENDS to a persistent JSON (so it can run in
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-d1-static-potential
   path: tests/runners/run_d1_static_potential.py
   kind: result_dump
@@ -1277,7 +1393,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 255
+    lines: 256
     n_test_funcs: 0
     artifacts_written:
     - test-results/d1_static_potential.json
@@ -1309,6 +1425,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: su2_3d_fluxtube.py  — Does a confining flux tube appear with NO input string
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: sr2-3d-scan
   path: tests/runners/_sr2_3d_scan.py
   kind: legacy_script
@@ -1318,9 +1437,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 52
+    lines: 58
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: On-grid k scan for the 3D BCC SR-2 test — characterises residuals
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'

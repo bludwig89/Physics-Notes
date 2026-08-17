@@ -30,8 +30,10 @@ Run:  python tests/findings/test_F176_covariant_stellar.py
 import os, sys, json
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_stellar as st
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.interactions import stellar as st
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "..", "test-results", "F176_covariant_stellar.json")
 results = {}

@@ -8,6 +8,7 @@
 # The Monte-Carlo confinement cross-check (sigma from a 3+1D SU(3) lattice) is a
 # SEPARATE run via the gauge_mc scenario (see FB09 brief):
 #   casim run scenarios/gauge_mc.yaml --L 8 --ticks 40 --out test-results/FB09_sigma_smoke.json
+version: 2
 name: string_tension_fpi
 title: "sqrt(sigma)/f_pi (FB09)"
 description: "The two QCD calibrations reconciled: (Lambda/f_pi)(sqrt(sigma)/Lambda) via condensate axis/sphere BZ conventions, scored against the empirical sqrt(sigma)/f_pi = 4.56."

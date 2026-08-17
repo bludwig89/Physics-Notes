@@ -16,6 +16,7 @@
 # orbit resolved+bounded (coarse RMS ~6), net charge → 0, represented a0/r_p
 # ~6e4, norms conserved.  Structure + scale ratio are the deliverable; absolute
 # fm/eV stay P6/scale-gated (F123).
+version: 2
 name: unified_hydrogen_multigrid
 title: "Two-Grid Hydrogen Atom (real-space U4, live)"
 description: "Live two-grid multigrid: fine confined uud proton + coarse bound electron co-evolving in one run, R_b-coupled each tick; represented proton:orbit ratio ~6e4 (≈physical H) on tractable lattices."

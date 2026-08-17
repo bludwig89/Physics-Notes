@@ -7,6 +7,7 @@
 # (photon sphere R=2√e, shadow b_c=2e GM/c², throat R=e GM/c²) live in
 # test_F114_dielectric_black_hole.py; this scenario is the field-level picture.
 # Static eikonal background, so ticks=0.  Watch K_max and the deep well.
+version: 2
 name: dielectric_black_hole
 title: "Dielectric Black Hole (strong field)"
 description: "Strong-field F64 dielectric K=exp(2GM/rc²): a compact mass builds a deep horizon-free well (K_max>>1, local c=c/K→0 only at r→0). The exponential-metric black hole — light asymptotically frozen, never trapped. Probe ray placed near the photon sphere."

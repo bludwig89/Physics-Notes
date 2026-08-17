@@ -1,0 +1,106 @@
+{
+  "C10_on_axis_does_not_go_blind": {
+    "max_dphi_V_resonant": 2.0943951023931957,
+    "obstructed": 1620,
+    "on_axis_linearity_residual": 9.337149109445164e-15
+  },
+  "C11_verdict": {
+    "contact_obstructed": 1340,
+    "falsifier_5_fires": false,
+    "integrable_obstructed": 0
+  },
+  "C1_free_limit_V_is_conserved": {
+    "joint_residual": 3.1024684468537852e-15,
+    "max_commutator": 1.217415428214946e-16
+  },
+  "C2_test_can_report_survival": {
+    "live": 214,
+    "max_dphi_V_live": 0.0,
+    "obstructed": 0
+  },
+  "C3_contact_breaks_V": {
+    "kind": "contact",
+    "live": 44618,
+    "max_dphi_V_live": 3.1130413050890704,
+    "sector_dim": 214
+  },
+  "C4_photon_exchange_breaks_V": {
+    "live": 44618,
+    "max_dphi_V_live": 3.1130413050890704,
+    "obstructed": 1340
+  },
+  "C5_deformation_is_obstructed": {
+    "max_dphi_V_resonant": 2.8762090696077216,
+    "obstructed": 1340,
+    "resonant": 1930
+  },
+  "C6_control_free_charge_survives_on_resonant_set": {
+    "control_free_charge": 1.7763568394002505e-15,
+    "obstructed": 1340,
+    "resonant": 1930
+  },
+  "C7_robust_across_momentum_sectors": {
+    "all_obstructed": true,
+    "rows": [
+      {
+        "K": [
+          0,
+          0,
+          0
+        ],
+        "obstructed": 5148,
+        "resonant": 7806
+      },
+      {
+        "K": [
+          1,
+          0,
+          0
+        ],
+        "obstructed": 2140,
+        "resonant": 2978
+      },
+      {
+        "K": [
+          1,
+          2,
+          0
+        ],
+        "obstructed": 1340,
+        "resonant": 1930
+      }
+    ]
+  },
+  "C8_robust_in_the_mass": {
+    "all_obstructed": true,
+    "rows": [
+      {
+        "m": 0.0,
+        "obstructed": 260
+      },
+      {
+        "m": 0.37,
+        "obstructed": 1340
+      },
+      {
+        "m": 0.8,
+        "obstructed": 1340
+      }
+    ]
+  },
+  "C9_L2_grid_is_degenerate": {
+    "L": 3,
+    "L2_is_degenerate": true,
+    "bloch_max_at_L": 0.8660254037844387,
+    "bloch_max_at_L2": 1.2246467991473535e-16
+  },
+  "n_checks": 11,
+  "runner_claims": {
+    "V_is_broken_by_contact": true,
+    "breaking_is_maximal": true,
+    "control_free_charge_untouched": true,
+    "deformation_is_obstructed": true,
+    "test_can_report_survival": true
+  },
+  "verdict": "F313 falsifier 5 does NOT fire. V = I (x) A is broken by every genuine interaction tested \u2014 contact (F217/F77) and photon exchange (F68) \u2014 maximally (|dphi_V| ~ pi), and the O(G) deformation is OBSTRUCTED on resonant elements, so no deformed V survives either. The integrable control confirms the test can report survival. V is an artifact of FREENESS; F313 sec.9's reading is confirmed and the rank-1 time count is the count of the INTERACTING theory at any cell. Not settled: all orders in G, and the F86 colour dielectric."
+}

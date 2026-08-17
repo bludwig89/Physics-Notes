@@ -1,0 +1,17 @@
+  current  findings-index.md                              270 entries
+  current  project-status-index.md                         56 entries
+  current  tests-index.md                                 360 entries
+  current  code-index.md                                  197 entries
+  current  docs-index.md                                  123 entries
+  current  test-results/manifest.json                     357 entries
+  current  docs/status/exactness-inventory.md             531 entries
+
+finding numbers   max F275, 259 distinct, 270 file(s)
+  duplicates          0 (0 undeclared, 0 declared but UNREVIEWED)
+  gaps                16 (0 undeclared)
+
+exactness inventory   header F275 vs newest F275  ->  0 findings behind
+
+tests-index: 56 record(s) have manifest-linked artifacts they do not declare (C7 arming to-do, not an index defect)
+
+[casim index] ok

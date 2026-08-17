@@ -35,8 +35,10 @@ import numpy as np
 OUT = os.path.dirname(os.path.abspath(__file__))
 _THIS = os.path.dirname(os.path.abspath(__file__))
 # allow importing ca_bcc when run from the project tree (optional, for Part A check)
+# C9: `src/` (five levels up) is what makes `casim.*` importable when this
+# fork is run directly; the sibling fork directory covers bare-name fork loads.
 for p in (_THIS, os.path.abspath(os.path.join(_THIS, "..")),
-          os.path.abspath(os.path.join(_THIS, "..", "ca-simulation"))):
+          os.path.abspath(os.path.join(_THIS, *([".."] * 5), "src"))):
     if p not in sys.path:
         sys.path.insert(0, p)
 
@@ -70,7 +72,7 @@ def eigenphase_symmetry(n_samples=4000, seed=0):
     | |arg(lam1)| - |arg(lam2)| | = 0 to machine precision.  Returns max residual
     and the per-component INT 1/(2w) over the BCC dispersion (the actual number)."""
     try:
-        import ca_bcc as bcc
+        from casim.engine.lattice import bcc as bcc
     except Exception:
         return {"available": False}
     rng = np.random.default_rng(seed)

@@ -75,7 +75,7 @@ import numpy as np
 
 # --- model modules (the ONLY source of constants/physics) ------------------
 # The `sys.path.insert(0, _HERE)` that used to sit here existed so a bare
-# `import ca_atom` would resolve out of `ca-simulation/`. Roadmap C5 rewrote
+# `import ca_atom` would resolve out of the legacy flat tree. Roadmap C5 rewrote
 # those to absolute `casim.engine.particles` imports, so the insert became dead
 # — and worse than dead: from this directory it put `atom`, `dirac`, `element`,
 # `nuclear` and friends on sys.path[0] as TOP-LEVEL module names, shadowing

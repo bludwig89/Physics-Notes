@@ -13,7 +13,9 @@ Tests W4.1–W4.5 from roadmap-wmu-implementation.md.
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 import json
@@ -33,7 +35,7 @@ class _NumpyEncoder(json.JSONEncoder):
             return obj.tolist()
         return super().default(obj)
 
-from ca_wmu import (
+from casim.engine.gauge.weak_wmu import (
     make_w_link_field, covariant_dirac_doublet_step,
     fermion_current_isospin, gauge_transform_links, _su2_product
 )

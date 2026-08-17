@@ -14,7 +14,7 @@
 test_F62_dirac_gravity_fork.py — Dynamical Dirac CA on a curved background (D2)
 + linearized backreaction (D3a)
 ==============================================================================
-Exercises `ca-simulation/forks/dirac_gravity_fork.py`, the time-domain
+Exercises `src/casim/engine/forks/gravity/dirac_gravity_fork.py`, the time-domain
 realisation of `ca-dirac-gravity-plan.md` Stages D2 and D3a.  Stage D1 (the
 flat Dirac propagator, m=0 → Weyl) already lives in `ca_dirac.py`; the dispersion
 identity for the static background already lives in `gr_fork_F46_dirac.py`
@@ -49,12 +49,13 @@ import sys
 import time
 
 THIS = os.path.dirname(__file__)
-SIM = os.path.abspath(os.path.join(THIS, "..", "..", "ca-simulation"))
-FORKS = os.path.join(SIM, "forks")
-for p in (SIM, FORKS):
-    if p not in sys.path:
-        sys.path.insert(0, p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import dirac_gravity_fork as dg          # noqa: E402
 
 STAMP = "2026-05-30 - 15:30"
@@ -90,7 +91,7 @@ def run() -> dict:
         "title": "Dynamical Dirac CA on a curved background (D2) + "
                  "linearized backreaction (D3a)",
         "timestamp": STAMP,
-        "module": "ca-simulation/forks/dirac_gravity_fork.py",
+        "module": "src/casim/engine/forks/gravity/dirac_gravity_fork.py",
         "n_pass": sum(1 for r in results.values() if r.get("pass")),
         "n_total": len(results),
         "total_seconds": round(time.time() - t_total, 2),

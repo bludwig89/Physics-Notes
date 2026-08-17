@@ -48,9 +48,11 @@ from fractions import Fraction
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc as bcc  # noqa: E402
+from casim.engine.lattice import bcc as bcc  # noqa: E402
 
 SQRT3 = np.sqrt(3.0)
 Q = np.pi * SQRT3            # staggering shift per axis (k_i/sqrt3 -> +pi)

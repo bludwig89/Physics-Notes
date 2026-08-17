@@ -1,0 +1,15 @@
+# Hydrogen atom, declared from the `hydrogen` matter template (roadmap P4).
+# Everything below the template — the 7 hand-matched channels and 3 observers
+# of unified_hydrogen.yaml — is supplied by `extends: hydrogen`; this file only
+# names the run and its lattice.  Compare with unified_hydrogen.yaml, which
+# restates the whole chain.  This is the P4 acceptance target: a hydrogen
+# scenario under 20 lines.
+version: 2
+name: hydrogen
+title: "Hydrogen (from template)"
+description: "The unified paired-spinor hydrogen chain, declared via extends: hydrogen."
+extends: hydrogen
+lattice: {L: 16, topology: bcc, c_lat: 0.5773502691896258}
+seed: 11
+ticks: 60
+output: {json: test-results/casim_hydrogen.json}

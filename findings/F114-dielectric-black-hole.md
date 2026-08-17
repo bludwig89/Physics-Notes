@@ -1,6 +1,15 @@
 # F114 — The dielectric black hole: the canonical gravity field is the exponential metric, so "black holes" are horizon-free frozen objects with a 4.6 %-larger shadow
 
-> **⚠ Reclassified by [[F178-gravity-full-tensor-adoption]] (2026-06-29):** gravity sources from the full stress-energy tensor (induced Einstein equation canonical). **SUPERSEDED for the strong field** — under full-tensor gravity the exact vacuum solution is **Schwarzschild**; the horizon-free dielectric black hole and +4.6% shadow were artifacts of treating the exponential metric $K=e^{2u}$ as fundamental (it is only PPN-order).
+> **[PARTIALLY SUPERSEDED 2026-06-29 by F178 — ledger S4-F178-full-stress-energy]**
+>
+> **DEAD:** The horizon-free dielectric black hole and every consequence of reading the exponential metric as fundamental: the throat, the +4.63% shadow (2e vs 3 sqrt3), the absent Hawking spectrum, the late-time ringdown echoes, and the 4 pi second-order deflection coefficient. Under F178 the exact vacuum solution is SCHWARZSCHILD, with a horizon. F183 is the successor.
+>
+> **STILL LIVE:** The algebra, which is correct given its premise, and the record of what was published live between 2026-06-08 and 2026-08-02. The withdrawal is carried as claim cards CL023-CL027 so that an observation matching Schwarzschild is not scored against the model.
+>
+> **NOTE:** This is the one finding the 2026-08-04 triage called genuinely superseded, and its paper (Paper-08) was already moved to deprecated/ under S7.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 
 **Date:** 2026-06-08 - 15:10
 **Numbering note:** drafted as F113; renumbered to **F114** — F113 was already taken (same day) by the NN short-range repulsive core.

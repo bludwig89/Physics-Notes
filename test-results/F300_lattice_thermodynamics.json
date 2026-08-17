@@ -1,0 +1,316 @@
+{
+  "checks": [
+    {
+      "id": "G10-1",
+      "desc": "closed-form A(nhat) reproduces pair_dispersion, residual O(k^4)",
+      "pass": true,
+      "got": 4.438306797981673e-05,
+      "want": "< 1e-3"
+    },
+    {
+      "id": "G10-2",
+      "desc": "pair dispersion is EXACTLY linear along <100> at all |k|",
+      "pass": true,
+      "got": 6.045313945318328e-14,
+      "want": "< 1e-13"
+    },
+    {
+      "id": "G10-3a",
+      "desc": "<A> = 1/315 exactly",
+      "pass": true,
+      "got": 7.771561172376096e-15,
+      "want": "< 1e-12"
+    },
+    {
+      "id": "G10-3",
+      "desc": "u/u_SB - 1 = (40 pi^2/441) Theta^2 (closed form vs quadrature)",
+      "pass": true,
+      "got": 0.0004369055485651252,
+      "want": "< 3e-3"
+    },
+    {
+      "id": "G10-4",
+      "desc": "1/3 - w = (16 pi^2/1323) Theta^2 (closed form vs quadrature)",
+      "pass": true,
+      "got": 0.0005039053776161317,
+      "want": "< 5e-3"
+    },
+    {
+      "id": "G10-5",
+      "desc": "s/s_SB - 1 = (4 pi^2/49) Theta^2",
+      "pass": true,
+      "got": 0.000416276359111345,
+      "want": "< 5e-3"
+    },
+    {
+      "id": "G10-6",
+      "desc": "parameter-free ratio C_u/C_w = 15/2",
+      "pass": true,
+      "got": 6.696608448086838e-05,
+      "want": "< 5e-3"
+    },
+    {
+      "id": "G10-6b",
+      "desc": "EoS independent of the radial cut (zone boundary decoupled)",
+      "pass": true,
+      "got": 3.6706670204359375e-09,
+      "want": "< 1e-6"
+    },
+    {
+      "id": "G10-7",
+      "desc": "fine-grained von Neumann entropy conserved (MIXED state)",
+      "pass": true,
+      "got": 1.1368683772161603e-12,
+      "want": "< 1e-9"
+    },
+    {
+      "id": "G10-8",
+      "desc": "branch occupations n_pm(k) exactly conserved -> 2N charges",
+      "pass": true,
+      "got": 5.440092820663267e-14,
+      "want": "< 1e-11"
+    },
+    {
+      "id": "G10-9",
+      "desc": "coarse-grained entropy rises from 0 to a plateau",
+      "pass": true,
+      "got": {
+        "S_A(0)": 4.252583463107657e-11,
+        "plateau_1/8": 79.95739182295415
+      },
+      "want": "S_A(0) = 0, plateau > 0"
+    },
+    {
+      "id": "G10-10",
+      "desc": "plateau -> GGE as the subsystem fraction falls",
+      "pass": true,
+      "got": [
+        0.553882740193192,
+        0.9012438414180838,
+        0.9871692125965263,
+        0.9978318346980691
+      ],
+      "want": "-> 1"
+    },
+    {
+      "id": "G10-11",
+      "desc": "time reversal: S_A(-t) rises like S_A(+t) (arrow is the initial condition, not the dynamics)",
+      "pass": true,
+      "got": 0.0001845377029572578,
+      "want": "< 0.05"
+    },
+    {
+      "id": "G10-12",
+      "desc": "F190 no-go: 2 pi sqrt3 nats is not ln(integer) nor n ln 2",
+      "pass": true,
+      "got": {
+        "W_dist": 0.2952221048253705,
+        "n_dist": 0.2994439123104371
+      },
+      "want": "both > 0.01"
+    },
+    {
+      "id": "G10-13",
+      "desc": "necessary condition: per-site capacity exceeds 2 pi sqrt3",
+      "pass": true,
+      "got": 6.114433110765505,
+      "want": "> 1"
+    }
+  ],
+  "n_pass": 15,
+  "n_total": 15,
+  "all_pass": true,
+  "eos": {
+    "rows": [
+      {
+        "theta": 0.002,
+        "du_over_u": 3.580856315910097e-06,
+        "third_minus_w": 4.774436424548334e-07,
+        "ds_over_s": 3.222772301914034e-06,
+        "Cu_meas": 0.8952140789775243,
+        "Cw_meas": 0.11936091061370835,
+        "Cs_meas": 0.8056930754785085
+      },
+      {
+        "theta": 0.005,
+        "du_over_u": 2.238190037551213e-05,
+        "third_minus_w": 2.9843011808972086e-06,
+        "ds_over_s": 2.014362439428652e-05,
+        "Cu_meas": 0.8952760150204853,
+        "Cw_meas": 0.11937204723588835,
+        "Cs_meas": 0.8057449757714608
+      },
+      {
+        "theta": 0.01,
+        "du_over_u": 8.954975629515971e-05,
+        "third_minus_w": 1.1940586724212832e-05,
+        "ds_over_s": 8.059351429468009e-05,
+        "Cu_meas": 0.8954975629515971,
+        "Cw_meas": 0.11940586724212832,
+        "Cs_meas": 0.8059351429468009
+      },
+      {
+        "theta": 0.02,
+        "du_over_u": 0.0003585542685238252,
+        "third_minus_w": 4.781717619478654e-05,
+        "ds_over_s": 0.00032267852758827154,
+        "Cu_meas": 0.896385671309563,
+        "Cw_meas": 0.11954294048696634,
+        "Cs_meas": 0.8066963189706788
+      }
+    ],
+    "Cu_meas": 0.8955933320647924,
+    "Cu_exact": 0.8952022132507355,
+    "Cu_rel": 0.0004369055485651252,
+    "Cw_meas": 0.11942044139467284,
+    "Cw_exact": 0.11936029510009806,
+    "Cw_rel": 0.0005039053776161317,
+    "Cs_meas": 0.8060173782918623,
+    "Cs_exact": 0.8056819919256619,
+    "Cs_rel": 0.000416276359111345,
+    "ratio_meas": 7.499497754366393,
+    "ratio_exact": 7.5,
+    "ratio_rel": 6.696608448086838e-05
+  },
+  "entropy": {
+    "B1_fine_grained_drift": [
+      2.2737367544323206e-13,
+      0.0,
+      1.1368683772161603e-12
+    ],
+    "B1_S0": 591.2695432829394,
+    "B2_branch_occ_drift": [
+      7.771561172376096e-16,
+      8.715250743307479e-15,
+      5.440092820663267e-14
+    ],
+    "B3_regions": [
+      {
+        "fraction": "1/2",
+        "n_modes": 512,
+        "plateau": 196.5595424737176,
+        "plateau_sd": 2.35334861747423,
+        "GGE": 354.8757312877424,
+        "S_max": 354.891356446692,
+        "plateau_over_GGE": 0.553882740193192
+      },
+      {
+        "fraction": "1/8",
+        "n_modes": 128,
+        "plateau": 79.95739182295415,
+        "plateau_sd": 0.46277417396172865,
+        "GGE": 88.7189328219356,
+        "S_max": 88.722839111673,
+        "plateau_over_GGE": 0.9012438414180838
+      },
+      {
+        "fraction": "1/64",
+        "n_modes": 16,
+        "plateau": 10.947574882029285,
+        "plateau_sd": 0.017578228109449662,
+        "GGE": 11.08986660274195,
+        "S_max": 11.090354888959125,
+        "plateau_over_GGE": 0.9871692125965263
+      },
+      {
+        "fraction": "1/512",
+        "n_modes": 2,
+        "plateau": 1.3832277423463553,
+        "plateau_sd": 0.0017514867475552087,
+        "GGE": 1.3862333253427437,
+        "S_max": 1.3862943611198906,
+        "plateau_over_GGE": 0.9978318346980691
+      }
+    ],
+    "B3_S_A_at_t0": 4.252583463107657e-11,
+    "B4_time_reversal": {
+      "forward_mean": 79.95739182295415,
+      "reversed_mean": 79.94263666953269,
+      "rel_gap": 0.0001845377029572578
+    }
+  },
+  "cell": {
+    "s_cell_nats": 10.882796185405306,
+    "implied_W": 53252.295222104825,
+    "W_distance_to_integer": 0.2952221048253705,
+    "n_binary_modes_required": 15.700556087689563,
+    "n_distance_to_integer": 0.2994439123104371,
+    "nearest_integer_modes": 16,
+    "nearest_integer_overshoot_rel": 0.01907218512758435,
+    "fermionic_modes_per_site": 96,
+    "capacity_nats": 66.54212933375474,
+    "capacity_over_requirement": 6.114433110765505,
+    "occupancy_fraction": 0.1635474592467663
+  },
+  "scales": {
+    "a_m": 1.0663754173481642e-34,
+    "tau_s": 2.0536611840420687e-43,
+    "T_lattice_K": 3.719324607647246e+31,
+    "E_lattice_GeV": 3.2050659654193674e+18
+  },
+  "margins": {
+    "CMB (2.7255 K)": {
+      "T_K": 2.7255,
+      "theta": 7.327943343251464e-32,
+      "du_over_u": 4.807124310903795e-63,
+      "third_minus_w": 6.40949908120506e-64,
+      "frac_softening_of_w": 1.922849724361518e-63
+    },
+    "BBN, T9 = 1 (1e9 K)": {
+      "T_K": 1000000000.0,
+      "theta": 2.688660188314608e-23,
+      "du_over_u": 6.47132155743975e-46,
+      "third_minus_w": 8.628428743253001e-47,
+      "frac_softening_of_w": 2.5885286229759e-46
+    },
+    "BBN, 1 MeV (1.1605e10 K)": {
+      "T_K": 11604500000.0,
+      "theta": 3.120055715529687e-22,
+      "du_over_u": 8.714567657839511e-44,
+      "third_minus_w": 1.1619423543786014e-44,
+      "frac_softening_of_w": 3.4858270631358046e-44
+    },
+    "QCD crossover (1.7e12 K)": {
+      "T_K": 1700000000000.0,
+      "theta": 4.5707223201348337e-20,
+      "du_over_u": 1.8702119301000878e-39,
+      "third_minus_w": 2.493615906800117e-40,
+      "frac_softening_of_w": 7.480847720400351e-40
+    },
+    "electroweak (1.6e15 K)": {
+      "T_K": 1600000000000000.0,
+      "theta": 4.301856301303373e-17,
+      "du_over_u": 1.6566583187045763e-33,
+      "third_minus_w": 2.208877758272768e-34,
+      "frac_softening_of_w": 6.626633274818304e-34
+    },
+    "_T_at_1pc_softening_K": 6.215463410839026e+30,
+    "_T_lattice_K": 3.719324607647246e+31
+  },
+  "coincidence": {
+    "reciprocal_cube_side": 10.882796185405306,
+    "F190_s_cell_nats": 10.882796185405306,
+    "identical": true,
+    "claimed": false,
+    "reason": "different quantities (a reciprocal length and an entropy); coincident because both trace to a^2/ell_P^2 = 8 pi sqrt3, but no derivation connects them."
+  },
+  "ledger": {
+    "model_native": [
+      "Omega_pair(k) = omega+(k/2)+omega-(k/2)  (F67/F68/F69 on F26)",
+      "c_lat = 1/sqrt3 (F26)",
+      "a = 6.5978 ell_P (F107) -> the tick, hence the ONE temperature scale",
+      "the unitary BCC walk (F26) -> sections B and C",
+      "48 Weyl fields / 2 components (F47/F279) -> section D capacity"
+    ],
+    "external": [
+      "k_B, hbar, c, ell_P: unit rulers (k_B exact by SI definition)",
+      "T_CMB, BBN and crossover temperatures: comparison points only",
+      "F190's s_cell = 2 pi sqrt3: the target section D grades, not an input"
+    ],
+    "free_parameters": 0
+  },
+  "controls": {
+    "linear_control": false,
+    "nonunitary_control": false
+  }
+}

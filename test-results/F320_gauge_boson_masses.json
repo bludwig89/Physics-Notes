@@ -1,0 +1,178 @@
+{
+  "checks": [
+    {
+      "name": "B0a",
+      "ok": true,
+      "value": "2/9",
+      "note": "the 7:2 count reproduces the registry sin2_thetaW_onshell = 2/9 exactly"
+    },
+    {
+      "name": "B0b",
+      "ok": true,
+      "value": "9/7",
+      "note": "m_Z^2 : m_W^2 = 9 : 7 exactly (F141 V3)"
+    },
+    {
+      "name": "B0c",
+      "ok": true,
+      "value": "7/2",
+      "note": "c^2/s^2 = 7/2 exactly -- the coefficient of Delta_rho inside Delta_r"
+    },
+    {
+      "name": "B1a",
+      "ok": true,
+      "value": "0",
+      "note": "det M^2 vanishes IDENTICALLY in u (5 independent rationals) -- rank one"
+    },
+    {
+      "name": "B1b",
+      "ok": true,
+      "value": "0",
+      "note": "the photon is exactly massless, not massless to a tolerance"
+    },
+    {
+      "name": "B1c",
+      "ok": true,
+      "value": "1",
+      "note": "rho = 1 EXACTLY for every u -- from rank, with no custodial SU(2) assumed"
+    },
+    {
+      "name": "B1d",
+      "ok": true,
+      "value": 4.440892098500626e-16,
+      "note": "the massless eigenvector is (0.471405, 0.881917) = (sqrt2, sqrt7)/3 at the BCC counts"
+    },
+    {
+      "name": "B2a",
+      "ok": true,
+      "value": 18.0,
+      "note": "u is DETERMINED, not free: g^2 = 18 pi alpha exactly (F141 left u open)"
+    },
+    {
+      "name": "B2b",
+      "ok": true,
+      "value": 5.142857142857143,
+      "note": "g'^2 = 36 pi alpha / 7 exactly"
+    },
+    {
+      "name": "B2c",
+      "ok": true,
+      "value": 1.4210854715202004e-14,
+      "note": "m_W = (3v/2) sqrt(2 pi alpha) and m_Z = (9v/2) sqrt(2 pi alpha/7) reproduce the matrix solve to machine precision"
+    },
+    {
+      "name": "B3a",
+      "ok": true,
+      "value": 79.08362514573176,
+      "note": "the on-shell solve and the (v, alpha) closed form agree"
+    },
+    {
+      "name": "B3b",
+      "ok": true,
+      "value": -1.5995864762474277,
+      "note": "tree m_W = 79.0836 GeV, -1.5996 % -- the universal Delta_r deficit, present in the SM's own tree relation too"
+    },
+    {
+      "name": "B3c",
+      "ok": true,
+      "value": -1.6620584884005307,
+      "note": "tree m_Z = 89.6724 GeV, -1.6621 %"
+    },
+    {
+      "name": "B4a",
+      "ok": true,
+      "value": 2.220446049250313e-16,
+      "note": "m_W(model)/m_W(obs) = sqrt(s2_obs/s2_model) for EVERY Delta_r in [0, 0.10] -- the radiative correction cancels in the ratio"
+    },
+    {
+      "name": "B4b",
+      "ok": true,
+      "value": 0.22188971454764062,
+      "note": "m_W is +0.222 % high, Delta_r-free"
+    },
+    {
+      "name": "B4c",
+      "ok": true,
+      "value": 0.15826129177944903,
+      "note": "m_Z is +0.158 % high, Delta_r-free"
+    },
+    {
+      "name": "B4d",
+      "ok": true,
+      "value": -0.00953933823749642,
+      "note": "using the model's own c^2/s^2 = 7/2 inside Delta_r instead of the observed 3.4830 moves m_W by -0.0095 % -- two orders below B4b"
+    },
+    {
+      "name": "B5a",
+      "ok": true,
+      "value": [
+        80.1473095980925,
+        80.54753098846422
+      ],
+      "note": "m_W in [80.1473, 80.5475] GeV CONTAINS the PDG 80.3692 (55 % of the way up the bracket)"
+    },
+    {
+      "name": "B5b",
+      "ok": true,
+      "value": [
+        90.87850690605124,
+        91.33231530674783
+      ],
+      "note": "m_Z in [90.8785, 91.3323] GeV CONTAINS the PDG 91.1880"
+    },
+    {
+      "name": "B5c",
+      "ok": true,
+      "value": 0.009651459780387409,
+      "note": "the bracket width is the SM's own Delta_r_rem, 0.0096 -- consistent with the literature value, which is the check that the bracket is the right object rather than a convenient one"
+    },
+    {
+      "name": "B6a",
+      "ok": true,
+      "value": [
+        "alpha",
+        "G_F"
+      ],
+      "note": "the model takes TWO electroweak inputs where the SM takes three"
+    },
+    {
+      "name": "B6b",
+      "ok": true,
+      "value": [
+        "alpha",
+        "G_F"
+      ],
+      "note": "and neither of them is a boson mass -- which is what makes m_W and m_Z outputs rather than a rearrangement of inputs"
+    }
+  ],
+  "n_pass": 22,
+  "n_total": 22,
+  "verdict": "PASS",
+  "params": {
+    "equal_stiffness": true,
+    "rank_two_breaking": false,
+    "eliminate_u": true
+  },
+  "F320_sin2_thetaW_os": "2/9",
+  "F320_v_GeV": 246.21965079413738,
+  "F320_g2_over_pi_alpha": 18.0,
+  "F320_m_W_tree_GeV": 79.08362514573176,
+  "F320_m_Z_tree_GeV": 89.67240210559733,
+  "F320_m_W_bracket_GeV": [
+    80.1473095980925,
+    80.54753098846422
+  ],
+  "F320_m_Z_bracket_GeV": [
+    90.87850690605124,
+    91.33231530674783
+  ],
+  "F320_m_W_excess_pct": 0.22188971454764062,
+  "F320_m_Z_excess_pct": 0.15826129177944903,
+  "F320_rho_tree": "1",
+  "F320_delta_r_bracket": [
+    0.026367099556024773,
+    0.03601855933641218
+  ],
+  "F320_n_ew_inputs_model": 2,
+  "F320_n_ew_inputs_sm": 3
+}

@@ -1,5 +1,14 @@
 # F258 — The one-loop QED electron self-energy Σ(p): mass renormalization δm, wavefunction renormalization Z₂, and Z₁=Z₂ proven from the loop integrals
 
+> **[PARTIALLY SUPERSEDED 2026-08-02 by F277 — ledger S12-F277-refold-removed-qed-and-gluon]**
+>
+> **DEAD:** Numbers computed through the refolded _selfenergy_AB, for the same reason and on the same kernel.
+>
+> **STILL LIVE:** The self-energy construction: mass renormalization delta-m, wavefunction renormalization, and the structure of the result.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-07-22 - 09:30
 **Status:** Confirmed — 6/6 checks PASS. The mass shift $\delta m=\tfrac{3\alpha}{4\pi}m\ln(\Lambda^2/m^2)$ and the wavefunction renormalization $Z_2=1-\tfrac{\alpha}{4\pi}\ln(\Lambda^2/m^2)$ are **algebraically exact** (sympy; the on-shell parametric integrals evaluate to exactly $3$ and $-1$); the differential Ward–Takahashi identity $\partial\Sigma/\partial p_\mu=-\Lambda^\mu(p,p)$ is **derived from the loop integrand**, turning $Z_1=Z_2$ from an assumption (F252) into a **computed** identity; lattice = continuum after subtraction. This completes the one-loop 1PI set $\{Z_3\ (\Pi,\text{F251}),\ Z_2\ (\Sigma,\text{F258}),\ Z_1\ (\Lambda,\text{F252})\}$ with all Ward identities verified.
 **Module:** `ca-simulation/ca_electron_self_energy.py`

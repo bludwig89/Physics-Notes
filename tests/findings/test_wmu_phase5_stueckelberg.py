@@ -12,12 +12,14 @@ Tests W5.1–W5.5 from roadmap-wmu-implementation.md (Path 5B).
 """
 
 import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 import json, time
 
-from ca_wmu import (make_stueckelberg_field, stueckelberg_mass_term,
+from casim.engine.gauge.weak_wmu import (make_stueckelberg_field, stueckelberg_mass_term,
                     wmu_mass_stueckelberg, make_w_link_field,
                     link_unitarity_residual)
 

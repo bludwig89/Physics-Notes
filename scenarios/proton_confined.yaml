@@ -8,6 +8,7 @@
 # Result (test-results/casim_proton_confined.json): the cluster RMS stays
 # bounded (~3.7, capped) — a confined proton — while the free control
 # (proton_confined_free.yaml) disperses to box saturation (~7).
+version: 2
 name: proton_confined
 title: "Confined Proton (colour quarks, U3 Part 1)"
 description: "Three massive SU(3) colour-triplet Dirac quarks (uud) bound by the F135 scalar string, gluon loop live, net charge +1: a real-space confined proton."

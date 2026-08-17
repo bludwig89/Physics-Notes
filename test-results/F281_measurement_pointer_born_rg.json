@@ -1,0 +1,182 @@
+{
+  "checks": [
+    {
+      "name": "M1a [H_int, n\u0302] = 0 exactly",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "M1b sieve minimises at the site basis",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "M1c spin is NOT einselected (control)",
+      "ok": true,
+      "value": 6.221871055020782
+    },
+    {
+      "name": "M1f {n\u0302(x)} is MAXIMAL abelian at n=1..4 \u21d2 pointer basis unique",
+      "ok": true,
+      "value": [
+        2,
+        4,
+        8,
+        16
+      ]
+    },
+    {
+      "name": "M1g pointer entropy stays 0 as the system grows",
+      "ok": true,
+      "value": 6.661338147750936e-16
+    },
+    {
+      "name": "M1h the DFS loophole: same state, resolving vs degenerate environment",
+      "ok": true,
+      "value": [
+        0.48066162951869684,
+        6.661338147750936e-16
+      ]
+    },
+    {
+      "name": "M1d hopping does not commute \u2014 measurement limit stated",
+      "ok": true,
+      "value": 2.8284271247461903
+    },
+    {
+      "name": "M1e decoherence closed form \u03a0 cos(g_j t)",
+      "ok": true,
+      "value": 5.551115123125783e-16
+    },
+    {
+      "name": "M2a only p=2 survives a real BCC tick",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "M2b permutation control conserves every p",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "M2c the swap is a genuine flip, not a phase",
+      "ok": true,
+      "value": 6.123233995736766e-17
+    },
+    {
+      "name": "M2d equal amplitudes are envariant",
+      "ok": true,
+      "value": 2.220446049250313e-16
+    },
+    {
+      "name": "M2e UNEQUAL amplitudes are NOT envariant (control)",
+      "ok": true,
+      "value": 0.96
+    },
+    {
+      "name": "M2f fine-graining gives p_k = |c_k|\u00b2",
+      "ok": true,
+      "value": 1.1102230246251565e-16
+    },
+    {
+      "name": "M2g exact over \u211a, and uniform fine-graining fails (control)",
+      "ok": true,
+      "value": 0.23809523809523808
+    },
+    {
+      "name": "M3a closed form matches the model's own R_b",
+      "ok": true,
+      "value": 8.881784197001252e-16
+    },
+    {
+      "name": "M3b populations marginal: \u03bb(k=0)=1, charge exact",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "M3c coherence is suppressed at generic k (needs b>1)",
+      "ok": true,
+      "value": 0.7701511529340699
+    },
+    {
+      "name": "M3d RG exponent = \u22122 per dimension, \u22126 in 3-D",
+      "ok": true,
+      "value": -6.0
+    },
+    {
+      "name": "M3e long-wavelength coherence SURVIVES (control)",
+      "ok": true,
+      "value": 0.9829629131445343
+    }
+  ],
+  "passed": true,
+  "n_pass": 20,
+  "n_total": 20,
+  "params": {
+    "coupling": "minimal",
+    "flip_angle_over_pi": 0.5,
+    "block_b": 2
+  },
+  "summary": {
+    "M1_minimal_coupling_commutator": 0.0,
+    "M1_nonminimal_control_commutator": 6.22187105502078,
+    "M1_hopping_commutator": 2.8284271247461903,
+    "M1_spin_not_einselected_commutator": 6.221871055020782,
+    "M1_sieve_theta_min": 0.0,
+    "M1_sieve_S_at_site_basis": 6.106226635438359e-16,
+    "M1_sieve_S_max": 0.6872413704108582,
+    "M1_control_sieve_theta_min": 0.7853981633974483,
+    "M1_control_sieve_S_at_site_basis": 0.6929006138606824,
+    "M1_decoherence_closed_form_residual": 6.661338147750939e-16,
+    "M1_population_residual": 4.440892098500626e-16,
+    "M1_recurrence_log10_slope_per_cell": -0.7610834713514639,
+    "M1_recurrence_log10_ticks_mole": 4.583351794587943e+23,
+    "M1p_commutant_dims": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "M1p_hilbert_dims": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "M1p_all_maximal_abelian": true,
+    "M1p_worst_pointer_entropy": 6.661338147750936e-16,
+    "M1p_generic_entropy_min_by_n": [
+      0.04063235553815763,
+      0.728987048573839,
+      1.4402913788055816,
+      1.6545355908864567
+    ],
+    "M1p_dfs_resolving_env": 0.48066162951869684,
+    "M1p_dfs_degenerate_env": 6.661338147750936e-16,
+    "M2_lp2_bcc_step_change": 0.0,
+    "M2_lp_min_other_change_bcc": 0.03351723165284666,
+    "M2_lp2_native_gate_change": 4.440892098500626e-16,
+    "M2_permutation_control_max_change": 0.0,
+    "M2_envariance_ray_infidelity": 2.220446049250313e-16,
+    "M2_native_flip_residual": 6.123233995736766e-17,
+    "M2_exchange_is_swap_residual": 0.0,
+    "M2_unequal_max_overlap": 0.96,
+    "M2_unequal_closed_form_residual": 1.1102230246251565e-16,
+    "M2_finegrain_amplitude_residual": 0.0,
+    "M2_finegrain_envariance_residual": 0.0,
+    "M2_p_minus_born": 1.1102230246251565e-16,
+    "M2_control_nonenvariance": 0.20101792401041638,
+    "M2_exact_over_Q": true,
+    "M2_control_uniform_finegraining_nonzero": true,
+    "M2_cone_log10_max_M_at_1000_cells": 602059991.3279624,
+    "M3_rg_closed_form_residual": 8.881784197001252e-16,
+    "M3_lambda_at_k0": 1.0,
+    "M3_charge_relative_residual": 0.0,
+    "M3_long_wavelength_lambda": 0.9829629131445343,
+    "M3_zone_edge_even_b_lambda": 3.749399456654644e-33,
+    "M3_exponent_1d": -2.0,
+    "M3_exponent_3d": -6.0,
+    "M3_exponent_residual_3d": 0.0,
+    "M3_log10_macroscopic_suppression": -142.9514446129895
+  }
+}

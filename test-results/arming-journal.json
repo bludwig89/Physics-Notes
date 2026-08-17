@@ -1,0 +1,2500 @@
+{
+ "about": "Roadmap C7.5 arming pass. One entry per result_dump record: did a real run rewrite the baseline it declares? `armed` = yes (and the diff verdict follows); `unarmed` = no, so the promotion was wrong and the record is demoted back to legacy_script; `error` = could not be established. Written by tools/arm_test_registry.py; resumable.",
+ "records": {
+  "01-GR1-light-deflection": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_01_GR1_light_deflection.py",
+   "results": [
+    "test-results/top10_T01_GR1_light_deflection.json"
+   ],
+   "seconds": 1.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "01b-GR1-openBC": {
+   "compared": null,
+   "detail": "exit -9:   from poisson_open import solve_poisson_3d_open, gaussian_mass_3d",
+   "path": "tests/priority/test_01b_GR1_openBC.py",
+   "results": [
+    "test-results/top10_T01b_GR1_openBC.json"
+   ],
+   "seconds": 3.3,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "02-QM1-CHSH": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_02_QM1_CHSH.py",
+   "results": [
+    "test-results/top10_T02_QM1_CHSH.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "04-GR3-pound-rebka": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_04_GR3_pound_rebka.py",
+   "results": [
+    "test-results/top10_T04_GR3_pound_rebka.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "05-GR2-shapiro": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_05_GR2_shapiro.py",
+   "results": [
+    "test-results/top10_T05_GR2_shapiro.json"
+   ],
+   "seconds": 0.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "05b-GR2-openBC": {
+   "compared": null,
+   "detail": "exit -9:   from poisson_open import solve_poisson_3d_open, gaussian_mass_3d",
+   "path": "tests/priority/test_05b_GR2_openBC.py",
+   "results": [
+    "test-results/top10_T05b_GR2_openBC.json"
+   ],
+   "seconds": 4.3,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "06-QG2-planck-LV": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_06_QG2_planck_LV.py",
+   "results": [
+    "test-results/top10_T06_QG2_LV.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "07-QFT5-neutrino": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_07_QFT5_neutrino.py",
+   "results": [
+    "test-results/top10_T07_QFT5_neutrino.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "08-QM2-tunneling": {
+   "compared": null,
+   "detail": "exit 1: AttributeError: module 'ca_dirac' has no attribute 'dirac_step_u1_2d_splitstep'. Did you mean: 'dirac_step_2d_splitstep'?",
+   "path": "tests/priority/test_08_QM2_tunneling.py",
+   "results": [
+    "test-results/top10_T08_QM2_tunneling.json"
+   ],
+   "seconds": 1.4,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "09-GR4-mercury": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/priority/test_09_GR4_mercury.py",
+   "results": [
+    "test-results/top10_T09_GR4_mercury.json"
+   ],
+   "seconds": 2.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "10-QG4-charge": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/top10_T10_QG4_charge.json: 1 delta(s) \u2014 ~ chiral_test_m_nonzero.Q_tot_drift: 1.7053025658242404e-12 -> 2.0747847884194925e-12  (rel 1.78e-01)",
+   "path": "tests/priority/test_10_QG4_charge.py",
+   "results": [
+    "test-results/top10_T10_QG4_charge.json"
+   ],
+   "seconds": 6.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "11-SR4-doppler": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/priority/test_11_SR4_doppler.py",
+   "results": [
+    "test-results/test_11_SR4_doppler.json"
+   ],
+   "seconds": 4.7,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "12-QM3-heisenberg": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/priority/test_12_QM3_heisenberg.py",
+   "results": [
+    "test-results/test_12_QM3_heisenberg.json"
+   ],
+   "seconds": 0.2,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "13-QFT8-CPT": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/priority/test_13_QFT8_CPT.py",
+   "results": [
+    "test-results/test_13_QFT8_CPT.json"
+   ],
+   "seconds": 5.6,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "14-QM4-zeno": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/priority/test_14_QM4_zeno.py",
+   "results": [
+    "test-results/test_14_QM4_zeno.json"
+   ],
+   "seconds": 0.2,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "15-QM6-twoslit": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/priority/test_15_QM6_twoslit.py",
+   "results": [
+    "test-results/test_15_QM6_twoslit.json"
+   ],
+   "seconds": 3.1,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "E2E-nonabelian-bilinear": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_E2E_nonabelian_bilinear.py",
+   "results": [
+    "test-results/E2E_nonabelian_bilinear.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F100-gamma-from-transfer-operator": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F100_gamma_from_transfer_operator.py",
+   "results": [
+    "test-results/F100_gamma_from_transfer_operator.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F101-one-heavy-branch-fit-W": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F101_one_heavy_branch_fit_W.py",
+   "results": [
+    "test-results/F101_one_heavy_branch_fit_W.json"
+   ],
+   "seconds": 1.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F101-strong-coupling-sigma": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F101_strong_coupling_sigma.py",
+   "results": [
+    "test-results/F101_strong_coupling_sigma.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F102-coupled-rotors": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F102_coupled_rotors.py",
+   "results": [
+    "test-results/F102_coupled_rotors.json"
+   ],
+   "seconds": 36.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F106-psi-K-sourcing": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F106_psi_K_sourcing.py",
+   "results": [
+    "test-results/F106_psi_K_sourcing.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F107-canonical-a-L4-grb-gate": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F107_canonical_a_L4_grb_gate.py",
+   "results": [
+    "test-results/F107_canonical_a_L4_grb_gate.json"
+   ],
+   "seconds": 2.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F108-democratic-no-go-and-bubble": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F108_democratic_no_go_and_bubble.py",
+   "results": [
+    "test-results/F108_democratic_no_go_and_bubble.json"
+   ],
+   "seconds": 3.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F109-f92-bridge-construction": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F109_f92_bridge_construction.py",
+   "results": [
+    "test-results/F109_f92_bridge_construction.json"
+   ],
+   "seconds": 4.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F110-link-hamiltonian-realtime": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F110_link_hamiltonian_realtime.py",
+   "results": [
+    "test-results/F110_link_hamiltonian_realtime.json"
+   ],
+   "seconds": 55.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F111-second-order-deflection": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F111_second_order_deflection.py",
+   "results": [
+    "test-results/F111_second_order_deflection.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F111-tree-gauge-su3-ladder": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F111_tree_gauge_su3_ladder.json: 4 delta(s) \u2014 + tables.su3_rotor_sigma1.0.05 = 3.6336217424904906; + tables.su3_rotor_sigma1.0.2 = 2.1055723919779297; + tables.su3_rotor_sigma1.1.0 = 0.64",
+   "path": "tests/findings/test_F111_tree_gauge_su3_ladder.py",
+   "results": [
+    "test-results/F111_tree_gauge_su3_ladder.json"
+   ],
+   "seconds": 4.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F112-si-predictions": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F112_si_predictions.py",
+   "results": [
+    "test-results/F112_si_predictions.json",
+    "test-results/F112_si_predictions.md"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F113-repulsive-core": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F113_repulsive_core.py",
+   "results": [
+    "test-results/F113_repulsive_core.json"
+   ],
+   "seconds": 20.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F118-self-consistent-Wvc-and-C": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F118_self_consistent_Wvc_and_C.py",
+   "results": [
+    "test-results/F118_self_consistent_Wvc_and_C.json"
+   ],
+   "seconds": 9.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F119-kg-scale-three-routes": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F119_kg_scale_three_routes.py",
+   "results": [
+    "test-results/F119_kg_scale_three_routes.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F120-electron-calibrated-spectrum": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F120_electron_calibrated_spectrum.py",
+   "results": [
+    "test-results/F120_electron_calibrated_spectrum.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F121-tau-anchored-canonical-spectrum": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F121_tau_anchored_canonical_spectrum.py",
+   "results": [
+    "test-results/F121_tau_anchored_canonical_spectrum.json"
+   ],
+   "seconds": 0.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F124-qcd-scale-ratio": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F124_qcd_scale_ratio.py",
+   "results": [
+    "test-results/F124_qcd_scale_ratio.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F126-sigma-attraction": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F126_sigma_attraction.py",
+   "results": [
+    "test-results/F126_sigma_attraction.json"
+   ],
+   "seconds": 38.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F128-omega-repulsion": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F128_omega_repulsion.json: 1 delta(s) \u2014 ~ checks.D2 bare \u03c3 + \u03c9 -> deuteron E_b = 2.224 MeV (single bound state).residual: 7.058797990566745e-12 -> 1.773026170326375e-11  (rel 6.02e-01)",
+   "path": "tests/findings/test_F128_omega_repulsion.py",
+   "results": [
+    "test-results/F128_omega_repulsion.json"
+   ],
+   "seconds": 28.8,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F129-blockspin-free-photon": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_F129_blockspin_free_photon.py",
+   "results": [
+    "test-results/F129_blockspin_free_photon.json",
+    "test-results/F129_blockspin_free_photon_summary.md"
+   ],
+   "seconds": 4.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F135-blockspin-wavepacket-realtime": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F135_blockspin_wavepacket_realtime.py",
+   "results": [
+    "test-results/F135_blockspin_wavepacket_realtime.json",
+    "test-results/F135_blockspin_wavepacket_realtime_summary.md"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F138-weinberg-matching-4piv": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F138_weinberg_matching_4piv.py",
+   "results": [
+    "test-results/F138_weinberg_matching_4piv.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F141-ws-cell-mass-counting": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F141_ws_cell_mass_counting.py",
+   "results": [
+    "test-results/F141_ws_cell_mass_counting.json"
+   ],
+   "seconds": 0.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F143-wrap-loop-stiffness": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F143_wrap_loop_stiffness.py",
+   "results": [
+    "test-results/F143_wrap_loop_stiffness_test.json"
+   ],
+   "seconds": 4.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F144-route-a-alpha-s": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F144_route_a_alpha_s.py",
+   "results": [
+    "test-results/F144_route_a_alpha_s.json"
+   ],
+   "seconds": 3.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F145-route-c-induced-njl": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F145_route_c_induced_njl.py",
+   "results": [
+    "test-results/F145_route_c_induced_njl.json"
+   ],
+   "seconds": 4.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F147-induced-stiffness-loop": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F147_induced_stiffness_loop.json: 2 delta(s) \u2014 ~ checks._chi_two_tick_L8.staggered: -0.01209596778295463 -> -0.012095966894776211  (rel 7.34e-08); ~ checks._chi_two_tick_L8.vector: -0.012",
+   "path": "tests/findings/test_F147_induced_stiffness_loop.py",
+   "results": [
+    "test-results/F147_induced_stiffness_loop.json"
+   ],
+   "seconds": 14.7,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F148-modular-element-assembler": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F148_modular_element_assembler.py",
+   "results": [
+    "test-results/F148_modular_element_assembler.json"
+   ],
+   "seconds": 3.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F149-condensate-channel-splitting": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F149_condensate_channel_splitting.json: 1 delta(s) \u2014 ~ checks._bf_split.0.2: -0.06378857514627506 -> -0.06378857619893097  (rel 1.65e-08)",
+   "path": "tests/findings/test_F149_condensate_channel_splitting.py",
+   "results": [
+    "test-results/F149_condensate_channel_splitting.json"
+   ],
+   "seconds": 20.9,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F151-scheme-constant": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F151_scheme_constant.json: 24 delta(s) \u2014 ~ S3.detail.F144_dev_%: 8.455199185051088 -> 8.455207310841928  (rel 9.61e-07); ~ S3.detail.a1_corrected_dev_%: 4.428181570837819 -> 4.42818909311",
+   "path": "tests/findings/test_F151_scheme_constant.py",
+   "results": [
+    "test-results/F151_scheme_constant.json"
+   ],
+   "seconds": 12.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F153-diamagnetic-chargeblind-multiplicity": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F153_diamagnetic_chargeblind_multiplicity.json: 4 delta(s) \u2014 ~ checks._N1_numbers.chan_diff_qhat_100: -0.06378853619800659 -> -0.06378853725066248  (rel 1.65e-08); ~ checks._N1_numbers.tr",
+   "path": "tests/findings/test_F153_diamagnetic_chargeblind_multiplicity.py",
+   "results": [
+    "test-results/F153_diamagnetic_chargeblind_multiplicity.json"
+   ],
+   "seconds": 13.2,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F155-lpt-vertex": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F155_lpt_vertex.py",
+   "results": [
+    "test-results/F155_lpt_vertex.json"
+   ],
+   "seconds": 1.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F155-lpt-wilson-core": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F155_lpt_wilson_core.py",
+   "results": [
+    "test-results/F155_lpt_wilson_core.json"
+   ],
+   "seconds": 3.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F155-qstar-self-energy": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F155_qstar_self_energy.py",
+   "results": [
+    "test-results/F155_qstar_self_energy.json"
+   ],
+   "seconds": 31.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F155-ward-identity": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F155_ward_identity.py",
+   "results": [
+    "test-results/F155_ward_identity.json"
+   ],
+   "seconds": 2.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F162-bgfield-loop": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F162_bgfield_loop.py",
+   "results": [
+    "test-results/F162_bgfield_loop.json"
+   ],
+   "seconds": 4.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F166-triple-gluon-branch": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F166_triple_gluon_branch.py",
+   "results": [
+    "test-results/F166_triple_gluon_branch.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F167-restmass-from-rule": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F167_restmass_from_rule.py",
+   "results": [
+    "test-results/F167_restmass_from_rule.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F168-paired-photon-binding": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F168_paired_photon_binding.py",
+   "results": [
+    "test-results/F168_paired_photon_binding.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F169-photon-bound-state": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F169_photon_bound_state.py",
+   "results": [
+    "test-results/F169_photon_bound_state.json"
+   ],
+   "seconds": 3.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F170-lepton-colour-scale-link": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F170_lepton_colour_scale_link.py",
+   "results": [
+    "test-results/F170_lepton_colour_scale_link.json"
+   ],
+   "seconds": 0.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F171-slowlight": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F171_slowlight.py",
+   "results": [
+    "test-results/F171_slowlight.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F172-residual-algebraic-or-computed": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F172_residual_algebraic_or_computed.py",
+   "results": [
+    "test-results/F172_residual_algebraic_or_computed.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F173-tolman-pressure": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F173_tolman_pressure.py",
+   "results": [
+    "test-results/F173_tolman_pressure.json"
+   ],
+   "seconds": 3.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F174-shape-angle-2-9": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F174_shape_angle_2_9.py",
+   "results": [
+    "test-results/F174_shape_angle_2_9.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F174-stellar-overlay": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F174_stellar_overlay.py",
+   "results": [
+    "test-results/F174_stellar_overlay.json"
+   ],
+   "seconds": 8.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F175-lattice-2-9-eg-weight": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F175_lattice_2_9_eg_weight.py",
+   "results": [
+    "test-results/F175_lattice_2_9_eg_weight.json"
+   ],
+   "seconds": 0.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F176-covariant-stellar": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F176_covariant_stellar.py",
+   "results": [
+    "test-results/F176_covariant_stellar.json"
+   ],
+   "seconds": 10.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F176-saturation-self-duality": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F176_saturation_self_duality.py",
+   "results": [
+    "test-results/F176_saturation_self_duality.json"
+   ],
+   "seconds": 0.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F177-bps-self-duality-completion": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F177_bps_self_duality_completion.py",
+   "results": [
+    "test-results/F177_bps_self_duality_completion.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F181-covariant-interior-battery": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F181_covariant_interior_battery.json: 9 delta(s) \u2014 ~ results.B1_equivalence_principle._seconds: 1.2 -> 0.58  (rel 5.17e-01); ~ results.B2_redshift._seconds: 4.04 -> 3.24  (rel 1.98e-01); ",
+   "path": "tests/findings/test_F181_covariant_interior_battery.py",
+   "results": [
+    "test-results/F181_covariant_interior_battery.json"
+   ],
+   "seconds": 23.1,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F182-friedmann-pressure": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F182_friedmann_pressure.json: 5 delta(s) \u2014 ~ results.A1_bianchi_forces_3p._seconds: 0.19 -> 0.16  (rel 1.58e-01); ~ results.A2_omitted_fraction._seconds: 0.01 -> 0.0  (rel 1.00e+00); ~ re",
+   "path": "tests/findings/test_F182_friedmann_pressure.py",
+   "results": [
+    "test-results/F182_friedmann_pressure.json"
+   ],
+   "seconds": 6.0,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F183-blackhole": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F183_blackhole.py",
+   "results": [
+    "test-results/F183_blackhole.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F184-tabulated-ns": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F184_tabulated_ns.json: 3 delta(s) \u2014 ~ results.N1_SLy_mass_radius._seconds: 4.62 -> 2.76  (rel 4.03e-01); ~ results.N2_eos_ordering._seconds: 12.46 -> 7.37  (rel 4.09e-01); ~ results.N3_s",
+   "path": "tests/findings/test_F184_tabulated_ns.py",
+   "results": [
+    "test-results/F184_tabulated_ns.json"
+   ],
+   "seconds": 14.1,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F185-rotation": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F185_rotation.json: 3 delta(s) \u2014 ~ results.R1_moment_of_inertia._seconds: 0.06 -> 0.07  (rel 1.43e-01); ~ results.R2_framedrag_monotone._seconds: 0.26 -> 0.28  (rel 7.14e-02); ~ results.R",
+   "path": "tests/findings/test_F185_rotation.py",
+   "results": [
+    "test-results/F185_rotation.json"
+   ],
+   "seconds": 1.8,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F186-shadow-raytrace": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F186_shadow_raytrace.json: 1 delta(s) \u2014 ~ results.T1_numeric_b_crit._seconds: 5.49 -> 5.45  (rel 7.29e-03)",
+   "path": "tests/findings/test_F186_shadow_raytrace.py",
+   "results": [
+    "test-results/F186_shadow_raytrace.json"
+   ],
+   "seconds": 6.5,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F187-qnm": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F187_qnm.py",
+   "results": [
+    "test-results/F187_qnm.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F188-lcdm": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F188_lcdm.py",
+   "results": [
+    "test-results/F188_lcdm.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F189-inspiral": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F189_inspiral.py",
+   "results": [
+    "test-results/F189_inspiral.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F190-horizon-entropy": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F190_horizon_entropy.py",
+   "results": [
+    "test-results/F190_horizon_entropy.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F191-darkmatter": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F191_darkmatter.py",
+   "results": [
+    "test-results/F191_darkmatter.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F192-vacuum-energy": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F192_vacuum_energy.json: 1 delta(s) \u2014 ~ results.V2_bare_overshoot._seconds: 0.18 -> 0.17  (rel 5.56e-02)",
+   "path": "tests/findings/test_F192_vacuum_energy.py",
+   "results": [
+    "test-results/F192_vacuum_energy.json"
+   ],
+   "seconds": 1.6,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F193-ontic-vacuum": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F193_ontic_vacuum.py",
+   "results": [
+    "test-results/F193_ontic_vacuum_test.json"
+   ],
+   "seconds": 1.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F194-emergent-gravity-bullet": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F194_emergent_gravity_bullet.py",
+   "results": [
+    "test-results/F194_emergent_gravity_bullet.json"
+   ],
+   "seconds": 5.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F196-dilution-exponent": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F196_dilution_exponent.py",
+   "results": [
+    "test-results/F196_dilution_exponent_test.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F197-first-excitation-dark": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F197_first_excitation_dark.py",
+   "results": [
+    "test-results/F197_first_excitation_dark_test.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F198-angular-misalignment": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F198_angular_misalignment.py",
+   "results": [
+    "test-results/F198_angular_misalignment_test.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F199-amplitude-mode-stability": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F199_amplitude_mode_stability.py",
+   "results": [
+    "test-results/F199_amplitude_mode_stability_test.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F200-alcubierre-structural": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F200_alcubierre_structural.json: 3 delta(s) \u2014 ~ results.G1_symbolic_negative_wall._seconds: 6.92 -> 5.8  (rel 1.62e-01); ~ results.G2_integrated_energy_negative._seconds: 0.29 -> 0.22  (r",
+   "path": "tests/findings/test_F200_alcubierre_structural.py",
+   "results": [
+    "test-results/F200_alcubierre_structural.json"
+   ],
+   "seconds": 7.2,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F200-sterile-neutrino-dm": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F200_sterile_neutrino_dm.py",
+   "results": [
+    "test-results/F200_sterile_neutrino_dm_test.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F201-kev-from-eg-texture": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F201_kev_from_eg_texture.py",
+   "results": [
+    "test-results/F201_kev_from_eg_texture_test.json"
+   ],
+   "seconds": 2.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F202-leptogenesis-sakharov": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F202_leptogenesis_sakharov.py",
+   "results": [
+    "test-results/F202_leptogenesis_sakharov_test.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F203-dark-sector-falsifiers": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F203_dark_sector_falsifiers.py",
+   "results": [
+    "test-results/F203_dark_sector_falsifiers_test.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F205-sterile-qke-boltzmann": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F205_sterile_qke_boltzmann_test.json: 1 delta(s) \u2014 ~ results.V8_spectrum_converged._seconds: 0.08 -> 0.07  (rel 1.25e-01)",
+   "path": "tests/findings/test_F205_sterile_qke_boltzmann.py",
+   "results": [
+    "test-results/F205_sterile_qke_boltzmann_test.json"
+   ],
+   "seconds": 1.7,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F207-casimir": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F207_casimir.py",
+   "results": [
+    "test-results/F207_casimir.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F209-modulated-casimir": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F209_modulated_casimir.py",
+   "results": [
+    "test-results/F209_modulated_casimir.json"
+   ],
+   "seconds": 1.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F230-lepton-angle-geometric-nogo": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F230_lepton_angle_geometric_nogo.py",
+   "results": [
+    "test-results/F230_lepton_angle_geometric_nogo.json"
+   ],
+   "seconds": 0.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F231-weinberg-scheme-reconciliation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F231_weinberg_scheme_reconciliation.py",
+   "results": [
+    "test-results/F231_weinberg_scheme_reconciliation.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F232-lattice-spacing-degeneracy": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F232_lattice_spacing_degeneracy.py",
+   "results": [
+    "test-results/F232_lattice_spacing_degeneracy.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F233-mass-scale-N-transmutation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F233_mass_scale_N_transmutation.py",
+   "results": [
+    "test-results/F233_mass_scale_N_transmutation.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F234-Wvc-triple-closed": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F234_Wvc_triple_closed.py",
+   "results": [
+    "test-results/F234_Wvc_triple_closed.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F235-sqrt-sigma-fpi-scale-setting": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F235_sqrt_sigma_fpi_scale_setting.py",
+   "results": [
+    "test-results/F235_sqrt_sigma_fpi_scale_setting.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F239-scheme-factor-factorization": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F239_scheme_factor_factorization.py",
+   "results": [
+    "test-results/F239_scheme_factor_factorization.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F240-omega-coupling-derivation": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F240_omega_coupling_derivation.json: 2 delta(s) \u2014 ~ checks.C1 route A (F113 core + sigma + omega) binds E_b=2.224.residual: 0.003328737105956936 -> 0.003328737090869005  (rel 4.53e-09); ~",
+   "path": "tests/findings/test_F240_omega_coupling_derivation.py",
+   "results": [
+    "test-results/F240_omega_coupling_derivation.json"
+   ],
+   "seconds": 9.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F241-omega-lambda-residual": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F241_omega_lambda_residual.json: 1 delta(s) \u2014 ~ results.C3_event_horizon_route_circular._seconds: 0.041 -> 0.035  (rel 1.46e-01)",
+   "path": "tests/findings/test_F241_omega_lambda_residual.py",
+   "results": [
+    "test-results/F241_omega_lambda_residual.json"
+   ],
+   "seconds": 0.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F242-mustar-from-dielectric": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F242_mustar_from_dielectric.py",
+   "results": [
+    "test-results/F242_mustar_from_dielectric.json"
+   ],
+   "seconds": 2.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F243-f3-lowdensity-lensing": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F243_f3_lowdensity_lensing.py",
+   "results": [
+    "test-results/F243_f3_lowdensity_lensing.json"
+   ],
+   "seconds": 7.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F244-emqg-1overb-scan": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F244_emqg_1overb_scan.py",
+   "results": [
+    "test-results/F244_emqg_1overb_scan.json"
+   ],
+   "seconds": 7.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F254-t2g-pmns-selector": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F254_t2g_pmns_selector.json: 1 delta(s) \u2014 ~ results.T3_oneparameter_nogo.full_fit_max_abs_deg: 1.2752465750054398e-11 -> 1.2727596754302795e-11  (rel 1.95e-03)",
+   "path": "tests/findings/test_F254_t2g_pmns_selector.py",
+   "results": [
+    "test-results/F254_t2g_pmns_selector.json"
+   ],
+   "seconds": 6.8,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F28-grb-dispersion": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F28_grb_dispersion.py",
+   "results": [
+    "test-results/F27_grb_dispersion.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F30-dispersion-order": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F30_dispersion_order.py",
+   "results": [
+    "test-results/F30_dispersion_order.json",
+    "test-results/F30_dispersion_order_summary.md"
+   ],
+   "seconds": 10.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F37-delta-omega": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_F37_delta_omega.py",
+   "results": [
+    "test-results/F37_delta_omega.json"
+   ],
+   "seconds": 2.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F46-pythagorean-mass": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F46_pythagorean_mass.py",
+   "results": [
+    "test-results/F46_pythagorean_mass.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F49-bcc-weinberg-2over9": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F49_bcc_weinberg_2over9.py",
+   "results": [
+    "test-results/F47_bcc_weinberg_2over9.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F50-gravity-fork-dirac": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F50_gravity_fork_dirac.py",
+   "results": [
+    "test-results/F50_gravity_fork_dirac.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F52-restleg-backreaction": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F52_restleg_backreaction.py",
+   "results": [
+    "test-results/F52_restleg_backreaction.json"
+   ],
+   "seconds": 3.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F55-spatial-metric-backreaction": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F55_spatial_metric_backreaction.py",
+   "results": [
+    "test-results/F55_spatial_metric_backreaction.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F56-einstein-coupling-derivation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F56_einstein_coupling_derivation.py",
+   "results": [
+    "test-results/F56_einstein_coupling_derivation.json"
+   ],
+   "seconds": 1.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F57-induced-eh-from-backreaction": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F57_induced_eh_from_backreaction.py",
+   "results": [
+    "test-results/F57_induced_eh_from_backreaction.json"
+   ],
+   "seconds": 4.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F58-clockrate-coupling-derivation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F58_clockrate_coupling_derivation.py",
+   "results": [
+    "test-results/F58_clockrate_coupling_derivation.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F59-induced-eh-prefactor": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F59_induced_eh_prefactor.py",
+   "results": [
+    "test-results/F59_induced_eh_prefactor.json"
+   ],
+   "seconds": 1.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F60-channel-reconciliation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F60_channel_reconciliation.py",
+   "results": [
+    "test-results/F60_channel_reconciliation.json"
+   ],
+   "seconds": 3.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F61-weyl-eta-gstar": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F61_weyl_eta_gstar.py",
+   "results": [
+    "test-results/F61_weyl_eta_gstar.json"
+   ],
+   "seconds": 1.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F62-dirac-gravity-fork": {
+   "compared": 1,
+   "detail": "baseline predates S3-F64-dielectric-gravity (stale_by_design) \u2014 test-results/F62_dirac_gravity_fork.json: 164 delta(s) \u2014 - D1_flat_weyl_regression.L (was 48.0); - D1_flat_weyl_regression.dt (was 1.0); - D1_flat_wey",
+   "path": "tests/findings/test_F62_dirac_gravity_fork.py",
+   "results": [
+    "test-results/F62_dirac_gravity_fork.json",
+    "test-results/F62_dirac_gravity_fork.md"
+   ],
+   "seconds": 29.2,
+   "status": "STALE",
+   "verdict": "stale"
+  },
+  "F63-spin-torsion-estimate": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F63_spin_torsion_estimate.py",
+   "results": [
+    "test-results/F63_spin_torsion_estimate.json"
+   ],
+   "seconds": 2.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F64-em-connection": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F64_em_connection.json: 10 delta(s) \u2014 ~ tests.D-EM-D1_flat_regression._seconds: 2.22 -> 0.01  (rel 9.95e-01); ~ tests.D-EM-D2a_dielectric_freefall._seconds: 2.83 -> 2.37  (rel 1.63e-01); ",
+   "path": "tests/findings/test_F64_em_connection.py",
+   "results": [
+    "test-results/F64_em_connection.json",
+    "test-results/F64_em_connection.md"
+   ],
+   "seconds": 28.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F67-option1-even-law-photon": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_F67_option1_even_law_photon.py",
+   "results": [
+    "test-results/F67_option1_even_law_photon.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F68-minimal-coupling-forces-even-photon": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F68_minimal_coupling_forces_even_photon.py",
+   "results": [
+    "test-results/F68_minimal_coupling_forces_even_photon.json"
+   ],
+   "seconds": 1.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F69-paired-photon": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_F69_paired_photon.py",
+   "results": [
+    "test-results/F69_paired_photon.json"
+   ],
+   "seconds": 1.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F72-universal-even-propagator": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F72_universal_even_propagator.py",
+   "results": [
+    "test-results/F72_universal_even_propagator.json"
+   ],
+   "seconds": 1.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F73-spin0-bound-pair": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F73_spin0_bound_pair.py",
+   "results": [
+    "test-results/F73_spin0_bound_pair.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F74-bound-state-binding": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F74_bound_state_binding.py",
+   "results": [
+    "test-results/F74_bound_state_binding.json"
+   ],
+   "seconds": 5.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F75-three-generations-irrep": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F75_three_generations_irrep.py",
+   "results": [
+    "test-results/F75_three_generations_irrep.json"
+   ],
+   "seconds": 0.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F76-generation-hierarchy": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F76_generation_hierarchy.py",
+   "results": [
+    "test-results/F76_generation_hierarchy.json"
+   ],
+   "seconds": 1.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F77-njl-gap-rpa": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F77_njl_gap_rpa.py",
+   "results": [
+    "test-results/F77_njl_gap_rpa.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F78-koide-amplitude-pairing": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F78_koide_amplitude_pairing.py",
+   "results": [
+    "test-results/F78_koide_amplitude_pairing.json"
+   ],
+   "seconds": 0.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F79-structural-G": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F79_structural_G.py",
+   "results": [
+    "test-results/F79_structural_G.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F80-em-saturation-45deg": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F80_em_saturation_45deg.py",
+   "results": [
+    "test-results/F80_em_saturation_45deg.json"
+   ],
+   "seconds": 0.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F81-45deg-pair-saturation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F81_45deg_pair_saturation.py",
+   "results": [
+    "test-results/F81_45deg_pair_saturation.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F82-saturation-mass-peak": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F82_saturation_mass_peak.py",
+   "results": [
+    "test-results/F82_saturation_mass_peak.json"
+   ],
+   "seconds": 0.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F83-fix-lattice-spacing": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F83_fix_lattice_spacing.py",
+   "results": [
+    "test-results/F83_fix_lattice_spacing.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F84-flatness-from-orthorhombic-break": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F84_flatness_from_orthorhombic_break.py",
+   "results": [
+    "test-results/F84_flatness_from_orthorhombic_break.json"
+   ],
+   "seconds": 0.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F87-charge-coupling-paired-photon": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F87_charge_coupling_paired_photon.json: 4 delta(s) \u2014 ~ MX3_charge_conservation.gauss_residual_max_100steps: 1.7886493289325567e-12 -> 1.0474180818130674e-12  (rel 4.14e-01); ~ MX4_magneti",
+   "path": "tests/findings/test_F87_charge_coupling_paired_photon.py",
+   "results": [
+    "test-results/F87_charge_coupling_paired_photon.json"
+   ],
+   "seconds": 1.6,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "F89-singlet-bilinear-is-paired-photon": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
+   "results": [
+    "test-results/F89_singlet_bilinear_paired_photon.json"
+   ],
+   "seconds": 3.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F91-pairing-classification": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_F91_pairing_classification.py",
+   "results": [
+    "test-results/F91_pairing_classification.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F92-per-constituent-phase": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F92_per_constituent_phase.py",
+   "results": [
+    "test-results/F92_per_constituent_phase.json"
+   ],
+   "seconds": 2.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F93-orthorhombic-Eg-vacuum": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F93_orthorhombic_Eg_vacuum.py",
+   "results": [
+    "test-results/F93_orthorhombic_Eg_vacuum.json"
+   ],
+   "seconds": 4.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F95-BC-from-qca-loop": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F95_BC_from_qca_loop.py",
+   "results": [
+    "test-results/F95_BC_from_qca_loop.json"
+   ],
+   "seconds": 4.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F96-second-shell-Eg-gap": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F96_second_shell_Eg_gap.py",
+   "results": [
+    "test-results/F96_second_shell_Eg_gap.json"
+   ],
+   "seconds": 5.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F97-baryon-phase-closure": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F97_baryon_phase_closure.py",
+   "results": [
+    "test-results/F97_baryon_phase_closure.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F98-enforcer-is-binder": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F98_enforcer_is_binder.py",
+   "results": [
+    "test-results/F98_enforcer_is_binder.json"
+   ],
+   "seconds": 2.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "F99-sigma-from-qca-rule": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_F99_sigma_from_qca_rule.py",
+   "results": [
+    "test-results/F99_sigma_from_qca_rule.json"
+   ],
+   "seconds": 2.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA-lgt-mc": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/FA_lgt_mc.json: 18 delta(s) \u2014 ~ results[3].detail.beta=5.7.plaq: 0.5588504888797297 -> 0.5602109121273302  (rel 2.43e-03); ~ results[3].detail.beta=5.7.rel: 0.01720147229655926 -> 0.01967",
+   "path": "tests/findings/test_FA_lgt_mc.py",
+   "results": [
+    "test-results/FA_lgt_mc.json"
+   ],
+   "seconds": 9.4,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "FA-vs-FC-comparison": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/FA_vs_FC_comparison.json: 12 delta(s) \u2014 ~ results[0].detail.V_A.1: 0.43503560760409915 -> 0.46269703324014644  (rel 5.98e-02); ~ results[0].detail.V_A.2: 0.6663023699773438 -> 0.708291899",
+   "path": "tests/findings/test_FA_vs_FC_comparison.py",
+   "results": [
+    "test-results/FA_vs_FC_comparison.json"
+   ],
+   "seconds": 1.3,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "FA01-liv-tof": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA01_liv_tof.py",
+   "results": [
+    "test-results/FA01_liv_tof.json"
+   ],
+   "seconds": 17.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA03-newton-constant": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA03_newton_constant.py",
+   "results": [
+    "test-results/FA03_newton_constant.json"
+   ],
+   "seconds": 1.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA04-mz-mw-ratio": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA04_mz_mw_ratio.py",
+   "results": [
+    "test-results/FA04_mz_mw_ratio.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA05-koide-relation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA05_koide_relation.py",
+   "results": [
+    "test-results/FA05_koide_relation.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA07-weinberg-angle": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/FA07_weinberg_angle.py",
+   "results": [
+    "test-results/FA07_weinberg_angle.json"
+   ],
+   "seconds": 0.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA08-three-generations": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA08_three_generations.py",
+   "results": [
+    "test-results/FA08_three_generations.json"
+   ],
+   "seconds": 0.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA09-deflection-coefficient": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA09_deflection_coefficient.py",
+   "results": [
+    "test-results/FA09_deflection.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FA10-black-hole-shadow": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FA10_black_hole_shadow.py",
+   "results": [
+    "test-results/FA10_shadow.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB01-charged-lepton-spectrum": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB01_charged_lepton_spectrum.py",
+   "results": [
+    "test-results/FB01_charged_lepton_spectrum_checks.json"
+   ],
+   "seconds": 2.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB04-hydrogen-rydberg": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB04_hydrogen_rydberg.py",
+   "results": [
+    "test-results/FB04_hydrogen_rydberg.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB05-hydrogen-fine-structure": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB05_hydrogen_fine_structure.py",
+   "results": [
+    "test-results/FB05_hydrogen_fine_structure.json"
+   ],
+   "seconds": 8.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB06-positronium": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB06_positronium.py",
+   "results": [
+    "test-results/FB06_positronium.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB07-deuteron": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB07_deuteron.py",
+   "results": [
+    "test-results/FB07_deuteron.json"
+   ],
+   "seconds": 46.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB08-nn-repulsive-core": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB08_nn_repulsive_core.py",
+   "results": [
+    "test-results/FB08_nn_repulsive_core.json"
+   ],
+   "seconds": 39.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB10-lamb-shift-boundary": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FB10_lamb_shift_boundary.py",
+   "results": [
+    "test-results/FB10_lamb_shift_boundary.json"
+   ],
+   "seconds": 6.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FB11-condensate-angle": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/FB11_condensate_angle.json: 101 delta(s) \u2014 - checks.C1_delta15_exact_in_me0_limit.branch_giving_15deg (was 1.0); - checks.C1_delta15_exact_in_me0_limit.delta_chiral_exact_deg (was 15.0); ",
+   "path": "tests/findings/test_FB11_condensate_angle.py",
+   "results": [
+    "test-results/FB11_condensate_angle.json"
+   ],
+   "seconds": 1.2,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "FB11-condensate-angle.runners": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/FB11_condensate_angle.py",
+   "results": [
+    "test-results/FB11_condensate_angle.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FC01-mercury-perihelion": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/FC01_mercury_perihelion.py",
+   "results": [
+    "test-results/FC01_mercury.json"
+   ],
+   "seconds": 41.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FC03-redshift": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/FC03_redshift.py",
+   "results": [
+    "test-results/FC03_redshift.json"
+   ],
+   "seconds": 0.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG1-anomaly-cancellation": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/findings/test_FG1_anomaly_cancellation.py",
+   "results": [
+    "test-results/FG1_anomaly_cancellation.json"
+   ],
+   "seconds": 0.0,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "FG2-quark-complex-mass": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/FG2_quark_complex_mass.json: 4 delta(s) \u2014 ~ n_pass: 11.0 -> 10.0  (rel 9.09e-02); ~ results[10].residual: 0.5708120087809313 -> 0.6045177852312003  (rel 5.58e-02); ~ results[6].pass: 1.0 ",
+   "path": "tests/findings/test_FG2_quark_complex_mass.py",
+   "results": [
+    "test-results/FG2_quark_complex_mass.json"
+   ],
+   "seconds": 4.4,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "FG3-quark-electroweak": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/FG3_quark_electroweak.json: 9 delta(s) \u2014 ~ n_pass: 6.0 -> 3.0  (rel 5.00e-01); ~ results[0].pass: 1.0 -> 0.0  (rel 1.00e+00); ~ results[0].residual: 0.0 -> 0.3609925934546886  (rel 1.00e+",
+   "path": "tests/findings/test_FG3_quark_electroweak.py",
+   "results": [
+    "test-results/FG3_quark_electroweak.json"
+   ],
+   "seconds": 1.6,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "FG4-dynamical-Z": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_FG4_dynamical_Z.py",
+   "results": [
+    "test-results/FG4_dynamical_Z.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG6-two-helicity-photon": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/findings/test_FG6_two_helicity_photon.py",
+   "results": [
+    "test-results/FG6_two_helicity_photon.json"
+   ],
+   "seconds": 1.4,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "FG7-gluon-dynamics": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_FG7_gluon_dynamics.py",
+   "results": [
+    "test-results/FG7_gluon_dynamics.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG7b-gradient-flow": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FG7b_gradient_flow.py",
+   "results": [
+    "test-results/FG7b_gradient_flow.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG7c-confinement": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FG7c_confinement.py",
+   "results": [
+    "test-results/FG7c_confinement.json"
+   ],
+   "seconds": 13.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG7d-baryon-singlet": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FG7d_baryon_singlet.py",
+   "results": [
+    "test-results/FG10_baryon_singlet.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG7d-colour-dielectric": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FG7d_colour_dielectric.py",
+   "results": [
+    "test-results/FG7d_colour_dielectric.json"
+   ],
+   "seconds": 5.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG7e-colour-condensate": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_FG7e_colour_condensate.py",
+   "results": [
+    "test-results/FG7e_colour_condensate.json"
+   ],
+   "seconds": 6.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG7f-gluon-dielectric-gap": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_FG7f_gluon_dielectric_gap.py",
+   "results": [
+    "test-results/FG7f_gluon_dielectric_gap.json"
+   ],
+   "seconds": 4.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG8-beta-decay": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_FG8_beta_decay.py",
+   "results": [
+    "test-results/FG8_beta_decay.json"
+   ],
+   "seconds": 1.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "FG9-C-CP-per-species": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/findings/test_FG9_C_CP_per_species.py",
+   "results": [
+    "test-results/FG9_C_CP_per_species.json"
+   ],
+   "seconds": 2.0,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "P0-dynamical-fermions": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_P0_dynamical_fermions.py",
+   "results": [
+    "test-results/P0_dynamical_fermions.json"
+   ],
+   "seconds": 10.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "P2-baryon-bound-state": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_P2_baryon_bound_state.py",
+   "results": [
+    "test-results/P2_baryon_bound_state.json"
+   ],
+   "seconds": 2.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "P3-pion": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_P3_pion.py",
+   "results": [
+    "test-results/P3_pion.json"
+   ],
+   "seconds": 6.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "P4-deuteron": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/P4_deuteron.json: 4 delta(s) \u2014 ~ checks.G1 tuned E_b = 2.224 MeV.residual: 3.616618116097925e-11 -> 4.877831472072103e-11  (rel 2.59e-01); ~ checks.G2 physical \u03ba \u2248 0.2316 /fm.residual: 2.",
+   "path": "tests/findings/test_P4_deuteron.py",
+   "results": [
+    "test-results/P4_deuteron.json"
+   ],
+   "seconds": 38.7,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "P5-hydrogen": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_P5_hydrogen.py",
+   "results": [
+    "test-results/P5_hydrogen.json"
+   ],
+   "seconds": 10.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "P6-si-scale": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_P6_si_scale.py",
+   "results": [
+    "test-results/P6_si_scale.json"
+   ],
+   "seconds": 2.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "SR5-photon-frame-invariance": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/findings/test_SR5_photon_frame_invariance.py",
+   "results": [
+    "test-results/SR5_photon_frame_invariance.json"
+   ],
+   "seconds": 1.2,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "analyse-su3-runs": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/analyse_su3_runs.py",
+   "results": [
+    "test-results/su3_static_potential_summary.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "compare-F64-F62": {
+   "compared": null,
+   "detail": "exit 1: ModuleNotFoundError: No module named 'test_F64_em_connection'",
+   "path": "tests/runners/compare_F64_F62.py",
+   "results": [
+    "test-results/F64_vs_F62_comparison.json",
+    "test-results/F64_vs_F62_comparison.md"
+   ],
+   "seconds": 1.2,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "f45-sigma-tau-weinberg": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/findings/test_f45_sigma_tau_weinberg.py",
+   "results": [
+    "test-results/F45_sigma_tau_weinberg.json"
+   ],
+   "seconds": 0.2,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "hypercharge": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_hypercharge.py",
+   "results": [
+    "test-results/hypercharge_fork.json"
+   ],
+   "seconds": 1.5,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "hypercharge-extension": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_hypercharge_extension.py",
+   "results": [
+    "test-results/hypercharge_extension.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "hypercharge-quantisation": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_hypercharge_quantisation.py",
+   "results": [
+    "test-results/hypercharge_quantisation.json"
+   ],
+   "seconds": 1.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "majorana-fork": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_majorana_fork.py",
+   "results": [
+    "test-results/majorana_fork.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-F261-twoloop-qed": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/run_F261_twoloop_qed.py",
+   "results": [
+    "test-results/F261_twoloop_qed.json"
+   ],
+   "seconds": 2.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-F263-euler-heisenberg-schwinger": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/run_F263_euler_heisenberg_schwinger.py",
+   "results": [
+    "test-results/F263_euler_heisenberg_schwinger.json"
+   ],
+   "seconds": 3.0,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-FC02-shapiro": {
+   "compared": null,
+   "detail": "exit -9:   from poisson_open import solve_poisson_3d_open, gaussian_mass_3d",
+   "path": "tests/runners/run_FC02_shapiro.py",
+   "results": [
+    "test-results/FC02_shapiro.json"
+   ],
+   "seconds": 5.0,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "run-FC04-deflection-dynamical": {
+   "compared": null,
+   "detail": "exit -9:   from ca_lattice import make_kgrid_3d",
+   "path": "tests/runners/run_FC04_deflection_dynamical.py",
+   "results": [
+    "test-results/FC04_deflection_dyn.json"
+   ],
+   "seconds": 2.9,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "run-FC05-qm-battery": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/run_FC05_qm_battery.py",
+   "results": [
+    "test-results/FC05_qm_battery.json"
+   ],
+   "seconds": 4.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-FC06-cpt-lorentz": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/runners/run_FC06_cpt_lorentz.py",
+   "results": [
+    "test-results/FC06_cpt_lorentz.json"
+   ],
+   "seconds": 5.7,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-FC07-charge-anomaly-beta": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/run_FC07_charge_anomaly_beta.py",
+   "results": [
+    "test-results/FC07_charge_anomaly.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-bgfield-loop": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/F162_bgfield_loop_highres.json: 16 delta(s) \u2014 ~ lattice_b0_consistency_vs_n[0].n: 16.0 -> 24.0  (rel 3.33e-01); ~ lattice_b0_consistency_vs_n[0].rule_shift_mean: -0.007407496275156619 -> ",
+   "path": "tests/runners/run_bgfield_loop.py",
+   "results": [
+    "test-results/F162_bgfield_loop_highres.json"
+   ],
+   "seconds": 144.9,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "run-confinement-mc": {
+   "compared": null,
+   "detail": "exit 1: when serializing dict item 'loops_resolved'",
+   "path": "tests/runners/run_confinement_mc.py",
+   "results": [
+    "test-results/confinement_mc.json",
+    "test-results/confinement_mc.md"
+   ],
+   "seconds": 254.3,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "run-d1-static-potential": {
+   "compared": null,
+   "detail": "exit 2: run_d1_static_potential.py: error: give --beta (to run) or --load (to re-analyse) or --smoke",
+   "path": "tests/runners/run_d1_static_potential.py",
+   "results": [
+    "test-results/d1_static_potential.json"
+   ],
+   "seconds": 1.5,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "run-d1-vertex-formfactor": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/run_d1_vertex_formfactor.py",
+   "results": [
+    "test-results/d1_vertex_formfactor.json"
+   ],
+   "seconds": 182.9,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "run-lgt-confinement": {
+   "compared": null,
+   "detail": "exit 124: timed out after 900s",
+   "path": "tests/runners/run_lgt_confinement.py",
+   "results": [
+    "test-results/lgt_confinement.json"
+   ],
+   "seconds": 900.0,
+   "status": "ERROR",
+   "verdict": "timeout"
+  },
+  "run-lpt-wilson-selfenergy": {
+   "compared": null,
+   "detail": "exit 124: timed out after 20s",
+   "path": "tests/runners/run_lpt_wilson_selfenergy.py",
+   "results": [
+    "test-results/F163_wilson_selfenergy_highres.json"
+   ],
+   "seconds": 20.0,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "run-phase2-f26-tests": {
+   "compared": null,
+   "detail": "exit 1:   import ca_core_exact as ce",
+   "path": "tests/runners/run_phase2_f26_tests.py",
+   "results": [
+    "test-results/phase2_f26_results.json"
+   ],
+   "seconds": 1.4,
+   "status": "ERROR",
+   "verdict": "error"
+  },
+  "run-residual-AB-highres": {
+   "compared": 1,
+   "detail": "result drift vs HEAD \u2014 test-results/residual_AB_highres.json: 23 delta(s) \u2014 ~ residual_A_logmoment_negative.rows[0].d3_prop: 1.506 -> 1.5216  (rel 1.03e-02); ~ residual_A_logmoment_negative.rows[0].d3_prop2: 0.1507 -> 0.199",
+   "path": "tests/runners/run_residual_AB_highres.py",
+   "results": [
+    "test-results/residual_AB_highres.json"
+   ],
+   "seconds": 82.1,
+   "status": "FAIL",
+   "verdict": "armed"
+  },
+  "run-u4-multigrid": {
+   "compared": null,
+   "detail": "exit 124: timed out after 900s",
+   "path": "tests/runners/run_u4_multigrid.py",
+   "results": [
+    "test-results/u4_multigrid.json"
+   ],
+   "seconds": 900.0,
+   "status": "ERROR",
+   "verdict": "timeout"
+  },
+  "run-u4-sigma-carry": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/runners/run_u4_sigma_carry.py",
+   "results": [
+    "test-results/u4_sigma_carry.json"
+   ],
+   "seconds": 1.8,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "su3-noether": {
+   "compared": null,
+   "detail": "the run did not rewrite any declared baseline \u2014 nothing was actually compared (fix `results:` or give the record an `entry:`)",
+   "path": "tests/findings/test_su3_noether.py",
+   "results": [
+    "test-results/V13_su3_noether.json"
+   ],
+   "seconds": 9.5,
+   "status": "SKIP",
+   "verdict": "unarmed"
+  },
+  "sublattice-hypercharge": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_sublattice_hypercharge.py",
+   "results": [
+    "test-results/sublattice_hypercharge.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase1": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_wmu_phase1.py",
+   "results": [
+    "test-results/wmu_phase1.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase2": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_wmu_phase2.py",
+   "results": [
+    "test-results/wmu_phase2.json"
+   ],
+   "seconds": 2.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase3": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_wmu_phase3.py",
+   "results": [
+    "test-results/wmu_phase3.json"
+   ],
+   "seconds": 1.6,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase4": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_wmu_phase4.py",
+   "results": [
+    "test-results/wmu_phase4.json"
+   ],
+   "seconds": 1.3,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase5-stueckelberg": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_wmu_phase5_stueckelberg.py",
+   "results": [
+    "test-results/wmu_phase5_stueckelberg.json"
+   ],
+   "seconds": 1.1,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase6": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_wmu_phase6.py",
+   "results": [
+    "test-results/wmu_phase6.json"
+   ],
+   "seconds": 1.2,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase6-rank1": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD exactly",
+   "path": "tests/findings/test_wmu_phase6_rank1.py",
+   "results": [
+    "test-results/wmu_phase6_rank1.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  },
+  "wmu-phase7-backreaction": {
+   "compared": 1,
+   "detail": "1 artifact(s) reproduced HEAD; 1 sub-floor delta(s) below 1e-12 (noise)",
+   "path": "tests/findings/test_wmu_phase7_backreaction.py",
+   "results": [
+    "test-results/phase7_backreaction_results.json"
+   ],
+   "seconds": 1.4,
+   "status": "PASS",
+   "verdict": "armed"
+  }
+ },
+ "version": 1
+}

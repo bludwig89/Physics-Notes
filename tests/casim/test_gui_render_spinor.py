@@ -66,7 +66,7 @@ def test_empty_input_is_safe():
 
 def test_channel_spinor_field_hook():
     # weyl_bcc exposes (f,g); a non-spinor state returns None.
-    from casim.engine.channel import Channel
+    from casim.engine.core.channel import Channel
     base = Channel()
     f = np.ones((2, 2, 2), dtype=complex)
     g = np.zeros((2, 2, 2), dtype=complex)

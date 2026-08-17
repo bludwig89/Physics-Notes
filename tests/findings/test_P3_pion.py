@@ -41,8 +41,10 @@ import sys
 import json
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_meson as M  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import meson as M  # noqa: E402
 
 results = {"phase": "P3", "title": "dynamical pion (chiral pseudoscalar Goldstone)",
            "checks": {}, "derived": {}, "spectrum": {}, "scaling": {}, "notes": []}

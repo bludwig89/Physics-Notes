@@ -147,6 +147,23 @@ def audit_numbers(repo: str) -> dict:
     gaps = [n for n in range(min(nums), max(nums) + 1) if n not in by_num] \
         if nums else []
 
+    # -- the allocation pointer (2026-08-05) --------------------------------
+    # A finding number is now taken ONE AT A TIME, at the moment the file is
+    # written, and the number taken is the LOWEST FREE ONE. That rule only
+    # works if the lowest free one is cheap to find, so it is computed here
+    # rather than left to a manual scan of `gaps`.
+    #
+    # Retakability is an EXPLICIT DECLARATION (`status: free`), never inferred
+    # from "no file exists". The distinction is load-bearing and was found the
+    # hour this pointer was written: F219 and F229 are also numbers nobody ever
+    # wrote, but the changelog records them as ABANDONED AFTER A COLLISION, so
+    # a reader chasing "F219" in that entry must not land on unrelated physics.
+    # A number is free because someone decided it is, and wrote the reason down
+    # — the same standard the duplicates and gaps already hold themselves to.
+    free = [n for n in gaps
+            if (gap_declared.get(n) or {}).get("status") == "free"]
+    next_free = free[0] if free else ((max(nums) + 1) if nums else 1)
+
     undeclared_dups = sorted(n for n in duplicates if n not in dup_declared)
     undeclared_gaps = sorted(n for n in gaps if _gap_explained(n) is None)
     unreviewed = sorted(n for n, v in dup_declared.items()
@@ -155,10 +172,27 @@ def audit_numbers(repo: str) -> dict:
     declared_unnumbered = declared.get("unnumbered") or {}
     undeclared_unnumbered = sorted(f for f in unnumbered
                                    if f not in declared_unnumbered)
-    # A declared duplicate that no longer exists is stale bookkeeping: it means
-    # someone renumbered and left the exception behind, which quietly re-arms
-    # the collision it was hiding.
-    stale_dups = sorted(n for n in dup_declared if n not in duplicates)
+    # A declared duplicate that no longer exists is stale bookkeeping — someone
+    # renumbered and left the exception behind, which quietly re-arms the
+    # collision it was hiding. EXCEPT when the entry says `resolved`: that is the
+    # record OF the renumbering and is supposed to outlive the collision. The
+    # first nine resolutions (2026-07-31) tripped this check, which is how the
+    # distinction got drawn.
+    stale_dups = sorted(n for n, v in dup_declared.items()
+                        if n not in duplicates
+                        and (v or {}).get("status") != "resolved")
+
+    # The same hazard on the gaps side, and it only became live on 2026-08-05.
+    # Under block reservation a gap was permanent, so a gap entry never went
+    # stale. Under one-at-a-time allocation gaps are MEANT to close: the whole
+    # point of `status: free` is that the next finding spends it. A `free`
+    # entry naming a number that now has a file is therefore a spent number
+    # still advertising itself as available -- the exact shape that hands the
+    # same number to two sessions. Deleting the entry is the act of spending
+    # it. `resolved` and `retired` entries are exempt for the same reason
+    # resolved duplicates are: they ARE the record of the closure.
+    stale_gaps = sorted(n for n, v in gap_declared.items()
+                        if n in by_num and (v or {}).get("status") == "free")
 
     return {
         "max": max(nums) if nums else 0,
@@ -169,10 +203,14 @@ def audit_numbers(repo: str) -> dict:
         "unnumbered": unnumbered,
         "duplicates": duplicates,
         "gaps": gaps,
+        "free": free,
+        "next_free": next_free,
+        "numbers_used": sorted(by_num),
         "undeclared_duplicates": undeclared_dups,
         "undeclared_gaps": undeclared_gaps,
         "undeclared_unnumbered": undeclared_unnumbered,
         "stale_declared_duplicates": stale_dups,
+        "stale_declared_gaps": stale_gaps,
         "unreviewed_duplicates": unreviewed,
         "declared_gap_reasons": {n: _gap_explained(n) for n in gaps},
     }

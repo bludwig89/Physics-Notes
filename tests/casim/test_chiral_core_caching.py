@@ -26,9 +26,9 @@ import numpy as np
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(os.path.dirname(_HERE))
-for _p in (os.path.join(_REPO, "src"), os.path.join(_REPO, "ca-simulation")):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 try:
     import pytest
@@ -100,8 +100,8 @@ def test_cache_keys_separate_geometries():
 def test_agreement_with_the_audited_kernels_is_a_few_ulp():
     """The honest bound. This module claimed 'bit-for-bit' until C1.4; it is
     a few ULP, which is fine, but the number is what gets asserted."""
-    import ca_bcc
-    import ca_wmu
+    from casim.engine.lattice import bcc as ca_bcc
+    from casim.engine.gauge import weak_wmu as ca_wmu
 
     f, g, E, B = _fields(16)
     cc.clear_caches()

@@ -2,7 +2,7 @@
 on the BCC lattice (closes the F180 §5 open build).
 
 Runs the self-contained real-arithmetic battery in
-ca-simulation/forks/gr_fork_F248_tt_graviton_bcc.py and asserts all five checks
+src/casim/engine/forks/gravity/gr_fork_F248_tt_graviton_bcc.py and asserts all five checks
 pass, plus the load-bearing physics facts:
   A  TT polarisation basis exists for ANY direction (helicity +/-2, TT, orthonormal);
   B  the spin-2 TT projector fixes both helicities (eigenvalue 1) and kills the
@@ -19,7 +19,7 @@ import os
 
 HERE = os.path.dirname(__file__)
 FORK = os.path.abspath(os.path.join(
-    HERE, "..", "..", "ca-simulation", "forks", "gr_fork_F248_tt_graviton_bcc.py"))
+    HERE, "..", "..", "src", "casim", "engine", "forks", "gravity", "gr_fork_F248_tt_graviton_bcc.py"))
 
 
 def _run():

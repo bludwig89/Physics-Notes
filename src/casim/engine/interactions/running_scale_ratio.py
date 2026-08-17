@@ -52,7 +52,7 @@ All arithmetic REAL.  numpy only.  Imports the validated F77/F103 solver.
 from __future__ import annotations
 
 import numpy as np
-import ca_meson as MES
+from casim.engine.particles import meson as MES
 from casim.constants import (  # noqa: E501
     Lambda_NJL_GeV,
     G_Lambda2_NJL,

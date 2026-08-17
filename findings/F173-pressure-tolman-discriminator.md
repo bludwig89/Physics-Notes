@@ -1,6 +1,13 @@
 # F173 — The pressure/Tolman discriminator: the single-scalar dielectric sources gravity from energy density only, omitting GR's 3p term — null in the solar system, but a 2–42% departure inside neutron stars
 
-> **⚠ Reclassified by [[F178-gravity-full-tensor-adoption]] (2026-06-29):** gravity sources from the full stress-energy tensor (induced Einstein equation canonical). the energy-only vs $\rho+3p$ departure is now understood as a **weak-field-reduction artifact** of the demoted single-scalar law; the exact tensor algebra in this finding stands and motivated F178.
+> **[PARTIALLY SUPERSEDED 2026-06-29 by F178 — ledger S4-F178-full-stress-energy]**
+>
+> **DEAD:** The energy-only vs rho + 3p departure read as a physical DISCRIMINATOR between the model and GR. Under the full-tensor source it is a weak-field- reduction artifact of the demoted single-scalar law.
+>
+> **STILL LIVE:** The exact tensor algebra, in full -- it is what MOTIVATED F178, and the anisotropic-stress result is the reason the interior carries a second metric function.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 
 **Date:** 2026-06-29 - 19:10
 **Numbering:** drafted as F170→F171→F172 all collided with concurrent sessions (`F170-lepton-colour-scale-link`, `F172-residual-algebraic-or-computed`); this is **F173** (re-checked max F-number per CLAUDE.md).

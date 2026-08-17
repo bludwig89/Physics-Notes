@@ -38,13 +38,15 @@ spinor work goes through the audited ca_bcc / ca_wmu routines.
 """
 
 import sys, os, json, time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
-import ca_fft as _fft
-from ca_lattice import make_kgrid_3d
-from ca_bcc import bcc_dispersion, weyl_step_3d_bcc
-from ca_wmu import _f26_rotation_step, w_propagation_step_chiral
+from casim.numerics import fft as _fft
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.engine.lattice.bcc import bcc_dispersion, weyl_step_3d_bcc
+from casim.engine.gauge.weak_wmu import _f26_rotation_step, w_propagation_step_chiral
 
 ROOT3 = np.sqrt(3.0)
 
@@ -239,7 +241,7 @@ def section_3(L=24, m=1, seed=2):
         idx = (m, m, m)
         f[idx] = 1.0; g[idx] = 0.0          # generic spinor; phase read modulo content
         # use the audited unitary directly at this mode to avoid mode-mixing ambiguity
-        from ca_bcc import bcc_unitary
+        from casim.engine.lattice.bcc import bcc_unitary
         kk = 2 * np.pi * m / L
         Uff, Ufg, Ugf, Ugg = bcc_unitary(kk, kk, kk, sign=sign)
         # eigenphase of U^sign at this k is exp(-i omega^sign): take it from the trace/eig

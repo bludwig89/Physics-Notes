@@ -63,7 +63,7 @@ transforms; no scipy).  Works in 2D (transverse / q-q̄ plane) and 3D (BCC box).
 from __future__ import annotations
 
 import numpy as np
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 __all__ = [
     "grad", "laplacian", "dielectric_op", "dielectric_poisson",

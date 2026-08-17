@@ -51,7 +51,7 @@ References (measured anchors):
 
 import numpy as np
 from casim.constants import c_SI as _c_SI
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 C_VAC = _c_SI          # m/s
 ROOT3 = np.sqrt(3.0)

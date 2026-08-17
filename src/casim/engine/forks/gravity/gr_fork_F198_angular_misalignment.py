@@ -180,7 +180,7 @@ def run():
 if __name__ == "__main__":
     out = run()
     here = os.path.dirname(__file__)
-    # C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+    # C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
     # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
     root = os.path.abspath(os.path.join(here, "..", "..", "..", "..", ".."))
     os.makedirs(os.path.join(root, "test-results"), exist_ok=True)

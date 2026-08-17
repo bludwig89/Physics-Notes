@@ -1,5 +1,16 @@
 # F230 — E1: deriving $\delta^*=\tfrac29$ rad from the crystal-field / equipartition geometry closes **negative** — geometry fixes only the phase-coordinate **endpoints** (democratic $0$, massless-Koide $3\delta=\pi/4$, equipartition $45°$); the **interior** stopping point is dynamics ($\lambda_6$), and a radian cannot equal a ratio without a scale
 
+> **[SUB-CLAIM SUPERSEDED 2026-08-03 by F253, F255, F256 — ledger S15-E1-weight-as-phase-attack-is-a-fork]**
+>
+> **DEAD:** The E1 ATTACK SCRIPT (derive_weight_as_phase.py) and its two named routes: (A) saturation equipartition and (B) a BCC second-shell topological / Berry-phase moment. F253 excludes a scale-free topological origin (the only E_g holonomy available is 2 pi/3); F256 shows the dynamical Landau route cannot give an exact 3 delta* = Q.
+>
+> **STILL LIVE:** THE WHOLE FILE, as the standing negative result behind founding decision 7. It is the ATTACK that is superseded, not delta* = 2/9 -- that value is exact (F175) and primary.
+>
+> **NOTE:** Registered `dead_candidate` since C9 and read as dead code. It is not: a tested-and-rejected branch is a FORK, which preserves the falsification record. Deleting it would delete the evidence that both routes were tried and why each failed -- the evidence founding decision 7 leans on when it says every alternative is closed.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 > **Numbering note:** this is **F230** (E1). Companion open-derivation findings from this batch: **F231** (E2) and **F232** (L3). Concurrent sessions took F233 (mass-scale $N$/E3), F234 (W,v,c triple/E4), F235 ($\sqrt\sigma/f_\pi$/Q1); F229 is left vacant by the collision reshuffle.
 
 **Date:** 2026-07-02 - 16:35

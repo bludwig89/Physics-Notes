@@ -35,10 +35,10 @@ dispersion directly.
 
 import numpy as np
 
-from ca_photon_pair import pair_dispersion
+from casim.engine.gauge.photon import pair_dispersion
 from casim.constants import c_lat
 from casim.constants import G_CODATA as _G_CODATA, c_SI as _c_SI, hbar_SI as _hbar_SI
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 ROOT3 = np.sqrt(3.0)
 C_LAT = c_lat

@@ -63,13 +63,13 @@ for _p in (_SIM, _THIS):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-import ca_core_exact as ce                                   # noqa: E402
-from ca_dirac import (                                       # noqa: E402
+from casim.engine.lattice import core_exact as ce  # noqa: E402
+from casim.engine.particles.dirac import (                                       # noqa: E402
     _mix_eta_chi, _weyl_half_step_2c, dirac_step_2d_splitstep,
     gaussian_dirac_2d, dirac_norm, _dirac_plus_eigenvector,
 )
-from ca_curved import CayleyVarcSolver2D                     # noqa: E402
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.engine.lattice.curved import CayleyVarcSolver2D                     # noqa: E402
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 
 # ════════════════════════════════════════════════════════════════════

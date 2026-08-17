@@ -51,11 +51,13 @@ from datetime import datetime
 import numpy as np
 
 # ── path ──────────────────────────────────────────────────────────────
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_fft as _fft
-from ca_lattice import make_kgrid_2d
-from ca_core_exact import exact2d_dispersion
+from casim.numerics import fft as _fft
+from casim.engine.lattice.geometry import make_kgrid_2d
+from casim.engine.lattice.core_exact import exact2d_dispersion
 
 # ══════════════════════════════════════════════════════════════════════
 #  Physical constants

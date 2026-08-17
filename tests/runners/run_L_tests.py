@@ -14,7 +14,9 @@ import os
 import sys
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 
 def section(title):
@@ -36,7 +38,7 @@ def check(name, ok, detail=''):
 
 def test_L1():
     section('L1 — BCC lattice + exact arccos dispersion (Paper 1 Eq. 15)')
-    import ca_bcc as bcc
+    from casim.engine.lattice import bcc as bcc
 
     results = []
 
@@ -109,7 +111,7 @@ def test_L1():
 def test_L2():
     section('L2 — Exact arccos dispersion for 2D Weyl (Paper 1 Eq. 16)')
     try:
-        import ca_core_exact as exact
+        from casim.engine.lattice import core_exact as exact
     except ImportError:
         print('  [SKIP]  ca_core_exact.py not present — L2 not yet implemented')
         return None
@@ -165,7 +167,7 @@ def test_L3a():
     """
     section('L3a — Composite photon kinematics (Paper 1 Eq. 35, dispersion + transversality)')
     try:
-        import ca_maxwell as max_
+        from casim.engine.gauge import bilinear as max_
     except ImportError:
         print('  [SKIP]  ca_maxwell.py not present — L3a not yet implemented')
         return None
@@ -189,7 +191,7 @@ def test_L3a():
     # there is no correction (k/√3 holds exactly), along (1,1,1) the
     # leading correction is O(k) from the sin·sin·sin term in u(k/2).
     # Verify both regimes.
-    import ca_bcc as _bcc
+    from casim.engine.lattice import bcc as _bcc
     k_test = 0.05
     # Along (1,0,0): exact.
     _, _, w_axis = max_.weyl_eigenmodes_3d_bcc(k_test/2, 0, 0)
@@ -221,7 +223,7 @@ def test_L3b():
     """
     section('L3b — Maxwell curl residual (PARTIAL: O(k) not O(k³); smeared construction pending)')
     try:
-        import ca_maxwell as max_
+        from casim.engine.gauge import bilinear as max_
     except ImportError:
         print('  [SKIP]  ca_maxwell.py not present — L3b not yet implemented')
         return None
@@ -259,7 +261,7 @@ def test_L3c():
     """
     section('L3c — F26 rotation propagator: full-lattice EM default (Phase 2)')
     try:
-        import ca_maxwell as max_
+        from casim.engine.gauge import bilinear as max_
     except ImportError:
         print('  [SKIP]  ca_maxwell.py not present')
         return None
@@ -291,7 +293,7 @@ def test_L3c():
 def test_L4():
     section('L4 — EMQG modified Poisson + c(φ) (Paper 6 Eq. 19.7)')
     try:
-        import ca_emqg as emqg
+        from casim.engine.interactions import gravity_emqg as emqg
     except ImportError:
         print('  [SKIP]  ca_emqg.py not present — L4 not yet implemented')
         return None

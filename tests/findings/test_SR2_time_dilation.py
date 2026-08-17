@@ -48,11 +48,13 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-# Allow standalone run from ca-simulation/
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+# Allow standalone run from the repo root.
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_dirac as cd
-import ca_core_exact as ce
+from casim.engine.particles import dirac as cd
+from casim.engine.lattice import core_exact as ce
 
 
 # ══════════════════════════════════════════════════════════════════

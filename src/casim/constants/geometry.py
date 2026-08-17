@@ -42,6 +42,13 @@ register(Constant(
         Site("src/casim/engine/interactions/qed_renormalization.py", "A_OVER_LPLANCK",
              kind="import",
              note="was a 5-sf truncation (6.5978, ~3.4e-6 relative); now exact"),
+        Site("src/casim/engine/interactions/cosmology_growth.py", "A_CELL_M",
+             kind="import",
+             note="F288 B1: a = a_over_ellP * ell_P_m is the cell size the "
+                  "structure-formation discreteness bound is measured in. The "
+                  "bound (<= 1.3e-112 at the Lyman-alpha scale) is what "
+                  "licenses using the continuum growth equation at all, so "
+                  "this site is load-bearing rather than decorative."),
     ),
     notes="C2 deleted the two truncated copies. The drift that introduces is "
           "recorded in the C2 changelog entry: both sites now carry the exact "
@@ -72,6 +79,24 @@ register(Constant(
         Site("src/casim/engine/lattice/blockspin.py", "C_LAT", kind="import"),
         Site("src/casim/engine/interactions/qi_decoherence_floor.py", "C_LAT", kind="import"),
         Site("src/casim/engine/lattice/bcc.py", "BCC_C", kind="import"),
+        Site("src/casim/engine/lattice/wavepacket.py", "c_lat", kind="import",
+             note="F20 remediation: c_lat is the group-velocity scale in the "
+                  "closed forms dw/dk_x = c_lat*n_hat_x and the finite-width "
+                  "packet predictions c_lat*<n_hat_x^2> / c_lat*<n_hat_x>"),
+        Site("src/casim/engine/gauge/photon_packet.py", "c_lat", kind="import",
+             note="F314: c_lat is the argument scale of the BCC trig factors in "
+                  "the closed-form pair group velocity dOmega_pair/dk_i, the "
+                  "exact on-axis value of that velocity, and the reference the "
+                  "measured beam deficit is quoted against"),
+        Site("src/casim/engine/interactions/derive_boost_covariance.py", "c_lat",
+             kind="import",
+             note="F301: c_lat sets the BCC trig argument scale, the Minkowski "
+                  "metric in Phi = (Omega^2 - c_lat^2 k^2)/2 c_lat^2, and the "
+                  "chiral-branch defect coefficient D_i = -s c_lat (kykz, ...). "
+                  "The module evaluates 1/sqrt3 at mpmath working precision and "
+                  "ASSERTS agreement with the registry float to 1e-15 -- "
+                  "mp.mpf() of a double would carry 1e-16 error into radical "
+                  "identities the finding checks at 1e-46"),
         Site("src/casim/engine/particles/dirac_bcc.py", "C_LAT_3D", kind="import"),
         Site("src/casim/engine/gauge/bilinear.py", None, kind="import",
              note="two inv_root3 locals in the BCC helicity helpers"),
@@ -108,7 +133,7 @@ register(Constant(
     ),
     notes="Before C2 this had ~74 independent definitions in two spellings: the "
           "1/sqrt(3) family and a hardcoded 0.5773502691896258. C2 deleted every "
-          "one in src/ and ca-simulation/; tests/ drains during C7. The genuine "
+          "one in src/ (before C9, two); tests/ drains during C7. The genuine "
           "exceptions are typed MeasuredConstant records in "
           "casim/constants/measured.py — the 2-D square lattice (1/sqrt2), the "
           "simple-cubic fork (1.0), and the SU(3) lambda_8 normalisation, which "
@@ -130,7 +155,13 @@ register(Constant(
                "through this and nothing else.",
     sector="geometry",
     tol=1e-9,
-    sites=(Site("src/casim/engine/lattice/si_scale.py", "ELL_P", kind="import"),),
+    sites=(
+        Site("src/casim/engine/lattice/si_scale.py", "ELL_P", kind="import"),
+        Site("src/casim/engine/interactions/cosmology_lattice_elasticity.py",
+             "ell_P_m", kind="import",
+             note="F284: converts the F107 ruler to metres for the first-"
+                  "resolvable-epoch numbers and the Hubble cell budget."),
+    ),
 ))
 
 register(Constant(
@@ -142,7 +173,13 @@ register(Constant(
     derivation="Exact by SI definition since 1983 — it defines the metre.",
     sector="geometry",
     tol=0.0,
-    sites=(Site("src/casim/engine/lattice/si_scale.py", "C_SI", kind="import"),),
+    sites=(
+        Site("src/casim/engine/lattice/si_scale.py", "C_SI", kind="import"),
+        Site("src/casim/engine/interactions/cosmology_lattice_elasticity.py",
+             "c_SI", kind="import",
+             note="F284: t_min = a/c_lat in seconds, and the present Hubble "
+                  "radius in cells."),
+    ),
     notes="'external' rather than 'exact': it is exact by convention, not by "
           "derivation in this model. The exactness class records provenance, "
           "not arithmetic.",

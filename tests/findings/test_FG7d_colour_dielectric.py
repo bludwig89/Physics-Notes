@@ -2,7 +2,7 @@
 test_FG7d_colour_dielectric.py — confinement as a colour-dielectric / dual superconductor
 =========================================================================================
 
-Verifies `ca-simulation/ca_colour_dielectric.py` (P1 Option C): the binding
+Verifies `src/casim/engine/gauge/colour_dielectric.py` (P1 Option C): the binding
 force as a dual-superconductor colour-electric flux tube, recast as a
 colour-dielectric eps_c(x) renormalising the F43 gluon (E,B) rotation rule
 (the F64-parallel mechanism).
@@ -21,7 +21,7 @@ colour-dielectric eps_c(x) renormalising the F43 gluon (E,B) rotation rule
   CD6  constant tube cross-section -> linear potential V(R)=sigma R; an
        isolated colour charge costs infinite energy.
 
-Modules under test:  ca-simulation/ca_colour_dielectric.py  (+ ca_gluon.py)
+Modules under test:  src/casim/engine/gauge/colour_dielectric.py  (+ ca_gluon.py)
 Created:             2026-06-03
 """
 import sys
@@ -30,10 +30,12 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_colour_dielectric as cd   # noqa: E402
-import ca_gluon as cg               # noqa: E402
+from casim.engine.gauge import colour_dielectric as cd   # noqa: E402
+from casim.engine.gauge import gluon as cg               # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

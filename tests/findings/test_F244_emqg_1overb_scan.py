@@ -14,10 +14,12 @@ import json, os, sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 RESULTS = os.path.join(HERE, '..', '..', 'test-results')
-import ca_emqg as em
-from ca_curved import CayleyVarcSolver2D
+from casim.engine.interactions import gravity_emqg as em
+from casim.engine.lattice.curved import CayleyVarcSolver2D
 
 
 def thin_lens(c_field, cy, b):

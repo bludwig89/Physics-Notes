@@ -56,11 +56,13 @@ Run:  python3 tests/findings/test_E2E_nonabelian_bilinear.py
 
 import sys, os, json, time
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 
-from ca_wmu import (
+from casim.engine.gauge.weak_wmu import (
     fermion_isospin_current, w_sourced_propagation_step,
     w_propagation_step_spectral, w_propagation_step_chiral,
     w_massive_propagation_step_spectral,
@@ -68,18 +70,18 @@ from ca_wmu import (
     covariant_weyl_step_3d_bcc,
     _f26_rotation_step, _chiral_dispersions, _omega_even, _kgrid3d,
 )
-from ca_bcc import weyl_step_3d_bcc, bcc_dispersion
-import ca_fft as _fft
+from casim.engine.lattice.bcc import weyl_step_3d_bcc, bcc_dispersion
+from casim.numerics import fft as _fft
 
-import ca_strong as cs
-import ca_gluon as cg
-from ca_gluon import (
+from casim.engine.gauge import strong as cs
+from casim.engine.gauge import gluon as cg
+from casim.engine.gauge.gluon import (
     quark_colour_current_2d, gluon_sourced_step_2d, gluon_sourced_step_bcc,
     gluon_rotation_step_spectral_2d, gluon_rotation_step_spectral_bcc,
     gluon_massive_step_spectral_bcc, octet_adjoint_rotate,
     structure_constants_jacobi_residual,
 )
-from ca_z_field import (
+from casim.engine.gauge.weak_z import (
     SPECIES, THETA_W_F45,
     z_coupling_strength, z_mass_from_w,
     fermion_neutral_current, fermion_neutral_current_per_species,

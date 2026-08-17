@@ -5,6 +5,11 @@ ca_hypercharge.py  —  U(1)_Y hypercharge gauging on the F27 chiral-SU(2)
 2026-05-26 - 17:45  — F41 lepton-sector mass step (Y1–Y7)
 2026-05-27 - 09:00  — F42 quark-sector mass step + dynamical χ kinetic
                       (Y8–Y14)
+2026-08-06          — F279 follow-up 1: the lepton hypercharges are DERIVED
+                      (F165, re-derived over ℚ by F279) and now come from
+                      `casim.constants`, not from literals here.  Nothing
+                      numerical moved; what moved is what the code claims
+                      about where these numbers come from.
 
 Status: promoted from `forks/hypercharge_fork.py` after 7/7 verification
 (F41).  Kept in its own file (per design decision) so the chiral-mass /
@@ -19,7 +24,8 @@ F41 left two follow-up items:
       spectators to dynamically U(1)_Y-coupled fields *in the kinetic
       step*.
 
-For (a): the SM hypercharge assignment gives
+For (a): the quark sector of the same derived line (F165/F279, at N_c = 3)
+gives
     Y_QUARK_L = +1/3,  Y_u_R = +4/3,  Y_d_R = −2/3,
 so
     ΔY_u = Y_QUARK_L − Y_u_R = −1   (conjugate-Higgs branch, same as ν)
@@ -104,6 +110,9 @@ References
 ----------
 F27 chiral SU(2)         — findings/F27-complex-mass-chiral-su2.md
 F35 electroweak mixing   — findings/F35-electroweak-mixing.md
+F165 Y quantisation      — findings/F165-hypercharge-quantisation-from-anomaly-and-mass.md
+F279 Y attribution       — findings/F279-hypercharge-constraint-attribution.md
+F47 Majorana see-saw     — findings/F47-majorana-seesaw-higgs-free.md
 ca_dirac.mass_step_doublet_su2  — base step we extend
 """
 
@@ -113,19 +122,44 @@ import numpy as np
 # ca_dirac lives in the same directory now (sibling module after promotion).
 from casim.engine.particles import dirac as _ca_dirac  # noqa: F401  — kept as a sanity-import reference
 
-
 # ──────────────────────────────────────────────────────────────────────
-# SM hypercharge assignment (Gell-Mann–Nishijima Q = T_3 + Y/2)
+# Lepton hypercharges — DERIVED, not the Standard Model's own (F165/F279).
+#
+# These were literals here, under a comment reading "SM hypercharge
+# assignment", for two months after F279 rewrote the register to say the
+# opposite.  That was the model's one live code-vs-finding contradiction
+# (completeness-2026-08-04, H5) and this import is F279 follow-up 1.
+#
+# What the registry records that the old comment could not:
+#   Y_NU_R  = 0        forced outright — the F47 Majorana bilinear carries
+#                      2 y_ν, so U(1)_Y invariance gives y_ν = 0 over ℚ.
+#                      This is the row that CLOSES the system (F279 A2);
+#                      the [grav]²U(1) row F165 credited adds no rank.
+#   Y_E_R   = 2 Y_L    derived, and N_c-independent (F279 A3).
+#   Y_LEPTON_L = −1    the ONE residual: the unit of charge (F49), exact
+#                      because it is a choice of unit.
+#
+# Convention unchanged: Gell-Mann–Nishijima Q = T_3 + Y/2, i.e. Y = 2y.
+#
+# Two faces per constant, per the C2 rule: the exact ``Fraction`` under the
+# registry symbol for the rational arithmetic the mass-step algebra is
+# checked with, and ``*_f`` for the numpy phase factors below (a Fraction in
+# an array expression yields an object array).
 # ──────────────────────────────────────────────────────────────────────
-Y_LEPTON_L = -1    # left-handed lepton doublet (ν_L, e_L)
-Y_E_R      = -2    # right-handed charged lepton
-Y_NU_R     =  0    # right-handed neutrino (sterile in minimal SM)
+from casim.constants import (                     # noqa: E402
+    Y_LEPTON_L, Y_E_R, Y_NU_R,
+    Y_LEPTON_L_f, Y_E_R_f, Y_NU_R_f,
+)
 
-# Higgs-equivalent hypercharges absorbed into U(x):
-#   ΔY_e  = Y_L − Y_e_R   = +1   (the SM Higgs hypercharge)
-#   ΔY_ν  = Y_L − Y_ν_R   = −1   (conjugate Higgs, iσ²Φ*)
-DELTA_Y_E  = Y_LEPTON_L - Y_E_R       # +1
-DELTA_Y_NU = Y_LEPTON_L - Y_NU_R      # -1
+# Higgs-equivalent hypercharges absorbed into U(x).  Still computed here, not
+# registered: these are the DIFFERENCES the F41 mass step absorbs, and F279's
+# y_φ = 3y_Q row is what makes them ±1.
+#   ΔY_e  = Y_L − Y_e_R   = +1   (the Higgs-equivalent phase, F279's y_φ)
+#   ΔY_ν  = Y_L − Y_ν_R   = −1   (conjugate branch, iσ²Φ*)
+DELTA_Y_E  = Y_LEPTON_L - Y_E_R           # Fraction(+1) — exact
+DELTA_Y_NU = Y_LEPTON_L - Y_NU_R          # Fraction(-1) — exact
+DELTA_Y_E_F  = float(DELTA_Y_E)           # array-code faces
+DELTA_Y_NU_F = float(DELTA_Y_NU)
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -157,8 +191,8 @@ def mass_step_doublet_su2xu1y(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
                               chi_nu_u, chi_nu_d, chi_e_u, chi_e_d,
                               U_a, U_b, alpha,
                               m, dt=1.0,
-                              delta_y_e: float = DELTA_Y_E,
-                              delta_y_nu: float = DELTA_Y_NU):
+                              delta_y_e: float = DELTA_Y_E_F,
+                              delta_y_nu: float = DELTA_Y_NU_F):
     """
     Extended F27 mass step that is BOTH SU(2)_L AND U(1)_Y Ward-invariant.
 
@@ -234,9 +268,9 @@ def mass_step_doublet_su2xu1y(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
 def apply_u1y_transform(eta_nu_u, eta_nu_d, eta_e_u, eta_e_d,
                         chi_nu_u, chi_nu_d, chi_e_u, chi_e_d,
                         beta,
-                        y_lepton_L: float = Y_LEPTON_L,
-                        y_e_R: float = Y_E_R,
-                        y_nu_R: float = Y_NU_R):
+                        y_lepton_L: float = Y_LEPTON_L_f,
+                        y_e_R: float = Y_E_R_f,
+                        y_nu_R: float = Y_NU_R_f):
     """
     Apply ψ → e^{i β(x) Y_ψ / 2} ψ to each Weyl field.  Returns the
     transformed 8-tuple.
@@ -261,9 +295,9 @@ def u1y_shift_alpha(alpha, beta):
 #  Convenience: covariant U(1)_Y phase for kinetic steps
 # ──────────────────────────────────────────────────────────────────────
 def covariant_phase_per_chirality(beta,
-                                  y_lepton_L: float = Y_LEPTON_L,
-                                  y_e_R: float = Y_E_R,
-                                  y_nu_R: float = Y_NU_R):
+                                  y_lepton_L: float = Y_LEPTON_L_f,
+                                  y_e_R: float = Y_E_R_f,
+                                  y_nu_R: float = Y_NU_R_f):
     """
     Return (phL, phN, phE) site-centred U(1)_Y phases for the three
     chirality/charge eigenstates.  Multiplying these onto the spinor
@@ -280,7 +314,23 @@ def covariant_phase_per_chirality(beta,
 #  Added 2026-05-27 - 09:00
 # ══════════════════════════════════════════════════════════════════════
 
-# ─ Standard-Model hypercharges for the first-generation quark sector ─
+# ─ First-generation quark hypercharges ─
+#
+# On the SAME derived line as the lepton triple above (F165/F279 A2:
+# y_Q:y_u:y_d = 1:4:-2), and deliberately NOT promoted to casim.constants with
+# it.  Two reasons, both recorded rather than assumed:
+#
+#  1. The FRACTIONS are quantisation *plus* N_c = 3.  F279 A3 closes the system
+#     for every colour multiplicity, with y_u:y_d = (1+N_c):(1-N_c) — so that
+#     the unit is a THIRD is downstream of N_c = 3, which the model does not
+#     derive (F293 grades "why three colours" PARTIAL).  The lepton ratios are
+#     N_c-independent; these are not, and registering them as `exact` with
+#     F165/F279 provenance would hide that difference.
+#  2. 1/3, 4/3 and -2/3 are diagnostic values, so `sweep=False` is not
+#     available to them (tests/casim/test_constants_consistency.py). Registered,
+#     they would make the C2.4 sweep flag every unrelated third in src/.
+#
+# Promoting these is therefore blocked on N_c = 3, not on bookkeeping.
 Y_QUARK_L =  1.0 / 3.0     # left-handed quark doublet (u_L, d_L)
 Y_U_R     =  4.0 / 3.0     # right-handed up quark
 Y_D_R     = -2.0 / 3.0     # right-handed down quark
@@ -438,7 +488,7 @@ def kinetic_half_step_chi_singlets_all(chi_e_u, chi_e_d,
                                        chi_u_u, chi_u_d,
                                        chi_d_u, chi_d_d,
                                        alpha, dt_half,
-                                       y_e_R: float = Y_E_R,
+                                       y_e_R: float = Y_E_R_f,
                                        y_u_R: float = Y_U_R,
                                        y_d_R: float = Y_D_R):
     """

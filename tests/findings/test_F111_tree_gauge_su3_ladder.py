@@ -54,10 +54,12 @@ from fractions import Fraction
 import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(ROOT / "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_link_hamiltonian as lh
-import ca_su3_ladder as su
+from casim.engine.gauge import link_hamiltonian as lh
+from casim.engine.gauge import su3_ladder as su
 
 OUT = ROOT / "test-results" / "F111_tree_gauge_su3_ladder.json"
 t0 = time.time()

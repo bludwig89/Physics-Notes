@@ -45,8 +45,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
 import numpy as np                                     # noqa: E402
 import casim                                            # noqa: E402,F401
 from casim.engine import Simulation, LatticeSpec        # noqa: E402
-from casim.engine.channel import build_channel          # noqa: E402
-from casim.engine.observers import build_observer        # noqa: E402
+from casim.engine.core.channel import build_channel          # noqa: E402
+from casim.engine.core.observers import build_observer        # noqa: E402
 
 # uniform deep coarse config that certifies the whole H→He→Li→C ladder
 _COARSE = {"L": 28, "m": 1.0, "k": 0.6, "dt": 0.4, "relax_steps": 1000,

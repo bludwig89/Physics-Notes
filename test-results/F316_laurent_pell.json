@@ -1,0 +1,214 @@
+{
+  "C10_lambda_independence": {
+    "agree": true,
+    "verdicts": {
+      "alternate": {
+        "all_drop_2c": true,
+        "c": 6.048675597924277,
+        "n": 5
+      },
+      "primary": {
+        "all_drop_2c": true,
+        "c": 5.8818192885643805,
+        "n": 5
+      }
+    }
+  },
+  "C1_genericity": {
+    "lambda": [
+      1.0,
+      2.23606797749979,
+      2.6457513110645907
+    ],
+    "max_h_residual": 1.7763568394002505e-15,
+    "max_lc_residual": 0.0,
+    "min_gap": 2.0
+  },
+  "C2_width_detects_units_where_degree_does_not": {
+    "all_monomials_are_units": true,
+    "counterexample": "1 + w1^-1",
+    "counterexample_is_unit": false,
+    "counterexample_width": 1.0,
+    "monomial_widths": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "C3_unitarity_gives_central_symmetry": {
+    "all_symmetric": true,
+    "max_symmetry_residual": 0.0,
+    "rows": [
+      {
+        "a_self_adjoint": true,
+        "b_anti_self_adjoint": true,
+        "n": 1
+      },
+      {
+        "a_self_adjoint": true,
+        "b_anti_self_adjoint": true,
+        "n": 2
+      },
+      {
+        "a_self_adjoint": true,
+        "b_anti_self_adjoint": true,
+        "n": 3
+      },
+      {
+        "a_self_adjoint": true,
+        "b_anti_self_adjoint": true,
+        "n": 4
+      },
+      {
+        "a_self_adjoint": true,
+        "b_anti_self_adjoint": true,
+        "n": 5
+      },
+      {
+        "a_self_adjoint": true,
+        "b_anti_self_adjoint": true,
+        "n": 6
+      }
+    ]
+  },
+  "C4_h_relation": {
+    "c": 5.8818192885643805,
+    "max_residual": 5.329070518200751e-15,
+    "n": 6
+  },
+  "C5_leading_sign": {
+    "always_exactly_one": true,
+    "rows": [
+      {
+        "exactly_one": true,
+        "n": 1
+      },
+      {
+        "exactly_one": true,
+        "n": 2
+      },
+      {
+        "exactly_one": true,
+        "n": 3
+      },
+      {
+        "exactly_one": true,
+        "n": 4
+      },
+      {
+        "exactly_one": true,
+        "n": 5
+      },
+      {
+        "exactly_one": true,
+        "n": 6
+      }
+    ]
+  },
+  "C6_product_identity": {
+    "all_bounded": true,
+    "all_exact": true,
+    "rows": [
+      {
+        "bounded": true,
+        "exact": true,
+        "n": 2
+      },
+      {
+        "bounded": true,
+        "exact": true,
+        "n": 3
+      },
+      {
+        "bounded": true,
+        "exact": true,
+        "n": 4
+      },
+      {
+        "bounded": true,
+        "exact": true,
+        "n": 5
+      },
+      {
+        "bounded": true,
+        "exact": true,
+        "n": 6
+      }
+    ]
+  },
+  "C7_descent": {
+    "all_drop_2c": true,
+    "all_strict": true,
+    "c": 5.8818192885643805,
+    "n_live": 6,
+    "rows": [
+      {
+        "D_after": 0.0,
+        "D_b": 11.763638577128761,
+        "drop_is_2c": true,
+        "n": 2,
+        "strict": true
+      },
+      {
+        "D_after": 11.763638577128761,
+        "D_b": 23.527277154257522,
+        "drop_is_2c": true,
+        "n": 3,
+        "strict": true
+      },
+      {
+        "D_after": 23.527277154257522,
+        "D_b": 35.290915731386285,
+        "drop_is_2c": true,
+        "n": 4,
+        "strict": true
+      },
+      {
+        "D_after": 35.290915731386285,
+        "D_b": 47.054554308515044,
+        "drop_is_2c": true,
+        "n": 5,
+        "strict": true
+      },
+      {
+        "D_after": 47.054554308515044,
+        "D_b": 58.8181928856438,
+        "drop_is_2c": true,
+        "n": 6,
+        "strict": true
+      },
+      {
+        "D_after": 58.8181928856438,
+        "D_b": 70.58183146277257,
+        "drop_is_2c": true,
+        "n": 7,
+        "strict": true
+      }
+    ]
+  },
+  "C8_base_case": {
+    "off_origin_anti_self_adjoint": [
+      false,
+      false
+    ],
+    "pure_imag_const_ok": true,
+    "real_const_not": true,
+    "u_is_difference_of_two": false,
+    "u_monomials": 8
+  },
+  "C9_hypothesis_is_load_bearing": {
+    "D_b_at_n1": 0.0,
+    "b_at_n1": "-i",
+    "one_plus_b_squared_is_zero": true
+  },
+  "import_discharged": "Dubickas-Steuding 2004 Thm 2 \u2014 the polynomial->Laurent transfer. F313 sec.6 no longer imports anything.",
+  "n_checks": 10,
+  "runner_claims": {
+    "base_case_is_closed": true,
+    "descent_is_strict_and_by_exactly_2c": true,
+    "product_identity_is_exact": true,
+    "unitarity_gives_central_symmetry": true,
+    "width_beats_degree_on_the_counterexample": true
+  },
+  "verdict": "The Pell descent is proved over the Laurent ring with NO import. The failing hypothesis 'deg f = 0 => f constant' is replaced by the two-sided width D, which vanishes exactly on units; UNITARITY makes every Newton polytope centrally symmetric, which is the ingredient the polynomial proof neither has nor needs; the descent then lowers D(b) by exactly D(u) per step until it lands on {+-1, +-A^+-1}. Scope: this N, under unitarity \u2014 NOT a re-proof of D-S in several variables."
+}

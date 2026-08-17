@@ -2,8 +2,8 @@
 test_FG7e_colour_condensate.py — the colour-magnetic condensate arising within the model
 ========================================================================================
 
-Verifies `ca-simulation/ca_colour_condensate.py` and
-`ca-simulation/derive_colour_condensate.py` (F88): the colour-magnetic
+Verifies `src/casim/engine/gauge/colour_condensate.py` and
+`src/casim/engine/particles/derive_colour_condensate.py` (F88): the colour-magnetic
 condensate F86 *assumed* is here *derived* from the model's own physics —
 the f^abc/eps^abc Yang–Mills self-coupling (F43) and the compactness of the
 link variables.
@@ -36,8 +36,8 @@ Route 2 — WHAT condenses (monopoles from compactness):
        dilute-gas (log-linear) tail; chain rho -> z -> m_D -> v = m_D/e
        hands F86 its condensate VEV: sigma_F86 = 2 pi v^2 > 0, measured.
 
-Modules under test:  ca-simulation/ca_colour_condensate.py,
-                     ca-simulation/derive_colour_condensate.py (+ sympy)
+Modules under test:  src/casim/engine/gauge/colour_condensate.py,
+                     src/casim/engine/particles/derive_colour_condensate.py (+ sympy)
 Created:             2026-06-04
 """
 import sys
@@ -46,10 +46,12 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_colour_condensate as cc       # noqa: E402
-import derive_colour_condensate as dcc  # noqa: E402
+from casim.engine.gauge import colour_condensate as cc       # noqa: E402
+from casim.engine.particles import derive_colour_condensate as dcc  # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

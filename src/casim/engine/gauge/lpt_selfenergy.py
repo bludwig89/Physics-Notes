@@ -73,7 +73,40 @@ def _khat2(k):
 
 
 def _wrap(k):
+    """Axis-wise fold into the midpoint cube [-pi, pi).
+
+    RETAINED FOR THE CONTROL PATH ONLY (F307 -> the repair finding).  Folding the
+    loop momentum is legal only when the WHOLE integrand is invariant under an
+    axis-wise 2 pi shift, and in this module it is not, for two independent
+    reasons that live on different branches:
+
+      * ``fp='leading'``  the ghost momentum factor is a SUM,
+        ``2 sin(k/2) + 2 sin((k+q)/2)``.  Each term has period 4 pi, so wrapping
+        one of them flips its sign RELATIVE to the other and the sum becomes a
+        difference.  This is the large defect (up to a factor 2 in C).
+      * ``kernel='rule'``  the rule propagator ``K_true_4d = 3 Omega_even^2 + kt^2``
+        is not periodic under an axis-wise shift by 2 pi (nor 4 pi nor 8 pi --
+        Omega_even is BCC/fcc-periodic, and the time leg is continuum ``kt^2``),
+        so folding evaluates the integrand at a DIFFERENT physical momentum.
+        This is the original F272 defect, in the propagator rather than the vertex.
+
+    The one combination that is genuinely invariant is ``fp='exact'`` with
+    ``kernel='wilson'``: the exact ghost form factor ``2 sin((p+p')/2)`` picks up a
+    GLOBAL sign under the shift, which cancels in the ``t (x) t`` contraction, and
+    Wilson's ``khat^2`` is 2 pi-periodic per axis.  Measured difference there is
+    exactly 0.0 -- which is why the defect stayed invisible on the branch every
+    published constant used.
+
+    Every production entry point now defaults to ``refold=False``.  Pass
+    ``refold=True`` to reproduce the pre-repair numbers.
+    """
     return ((k + math.pi) % (2 * math.pi)) - math.pi
+
+
+def _folder(refold: bool):
+    """The momentum map used inside a loop: the identity unless the caller is
+    deliberately re-introducing the refold defect."""
+    return _wrap if refold else (lambda k: k)
 
 
 # ----------------------------------------------------------------------
@@ -101,7 +134,7 @@ def three_gluon_tensor_grid(qvec, kgrid, rgrid):
 # ----------------------------------------------------------------------
 #  the 3-gluon loop transverse coefficient B_gluon = (Pi00 - Pi11)/Q^2
 # ----------------------------------------------------------------------
-def _pi_gluon_loop(Q, n):
+def _pi_gluon_loop(Q, n, refold: bool = False):
     """Pi_{mu nu} from the 3-gluon loop, EXACT lattice vertices, Feynman-gauge
     lattice propagator delta/Khat.  Returns the 4x4 real Pi (colour-stripped of the
     delta^{ab}) at external q=(Q,0,0,0).
@@ -112,8 +145,10 @@ def _pi_gluon_loop(Q, n):
     k = _bz_grid(n)
     qv = np.array([Q, 0.0, 0.0, 0.0])
     r = -k - qv
-    kw, rw = _wrap(k), _wrap(r)
-    denom = _khat2(kw) * _khat2(rw)                        # (grid,)
+    _w = _folder(refold)
+    # khat^2 IS 2 pi-periodic per axis, so this fold was always a no-op here; it is
+    # routed through _folder so the whole module has one refold switch, not five.
+    denom = _khat2(_w(k)) * _khat2(_w(r))                  # (grid,)
 
     T1 = three_gluon_tensor_grid(qv, k, r)                 # T(q,k,r)   [.,m,al,be]
     T2 = three_gluon_tensor_grid(-qv, -k, -r)              # T(-q,-k,-r)[.,n,al,be]
@@ -147,7 +182,7 @@ def ghost_vertex_lattice_exact(p, pp):
     return 2.0 * np.sin((p + pp) / 2.0)
 
 
-def _pi_ghost_loop(Q, n):
+def _pi_ghost_loop(Q, n, refold: bool = False):
     """Ghost-loop contribution to Pi_{mu nu}.  The lattice Faddeev-Popov ghost-gluon
     vertex from the covariant (backward-difference) gauge condition carries the
     momentum factor (khat + (k+q)hat)_mu -> (2k+q)_mu in the continuum; the loop is
@@ -156,9 +191,12 @@ def _pi_ghost_loop(Q, n):
     of _pi_gluon_loop (here the extra 1/2 x 2 = 1 is absorbed => overall -C_A)."""
     k = _bz_grid(n)
     qv = np.array([Q, 0.0, 0.0, 0.0])
-    kq = _wrap(k + qv)
-    denom = _khat2(_wrap(k)) * _khat2(kq)
-    kh = 2.0 * np.sin(_wrap(k) / 2.0)
+    _w = _folder(refold)
+    kq = _w(k + qv)
+    denom = _khat2(_w(k)) * _khat2(kq)
+    # t is a SUM of two 4 pi-periodic terms: folding kq alone flips the relative
+    # sign and turns the sum into a difference.  See _wrap's docstring.
+    kh = 2.0 * np.sin(_w(k) / 2.0)
     kqh = 2.0 * np.sin(kq / 2.0)
     t = kh + kqh                                   # (khat + (k+q)hat)_mu -> (2k+q)_mu
     M = np.einsum('...m,...n->...mn', t, t)
@@ -225,7 +263,9 @@ def seagull_tadpole(n=8) -> dict:
     cancellation.  (The transverse route projects this out; the full 28.81 gate keeps
     it — see certify_wilson_gate.)"""
     k = _bz_grid(n)
-    Z0 = float(np.mean(1.0 / _khat2(_wrap(k))))
+    # the grid already lies in [-pi, pi) and khat^2 is 2 pi-periodic, so this was a
+    # no-op twice over; kept unfolded so the module has no bare _wrap call left.
+    Z0 = float(np.mean(1.0 / _khat2(k)))
     # seagull colour+Lorentz weight (d-1)/2 * C_A for the delta_{mn} tadpole (d=4)
     coeff = (4 - 1) / 2.0 * C_A
     return {"n": n, "Z0": Z0, "seagull_coeff_(d-1)/2*CA": coeff,
@@ -422,7 +462,7 @@ def _abbott_lattice(p_slot0, p_slot1, p_slot2, k_arg, q_arg, gshape, fp="leading
     return np.real(Tsym) + Vgf
 
 
-def _pi_bgfield(Q, n, kernel="wilson", fp="leading"):
+def _pi_bgfield(Q, n, kernel="wilson", fp="leading", refold: bool = False):
     """Background-field self-energy Pi_{mn} with the LATTICE ABBOTT vertex
     (exact symmetric + derived gauge-fixing) + lattice ghost, contracted EXACTLY as
     ca_bgfield_loop._Bcoeff_numeric (einsum '...aml,...lna->...mn').  kernel in
@@ -434,22 +474,29 @@ def _pi_bgfield(Q, n, kernel="wilson", fp="leading"):
     k = _bz_grid(n)
     qv = np.array([Q, 0.0, 0.0, 0.0])
     kq = k + qv
+    _w = _folder(refold)
     if kernel == "rule":
         from casim.engine.gauge import gluon_self_energy as _se
         Kr = lambda g: _se.K_true_4d(g[..., 0], g[..., 1], g[..., 2], g[..., 3])
-        denom = Kr(_wrap(k)) * Kr(_wrap(kq))
+        # K_true_4d has NO axis-wise period (Omega_even is fcc-periodic, the time
+        # leg is continuum kt^2), so folding here is the F272 defect itself.
+        denom = Kr(_w(k)) * Kr(_w(kq))
     else:
-        denom = _khat2(_wrap(k)) * _khat2(_wrap(kq))
+        denom = _khat2(_w(k)) * _khat2(_w(kq))
     # W = AbbottLat(k,q): slots a(k), m(q), l(-k-q)
     W = _abbott_lattice(k, qv, -k - qv, k, qv, k.shape[:-1], fp=fp)
     # Z = AbbottLat(k+q,-q) used as [l,n,a]: slots l(k+q), n(-q), a(-k)
     Z = _abbott_lattice(kq, -qv, -k, kq, -qv, k.shape[:-1], fp=fp)
     Ggl = np.einsum('...aml,...lna->...mn', W, Z)
     if fp == "exact":
-        # DERIVED exact lattice ghost vertex: 2 sin((p+p')_mu/2), p=k, p'=k+q
-        tkq = ghost_vertex_lattice_exact(_wrap(k), _wrap(kq))
+        # DERIVED exact lattice ghost vertex: 2 sin((p+p')_mu/2), p=k, p'=k+q.
+        # A fold shifts the SUM p+p' by 2 pi -> a GLOBAL sign, which cancels in the
+        # t (x) t contraction below.  This branch is refold-insensitive (measured
+        # exactly 0.0 on the Wilson kernel).
+        tkq = ghost_vertex_lattice_exact(_w(k), _w(kq))
     else:
-        tkq = 2.0 * np.sin(_wrap(k) / 2.0) + 2.0 * np.sin(_wrap(kq) / 2.0)  # (2k+q) hatted
+        # a SUM of two 4 pi-periodic terms -> folding one flips its RELATIVE sign.
+        tkq = 2.0 * np.sin(_w(k) / 2.0) + 2.0 * np.sin(_w(kq) / 2.0)  # (2k+q) hatted
     Hgh = -2.0 * np.einsum('...m,...n->...mn', tkq, tkq)
     M = Ggl + Hgh
     Pi = (C_A / 2.0) * np.mean(M / denom[..., None, None], axis=(0, 1, 2, 3))
@@ -457,7 +504,7 @@ def _pi_bgfield(Q, n, kernel="wilson", fp="leading"):
 
 
 def finite_constant_bgfield(n=8, Qs=(0.1, 0.15, 0.2, 0.3), kernel="wilson",
-                            fp="leading") -> dict:
+                            fp="leading", refold: bool = False) -> dict:
     """SCHEME-CONSISTENT transverse finite constant: the LATTICE ABBOTT (background-
     field) self-energy minus the F162 continuum Abbott baseline,
         d1-constant = 16 pi^2 (B_bgfield,lat - B_cont),   B = (Pi00-Pi11)/Q^2.
@@ -470,7 +517,7 @@ def finite_constant_bgfield(n=8, Qs=(0.1, 0.15, 0.2, 0.3), kernel="wilson",
     rows = []
     imag = 0.0
     for Q in Qs:
-        Pi = _pi_bgfield(Q, n, kernel=kernel, fp=fp)
+        Pi = _pi_bgfield(Q, n, kernel=kernel, fp=fp, refold=refold)
         Bl = (Pi[0, 0] - Pi[1, 1]) / Q ** 2
         imag = max(imag, abs(float(np.imag(Bl))))
         Bc = bg._Bcoeff_numeric(Q, n, "cont")
@@ -478,7 +525,8 @@ def finite_constant_bgfield(n=8, Qs=(0.1, 0.15, 0.2, 0.3), kernel="wilson",
                      "C": float(SIXTEEN_PI2 * (np.real(Bl) - Bc))})
     cs = [r["C"] for r in rows]
     lam = math.exp(np.mean(cs) / (2.0 * 11.0))          # bg-gate units b0=11
-    return {"n": n, "kernel": kernel, "fp": fp, "rows": rows, "C": float(np.mean(cs)),
+    return {"n": n, "kernel": kernel, "fp": fp, "refold": bool(refold), "rows": rows,
+            "C": float(np.mean(cs)),
             "Q_spread": float(max(cs) - min(cs)), "max_imag_B": imag,
             "implied_lambda_ratio_exp_C_over_2b0": float(lam)}
 
@@ -548,3 +596,115 @@ def report(n=8) -> dict:
 if __name__ == "__main__":
     import json
     print(json.dumps(report(), indent=2, default=str))
+
+
+
+
+def _ac():
+    """F307's independently-written refold-free loop, imported lazily so this
+    module does not depend on its own consumer at import time."""
+    from casim.engine.gauge import lpt_d1_action_consistent as _m
+    return _m
+
+
+def _gse():
+    from casim.engine.gauge import gluon_self_energy as _m
+    return _m
+
+
+# ======================================================================
+#  F308 — the refold repair, as a registry entry point
+# ======================================================================
+TOL_AGREE = 1e-13
+TOL_EXACT = 1e-14
+
+
+def _pi(Q, n, kernel, fp, refold):
+    return _pi_bgfield(Q, n, kernel=kernel, fp=fp, refold=refold)
+
+
+def check_refold_repaired(n: int = 4, Qs=(0.9,),
+                          agree_tol: float = TOL_AGREE,
+                          unrepair_control: bool = False) -> dict:
+    # n must be EVEN: the grid is offset by half a cell, so an odd n places a point
+    # exactly on k = 0 and the propagator denominator diverges.  n=4 is the smallest
+    # grid on which the fold still fires (pi/4 = 0.785 < 0.9); the finding quotes the
+    # n=6 ladder and the n=8 sweep rows, both measured outside the gate tier.
+    """Entry point for the registry record.
+
+    ``unrepair_control=True`` puts the fold back into the production default,
+    i.e. undoes the repair; R1, R3 and R6 must go red and R2/R4/R5 must not.
+    """
+    refold_default = bool(unrepair_control)
+    checks = {}
+
+    # R1 — repaired default == F307's independent refold-free path
+    worst = 0.0
+    for Q in Qs:
+        a = float(np.real(_pi(Q, n, "wilson", "leading", refold_default))[0, 0])
+        b = float(np.real(_ac().pi_loop("sc", Q, n, domain="cube")[0])[3, 3])
+        worst = max(worst, abs(a - b))
+    checks["R1_repaired_matches_F307_path"] = {
+        "max_abs_diff": worst, "pass": bool(worst < agree_tol)}
+
+    # R2 — the fold fires iff Q >= pi/n (counted, not predicted)
+    rows, ok = [], True
+    for nn in (6, 8, 12, 16):
+        ax = (np.arange(nn) + 0.5) / nn * 2 * math.pi - math.pi
+        for Q in (0.1, 0.15, 0.2, 0.3, 0.6, 0.8):
+            counted = bool(np.any(ax + Q >= math.pi))
+            predicted = bool(Q >= math.pi / nn)
+            ok &= counted == predicted
+            rows.append({"n": nn, "Q": Q, "counted": counted,
+                         "predicted": predicted})
+    checks["R2_fires_iff_Q_ge_pi_over_n"] = {"rows": len(rows), "pass": bool(ok)}
+
+    # R3 — fp='exact' + wilson is EXACTLY fold-invariant
+    d = max(float(np.max(np.abs(_pi(Q, n, "wilson", "exact", False)
+                                 - _pi(Q, n, "wilson", "exact", True))))
+            for Q in Qs)
+    checks["R3_exact_wilson_fold_invariant"] = {
+        "max_abs_diff": d, "pass": bool(d < TOL_EXACT)}
+
+    # R4 — two mechanisms: leading is large, rule/exact is small but nonzero
+    Q = max(Qs)
+    big = float(np.max(np.abs(_pi(Q, n, "rule", "leading", False)
+                              - _pi(Q, n, "rule", "leading", True))))
+    small = float(np.max(np.abs(_pi(Q, n, "rule", "exact", False)
+                                - _pi(Q, n, "rule", "exact", True))))
+    checks["R4_two_distinct_mechanisms"] = {
+        "leading_defect": big, "rule_exact_defect": small,
+        "pass": bool(big > 1e-2 and TOL_EXACT < small < 1e-2 and big > 10 * small)}
+
+    # R5 — K_true_4d has no axis-wise period
+    rng = np.random.default_rng(0)
+    k = rng.uniform(-math.pi, math.pi, (8, 4))
+    f = lambda g: _gse().K_true_4d(g[..., 0], g[..., 1], g[..., 2], g[..., 3])
+    base, mins = f(k), []
+    for mult in (2, 4, 8):
+        for ax_i in range(4):
+            d2 = k.copy()
+            d2[:, ax_i] += mult * math.pi
+            mins.append(float(np.max(np.abs(f(d2) - base))))
+    checks["R5_rule_kernel_has_no_axis_period"] = {
+        "min_over_shifts_of_max_dev": min(mins), "pass": bool(min(mins) > 1e-3)}
+
+    # R6 — below the firing threshold the fold is inert at the Pi level, which is
+    # what makes the sweep's n=8 rows (pi/8 = 0.3927 > max Q = 0.3) unchanged.  Run
+    # here at n=4, Q=0.3 (pi/4 = 0.785 > 0.3), the same inequality at gate cost; the
+    # finding carries the n=8 measurement itself at 3.5e-18.
+    worst_below = 0.0
+    for kern in ("wilson", "rule"):
+        a = _pi(0.3, n, kern, "exact", refold_default)
+        b = _pi(0.3, n, kern, "exact", True)
+        worst_below = max(worst_below, float(np.max(np.abs(a - b))))
+    # and the momentum grid itself is provably untouched at the sweep's own n=8
+    ax8 = (np.arange(8) + 0.5) / 8 * 2 * math.pi - math.pi
+    grid_clean = bool(not np.any(ax8 + 0.3 >= math.pi))
+    checks["R6_inert_below_threshold"] = {
+        "max_abs_diff": worst_below, "n8_grid_never_leaves_cube": grid_clean,
+        "pass": bool(worst_below < TOL_EXACT and grid_clean)}
+
+    passed = all(v["pass"] for v in checks.values())
+    return {"checks": checks, "legs": checks, "n_pass": sum(v["pass"] for v in checks.values()),
+            "n_total": len(checks), "passed": bool(passed)}

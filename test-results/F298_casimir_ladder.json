@@ -1,0 +1,160 @@
+{
+  "checks": [
+    {
+      "name": "L1 C_2(fund) = (N^2-1)/2N and C_2(adj) = N, exactly over Q",
+      "ok": true,
+      "value": [
+        "3/4",
+        "4/3",
+        "15/8",
+        "12/5",
+        "35/12",
+        "24/7"
+      ]
+    },
+    {
+      "name": "L2 the C7 identity exists ONLY for N <= 3",
+      "ok": true,
+      "value": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "L3 where it exists, chi = 1/(4 g^2 C_F) -- the Casimir DOES enter (F294 H2)",
+      "ok": true,
+      "value": [
+        [
+          2,
+          "4/3"
+        ],
+        [
+          3,
+          "3/4"
+        ]
+      ]
+    },
+    {
+      "name": "L3b control: the symmetric tower is uniform at NO N",
+      "ok": true,
+      "value": true
+    },
+    {
+      "name": "L4 the F294-recommended discriminator is DEGENERATE at N=3",
+      "ok": true,
+      "value": [
+        [
+          1,
+          "1",
+          1.0
+        ],
+        [
+          2,
+          "1",
+          1.0000000000000002
+        ]
+      ]
+    },
+    {
+      "name": "L4b ... and F86's BPS law disagrees with all three",
+      "ok": true,
+      "value": 2.0
+    },
+    {
+      "name": "L4c ... the laws DO separate at N=4 (so the test is sound, just inapplicable)",
+      "ok": true,
+      "value": [
+        [
+          1,
+          "1",
+          1.0
+        ],
+        [
+          2,
+          "4/3",
+          1.4142135623730951
+        ],
+        [
+          3,
+          "1",
+          1.0000000000000002
+        ]
+      ]
+    },
+    {
+      "name": "L5 empirically H1 matches to <0.5% and H2 is >20% low",
+      "ok": true,
+      "value": [
+        0.0008282405397657122,
+        -0.2493788195951756
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 8,
+  "n_total": 8,
+  "params": {
+    "tower": "antisymmetric",
+    "n_max": 7
+  },
+  "summary": {
+    "F298_ladder_antisym": {
+      "2": [
+        "3/4"
+      ],
+      "3": [
+        "4/3",
+        "4/3"
+      ],
+      "4": [
+        "15/8",
+        "5/2",
+        "15/8"
+      ],
+      "5": [
+        "12/5",
+        "18/5",
+        "18/5",
+        "12/5"
+      ]
+    },
+    "F298_N_with_C7_identity": [
+      2,
+      3
+    ],
+    "F298_identity_only_N_le_3": true,
+    "F298_chi_is_one_over_CF": true,
+    "F298_chi_values": [
+      [
+        2,
+        "4/3"
+      ],
+      [
+        3,
+        "3/4"
+      ],
+      [
+        4,
+        null
+      ],
+      [
+        5,
+        null
+      ],
+      [
+        6,
+        null
+      ],
+      [
+        7,
+        null
+      ]
+    ],
+    "F298_control_symmetric_never_uniform": true,
+    "F298_kstring_laws_degenerate_at_3": true,
+    "F298_kstring_laws_separate_at_4": true,
+    "F298_required_alpha_0": 0.01987790420038258,
+    "F298_H1_relative_error": 0.0008282405397657122,
+    "F298_H2_relative_error": -0.2493788195951756
+  }
+}

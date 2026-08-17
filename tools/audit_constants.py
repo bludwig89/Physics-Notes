@@ -14,7 +14,7 @@ This module is the engine for that sweep.  It is shared by
 `tools/audit_tests.py` and C1's `tools/audit_numerics.py`).
 
 Everything works by **AST inspection, never import**.  Importing a
-`ca-simulation` kernel is mostly harmless; importing a `tests/findings` module
+an engine module is mostly harmless; importing a `tests/findings` module
 executes its physics and writes JSON.  A provenance check that imported its
 subjects would be a slow, destructive test.
 
@@ -61,7 +61,7 @@ from casim.constants import (                                      # noqa: E402
 )
 
 # Roots swept, and what a finding in each one means.
-GATE_ROOTS = ("src", "ca-simulation")     # C2 owns these: findings are failures
+GATE_ROOTS = ("src",)                     # C2 owns this: findings are failures
 BACKLOG_ROOTS = ("tests",)                # C7 owns these: findings are counted
 _SKIP_DIRS = ("__pycache__", ".pytest_cache", "deprecated", ".git", ".venv")
 

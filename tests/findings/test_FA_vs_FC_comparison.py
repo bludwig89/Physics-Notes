@@ -36,12 +36,16 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation', 'forks'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import lgt_fork_A_mc as A          # noqa: E402
-import ca_colour_dielectric as C   # noqa: E402  (Option C, F86)
-import ca_confinement as F70       # noqa: E402  (2D-exact area law)
+from casim.engine.gauge import colour_dielectric as C   # noqa: E402  (Option C, F86)
+from casim.engine.gauge import confinement as F70       # noqa: E402  (2D-exact area law)
 
 
 class _NumpyEncoder(json.JSONEncoder):

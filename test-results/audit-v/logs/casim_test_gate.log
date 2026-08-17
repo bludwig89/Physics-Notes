@@ -1,0 +1,8 @@
+[casim] running 26 registry record(s)
+  [PASS ] F272-F273-bz-period-lattices                 (   6.2s)  — 8 passed
+  [PASS ] P3.2-engine-clock                            (   2.7s)  — 9 passed
+  [PASS ] P3.3-exchange-bus                            (   3.7s)  — 10 passed
+  [PASS ] P3.4-P3.6-total-energy-and-gravity-loop      (  18.5s)  — 13 passed
+  [PASS ] backend                                      (   2.7s)  — 4 passed
+  [PASS ] casim-exactness                              (   3.3s)  — 14 passed
+  [PASS ] checkpoint-ops                               (   2.8s)  — 10 passed

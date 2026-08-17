@@ -31,17 +31,12 @@ from __future__ import annotations
 import os, sys, json, argparse, math
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-for _cand in (
-    os.path.join(_HERE, "ca-simulation"),
-    os.path.join(_HERE, "..", "..", "ca-simulation"),
-    os.path.join(_HERE, "..", "ca-simulation"),
-):
-    _cand = os.path.abspath(_cand)
-    if os.path.isdir(_cand) and _cand not in sys.path:
-        sys.path.insert(0, _cand)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_positronium as ps   # noqa: E402
-import ca_hyperfine as hf      # noqa: E402
+from casim.engine.particles import positronium as ps   # noqa: E402
+from casim.engine.particles import hyperfine as hf      # noqa: E402
 
 
 # --------------------------------------------------------------------------- G1

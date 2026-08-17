@@ -62,8 +62,10 @@ import json
 import math
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_atom as atom  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import atom as atom  # noqa: E402
 
 results = {"phase": "P5", "title": "hydrogen atom — Coulomb bound state, Rydberg series, Dirac fine structure",
            "checks": {}, "derived": {}, "notes": []}

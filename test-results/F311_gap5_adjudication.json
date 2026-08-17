@@ -1,0 +1,187 @@
+{
+  "A1_refold_independence": {
+    "exactness": "exact (bit-identical); computed (the Pi3 ratio)",
+    "leg": "A1",
+    "pi3_spread_post": 2.4821343312511623e-05,
+    "pi3_spread_pre": 0.1707757838109668,
+    "pi3_spread_ratio": 6880.199095626075,
+    "pi4_bit_identical": true,
+    "pi4_post": 0.03142092800460496,
+    "pi4_pre": 0.03142092800460496,
+    "pi4_whole_payload_identical": true,
+    "verdict": "S12-F277 is a PARTIAL supersession: it reaches Pi3 (lattice_b0_consistency) and does not reach Pi4 (leptonic_running), which is where B9's number comes from"
+  },
+  "A23_two_loop": {
+    "exactness": "computed (Kallen-Sabry leading form, cited not re-derived)",
+    "formula": "(alpha/pi)^2 [ L/4 + zeta(3) - 5/24 ], L = ln(s/m^2)",
+    "improvement_factor": 155.3550347979626,
+    "leg": "A2/A3",
+    "one_loop_per_lepton": {
+      "e": 0.01743466264159319,
+      "mu": 0.009178435057626045,
+      "tau": 0.0048078303053857305
+    },
+    "one_loop_rel_err": 0.0024468853703420927,
+    "one_loop_total": 0.03142092800460496,
+    "pdg": 0.031498,
+    "residual_after_one_loop": 7.707199539503523e-05,
+    "two_loop_control": false,
+    "two_loop_literature": 7.7621e-05,
+    "two_loop_over_residual": 1.006436868951857,
+    "two_loop_per_lepton": {
+      "e": 3.79829270900518e-05,
+      "mu": 2.3599632490402858e-05,
+      "tau": 1.5985538148796552e-05
+    },
+    "two_loop_rel_err": 1.5750280469018842e-05,
+    "two_loop_total": 7.75680977292512e-05,
+    "two_loop_vs_literature_rel": 0.0006815458541991074
+  },
+  "B1_volatile_filter": {
+    "all_matched": true,
+    "exactness": "exact",
+    "history": "the same regex was patched for `total_elapsed_s` at its first run and for `wall_seconds` in C1, both recorded in its own comments; `_seconds` is the third instance",
+    "keys": {
+      "__seconds": true,
+      "_elapsed_s": true,
+      "_seconds": true,
+      "elapsed_s": true,
+      "seconds": true,
+      "timestamp": true,
+      "total_elapsed_s": true,
+      "wall_seconds": true
+    },
+    "leg": "B1",
+    "n_unmatched": 0,
+    "volatile_control": false
+  },
+  "B23_baseline_triage": {
+    "by_kind": {
+      "clean": [
+        "F128-omega-repulsion",
+        "F181-covariant-interior-battery",
+        "F240-omega-coupling-derivation",
+        "F241-omega-lambda-residual",
+        "F64-em-connection"
+      ],
+      "floor": [
+        "F87-charge-coupling-paired-photon"
+      ],
+      "input": [
+        "FA-vs-FC-comparison"
+      ],
+      "timing": [
+        "F182-friedmann-pressure",
+        "F184-tabulated-ns",
+        "F200-alcubierre-structural"
+      ]
+    },
+    "counts": {
+      "clean": 5,
+      "floor": 1,
+      "input": 1,
+      "timing": 3
+    },
+    "detail": {
+      "F128-omega-repulsion": {
+        "kind": "clean",
+        "why": "reproduced HEAD exactly"
+      },
+      "F181-covariant-interior-battery": {
+        "kind": "clean",
+        "why": "0 keys changed vs HEAD"
+      },
+      "F182-friedmann-pressure": {
+        "kind": "timing",
+        "why": "6/6 drifting keys are _seconds/seconds"
+      },
+      "F184-tabulated-ns": {
+        "kind": "timing",
+        "why": "4/4 drifting keys are _seconds/seconds"
+      },
+      "F200-alcubierre-structural": {
+        "kind": "timing",
+        "why": "3/3 drifting keys are _seconds/seconds"
+      },
+      "F240-omega-coupling-derivation": {
+        "kind": "clean",
+        "why": "reproduced HEAD exactly"
+      },
+      "F241-omega-lambda-residual": {
+        "kind": "clean",
+        "why": "0 keys changed vs HEAD"
+      },
+      "F64-em-connection": {
+        "kind": "clean",
+        "why": "0 keys changed vs HEAD"
+      },
+      "F87-charge-coupling-paired-photon": {
+        "kind": "floor",
+        "why": "every physics key is a residual at 1e-16..1e-11; two keys move 1 ULP"
+      },
+      "FA-vs-FC-comparison": {
+        "kind": "input",
+        "why": "reads test-results/lgt_confinement.json and short-circuits its own MC; seed-independent over 5 seeds"
+      }
+    },
+    "exactness": "measured",
+    "leg": "B2/B3",
+    "n_candidates": 10,
+    "n_regressions": 0,
+    "n_supersessions": 0,
+    "verdict": "all ten `candidate` entries blamed physics for instrument defects; none is a regression and none is explained by the supersession the ledger guessed",
+    "zero_regressions": true,
+    "zero_supersessions": true
+  },
+  "C_lambda_adjudication": {
+    "cutoff_ratio_Lambda_UV_over_M_Pl": 0.7598356856515925,
+    "dex_between": 1.6501173071838715,
+    "double_count": "F79 induces 1/G from the matter modes up to the BZ edge with zero tree stiffness; F192 V2 sums the same modes at the same cutoff again as a source. Under the INDUCED Einstein equation (CLAUDE.md decision 4) the zero-point modes make the LHS and cannot also be the RHS",
+    "entails": "F193/F196/F241",
+    "exactness": "structural + computed",
+    "f192_V1_w": -1.0,
+    "f192_V3_claim": "all four candidate cancellations remain underived",
+    "f192_V3_is_stale": true,
+    "f192_date": "2026-06-30 - 04:50",
+    "f193_closes": "candidate (i), the CA-native ontic vacuum",
+    "f193_date": "2026-06-30 - 17:35",
+    "f193_postdates_f192": true,
+    "f193_rho_vac": 0.0,
+    "f196_closes": "the p = 2 dilution exponent F193 named as its obstruction",
+    "hours_between": 12.75,
+    "leg": "C1/C2/C3",
+    "residual": "Omega_Lambda ~ 0.685, an O(1) number F241 already closes",
+    "rho_at_model_cutoff": 1.544315596911271e+113,
+    "rho_f192_committed": 3.45635824918628e+111,
+    "sign_result_is_vacuous_not_contradicted": true,
+    "w_is_defined_when_rho_is_zero": false
+  },
+  "all_pass": true,
+  "checks": {
+    "A1-pi3-moves": true,
+    "A1-pi4-untouched": true,
+    "A2-matches-literature": true,
+    "A2-two-loop-explains-residual": true,
+    "A3-closes-100x": true,
+    "B1-volatile-filter": true,
+    "B2-ten-triaged": true,
+    "B3-zero-regressions": true,
+    "C1-chronology": true,
+    "C2-sign-vacuous": true,
+    "C3-double-count": true,
+    "C3-entails": true
+  },
+  "finding": "F311",
+  "gap": "completeness-2026-08-07 gap #5",
+  "headline": "all three of gap #5's numbers were instrument or bookkeeping artifacts, not physics defects",
+  "ledger_rows": [
+    "B9",
+    "G1"
+  ],
+  "n_checks": 12,
+  "rubric_rows": [
+    "B9",
+    "K9",
+    "H2"
+  ]
+}

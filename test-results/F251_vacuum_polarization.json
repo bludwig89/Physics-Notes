@@ -40,30 +40,30 @@
         {
           "Q": 0.1,
           "B_cont": -0.07450466498181428,
-          "B_rule": -0.07660694368798458,
-          "delta": -0.002102278706170302
+          "B_rule": -0.07660694368797903,
+          "delta": -0.0021022787061647508
         },
         {
           "Q": 0.15,
           "B_cont": -0.06974534031251652,
-          "B_rule": -0.07185164728275759,
-          "delta": -0.0021063069702410703
+          "B_rule": -0.07185164728275512,
+          "delta": -0.0021063069702386
         },
         {
           "Q": 0.2,
           "B_cont": -0.06403873405915818,
-          "B_rule": -0.056746066132744286,
-          "delta": 0.007292667926413893
+          "B_rule": -0.06615147295040076,
+          "delta": -0.0021127388912425826
         },
         {
           "Q": 0.3,
           "B_cont": -0.053776649518172716,
-          "B_rule": -0.04139910620742957,
-          "delta": 0.012377543310743144
+          "B_rule": -0.05589577896828519,
+          "delta": -0.0021191294501124724
         }
       ],
-      "delta_mean": 0.003865406390186416,
-      "delta_spread": 0.014483850280984215,
+      "delta_mean": -0.0021101135044396015,
+      "delta_spread": 1.685074394772168e-05,
       "b0_propagator_independent": true,
       "statement": "Delta = B_rule - B_cont is q-flat (no residual log) => lattice b0^QED = continuum b0^QED = 4/3. The rule arccos kernel is grid-sensitive at small n (F162 caveat); the decisive point is Delta is a small constant, not a growing log."
     },
@@ -115,8 +115,8 @@
     },
     "P3_lattice_b0_consistency": {
       "quantity": "Delta = B_rule - B_cont (q-flat => lattice b0 = continuum)",
-      "delta_mean": 0.003865406390186416,
-      "delta_spread": 0.014483850280984215,
+      "delta_mean": -0.0021101135044396015,
+      "delta_spread": 1.685074394772168e-05,
       "tier": "convergent",
       "pass": true
     },

@@ -167,6 +167,36 @@ register_measured(MeasuredConstant(
 ))
 
 # ---------------------------------------------------------------------------
+# F295 — the cosmological tilt's required one-loop coupling happens to equal 2/9
+#
+# This is the `coincidence` category doing exactly the job it was typed for, and
+# it is deliberately NOT resolved by importing one of the three registry symbols
+# that already hold 2/9 (delta_star, sin2_thetaW_onshell, c_fierz_colour).
+# Importing any one of them would silently PICK A SIDE — and F295's whole point
+# is that no mechanism has yet picked one, and that the value's significance
+# fails F286's look-elsewhere count. The literal stays, typed and reasoned.
+# ---------------------------------------------------------------------------
+register_measured(MeasuredConstant(
+    path="src/casim/engine/interactions/cosmology_anomalous_dimension.py",
+    name="two_ninths",
+    compares_to="delta_star",
+    kind="coincidence",
+    value=2.0 / 9.0,
+    reason="A DIFFERENT physical quantity that happens to equal 2/9: the "
+           "one-loop coupling the primordial tilt would require, "
+           "g_eff = 2 pi (1 - n_s) = 0.2205 +/- 0.0264, which sits 0.064 sigma "
+           "from 2/9. It is written as a bare literal ON PURPOSE. Three "
+           "registered constants already hold 2/9 and CLAUDE.md keeps them "
+           "separate because they are unrelated; importing one here would "
+           "assert a link F295 explicitly does not claim. F286 T5's "
+           "look-elsewhere count (6 hits in 396 candidates, p = 0.32) rejects "
+           "the value's significance, and F295 improves only the SHAPE "
+           "argument. Resolve this record by importing a specific symbol ONLY "
+           "when a mechanism has identified the operator.",
+    provenance=("F295", "F286", "F175"),
+))
+
+# ---------------------------------------------------------------------------
 # NOT here: the two non-anchor f_pi sites.
 #
 # P0's ALLOWLIST exempted `spectral_matter.TARGETS` (92.4, the PDG comparison

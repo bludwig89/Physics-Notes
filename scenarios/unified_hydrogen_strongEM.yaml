@@ -13,6 +13,7 @@
 # stationary bound state at this compressed scale / small box (an over-driven
 # scattering quasi-orbit). A true stationary orbit needs the U4 scale
 # separation (block-spin multigrid) and a properly scaled well.
+version: 2
 name: unified_hydrogen_strongEM
 title: "Unified Hydrogen — strong-EM mechanism probe (U2)"
 description: "Full chain with the Coulomb well driven hard (g_coulomb=80, m_e=0.9): the EM loop measurably attracts the electron vs the free control, without a clean stationary orbit at compressed scale."

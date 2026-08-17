@@ -26,22 +26,24 @@ import os, sys, json, time
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# Allow running from anywhere: locate the ca-simulation package.
-for cand in (HERE, os.path.join(HERE, "ca-simulation"),
-             "/sessions/blissful-epic-faraday/mnt/Physics Notes/ca-simulation"):
-    if os.path.isfile(os.path.join(cand, "ca_bcc.py")):
-        sys.path.insert(0, cand)
-        CASIM = cand
-        break
-else:
-    raise SystemExit("Could not locate ca-simulation/ca_bcc.py")
+# Allow running from anywhere: locate the casim package.
+CASIM = os.path.abspath(os.path.join(HERE, "..", "..", "src"))
+if not os.path.isfile(os.path.join(CASIM, "casim", "engine", "lattice", "bcc.py")):
+    raise SystemExit("Could not locate src/casim/engine/lattice/bcc.py")
+sys.path.insert(0, CASIM)
 
-import ca_bcc as bcc
-import ca_dirac_bcc as dbcc
-import ca_maxwell as mx
-import ca_fft as fft
+from casim.engine.lattice import bcc as bcc
+from casim.engine.particles import dirac_bcc as dbcc
+from casim.engine.gauge import bilinear as mx
+from casim.numerics import fft as fft
 
-SQRT3 = np.sqrt(3.0)
+from casim.constants import c_lat                # D7: the registry owns the value
+
+# Kept as a local name so the expressions below read unchanged, but it is now
+# derived from the registered constant rather than from a bare literal
+# (F20 review 2026-08-03, attack 1: `SQRT3 = np.sqrt(3.0)` was a rogue site
+# reproducing a registry value).
+SQRT3 = 1.0 / c_lat
 RESULT = {"meta": {"casim_dir": CASIM, "date": time.strftime("%Y-%m-%d %H:%M")}}
 
 
@@ -234,37 +236,38 @@ RESULT["meta"]["wall_seconds"] = time.time() - t_start
 # ──────────────────────────────────────────────────────────────────
 #  Save JSON + figure
 # ──────────────────────────────────────────────────────────────────
-outdir = os.path.join(os.path.dirname(CASIM), "test-results")
-figdir = os.path.join(outdir, "figures")
-os.makedirs(figdir, exist_ok=True)
-datestr = time.strftime("%Y-%m-%d")
-with open(os.path.join(outdir, f"propagation_demo_{datestr}.json"), "w") as fh:
-    json.dump(RESULT, fh, indent=2)
+# GUARDED 2026-08-03 (F20 review, attack 8). These writes used to run at module
+# level, so any `pkgutil` walk, pytest collection, coverage pass or `casim index`
+# that imported this file would silently overwrite the committed artifact. The
+# second write — a duplicate copy next to the script — is removed outright.
+if __name__ == "__main__":
+    outdir = os.path.join(os.path.dirname(CASIM), "test-results")
+    figdir = os.path.join(outdir, "figures")
+    os.makedirs(figdir, exist_ok=True)
+    datestr = time.strftime("%Y-%m-%d")
+    with open(os.path.join(outdir, f"propagation_demo_{datestr}.json"), "w") as fh:
+        json.dump(RESULT, fh, indent=2)
 
-# also drop a copy next to the script for convenience
-with open(os.path.join(HERE, f"propagation_demo_{datestr}.json"), "w") as fh:
-    json.dump(RESULT, fh, indent=2)
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.plot(steps_rec, xs_w, "o-", label=f"Weyl fermion  v={vg_weyl:.4f}")
+        ax.plot(steps_rec2, xs_d, "s-", label=f"Dirac m=0.3   v={vg_dirac:.4f}")
+        ax.plot(steps_rec3, xs_p, "^-", label=f"composite γ   v={vg_photon:.4f}")
+        ax.axhline(L, color="k", ls=":", lw=0.8)
+        # light-cone reference line
+        ax.plot(steps_rec, xs_w[0] + (1/SQRT3)*steps_rec, "k--", lw=1,
+                label="c_lat = 1/√3")
+        ax.set_xlabel("CA tick"); ax.set_ylabel("energy-density centroid  x (cells)")
+        ax.set_title("Wavepackets traversing the BCC lattice")
+        ax.legend(); ax.grid(alpha=0.3)
+        fig.tight_layout()
+        figpath = os.path.join(figdir, "propagation_demo.png")
+        fig.savefig(figpath, dpi=120)
+        RESULT["meta"]["figure"] = figpath
+    except Exception as e:
+        RESULT["meta"]["figure_error"] = str(e)
 
-try:
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.plot(steps_rec, xs_w, "o-", label=f"Weyl fermion  v={vg_weyl:.4f}")
-    ax.plot(steps_rec2, xs_d, "s-", label=f"Dirac m=0.3   v={vg_dirac:.4f}")
-    ax.plot(steps_rec3, xs_p, "^-", label=f"composite γ   v={vg_photon:.4f}")
-    ax.axhline(L, color="k", ls=":", lw=0.8)
-    # light-cone reference line
-    ax.plot(steps_rec, xs_w[0] + (1/SQRT3)*steps_rec, "k--", lw=1,
-            label="c_lat = 1/√3")
-    ax.set_xlabel("CA tick"); ax.set_ylabel("energy-density centroid  x (cells)")
-    ax.set_title("Wavepackets traversing the BCC lattice")
-    ax.legend(); ax.grid(alpha=0.3)
-    fig.tight_layout()
-    figpath = os.path.join(figdir, "propagation_demo.png")
-    fig.savefig(figpath, dpi=120)
-    RESULT["meta"]["figure"] = figpath
-except Exception as e:
-    RESULT["meta"]["figure_error"] = str(e)
-
-print(json.dumps(RESULT, indent=2))
+    print(json.dumps(RESULT, indent=2))

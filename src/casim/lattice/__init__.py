@@ -18,7 +18,10 @@ from casim.engine.lattice import core as ca_core  # noqa: E402
 from casim.engine.lattice import core_exact as ca_core_exact  # noqa: E402
 
 try:
-    import ca_lazy as ca_lazy            # noqa: E402
+    # C6 closing pass: `ca_lazy` was C1's last unmoved record and now lives at
+    # `casim.numerics.lazy`. The legacy NAME is kept because callers do
+    # `from casim.lattice import ca_lazy`; only the route changed.
+    from casim.numerics import lazy as ca_lazy   # noqa: E402
 except Exception:  # pragma: no cover - optional
     ca_lazy = None
 

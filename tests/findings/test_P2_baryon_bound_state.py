@@ -8,7 +8,7 @@ P2 of docs/roadmaps/roadmap-matter-binding.md — certify the DYNAMICAL baryon: 
 non-dispersing, mass-measured three-quark bound state (proton uud, neutron udd),
 replacing F71's operator-level colour singlet.
 
-Engine: `ca-simulation/ca_baryon_dynamics.py` — explicitly-correlated-Gaussian
+Engine: `src/casim/engine/particles/baryon_dynamics.py` — explicitly-correlated-Gaussian
 three-body solver in mass-normalised Jacobi coordinates with the P1 confining +
 one-gluon-exchange Cornell potential  V_p = sigma r - (2 alpha_s/3)/r  per pair.
 
@@ -50,9 +50,10 @@ import sys
 import json
 import numpy as np
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                 "..", "..", "ca-simulation")))
-import ca_baryon_dynamics as B  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import baryon_dynamics as B  # noqa: E402
 
 results = {"finding": "F122", "phase": "P2",
            "title": "dynamical baryon: real-time three-quark bound state",

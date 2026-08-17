@@ -3,7 +3,7 @@
 Roadmap C2 (`docs/roadmaps/roadmap-casim-consolidation.md`), decision **D7**.
 
 **This module owns values.**  Roadmap decision D7 reverses D2: where P0 built a
-registry that only *described* what the flat ``ca-simulation/ca_*.py`` kernels
+registry that only *described* what the flat flat `ca_*.py` kernels
 declared, C2 makes the registry authoritative.  Physics modules now write
 
     from casim.constants import c_lat, G_LATTICE, delta_star

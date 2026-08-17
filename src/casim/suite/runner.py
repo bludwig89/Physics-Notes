@@ -129,6 +129,16 @@ class Reporter:
             print(f"{self.elapsed()}   … {msg}", flush=True)
 
     # -- accumulate -----------------------------------------------------
+    def add_prior(self, item: ItemResult) -> None:
+        """Carry a verdict forward from a previous attempt (P2.6 resume).
+
+        Kept separate from `add` deliberately: a resumed item is not work this
+        process did, so it must not reset the heartbeat, must not be re-logged
+        as if it just ran, and must not overwrite the report until at least one
+        real item lands. It only has to appear in the final counts.
+        """
+        self.items.append(item)
+
     def add(self, item: ItemResult) -> None:
         self.items.append(item)
         tag = {"PASS": "PASS", "RAN": "ran ", "FAIL": "FAIL",
@@ -244,6 +254,7 @@ def run_scenario(name: str, path: str, plan: SizePlan, out_dir: str,
         "represented_cells": plan.represented_cells,
         "compute_cells": plan.compute_cells, "cost_factor": plan.cost_factor,
         "mem_gb": round(plan.mem_gb, 3), "realspace": plan.realspace,
+        "wall_estimate": plan.wall_human,
     }
     group = "realspace" if plan.realspace else "scenarios"
 
@@ -360,7 +371,7 @@ _PASS_TOKEN = _re.compile(r"(?<![A-Za-z])(PASS|PASSED)(?![A-Za-z])|✅")
 def _battery_env(repo_root: str, scale: str) -> Dict[str, str]:
     env = dict(os.environ)
     env["PYTHONPATH"] = os.path.join(repo_root, "src") + os.pathsep + \
-        os.path.join(repo_root, "ca-simulation") + os.pathsep + env.get("PYTHONPATH", "")
+        env.get("PYTHONPATH", "")
     env["CASIM_SCALE"] = scale          # scale-aware tests/scripts can read this
     env["MPLBACKEND"] = "Agg"           # never pop a plot window in a batch run
     return env
@@ -602,8 +613,57 @@ def build_plan(scale: str, groups: Tuple[str, ...], repo_root: str,
             "compute_cells": sp.compute_cells, "cost_factor": round(sp.cost_factor, 1),
             "mem_gb": round(sp.mem_gb, 3), "skipped": sp.skipped,
             "realspace": sp.realspace,
+            # P2.6: the wall-time ESTIMATE, so `--list` can size a long run.
+            "wall_seconds": (None if sp.wall_seconds is None
+                             else round(sp.wall_seconds, 1)),
+            "wall": sp.wall_human,
         })
     return plan
+
+
+def _newest_suite_dir(repo_root: str, scale: str) -> Optional[str]:
+    """The most recent `test-results/suite/{scale}_*` directory, or None.
+
+    Sorted by name, not mtime: the names carry a `%Y%m%d-%H%M%S` stamp, so
+    lexical order *is* chronological order, and a resumed run rewriting its own
+    report would otherwise make an older directory look newest.
+    """
+    base = os.path.join(repo_root, "test-results", "suite")
+    if not os.path.isdir(base):
+        return None
+    cands = sorted(d for d in os.listdir(base)
+                   if d.startswith(f"{scale}_")
+                   and os.path.isdir(os.path.join(base, d)))
+    return os.path.join(base, cands[-1]) if cands else None
+
+
+def _load_prior_items(out_dir: str) -> List[ItemResult]:
+    """Verdicts already recorded in this out_dir's `suite_report.json`.
+
+    The Reporter rewrites that file after every item, so it is already a
+    journal; P2.6 just reads it. A malformed or absent report yields an empty
+    list — resuming into a fresh run is correct behaviour, and refusing to start
+    because a journal is unreadable would be the wrong trade for a long job.
+    """
+    path = os.path.join(out_dir, "suite_report.json")
+    if not os.path.exists(path):
+        return []
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except Exception:
+        return []
+    out: List[ItemResult] = []
+    for rec in data.get("items", []) or []:
+        try:
+            out.append(ItemResult(
+                group=str(rec["group"]), name=str(rec["name"]),
+                status=str(rec["status"]), seconds=float(rec.get("seconds", 0.0)),
+                detail=str(rec.get("detail", "")),
+                sizing=rec.get("sizing") or None))
+        except Exception:
+            continue
+    return out
 
 
 def run_suite(scale: str = DEFAULT_TIER,
@@ -615,25 +675,64 @@ def run_suite(scale: str = DEFAULT_TIER,
               only: Optional[List[str]] = None,
               repo_root: Optional[str] = None,
               script_timeout: float = 900.0,
-              run_scripts: bool = True) -> Dict[str, Any]:
+              run_scripts: bool = True,
+              resume: bool = False,
+              redo: Optional[List[str]] = None) -> Dict[str, Any]:
     groups = tuple(groups or DEFAULT_GROUPS)
     repo_root = repo_root or find_repo_root()
+
+    # ---- P2.6: auto-resume -------------------------------------------------
+    # The docstring promised a checkpoint-aware suite since it was written, and
+    # the implementation was missing: a 1000x run that died at item 9 of 14
+    # restarted from item 1, and because `out_dir` carried a fresh timestamp it
+    # could not even find its own checkpoints. Two changes make it real —
+    # `--resume` reuses the newest matching directory, and the per-item
+    # `suite_report.json` the Reporter already rewrites after every item is
+    # treated as the journal, so nothing new has to be persisted.
+    prior: List[ItemResult] = []
+    if resume and out_dir is None:
+        out_dir = _newest_suite_dir(repo_root, scale)
+        if out_dir is None:
+            raise SystemExit(
+                f"--resume: no previous test-results/suite/{scale}_* directory "
+                f"to resume. Start a run normally, or pass --out explicitly.")
     if out_dir is None:
         stamp = time.strftime("%Y%m%d-%H%M%S")
         out_dir = os.path.join(repo_root, "test-results", "suite", f"{scale}_{stamp}")
     os.makedirs(out_dir, exist_ok=True)
+    if resume:
+        prior = _load_prior_items(out_dir)
 
     # make the in-repo packages importable for this process & subprocesses
-    for sub in ("src", "ca-simulation"):
-        p = os.path.join(repo_root, sub)
-        if p not in sys.path:
-            sys.path.insert(0, p)
+    p = os.path.join(repo_root, "src")
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
     reporter = Reporter(out_dir, scale, groups, report_every)
     reporter.log(f"CASIM suite — scale={scale}  groups={list(groups)}")
     reporter.log(f"repo={repo_root}")
     reporter.log(f"out={out_dir}")
     reporter.log(f"tier: {TIERS[scale].blurb}")
+
+    # Items already decided in a previous attempt at this out_dir. `redo` names
+    # items to re-run anyway (a bare `--redo` re-runs every non-PASS).
+    done: set = set()
+    if prior:
+        redo_set = set(redo or ())
+        redo_all_failures = "" in redo_set or "failures" in redo_set
+        for it in prior:
+            key = f"{it.group}/{it.name}"
+            if key in redo_set:
+                continue
+            if redo_all_failures and it.status != "PASS":
+                continue
+            done.add(key)
+            reporter.add_prior(it)
+        reporter.log(f"resuming: {len(done)} item(s) already decided, "
+                     f"{len(prior) - len(done)} to re-run")
+
+    def _skip_done(group: str, name: str) -> bool:
+        return f"{group}/{name}" in done
 
     # ---- battery group (correctness gate) ----
     if "battery" in groups:
@@ -643,6 +742,8 @@ def run_suite(scale: str = DEFAULT_TIER,
             reporter.log("  (pytest not installed: pytest-style files SKIP; "
                          "standalone scripts still run)")
         for sub, tp in BATTERY_GROUPS.items():
+            if _skip_done("battery", sub):
+                continue
             group_dir = os.path.join(repo_root, tp)
             if not os.path.isdir(group_dir):
                 reporter.add(ItemResult("battery", sub, "SKIP", 0.0, f"no dir {tp}"))
@@ -673,6 +774,8 @@ def run_suite(scale: str = DEFAULT_TIER,
             if (grp == "realspace") != bool(is_rs):
                 continue
             if only and name not in only:
+                continue
+            if _skip_done(grp, name):
                 continue
             from casim.io import load_scenario
             try:

@@ -36,7 +36,7 @@ import numpy as np                                       # noqa: E402
 import numpy.random as npr                               # noqa: E402
 import casim                                              # noqa: E402,F401
 from casim.engine import LatticeSpec                      # noqa: E402
-from casim.engine.channel import build_channel            # noqa: E402
+from casim.engine.core.channel import build_channel            # noqa: E402
 
 _CACHE = {}
 

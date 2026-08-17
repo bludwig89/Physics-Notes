@@ -48,7 +48,9 @@ import os, sys, math, json
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(THIS, '..', '..', 'ca-simulation')))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 # Pure-numpy helpers
 def gaussian_mass_3d(L, M=1.0, sigma=3.0, center=None):
@@ -102,7 +104,7 @@ def phase_rate_at_c(k_x, c, m, n_steps=200, dt=1.0):
     # ω = c · |k| at leading order (Weyl piece), plus mass mixing.
     # Exact-QCA: ω = arccos(n c_x c_y), c_i = cos(k_i/√2),
     # interpreted with k → k·(c/c_0).
-    import ca_dirac
+    from casim.engine.particles import dirac as ca_dirac
     return ca_dirac._dirac_dispersion(np.array(k_x), np.array(0.0), m).item()
 
 

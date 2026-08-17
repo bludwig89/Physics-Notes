@@ -2,7 +2,7 @@
 # The machine-readable face of docs/theory/key-decisions.md.
 # ---------------------------------------------------------------------------
 version: 1
-updated: "2026-07-29 - 20:15"
+updated: "2026-08-02 - 09:05"
 
 about: >
   Roadmap P0.3. key-decisions.md is the human narrative; this file is what
@@ -23,6 +23,47 @@ status_vocabulary:
   partially_superseded: Some claims dead, others load-bearing. Never blanket-mark.
   historical_baseline: Deliberately retains the superseded object as the standing
                        exclusion record or regression comparison. Not a defect.
+  sub_claim_superseded: >
+    ADDED 2026-08-04. The record's `retained:` keeps the file's CONCLUSION; what
+    was replaced is a sub-claim inside it -- a redundant constraint row, a
+    superseded attack script, an attribution. S13 (F165) and S15 (F230) both say
+    RETAINED: EVERYTHING, and for those two neither `fully_` nor
+    `partially_superseded` is honest: "partially superseded" tells a reader the
+    result is in doubt when the ledger says it is not. The 2026-08-04 triage
+    (docs/status/findings-supersession-triage-2026-08-04.md §5.2) recommended
+    this term precisely so that a correct-but-re-attributed finding is not
+    bannered as damaged goods.
+
+# ---------------------------------------------------------------------------
+# `baselines:` — provenance for committed result artifacts (added 2026-07-31).
+#
+# The problem: a committed `test-results/*.json` is the accepted value, and the
+# C7 baseline diff fails when a run no longer reproduces it. But a baseline that
+# predates a MODEL CHANGE looks exactly like one that just broke — accepting a
+# drift was a bare `git add` with no recorded reason, indistinguishable from
+# accepting a regression. The ledger already carries provenance for code and
+# tests; artifacts were the gap.
+#
+# A `baselines:` entry sits on the supersession record whose physics moved, so
+# the reason a number is out of date is the same object that records what
+# replaced it.
+# ---------------------------------------------------------------------------
+baseline_status_vocabulary:
+  stale_by_design: >
+    DECIDED. The committed numbers predate this record's supersession, so a
+    re-run is EXPECTED to differ. `casim test` reports STALE, not FAIL —
+    the record keeps its failure mode for structural breakage while no longer
+    crying wolf about physics that was deliberately replaced. Clearing it means
+    re-running, reviewing, `git add`, and flipping to `live` with `accepted_by`.
+  candidate: >
+    NOT DECIDED. Triage flagged the artifact because its test claims findings
+    this record touches, and a real run drifts. `casim test` still reports FAIL —
+    a candidate excuses nothing. It exists so the queue is countable and nobody
+    re-derives the triage.
+  live: >
+    Re-blessed after this supersession: the committed numbers are current and a
+    drift is a real regression. `accepted_by` names the finding whose result the
+    baseline now encodes.
 
 kind_vocabulary:
   superseded:   Replaced outright by a later result.
@@ -30,6 +71,23 @@ kind_vocabulary:
                 limiting case). The equations are unchanged.
   demoted:      Downgraded from anchor/input to consistency check.
   deprecated:   Removed from the active series; a documentation decision.
+  retracted_by_review: >
+    ADDED 2026-08-04. A claim inside a finding is withdrawn by an INDEPENDENT
+    REVIEW rather than replaced by a successor finding. The distinction is real
+    and the ledger lacked it: `superseded` presumes something took the claim's
+    place, and a reader who saw F22 filed as `superseded` would go looking for
+    the finding that redid it. Nothing did -- attack 1 is simply false and
+    attack 3 shows the headline was a misnomer. `by:` names whatever the
+    corrected result now rests on (for F22, F15's independently derived closed
+    form, which the fixed check finally compares against); the review and
+    remediation documents are named in `reviews:` and are the authority.
+  methodology:  An ENGINEERING decision reversed, not a physics result. Added at
+                roadmap C9 for the D2 -> D6 reversal. It gets its own kind
+                rather than overloading `superseded` because a methodology
+                record has no findings on either side, and a reader who saw one
+                filed as `superseded` would reasonably look for the physics that
+                replaced it. `by:` and `superseded:` name DECISIONS (D-ids),
+                not findings.
 
 supersessions:
 
@@ -38,7 +96,7 @@ supersessions:
     date: 2026-06-01
     kind: superseded
     by: [F69]
-    superseded: [F65, F66, F67]
+    superseded: [F65, F66, F67, F17, F18]
     scope: >
       The composite sigma-bilinear photon (ca_maxwell.py), which assigned each
       helicity to its own chiral branch (Omega^pm) and is therefore
@@ -56,10 +114,71 @@ supersessions:
       bound. Only the photon attribution died.
     decision_ref: "key-decisions.md — De Broglie Paired-Spinor Photon"
     code:
-      - path: ca-simulation/ca_maxwell.py
+      - path: src/casim/engine/gauge/bilinear.py
         note: retained for W/Z/gluon; no longer the photon
-      - path: ca-simulation/ca_photon_pair.py
+      - path: src/casim/engine/gauge/photon.py
         note: the canonical photon
+    findings:
+      # Added 2026-08-03 after the independent reviews of F17 and F18. Both were
+      # written against the sigma-bilinear photon three weeks before F69 retired
+      # it, and neither carried a banner. The reviews (docs/reviews/F17-review-
+      # 2026-08-03.md, F18-review-2026-08-03.md) separate the dead attribution
+      # from the live algebra; that separation is what these entries record.
+      # Files retired to deprecated/findings/ in the same pass, with 17 and 18
+      # declared as gaps in docs/design/finding-numbers.yaml.
+      - path: deprecated/findings/F17-poynting-energy-conservation.md
+        status: partially_superseded
+        dead: "Every PHOTON claim: that this is the Poynting energy of the
+                electromagnetic photon, that it 'closes Mohr Gap C4', that it
+                is 'the De Broglie neutrino theory of light at the QCA level',
+                and that it is 'stronger than the continuum requirement'. The
+                object is the retired single-branch sigma-bilinear, and the
+                normalisation fails Mohr Eq. 47 (|cB|/|E| = c_lat = 0.5774
+                where an energy density needs 1), so the conserved quantity is
+                a c-dependent multiple of the bilinear's Hermitian norm — a
+                probability normalisation, not an energy. The finding also
+                presents 'selects circular polarization by construction' as a
+                virtue; that is exactly the single-helicity restriction F65
+                names as the escape hatch that contradicts observed linear
+                polarization."
+        live: "The algebra, which is EXACT and stronger than the finding claims
+                for itself: G_T . G_T = 0 identically for a helicity eigenspinor,
+                by the Fierz identity (phi^T sigma psi).(phi^T sigma psi) =
+                (phi^T psi)^2 together with n_hat . G = psi^T psi. This is the
+                Riemann-Silberstein null-field condition and it carries over to
+                the W/Z/gluon sector where the sigma-bilinear is still canonical.
+                Note the review's live defect: ||G_T||^2 = 2(n_hat . y_hat)^2, so
+                the object is not a rotational 3-vector (35% measured error) and
+                vanishes on the great circle n_hat perp y_hat — a hazard in the
+                sectors this record RETAINS, not in the photon channel it kills."
+      - path: deprecated/findings/F18-mohr-c5-c6-build.md
+        status: partially_superseded
+        dead: "The C1-C4 refinement rows (Tier 2 #10 c^2-Poynting, Tier 2 #11
+                bilinear-derived epsilon_G V6 transversality) as photon results,
+                and photon_ang_mom_eigenstate's packaging, which explicitly
+                carries 'the bilinear-construction scaling'. With the photon
+                retired, Mohr C5 and C6 are OPEN AGAIN against
+                src/casim/engine/gauge/photon.py, which has no VSH, no
+                angular-momentum eigenstate and no Green function — so
+                'the Mohr §C gap is closed' does not survive. Independently of
+                F69, §What-this-shows item 3 is refuted: the reported O(1)
+                current-conservation violation is 1 - sqrt(3)(1 - 2 k_y^2), a
+                units-and-reflection artifact that passes through zero on a cone,
+                not a Lorentz-violation residual — the cited source says the
+                massless Weyl sector is exactly Lorentz-invariant at that order."
+        live: "The C5 angular algebra, which is photon-construction-independent
+                and correct: the CG-coupled vector spherical harmonics reproduce
+                Mohr Eqs. 385, 390-393, 404-405 to the round-off floor, in Mohr's
+                own phase-free convention (verified against arXiv:0910.1874).
+                The Maxwell resolvent likewise agrees with Mohr's closed form
+                Eq. 489 at 7e-16. Tier 2 #11 is the one row in the build with a
+                demonstrated failure mode."
+        note: "The review's separate, non-supersession defects are recorded in
+                docs/reviews/F18-review-2026-08-03.md and are NOT cleared by this
+                record: six of the nine claimed Tier 1 rows (#38-#43) have no
+                failure mode, Tier 2 #10 is double-booked with F17, Tier 2 #12 is
+                mis-tiered, and the module contains zero assert statements. Those
+                inventory rows are still live and unflagged."
     tests:
       - path: tests/findings/test_su2_photon_bridge.py
         status: partially_superseded
@@ -74,7 +193,42 @@ supersessions:
         live: "The same dOmega / chiral-propagation machinery for W/Z (F67's
                exact |dOmega|/2 separation is load-bearing in F91-W2);
                FG6.7-FG6.9 triplet W^a; FG6.10 Riemann-Silberstein identity."
-
+    baselines:
+      # Triage candidate (roadmap C7 close-out, 2026-07-31), not a decision.
+      - path: test-results/FA_vs_FC_comparison.json
+        status: candidate
+        committed: 2026-06-05
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B) — the CAUSE is an UNDECLARED INPUT, not S1.
+          `_measure_sigma_A` prefers test-results/lgt_confinement.json if present and short-circuits
+          its own Monte Carlo, so the record is SEED-INDEPENDENT (five seeds identical to 10 digits,
+          its seed=7 argument dead) and its committed baseline matches neither current path
+          (production 0.46270, inline MC 0.45229, committed 0.43504) -- captured against a state of
+          that artifact that no longer exists. The record's actual assertion, sigma_A vs sigma_C(v*),
+          is 1.2e-16 before and after. Clearing it needs `artifacts_read_only: [test-
+          results/lgt_confinement.json]` declared on the record, then a re-run and re-commit.
+        clears_by: >
+          Declare `artifacts_read_only: [test-results/lgt_confinement.json]` on the FA-vs-FC record so
+          its undeclared input is visible, then re-run and `git add`. Until the input is declared the
+          baseline is not reproducible from the record alone, which is why re-committing it first
+          would only re-arm the same trap.
+      - path: test-results/F87_charge_coupling_paired_photon.json
+        status: candidate
+        committed: 2026-06-10
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B) - the CAUSE is float-floor churn, not S1's photon
+          supersession. All 26 drifting keys are residuals whose committed and re-run values both sit
+          9+ orders below the quantity they bound (1e-16 to 1e-11), and two non-residual keys move by
+          exactly 1 ULP. Not a regression and not a physics change. NOTE: the status vocabulary has no
+          state for 'decided, cause is the instrument', so this stays `candidate` while being decided.
+          Clearing it needs either a deliberate re-commit or a residual-key floor above the current
+          1e-12.
+        clears_by: >
+          Either re-run and `git add` the artifact deliberately (the drift is float churn, not
+          physics), or raise the comparator floor for residual-named keys above the current 1e-12 so a
+          pair of numbers that are both 9 orders below what they bound stops being reported as a
+          relative change. F311 recommends the second and does not do it, because it changes a record
+          this session does not own.
   # =========================================================================
   - id: S2-F91-gluon-chiral-to-even
     date: 2026-06-04
@@ -96,7 +250,7 @@ supersessions:
       that call the even step are live.
     decision_ref: "key-decisions.md — Pairing classification of the propagator"
     code:
-      - path: ca-simulation/ca_gluon.py
+      - path: src/casim/engine/gauge/gluon.py
         note: "gluon_rotation_step_spectral_bcc is even (canonical);
                ..._bcc_chiral retained for comparison"
     tests:
@@ -134,13 +288,60 @@ supersessions:
     code:
       - path: src/casim/engine/interactions/gravity.py
         note: "canonical dielectric; cites 'F62 sign-corrected local lapse mix'.
-               Migrated from ca-simulation/ca_gravity.py at roadmap C6; the
+               Migrated from the legacy ca_gravity.py at roadmap C6; the
                C6 review found NOTHING to strip — the module already implements
                only the canonical F64 dielectric, F106 T00 sourcing and the
                retained F62 lapse-mix sign, so the code-level cleanup of the
                rest-mass path had already happened at F64/F106/F178. The
                superseded two-leg mechanism survives only in the gravity forks,
                which are the falsification record and keep it deliberately."
+    findings:
+      # Added 2026-08-04. The four rest-mass-sourced gravity findings were
+      # superseded by F64's EM-connection route in May and never bannered --
+      # every one still reads `Confirmed -- N/N PASS` in its own header, which
+      # is correct (a finding records what a session concluded) and is exactly
+      # why the banner has to come from here. Splits taken from this record's
+      # own `retained:` clause and from the 2026-08-04 triage section 4.
+      - path: findings/F50-gravity-fork-f46-tetrad-dirac.md
+        status: partially_superseded
+        dead: "The choice of WHICH LEG of the F46 spherical triangle
+                carries gravitational redshift, and the rest-mass sourcing
+                that framed the question. F64's EM-connection dielectric
+                answers it a different way, and F178 then made the full
+                stress-energy tensor the source."
+        live: "G2 and G3 remain the standing regressions for the gravity
+                sector and are referenced from 42 places in src/ and tests/.
+                The geometric setup is live."
+      - path: findings/F52-gravity-from-rest-leg-backreaction.md
+        status: partially_superseded
+        dead: "Gravity as a self-consistent REST-LEG (clock-rate) field
+                sourced by rest mass. The source is the full stress-energy
+                tensor (F178) and the vacuum representation is F64's
+                impedance-matched dielectric."
+        live: "H3 and H3b remain the standing regressions; the factor-2
+                discriminator is still canonical under F178. 78 code/test
+                references."
+      - path: findings/F55-spatial-metric-trace-reversal-einstein-factor2.md
+        status: partially_superseded
+        dead: "The trace-reversal route to Einstein's factor 2 FROM REST
+                MASS."
+        live: "K = (1-u)^-2 survives for the D-EM1/D-EM9 form comparison --
+                it is the O(u) linearisation of the canonical exponential K
+                and is retained as the excluded beta = 1/2 control, not as a
+                fallback."
+      - path: findings/F62-dirac-gravity-dynamical-fork.md
+        status: partially_superseded
+        dead: "The rest-mass source claim. F62's source died; see this
+                record's scope."
+        live: "F62's LAPSE-MIX SIGN CONVENTION is still production code
+                (casim.engine.interactions.gravity.lapse_mix_half) -- the
+                source claim died, the sign did not. The curved-background
+                Dirac stepper, the equivalence principle, redshift and
+                factor-2 bend checks are live, with 140 code/test
+                references, the most of any finding in this record."
+        note: "The latent delta-m sign error this finding flagged in
+                dirac_step_2d_varm_splitstep is a separate live item and is
+                NOT superseded."
     tests:
       - path: tests/findings/test_F50_gravity_fork_dirac.py
         status: partially_superseded
@@ -168,7 +369,38 @@ supersessions:
         status: partially_superseded
         dead: "Rest-mass-sourced two-leg spatial-metric backreaction."
         live: "J1 trace-reversal identity; J3 factor-2 deflection."
-
+    baselines:
+      - path: test-results/F62_dirac_gravity_fork.json
+        status: stale_by_design
+        committed: 2026-06-02
+        reason: "The committed numbers are the two-leg REST-MASS-SOURCED fork
+                 that this record replaced: the artifact encodes D3a's
+                 self-redshift from rho = |Psi|^2, which F64 (dielectric) and
+                 then F178 (full T_munu) superseded. A re-run drifts BECAUSE the
+                 mechanism changed, so FAIL was the wrong verdict. The fork is
+                 retained deliberately as the falsification record (roadmap
+                 section 8), which is exactly why its baseline must not be
+                 re-blessed to look current."
+        clears_by: "Re-run, confirm the surviving checks (D2a sign convention,
+                    D1 flat Weyl, D2b sqrt(A) redshift, D2c eikonal K~4) still
+                    hold, then either accept the new numbers with
+                    status: live + accepted_by: [F178], or split the artifact so
+                    the live checks have a current baseline of their own."
+      # Triage candidates (roadmap C7 close-out, 2026-07-31), not decisions.
+      - path: test-results/F128_omega_repulsion.json
+        status: live
+        committed: 2026-06-18
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B). Re-run through `casim test --id`: reproduced HEAD EXACTLY.
+          Triage's own note called this 'weakest of the six links'; it was not a link at all.
+      - path: test-results/F240_omega_coupling_derivation.json
+        status: live
+        committed: 2026-07-26
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B). Re-run through `casim test --id`: reproduced HEAD EXACTLY.
+          Triage's own note read 'same sector and the same weak link as F128'; neither is a link.
   # =========================================================================
   - id: S4-F178-full-stress-energy
     date: 2026-06-29
@@ -210,10 +442,10 @@ supersessions:
     code:
       - path: src/casim/engine/interactions/gravity.py
         note: "canonical in vacuum / weak field (lensing, PPN). Migrated from
-               ca-simulation/ca_gravity.py at roadmap C6."
+               the legacy ca_gravity.py at roadmap C6."
       - path: src/casim/engine/interactions/stellar.py
         note: "strong-field/interior canonical solver, theory='gr'. Migrated
-               from ca-simulation/ca_stellar.py at roadmap C6."
+               from the legacy ca_stellar.py at roadmap C6."
       - path: src/casim/engine/interactions/raytrace.py
         note: "RESOLVED at roadmap C6 (was: 'STALE: still computes
                F114_enlargement_pct. Flagged for P6.'). The quantity is KEPT and
@@ -224,6 +456,70 @@ supersessions:
                states this outright, so the numbers cannot be read as a
                prediction. Deleting them would have removed a live falsification
                gate and drifted a committed baseline key for no gain."
+    findings:
+      # Added 2026-08-04. F64, F106, F114, F173 and F176b already carried
+      # HAND-WRITTEN reclassification banners -- F64 and F176b with no ledger
+      # record at all, which is the orphan tombstone `test_no_orphan_banners`
+      # exists to catch, in the one directory it did not walk. These entries
+      # replace all five with generated banners. Splits taken from this record's
+      # `retained:` clause and from CLAUDE.md Core Design Decision 4.
+      - path: findings/F64-em-connection-gravity.md
+        status: partially_superseded
+        dead: "The single lattice dielectric read as the FUNDAMENTAL law.
+                It is the vacuum/weak-field REPRESENTATION of the induced
+                Einstein equation; inside matter a single scalar forces
+                anisotropic stress (F173), so the interior dynamics are
+                GR/TOV."
+        live: "In vacuum and for p << rho c^2, everything: factor-2 light
+                bending, beta = gamma = 1, Mercury, Shapiro, redshift
+                (D-EM9, FA09), the impedance-matched reciprocal lock AB = 1,
+                and the conceptual origin -- gravity as the induced
+                renormalisation of the (E,B) rotation rate. This is founding
+                decision 4 and is not going away."
+      - path: findings/F106-psi-K-sourcing-derivation.md
+        status: partially_superseded
+        dead: "The energy-only law grad^2 ln K = -(8 pi G/c^4) T^00 read as
+                the FUNDAMENTAL sourcing law."
+        live: "The same equation as the STATIC WEAK-FIELD REDUCTION of the
+                induced Einstein equation, with its coefficient exact and no
+                free coupling. The derivation is unchanged; only its scope
+                moved."
+      - path: findings/F114-dielectric-black-hole.md
+        status: partially_superseded
+        dead: "The horizon-free dielectric black hole and every consequence
+                of reading the exponential metric as fundamental: the
+                throat, the +4.63% shadow (2e vs 3 sqrt3), the absent
+                Hawking spectrum, the late-time ringdown echoes, and the 4
+                pi second-order deflection coefficient. Under F178 the exact
+                vacuum solution is SCHWARZSCHILD, with a horizon. F183 is
+                the successor."
+        live: "The algebra, which is correct given its premise, and the
+                record of what was published live between 2026-06-08 and
+                2026-08-02. The withdrawal is carried as claim cards
+                CL023-CL027 so that an observation matching Schwarzschild is
+                not scored against the model."
+        note: "This is the one finding the 2026-08-04 triage called
+                genuinely superseded, and its paper (Paper-08) was already
+                moved to deprecated/ under S7."
+      - path: findings/F173-pressure-tolman-discriminator.md
+        status: partially_superseded
+        dead: "The energy-only vs rho + 3p departure read as a physical
+                DISCRIMINATOR between the model and GR. Under the
+                full-tensor source it is a weak-field- reduction artifact of
+                the demoted single-scalar law."
+        live: "The exact tensor algebra, in full -- it is what MOTIVATED
+                F178, and the anisotropic-stress result is the reason the
+                interior carries a second metric function."
+      - path: findings/F176b-covariant-dielectric-tov-recovery.md
+        status: partially_superseded
+        dead: "The ~2 km AB = 1 interior residual as a standing prediction.
+                Per F178 the model adopts the full-tensor source, the
+                interior is GR/TOV, and that residual applies only if one
+                insists on keeping the single scalar in matter -- which the
+                decision does not."
+        live: "How much of TOV the covariant dielectric recovers, and the
+                curvature-feedback result that restores the maximum. Vacuum
+                and weak-field results are untouched."
     tests:
       - path: deprecated/tests/test_F114_dielectric_black_hole.py
         status: fully_superseded
@@ -246,7 +542,62 @@ supersessions:
         note: "N3/N4/N5 energy-only departures are no longer predictions, but the
                finding records them as the DIAGNOSIS that forced F178, so the
                file is the standing exclusion record. N1/N2 are live canon."
-
+    baselines:
+      # Triage candidates, NOT decisions (roadmap C7 close-out, 2026-07-31).
+      # Each artifact's test claims findings this record reclassified, and a real
+      # run drifts. `candidate` still reports FAIL — it records that the triage
+      # was done, not that the drift is excused.
+      - path: test-results/F182_friedmann_pressure.json
+        status: live
+        committed: 2026-06-30
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B) — a FALSE RED, and the cause was one regex. 6/6 drifting
+          keys were `_seconds`/`seconds`, i.e. pure wall-clock: casim.baselines._VOLATILE_RE did not
+          admit a LEADING UNDERSCORE, the third instance of that defect in that one regex
+          (`total_elapsed_s` and `wall_seconds` are the two already in its comments). Fixed in F311;
+          this artifact now reports 'reproduced HEAD exactly'.
+      - path: test-results/F184_tabulated_ns.json
+        status: live
+        committed: 2026-06-30
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B) — a FALSE RED, and the cause was one regex. 4/4 drifting
+          keys were `_seconds`/`seconds`, i.e. pure wall-clock: casim.baselines._VOLATILE_RE did not
+          admit a LEADING UNDERSCORE, the third instance of that defect in that one regex
+          (`total_elapsed_s` and `wall_seconds` are the two already in its comments). Fixed in F311;
+          this artifact now reports 'reproduced HEAD exactly'.
+      - path: test-results/F181_covariant_interior_battery.json
+        status: live
+        committed: 2026-06-30
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B). Re-run and diffed vs HEAD: 0 keys changed. The interior
+          battery does not carry a drift for S4 to explain.
+      - path: test-results/F200_alcubierre_structural.json
+        status: live
+        committed: 2026-06-30
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B) — a FALSE RED, and the cause was one regex. 3/3 drifting
+          keys were `_seconds`/`seconds`, i.e. pure wall-clock: casim.baselines._VOLATILE_RE did not
+          admit a LEADING UNDERSCORE, the third instance of that defect in that one regex
+          (`total_elapsed_s` and `wall_seconds` are the two already in its comments). Fixed in F311;
+          this artifact now reports 'reproduced HEAD exactly'.
+      - path: test-results/F64_em_connection.json
+        status: live
+        committed: 2026-06-05
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B). Re-run and diffed vs HEAD: 0 keys changed. The S3/S4 link
+          was a triage guess about which findings the test claims, not a measured drift.
+      - path: test-results/F241_omega_lambda_residual.json
+        status: live
+        committed: 2026-07-26
+        accepted_by: F311
+        reason: >
+          DECIDED 2026-08-11 (F311 leg B). Re-run and diffed vs HEAD: 0 keys changed. Triage suspected
+          'a genuine regression is at least as likely'; it is neither a regression nor a supersession.
   # =========================================================================
   - id: S5-F107-canonical-ruler
     date: 2026-06-06
@@ -311,12 +662,26 @@ supersessions:
                stands; its VERDICT ('E1 does not close') is what the decision
                reverses — E1 closes by ADOPTING a principle, precisely because
                F256 proves the dynamical route cannot. Banner added 2026-07-29.
-               Migrated from ca-simulation/derive_generator_norm_from_F118.py at
+               Migrated from the legacy derive_generator_norm_from_F118.py at
                roadmap C5 (2026-07-30) WITH THE BANNER INTACT — the roadmap's
                named example of why C0.2 proposes and a human accepts."
       - path: src/casim/engine/particles/derive_lambda6_sextic.py
         note: "Already carries the weight-as-phase section (S4). Migrated from
-               ca-simulation/derive_lambda6_sextic.py at roadmap C5."
+               the legacy derive_lambda6_sextic.py at roadmap C5."
+    findings:
+      # Added 2026-08-04.
+      - path: findings/F179-lambda6-derivation-attempt-and-relabel.md
+        status: partially_superseded
+        dead: "The relabel itself: 'lambda_6 is not reducible, so the
+                lepton spectrum is a one-angle FIT with delta* granted
+                rather than derived'. Weight-as-phase (F253/F255/F256) is
+                now a founding principle: delta* = 2/9 is the exact E_g
+                representation weight and is PRIMARY, and lambda_6 = 0.243
+                is an OUTPUT via the F234 arrow, not a fit."
+        live: "The 3 delta* = Q check, which is now the model's own
+                falsification handle rather than a coincidence to be
+                explained, and the Koide-locked -0.89 sigma measurement. 25
+                code/test references."
     tests:
       - path: tests/findings/test_F179_lambda6_relabel.py
         status: partially_superseded
@@ -349,3 +714,948 @@ supersessions:
       The underlying physics record (F114, F178, F183) is unchanged. This is a
       documentation/series-structure decision, not a new finding.
     decision_ref: "key-decisions.md — Paper VIII deprecated"
+
+  # =========================================================================
+  - id: S10-F271-eikonal-dielectric-photon
+    date: 2026-08-01
+    kind: superseded
+    by: [F271]
+    superseded: [F270]
+    scope: >
+      The eikonal gauge-side dielectric coupling of F270 section 4
+      (gravity.dielectric_mix_half, a rotation about a single stated central
+      rate omega0) is superseded for the photon channel by
+      gauge.photon.photon_step_dielectric, which applies Omega(k)/K(x) mode by
+      mode: an exact spectral rotation for the mean part, Strang-split about
+      Weyl-ordered second-order perturbation half-steps for the remainder.
+      PhotonPairChannel no longer accepts grav_omega0.
+    reason: >
+      omega0 was a free parameter with an O(1), non-convergent error. The
+      k-resolved form has none: it is EXACT for a uniform dielectric (4e-15,
+      every mode slowed by exactly 1/K), converges at second order (exponent
+      2.00) and its norm drift converges rather than plateauing. The
+      construction is lifted from the audited variable-c stepper
+      lattice.curved.weyl_step_2d_varc_strang, not invented.
+    impact: >
+      No committed baseline moves: K identically 1 is bit-identical to the free
+      photon step, and no shipped scenario wires a gravity partner into a
+      photon channel. F270 stands in every other respect — only its section 4
+      is superseded.
+    retained: >
+      dielectric_mix_half is kept, bannered, as a comparison object: it is
+      exactly orthogonal pointwise where the k-resolved form is only
+      convergently so, which makes it a control rather than a fallback.
+    note: >
+      F271 also found that BOTH defects it fixes — asymmetric operator ordering
+      and the first-order half-step — are present in lattice.curved._half_step_dH,
+      and therefore in every F64-fork variable-c result. That is handed back to
+      the gravity fork and is NOT fixed by this record.
+    findings:
+      # Added 2026-08-04.
+      - path: findings/F270-total-energy-stress-energy-gravity-loop.md
+        status: partially_superseded
+        dead: "Section 4's eikonal gauge-side dielectric coupling for the
+                PHOTON channel -- a rotation about a single stated central
+                rate omega0, which was a free parameter with an O(1),
+                non-convergent error. Superseded by F271's k-resolved
+                photon_step_dielectric. PhotonPairChannel no longer accepts
+                grav_omega0."
+        live: "The one energy convention and the global conservation gate
+                -- the rest of the finding -- and dielectric_mix_half
+                itself, kept as a CONTROL: it is exactly orthogonal
+                pointwise where the k-resolved form is only convergently so."
+
+  - id: S11-F272-bgfield-refold-removed
+    date: 2026-08-01
+    kind: superseded
+    by: [F272]
+    superseded: [F162]
+    scope: >
+      The `mod 2 pi` refold of k+q in bgfield_loop._Bcoeff_numeric is removed.
+      It refolded by a period the rule kernel does not have — omega_even's
+      period lattice is sqrt3*fcc, so 2 pi per axis, 4 pi per axis and the plain
+      fcc vectors are all NOT periods of it — and therefore evaluated the
+      propagator at a genuinely inequivalent momentum. Wilson IS 2 pi-periodic,
+      so for it the refold was an exact no-op (2e-14), which is what makes the
+      removal safe rather than a change of result.
+    reason: >
+      The refold destroyed the function's only claim. delta_rule must be q-flat
+      (that is how b0 is shown propagator-independent) and the refold
+      manufactured a spurious q-dependence indistinguishable from the residual
+      log the test exists to detect. Flatness spread 1.58e-2 -> 2.96e-5, a factor
+      530, now flatter than the Wilson control. Decisive evidence is
+      grid-convergence, not flatness: the old mean moved 70 percent between n=14
+      and n=18, the new one moves 0.13 percent. The artifact was invisible on a
+      coarse grid and switched on with refinement (a point crosses the cell face
+      only when Q > pi/n), which is why it survived.
+    impact: >
+      b0 = 11 is untouched — b0_gate_symbolic is exact sympy with no grid.
+      All three F162 gates still pass. Exactly ONE committed number moves.
+      This record also corrects the roadmap's prescription for the module:
+      make_kgrid_bcc masks the FCC BZ, which is not a fundamental domain of a
+      sqrt3-fcc-periodic function, so applying it would have inserted a
+      spurious factor of 4 into a quantity that had no factor-4 error.
+    baselines:
+      - path: test-results/F162_bgfield_loop.json
+        status: stale_by_design
+        committed: 2026-06-14
+        reason: "G2.rule_shift_mean moves -0.005071 -> -0.012591 because the
+                 refold that produced the old value is gone. The old number was
+                 not converging (70 percent shift n=14 -> n=18); the new one is
+                 (0.13 percent). Re-run and reviewed 2026-08-01."
+        clears_by: "Already re-run; `git add test-results/F162_bgfield_loop.json`
+                    and flip to live with accepted_by."
+    findings:
+      # Added 2026-08-04.
+      - path: findings/F162-bgfield-self-energy-b0-gate.md
+        status: partially_superseded
+        dead: "Every number produced through the refolded _Bcoeff_numeric.
+                The `mod 2 pi` refold of k+q evaluated the propagator at a
+                genuinely inequivalent momentum -- omega_even's period
+                lattice is sqrt3*fcc, so 2 pi per axis is not a period of it
+                -- and manufactured a spurious q-dependence
+                indistinguishable from the residual log the test existed to
+                detect. Flatness spread moved 1.58e-2 -> 2.96e-5, a factor
+                530."
+        live: "The background-field apparatus itself, which F287
+                re-verified SOUND post-F272/F277 and which recovers b_0 =
+                11. The Wilson control is unaffected: Wilson IS 2
+                pi-periodic, so for it the refold was an exact no-op
+                (2e-14), which is what made the removal safe rather than a
+                change of result."
+
+  - id: S12-F277-refold-removed-qed-and-gluon
+    date: 2026-08-02
+    kind: superseded
+    by: [F277]
+    superseded: [F251, F258, F155]
+    scope: >
+      S11 applied to the three modules F272 did not reach, plus a fourth site the
+      audit did not scan. The same `mod 2 pi` refold of the shifted momentum, on
+      the same kernel (3*omega_even^2 + kt^2, period lattice sqrt3*fcc), is
+      removed from qed_vacuum_polarization._fermion_B,
+      qed_electron_self_energy._selfenergy_AB, gluon_self_energy._bubble and
+      tests/runners/run_d1_vertex_formfactor._Bcoeff_lattice_ff. The lpt_*
+      Wilson sites are deliberately NOT changed: their kernel really is
+      2 pi-periodic per axis, so their wrap is an exact no-op and the cubic cell
+      is its true zone.
+    reason: >
+      Audit V item V-023, the project's highest-priority open physics item. In
+      vacuum polarization the refold was not a small error: Delta = B_rule -
+      B_cont CHANGES SIGN between n=10 and n=14 and settles at +1.2e-2, where
+      the un-refolded calculation converges monotonically to -2.121e-3 —
+      opposite sign, six times the magnitude. At the shipped n=24 the q-flatness
+      spread goes 1.4484e-2 -> 1.685e-5 (859x) and delta_mean's sign flips.
+      In the gluon bubble the b0 log-slope ratio goes 0.9933 -> 1.0000542, so a
+      universality identity is recovered rather than a tolerance met.
+      gluon_self_energy._bubble takes no kernel argument, so EVERY call was
+      contaminated, not just a rule branch.
+    impact: >
+      b0^QED = 4/3 and b0 = 11 are untouched — both gates are exact sympy with
+      no grid. Every affected test still passes (F251 5/5, F258 6/6, F252, F261,
+      F249, F264, F155, F239; 33 checks, 0 failures, no tolerance relaxed) and
+      the Wilson control is unchanged to 2e-13 wherever one exists, which is
+      what makes the removal safe rather than a change of result. The absolute
+      BZ measure for rule-kernel integrals remains open (F272 section 4); every
+      number here is a subtracted lattice-minus-continuum difference on a common
+      domain, which is why the comparison holds regardless.
+    baselines:
+      - path: test-results/F251_vacuum_polarization.json
+        status: stale_by_design
+        committed: 2026-07-26
+        reason: "P3 delta_mean +3.865e-3 -> -2.110e-3 (sign) and delta_spread
+                 1.4484e-2 -> 1.685e-5. The old value was not converging; the
+                 new one is. Re-run and reviewed 2026-08-02."
+        clears_by: "Already re-run; `git add
+                    test-results/F251_vacuum_polarization.json` and flip to live
+                    with accepted_by: F277."
+      - path: test-results/F258_electron_self_energy.json
+        status: stale_by_design
+        committed: 2026-07-26
+        reason: "S5 dA_spread 3.804e-4 -> 8.977e-6 and dB_spread 8.531e-5 ->
+                 7.392e-6. Re-run and reviewed 2026-08-02."
+        clears_by: "Already re-run; `git add
+                    test-results/F258_electron_self_energy.json` and flip to
+                    live with accepted_by: F277."
+      - path: test-results/F155_qstar_self_energy.json
+        status: stale_by_design
+        committed: 2026-06-18
+        reason: "A3 d1_bubble 0.166468 -> 0.165091, convergence_spread 1.766e-4
+                 -> 9.920e-5, b0_slope_ratio 0.9933321 -> 1.0000542. Re-run and
+                 reviewed 2026-08-02."
+        clears_by: "Already re-run; `git add
+                    test-results/F155_qstar_self_energy.json` and flip to live
+                    with accepted_by: F277."
+      - path: test-results/d1_vertex_formfactor.json
+        status: stale_by_design
+        committed: 2026-07-26
+        reason: "The rule leg of vertex_finite_constant moves +6.3e-4 at n=24 and
+                 +6.5e-4 at n=32 (the wilson leg is unchanged to 2e-13 — the
+                 control). NOT re-run: the committed grid includes n=48, whose
+                 rank-3 vertex tensor needs ~2.7 GB and ~90 s per kernel, which
+                 OOMs and overruns the sandbox's 45 s cap. The n=24/32 shifts
+                 above are the measured expectation for the re-run."
+        clears_by: "One run on Ben's machine — `PYTHONPATH=src python3
+                    tests/runners/run_d1_vertex_formfactor.py` — then check the
+                    wilson leg is unmoved, `git add`, flip to live with
+                    accepted_by: F277."
+    findings:
+      # Added 2026-08-04. Three findings, one defect. Note what is DEAD here is
+      # a set of NUMBERS, not a construction -- and in vacuum polarization the
+      # numbers did not merely shift, they changed SIGN. A reader of any of
+      # these three needs to know that before quoting a figure from it.
+      - path: findings/F251-qed-vacuum-polarization-running-alpha.md
+        status: partially_superseded
+        dead: "Every number computed through the refolded _fermion_B. Delta
+                = B_rule - B_cont CHANGES SIGN between n=10 and n=14 under
+                the refold and settles at +1.2e-2, where the un-refolded
+                calculation converges monotonically to -2.121e-3: opposite
+                sign, six times the magnitude. At the shipped n=24 the
+                q-flatness spread goes 1.4484e-2 -> 1.685e-5, a factor 859."
+        live: "The one-loop vacuum-polarization construction and the
+                running-coupling derivation. The defect was in a momentum
+                refold, not in the physics; F277 re-ran it. 102 code/test
+                references, the most in this record."
+      - path: findings/F258-electron-self-energy.md
+        status: partially_superseded
+        dead: "Numbers computed through the refolded _selfenergy_AB, for
+                the same reason and on the same kernel."
+        live: "The self-energy construction: mass renormalization delta-m,
+                wavefunction renormalization, and the structure of the
+                result."
+      - path: findings/F155-qstar-self-energy-and-freeze-bracket.md
+        status: partially_superseded
+        dead: "Numbers reached through the refolded site in the one-loop
+                self-energy machinery."
+        live: "The tadpole sector, which this finding's own status line
+                records as EXACT, and the Residual-A attack it set up. 97
+                code/test references."
+
+  - id: S9-P3.5-one-gauge-energy-convention
+    date: 2026-08-01
+    kind: superseded
+    by: [F270]
+    superseded: []
+    note: >
+      `superseded:` is empty on purpose and the emptiness is the point: the
+      sum(E^2+B^2) convention was never established by a finding. It was six
+      code sites that had drifted apart from coupled.field_energy and from
+      gravity.T00_field_energy, which is exactly how it survived unnoticed —
+      there was no claim to review.
+    scope: >
+      The engine's gauge-field energy is one convention, U = 1/2 sum(E^2+B^2),
+      defined once in casim.engine.core.channel.field_energy. Six channels
+      previously summed WITHOUT the 1/2 (photon_pair, w_chiral, z_even,
+      gluon_bcc, photon_sourced, gluon_sourced) and now route through it, so
+      their reported energy HALVES. coupled.field_energy is bound to the same
+      object rather than being an agreeing second definition.
+    reason: >
+      Roadmap blocker B4. PhotonPairChannel.energy was exactly twice
+      coupled.field_energy for the same field, and gravity.T00_field_energy —
+      the function that SOURCES gravity from a gauge field — always carried the
+      1/2, so a field weighed half what it cost. Nothing could sum the two, which
+      is why B4 recorded "nothing a coupled run could fail". The 1/2 is the
+      physical field energy density and is what gravity already used; keeping the
+      other convention would make every engine-wide energy twice what any GR or
+      QED comparison expects. Decision taken by Ben, 2026-07-31, after the
+      baseline impact of both options was measured rather than estimated.
+    impact: >
+      ZERO registry-declared baselines move — measured before the change, not
+      discovered after. 55 git-tracked result dumps carry an absolute gauge
+      energy and move by EXACTLY 2x, and only when re-run; the factor is exact
+      and known, so those are supersessions rather than drift. Ratio-valued
+      observables (norm_conservation's rel_drift, every dispersion and unitarity
+      residual) are scale-invariant and do not move at all.
+    retained: >
+      Channel.energy keeps its meaning as the conserved DRIFT PROBE, which for
+      spinor channels is a dimensionless probability norm and not an energy. The
+      additive energy is a separate protocol, Channel.energy_density, in one
+      convention across every channel — unifying the 1/2 alone would not have
+      made a total energy well defined.
+
+  - id: S8-D2-reversed-casim-is-the-program
+    date: 2026-07-31
+    kind: methodology
+    by: [D6, D7, D8, D9, D10, D11]
+    superseded: [D2]
+    scope: >
+      Decision D2 — "the flat ca_*.py kernels in ca-simulation/ remain the
+      single source of truth; casim is a layer above them" — is reversed. D6
+      makes casim the program: all 124 kernels and 47 forks now live under
+      src/casim/engine/ by sector, ca-simulation/ and its 171 deprecation shims
+      are deleted, and src/casim/__init__.py no longer requires that directory
+      to exist. D7 gives the constants registry ownership of values, D8 makes
+      casim.numerics the only numerics surface, D9 makes tests declarative
+      registry entries run through `casim test`, D10 makes cleanup and migration
+      one operation, D11 registers every module.
+    reason: >
+      D2 bought safety at the cost of a permanent seam: two trees, ~74
+      independent definitions of c_lat, six test-invocation conventions, and 268
+      test files reaching across the seam by sys.path insertion. P1's committed
+      result baselines now provide that safety directly — every migration was
+      proved against them — so the seam had no remaining justification. This is
+      an ENGINEERING reversal: no physics decision changes, and the exactness
+      bar (complex128, the 1e-12 machine gate) is untouched.
+    retained: >
+      The pre-clean original of all 171 migrated files is in deprecated/code/,
+      and the migration record — target path, sector, findings, dead symbols,
+      baselines re-run — is in docs/design/module-migration-manifest.yaml. Forks
+      keep their falsification value: a rejected fork is a recorded negative
+      result, carried into engine/forks/<sector>/ with its status, not deleted.
+    decision_ref: "key-decisions.md — D6-D11 (CASIM consolidation)"
+    code:
+      - path: deprecated/code/migrate_module.py
+        note: >
+          The C0.4 migration tool. Retired with its subject at C9 — it copies a
+          file out of ca-simulation/ into casim.engine, and there is nothing left
+          to move. Kept readable because the manifest records what it did.
+      - path: deprecated/code/gen_migration_manifest.py
+        note: >
+          Generated the 171-record migration manifest by walking ca-simulation/.
+          The manifest itself stays live as the migration's provenance record;
+          only its generator is retired.
+      - path: deprecated/code/check_shim_imports.py
+        note: >
+          The C3.4 gate check — "no src code imports a ca-simulation shim path".
+          Removed from `make gate` at C9: there are no shims left to guard.
+      - path: deprecated/code/route_numerics.py
+        note: C1 one-shot — routed numpy/scipy call sites onto casim.numerics.
+      - path: deprecated/code/_c5_repoint_sites.py
+        note: C5 one-shot — repointed src/ imports of migrated particles kernels.
+      - path: deprecated/code/_c5_run_tests.py
+        note: C5 one-shot — ran the particles sector's tests during migration.
+      - path: deprecated/code/_su3tmp.py
+        note: >
+          A 255-line scratch draft of `tests/runners/run_su3_3d_string_tension.py`
+          (420 lines), sitting loose at the repo root, imported by nothing and
+          predating the runner's noise-floor handling. Retired at C9 because it
+          was the last file outside `deprecated/` still putting the legacy
+          directory on `sys.path`.
+      - path: deprecated/code/engine_shim_channel.py
+        note: >
+          C3 moved the flat engine modules into `casim.engine.core/` and left
+          nine intra-package `DeprecationWarning` shims behind, each stating it
+          would be removed at C9. All nine are retired here; their 31 references
+          across `src/` and `tests/` were repointed to `casim.engine.core.*`.
+      - path: deprecated/code/engine_shim_channels.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_observers.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_coupled.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_simulation.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_manybody.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_spectral_matter.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_tier3.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/engine_shim_blockspin.py
+        note: see engine_shim_channel.py
+      - path: deprecated/code/_c5_rewire_imports.py
+        note: >
+          C5 one-shot — rewrote import statements onto engine paths and proved
+          each rewrite still bound the same local names. The C9 test-tree
+          repointer is a direct descendant of it.
+      - path: deprecated/code/_c5_migrate_particles.py
+        note: >
+          C5 one-shot — drove the particles sector's migration using the
+          migration tool's own templates, because the sandbox mount refuses
+          `unlink` and the tool's journal could not roll back.
+      - path: deprecated/code/_c5_verify_sector.py
+        note: C5 one-shot — the migration tool's step 6 (baseline re-run), per sector.
+      - path: deprecated/code/_c5_fix_backup_index.py
+        note: C5 one-shot — corrected `deprecated/code/README.md`'s backup index.
+      - path: deprecated/code/_c5_drift_triage.py
+        note: C5 one-shot — triaged the sector's baseline drift.
+      - path: deprecated/code/repoint_tests.py
+        note: >
+          C9 one-shot — repointed all 259 test files off the legacy kernels
+          (imports, fork file-path loads, sys.path preambles and prose). The
+          fourth and last tool of this shape.
+
+  # =========================================================================
+  - id: S13-F279-hypercharge-attribution
+    date: 2026-08-02
+    kind: superseded
+    by: [F279]
+    superseded: [F165]
+    scope: >
+      Two specific claims inside F165, NOT its conclusion. (1) F165 section 2
+      lists the [grav]^2 U(1) anomaly as one of five independent constraints.
+      It is not: once nu_R is carried as a field with a hypercharge and its own
+      Dirac mass step, the grav row is identically satisfied by the other five
+      (rank 5 with and without it), and the remaining system is
+      TWO-dimensional. F165 reached dimension 1 only by omitting nu_R from the
+      gravitational trace, which is numerically identical to imposing
+      y_nu = 0 without saying so. (2) F165 section 3 states that removing
+      colour breaks the closure. It does not -- the system closes to a
+      one-dimensional line for EVERY N_c, with ratios
+      1 : (1+N_c) : (1-N_c) : -N_c : -2*N_c, verified at N_c = 1..5 and
+      symbolically.
+    reason: >
+      Raised by the 2026-08-02 completeness sweep, which found F165 and
+      Claims-and-Falsifiers-Summary revision 2 asserting opposite things about
+      charge quantisation on the same day. Adjudicating the contradiction meant
+      re-deriving F165's system independently rather than re-running its own
+      script, and the re-derivation reproduced F165's answer while falsifying
+      two of its steps.
+    retained: >
+      EVERYTHING F165 CONCLUDES. The hypercharges ARE forced up to one overall
+      normalisation; the ratios 1:4:-2:-3:-6 stand; y_phi = 3*y_Q stands; the
+      normalised values reproduce the F38 table and the SM electric charges
+      over Q; the residual input is one charge unit, not five values; the
+      up-type relation y_u = y_Q + y_phi is genuinely OUTPUT by the
+      [SU(3)]^2 U(1) row and is not assumed; and the single shared mass phase
+      (F27/F41) is correctly identified as load-bearing. Only the ATTRIBUTION
+      changed: the closing constraint is the F47 Higgs-free Majorana step
+      (nu_R^T C nu_R carries 2*y_nu, so gauge invariance forces y_nu = 0
+      exactly), not the gravitational anomaly. Both the grav and cubic
+      anomalies are consistency checks on the solution line.
+      The corrected route is STRONGER: it rests on the model's own Higgs-free
+      see-saw structure rather than on the imported Minahan-Ramond-Warner /
+      Geng-Marshak theorem.
+    decision_ref: "F279 sections 3-6; docs/status/completeness-2026-08-02.md gap #4"
+    note: >
+      tests/findings/test_F279_hypercharge_attribution.py is deliberately NOT
+      listed under `tests:`. That block is for tests AFFECTED BY this
+      supersession; F279's own gate-tier test is the instrument that produced
+      it and is superseded by nothing. Listing it forced the banner tool to
+      stamp it "HISTORICAL BASELINE", which inverts what it is.
+    code:
+      - path: src/casim/engine/gauge/hypercharge.py
+        note: >
+          RECONCILED 2026-08-06 (F279 follow-up 1). Was: lines 117-121 wrote
+          Y_LEPTON_L / Y_E_R / Y_NU_R as literals under a comment calling them
+          SM values, which contradicted this record. They are now imported from
+          casim.constants (electroweak sector) with F165+F279 provenance, and
+          the registry keeps the three distinct: Y_NU_R = 0 forced by the F47
+          Majorana row, Y_E_R = 2*Y_LEPTON_L derived and N_c-independent, and
+          Y_LEPTON_L = -1 the residual normalisation. The quark hypercharges
+          remain literals here deliberately -- their fractions carry the
+          underived N_c = 3 (F279 A3), so registering them as exact would
+          launder an input. No number moved.
+    findings:
+      # Added 2026-08-04, using the `sub_claim_superseded` status this record
+      # is the reason for. F165's `retained:` reads EVERYTHING F165 CONCLUDES --
+      # marking the file `partially_superseded` would tell a reader the result
+      # is in doubt when the ledger says the opposite. What moved is the
+      # ATTRIBUTION of the closing constraint.
+      - path: findings/F165-hypercharge-quantisation-from-anomaly-and-mass.md
+        status: sub_claim_superseded
+        dead: "Two steps INSIDE the finding, not its conclusion. (1)
+                Section 2 lists the [grav]^2 U(1) anomaly as one of five
+                independent constraints; it is not -- once nu_R is carried
+                as a field with a hypercharge and its own Dirac mass step,
+                the grav row is identically satisfied by the other five, and
+                F165 reached dimension 1 only by omitting nu_R from the
+                gravitational trace, which is numerically identical to
+                imposing y_nu = 0 without saying so. (2) The attribution of
+                what closes the system."
+        live: "EVERYTHING F165 CONCLUDES. The hypercharges ARE forced up to
+                one overall normalisation; the ratios 1:4:-2:-3:-6 stand;
+                y_phi = 3 y_Q stands; the normalised values reproduce the
+                F38 table and the SM electric charges over Q; the residual
+                input is one charge unit, not five values; y_u = y_Q + y_phi
+                is genuinely OUTPUT by the [SU(3)]^2 U(1) row; and the
+                single shared mass phase (F27/F41) is correctly identified
+                as load-bearing."
+        note: "The closing constraint is the F47 Higgs-free Majorana step,
+                not the gravitational anomaly. This is the finding whose
+                contradiction with Claims-and-Falsifiers revision 2 --
+                asserted on the same day -- is the reason the claims layer
+                (D12) exists. Carried live as claim card CL010."
+    tests:
+      - path: tests/findings/test_hypercharge_quantisation.py
+        status: partially_superseded
+        dead: "The reading of the [grav]^2 U(1) row as an independent constraint,
+               and F165 section 3's claim that colour multiplicity gates the
+               closure. The test's own arithmetic is correct and still passes --
+               it is the interpretation of the 5-row system that moved."
+        live: "Q1 dimension-1 result, Q2 cubic-identically-zero, Q3 F38 table
+               reproduction, Q4 GMN electric charges. All four still hold and
+               are re-derived independently by F279."
+
+
+  # =========================================================================
+  - id: S14-P5.1-live-display-retired
+    date: 2026-08-03
+    kind: methodology
+    # `by:` names a ROADMAP PHASE, not a decision. The schema test required
+    # D\d+ for every `methodology` record and this one has been red since it
+    # was written on 2026-08-03 -- captured as an already-red baseline by the
+    # 2026-08-04 supersession triage's closing note. Retiring a viewer at
+    # roadmap phase P5.1 is a real decision that simply has no D-number; the
+    # test now accepts a phase id for methodology records rather than this
+    # record inventing a decision that was never taken.
+    by: [P5.1]
+    superseded: []
+    scope: >
+      The original 2007-08 vispy point-cloud viewer, migrated to
+      src/casim/engine/core/_viz_live_display.py at C9 and moved to
+      deprecated/code/_viz_live_display.py on 2026-08-03. It is superseded by
+      casim.gui.app (the same live vispy viewer re-pointed at a
+      casim.engine.Simulation) and casim.gui.render (the numpy-only colour
+      maps, re-exported as the single casim.viz API). Its density_to_rgba
+      duplicated casim.gui.render.density_to_rgba on the identical colour
+      stops.
+    reason: >
+      The module carried its own RETIRED banner from roadmap P5.1 (2026-07-31)
+      naming both replacements, and recorded that its physical move was blocked
+      because "git mv needs an unlink this mount refuses". That diagnosis was
+      wrong: this mount refuses unlink(2) but permits rename(2), so git mv
+      works -- it only strands a zero-byte .git/index.lock afterwards, which is
+      itself cleared by a rename. The move was therefore never blocked. The
+      genuine blocker was a STALE .git/index.lock dated 2026-07-31 09:23, left
+      by an earlier half-failed operation, which had been silently failing
+      every git index write in this repo for three days.
+      Surfaced by gap #5 of docs/status/completeness-2026-08-02.md -- the
+      dead_candidate and unreferenced-module pass. Of the ten registered
+      dead_candidate modules, this is the ONLY one that was genuinely dead.
+    retained: >
+      Nothing live. The vispy display of record is preserved as the file
+      itself, in deprecated/code/, per the same rule that keeps the 171
+      migration backups: a retired viewer is history, not a defect. Its
+      manifest record (source ca-simulation/live_display.py) still points at
+      the old engine target, which no longer exists, so the module drops out
+      of the D11 registry automatically -- there is nothing to un-register.
+    decision_ref: "docs/audits/module-disposition-2026-08-03.md; completeness-2026-08-02.md gap #5"
+    code:
+      - path: deprecated/code/_viz_live_display.py
+        note: >
+          Retired viewer. Named here so tools/check_deprecated.py accepts it:
+          its basename is not a manifest `source` (that is live_display.py),
+          so the ledger is the only rule it can satisfy.
+      - path: src/casim/gui/app.py
+        note: the live viewer, re-pointed at casim.engine.Simulation
+      - path: src/casim/gui/render.py
+        note: the numpy-only colour maps, re-exported as casim.viz
+    tests: []
+
+  - id: S15-E1-weight-as-phase-attack-is-a-fork
+    date: 2026-08-03
+    kind: superseded
+    by: [F253, F255, F256]
+    superseded: [F230]
+    scope: >
+      The E1 attack script (derive_weight_as_phase.py) that tried to DERIVE the
+      weight-as-phase principle by two named routes: (A) saturation
+      equipartition, and (B) a BCC second-shell topological / Berry-phase
+      moment. Both routes are closed. F253 excludes a scale-free topological
+      origin (the only holonomy available is 2*pi/3); F256 shows the dynamical
+      Landau route cannot give an exact 3*delta* = Q, because the sea B and the
+      induced C have independent O(1) origins and the identity holds only to
+      1.7e-5. F255 then derived the remaining ingredient -- R = 1, a genuine
+      radian -- from Schur-isotropy of the E_g irrep metric, which is what let
+      weight-as-phase be ADOPTED as a founding principle rather than derived.
+    reason: >
+      Registered `dead_candidate` since C9 and read as dead code. It is not:
+      under this repo's own definition a tested-and-REJECTED branch is a FORK,
+      which "preserves the falsification record and is not dead code"
+      (CLAUDE.md, engine/forks). Deleting it would delete the evidence that
+      both routes were tried and why each failed -- which is precisely the
+      evidence CLAUDE.md decision 7 and open-derivations row E1 lean on when
+      they say every alternative is closed.
+      Moved 2026-08-03 to src/casim/engine/forks/particles/ by gap #5 of the
+      2026-08-02 completeness sweep. Reclassification, not retirement.
+    retained: >
+      The whole file, as the standing negative result behind founding decision
+      7. Note it is the ATTACK that is superseded, not delta* = 2/9: that value
+      is exact (F175) and primary.
+    decision_ref: "key-decisions.md -- lepton shape-angle; CLAUDE.md decision 7; open-derivations row E1"
+    code:
+      - path: src/casim/engine/forks/particles/derive_weight_as_phase.py
+        note: >
+          The E1 attack, kept as a fork. Routes A and B are both closed
+          negatives; the file is the falsification record.
+    findings:
+      # Added 2026-08-04, `sub_claim_superseded` for the same reason as S13:
+      # this record's `retained:` is THE WHOLE FILE.
+      - path: findings/F230-lepton-angle-geometric-nogo.md
+        status: sub_claim_superseded
+        dead: "The E1 ATTACK SCRIPT (derive_weight_as_phase.py) and its two
+                named routes: (A) saturation equipartition and (B) a BCC
+                second-shell topological / Berry-phase moment. F253 excludes
+                a scale-free topological origin (the only E_g holonomy
+                available is 2 pi/3); F256 shows the dynamical Landau route
+                cannot give an exact 3 delta* = Q."
+        live: "THE WHOLE FILE, as the standing negative result behind
+                founding decision 7. It is the ATTACK that is superseded,
+                not delta* = 2/9 -- that value is exact (F175) and primary."
+        note: "Registered `dead_candidate` since C9 and read as dead code.
+                It is not: a tested-and-rejected branch is a FORK, which
+                preserves the falsification record. Deleting it would delete
+                the evidence that both routes were tried and why each failed
+                -- the evidence founding decision 7 leans on when it says
+                every alternative is closed."
+    tests: []
+
+  # =========================================================================
+  - id: S16-F16-gr3-fork-space-closed
+    date: 2026-08-03
+    kind: superseded
+    by: [F64, F178]
+    superseded: [F16]
+    scope: >
+      The A/B/C fork trichotomy for repairing the Paper-6 single-scalar
+      redshift, and every GR-4 (Mercury) conclusion drawn from it: that Fork C
+      "predicts exactly half the perihelion advance", that Forks A and B
+      reproduce Mercury, that both "remain viable", and that distinguishing A
+      from B is an open question.
+    reason: >
+      Two independent closures, one structural and one numerical.
+      STRUCTURAL: the canonical vacuum representation is A = 1/K = e^{-2u},
+      B = K = e^{+2u}, AB == 1 (F64, reclassified by F178). At O(u) that is
+      A = 1 + 2phi/c^2, B = 1 - 2phi/c^2 -- exactly and only Fork B. Fork E
+      (src/casim/engine/forks/gravity/gr_fork_E_tensor.py:24) says so in as many
+      words, and :44 retires Fork A explicitly ("GR-3 needs no separate
+      phase-tick field"); F50 derives the clock/propagator split from the F46
+      tetrad and records that F16 "had to impose it by hand".
+      NUMERICAL: the independent review (docs/reviews/F16-review-2026-08-03.md)
+      found the GR-4 instrument does not integrate any fork's metric. All four
+      metric() functions return the same linearised Schwarzschild pair and the
+      integrator hard-codes the Schwarzschild PN coefficients, i.e. beta =
+      gamma = 1. The repo's own later instrument, test-results/FC01_mercury.json
+      (linear_truncated_dielectric), integrates the genuine geodesic of that
+      same linearised metric and gets beta = 0, 57.41 arcsec/cy against the
+      measured 42.9799 +/- 0.0009 -- so the metric F16 credits to Forks A and B
+      fails Mercury by +33.6%, not passes it. Two further defects are the
+      3*pi-vs-6*pi normalizer (the "per-half-orbit x2 convention" is a wrong
+      normalizer, as test-results/gr3_forks_AB_L192.md already states) and
+      Fork C's mutually inconsistent tau_rate and metric, which make its GR-3
+      pass and its GR-4 verdict come from two different spacetimes.
+    retained: >
+      The diagnosis, which is sound and worth keeping: the Pound-Rebka factor 2
+      is an artifact of identifying the clock rate with c(x), any redefinition
+      of the clock removes it, and the photon-sector observables GR-1 and GR-2
+      are insensitive to that redefinition at O(phi) (Fork B differs from
+      Paper-6 only at O(phi^2): +3.33e-6 in deflection, +4.63e-7 in Shapiro,
+      both one to two orders below Cassini and VLBI sensitivity). Note this is
+      ALGEBRA, not a simulation result -- the review reproduced all 16 GR-3
+      rows plus every mean and std from closed form on the committed phi values
+      to <= 1.3e-12, so the Poisson solve cancels. It is also 1911-1917 physics:
+      Einstein's variable-c scalar theory gives exactly half the deflection for
+      this reason, and in modern language it is the definition of PPN gamma.
+    decision_ref: "key-decisions.md -- Finding 64 / F178 induced Einstein equation; CLAUDE.md decision 4"
+    code:
+      - path: src/casim/engine/forks/gravity/gr3_fork_harness.py
+        note: >
+          The A/B/C harness. Retained as the falsification record (a
+          tested-and-rejected branch is a fork, not dead code), NOT as a
+          working GR-4 instrument. FC01 is the correct instrument.
+      - path: src/casim/engine/forks/gravity/gr_fork_E_tensor.py
+        note: the successor fork; its docstring is where the closure is stated
+      - path: src/casim/engine/interactions/gravity.py
+        note: the canonical dielectric
+    findings:
+      - path: deprecated/findings/F16-gr3-fork-resolution.md
+        status: partially_superseded
+        dead: "The fork trichotomy and every GR-4 number and conclusion in it."
+        live: "The clock-identification diagnosis and the O(phi) insensitivity
+                of GR-1/GR-2 -- as algebra, not as a measurement."
+        note: "F16 is still named as provenance by tests/falsification/
+                FC01-mercury-perihelion.md, FC03-pound-rebka-redshift.md and the
+                two matching runners. Those citations are to the QUESTION, which
+                is live; the answers are here."
+    tests: []
+    baselines:
+      - path: test-results/gr3_fork_comparison.json
+        status: stale_by_design
+        committed: 2026-05-21
+        reason: >
+          The A/B/C comparison table. Its GR-3 columns are a closed-form
+          identity in each fork's clock exponent and will reproduce forever;
+          its GR-4 columns come from an instrument that integrates no fork's
+          metric and are superseded by FC01. Re-running changes nothing and
+          proves nothing.
+        clears_by: >
+          Nothing to clear -- the artifact is the historical record of the fork
+          comparison. If GR-4 is ever wanted per-fork, it needs FC01's
+          integrator, which is a new run under a new artifact, not this one.
+
+  # =========================================================================
+  - id: S17-F19-tick-count-not-a-state-count
+    date: 2026-08-03
+    kind: superseded
+    by: [F178, F183, F190]
+    superseded: [F19]
+    scope: >
+      The proposed area-vs-volume test: whether N_active(R), the count of cells
+      whose tick counter is nonzero inside radius R, scales as R^2 rather than
+      R^3 in the strong-field band, and whether that would connect the lattice's
+      vacuum freezing to 't Hooft CAI §9.4 holography. Never run; no data.
+    reason: >
+      Three independent closures (docs/reviews/F19-review-2026-08-03.md).
+      OBSERVABLE: N_active is a support measure, and for a wave equation with
+      0 < c_min <= c(x) <= c_max the map to optical coordinates is bi-Lipschitz,
+      which preserves box-counting dimension exactly (Falconer Cor. 2.4(b),
+      §3.2(iv)). The spec's own instruction not to pass the horizon caps the
+      Lipschitz constant at 2, so alpha_inner = 3 by theorem, field-independent.
+      Confirmed on this repo's own propagator: fill 100.00% and alpha identical
+      to three decimals at GM = 0 and at the deepest allowed field. H_area is
+      unreachable and H_vol unfalsifiable at once.
+      CATEGORY: 't Hooft's §9.4 quantity is the count of information-equivalence
+      CLASSES under an information-LOSING automaton (CAI Ch. 7 Eq. 7.2 maps 5
+      states to 3 classes). This model is exactly unitary, so the kernel is
+      trivial, no classes merge, and no area law can emerge in any geometry at
+      any field strength. A count of ticking cells is not a state count; the
+      free-field entanglement area law is present with no gravity at all
+      (Srednicki 1993), so the exponent was never the informative quantity.
+      ANSATZ AND APPARATUS: the spec is built on c(x) = c0/(1 - 2phi/c0^2), the
+      linearisation family F64/F178 exclude, and its "formal horizon at
+      phi = -c0^2/2" is a sign error -- that formula gives exactly c0/2 there.
+      src/casim/engine/lattice/curved.py has no 3D variable-c stepper and its
+      Cayley matrix is periodic, while the spec is a 3D sphere count with open
+      BC, so it is also un-runnable as written.
+    retained: >
+      The QUESTION is live and has been answered the right way. F183 restored
+      the exact Schwarzschild horizon and F190
+      (src/casim/engine/interactions/horizon_entropy.py) does the honest version
+      via the coefficient rather than the exponent: the area law is automatic
+      from the tiling, and requiring S = A/4 then FIXES s_cell = a^2/(4 l_P^2)
+      = 2*pi*sqrt(3) nats on the F107 cell. Any successor should measure
+      entanglement entropy of the ball, state its regularisation scheme
+      (Susskind-Uglum), and test that coefficient -- and must cite
+      arXiv:2602.09100 (2026), which counts dynamically active degrees of
+      freedom in geodesic balls and gets flat-space area scaling.
+    decision_ref: "key-decisions.md -- Finding 64 / F178; F190 horizon entropy"
+    code:
+      - path: src/casim/engine/lattice/curved.py
+        note: >
+          2D-only variable-c Cayley/Strang stepper with periodic BC. Live and
+          audited (F271, F276 build on it), but it cannot run this spec.
+      - path: src/casim/engine/interactions/horizon_entropy.py
+        note: the successor observable -- coefficient, not exponent
+    findings:
+      - path: deprecated/findings/F19-tick-area-vs-volume.md
+        status: fully_superseded
+        dead: "The whole spec. Its statistic cannot respond to its independent
+                variable, its target quantity is not the one 't Hooft counts,
+                and its apparatus does not exist in 3D."
+        note: "Not a result -- an unrun test spec, and the only one of its kind
+                filed in findings/ rather than tests/falsification/. Retired
+                rather than rewritten because the defect is the observable, not
+                the parameters."
+    tests: []
+
+  # =========================================================================
+  - id: S18-curl-residual-representation-artifact
+    date: 2026-08-04
+    kind: superseded
+    by: [F306]
+    superseded: [F21, F23, F25]
+    partial: [F20]
+    scope: >
+      The INTERPRETATION of the sigma-bilinear Maxwell-curl residual, across
+      four findings and roughly three months: that the composite-photon
+      bilinear satisfies the curl equation only to O(k); that the coefficient
+      c_lat/sqrt2 is a geometry- and dimension-independent physical law (F21);
+      that smearing is thereby ruled out as a fix (F23); and that the residual
+      is a Planck-scale prediction recovered as Maxwell in the Delta t -> 0
+      limit (F25). The MEASUREMENTS are not superseded -- every number in all
+      three findings was reproduced bit-for-bit by the 2026-08-04 reviews.
+    reason: >
+      The residual is an artifact of its own definition. EM_bilinears returns
+      E_G = |n|(G_T + G_T*) and B_G = i|n|(G_T* - G_T), which are REAL
+      3-vectors -- the time-quadrature pair of one circularly polarised
+      amplitude -- while the residual's right-hand side i*2n x B is PURE
+      IMAGINARY. Worse than the type clash: B = n_hat x E EXACTLY (measured
+      cos = 0.9999999999999999), so n_hat x B = -E and the two sides are
+      ORTHOGONAL 3-vectors of EQUAL LENGTH (||LHS||/||RHS|| = 1.0000000000 at
+      every k). The residual is therefore sqrt(2) times either side, and
+      c_lat/sqrt2 is c_lat -- by its own definition c_lat = dOmega/d|k| (F26)
+      -- times a quadrature factor. Look-elsewhere factor 1; evidential weight
+      zero. Read as analytic amplitudes (E_hat = |n| G_T, B_hat = n_hat x
+      E_hat) the equation collapses to omega(k/2) = sin omega(k/2) and the
+      curl violation is O(k^3) with coefficient c_lat^3/48 = 1/(144 sqrt3) --
+      which is the pass criterion recorded at
+      references/qca-papers-1-4-overview.md:407. The construction met it all
+      along.
+    retained: >
+      LIVE, per finding.
+      F20: items 1 and 2 (Weyl and Dirac real-space propagation) are live and
+      were PROMOTED by their remediation to machine precision -- Dirac packet
+      drift agrees with <dw/dk_x> to 1.7e-15 wrap-free, and omega(k x_hat) =
+      k*c_lat is now an exact tol-0 gate record. Only item 3, the composite
+      photon leg, is dead.
+      F21: the closed form R = sqrt2 sin(Omega/2)/|k| (exact at all k, for any
+      walk U = uI - i sigma.n with u^2+|n|^2=1) and the three lemmas -- G_T is
+      a complex NULL vector for a helicity eigenspinor, hence ||E|| = ||B||
+      exactly and n_hat x B = -+E -- are live and are genuine structural
+      results the finding did not claim.
+      F23: the real-vs-imaginary phase-lock DIAGNOSIS is live and was correct
+      two months before the reviews found it independently; so is the negative
+      result that no smearing closes the residual. Only the finite-Delta-t
+      ROOT CAUSE and the prescribed Delta t -> 0 fork are dead.
+      F25: the real-rotation law E' = cos(Omega)E + sin(Omega)B,
+      B' = -sin(Omega)E + cos(Omega)B is live and exactly right, including its
+      handedness -- but it is an IDENTITY (the 2x2 real form of multiplication
+      by e^{-i Omega}), not a prediction competing with Maxwell.
+    dead: >
+      F21 Interpretation sections 2 and 4 and its "Geometry is ruled out as the
+      cause" verdict; F23's "## Root cause" and "## Next fork" sections; F25's
+      "## Physical interpretation" items 3 and 4; and the framing in all three
+      that treats c_lat/sqrt2 as a physical coefficient.
+    decision_ref: "findings/F306-curl-closes-at-k3-representation-artifact.md"
+    reviews:
+      - docs/reviews/F20-review-2026-08-03.md
+      - docs/reviews/F21-review-2026-08-04.md
+      - docs/reviews/F23-review-2026-08-04.md
+      - docs/reviews/F25-review-2026-08-04.md
+    code:
+      - path: src/casim/engine/gauge/bilinear.py
+        note: >
+          maxwell_curl_residual is UNCHANGED, bit for bit -- four call sites
+          depend on its numbers (tests/runners/run_L_tests.py:231,
+          bilinear_2d.maxwell_curl_residual_2d, and the F21/F23 fork
+          harnesses). maxwell_curl_residual_analytic is a SIBLING carrying the
+          corrected reading. Migrating the four consumers is deliberately left
+          open.
+      - path: src/casim/engine/forks/gauge/curl_fork_harness.py
+        note: F21's harness; measures the convention, numbers correct
+      - path: src/casim/engine/forks/lattice/smearing_fork_harness.py
+        note: F23's harness; self-checks against F21's hard-coded constant
+    findings:
+      # Added 2026-08-04, in the same pass that gave the tool a markdown path.
+      # F20's entry EXECUTES the escalation claim `gracious-jolly-meitner` left
+      # open: its hand-written banner already stated this split and asked for a
+      # ledger record. F20 is deliberately NOT added to any top-level
+      # `superseded:` list -- items 1 and 2 are live and were PROMOTED to
+      # machine precision by their own remediation, so a wholesale marking
+      # would be false. Per-file granularity is the instrument for exactly
+      # this; see this record's own `retained:` clause, quoted below.
+      - path: findings/F20-photon-fermion-propagation-demo.md
+        status: partially_superseded
+        dead: "Item (3) only -- the composite-photon leg, which used the
+                sigma-bilinear photon of casim.engine.gauge.bilinear that
+                S1-F69 retired on 2026-06-01 (helicity<->branch
+                birefringent, excluded by GRB/AGN polarimetry, F65/F66/F67)
+                and which F302 showed is not even an SO(3) 3-vector in its
+                transpose form."
+        live: "Items (1) and (2), Weyl and Dirac real-space propagation,
+                which were PROMOTED by their remediation to machine
+                precision: Dirac packet drift agrees with <dw/dk_x> to
+                1.7e-15 wrap-free, and omega(k x_hat) = k c_lat is an exact
+                tol-0 gate record. That is where the quantitative content of
+                this finding now lives."
+        note: "The photon of the model is the paired-spinor photon
+                (casim.engine.gauge.photon, F67/F68/F69, CLAUDE.md Core
+                Design Decision 5)."
+      - path: findings/F21-curl-residual-geometry-independence.md
+        status: partially_superseded
+        dead: "Interpretation sections 2 and 4, and the 'Geometry is ruled
+                out as the cause' verdict -- the framing that treats
+                c_lat/sqrt2 as a physical coefficient. It is c_lat times a
+                quadrature factor, by c_lat's own definition. Look-elsewhere
+                factor 1; evidential weight zero."
+        live: "The closed form R = sqrt2 sin(Omega/2)/|k| (exact at all k,
+                for any walk U = uI - i sigma.n with u^2 + |n|^2 = 1) and
+                the three lemmas -- G_T is a complex NULL vector for a
+                helicity eigenspinor, hence ||E|| = ||B|| exactly and n_hat
+                x B = -+E. These are genuine structural results the finding
+                did not claim. Every MEASUREMENT was reproduced bit-for-bit
+                by the review."
+      - path: findings/F23-smearing-ruled-out-curl-residual-is-phase-locked.md
+        status: partially_superseded
+        dead: "The '## Root cause' and '## Next fork' sections -- the
+                finite-Delta-t root cause and the prescribed Delta t -> 0
+                fork."
+        live: "The real-vs-imaginary phase-lock DIAGNOSIS, which was
+                correct two months before the reviews found it
+                independently, and the negative result that no smearing
+                closes the residual."
+      - path: findings/F25-real-rotation-exact-discrete-time-maxwell.md
+        status: partially_superseded
+        dead: "'## Physical interpretation' items 3 and 4, and the framing
+                that the O(k) curl failure is physical. The curl equation
+                closes at O(k^3) with coefficient c_lat^3/48 = 1/(144 sqrt3)
+                -- the pass criterion recorded at
+                references/qca-papers-1-4-overview.md:407. The construction
+                met it all along."
+        live: "The real-rotation law E' = cos(Omega) E + sin(Omega) B, B' =
+                -sin(Omega) E + cos(Omega) B, exactly right including its
+                handedness -- but it is an IDENTITY (the 2x2 real form of
+                multiplication by e^{-i Omega}), not a prediction competing
+                with Maxwell."
+        note: "The ROTATION-RATE IDENTIFICATION of F25/F26 is untouched by
+                this record and by all three reviews; it is founding
+                decision 2 and claim card CL001."
+    tests:
+      - path: tests/findings/test_F306_curl_closes_at_k3.py
+        status: live
+        note: "This test IS the supersession authority: it runs BOTH readings on
+               the same fields at the same k and shows one flat at c_lat/sqrt2
+               while the other falls as k^2. Do not mark."
+
+  # =========================================================================
+  - id: S19-F22-velocity-addition-review-retraction
+    date: 2026-08-04
+    kind: retracted_by_review
+    by: [F15]
+    superseded: []
+    reviews:
+      - docs/reviews/F22-review-2026-08-04.md
+      - docs/reviews/F22-remediation-2026-08-04.md
+    scope: >
+      Two of F22's three claims, withdrawn by the 2026-08-04 independent review
+      (verdict OVERSTATED; 1 PASS, 2 WEAKENS, 10 FAIL). This record exists
+      because F22 carried a hand-written banner naming NO ledger entry -- one of
+      the four orphan tombstones the 2026-08-04 triage found in findings/, the
+      one directory test_no_orphan_banners did not walk. `superseded:` is
+      deliberately EMPTY: F22's claim 2 is correct and load-bearing, so a
+      wholesale marking would be false.
+    reason: >
+      (1) "The SR Lorentz boost acts exactly on the QCA 4-momentum (omega,k)" is
+      FALSE, and fails at LEADING order: boosting linearly gives a deviation
+      first order in v with coefficient 1/rho - 1, measured -0.0930513 against
+      the predicted -0.0931003 at m=0.5. At a finite boost that is a 7.1% error
+      in omega at m=0.7, k=1.0, v=0.3. The finding contradicts itself -- its own
+      Step 4 reports d_qca = v(1 - 1/rho) = 3.35e-6 != 0 and calls it "the
+      fundamental LV mismatch".
+      (3) The "deformed velocity-addition formula" is UNDEFORMED. In the
+      nonlinear variables E = sin(omega), P = n sin(ka)/a one has
+      E^2 - c_lat^2 P^2 = m^2 identically and u_g = c_lat^2 P/E exactly, so the
+      group velocity composes by ORDINARY Einstein addition -- verified to
+      5.6e-17. F22's own formula misses the lattice's actual boost response by
+      10^2-10^3x: the true leading deviation is first order in v, not the
+      third-order 8 beta_LV u v (u+v) F22 headlines.
+      Separately, the finding's own CHECK of claim 2 was a definitional
+      tautology -- it set beta_LV = (1 - rho)/2 and then verified
+      rho - (1 - 2 beta_LV), which is identically zero for any expression; the
+      referee obtained residual 0 from a deliberately wrong rho, and then from
+      rho = 42. That check is fixed, gated by F22-rho-identity-and-offshell with
+      a negative control asserted to go red.
+    retained: >
+      Claim 2 -- rho(m) = tan(theta)/theta = 1 - 2 beta_LV -- is CORRECT,
+      confirmed by an independent route at sympy zero, and is a restatement of
+      F15's closed form. It is now checked AGAINST F15's module rather than
+      against itself. The measured O(vk) coefficient by which claim 1 fails is
+      itself a live result: the false claim now has a number attached instead of
+      being asserted away.
+    findings:
+      - path: findings/F22-velocity-addition-deformed-formula.md
+        status: partially_superseded
+        dead: "Claim 1, that the linear SR boost of (omega,k) preserves the
+                arccos mass shell -- false at leading order in v. And claim 3,
+                the 'deformed velocity-addition formula' -- the composition is
+                ordinary Einstein addition in the nonlinear variables, and the
+                headline third-order form misses the real first-order deviation
+                by 10^2-10^3x."
+        live: "Claim 2, rho(m) = tan(theta)/theta = 1 - 2 beta_LV, confirmed
+                independently at sympy zero; the corrected statement that on the
+                2D-square k_y = 0 axis the boost does NOT preserve the shell,
+                with the O(vk) coefficient measured; and the prior art now cited
+                (arXiv:1310.6760, arXiv:1503.01017)."
+        note: "Retracting claims 1 and 3 from the PUBLIC headline, and rewriting
+                exactness-inventory rows 45/46/47, were escalated by the
+                remediation and are tracked as claim-layer work (D12), not as
+                edits to this finding. The finding is a record of what a session
+                concluded and is not rewritten."
+    tests:
+      - path: tests/findings/test_F22_rho_identity.py
+        status: live
+        note: "This test IS the retraction authority: it checks rho against
+               F15's own closed form with a negative control asserted to go red,
+               and separately measures the nonzero O(vk) coefficient by which
+               claim 1 fails -- i.e. it ASSERTS THE FAILURE. Do not mark."

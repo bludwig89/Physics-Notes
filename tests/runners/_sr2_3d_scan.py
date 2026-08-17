@@ -1,8 +1,14 @@
 """On-grid k scan for the 3D BCC SR-2 test — characterises residuals
    across (L, k_mode, m).  Static run cached per m to halve runtime."""
 import sys, os, math, time
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 import numpy as np
+# The scan drives a sibling *test* module by bare name, so tests/findings/ has
+# to be on the path too (before C9 the legacy preamble happened to supply it).
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "findings"))
 import test_SR2_3D_time_dilation as t
 
 configs = [

@@ -1,0 +1,131 @@
+{
+  "checks": [
+    {
+      "name": "A1 the Clifford rank of a cell is 2k+1 (s = 2,4,8 -> 3,5,7), verified constructively AND for maximality",
+      "ok": true,
+      "value": {
+        "2": 3,
+        "4": 5,
+        "8": 7
+      }
+    },
+    {
+      "name": "A2 ... so on the NAIVE reading the model's s = 36 quark cell would permit d <= 11 and F291 S1 would be gone",
+      "ok": true,
+      "value": 11
+    },
+    {
+      "name": "B1 one Weyl branch: the hop's traceless span is 3 and its anticommuting rank is 3 (F291 S1 reproduced)",
+      "ok": true,
+      "value": [
+        3,
+        3
+      ]
+    },
+    {
+      "name": "B2 the model's BRANCH-DOUBLED cell widens the span to 6 but the anticommuting rank is STILL 3 -- tau_3 x sigma_i commutes with 1 x sigma_i",
+      "ok": true,
+      "value": [
+        6,
+        3,
+        5
+      ]
+    },
+    {
+      "name": "B3 an internal factor (x)1_3 changes NOTHING: span 6, anticommuting rank 3, on a cell of dimension 12",
+      "ok": true,
+      "value": [
+        12,
+        6,
+        3,
+        8
+      ]
+    },
+    {
+      "name": "B4 CONVERSE: a walk that genuinely USES 5 anticommuting generators on C^4 has ker J = coker J = 0 at d = 5, so the selector returns 5 -- enlargements are not all alike",
+      "ok": true,
+      "value": [
+        [
+          5
+        ],
+        2.230597446073965e-16
+      ]
+    },
+    {
+      "name": "C1 the commutant over generic momenta FACTORISES: 2 at N=1 becomes 18 at N=3 -- exactly a factor N^2 = 9",
+      "ok": true,
+      "value": [
+        2,
+        18
+      ]
+    },
+    {
+      "name": "C2 ... and every added element is NON-DISPERSIVE (0.0) while the update disperses -- a symmetry, not a clock, so F313's d_time = 1 survives the internal factor",
+      "ok": true,
+      "value": [
+        0.28462956513930493,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "D1 the 3-constituent totally antisymmetric state on one nodeless level EXISTS at N = 3",
+      "ok": true,
+      "value": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "D2 ... and N = 1 is EXCLUDED for 3 constituents: spin alone caps the occupancy of a nodeless level at TWO",
+      "ok": true,
+      "value": [
+        [
+          2,
+          3
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            20
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "D3 the honest negative: every space/time verdict is IDENTICAL at N=1 and N=3 while the commutant is not -- the CELL does not force the index, it only shapes it",
+      "ok": true,
+      "value": [
+        3,
+        3,
+        2,
+        18
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 11,
+  "n_total": 11,
+  "params": {
+    "n_int": 3,
+    "n_constituents": 3,
+    "internal_dispersive": false,
+    "max_clifford_k": 3
+  },
+  "summary": {
+    "PERMIT": "free.  The internal factor costs ZERO spatial directions (the hop's anticommuting rank stays 3) and ZERO time directions (every added commutant element is non-dispersive).",
+    "SHAPE": "forced.  An enlargement that adds an anticommuting generator to the hop moves the F291 selector from 3 to 2k+1; neither of the model's two enlargements (branch doubling, internal tensoring) does.",
+    "FORCE": "NOT by the cell.  The cell is indifferent.  The forcing is Fermi statistics: spin alone caps a nodeless level at two identical constituents, so the model's three-constituent bound state is impossible at N = 1.",
+    "F291_conditionality_removed": "F291 \u00a73 flags 'conditional on s = 2 ... a larger cell would relax this to d <= 2k+1'.  Measured here: the model's own s = 36 quark cell does NOT relax it, because the bound that matters is the anticommuting rank of the HOP's span, not the Clifford rank of the cell.",
+    "F313_criterion_added": "F313's d_time = 1 needs one criterion it does not state, once the cell has an internal factor: a commuting unitary is a clock only if it DISPERSES.  F313 \u00a79's second flow was dispersive (hence F315); the colour elements are not, at literal 0.0.",
+    "residual_input": "moved, not closed: from 'an internal index exists' to 'the matter sector contains a THREE-constituent bound state'.  The number three is still not derived here."
+  }
+}

@@ -41,10 +41,11 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bgfield_loop as bg  # noqa: E402
+from casim.engine.gauge import bgfield_loop as bg  # noqa: E402
 
 # ---- constants (all exact / from F151/F144) ----
 C_A = 3.0
@@ -52,7 +53,7 @@ A1_NF6 = (31.0 * C_A - 20.0 * 0.5 * 6.0) / 9.0          # = 11/3 (nf=6), exact
 B0_ALPHA = 11.0 / (2.0 * math.pi ** 2) * math.pi        # rebuilt below to match F151
 # F151/ca_gluon_self_energy uses B0_ALPHA = 0.5570423...; rebuild from b0=11:
 #   beta(1/alpha) = 2 b0_a,  b0_a = b0/(4pi) * (4pi/2pi?) -> take the module value.
-import ca_gluon_self_energy as se  # noqa: E402
+from casim.engine.gauge import gluon_self_energy as se  # noqa: E402
 B0_ALPHA = se.B0_ALPHA                                   # 0.55704... (the F151 value)
 
 DELTA_TOTAL = 0.640          # F144-A4 / F151: Delta(1/alpha) implied by the data

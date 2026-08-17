@@ -10,6 +10,7 @@
 #
 # Sandbox smoke:   casim run scenarios/bcc_fields_companion.yaml
 # Production:      casim run scenarios/bcc_fields_companion.yaml --L 48 --ticks 400
+version: 2
 name: bcc_fields_companion
 title: "BCC Fields Companion"
 description: "Companion to photon_beam_all_fields: the BCC-only channels (Weyl walk + colour-octet gluon) over the same F64 gravity background — norm conservation, exact unitarity, and dispersion for every field that cannot share the photon's cubic lattice."

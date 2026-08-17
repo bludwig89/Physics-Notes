@@ -14,7 +14,7 @@ Tier-2 sectors:
   * ``beta_decay`` — F54 d→u+W⁻: the quark charged current emits a W⁻ (the
     vertex), which then propagates as a massive Proca field.
 
-Each wraps audited ``ca-simulation`` kernels; the small helpers below
+Each wraps audited engine kernels; the small helpers below
 (``su2_expmap``, ``gaussian_packet``, ``field_energy``) are the pure-math
 utilities the E2E test defined locally, replicated here verbatim so the engine
 reproduces it bit-for-bit.
@@ -32,9 +32,11 @@ _SQRT2 = float(np.sqrt(2.0))
 # ----------------------------------------------------------------------
 # Pure-math helpers (verbatim from test_E2E_nonabelian_bilinear.py).
 # ----------------------------------------------------------------------
-def field_energy(E, B) -> float:
-    """U = ½ Σ (E² + B²)."""
-    return 0.5 * float(np.sum(E ** 2) + np.sum(B ** 2))
+#: The engine's one gauge-field energy convention (P3.5).  This module used to
+#: define it and the four ``channels.py`` gauge channels used the other one; the
+#: definition now lives in ``channel.py`` so there is exactly one, and this name
+#: is kept because it is the one the E2E bilinear tests import.
+from .channel import field_energy  # noqa: F401  (re-export, P3.5)
 
 
 def su2_expmap(A):

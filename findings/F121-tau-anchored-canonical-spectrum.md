@@ -4,7 +4,7 @@
 **Status:** Confirmed — 5/5 checks PASS (`test_F121_tau_anchored_canonical_spectrum.py`, <1 s). Pure math (no scipy, per CLAUDE.md). Adopts the τ as the standard mass-scale anchor in place of the electron, per the F120 robustness lesson.
 **Script:** `tests/findings/test_F121_tau_anchored_canonical_spectrum.py`
 **Results:** `test-results/F121_tau_anchored_canonical_spectrum.json`
-**Cross-references:** [[F120-electron-calibrated-spectrum]] (the electron-anchor instability this fixes), [[F119-kg-scale-three-routes]] (the single open scale $N$ and the angle $\lambda_6$), [[F101-one-heavy-branch-fit-W]] (the wall-pinning $y_\tau=1$), [[F78-koide-amplitude-from-cooper-pair]] (Koide, $m=y^2$).
+**Cross-references:** [[F120-electron-calibrated-spectrum]] (the electron-anchor instability this fixes), [[F119-kg-scale-three-routes]] (the single open scale $N$ and the angle $\lambda_6$), [[F101b-one-heavy-branch-fit-W]] (the wall-pinning $y_\tau=1$), [[F78-koide-amplitude-from-cooper-pair]] (Koide, $m=y^2$).
 
 ---
 

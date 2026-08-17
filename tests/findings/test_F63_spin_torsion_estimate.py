@@ -3,14 +3,20 @@ Exact-rational EC coefficient + real-arithmetic energy-density bookkeeping
 evaluated at F62's actual packet densities (numpy safe; no chiral bilinear)."""
 import json, os, sys, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
-FORK = os.path.abspath(os.path.join(HERE, "..", "..", "ca-simulation", "forks",
-                                    "gr_fork_F63_spin_torsion_estimate.py"))
+FORK = os.path.abspath(os.path.join(HERE, "..", "..", "src", "casim", "engine", "forks", "gravity", "gr_fork_F63_spin_torsion_estimate.py"))
 RESULTS = os.path.abspath(os.path.join(HERE, "..", "..", "test-results",
                                        "F63_spin_torsion_estimate.json"))
 
 
 def main():
-    subprocess.run([sys.executable, FORK], check=True, cwd=os.path.dirname(FORK))
+    # C9: the fork now imports `casim.constants` / `casim.numerics`, so the
+    # child needs `src` on PYTHONPATH. Before C9 it resolved bare `ca_*` names
+    # out of its own cwd and inherited nothing, which is why this worked.
+    _env = dict(os.environ)
+    _src = os.path.abspath(os.path.join(HERE, "..", "..", "src"))
+    _env["PYTHONPATH"] = os.pathsep.join([_src, _env.get("PYTHONPATH", "")])
+    subprocess.run([sys.executable, FORK], check=True,
+                   cwd=os.path.dirname(FORK), env=_env)
     with open(os.path.join(os.path.dirname(FORK), "f63_results.json")) as f:
         r = json.load(f)
     os.makedirs(os.path.dirname(RESULTS), exist_ok=True)

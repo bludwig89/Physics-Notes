@@ -1,0 +1,202 @@
+{
+  "checks": [
+    {
+      "name": "S0 su(N) basis normalised Tr(T^a T^b) = delta/2",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S1a SU(2): ALL 27 symmetric anomaly coefficients are EXACTLY zero => a chiral doublet is allowed",
+      "ok": true,
+      "value": "0"
+    },
+    {
+      "name": "S1b SU(3): A^{888} = -1/sqrt(3) exactly, nonzero => a chiral triplet is NOT allowed",
+      "ok": true,
+      "value": "-sqrt(3)/3"
+    },
+    {
+      "name": "S1c among {vector-like, chiral, conjugate} ONLY the vector-like colour assignment is anomaly-free",
+      "ok": true,
+      "value": [
+        [
+          "vector-like  (L=3, R=3)",
+          0.0
+        ],
+        [
+          "chiral       (L=3, R=1)",
+          0.5773502691896257
+        ],
+        [
+          "conjugate    (L=3, R=3bar)",
+          1.1547005383792515
+        ]
+      ]
+    },
+    {
+      "name": "S2a vector-like => the branch-space coupling is a SCALAR (traceless part exactly 0) => F68/F91 even law FORCED",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "S2b ... and the contrast is real: a chiral colour would split the branches by |dOmega|/2 on the body diagonal",
+      "ok": true,
+      "value": [
+        0.005137063013058024,
+        1.3877787807814457e-17
+      ]
+    },
+    {
+      "name": "S3a a CA rule is ONE operator per cell, so a SITE-DEPENDENT V(x) commutes with the on-site step exactly (F27's U(x) is pure gauge for this reason)",
+      "ok": true,
+      "value": 7.045680990233156e-16
+    },
+    {
+      "name": "S3b the HOP compares two cells, so covariance fails at O(1) with no compensator",
+      "ok": true,
+      "value": 1.342692173038802
+    },
+    {
+      "name": "S3c U_mu -> V(x) U_mu V^dag(x+mu) restores it exactly => the gluon field is FORCED by locality",
+      "ok": true,
+      "value": 6.036226561424122e-16
+    },
+    {
+      "name": "S3d the same three legs on the TREE's own SU(3) operators (strong.py), not a toy",
+      "ok": true,
+      "value": [
+        1.3914762270953398,
+        4.3434640991404715e-16
+      ]
+    },
+    {
+      "name": "S4a the model's own steps generate the FULL M_4 on the Dirac factor (otherwise the commutant would be big for a trivial reason), and the re-typed walk IS unitary",
+      "ok": true,
+      "value": [
+        16,
+        2.230686218448467e-16
+      ]
+    },
+    {
+      "name": "S4b the commutant of the rule is M_3 (dim 9) => the invariance group is exactly U(3)",
+      "ok": true,
+      "value": [
+        9,
+        9
+      ]
+    },
+    {
+      "name": "S4c corollary and PREDICTION: the spectrum is exactly 3-fold degenerate",
+      "ok": true,
+      "value": [
+        [
+          3,
+          3,
+          3,
+          3
+        ],
+        8.95090418262362e-16
+      ]
+    },
+    {
+      "name": "S5a [SU(2)_L]^2 U(1)_Y is IDENTICALLY zero in N_c on the model's own nullspace",
+      "ok": true,
+      "value": "0"
+    },
+    {
+      "name": "S5b [SU(2)_L]^2 U(1)_trace = N_c b / 2 != 0 => the U(1) factor of U(N_c) CANNOT be gauged => colour is SU(N_c)",
+      "ok": true,
+      "value": "N_c*b/2"
+    },
+    {
+      "name": "S5c only ONE abelian direction exists (nullspace dim 1, F279/F293) and it is already spent on Y",
+      "ok": true,
+      "value": 1
+    },
+    {
+      "name": "S5d on the model's OWN content the cubic SU(N)^3 anomaly cancels 2 - 2, and A(fund) itself is NONZERO so this is a statement about the content",
+      "ok": true,
+      "value": [
+        0.0,
+        0.5773502691896257
+      ]
+    },
+    {
+      "name": "S5e the mixed SU(N)^2 U(1)_Y anomaly 2y_Q - (y_u + y_d) vanishes IDENTICALLY in N_c on the model's own nullspace (y_u = N_c+1, y_d = 1-N_c)",
+      "ok": true,
+      "value": [
+        "0",
+        "N_c + 1",
+        "1 - N_c"
+      ]
+    },
+    {
+      "name": "S6a Lambda^3(C^N) carries an SU(N) singlet at EXACTLY one N, and it is 3 (scan N = 2..6)",
+      "ok": true,
+      "value": [
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          1
+        ],
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          5,
+          10,
+          0
+        ],
+        [
+          6,
+          20,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "S6b ... so a three-constituent totally antisymmetric singlet exists at N = 3",
+      "ok": true,
+      "value": 1
+    },
+    {
+      "name": "S7 dim su(3) = 8 gluons and the algebra closes on f^abc",
+      "ok": true,
+      "value": [
+        8,
+        5.551115123125783e-17
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 21,
+  "n_total": 21,
+  "params": {
+    "n_colour": 3,
+    "use_compensator": true,
+    "chiral_colour": false,
+    "rule_reads_colour": false,
+    "drop_d_R": false
+  },
+  "summary": {
+    "B1_colour_derived": [
+      "unitary: the rule is R (x) 1_N, commutant = M_N, group = U(N)",
+      "special: [SU(2)_L]^2 U(1)_trace != 0 removes the U(1) factor",
+      "local: a CA rule has no global operations, so V(x) is free on-site and the hop needs a compensator = the gluon",
+      "vector-like: a chiral triplet has A^{888} = -1/sqrt(3) != 0, while a chiral doublet is anomaly-free -- so the model's chiral weak / vector strong split is forced, not chosen",
+      "even propagation law: F91's one unforced assignment closes",
+      "eight gluons: dim su(3) = 8"
+    ],
+    "B1_colour_still_input": [
+      "THAT the quark carries an internal index at all"
+    ],
+    "B10_touched_only_here": "S6 gives N = 3 exactly from Lambda^3 having a singlet at exactly one N, GIVEN three-constituent baryons (empirical) and DERIVED Fermi statistics (F289).  It is not one of B10's three closed routes and does not re-open them.  It is independent of, and agrees with, F298's structural N_c <= 3."
+  }
+}

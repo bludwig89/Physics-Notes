@@ -50,7 +50,7 @@ from __future__ import annotations
 import numpy as np
 
 try:
-    import ca_dirac as _ca_dirac
+    from casim.engine.particles import dirac as _ca_dirac
 except Exception:  # pragma: no cover — allow import without the kernel on path
     _ca_dirac = None
 
@@ -319,7 +319,7 @@ def hopping_amplitude(m, L=16):
     a single-site source, one tick, |amplitude on a nearest neighbour|.
     Encodes the kinetic coefficient n=√(1−m²) of the massive Dirac walk."""
     if _ca_dirac is None:
-        raise RuntimeError("ca_dirac not importable; put ca-simulation on sys.path")
+        raise RuntimeError("casim.engine.particles.dirac not importable")
     z = lambda: np.zeros((L, L), dtype=complex)
     eu, ed, cu, cd = z(), z(), z(), z()
     c = L // 2

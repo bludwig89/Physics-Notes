@@ -53,13 +53,15 @@ Run:
 import os, sys, math
 import numpy as np
 
-# Allow standalone run from ca-simulation/
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+# Allow standalone run from the repo root.
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc as bcc
-import ca_dirac_bcc as cdb
-import ca_fft as _fft_mod          # multi-core backend (used in read_at)
-from ca_propagator import (BccDiracPropagator,
+from casim.engine.lattice import bcc as bcc
+from casim.engine.particles import dirac_bcc as cdb
+from casim.numerics import fft as _fft_mod          # multi-core backend (used in read_at)
+from casim.engine.gauge.propagator import (BccDiracPropagator,
                             phase_rate_lsq,
                             phase_rate_zeropad,
                             compare_phase_methods)

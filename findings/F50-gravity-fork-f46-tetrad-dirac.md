@@ -1,5 +1,14 @@
 # F50 — Gravity fork from F46: which leg of the spherical triangle carries gravitational redshift
 
+> **[PARTIALLY SUPERSEDED 2026-05-31 by F64 — ledger S3-F64-dielectric-gravity]**
+>
+> **DEAD:** The choice of WHICH LEG of the F46 spherical triangle carries gravitational redshift, and the rest-mass sourcing that framed the question. F64's EM-connection dielectric answers it a different way, and F178 then made the full stress-energy tensor the source.
+>
+> **STILL LIVE:** G2 and G3 remain the standing regressions for the gravity sector and are referenced from 42 places in src/ and tests/. The geometric setup is live.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-05-28 - 23:55 (updated 2026-05-29 - 00:30 — kinetic leg promoted to the bounded exact-QCA form)
 **Status:** Confirmed — 8/8 tests PASS (G1 slope-4 lattice correction; G2–G4, G6 algebraic/machine-ε; G5 exactly norm-conserving prototype stepper; G7 boundedness + slope; G8 bit-for-bit QCA stepper phase match)
 **Module:** `ca-simulation/forks/gr_fork_F46_dirac.py` (new); reuses `gr_fork_E_tensor.py` (metric), `ca_dirac.py` (`_mix_eta_chi`), `ca_curved.py` (`CayleyVarcSolver2D`)

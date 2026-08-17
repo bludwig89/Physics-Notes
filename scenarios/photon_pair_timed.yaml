@@ -1,0 +1,25 @@
+# Paired-spinor photon with a P4 timed event and a pass/fail expectation.
+# Demonstrates the two P4 blocks the engine acts on today:
+#   * events:  a block-spin (R_b, F133) fired at a specific tick — the timed
+#              action the engine has native machinery for;
+#   * expect:  a declared success criterion (norm conservation is the even-law
+#              photon's exact invariant), in the D9 exactness vocabulary.
+version: 2
+name: photon_pair_timed
+title: "Paired-Spinor Photon (timed block-spin + expectation)"
+description: "Even-law photon that block-spins at tick 20 via the events timeline, with a norm-conservation expectation."
+lattice: {L: 16, dims: 3, topology: cubic, c_lat: 0.5773502691896258}
+seed: 5
+ticks: 40
+channels:
+  - {type: photon_pair, init: random}
+observers:
+  - {type: norm_conservation, every: 5}
+  - {type: dispersion_fit, every: 40}
+events:
+  - {at: 20, do: blockspin, factor: 2}
+expect:
+  exactness: machine
+  gates:
+    - {observer: norm_conservation, metric: max_rel_drift, op: "<", value: 1.0e-10}
+output: {json: test-results/casim_photon_pair_timed.json}

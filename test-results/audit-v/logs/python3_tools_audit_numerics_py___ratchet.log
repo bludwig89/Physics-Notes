@@ -1,0 +1,9 @@
+
+numerics (D8)   246 physics modules scanned
+  direct np.fft transform calls       0   (was 0)   <- C1.3's metric; must be 0
+  device-namespace fft calls          8   (was 8)   <- P2.7; in 1 file(s), each must sit behind require_float64
+  files importing numpy/scipy/ca_fft     165   (was 165)
+    numpy      165   (was 165)
+    scipy        7   (was 7)
+
+ratchet OK — D8 has not regressed

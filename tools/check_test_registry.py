@@ -9,7 +9,9 @@ Three assertions, cheap enough for `make gate`:
   * **validity** — closed vocabularies, and no record claiming a real kind while
     having no way to fail.
   * **honesty** — the number still labelled `legacy_script` is printed on every
-    run, so the debt is visible rather than inferred.
+    run, so the debt is visible rather than inferred, and so is the count of
+    baselines the supersession ledger declares stale-by-design versus merely
+    flagged as candidates.
 
 Exit 0 when the registry holds, 1 otherwise. The narrative version of these
 checks lives in tests/casim/test_registry_integrity.py, which also asserts
@@ -36,6 +38,11 @@ def main() -> int:
     missing = treg.check_coverage()
     errs = treg.validate_all(treg.all_records())
     c = treg.counts()
+    # Baseline provenance (supersessions.yaml `baselines:`, 2026-07-31). Folded in
+    # here rather than given its own gate line: it is the same question — does a
+    # record's declared failure mode mean what it says?
+    from casim.tests import ledger
+    errs += [f"baselines: {e}" for e in ledger.validate()]
 
     if missing:
         print(f"[test-registry] {len(missing)} test file(s) with NO record:")
@@ -61,6 +68,8 @@ def main() -> int:
           f"legacy_script={c['legacy_script']}")
     print(f"    tiers: gate={c['gate']}  archive={c['archive']}   "
           f"declared debt (no failure mode): {c['no_failure_mode']}")
+    print(f"    baselines: {c['stale_baselines']} stale_by_design (drift reports "
+          f"STALE), {c['candidate_baselines']} candidate (drift still FAILS)")
     if args.verbose:
         for r in treg.all_records():
             if r.kind == "legacy_script":

@@ -6,7 +6,7 @@
 **Module:** `ca-simulation/ca_interior_metric.py`
 **Script:** `tests/findings/test_F181_covariant_interior_battery.py` (~32 s; numpy + local RK4 + sympy + reuses the F62 stepper `dirac_gravity_fork`)
 **Results:** `test-results/F181_covariant_interior_battery.json`
-**Cross-references:** [[F178-gravity-full-tensor-adoption]] (the decision this implements), [[F173-pressure-tolman-discriminator]] (the exact single-scalar anisotropy this kernel removes), [[F176-covariant-dielectric-tov-recovery]] (the covariant single-scalar solve this supersedes inside matter), [[F62-dirac-gravity-dynamical-fork]] / [[F64-em-connection-gravity]] (the dynamic battery re-verified here), [[F114-dielectric-black-hole]] (the horizon-free object the exact vacuum solution replaces). Papers: `Paper-07-Gravity.md` (re-issued strong-field section), `Paper-08`/`Paper-12`.
+**Cross-references:** [[F178-gravity-full-tensor-adoption]] (the decision this implements), [[F173-pressure-tolman-discriminator]] (the exact single-scalar anisotropy this kernel removes), [[F176b-covariant-dielectric-tov-recovery]] (the covariant single-scalar solve this supersedes inside matter), [[F62-dirac-gravity-dynamical-fork]] / [[F64-em-connection-gravity]] (the dynamic battery re-verified here), [[F114-dielectric-black-hole]] (the horizon-free object the exact vacuum solution replaces). Papers: `Paper-07-Gravity.md` (re-issued strong-field section), `Paper-08`/`Paper-12`.
 
 ---
 

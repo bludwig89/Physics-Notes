@@ -37,6 +37,25 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: Exactness/fidelity suite for the casim engine (roadmap Phase F).
+- id: checkpoint-ops
+  path: tests/casim/test_checkpoint_ops.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  findings: []
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 245
+    n_test_funcs: 10
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'P2.6 — long-run operations: atomic, compressed, rotating, resumable.'
 - id: chiral-core-caching
   path: tests/casim/test_chiral_core_caching.py
   kind: assertion
@@ -52,6 +71,25 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: Roadmap C1.4 — the chiral-core mode caches must be free.
+- id: claims-registry-is-true
+  path: tests/casim/test_claims_registry.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  findings: []
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 86
+    n_test_funcs: 3
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: D12 — the claims layer holds together.
 - id: constants-consistency
   path: tests/casim/test_constants_consistency.py
   kind: assertion
@@ -61,12 +99,64 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 366
+    lines: 367
     n_test_funcs: 12
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: Roadmap C2.4 — the constants gate, with its polarity flipped.
+- id: control-soundness
+  path: tests/casim/test_control_soundness.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  control:
+  - test: test_a_noop_perturbation_is_reported_as_leak
+    reason: the weak form, used deliberately and as its own demonstration. A checker that scored an inert
+      perturbation as sound would make every CONTROL verdict in the journal worthless, so the machinery's
+      own negative control is the one test whose failure invalidates the layer. Weak because this record
+      delegates to pytest and has no entry to inject into (C7.4).
+  notes: 'Gap #3 of docs/status/completeness-2026-08-07.md, rubric row H2: check soundness as a gate.
+    Covers the `control:` schema in casim.tests.registry (shape validation, strength vocabulary, the gate-tier
+    assertion scope, Fraction-preserving param coercion) and its execution in casim.tests.runner (run_control,
+    leg_map over the three payload shapes in use, record_fingerprint). THE LOAD-BEARING TEST IS test_a_noop_perturbation_is_reported_as_leak:
+    _synthetic_check accepts a switch that changes nothing, and the checker must report LEAK rather than
+    CONTROL. LEAK / SPILL / INVALID are asserted apart on purpose -- collapsing any pair would let the
+    easy failure absorb the hard one, which is the A10 over-grade this report corrected by hand. No physics;
+    this is the instrument.'
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 414
+    n_test_funcs: 29
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: The negative-control machinery, and a negative control for it (D9, row H2).
+  findings:
+  - F22
+  - F298
+  - F303
+- id: device-precision-gate
+  path: tests/casim/test_device_precision_gate.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  findings: []
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 168
+    n_test_funcs: 8
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: P2.7 — every device path is gated on precision, and the gate is asserted.
 - id: engine-reproduces-kernels
   path: tests/casim/test_engine_reproduces_kernels.py
   kind: assertion
@@ -81,7 +171,7 @@ tests:
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
-    summary: 'Engine fidelity: casim.engine must reproduce the raw ca-simulation kernels'
+    summary: 'Engine fidelity: casim.engine must reproduce the pre-migration kernels'
 - id: fft-backend-equivalence
   path: tests/casim/test_fft_backend_equivalence.py
   kind: assertion
@@ -156,7 +246,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 133
+    lines: 148
     n_test_funcs: 7
     artifacts_written: []
     artifact_rule: {}
@@ -207,6 +297,43 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: The test registry is complete, valid, and identical to what pytest runs.
+- id: results-compare
+  path: tests/casim/test_results_compare.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  findings:
+  - F275
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 63
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Results compare (P5.4) — finding F275.
+- id: scenario-schema-v2
+  path: tests/casim/test_scenario_schema_v2.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  findings:
+  - F274
+  expect:
+    exactness: exact
+    tol: 0
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 139
+    n_test_funcs: 12
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Scenario schema v2 — roadmap P4, finding F274.
 - id: supersession-ledger
   path: tests/casim/test_supersession_ledger.py
   kind: assertion
@@ -221,9 +348,26 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 240
-    n_test_funcs: 7
+    lines: 406
+    n_test_funcs: 10
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: Roadmap P0.3/P0.4 — the supersession ledger gate.
+- id: viz-api
+  path: tests/casim/test_viz_api.py
+  kind: assertion
+  tier: gate
+  sector: suite
+  findings:
+  - F275
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 60
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: casim.viz static-figure API — roadmap P5.1, finding F275.

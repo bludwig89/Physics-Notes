@@ -7,7 +7,7 @@ hypercharge_fork.py — Higgs-free hypercharge fork + Majorana branch
 
 Status
 ------
-F41 was promoted to `ca-simulation/ca_hypercharge.py` after 7/7
+F41 was promoted to `ca_hypercharge.py` (now `casim.engine.gauge.hypercharge`) after 7/7
 verification.  F42 extended that production file in-place.  This fork
 file is the **experimental staging area** for the next layer.  It
 re-exports the production primitives from `ca_hypercharge` so callers
@@ -106,7 +106,7 @@ import numpy as np
 
 # Re-export the production primitives so the fork file is a drop-in
 # superset of the promoted `ca_hypercharge` module.
-from ca_hypercharge import (        # noqa: F401
+from casim.engine.gauge.hypercharge import (        # noqa: F401
     Y_LEPTON_L, Y_E_R, Y_NU_R, DELTA_Y_E, DELTA_Y_NU,
     Y_QUARK_L, Y_U_R, Y_D_R, DELTA_Y_U, DELTA_Y_D,
     make_u1y_field,

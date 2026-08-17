@@ -4,7 +4,7 @@ run_lgt_confinement.py — production 3+1D SU(3) string-tension measurement (P1 
 
 The heavy, user-run counterpart of `test_FA_lgt_mc.py`.  Thermalises a 4D SU(3)
 Wilson ensemble with the heat-bath/over-relaxation engine in
-`ca-simulation/forks/lgt_fork_A_mc.py`, measures the static quark potential
+`src/casim/engine/forks/gauge/lgt_fork_A_mc.py`, measures the static quark potential
 V(R) with the Lüscher–Weisz **two-level** estimator (beating the exponential
 signal-to-noise wall that defeated the plain Metropolis in
 `run_confinement_mc.py`), fits  V(R) = mu + sigma R - e/R, and reports the
@@ -31,9 +31,13 @@ import time
 import argparse
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation', 'forks'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import lgt_fork_A_mc as A          # noqa: E402
 
 

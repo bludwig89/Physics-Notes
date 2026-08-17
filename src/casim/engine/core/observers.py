@@ -130,6 +130,110 @@ class EnergyTrace(Observer):
 
 
 @register_observer
+class TotalEnergy(Observer):
+    """Global energy of the whole run — roadmap **P3.5**, blocker **B4**.
+
+    *Added 2026-07-31 - 22:55.*
+
+    The roadmap calls this "the single most important deliverable" and the
+    reason is one sentence: **without it a unified run produces pictures nobody
+    can falsify.**  Every other observer measures one channel; a coupled run's
+    only global claim is that energy moves *between* channels without being
+    created, and nothing in the engine could state that, let alone check it.
+
+    What is summed, and what deliberately is not
+    --------------------------------------------
+    Each channel is asked for
+    :meth:`~casim.engine.core.channel.Channel.energy_density` — a genuine energy
+    per cell in one convention (:math:`\\tfrac12(E^2+B^2)` for gauge, the
+    F106-E5 rest leg :math:`m|\\Psi|^2` for matter).  That is **not** the same
+    question as :meth:`~casim.engine.core.channel.Channel.energy`, which is a
+    conserved *drift probe* and for spinor channels returns a dimensionless
+    probability norm.  Summing norms and energies was the deeper half of B4 and
+    unifying the ½ alone would not have fixed it.
+
+    A channel that cannot express an energy density — a massless matter packet
+    with no declared mass, a Monte-Carlo sweep — returns ``None`` and is listed
+    under ``missing``.  It is **not** counted as zero.  An absent leg and a
+    vanishing leg are different claims and only one of them is checkable; a
+    total silently missing a term is worse than no total, because it looks
+    conserved.  ``covered`` therefore reports the fraction of channels actually
+    in the sum, and ``strict: true`` turns any missing leg into a hard failure
+    for scenarios that claim full coverage.
+
+    Summary fields
+    --------------
+    ``max_rel_drift``
+        max |E(t) − E(0)| / |E(0)| over the run — the number the P3 acceptance
+        gate reads ("conserving total energy to the machine-precision class over
+        ≥ 10³ ticks").
+    ``exactness_class``
+        ``machine`` (< 1e-12), ``tight`` (< 1e-9), ``quantitative`` otherwise.
+        Named rather than left to the reader, so a regression is visible as a
+        class change and not only as a digit.
+    ``covered`` / ``missing``
+        How much of the run the total actually accounts for.
+    """
+    name = "total_energy"
+    label = "Total Energy"
+    exactness = "machine-precision"
+
+    def observe(self, sim) -> None:
+        only = self.config.get("channels")
+        total = 0.0
+        per: Dict[str, float] = {}
+        missing: List[str] = []
+        for cname, ch in sim.channels.items():
+            if only and cname not in only:
+                continue
+            try:
+                u = ch.energy_density(sim.states[cname])
+            except Exception:
+                u = None
+            if u is None:
+                missing.append(cname)
+                continue
+            e = float(np.sum(np.asarray(u).real))
+            per[cname] = e
+            total += e
+        rec = {
+            "tick": sim.tick,
+            "time": float(getattr(sim, "clock", None).time)
+                    if getattr(sim, "clock", None) is not None else float(sim.tick),
+            "total": total,
+            "channels": per,
+            "missing": missing,
+        }
+        self.records.append(rec)
+
+    def summary(self) -> Dict[str, Any]:
+        if not self.records:
+            return {}
+        e0 = self.records[0]["total"]
+        drift = max(abs(r["total"] - e0) / abs(e0) for r in self.records) \
+            if e0 else 0.0
+        cls = ("machine" if drift < 1e-12
+               else "tight" if drift < 1e-9
+               else "quantitative")
+        last = self.records[-1]
+        n_cov = len(last["channels"])
+        n_all = n_cov + len(last["missing"])
+        out = {
+            "E0": e0,
+            "E_final": last["total"],
+            "max_rel_drift": drift,
+            "exactness_class": cls,
+            "covered": f"{n_cov}/{n_all}",
+            "missing": last["missing"],
+        }
+        if self.config.get("strict") and last["missing"]:
+            out["strict_violation"] = (
+                f"strict total energy asked for, but {len(last['missing'])} "
+                f"channel(s) contribute no energy density: {last['missing']}")
+        return out
+
+
+@register_observer
 class UnitarityResidual(Observer):
     """Max ||U†U − I|| over modes for channels that expose it (exact → 0)."""
     name = "unitarity_residual"

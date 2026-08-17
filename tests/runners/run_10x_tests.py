@@ -24,12 +24,14 @@ Results appended to test-results/ JSON files where applicable.
 import time, json, math, os, sys
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'test-results')
 t_script_start = time.time()
 
-import ca_fft
-from ca_propagator import (BccDiracPropagator, phase_rate_lsq,
+from casim.numerics import fft as ca_fft
+from casim.engine.gauge.propagator import (BccDiracPropagator, phase_rate_lsq,
                             phase_rate_zeropad, compare_phase_methods)
 import test_SR2_3D_time_dilation as sr2
 

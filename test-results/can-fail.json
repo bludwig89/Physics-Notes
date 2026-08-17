@@ -1,0 +1,307 @@
+{
+  "generated": "2026-08-17 - 20:45",
+  "method": "execution trace (sys.settrace): a record can fail when an assert/raise line is actually reached",
+  "n": 18,
+  "items": [
+    {
+      "id": "F322-b9-running-rederived",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 0,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/interactions/running_alpha_lattice_bound.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 16.62,
+      "fingerprint": "773acdca669b2bbd"
+    },
+    {
+      "id": "gauge-bcc-mc-d4",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "src/casim/engine/gauge/bcc_action.py:1037",
+      "guard_lines_total": 10,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_bcc_gauge_mc_d4.py",
+        "src/casim/engine/gauge/bcc_action.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.09,
+      "fingerprint": "6deede8f42d1f9e5"
+    },
+    {
+      "id": "F321-strong-cp",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "src/casim/engine/gauge/colour_theta.py:244",
+      "guard_lines_total": 2,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_F321_strong_cp.py",
+        "src/casim/engine/gauge/colour_theta.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 3.52,
+      "fingerprint": "ee68c38aed35c658"
+    },
+    {
+      "id": "F316-laurent-pell",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "tests/findings/test_F316_laurent_pell.py:148",
+      "guard_lines_total": 24,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_F316_laurent_pell.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 16.18,
+      "fingerprint": "544cfc7f5842694e"
+    },
+    {
+      "id": "F313-time-signature",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "tests/findings/test_F313_time_signature.py:513",
+      "guard_lines_total": 33,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_F313_time_signature.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 34.55,
+      "fingerprint": "ec5f2ce6db706539"
+    },
+    {
+      "id": "F315-V-interaction",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "tests/findings/test_F315_V_interaction.py:314",
+      "guard_lines_total": 25,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_F315_V_interaction.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 12.05,
+      "fingerprint": "f928e7d0fe8a8686"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "f64c8d9582547d50",
+      "guard_line_hit": null,
+      "guard_lines_total": 5,
+      "guards_executed": 0,
+      "id": "F309-gstar-model-content",
+      "route": "verdict_key",
+      "seconds": 22.03,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F309_gstar.py",
+        "src/casim/engine/interactions/thermodynamics_gstar.py"
+      ],
+      "verdict": "CAN_FAIL"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "605e51fd380900b3",
+      "guard_line_hit": "tests/findings/test_F282_primordial_sector_nogo.py:51",
+      "guard_lines_total": 41,
+      "guards_executed": 1,
+      "id": "F282-inflaton-candidate-slowroll",
+      "route": "guard",
+      "seconds": 5.3,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F282_primordial_sector_nogo.py"
+      ],
+      "verdict": "CAN_FAIL"
+    },
+    {
+      "can_fail": false,
+      "detail": "",
+      "fingerprint": "07dab942da0346b3",
+      "guard_line_hit": null,
+      "guard_lines_total": 41,
+      "guards_executed": 0,
+      "id": "F283-elastic-lattice-excluded",
+      "route": null,
+      "seconds": 0.98,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F283_F284_lattice_elasticity.py",
+        "src/casim/engine/interactions/cosmology_lattice_elasticity.py"
+      ],
+      "verdict": "CANNOT_FAIL"
+    },
+    {
+      "can_fail": false,
+      "detail": "",
+      "fingerprint": "db3ac6cebfd2f0d5",
+      "guard_line_hit": null,
+      "guard_lines_total": 34,
+      "guards_executed": 0,
+      "id": "F285-initial-condition-measure",
+      "route": null,
+      "seconds": 3.4,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F285_initial_condition_measure.py",
+        "src/casim/engine/interactions/cosmology_initial_conditions.py"
+      ],
+      "verdict": "CANNOT_FAIL"
+    },
+    {
+      "can_fail": false,
+      "detail": "",
+      "fingerprint": "1aad06b97bf96872",
+      "guard_line_hit": null,
+      "guard_lines_total": 32,
+      "guards_executed": 0,
+      "id": "F286-second-scale-classification",
+      "route": null,
+      "seconds": 0.17,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F286_second_scale.py",
+        "src/casim/engine/interactions/cosmology_second_scale.py"
+      ],
+      "verdict": "CANNOT_FAIL"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "0f3a8a21aea7a0a5",
+      "guard_line_hit": "tests/findings/test_F291_dimension_selectors.py:98",
+      "guard_lines_total": 40,
+      "guards_executed": 1,
+      "id": "F291-dimension-selectors",
+      "route": "guard",
+      "seconds": 4.74,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F291_dimension_selectors.py"
+      ],
+      "verdict": "CAN_FAIL"
+    },
+    {
+      "can_fail": false,
+      "detail": "",
+      "fingerprint": "6d00c6d0eaf50273",
+      "guard_line_hit": null,
+      "guard_lines_total": 36,
+      "guards_executed": 0,
+      "id": "F295-tilt-is-an-anomalous-dimension",
+      "route": null,
+      "seconds": 0.22,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F295_anomalous_dimension.py",
+        "src/casim/engine/interactions/cosmology_anomalous_dimension.py"
+      ],
+      "verdict": "CANNOT_FAIL"
+    },
+    {
+      "can_fail": false,
+      "detail": "",
+      "fingerprint": "bce24d2048638086",
+      "guard_line_hit": null,
+      "guard_lines_total": 37,
+      "guards_executed": 0,
+      "id": "F296-holographic-anomalous-dimension",
+      "route": null,
+      "seconds": 0.0,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F296_holographic.py",
+        "src/casim/engine/interactions/cosmology_holographic.py"
+      ],
+      "verdict": "CANNOT_FAIL"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "19c5c36cb0307318",
+      "guard_line_hit": null,
+      "guard_lines_total": 4,
+      "guards_executed": 0,
+      "id": "F300-lattice-thermodynamics",
+      "route": "verdict_key",
+      "seconds": 12.4,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F300_thermodynamics.py",
+        "src/casim/engine/interactions/thermodynamics.py"
+      ],
+      "verdict": "CAN_FAIL"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "14a1bb0ce9abe12f",
+      "guard_line_hit": "src/casim/engine/interactions/cosmology_critical_measure.py:544",
+      "guard_lines_total": 22,
+      "guards_executed": 1,
+      "id": "F310-critical-measure",
+      "route": "guard",
+      "seconds": 29.95,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F310_critical_measure.py",
+        "src/casim/engine/interactions/cosmology_critical_measure.py"
+      ],
+      "verdict": "CAN_FAIL"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "2c55bfdd4cd9c4d1",
+      "guard_line_hit": "src/casim/engine/interactions/derive_gap5_adjudication.py:385",
+      "guard_lines_total": 18,
+      "guards_executed": 1,
+      "id": "F311-gap5-adjudication",
+      "route": "guard",
+      "seconds": 1.09,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F311_gap5_adjudication.py",
+        "src/casim/engine/interactions/derive_gap5_adjudication.py"
+      ],
+      "verdict": "CAN_FAIL"
+    },
+    {
+      "can_fail": true,
+      "detail": "",
+      "fingerprint": "35d2a6479f4598b8",
+      "guard_line_hit": "src/casim/engine/interactions/qi_born_nonabelian.py:527",
+      "guard_lines_total": 20,
+      "guards_executed": 1,
+      "id": "F312-born-nonabelian",
+      "route": "guard",
+      "seconds": 2.75,
+      "status": "PASS",
+      "traced_files": [
+        "tests/findings/test_F312_born_nonabelian.py",
+        "src/casim/engine/interactions/qi_born_nonabelian.py"
+      ],
+      "verdict": "CAN_FAIL"
+    }
+  ]
+}

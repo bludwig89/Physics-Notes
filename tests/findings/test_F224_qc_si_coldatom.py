@@ -32,9 +32,8 @@ import numpy as np
 THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
-sys.path.insert(0, os.path.join(ROOT, 'ca-simulation'))
-import ca_qc_si as S
-import ca_second_quant as SQ
+from casim.engine.interactions import qi_qc_si as S
+from casim.engine.particles import second_quant as SQ
 
 RESULTS = {'finding': 'F224', 'date': '2026-07-01',
            'title': 'SI-anchored super-exchange vs cold-atom data', 'tests': {}}

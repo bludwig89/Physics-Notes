@@ -194,15 +194,26 @@ def symbolic_verification():
     # So ρ ≡ lim_{k→0} u_p/vg = [k/(2ω₀)] / [(n/(2m))k] = m/(n·arcsin m)
 
     rho_derived = m / (n_expr * sp.asin(m))
-    beta_LV_sym = sp.Rational(1, 2) * (1 - rho_derived)
 
+    # CORRECTED 2026-08-04 (F22 review, attack 1). This block used to read
+    #
+    #     beta_LV_sym = sp.Rational(1, 2) * (1 - rho_derived)
+    #     diff_check  = sp.simplify(rho_derived - (1 - 2 * beta_LV_sym))
+    #
+    # which is x - (1 - 2(1-x)/2) == 0 for ANY expression whatsoever. The
+    # referee substituted a deliberately wrong rho = m/asin(m), and then
+    # rho = 42, and both still printed residual 0. It was a definitional
+    # tautology reported as a "sympy bit-zero" verification of the identity
+    # rho = 1 - 2*beta_LV. See check_rho_identity() below for the version that
+    # can fail: it takes beta_LV from the independently gated Finding-15 module
+    # and takes rho from a limit of the dispersion, so the two sides have
+    # genuinely separate origins.
     print(f"\nρ(m) derived from dispersion series:")
     sp.pprint(rho_derived)
-    print(f"\nβ_LV(m) from Finding 15:")
-    sp.pprint(beta_LV_sym)
-    print(f"\nConfirm ρ = 1 − 2β_LV:")
-    diff_check = sp.simplify(rho_derived - (1 - 2 * beta_LV_sym))
-    print(f"  ρ − (1 − 2β_LV) = {diff_check}  {'✓' if diff_check == 0 else '✗'}")
+    print("\nρ = 1 − 2β_LV is checked in check_rho_identity(), against the")
+    print("Finding-15 module's own closed form. It is NOT checked here: the")
+    print("check that used to sit at this line was a tautology (F22 review,")
+    print("attack 1, 2026-08-04).")
 
     # ── (b) Deformed velocity-addition formula ────────────────────────────────
     print("\n─── (b) Deformed velocity-addition formula ───\n")
@@ -478,9 +489,155 @@ def summary_table():
 #  Main
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# ════════════════════════════════════════════════════════════════════
+#  F22 remediation (review 2026-08-04) — the checks that can actually fail
+# ════════════════════════════════════════════════════════════════════
+
+def check_rho_identity(m_probe: float = 0.5, tol: float = 1e-14,
+                       rho_override=None):
+    """ρ = 1 − 2β_LV, with the two sides taken from independent origins.
+
+    The version this replaces could not fail (see the note in
+    :func:`symbolic_verification`). Here:
+
+    * the **left** side is ``lim_{k→0} u_p/u_g`` taken as a sympy limit of the
+      dispersion itself — no algebraic rearrangement of β_LV;
+    * the **right** side is ``1 − 2·beta_LV(m)`` with ``beta_LV`` imported from
+      ``casim.engine.interactions.derive_beta_LV``, the Finding-15 module, which
+      carries its own gate record (`F15-closed-form-lv-coefficients`) asserting
+      that closed form against the Legendre construction that defines it.
+
+    So a wrong dispersion, a wrong limit, or a wrong F15 coefficient each break
+    the identity. ``rho_override`` exists to *prove* that: pass a deliberately
+    wrong expression and the check must go red.
+    """
+    import sympy as sp
+    from casim.engine.interactions.derive_beta_LV import beta_LV as f15_beta_LV
+
+    m = sp.Symbol("m", positive=True)
+    k = sp.Symbol("k", positive=True)
+    n = sp.sqrt(1 - m ** 2)
+    a = 1 / sp.sqrt(2)                       # c_lat in 2D
+
+    omega = sp.acos(n * sp.cos(k * a))
+    u_p = k * a ** 2 / omega
+    u_g = sp.diff(omega, k)
+
+    rho_lim = sp.simplify(sp.limit(u_p / u_g, k, 0))
+    if rho_override is not None:
+        rho_lim = sp.sympify(rho_override)
+
+    beta_sym = sp.Rational(1, 2) * (1 - m / (n * sp.asin(m)))   # F15 closed form
+
+    # The limit comes back as m/(sqrt(1-m^2)*acos(sqrt(1-m^2))) while F15 writes
+    # m/(sqrt(1-m^2)*asin(m)). These are equal on m in (0,1) by the elementary
+    # identity acos(sqrt(1-m^2)) = asin(m), but sympy will not close that gap on
+    # its own (`simplify` leaves asin(sin t) and acos(|cos t|) standing without a
+    # domain assumption). So the lemma is asserted on its own terms — numerically,
+    # at 50 dps, over the open interval — and then applied. Both halves can fail.
+    lemma_max = 0.0
+    try:
+        import mpmath as mp
+        with mp.workdps(50):
+            for j in range(1, 200):
+                mv = mp.mpf(j) / 200
+                lemma_max = max(lemma_max,
+                                abs(mp.acos(mp.sqrt(1 - mv ** 2)) - mp.asin(mv)))
+        lemma_max = float(lemma_max)
+    except ImportError:                       # pragma: no cover
+        lemma_max = float("nan")
+
+    rho_rewritten = rho_lim.subs(sp.acos(n), sp.asin(m))
+    residual = sp.simplify(rho_rewritten - (1 - 2 * beta_sym))
+
+    # Numeric cross-check against the F15 *module*, not against a re-typed formula.
+    rho_num = float(rho_lim.subs(m, m_probe))
+    rho_from_f15 = 1.0 - 2.0 * f15_beta_LV(m_probe)
+
+    res = {
+        "m_probe": float(m_probe),
+        "rho_symbolic": sp.srepr(rho_lim)[:120],
+        "symbolic_residual": str(residual),
+        "rho_from_limit": rho_num,
+        "rho_from_f15_module": rho_from_f15,
+        "numeric_residual": abs(rho_num - rho_from_f15),
+        "acos_asin_lemma_residual": lemma_max,
+        "tol": float(tol),
+    }
+    res["checks"] = {
+        "acos_asin_lemma": lemma_max <= 1e-40,
+        "symbolic_identity": residual == 0,
+        "numeric_identity": abs(rho_num - rho_from_f15) <= tol,
+        "rho_gt_one": rho_num > 1.0,      # tan θ > θ, so u_p > u_g always
+    }
+    res["n_pass"] = int(sum(res["checks"].values()))
+    res["n_checks"] = len(res["checks"])
+    res["ok"] = res["n_pass"] == res["n_checks"]
+    return res
+
+
+def offshell_boost_coefficient(m: float = 0.5, k: float = 1e-3, v: float = 1e-6):
+    """How badly a linear SR boost of (ω, k) fails to preserve the mass shell.
+
+    The F22 review established that it fails at **leading** order: boosting
+    ω' = γ(ω − vk), k' = γ(k − vω/c²) and asking whether ω' = ω(k') leaves
+
+        Δ/(v k) → 1/ρ − 1 = 2β_LV/(1 − 2β_LV)    as k → 0.
+
+    This function measures that coefficient so the failure has a number attached
+    rather than being asserted away. It is the corrected content of F22's
+    claim 1.
+    """
+    import math
+    c2 = 0.5                                  # c_lat² = 1/2
+    g = 1.0 / math.sqrt(1.0 - v * v / c2)
+    w = omega_qca(k, m)
+    wp = g * (w - v * k)
+    kp = g * (k - v * w / c2)
+    delta = wp - omega_qca(kp, m)
+    r = rho(m)
+    return {
+        "m": float(m), "k": float(k), "v": float(v),
+        "delta": delta,
+        "delta_over_vk": delta / (v * k),
+        "predicted_1_over_rho_minus_1": 1.0 / r - 1.0,
+        "rel_err": abs(delta / (v * k) - (1.0 / r - 1.0)) / abs(1.0 / r - 1.0),
+    }
+
+
+def check_offshell_and_control(m: float = 0.5, k: float = 1e-3, v: float = 1e-6,
+                               tol: float = 1e-14):
+    """Registry entry: the ρ identity, its negative control, and the O(vk) failure."""
+    res = {"identity": check_rho_identity(m_probe=m, tol=tol)}
+
+    # NEGATIVE CONTROL. The point of this record is that it can fail.
+    bad = check_rho_identity(m_probe=m, tol=tol, rho_override="42")
+    res["negative_control_must_fail"] = bad
+
+    res["offshell"] = offshell_boost_coefficient(m=m, k=k, v=v)
+
+    res["checks"] = {
+        "identity_holds": res["identity"]["ok"],
+        "control_fails": not bad["checks"]["symbolic_identity"],
+        "offshell_matches_closed_form": res["offshell"]["rel_err"] < 5e-3,
+        "offshell_is_nonzero": abs(res["offshell"]["delta_over_vk"]) > 1e-3,
+    }
+    res["n_pass"] = int(sum(res["checks"].values()))
+    res["n_checks"] = len(res["checks"])
+    res["ok"] = res["n_pass"] == res["n_checks"]
+    return res
+
+
 if __name__ == "__main__":
     symbolic_verification()
     continuum_check()
     numerical_scan()
     finite_k_lv()
     summary_table()
+
+    import json
+    from casim.engine.particles._results_path import results_path
+    out = {"F22_rho_and_offshell": check_offshell_and_control()}
+    print(json.dumps(out, indent=2, default=str))
+    with open(results_path("F22_rho_identity_and_offshell.json"), "w") as fh:
+        json.dump(out, fh, indent=2, default=str)

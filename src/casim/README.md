@@ -1,10 +1,17 @@
-# casim — standalone modeling program (roadmap Phases A–C)
+# casim — the program
 
-`casim` is the program layer over the audited `ca-simulation/` physics kernels.
-It is a **refactor, not a rewrite**: the flat `ca_*.py` modules remain the single
-source of truth and keep working unchanged; `casim` adds the engine,
-configuration, persistence, and entry point described in
-`roadmap-standalone-program.md`.
+`casim` **is** the program (decision **D6**, roadmap C9, 2026-07-31). There is one
+tree: every physics module lives under `casim.engine`, organised by sector on the
+BCC base layer (**D1**); every constant comes from `casim.constants` (**D7**);
+every numeric primitive comes from `casim.numerics` (**D8**); every test is a
+declarative registry entry run through `casim test` (**D9**); every module is
+registered (**D11**).
+
+Until C9 this was a layer *above* a separate flat-kernel directory, which
+remained the source of truth (the reversed decision **D2**). Those 124 kernels
+and 47 forks now live here; the pre-clean original of each is in
+`deprecated/code/`, and `docs/design/module-migration-manifest.yaml` maps all 171
+old paths to their new ones.
 
 ## Install
 
@@ -13,8 +20,10 @@ pip install -e .            # needs setuptools>=64 (PEP 660)
 pip install -e .[gui]       # + vispy/PyQt6 for the (Phase E) GUI
 ```
 
-`casim` finds the repo's `ca-simulation/` directory automatically; override with
-the `CASIM_LEGACY_DIR` environment variable if needed.
+`PYTHONPATH=src` is all the path setup needed for an in-repo run; the Makefile
+exports it and `tests/conftest.py` sets it for pytest. (`CASIM_LEGACY_DIR` still
+exists, and `casim.LEGACY_DIR` is `None` unless a pre-C9 checkout is present —
+nothing in the package reads through it.)
 
 ## CLI
 

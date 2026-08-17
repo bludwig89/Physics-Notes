@@ -20,11 +20,12 @@ The sweep engine lives in `tools/audit_constants.py` so that this gate and the
 delegate to the test registry rather than reimplement it.
 
 Everything works by **AST inspection, never import**.  Importing a
-`ca-simulation` kernel is mostly harmless; importing a `tests/findings` module
+an engine module is mostly harmless; importing a `tests/findings` module
 executes its physics and writes JSON, so a provenance check that imported its
 subjects would be slow and destructive.
 
-Scope: `src/` and `ca-simulation/` are the C2 gate and must be at zero.
+Scope: `src/` is the C2 gate and must be at zero (before C9 the gate also
+covered the legacy kernel tree; that tree is gone).
 `tests/` is the C7 backlog — counted, ratcheted, not yet enforced, because a
 test registry that pointed at pre-migration paths would have to be rewritten.
 """
@@ -263,7 +264,7 @@ def test_no_unregistered_literals_in_src_or_kernels():
     """C2.4, the headline. This is the assertion whose polarity flipped.
 
     A failure here means a value matching a registry constant is written out
-    somewhere in `src/` or `ca-simulation/` without saying which constant it
+    somewhere in `src/` without saying which constant it
     is. Three fixes, in order of preference:
 
       1. import it from `casim.constants` (almost always the right answer);
@@ -307,7 +308,7 @@ def test_literal_sites_are_confined_to_tests():
                   for c in all_constants() for s in c.sites
                   if s.kind == "literal" and not s.path.startswith("tests/")]
     assert not stragglers, (
-        "sites in src/ or ca-simulation/ still declare their own value:\n  "
+        "sites in src/ still declare their own value:\n  "
         + "\n  ".join(stragglers))
 
 

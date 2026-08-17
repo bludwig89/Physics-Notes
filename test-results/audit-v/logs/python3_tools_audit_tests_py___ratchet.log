@@ -1,0 +1,15 @@
+
+test-suite health   (354 files)
+  gate tier            20
+  battery tier         334
+  pytest-style         133
+  no assert            231
+  UNFALSIFIABLE        70  (no assert AND no result artifact — cannot fail)
+  import-time physics  320  (executes on `pytest --collect-only`)
+
+test registry (C7 / D9)   360 record(s), 0 file(s) unregistered
+  assertion            93
+  result_dump          217  (failure mode = baseline diff vs HEAD)
+  LEGACY_SCRIPT        47  (declared debt — ratcheted to zero)
+
+  ratchet OK — nothing regressed

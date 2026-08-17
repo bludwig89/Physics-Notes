@@ -47,12 +47,14 @@ import os, sys, json, time
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc as bcc
-import ca_wmu as cwmu
-import ca_fft as _fft
-import ca_photon_pair as pp
+from casim.engine.lattice import bcc as bcc
+from casim.engine.gauge import weak_wmu as cwmu
+from casim.numerics import fft as _fft
+from casim.engine.gauge import photon as pp
 
 
 def wrap(x):

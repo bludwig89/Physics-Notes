@@ -21,13 +21,18 @@ import os, sys, json, time, subprocess, datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-SIM = os.path.join(ROOT, "ca-simulation")
-FORKS = os.path.join(SIM, "forks")
+SRC = os.path.join(ROOT, "src")
+# Forks are loaded by file path, not as package modules (see D6/C6), so their
+# sector directories go on PYTHONPATH the way the legacy forks/ dir used to.
+_FORK_ROOT = os.path.join(SRC, "casim", "engine", "forks")
+FORKS = [os.path.join(_FORK_ROOT, d) for d in sorted(os.listdir(_FORK_ROOT))
+         if os.path.isdir(os.path.join(_FORK_ROOT, d)) and d != "__pycache__"]
 
 env = dict(os.environ)
 env["MPLBACKEND"] = "Agg"
 env["PYTHONDONTWRITEBYTECODE"] = "1"
-env["PYTHONPATH"] = os.pathsep.join([SIM, HERE, FORKS, env.get("PYTHONPATH", "")])
+env["PYTHONPATH"] = os.pathsep.join(
+    [SRC, HERE, *FORKS, env.get("PYTHONPATH", "")])
 
 ITEMS = [
     os.path.join(HERE, "test_F64_em_connection.py"),

@@ -1,7 +1,7 @@
 """casim.particles.channel — particles as engine channels + sourced fields.
 
 ``ParticleChannel`` stacks a typed particle (a ``ParticleSpec`` wavepacket) on
-the lattice.  Propagation and couplings call only audited ``ca-simulation``
+the lattice.  Propagation and couplings call only audited engine
 kernels; this module is wiring, not physics:
 
   * propagation  — ``ca_bcc.weyl_step_3d_bcc`` (free) /
@@ -28,7 +28,7 @@ kernels; this module is wiring, not physics:
 Coupling fidelity tiers (P2, 2026-06-05, see ``roadmap-particle-layer.md``):
 weak / em / strong = coupled (two-way) · gravity = coupled (massive Dirac
 singlets, rest leg; background readout otherwise).
-P2 back-action kernels live in ``ca-simulation/ca_minimal_coupling.py``:
+P2 back-action kernels live in the legacy `ca_minimal_coupling.py`:
 the U(1) Stueckelberg-form wrap (3D port of the audited F41/F42
 ``kinetic_half_step_chi_u1y`` architecture; exact gauge covariance, exact
 unitarity) and the SU(3) site-local rotate-then-step (the audited SU(2)
@@ -47,7 +47,7 @@ from typing import Any, Dict
 
 import numpy as np
 
-from ..engine.core.channel import Channel, register
+from ..engine.core.channel import Channel, field_energy, register
 from ..engine.core.coupled import gaussian_packet, su2_expmap
 from ..engine.core.observers import Observer, register_observer
 from .spec import ParticleSpec, get_spec, doublet_specs, DOUBLETS
@@ -1001,7 +1001,7 @@ class PhotonSourcedChannel(Channel):
         return {"E": E, "B": B, "alpha": alpha}
 
     def energy(self, state) -> float:
-        return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
+        return field_energy(state["E"], state["B"])
 
     def observables(self, state, lattice) -> dict:
         return {"field_energy": self.energy(state),
@@ -1046,7 +1046,7 @@ class GluonSourcedChannel(Channel):
         return {"E": E, "B": B, "A": A}
 
     def energy(self, state) -> float:
-        return float(np.sum(state["E"] ** 2 + state["B"] ** 2))
+        return field_energy(state["E"], state["B"])
 
     def observables(self, state, lattice) -> dict:
         return {"field_energy": self.energy(state)}

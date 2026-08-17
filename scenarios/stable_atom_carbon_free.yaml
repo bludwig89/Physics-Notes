@@ -1,4 +1,5 @@
 # F195 — matched CONTROL for stable_atom_carbon (no nuclear well, no e-e field).
+version: 2
 name: stable_atom_carbon_free
 title: "C free control (F195) — no binding, ballistic dispersal"
 description: "Matched control: Carbon orbitals with binding switched off; the cloud disperses toward the box."

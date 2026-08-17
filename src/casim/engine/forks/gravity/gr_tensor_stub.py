@@ -48,7 +48,7 @@ SIM_ROOT = os.path.abspath(os.path.join(THIS, ".."))
 sys.path.insert(0, SIM_ROOT)
 sys.path.insert(0, THIS)
 
-from poisson_open import solve_poisson_3d_open, gaussian_mass_3d   # noqa: E402
+from casim.engine.lattice.poisson_open import solve_poisson_3d_open, gaussian_mass_3d   # noqa: E402
 from casim.engine.forks.gravity.gr3_fork_harness import gr1_K, gr2_ratio, gr3_ratio_GR        # noqa: E402
 from casim.engine.forks.gravity import gr3_fork_baseline as fork_baseline  # noqa: E402
 from casim.engine.forks.gravity import gr3_fork_B_anisotropic as fork_B  # noqa: E402
@@ -256,7 +256,7 @@ def main():
         "self_checks": checks,
         "all_pass": all_pass,
     }
-    # C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+    # C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
     # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
     out_dir = os.path.abspath(os.path.join(THIS, "..", "..", "..", "..", "..", "test-results"))
     os.makedirs(out_dir, exist_ok=True)

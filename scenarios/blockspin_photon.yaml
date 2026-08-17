@@ -3,6 +3,7 @@
 # (16 super-cells), then coarse-grains the live run again at tick 20 (→ block 4,
 # 8 super-cells).  c_lat is the RG fixed point (F130 T1), carried through; the
 # even-law channel propagates by the renormalised rule Ω(κ/block).
+version: 2
 name: blockspin_photon
 title: "Block-Spin Photon (Phase 4)"
 description: "Declares a physical patch + block factor and coarse-grains the live run (R_b as a first-class engine op); the even-law channel steps by the renormalised rule Ω(κ/block) so the coarse run stays physically faithful."

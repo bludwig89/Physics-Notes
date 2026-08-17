@@ -5,7 +5,7 @@
 and nothing here is automatically accepted into
 `docs/design/module-migration-manifest.yaml`. A human moves a line from
 `dead_symbols_proposed` to `dead_symbols`, and only then does
-`tools/migrate_module.py` strip it.
+the C0.4 migration tool strip it.
 
 That constraint is not politeness, it is the P0.4 lesson stated as a rule. An
 audit flagged ~14 test files as covering superseded physics; on inspection
@@ -336,7 +336,7 @@ def build() -> dict:
         "contract": (
             "PROPOSAL ONLY. Nothing here is applied. A human moves a line into "
             "`dead_symbols` in docs/design/module-migration-manifest.yaml, and "
-            "only then does tools/migrate_module.py strip it. Signals are "
+            "only then did the C0.4 migration tool strip it. Signals are "
             "reported separately and are NOT to be summed: P0.4 found that of "
             "14 files an audit called superseded, exactly one was superseded "
             "wholesale."),
@@ -359,7 +359,7 @@ def render_md(p: dict) -> str:
         "> **This is a proposal, not a verdict.** Nothing here has been applied.",
         "> A human accepts a line by moving it into `dead_symbols` in",
         "> `docs/design/module-migration-manifest.yaml`; only accepted lines are",
-        "> stripped by `tools/migrate_module.py`. The three signals below are",
+        "> stripped by the C0.4 migration tool. The three signals below are",
         "> independent and must not be summed — P0.4 found that of 14 files an",
         "> audit called superseded, exactly **one** was superseded wholesale.",
         "",

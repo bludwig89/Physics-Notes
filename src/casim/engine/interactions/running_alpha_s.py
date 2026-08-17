@@ -82,7 +82,7 @@ def rule_step_rotation_residual(L: int = 8, seed: int = 0) -> dict:
     R^T R = 1, (ii) det R = 1, (iii) equal diagonal (circularity).
     All three must vanish to machine precision.
     """
-    import ca_wmu as wmu
+    from casim.engine.gauge import weak_wmu as wmu
 
     ks = 2.0 * math.pi * np.fft.fftfreq(L)
     KX, KY, KZ = np.meshgrid(ks, ks, ks, indexing="ij")
@@ -156,7 +156,7 @@ def chi_lock_identity(m_max: int = 12, lam: float = 1.0) -> dict:
     chi = 1/(4 g^2) — as a matrix identity.  At the rule's chi = 1 this
     forces g_s^2 = 1/4.  Checked at several g^2 (identity holds for all).
     """
-    import ca_link_hamiltonian as lh
+    from casim.engine.gauge import link_hamiltonian as lh
 
     out = {}
     geom = lh.PlaquetteGrid(1, 1)

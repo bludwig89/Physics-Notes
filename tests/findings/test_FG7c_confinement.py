@@ -2,7 +2,7 @@
 test_FG7c_confinement.py — static quark potential, string tension, confinement
 ==============================================================================
 
-Verifies `ca-simulation/ca_confinement.py`: the 2D SU(3) lattice gauge sector
+Verifies `src/casim/engine/gauge/confinement.py`: the 2D SU(3) lattice gauge sector
 produces a *linear* static quark potential, i.e. an isolated colour charge
 costs infinite energy — the model-level statement of *why a quark cannot exist
 alone*.
@@ -18,7 +18,7 @@ alone*.
        disorder dissolves confinement — ties to ca_cooling)
   CF8  Schur lemma ⟨U⟩ = w·I (the engine of the exact area-law factorisation)
 
-Modules under test:  ca-simulation/ca_confinement.py  (+ ca_cooling.py)
+Modules under test:  src/casim/engine/gauge/confinement.py  (+ ca_cooling.py)
 Created:             2026-06-01
 """
 import sys
@@ -27,11 +27,13 @@ import json
 import time
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_confinement as cf    # noqa: E402
-import ca_cooling as cc        # noqa: E402
-import ca_strong as cs         # noqa: E402
+from casim.engine.gauge import confinement as cf    # noqa: E402
+from casim.engine.gauge import cooling as cc        # noqa: E402
+from casim.engine.gauge import strong as cs         # noqa: E402
 
 
 class _NumpyEncoder(json.JSONEncoder):

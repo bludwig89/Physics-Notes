@@ -21,8 +21,12 @@ The battery currently returns 0 falsified, 3 under_pressure, 3 consistent.
 from __future__ import annotations
 import json, os, sys, time
 THIS = os.path.dirname(__file__); ROOT = os.path.abspath(os.path.join(THIS, "..", ".."))
-FORKS = os.path.join(ROOT, "ca-simulation", "forks")
-if FORKS not in sys.path: sys.path.insert(0, FORKS)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+# Forks are loaded by bare name, not as package submodules;
+# importing casim appends engine/forks/<sector>/ to sys.path.
+import casim as _casim  # noqa: E402,F401
 import gr_fork_F203_dark_sector_falsifiers as F203   # noqa: E402
 STAMP = "2026-06-30 - 22:45"
 

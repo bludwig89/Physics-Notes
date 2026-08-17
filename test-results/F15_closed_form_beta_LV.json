@@ -1,0 +1,172 @@
+{
+  "W1_symbolic_independent_route": {
+    "independent_of_module_route": true,
+    "pass": true,
+    "route": "exact change of variable t = cos u -> closed-form R(beta)",
+    "rows": [
+      {
+        "m": "1/5",
+        "max_abs_residual_vs_module": 1.3877787807814457e-17,
+        "odd_coefficients_all_zero": true,
+        "residual_by_order": {
+          "2": 9.540979117872439e-18,
+          "4": 8.673617379884035e-18,
+          "6": 1.214306433183765e-17,
+          "8": 1.3877787807814457e-17
+        }
+      },
+      {
+        "m": "1/2",
+        "max_abs_residual_vs_module": 3.469446951953614e-17,
+        "odd_coefficients_all_zero": true,
+        "residual_by_order": {
+          "2": 3.469446951953614e-17,
+          "4": 3.469446951953614e-18,
+          "6": 2.0816681711721685e-17,
+          "8": 1.734723475976807e-17
+        }
+      },
+      {
+        "m": "3/4",
+        "max_abs_residual_vs_module": 8.326672684688674e-17,
+        "odd_coefficients_all_zero": true,
+        "residual_by_order": {
+          "2": 8.326672684688674e-17,
+          "4": 4.163336342344337e-17,
+          "6": 5.551115123125783e-17,
+          "8": 8.326672684688674e-17
+        }
+      }
+    ],
+    "worst_residual": 8.326672684688674e-17
+  },
+  "W2_closed_form_matches_lattice": {
+    "max_abs_difference": 6.661338147750939e-15,
+    "n_points": 35,
+    "note": "beta_max = sqrt(1-m^2) exactly; beta never reaches 1",
+    "pass": true
+  },
+  "W3_all_coefficients_negative": {
+    "closes": "Finding 15 open item: gamma_LV never flips sign",
+    "grid_points": 999,
+    "max_value_per_coefficient": {
+      "beta_LV": -1.66666788925518e-07,
+      "delta_LV": -6.250008333097412e-08,
+      "epsilon_LV": -5.2083418390636016e-08,
+      "gamma_LV": -8.333341944277706e-08
+    },
+    "mechanism": "tan(theta) > theta on (0, pi/2) => T/theta > 1 => every term of every coefficient is negative",
+    "mechanism_derivative_identity": true,
+    "pass": true
+  },
+  "W4_small_m_expansion": {
+    "lead_denom": 6,
+    "max_rel_dev_from_third": 7.844042443691829e-06,
+    "next_denom": 90,
+    "next_num": 11,
+    "note": "the m^6 residual converges to -191/1890, the third small-m coefficient -- a bonus check the original finding did not make",
+    "pass": true,
+    "residual_over_m6_spread": 0.9999921647345488,
+    "rows": [
+      {
+        "beta_LV": -1.6666666788888891e-09,
+        "m": 0.0001,
+        "residual_over_m6": -0.10105820193897708,
+        "two_term": -1.6666666788888891e-09
+      },
+      {
+        "beta_LV": -1.500000099000007e-08,
+        "m": 0.0003,
+        "residual_over_m6": -0.10105820898518583,
+        "two_term": -1.5000000989999997e-08
+      },
+      {
+        "beta_LV": -1.6666678888898995e-07,
+        "m": 0.001,
+        "residual_over_m6": -0.10105828913588155,
+        "two_term": -1.6666678888888889e-07
+      },
+      {
+        "beta_LV": -1.5000099000736721e-06,
+        "m": 0.003,
+        "residual_over_m6": -0.10105899376301944,
+        "two_term": -1.5000099000000002e-06
+      }
+    ],
+    "third_coefficient_target": -0.10105820105820106
+  },
+  "W5_lattice_spacing_is_decorative": {
+    "a_values": [
+      "1/sqrt(2)",
+      "1",
+      "0.25",
+      "3"
+    ],
+    "pass": true,
+    "reason": "omega depends on k only via u = k a, and c_lat = a, so a cancels in both R and beta before any expansion",
+    "rows": [
+      {
+        "beta_LV_closed": -0.00041743213803824286,
+        "m": 0.05,
+        "max_dev_from_closed": 1.55403947234265e-17,
+        "spread_over_a": 1.305060893599705e-54
+      },
+      {
+        "beta_LV_closed": -0.0068689238316110846,
+        "m": 0.2,
+        "max_dev_from_closed": 1.983900940542067e-19,
+        "spread_over_a": 3.132146144639292e-53
+      },
+      {
+        "beta_LV_closed": -0.05132889542179209,
+        "m": 0.5,
+        "max_dev_from_closed": 2.879525526410454e-17,
+        "spread_over_a": 0.0
+      },
+      {
+        "beta_LV_closed": -0.42194937314290737,
+        "m": 0.9,
+        "max_dev_from_closed": 1.3804794076128595e-16,
+        "spread_over_a": 0.0
+      }
+    ]
+  },
+  "W6_precision_floor_is_cancellation": {
+    "corrects": "findings/F01-F15-findings.md Finding 15 and four rows of docs/status/exactness-inventory.md",
+    "diagnosis": "float64 error tracks eps/(|beta_LV| beta^2) -- subtractive cancellation in R - sqrt(1-beta^2), NOT an FFT floor. There is no FFT anywhere in derive_beta_LV.py.",
+    "pass": true,
+    "rows": [
+      {
+        "beta": 1.4124446890415443e-05,
+        "float64_error_over_predicted_floor": 0.9507204045499447,
+        "m": 0.05,
+        "predicted_cancellation_floor": 0.0026657793056831104,
+        "rel_err_50dps_1term": 9.976778498094941e-11,
+        "rel_err_50dps_2term": 5.719353437434019e-14,
+        "rel_err_float64": 0.0025344107799399173
+      },
+      {
+        "beta": 3.464101615116681e-06,
+        "float64_error_over_predicted_floor": 13.22124961787585,
+        "m": 0.2,
+        "predicted_cancellation_floor": 0.0026932894371440538,
+        "rel_err_50dps_1term": 6.0734064546410665e-12,
+        "rel_err_50dps_2term": 1.2438122653440847e-15,
+        "rel_err_float64": 0.035608651941669886
+      },
+      {
+        "beta": 1.2247448713905685e-06,
+        "float64_error_over_predicted_floor": 0.7473415698149951,
+        "m": 0.5,
+        "predicted_cancellation_floor": 0.0028833661582636006,
+        "rel_err_50dps_1term": 8.21820407702927e-13,
+        "rel_err_50dps_2term": 7.255042120864175e-16,
+        "rel_err_float64": 0.002154859391068151
+      }
+    ]
+  },
+  "all_pass": true,
+  "n_checks": 6,
+  "n_passed": 6,
+  "verdict": "beta_LV, gamma_LV, delta_LV, epsilon_LV confirmed exact by an independent route; all four negative on (0,1); a is decorative"
+}

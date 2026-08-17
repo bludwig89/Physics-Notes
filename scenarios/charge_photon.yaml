@@ -2,6 +2,7 @@
 # divergence-free charge current (built with the model's BCC curl symbol so
 # C·J ≡ 0 exactly). Odd L avoids the Nyquist-bin artifact (the F87 odd-L
 # gotcha). The field_snapshot observer reports the Gauss/continuity diagnostic.
+version: 2
 name: charge_photon
 title: "Charge-Photon Coupling"
 description: "F87 charge→field: paired-photon Maxwell curl driven by a divergence-free charge current (odd L avoids the Nyquist-bin artifact); reports the Gauss/continuity diagnostic."

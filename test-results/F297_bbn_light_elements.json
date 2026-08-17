@@ -1,0 +1,176 @@
+{
+  "n_eff": {
+    "N_eff": 3.044,
+    "n_light_weyl_pairs": 3,
+    "nu_R_thermalised": false,
+    "nu_R_reason": "total singlet (Y=0, F165/F279) + heavy Majorana mass (F47/F236): no renormalisable coupling to the bath",
+    "light_scalars": 0,
+    "light_scalars_reason": "Higgs-free (decision 3); E_g doublet is massive (F253)",
+    "N_eff_observed": 2.99,
+    "N_eff_sigma": 0.31764705882352834,
+    "falsifier_delta_N_if_nuR_thermal": 1.71
+  },
+  "validation": {
+    "Y_p": 0.2449389198401004,
+    "Y_p_reference": 0.24709,
+    "Y_p_rel_err": -0.00870565445748348,
+    "D_H": 2.4726285221052678e-05,
+    "D_H_reference": 2.459e-05,
+    "D_H_rel_err": 0.005542302604826278,
+    "He3_H": 1.0970898177601186e-05,
+    "He3_H_reference": 1.07e-05,
+    "He3_H_rel_err": 0.025317586691699683,
+    "Li7_H": 3.8863704601889553e-11,
+    "Li7_H_reference": 5e-10,
+    "Li7_H_rel_err": -0.9222725907962208,
+    "Li7_validated": false,
+    "Li7_note": "the A=7 chain is about an order of magnitude low against the same reference: four rate fits in _rate_fits are wrong or incomplete here. No lithium claim is made and Li7 is excluded from check_k2 \u2014 declaring the defect rather than hiding it.",
+    "detailed_balance_ratio": 0.9999500879761262,
+    "T_freezeout_MeV": 0.6673855400910259
+  },
+  "law_control": {
+    "S_full": 1.0,
+    "S_energy": 0.7071067811865476,
+    "Y_p_full": 0.2449389198401004,
+    "Y_p_energy": 0.18558964068625708,
+    "delta_Y_p": -0.05934927915384333,
+    "D_H_full": 2.4726285221052678e-05,
+    "D_H_energy": 1.1885484926162233e-05,
+    "T_fo_full": 0.6673855400910259,
+    "T_fo_energy": 0.583277019767752,
+    "Y_p_energy_sigma": -17.561870386394975,
+    "Y_p_full_sigma": -0.10620004702928808
+  },
+  "delta_m": {
+    "delta_m_model": 1.51,
+    "delta_m_pdg": 1.29333236,
+    "delta_m_excess_MeV": 0.21666764000000005,
+    "Y_p_pdg": 0.2449389198401004,
+    "Y_p_model": 0.1209969340097935,
+    "delta_Y_p": -0.12394198583030691,
+    "Y_p_model_sigma": -36.55972529123721,
+    "D_H_pdg": 2.4726285221052678e-05,
+    "D_H_model": 1.8478213295490633e-05,
+    "D_H_model_sigma": -22.639289015031228,
+    "tau_n_pdg_dm": 878.3999999999999,
+    "tau_n_model_dm": 330.7735179511797,
+    "tau_n_measured": 878.4,
+    "tau_n_from_couplings": 948.0158350928144,
+    "tau_n_coupling_rel_err": 0.07925299987797638,
+    "dYp_ddeltam_per_MeV": -0.6068373431716255,
+    "delta_m_bound_1sigma_MeV": 0.005602819335787668,
+    "F122_tolerance_MeV": 1.0
+  },
+  "f122": {
+    "strong_term_MeV": 2.51,
+    "em_term_MeV": -1.0,
+    "F122_total_MeV": 1.5099999999999998,
+    "required_total_MeV": 1.29333236,
+    "shortfall_MeV": -0.21666763999999983,
+    "as_fraction_of_strong": 0.08632176892430272,
+    "as_fraction_of_em": 0.21666763999999983,
+    "note": "one of the two terms is wrong by 0.217 MeV; the EM self-energy is the more likely, since 8.6% on the F40 current-quark gap would move m_d/m_u outside its PDG range"
+  },
+  "b_d": {
+    "B_d_model": 2.224,
+    "B_d_pdg": 2.224566,
+    "B_d_rel_diff": -0.0002544316509375862,
+    "D_H_at_B_d_pdg": 2.4702852703470565e-05,
+    "D_H_at_B_d_model": 2.4726285221052678e-05,
+    "D_H_shift": 2.343251758211298e-08,
+    "D_H_shift_in_sigma": 0.07810839194037661,
+    "D_H_at_B_d_plus_1pct": 2.3798257610603525e-05,
+    "dDH_dBd_per_percent": -9.0459509286704e-07
+  },
+  "inputs": {
+    "model_native": {
+      "G": "F79/F107 structural closed form, 3e-8 of CODATA",
+      "source_law": "F178 induced Einstein equation (rho + 3p)",
+      "Gdot_over_G": "exactly 0 (F79/F284 rigid substrate)",
+      "N_eff": "3.044 from the model's own content (F47/F165/F253)",
+      "delta_m": "1.51 MeV (F122/F123), no QCD anchor",
+      "B_d": "2.224 MeV (F104/F113/F126/F240), one tuned b = 0.55 fm"
+    },
+    "external_input": {
+      "eta10": "Planck 2018; F238 proves the model cannot fix it (K8)",
+      "V_ud": "PDG; CKM is out of scope (ledger 10-13)",
+      "G_F": "carries the v anchor, which is an input (ledger 17)",
+      "tau_n_calibration": "measured, used only to fix the weak coupling K",
+      "reaction_rates": "Smith-Kawano-Malaney 1993 nuclear data (11 of 12)",
+      "nuclear_masses": "t, 3He, 4He, 7Li, 7Be binding energies"
+    }
+  },
+  "checks": {
+    "passed": true,
+    "n_pass": 12,
+    "n_total": 12,
+    "checks": [
+      {
+        "check": "K2-1 network reproduces standard BBN Y_p to 3%",
+        "passed": true,
+        "value": -0.00870565445748348
+      },
+      {
+        "check": "K2-2 network reproduces standard BBN D/H to 5%",
+        "passed": true,
+        "value": 0.005542302604826278
+      },
+      {
+        "check": "K2-3 T_nu/T_gamma -> (4/11)^(1/3) from entropy alone, to 1e-3",
+        "passed": true,
+        "value": 6.01248002851662e-05
+      },
+      {
+        "check": "K2-4 detailed balance emerges (not imposed) to 1e-3",
+        "passed": true,
+        "value": -4.9912023873832645e-05
+      },
+      {
+        "check": "K2-5 N_eff = 3.044 within 1 sigma of Planck",
+        "passed": true,
+        "value": 0.31764705882352834
+      },
+      {
+        "check": "K2-6 energy-only law excluded by Y_p at >5 sigma",
+        "passed": true,
+        "value": -17.561870386394975
+      },
+      {
+        "check": "K2-7 full-tensor law consistent with Y_p within 2 sigma",
+        "passed": true,
+        "value": -0.10620004702928808
+      },
+      {
+        "check": "K2-8 BBN bounds delta m at least 100x tighter than F122's 1 MeV",
+        "passed": true,
+        "value": 0.005602819335787668
+      },
+      {
+        "check": "K2-9 model delta m = 1.51 MeV is excluded at >5 sigma",
+        "passed": true,
+        "value": -36.55972529123721
+      },
+      {
+        "check": "K2-10 B_d at the model's 0.026% is invisible to D/H (<0.2 sigma)",
+        "passed": true,
+        "value": 0.07810839194037661
+      },
+      {
+        "check": "K2-11 the run at the swept delta m matches Y_p within 2 sigma",
+        "passed": true,
+        "value": -0.10620004702928808
+      },
+      {
+        "check": "K2-12 the run at the swept delta m matches D/H within 3 sigma",
+        "passed": true,
+        "value": -1.8123825964910736
+      }
+    ],
+    "delta_m_mev": 1.29333236,
+    "law": "full",
+    "eta10": 6.137,
+    "Y_p": 0.2449389198401004,
+    "D_H": 2.4726285221052678e-05,
+    "Li7_H": 3.8863704601889553e-11
+  }
+}

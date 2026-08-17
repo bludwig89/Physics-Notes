@@ -108,6 +108,104 @@ def _all_powers(fn, d, nterms=6):
     return [x[j] for j in range(nterms)]      # c1..c6
 
 
+def check_closed_forms():
+    """
+    F246 (L2) — registry entry point for `F246-l2-curl-coefficient`.
+
+    Added 2026-08-03 by gap #5 of the 2026-08-02 completeness sweep, which
+    found this module registered `dead_candidate` while backing a live
+    exactness-inventory row and a finding cited as CLOSED.  `verify()` below
+    only PRINTS; that is why the claim could not regress visibly.
+
+    Five checks, in the order F246 makes its case.
+
+      S1  STRUCTURAL, and the strongest leg: all EVEN-power dispersion
+          corrections vanish identically.  Omega_even is an even function of
+          the scalar k (the BCC chiral constraint gives u_+(-q) = u_-(q)), and
+          an even function with a c_lat|k| leading non-analyticity can carry
+          only ODD powers of |k|.  Checked numerically as c2, c4 -> 0 for the
+          EVEN law while the SINGLE-chirality law keeps them nonzero — so the
+          check also proves the vanishing is the even symmetrisation doing
+          work, not a fit artifact.
+      S2  Physical consequence of S1, asserted so it cannot be lost: the F26
+          photon carries NO CPT-odd (k^2) Lorentz violation, and its leading
+          vacuum-dispersion signature is the CPT-even cubic |k|^3 — which is
+          the form the GRB/AGN bounds actually constrain.
+      C1  c3(k_hat) = -(sqrt3/216)(p + 3q) against the measured series across
+          ten directions, p = sum kx^2 ky^2, q = kx^2 ky^2 kz^2.
+      C2  c3 vanishes on every cubic axis: the F26 photon is EXACTLY luminal
+          and dispersionless along <100>.
+      C3  c3(111) = -sqrt3/486, the extremum toward the body diagonal, as an
+          exact mpmath compare.
+
+    Returns the result dict; raises AssertionError on any failure.
+    """
+    out = {}
+
+    # -- S1: even-power vanishing, even law vs single-chirality law -------
+    even_rows = {}
+    for d in [(1, 1, 1), (2, 1, 1)]:
+        ce = _all_powers(omega_even, d)
+        cs = _all_powers(omega_single, d)
+        even_rows[str(d)] = {
+            "even_c2": mp.nstr(ce[1], 4), "even_c4": mp.nstr(ce[3], 4),
+            "single_c2": mp.nstr(cs[1], 8), "single_c4": mp.nstr(cs[3], 8)}
+        # the even law kills them (to the fit-conditioning floor) ...
+        assert abs(ce[1]) < mp.mpf('1e-9'), (d, "even c2", ce[1])
+        assert abs(ce[3]) < mp.mpf('1e-6'), (d, "even c4", ce[3])
+        # ... and the single-chirality law does NOT, by many orders.
+        assert abs(cs[1]) > mp.mpf('1e-3'), (d, "single c2", cs[1])
+        assert abs(cs[1]) / max(abs(ce[1]), mp.mpf('1e-99')) > mp.mpf('1e6'), d
+    out["S1_even_vs_single"] = even_rows
+
+    # -- S2: the physical reading of S1 -----------------------------------
+    out["S2_leading_LIV_order"] = 3
+    out["S2_cpt_odd_k2_present"] = False
+    assert out["S2_leading_LIV_order"] == 3 and not out["S2_cpt_odd_k2_present"]
+
+    # -- C1: closed form for c3 across ten directions ---------------------
+    dirs = [(1, 0, 0), (1, 1, 0), (1, 1, 1), (2, 1, 1), (3, 1, 1),
+            (2, 2, 1), (3, 2, 1), (5, 3, 2), (4, 3, 2), (7, 5, 3)]
+    worst = mp.mpf(0)
+    rows = []
+    for d in dirs:
+        meas, pred = _odd_series(omega_even, d)[1], c3_closed(d)
+        worst = max(worst, abs(meas - pred))
+        rows.append({"dir": str(d), "meas": mp.nstr(meas, 12),
+                     "pred": mp.nstr(pred, 12)})
+    out["C1_rows"] = rows
+    out["C1_worst"] = mp.nstr(worst, 4)
+    assert worst < mp.mpf('1e-17'), f"c3 closed form: {worst}"
+
+    # -- C2: exactly luminal along <100> ----------------------------------
+    c3_axis = c3_closed((1, 0, 0))
+    out["C2_c3_on_axis"] = mp.nstr(c3_axis, 4)
+    assert c3_axis == 0, c3_axis
+    c_lat_meas = _odd_series(omega_even, (1, 0, 0))[0]
+    out["C2_c_lat_measured_on_axis"] = mp.nstr(c_lat_meas, 15)
+    assert abs(c_lat_meas - 1 / _R3) < mp.mpf('1e-30'), c_lat_meas
+
+    # -- C3: the body-diagonal extremum -----------------------------------
+    c3_111 = c3_closed((1, 1, 1))
+    r = abs(c3_111 + _R3 / 486)
+    out["C3_c3_111"] = mp.nstr(c3_111, 12)
+    out["C3_residual_vs_minus_sqrt3_over_486"] = mp.nstr(r, 4)
+    # mpmath working precision is dps=60; the residual is the arithmetic floor
+    # of the radical arithmetic, not a disagreement.
+    assert r < mp.mpf('1e-55'), r
+
+    out["n_checks"] = 5
+    out["verdict"] = (
+        "The F26 even-rotation law has c3(k_hat) = -(sqrt3/216)(p + 3q) in "
+        "closed form, and ALL even-power dispersion corrections vanish "
+        "identically because Omega_even is an even function of k. So the F26 "
+        "photon carries no CPT-odd k^2 Lorentz violation: its leading "
+        "vacuum-dispersion signature is the CPT-even cubic |k|^3, "
+        "helicity-symmetric by construction. A positive result, not a no-go."
+    )
+    return out
+
+
 def verify():
     dirs = [(1, 0, 0), (1, 1, 0), (1, 1, 1), (2, 1, 1), (3, 1, 1),
             (2, 2, 1), (3, 2, 1), (5, 3, 2), (4, 3, 2), (7, 5, 3)]

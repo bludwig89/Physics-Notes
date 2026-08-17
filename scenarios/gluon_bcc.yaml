@@ -1,5 +1,6 @@
 # Gluon — even law on the BCC lattice (forced, F91). Colour-octet (8,L,L,L).
 # Includes a checkpoint every 50 ticks to exercise resume on a longer run.
+version: 2
 name: gluon_bcc
 title: "Gluon BCC"
 description: "Colour-octet gluon under the even BCC law (even forced, F91): checks norm conservation and exercises checkpoint/resume every 50 ticks."

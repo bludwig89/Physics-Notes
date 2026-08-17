@@ -33,8 +33,8 @@ THIS = os.path.dirname(__file__)
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 import casim  # noqa: F401
-import ca_entanglement as E
-import ca_quantum_noise as N
+from casim.engine.interactions import qi_entanglement as E
+from casim.engine.interactions import qi_noise as N
 from casim.engine import Simulation, LatticeSpec, build_channel, build_observer
 
 N._E = E   # ensure the native-gate kernel handle is set

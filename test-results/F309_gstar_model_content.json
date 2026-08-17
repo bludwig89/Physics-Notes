@@ -1,0 +1,531 @@
+{
+  "checks": [
+    {
+      "id": "GS-1",
+      "desc": "content is 48 Weyl fields, exactly branch-balanced 24 L / 24 R",
+      "pass": true,
+      "got": {
+        "total": 48,
+        "imbalance": 0
+      },
+      "want": "48 and 0"
+    },
+    {
+      "id": "GS-2",
+      "desc": "closed forms b = n_x n_y n_z/sqrt3 and a = 4A reproduce bcc_dispersion, residual O(k^2)",
+      "pass": true,
+      "got": {
+        "a_max_abs_residual": 1.0116951349725678e-06,
+        "b_max_abs_residual": 6.828843314932165e-06,
+        "k_probe": [
+          0.01,
+          0.02,
+          0.05
+        ]
+      },
+      "want": "both < 1e-3"
+    },
+    {
+      "id": "GS-2a",
+      "desc": "<a> = 4/315 and <b^2> = 1/315 exactly",
+      "pass": true,
+      "got": {
+        "a_rel": 7.549516567451064e-15,
+        "b2_rel": 8.43769498715119e-15
+      },
+      "want": "both < 1e-12"
+    },
+    {
+      "id": "GS-3",
+      "desc": "u/u_SB - 1 = (310 pi^2/441) Theta^2 (closed form vs quadrature)",
+      "pass": true,
+      "got": 6.9387599904158215,
+      "want": 6.937817152693199
+    },
+    {
+      "id": "GS-4",
+      "desc": "1/3 - w = (124 pi^2/1323) Theta^2",
+      "pass": true,
+      "got": 0.9251953998479223,
+      "want": 0.92504228702576
+    },
+    {
+      "id": "GS-5",
+      "desc": "s/s_SB - 1 = (31 pi^2/49) Theta^2",
+      "pass": true,
+      "got": 6.24484418143556,
+      "want": 6.24403543742388
+    },
+    {
+      "id": "GS-6",
+      "desc": "fermion/photon coefficient ratio = 31/4 = 7 x 31/28 exactly, and the branch-ODD term carries 3/7 of the fermionic coefficient",
+      "pass": true,
+      "got": {
+        "ratio": 7.749999999999999,
+        "share": 0.4285714285714286
+      },
+      "want": "31/4 and 3/7"
+    },
+    {
+      "id": "GS-7",
+      "desc": "C_u/C_w = 15/2 for FERMIONS too \u2014 the ratio is a property of degree-3 homogeneity, not of statistics",
+      "pass": true,
+      "got": 7.499777875631861,
+      "want": 7.5
+    },
+    {
+      "id": "GS-8",
+      "desc": "g_*(10 MeV) = 10.75 from the model's own content",
+      "pass": true,
+      "got": 10.74933851292719,
+      "want": 10.75
+    },
+    {
+      "id": "GS-9",
+      "desc": "g_*s endpoint = 2 + (21/4)(4/11), from the emergent T_nu/T_gamma",
+      "pass": true,
+      "got": 3.90943486464324,
+      "want": 3.909090909090909
+    },
+    {
+      "id": "GS-10",
+      "desc": "every excluded species is quantitatively excluded at 10 MeV, and the E_g exclusion becomes a mass bound",
+      "pass": true,
+      "got": {
+        "muon_rel": 0.0009211368001335554,
+        "m_Eg_bound_MeV": 125.4567501450966
+      },
+      "want": "muon < 1 %, bound reported"
+    },
+    {
+      "id": "GS-11",
+      "desc": "the derived lattice correction to g_* at BBN is negligible, with the FERMIONIC leg now included",
+      "pass": true,
+      "got": 5.659420042403438e-43,
+      "want": "< 1e-30"
+    },
+    {
+      "id": "GS-12",
+      "desc": "the model's high-T g_* differs from the SM's by exactly one degree of freedom, and 106.75 is unavailable to it",
+      "pass": true,
+      "got": [
+        -1.0,
+        1.0
+      ],
+      "want": "(-1, +1)"
+    },
+    {
+      "id": "GS-13",
+      "desc": "K2 re-run on the model's own m_e (F121) shifts Y_p and D/H by a definite, sub-observational amount",
+      "pass": true,
+      "got": {
+        "dY_p": 0.00010804400675859527,
+        "sigma": 0.03177764904664567,
+        "dDH_rel": 0.00010566046153481778
+      },
+      "want": "0 < |dY_p| < 1e-3, |d| < 1 sigma"
+    }
+  ],
+  "n_pass": 14,
+  "n_total": 14,
+  "all_pass": true,
+  "weyl": {
+    "per_generation": {
+      "nu_L": {
+        "chirality": "L",
+        "n": 1,
+        "colour": 1
+      },
+      "e_L": {
+        "chirality": "L",
+        "n": 1,
+        "colour": 1
+      },
+      "u_L": {
+        "chirality": "L",
+        "n": 1,
+        "colour": 3
+      },
+      "d_L": {
+        "chirality": "L",
+        "n": 1,
+        "colour": 3
+      },
+      "e_R": {
+        "chirality": "R",
+        "n": 1,
+        "colour": 1
+      },
+      "nu_R": {
+        "chirality": "R",
+        "n": 1,
+        "colour": 1
+      },
+      "u_R": {
+        "chirality": "R",
+        "n": 1,
+        "colour": 3
+      },
+      "d_R": {
+        "chirality": "R",
+        "n": 1,
+        "colour": 3
+      }
+    },
+    "weyl_L_per_generation": 8,
+    "weyl_R_per_generation": 8,
+    "n_generations": 3,
+    "weyl_total": 48,
+    "weyl_L_total": 24,
+    "weyl_R_total": 24,
+    "chirality_imbalance": 0,
+    "dof_per_weyl": 2,
+    "fermionic_modes_per_site": 96
+  },
+  "expansion": {
+    "a_max_abs_residual": 1.0116951349725678e-06,
+    "b_max_abs_residual": 6.828843314932165e-06,
+    "k_probe": [
+      0.01,
+      0.02,
+      0.05
+    ]
+  },
+  "means": {
+    "mean_a": 0.012698412698412796,
+    "mean_a_exact": 0.012698412698412698,
+    "mean_a_rel": 7.549516567451064e-15,
+    "mean_b2": 0.003174603174603201,
+    "mean_b2_exact": 0.0031746031746031746,
+    "mean_b2_rel": 8.43769498715119e-15,
+    "mean_A_photon_exact": 0.0031746031746031746,
+    "b2_equals_A_coincidence": true
+  },
+  "eos": {
+    "rows": [
+      {
+        "theta": 0.002,
+        "Cu_meas": 6.9387599904158215,
+        "Cw_meas": 0.9251953998479223,
+        "Cs_meas": 6.24484418143556
+      },
+      {
+        "theta": 0.005,
+        "Cu_meas": 6.943718622336448,
+        "Cw_meas": 0.9260060833304884,
+        "Cs_meas": 6.249093498738034
+      },
+      {
+        "theta": 0.01,
+        "Cu_meas": 6.961551088719986,
+        "Cw_meas": 0.9289218109009845,
+        "Cs_meas": 6.264374725297728
+      },
+      {
+        "theta": 0.02,
+        "Cu_meas": 7.034904919183127,
+        "Cw_meas": 0.940980305850353,
+        "Cs_meas": 6.327183777700696
+      }
+    ],
+    "Cu_meas": 6.9387599904158215,
+    "Cu_exact": 6.937817152693199,
+    "Cu_rel": 0.0001358983239065914,
+    "Cw_meas": 0.9251953998479223,
+    "Cw_exact": 0.92504228702576,
+    "Cw_rel": 0.00016551980845624925,
+    "Cs_meas": 6.24484418143556,
+    "Cs_exact": 6.24403543742388,
+    "Cs_rel": 0.0001295226492203927,
+    "ratio_meas": 7.499777875631861,
+    "ratio_exact": 7.5,
+    "ratio_rel": 2.9616582418512394e-05
+  },
+  "ratios": {
+    "ratio_u": 7.749999999999999,
+    "ratio_w": 7.75,
+    "ratio_s": 7.75,
+    "exact": 7.75,
+    "max_rel": 1.1102230246251565e-16,
+    "geometric_factor": 7.0,
+    "geometric_factor_exact": 7.0,
+    "statistics_factor": 1.1071428571428572,
+    "statistics_factor_exact": 1.1071428571428572,
+    "branch_odd_share": 0.4285714285714286,
+    "branch_odd_share_exact": 0.42857142857142855
+  },
+  "bbn_window": {
+    "rows": [
+      {
+        "T_MeV": 10.000000000000002,
+        "r_nu": 1.0,
+        "g_star": 10.74933851292719,
+        "g_star_s": 10.7490092589319
+      },
+      {
+        "T_MeV": 1.9984773643608802,
+        "r_nu": 0.9985614359190685,
+        "g_star": 10.703037244878908,
+        "g_star_s": 10.702686545202369
+      },
+      {
+        "T_MeV": 1.0013954127888256,
+        "r_nu": 0.9941521276075997,
+        "g_star": 10.559737847726026,
+        "g_star_s": 10.56153337716552
+      },
+      {
+        "T_MeV": 0.49860750255168323,
+        "r_nu": 0.9771742437209172,
+        "g_star": 10.004200489887989,
+        "g_star_s": 10.029619818889428
+      },
+      {
+        "T_MeV": 0.2001266065233288,
+        "r_nu": 0.8890200057195996,
+        "g_star": 7.3161915338475225,
+        "g_star_s": 7.552713993969026
+      },
+      {
+        "T_MeV": 0.10027927727545025,
+        "r_nu": 0.7638139806969566,
+        "g_star": 4.311452979510435,
+        "g_star_s": 4.789952944558694
+      },
+      {
+        "T_MeV": 0.04993032658373482,
+        "r_nu": 0.7150570275354872,
+        "g_star": 3.3854585419027114,
+        "g_star_s": 3.9299812164216377
+      },
+      {
+        "T_MeV": 0.009978462747274031,
+        "r_nu": 0.7138087186599984,
+        "g_star": 3.3629712540957253,
+        "g_star_s": 3.90943486464324
+      },
+      {
+        "T_MeV": 0.005000000000000002,
+        "r_nu": 0.7138087186599984,
+        "g_star": 3.3629712540957253,
+        "g_star_s": 3.90943486464324
+      }
+    ],
+    "g_star_early": 10.74933851292719,
+    "g_star_early_target": 10.75,
+    "g_star_late": 3.3629712540957253,
+    "g_star_late_target": 3.362643905961434,
+    "g_star_s_late": 3.90943486464324,
+    "g_star_s_late_target": 3.909090909090909
+  },
+  "excluded": {
+    "T_MeV": 10.0,
+    "g_star_base": 10.74933851292719,
+    "delta_g_muon": 0.009901611281350142,
+    "delta_g_muon_rel": 0.0009211368001335554,
+    "delta_g_nuR_if_thermal": 5.2500000000000675,
+    "delta_g_nuR_rel": 0.48840214620522,
+    "m_Eg_bound_MeV": 125.4567501450966,
+    "m_Eg_bound_criterion": "delta g_* < 1e-3 at T = 10.0 MeV"
+  },
+  "lattice": {
+    "T_MeV": 1.0,
+    "theta": 3.120060587381948e-22,
+    "delta_u_photon_rel": 8.714594872814605e-44,
+    "delta_u_fermion_rel": 6.753811026431319e-43,
+    "delta_g_star_rel": 5.659420042403438e-43,
+    "T_lattice_K": 3.719324607647246e+31
+  },
+  "plateaus": {
+    "rows": [
+      {
+        "epoch": "T < m_e (post e+e- annihilation)",
+        "boundary": "derived (m_e, F121)",
+        "model": 3.362643905961434,
+        "sm": 3.363,
+        "content": "gamma; 3 nu_L at (4/11)^(1/3)"
+      },
+      {
+        "epoch": "m_e < T < m_mu",
+        "boundary": "derived (m_e, m_mu; F121)",
+        "model": 10.75,
+        "sm": 10.75,
+        "content": "gamma; e+e-; 3 nu_L"
+      },
+      {
+        "epoch": "m_mu < T < T_QCD",
+        "boundary": "imported (T_QCD)",
+        "model": 17.25,
+        "sm": 17.25,
+        "content": "gamma; e, mu; 3 nu_L; pi^0, pi^+-"
+      },
+      {
+        "epoch": "T_QCD < T < m_c",
+        "boundary": "imported (T_QCD, m_c)",
+        "model": 61.75,
+        "sm": 61.75,
+        "content": "gamma; 8 gluons; u, d, s; e, mu; 3 nu_L"
+      },
+      {
+        "epoch": "m_c < T < m_b",
+        "boundary": "imported",
+        "model": 75.75,
+        "sm": 75.75,
+        "content": "+ c, tau"
+      },
+      {
+        "epoch": "m_b < T < m_W",
+        "boundary": "imported",
+        "model": 86.25,
+        "sm": 86.25,
+        "content": "+ b"
+      },
+      {
+        "epoch": "m_W < T < m_t",
+        "boundary": "imported",
+        "model": 95.25,
+        "sm": 96.25,
+        "content": "+ W+-, Z (model has no physical Higgs scalar)"
+      },
+      {
+        "epoch": "T > m_t (E_g heavy)",
+        "boundary": "imported",
+        "model": 105.75,
+        "sm": 106.75,
+        "content": "+ t; E_g doublet still non-relativistic"
+      },
+      {
+        "epoch": "T > m_t (E_g light)",
+        "boundary": "imported",
+        "model": 107.75,
+        "sm": 106.75,
+        "content": "+ t; both E_g real scalars relativistic"
+      }
+    ],
+    "model_minus_sm_high_T": [
+      -1.0,
+      1.0
+    ],
+    "high_T_difference_is_exactly_one_dof": true,
+    "sm_value_unavailable_to_the_model": 106.75,
+    "omega_gw_relative_shift": 0.00312256049960968,
+    "omega_gw_observable_today": false,
+    "omega_gw_note": "Omega_GW ~ g_* g_*s^(-4/3); a common one-dof shift gives -delta/3 = 0.31 %, far below any current or planned primordial-GW sensitivity.  Labelled, not published as a falsifier (F300 discipline)."
+  },
+  "shift": {
+    "m_e_PDG_MeV": 0.51099895,
+    "m_e_model_MeV": 0.51069,
+    "m_e_rel_shift": -0.0006046000681605435,
+    "Y_p_pdg": 0.2449389198401004,
+    "Y_p_model": 0.245046963846859,
+    "delta_Y_p": 0.00010804400675859527,
+    "delta_Y_p_rel": 0.0004411059166469222,
+    "delta_Y_p_in_sigma": 0.03177764904664567,
+    "Y_p_sigma_pdg": -0.10620004702928808,
+    "Y_p_sigma_model": -0.0744223979826424,
+    "DH_pdg": 2.4726285221052678e-05,
+    "DH_model": 2.472889781176118e-05,
+    "delta_DH_rel": 0.00010566046153481778,
+    "delta_DH_in_sigma": 0.008708635695002076,
+    "DH_sigma_pdg": -1.8123825964910736,
+    "DH_sigma_model": -1.8036739607960717,
+    "T_freezeout_pdg": 0.6673855400910259,
+    "T_freezeout_model": 0.6676089952906067,
+    "sigma_Yp_needed_to_see_it": 0.00010804400675859527,
+    "improvement_factor_needed": 31.468658947429475
+  },
+  "species": [
+    {
+      "name": "photon",
+      "kind": "boson",
+      "g": 2,
+      "mass_MeV": 0.0,
+      "bath": "photon",
+      "status": "thermal",
+      "provenance": "F67/F68/F69 paired-spinor photon; EoS a theorem (F300)",
+      "reason": "massless, 2 transverse polarisations, non-birefringent"
+    },
+    {
+      "name": "e+e-",
+      "kind": "fermion",
+      "g": 4,
+      "mass_MeV": 0.51069,
+      "bath": "photon",
+      "status": "thermal",
+      "provenance": "F121 tau-anchored spectrum (model m_e = 0.51069 MeV)",
+      "reason": "2 Weyl fields (e_L, e_R) x 2 = 4; charged, so it tracks the photon bath until it annihilates"
+    },
+    {
+      "name": "nu_L x3",
+      "kind": "fermion",
+      "g": 6,
+      "mass_MeV": 0.0,
+      "bath": "neutrino",
+      "status": "thermal",
+      "provenance": "F165/F279 (Y != 0 -> couples), F47 (light)",
+      "reason": "3 left-handed Weyl fields x 2 = 6; decoupled below ~2 MeV, so its temperature is tracked separately"
+    },
+    {
+      "name": "nu_R x3",
+      "kind": "fermion",
+      "g": 6,
+      "mass_MeV": null,
+      "bath": "none",
+      "status": "excluded",
+      "provenance": "F165/F279 (Y = 0 forced), F47/F236 (heavy Majorana)",
+      "reason": "TOTAL singlet: Y = 0 is forced by the constraint system, so there is no renormalisable coupling to the bath, and the see-saw gives it M_R.  Two independent reasons for the same zero.  If it thermalised, Delta N_eff = 3 x 0.57 = 1.71"
+    },
+    {
+      "name": "E_g scalars",
+      "kind": "boson",
+      "g": 2,
+      "mass_MeV": null,
+      "bath": "none",
+      "status": "excluded",
+      "provenance": "F253/F255; founding decision 3 (Higgs-free)",
+      "reason": "the E_g doublet is the massive condensate direction, at the condensate scale.  Its mass is NOT derived in the tree, so section D1 converts this exclusion into a lower bound"
+    },
+    {
+      "name": "mu+mu-, pions, hadrons",
+      "kind": "mixed",
+      "g": 4,
+      "mass_MeV": 105.6575,
+      "bath": "photon",
+      "status": "excluded",
+      "provenance": "F121 (m_mu), F103 (m_pi)",
+      "reason": "Boltzmann-suppressed at T <= 10 MeV; the muon is the lightest of them and section D1 quantifies its residual"
+    },
+    {
+      "name": "dark matter",
+      "kind": "boson",
+      "g": null,
+      "mass_MeV": null,
+      "bath": "none",
+      "status": "excluded",
+      "provenance": "F223/F228 Planck-mass geon remnant",
+      "reason": "non-relativistic by 19 orders of magnitude; there is no light dark sector in this model"
+    }
+  ],
+  "ledger": {
+    "model_native": [
+      "omega^pm(k) = arccos(u^pm) \u2014 the BCC Weyl walk (F26); sections A/B",
+      "c_lat = 1/sqrt3 (F26); a = 6.5978 ell_P (F107) -> Theta",
+      "48 Weyl fields, 24 L + 24 R (F47/F165/F279) -> branch balance",
+      "2 real E_g scalars, massive; NO Higgs (founding decision 3, F253)",
+      "nu_R excluded: Y = 0 forced (F165/F279) + heavy Majorana (F47/F236)",
+      "m_e = 0.51069 MeV (F121 tau-anchored canonical spectrum)",
+      "m_mu = 105.6575 MeV (F121) -> the muon Boltzmann residual",
+      "the photon EoS coefficients (F300)"
+    ],
+    "external": [
+      "k_B, hbar, c, ell_P \u2014 unit rulers",
+      "m_c, m_b, m_t, m_W, T_QCD \u2014 the D2 plateau BOUNDARIES only; no D1 or section E result depends on them",
+      "PDG m_e, observed Y_p and D/H \u2014 comparison points"
+    ],
+    "free_parameters": 0
+  },
+  "controls": {
+    "branch_odd_control": false,
+    "sm_content_control": false
+  }
+}

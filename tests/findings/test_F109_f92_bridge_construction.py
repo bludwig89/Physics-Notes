@@ -72,9 +72,11 @@ import numpy as np
 import sympy as sp
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "ca-simulation"))
-from ca_bcc import bcc_dispersion  # noqa: E402
-from ca_dirac import mass_step_1flavor_u1  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.lattice.bcc import bcc_dispersion  # noqa: E402
+from casim.engine.particles.dirac import mass_step_1flavor_u1  # noqa: E402
 
 RESULTS = {}
 PASS = True

@@ -21,18 +21,19 @@ Sandbox scale (small L, short relaxation) — the accurate absolute a0/E0 and th
 full physical 6e4 ratio are the job of tests/runners/run_u4_multigrid.py.
 
 Runs under pytest, or standalone:
-    PYTHONPATH=ca-simulation python tests/findings/test_F159_multigrid_scale_separation.py
+    PYTHONPATH=src python tests/findings/test_F159_multigrid_scale_separation.py
 """
 from __future__ import annotations
 
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__)))), "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np            # noqa: E402
-import ca_multigrid as mg     # noqa: E402
+from casim.engine.lattice import multigrid as mg     # noqa: E402
 
 
 def _proton(L=24, rp=3.0):

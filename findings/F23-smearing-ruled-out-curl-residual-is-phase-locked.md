@@ -1,6 +1,35 @@
 # Finding 23 — Smearing is ruled out; the c_lat/√2 curl coefficient is algebraically phase-locked
 
+> **[PARTIALLY SUPERSEDED 2026-08-04 by F306 — ledger S18-curl-residual-representation-artifact]**
+>
+> **DEAD:** The '## Root cause' and '## Next fork' sections -- the finite-Delta-t root cause and the prescribed Delta t -> 0 fork.
+>
+> **STILL LIVE:** The real-vs-imaginary phase-lock DIAGNOSIS, which was correct two months before the reviews found it independently, and the negative result that no smearing closes the residual.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 *Recorded 2026-05-23 - (session). Run: `ca-simulation/forks/smearing_fork_harness.py`. Result: `test-results/smearing_fork_results_2026-05-23.json`.*
+
+**Reviewed:** 2026-08-04 — **OVERSTATED** ([independent review](../docs/reviews/F23-review-2026-08-04.md))
+**Superseded:** 2026-08-04 by [[F306-curl-closes-at-k3-representation-artifact]] — ledger `S18-curl-residual-representation-artifact`
+
+> **⚠ SUPERSEDED ROOT CAUSE 2026-08-04.** This finding identified the
+> real-vs-imaginary phase structure **correctly, and two months before the reviews
+> found it independently** — that diagnosis is live and is F23's real contribution.
+> But its `## Root cause` attaches the wrong mechanism to it. The lock is **not** a
+> finite-$\Delta t$ artefact: $E = 2\,\mathrm{Re}\,g$ is real *by construction*, so
+> $\partial_t E = \Omega B$ is real at every $\Delta t$ and never "becomes complex".
+> Measured 0.4082469 / 0.4082468 / 0.4082469 at $\Delta t = 10^{-3}$, $10^{-6}$ and
+> for the exact derivative. **The `## Next fork` experiment would have returned
+> 0.40823 and struck H3 — the one correct hypothesis — off Finding 2's list.**
+>
+> **DEAD:** `## Root cause` and `## Next fork`.
+> **LIVE:** the phase-lock diagnosis, and the negative result that no smearing
+> closes the residual (F306 proves the stronger version: $R=0$ requires
+> $B\equiv0$, for any weighting).
+>
+> See F306 and `docs/theory/supersessions.yaml`.
 
 ---
 

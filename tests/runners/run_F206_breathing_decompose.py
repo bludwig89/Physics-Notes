@@ -5,12 +5,12 @@ confinement, not NN).  Steps the ElementAtomChannel directly so we get a
 per-tick time series, and scans g_nn."""
 import os, sys, json
 _REPO = "/sessions/jolly-upbeat-meitner/mnt/Physics Notes"
-for _p in (os.path.join(_REPO, "src"), os.path.join(_REPO, "ca-simulation")):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 import numpy as np
 import casim  # noqa
-from casim.engine.channel import build_channel
+from casim.engine.core.channel import build_channel
 
 
 def _centroid(d, L):

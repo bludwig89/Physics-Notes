@@ -61,7 +61,7 @@ algebra and the bubble are built by hand from real cos/sin BCC structure; comple
 numbers appear only in the exactly-unitary helicity phase check (A) and the FFT
 grid sums (C, D), never inside a chiral spinor transform.
 
-Run:  python3 ca-simulation/forks/gr_fork_F248_tt_graviton_bcc.py
+Run:  python3 src/casim/engine/forks/gravity/gr_fork_F248_tt_graviton_bcc.py`
 """
 
 from __future__ import annotations
@@ -70,7 +70,7 @@ import math
 import os
 import numpy as np
 from casim.constants import c_lat
-import ca_fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
+from casim.numerics import fft as _fft  # roadmap C1.3: route FFTs through casim.numerics
 
 C_LAT = c_lat
 INV_R3 = c_lat
@@ -540,7 +540,7 @@ def run_all() -> dict:
 
 if __name__ == "__main__":
     res = run_all()
-    # C6: five '..' — this fork moved from ca-simulation/forks/ (2 levels below
+    # C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
     # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
     outdir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "test-results"))
     os.makedirs(outdir, exist_ok=True)

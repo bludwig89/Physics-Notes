@@ -1,0 +1,292 @@
+{
+  "target_16pi2": 73.9,
+  "cosine_standin_leading": 19.1,
+  "rule_lambda_target": 1.78,
+  "vertex_wiring_gate": {
+    "ratio_mean": "(0.9999998707670379-2.4273178325914425e-13j)",
+    "is_real_unity": true,
+    "spread": 2.3688944517100541e-07,
+    "pass": true,
+    "statement": "colour-stripped grid 3-gluon tensor -> continuum YM tensor (ratio -> 1, real) => exact vertex wired in with correct i/colour normalisation"
+  },
+  "haar_measure_derivation": {
+    "c_measure": 0.12500000077656095,
+    "c_over_CA": 0.04166666692552032,
+    "analytic_CA_over_24": 0.125,
+    "std": 2.843642514771788e-10,
+    "mass_counterterm_Pi": -0.25,
+    "pass": true,
+    "statement": "ln J(X) = -(C_A/24) sum_a (X^a)^2 (derived from the adjoint exp-map Jacobian) => measure mass counterterm Pi^meas = -delta_{mn} C_A/12, cancelling the seagull quadratic divergence"
+  },
+  "scheme_consistency_diagnosis": {
+    "bqq_over_abbott_spread": 6.7588831134379905,
+    "bqq_over_symmetric_mean": "(0.999999902377758+1.0751411515806929e-05j)",
+    "bqq_over_symmetric_spread": 0.0012265490031643784,
+    "action_vertex_is_symmetric": true,
+    "action_vertex_is_abbott": false,
+    "statement": "plaquette-action vertex == symmetric YM vertex (NOT Abbott) => the scheme-consistent d1 needs ONE more term: the lattice background-covariant gauge-fixing vertex (Abbott - symmetric). Its lattice form factors come from the same link expansion."
+  },
+  "gauge_fixing_identity": {
+    "mismatched_components": 0,
+    "total": 64,
+    "pass": true,
+    "closed_form": "V^gf_{a m l}(k,q) = delta_{am}(-k-q)_l - delta_{ml} k_a",
+    "statement": "Abbott = symmetric + V^gf EXACTLY (0/64) => the derived gauge-fixing vertex is the missing scheme term; adding it to the exact lattice symmetric vertex gives the lattice Abbott vertex, so Pi-alone is transverse and yields b0=11 (bg gate)."
+  },
+  "fp_dressing_gate": {
+    "ghost_exact_vs_continuum_rel": 9.901368847397042e-08,
+    "gf_real_exact_vs_continuum_rel": 4.509425928360896e-08,
+    "pass": true,
+    "ghost_form_factor": "2 sin((p+p')_mu/2)  (DERIVED, covariant ghost Laplacian)",
+    "statement": "exact FP dressings reduce to the continuum ghost (p+p')_mu and (real part) gauge-fixing vertex as a->0; the gf midpoint phase's O(ka) imaginary part cancels in the loop (Pi real). They are the O((ka)^2) lattice refinement of the leading forms."
+  },
+  "scheme_consistent_vs_n": {
+    "wilson": [
+      {
+        "n": 8,
+        "kernel": "wilson",
+        "fp": "exact",
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_bgfield_lat": -0.26987453109363896,
+            "B_cont": -0.33514602638755603,
+            "C": 10.307261395496436
+          },
+          {
+            "Q": 0.15,
+            "B_bgfield_lat": -0.2682523233653046,
+            "B_cont": -0.33381658940294656,
+            "C": 10.353493898228878
+          },
+          {
+            "Q": 0.2,
+            "B_bgfield_lat": -0.26587093462910877,
+            "B_cont": -0.3318571403456524,
+            "C": 10.420123941618987
+          },
+          {
+            "Q": 0.3,
+            "B_bgfield_lat": -0.25853409597798643,
+            "B_cont": -0.3257809370261131,
+            "C": 10.61919549388716
+          }
+        ],
+        "C": 10.425018682307867,
+        "Q_spread": 0.31193409839072395,
+        "max_imag_B": 3.358684814803876e-17,
+        "implied_lambda_ratio_exp_C_over_2b0": 1.6061893104328095,
+        "seconds": 107.9
+      },
+      {
+        "n": 12,
+        "kernel": "wilson",
+        "fp": "exact",
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_bgfield_lat": -0.3234375022892865,
+            "B_cont": -0.3897618523600321,
+            "C": 10.473521557721945
+          },
+          {
+            "Q": 0.15,
+            "B_bgfield_lat": -0.31985599096301753,
+            "B_cont": -0.3865661093198266,
+            "C": 10.534439643704875
+          },
+          {
+            "Q": 0.2,
+            "B_bgfield_lat": -0.31446225544478756,
+            "B_cont": -0.38173134025393374,
+            "C": 10.622708087833638
+          },
+          {
+            "Q": 0.3,
+            "B_bgfield_lat": -0.2980801068957749,
+            "B_cont": -0.36697740913278737,
+            "C": 10.87982587810563
+          }
+        ],
+        "C": 10.627623791841522,
+        "Q_spread": 0.40630432038368447,
+        "max_imag_B": 3.895472773951902e-17,
+        "implied_lambda_ratio_exp_C_over_2b0": 1.6210495481889855,
+        "seconds": 541.5
+      },
+      {
+        "n": 16,
+        "kernel": "wilson",
+        "fp": "exact",
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_bgfield_lat": -0.36104210148023,
+            "B_cont": -0.4276910633788877,
+            "C": 10.524782202928456
+          },
+          {
+            "Q": 0.15,
+            "B_bgfield_lat": -0.3545129657351925,
+            "B_cont": -0.42162000477825096,
+            "C": 10.597118846135126
+          },
+          {
+            "Q": 0.2,
+            "B_bgfield_lat": -0.34472225837983145,
+            "B_cont": -0.412486057719158,
+            "C": 10.700830275103252
+          },
+          {
+            "Q": 0.3,
+            "B_bgfield_lat": -0.3178472977701722,
+            "B_cont": -0.38740660044955616,
+            "C": 10.984364797778479
+          }
+        ],
+        "C": 10.701774030486327,
+        "Q_spread": 0.45958259485002273,
+        "max_imag_B": 6.005065003520853e-17,
+        "implied_lambda_ratio_exp_C_over_2b0": 1.6265224575361468,
+        "seconds": 1668.3
+      }
+    ],
+    "rule": [
+      {
+        "n": 8,
+        "kernel": "rule",
+        "fp": "exact",
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_bgfield_lat": -0.23229074061252572,
+            "B_cont": -0.33514602638755603,
+            "C": 16.242255698568684
+          },
+          {
+            "Q": 0.15,
+            "B_bgfield_lat": -0.23072497102131093,
+            "B_cont": -0.33381658940294656,
+            "C": 16.27957584791705
+          },
+          {
+            "Q": 0.2,
+            "B_bgfield_lat": -0.22844052201759638,
+            "B_cont": -0.3318571403456524,
+            "C": 16.33089778234176
+          },
+          {
+            "Q": 0.3,
+            "B_bgfield_lat": -0.22147412255406554,
+            "B_cont": -0.3257809370261131,
+            "C": 16.471471922830908
+          }
+        ],
+        "C": 16.3310503129146,
+        "Q_spread": 0.229216224262224,
+        "max_imag_B": 2.1781908322139306e-17,
+        "implied_lambda_ratio_exp_C_over_2b0": 2.1008047146257987,
+        "seconds": 105.1
+      },
+      {
+        "n": 12,
+        "kernel": "rule",
+        "fp": "exact",
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_bgfield_lat": -0.28584433058894126,
+            "B_cont": -0.3897618523600321,
+            "C": 16.409997283556113
+          },
+          {
+            "Q": 0.15,
+            "B_bgfield_lat": -0.282332302708684,
+            "B_cont": -0.3865661093198266,
+            "C": 16.459942983546085
+          },
+          {
+            "Q": 0.2,
+            "B_bgfield_lat": -0.27706843758855193,
+            "B_cont": -0.38173134025393374,
+            "C": 16.52770311643263
+          },
+          {
+            "Q": 0.3,
+            "B_bgfield_lat": -0.26125104879386246,
+            "B_cont": -0.36697740913278737,
+            "C": 16.695637620995402
+          }
+        ],
+        "C": 16.523320251132557,
+        "Q_spread": 0.28564033743928974,
+        "max_imag_B": 2.0638591707366952e-17,
+        "implied_lambda_ratio_exp_C_over_2b0": 2.1192452505726656,
+        "seconds": 536.4
+      },
+      {
+        "n": 16,
+        "kernel": "rule",
+        "fp": "exact",
+        "rows": [
+          {
+            "Q": 0.1,
+            "B_bgfield_lat": -0.3233843655220225,
+            "B_cont": -0.4276910633788877,
+            "C": 16.471453507699433
+          },
+          {
+            "Q": 0.15,
+            "B_bgfield_lat": -0.3169434499287798,
+            "B_cont": -0.42162000477825096,
+            "C": 16.52985898293139
+          },
+          {
+            "Q": 0.2,
+            "B_bgfield_lat": -0.3073282917353162,
+            "B_cont": -0.412486057719158,
+            "C": 16.605848799405596
+          },
+          {
+            "Q": 0.3,
+            "B_bgfield_lat": -0.28111699873969903,
+            "B_cont": -0.38740660044955616,
+            "C": 16.784581133210253
+          }
+        ],
+        "C": 16.597935605811667,
+        "Q_spread": 0.31312762551081974,
+        "max_imag_B": 3.6153283161740624e-17,
+        "implied_lambda_ratio_exp_C_over_2b0": 2.1264451002934566,
+        "seconds": 1656.6
+      }
+    ]
+  },
+  "seagull_tadpole_vs_n": [
+    {
+      "n": 8,
+      "Z0": 0.15378806849342838,
+      "seagull_coeff_(d-1)/2*CA": 4.5,
+      "seagull_mass": 0.6920463082204277,
+      "measure_counterterm": -0.25,
+      "note": "Z0 -> 0.15493 as n->inf (Wilson tadpole). The measure term cancels the QUADRATIC divergence; the finite remnant + gluon/ghost vertex constant assemble the 28.81 gate."
+    },
+    {
+      "n": 12,
+      "Z0": 0.15443658385294212,
+      "seagull_coeff_(d-1)/2*CA": 4.5,
+      "seagull_mass": 0.6949646273382395,
+      "measure_counterterm": -0.25,
+      "note": "Z0 -> 0.15493 as n->inf (Wilson tadpole). The measure term cancels the QUADRATIC divergence; the finite remnant + gluon/ghost vertex constant assemble the 28.81 gate."
+    },
+    {
+      "n": 16,
+      "Z0": 0.1546562099585288,
+      "seagull_coeff_(d-1)/2*CA": 4.5,
+      "seagull_mass": 0.6959529448133797,
+      "measure_counterterm": -0.25,
+      "note": "Z0 -> 0.15493 as n->inf (Wilson tadpole). The measure term cancels the QUADRATIC divergence; the finite remnant + gluon/ghost vertex constant assemble the 28.81 gate."
+    }
+  ],
+  "verdict": "SCHEME-CONSISTENT + EXACT FP DRESSING. Lattice Abbott = exact symmetric + DERIVED gauge-fixing vertex (Abbott=sym+V^gf, 0/64); DERIVED exact ghost 2 sin((p+p')/2) + gf midpoint phases (Pi real). Q-flat => b0-preserving. Tadpole-free RULE d1: C=16.60 (16pi^2 u., n=16) -> Lambda-ratio=2.126 (target 1.78, far from Wilson 28.81). Read the digit from the n->inf trend."
+}

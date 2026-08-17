@@ -28,6 +28,10 @@ from typing import Any, Dict
 
 import numpy as np
 
+from . import precision as _precision
+
+_np_complex128 = np.complex128
+
 __all__ = [
     "register", "use", "active", "active_name", "available", "describe",
     "set_workers", "get_workers", "nworkers", "NumpyBackend",
@@ -227,6 +231,42 @@ class CupyBackend(_DeviceBackend):
         return f"cupy (CUDA device FFT) — {self._m.cuda.runtime.getDeviceCount()} device(s)"
 
 
+class JaxBackend(_DeviceBackend):
+    """JAX (CPU/Metal/CUDA) — roadmap **P2.7**.
+
+    Registered so that the JAX device path is *visible* the way CuPy and MLX
+    are. Before P2.7 there was a live JAX path in
+    `casim.engine.gauge.weak_wmu` (two `@jax.jit` kernels, opt-in via
+    `use_jax()`) that was not in this registry at all — so the "no device
+    backend auto-selects" test did not cover it, and `audit_numerics.py`'s
+    `np|numpy` regex could not see its eight `jnp.fft` calls.
+
+    **x64 is not optional here.** JAX defaults to float32 and *silently
+    downcasts* `complex128` input, which is worse than refusing it. So
+    registration enables `jax_enable_x64` and then **verifies** it took effect;
+    if it did not, the shared `casim.numerics.precision` gate refuses the
+    backend unless `CASIM_ALLOW_FLOAT32=1`. That check is a measurement of the
+    live config, not a trust in the `update()` call — `jax_enable_x64` is
+    ignored once arrays have been created, so the order matters and the
+    verification is what makes it safe.
+    """
+    name = "jax"
+
+    def __init__(self, mod, float64: bool) -> None:
+        super().__init__(mod)
+        self._float64 = bool(float64)
+
+    def _to(self, a):   return self._m.numpy.asarray(a)
+    def _from(self, a): return np.asarray(a)
+    def _fft(self):     return self._m.numpy.fft
+
+    def describe(self) -> str:
+        dev = ", ".join(sorted({d.platform for d in self._m.devices()}))
+        if not self._float64:
+            return _precision.float32_note(f"jax ({dev})")
+        return f"jax ({dev}, x64) — device FFT"
+
+
 class MlxBackend(_DeviceBackend):
     """Apple-Silicon Metal via MLX (roadmap P2.4 'now').
 
@@ -245,8 +285,7 @@ class MlxBackend(_DeviceBackend):
     def _fft(self):     return self._m.fft
 
     def describe(self) -> str:
-        return ("mlx (Metal) — FLOAT32; excluded from machine_precision "
-                "scenarios, see casim.numerics.backends.MlxBackend")
+        return _precision.float32_note("mlx (Metal)")
 
 
 # ---------------------------------------------------------------------------
@@ -288,6 +327,21 @@ def _discover() -> str:
     except Exception:
         pass
 
+    # P2.7. x64 must be enabled BEFORE any array is created, and then verified:
+    # `jax_enable_x64` is ignored once JAX has been used, so a successful
+    # `update()` call is not evidence. Measure the live dtype instead.
+    try:
+        import jax as _jx
+        try:
+            _jx.config.update("jax_enable_x64", True)
+        except Exception:
+            pass
+        _f64 = _jx.numpy.zeros(1, dtype=_jx.numpy.complex128).dtype == \
+            _np_complex128
+        register(JaxBackend(_jx, _f64))
+    except Exception:
+        pass
+
     # Device backends are registered but never auto-selected: CuPy needs a
     # sized problem to beat the host round-trip, and MLX is float32.
     env = os.environ.get("CASIM_BACKEND")
@@ -296,11 +350,11 @@ def _discover() -> str:
             raise RuntimeError(
                 f"CASIM_BACKEND={env!r} is not available; have "
                 f"{sorted(_REGISTRY)}")
-        if env == "mlx" and os.environ.get("CASIM_ALLOW_FLOAT32") != "1":
-            raise RuntimeError(
-                "CASIM_BACKEND=mlx is float32-backed and would silently break "
-                "every machine_precision claim (float32 eps 1.2e-7 vs the "
-                "1e-12 gate). Set CASIM_ALLOW_FLOAT32=1 to accept that.")
+        if env == "mlx":
+            _precision.require_float64("CASIM_BACKEND=mlx", is_float64=False)
+        if env == "jax":
+            _precision.require_float64(
+                "CASIM_BACKEND=jax", is_float64=_REGISTRY[env]._float64)
         best = env
     use(best)
     return best

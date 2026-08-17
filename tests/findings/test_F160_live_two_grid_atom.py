@@ -29,8 +29,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
 
 import casim  # noqa: E402,F401
 from casim.engine import Simulation, LatticeSpec  # noqa: E402
-from casim.engine.channel import build_channel     # noqa: E402
-from casim.engine.observers import build_observer   # noqa: E402
+from casim.engine.core.channel import build_channel     # noqa: E402
+from casim.engine.core.observers import build_observer   # noqa: E402
 
 _CACHE = {}
 

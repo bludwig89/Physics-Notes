@@ -32,14 +32,12 @@ import sys
 import numpy as np
 import pytest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..",
-                                "ca-simulation"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 
 from casim.engine import Simulation, LatticeSpec      # noqa: E402
-from casim.engine.channels import PhotonPairChannel    # noqa: E402
-import casim.engine.blockspin as bsm                    # noqa: E402
-import ca_blockspin as cb                               # noqa: E402
+from casim.engine.core.channels import PhotonPairChannel    # noqa: E402
+import casim.engine.core.blockspin as bsm                    # noqa: E402
+from casim.engine.lattice import blockspin as cb                               # noqa: E402
 
 ROOT3_INV = 1.0 / np.sqrt(3.0)
 
@@ -207,7 +205,7 @@ def test_E5_scheduled_blockspin_scenario():
 #  E6 — gravity dielectric coarse-grains by the log rule (A·B ≡ 1)
 # ════════════════════════════════════════════════════════════════════
 def test_E6_gravity_dielectric_log_rule():
-    from casim.engine.channels import GravityDielectricChannel
+    from casim.engine.core.channels import GravityDielectricChannel
     lat = LatticeSpec(L=16)
     ch = GravityDielectricChannel(name="grav", M=1.0, sigma=3.0, G=1.0)
     rng = np.random.default_rng(0)

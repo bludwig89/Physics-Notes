@@ -13,6 +13,7 @@
   "test-results/F163_smoke.json",
   "test-results/F163_smoke2.json",
   "test-results/F164_cosmological_constant.json",
+  "test-results/F165_triple_gluon_branch.json",
   "test-results/F170_slowlight.json",
   "test-results/F199_angular_self_duality.json",
   "test-results/F200_eg_sextic_coupling.json",
@@ -22,22 +23,29 @@
   "test-results/F253_t2g_pmns_selector.json",
   "test-results/F261_twoloop_qed.json",
   "test-results/F27_grb_dispersion.json",
+  "test-results/F287_bgfield_apparatus.json",
+  "test-results/F287_bgfield_slope.json",
   "test-results/F29_su2_photon_bridge.json",
+  "test-results/F300_lattice_thermodynamics.json",
+  "test-results/F304_born_rule_gleason.json",
   "test-results/F45_sigma_tau_weinberg.json",
   "test-results/F47_bcc_weinberg_2over9.json",
   "test-results/F64_vs_F62_comparison.json",
   "test-results/F64_vs_F62_comparison.md",
   "test-results/F70_universal_even_propagator.json",
   "test-results/F89_singlet_bilinear_paired_photon.json",
+  "test-results/F94_BC_from_qca_loop.json",
   "test-results/FA09_deflection.json",
   "test-results/FA10_shadow.json",
+  "test-results/_to_delete/F300_coupling_normalisation.json",
   "test-results/generator_norm_from_F118.json"
  ],
- "generated": "2026-07-31 05:35 UTC",
- "git_sha": "975ff21",
+ "generated": "2026-08-17 20:47 UTC",
+ "git_sha": "ab0ba8f",
  "orphan_results": [
   "test-results/F229_mass_scale_N_transmutation.json",
-  "test-results/F94_BC_from_qca_loop.json",
+  "test-results/F319_uv_completion.json",
+  "test-results/F322_b9_running_rederivation.json",
   "test-results/FALSIFICATION-SUITE-RESULTS.md",
   "test-results/FB02_nucleon.json",
   "test-results/FB02_nucleon_verdict.json",
@@ -50,8 +58,14 @@
   "test-results/Q3_omega_degeneracy.json",
   "test-results/V13_su3_noether.json",
   "test-results/_regress_photon.json",
+  "test-results/arming-journal.json",
+  "test-results/audit-v/B3_doublers_large_L.json",
+  "test-results/audit-v/MANIFEST.md",
+  "test-results/bcc_confinement_d4.json",
+  "test-results/bcc_confinement_d4.md",
   "test-results/ca-f3-propositions.md",
   "test-results/ca-next-steps-plan.md",
+  "test-results/can-fail.json",
   "test-results/casim-exactness-inventory.md",
   "test-results/casim_bcc_weyl.json",
   "test-results/casim_beta_decay.json",
@@ -90,8 +104,11 @@
   "test-results/casim_z_even.json",
   "test-results/confinement_mc.json",
   "test-results/confinement_mc.md",
+  "test-results/control-soundness.json",
   "test-results/curl_fork_results_2026-05-22.json",
+  "test-results/d1_selfenergy.json",
   "test-results/d1_selfenergy_smoke.json",
+  "test-results/d1_selfenergy_sweep.json",
   "test-results/d1_static_potential.json",
   "test-results/d1_static_potential_L18.json",
   "test-results/d1_vertex_formfactor.json",
@@ -115,6 +132,7 @@
   "test-results/photon_beam_all_fields_t1360_review.md",
   "test-results/prod_gauge_mc.json",
   "test-results/propagation_demo_2026-05-22.json",
+  "test-results/propagation_demo_2026-08-04.json",
   "test-results/qca-verifications-results.md",
   "test-results/residual_AB_highres.json",
   "test-results/review_particles_t13162.md",
@@ -159,7 +177,7 @@
    "bytes": 4528,
    "findings": [],
    "fingerprint": "a945d499356fa5d8",
-   "mtime": "2026-07-30 18:04",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -177,7 +195,7 @@
     "F100"
    ],
    "fingerprint": "268cd122f0e0e254",
-   "mtime": "2026-06-16 19:54",
+   "mtime": "2026-08-01 04:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -192,7 +210,7 @@
     "F101"
    ],
    "fingerprint": "19c01f7bf089b402",
-   "mtime": "2026-06-16 19:54",
+   "mtime": "2026-08-01 02:24",
    "numeric_fields": true,
    "tests": [
     {
@@ -210,7 +228,7 @@
     "F101"
    ],
    "fingerprint": "a985c39990f4c7d8",
-   "mtime": "2026-06-10 16:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -228,7 +246,7 @@
     "F102"
    ],
    "fingerprint": "a12ab5f286664181",
-   "mtime": "2026-06-10 16:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -264,7 +282,7 @@
     "F106"
    ],
    "fingerprint": "bd13de0da2f659c9",
-   "mtime": "2026-07-30 23:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -282,7 +300,7 @@
     "F107"
    ],
    "fingerprint": "1cae0fa913a2e4da",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -297,7 +315,7 @@
     "F108"
    ],
    "fingerprint": "030e3e5fa5e0371f",
-   "mtime": "2026-06-10 16:21",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -312,7 +330,7 @@
     "F109"
    ],
    "fingerprint": "4e76258db2043ffa",
-   "mtime": "2026-07-30 21:18",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -340,7 +358,7 @@
     "F110"
    ],
    "fingerprint": "b742b7630abbcd19",
-   "mtime": "2026-07-30 19:56",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -358,7 +376,7 @@
     "F111"
    ],
    "fingerprint": "8accdeaf0a382cfe",
-   "mtime": "2026-06-07 11:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -376,7 +394,7 @@
     "F111"
    ],
    "fingerprint": "804969c5adb3070c",
-   "mtime": "2026-06-07 11:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -394,7 +412,7 @@
     "F112"
    ],
    "fingerprint": "eb909636e6eb812c",
-   "mtime": "2026-07-30 18:04",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -408,7 +426,7 @@
    "findings": [
     "F112"
    ],
-   "mtime": "2026-07-30 19:41",
+   "mtime": "2026-07-31 15:58",
    "tests": [
     {
      "evidence": "exact-stem",
@@ -443,7 +461,7 @@
     "F113"
    ],
    "fingerprint": "43020a59ad4f4a99",
-   "mtime": "2026-07-30 21:21",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -509,7 +527,7 @@
     "F118"
    ],
    "fingerprint": "f682ee979f959d36",
-   "mtime": "2026-06-09 12:01",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -524,7 +542,7 @@
     "F119"
    ],
    "fingerprint": "e755680b9e6b471e",
-   "mtime": "2026-06-09 12:13",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -539,7 +557,7 @@
     "F120"
    ],
    "fingerprint": "58bad3bbec1248be",
-   "mtime": "2026-06-09 16:01",
+   "mtime": "2026-07-31 23:08",
    "numeric_fields": true,
    "tests": [
     {
@@ -554,7 +572,7 @@
     "F121"
    ],
    "fingerprint": "6df54bac0388ad92",
-   "mtime": "2026-06-09 16:08",
+   "mtime": "2026-07-31 23:08",
    "numeric_fields": true,
    "tests": [
     {
@@ -572,7 +590,7 @@
     "F124"
    ],
    "fingerprint": "7b0159d9846e183b",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -590,7 +608,7 @@
     "F126"
    ],
    "fingerprint": "faec2164cb558182",
-   "mtime": "2026-07-30 21:30",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -626,7 +644,7 @@
     "F128"
    ],
    "fingerprint": "fd9488e6105288df",
-   "mtime": "2026-07-30 21:30",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -644,7 +662,7 @@
     "F129"
    ],
    "fingerprint": "a1d01f507340b40f",
-   "mtime": "2026-07-30 18:49",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -658,7 +676,7 @@
    "findings": [
     "F129"
    ],
-   "mtime": "2026-07-30 18:49",
+   "mtime": "2026-07-31 15:58",
    "tests": [
     {
      "evidence": "stem-prefix",
@@ -675,7 +693,7 @@
     "F135"
    ],
    "fingerprint": "90aab4e83f2ce17d",
-   "mtime": "2026-07-30 21:17",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -689,7 +707,7 @@
    "findings": [
     "F135"
    ],
-   "mtime": "2026-07-30 21:17",
+   "mtime": "2026-07-31 15:58",
    "tests": [
     {
      "evidence": "stem-prefix",
@@ -703,7 +721,7 @@
     "F138"
    ],
    "fingerprint": "bb87d9670cc0b3b4",
-   "mtime": "2026-06-11 20:12",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -736,7 +754,7 @@
     "F141"
    ],
    "fingerprint": "149608c56e633170",
-   "mtime": "2026-06-12 00:31",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -776,7 +794,7 @@
     "F143"
    ],
    "fingerprint": "2fb6985000f4f986",
-   "mtime": "2026-06-12 12:49",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -791,7 +809,7 @@
     "F144"
    ],
    "fingerprint": "66281b5c4682fc63",
-   "mtime": "2026-07-30 21:27",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -806,7 +824,7 @@
     "F145"
    ],
    "fingerprint": "d705054a3685a2b4",
-   "mtime": "2026-07-30 21:21",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -824,7 +842,7 @@
     "F147"
    ],
    "fingerprint": "6b25cbb9bc49f1c7",
-   "mtime": "2026-07-30 22:10",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -842,7 +860,7 @@
     "F148"
    ],
    "fingerprint": "075935add74bfb00",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -860,7 +878,7 @@
     "F149"
    ],
    "fingerprint": "b1f8f8e62ca9c87f",
-   "mtime": "2026-07-30 21:31",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -890,7 +908,7 @@
     "F151"
    ],
    "fingerprint": "33ec2b891ee064bb",
-   "mtime": "2026-06-12 20:32",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -923,7 +941,7 @@
     "F153"
    ],
    "fingerprint": "4a039b6c50989153",
-   "mtime": "2026-07-30 21:31",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -953,7 +971,7 @@
     "F155"
    ],
    "fingerprint": "c113ad6aa3ae2c7f",
-   "mtime": "2026-06-18 14:19",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -968,7 +986,7 @@
     "F155"
    ],
    "fingerprint": "f3a7faf5427bc739",
-   "mtime": "2026-06-18 14:19",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -982,8 +1000,8 @@
    "findings": [
     "F155"
    ],
-   "fingerprint": "0299058566a07ec8",
-   "mtime": "2026-06-16 19:10",
+   "fingerprint": "424b51d7c4fb155b",
+   "mtime": "2026-08-02 12:22",
    "numeric_fields": true,
    "tests": [
     {
@@ -998,7 +1016,7 @@
     "F155"
    ],
    "fingerprint": "1acae24314239c5c",
-   "mtime": "2026-06-18 14:19",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1007,13 +1025,28 @@
     }
    ]
   },
+  "test-results/F15_closed_form_beta_LV.json": {
+   "bytes": 5724,
+   "findings": [
+    "F15"
+   ],
+   "fingerprint": "30a5d5d258440be2",
+   "mtime": "2026-08-03 15:24",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F15_closed_form_beta_LV.py"
+    }
+   ]
+  },
   "test-results/F162_bgfield_loop.json": {
    "bytes": 986,
    "findings": [
     "F162"
    ],
-   "fingerprint": "a3bcd0c33b58ecc4",
-   "mtime": "2026-06-18 14:52",
+   "fingerprint": "66b46d7077160d0f",
+   "mtime": "2026-08-02 13:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -1028,7 +1061,7 @@
     "F162"
    ],
    "fingerprint": "0d157c2492db425c",
-   "mtime": "2026-06-18 14:48",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1118,7 +1151,7 @@
     "F163"
    ],
    "fingerprint": "3daa2ac42dcdc7c5",
-   "mtime": "2026-06-19 18:42",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1146,12 +1179,7 @@
     "F165"
    ],
    "mtime": "2026-06-29 17:01",
-   "tests": [
-    {
-     "evidence": "finding-id",
-     "path": "tests/findings/test_hypercharge_quantisation.py"
-    }
-   ],
+   "tests": [],
    "unreadable": "Expecting value: line 1 column 1 (char 0)"
   },
   "test-results/F166_triple_gluon_branch.json": {
@@ -1160,7 +1188,7 @@
     "F166"
    ],
    "fingerprint": "682fb4f533b3cbc6",
-   "mtime": "2026-06-29 17:01",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1175,7 +1203,7 @@
     "F167"
    ],
    "fingerprint": "c4e226aa6c6db49c",
-   "mtime": "2026-06-29 17:11",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1190,7 +1218,7 @@
     "F168"
    ],
    "fingerprint": "2e2d669849e2e5c3",
-   "mtime": "2026-06-29 17:15",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1205,7 +1233,7 @@
     "F169"
    ],
    "fingerprint": "b717072c990ea981",
-   "mtime": "2026-06-29 17:54",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1220,7 +1248,7 @@
     "F170"
    ],
    "fingerprint": "0b24370c6e94d7b4",
-   "mtime": "2026-06-29 18:15",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1245,7 +1273,7 @@
     "F171"
    ],
    "fingerprint": "1275e9e533a95643",
-   "mtime": "2026-06-29 20:49",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1260,7 +1288,7 @@
     "F172"
    ],
    "fingerprint": "5b015bb83cfebebc",
-   "mtime": "2026-06-29 20:52",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1275,7 +1303,7 @@
     "F173"
    ],
    "fingerprint": "162dc5dc1c3a13e5",
-   "mtime": "2026-06-30 04:13",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1290,7 +1318,7 @@
     "F174"
    ],
    "fingerprint": "2e0601fb3fa7197f",
-   "mtime": "2026-06-30 03:27",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1305,7 +1333,7 @@
     "F174"
    ],
    "fingerprint": "875a84144eb3518f",
-   "mtime": "2026-06-30 04:13",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1320,7 +1348,7 @@
     "F175"
    ],
    "fingerprint": "be0f7bdd9c7f9f70",
-   "mtime": "2026-07-30 14:20",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1335,7 +1363,7 @@
     "F176"
    ],
    "fingerprint": "ed5e7648998a4696",
-   "mtime": "2026-06-30 03:51",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1350,7 +1378,7 @@
     "F176"
    ],
    "fingerprint": "07992f072619edf1",
-   "mtime": "2026-06-30 03:48",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1365,7 +1393,7 @@
     "F177"
    ],
    "fingerprint": "749efdc0d6cff361",
-   "mtime": "2026-06-30 03:56",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1380,7 +1408,7 @@
     "F179"
    ],
    "fingerprint": "e656435a3ba8bb2b",
-   "mtime": "2026-06-30 12:31",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1413,7 +1441,7 @@
     "F181"
    ],
    "fingerprint": "eb2336d5f9641b35",
-   "mtime": "2026-06-30 13:12",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -1431,7 +1459,7 @@
     "F182"
    ],
    "fingerprint": "e97a6e5d4973a012",
-   "mtime": "2026-06-30 13:12",
+   "mtime": "2026-08-12 18:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -1449,7 +1477,7 @@
     "F183"
    ],
    "fingerprint": "3e2e8135f4c7ca70",
-   "mtime": "2026-06-30 14:02",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1467,7 +1495,7 @@
     "F184"
    ],
    "fingerprint": "b4865c6a9b9c28c3",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-08-12 18:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -1485,7 +1513,7 @@
     "F185"
    ],
    "fingerprint": "8b53d00ca3f3589a",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1503,7 +1531,7 @@
     "F186"
    ],
    "fingerprint": "ca1154ec19ac401d",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1521,7 +1549,7 @@
     "F187"
    ],
    "fingerprint": "88331b7a0d90a859",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1539,7 +1567,7 @@
     "F188"
    ],
    "fingerprint": "3c5315fec9013f47",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1557,7 +1585,7 @@
     "F189"
    ],
    "fingerprint": "60292c496d30da5e",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1575,7 +1603,7 @@
     "F190"
    ],
    "fingerprint": "a9c06eede381a42d",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1593,7 +1621,7 @@
     "F191"
    ],
    "fingerprint": "6ed8c450862ccddd",
-   "mtime": "2026-06-30 15:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1611,7 +1639,7 @@
     "F192"
    ],
    "fingerprint": "b7b1adaf18eeec57",
-   "mtime": "2026-07-30 21:11",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1647,7 +1675,7 @@
     "F193"
    ],
    "fingerprint": "02a02043b2338303",
-   "mtime": "2026-06-30 15:44",
+   "mtime": "2026-07-31 23:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -1665,7 +1693,7 @@
     "F194"
    ],
    "fingerprint": "a54ac35bb02ebec1",
-   "mtime": "2026-06-30 15:37",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1719,7 +1747,7 @@
     "F196"
    ],
    "fingerprint": "f87ec6d66b6e037e",
-   "mtime": "2026-06-30 15:46",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1752,7 +1780,7 @@
     "F197"
    ],
    "fingerprint": "6b148d83fd2782b8",
-   "mtime": "2026-06-30 15:58",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1785,7 +1813,7 @@
     "F198"
    ],
    "fingerprint": "c87e1e8383f5baaf",
-   "mtime": "2026-06-30 16:17",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1818,7 +1846,7 @@
     "F199"
    ],
    "fingerprint": "1495ab35fccc8b4c",
-   "mtime": "2026-06-30 17:02",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1846,7 +1874,7 @@
     "F200"
    ],
    "fingerprint": "f4a2f1fb789a20a0",
-   "mtime": "2026-06-30 20:19",
+   "mtime": "2026-08-12 18:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -1889,7 +1917,7 @@
     "F200"
    ],
    "fingerprint": "a83ce0f4d35f7334",
-   "mtime": "2026-06-30 18:45",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1922,7 +1950,7 @@
     "F201"
    ],
    "fingerprint": "cb323500007e93a0",
-   "mtime": "2026-06-30 18:53",
+   "mtime": "2026-07-31 23:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -1955,7 +1983,7 @@
     "F202"
    ],
    "fingerprint": "f193f3364d226fcf",
-   "mtime": "2026-06-30 20:47",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -1991,7 +2019,7 @@
     "F203"
    ],
    "fingerprint": "e52ab1f32457b657",
-   "mtime": "2026-07-01 01:11",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -2027,7 +2055,7 @@
     "F205"
    ],
    "fingerprint": "dd814d1332661eb7",
-   "mtime": "2026-07-01 01:11",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -2063,7 +2091,7 @@
     "F207"
    ],
    "fingerprint": "ba930e374869fd17",
-   "mtime": "2026-06-30 21:34",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -2104,12 +2132,27 @@
     "F209"
    ],
    "fingerprint": "839f74b14e1ec4ae",
-   "mtime": "2026-07-01 01:07",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
      "evidence": "exact-stem",
      "path": "tests/findings/test_F209_modulated_casimir.py"
+    }
+   ]
+  },
+  "test-results/F20_wavepacket_group_velocity.json": {
+   "bytes": 4328,
+   "findings": [
+    "F20"
+   ],
+   "fingerprint": "f9ca44dfd8b203f0",
+   "mtime": "2026-08-04 00:54",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F20_wavepacket_group_velocity.py"
     }
    ]
   },
@@ -2240,7 +2283,7 @@
     "F216"
    ],
    "fingerprint": "e3cc24b7c29b9458",
-   "mtime": "2026-07-30 21:25",
+   "mtime": "2026-08-01 14:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -2312,7 +2355,7 @@
     "F220"
    ],
    "fingerprint": "c789cad226d05646",
-   "mtime": "2026-07-30 21:23",
+   "mtime": "2026-07-31 23:05",
    "numeric_fields": true,
    "tests": [
     {
@@ -2348,7 +2391,7 @@
     "F222"
    ],
    "fingerprint": "d1c5bf56c1d0c63a",
-   "mtime": "2026-07-02 00:01",
+   "mtime": "2026-07-31 23:05",
    "numeric_fields": true,
    "tests": [
     {
@@ -2363,7 +2406,7 @@
     "F223"
    ],
    "fingerprint": "d3256cffdd6c5137",
-   "mtime": "2026-07-30 21:25",
+   "mtime": "2026-08-01 14:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -2450,7 +2493,7 @@
     "F228"
    ],
    "fingerprint": "b491f088edced0e4",
-   "mtime": "2026-07-30 21:25",
+   "mtime": "2026-08-01 14:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -2471,6 +2514,21 @@
    "mtime": "2026-07-03 04:19",
    "numeric_fields": true,
    "tests": []
+  },
+  "test-results/F22_rho_identity_and_offshell.json": {
+   "bytes": 1744,
+   "findings": [
+    "F22"
+   ],
+   "fingerprint": "4c4f4a92a2798d63",
+   "mtime": "2026-08-04 14:05",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "stem-prefix",
+     "path": "tests/findings/test_F22_rho_identity.py"
+    }
+   ]
   },
   "test-results/F230_Wvc_triple_closed.json": {
    "bytes": 1397,
@@ -2499,7 +2557,7 @@
     "F230"
    ],
    "fingerprint": "1673e595d953daa3",
-   "mtime": "2026-07-03 04:23",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -2535,7 +2593,7 @@
     "F231"
    ],
    "fingerprint": "26a8b275c638357b",
-   "mtime": "2026-07-03 04:23",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -2553,7 +2611,7 @@
     "F232"
    ],
    "fingerprint": "adfec211381b1962",
-   "mtime": "2026-07-03 04:23",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -2571,7 +2629,7 @@
     "F233"
    ],
    "fingerprint": "184f009531da9b3e",
-   "mtime": "2026-07-30 17:23",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -2589,7 +2647,7 @@
     "F234"
    ],
    "fingerprint": "eaa75476e9a2d461",
-   "mtime": "2026-07-30 23:18",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -2607,7 +2665,7 @@
     "F235"
    ],
    "fingerprint": "ccf767a6682abcd9",
-   "mtime": "2026-07-03 04:27",
+   "mtime": "2026-07-31 23:09",
    "numeric_fields": true,
    "tests": [
     {
@@ -2658,7 +2716,7 @@
     "F238"
    ],
    "fingerprint": "9e0712debbfcc973",
-   "mtime": "2026-07-30 21:25",
+   "mtime": "2026-08-01 14:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -2673,7 +2731,7 @@
     "F239"
    ],
    "fingerprint": "b1e5a012dc10816a",
-   "mtime": "2026-07-03 21:50",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -2691,7 +2749,7 @@
     "F240"
    ],
    "fingerprint": "658dcb8622a2b89c",
-   "mtime": "2026-07-30 21:32",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -2709,7 +2767,7 @@
     "F241"
    ],
    "fingerprint": "e4f3d0baf59d8356",
-   "mtime": "2026-07-03 21:50",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -2724,7 +2782,7 @@
     "F242"
    ],
    "fingerprint": "67897e9c293c7713",
-   "mtime": "2026-07-05 11:15",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -2739,7 +2797,7 @@
     "F243"
    ],
    "fingerprint": "5c85996040e6c376",
-   "mtime": "2026-07-05 11:15",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -2754,7 +2812,7 @@
     "F244"
    ],
    "fingerprint": "7aababc6a44c913a",
-   "mtime": "2026-07-05 11:15",
+   "mtime": "2026-08-01 14:23",
    "numeric_fields": true,
    "tests": [
     {
@@ -2793,6 +2851,21 @@
     }
    ]
   },
+  "test-results/F24_sl2c_covariance_full.json": {
+   "bytes": 597,
+   "findings": [
+    "F24"
+   ],
+   "fingerprint": "b5a98361563cc5e8",
+   "mtime": "2026-08-04 19:24",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "stem-prefix",
+     "path": "tests/findings/test_F24_sl2c_covariance.py"
+    }
+   ]
+  },
   "test-results/F250_allk_gauge_pole.json": {
    "bytes": 586,
    "findings": [
@@ -2809,12 +2882,12 @@
    ]
   },
   "test-results/F251_vacuum_polarization.json": {
-   "bytes": 4641,
+   "bytes": 4648,
    "findings": [
     "F251"
    ],
-   "fingerprint": "7d81dd8dfdd6540e",
-   "mtime": "2026-07-16 14:18",
+   "fingerprint": "3fbfebc2ef062a1d",
+   "mtime": "2026-08-02 12:21",
    "numeric_fields": true,
    "tests": [
     {
@@ -2875,7 +2948,7 @@
     "F254"
    ],
    "fingerprint": "ee4f692f263f8596",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -2931,12 +3004,12 @@
    ]
   },
   "test-results/F258_electron_self_energy.json": {
-   "bytes": 6391,
+   "bytes": 6394,
    "findings": [
     "F258"
    ],
-   "fingerprint": "d10d8df2135777ef",
-   "mtime": "2026-07-22 18:00",
+   "fingerprint": "41a6d8980f1b0137",
+   "mtime": "2026-08-02 12:21",
    "numeric_fields": true,
    "tests": [
     {
@@ -2984,7 +3057,7 @@
     "F261"
    ],
    "fingerprint": "b1d84151598e99ec",
-   "mtime": "2026-07-23 14:15",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -3015,7 +3088,7 @@
     "F263"
    ],
    "fingerprint": "6c70a0fe7f25321a",
-   "mtime": "2026-07-23 16:53",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3048,12 +3121,30 @@
     "F265"
    ],
    "fingerprint": "4005827a8a3672d7",
-   "mtime": "2026-07-30 19:55",
+   "mtime": "2026-08-17 20:45",
    "numeric_fields": true,
    "tests": [
     {
      "evidence": "exact-stem",
      "path": "tests/findings/test_F265_bcc_gauge_geometry.py"
+    }
+   ]
+  },
+  "test-results/F267_walk_bz_measure.json": {
+   "bytes": 2159,
+   "declared_findings": [
+    "F267"
+   ],
+   "findings": [
+    "F267"
+   ],
+   "fingerprint": "344f5a3dbddee7db",
+   "mtime": "2026-08-01 01:51",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F267_walk_bz_measure.py"
     }
    ]
   },
@@ -3063,10 +3154,155 @@
     "F27"
    ],
    "fingerprint": "bb8a56fc1e7454a0",
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "F27 GRB/AGN photon dispersion vs F26",
    "tests": []
+  },
+  "test-results/F281_measurement_pointer_born_rg.json": {
+   "bytes": 5149,
+   "findings": [
+    "F281"
+   ],
+   "fingerprint": "48a11397a185969c",
+   "mtime": "2026-08-05 21:23",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "stem-prefix",
+     "path": "tests/findings/test_F281_measurement.py"
+    }
+   ]
+  },
+  "test-results/F282_primordial_sector_nogo.json": {
+   "bytes": 2838,
+   "declared_findings": [
+    "F282"
+   ],
+   "findings": [
+    "F282"
+   ],
+   "fingerprint": "f8a9a50407cfe9c8",
+   "mtime": "2026-08-02 17:18",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F282_primordial_sector_nogo.py"
+    }
+   ]
+  },
+  "test-results/F283_F284_lattice_elasticity.json": {
+   "bytes": 3152,
+   "declared_findings": [
+    "F283",
+    "F284"
+   ],
+   "findings": [
+    "F283",
+    "F284"
+   ],
+   "fingerprint": "8578135d3934915d",
+   "mtime": "2026-08-02 18:21",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F283_F284_lattice_elasticity.py"
+    }
+   ]
+  },
+  "test-results/F285_initial_condition_measure.json": {
+   "bytes": 4423,
+   "declared_findings": [
+    "F285"
+   ],
+   "findings": [
+    "F285"
+   ],
+   "fingerprint": "d9712f2712d0ec82",
+   "mtime": "2026-08-02 18:53",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F285_initial_condition_measure.py"
+    }
+   ]
+  },
+  "test-results/F286_second_scale.json": {
+   "bytes": 4066,
+   "declared_findings": [
+    "F286"
+   ],
+   "findings": [
+    "F286"
+   ],
+   "fingerprint": "dd30968be5dc860e",
+   "mtime": "2026-08-03 02:19",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F286_second_scale.py"
+    }
+   ]
+  },
+  "test-results/F287_bgfield_apparatus.json": {
+   "bytes": 3502,
+   "declared_findings": [
+    "F287"
+   ],
+   "findings": [
+    "F287"
+   ],
+   "fingerprint": "c7c6bf421638a603",
+   "mtime": "2026-08-02 18:55",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F287_bgfield_slope.json": {
+   "bytes": 4838,
+   "declared_findings": [
+    "F287"
+   ],
+   "findings": [
+    "F287"
+   ],
+   "fingerprint": "7dad0c7a27abbf32",
+   "mtime": "2026-08-02 18:10",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F288_structure_formation.json": {
+   "bytes": 13204,
+   "findings": [
+    "F288"
+   ],
+   "fingerprint": "72ecf30a8aa962d7",
+   "mtime": "2026-08-05 20:23",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F288_structure_formation.py"
+    }
+   ]
+  },
+  "test-results/F289_spin_statistics.json": {
+   "bytes": 2307,
+   "findings": [
+    "F289"
+   ],
+   "fingerprint": "1fe9e08c03065e27",
+   "mtime": "2026-08-05 21:16",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F289_spin_statistics.py"
+    }
+   ]
   },
   "test-results/F28_grb_dispersion.json": {
    "bytes": 2575,
@@ -3097,6 +3333,147 @@
     }
    ]
   },
+  "test-results/F290_cluster_decomposition.json": {
+   "bytes": 2179,
+   "findings": [
+    "F290"
+   ],
+   "fingerprint": "6c9b654b84a9ecb9",
+   "mtime": "2026-08-05 21:22",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "stem-prefix",
+     "path": "tests/findings/test_F290_cluster.py"
+    }
+   ]
+  },
+  "test-results/F291_dimension_selectors.json": {
+   "bytes": 1887,
+   "findings": [
+    "F291"
+   ],
+   "fingerprint": "a514fa7532fb16d2",
+   "mtime": "2026-08-08 12:11",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F291_dimension_selectors.py"
+    }
+   ]
+  },
+  "test-results/F292_higher_multiples.json": {
+   "bytes": 2053,
+   "findings": [
+    "F292"
+   ],
+   "fingerprint": "430584fb9f3b81fb",
+   "mtime": "2026-08-08 12:12",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F292_higher_multiples.py"
+    }
+   ]
+  },
+  "test-results/F293_why_three_colours.json": {
+   "bytes": 6235,
+   "findings": [
+    "F293"
+   ],
+   "fingerprint": "64aadf810c63ea1c",
+   "mtime": "2026-08-06 01:32",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F293_why_three_colours.py"
+    }
+   ]
+  },
+  "test-results/F295_anomalous_dimension.json": {
+   "bytes": 3296,
+   "declared_findings": [
+    "F295"
+   ],
+   "findings": [
+    "F295"
+   ],
+   "fingerprint": "f5dcd4568b67181e",
+   "mtime": "2026-08-03 02:47",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F295_anomalous_dimension.py"
+    }
+   ]
+  },
+  "test-results/F296_holographic.json": {
+   "bytes": 3124,
+   "declared_findings": [
+    "F296"
+   ],
+   "findings": [
+    "F296"
+   ],
+   "fingerprint": "b86696bfabc2c3e6",
+   "mtime": "2026-08-03 12:08",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F296_holographic.py"
+    }
+   ]
+  },
+  "test-results/F297_bbn_light_elements.json": {
+   "bytes": 6323,
+   "findings": [
+    "F297"
+   ],
+   "fingerprint": "7901ab8efed5bb50",
+   "mtime": "2026-08-06 02:27",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "stem-prefix",
+     "path": "tests/findings/test_F297_bbn.py"
+    }
+   ]
+  },
+  "test-results/F298_casimir_ladder.json": {
+   "bytes": 2812,
+   "findings": [
+    "F298"
+   ],
+   "fingerprint": "6a61c9c1d1b94363",
+   "mtime": "2026-08-06 11:39",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F298_casimir_ladder.py"
+    }
+   ]
+  },
+  "test-results/F299_casimir_scaling.json": {
+   "bytes": 2814,
+   "findings": [
+    "F299"
+   ],
+   "fingerprint": "a27e40176722858b",
+   "mtime": "2026-08-06 12:00",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F299_casimir_scaling.py"
+    }
+   ]
+  },
   "test-results/F29_su2_photon_bridge.json": {
    "bytes": 1536,
    "findings": [
@@ -3107,13 +3484,141 @@
    "numeric_fields": true,
    "tests": []
   },
+  "test-results/F300_lattice_thermodynamics.json": {
+   "bytes": 9343,
+   "findings": [
+    "F300"
+   ],
+   "fingerprint": "d2ba91d7c92c97bf",
+   "mtime": "2026-08-06 12:06",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F301_boost_covariance.json": {
+   "bytes": 4103,
+   "findings": [
+    "F301"
+   ],
+   "fingerprint": "0d0749ebc5ca5ee4",
+   "mtime": "2026-08-06 12:22",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "finding-id",
+     "path": "tests/findings/test_F315_V_interaction.py"
+    }
+   ]
+  },
+  "test-results/F302_bilinear_so3.json": {
+   "bytes": 5735,
+   "declared_findings": [
+    "F302"
+   ],
+   "findings": [
+    "F302"
+   ],
+   "fingerprint": "73224ac90df1da62",
+   "mtime": "2026-08-03 20:14",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F302_bilinear_so3.py"
+    }
+   ]
+  },
+  "test-results/F303_coupling_normalisation.json": {
+   "bytes": 2632,
+   "findings": [
+    "F303"
+   ],
+   "fingerprint": "8f57524c9c6b189a",
+   "mtime": "2026-08-06 19:57",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F303_coupling_normalisation.py"
+    }
+   ]
+  },
+  "test-results/F304_born_rule_gleason.json": {
+   "bytes": 16699,
+   "findings": [
+    "F304"
+   ],
+   "fingerprint": "cceb307d394d0bf4",
+   "mtime": "2026-08-07 13:39",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F305_bcc_rhombic_vertices.json": {
+   "bytes": 5032,
+   "findings": [
+    "F305"
+   ],
+   "fingerprint": "2ef9a68ae8fbb0c8",
+   "mtime": "2026-08-08 18:35",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F305_bcc_rhombic_vertices.py"
+    }
+   ]
+  },
+  "test-results/F306_curl_closes_at_k3.json": {
+   "bytes": 1081,
+   "findings": [
+    "F306"
+   ],
+   "fingerprint": "39ef7377e144a9b1",
+   "mtime": "2026-08-04 19:43",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F306_curl_closes_at_k3.py"
+    }
+   ]
+  },
+  "test-results/F307_action_consistent_d1.json": {
+   "bytes": 2874,
+   "findings": [
+    "F307"
+   ],
+   "fingerprint": "59245c8dae4538d4",
+   "mtime": "2026-08-08 18:35",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F307_action_consistent_d1.py"
+    }
+   ]
+  },
+  "test-results/F309_gstar_model_content.json": {
+   "bytes": 15520,
+   "findings": [
+    "F309"
+   ],
+   "fingerprint": "3ff06ecc13a41afe",
+   "mtime": "2026-08-11 22:07",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "stem-prefix",
+     "path": "tests/findings/test_F309_gstar.py"
+    }
+   ]
+  },
   "test-results/F30_dispersion_order.json": {
    "bytes": 2332,
    "findings": [
     "F30"
    ],
    "fingerprint": "acfc6e363096d840",
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3127,13 +3632,207 @@
    "findings": [
     "F30"
    ],
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-07-31 15:58",
    "tests": [
     {
      "evidence": "stem-prefix",
      "path": "tests/findings/test_F30_dispersion_order.py"
     }
    ]
+  },
+  "test-results/F310_critical_measure.json": {
+   "bytes": 8746,
+   "declared_findings": [
+    "F310"
+   ],
+   "findings": [
+    "F310"
+   ],
+   "fingerprint": "ec408c876478207a",
+   "mtime": "2026-08-12 16:23",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F310_critical_measure.py"
+    }
+   ]
+  },
+  "test-results/F311_gap5_adjudication.json": {
+   "bytes": 6266,
+   "declared_findings": [
+    "F311"
+   ],
+   "findings": [
+    "F311"
+   ],
+   "fingerprint": "23f904530f9fdc57",
+   "mtime": "2026-08-12 18:35",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F311_gap5_adjudication.py"
+    }
+   ]
+  },
+  "test-results/F312_born_nonabelian.json": {
+   "bytes": 7163,
+   "declared_findings": [
+    "F312"
+   ],
+   "findings": [
+    "F312"
+   ],
+   "fingerprint": "36a0a13c83b8fb48",
+   "mtime": "2026-08-12 20:11",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F312_born_nonabelian.py"
+    }
+   ]
+  },
+  "test-results/F313_time_signature.json": {
+   "bytes": 4429,
+   "findings": [
+    "F313"
+   ],
+   "fingerprint": "fdb6f20e4027a55d",
+   "mtime": "2026-08-16 11:11",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F313_time_signature.py"
+    }
+   ]
+  },
+  "test-results/F314_photon_packet_propagation.json": {
+   "bytes": 4702,
+   "findings": [
+    "F314"
+   ],
+   "fingerprint": "d3abee33be8b32ec",
+   "mtime": "2026-08-05 02:17",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F314_photon_packet_propagation.py"
+    }
+   ]
+  },
+  "test-results/F315_V_interaction.json": {
+   "bytes": 2792,
+   "findings": [
+    "F315"
+   ],
+   "fingerprint": "b7eab0f948ad70c3",
+   "mtime": "2026-08-13 17:26",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F315_V_interaction.py"
+    }
+   ]
+  },
+  "test-results/F316_laurent_pell.json": {
+   "bytes": 4841,
+   "findings": [
+    "F316"
+   ],
+   "fingerprint": "1716ff4ac0c88f55",
+   "mtime": "2026-08-16 11:33",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F316_laurent_pell.py"
+    }
+   ]
+  },
+  "test-results/F317_su3_structure.json": {
+   "bytes": 5787,
+   "findings": [
+    "F317"
+   ],
+   "fingerprint": "42549d6e072e14f3",
+   "mtime": "2026-08-16 11:32",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F317_su3_structure.py"
+    }
+   ]
+  },
+  "test-results/F318_cell_internal_index.json": {
+   "bytes": 4327,
+   "findings": [
+    "F318"
+   ],
+   "fingerprint": "4c241ccd1b598476",
+   "mtime": "2026-08-16 12:11",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F318_cell_internal_index.py"
+    }
+   ]
+  },
+  "test-results/F319_uv_completion.json": {
+   "bytes": 8708,
+   "findings": [
+    "F319"
+   ],
+   "fingerprint": "940980d533d93dc2",
+   "mtime": "2026-08-16 16:52",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F320_gauge_boson_masses.json": {
+   "bytes": 4808,
+   "findings": [
+    "F320"
+   ],
+   "fingerprint": "2b045b123ea8ccc8",
+   "mtime": "2026-08-16 17:55",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F320_gauge_boson_masses.py"
+    }
+   ]
+  },
+  "test-results/F321_strong_cp.json": {
+   "bytes": 6384,
+   "findings": [
+    "F321"
+   ],
+   "fingerprint": "ecf03bc923518016",
+   "mtime": "2026-08-17 19:37",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F321_strong_cp.py"
+    }
+   ]
+  },
+  "test-results/F322_b9_running_rederivation.json": {
+   "bytes": 5961,
+   "findings": [
+    "F322"
+   ],
+   "fingerprint": "4f1f410847f531ef",
+   "mtime": "2026-08-17 20:45",
+   "numeric_fields": true,
+   "tests": []
   },
   "test-results/F37_delta_omega.json": {
    "bytes": 1631,
@@ -3144,7 +3843,7 @@
     "F37"
    ],
    "fingerprint": "ceb3055dbeaff9c2",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3162,7 +3861,7 @@
     "F45"
    ],
    "fingerprint": "d04c789e26a668a4",
-   "mtime": "2026-06-02 19:19",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -3175,7 +3874,7 @@
     "F46"
    ],
    "fingerprint": "35cc6f2a1fc32b68",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3190,7 +3889,7 @@
     "F47"
    ],
    "fingerprint": "fef5291f9bb98957",
-   "mtime": "2026-06-10 16:21",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -3218,7 +3917,7 @@
     "F50"
    ],
    "fingerprint": "5d5958707c215715",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-07-31 23:07",
    "numeric_fields": true,
    "tests": [
     {
@@ -3236,7 +3935,7 @@
     "F52"
    ],
    "fingerprint": "4f1d5d25d0635582",
-   "mtime": "2026-05-29 17:01",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3254,7 +3953,7 @@
     "F55"
    ],
    "fingerprint": "982af3e49871d0e0",
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-07-31 23:07",
    "numeric_fields": true,
    "tests": [
     {
@@ -3272,7 +3971,7 @@
     "F56"
    ],
    "fingerprint": "70b66a32cdbc5528",
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -3290,7 +3989,7 @@
     "F57"
    ],
    "fingerprint": "f35529ef945e5023",
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3308,7 +4007,7 @@
     "F58"
    ],
    "fingerprint": "79ca36d8c532b951",
-   "mtime": "2026-06-02 12:09",
+   "mtime": "2026-07-31 23:07",
    "numeric_fields": true,
    "tests": [
     {
@@ -3323,7 +4022,7 @@
     "F59"
    ],
    "fingerprint": "218579185e6d78c1",
-   "mtime": "2026-06-02 12:10",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3338,7 +4037,7 @@
     "F60"
    ],
    "fingerprint": "28ae75b080745004",
-   "mtime": "2026-06-02 12:10",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3353,7 +4052,7 @@
     "F61"
    ],
    "fingerprint": "8d74cb58d17a108e",
-   "mtime": "2026-06-02 12:10",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3368,7 +4067,7 @@
     "F62"
    ],
    "fingerprint": "b33ac27cfa2a56fc",
-   "mtime": "2026-05-31 16:01",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3382,7 +4081,7 @@
    "findings": [
     "F62"
    ],
-   "mtime": "2026-06-10 23:00",
+   "mtime": "2026-07-31 15:58",
    "tests": [
     {
      "evidence": "exact-stem",
@@ -3396,7 +4095,7 @@
     "F63"
    ],
    "fingerprint": "5841ccb9ab60c7de",
-   "mtime": "2026-06-11 00:35",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3414,7 +4113,7 @@
     "F64"
    ],
    "fingerprint": "fb0cea84241cef82",
-   "mtime": "2026-06-05 22:35",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -3428,7 +4127,7 @@
    "findings": [
     "F64"
    ],
-   "mtime": "2026-06-10 23:00",
+   "mtime": "2026-07-31 15:58",
    "tests": [
     {
      "evidence": "exact-stem",
@@ -3443,7 +4142,7 @@
     "F64"
    ],
    "fingerprint": "6a2eb720abdf4617",
-   "mtime": "2026-05-31 22:01",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -3453,7 +4152,7 @@
     "F62",
     "F64"
    ],
-   "mtime": "2026-06-10 23:00",
+   "mtime": "2026-07-31 15:58",
    "tests": []
   },
   "test-results/F67_option1_even_law_photon.json": {
@@ -3462,7 +4161,7 @@
     "F67"
    ],
    "fingerprint": "c5f02faade59e588",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-08-01 04:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -3477,7 +4176,7 @@
     "F68"
    ],
    "fingerprint": "4074d2c9c11bd1ba",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-08-01 04:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -3492,7 +4191,7 @@
     "F69"
    ],
    "fingerprint": "3c4e9e340e8103d1",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-08-01 04:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -3523,7 +4222,7 @@
     "F72"
    ],
    "fingerprint": "999540eb91f6583f",
-   "mtime": "2026-07-30 18:04",
+   "mtime": "2026-08-01 04:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -3541,7 +4240,7 @@
     "F73"
    ],
    "fingerprint": "c24b22544f055e73",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3559,7 +4258,7 @@
     "F74"
    ],
    "fingerprint": "8a1985fe7547b1cb",
-   "mtime": "2026-06-02 19:18",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3574,7 +4273,7 @@
     "F75"
    ],
    "fingerprint": "bdd0203cd8435883",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3589,7 +4288,7 @@
     "F76"
    ],
    "fingerprint": "0a534ecd1a26ed0c",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3607,7 +4306,7 @@
     "F77"
    ],
    "fingerprint": "08cba172d4720af1",
-   "mtime": "2026-06-02 19:18",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3622,7 +4321,7 @@
     "F78"
    ],
    "fingerprint": "1672391db16cfa97",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 23:05",
    "numeric_fields": true,
    "tests": [
     {
@@ -3640,7 +4339,7 @@
     "F79"
    ],
    "fingerprint": "4239f24b6309407a",
-   "mtime": "2026-06-02 19:18",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3655,7 +4354,7 @@
     "F80"
    ],
    "fingerprint": "a74e0a7faba02764",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3670,7 +4369,7 @@
     "F81"
    ],
    "fingerprint": "cc2be2b741114306",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3685,7 +4384,7 @@
     "F82"
    ],
    "fingerprint": "74ad9cf379fffb81",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3703,7 +4402,7 @@
     "F83"
    ],
    "fingerprint": "081b79ac1289802f",
-   "mtime": "2026-06-03 00:29",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -3718,7 +4417,7 @@
     "F84"
    ],
    "fingerprint": "5eed007b39c4abc3",
-   "mtime": "2026-06-03 00:33",
+   "mtime": "2026-07-31 23:10",
    "numeric_fields": true,
    "tests": [
     {
@@ -3733,7 +4432,7 @@
     "F87"
    ],
    "fingerprint": "9036a6f0456d9a56",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -3751,7 +4450,7 @@
     "F89"
    ],
    "fingerprint": "c64bc81b655f9721",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-08-01 04:55",
    "numeric_fields": true,
    "tests": []
   },
@@ -3764,7 +4463,7 @@
     "F91"
    ],
    "fingerprint": "00061247cc7cd127",
-   "mtime": "2026-07-30 23:16",
+   "mtime": "2026-08-01 04:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -3779,7 +4478,7 @@
     "F92"
    ],
    "fingerprint": "37f3165b16532b0c",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-08-01 04:55",
    "numeric_fields": true,
    "tests": [
     {
@@ -3794,7 +4493,7 @@
     "F93"
    ],
    "fingerprint": "86cbf9190c864680",
-   "mtime": "2026-06-04 20:45",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3819,7 +4518,7 @@
     "F95"
    ],
    "fingerprint": "59668c3b66949825",
-   "mtime": "2026-06-05 04:14",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3834,7 +4533,7 @@
     "F96"
    ],
    "fingerprint": "ca07ca6a00dd1c2b",
-   "mtime": "2026-06-05 13:23",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3852,7 +4551,7 @@
     "F97"
    ],
    "fingerprint": "adaeda266d231c36",
-   "mtime": "2026-06-05 13:29",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3870,7 +4569,7 @@
     "F98"
    ],
    "fingerprint": "0448193ee0e5d558",
-   "mtime": "2026-06-05 13:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3888,7 +4587,7 @@
     "F99"
    ],
    "fingerprint": "6297d0614e71bc1e",
-   "mtime": "2026-06-09 02:27",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3903,7 +4602,7 @@
     "FA01"
    ],
    "fingerprint": "929638a8d15a5790",
-   "mtime": "2026-06-11 00:25",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3933,7 +4632,7 @@
     "FA03"
    ],
    "fingerprint": "c39e5cdcd012f234",
-   "mtime": "2026-06-11 00:27",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3948,7 +4647,7 @@
     "FA04"
    ],
    "fingerprint": "a9d6e54bc27d2dc7",
-   "mtime": "2026-06-11 00:21",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3963,7 +4662,7 @@
     "FA05"
    ],
    "fingerprint": "52115047b26dc640",
-   "mtime": "2026-06-11 00:21",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -3993,7 +4692,7 @@
     "FA07"
    ],
    "fingerprint": "67f2496278f98b2c",
-   "mtime": "2026-06-11 00:25",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4008,7 +4707,7 @@
     "FA08"
    ],
    "fingerprint": "4f8c88dde04f401a",
-   "mtime": "2026-06-11 00:25",
+   "mtime": "2026-07-31 23:11",
    "numeric_fields": true,
    "tests": [
     {
@@ -4023,7 +4722,7 @@
     "FA09"
    ],
    "fingerprint": "fab3f8758c8e093b",
-   "mtime": "2026-06-11 00:27",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -4033,7 +4732,7 @@
     "FA10"
    ],
    "fingerprint": "f41f30947b9a90ee",
-   "mtime": "2026-06-11 00:28",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -4044,10 +4743,10 @@
    "tests": []
   },
   "test-results/FA_lgt_mc.json": {
-   "bytes": 2758,
+   "bytes": 3613,
    "findings": [],
-   "fingerprint": "35dfb3445ad17216",
-   "mtime": "2026-06-04 21:12",
+   "fingerprint": "cd5d2cfabf457785",
+   "mtime": "2026-08-01 01:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -4060,7 +4759,7 @@
    "bytes": 2158,
    "findings": [],
    "fingerprint": "63d3836873374639",
-   "mtime": "2026-06-04 21:12",
+   "mtime": "2026-08-12 18:27",
    "numeric_fields": true,
    "tests": [
     {
@@ -4090,7 +4789,7 @@
     "FB01"
    ],
    "fingerprint": "0743e8247973e1e9",
-   "mtime": "2026-06-16 20:09",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4145,7 +4844,7 @@
     "FB04"
    ],
    "fingerprint": "fe81ae134c086112",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4160,7 +4859,7 @@
     "FB05"
    ],
    "fingerprint": "622c5200d480abec",
-   "mtime": "2026-06-16 20:10",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4175,7 +4874,7 @@
     "FB06"
    ],
    "fingerprint": "fec139c4f5b86ae6",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4190,7 +4889,7 @@
     "FB07"
    ],
    "fingerprint": "86b1b5242c9f5e3a",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4205,7 +4904,7 @@
     "FB08"
    ],
    "fingerprint": "e86d0294b855bc3c",
-   "mtime": "2026-06-16 20:10",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4250,7 +4949,7 @@
     "FB10"
    ],
    "fingerprint": "7244fa1d961221d1",
-   "mtime": "2026-07-30 21:24",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4265,7 +4964,7 @@
     "FB11"
    ],
    "fingerprint": "aa1b463d5072e803",
-   "mtime": "2026-06-16 20:25",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4280,7 +4979,7 @@
     "FC01"
    ],
    "fingerprint": "2fe1e71f916a3e6f",
-   "mtime": "2026-06-16 21:30",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "FC01 \u2014 Mercury perihelion precession",
    "tests": [
@@ -4296,7 +4995,7 @@
     "FC02"
    ],
    "fingerprint": "0143b30d33e56396",
-   "mtime": "2026-06-16 21:29",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "FC02 \u2014 Shapiro time delay (GR-2)",
    "tests": [
@@ -4312,7 +5011,7 @@
     "FC03"
    ],
    "fingerprint": "75890d7560920963",
-   "mtime": "2026-06-16 21:28",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -4327,7 +5026,7 @@
     "FC04"
    ],
    "fingerprint": "5186fdc274fe4099",
-   "mtime": "2026-06-16 21:30",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4342,7 +5041,7 @@
     "FC05"
    ],
    "fingerprint": "b3096cc493fa5c6b",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4357,7 +5056,7 @@
     "FC06"
    ],
    "fingerprint": "23d46e71b594c17e",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4387,7 +5086,7 @@
     "FC07"
    ],
    "fingerprint": "b56b5174c18af5d3",
-   "mtime": "2026-06-16 21:30",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "FC07",
    "tests": [
@@ -4403,7 +5102,7 @@
     "FG10"
    ],
    "fingerprint": "91337999fdb874cc",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -4413,7 +5112,7 @@
     "FG1"
    ],
    "fingerprint": "10bec10ab3e84ab5",
-   "mtime": "2026-06-02 19:18",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "FG-1",
    "tests": [
@@ -4429,7 +5128,7 @@
     "FG2"
    ],
    "fingerprint": "9e06bb4e2b56a21c",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4444,7 +5143,7 @@
     "FG3"
    ],
    "fingerprint": "f0affc30f4859591",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4459,7 +5158,7 @@
     "FG4"
    ],
    "fingerprint": "bcfc02425dda76d5",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4474,7 +5173,7 @@
     "FG6"
    ],
    "fingerprint": "e7091d6c8dd77eec",
-   "mtime": "2026-05-26 23:12",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4484,12 +5183,12 @@
    ]
   },
   "test-results/FG7_gluon_dynamics.json": {
-   "bytes": 6341,
+   "bytes": 6348,
    "findings": [
     "FG7"
    ],
-   "fingerprint": "be7b1c55979b7492",
-   "mtime": "2026-07-30 19:56",
+   "fingerprint": "55269c6bbfd6459c",
+   "mtime": "2026-08-01 01:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -4499,12 +5198,12 @@
    ]
   },
   "test-results/FG7b_gradient_flow.json": {
-   "bytes": 2763,
+   "bytes": 2764,
    "findings": [
     "FG7"
    ],
-   "fingerprint": "d1c001b9c9d73998",
-   "mtime": "2026-06-09 02:27",
+   "fingerprint": "3bbb1519da8a6932",
+   "mtime": "2026-08-01 01:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -4519,7 +5218,7 @@
     "FG7"
    ],
    "fingerprint": "3d19302c234d443d",
-   "mtime": "2026-06-09 02:27",
+   "mtime": "2026-08-01 01:37",
    "numeric_fields": true,
    "tests": [
     {
@@ -4534,7 +5233,7 @@
     "FG7"
    ],
    "fingerprint": "2cb5f59bddfff0d6",
-   "mtime": "2026-07-30 18:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4549,7 +5248,7 @@
     "FG7"
    ],
    "fingerprint": "47a2a1cfb48be6db",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-08-01 01:37",
    "numeric_fields": true,
    "tests": [
     {
@@ -4564,7 +5263,7 @@
     "FG7"
    ],
    "fingerprint": "49ee67a0e0e464cb",
-   "mtime": "2026-06-09 02:30",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4579,7 +5278,7 @@
     "FG8"
    ],
    "fingerprint": "f1ecbb9dec241171",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4594,7 +5293,7 @@
     "FG9"
    ],
    "fingerprint": "0acc16286066ea76",
-   "mtime": "2026-06-02 19:19",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "FG-9",
    "tests": [
@@ -4608,7 +5307,7 @@
    "bytes": 3075,
    "findings": [],
    "fingerprint": "b81b506365c5ff2b",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -4624,7 +5323,7 @@
    ],
    "findings": [],
    "fingerprint": "07031bf73a87bf53",
-   "mtime": "2026-07-30 21:27",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4637,7 +5336,7 @@
    "bytes": 5112,
    "findings": [],
    "fingerprint": "1df8f64e7c26509a",
-   "mtime": "2026-07-30 21:36",
+   "mtime": "2026-07-31 23:04",
    "numeric_fields": true,
    "tests": [
     {
@@ -4650,7 +5349,7 @@
    "bytes": 6109,
    "findings": [],
    "fingerprint": "14755a2e87ebb37e",
-   "mtime": "2026-07-30 21:37",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4663,7 +5362,7 @@
    "bytes": 7014,
    "findings": [],
    "fingerprint": "dbfc49e0945a904e",
-   "mtime": "2026-07-30 21:27",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4679,7 +5378,7 @@
    ],
    "findings": [],
    "fingerprint": "7f2d6c7072167fb7",
-   "mtime": "2026-07-30 18:47",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4700,7 +5399,7 @@
    "bytes": 3357,
    "findings": [],
    "fingerprint": "d0170b537090792f",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -4713,7 +5412,7 @@
    "bytes": 1255,
    "findings": [],
    "fingerprint": "bad39d08f1c89ae9",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -4724,6 +5423,65 @@
    "mtime": "2026-06-10 22:52",
    "numeric_fields": true,
    "tests": []
+  },
+  "test-results/_to_delete/F300_coupling_normalisation.json": {
+   "bytes": 2632,
+   "findings": [
+    "F300"
+   ],
+   "fingerprint": "4206ff8b74e78e01",
+   "mtime": "2026-08-06 19:57",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/arming-journal.json": {
+   "bytes": 75255,
+   "findings": [],
+   "fingerprint": "21eac1f2a4653b13",
+   "mtime": "2026-07-31 19:23",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/audit-v/B3_doublers_large_L.json": {
+   "bytes": 706,
+   "findings": [],
+   "fingerprint": "5c8d067abda5f2a5",
+   "mtime": "2026-08-01 18:27",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/audit-v/MANIFEST.md": {
+   "bytes": 11286,
+   "findings": [],
+   "mtime": "2026-08-01 18:27",
+   "tests": []
+  },
+  "test-results/bcc_confinement_d4.json": {
+   "bytes": 1709,
+   "findings": [],
+   "fingerprint": "cbbb9a1f510af447",
+   "mtime": "2026-08-17 20:42",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/bcc_confinement_d4.md": {
+   "bytes": 869,
+   "findings": [],
+   "mtime": "2026-08-17 20:42",
+   "tests": []
+  },
+  "test-results/bcc_gauge_mc_d4.json": {
+   "bytes": 4223,
+   "findings": [],
+   "fingerprint": "a24b71c9c4218668",
+   "mtime": "2026-08-17 20:42",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_bcc_gauge_mc_d4.py"
+    }
+   ]
   },
   "test-results/ca-f3-propositions.md": {
    "bytes": 8359,
@@ -4737,10 +5495,18 @@
    "mtime": "2026-06-10 23:00",
    "tests": []
   },
+  "test-results/can-fail.json": {
+   "bytes": 8918,
+   "findings": [],
+   "fingerprint": "f2e760758423176f",
+   "mtime": "2026-08-17 20:45",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/casim-exactness-inventory.md": {
    "bytes": 1690,
    "findings": [],
-   "mtime": "2026-07-31 05:35",
+   "mtime": "2026-08-17 20:45",
    "tests": []
   },
   "test-results/casim_bcc_weyl.json": {
@@ -5027,14 +5793,22 @@
    "bytes": 3823,
    "findings": [],
    "fingerprint": "b5206b609533a874",
-   "mtime": "2026-06-03 01:44",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/confinement_mc.md": {
    "bytes": 1284,
    "findings": [],
-   "mtime": "2026-06-03 01:44",
+   "mtime": "2026-07-31 15:58",
+   "tests": []
+  },
+  "test-results/control-soundness.json": {
+   "bytes": 58978,
+   "findings": [],
+   "fingerprint": "bd58dd0b2d4faa27",
+   "mtime": "2026-08-17 20:45",
+   "numeric_fields": true,
    "tests": []
   },
   "test-results/curl_fork_results_2026-05-22.json": {
@@ -5042,6 +5816,14 @@
    "findings": [],
    "fingerprint": "741fb43e473c617c",
    "mtime": "2026-05-22 13:41",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/d1_selfenergy.json": {
+   "bytes": 1343,
+   "findings": [],
+   "fingerprint": "9f6df5967ad68c1b",
+   "mtime": "2026-08-11 23:17",
    "numeric_fields": true,
    "tests": []
   },
@@ -5053,11 +5835,19 @@
    "numeric_fields": true,
    "tests": []
   },
+  "test-results/d1_selfenergy_sweep.json": {
+   "bytes": 10130,
+   "findings": [],
+   "fingerprint": "e023ee6ae73128b7",
+   "mtime": "2026-08-08 13:32",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/d1_static_potential.json": {
    "bytes": 3275,
    "findings": [],
    "fingerprint": "fda49e0e139e5464",
-   "mtime": "2026-07-19 16:49",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5073,7 +5863,7 @@
    "bytes": 7099,
    "findings": [],
    "fingerprint": "03b510e4eca32b7e",
-   "mtime": "2026-07-15 23:59",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5147,7 +5937,7 @@
    "bytes": 1431,
    "findings": [],
    "fingerprint": "b7f411a9f4e61706",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-08-07 04:26",
    "numeric_fields": true,
    "tests": [
     {
@@ -5160,7 +5950,7 @@
    "bytes": 1198,
    "findings": [],
    "fingerprint": "c7819abdcc628412",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-08-07 04:26",
    "numeric_fields": true,
    "tests": [
     {
@@ -5173,7 +5963,7 @@
    "bytes": 1045,
    "findings": [],
    "fingerprint": "89687ffd2aafc1f1",
-   "mtime": "2026-06-29 17:01",
+   "mtime": "2026-08-02 17:22",
    "numeric_fields": true,
    "tests": [
     {
@@ -5194,7 +5984,7 @@
    "bytes": 906,
    "findings": [],
    "fingerprint": "3febe41f7e20e588",
-   "mtime": "2026-06-05 03:06",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5224,7 +6014,7 @@
    "bytes": 8345,
    "findings": [],
    "fingerprint": "ad904ee4da76687d",
-   "mtime": "2026-06-02 19:20",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -5245,7 +6035,7 @@
    "bytes": 3081,
    "findings": [],
    "fingerprint": "164f8a4ff34ab176",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5253,7 +6043,7 @@
    "bytes": 1583,
    "findings": [],
    "fingerprint": "26bd676acbee660e",
-   "mtime": "2026-07-30 18:04",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5287,6 +6077,14 @@
    "numeric_fields": true,
    "tests": []
   },
+  "test-results/propagation_demo_2026-08-04.json": {
+   "bytes": 1337,
+   "findings": [],
+   "fingerprint": "8160b20b8d7a1273",
+   "mtime": "2026-08-04 19:36",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/qca-verifications-results.md": {
    "bytes": 13682,
    "findings": [],
@@ -5297,7 +6095,7 @@
    "bytes": 3607,
    "findings": [],
    "fingerprint": "92300b136e44ecb3",
-   "mtime": "2026-06-13 16:34",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5423,7 +6221,7 @@
    "bytes": 3325,
    "findings": [],
    "fingerprint": "fdb8fa515c0e3d2e",
-   "mtime": "2026-06-16 19:03",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5431,7 +6229,7 @@
    "bytes": 740,
    "findings": [],
    "fingerprint": "3e52aa287bf1c3f6",
-   "mtime": "2026-06-02 19:19",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5444,7 +6242,7 @@
    "bytes": 265,
    "findings": [],
    "fingerprint": "db45a1f67c800f13",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "SR-4",
    "tests": []
@@ -5453,7 +6251,7 @@
    "bytes": 2055,
    "findings": [],
    "fingerprint": "cc4eefd0858ff258",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QM-3",
    "tests": []
@@ -5462,7 +6260,7 @@
    "bytes": 168,
    "findings": [],
    "fingerprint": "2425d9b1fd56c2f8",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QFT-8",
    "tests": []
@@ -5471,7 +6269,7 @@
    "bytes": 228,
    "findings": [],
    "fingerprint": "de1becb9434339e1",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QM-4",
    "tests": []
@@ -5480,7 +6278,7 @@
    "bytes": 757,
    "findings": [],
    "fingerprint": "bbe6d46c3280dfca",
-   "mtime": "2026-06-10 22:57",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QM-6",
    "tests": []
@@ -5489,7 +6287,7 @@
    "bytes": 1808,
    "findings": [],
    "fingerprint": "7af19878b347d295",
-   "mtime": "2026-06-16 19:59",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "GR-1 Stage A",
    "tests": []
@@ -5498,7 +6296,7 @@
    "bytes": 1692,
    "findings": [],
    "fingerprint": "271de2d7320e6312",
-   "mtime": "2026-06-16 19:59",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "GR-1 Stage A (open BC)",
    "tests": []
@@ -5507,7 +6305,7 @@
    "bytes": 996,
    "findings": [],
    "fingerprint": "564b3600c537c139",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QM-1 CHSH",
    "tests": []
@@ -5525,7 +6323,7 @@
    "bytes": 1548,
    "findings": [],
    "fingerprint": "6b1dda272b1976c3",
-   "mtime": "2026-07-30 21:28",
+   "mtime": "2026-07-31 23:11",
    "numeric_fields": true,
    "self_declared_source": "GR-3 Pound-Rebka",
    "tests": []
@@ -5534,7 +6332,7 @@
    "bytes": 1277,
    "findings": [],
    "fingerprint": "1d234cf2ca4b5da7",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "GR-2 Shapiro absolute",
    "tests": []
@@ -5543,7 +6341,7 @@
    "bytes": 1800,
    "findings": [],
    "fingerprint": "84e5676a7ca4dbcd",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "GR-2 Shapiro absolute (open BC)",
    "tests": []
@@ -5552,7 +6350,7 @@
    "bytes": 2259,
    "findings": [],
    "fingerprint": "8ffaaa05dff29df6",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QG-2 Planck LV bound",
    "tests": []
@@ -5561,7 +6359,7 @@
    "bytes": 2795,
    "findings": [],
    "fingerprint": "787e75e88b191041",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-07-31 23:11",
    "numeric_fields": true,
    "self_declared_source": "QFT-5 neutrino oscillations",
    "tests": []
@@ -5570,7 +6368,7 @@
    "bytes": 2270,
    "findings": [],
    "fingerprint": "5b517b6a52fad70e",
-   "mtime": "2026-05-20 23:46",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QM-2 quantum tunneling",
    "tests": []
@@ -5579,7 +6377,7 @@
    "bytes": 428,
    "findings": [],
    "fingerprint": "65e731d095dccde2",
-   "mtime": "2026-06-10 16:22",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "GR-4 Mercury perihelion",
    "tests": []
@@ -5588,7 +6386,7 @@
    "bytes": 879,
    "findings": [],
    "fingerprint": "3ec0edf4be1e87db",
-   "mtime": "2026-07-30 21:16",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "self_declared_source": "QG-4 charge conservation",
    "tests": []
@@ -5597,7 +6395,7 @@
    "bytes": 4168,
    "findings": [],
    "fingerprint": "69791cb6a34c2f9b",
-   "mtime": "2026-06-18 00:17",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5605,7 +6403,7 @@
    "bytes": 650,
    "findings": [],
    "fingerprint": "059783fdcc4407d5",
-   "mtime": "2026-06-12 15:04",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -5621,7 +6419,7 @@
    "bytes": 1427,
    "findings": [],
    "fingerprint": "4a0fe0c56aba0c98",
-   "mtime": "2026-07-30 18:04",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5634,7 +6432,7 @@
    "bytes": 1111,
    "findings": [],
    "fingerprint": "8a372bb1059634b4",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-08-01 00:06",
    "numeric_fields": true,
    "tests": [
     {
@@ -5647,7 +6445,7 @@
    "bytes": 1202,
    "findings": [],
    "fingerprint": "3ca10008fcefed8e",
-   "mtime": "2026-07-30 01:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5660,7 +6458,7 @@
    "bytes": 1435,
    "findings": [],
    "fingerprint": "2687a4b0cc5aaf3d",
-   "mtime": "2026-07-30 18:04",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5673,7 +6471,7 @@
    "bytes": 1504,
    "findings": [],
    "fingerprint": "e91f0b05cdb51436",
-   "mtime": "2026-06-02 19:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5686,7 +6484,7 @@
    "bytes": 2246,
    "findings": [],
    "fingerprint": "791a9973a1cc8b64",
-   "mtime": "2026-07-30 19:07",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5699,7 +6497,7 @@
    "bytes": 14903,
    "findings": [],
    "fingerprint": "a82f94e71d4bebaa",
-   "mtime": "2026-06-02 19:20",
+   "mtime": "2026-07-31 15:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -5750,11 +6548,19 @@
   "tests/runners/run_F263_euler_heisenberg_schwinger.py",
   "tests/runners/run_L192_phaseF_tests.py",
   "tests/runners/run_L192_tests.py",
+  "tests/runners/run_bcc_confinement_d4.py",
   "tests/runners/run_bgfield_loop.py",
   "tests/runners/run_confinement_mc.py",
   "tests/runners/run_d1_selfenergy.py",
   "tests/runners/run_d1_static_potential.py",
   "tests/runners/run_d1_vertex_formfactor.py",
+  "tests/runners/run_f287_bgfield_apparatus.py",
+  "tests/runners/run_f287_slope.py",
+  "tests/runners/run_f291_dimension_selectors.py",
+  "tests/runners/run_f292_higher_multiples.py",
+  "tests/runners/run_f313_time_signature.py",
+  "tests/runners/run_f315_v_interaction.py",
+  "tests/runners/run_f316_laurent_pell.py",
   "tests/runners/run_heavy_rerun.py",
   "tests/runners/run_kns_seagull.py",
   "tests/runners/run_lgt_confinement.py",
@@ -5771,15 +6577,15 @@
   "tests/runners/run_u4_sigma_carry.py"
  ],
  "summary": {
-  "ambiguous_results": 32,
-  "no_output_tests": 48,
-  "orphan_results": 117,
-  "results": 415,
-  "silent_tests": 59,
-  "tests": 347,
-  "tests_with_assert": 116,
-  "tests_with_results": 240,
-  "unfalsifiable_tests": 70
+  "ambiguous_results": 39,
+  "no_output_tests": 64,
+  "orphan_results": 128,
+  "results": 472,
+  "silent_tests": 67,
+  "tests": 410,
+  "tests_with_assert": 174,
+  "tests_with_results": 279,
+  "unfalsifiable_tests": 75
  },
  "tests": {
   "tests/casim/test_backend.py": {
@@ -5792,6 +6598,20 @@
    "suite": "casim",
    "summary": "Backend seam (roadmap \u00a78 / Phase G): the default round-trips exactly, and an"
   },
+  "tests/casim/test_bz_period_lattices.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F265",
+    "F267",
+    "F272"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "Which period lattice does each dispersion actually have? \u2014 F272 / F267."
+  },
   "tests/casim/test_casim_exactness.py": {
    "declares_results_write": false,
    "findings": [],
@@ -5801,6 +6621,16 @@
    "results": [],
    "suite": "casim",
    "summary": "Exactness/fidelity suite for the casim engine (roadmap Phase F)."
+  },
+  "tests/casim/test_checkpoint_ops.py": {
+   "declares_results_write": false,
+   "findings": [],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "P2.6 \u2014 long-run operations: atomic, compressed, rotating, resumable."
   },
   "tests/casim/test_chiral_core_caching.py": {
    "declares_results_write": false,
@@ -5812,6 +6642,16 @@
    "suite": "casim",
    "summary": "Roadmap C1.4 \u2014 the chiral-core mode caches must be free."
   },
+  "tests/casim/test_claims_registry.py": {
+   "declares_results_write": false,
+   "findings": [],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "D12 \u2014 the claims layer holds together."
+  },
   "tests/casim/test_constants_consistency.py": {
    "declares_results_write": false,
    "findings": [],
@@ -5822,6 +6662,42 @@
    "suite": "casim",
    "summary": "Roadmap C2.4 \u2014 the constants gate, with its polarity flipped."
   },
+  "tests/casim/test_control_soundness.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F22",
+    "F298",
+    "F303"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "The negative-control machinery, and a negative control for it (D9, row H2)."
+  },
+  "tests/casim/test_device_precision_gate.py": {
+   "declares_results_write": false,
+   "findings": [],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "P2.7 \u2014 every device path is gated on precision, and the gate is asserted."
+  },
+  "tests/casim/test_engine_clock.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F268"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "Engine clock \u2014 roadmap P3.2, blocker B2, finding F268."
+  },
   "tests/casim/test_engine_reproduces_kernels.py": {
    "declares_results_write": false,
    "findings": [],
@@ -5830,7 +6706,19 @@
    "has_pytest_funcs": true,
    "results": [],
    "suite": "casim",
-   "summary": "Engine fidelity: casim.engine must reproduce the raw ca-simulation kernels"
+   "summary": "Engine fidelity: casim.engine must reproduce the pre-migration kernels"
+  },
+  "tests/casim/test_exchange_bus.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F269"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "Typed exchange bus \u2014 roadmap P3.3, blocker B3, finding F269."
   },
   "tests/casim/test_fft_backend_equivalence.py": {
    "declares_results_write": false,
@@ -5917,6 +6805,30 @@
    "suite": "casim",
    "summary": "The test registry is complete, valid, and identical to what pytest runs."
   },
+  "tests/casim/test_results_compare.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F275"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "Results compare (P5.4) \u2014 finding F275."
+  },
+  "tests/casim/test_scenario_schema_v2.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F274"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "Scenario schema v2 \u2014 roadmap P4, finding F274."
+  },
   "tests/casim/test_supersession_ledger.py": {
    "declares_results_write": false,
    "findings": [
@@ -5931,6 +6843,30 @@
    "results": [],
    "suite": "casim",
    "summary": "Roadmap P0.3/P0.4 \u2014 the supersession ledger gate."
+  },
+  "tests/casim/test_total_energy_and_gravity_loop.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F270"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "Total energy, stress-energy and the closed gravity loop \u2014 P3.4/P3.5/P3.6, F270."
+  },
+  "tests/casim/test_viz_api.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F275"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [],
+   "suite": "casim",
+   "summary": "casim.viz static-figure API \u2014 roadmap P5.1, finding F275."
   },
   "tests/findings/test_E2E_nonabelian_bilinear.py": {
    "declares_results_write": true,
@@ -7063,6 +7999,24 @@
    "suite": "findings",
    "summary": "F159 \u2014 U4: the block-spin two-grid multigrid (scale separation)."
   },
+  "tests/findings/test_F15_closed_form_beta_LV.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F01",
+    "F15"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F15_closed_form_beta_LV.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F15 \u2014 Closed-form SR-2 Lorentz-violation coefficients, verified independently."
+  },
   "tests/findings/test_F160_live_two_grid_atom.py": {
    "declares_results_write": false,
    "findings": [
@@ -8100,6 +9054,23 @@
    "suite": "findings",
    "summary": "test_F209_modulated_casimir.py  \u2014  Can a *time-modulated* Casimir cavity break"
   },
+  "tests/findings/test_F20_wavepacket_group_velocity.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F20"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F20_wavepacket_group_velocity.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F20 \u2014 wavepacket group velocity on the BCC lattice, after the 2026-08-03 review."
+  },
   "tests/findings/test_F210_superconductivity.py": {
    "declares_results_write": true,
    "findings": [
@@ -8461,6 +9432,23 @@
    "suite": "findings",
    "summary": "Test wrapper for F228 \u2014 how is the F223 geon produced, and is it stable?"
   },
+  "tests/findings/test_F22_rho_identity.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F22"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "stem-prefix",
+     "path": "test-results/F22_rho_identity_and_offshell.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F22 \u2014 the \u03c1 identity, its negative control, and the O(vk) off-shell coefficient."
+  },
   "tests/findings/test_F230_lepton_angle_geometric_nogo.py": {
    "declares_results_write": true,
    "findings": [
@@ -8818,6 +9806,23 @@
    "suite": "findings",
    "summary": "qed_comparison_battery.py  \u2014  F249: quantitative QED comparison battery"
   },
+  "tests/findings/test_F24_sl2c_covariance.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F24"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "stem-prefix",
+     "path": "test-results/F24_sl2c_covariance_full.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F24 \u2014 SL(2,\u2102) \u2192 SO(1,3) covariance of the Weyl 4-current, after the 2026-08-04 review."
+  },
   "tests/findings/test_F250_allk_gauge_pole.py": {
    "declares_results_write": true,
    "findings": [
@@ -9116,6 +10121,194 @@
    "suite": "findings",
    "summary": "F265 \u2014 The gauge sectors live on the genuine BCC lattice."
   },
+  "tests/findings/test_F267_walk_bz_measure.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F250",
+    "F267",
+    "F69"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F267_walk_bz_measure.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F267 \u2014 the fermion walk's BZ is not the cubic FFT cube. Roadmap P3.1's spike."
+  },
+  "tests/findings/test_F279_hypercharge_attribution.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F165",
+    "F27",
+    "F279",
+    "F38",
+    "F41",
+    "F47"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F279 \u2014 Where the hypercharge quantisation constraint actually comes from."
+  },
+  "tests/findings/test_F280_d1_subtracted.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F280"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F280 \u2014 d_1 formulated SUBTRACTED against the Wilson Lambda_MSbar/Lambda_L"
+  },
+  "tests/findings/test_F281_measurement.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F130",
+    "F281"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "stem-prefix",
+     "path": "test-results/F281_measurement_pointer_born_rg.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F281 \u2014 the measurement problem on the lattice (completeness-2026-08-04 row A8,"
+  },
+  "tests/findings/test_F282_primordial_sector_nogo.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F130",
+    "F193",
+    "F282"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F282_primordial_sector_nogo.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F282 \u2014 The model admits no slow-roll inflaton direction."
+  },
+  "tests/findings/test_F283_F284_lattice_elasticity.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F1",
+    "F180",
+    "F2",
+    "F216",
+    "F282",
+    "F283",
+    "F284",
+    "F3",
+    "F4",
+    "F79"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F283_F284_lattice_elasticity.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F283/F284 \u2014 Can the BCC lattice be elastic, and what is expansion if not?"
+  },
+  "tests/findings/test_F285_initial_condition_measure.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F106",
+    "F282",
+    "F284",
+    "F285"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F285_initial_condition_measure.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F285 \u2014 What n_s can an initial-condition measure on the lattice give?"
+  },
+  "tests/findings/test_F286_second_scale.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F284",
+    "F285",
+    "F286"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F286_second_scale.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F286 \u2014 What could supply the 3.5% spectral tilt on a rigid lattice?"
+  },
+  "tests/findings/test_F288_structure_formation.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F106",
+    "F288"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F288_structure_formation.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F288 \u2014 Structure formation with zero free functions (K11)."
+  },
+  "tests/findings/test_F289_spin_statistics.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F217",
+    "F289",
+    "F291",
+    "F292"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F289_spin_statistics.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F289 \u2014 the spin-statistics connection (completeness-2026-08-04 row A9)."
+  },
   "tests/findings/test_F28_grb_dispersion.py": {
    "declares_results_write": true,
    "findings": [
@@ -9138,6 +10331,331 @@
    ],
    "suite": "findings",
    "summary": "F27 \u2014 GRB / AGN dispersion test of the F26 photon rotation prediction"
+  },
+  "tests/findings/test_F290_cluster.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F227",
+    "F290"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "stem-prefix",
+     "path": "test-results/F290_cluster_decomposition.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F290 \u2014 cluster decomposition and exact no-signalling (row A10)."
+  },
+  "tests/findings/test_F291_dimension_selectors.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F291"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F291_dimension_selectors.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F291 \u2014 three independent selectors fix d = 3; the model does not choose it."
+  },
+  "tests/findings/test_F292_higher_multiples.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F291",
+    "F292"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F292_higher_multiples.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F292 \u2014 no higher multiple of three; and a reducible d = 3n collapses to 3."
+  },
+  "tests/findings/test_F293_why_three_colours.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F110",
+    "F279",
+    "F280",
+    "F293"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F293_why_three_colours.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F293 \u2014 why three colours (completeness-2026-08-04 row B10)."
+  },
+  "tests/findings/test_F295_anomalous_dimension.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F286",
+    "F295"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F295_anomalous_dimension.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F295 \u2014 The tilt is an anomalous dimension, not a second scale."
+  },
+  "tests/findings/test_F296_holographic.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F286",
+    "F295",
+    "F296"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F296_holographic.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F296 \u2014 Holographic cosmology names the operator and validates F286 T1."
+  },
+  "tests/findings/test_F297_bbn.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F106",
+    "F122",
+    "F123",
+    "F178",
+    "F297"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "stem-prefix",
+     "path": "test-results/F297_bbn_light_elements.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F297 \u2014 K2: Big-Bang nucleosynthesis and the light-element abundances."
+  },
+  "tests/findings/test_F298_casimir_ladder.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F110",
+    "F294",
+    "F298",
+    "F86"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F298_casimir_ladder.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F298 \u2014 the SU(N) Casimir ladder F110 deferred, and the C7 re-run against it."
+  },
+  "tests/findings/test_F299_casimir_scaling.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F294",
+    "F298",
+    "F299",
+    "F94"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F299_casimir_scaling.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F299 \u2014 reinstating F294's discriminator and running it on the model's own engine."
+  },
+  "tests/findings/test_F300_thermodynamics.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F110",
+    "F190",
+    "F297",
+    "F300"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F300 \u2014 G10: lattice-native thermodynamics."
+  },
+  "tests/findings/test_F302_bilinear_so3.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F302"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F302_bilinear_so3.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F302 \u2014 the sigma-bilinear SO(3) audit."
+  },
+  "tests/findings/test_F303_coupling_normalisation.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F110",
+    "F144",
+    "F299",
+    "F303"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F303_coupling_normalisation.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F303 \u2014 is F144's bare coupling centre-normalised?  No argument exists, and three candidates are closed."
+  },
+  "tests/findings/test_F304_born_gleason.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F227",
+    "F281",
+    "F304"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F304 \u2014 the Born rule as a theorem on the lattice (completeness row A6)."
+  },
+  "tests/findings/test_F305_bcc_rhombic_vertices.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F305"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F305_bcc_rhombic_vertices.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F305 \u2014 LPT Feynman rules of the GENUINE BCC gauge action (the 4-bond rhombus)."
+  },
+  "tests/findings/test_F306_curl_closes_at_k3.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F306"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F306_curl_closes_at_k3.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F306 \u2014 the \u03c3-bilinear curl equation closes at O(k\u00b3); the O(k) failure was a reading."
+  },
+  "tests/findings/test_F307_action_consistent_d1.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F272",
+    "F277",
+    "F280",
+    "F287",
+    "F307"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F307_action_consistent_d1.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F307 \u2014 the F280 subtracted estimator on one code path, each side on its own"
+  },
+  "tests/findings/test_F308_refold_repaired.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F307",
+    "F308"
+   ],
+   "has_assert": false,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F308 \u2014 the refold in ``lpt_selfenergy`` is repaired, and the audit found two"
+  },
+  "tests/findings/test_F309_gstar.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F121",
+    "F297",
+    "F300",
+    "F309"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "stem-prefix",
+     "path": "test-results/F309_gstar_model_content.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F309 \u2014 K2/G10: g_*(T) and g_*s(T) from the model's own field content."
   },
   "tests/findings/test_F30_dispersion_order.py": {
    "declares_results_write": true,
@@ -9162,6 +10680,243 @@
    ],
    "suite": "findings",
    "summary": "F30 \u2014 Order of the leading photon-dispersion correction in the BCC vacuum."
+  },
+  "tests/findings/test_F310_critical_measure.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F130",
+    "F282",
+    "F284",
+    "F285",
+    "F296",
+    "F310"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F310_critical_measure.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F310 \u2014 K3/G2: gamma is a block-spin eigenvalue, and the model needs no dual."
+  },
+  "tests/findings/test_F311_gap5_adjudication.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F182",
+    "F184",
+    "F192",
+    "F193",
+    "F196",
+    "F200",
+    "F241",
+    "F277",
+    "F311",
+    "F79"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F311_gap5_adjudication.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F311 \u2014 completeness gap #5: the three numbers no report had re-derived."
+  },
+  "tests/findings/test_F312_born_nonabelian.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F110",
+    "F304",
+    "F312",
+    "F86"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F312_born_nonabelian.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F312 \u2014 A6: Gleason's premises on SU(2)_L and SU(3)_c, and the Schur reduction."
+  },
+  "tests/findings/test_F313_time_signature.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F291",
+    "F292",
+    "F298",
+    "F313"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F313_time_signature.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F313 \u2014 the \"+1\": the update's commutant splits itself into 3 space + 1 time."
+  },
+  "tests/findings/test_F314_photon_packet_propagation.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F20",
+    "F314",
+    "F69"
+   ],
+   "has_assert": true,
+   "has_main": false,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F314_photon_packet_propagation.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F314 \u2014 the paired-spinor photon propagates across the lattice, at machine precision."
+  },
+  "tests/findings/test_F315_V_interaction.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F20",
+    "F217",
+    "F298",
+    "F301",
+    "F313",
+    "F315",
+    "F68",
+    "F77"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "finding-id",
+     "path": "test-results/F301_boost_covariance.json"
+    },
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F315_V_interaction.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F315 \u2014 F313 falsifier 5 does not fire: V does not survive interaction."
+  },
+  "tests/findings/test_F316_laurent_pell.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F298",
+    "F313",
+    "F316"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F316_laurent_pell.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F316 \u2014 the polynomial->Laurent transfer, proved: F313's last import is gone."
+  },
+  "tests/findings/test_F317_su3_structure.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F27",
+    "F313",
+    "F317",
+    "F68",
+    "F91"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F317_su3_structure.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F317 \u2014 the STRUCTURE of the colour gauge field (completeness row B1, colour leg)."
+  },
+  "tests/findings/test_F318_cell_internal_index.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F291",
+    "F313",
+    "F315",
+    "F317",
+    "F318"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F318_cell_internal_index.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F318 \u2014 can the model's CELL carry the internal index? (F317's residual)."
+  },
+  "tests/findings/test_F320_gauge_boson_masses.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F119",
+    "F141",
+    "F320",
+    "F41"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F320_gauge_boson_masses.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F320 \u2014 the absolute W and Z masses, and rho = 1 (completeness row B12)."
+  },
+  "tests/findings/test_F321_strong_cp.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F26",
+    "F27",
+    "F321",
+    "F43",
+    "F53"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F321_strong_cp.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F321 \u2014 strong CP: theta_QCD = 0 from the rule's loop set (completeness B11)."
   },
   "tests/findings/test_F37_delta_omega.py": {
    "declares_results_write": true,
@@ -10810,6 +12565,26 @@
    "suite": "findings",
    "summary": "test_SR5_photon_frame_invariance.py  \u2014  SR-5"
   },
+  "tests/findings/test_bcc_gauge_mc_d4.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F265",
+    "F291",
+    "F313",
+    "F94"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/bcc_gauge_mc_d4.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "BCC 3+1D gauge Monte-Carlo: sampler + Wilson loops on the model's own lattice."
+  },
   "tests/findings/test_complex_mass_chiral.py": {
    "declares_results_write": false,
    "findings": [
@@ -10939,6 +12714,7 @@
    "declares_results_write": true,
    "findings": [
     "F165",
+    "F279",
     "F38",
     "F51"
    ],
@@ -10947,16 +12723,12 @@
    "has_pytest_funcs": false,
    "results": [
     {
-     "evidence": "finding-id",
-     "path": "test-results/F165_triple_gluon_branch.json"
-    },
-    {
      "evidence": "exact-stem",
      "path": "test-results/hypercharge_quantisation.json"
     }
    ],
    "suite": "findings",
-   "summary": "F165 \u2014 Hypercharge quantisation from anomaly cancellation + mass-step gauge invariance."
+   "summary": "[PARTIALLY SUPERSEDED 2026-08-02 by F279 \u2014 ledger S13-F279-hypercharge-attribution]"
   },
   "tests/findings/test_majorana_fork.py": {
    "declares_results_write": true,
@@ -11652,6 +13424,19 @@
    "suite": "runners",
    "summary": "run_L_tests.py  \u2014  Test suite for the v2 layered build (L1\u2013L4)"
   },
+  "tests/runners/run_bcc_confinement_d4.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F265",
+    "F313"
+   ],
+   "has_assert": false,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "Battery runner: the d=4 confinement measurement on the model's OWN lattice."
+  },
   "tests/runners/run_bgfield_loop.py": {
    "declares_results_write": true,
    "findings": [
@@ -11718,6 +13503,95 @@
    "results": [],
    "suite": "runners",
    "summary": "run_d1_vertex_formfactor.py \u2014 NATIVE runner for the d1 CALCULATION (Route A-PT):"
+  },
+  "tests/runners/run_f287_bgfield_apparatus.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F162",
+    "F272",
+    "F277",
+    "F287"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "run_f287_bgfield_apparatus.py \u2014 F287: re-establish that the F162 background-field"
+  },
+  "tests/runners/run_f287_slope.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F162",
+    "F277",
+    "F287"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "run_f287_slope.py \u2014 F287 stage 2: the log-SLOPE tests, done at RESOLVED Q."
+  },
+  "tests/runners/run_f291_dimension_selectors.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F291"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F291 runner \u2014 emit the dimension-selector result artifact."
+  },
+  "tests/runners/run_f292_higher_multiples.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F292"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F292 runner \u2014 emit the higher-multiples result artifact."
+  },
+  "tests/runners/run_f313_time_signature.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F313"
+   ],
+   "has_assert": false,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F313 runner \u2014 emit the time-signature result artifact."
+  },
+  "tests/runners/run_f315_v_interaction.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F315"
+   ],
+   "has_assert": false,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F315 runner \u2014 emit the falsifier-5 result artifact."
+  },
+  "tests/runners/run_f316_laurent_pell.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F316"
+   ],
+   "has_assert": false,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F316 runner \u2014 emit the Laurent-Pell descent artifact."
   },
   "tests/runners/run_heavy_rerun.py": {
    "declares_results_write": true,
@@ -11828,7 +13702,7 @@
    "declares_results_write": true,
    "findings": [],
    "has_assert": false,
-   "has_main": false,
+   "has_main": true,
    "has_pytest_funcs": false,
    "results": [],
    "suite": "runners",
@@ -11936,6 +13810,7 @@
   }
  },
  "unfalsifiable_tests": [
+  "tests/findings/test_F308_refold_repaired.py",
   "tests/findings/test_F65_helicity_chirality_map.py",
   "tests/findings/test_F66_allsky_birefringence_anisotropy.py",
   "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
@@ -11984,11 +13859,15 @@
   "tests/runners/run_F263_euler_heisenberg_schwinger.py",
   "tests/runners/run_L192_tests.py",
   "tests/runners/run_L_tests.py",
+  "tests/runners/run_bcc_confinement_d4.py",
   "tests/runners/run_bgfield_loop.py",
   "tests/runners/run_confinement_mc.py",
   "tests/runners/run_d1_selfenergy.py",
   "tests/runners/run_d1_static_potential.py",
   "tests/runners/run_d1_vertex_formfactor.py",
+  "tests/runners/run_f313_time_signature.py",
+  "tests/runners/run_f315_v_interaction.py",
+  "tests/runners/run_f316_laurent_pell.py",
   "tests/runners/run_heavy_rerun.py",
   "tests/runners/run_kns_seagull.py",
   "tests/runners/run_lgt_confinement.py",

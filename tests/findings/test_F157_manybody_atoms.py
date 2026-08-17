@@ -16,18 +16,19 @@ coefficients.
       electron atom (He-4) end to end
 
 Runs under pytest, or standalone:
-    PYTHONPATH=ca-simulation python tests/findings/test_F157_manybody_atoms.py
+    PYTHONPATH=src python tests/findings/test_F157_manybody_atoms.py
 """
 from __future__ import annotations
 
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__)))), "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_manybody as mb          # noqa: E402
-import ca_element as el           # noqa: E402
+from casim.engine.core import manybody as mb          # noqa: E402
+from casim.engine.particles import element as el           # noqa: E402
 
 
 def test_E1_helium_ionization_from_first_principles():

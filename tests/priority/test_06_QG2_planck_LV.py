@@ -36,9 +36,11 @@ import os, sys, math, json
 import numpy as np
 
 THIS = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(THIS, '..', '..', 'ca-simulation')))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc
+from casim.engine.lattice import bcc as ca_bcc
 
 
 def bcc_omega(kx, ky=0.0, kz=0.0, sign='+'):

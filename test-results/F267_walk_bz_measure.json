@@ -1,0 +1,95 @@
+{
+  "finding": "F267",
+  "S1_periodicity": {
+    "fcc_pi_110_gauge_side": {
+      "max_domega": 1.5128002823693059,
+      "is_period": false
+    },
+    "cubic_2pi_100_fft_grid": {
+      "max_domega": 2.6550850546848186,
+      "is_period": false
+    },
+    "root3_fcc_110": {
+      "max_domega": 1.3322676295501878e-15,
+      "is_period": true
+    },
+    "root3_fcc_101": {
+      "max_domega": 1.3322676295501878e-15,
+      "is_period": true
+    },
+    "root3_fcc_011": {
+      "max_domega": 1.7763568394002505e-15,
+      "is_period": true
+    }
+  },
+  "S2_volumes": {
+    "zone_volume_kappa": 62.01255336059963,
+    "cube_volume_kappa": 47.73728583450433,
+    "ratio": 0.7698003589195014,
+    "ratio_closed_form": 0.769800358919501,
+    "residual": 3.3306690738754696e-16
+  },
+  "S3_weyl_points": {
+    "L=24": {
+      "+": {
+        "n_zero": 1,
+        "n_pi": 0
+      },
+      "-": {
+        "n_zero": 1,
+        "n_pi": 0
+      }
+    },
+    "L=36": {
+      "+": {
+        "n_zero": 1,
+        "n_pi": 0
+      },
+      "-": {
+        "n_zero": 1,
+        "n_pi": 0
+      }
+    },
+    "L=48": {
+      "+": {
+        "n_zero": 1,
+        "n_pi": 0
+      },
+      "-": {
+        "n_zero": 1,
+        "n_pi": 0
+      }
+    }
+  },
+  "S4_measure_error": {
+    "omega": {
+      "cube_grid_mean": 1.4026452793614022,
+      "domain_mean": 1.5708153020960731,
+      "domain_mc_sd": 0.00034582085048945896,
+      "rel_error": 0.10705906831329395
+    },
+    "inv_omega": {
+      "cube_grid_mean": 0.8918610217200141,
+      "domain_mean": 0.7630106257336382,
+      "domain_mc_sd": 0.000918596984385734,
+      "rel_error": 0.16887103749372517
+    }
+  },
+  "S5_hop_is_fractional": {
+    "L": 16,
+    "peak_amp": 0.39196906294004286,
+    "peak_prob": 0.1536397463020953,
+    "cells_above_1e-3": 2274,
+    "total_cells": 4096,
+    "unitarity": 1.0,
+    "is_lattice_hop": false
+  },
+  "verdict": {
+    "walk_period_is_root3_fcc": true,
+    "gauge_period_is_not_a_walk_period": true,
+    "fft_cube_is_not_a_fundamental_domain": true,
+    "no_doubler_introduced": true,
+    "fermion_sector_needs_a_measure_correction": true,
+    "correction_is_the_gauge_factor_4": false
+  }
+}

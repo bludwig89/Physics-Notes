@@ -64,7 +64,17 @@ MACHINE_FLOOR = 1e-12
 # drift, which is exactly the kind of false positive that trains people to
 # ignore a checker.
 _VOLATILE_RE = __import__("re").compile(
-    r"^(?:total_|avg_|mean_|max_|min_|sum_)*"
+    # A LEADING UNDERSCORE must not defeat the filter. `_seconds` is the
+    # convention the F182/F184/F200 harness uses for its per-check timings, and
+    # because the alternation below only admitted the named prefixes, all three
+    # of those baselines reported pure wall-clock as physics drift and sat in
+    # the ledger as `candidate` (i.e. suspected physics regressions) for six
+    # weeks. That is the THIRD instance of this defect in this one regex --
+    # `total_elapsed_s` and `wall_seconds` are the two already recorded below --
+    # so the leading `_*` is deliberately outside the named-prefix group where
+    # it cannot be missed again. Measured and gated by F311 leg B1.
+    r"^_*"
+    r"(?:total_|avg_|mean_|max_|min_|sum_)*_*"
     r"(?:timestamp|date|datetime|generated(?:_at)?|created(?:_at)?|mtime"
     # `wall_seconds` slipped through the first version: the alternation had
     # `wall(_time|_s|_clock)?` but not `_seconds`, so a pure timing field was

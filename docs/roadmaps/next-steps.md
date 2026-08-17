@@ -2,6 +2,10 @@
 
 Claude doesn't pull from this file, I update it by hand from the documents Claude spits out.
 
+- ***COMPLETE (2026-08-04, F314)*** - ~~**(F20 remediation 2026-08-03, DEFERRED item)** Redo the real-space propagation demonstration with the **paired-spinor** photon (`casim.engine.gauge.photon`, F67/F68/F69) instead of the σ-bilinear one.~~ Landed as `casim.engine.gauge.photon_packet` + `findings/F314-paired-photon-real-space-propagation.md`, two gate records. Residual **7.8e-16** against the closed-form packet-weighted $\langle\partial\Omega_\text{pair}/\partial k_x\rangle$ (1.2e-15 on F20's own 256×64×64 box), energy conserved to 3.7e-15 **on the moving packet** — the gate the σ-bilinear leg failed, its density having lost 37% of its weight over the run. Three things came out of it that need your call:
+  - **A new wrap-free condition, now enforced.** Being wrap-free is a condition on the **carrier**, not only on the box: the one-sided seed is one-sided only up to the Gaussian tail of its own carrier, that tail runs *backwards* at $-c_\text{lat}$ and hits the boundary first. At $k_0\sigma_x=3.14$ — the "$\gtrsim3$" that `build_beam_packet`'s docstring suggests — the residual degrades to **1.1e-6**, six decades, with nothing else changed. The gate asserts $k_0\sigma_\text{axis}\ge5$ and keeps the undersampled run as a negative control. **`build_beam_packet`'s docstring guidance should be raised from 3 to 5**; not done here (it is `gauge/`, but it is F105's scenario surface and would move `photon_beam_all_fields` numbers).
+  - **A latent defect in `lattice.wavepacket` (F20's own module), flagged and NOT patched.** `weyl_group_velocity` returns $c_\text{lat}\hat n_i$ and its docstring states $\partial\omega/\partial k_i=c_\text{lat}\hat n_i$ generally. It holds for $i=x$ **only** — $g_y=-s\,n_y$ is a sign flip and $g_z$ is not $\pm n_z$ at all, residuals 0.722 and 0.407 against a central difference. No F20 number moves (every call site passes `axis=0`), but the prose is wrong. Fix is one docstring and one narrowed signature, in `lattice/` — another sector, so left alone.
+  - **An open question, measured but not adjudicated.** Under the even pair law the codebase's quadrature $(\mathbf E,\mathbf B)$ convention propagates cleanly, while a textbook **in-phase** transverse seed ($\mathbf E\perp\mathbf B$, real, linearly polarised) has support at both $\pm k_0$ and therefore **splits into counter-propagating halves** — net drift 1.0e-8, rms width ×3.37. The two $(\mathbf E,\mathbf B)$ identifications are visibly different objects. This is the same distinction F306 just resolved in the curl residual ("analytic amplitudes, not the real quadrature pair"), appearing here in real space instead of in a residual. Cheap diagnostic is `photon_packet.run_inphase_transverse_packet`; result is in the artifact. **Belongs with the F21/F23/F25/F306 bundle you are already holding.**
 - attempt to falsify the F3 lensing prediction failure at low fermion density.
 - If the Discrete Noether current conservation (U(1) and SU(2)) is verified locally per cell with our tests, what does that mean? What can be extrapolated and/or predicted?
 - move findings.md and model-observations.md to the test-results folder and update references to them in docs/status/project-status.md and docs/status/changelog.md if needed.
@@ -22,7 +26,7 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 - **Running** - Start running the remaining tests in lattice-vs-spacetime-test.md beginning with the least resource intensive. Run tests and report results after each test is complete.
 - ***Complete*** - Review cellular-automaton-interpretation-of-quantum-mechanics.pdf and build a summary markdown file of the paper and compare that work with our current model. Document where the two match and what is different.
 - ***Complete*** - run the gr-3 fork testing harness for forks a, b and c, and record the results.
-- reorganize the project so that the core model elements live in ca-simulation, tests live in tests/findings folder, test results and recordings live in test-results, and any reference research and research summaries live in references. update any existing references to files with their new locations. Remember this so it stays the same across any task in the project.
+- ~~reorganize the project so that the core model elements live in a single kernel folder~~ (superseded by D6/C9: the core model is `src/casim/engine/`), tests live in tests/findings folder, test results and recordings live in test-results, and any reference research and research summaries live in references. update any existing references to files with their new locations. Remember this so it stays the same across any task in the project.
 - **Running** - run the gr-3 fork a and b testing, integrating a larger L and double the number of orbits. if the test takes too long for the sandbox write a script I can run that will perform the test. 
 - **Running** - Why do we need/have a subleading coefficient $\beta$ which has an arbitrary value? how can we lock it down to a derived value?
 - Implement the cogwheel model ( t' hooft, chapter 2.2) and add as a one-page test for pedagogy and as a regression target for the cleanest version of the ontological-basis claim.
@@ -106,7 +110,7 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
   - ~~(Work)The notebook records: "What if coupling to $W^\pm = 3e$ exactly? Then $\sqrt2/\sin\theta_W = 3 \Rightarrow \sin\theta_W = \sqrt 2/3$, $\sin^2\theta_W = 2/9 = 0.222\overline 2$." Experimental value is $0.232 \pm 0.009$; $2/9$ is $\sim 1.1\sigma$ low. This is a specific algebraic-rational prediction that could be tested. Either (i) derive $\sin^2\theta_W = 2/9$ from the F35 mixing geometry, or (ii) prove $\sin^2\theta_W$ is *not* fixed by the BCC geometry and is a free parameter.~~
 
-  - ~~(Work) add a Majorana branch to `ca-simulation/forks/hypercharge_fork.py` and test (a) that the bare $\nu_R$ Majorana mass step is unitary and gauge-invariant; (b) whether the see-saw $m_\nu \approx M_D^2/M_R$ scaling is reproduced. If yes, this is the natural Higgs-free explanation for the smallness of neutrino mass~~
+  - ~~(Work) add a Majorana branch to `casim.engine.forks.electroweak.hypercharge_fork` and test (a) that the bare $\nu_R$ Majorana mass step is unitary and gauge-invariant; (b) whether the see-saw $m_\nu \approx M_D^2/M_R$ scaling is reproduced. If yes, this is the natural Higgs-free explanation for the smallness of neutrino mass~~
 
   - ~~Suggest a new finding that proves the $m_A = 0$ requirement is consistent with the F34b Stueckelberg masses and shows where the cross term is absorbed (probably into the off-diagonal of the W6.1 rotation, which is why mix∘unmix = identity).~~
 
@@ -156,7 +160,7 @@ Claude doesn't pull from this file, I update it by hand from the documents Claud
 
 - ~~Conduct a full project audit detailing the additional findings since F22 in review-findings-v2.md, complete technical review of the model in review-model-v2.md, comprehensive details on all the physics involved in review-physics-v2.md.~~
 
-- ~~**Running** - conduct a rigorous review of the model and determine what elements need to be added for a complete first-generation particle model, and outline tests that still need to be conducted. if there are files no longer being used indicate them for the user to move to a ca-simulation\retired folder.~~
+- ~~**Running** - conduct a rigorous review of the model and determine what elements need to be added for a complete first-generation particle model, and outline tests that still need to be conducted. if there are files no longer being used indicate them for the user to move to `deprecated/code/`.~~
  
 - ~~attempt to show if the chiral mass step (F27) or the lattice's discrete symmetry admits exactly three independent stable mass eigen-solutions, with a fourth being forbidden or unstable.~~
 
@@ -284,19 +288,36 @@ All from project-audit-inputs-dynamism
   - numpy, scipy, etc. are imported into every module file, can we pull them as libraries and include them by default in the main program engine? 
   - use the constants registries as a source of truth for every module that calls back to those constants. 
   - under engine, we want the bcc lattice as the base layer, then split by by folders into gauge fields, particles, interactions, so that it is more easily human-readable and logically makes sense 
-  - move files and source-of-truth from ca-simulation and make them engine modules that also have their own registry system. 
+  - ~~move files and source-of-truth into engine modules with their own registry system~~ — **done at C9** (D6/D11). 
 - make copies of files that have dead or superceded code in them, move the originials into the deprecated/code folder, then remove all unused or superceded code from the new copies. (basically so there's a complete backup before making changes)
 - move any files or tests that are dead or superceded to the deprecated/code and deprecated/tests folders.
 
-review roadmap-unified-program.md and p0-completion-overview, and p1-completion-overview for already completed steps then build out a complete documented roadmap plan to accomplish this as if each phase is a separate claude session. 
+~~review roadmap-unified-program.md and p0-completion-overview, and p1-completion-overview for already completed steps then build out a complete documented roadmap plan to accomplish this as if each phase is a separate claude session.~~ — **done**: `roadmap-casim-consolidation.md` (C0–C9, now complete) and the 2026-07-31 rewrite of `roadmap-unified-program.md`. 
 
 to prevent the download failure of scipy/pyfftw/pytest in every sandbox session, can we add them locally to the project and update claude.md to pull them from there?
 
 - audit all of the engine modules and determine if scipy could be used to improve speed, operation, or accuracy of the physics.
   
-- read roadmap-casim-consolidation.md and roadmap-unified-program.md, then update claude.md with the new module conventions, registries, and libraries so that when any new session builds a new module or updates an existing one it gets incorporated into casim.
+- ~~read roadmap-casim-consolidation.md and roadmap-unified-program.md, then update claude.md with the new module conventions, registries, and libraries~~ — **done at C9**: CLAUDE.md §Project Structure and §"How to work in the repo" carry the sector tree, the D7/D8 import rules, and the `casim test` / `casim index` / `make` methods.
 
 - change claude.md so that when a question is posed or a model element is being researched, the finding and test numbers are claimed at the start of the session, then built out as used. That way when parallel sessions are operating at the same time their findings or tests aren't taking over each other or messing each other up.
+
+I want to build another skill that will take the independent review of a finding file, extract it's highlights, problems and improvements, then update the original finding with any updates that came from the critique/independent review and make any physics, module, or test improvements that arose from the review. 
+- we want the review-finding skill to do it's review of a finding, then the new skill to act on what was discovered by the review and update the finding, it's associated indexes, registries, tests, and CASIM modules built for it.
+- We are trying to take all existing findings, critique them, then improve them based on the critique.
+
+
+## Skills
+
+See .claude folder for our current skills.
+
+- `/state-of-model` skill regens a new completeness file to see where we are on a complete model.d
+- `/review-finding` Run an adversarial, cold-context review of one finding and write a dated report to `docs/reviews/`. The point is not to summarise the finding. The point is to try to break it, starting from an independent re-derivation done by someone who has not read it.
+
+  - Argument: the finding number (F253, or 253). Optional flags:
+
+  - `--inline` — run in the current session instead of spawning subagents (cheaper, much weaker; the session that built the finding then reviews its own work — say so in the report header).
+  - `--fast` — skip Attack 7 (the perturbation sweep) and Attack 12 (robustness), which are the two slow ones. Record them as NOT RUN, never as PASS. 
 
 ## Email Disclaimer
 P.S. — A disclaimer. I'm a physicist only by proximity. My father held a PhD in theoretical physics and treated problems like this as a hobby; I recently transcribed one of his notebooks and found a section on universal structure as cellular automata. I'm a computer guy, not a physicist, but with AI's help I started turning his notes into a working model — and I know enough to suspect it might interest you.
@@ -311,4 +332,4 @@ So if the physics is nonsensical or this is old news, I plead ignorance, apologi
   - One paper specifically reviewing F114 and the dielectric black hole and it's predictions.
   - One paper for the fermion sector, its structure, derivations, and connection to the core model.
   - One for the lepton sector and its structure, derivations, and connection to the model. 
-  - One for the baryon sector and its structure, derivations, and connection to the model. 
+  - One for the baryon sector and its structure, derivations, and connection to the model. - ~~**(F24 remediation 2026-08-04, open item)** Does the lattice **evolution** commute with a Lorentz boost at finite $a$?~~ **CLOSED 2026-08-06 by F301** (`findings/F301-finite-a-boost-covariance-poincare-defect.md`). Not by running the commutator as specified below — that measurement is not well-posed, because the lattice has no boost operator and any concrete choice makes the commutator a property of the choice. It is closed by the **Poincaré-algebra defect** $D_i=\tfrac1{2c^2}\partial_i(\Omega^2)-k_i$, which is choice-free (a gradient; the complete obstruction; invariant under $K\to K+f(k)$). Answer: **exact to all orders on the cubic axes**, $O(\lvert k\rvert^3)$ for the F26 even photon, $O(\lvert k\rvert^2)$ on a chiral branch — and yes, it matches F15/F22: the 1D reduction is $D/k=1/\rho-1$ exactly and the BCC massive branch reproduces the same $\rho(m)$. The original wording is kept below.  F24 verified that the SL(2,ℂ) matrix $A$ induces $\Lambda$ on the Weyl 4-current — but that is continuum $2\times2$ spinor algebra with **no lattice content at all** (no $a$, no $c_\text{lat}$, no BCC geometry, no dispersion, no CA tick), and it is true by construction. The load-bearing question is untouched: boost a lattice state, evolve it, versus evolve then boost, and measure the commutator. It would generically **not** be exact — the Brillouin zone and finite $a$ break boosts — so the interesting quantity is the order in $ka$ at which it fails, and whether that matches the F15/F22 $\beta_\text{LV}$ coefficients. This is the finding F24 reads as if it were.

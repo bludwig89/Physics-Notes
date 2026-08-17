@@ -18,7 +18,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 147
+    lines: 149
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T01b_GR1_openBC.json
@@ -37,7 +37,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 153
+    lines: 155
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T05b_GR2_openBC.json
@@ -56,7 +56,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 184
+    lines: 186
     n_test_funcs: 0
     artifacts_written:
     - test-results/top10_T06_QG2_LV.json
@@ -66,16 +66,14 @@ tests:
     summary: 'Top-10 priority Test #6 — QG-2: Planck-scale Lorentz-violation bound'
 - id: 11-SR4-doppler
   path: tests/priority/test_11_SR4_doppler.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
-  results:
-  - test-results/test_11_SR4_doppler.json
   sector: lattice
   evidence:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 278
+    lines: 280
     n_test_funcs: 0
     artifacts_written:
     - test-results/test_11_SR4_doppler.json
@@ -83,6 +81,9 @@ tests:
       test-results/test_11_SR4_doppler.json: local
     artifacts_read_only: []
     summary: 'test_11_SR4_doppler.py  —  SR-4: Relativistic Doppler shift'
+  notes: 'DEMOTED result_dump -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run
+    did not rewrite the declared baseline, so the promotion gave it no failure mode. Declared debt is
+    the honest state.'
 - id: 15-QM6-twoslit
   path: tests/priority/test_15_QM6_twoslit.py
   kind: result_dump
@@ -94,7 +95,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 253
+    lines: 255
     n_test_funcs: 0
     artifacts_written:
     - test-results/test_15_QM6_twoslit.json
@@ -102,7 +103,7 @@ tests:
       test-results/test_15_QM6_twoslit.json: local
     artifacts_read_only: []
     summary: 'test_15_QM6_twoslit.py  —  QM-6: Two-slit interference / fringe visibility'
-- id: F101-one-heavy-branch-fit-W
+- id: F101b-one-heavy-branch-fit-W
   path: tests/findings/test_F101_one_heavy_branch_fit_W.py
   kind: result_dump
   tier: battery
@@ -120,7 +121,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 411
+    lines: 412
     n_test_funcs: 0
     artifacts_written:
     - test-results/F101_one_heavy_branch_fit_W.json
@@ -145,7 +146,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 659
+    lines: 661
     n_test_funcs: 0
     artifacts_written:
     - test-results/F108_democratic_no_go_and_bubble.json
@@ -174,7 +175,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 364
+    lines: 366
     n_test_funcs: 0
     artifacts_written:
     - test-results/F118_self_consistent_Wvc_and_C.json
@@ -205,7 +206,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 341
+    lines: 343
     n_test_funcs: 0
     artifacts_written:
     - test-results/F119_kg_scale_three_routes.json
@@ -226,7 +227,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 318
+    lines: 317
     n_test_funcs: 6
     artifacts_written:
     - test-results/F127_alpha_em_derivation.json
@@ -251,7 +252,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 279
+    lines: 280
     n_test_funcs: 19
     artifacts_written: []
     artifact_rule: {}
@@ -269,7 +270,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 153
+    lines: 154
     n_test_funcs: 10
     artifacts_written: []
     artifact_rule: {}
@@ -291,7 +292,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 140
+    lines: 141
     n_test_funcs: 9
     artifacts_written: []
     artifact_rule: {}
@@ -309,7 +310,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 230
+    lines: 228
     n_test_funcs: 11
     artifacts_written: []
     artifact_rule: {}
@@ -326,7 +327,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 94
+    lines: 95
     n_test_funcs: 4
     artifacts_written: []
     artifact_rule: {}
@@ -351,7 +352,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 232
+    lines: 233
     n_test_funcs: 0
     artifacts_written:
     - test-results/F167_restmass_from_rule.json
@@ -376,7 +377,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 150
+    lines: 152
     n_test_funcs: 0
     artifacts_written:
     - test-results/F168_paired_photon_binding.json
@@ -388,6 +389,86 @@ tests:
   - test-results/F168_paired_photon_binding.json
   notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
     rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: F20-bcc-onaxis-dispersion-exact
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F20
+  - F26
+  module: casim.engine.lattice.wavepacket
+  entry: check_group_velocity_closed_forms
+  params:
+    k0: 0.8
+    m: 0.3
+    n_k: 500
+  expect:
+    exactness: exact
+    tol: 0
+  notes: 'path dropped 2026-08-08: this record declared BOTH a pytest file and an `entry:`, so conftest.pytest_ignore_collect
+    hid the file and its test functions never ran anywhere -- the ambiguity tests/casim/test_registry_entries.py
+    refuses. Dropping `entry:` instead was wrong: a gate-tier record whose path sits outside tests/casim/
+    MUST be entry-driven or test_registry_integrity''s `bare pytest == the gate tier` equality breaks.
+    So the gate contract stays here as a registry-only record (the shape F20-wavepacket-group-velocity,
+    F301 and F314-photon-packet-propagation already use), and tools/gen_test_registry.py scaffolds a separate
+    battery record for the file, whose own test functions now run.'
+  note: 'F20 remediation (review 2026-08-03, verdict OVERSTATED). The exact result the finding stated
+    in prose and never guarded: along a coordinate axis the two transverse cosines are 1.0 and the two
+    transverse sines are 0.0, both representable, so u^+-(k x_hat) = cos(k*c_lat) holds BIT-FOR-BIT and
+    omega = k*c_lat is an algebraic identity rather than a small-k limit -- the on-axis cone has exactly
+    zero curvature. Asserted at tolerance 0 on both branches. It is not a tautology: `offaxis_control_nonzero`
+    requires the same residual along the body diagonal to be O(1) (measured 1.954), which is what gives
+    the exact check a direction and a failure mode. The two closed-form group velocities dw/dk_x = c_lat*n_hat_x
+    (massless) and c_lat*n_kin*n_x/sqrt(1-n_kin^2 u^2) (Dirac) are checked against central differences
+    of the analytic dispersion at 30 random off-axis k, residual ~5e-11 = the h^2 floor. The omega-level
+    residual is bounded by arccos_amplification_bound = 2*eps/sin(pi/(n_k-1)), derived from the conditioning
+    of arccos and from n_k alone -- pre-registered, not read off the residual.'
+- id: F20-wavepacket-group-velocity
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F20
+  module: casim.engine.lattice.wavepacket
+  entry: check_packet_velocity
+  params:
+    m: 0.3
+    seed: branch-pure
+    n_steps: 44
+    tol: 1.0e-12
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  results:
+  - test-results/F20_wavepacket_group_velocity.json
+  note: 'F20 remediation. Replaces the demonstration-grade number with a gate. Two things had to change
+    together. (1) WRAP-FREE: the original ran a 64^3 periodic box in which the packet wraps within 44
+    ticks; the box scan is monotone and reaches 1.024*c_lat -- superluminal -- at L_x=192, which by itself
+    proves the fitted slope is not a group velocity there. The record asserts edge_weight <= 1e-12, i.e.
+    the envelope never reaches a boundary. (2) THE RIGHT TARGET: a branch-pure (positive-energy-projected)
+    seed carries no +-branch beat, so the centroid drift is an exact Ehrenfest statement and equals <dw/dk_x>
+    to float64 round-off -- measured rel 6.0e-16 at m=0.3 and 3.8e-15 at m=0.5, against the original finding''s
+    1.06%. The tolerance is the repo machine class and is pre-registered, not fitted. Real failure mode:
+    perturbing m moves measurement and prediction together (m=0.3 -> 0.4654257818, m=0.5 -> 0.3485063259),
+    and the fixed-spinor variant (seed=fixed, massless) relaxes instead to c_lat*<n_hat_x^2> -- 1.98x
+    the tilt-only deficit, which is the factor of two the finding''s stated mechanism was missing.'
+- id: F20-wavepacket-group-velocity.findings
+  path: tests/findings/test_F20_wavepacket_group_velocity.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F20
+  sector: lattice
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 88
+    n_test_funcs: 6
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F20 — wavepacket group velocity on the BCC lattice, after the 2026-08-03 review.
 - id: F250-allk-gauge-pole
   path: tests/findings/test_F250_allk_gauge_pole.py
   kind: assertion
@@ -402,7 +483,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 289
+    lines: 291
     n_test_funcs: 8
     artifacts_written:
     - test-results/F250_allk_gauge_pole.json
@@ -410,6 +491,461 @@ tests:
       test-results/F250_allk_gauge_pole.json: file
     artifacts_read_only: []
     summary: F250 — The all-k gauge pole of the dual-spinor (paired) photon.
+- id: F267-walk-bz-measure
+  path: tests/findings/test_F267_walk_bz_measure.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F267
+  - F265
+  - F250
+  sector: lattice
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F267_walk_bz_measure.json
+  evidence:
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 140
+    n_test_funcs: 6
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F267 — the fermion walk's BZ is not the cubic FFT cube. Roadmap P3.1's spike.
+- id: F276-curved-weyl-ordering-second-order
+  kind: assertion
+  tier: gate
+  sector: lattice
+  module: casim.engine.lattice.curved
+  entry: f276_convergence_check
+  params:
+    L: 48
+    ticks: 10
+    dc_amp: 0.05
+  expect:
+    exactness: quantitative
+  findings:
+  - F271
+  - F276
+  summary: 'F276 — the variable-c Weyl half-step is Weyl-ordered and second order. Asserts global order
+    2 (pre-F276 measures 0.00) and 1/n_sub^3 norm-error convergence (pre-F276 plateaus at ratio 1.00).
+    Neither can pass by accident.
+
+    '
+- id: F278-bcc-lattice-constant
+  kind: assertion
+  tier: gate
+  sector: lattice
+  module: casim.engine.lattice.bcc
+  entry: check_lattice_constant_identities
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F267
+  - F273
+  - F278
+  summary: 'F278 — the BCC walk''s conventional cube edge is a = 2/sqrt3 = 2*c_lat. Nine checks: five
+    symbolic (sympy, residual identically zero), one IEEE-754 bit compare against 0x3fe279a74590331d,
+    one at 1 ulp, and two float evaluations of the shipped bcc_dispersion at Gamma-H. Promotes F267''s
+    measured cube/BZ ratio 4/(3 sqrt3) to the primitive-cell volume a^3/2 and F273''s measured "sqrt3
+    . fcc" period to the reciprocal lattice 4 pi / a. Real failure mode: any change to c_lat, to the hop-phase
+    convention in bcc_fractional_shift, or to _bcc_uvec breaks check 2, 6 or 9 — which is what audit item
+    V-016 found nothing guarding. The record F278 section 9 specified and did not add; written 2026-08-03
+    by gap #5 of the 2026-08-02 completeness sweep. Corrects F278 check 8, tabulated as float 0.0: 1/c_lat
+    is one ulp below sqrt(3), so the float residual is 8.88e-16, exactly one ulp. The identity itself
+    is exact (check 7, sympy).
+
+    '
+- id: F291-dimension-selectors
+  path: tests/findings/test_F291_dimension_selectors.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F26
+  - F27
+  - F69
+  - F91
+  - F291
+  module: tests.findings.test_F291_dimension_selectors
+  entry: check_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-09
+  results:
+  - test-results/F291_dimension_selectors.json
+  note: 'Spacetime dimensionality (completeness-2026-08-02 rubric row A1, the first ABSENT entry). Three
+    selectors, re-derived with sympy independently of the module: S1, ker(J)=0 only for d<=3 because the
+    Bloch vector is valued in R^3; S2, coker(J)=3-d, so an isotropy-invariant intra-branch mass exists
+    at d=1,2 and not at d=3, which is what leaves the F27 phase to gauge; S3, d(d-1)/2=d has integer roots
+    {0,3} and the Hodge condition d-2=1 closes the d=7 loophole. (S1 and S2) and (S3) each give {3} alone.
+    Corollary: det J exists only at d=3 and equals -/+ c_lat^3, so the two BDPT branches are the two orientations
+    of a square map. D2 finite-differences the engine BCC walk (residual 3.2e-14), which is the tol=1e-9
+    leg.
+
+    '
+  control:
+  - params:
+      cell_dim: 4
+    reason: the internal vector space is 3-dimensional BECAUSE the cell is s = 2, not as an arithmetic
+      identity. At s = 4 the module refuses to answer and A1 must go red. No `reds:` -- this driver asserts
+      rather than emitting a `checks` list, so the claim is the verdict flip.
+  - params:
+      d_scan_max: 3
+    reason: 'the F298 pattern: an UPPER bound at 3 is unevidenced unless the scan reaches d >= 4. Truncated
+      to 3, `ker_zero_dimensions == [1,2,3]` is trivially true, which is the false pass the guard exists
+      to make impossible.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 317
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F291 — three independent selectors fix d = 3; the model does not choose it.
+- id: F292-higher-multiples
+  path: tests/findings/test_F292_higher_multiples.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F27
+  - F91
+  - F130
+  - F291
+  - F292
+  module: tests.findings.test_F292_higher_multiples
+  entry: check_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F292_higher_multiples.json
+  note: 'Why not a higher multiple of three (follow-up to F291). Exact over Z/Q throughout, no float step.
+    S3-prime: the bivector overcount dim(Lambda^2 R^d)/d = (d-1)/2 passes through 1 exactly once, at d=3,
+    so d=3n survives only at n=1. S4 (new): a chirality projector exists iff spacetime D=d+1 is even,
+    CONSTRUCTED by an explicit Clifford recursion for D=2..8 and written twice (module and test) rather
+    than quoted -- so d=6 has no chirality for founding decision 1 to gauge, and d=9 is the only multiple
+    of three clearing S4 before failing S3-prime. S4 and F291-S2 independently agree at d=2, which is
+    the cross-check. Reducible d=3n as n copies of R^3: rank 3, ker 3(n-1), coker 0 -- the walk sees one
+    R^3 and freezes the rest (degeneracy, not compactification), while leaving founding decision 1 untouched.
+
+    '
+  control:
+  - params:
+      clifford_D_max: 2
+    reason: a PARITY claim needs both parities in the scan; at D = 2 there is one even D and no odd one,
+      so `chiral == (D % 2 == 0)` would hold vacuously.
+  - params:
+      n_blocks_max: 1
+    reason: at n = 1 there is no reducible case at all, so a scan stopping there cannot claim that d =
+      3n collapses to 3 -- every assertion would pass on the single irreducible block the finding is not
+      about.
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 264
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F292 — no higher multiple of three; and a reducible d = 3n collapses to 3.
+- id: F313-time-signature
+  path: tests/findings/test_F313_time_signature.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F26
+  - F27
+  - F291
+  - F292
+  - F313
+  module: tests.findings.test_F313_time_signature
+  entry: check_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  results:
+  - test-results/F313_time_signature.json
+  note: 'The "+1" (completeness-2026-08-07 rubric row A1, the residual F291/F292 left). F291 sec.6 asserts
+    that any second commuting flow would be a further Cayley-graph generator; sec.7 names the price of
+    proving it. This record COMPUTES the split instead: the commutant of the BCC update inside the local
+    homogeneous unitaries is 2-dimensional (C1b) and free of rank one because gcd(n~) is a unit (C2),
+    det splits it into exactly the shift lattice U(1) x Z^3 -- monomials only, which is the direction
+    F291 assumed (C3b) -- and the Pell group of R[sqrt(1-u^2)], whose discriminant is squarefree (C4a)
+    and whose fundamental unit is the update itself with deg b = 0 (C4b). Tower, descent and infinite
+    order are exercised (C5a-c). d_time = rank su(2) = 1 from the SAME s = 2 that gives F291 d_space <=
+    dim su(2) = 3, so A1''s two halves have one premise (C6). The Bloch vector is re-typed from qca-papers-1-4-overview.md
+    Eq. 15 rather than imported, and C5a cross-checks the module''s hand-rolled Laurent ring against sympy''s
+    Chebyshev recurrence. IMPORTED: Abel''s theorem (the Pell group of a quadratic extension is cyclic)
+    -- hypotheses verified here, conclusion not re-proved, flagged in the finding, CL269 and the exactness
+    inventory. C7 is the machine leg and the named residual: a free s = 4 Dirac cell DOES carry a second
+    dispersive commuting flow V = I (x) A at every mass.
+
+    '
+  control:
+  - params:
+      pell_nmax: 1
+    reason: 'the F298 pattern: a tower that does not climb cannot evidence a rank-one group. At height
+      1 there is no descent to exercise and no second power to compare, so C5a/C5b/C5c are vacuous. No
+      `reds:` -- this driver asserts rather than emitting a `checks` list, so the claim is the verdict
+      flip. VERIFIED RED 2026-08-12, re-verified 2026-08-13.'
+  - params:
+      cell_dim: 4
+    reason: 'what makes d_time ONE is that the model''s cell is s = 2 (BDPT minimality, founding decision
+      6 -- the same input F291 S1 uses), NOT an arithmetic identity in s. REWRITTEN 2026-08-13: the review
+      found this control reddened only C1a, in 0.03 s, and that the leg which flipped was the test asserting
+      its own input; C6 never ran. CHECKS now runs C6 second, so the control reaches both, and the module
+      REFUSES any cell but s = 2 rather than extrapolating d_time = s - 1 (withdrawn as numerology). C6
+      converts that refusal into a clean AssertionError so the control scores CONTROL and not INVALID.
+      VERIFIED RED 2026-08-13.'
+  - params:
+      fake_gcd: true
+    reason: multiplies all three Bloch components by a common non-unit factor. The commutant stays 2-dimensional
+      -- the DIRECTION of n~ is untouched -- but it stops being FREE, so b need not be Laurent and the
+      space/time split can leak non-local operators, voiding the rank count. C2 must go red. This is the
+      leg that could have failed quietly. VERIFIED RED 2026-08-12.
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 592
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F313 — the "+1": the update''s commutant splits itself into 3 space + 1 time.'
+- id: F315-V-interaction
+  path: tests/findings/test_F315_V_interaction.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F20
+  - F68
+  - F77
+  - F217
+  - F313
+  - F315
+  module: tests.findings.test_F315_V_interaction
+  entry: check_all
+  params: {}
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  note: 'F313 falsifier 5, and the second of CL269''s two contingencies. F313 sec.9 measured a SECOND
+    dispersive commuting flow V = I_branch (x) A on the FREE massive Dirac walk and labelled its reading
+    a reading. This record settles it, in the STRONG form: an interacting theory can carry a DEFORMED
+    conserved charge (that is what integrability is), so C5 asks not only whether V survives but whether
+    any O(G) deformation of it does. Homogeneous antisymmetrised two-particle sector at fixed total momentum
+    -- nothing breaks translation invariance by hand, so a symmetry that fails cannot blame the setup.
+    Since Gamma(V) commutes with Gamma(D) exactly, [Gamma(V),U] = Gamma(D)[Gamma(V),exp(-i H_int)], so
+    the reduction to "H_int must connect only states of equal q_V mod 2pi" is an IDENTITY, not an approximation.
+    Verdict: V is broken maximally (max|dphi_V| = 3.113, i.e. ~pi) by both the contact kernel (Hubbard/NJL,
+    F217/F77) and photon exchange (F68, 1/q^2), and 1340 RESONANT elements -- where the O(G) denominator
+    dOmega vanishes -- carry dphi_V up to 2.876, so no deformed V is conserved at leading order. C2 is
+    the leg that makes this mean anything: an INTEGRABLE mode-diagonal interaction gives 0 obstructed,
+    so the test can report survival. C6 is its partner: on the same resonant set the EVOLUTION''s own
+    charge is conserved to 1.8e-15. C10 records a PREDICTION OF THE SESSION THAT WAS WRONG -- the <100>
+    line was expected to go blind (on-axis dispersion exactly linear, residual 9.3e-15) and does not,
+    because arccos-folding makes umklapp destroy additivity even on a linear branch. NOT settled: all
+    orders in G, and the F86 colour dielectric.
+
+    '
+  control:
+  - params:
+      L: 2
+    reason: 'the L = 2 grid is DEGENERATE -- every theta_j is 0 or pi, so every sin(theta_j) = 0, the
+      Bloch vector vanishes identically and the walk is +-I everywhere. Every commutator is then zero
+      and the test reports "V survives" for no physical reason. This was hit for real: the first many-body
+      run of this session was at L = 2 and returned a clean false negative. C9 runs FIRST in the CHECKS
+      table so this fails cleanly rather than crashing in an empty sector -- a control that CRASHES scores
+      INVALID, not CONTROL. VERIFIED RED 2026-08-12.'
+  - params:
+      kind: mode_diagonal
+    reason: replaces the interaction with one diagonal in the mode basis, i.e. INTEGRABLE, under which
+      every mode-diagonal charge including V is exactly conserved. C3/C5 must go red. This is the same
+      statement as C2 passing, and it is the leg that stops the record being worthless -- a test that
+      always reports "V dies" has measured nothing. VERIFIED RED 2026-08-12.
+  - params:
+      res_tol: 0.0
+    reason: 'the F298 idiom applied to the decisive leg: at res_tol = 0 the resonant set is EMPTY, so
+      "no deformation can repair V" is a statement about nothing. C5 must go red rather than pass vacuously.
+      VERIFIED RED 2026-08-12.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 426
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F315 — F313 falsifier 5 does not fire: V does not survive interaction.'
+- id: F316-laurent-pell
+  path: tests/findings/test_F316_laurent_pell.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F291
+  - F313
+  - F316
+  module: tests.findings.test_F316_laurent_pell
+  entry: check_all
+  params: {}
+  expect:
+    exactness: machine
+    tol: 1.0e-09
+  note: 'Closes F313''s LAST import and CL269''s only remaining contingency. F313 sec.6 cited Dubickas-Steuding
+    Thm 2 (originally, and wrongly, Abel 1826); D-S is proved over k[x] and its descent needs "deg f =
+    0 => f constant", which is FALSE in a Laurent ring -- deg(1 + w1^-1) = 0 yet 1 + w1^-1 is not a unit,
+    the units of R being exactly the monomials. This record verifies the in-repo replacement: a two-sided
+    width D(f) = h_f(lambda) + h_f(-lambda) from the Newton polytope, additive under multiplication (C1)
+    and vanishing EXACTLY on units (C2, asserted on that very counterexample); plus the ingredient D-S
+    neither has nor needs, that UNITARITY (not det = 1) forces a* = a and b* = -b and hence centrally
+    symmetric Newton polytopes (C3). The descent then follows: h_a = h_b + c (C4); lc(a) = +-i lc(b) lc(u)
+    so exactly one of b*u +- a*i cancels at the top (C5); the product of the two candidates equals 1 +
+    b^2 exactly, with D(1+b^2) <= 2 D(b) (C6); hence D drops by exactly 2c per step (C7), landing on {+-1,
+    +-A^+-1} because u has EIGHT monomials and so is not a difference of two (C8). C9 asserts the D(b)
+    > 0 hypothesis is load-bearing -- at the base case 1 + b^2 = 0 and C6 degenerates, which the first
+    run of this work hit for real. C10 re-runs the verdict under a second unrelated lambda, without which
+    the proof could be an artifact of one direction. The test re-implements width, leading coefficient
+    and descent from the definitions against a DIFFERENT lambda than the module uses. SCOPE, stated: this
+    N under unitarity -- NOT a re-proof of D-S in several variables.
+
+    '
+  control:
+  - params:
+      degenerate_lambda: true
+    reason: 'lambda = (0, 1, sqrt2) is BLIND to w1, so the eight cube corners collapse to four doubled
+      values (maximiser not unique) and 1 + w1^-1 acquires width 0 while remaining a non-unit -- precisely
+      the (*) failure mode the proof exists to avoid. C1/C2 must go red. WORTH RECORDING: the first draft
+      used lambda = (1,2,3), Q-DEPENDENT but still separating these supports, and it LEAKED green. Blindness,
+      not irrationality, is the real hypothesis, and the leak is what showed it. VERIFIED RED 2026-08-13.
+
+      '
+  - params:
+      nmax: 1
+    reason: 'the F298 idiom: at nmax = 1 only the base case is in range, so there is no descent step to
+      exercise and C6/C7 have no content. Must go red rather than pass vacuously. VERIFIED RED 2026-08-13.
+
+      '
+  - params:
+      drop_unitarity: true
+    reason: 'multiplies b by a monomial, destroying b* = -b -- i.e. central symmetry of the Newton polytope
+      -- while leaving every element a perfectly good member of R. C3 must go red. This is L3, the one
+      ingredient the polynomial proof has no analogue of, and the control shows the descent genuinely
+      needs unitarity, not merely det = 1. VERIFIED RED 2026-08-13.
+
+      '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 399
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F316 — the polynomial->Laurent transfer, proved: F313''s last import is gone.'
+- id: F318-cell-internal-index
+  path: tests/findings/test_F318_cell_internal_index.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  module: casim.engine.lattice.cell_internal_index
+  entry: check_cell_internal_index
+  params:
+    n_int: 3
+    n_constituents: 3
+    internal_dispersive: false
+    max_clifford_k: 3
+  expect:
+    exactness: exact
+  findings:
+  - F318
+  - F317
+  - F291
+  - F313
+  - F315
+  - F289
+  results:
+  - test-results/F318_cell_internal_index.json
+  control:
+  - params:
+      internal_dispersive: true
+    reds:
+    - B3
+    - C1
+    - C2
+    reason: 'let the internal factor carry its own k-dependent walk -- the F313 section 9 situation. THREE
+      legs go red, and the MEASURED set is written here rather than the one anticipated (C2 alone was
+      expected): a dispersive internal factor also widens the hop span and changes the commutant. This
+      is what makes "internal costs no time direction" a statement about the IDENTITY action rather than
+      about tensoring.'
+  - params:
+      n_constituents: 2
+    reds:
+    - D2
+    reason: ask the occupancy question for TWO constituents. At n = 2 the N = 1 cell is adequate -- the
+      spin singlet does the antisymmetrising -- so the cap forces nothing. The forcing is a statement
+      about THREE, and this is the check that says so.
+  - params:
+      max_clifford_k: 1
+    reds:
+    - A1
+    reason: truncate the Clifford scan at s = 2. A scan that never tests s > 2 cannot claim the naive
+      bound grows, and section A's whole point is that it does. The F298 idiom.
+  - params:
+      n_int: 1
+    reds:
+    - D1
+    reason: 'run with no internal factor at all. D1 goes red -- the three-constituent antisymmetric state
+      does not exist -- while every space and time check stays GREEN, which is D3''s indifference made
+      visible in a single run: the cell does not care, the matter sector does.'
+  notes: 'F317''s residual ("THAT the quark carries an internal index at all"), and the attack F317 named
+    for itself. 11 checks, 1.1 s. The residual is NOT closed and the record does not claim it is -- it
+    is RESHAPED, because three questions were tangled inside it. PERMIT (sections B, C): free. F291 section
+    3 flags its own weakest point -- "conditional on s = 2 ... a larger cell would relax this to d <=
+    2k+1" -- and that is measured to be the WRONG bound: what S1 needs is the maximal ANTICOMMUTING subset
+    of the HOP''s traceless span, and the model''s branch-doubled cell widens that span from 3 to 6 while
+    leaving the rank at 3, because tau_3 x sigma_i COMMUTES with 1 x sigma_i. An internal factor changes
+    neither number, on a cell of dimension 12. On the time side the commutant over generic momenta factorises
+    exactly, 2 -> 18 at N = 3 (a factor N^2), which a naive reading of F313 would report as 2N - 1 = 5
+    times; it does not, because every added element is NON-DISPERSIVE at literal 0.0 against the update''s
+    0.2846. A commuting unitary is a clock only if it disperses -- a criterion F313 never had to state,
+    and F313 section 9''s own second flow WAS dispersive, which is why F315 had to kill it. SHAPE (B4):
+    forced -- a walk that genuinely uses five anticommuting generators on C^4 has ker J = coker J = 0
+    at d = 5, so the selector returns 5 rather than 3, and enlargements are not all alike. FORCE (section
+    D): NOT by the cell, which is measurably indifferent. The forcing is DERIVED Fermi statistics (F289):
+    the antisymmetric subspace on one nodeless level has dimension C(2N, n), computed by explicit antisymmetrisation
+    rather than from the formula, and it is 0 at N = 1 for n = 3 -- spin alone caps a nodeless level at
+    TWO. Four declared controls, each verified red and red only where declared. Prior art is stated in
+    finding section 5; no new mathematics is claimed. THE HONEST RESIDUAL: the number three is not derived,
+    and F317 section 6 consumes the SAME three-constituent fact, so the two findings do not independently
+    confirm each other.'
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 90
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F318 — can the model's CELL carry the internal index? (F317's residual).
 - id: F49-bcc-weinberg-2over9
   path: tests/findings/test_F49_bcc_weinberg_2over9.py
   kind: result_dump
@@ -426,7 +962,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 376
+    lines: 377
     n_test_funcs: 0
     artifacts_written:
     - test-results/F47_bcc_weinberg_2over9.json
@@ -452,7 +988,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: false
-    lines: 491
+    lines: 492
     n_test_funcs: 0
     artifacts_written:
     - test-results/F93_orthorhombic_Eg_vacuum.json
@@ -483,7 +1019,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 351
+    lines: 352
     n_test_funcs: 0
     artifacts_written:
     - test-results/F95_BC_from_qca_loop.json
@@ -511,7 +1047,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 403
+    lines: 404
     n_test_funcs: 0
     artifacts_written:
     - test-results/F96_second_shell_Eg_gap.json
@@ -538,7 +1074,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 183
+    lines: 184
     n_test_funcs: 0
     artifacts_written:
     - test-results/P6_si_scale.json
@@ -548,14 +1084,14 @@ tests:
     summary: test_P6_si_scale.py
 - id: SR5-photon-frame-invariance
   path: tests/findings/test_SR5_photon_frame_invariance.py
-  kind: result_dump
+  kind: legacy_script
   tier: battery
   sector: lattice
   evidence:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 435
+    lines: 437
     n_test_funcs: 0
     artifacts_written:
     - test-results/SR5_photon_frame_invariance.json
@@ -563,10 +1099,10 @@ tests:
       test-results/SR5_photon_frame_invariance.json: file
     artifacts_read_only: []
     summary: test_SR5_photon_frame_invariance.py  —  SR-5
-  results:
-  - test-results/SR5_photon_frame_invariance.json
   notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
-    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+    rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode; DEMOTED result_dump
+    -> legacy_script by tools/arm_test_registry.py --apply (C7.5): a real run did not rewrite the declared
+    baseline, so the promotion gave it no failure mode. Declared debt is the honest state.'
 - id: analyse-su3-runs
   path: tests/runners/analyse_su3_runs.py
   kind: result_dump
@@ -580,7 +1116,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 158
+    lines: 159
     n_test_funcs: 0
     artifacts_written:
     - test-results/su3_static_potential_summary.json
@@ -597,12 +1133,16 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 456
+    lines: 458
     n_test_funcs: 3
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_emergent_time_shapiro.py — Phase T2 (tick-language re-derivations)
+  notes: 'DEBT CATEGORY (C7 close-out): the file names a result artifact that is not committed and not
+    on disk, so there is no baseline to diff — run it once, review the numbers, `git add` the artifact,
+    then promote with `tools/gen_test_registry.py --promote`. Cheapest of the three debt categories to
+    clear.'
 - id: fork-B-fresnel
   path: tests/findings/test_fork_B_fresnel.py
   kind: legacy_script
@@ -612,12 +1152,159 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 256
+    lines: 258
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'test_fork_B_fresnel.py  —  Fork B: Fizeau/refractive-index test'
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
+- id: run-F291-dimension-selectors
+  path: tests/runners/run_f291_dimension_selectors.py
+  kind: result_dump
+  tier: battery
+  sector: lattice
+  findings:
+  - F291
+  results:
+  - test-results/F291_dimension_selectors.json
+  expect:
+    exactness: exact
+    tol: 1.0e-09
+  note: 'Artifact runner for the F291 dimension selectors. Not debt: it fails by baseline diff against
+    git HEAD on test-results/F291_dimension_selectors.json, and every number in that artifact is an integer
+    or an exact sympy form except the D2 engine finite-difference leg (3.2e-14). The assertions themselves
+    live in the gate record F291-dimension-selectors; this record exists so the artifact is armed rather
+    than orphaned.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 67
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F291 runner — emit the dimension-selector result artifact.
+- id: run-F292-higher-multiples
+  path: tests/runners/run_f292_higher_multiples.py
+  kind: result_dump
+  tier: battery
+  sector: lattice
+  findings:
+  - F292
+  results:
+  - test-results/F292_higher_multiples.json
+  expect:
+    exactness: exact
+    tol: 0
+  note: 'Artifact runner for F292. Not debt: fails by baseline diff against git HEAD, and every value
+    in the artifact is an integer or an exact rational. Assertions live in the gate record F292-higher-multiples;
+    this record exists so the artifact is armed rather than orphaned.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 70
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F292 runner — emit the higher-multiples result artifact.
+- id: run-F313-time-signature
+  path: tests/runners/run_f313_time_signature.py
+  kind: result_dump
+  tier: battery
+  sector: lattice
+  findings:
+  - F313
+  results:
+  - test-results/F313_time_signature.json
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  note: 'Artifact runner for the F313 time-signature derivation. Not debt: it carries five armed runner
+    claims (commutant dimension 2, scalar part exactly the shifts, squarefree discriminant with the update
+    as fundamental Pell unit, <A> infinite, signature 3+1) and returns 1 if any fails, AND it fails by
+    baseline diff against git HEAD on test-results/F313_time_signature.json. Every number in that artifact
+    is an integer or an exact Q(i)/sympy form except the C7 composite-cell commutator norm (2.2e-16),
+    which is the one machine leg. The assertions themselves live in the gate record F313-time-signature;
+    this record exists so the artifact is armed rather than orphaned.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 84
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F313 runner — emit the time-signature result artifact.
+- id: run-F315-V-interaction
+  path: tests/runners/run_f315_v_interaction.py
+  kind: result_dump
+  tier: battery
+  sector: lattice
+  findings:
+  - F315
+  results:
+  - test-results/F315_V_interaction.json
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  note: 'Artifact runner for F315. Not debt: five armed runner claims (V broken by a genuine scatterer,
+    the breaking maximal rather than marginal, the O(G) deformation obstructed, the integrable control
+    still reporting survival, and the evolution''s own charge untouched on the same resonant set), returning
+    1 if any fails, plus baseline diff against git HEAD. The assertions live in the gate record F315-V-interaction;
+    this record exists so the artifact is armed rather than orphaned.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F315 runner — emit the falsifier-5 result artifact.
+- id: run-F316-laurent-pell
+  path: tests/runners/run_f316_laurent_pell.py
+  kind: result_dump
+  tier: battery
+  sector: lattice
+  findings:
+  - F316
+  results:
+  - test-results/F316_laurent_pell.json
+  expect:
+    exactness: machine
+    tol: 1.0e-09
+  note: 'Artifact runner for F316. Not debt: five armed runner claims (the width separates the element
+    that breaks the imported theorem''s hypothesis; unitarity gives central symmetry; the product identity
+    is exact; the descent is strict and by exactly 2c; the base case is closed), returning 1 if any fails,
+    plus baseline diff against git HEAD. The assertions live in the gate record F316-laurent-pell.
+
+    '
+  evidence:
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F316 runner — emit the Laurent-Pell descent artifact.
 - id: run-FC02-shapiro
   path: tests/runners/run_FC02_shapiro.py
   kind: result_dump
@@ -632,7 +1319,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 287
+    lines: 289
     n_test_funcs: 0
     artifacts_written:
     - test-results/FC02_shapiro.json
@@ -655,6 +1342,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: run_qca_verifications.py — V1–V9 from qca-papers-1-4-overview.md
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-simulation
   path: tests/runners/run_simulation.py
   kind: legacy_script
@@ -664,12 +1354,15 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 352
+    lines: 354
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'run_simulation.py  —  Main runner: all five CA stages'
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-u4-multigrid
   path: tests/runners/run_u4_multigrid.py
   kind: result_dump
@@ -683,7 +1376,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 140
+    lines: 138
     n_test_funcs: 0
     artifacts_written:
     - test-results/u4_multigrid.json
@@ -706,7 +1399,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 78
+    lines: 76
     n_test_funcs: 0
     artifacts_written:
     - test-results/u4_sigma_carry.json
@@ -743,7 +1436,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 215
+    lines: 217
     n_test_funcs: 5
     artifacts_written:
     - test-results/sublattice_hypercharge.json

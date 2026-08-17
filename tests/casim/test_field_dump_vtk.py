@@ -22,7 +22,7 @@ import struct
 import numpy as np
 import pytest
 
-from casim.engine.observers import build_observer
+from casim.engine.core.observers import build_observer
 from casim.io.vtk import write_image_data, write_pvd
 
 

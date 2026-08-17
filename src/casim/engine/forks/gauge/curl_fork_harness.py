@@ -23,19 +23,18 @@ Writes: test-results/curl_fork_results_<date>.json
 import os, sys, json, time
 import numpy as np
 
-# locate ca-simulation package
+# locate the casim package
 HERE = os.path.dirname(os.path.abspath(__file__))
 CASIM = os.path.dirname(HERE)
-for cand in (CASIM, HERE,
-             "/sessions/blissful-epic-faraday/mnt/Physics Notes/ca-simulation"):
-    if os.path.isfile(os.path.join(cand, "ca_bcc.py")):
+# C9: the kernels are a package now — `src/` is five levels up, and HERE is
+# the sector's own fork directory (bare-name fork loads).
+CASIM = os.path.abspath(os.path.join(HERE, *([".."] * 5), "src"))
+for cand in (CASIM, HERE):
+    if cand not in sys.path:
         sys.path.insert(0, cand)
-        sys.path.insert(0, os.path.join(cand, "forks"))
-        CASIM = cand
-        break
 
-import ca_maxwell as mx
-from ca_fft import fftfreq
+from casim.engine.gauge import bilinear as mx
+from casim.numerics.fft import fftfreq
 from casim.engine.forks.gauge import curl_fork_baseline_bcc as bcc_fork
 from casim.engine.forks.gauge import curl_fork_cubic as cub_fork
 

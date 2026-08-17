@@ -6,7 +6,7 @@ test_complex_mass_chiral.py — Test suite for the SU(2) complex-mass coupling i
 Tests Ludwig's proposal (physics_notes_0708.pdf pp. 59–60) that gauging the
 β matrix of the Dirac equation generates chiral SU(2) without a Higgs field.
 
-Implementation: ca-simulation/ca_dirac.py  (SU(2) complex-mass section, Finding F27)
+Implementation: src/casim/engine/particles/dirac.py  (SU(2) complex-mass section, Finding F27)
 
 Tests
 -----
@@ -32,10 +32,11 @@ import numpy as np
 
 # ── path setup ─────────────────────────────────────────────────────────────────
 _THIS = os.path.dirname(__file__)
-_SIM  = os.path.abspath(os.path.join(_THIS, '..', '..', 'ca-simulation'))
-sys.path.insert(0, _SIM)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_dirac as cd
+from casim.engine.particles import dirac as cd
 
 # ── convenience shim so test bodies stay readable ─────────────────────────────
 # Maps the old fork function names to the merged ca_dirac names.
@@ -169,8 +170,8 @@ def test_T3_dispersion_invariance(L=32, m=0.3):
     """
     print("\n── T3  Dispersion invariance under constant θ ───────────────────────")
 
-    from ca_dirac import _dirac_4x4_at_k
-    from ca_core_exact import exact2d_unitary
+    from casim.engine.particles.dirac import _dirac_4x4_at_k
+    from casim.engine.lattice.core_exact import exact2d_unitary
 
     test_ks = [(0.1, 0.0), (0.2, 0.15), (0.3, 0.3), (0.5, 0.1)]
     max_err = 0.0

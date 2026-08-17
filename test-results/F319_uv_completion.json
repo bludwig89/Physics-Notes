@@ -1,0 +1,319 @@
+{
+  "U1": {
+    "I_continuum_vs_Lambda": {
+      "10.0": 0.05199385420700904,
+      "1000.0": 0.11031774967868492,
+      "1000000.0": 0.19780549219929322,
+      "3.141592653589793": 0.03734100301297995
+    },
+    "I_lattice": 0.05305546322422959,
+    "continuum_growth_per_3_decades": 0.0874877425206083,
+    "expected_growth": 0.08748774264725966,
+    "m2": 0.01,
+    "tail_bound": 1.4724639546932883e-55
+  },
+  "U2": {
+    "ladder": [
+      {
+        "m": 0.1,
+        "scheme_constant": 0.0238928823418097,
+        "tail_bound": 1.4724639546932673e-55
+      },
+      {
+        "m": 0.01,
+        "scheme_constant": 0.02401128172955474,
+        "tail_bound": 1.4561240692107436e-12
+      },
+      {
+        "m": 0.001,
+        "scheme_constant": 0.024013160882210536,
+        "tail_bound": 3.918771291077436e-12
+      },
+      {
+        "m": 0.0001,
+        "scheme_constant": 0.02401318091925159,
+        "tail_bound": 3.9577598015477924e-12
+      },
+      {
+        "m": 1e-05,
+        "scheme_constant": 0.024013181119778362,
+        "tail_bound": 3.958151639163787e-12
+      },
+      {
+        "m": 1e-06,
+        "scheme_constant": 0.024013181121783644,
+        "tail_bound": 3.95815555773585e-12
+      }
+    ],
+    "last_decade_drift": 2.0052813576310058e-12
+  },
+  "U3": {
+    "closed_forms_agree": true,
+    "dimreg_closed_form": "1/(16*pi**2)",
+    "lattice_symanzik": 0.006332573977699058,
+    "lattice_wilson": 0.006332589809140596,
+    "pauli_villars_closed_form": "1/(16*pi**2)",
+    "rel_err_symanzik": 8.361089598452054e-12,
+    "rel_err_wilson": 2.5000094023841513e-06,
+    "target": 0.006332573977646111
+  },
+  "U4": {
+    "agreement": 1.9208593049491185e-14,
+    "delta_at_m_zero": 0.00830668155700843,
+    "delta_from_m_ladder": 0.008306681556989222,
+    "scheme_b": "symanzik"
+  },
+  "U5": {
+    "at_100": -0.0,
+    "at_111": -0.00617283950617284,
+    "bound_exact": "-1/162",
+    "closed_form": "-(1 - sum n_i^4)/144 - (nx ny nz)^2/24",
+    "engine_float64_note": "arccos conditioning, not physics -- see dispersion_excess_mp docstring",
+    "rows": [
+      {
+        "closed_form": -0.0,
+        "dir": [
+          1,
+          0,
+          0
+        ],
+        "engine_float64": -3.511059448708614e-08,
+        "mpmath_60dps": -2.465854715295325e-21
+      },
+      {
+        "closed_form": -0.0034722222222222238,
+        "dir": [
+          1,
+          1,
+          0
+        ],
+        "engine_float64": -0.003472196432909386,
+        "mpmath_60dps": -0.003472222222222222
+      },
+      {
+        "closed_form": -0.00617283950617284,
+        "dir": [
+          1,
+          1,
+          1
+        ],
+        "engine_float64": -0.00617288098237779,
+        "mpmath_60dps": -0.006172839506172839
+      },
+      {
+        "closed_form": -0.0022222222222222227,
+        "dir": [
+          2,
+          1,
+          0
+        ],
+        "engine_float64": -0.002222260851106392,
+        "mpmath_60dps": -0.0022222222222222222
+      },
+      {
+        "closed_form": -0.004018869452542921,
+        "dir": [
+          3,
+          2,
+          1
+        ],
+        "engine_float64": -0.004018976008881912,
+        "mpmath_60dps": -0.004018869452542922
+      },
+      {
+        "closed_form": -0.005029721079103796,
+        "dir": [
+          1,
+          2,
+          2
+        ],
+        "engine_float64": -0.0050296434835779644,
+        "mpmath_60dps": -0.005029721079103796
+      },
+      {
+        "closed_form": -0.003155166828636216,
+        "dir": [
+          5,
+          3,
+          1
+        ],
+        "engine_float64": -0.003155149206913013,
+        "mpmath_60dps": -0.0031551668286362165
+      },
+      {
+        "closed_form": -0.003443335393144988,
+        "dir": [
+          7,
+          4,
+          2
+        ],
+        "engine_float64": -0.00344335963939494,
+        "mpmath_60dps": -0.0034433353931449875
+      },
+      {
+        "closed_form": -0.0042156765201590545,
+        "dir": [
+          9,
+          5,
+          4
+        ],
+        "engine_float64": -0.0042156495775758675,
+        "mpmath_60dps": -0.004215676520159054
+      }
+    ],
+    "scaling_exponent": 1.9999997589689353,
+    "worst_abs_err_engine_float64": 1.0655633899108591e-07,
+    "worst_abs_err_mpmath": 1.1155660994188428e-20
+  },
+  "U6": {
+    "Lambda_UV_GeV": 1.8504456979053798e+18,
+    "scales": {
+      "LHAASO_1.4PeV": {
+        "E_GeV": 1400000.0,
+        "k_lattice": 7.56574484506482e-13,
+        "max_frac_deviation": 3.533363892631166e-27
+      },
+      "LHC_13TeV": {
+        "E_GeV": 13000.0,
+        "k_lattice": 7.025334498988761e-15,
+        "max_frac_deviation": 3.0466249890544235e-31
+      },
+      "M_Z": {
+        "E_GeV": 91.1876,
+        "k_lattice": 4.92787224738452e-17,
+        "max_frac_deviation": 1.499007709045837e-35
+      },
+      "m_e": {
+        "E_GeV": 0.00051099895,
+        "k_lattice": 2.7614911941400254e-22,
+        "max_frac_deviation": 4.707304700810434e-46
+      }
+    }
+  },
+  "U7": {
+    "alpha_at_Lambda_UV": 0.007905023962462452,
+    "gap_decades": 258.8941590159642,
+    "log10_Lambda_UV_GeV": 18.267276345066865,
+    "log10_Landau_GeV": 277.16143536103107
+  },
+  "U8": {
+    "I_cc": 4.08104856952699,
+    "I_g": 1.9807019947699098,
+    "a0_m": 1.0663754173481642e-34,
+    "a_star_Gpc": 8.294559555427876,
+    "a_star_m": 2.5594336468528795e+26,
+    "allowed_a1_perturbation": 2.2e-05,
+    "lambda_star": 5.760597081977134e+120,
+    "log10_overshoot": 120.76046750008447,
+    "log10_required_selectivity": 116.10289018090667,
+    "overshoot": 5.760597081977134e+120,
+    "required_a0_suppression_decades": 120.76046750008447,
+    "required_selectivity": 1.2673313580349695e+116,
+    "rho_Lambda_SI": 6e-10,
+    "rho_vac_SI": 3.45635824918628e+111
+  },
+  "U9": {
+    "D": "-3*E_f/2 - E_gamma + 4",
+    "dD_dL": "0",
+    "dD_dV": "0",
+    "ledger": [
+      {
+        "D": 4,
+        "disposition": "UNABSORBABLE -- no CC parameter exists; F164's 120.8-order overshoot",
+        "free_parameter": false,
+        "mass_dim": 0,
+        "operator": "identity  (cosmological constant)"
+      },
+      {
+        "D": 2,
+        "disposition": "UNABSORBABLE -- G is structural (F79); the induced value IS the prediction, and it lands (F107)",
+        "free_parameter": false,
+        "mass_dim": 2,
+        "operator": "R  (Einstein-Hilbert, 1/16 pi G)"
+      },
+      {
+        "D": 0,
+        "disposition": "absorbed (F264 R2/R3)",
+        "free_parameter": true,
+        "mass_dim": 4,
+        "operator": "psi_bar i gamma.d psi   (Z_2)"
+      },
+      {
+        "D": 0,
+        "disposition": "absorbed (F264 R2/R3)",
+        "free_parameter": true,
+        "mass_dim": 4,
+        "operator": "e psi_bar gamma.A psi   (Z_1)"
+      },
+      {
+        "D": 0,
+        "disposition": "absorbed (F264 R2/R3)",
+        "free_parameter": true,
+        "mass_dim": 4,
+        "operator": "m psi_bar psi           (dm)"
+      },
+      {
+        "D": 0,
+        "disposition": "absorbed (F264 R2/R3)",
+        "free_parameter": true,
+        "mass_dim": 4,
+        "operator": "F_munu F^munu           (Z_3)"
+      },
+      {
+        "D": 2,
+        "disposition": "FORBIDDEN, not unabsorbable -- q_mu Pi^munu = 0 exactly (F251/Pi1)",
+        "free_parameter": false,
+        "mass_dim": 2,
+        "operator": "A_mu A^mu  (photon mass)"
+      },
+      {
+        "D": -2,
+        "disposition": "IRRELEVANT -- suppressed by (E/Lambda_UV)^2; U5/U6 measure the coefficient and it is exactly rational",
+        "free_parameter": true,
+        "mass_dim": 6,
+        "operator": "dimension >= 6"
+      }
+    ],
+    "n_unabsorbable": 2,
+    "unabsorbable": [
+      "identity  (cosmological constant)",
+      "R  (Einstein-Hilbert, 1/16 pi G)"
+    ]
+  },
+  "all_pass": true,
+  "checks": {
+    "U1-continuum-unbounded": true,
+    "U1-lattice-finite": true,
+    "U2-ir-independent": true,
+    "U3-closed-forms-agree": true,
+    "U3-log-universal-symanzik": true,
+    "U3-log-universal-wilson": true,
+    "U4-scheme-constant-nonzero": true,
+    "U4-two-routes-agree": true,
+    "U5-bound-at-111": true,
+    "U5-closed-form-exact": true,
+    "U5-engine-faithful": true,
+    "U5-no-dim5": true,
+    "U5-zero-along-100": true,
+    "U6-decoupled-at-LHC": true,
+    "U7-landau-outside-domain": true,
+    "U7-perturbative-throughout": true,
+    "U8-reproduces-F164": true,
+    "U8-selectivity-required": true,
+    "U8-uniform-channel-excluded": true,
+    "U9-D-order-independent": true,
+    "U9-exactly-two-unabsorbable": true
+  },
+  "n_pass": 21,
+  "n_total": 21,
+  "params": {
+    "break_universality": 1.0,
+    "linear_control": false,
+    "n_bz": 90,
+    "nk": 8192,
+    "nt": 4000,
+    "scheme_b": "symanzik",
+    "zero_point_weight": 1.0
+  },
+  "verdict": "PASS"
+}

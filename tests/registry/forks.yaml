@@ -55,7 +55,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 344
+    lines: 345
     n_test_funcs: 6
     artifacts_written:
     - test-results/F107_canonical_a_L4_grb_gate.json
@@ -109,6 +109,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F115 — Gauge coupling magnitudes e, g, g_s from the model.
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F172-residual-algebraic-or-computed
   path: tests/findings/test_F172_residual_algebraic_or_computed.py
   kind: result_dump
@@ -152,7 +155,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 61
+    lines: 64
     n_test_funcs: 5
     artifacts_written: []
     artifact_rule: {}
@@ -173,7 +176,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 84
+    lines: 88
     n_test_funcs: 0
     artifacts_written:
     - test-results/F193_ontic_vacuum_test.json
@@ -195,7 +198,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 86
+    lines: 90
     n_test_funcs: 0
     artifacts_written:
     - test-results/F196_dilution_exponent_test.json
@@ -220,7 +223,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 112
+    lines: 116
     n_test_funcs: 0
     artifacts_written:
     - test-results/F197_first_excitation_dark_test.json
@@ -242,7 +245,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 95
+    lines: 99
     n_test_funcs: 0
     artifacts_written:
     - test-results/F198_angular_misalignment_test.json
@@ -266,7 +269,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 95
+    lines: 99
     n_test_funcs: 0
     artifacts_written:
     - test-results/F199_amplitude_mode_stability_test.json
@@ -312,7 +315,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 100
+    lines: 104
     n_test_funcs: 0
     artifacts_written:
     - test-results/F200_sterile_neutrino_dm_test.json
@@ -335,7 +338,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 94
+    lines: 98
     n_test_funcs: 0
     artifacts_written:
     - test-results/F201_kev_from_eg_texture_test.json
@@ -359,7 +362,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 93
+    lines: 97
     n_test_funcs: 0
     artifacts_written:
     - test-results/F202_leptogenesis_sakharov_test.json
@@ -380,7 +383,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 161
+    lines: 165
     n_test_funcs: 0
     artifacts_written:
     - test-results/F203_dark_sector_falsifiers_test.json
@@ -402,7 +405,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 140
+    lines: 144
     n_test_funcs: 0
     artifacts_written:
     - test-results/F205_sterile_qke_boltzmann_test.json
@@ -533,7 +536,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 166
+    lines: 170
     n_test_funcs: 1
     artifacts_written:
     - test-results/F237_kev_sterile_resolution.json
@@ -618,7 +621,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 171
+    lines: 172
     n_test_funcs: 3
     artifacts_written:
     - test-results/F56_einstein_coupling_derivation.json
@@ -641,7 +644,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 164
+    lines: 165
     n_test_funcs: 3
     artifacts_written:
     - test-results/F57_induced_eh_from_backreaction.json
@@ -665,7 +668,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 179
+    lines: 180
     n_test_funcs: 5
     artifacts_written:
     - test-results/F58_clockrate_coupling_derivation.json
@@ -686,12 +689,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 36
+    lines: 42
     n_test_funcs: 0
     artifacts_written:
     - test-results/F59_induced_eh_prefactor.json
     artifact_rule:
-      test-results/F59_induced_eh_prefactor.json: local
+      test-results/F59_induced_eh_prefactor.json: file
     artifacts_read_only: []
     summary: F59 test runner — induced-EH prefactor + Finding-10 selection.
 - id: F60-channel-reconciliation
@@ -707,12 +710,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 25
+    lines: 31
     n_test_funcs: 0
     artifacts_written:
     - test-results/F60_channel_reconciliation.json
     artifact_rule:
-      test-results/F60_channel_reconciliation.json: local
+      test-results/F60_channel_reconciliation.json: file
     artifacts_read_only: []
     summary: F60 test runner — tree-vs-loop reconciliation of the two induced-G channels.
 - id: F61-weyl-eta-gstar
@@ -728,12 +731,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 27
+    lines: 33
     n_test_funcs: 0
     artifacts_written:
     - test-results/F61_weyl_eta_gstar.json
     artifact_rule:
-      test-results/F61_weyl_eta_gstar.json: local
+      test-results/F61_weyl_eta_gstar.json: file
     artifacts_read_only: []
     summary: F61 test runner — Weyl heat-kernel eta and gravitating mode count g_*.
 - id: F62-dirac-gravity-fork
@@ -753,7 +756,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 161
+    lines: 162
     n_test_funcs: 0
     artifacts_written:
     - test-results/F62_dirac_gravity_fork.json
@@ -779,12 +782,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 44
+    lines: 50
     n_test_funcs: 0
     artifacts_written:
     - test-results/F63_spin_torsion_estimate.json
     artifact_rule:
-      test-results/F63_spin_torsion_estimate.json: local
+      test-results/F63_spin_torsion_estimate.json: file
     artifacts_read_only: []
     summary: F63 test runner — Einstein-Cartan spin-torsion magnitude estimate.
 - id: F64-em-connection
@@ -806,7 +809,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 441
+    lines: 442
     n_test_funcs: 0
     artifacts_written:
     - test-results/F64_em_connection.json
@@ -835,6 +838,9 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: test_F66_allsky_birefringence_anisotropy.py
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: F73-spin0-bound-pair
   path: tests/findings/test_F73_spin0_bound_pair.py
   kind: result_dump
@@ -871,7 +877,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 93
+    lines: 98
     n_test_funcs: 0
     artifacts_written:
     - test-results/F79_structural_G.json
@@ -928,7 +934,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 255
+    lines: 317
     n_test_funcs: 6
     artifacts_written:
     - test-results/FA_lgt_mc.json
@@ -1070,7 +1076,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 227
+    lines: 233
     n_test_funcs: 0
     artifacts_written:
     - test-results/F62_dirac_gravity_fork.json
@@ -1097,7 +1103,7 @@ tests:
     pytest_funcs: true
     has_assert: false
     has_main: true
-    lines: 554
+    lines: 558
     n_test_funcs: 6
     artifacts_written:
     - test-results/majorana_fork.json
@@ -1120,12 +1126,15 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 52
+    lines: 57
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: run_heavy_rerun.py — the two suite items too slow for the in-session sandbox.
+  notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
+    it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
+    record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
 - id: run-lgt-confinement
   path: tests/runners/run_lgt_confinement.py
   kind: result_dump
@@ -1137,7 +1146,7 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 177
+    lines: 181
     n_test_funcs: 0
     artifacts_written:
     - test-results/lgt_confinement.json

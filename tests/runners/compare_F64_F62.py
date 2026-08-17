@@ -31,12 +31,10 @@ import os
 import sys
 
 THIS = os.path.dirname(__file__)
-SIM = os.path.abspath(os.path.join(THIS, "..", "..", "ca-simulation"))
-FORKS = os.path.join(SIM, "forks")
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 RES = os.path.abspath(os.path.join(THIS, "..", "..", "test-results"))
-for p in (SIM, FORKS):
-    if p not in sys.path:
-        sys.path.insert(0, p)
 
 STAMP = "2026-05-31 - 16:00"
 
@@ -55,6 +53,14 @@ def gather(cached: bool) -> tuple[dict, dict]:
         f62 = json.load(open(os.path.join(RES, "F62_dirac_gravity_fork.json")))
         f64 = json.load(open(os.path.join(RES, "F64_em_connection.json")))["tests"]
         return f62, f64
+    # Forks are loaded by bare name, not as package submodules;
+    # importing casim appends engine/forks/<sector>/ to sys.path.
+    import casim as _casim  # noqa: E402,F401
+    # The F64 leg is a sibling *test* module, imported by bare name, so
+    # tests/findings/ has to be on the path too.
+    _findings = os.path.abspath(os.path.join(THIS, "..", "findings"))
+    if _findings not in sys.path:
+        sys.path.insert(0, _findings)
     import dirac_gravity_fork as dg
     import test_F64_em_connection as t64
     f62 = dg.run_all(verbose=True)
@@ -212,8 +218,8 @@ def main():
     diffs = build_diffs(f64)
     os.makedirs(RES, exist_ok=True)
     out = {"timestamp": STAMP, "cached": cached,
-           "f62_module": "ca-simulation/forks/dirac_gravity_fork.py",
-           "f64_module": "ca-simulation/forks/gr_fork_F64_em_connection.py",
+           "f62_module": "src/casim/engine/forks/gravity/dirac_gravity_fork.py",
+           "f64_module": "src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py",
            "shared_observables": rows, "structural_differences": diffs}
     jpath = os.path.join(RES, "F64_vs_F62_comparison.json")
     mpath = os.path.join(RES, "F64_vs_F62_comparison.md")

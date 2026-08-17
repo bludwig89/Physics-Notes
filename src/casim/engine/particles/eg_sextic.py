@@ -40,7 +40,7 @@ import sys
 
 import numpy as np
 
-# The `sys.path.insert(0, _HERE)` that used to sit here made `ca-simulation`
+# The `sys.path.insert(0, _HERE)` that used to sit here made the legacy flat tree
 # importable from either working directory. Roadmap C5 rewrote the bare imports
 # below to absolute `casim.*` paths, so it was dead and had become a top-level
 # name-shadowing hazard (see the note in `element.py`). Removed.

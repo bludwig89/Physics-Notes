@@ -122,7 +122,7 @@ def exchange_chain_lightcone(nqubits: int = 11, theta: float = math.pi / 16,
 
     Returns (times, [(front, cone_4t)…], max_outside_cone_correlation)."""
     if _E is None:
-        raise RuntimeError("ca_entanglement not importable; add ca-simulation to sys.path")
+        raise RuntimeError("casim.engine.interactions.qi_entanglement not importable")
     n = nqubits
     kets = [_E.KET0 if i % 2 == 0 else _E.KET1 for i in range(n)]
     psi = _E.product_state(kets)

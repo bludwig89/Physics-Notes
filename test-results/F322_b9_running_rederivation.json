@@ -1,0 +1,154 @@
+{
+  "all_pass": true,
+  "verdict": "PASS",
+  "checks": {
+    "B9-1": {
+      "ok": true,
+      "what": "Delta alpha_lep bitwise refold-independent"
+    },
+    "B9-2": {
+      "ok": true,
+      "what": "f = 4 pi alpha exact from b0^QED = 4/3",
+      "f": 0.09170123682703296
+    },
+    "B9-3": {
+      "ok": true,
+      "what": "lattice bound on Delta alpha below the PDG shortfall at every n",
+      "bound_max": 1.700788001754026e-05,
+      "shortfall": 7.707199539503523e-05
+    },
+    "B9-4": {
+      "ok": true,
+      "what": "bound falls fast with refinement (grid noise, not a residual log: a real log is n-independent)",
+      "ratio_nmax_over_nmin": 0.3978802280653515
+    },
+    "B9-5": {
+      "ok": true,
+      "what": "F261 b1 = 1 closes >75% of the shortfall; agreement improves to <0.06%",
+      "rel_err": 0.0004949131754982569,
+      "frac_closed": 0.7977374904860554
+    },
+    "B9-6": {
+      "ok": true,
+      "what": "F138 +0.222% reproduced; leptonic-only alpha degrades it by >1.5x",
+      "ratio": 2.0234621082804174
+    }
+  },
+  "n_pass": 6,
+  "n_total": 6,
+  "L1_refold_independence": {
+    "delta_alpha_lep_base": 0.03142092800460496,
+    "delta_alpha_lep_kernel_perturbed": 0.03142092800460496,
+    "bitwise_identical": true,
+    "call_closure_of_leptonic_running": [
+      "_dalpha_lepton"
+    ],
+    "statement": "leptonic_running() does not reach _fermion_B or _K_lat; a 7.3x + 0.5 kernel perturbation leaves Delta alpha bitwise unchanged. The three-report flag was accounting, not physics."
+  },
+  "L2a_calibration": {
+    "b0_QED": 1.3333333333333333,
+    "slope_in_B_units": 0.008443431970194815,
+    "slope_is_1_over_12pi2": true,
+    "f": 0.09170123682703296,
+    "f_is_4pi_alpha": true,
+    "statement": "f = 4 pi alpha exactly, from b0^QED = 4/3. Model-internal: no fit, no external normalisation."
+  },
+  "L2_lattice_bound": {
+    "refold_control": false,
+    "f_4pi_alpha": 0.09170123682703296,
+    "ln_range_fitted": 2.1972245773362187,
+    "L_physical": 24.18412389096228,
+    "pdg_shortfall": 7.707199539503523e-05,
+    "rows": [
+      {
+        "n": 20,
+        "delta_mean": -0.0021101135044396015,
+        "delta_spread": 1.685074394772168e-05,
+        "residual_log_slope": 7.669104069530524e-06,
+        "dalpha_bound": 1.700788001754026e-05,
+        "bound_over_shortfall": 0.2206752262007201,
+        "bound_frac_of_dalpha": 0.0005399669825874741
+      },
+      {
+        "n": 24,
+        "delta_mean": -0.0021189890149061683,
+        "delta_spread": 9.27943084802485e-06,
+        "residual_log_slope": 4.22325097932168e-06,
+        "dalpha_bound": 9.365963128031932e-06,
+        "bound_over_shortfall": 0.12152226084229892,
+        "bound_frac_of_dalpha": 0.00029735104222591694
+      },
+      {
+        "n": 28,
+        "delta_mean": -0.0021234581746350355,
+        "delta_spread": 6.704577844990345e-06,
+        "residual_log_slope": 3.0513848762417207e-06,
+        "dalpha_bound": 6.767099180287053e-06,
+        "bound_over_shortfall": 0.08780230932911555,
+        "bound_frac_of_dalpha": 0.0002148421861796639
+      }
+    ],
+    "bound_max": 1.700788001754026e-05,
+    "bound_below_shortfall_at_every_n": true,
+    "bound_ratio_max_n_over_min_n": 0.3978802280653515,
+    "bound_falls_fast_with_n": true,
+    "statement": "q-flatness of Delta = B_rule - B_cont IS invariance of Delta alpha, because a q-independent constant in Pi cancels in Pi(0) - Pi(s). Post-F277 the bound is ~1e-5 and falls with n (grid noise); with the refold it is ~1.4e-2 and is n-independent (a real spurious log). The ratio bound(n_max)/bound(n_min) is the discriminator: ~0.40 post-F277 vs ~0.97 refolded."
+  },
+  "L3_two_loop_LL": {
+    "b1_QED_from_F261": "1",
+    "b1_used": 1.0,
+    "two_loop_beta_exact": true,
+    "per_lepton": {
+      "e": {
+        "L": 24.18412389096228,
+        "one_loop": 0.01743466264159319,
+        "two_loop_LL": 3.262130124469747e-05
+      },
+      "mu": {
+        "L": 13.520926370150303,
+        "one_loop": 0.009178435057626045,
+        "two_loop_LL": 1.823800664504853e-05
+      },
+      "tau": {
+        "L": 7.876142322646577,
+        "one_loop": 0.0048078303053857305,
+        "two_loop_LL": 1.0623912303442224e-05
+      }
+    },
+    "delta_alpha_one_loop": 0.03142092800460496,
+    "delta_alpha_two_loop_LL": 6.148322019318822e-05,
+    "delta_alpha_total": 0.031482411224798154,
+    "pdg": 0.031498,
+    "rel_err_one_loop": 0.0024468853703420927,
+    "rel_err_with_two_loop": 0.0004949131754982569,
+    "shortfall_one_loop": 7.707199539503523e-05,
+    "frac_of_shortfall_closed": 0.7977374904860554,
+    "alpha_MZ_inv_lep_one_loop": 132.73020091282038,
+    "alpha_MZ_inv_lep_two_loop": 132.7217754983086,
+    "residual_after_two_loop_LL": 1.558877520184701e-05,
+    "statement": "The 0.245% shortfall is two-loop. F261's sympy-exact b1 = 1 closes ~80% of it with the correct sign, moving B9's number to 0.049%. The two-loop non-log constant and three loops are NOT derived here."
+  },
+  "L4_ew_leg": {
+    "with_pdg_alpha": {
+      "mu_star_GeV": 3094.091772667515,
+      "b1": 4.0,
+      "b2": -3.333333333333333,
+      "inv_alpha_em_MZ": 127.951,
+      "sin2_MZ": 0.2317340667189211,
+      "resid_vs_PDG_msbar_pct": 0.22232796424232193
+    },
+    "with_model_leptonic_alpha": {
+      "mu_star_GeV": 3094.091772667515,
+      "b1": 4.0,
+      "b2": -3.333333333333333,
+      "inv_alpha_em_MZ": 131.7457754983086,
+      "sin2_MZ": 0.2322601945268649,
+      "resid_vs_PDG_msbar_pct": 0.449872211255462
+    },
+    "onshell_to_msbar_offset": 0.9759999999999991,
+    "hadronic_gap_in_inv_alpha_msbar": 3.79477549830861,
+    "residual_ratio_model_over_pdg": 2.0234621082804174,
+    "sensitivity_dsin2_d_invalpha": 0.00014275725301935035,
+    "statement": "F138's +0.222% is reproduced. On the model's own leptonic-only alpha(M_Z) it degrades to +0.450% -- so half of B9's EW precision is owed to the hadronic vacuum polarization the model defers to row G3. B9's two halves share one input."
+  }
+}

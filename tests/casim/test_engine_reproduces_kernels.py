@@ -1,4 +1,4 @@
-"""Engine fidelity: casim.engine must reproduce the raw ca-simulation kernels
+"""Engine fidelity: casim.engine must reproduce the pre-migration kernels
 to machine precision (roadmap Phase C acceptance: a migrated scenario must
 reproduce its original script's output, machine-precision identical given the
 same seed).
@@ -14,19 +14,19 @@ from __future__ import annotations
 
 import numpy as np
 
-import casim  # noqa: F401  (puts ca-simulation on sys.path)
+import casim  # noqa: F401  (package bootstrap)
 from casim.engine import Simulation, LatticeSpec
-from casim.engine.channels import (
+from casim.engine.core.channels import (
     PhotonPairChannel, WeylBCCChannel, GravityDielectricChannel,
     WChiralChannel, ZEvenChannel, GluonBCCChannel,
 )
-from casim.engine.observers import NormConservation, DispersionFit
+from casim.engine.core.observers import NormConservation, DispersionFit
 
 
 # ----------------------------------------------------------------------
 def test_photon_pair_bit_identical():
     """Engine photon trajectory == direct photon_step_spectral loop."""
-    import ca_photon_pair as pp
+    from casim.engine.gauge import photon as pp
     L, seed, ticks = 12, 5, 8
 
     # Engine.
@@ -52,7 +52,7 @@ def test_photon_pair_bit_identical():
 
 def test_weyl_bcc_bit_identical():
     """Engine Weyl trajectory == direct weyl_step_3d_bcc loop; norm conserved."""
-    import ca_bcc as bcc
+    from casim.engine.lattice import bcc as bcc
     L, seed, ticks = 12, 0, 20
 
     lat = LatticeSpec(L=L, topology="bcc")
@@ -88,7 +88,7 @@ def test_gravity_deflection_matches_GR():
 
 
 def test_w_chiral_bit_identical():
-    import ca_wmu
+    from casim.engine.gauge import weak_wmu as ca_wmu
     L, seed, ticks = 10, 11, 12
     sim = Simulation(LatticeSpec(L=L, topology="cubic"),
                      [WChiralChannel()], observers=[], seed=seed)
@@ -103,7 +103,7 @@ def test_w_chiral_bit_identical():
 
 
 def test_z_even_bit_identical():
-    import ca_z_field
+    from casim.engine.gauge import weak_z as ca_z_field
     L, seed, ticks = 10, 2, 12
     sim = Simulation(LatticeSpec(L=L, topology="cubic"),
                      [ZEvenChannel()], observers=[], seed=seed)
@@ -118,7 +118,7 @@ def test_z_even_bit_identical():
 
 
 def test_gluon_bcc_bit_identical():
-    import ca_gluon
+    from casim.engine.gauge import gluon as ca_gluon
     L, seed, ticks = 10, 7, 12
     sim = Simulation(LatticeSpec(L=L, topology="bcc"),
                      [GluonBCCChannel()], observers=[], seed=seed)

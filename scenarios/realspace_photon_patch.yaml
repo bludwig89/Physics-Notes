@@ -10,6 +10,7 @@
 # holding the super-cell L fixed, so the represented physical-cell count climbs
 # by orders of magnitude while the compute stays tractable.  No SI fm/cell is
 # claimed (canonical ruler is Planck-scale, F107; absolute scale is P6-gated).
+version: 2
 name: realspace_photon_patch
 title: "Real-Space Photon Patch (block-spin carrier)"
 description: "Paired-photon even law on a physical patch declared via block-spin: L super-cells represent (L·block)^3 physical cells (F133), with a live R_b coarse-graining event. The proven-faithful real-space carrier."

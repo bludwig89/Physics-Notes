@@ -1,0 +1,65 @@
+{
+  "A1_anomalous_dimension": {
+    "F286_T1_allowed_p": "|p| < 0.32",
+    "dns_dlnk_exact_zero": true,
+    "gamma_from_data": 0.01755000000000001,
+    "gamma_required_nonzero": true,
+    "log_slope": "-2*gamma",
+    "needs_a_second_scale": false,
+    "p_zero_is_trivial": false,
+    "repairs_F285_row": "'scale-free in the metric gives n_s = 1, excluded at 8.4 sigma' is the gamma = 0 case, so that exclusion is the POSITIVE statement gamma != 0",
+    "running_exact": "0",
+    "sits_on_F285_D3_fixed_line": true
+  },
+  "A2_discriminator": {
+    "beyond_CMB_S4": true,
+    "both_consistent_today": true,
+    "constant_gamma_dns_dlnk": 0.0,
+    "log_class_dns_dlnk": -0.0002616518308783928,
+    "planck_sigma": 0.0067,
+    "separable_at_sigma": 0.0002616518308783928,
+    "separation": 0.0002616518308783928,
+    "sigma_needed_to_separate": 0.0002616518308783928
+  },
+  "A3_alpha": {
+    "alpha_adopted": 0.007297352573756914,
+    "decades_above_cutoff": 68.13241417286554,
+    "excluded": true,
+    "factor_required": 30.22189239904884,
+    "g_eff": 0.2205398042820036,
+    "g_eff_sigma": 0.02638937829015426,
+    "ln_mu_over_me": 208.133136745362,
+    "log10_lattice_cutoff_GeV": 18.967079516994833,
+    "log10_mu_GeV": 87.09949368986037,
+    "verdict": "alpha would have to be evaluated ~68 decades ABOVE the model's own lattice cutoff \u2014 excluded by the model's own structure, not by a fit"
+  },
+  "A3_gravity": {
+    "T1_bound_on_p": 0.32,
+    "excluded_on_magnitude": true,
+    "excluded_on_shape": true,
+    "g_grav_at_pivot": 1.7177681670032763e-116,
+    "power_p": 2,
+    "shortfall_decades": 115.1085224345168,
+    "verdict": "doubly excluded: F286 T1 rules out p = 2 on SHAPE before magnitude is considered, and the magnitude is 1.7e-116"
+  },
+  "A4_representation_weight": {
+    "delta_star_matches": true,
+    "deviation_sigma": 0.06375360274578042,
+    "g_eff": 0.2205398042820036,
+    "g_eff_sigma": 0.02638937829015426,
+    "look_elsewhere_still_applies": "F286 T5's count applies unchanged to the VALUE; what improved is the SHAPE justification, not the statistics",
+    "open": "which operator sets the initial amplitude, and what is its gamma",
+    "registered_constants_equal_to_2_9": [
+      "delta_star (E_g representation weight, F175)",
+      "sin2_thetaW_onshell (electroweak endpoint, F138)",
+      "c_fierz_colour (colour Fierz coefficient, F145)"
+    ],
+    "sin2_thetaW_matches": true,
+    "still_not_a_derivation": true,
+    "two_ninths": 0.2222222222222222,
+    "why_a_rep_weight_fits": "a constant gamma needs a SCALE-INDEPENDENT coupling, and an exact representation weight is precisely that \u2014 unlike alpha or alpha_s, it can be evaluated at CMB momenta trivially"
+  },
+  "answer_to_ben": "No \u2014 freeing alpha needs it 68 decades above the lattice cutoff, and freeing G is excluded by SHAPE before magnitude. But asking the question exposed that F286 mis-read its own theorem: the tilt is an ANOMALOUS DIMENSION, needs no second scale at all, and predicts dn_s/dlnk = 0 exactly. Geometry then supplies the right KIND of object \u2014 a scale-free representation weight \u2014 with 2/9 at 0.064 sigma, though the value's look-elsewhere count stands.",
+  "finding": "F295",
+  "question": "does freeing alpha and G narrow the loop? can geometry help?"
+}

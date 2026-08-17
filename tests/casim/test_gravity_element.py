@@ -33,7 +33,7 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))), "src"))
 
-import casim  # noqa: E402,F401  (puts ca-simulation on sys.path)
+import casim  # noqa: E402,F401  (package bootstrap)
 from casim.engine import Simulation, LatticeSpec, build_channel  # noqa: E402
 
 try:

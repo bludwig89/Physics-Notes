@@ -1,5 +1,14 @@
 # F251 — The interacting one-loop QED photon self-energy Π^μν(q) and the running coupling α(q²)
 
+> **[PARTIALLY SUPERSEDED 2026-08-02 by F277 — ledger S12-F277-refold-removed-qed-and-gluon]**
+>
+> **DEAD:** Every number computed through the refolded _fermion_B. Delta = B_rule - B_cont CHANGES SIGN between n=10 and n=14 under the refold and settles at +1.2e-2, where the un-refolded calculation converges monotonically to -2.121e-3: opposite sign, six times the magnitude. At the shipped n=24 the q-flatness spread goes 1.4484e-2 -> 1.685e-5, a factor 859.
+>
+> **STILL LIVE:** The one-loop vacuum-polarization construction and the running-coupling derivation. The defect was in a momentum refold, not in the physics; F277 re-ran it. 102 code/test references, the most in this record.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
+
 **Date:** 2026-07-16 - 11:20
 **Status:** Confirmed — 5/5 checks PASS. Ward transversality $q_\mu\Pi^{\mu\nu}=0$ and the QED beta coefficient $b_0^{\text{QED}}=\tfrac43$ are **algebraically exact** (sympy, literal 0 / exact rational); lattice $b_0$ = continuum $b_0$ after subtraction (q-flat); leptonic $\Delta\alpha(M_Z)$ matches PDG to $0.24\%$.
 **Module:** `ca-simulation/ca_vacuum_polarization.py`

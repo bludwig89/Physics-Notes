@@ -57,10 +57,11 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "..", "..", "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_bcc
+from casim.engine.lattice import bcc as ca_bcc
 
 # ---- Dirac algebra in the Weyl (chiral) basis ----
 I2 = np.eye(2, dtype=complex)

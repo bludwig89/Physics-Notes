@@ -1,0 +1,7 @@
+[constants] 43 registered (37 sweepable), 10 MeasuredConstant records
+[constants] rogue literals: 2 in src (C2 gate), 272 in tests (C7 backlog)
+[constants] sites still declaring their own value: 13
+
+[constants] RATCHET FAILED — these only go down:
+    rogue_gate: 0 -> 2
+    Import the constant from casim.constants, or declare a MeasuredConstant with a reason in casim/constants/measured.py.

@@ -35,11 +35,13 @@ import sys
 import json
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_core as ca
-import ca_lazy as lz
-import tick_heatmap as th
+from casim.engine.lattice import core as ca
+from casim.numerics import lazy as lz
+from casim.engine.core import _viz_tick_heatmap as th
 
 
 # ── Inlined ca_emqg helpers (avoid scipy dependency from ca_curved) ──

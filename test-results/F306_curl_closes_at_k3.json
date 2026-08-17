@@ -1,0 +1,42 @@
+{
+  "F306_curl_closes_at_k3": {
+    "rows": [
+      {
+        "k": 0.1,
+        "analytic": 4.064327451277162e-05,
+        "closed_form": 4.0093768693724034e-05,
+        "rel": 0.013705516766090461
+      },
+      {
+        "k": 0.01,
+        "analytic": 4.0149184818995816e-07,
+        "closed_form": 4.009376869372403e-07,
+        "rel": 0.0013821630412224886
+      },
+      {
+        "k": 0.001,
+        "analytic": 4.364753731428154e-09,
+        "closed_form": 4.0093768693724036e-09,
+        "rel": 0.0886364324517536
+      }
+    ],
+    "original_real_pair": [
+      0.4100531885242959,
+      0.4084358417992668,
+      0.4082671156071631
+    ],
+    "c_lat_over_sqrt2": 0.408248290463863,
+    "analytic_drop_over_two_decades": 9311.699356626263,
+    "worst_cos_B_nhat_cross_E": 0.9999999999999999,
+    "checks": {
+      "analytic_matches_closed_form": true,
+      "analytic_falls_like_k2": true,
+      "original_does_not_fall": true,
+      "original_sits_at_c_over_sqrt2": true,
+      "B_equals_nhat_cross_E": true
+    },
+    "n_pass": 5,
+    "n_checks": 5,
+    "ok": true
+  }
+}

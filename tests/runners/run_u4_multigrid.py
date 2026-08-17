@@ -30,12 +30,10 @@ from __future__ import annotations
 import os, sys, json, time, argparse
 import numpy as np
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__)))), "ca-simulation"))
-for p in ("ca-simulation", "../ca-simulation", "../../ca-simulation"):
-    if os.path.isdir(p):
-        sys.path.insert(0, p)
-import ca_multigrid as mg          # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.lattice import multigrid as mg          # noqa: E402
 
 R_P_PHYS_FM = 0.84                 # proton charge radius (CODATA)
 A0_PHYS_FM = 5.29177e4            # Bohr radius in fm

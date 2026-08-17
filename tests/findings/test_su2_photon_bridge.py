@@ -41,13 +41,15 @@ Date: 2026-05-23
 
 import sys, os, time, json
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
 
-import ca_bcc as bcc
-import ca_maxwell as cm
-from ca_maxwell import _PAULIS, weyl_eigenmodes_3d_bcc, EM_bilinears
+from casim.engine.lattice import bcc as bcc
+from casim.engine.gauge import bilinear as cm
+from casim.engine.gauge.bilinear import _PAULIS, weyl_eigenmodes_3d_bcc, EM_bilinears
 
 SQRT3 = np.sqrt(3.0)
 C_LAT = 1.0 / SQRT3

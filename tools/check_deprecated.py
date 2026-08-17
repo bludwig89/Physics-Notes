@@ -17,7 +17,7 @@ The rules, restated:
     retired working coverage.
   * A migrated backup must still carry its `# ===== deprecated/code backup`
     header, so the original content can be recovered by
-    `migrate_module.py --rollback`.
+    the C0.4 migration tool's `--rollback`.
 
 Usage:
     python3 tools/check_deprecated.py
@@ -88,7 +88,7 @@ def main() -> int:
         if rec is not None and not head.startswith(BACKUP_MARK):
             errs.append(
                 f"deprecated/code/{fn}: missing the migration header. "
-                f"`migrate_module.py --rollback` splits on it to recover the "
+                f"the C0.4 migration tool split on it to recover the "
                 f"original, so without it the backup cannot be restored.")
         if rec is not None and not rec.get("migrated"):
             errs.append(

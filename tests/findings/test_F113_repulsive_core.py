@@ -42,8 +42,10 @@ import sys
 import json
 from fractions import Fraction as Fr
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "ca-simulation"))
-import ca_nuclear_core as C  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import nuclear_core as C  # noqa: E402
 
 results = {"finding": "F113", "title": "NN short-range repulsive core (quark Pauli + chromomagnetic)",
            "checks": {}, "derived": {}, "notes": []}

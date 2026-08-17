@@ -33,12 +33,14 @@ Writes test-results/F87_charge_coupling_paired_photon.json
 """
 
 import sys, os, json, time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 import numpy as np
-import ca_charge_coupling as cc
-from ca_lattice import make_kgrid_3d
-from ca_bcc import bcc_unitary, _bcc_uvec, bcc_dispersion
+from casim.engine.gauge import charge_coupling as cc
+from casim.engine.lattice.geometry import make_kgrid_3d
+from casim.engine.lattice.bcc import bcc_unitary, _bcc_uvec, bcc_dispersion
 
 ROOT3 = np.sqrt(3.0)
 SX = np.array([[0, 1], [1, 0]], complex)

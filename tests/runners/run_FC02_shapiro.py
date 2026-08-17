@@ -34,7 +34,7 @@ We fit γ_eff from the ratio Δt_lat / Δt_GR(γ=1) in the weak-field limit wher
 the O(u²) completion is negligible, and separately verify the LOG SHAPE by
 regressing Δt_lat against ln[(r₁+r₂+R)/(r₁+r₂−R)] over a scan of geometries.
 
-Open-boundary Poisson kernel (James/Hockney, ca-simulation/poisson_open.py) is
+Open-boundary Poisson kernel (James/Hockney, src/casim/engine/lattice/poisson_open.py) is
 used so the far-field 1/r tail that dominates the Shapiro log is exact (PBC
 suppresses it — the old periodic test_05 gave ratio ≈ 0.5).
 
@@ -46,9 +46,11 @@ import numpy as np
 
 THIS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(THIS, '..', '..'))
-sys.path.insert(0, os.path.join(ROOT, 'ca-simulation'))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-from poisson_open import solve_poisson_3d_open, gaussian_mass_3d
+from casim.engine.lattice.poisson_open import solve_poisson_3d_open, gaussian_mass_3d
 
 
 def shapiro_open(L, M, sigma, G_N, c_0, b, half_span=None, index='exp'):

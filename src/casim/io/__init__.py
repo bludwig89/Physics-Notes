@@ -8,17 +8,47 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Any, Dict
+import warnings
+from typing import Any, Dict, Optional
 
 import yaml
 
+from .schema import SCHEMA_VERSION, ScenarioError, validate, validate_strict
+from .templates import resolve_extends
 
-def load_scenario(path: str) -> Dict[str, Any]:
-    """Load and lightly validate a scenario YAML file."""
+
+def load_scenario(path: str, *, strict: Optional[bool] = None) -> Dict[str, Any]:
+    """Load, resolve ``extends:`` templates, and validate a scenario YAML file.
+
+    Roadmap P4.  A scenario with ``version: 2`` is validated strictly and a
+    schema error raises :class:`~casim.io.schema.ScenarioError` at load — the
+    "error at load, not at tick 400" contract.  A scenario with no ``version``
+    is treated as v1: it still loads (one deprecation cycle) and only the
+    always-true structural checks apply.  ``strict`` overrides that choice
+    either way.
+    """
     with open(path, "r") as fh:
         data = yaml.safe_load(fh)
     if not isinstance(data, dict):
         raise ValueError(f"scenario {path!r} did not parse to a mapping")
+
+    # Resolve templates BEFORE validation so an extended scenario is checked in
+    # its fully materialised form.
+    if data.get("extends"):
+        data = resolve_extends(data)
+
+    version = data.get("version")
+    strict_mode = strict if strict is not None else (version == SCHEMA_VERSION)
+
+    if strict_mode:
+        validate_strict(data, path)
+    elif version is None:
+        warnings.warn(
+            f"scenario {path!r} has no `version:` — assuming v1. v1 loading is "
+            f"deprecated (roadmap P4); add `version: {SCHEMA_VERSION}` and run "
+            f"`casim scenario-check` to migrate.",
+            DeprecationWarning, stacklevel=2)
+
     data.setdefault("name", os.path.splitext(os.path.basename(path))[0])
     data.setdefault("channels", [])
     data.setdefault("observers", [])
@@ -27,6 +57,25 @@ def load_scenario(path: str) -> Dict[str, Any]:
     if not data["channels"]:
         raise ValueError(f"scenario {path!r} declares no channels")
     return data
+
+
+def validate_scenario_file(path: str) -> list[str]:
+    """Parse + resolve templates + validate one file, returning error strings.
+
+    Unlike :func:`load_scenario` this never raises on a schema problem and never
+    warns — it is the primitive `casim scenario-check` and the P4 gate test use
+    to report on every shipped scenario at once.
+    """
+    with open(path, "r") as fh:
+        data = yaml.safe_load(fh)
+    if not isinstance(data, dict):
+        return [f"scenario {path!r} did not parse to a mapping"]
+    try:
+        if data.get("extends"):
+            data = resolve_extends(data)
+    except KeyError as exc:
+        return [str(exc)]
+    return validate(data, path)
 
 
 def dump_scenario(scenario: Dict[str, Any], path: str) -> None:
@@ -132,6 +181,7 @@ def export_checkpoint(checkpoint: str, out: str | None = None,
 
 
 __all__ = [
-    "load_scenario", "dump_scenario",
+    "load_scenario", "validate_scenario_file", "dump_scenario",
     "write_results", "read_results", "export_checkpoint",
+    "SCHEMA_VERSION", "ScenarioError", "validate", "validate_strict",
 ]

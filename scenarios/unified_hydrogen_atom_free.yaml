@@ -2,6 +2,7 @@
 # neutral-atom run (unified_hydrogen_atom.yaml) is measured against: the SAME
 # three quarks with NO confining string and the SAME electron with NO Coulomb
 # well.  Both the quark cluster and the electron orbital disperse ballistically.
+version: 2
 name: unified_hydrogen_atom_free
 title: "Neutral Hydrogen Atom — free control (U3)"
 description: "Matched quarks (no confinement) + electron (no Coulomb well): both disperse — the control for unified_hydrogen_atom.yaml."

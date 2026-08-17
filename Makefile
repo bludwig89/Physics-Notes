@@ -10,9 +10,9 @@ PY ?= python3
 export PYTHONPATH := src
 
 .DEFAULT_GOAL := gate
-.PHONY: gate constants supersessions stamp battery indexes inventory \
+.PHONY: gate constants supersessions stamp battery indexes inventory claims \
         install backend manifest health numerics constants-report drift clean help \
-        graph deadcode migration-manifest c0 migrate registry registry-gen \
+        graph deadcode structure registry registry-gen records control control-todo can-fail \
         indexes-check
 
 ## install: editable install with the fast FFT backend and pytest
@@ -56,6 +56,22 @@ health:
 registry:
 	@$(PY) tools/check_test_registry.py $(if $(LIST),--verbose,)
 
+## records: D9 — findings' declared test records exist; gate entries can fail
+records:
+	@$(PY) tools/check_finding_records.py $(if $(LIST),--verbose,)
+
+## can-fail: D9/H2 — MEASURE can-fail by execution trace (commit the journal)
+can-fail:
+	@$(PY) tools/check_control_soundness.py --can-fail $(if $(ID),--id $(ID),)
+
+## control: D9/H2 — run every declared negative control, require it to go RED
+control:
+	@$(PY) tools/check_control_soundness.py --run $(if $(ID),--id $(ID),)
+
+## control-todo: gate-tier assertions with no declared control, with hints
+control-todo:
+	@$(PY) tools/check_control_soundness.py --suggest
+
 ## registry-gen: rebuild tests/registry/*.yaml (PROMOTE=1 arms detected baselines)
 registry-gen:
 	@$(PY) tools/gen_test_registry.py $(if $(PROMOTE),--promote,)
@@ -69,8 +85,8 @@ numerics:
 drift:
 	@$(PY) tools/check_result_drift.py
 
-## c0: rebuild the whole migration-readiness layer (graph -> dead code -> manifest)
-c0: graph deadcode migration-manifest
+## structure: rebuild the structural layer (graph -> dead code -> deprecated/)
+structure: graph deadcode
 	@$(PY) tools/check_deprecated.py
 
 ## graph: rebuild docs/design/module-graph.json (imports, reachability, sizing)
@@ -81,18 +97,14 @@ graph:
 deadcode:
 	@$(PY) tools/find_dead_code.py
 
-## migration-manifest: rebuild the 171-record migration manifest
-migration-manifest:
-	@$(PY) tools/gen_migration_manifest.py
-
-## migrate: move one module into casim.engine, e.g. `make migrate ID=ca_bcc.py`
-migrate:
-	@test -n "$(ID)" || (echo "usage: make migrate ID=ca_bcc.py [DRY=1]"; exit 1)
-	@$(PY) tools/migrate_module.py --id $(ID) $(if $(DRY),--dry-run,)
-
 ## battery: the full scaled suite. Hours, not minutes. Not part of the gate.
 battery:
 	@$(PY) -m casim.cli test --scale smoke
+
+## claims: regenerate docs/claims/registry.yaml + claims-index.md from the cards (D12)
+claims:
+	@$(PY) -m casim.cli index --only claims
+	@$(PY) tools/check_claims.py
 
 ## indexes: regenerate every generated index from the registries (C8)
 indexes:

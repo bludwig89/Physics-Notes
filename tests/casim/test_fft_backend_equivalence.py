@@ -17,16 +17,16 @@ import numpy as np
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(os.path.dirname(_HERE))
-for _p in (os.path.join(_REPO, "src"), os.path.join(_REPO, "ca-simulation")):
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
 try:
     import pytest
 except ModuleNotFoundError:                                # pragma: no cover
     from test_constants_consistency import pytest         # type: ignore
 
-import ca_fft
+from casim.numerics import fft as ca_fft
 from casim.numerics import backends, chiral, linalg
 
 # The FFT round-off floor. The fft module's own docstring puts it at ~5e-14 at

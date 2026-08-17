@@ -1,0 +1,1 @@
+module-graph.json is stale — run `python3 tools/gen_module_graph.py`

@@ -45,8 +45,10 @@ from fractions import Fraction
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.normpath(os.path.join(HERE, "..", "..", "ca-simulation")))
-import ca_induced_stiffness as cis  # noqa: E402
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
+from casim.engine.particles import induced_stiffness as cis  # noqa: E402
 
 RESULTS = os.path.normpath(
     os.path.join(HERE, "..", "..", "test-results", "F149_condensate_channel_splitting.json"))

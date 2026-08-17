@@ -50,10 +50,12 @@ import sys
 import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(ROOT / "ca-simulation"))
+import os as _os, sys as _sys  # noqa: E401
+_sys.path.insert(0, _os.path.join(
+    _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 
-import ca_maxwell_2d as cm2                    # the actual rule dispersion
-import ca_confinement as conf                  # F70 sigma(beta) for reconciliation
+from casim.engine.gauge import bilinear_2d as cm2                    # the actual rule dispersion
+from casim.engine.gauge import confinement as conf                  # F70 sigma(beta) for reconciliation
 
 t0 = time.time()
 results = {"finding": "F100", "date": "2026-06-05",
