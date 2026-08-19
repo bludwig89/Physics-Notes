@@ -2,6 +2,24 @@
 
 This file documents new physics observations or possible new finds that arise during the CA simulation work, per the CLAUDE.md guidance.
 
+**Covers:** F1–F15 — this file IS the home of findings 1 through 15. They predate the
+one-file-per-finding convention, so `findings/F1-*.md` … `findings/F15-*.md` do not exist
+and are not missing. A record citing `F1`…`F15` resolves here. (Finding 15 was later
+promoted to its own file, `F15-closed-form-lorentz-violation-coefficients.md`, and the
+section below is kept as the pointer.) The file also carries summary sections for many
+findings that live in their own files — those are duplicated abstracts, not the record.
+
+**Test record:** none — no-test (narrative-bundle). Not debt, and not an exemption from
+coverage. "Which record goes red if this is false?" has no answer here because the file is
+not one finding: it is fifteen observations plus thirty-five summaries of findings recorded
+elsewhere. Each member's evidence sits with the member. Three records name `F1` in their
+`findings:` — `emergent-time-T1`, `run-phaseF-tests`, `run-L192-phaseF-tests` — and those
+are mention-only inheritance from the old regex-filled field, not a claim that they can go
+red on Finding 1. Declared 2026-08-19, closing step 3b of
+[`docs/roadmaps/finding-coverage-rollout.md`](../docs/roadmaps/finding-coverage-rollout.md).
+
+**Claim:** none — narrative bundle: fifteen observations plus thirty-five duplicated abstracts of findings recorded elsewhere, so each member's claim sits with the member, not with this file. Declared 2026-08-19.
+
 **Reviewed:** 2026-08-03 — **UNDER-EVIDENCED** ([independent review](../docs/reviews/F01-F15-review-2026-08-03.md)) — representative claim (Finding 15, closed-form $\beta_\text{LV}$) independently re-derived and **CONFIRMED** by a different route; the *artifact* fails on test coverage, index credit, supersession reachability and two misquoted external bounds.
 
 ---

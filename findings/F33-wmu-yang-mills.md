@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_wmu_phase3.py` (W3.1–W3.5)  
 **Results:** `test-results/wmu_phase3.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 3
+**Test record:** record `wmu-phase3` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

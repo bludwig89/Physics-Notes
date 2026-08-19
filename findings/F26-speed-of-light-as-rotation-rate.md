@@ -3,6 +3,7 @@
 **Date:** 2026-05-23  
 **Status:** Confirmed — derived from F25 real-rotation exactness; algebraically exact  
 **Source:** Interpretation of `ca_maxwell.py::real_rotation_vs_maxwell_curl`; derivation from bilinear $G_T(t) = e^{-i\Omega t}G_T(0)$
+**Test record:** record `f26-rotation-law` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

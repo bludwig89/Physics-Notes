@@ -6,6 +6,7 @@
 **Verification script:** `tests/findings/test_FG4_dynamical_Z.py`
 **Results:** `test-results/FG4_dynamical_Z.json`
 **Closes:** first-gen-completeness §3 item 5 and §5.1 row FG-4
+**Test record:** record `FG4-dynamical-Z` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

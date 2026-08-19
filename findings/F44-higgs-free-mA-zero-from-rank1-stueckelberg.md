@@ -7,6 +7,7 @@
 **Results:** `test-results/wmu_phase6_rank1.json`
 **Origin:** `docs/audits/physics-notes-complete-review.md` §3.1 (open action item from the review of `physics-notes-complete.md` pp.65–66)
 **Related findings:** [[F27-complex-mass-chiral-su2]], [[F34b-wmu-mass-stueckelberg]], [[F35-electroweak-mixing]], [[F41-hypercharge-higgs-free-su2]]
+**Test record:** record `wmu-phase6-rank1` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

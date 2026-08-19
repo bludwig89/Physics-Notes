@@ -11,10 +11,8 @@
 
 ## Project Status 
 
-- build a plan to go through all findings in the project, if they aren't set each one up correctly in the registry, make sure it is associated to it's tests, if it has any, if not mark it as no-test, and associate it with its claims card, if it has one. 
-
-- the findings-index is not staying up to date, or organized by finding number, where are we currently keeping an active findings index?
-
+ 
+- I would like to change the review-finding skill so it does not create a review file, but is instead run automatically after a finding is built within a session, attacks the finding, then updates and fixes the finding and it's tests to reflect anything that was missed, omitted, or misread.
 
 ## Skills Cheat Sheet
 

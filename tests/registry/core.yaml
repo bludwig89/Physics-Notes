@@ -1394,6 +1394,8 @@ tests:
   tier: battery
   briefs:
   - FG1
+  findings:
+  - F38
   sector: core
   evidence:
     mentions:

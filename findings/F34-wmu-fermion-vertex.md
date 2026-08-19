@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_wmu_phase4.py` (W4.1–W4.5)  
 **Results:** `test-results/wmu_phase4.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 4
+**Test record:** record `wmu-phase4` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

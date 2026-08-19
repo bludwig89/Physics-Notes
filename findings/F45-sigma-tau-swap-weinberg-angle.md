@@ -4,6 +4,7 @@
 **Status:** Algebraic prediction — bare/tree-level
 **Modules touched:** (analysis only — no code change to `ca_wmu.py`)
 **Verification script:** `tests/findings/test_f45_sigma_tau_weinberg.py` (algebraic, rational arithmetic)
+**Test record:** record `f45-sigma-tau-weinberg` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

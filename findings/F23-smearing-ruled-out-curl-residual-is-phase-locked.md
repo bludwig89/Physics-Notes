@@ -13,6 +13,7 @@
 
 **Reviewed:** 2026-08-04 — **OVERSTATED** ([independent review](../docs/reviews/F23-review-2026-08-04.md))
 **Superseded:** 2026-08-04 by [[F306-curl-closes-at-k3-representation-artifact]] — ledger `S18-curl-residual-representation-artifact`
+**Test record:** record `F306-curl-closes-at-k3` (tier gate) — carries F23's live content: the real-vs-imaginary phase-lock, and that no smearing and no Δt → 0 refinement can close the residual. Declared 2026-08-19 - 13:19.
 
 > **⚠ SUPERSEDED ROOT CAUSE 2026-08-04.** This finding identified the
 > real-vs-imaginary phase structure **correctly, and two months before the reviews

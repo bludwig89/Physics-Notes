@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_FG7_gluon_dynamics.py`
 **Results:** `test-results/FG7_gluon_dynamics.json`
 **Cross-refs:** F29 (W-triplet bilinear), F33 (W Yang–Mills self-coupling), F36 (W back-reaction)
+**Test record:** record `FG7-gluon-dynamics` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

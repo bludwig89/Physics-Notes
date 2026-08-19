@@ -98,6 +98,11 @@ _RECORD_ID = re.compile(r"record[s]?\s+`([^`]+)`")
 _ANY_TICKED = re.compile(r"`([^`]+)`")
 # An id that follows the word `entry` is an entry-point function, not a record.
 _ENTRY_TOKEN = re.compile(r"entry\s+`([^`]+)`")
+# The finding-side no-test declaration: `none` opening the field, or an explicit
+# `no-test (<reason>)` anywhere in it. Kept deliberately loose - this only has to
+# recognise "this field is a declaration, not a reference"; the reason vocabulary
+# is validated by tools/audit_finding_coverage.py, which is the tool that owns it.
+_NO_TEST_DECL = re.compile(r"^\s*none\b|no[-_]test\s*\(", re.I)
 
 
 def _records() -> dict[str, dict]:
@@ -118,6 +123,19 @@ def _declared_ids(label: str, line: str) -> list[str]:
     `test_P2_1`, `F200` and a bare `.md`, and a check with false positives is a
     check people learn to skip.
     """
+    # A no-test DECLARATION is not a record reference. Since 2026-08-19 a finding
+    # may answer the coverage question with
+    #
+    #     **Test record:** none - no-test (analysis-only)
+    #
+    # (closed vocabulary; see tools/audit_finding_coverage.py, which owns that
+    # check). Today the bare-first-token fallback below skips it by accident,
+    # because the declaration happens to contain no backticks - and the day
+    # somebody writes the reason as `analysis-only` this checker would read it as
+    # a record id and go red on a correctly-declared finding. Recognise it
+    # explicitly rather than relying on that.
+    if _NO_TEST_DECL.search(line):
+        return []
     entries = set(_ENTRY_TOKEN.findall(line))
     ids = [i for i in _RECORD_ID.findall(line) if i not in entries]
     if not ids and "record" in label.lower():

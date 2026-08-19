@@ -316,14 +316,14 @@
 | findings | `test_FB10_lamb_shift_boundary.py` | `FB10-lamb-shift-boundary` | F125 | result_dump | battery |  | FB10 — Lamb shift boundary: 2s_{1/2} == 2p_{1/2} at Dirac order. | `FB10_lamb_shift_boundary.json` |  |
 | findings | `test_FB11_condensate_angle.py` | `FB11-condensate-angle` | F93 F96 F101 F112 F118 F119 | result_dump | battery |  | FB11 — Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg. | `FB11_condensate_angle.json` |  |
 | runners | `FB11_condensate_angle.py` | `FB11-condensate-angle.runners` | F78 F93 F101 F112 F118 F119 | result_dump | battery |  | FB11 — Condensate angle delta = 15 deg (chiral limit) vs measured 12.733 deg. | `FB11_condensate_angle.json` |  |
-| runners | `FC01_mercury_perihelion.py` | `FC01-mercury-perihelion` | F16 F64 F112 | result_dump | battery |  | FC01 — Mercury perihelion precession (Tier C consistency regression) | `FC01_mercury.json` |  |
+| runners | `FC01_mercury_perihelion.py` | `FC01-mercury-perihelion` | F64 F112 | result_dump | battery |  | FC01 — Mercury perihelion precession (Tier C consistency regression) | `FC01_mercury.json` |  |
 | runners | `FC03_redshift.py` | `FC03-redshift` | F64 | result_dump | battery |  | FC03 — Gravitational redshift (Pound-Rebka) | `FC03_redshift.json` |  |
-| findings | `test_FG1_anomaly_cancellation.py` | `FG1-anomaly-cancellation` |  | legacy_script ⚠ | battery |  | FG-1 — Anomaly cancellation across a single first-generation Standard-Model |  | `FG1_anomaly_cancellation.json` |
+| findings | `test_FG1_anomaly_cancellation.py` | `FG1-anomaly-cancellation` | F38 | legacy_script ⚠ | battery |  | FG-1 — Anomaly cancellation across a single first-generation Standard-Model |  | `FG1_anomaly_cancellation.json` |
 | findings | `test_FG2_quark_complex_mass.py` | `FG2-quark-complex-mass` | F27 F40 | result_dump | battery |  | FG-2 — F27 complex-mass adoption for the quark sector. | `FG2_quark_complex_mass.json` |  |
 | findings | `test_FG3_quark_electroweak.py` | `FG3-quark-electroweak` | F27 F31 F34 F40 | result_dump | battery |  | FG-3 — Electroweak wiring of the quark doublet (2D analog of F34). | `FG3_quark_electroweak.json` |  |
-| findings | `test_FG4_dynamical_Z.py` | `FG4-dynamical-Z` | F35 F45 | result_dump | battery |  | test_FG4_dynamical_Z.py | `FG4_dynamical_Z.json` |  |
-| findings | `test_FG6_two_helicity_photon.py` | `FG6-two-helicity-photon` | F29 F30 F37 F67 F69 F91 | legacy_script ⚠ | battery |  | [PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon] |  | `FG6_two_helicity_photon.json` |
-| findings | `test_FG7_gluon_dynamics.py` | `FG7-gluon-dynamics` | F29 F33 F36 | result_dump | battery |  | test_FG7_gluon_dynamics.py — FG-7: dynamical SU(3) gluon sector | `FG7_gluon_dynamics.json` |  |
+| findings | `test_FG4_dynamical_Z.py` | `FG4-dynamical-Z` | F35 F45 F48 | result_dump | battery |  | test_FG4_dynamical_Z.py | `FG4_dynamical_Z.json` |  |
+| findings | `test_FG6_two_helicity_photon.py` | `FG6-two-helicity-photon` | F29 F30 F37 F39 F67 F69 F91 | legacy_script ⚠ | battery |  | [PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon] |  | `FG6_two_helicity_photon.json` |
+| findings | `test_FG7_gluon_dynamics.py` | `FG7-gluon-dynamics` | F29 F33 F36 F43 | result_dump | battery |  | test_FG7_gluon_dynamics.py — FG-7: dynamical SU(3) gluon sector | `FG7_gluon_dynamics.json` |  |
 | findings | `test_FG7b_gradient_flow.py` | `FG7b-gradient-flow` | F43 | result_dump | battery |  | test_FG7b_gradient_flow.py — SU(3) Wilson gradient flow / cooling driver | `FG7b_gradient_flow.json` |  |
 | findings | `test_FG7c_confinement.py` | `FG7c-confinement` |  | result_dump | battery |  | test_FG7c_confinement.py — static quark potential, string tension, confinement | `FG7c_confinement.json` |  |
 | findings | `test_FG7d_baryon_singlet.py` | `FG7d-baryon-singlet` |  | result_dump | battery |  | test_FG7d_baryon_singlet.py — colour-singlet three-quark (proton) construction | `FG10_baryon_singlet.json` |  |
@@ -368,11 +368,11 @@
 | findings | `test_bcc_gauge_mc_d4.py` | `gauge-bcc-mc-d4` | F265 F94 F291 F313 F323 F299 F298 | assertion | gate | machine | BCC 3+1D gauge Monte-Carlo: sampler + Wilson loops on the model's own lattice. | `bcc_gauge_mc_d4.json` |  |
 | casim | `test_gravity_element.py` | `gravity-element` | F62 F64 F79 F106 | assertion | gate |  | Gravity-element suite — the F64 fork mainlined (audit B.2 #1, 2026-06-06). |  |  |
 | casim | `test_gui_render_spinor.py` | `gui-render-spinor` |  | assertion | gate |  | Headless tests for Bloch-sphere spinor colouring (casim.gui.render). |  |  |
-| findings | `test_hypercharge.py` | `hypercharge` | F27 F34 | result_dump | battery |  | test_hypercharge.py — U(1)_Y hypercharge gauging on the | `hypercharge_fork.json` |  |
+| findings | `test_hypercharge.py` | `hypercharge` | F27 F34 F41 | result_dump | battery |  | test_hypercharge.py — U(1)_Y hypercharge gauging on the | `hypercharge_fork.json` |  |
 | findings | `test_hypercharge_extension.py` | `hypercharge-extension` | F41 F42 | result_dump | battery |  | test_hypercharge_extension.py — F42 extension of F41: | `hypercharge_extension.json` |  |
 | findings | `test_hypercharge_quantisation.py` | `hypercharge-quantisation` | F38 F51 F165 | result_dump | battery |  | [PARTIALLY SUPERSEDED 2026-08-02 by F279 — ledger S13-F279-hypercharge-attribution] | `hypercharge_quantisation.json` |  |
 | casim | `test_index_integrity.py` | `index-integrity` |  | assertion | gate |  | `casim index` is idempotent, complete, and able to say no — roadmap C8. |  |  |
-| findings | `test_majorana_fork.py` | `majorana-fork` | F27 F41 F43 | result_dump | battery |  | test_majorana_fork.py — F43 bare ν_R Majorana mass step and see-saw | `majorana_fork.json` |  |
+| findings | `test_majorana_fork.py` | `majorana-fork` | F27 F41 F43 F47 | result_dump | battery |  | test_majorana_fork.py — F43 bare ν_R Majorana mass step and see-saw | `majorana_fork.json` |  |
 | casim | `test_particle_layer.py` | `particle-layer` | F102b | assertion | gate |  | Particle-layer suite (roadmap-particle-layer.md, Phase P1). |  |  |
 | casim | `test_registry_entries.py` | `registry-entries` |  | assertion | gate |  | Run the gate-tier registry entry points under pytest — roadmap C7.3 (**D9**). |  |  |
 | casim | `test_registry_integrity.py` | `registry-integrity` |  | assertion | gate |  | The test registry is complete, valid, and identical to what pytest runs. |  |  |
@@ -426,17 +426,17 @@
 | registry | `scenarios/photon_pair.yaml` | `scenario-photon-pair` | F67 F68 F69 F250 | scenario | gate | machine |  |  |  |
 | casim | `test_scenario_schema_v2.py` | `scenario-schema-v2` | F274 | assertion | gate | exact | Scenario schema v2 — roadmap P4, finding F274. |  |  |
 | runners | `_sr2_3d_scan.py` | `sr2-3d-scan` |  | legacy_script ⚠ | battery |  | On-grid k scan for the 3D BCC SR-2 test — characterises residuals |  |  |
-| findings | `test_su2_photon_bridge.py` | `su2-photon-bridge` | F26 F27 F69 | legacy_script ⚠ | battery |  | [PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon] |  |  |
+| findings | `test_su2_photon_bridge.py` | `su2-photon-bridge` | F26 F27 F29 F69 | legacy_script ⚠ | battery |  | [PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon] |  |  |
 | findings | `test_su3_noether.py` | `su3-noether` |  | result_dump | battery |  | test_su3_noether.py — V13 strong-sector gate | `V13_su3_noether.json` |  |
 | findings | `test_sublattice_hypercharge.py` | `sublattice-hypercharge` | F38 F41 F51 | result_dump | battery |  | test_sublattice_hypercharge.py | `sublattice_hypercharge.json` |  |
 | casim | `test_supersession_ledger.py` | `supersession-ledger` | F52 F62 F178 F179 | assertion | gate |  | Roadmap P0.3/P0.4 — the supersession ledger gate. |  |  |
 | casim | `test_viz_api.py` | `viz-api` | F275 | assertion | gate |  | casim.viz static-figure API — roadmap P5.1, finding F275. |  |  |
-| findings | `test_wmu_phase1.py` | `wmu-phase1` | F27 | result_dump | battery |  | test_wmu_phase1.py — Phase 1 tests: SU(2) link variables & covariant BCC hopping | `wmu_phase1.json` |  |
+| findings | `test_wmu_phase1.py` | `wmu-phase1` | F27 F31 | result_dump | battery |  | test_wmu_phase1.py — Phase 1 tests: SU(2) link variables & covariant BCC hopping | `wmu_phase1.json` |  |
 | findings | `test_wmu_phase2.py` | `wmu-phase2` | F32 F26 | result_dump | battery |  | test_wmu_phase2.py — Phase 2: Free W propagation (F26 rotation law per a-component) | `wmu_phase2.json` |  |
-| findings | `test_wmu_phase3.py` | `wmu-phase3` |  | result_dump | battery |  | test_wmu_phase3.py — Phase 3: Non-Abelian Self-Coupling (Yang–Mills) | `wmu_phase3.json` |  |
-| findings | `test_wmu_phase4.py` | `wmu-phase4` |  | result_dump | battery |  | test_wmu_phase4.py — Phase 4: Fermion–W_μ Vertex (Covariant Derivative) | `wmu_phase4.json` |  |
+| findings | `test_wmu_phase3.py` | `wmu-phase3` | F33 | result_dump | battery |  | test_wmu_phase3.py — Phase 3: Non-Abelian Self-Coupling (Yang–Mills) | `wmu_phase3.json` |  |
+| findings | `test_wmu_phase4.py` | `wmu-phase4` | F34 | result_dump | battery |  | test_wmu_phase4.py — Phase 4: Fermion–W_μ Vertex (Covariant Derivative) | `wmu_phase4.json` |  |
 | findings | `test_wmu_phase5_stueckelberg.py` | `wmu-phase5-stueckelberg` | F34b | result_dump | battery |  | test_wmu_phase5_stueckelberg.py — Phase 5B: Stueckelberg W Mass Generation | `wmu_phase5_stueckelberg.json` |  |
-| findings | `test_wmu_phase6.py` | `wmu-phase6` | F26 | result_dump | battery |  | test_wmu_phase6.py — Phase 6: Electroweak Mixing (W³ ↔ B ↔ γ) | `wmu_phase6.json` |  |
+| findings | `test_wmu_phase6.py` | `wmu-phase6` | F26 F35 | result_dump | battery |  | test_wmu_phase6.py — Phase 6: Electroweak Mixing (W³ ↔ B ↔ γ) | `wmu_phase6.json` |  |
 | findings | `test_wmu_phase6_rank1.py` | `wmu-phase6-rank1` | F34 F41 F44 | result_dump | battery |  | test_wmu_phase6_rank1.py — F44 numerical confirmation | `wmu_phase6_rank1.json` |  |
 | findings | `test_wmu_phase7_backreaction.py` | `wmu-phase7-backreaction` | F36 F90 | result_dump | battery |  | test_wmu_phase7_backreaction.py | `phase7_backreaction_results.json` |  |
 

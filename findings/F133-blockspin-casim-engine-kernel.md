@@ -9,6 +9,8 @@ physical patch size and a block factor." Module
 `tests/findings/test_F133_blockspin_engine.py` (11/11 PASS); scenario
 `scenarios/blockspin_photon.yaml`.
 
+**Claim:** none — engine implementation of the F129/F130 block-spin scheme already carried by CL115 and CL116; this finding adds the operation and its exactness checks, not a new assertion. Declared 2026-08-19.
+
 ---
 
 ## 1. What this adds

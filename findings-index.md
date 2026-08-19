@@ -5,7 +5,7 @@
 
 | # | File | Summary | Tests | Status |
 |---|------|---------|-------|--------|
-| F1 | `F01-F15-findings` | Possible New Findings | 4/4 PASS | 3 test rec |
+| F1 | `F01-F15-findings` | Possible New Findings |  | 3 test rec |
 | F15 | `F15-closed-form-lorentz-violation-coefficients` | Closed-form SR-2 Lorentz-violation coefficients: $\beta_\text{LV}$, $\gamma_\text{LV}$, $\delta_\text{LV}$, $\varepsilon_\text{LV}$ as exact functions of the… | 6/6 PASS | 2 test rec |
 | F20 | `F20-photon-fermion-propagation-demo` | Wavepackets propagate across the BCC lattice at the group velocity the automaton's own dispersion predicts |  | 7 test rec |
 | F21 | `F21-curl-residual-geometry-independence` | The composite-photon curl residual is geometry-independent: $\text{curl}/\|k\| = c_\text{lat}/\sqrt2$ |  | SUPERSEDED (S18-curl-residual-representation-artifact); 1 test rec |
@@ -17,27 +17,27 @@
 | F26b | `F26b-bcc-spin-axis-scalar-contamination` | BCC Spin Axis n̂(k) and Scalar Contamination \|ψᵀψ\|² = 1 − n̂_y² |  | 1 test rec |
 | F27 | `F27-complex-mass-chiral-su2` | Chiral SU(2) from β-gauging: Higgs-free mass coupling | 9/9 PASS | 27 test rec |
 | F28 | `F28-grb-dispersion-test` | F26 photon-dispersion prediction is consistent with all current LIV bounds, but below sensitivity by ~15 decades |  | 3 test rec |
-| F29 | `F29-w-triplet-bilinear-su2-bridge` | W-triplet bilinear bridges F26 (photon rotation law) to F27 (chiral SU(2)) | 8/8 PASS | 5 test rec |
+| F29 | `F29-w-triplet-bilinear-su2-bridge` | W-triplet bilinear bridges F26 (photon rotation law) to F27 (chiral SU(2)) | 8/8 PASS | 6 test rec |
 | F30 | `F30-photon-dispersion-order-anisotropy-birefringence` | The photon-dispersion LIV order is anisotropic; the linear term is chiral (birefringent), not a net time-of-flight effect |  | 11 test rec |
-| F31 | `F31-wmu-covariant-hopping` | W_μ Phase 1: SU(2) Link Variables & Exact Covariant BCC Hopping |  | 1 test rec |
+| F31 | `F31-wmu-covariant-hopping` | W_μ Phase 1: SU(2) Link Variables & Exact Covariant BCC Hopping |  | 2 test rec |
 | F32 | `F32-wmu-free-propagation` | W_μ Phase 2: Free W Propagation — F26 Rotation Law per Isospin Component |  | 1 test rec |
-| F33 | `F33-wmu-yang-mills` | W_μ Phase 3: Yang–Mills Self-Coupling on the BCC Lattice |  | 1 test rec |
-| F34 | `F34-wmu-fermion-vertex` | W_μ Phase 4: Covariant Dirac Doublet — Fermion-W Vertex |  | 5 test rec |
+| F33 | `F33-wmu-yang-mills` | W_μ Phase 3: Yang–Mills Self-Coupling on the BCC Lattice |  | 2 test rec |
+| F34 | `F34-wmu-fermion-vertex` | W_μ Phase 4: Covariant Dirac Doublet — Fermion-W Vertex |  | 6 test rec |
 | F34b | `F34b-wmu-mass-stueckelberg` | W_μ Phase 5B: Stueckelberg W-Boson Mass Generation |  | 1 test rec |
-| F35 | `F35-electroweak-mixing` | W_μ Phase 6: Electroweak Mixing — Weinberg Angle, Z Boson, Gell-Mann–Nishijima |  | 3 test rec |
+| F35 | `F35-electroweak-mixing` | W_μ Phase 6: Electroweak Mixing — Weinberg Angle, Z Boson, Gell-Mann–Nishijima |  | 4 test rec |
 | F36 | `F36-wmu-backreaction` | Yang-Mills Back-Reaction and Massive W Dispersion (Proca) |  | 4 test rec |
 | F37 | `F37-rs-bcc-chirality-helicity` | Riemann–Silberstein Eigenstates Correspond Exactly to BCC Chirality Branches |  | 6 test rec |
-| F38 | `F38-fg1-anomaly-cancellation` | First-Generation Anomaly Cancellation (FG-1, all six traces exactly zero) |  | 5 test rec |
-| F39 | `F39-two-helicity-photon-bilinear` | Two-Helicity Composite Photon at the Bilinear Level (FG-6) |  | 4 test rec |
+| F38 | `F38-fg1-anomaly-cancellation` | First-Generation Anomaly Cancellation (FG-1, all six traces exactly zero) |  | 6 test rec |
+| F39 | `F39-two-helicity-photon-bilinear` | Two-Helicity Composite Photon at the Bilinear Level (FG-6) |  | 5 test rec |
 | F40 | `F40-quark-f27-mass-and-electroweak` | F27 complex-mass adoption for the quark sector + Phase-4 electroweak wiring | 11/11 PASS | 2 test rec |
-| F41 | `F41-hypercharge-higgs-free-su2` | Hypercharge U(1)_Y is exactly compatible with the Higgs-free F27 chiral SU(2) mass model |  | 11 test rec |
+| F41 | `F41-hypercharge-higgs-free-su2` | Hypercharge U(1)_Y is exactly compatible with the Higgs-free F27 chiral SU(2) mass model |  | 12 test rec |
 | F42 | `F42-hypercharge-quark-extension-and-dynamical-chi-kinetic` | Hypercharge $U(1)_Y$ extended to the quark sector AND right-handed singlets promoted to dynamical $Y$-coupled fields in the kinetic step |  | 2 test rec |
-| F43 | `F43-fg7-dynamical-gluons` | FG-7: dynamical SU(3) gluon sector (rotation law, self-coupling, confinement diagnostic) |  | 7 test rec |
+| F43 | `F43-fg7-dynamical-gluons` | FG-7: dynamical SU(3) gluon sector (rotation law, self-coupling, confinement diagnostic) |  | 8 test rec |
 | F44 | `F44-higgs-free-mA-zero-from-rank1-stueckelberg` | $m_A = 0$ falls out of the F34b+F41 Stueckelberg construction as a rank-deficient mass matrix; the notebook's "anomalous" cross term is the off-diagonal entry… |  | 1 test rec |
 | F45 | `F45-sigma-tau-swap-weinberg-angle` | sin²θ_W from the σ ↔ τ swap geometry on the BCC lattice |  | 10 test rec |
 | F46 | `F46-pythagorean-lattice-mass` | Spherical Pythagorean identity for lattice mass: a geometric derivation of $E^2 = p^2c^2 + m^2c^4$ |  | 15 test rec |
-| F47 | `F47-majorana-seesaw-higgs-free` | Higgs-free ν_R Majorana mass step and see-saw scaling: a natural explanation for the smallness of the neutrino mass |  | 7 test rec |
-| F48 | `F48-dynamical-Z-neutral-current` | FG-4: Dynamical Z neutral-current sector |  | 1 test rec |
+| F47 | `F47-majorana-seesaw-higgs-free` | Higgs-free ν_R Majorana mass step and see-saw scaling: a natural explanation for the smallness of the neutrino mass |  | 8 test rec |
+| F48 | `F48-dynamical-Z-neutral-current` | FG-4: Dynamical Z neutral-current sector |  | 2 test rec |
 | F49 | `F49-bcc-finite-k-weinberg-angle` | BCC bond/sublattice counting reproduces $\sin^2\theta_W = 2/9$ (partial derivation) |  | 11 test rec |
 | F50 | `F50-gravity-fork-f46-tetrad-dirac` | Gravity fork from F46: which leg of the spherical triangle carries gravitational redshift |  | SUPERSEDED (S3-F64-dielectric-gravity); 4 test rec |
 | F51 | `F51-bipartite-sublattice-hypercharge` | The bipartite sublattice DOF carries hypercharge as a matter of representation theory on the BCC walk |  | 4 test rec |

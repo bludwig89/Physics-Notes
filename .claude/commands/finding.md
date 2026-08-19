@@ -41,6 +41,8 @@ You are creating a new finding file for the Physics CA project.
 # F{N} — {Human Title}
 
 **Date:** {yyyy-mm-dd - hh:mm}
+**Test record:** record `{record-id}`
+**Claim:** {CL###, or `none — <reason>`}
 
 ## Summary
 
@@ -68,6 +70,43 @@ You are creating a new finding file for the Physics CA project.
 
 Open questions or next steps.
 ```
+
+4b. **Fill in `**Test record:**` and `**Claim:**` — both are checked, and both
+   accept "there isn't one" as long as you say why.** `make coverage` reads them.
+
+   **Test record.** Name the registry record that goes red if this finding is
+   wrong. Not a record that mentions the finding — one that *fails* on it. If
+   none exists, declare it with a reason from the closed list:
+
+   ```markdown
+   **Test record:** none — no-test (analysis-only)
+   ```
+
+   | Reason | When |
+   |---|---|
+   | `analysis-only` | closed-form arithmetic contained in the finding; nothing to run |
+   | `narrative-bundle` | a bundle/index file, not one testable finding |
+   | `superseded` | fully superseded per `docs/theory/supersessions.yaml` |
+   | `awaiting-test` | **DEBT.** A test is owed. |
+
+   Anything outside that list fails, and so does a bare `none` with no reason.
+
+   **Claim.** Name the `CL###` card this finding supports, if it has one.
+   Findings and cards are **not** 1:1 — one card often rests on six findings, and
+   plenty of findings assert nothing a card should carry. That is a normal
+   outcome; it just has to be declared:
+
+   ```markdown
+   **Claim:** none — infrastructure; asserts no physics a card would carry
+   **Claim:** pending — card owed; the physics is real and uncarded
+   ```
+
+   A reason is required after the dash in both cases.
+
+   **`awaiting-test` and `pending` are debt, not exits.** They clear the
+   "is it silent?" counters because you have answered the question, but the
+   `untested` and `unclaimed` totals hold them, so relabelling never reduces the
+   work. See `docs/roadmaps/finding-coverage-rollout.md`.
 
 5. Regenerate `findings-index.md` by running this script from the project root:
 

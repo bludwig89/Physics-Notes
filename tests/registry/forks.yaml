@@ -1238,7 +1238,6 @@ tests:
   results:
   - test-results/FC01_mercury.json
   findings:
-  - F16
   - F64
   - F112
   briefs:
@@ -1261,6 +1260,10 @@ tests:
       test-results/FC01_mercury.json: local
     artifacts_read_only: []
     summary: FC01 — Mercury perihelion precession (Tier C consistency regression)
+  notes: 'F16 removed from findings: — RETIRED, not missing. The write-up moved to deprecated/findings/F16-gr3-fork-resolution.md,
+    so it is no longer a live finding and this record cannot go red on it; the old regex-filled field
+    picked it out of the docstring. The pointer is preserved here rather than in findings:, which now
+    holds only live findings (2026-08-19, docs/roadmaps/finding-coverage-rollout.md step 3b).'
 - id: FC03-redshift
   path: tests/runners/FC03_redshift.py
   kind: result_dump
@@ -1331,6 +1334,7 @@ tests:
   - F27
   - F41
   - F43
+  - F47
   sector: forks
   evidence:
     mentions:

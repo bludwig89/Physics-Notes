@@ -4,9 +4,40 @@
 (landed 2026-08-19, additive, not yet in the gate). Report:
 `.tmp/finding-coverage-audit-2026-08-19.md`.*
 
-**Ratchets, armed at today's numbers, end state in brackets:**
-`weak_only` **67** [0] · `dangling` **53** [0] · `claim_unset` **10** [0] ·
-`unjoined` **0** [0, hold].
+**Ratchets, end state in brackets.** Armed at the morning's numbers; re-armed the
+same afternoon where a step closed:
+`untested` **30** [0] · `unclaimed` **2** [0] · `weak_only` **30** [0] ·
+`claim_unset` **2** [0] · `dangling` **0** [0, hold] · `blank` **0** [0, hold] ·
+`retired` **0** [0, hold] · `briefs_in_findings` **0** [0, hold] ·
+`bad_declaration` **0** [0, hold] · `unjoined` **0** [0, hold].
+
+`make coverage` runs them. `REPORT=path` writes the triage queue.
+
+---
+
+## LANDED 2026-08-19
+
+| Step | What | Result |
+|---|---|---|
+| **3a** | `gen_test_registry.py` no longer writes or back-fills `findings:`; the `FINDING_RE` scrape goes to `evidence.mentions`. `findings:` is human-owned and means *if that finding is false, this record goes red*. | Verified by two consecutive regenerations: zero drift across 434 records, `--check` idempotent. |
+| **3c** | Falsification briefs and first-generation tags are not findings. New `briefs:` field on `TestRecord`; 64 ids across 44 records moved out of `findings:`. | `briefs_in_findings` **40 → 0** |
+| **3d** | `F219` cleared from `F220-field-native-execution` and `F221-noise-error-correction`, each annotated. Its `finding-numbers.yaml` entry now says the work became F222 and no file is coming. The checker reads that file and fails a record naming a blank. | `blank` **2 → 0** |
+| **3b** | `findings/F01-F15-findings.md` declares `**Covers:** F1–F15` and `**Test record:** none — no-test (narrative-bundle)`. Members resolve to it; a dedicated file outranks the range, so promoted **F15** keeps its own record and CL029. `F16` — *retired* to `deprecated/findings/`, not missing — came out of `FC01-mercury-perihelion` with a pointer in `notes:`. | `dangling` **53 → 0**, new `retired` bucket at 0 |
+| **2b** | A finding can say it has no test: `**Test record:** none — no-test (<reason>)`, closed vocabulary of four. An unknown reason, or a bare `none`, is a violation at ceiling 0. `check_finding_records.py` hardened to recognise the declaration rather than skipping it by accident. | `bad_declaration` ratchet, at 0 |
+| **2c** | A finding can say it makes no claim: `**Claim:** none — <reason>`, plus `pending` for a card that is owed. A reason is required after the dash. | `claim_none_declared` / `claims_pending` counters |
+| **2 — the teeth** | `awaiting-test` and `pending` are DEBT, not exits. They clear `weak_only`/`claim_unset` because the finding has stopped being silent, but the new `untested` and `unclaimed` totals hold the sum — so relabelling moves a finding between counters and leaves the real number where it was. | The 66-drain cannot be closed by find-and-replace |
+| **4 — bucket 1** | *2026-08-19 - 13:35.* The **F1–F50 era, all 24 findings** (F21 F23 F25 F26 F26b F27 F29 F31–F36 F38–F45 F47 F48). Eleven records gained the finding on their side of the join (`wmu-phase1`+F31, `wmu-phase3`+F33, `wmu-phase4`+F34, `wmu-phase6`+F35, `wmu-phase7-backreaction` already had F36, `su2-photon-bridge`+F29, `hypercharge`+F41, `FG1-anomaly-cancellation`+F38, `FG6-two-helicity-photon`+F39, `FG7-gluon-dynamics`+F43, `FG4-dynamical-Z`+F48, `majorana-fork`+F47). Twenty findings gained a `**Test record:** record `X`` header. **Zero `awaiting-test` declarations were needed** — every one of the 24 had a real record already in the tree. | `weak_only` / `untested` **66 → 30**; bucket 1 is empty in section B |
+| **4 — the measurement** | *Same pass.* Bucket 1's own recipe (steps 1–4 below) rewrites `findings:` and never renames a file, so under the original name-only `strong` test it could not move `weak_only` **at all**. Two fixes, both in `audit_finding_coverage.py`: `_NAME_ID` makes the NAME test case- and suffix-aware (`f26-rotation-law` **is** F26's record; `F26b-…` **is** F26b's), and a **two-sided DECLARED join** — the finding's header names record X *and* X's `findings:` names the finding back — counts as strong. `_FINDING_RE` is untouched, because it must keep reproducing what the generator inferred. | −4 from the name fix, −32 from the declared join, measured separately |
+| **5** | `make coverage` wired into the Makefile beside `records`/`registry`. | Failure mode demonstrated by injection: a bogus, blank, retired, or brief id in any record's `findings:` turns it red; every declaration case verified against a live finding and reverted. |
+
+**Not yet in `run_gate.py`.** A ratchet outside the gate is a tool, not a barrier
+— the same point `control-soundness-rollout.md` §0 makes. One line adds it; it
+was left out because `run_gate.py` is shared infra with a live collision history
+(see the `repo-gotcha-shared-infra-stale-read` note).
+
+**Still open:** the drain's remaining **30** (§4 buckets 2 and 3), the no-test
+vocabulary rollout beyond the bundle, and the claim-gap findings (§6, down to 2
+and mid-pass in a concurrent session as of 2026-08-19 - 13:35).
 
 ---
 
@@ -73,7 +104,7 @@ convention existed and was not followed.
 
 ## 2. What changes in the schema — three states that do not currently exist
 
-### 2a. `findings:` becomes human-owned (decision: repair in place)
+### 2a. `findings:` becomes human-owned (decision: repair in place) — **LANDED**
 
 Today `findings:` is generated and `evidence:` is generated. Nothing on a record
 is a human assertion about *what this test verifies*. The fix keeps one field and
@@ -101,7 +132,7 @@ The meaning of `findings:` after this change is one sentence, and it is the test
 a reviewer applies: *if this finding is false, can this record go red?* Not "is
 it about" — "can it fail."
 
-### 2b. A finding can say it has no test
+### 2b. A finding can say it has no test — **LANDED**
 
 Lives in the finding header, parsed by the same `_HEADER` regex
 `check_finding_records.py` already uses:
@@ -121,9 +152,11 @@ Closed reason vocabulary, four values:
 
 `awaiting-test` is what makes this honest rather than an escape hatch: the
 difference between "no test is needed" and "no test yet" is exactly the
-distinction the current tree cannot express, and it is the one worth counting.
+distinction the tree could not express, and it is the one worth counting. It is
+counted by `untested`, which holds `weak_only + awaiting_test`, so declaring debt
+is *neutral* — it never reduces the work, it only names it.
 
-### 2c. A finding can say it makes no claim
+### 2c. A finding can say it makes no claim — **LANDED**
 
 A finding does **not** need a claim card, and the join is not 1:1 — one card
 routinely rests on six findings, and infrastructure findings assert nothing a
@@ -139,10 +172,10 @@ card should hold. But absence and un-triaged absence must be distinguishable:
 
 | # | What | Why it blocks |
 |---|---|---|
-| **3a** | **Stop `gen_test_registry.py` writing `findings:`; make it preserve.** | Until this lands, every hour of curation is one `make registry-gen` away from being erased. Nothing in §4 may start first. |
-| **3b** | **Decide the F1–F16 id space.** The bundle `findings/F01-F15-findings.md` serves F1–F15; the registry names `F1 F2 F3 F4 F7 F10 F12 F16`; `findings-index.md` prints `F1`; the file stem is `F01`. | 8 of the 48 dangling ids are this one ambiguity. Any check written before the decision will encode the wrong answer. Recommended: the bundle declares `no-test (narrative-bundle)`, its members resolve to it by alias, and the alias table is the one written in `audit_finding_coverage.finding_aliases`. |
-| **3c** | **Rule on `FA*/FB*/FC*/FG*` in `findings:`.** 40 of the 48 dangling ids are falsification briefs (`tests/falsification/FA01-*.md`) and first-generation tags — a different id space living in a field named for findings. | Recommended: they are legitimate references but belong in a sibling `verifies_brief:` (or `notes:`), not `findings:`. Otherwise the referential check in 5b can never reach zero and will be turned off. |
-| **3d** | **F219 and the vacant numbers.** Two records cite `F219`, which `docs/design/finding-numbers.yaml` records as *deliberately unused* after a session collision. | The check in 5b must read `finding-numbers.yaml` and treat a vacant/retired number as an **error**, not a missing file — otherwise recovering the file later looks like the fix, and the number gets re-taken. |
+| **3a** | ~~**Stop `gen_test_registry.py` writing `findings:`; make it preserve.**~~ **DONE.** | Until this lands, every hour of curation is one `make registry-gen` away from being erased. Nothing in §4 may start first. |
+| **3b** | ~~**Decide the F1–F16 id space.**~~ **DONE — `Covers:` + no-test.** The bundle `findings/F01-F15-findings.md` serves F1–F15; the registry names `F1 F2 F3 F4 F7 F10 F12 F16`; `findings-index.md` prints `F1`; the file stem is `F01`. | 8 of the 48 dangling ids are this one ambiguity. Any check written before the decision will encode the wrong answer. Recommended: the bundle declares `no-test (narrative-bundle)`, its members resolve to it by alias, and the alias table is the one written in `audit_finding_coverage.finding_aliases`. |
+| **3c** | ~~**Rule on `FA*/FB*/FC*/FG*` in `findings:`.**~~ **DONE — `briefs:`.** 40 of the 48 dangling ids are falsification briefs (`tests/falsification/FA01-*.md`) and first-generation tags — a different id space living in a field named for findings. | Recommended: they are legitimate references but belong in a sibling `verifies_brief:` (or `notes:`), not `findings:`. Otherwise the referential check in 5b can never reach zero and will be turned off. |
+| **3d** | ~~**F219 and the vacant numbers.**~~ **DONE.** Two records cite `F219`, which `docs/design/finding-numbers.yaml` records as *deliberately unused* after a session collision. | The check in 5b must read `finding-numbers.yaml` and treat a vacant/retired number as an **error**, not a missing file — otherwise recovering the file later looks like the fix, and the number gets re-taken. |
 | **3e** | **The tree is dirty: 107 uncommitted changes on `main`.** | A curation pass produces a large, mostly-mechanical diff across `tests/registry/*.yaml`. Landing it on top of 107 unrelated modifications makes review impossible and a revert unsafe. Commit or stash first, then branch. |
 
 ---
@@ -152,7 +185,33 @@ card should hold. But absence and un-triaged absence must be distinguishable:
 `python3 tools/audit_finding_coverage.py --report -` prints the live list;
 section B is the work queue, already sorted by size.
 
-### Bucket 1 — the F1–F50 era (25 findings, the bulk)
+### Bucket 1 — the F1–F50 era (24 findings, the bulk) — **DRAINED 2026-08-19 - 13:35**
+
+> **All 24 closed.** Not one needed an `awaiting-test` declaration: in every case
+> the test was already in the tree, named for the physics, and the join was
+> missing from one side or both. Four records had `findings: null` outright
+> (`wmu-phase3`, `wmu-phase4`, `FG1-anomaly-cancellation`, and `hypercharge`
+> which named F27/F34 but not the finding it *is*). F21/F23/F25 needed nothing on
+> the registry side at all — `F306-curl-closes-at-k3` already named them and its
+> own `note:` calls itself "the successor record for the F21/F23/F25 curl family";
+> only the metric could not see it.
+>
+> **Two things this pass deliberately did NOT do.**
+>
+> 1. **No wholesale pruning.** Section 9 names over-pruning as the risk whose
+>    error direction is *silent*, and `weak_only` does not move with it either
+>    way, so section C is left as a reviewed queue rather than a diff. The one
+>    attribution known to be false is flagged, not cut: `majorana-fork` carries
+>    `F43`, which in that file's docstring is a **pre-renumbering** F43 ("F43 bare
+>    ν_R Majorana mass step"), while today's F43 is FG-7 dynamical gluons. F47's
+>    own header repeats the stale number, so the two must be ruled on together.
+> 2. **No promotion off `legacy_script`.** Five of the twenty-four now declare a
+>    home record that is itself declared debt — `complex-mass-chiral` (F27),
+>    `su2-photon-bridge` (F29), `FG1-anomaly-cancellation` (F38),
+>    `FG6-two-helicity-photon` (F39), `f45-sigma-tau-weinberg` (F45). Each also
+>    has a non-debt record, so `debt_only` holds at 1 (F204) — but "declared" is
+>    not "armed", and arming these is C7.4/C7.5 work, not curation.
+
 
 Pre-convention findings. For each, the question is short and the answer is
 usually already in the tree — the test exists, it is just named for the physics
@@ -252,8 +311,12 @@ Three rules:
 2. **A finding with no test says so, with a reason.** Silence is the state this
    rollout exists to remove; do not put it back.
 3. **A finding with no claim says so too.** Findings and claims are not 1:1 and
-   were never meant to be — `**Claim:** none` is a normal, correct outcome, and
-   it is the one that closes the check.
+   were never meant to be — `**Claim:** none — <reason>` is a normal, correct
+   outcome, and it is the one that closes the check. `pending` when the card is
+   genuinely owed.
+
+`/finding` writes both fields into the template, so a new finding starts with the
+questions in front of it rather than answered by silence.
 
 ---
 

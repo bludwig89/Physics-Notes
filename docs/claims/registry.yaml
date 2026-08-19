@@ -4,8 +4,8 @@
 # projection of it. Editing here changes nothing and will be overwritten.
 # ---------------------------------------------------------------------------
 version: 1
-count: 282
-next_claim: CL283
+count: 283
+next_claim: CL284
 
 claims:
   - id: CL001
@@ -4294,18 +4294,18 @@ claims:
     first_issued: '2026-08-04'
   - id: CL239
     file: docs/claims/CL239-the-f272-refold-defect-was-in-four-places.md
-    title: 'The F272 refold defect was in four places, and in vacuum polarization it flipped a sign'
+    title: 'The $\bmod 2\pi$ refold is a real defect wherever the integrand lacks that period: four sites in the QED/gluon sweep, one of which flipped the sign of the vacuum-polarization diagnostic, and two independent mechanisms inside the background-field self-energy, where the fold fires iff $Q\ge\pi/n$'
     tier: supporting
     kind: derivation
     status: open
-    domain: [QFT]
-    exactness: unset
-    falsifier: unset
-    review_state: unreviewed-seed
-    confidence: medium
-    findings: [F277]
-    tests: []
-    modules: []
+    domain: [QFT, QCD]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F277, F308, F307]
+    tests: [F308-refold-repaired, F272-F273-bz-period-lattices]
+    modules: [casim.engine.gauge.lpt_selfenergy, casim.engine.gauge.bgfield_loop]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -5084,3 +5084,21 @@ claims:
     supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
     rolls_up_to: CL022
     first_issued: '2026-08-18'
+  - id: CL283
+    file: docs/claims/CL283-paired-photon-real-space-pair-group-velocity.md
+    title: 'The paired-spinor photon propagates in real space at a closed-form pair group velocity $\partial\Omega_\text{pair}/\partial k_i=\tfrac{c_\text{lat}}2[\hat g^+_i+\hat g^-_i](\mathbf k/2)$ — exactly $c_\text{lat}$ on a cubic axis, and matched by a finite-aperture packet to $7.8\times10^{-16}$'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SR, QFT]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F314, F69, F105, F20]
+    tests: [F314-pair-group-velocity-closed-form, F314-photon-packet-propagation]
+    modules: [casim.engine.gauge.photon_packet]
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: CL002
+    first_issued: '2026-08-19'

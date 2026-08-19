@@ -3761,3 +3761,47 @@ claims:
     (7) F311's clears_by -- declare artifacts_read_only on the FA-vs-FC record and re-run -- is still
     open. (8) The lattice still stores links on the full cubic array while only 1/4 of entries are BCC
     sites, so memory is 4x the minimum. (9) H1/H2 colour normalisation (F303) and N_c untouched.
+- session: swift-lucid-yukawa
+  opened: 2026-08-19 - 13:20
+  status: open
+  sector: gauge
+  topic: >-
+    finding-coverage-rollout.md section 4, BUCKET 1 -- the F1-F50 era, 24 mention-only findings
+    (F21 F23 F25 F26 F26b F27 F29 F31-F36 F38-F45 F47 F48). Registry curation only: no new physics,
+    no new finding numbers, no claim cards. Two halves. (a) THE ADD SIDE -- read each finding's
+    Script:/Tests:/Results: header, resolve it to the record for that file, and write the finding into
+    that record's human-owned `findings:` where the record can genuinely go red on it. (b) THE
+    DECLARATION SIDE -- write `**Test record:** record `X`` into the finding header, so the join is
+    asserted from BOTH ends and check_finding_records.py actually verifies it (rollout section 0's
+    complaint that only 34 of 317 findings declare a record). Pruning is deliberately NOT done wholesale:
+    rollout section 9 names over-pruning as the risk whose error direction is silent, and `weak_only`
+    does not move with it, so the over-claimed list in section C is left as a reviewed queue.
+    NOTE FOR PARALLEL SESSIONS: a concurrent session is working section 6 (the ten claim-gap findings,
+    `**Claim:** none` declarations in F133/F134b/F160/F268/F269/F274/F275). This claim does not touch
+    docs/claims/ or any of those files.
+  used: {}
+  tests: []
+  files:
+  - tests/registry/core.yaml
+  - tests/registry/forks.yaml
+  - tests/registry/gauge.yaml
+  - findings/F21-curl-residual-geometry-independence.md
+  - findings/F23-smearing-ruled-out-curl-residual-is-phase-locked.md
+  - findings/F25-real-rotation-exact-discrete-time-maxwell.md
+  - findings/F26-speed-of-light-as-rotation-rate.md
+  - findings/F27-complex-mass-chiral-su2.md
+  - findings/F29-w-triplet-bilinear-su2-bridge.md
+  - findings/F31-wmu-covariant-hopping.md
+  - findings/F33-wmu-yang-mills.md
+  - findings/F34-wmu-fermion-vertex.md
+  - findings/F35-electroweak-mixing.md
+  - findings/F36-wmu-backreaction.md
+  - findings/F38-fg1-anomaly-cancellation.md
+  - findings/F39-two-helicity-photon-bilinear.md
+  - findings/F41-hypercharge-higgs-free-su2.md
+  - findings/F42-hypercharge-quark-extension-and-dynamical-chi-kinetic.md
+  - findings/F43-fg7-dynamical-gluons.md
+  - findings/F44-higgs-free-mA-zero-from-rank1-stueckelberg.md
+  - findings/F45-sigma-tau-swap-weinberg-angle.md
+  - findings/F47-majorana-seesaw-higgs-free.md
+  - findings/F48-dynamical-Z-neutral-current.md

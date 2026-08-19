@@ -6,6 +6,8 @@
 **Modules:** `src/casim/particles/channel.py` (`TwoGridAtomChannel`, type `two_grid_atom`; `TwoGridReadout` observer); `ca-simulation/ca_multigrid.py` (single-tick `schrodinger_step` / `coarse_point_potential` helpers); scenario `unified_hydrogen_multigrid.yaml`.
 **Cross-references:** [[F159-u4-blockspin-multigrid-scale-separation]] (the staged multigrid this makes live), [[F158-realspace-neutral-hydrogen-atom]] (single-grid compressed atom), [[F136-colour-quark-confinement]] (the fine proton kernel), [[F156-realspace-em-bound-electron]] (the coarse electron), [[F133-blockspin-casim-engine]] (R_b).
 
+**Claim:** none — the live wiring of F159's two-grid multigrid, whose physics is CL142's; the finding states its own case ("the channel is wiring, not new physics"). Declared 2026-08-19.
+
 ## Result
 
 A single CASIM channel (`two_grid_atom`) co-evolves **both grids in one

@@ -13,6 +13,7 @@
 
 **Reviewed:** 2026-08-04 — **REFUTED** ([independent review](../docs/reviews/F21-review-2026-08-04.md))
 **Superseded:** 2026-08-04 by [[F306-curl-closes-at-k3-representation-artifact]] — ledger `S18-curl-residual-representation-artifact`
+**Test record:** record `F306-curl-closes-at-k3` (tier gate) — the successor record for the F21/F23/F25 curl family; asserts the closed form and the B = n̂ × E geometry F21 established. Declared 2026-08-19 - 13:19.
 
 > **⚠ SUPERSEDED INTERPRETATION 2026-08-04.** Every number below is correct and was
 > reproduced bit-for-bit. The *conclusion* is not. The residual measures a **real**

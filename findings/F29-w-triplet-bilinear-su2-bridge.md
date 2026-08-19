@@ -5,6 +5,7 @@
 - `tests/findings/test_su2_photon_bridge.py` — 8-test suite
 - `test-results/F29_su2_photon_bridge.json` — numerical results
 **Linked findings:** F26 (rotation law), F27 (chiral SU(2)), F17 (Poynting energy)
+**Test record:** record `su2-photon-bridge` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

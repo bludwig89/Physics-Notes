@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_majorana_fork.py` (M1–M6)
 **Results:** `test-results/majorana_fork.json`
 **Builds on:** F27 chiral SU(2) Dirac CA, F41 hypercharge fork, F42 quark+dynamical-χ kinetic.
+**Test record:** record `majorana-fork` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

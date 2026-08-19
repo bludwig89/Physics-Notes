@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_hypercharge_extension.py` (Y8–Y15)
 **Results:** `test-results/hypercharge_extension.json`
 **Closes:** F41 §"Implications" point 4 (quark Y-coupling); first-generation-completeness review §3 item 3 (dynamical $e_R, u_R, d_R$ via kinetic-step $U(1)_Y$).
+**Test record:** record `hypercharge-extension` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

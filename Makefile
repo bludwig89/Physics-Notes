@@ -12,7 +12,7 @@ export PYTHONPATH := src
 .DEFAULT_GOAL := gate
 .PHONY: gate constants supersessions stamp battery indexes inventory claims \
         install backend manifest health numerics constants-report drift clean help \
-        graph deadcode structure registry registry-gen records control control-todo can-fail \
+        graph deadcode structure registry registry-gen records control control-todo can-fail coverage \
         indexes-check citations
 
 ## install: editable install with the fast FFT backend and pytest
@@ -66,6 +66,15 @@ registry:
 ## records: D9 — findings' declared test records exist; gate entries can fail
 records:
 	@$(PY) tools/check_finding_records.py $(if $(LIST),--verbose,)
+
+## coverage: is every finding joined to its tests and its claim? (ratcheted)
+## `make records` only checks findings that DECLARE a record — 34 of 317. This
+## checks the other direction: a record's `findings:` means "if that finding is
+## false, I go red", every id in it resolves to a live finding, and a finding
+## with no test says so. REPORT=path writes the triage queue.
+coverage:
+	@$(PY) tools/audit_finding_coverage.py --check \
+		$(if $(REPORT),--report $(REPORT),) $(if $(JSON),--json $(JSON),)
 
 ## can-fail: D9/H2 — MEASURE can-fail by execution trace (commit the journal)
 can-fail:

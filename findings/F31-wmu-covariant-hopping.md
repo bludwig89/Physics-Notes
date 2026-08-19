@@ -7,6 +7,7 @@
 **Results:** `test-results/wmu_phase1.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 1  
 **Closes:** F27 known limitation #1 (kinetic step not SU(2)-invariant without $W_\mu$) — partial; full closure deferred to F34 (Phase 4 fermion vertex).
+**Test record:** record `wmu-phase1` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

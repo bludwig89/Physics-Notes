@@ -4,6 +4,7 @@
 **Source:** physics_notes_0708.pdf pages 59–60 ("Complex mass", dated 9/6/2007)  
 **Files:** `ca-simulation/forks/complex_mass_fork.py`, `tests/findings/test_complex_mass_chiral.py`  
 **Test suite:** 9/9 PASS — see summary below
+**Test record:** record `complex-mass-chiral` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

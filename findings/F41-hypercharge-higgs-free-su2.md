@@ -5,6 +5,7 @@
 **Module:** `ca-simulation/forks/hypercharge_fork.py`
 **Tests:** `tests/findings/test_hypercharge_fork.py` (Y1–Y7)
 **Results:** `test-results/hypercharge_fork.json`
+**Test record:** record `hypercharge` (tier battery) — `tests/findings/test_hypercharge.py`, renamed from `test_hypercharge_fork.py` after fork promotion. Declared 2026-08-19 - 13:19.
 
 ---
 

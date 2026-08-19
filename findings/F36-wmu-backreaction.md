@@ -1,6 +1,7 @@
 # F36 — Yang-Mills Back-Reaction and Massive W Dispersion (Proca)
 
 **2026-05-24 - 00:00**
+**Test record:** record `wmu-phase7-backreaction` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ## Summary
 

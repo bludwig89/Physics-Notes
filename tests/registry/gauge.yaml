@@ -2335,6 +2335,7 @@ tests:
   findings:
   - F35
   - F45
+  - F48
   briefs:
   - FG4
   sector: gauge
@@ -2362,6 +2363,7 @@ tests:
   - F29
   - F30
   - F37
+  - F39
   - F67
   - F69
   - F91
@@ -2403,6 +2405,7 @@ tests:
   - F29
   - F33
   - F36
+  - F43
   briefs:
   - FG7
   sector: gauge
@@ -2828,6 +2831,7 @@ tests:
   findings:
   - F27
   - F34
+  - F41
   sector: gauge
   evidence:
     mentions:
@@ -3384,6 +3388,7 @@ tests:
   findings:
   - F26
   - F27
+  - F29
   - F69
   sector: gauge
   evidence:
@@ -3435,6 +3440,7 @@ tests:
   - test-results/wmu_phase1.json
   findings:
   - F27
+  - F31
   sector: gauge
   evidence:
     mentions:
@@ -3480,6 +3486,8 @@ tests:
   tier: battery
   results:
   - test-results/wmu_phase3.json
+  findings:
+  - F33
   sector: gauge
   evidence:
     mentions: []
@@ -3500,6 +3508,8 @@ tests:
   tier: battery
   results:
   - test-results/wmu_phase4.json
+  findings:
+  - F34
   sector: gauge
   evidence:
     mentions: []
@@ -3544,6 +3554,7 @@ tests:
   - test-results/wmu_phase6.json
   findings:
   - F26
+  - F35
   sector: gauge
   evidence:
     mentions:

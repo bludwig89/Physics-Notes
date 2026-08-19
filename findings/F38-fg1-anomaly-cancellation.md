@@ -3,6 +3,7 @@
 *2026-05-26 - 02:02 — Algebraic, Tier-1 exact-rational result. The L-handed Weyl content of one Standard-Model generation, with the hypercharge assignments adopted in [first-gen-completeness-review.md](../first-gen-completeness-review.md) §1, satisfies every gauge and gravitational anomaly cancellation condition exactly (over $\mathbb Q$ / $\mathbb Z$, not "to machine precision"). This closes the FG-1 entry in §5.1 of the completeness review, promotes §2.3's "anomaly cancellation" row from ❌ to ✅, and supersedes [F27](F27-complex-mass-chiral-su2.md)'s "anomaly cancellation … not tested" caveat. It is also the QFT-6 entry in `lattice-vs-spacetime-tests.md`.*
 
 Cross-references: [F27 complex mass / chiral SU(2)](F27-complex-mass-chiral-su2.md) (mass mechanism and the original "not tested" note); [F34 W-fermion vertex](F34-wmu-fermion-vertex.md) (left-handed doublet structure); [F35 electroweak mixing](F35-electroweak-mixing.md) (Gell-Mann–Nishijima charges, W6.4); [first-gen-completeness-review.md](../first-gen-completeness-review.md) §1–§5.1; [docs/status/exactness-inventory.md](../exactness-inventory.md) entries #86–91; results JSON [`test-results/FG1_anomaly_cancellation.json`](../test-results/FG1_anomaly_cancellation.json); test script [`tests/findings/test_FG1_anomaly_cancellation.py`](../tests/findings/test_FG1_anomaly_cancellation.py).
+**Test record:** record `FG1-anomaly-cancellation` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

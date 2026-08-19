@@ -12,6 +12,8 @@ steps), `src/casim/lattice/chiral_core.py` (hand-rolled core),
 `src/casim/lattice/backend.py` (numpy_fft backend); tests
 `tests/findings/test_F134_phase4_completion.py` (15/15 PASS).
 
+**Claim:** none — completes the F130 scheme's engine implementation for the chiral and Weyl propagator classes (CL116) plus a validated backend seam; no physics beyond what CL115/CL116 carry. Declared 2026-08-19.
+
 ---
 
 ## 1. What was open after F133

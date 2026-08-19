@@ -3,6 +3,8 @@
 *2026-07-31 - 23:55. Roadmap `roadmap-unified-program.md` **P3.3**, structural blocker **B3**.*
 *Status: **established** (measured, fixed, gated).*
 
+**Claim:** none — engine infrastructure; the migration is bit-identical under `gauss_seidel` and the 5 ordering violations are reported, not applied, so no physics is asserted. Declared 2026-08-19.
+
 ## Claim
 
 The engine stepped channels in **registration order** — the order the `channels:`

@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_wmu_phase6.py` (W6.1–W6.5)  
 **Results:** `test-results/wmu_phase6.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 6
+**Test record:** record `wmu-phase6` (tier battery) — `tests/registry/`, D9. Declared 2026-08-19 - 13:19.
 
 ---
 

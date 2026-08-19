@@ -3,6 +3,8 @@
 *2026-07-31 - 22:55. Roadmap **P4**. Software/engineering finding, no physics decision reversed.*
 *Status: **established** (built, gated; `tests/casim/test_scenario_schema_v2.py`, 12/12).*
 
+**Claim:** none — software/engineering; a scenario-loader schema and template mechanism, and the finding's own header records that no physics decision is reversed. Declared 2026-08-19.
+
 ## 1. Claim
 
 Before P4, `casim.io.load_scenario` validated exactly two things: that the file

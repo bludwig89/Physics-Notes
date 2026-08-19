@@ -4,7 +4,7 @@
 
 *One line per claim card (**D12**). A **claim** is what the project asserts *right now*; a **finding** is what a session did. The two move independently — a finding may be superseded without any claim changing, and a claim may be narrowed without any finding changing. See `docs/claims/README.md` for the contract and the closed vocabularies; `tools/check_claims.py` enforces them at `make gate`.*
 
-**282 cards** — **152** live, **6** narrowed, **5** contingent, **87** open, **5** not_claimed, **27** withdrawn. **223** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
+**283 cards** — **153** live, **6** narrowed, **5** contingent, **87** open, **5** not_claimed, **27** withdrawn. **222** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
 
 ## Headline claims
 
@@ -83,7 +83,7 @@
 
 *One per qualifying finding not already carried by a headline card. Findings judged not to clear the bar are listed with their reason in `docs/audits/consolidation-plan-2026-08-04.md` §5, so "no card" is a recorded decision rather than an omission.*
 
-### live (130)
+### live (131)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -217,6 +217,7 @@
 | [CL272](docs/claims/CL272-cell-carries-the-internal-index-free.md) | An internal tensor factor costs the model zero spatial directions and zero time directions… *(→ CL271)* | derivation | live | exact | stated | F318, F317, F291, F313, F315, F289 |
 | [CL277](docs/claims/CL277-rho-equals-one-from-rank-not-custodial.md) | rho = 1 exactly, from the rank of the Higgs-free breaking rather than from custodial SU(2) *(→ CL007)* | derivation | live | exact | none | F320, F41, F27, F51, F141 |
 | [CL278](docs/claims/CL278-theta-qcd-zero-from-loop-set-reversal-closure.md) | The rule contains no theta-term, and no loop generates one — theta_QCD = 0 because the… | derivation | live | exact | stated | F321, F53, F43, F305, F307, F265, F91 |
+| [CL283](docs/claims/CL283-paired-photon-real-space-pair-group-velocity.md) | The paired-spinor photon propagates in real space at a closed-form pair group velocity… *(→ CL002)* | derivation | live | machine | stated | F314, F69, F105, F20 |
 
 ### narrowed (3)
 
@@ -311,7 +312,7 @@
 | [CL233](docs/claims/CL233-the-fermion-walk-s-brillouin-zone-is-not.md) | The fermion walk''s Brillouin zone is not the cubic FFT cube, and the gauge side''s factor 4… | no_go | open | exact | unset | F267 |
 | [CL234](docs/claims/CL234-one-energy-convention-a-global-conservation-gate-and.md) | One energy convention, a global conservation gate, and the closed gravity loop | derivation | open | unset | unset | F270 |
 | [CL237](docs/claims/CL237-the-mode-sum-audit-every-dispersion-is-3.md) | The mode-sum audit: every dispersion is √3·fcc-periodic, and the cube is a *biased* sub-region | derivation | open | unset | unset | F273 |
-| [CL239](docs/claims/CL239-the-f272-refold-defect-was-in-four-places.md) | The F272 refold defect was in four places, and in vacuum polarization it flipped a sign | derivation | open | unset | unset | F277 |
+| [CL239](docs/claims/CL239-the-f272-refold-defect-was-in-four-places.md) | The $\bmod 2\pi$ refold is a real defect wherever the integrand lacks that period: four sites… | derivation | open | machine | stated | F277, F308, F307 |
 | [CL240](docs/claims/CL240-the-model-admits-no-slow-roll-inflaton-the.md) | The model admits **no** slow-roll inflaton: the F107 cell puts the lattice cutoff at… | no_go | open | exact | unset | F282 |
 | [CL241](docs/claims/CL241-an-elastic-lattice-is-excluded-four-ways-and.md) | An elastic lattice is excluded four ways, and it **cannot** rescue F282: because F79 ties $G$… | no_go | open | exact | unset | F283 |
 | [CL242](docs/claims/CL242-on-a-rigid-lattice-cosmic-expansion-is-the.md) | On a rigid lattice, cosmic expansion is the conformal mode of $K$, not the substrate… | prediction | open | exact | unset | F284 |

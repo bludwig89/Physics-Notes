@@ -3,6 +3,8 @@
 *2026-07-31 - 23:35. Roadmap `roadmap-unified-program.md` **P3.2**, structural blocker **B2**.*
 *Status: **established** (measured, fixed, gated). Supersedes nothing; closes B2.*
 
+**Claim:** none — engine infrastructure; `legacy` mode is bit-identical to the pre-P3.2 engine, so no physics moved, and promoting the 18 desynchronised scenarios is named as open work rather than asserted. Declared 2026-08-19.
+
 ## Claim
 
 Before this finding the CASIM engine advanced a **tick counter, not a clock**.

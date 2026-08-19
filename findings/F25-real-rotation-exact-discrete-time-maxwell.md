@@ -33,6 +33,8 @@
 >
 > See F306 and `docs/theory/supersessions.yaml`.
 **Source:** `ca-simulation/ca_maxwell.py::real_rotation_vs_maxwell_curl` and `real_rotation_k_scan`
+**Test record:** record `f26-rotation-law` (tier battery) — the real-rotation law itself. Declared 2026-08-19 - 13:19.
+**Test record:** record `F306-curl-closes-at-k3` (tier gate) — the curl half, post-supersession. Declared 2026-08-19 - 13:19.
 
 ---
 

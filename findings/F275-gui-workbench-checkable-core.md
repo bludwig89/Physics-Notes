@@ -3,6 +3,8 @@
 *2026-07-31 - 23:00. Roadmap **P5** (checkable core). Software/engineering finding.*
 *Status: **established** for the headless half; interactive half handed forward. Tests: `tests/casim/test_viz_api.py` (5/5), `tests/casim/test_results_compare.py` (5/5).*
 
+**Claim:** none — software/engineering; one viz API and a headless run-diff that reuses the project's existing numeric comparison. Declared 2026-08-19.
+
 ## 1. Claim
 
 P5's acceptance gate is "one viz implementation; a full experiment (place matter
