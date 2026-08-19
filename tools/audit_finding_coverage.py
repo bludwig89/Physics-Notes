@@ -21,9 +21,10 @@ The join it does not check runs the other way, and it is not sound:
 
 3. **Nothing checks that a record's ``findings:`` ids are real.**
    ``check_claims.py`` enforces exactly this for claim cards (rule 3); the test
-   registry has no equivalent, and 53 records name 48 ids that have no
-   ``findings/F*.md`` — falsification briefs (FA/FB/FC), first-generation tags
-   (FG*), and the F1-F16 bundle members.
+   registry had no equivalent, and 53 records named 48 ids with no
+   ``findings/F*.md``. Cleared to 8 on 2026-08-19 — 40 brief ids moved to
+   ``briefs:`` and ``F219`` (a collision blank) was removed from two records —
+   and the check below is what keeps them out.
 
 4. **Finding to claim is unenforced.** Cards name their findings; nothing
    requires a finding to be named by a card *or* to declare that it makes no
@@ -56,14 +57,28 @@ _FINDINGS = os.path.join(_REPO, "findings")
 _REGISTRY = os.path.join(_REPO, "tests", "registry")
 _CLAIMS = os.path.join(_REPO, "docs", "claims", "registry.yaml")
 
-# Ratchet ceilings — today's measured counts. These may fall, never rise.
-# Update with --ratchet-update once a batch lands.
+# Ratchet ceilings. These may fall, never rise.
+#
+# `dangling` was 53 on 2026-08-19 and is 8 the same afternoon: 40 brief ids moved
+# to the `briefs:` field and F219 was cleared from two records. The 8 that remain
+# are one problem, not eight — F2/F3/F4/F7/F10/F12/F16 all belong to the
+# `findings/F01-F15-findings.md` bundle, whose id space is still unruled
+# (`docs/roadmaps/finding-coverage-rollout.md` step 3b). Do not re-arm this
+# number without reading that.
 CEILINGS = {
     "unjoined": 0,        # findings with no record and no no-test declaration
     "weak_only": 67,      # findings whose only records are prose mentions
-    "dangling": 53,       # records naming a finding id with no file
+    "dangling": 8,        # records naming a finding id with no file
+    "blank": 0,           # records naming a collision-vacated number — never ok
+    "briefs_in_findings": 0,   # brief ids in `findings:` — never ok
     "claim_unset": 10,    # findings in no card and declaring no `claim: none`
 }
+
+# The neighbouring id space: falsification briefs in tests/falsification/ and
+# first-generation tags. Real, referable, and NOT findings — they live in
+# `briefs:`. See casim.tests.registry's docstring.
+_BRIEF_RE = re.compile(r"^F[A-Z]{1,2}\d{1,3}[a-z]?$")
+_NUMBERS = os.path.join(_REPO, "docs", "design", "finding-numbers.yaml")
 
 # Same regex the generator uses, so "what it inferred" is reproducible here.
 _FINDING_RE = re.compile(r"(?<![A-Za-z0-9])(F[A-Z]{0,2}\d{1,3})(?![0-9])")
@@ -103,6 +118,25 @@ def load_records() -> dict[str, dict]:
 
 def load_claims() -> list[dict]:
     return (yaml.safe_load(open(_CLAIMS, encoding="utf-8")) or {}).get("claims") or []
+
+
+def blank_numbers(known: set[str]) -> set[str]:
+    """Numbers abandoned after a collision — a blank, never a valid citation.
+
+    Two filters, both load-bearing:
+
+    * ``status: resolved`` covers two sub-cases and only one is a blank.
+      F111/F127/F285 are "resolved" because the gap was CLOSED by recovering the
+      file, and those findings exist. Requiring *and no file exists* separates
+      them, so this never reports a live finding as vacant.
+    * ``status: retired`` is excluded. A retired number had a real write-up that
+      moved to ``deprecated/findings/`` (F16-F19); citing it is stale, not
+      false, and it is a different conversation from a number that never held
+      anything. Those surface in D3 instead.
+    """
+    doc = yaml.safe_load(open(_NUMBERS, encoding="utf-8")) or {}
+    return {f"F{n}" for n, e in (doc.get("gaps") or {}).items()
+            if (e or {}).get("status") == "resolved" and f"F{n}" not in known}
 
 
 def declared_records(label: str, line: str) -> list[str]:
@@ -184,11 +218,21 @@ def audit() -> dict:
             "cl_in_prose": sorted(set(CLAIM_ID.findall(text))),
         })
 
-    dangling = collections.defaultdict(list)
+    blanks = blank_numbers(known_ids)
+    dangling: dict[str, list[str]] = collections.defaultdict(list)
+    blank_hits: dict[str, list[str]] = collections.defaultdict(list)
+    briefs_in_findings: dict[str, list[str]] = collections.defaultdict(list)
     for rid, rec in records.items():
-        for f in rec.get("findings") or []:
-            if str(f).strip() not in known_ids:
-                dangling[str(f).strip()].append(rid)
+        for raw in rec.get("findings") or []:
+            f = str(raw).strip()
+            if f in known_ids:
+                continue
+            if _BRIEF_RE.match(f):
+                briefs_in_findings[f].append(rid)   # belongs in `briefs:`
+            elif f in blanks:
+                blank_hits[f].append(rid)           # a collision blank, never valid
+            else:
+                dangling[f].append(rid)             # a finding id with no file
 
     counts = {
         "findings": len(findings),
@@ -201,11 +245,17 @@ def audit() -> dict:
         "no_test_declared": sum(1 for f in findings if f["no_test"]),
         "dangling": len({r for ids in dangling.values() for r in ids}),
         "dangling_ids": len(dangling),
+        "blank": len({r for ids in blank_hits.values() for r in ids}),
+        "briefs_in_findings": len({r for ids in briefs_in_findings.values() for r in ids}),
+        "records_with_briefs": sum(1 for r in records.values() if r.get("briefs")),
         "claim_unset": sum(1 for f in findings
                            if not f["claims"] and not f["claim_none"]),
         "empty_findings_field": sum(1 for r in records.values() if not r.get("findings")),
     }
     return {"counts": counts, "findings": findings,
+            "blanks": {k: sorted(v) for k, v in sorted(blank_hits.items())},
+            "briefs_in_findings": {k: sorted(v)
+                                   for k, v in sorted(briefs_in_findings.items())},
             "dangling": {k: sorted(v) for k, v in sorted(dangling.items())}}
 
 
@@ -227,6 +277,9 @@ def write_report(data: dict, path: str) -> None:
         f"| Findings backed only by `legacy_script` debt | {c['debt_only']} | — |",
         f"| Records naming a finding id with no file | {c['dangling']} | {CEILINGS['dangling']} |",
         f"| Distinct dangling finding ids | {c['dangling_ids']} | — |",
+        f"| Records naming a collision-vacated blank | {c['blank']} | {CEILINGS['blank']} |",
+        f"| Records with a brief id in `findings:` | {c['briefs_in_findings']} | {CEILINGS['briefs_in_findings']} |",
+        f"| Records carrying `briefs:` | {c['records_with_briefs']} | — |",
         f"| Records with an empty `findings:` | {c['empty_findings_field']} | — |",
         f"| Findings in no card and declaring no `claim: none` | {c['claim_unset']} | {CEILINGS['claim_unset']} |",
         f"| Findings with a no-test declaration | {c['no_test_declared']} | — |",
@@ -262,11 +315,30 @@ def write_report(data: dict, path: str) -> None:
             break
         L.append(f"| {f['id']} | {n} | {len(f['strong'])} |")
 
-    L += ["", "## D — dangling finding ids in tests/registry/", "",
-          "These ids appear in a record's `findings:` and have no `findings/F*.md`. "
-          "Most are falsification briefs (`tests/falsification/FA*.md`) or "
-          "first-generation tags (`FG*`) — a different id space that `findings:` "
-          "should not hold.", "", "| Id | Records |", "|---|---|"]
+    L += ["", "## D — ids in `findings:` that resolve to nothing", "",
+          "Split three ways, because they are three different defects.", ""]
+
+    L += ["### D1 — brief ids (belong in `briefs:`)", ""]
+    if data["briefs_in_findings"]:
+        L += ["| Id | Records |", "|---|---|"] + [
+            f"| {k} | {len(v)}: {', '.join('`%s`' % r for r in v[:3])}"
+            f"{' …' if len(v) > 3 else ''} |"
+            for k, v in data["briefs_in_findings"].items()]
+    else:
+        L.append("*(none — cleared 2026-08-19; 40 ids moved to `briefs:`)*")
+
+    L += ["", "### D2 — collision blanks (never valid in `findings:`)", "",
+          "A number `docs/design/finding-numbers.yaml` declares abandoned after a "
+          "concurrent-session collision. No file exists and none is coming, so the "
+          "citation points at the collision rather than at physics.", ""]
+    if data["blanks"]:
+        L += ["| Id | Records |", "|---|---|"] + [
+            f"| {k} | {len(v)}: {', '.join('`%s`' % r for r in v)} |"
+            for k, v in data["blanks"].items()]
+    else:
+        L.append("*(none — F219 cleared from 2 records 2026-08-19)*")
+
+    L += ["", "### D3 — finding ids with no file", "", "| Id | Records |", "|---|---|"]
     for fid, rids in data["dangling"].items():
         L.append(f"| {fid} | {len(rids)}: {', '.join('`%s`' % r for r in rids[:3])}"
                  f"{' …' if len(rids) > 3 else ''} |")
@@ -301,10 +373,10 @@ def main() -> int:
 
     print(f"[coverage] {c['findings']} findings / {c['records']} records / "
           f"{c['claims']} claims")
-    for k in ("unjoined", "weak_only", "dangling", "claim_unset"):
+    for k in CEILINGS:
         flag = "OVER" if c[k] > CEILINGS[k] else "ok"
-        print(f"[coverage]   {k:<12} {c[k]:>4}  (ceiling {CEILINGS[k]}) {flag}")
-    print(f"[coverage]   {'debt_only':<12} {c['debt_only']:>4}   "
+        print(f"[coverage]   {k:<19} {c[k]:>4}  (ceiling {CEILINGS[k]}) {flag}")
+    print(f"[coverage]   {'debt_only':<19} {c['debt_only']:>4}   "
           f"{'no_test_declared':<17} {c['no_test_declared']}")
 
     if args.check:

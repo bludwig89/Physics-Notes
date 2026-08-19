@@ -9,7 +9,7 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
   `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
   tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
-  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
+  `findings:`; they have their own `briefs:` field. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: 01-GR1-light-deflection
   path: tests/priority/test_01_GR1_light_deflection.py

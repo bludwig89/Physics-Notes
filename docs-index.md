@@ -23,6 +23,7 @@
 |------|-------|
 | `bucket-c-observational-criteria.md` | Bucket C pass criteria from live data, not from a judgement call |
 | `control-soundness-rollout.md` | Control soundness — the rollout, 50 → 0 |
+| `finding-coverage-rollout.md` | Finding coverage — the rollout: joining 317 findings to their tests and their claims |
 | `k11-structure-formation-prompt.md` | K11 — Structure formation and $\sigma_8$: the investigation prompt |
 | `loop-sector-buildout-prompt.md` | New-session prompt — build the interacting one-loop QED sector |
 | `next-steps-pt2.md` | Continuing Next Research Steps |

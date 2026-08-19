@@ -9,7 +9,7 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
   `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
   tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
-  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
+  `findings:`; they have their own `briefs:` field. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: E2E-nonabelian-bilinear
   path: tests/findings/test_E2E_nonabelian_bilinear.py
@@ -1874,8 +1874,10 @@ tests:
     has_main: true
     lines: 109
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F324_ncolour_bracket.json
+    artifact_rule:
+      test-results/F324_ncolour_bracket.json: local
     artifacts_read_only: []
     summary: F324 — the N_c bracket (completeness row B10, "why 3 colours").
 - id: F325-x1-branch
