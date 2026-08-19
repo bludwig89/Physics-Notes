@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_wmu_phase2.py` (W2.1–W2.4)  
 **Results:** `test-results/wmu_phase2.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 2
+**Test record:** record `wmu-phase2` (tier battery) — `tests/registry/`, D9.
 
 ---
 

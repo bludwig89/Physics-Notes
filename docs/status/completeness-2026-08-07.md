@@ -423,7 +423,7 @@ stating a scope boundary one step too far in. CL276 and CL277 are its live succe
 | B4 | Hypercharge / charge quantisation | EXACT | F165, F279, F47, F51, F38 | one charge unit, + $N_c=3$ for the thirds | Rank 6, dim 1 over ℚ; closing constraint is the F47 Majorana step. Core claim 10. **Code literals closed for the leptons** (2026-08-06): registry constants with provenance, `Y_E_R` resolving from `Y_LEPTON_L`, guarded by a gate check that re-solves the system. Quark hypercharges deliberately unregistered — their fractions carry the underived $N_c=3$ |
 | B5 | EWSB mechanism | EXACT | F27, F34b, F44 | 0 | Higgs-free Stueckelberg; $U(x)$ pure gauge; $m_A=0$ from a rank-deficient mass matrix. Founding decision #3 |
 | B6 | Weinberg angle, with scale | QUANT | F138, F49, F231, F141 | $+0.22\%$ at $M_Z$; $-0.064\%$ on shell; **0 free params** | $\tfrac14$ = matching at $\mu_\star=4\pi v=3.09$ TeV, forced by $Y$ having no lattice kinetic term; $\tfrac29$ is its on-shell face |
-| B7 | Confinement | PARTIAL | F70, F86, F94, F88, **F299** | 3+1D is constructed, not proven; $d=2$ for the new leg | Exact in 2D (area law, $\sigma=-\ln w(\beta)>0$ for all $\beta$). **Better evidenced this cycle**: F299 generalises `confinement.py`'s Weyl-torus quadrature off the fundamental and computes $\sigma_R$ for **any** irrep, giving Casimir scaling on seven rungs to $\le1.36\%$ at the model's own $\beta=24$, anchored at $1.1\times10^{-16}$, grid-converged at $5.8\times10^{-15}$, converging to the exact law ($1.36\%\to0.017\%$ over $\beta=24\to192$). The $d=2$ caveat is stated at the source: 2D has no screening, so centre dominance cannot appear there. **Its claimed gate record does not exist** — see H8 |
+| B7 | Confinement | PARTIAL | F70, F86, F88, **F299**, **F323**; F94 **partially superseded** by F265, F323 (ledger `S21`) | 3+1D is constructed, not proven; $d=2$ for the F299 leg | Exact in 2D (area law, $\sigma=-\ln w(\beta)>0$ for all $\beta$). **Amended 2026-08-17 — the d=4 leg was never on the model's lattice.** F94 sampled a simple-hypercubic Wilson action, which F265 proved has an exact kernel freeing one of the four $\langle111\rangle$ link axes and missing asymptotically 1/3 of the curvature-carrying link content; both actions share a classical continuum limit, so F94's normalisation anchors could pass on a blind action. F323 supplies the replacement on the genuine BCC action as $\mathrm{BCC}_3\times\mathbb Z$ (10 plaquettes per site: 6 rhombi + 4 mixed rectangles), staple identity $2.3\times10^{-16}$, gauge invariance $3.8\times10^{-17}$, and **derives the anisotropy** $\beta_t/\beta_s=4/(3c_\text{lat}^2)=4$, $\xi=1/c_\text{lat}=\sqrt3$ — which is $(4/3)\xi^2$, not the hypercubic $\xi^2$. It also executes F299's d=4 Casimir successor, unrun since 2026-08-06. **The residual is unmoved and unmovable by sampling**: a proof needs a transfer matrix with positivity, absent repo-wide. **H8's clause "F299's claimed gate record does not exist" is STALE** — armed 2026-08-07, passes. See Amendment 11 |
 | B8 | Asymptotic freedom / $\alpha_s$ running | PARTIAL | F144, F151, F239, F235, F287, **F280**, **F299**, **F303** | **the H1/H2 normalisation fork**, then $d_1$ leg 3 | $b_0=\tfrac{11}3C_A=11$ exact and numerically recovered (F287). $d_1$ now has a subtracted formulation (F280) with 36.2% of $\Delta C$ open. **But the residual is no longer only a value.** F303: no argument exists for the centre normalisation the chain uses; the Casimir reading gives $\alpha_s(M_Z)=0.03970$ ($-66.4\%$) against the centre reading's $0.11858$ ($+0.5\%$), and the tree cannot currently choose. The register's $0.11955$/$+1.7\%$/$2.1\sigma$ is a Branch-B number stated without its branch. See gap #1 |
 | B9 | Running of $\alpha$, EW couplings | QUANT | F322, F251 ⚠, F261, F138, F231, F115 | leptonic $\Delta\alpha(M_Z)$ $\mathbf{0.0495\%}$; EW $+0.222\%$ | **Re-derived post-F277 by F322 (Amendment 9, 2026-08-17) — the flag was mis-stated.** The $0.24\%$ never touched the refolded path (disjoint call closure, bitwise). What F277 supplied was the *warrant*: the lattice bound on $\Delta\alpha$ was $183$–$190\times$ the quoted agreement with the refold present, and is $0.088\times$ it and falling without. F261's exact $b_1=1$, never previously fed into the running, closes $79.8\%$ of the shortfall. Residual is now row **G3** (hadronic), which the EW leg's $\alpha$-sensitivity quantifies at a factor $2.02$ |
 | B10 | Why 3 colours | PARTIAL | F293, F294, **F298**, **F299**, **F303**, F279, F144, F110 | $N_c$ still not derived; the surviving route is contradicted by the model's own engine | Anomalies **cannot** select $N_c$ here (nullspace dim 1 for every $N_c$); colour is **not** the spatial 3; the $\mathbb Z_3$ route is **circular**. The one route that returns 3 is the $\Lambda$-scale selector (28.3 decades over $N_c=2..4$; $N_c=2.998$ from $\alpha_s$, partly circular and labelled so) — and it needs the centre reading H1. F299 then measured the model's confinement sector implementing **Casimir** (H2), under which F294 root-finds $N_c=1.28$; the adjoint reading has **no root at all**. Read this row as: *the route space is mapped, the one surviving route requires a normalisation the model's own machinery does not use, and no argument for it exists* |
@@ -435,7 +435,7 @@ stating a scope boundary one step too far in. CL276 and CL277 are its live succe
 | # | Requirement | Grade | Evidence | Residual / free inputs | Note |
 |---|---|---|---|---|---|
 | C1 | Exactly three generations | PARTIAL | F75, F84 | physical identification is a hypothesis | Group theory is a **theorem** ($\sum d^2=48$ ⇒ max single-valued irrep dim 3, $T_{1u}$ unique); the identification is a **stated hypothesis** (F75 §7, a Candidate finding). F292 §6 found the same $n$-copies multiplicity structure and **declined the inference** rather than counting it as support |
-| C2 | First-generation multiplet | EXACT | F38, F41, F42, F51, F165 | 0 | Complete and anomaly-free |
+| C2 | First-generation multiplet | EXACT | F38, F41, F42, F51, F165 → F279 | 0 | Complete and anomaly-free. F165's attribution is superseded by F279 (S13); its conclusion is retained in full |
 | C3 | Colour triplet + fractional charge | PARTIAL | F136, F165, F279 | conditional on $N_c=3$ | Fractional charge is forced by the $3y_Q+y_L=0$ row, i.e. by the input $N_c=3$; commensurability holds for any $N_c$. Inherits B10's new conditionality |
 | C4 | Neutrino nature (Dirac vs Majorana) | PARTIAL | F47, F266 | — | The Higgs-free Majorana step is constructed and $\nu_R$ is a structurally-forced total singlet ($Y=0$, and F279 A2 makes that row the one that closes the hypercharge system). Nothing **forces** Majorana over Dirac |
 | C5 | Neutrino mass mechanism | PARTIAL | F47, F236, F254 | $M_R$ free | See-saw + $E_g/Z_3$ texture fix the three light masses and hierarchy at machine precision; absolute scale unfixed |
@@ -523,7 +523,7 @@ yet of the *chain*.
 | G5 | Hadron spectrum | QUANT | F123, F124, F235, F122, **F297** | 1 anchor ($f_\pi$); $\sqrt\sigma/f_\pi$ $+12\%$; **$m_n-m_p$ excluded at $36.6\sigma$** | Nucleon $3m_c=928.5$ vs 938.27 MeV ($-1.05\%$) on one anchor; mesons few-%. The $+12\%$ is $d_1$, and therefore now also gap #1's fork. **Regression recorded here for the first time:** F297's BBN measures $m_n-m_p$ to $\pm0.0056$ MeV against F122's own $\pm1$ MeV acceptance, and the model's $+1.51$ MeV is excluded at $36.6\sigma$ in helium and by 2.7× in $\tau_n$ (331 s vs $878.4\pm0.4$). F122's **sign** claim survives; its value does not. The row keeps `QUANT` on the nucleon mass and the meson sector, not on the splitting |
 | G6 | Nuclear binding | QUANT | F104, F113, F126, F128, F240, F206 | 1 param ($b=0.55$ fm) | Deuteron $E_b$ 2.224 vs 2.22457 MeV (**0.026%**), $r_d$ 0.4%, on a fully derived OBE potential with no tuned hard core |
 | G7 | Weak decays | PARTIAL | F54, F48 | absolute rates tied to $v$ | $d\to u+W^-\to u+e^-+\bar\nu$ end-to-end, 10/10. Structure exact; $G_F$ inherits the $v$ anchor. **F297 adds an independent handle**: the free-neutron lifetime is now a computed number (331 s) and it is wrong by 2.7× |
-| G8 | Scattering / S-matrix | MACHINE | F260, F259, F263, F264 | — | Tree QED S-matrix + crossing; Bloch–Nordsieck IR cancellation; Euler–Heisenberg, light-by-light, Schwinger pair production; renormalizability with $D=4-\tfrac32E_f-E_\gamma$ exact; $Z_1=Z_2$ a computed identity (F258) |
+| G8 | Scattering / S-matrix | MACHINE | F260, F259, F263, F264 | — | Tree QED S-matrix + crossing; Bloch–Nordsieck IR cancellation; Euler–Heisenberg, light-by-light, Schwinger pair production; renormalizability with $D=4-\tfrac32E_f-E_\gamma$ exact; $Z_1=Z_2$ a computed identity (F258, refold-corrected by F277 — S12; its $S_0$–$S_4$ are unchanged) |
 | G9 | Condensed-matter emergents | QUANT | F210–F215, F218, F242, F207, F171 | Allen–Dynes $6.3\%$ | $2\Delta/kT_c\to2\pi/e^\gamma$ and $\Delta C/C_n=12/7\zeta(3)$ at machine precision; $\mu^*$ **derived** from the F64 dielectric (no fit), cutting $T_c$ error $14.3\%\to6.3\%$. Casimir exact |
 | G10 | Statistical mechanics / thermodynamics | PARTIAL | F300 | equilibrium only; photon sector only; $g_*(T)$ not built | The partition function is built on the model's **own** derived dispersion. $w=1/3$ and Stefan–Boltzmann are **theorems** in the IR, with closed-form lattice corrections $\propto\Theta^2$ and the parameter-free ratio $C_u/C_w=15/2$, each against BZ quadrature to $\le5.0\times10^{-4}$. $T_\text{lattice}=3.719\times10^{31}$ K; F297's continuum $p=\rho/3$ safe by 44 orders. Fine-grained entropy conserved ($1.1\times10^{-12}$) on a **mixed** state; coarse-grained entropy rises but **time-symmetrically** ($1.8\times10^{-4}$), so the arrow is the initial condition, not the dynamics. The free sector **cannot** thermalise: $2N$ conserved $n_\pm(k)$ fix a GGE. **Its claimed gate record does not exist** — see H8 |
 
@@ -928,3 +928,96 @@ Measured, with the $n$-dependence as the discriminator — grid noise shrinks, a
 **B9's EW leg was graded on the wrong finding too.** The row cited F115, whose CM2 anchored the bare angle at the Planck scale and overshot by $-74\%$; F138/F231 superseded that reading in June and July. F138's matching at $\mu_\star=4\pi v=3094.09$ GeV is reproduced exactly here: $\sin^2\bar\theta_W(M_Z)=0.2317341$, $+0.222\%$ vs PDG $\overline{\text{MS}}$. Then the measurement nobody had made — that running takes $\alpha_\text{em}(M_Z)$ as an **input**, and on the model's own leptonic-only $\alpha$ the residual doubles to $+0.450\%$ (factor $2.02$; the missing $3.795$ in $\alpha^{-1}$ is the hadronic piece). **B9's two halves are not independent — they share one input, and half of the EW leg's precision is owed to a number the model does not derive.** B9's real residual is therefore row **G3**, which is where it should have been pointing for three reports.
 
 **Gap #5 status after this amendment:** (a) **closed**. (b) the 10 `candidate` baselines and (c) K9's two $\Lambda$ pictures are untouched by this session and remain on their fourth report.
+
+## Amendment 10 — 2026-08-17 - 23:30 — F115 enters the ledger 67 days late, and the mechanism that let that happen is closed
+
+**Ledger record S20-F115-weinberg-gap-account-replaced-by-4piv-matching** (`partially_superseded`, by F138 and F231). Banner stamped. New gate check `tools/check_superseded_citations.py`, wired into `make gate` and `make citations`, with two tests in `tests/casim/test_supersession_ledger.py` (record `supersession-ledger`, now 51 passed).
+
+**What was wrong.** Amendment 9 recorded that row B9's electroweak leg had been graded on F115 while F138 and F231 superseded that reading in June and July. It did not ask why nothing caught it. The answer is that **F115 was never in the supersession ledger at all** — so `apply_supersession_banners.py` stamped nothing, `test_no_orphan_banners` had nothing to find, and `check_claims.py` rule 4 could not fire either, because that rule deliberately covers only a `live` card resting on *wholly* superseded ground and F115's CM1/CM3/CM4 are alive. A **partial supersession cited without its replacement had no owner anywhere in the tree.**
+
+**What is dead and what is not.** Only CM2's *conclusion* — that the +12% gap is "a low-scale (~few-TeV) matching offset" identified by where the measured SM trajectory happens to cross $\tfrac14$. F138 derives the scale instead ($\mu_\star=4\pi v=3094$ GeV, forced by hypercharge having no lattice kinetic term) and closes the gap to $+0.22\%$; F231 makes F49's $\tfrac29$ the on-shell face via the $8/9$ bridge. **CM1 is untouched and is still B9's correct citation** ($e=g/2$, $g'=g/\sqrt3$, $g_Z=2g/\sqrt3$ as exact rationals — one EW magnitude, not three), as are CM3's rotor lock $g_s^2\chi=\tfrac14$ and CM4's $e^6$ notation no-go. CM2's *negative* — that Planck-anchored running overshoots by $-74\%$ — is retained and load-bearing, because it is why a matching interpretation is needed at all; F138 says so itself. CM2b's measured $3.4$–$3.7$ TeV crossing is **demoted** to a consistency check on F138's derived $3.094$ TeV. No number moves and no test changes verdict.
+
+**The mechanism.** A supersession now has two directions, and the ledger's `about:` block says so. Inward: `make stamp`, unchanged. Outward: `make citations` requires every markdown table row in the **current** completeness report and in `open-derivations.md`, and every claim card's front matter, to name a replacement from the record's `by:` list alongside the superseded finding — or to say `superseded` / name the ledger id in the same row. **The unit is one table row**, because an acknowledgement 400 lines from the row that gets it wrong is exactly how B9 read. Older completeness reports are excluded by design: they are frozen records of what a past sweep concluded, and rewriting one to satisfy a check invented afterwards would falsify the audit trail.
+
+**What it found immediately** — five live violations in the current documents, all now cleared: C2 cited F165 without F279 (S13); G8 cited F258 without F277 (S12); `open-derivations` cited F155 without F277, F67 without F69 (S1), and **F115 without F138/F231** — the same error as B9, still live in a second document. Claim cards carry a counted, falling ceiling of **19** (down from 20 — CL022 now declares S20 and states that it cites F115 for CM3 only); most are `open` or `withdrawn` cards where the citation is a historical record rather than a live grade.
+
+**Verified fires, not just passes.** The check's negative control is the B9 row itself: with the replacement removed from `open-derivations.md` it goes red on that exact line, and green again when restored. Three matcher cases are pinned in `test_the_citation_matcher_actually_fires` — bare citation fires, replacement named clears, explicit marker clears.
+
+## Amendment 11 — 2026-08-17 - 21:50 — row B7's d=4 leg was never on the model's lattice, and the anisotropy is derived
+
+*Ordering note: Amendment 10 carries a later wall-clock stamp (23:30) than this one despite landing
+first. The device clock read 21:50 when this was written; the stamps are hand-entered and 10 preceded
+11 in the file. Nothing depends on the difference.*
+
+**Ledger record `S21-F94-hypercubic-action-not-the-model-lattice`** (`partially_superseded`, by F323
+and F265). Banner stamped. `CL087` **narrowed** — it rested on F94 alone, so `check_claims.py` rule 4
+fired, correctly. **And Amendment 10's brand-new `make citations` check caught this row within the
+hour**: B7 cited F94 without naming a replacement, which is exactly the failure mode Amendment 10 was
+built for, on a supersession created ninety minutes after it landed. That is the outward direction
+working on its first real case rather than on its self-test.
+
+**What was wrong, and it is not a number.** Every 3+1D confinement statement in the tree ran on
+`forks/gauge/lgt_fork_A_mc.py` — a **simple-hypercubic** Wilson action, `D=4` cubic, "by convention
+the LAST lattice axis is Euclidean time". F265 proved in July that this construction is *blind*: it
+has an exact kernel that leaves one of the four $\langle111\rangle$ link axes completely free, so
+$S_\text{SC}\equiv0$ to round-off on configurations where the genuine BCC Wilson density is $\approx1$,
+and asymptotically it misses **1/3 of the curvature-carrying link content**. F265 named the remedy in
+its own text — *"the Monte-Carlo actions (F94 4D cubic, F146 3D cubic) … to be rebuilt on the BCC
+lattice"* — and nothing was built for seven weeks, so F94 remained B7's only $d=4$ leg. **The reason
+this was invisible is the reason it matters:** both actions have the *same classical continuum limit*,
+so F94's absolute-normalisation and strong-coupling anchors (FA4, FA5) could pass on a blind action,
+and their passing was never evidence the ensemble was right.
+
+**What survives, because `fully_superseded` would be false.** F94's engine certificates FA1–FA3 are
+properties of the Cabibbo–Marinari sampler, not of its lattice; CMP2's bridge
+$v_*=\sqrt{\sigma_A/2\pi}$ is exact at $10^{-16}$ and F311 leg B re-verified it at $1.2\times10^{-16}$
+over five seeds; the Lüscher–Weisz estimator and its 84× variance reduction stand. So does the
+qualitative statement that the potential rises — F323's BCC run also finds a positive Creutz ratio.
+F311's separate adjudication is **not** re-homed: `FA_vs_FC_comparison.json`'s drift is an *undeclared
+input* (`_measure_sigma_A` reads `lgt_confinement.json`), explicitly not a supersession, and its
+`clears_by` action is still open.
+
+**The anisotropy is now derived, and the previous session's guess about it was wrong.** `xi = a_s/a_t`
+was carried as a flagged convention ($\beta_t=\beta_s$). Two separate statements close it, and the
+distinction is the content: **F313's primitivity** (no local half-tick, so the tick has no root in the
+local homogeneous algebra) is what licenses a *fixed* $a_t$ rather than a refinable one — it supplies
+no value, and the earlier speculation that it *fixes* $a_t$ is withdrawn. **Isotropy of the weak-field
+limit** supplies the value, via two independent exact closure identities of the BCC geometry
+($\sum_p m_pm_p^{\mathsf T}=4I$ over the 6 $\langle110\rangle$ rhombus half-normals, and
+$\sum_a aa^{\mathsf T}=4I$ over the 4 $\langle111\rangle$ axes):
+$\beta_t/\beta_s=4\lambda^2/a_t^2$, then $a_t=c_\text{lat}\lambda\sqrt3$ from the emergent light cone,
+giving $\beta_t/\beta_s=4/(3c_\text{lat}^2)=\mathbf4$ and $\xi=1/c_\text{lat}=\sqrt3$ exactly. **The
+new number is the $4/3$:** the hypercubic relation is $\beta_t/\beta_s=\xi^2$ and the BCC answer is
+$(4/3)\xi^2$, so the textbook substitution would have been wrong by a third. Measured as well as
+derived — a constant-$F$ abelian configuration gives $4-g^2/16+O(g^4)$, the truncation coefficient
+holding at exactly $1/16$ over a factor two in $g$, and one Richardson step lands on
+$3.99999999908$. Consistency, not a new number: $\xi=1/c_\text{lat}$ reproduces **F284's $r$** by a
+route that never mentions cosmology, and $a_t=\lambda$ exactly in integer units, so the whole
+anisotropy is the $\langle111\rangle$ hop length.
+
+**F299's $d=4$ successor ran, and two engine gaps were what had blocked it** — not physics. Its three
+character polynomials had **never been applied to a loop matrix** anywhere in the tree (they lived in
+`mc_reach`'s docstring as torus-eigenvalue expressions, verified against the same Jacobi–Trudi
+determinant that produced them), and **no function returned the traces to evaluate them**
+(`wilson_loop_planar` ends on `np.real(np.trace(acc))/3` averaged over sites; `polyakov_loop_field`
+returns $\operatorname{Tr}W$ only). Both are now supplied, and the polynomials are cross-checked
+against **explicit representation matrices** — $\mathrm{Sym}^2$/$\mathrm{Sym}^3$ by symmetric-subspace
+isometry and $\mathrm{Ad}(U)_{ab}=2\operatorname{tr}(T_aUT_bU^\dagger)$ — at $\le4.6\times10^{-16}$,
+which is a check the tree had never run and which self-consistency against the determinant could not
+have caught. First measurement at $\beta_s=5.9$ on $6^4$ with **3 configurations**:
+$\sigma_6/\sigma_3=2.466$, $\sigma_8/\sigma_3=2.224$, $\sigma_{10}/\sigma_3=4.378$ at $R\times T=2\times2$
+against the exact $5/2$, $9/4$, $9/2$ — within a few percent — with all three falling **below** the
+Casimir line at $3\times3$, most steeply for the decuplet. **That is labelled preliminary and is not a
+claim**: the $2\times3$ versus $3\times2$ asymmetry alone exceeds the effect being read at $3\times3$.
+
+**B7's grade does not move, and should not.** The row's residual is *"3+1D is constructed, not
+proven"*, and it is unmoved: a proof needs a lattice-wide Euclidean transfer matrix with positivity,
+and `reflection positiv`, `Osterwalder`, `Schrader` and `cluster expansion` return **zero hits
+repo-wide**. What changed is that the construction is now on the right lattice with a derived
+anisotropy, which is a precondition for a proof rather than a substitute for one. Record
+`gauge-bcc-mc-d4` 28/28 with **5/5 controls `CONTROL`**; battery `run-bcc-confinement-d4`.
+
+**One correction to this document, found in passing.** Row B7 and row H8 both carry *"F299's claimed
+gate record does not exist"*. It was **armed 2026-08-07**, the day after F299 landed, and passes with
+both controls declared. H8's clause is stale and B7's copy of it is removed here; H8 itself is left to
+the next sweep, which owns that row.

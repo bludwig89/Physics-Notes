@@ -2672,3 +2672,124 @@ def check_curl_closes_at_k3(k_values=(1e-1, 1e-2, 1e-3), n_dirs=8, seed=0):
     res["n_checks"] = len(res["checks"])
     res["ok"] = res["n_pass"] == res["n_checks"]
     return res
+
+
+def check_spin_axis_scalar_contamination(k_mag=0.3, n_dirs=12, seed=7,
+                                         k_small=1.0e-5, axis_control=False):
+    """F26b gate entry — the (1,0)-bilinear scalar contamination is closed form.
+
+    F24 reported ``|psi^T psi| ~ 0.67`` for "generic BCC eigenmodes" and left it
+    as an empirical number.  F26b's content is that it is not empirical: it is
+    fixed by the wavevector alone through the BCC spin axis n_hat(k),
+
+        |psi^T psi|^2 = 1 - n_hat_y^2 ,
+
+    so the contamination term of F24's boost law,
+    ``G'^i - Lambda^ij G^j = -sinh(zeta) v_hat^i (psi^T psi)``, carries **no free
+    parameter**.  F26b shipped two verification tracks (residuals 2.84e-14 and
+    6.20e-14) inside ``weyl_spin_axis_scalar_contamination`` and no test, no
+    registry record and no assert ever read them — the finding was carried as
+    ``no test record`` in ``findings-index.md`` for the whole of its life.  This
+    is that record.
+
+    Five legs, each able to fail:
+
+    ``algebraic_identity``
+        Track A.  ``|f|^2 + n_hat_y^2 - 1`` built from the Bloch-angle spinor,
+        no eigensolver in the path, so the residual is trig round-off.
+    ``eigensolver_identity``
+        Track B.  The same magnitude read off the ``np.linalg.eig`` eigenmode of
+        U(k) against ``sqrt(1 - n_hat_y^2)``.  Independent route: A tests the
+        algebra, B tests that the shipped eigenmode really is the Bloch state.
+    ``spin_momentum_locking``
+        ``(n_hat . sigma) psi_+ = + psi_+`` exactly, at finite k.  This is the
+        premise both tracks rest on and F26b asserts in prose; without it the
+        identity could hold for a spinor that is not the propagating mode.
+    ``continuum_sign_flip``
+        As |k| -> 0, ``n_hat -> (k_x, -k_y, k_z)/|k|`` — the y sign flip is an
+        intrinsic chirality convention of the Bisio BCC walk, and it is the
+        reason the SINGLED-OUT AXIS IS y.  The leg asserts the flipped form
+        converges AND records the unflipped residual, which stays O(1): if the
+        flip were a bookkeeping choice the two would agree.
+    ``f24_mean_reproduced``
+        The measured mean of ``|psi^T psi|`` over F26b's own 12 directions at
+        k = 0.3 equals the closed-form mean of ``sqrt(1 - n_hat_y^2)`` to
+        machine precision, and lands in F24's quoted band.  This is the leg that
+        converts F24's "typically ~0.67" into a derived number.
+
+    ``axis_control=True`` swaps n_hat_y for n_hat_x in the identity.  The
+    contamination is *not* isotropic in the spin axis — y is picked out by the
+    walk — so the two identity legs and the mean leg must go red while locking
+    and the continuum limit, which never mention y, stay green.
+    """
+    dirs = _random_dirs(n_dirs, seed=seed)
+    comp = 0 if axis_control else 1          # n_hat component the identity uses
+
+    alg_errs, num_errs, abs_meas, abs_closed, lock_errs = [], [], [], [], []
+    for d in dirs:
+        kx, ky, kz = (k_mag * d[0], k_mag * d[1], k_mag * d[2])
+        n_hat = bcc.bcc_spin_axis(kx / 2, ky / 2, kz / 2)
+        nh = np.array([float(n_hat[0]), float(n_hat[1]), float(n_hat[2])])
+        closed = float(np.sqrt(max(1.0 - nh[comp] ** 2, 0.0)))
+
+        f = psi_scalar_bilinear_analytic(kx / 2, ky / 2, kz / 2)
+        alg_errs.append(float(abs(abs(f) ** 2 + nh[comp] ** 2 - 1.0)))
+
+        psi_num, _, _ = weyl_eigenmodes_3d_bcc(kx / 2, ky / 2, kz / 2)
+        meas = float(abs(psi_num[0] ** 2 + psi_num[1] ** 2))
+        num_errs.append(abs(meas - closed))
+        abs_meas.append(meas)
+        abs_closed.append(closed)
+
+        # (n_hat . sigma) psi_+ = + psi_+  — the premise, at finite k.
+        n_dot_sigma = np.array([[nh[2], nh[0] - 1j * nh[1]],
+                                [nh[0] + 1j * nh[1], -nh[2]]], dtype=complex)
+        psi = np.asarray(psi_num, dtype=complex).reshape(2)
+        lock_errs.append(float(np.max(np.abs(n_dot_sigma @ psi - psi))))
+
+    # Continuum limit: n_hat -> (k_x, -k_y, k_z)/|k| as |k| -> 0.
+    flip_err, noflip_err = 0.0, 0.0
+    for d in dirs:
+        n_hat = bcc.bcc_spin_axis(k_small * d[0] / 2, k_small * d[1] / 2,
+                                  k_small * d[2] / 2)
+        nh = np.array([float(n_hat[0]), float(n_hat[1]), float(n_hat[2])])
+        flip_err = max(flip_err, float(np.max(np.abs(
+            nh - np.array([d[0], -d[1], d[2]])))))
+        noflip_err = max(noflip_err, float(np.max(np.abs(nh - d))))
+
+    alg = float(max(alg_errs))
+    num = float(max(num_errs))
+    lock = float(max(lock_errs))
+    mean_meas = float(np.mean(abs_meas))
+    mean_closed = float(np.mean(abs_closed))
+
+    res = {
+        "k_mag": float(k_mag),
+        "n_dirs": int(n_dirs),
+        "axis": "x" if axis_control else "y",
+        "track_A_algebraic_max_err": alg,
+        "track_B_eigensolver_max_err": num,
+        "spin_momentum_locking_max_err": lock,
+        "continuum_flipped_max_err": flip_err,
+        "continuum_unflipped_max_err": noflip_err,
+        "mean_abs_psiT_psi_measured": mean_meas,
+        "mean_abs_psiT_psi_closed_form": mean_closed,
+    }
+    # bool(), not numpy.bool_: casim.tests.runner's leg extractor keys on
+    # isinstance(v, bool), and np.bool_ is not a bool — a numpy truth value here
+    # silently drops the leg and the control can never be judged against it.
+    res["checks"] = {
+        "algebraic_identity": bool(alg < 1.0e-13),
+        "eigensolver_identity": bool(num < 1.0e-12),
+        "spin_momentum_locking": bool(lock < 1.0e-12),
+        # The flipped form converges; the unflipped one must NOT, or the sign
+        # flip carries no information and the leg is vacuous.
+        "continuum_sign_flip": bool((flip_err < 1.0e-4)
+                                    and (noflip_err > 1.0e-2)),
+        "f24_mean_reproduced": bool(abs(mean_meas - mean_closed) < 1.0e-12
+                                    and 0.60 < mean_meas < 0.80),
+    }
+    res["n_pass"] = int(sum(res["checks"].values()))
+    res["n_checks"] = len(res["checks"])
+    res["ok"] = res["n_pass"] == res["n_checks"]
+    return res

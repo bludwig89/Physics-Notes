@@ -870,6 +870,21 @@ _SPINE: tuple[Module, ...] = (
            role="derivation", origin="spine", status="live",
            tests=("tests/findings/test_F305_bcc_rhombic_vertices.py",)),
 
+    # F324 -- the N_c bracket.  F298's C7 support {2,3} (imported) paired with
+    # the Z_2 doublet parity of the DERIVED SU(2)_L (prior art: Baer & Wiese
+    # 2001), closing the interval on N_c = 3 with no measured number, no
+    # three-constituent baryon and no dependence on the X1 fork.  Six premises,
+    # all named in the finding's section 0.
+    Module("gauge.derive_ncolour_bracket",
+           "src/casim/engine/gauge/derive_ncolour_bracket.py",
+           "gauge",
+           findings=("F324", "F317", "F318", "F298", "F293", "F279",
+                     "F27", "F75", "F144"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F324_ncolour_bracket.py",),
+           results=("test-results/F324_ncolour_bracket.json",)),
+           
     # F307 — F280's subtracted slope-normalised estimator run action-consistently
     # on one code path (vertices AND propagator from the same action per side,
     # each on its own Brillouin zone). The machinery is closed; the NUMBER is not
@@ -999,6 +1014,27 @@ _SPINE: tuple[Module, ...] = (
     # group-blind); step 3 breaks. `exact` because N1-N3b/N5 are sympy/Q and
     # exhaustive; the quantitative rows are comparisons against F144's own
     # measured residual.
+    # F325 -- X1 resolved. Branch A (Casimir) is closed two ways: structurally
+    # its C_F is a mixed-operator artefact (F298 leg L6), quantitatively it sits
+    # 5.63 decades outside CL252's band (F303 leg N8). This module carries the
+    # third leg, the MAGNETIC side of C7, which no module held: the magnetic
+    # term is a unit-entry adjacency in BOTH theories, so it adds no factor and
+    # X1's named residual closes negatively. Also records two defects found on
+    # the way -- F111b T7's 1-link-vs-4-link comparison, and that F144 A1 step 2
+    # fixes only a RATIO so chi = 1 is a normalisation. `exact` because X4/X5
+    # are exact/sympy and X2 is an extrapolated law with a measured scaling.
+    Module("gauge.derive_x1_branch",
+           "src/casim/engine/gauge/derive_x1_branch.py",
+           "gauge",
+           findings=("F325", "F324", "F303", "F299", "F298", "F294", "F144",
+                     "F111b", "F110", "F101", "F280"),
+           exactness="exact", reach="standalone",
+           reachable_from=("gauge.su3_ladder", "gauge.casimir_ladder",
+                           "gauge.derive_coupling_normalisation"),
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F325_x1_branch.py",),
+           results=("test-results/F325_x1_branch.json",)),
+
     Module("gauge.derive_coupling_normalisation",
            "src/casim/engine/gauge/derive_coupling_normalisation.py",
            "gauge",

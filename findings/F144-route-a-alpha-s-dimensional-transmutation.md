@@ -1,5 +1,20 @@
 # F144 — Route A: $\alpha_s$ predicted from the rule by dimensional transmutation — $g_s=\tfrac12$ derived (not assumed), then $\alpha_s(M_Z)$ to +8.4% (converged) / +1.3% (1-loop) with zero free parameters
 
+> **X1 RESOLVED 2026-08-18 (F325, ledger record S22).** This finding's reading is **ADOPTED**. The Casimir alternative that F294/F298/F299/F303
+raised against it is closed on two independent legs (F325 §2 structural, §3 quantitative), so
+$g_s=\tfrac12$, $\alpha_s(\mu_0)=1/(16\pi)$ and the $SU(N_c)$ $\beta$-function stand
+unconditionally, and A4's residual is a scheme constant rather than a branch.
+>
+> **Two corrections to A1, neither of which reopens the alternative.** (i) Step 2's claim that
+> *"$\chi=1$ is not a convention; it is what the rule's circularity means"* is **too strong**: the
+> lemma's residual vanishes at $a=b$ for *every* $b$ (F303 N1's own factorisation, re-run in F325
+> §6), so it fixes the stiffness **ratio** and $\chi=1/\Omega(k)$ — $\chi=1$ requires $\Omega=1$
+> and is inherited from F101 §7's normalisation. (ii) Step 3's integer reading is the same
+> normalisation choice, not a second one. So A1 carries **two inherited choices of one origin**
+> rather than zero knobs, and the open item is *which $\Omega$ the single-plaquette rotor carries on
+> the BCC dispersion* — plausibly F155's $q_\ast$. The data wants $\Omega=0.997829$; the Casimir
+> reading would need $4/3$ and has nothing selecting it either.
+
 **Date:** 2026-06-12 - 12:47
 **Status:** Confirmed (partial derivation) — 5/5 checks PASS. A1 exact/machine (the lock is now *derived*: rule circularity ⇒ $\chi=1$, sympy-exact lemma + F110 C7 matrix identity); A2/A3 zero-parameter PREDICTIONs ($\alpha_s(M_Z)$, $\Lambda_{\overline{\rm MS}}^{(3)}$, the F119 hierarchy $N$); A4 a tagged DIAGNOSTIC that bounds the one open coefficient; A5 sensitivity band.
 **Module:** `ca-simulation/ca_alpha_s_running.py`

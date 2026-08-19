@@ -20,6 +20,7 @@
 **Results:** `test-results/F176_covariant_stellar.json` (+ overlay arrays)
 **Figure:** `test-results/figures/F176_covariant_overlay.png`
 **Cross-references:** [[F174-stellar-structure-overlay]] (the literal-model exclusion this addresses), [[F173-pressure-tolman-discriminator]] (the exact G_tt the covariant source is built from), [[F64-em-connection-gravity]]/[[F106-psi-K-sourcing-derivation]] (the dielectric), [[F114-dielectric-black-hole]]. Brief: `tests/falsification/FC09-neutron-star-pressure-redshift.md`. External: TOV; PSR J0740+6620 (Fonseca/Miller/Riley 2021); piecewise-polytrope framework (Read, Lackey, Owen, Friedman, PRD 79, 124032, 2009).
+**Test record:** record `F176-covariant-stellar` (tier battery) — `tests/registry/`, D9.
 
 ---
 

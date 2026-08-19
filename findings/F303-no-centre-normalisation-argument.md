@@ -1,5 +1,15 @@
 # F303 — There is **no argument** for centre-normalising F144's bare coupling: three candidates closed exactly (scheme constant off by 26×, the three-link plaquette the BCC graph provably lacks, the Cartan reading's Landau pole), F144 steps 1–2 survive and **step 3 is the break**
 
+> **[SUB-CLAIM SUPERSEDED 2026-08-18 by F325 — ledger S22-F298-mixed-matching-C_F-and-the-X1-branch]**
+>
+> **DEAD:** The verdict that the tree faces 'a genuine fork the tree cannot currently choose between', and the branch-A half of section 'Remains' item 1. The argument F299 asked for does exist; it is not a normalisation but the observation that the two sides of C7 are one operator. Item 3's 'the computation cannot be ambiguous, which makes it the single highest-value open item' is demoted: d_1 pins alpha_s inside branch B, it does not choose a branch.
+>
+> **STILL LIVE:** The three closed candidates, each still closed by the computation that closed it (26x, no 3-bond loop, Landau pole). The section 2 audit of F144 A1 -- steps 1-2 group-blind, step 3 the break -- which is what located the problem, and whose N1 lemma F325 section 6 reuses verbatim to show the lemma fixes only a RATIO and therefore does not derive chi = 1. Section 5's lesson about the age of the caveat.
+>
+> **NOTE:** F303 asked for 'a fourth normalisation nobody has written down'. F325 is the answer and it is not a normalisation: there is nothing to bridge, because the numerator and denominator carry the same operator.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-08-06 - 19:58
 **Numbering:** **F303**, taken as `NEXT FREE NUMBER` — **renumbered from F300 mid-session**: 300, 301 and 302 were spent by concurrent sessions between this session's two `casim index` calls. The stale `test-results/F300_coupling_normalisation.json` is in `test-results/_to_delete/`, where the F301 session had already put its own two collisions. **Re-check the max F-number immediately before writing, not at the start of the session.**
 **Status:** Confirmed — **8/8 PASS**, both declared controls verified red at exactly the checks declared. N1/N2/N3/N3b/N5 are exact (sympy over ℚ, plus exhaustive enumeration); N4/N6/N7 are quantitative comparisons against F144's own measured A4 residual and the PDG coupling.

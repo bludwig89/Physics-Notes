@@ -353,6 +353,54 @@ def test_banners_are_current():
                      "`python3 tools/apply_supersession_banners.py`.")
 
 
+def test_supersessions_reach_the_documents_that_cite_them():
+    """The other half of the loop: banners go INTO the superseded file, and this
+    goes OUT to the rubric rows and claim cards that cite it.
+
+    Added 2026-08-17 with ledger record S20. Completeness row B9 graded its
+    electroweak leg against F115 for three consecutive reports while F138 and
+    F231 had superseded that reading since June and July, and every check here
+    stayed green -- because F115 had no ledger entry (so no banner, so nothing
+    for `test_no_orphan_banners` to find) and because `check_claims.py` rule 4
+    fires only on a WHOLLY superseded card, never on a partial. A partial
+    supersession cited without its replacement had no owner. It has one now.
+    """
+    from check_superseded_citations import main as _cite_main    # noqa: E402
+
+    argv = sys.argv[:]
+    sys.argv = ["check_superseded_citations.py"]
+    try:
+        rc = _cite_main()
+    finally:
+        sys.argv = argv
+    assert rc == 0, ("a grading document cites a superseded finding without "
+                     "naming what replaced it. Add the replacement F-number to "
+                     "the same table row, or say `superseded` / name the ledger "
+                     "record in it. Run `make citations V=1` for the list.")
+
+
+def test_the_citation_matcher_actually_fires():
+    """The negative control, and it is the B9 row itself.
+
+    A checker nobody has seen fail is not evidence. This pins the three
+    behaviours the rule depends on against the exact row shape that went wrong.
+    """
+    from check_superseded_citations import _unit_ok, _FN          # noqa: E402
+
+    dead = {"F115": {"by": {"F138", "F231"}, "records": {"S20-x"}}}
+    bare = "| B9 | Running of alpha, EW couplings | QUANT | F251, F261, F115 |"
+    named = "| B9 | Running of alpha, EW couplings | QUANT | F261, F138, F231, F115 |"
+    marked = "| B9 | ... | F115 (superseded, see S20) |"
+
+    assert not _unit_ok(set(_FN.findall(bare)), bare, "F115", dead), (
+        "the matcher does NOT fire on the exact row completeness-2026-08-07 "
+        "carried for three reports — it would have caught nothing")
+    assert _unit_ok(set(_FN.findall(named)), named, "F115", dead), (
+        "naming the replacement must clear the row, or the check is unusable")
+    assert _unit_ok(set(_FN.findall(marked)), marked, "F115", dead), (
+        "an explicit acknowledgement must clear the row")
+
+
 @pytest.mark.exact
 def test_supersession_summary_is_reported():
     counts: dict[str, int] = {}
@@ -372,6 +420,9 @@ def _run_standalone() -> int:
         ("every_finding_has_a_file", test_every_finding_referenced_has_a_finding_file),
         ("no_orphan_banners", test_no_orphan_banners),
         ("banners_are_current", test_banners_are_current),
+        ("citations_reach_citing_docs",
+         test_supersessions_reach_the_documents_that_cite_them),
+        ("citation_matcher_fires", test_the_citation_matcher_actually_fires),
         ("summary", test_supersession_summary_is_reported),
     ]
     for rec, e in _entries():

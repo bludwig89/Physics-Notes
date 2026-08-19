@@ -62,12 +62,15 @@
 | `completeness-2026-08-02.md` | Completeness overview — 2026-08-02 - 08:30 |
 | `completeness-2026-08-04.md` | Completeness overview — 2026-08-04 - 21:12 |
 | `completeness-2026-08-07.md` | Completeness overview — 2026-08-07 - 14:11 |
+| `completeness-2026-08-18.md` | Completeness overview — 2026-08-18 - 10:21 |
 | `exactness-inventory.md` | Exactness Inventory |
 | `findings-supersession-triage-2026-08-04.md` | Findings supersession triage — header pass over all 282 active findings |
 | `open-derivations.md` | Open-Derivations Ledger |
 | `project-status-guide.md` | Status of the Project — In-Depth Guide |
 | `project-status.md` | Project Status — Physics Notes Transcription |
 | `qcd-ir-coupling-problem-status.md` | The strong-sector scale-setting problem (the "IR coupling") — what's been tried, what's left |
+| `x1-colour-normalisation-fork-2026-08-18.md` | X1 — the colour-normalisation fork: research report and a resolution |
+| `x1-section8-results-2026-08-18.md` | X1 §8 — the five checks, run |
 
 ## docs/status/completions/ — finished engineering phases (P0-P1, C0-C9). Complete, not superseded — see deprecated/ for that
 

@@ -4,13 +4,13 @@
 
 *One line per claim card (**D12**). A **claim** is what the project asserts *right now*; a **finding** is what a session did. The two move independently — a finding may be superseded without any claim changing, and a claim may be narrowed without any finding changing. See `docs/claims/README.md` for the contract and the closed vocabularies; `tools/check_claims.py` enforces them at `make gate`.*
 
-**280 cards** — **152** live, **4** narrowed, **5** contingent, **87** open, **5** not_claimed, **27** withdrawn. **223** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
+**282 cards** — **152** live, **6** narrowed, **5** contingent, **87** open, **5** not_claimed, **27** withdrawn. **223** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
 
 ## Headline claims
 
 *The claims the project makes publicly — the rows of `papers/Claims-and-Falsifiers-Summary.md`, plus what has been authored since. Every one is `review_state: authored`.*
 
-### live (21)
+### live (22)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -33,8 +33,9 @@
 | [CL262](docs/claims/CL262-finite-a-boost-defect-is-one-scalar.md) | At finite lattice spacing the entire failure of Poincare covariance is the gradient of one… | deviation | live | machine | stated | F301 |
 | [CL273](docs/claims/CL273-uv-sensitivity-ledger-two-unabsorbable-coefficients.md) | The model's UV sensitivity reduces to exactly two operator coefficients with no free parameter… | reinterpretation | live | exact | stated | F319, F264, F164, F59, F79, F116, F284 |
 | [CL274](docs/claims/CL274-no-dimension-5-photon-operator.md) | The model has no dimension-5 Lorentz-violating photon operator, and the dimension-6 coefficient… *(→ CL273)* | prediction | live | exact | stated | F319, F69, F67, F301, F26 |
-| [CL275](docs/claims/CL275-uniform-zero-point-reweighting-excluded.md) | A uniform reweighting of the zero-point sum cannot solve the cosmological-constant problem… *(→ CL273)* | no_go | live | quantitative | stated | F319, F164, F59, F79, F107 |
+| [CL275](docs/claims/CL275-uniform-zero-point-reweighting-excluded.md) | A uniform reweighting of the zero-point sum cannot solve the cosmological-constant problem… *(→ CL273)* | no_go | live | quantitative | stated | F319, F164, F59, F79, F107, F193, F196 |
 | [CL276](docs/claims/CL276-absolute-gauge-boson-masses-two-inputs.md) | m_W and m_Z are predicted absolutely from two electroweak inputs, where the Standard Model… *(→ CL007)* | prediction | live | bracketed | stated | F320, F141, F138, F231, F49, F51 |
+| [CL282](docs/claims/CL282-casimir-colour-normalisation-excluded.md) | The Casimir normalisation of the model''s bare colour coupling is excluded: g_s = sqrt3/4 with… *(→ CL022)* | no_go | live | exact | stated | F325, F298, F299, F303, F294, F280, F144, F111b, F110, F101 |
 
 ### narrowed (3)
 
@@ -56,7 +57,7 @@
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
-| [CL022](docs/claims/CL022-alpha-s-at-mz-open-tension.md) | alpha_s(M_Z) = 0.11955 is the register''s largest open tension, at 2.1 sigma | deviation | open | quantitative | stated | F144, F115, F124, F299, F303 |
+| [CL022](docs/claims/CL022-alpha-s-at-mz-open-tension.md) | alpha_s(M_Z) = 0.11955 is the register''s largest open tension, at 2.1 sigma | deviation | open | quantitative | stated | F144, F115, F124, F299, F303, F325 |
 
 ### not_claimed (4)
 
@@ -65,7 +66,7 @@
 | [CL017](docs/claims/CL017-ckm-and-cp-violation-out-of-scope.md) | The CKM matrix and measured CP violation are out of scope | non_claim | not_claimed | exact | none | F53 |
 | [CL018](docs/claims/CL018-neutrino-mass-scale-not-fixed.md) | No absolute neutrino mass is predicted — the see-saw supplies a mechanism, not a scale | non_claim | not_claimed | external | none | F47 |
 | [CL019](docs/claims/CL019-muon-g-2-beyond-qed-not-computed.md) | Muon g-2 beyond the QED piece is not computed and not claimed | non_claim | not_claimed | machine | none | F261, F249 |
-| [CL021](docs/claims/CL021-cosmological-constant-not-derived.md) | The cosmological constant is not derived — the 121-order problem is reduced to the Omega_Lambda… | non_claim | not_claimed | quantitative | none | F164, F193, F196 |
+| [CL021](docs/claims/CL021-cosmological-constant-not-derived.md) | The cosmological constant is not derived — the 121-order problem is reduced to the Omega_Lambda… | non_claim | not_claimed | quantitative | none | F164, F193, F196, F241, F319 |
 
 ### withdrawn (6)
 
@@ -82,7 +83,7 @@
 
 *One per qualifying finding not already carried by a headline card. Findings judged not to clear the bar are listed with their reason in `docs/audits/consolidation-plan-2026-08-04.md` §5, so "no card" is a recorded decision rather than an omission.*
 
-### live (131)
+### live (130)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -114,7 +115,6 @@
 | [CL083](docs/claims/CL083-the-colour-magnetic-condensate-arising-within-the-model.md) | The colour-magnetic condensate arising within the model (F86''s input, derived) | derivation | live | exact | unset | F88 |
 | [CL085](docs/claims/CL085-e2e-certification-of-the-non-abelian-w-z.md) | E2E certification of the non-Abelian W/Z/gluon couplings on the σ-bilinear + the full… | derivation | live | unset | unset | F90 |
 | [CL086](docs/claims/CL086-pairing-classification-theorem-the-branch-structure-of-each.md) | Pairing classification theorem: the branch structure of each coupling forces its channel — γ… | derivation | live | exact | unset | F91, F317 |
-| [CL087](docs/claims/CL087-confinement-from-3-1d-lattice-gauge-monte-carlo.md) | Confinement from 3+1D lattice-gauge Monte-Carlo (P1 Option A), tested against Option C (F86) | derivation | live | machine | unset | F94 |
 | [CL090](docs/claims/CL090-the-enforcer-of-the-centre-phase-budget-is.md) | The enforcer of the centre-phase budget is itself the binder (closing the F97 §4/§8 bridge) | derivation | live | exact | unset | F98 |
 | [CL091](docs/claims/CL091-the-string-tension-derived-from-the-qca-rule.md) | The string tension σ derived from the QCA rule as the centre-twist Lagrange multiplier of… | derivation | live | exact | unset | F99 |
 | [CL092](docs/claims/CL092-the-map-from-the-qca-rule-s-transfer.md) | The $\gamma(\Omega)$ map from the QCA rule''s transfer operator: the centre-weight disorder is… | derivation | live | exact | unset | F100 |
@@ -213,23 +213,25 @@
 | [CL268](docs/claims/CL268-noncontextuality-holds-for-any-compact-gauge-group.md) | Gleason's non-contextuality premise holds on every gauge factor of this model, and holds for… *(→ CL264)* | derivation | live | exact | stated | F312, F304, F281, F27, F41 |
 | [CL269](docs/claims/CL269-one-time-from-update-commutant.md) | For an s = 2 QCA on an infinite BCC Cayley graph, the local-homogeneous commutant of the update… | derivation | live | quantitative | stated | F313, F291, F292, F315, F316, F318 |
 | [CL270](docs/claims/CL270-second-clock-is-an-artifact-of-freeness.md) | The second dispersive clock that a free composite cell carries is an artifact of freeness — the… *(→ CL269)* | no_go | live | machine | stated | F315, F313 |
-| [CL271](docs/claims/CL271-colour-structure-forced-by-one-index.md) | Granted one internal index the rule does not read, the colour gauge group's unitarity… | derivation | live | exact | stated | F317, F91, F27, F68, F279, F293, F298, F289 |
+| [CL271](docs/claims/CL271-colour-structure-forced-by-one-index.md) | Granted one internal index the rule does not read, the colour gauge group's unitarity… | derivation | live | exact | stated | F317, F91, F27, F68, F279, F293, F298, F289, F325 |
 | [CL272](docs/claims/CL272-cell-carries-the-internal-index-free.md) | An internal tensor factor costs the model zero spatial directions and zero time directions… *(→ CL271)* | derivation | live | exact | stated | F318, F317, F291, F313, F315, F289 |
 | [CL277](docs/claims/CL277-rho-equals-one-from-rank-not-custodial.md) | rho = 1 exactly, from the rank of the Higgs-free breaking rather than from custodial SU(2) *(→ CL007)* | derivation | live | exact | none | F320, F41, F27, F51, F141 |
 | [CL278](docs/claims/CL278-theta-qcd-zero-from-loop-set-reversal-closure.md) | The rule contains no theta-term, and no loop generates one — theta_QCD = 0 because the… | derivation | live | exact | stated | F321, F53, F43, F305, F307, F265, F91 |
 
-### narrowed (1)
+### narrowed (3)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
-| [CL257](docs/claims/CL257-ncolour-selected-not-derived.md) | N_c is not derived here — two routes are closed exactly, one is circular, the C7 identity… | derivation | narrowed | bracketed | stated | F293, F294, F298, F299, F303 |
+| [CL087](docs/claims/CL087-confinement-from-3-1d-lattice-gauge-monte-carlo.md) | Confinement from 3+1D lattice-gauge Monte-Carlo: the engine and the Option-A/Option-C bridge… | derivation | narrowed | machine | stated | F94, F323, F265, F311 |
+| [CL257](docs/claims/CL257-ncolour-selected-not-derived.md) | N_c is not derived here — two routes are closed exactly, one is circular, the Lambda-scale… | derivation | narrowed | bracketed | stated | F293, F294, F298, F299, F303, F324, F325 |
+| [CL281](docs/claims/CL281-ncolour-bracketed-to-three.md) | $N_c=3$ is bracketed by two constraints that consume no measured number — F298''s C7 support… *(→ CL271)* | derivation | narrowed | exact | stated | F324, F317, F298, F318, F293, F279, F27, F75, F97, F99, F325 |
 
 ### contingent (2)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
 | [CL258](docs/claims/CL258-bbn-light-elements.md) | The model reproduces the primordial light elements on a structurally derived G with a… *(→ CL008)* | derivation | contingent | quantitative | stated | F297, F178, F182, F284, F79, F202 |
-| [CL280](docs/claims/CL280-running-alpha-leptonic-lattice-bounded-and-two-loop.md) | The model's leptonic running of alpha reproduces PDG Delta alpha(M_Z) to 0.0495%, and its… | derivation | contingent | quantitative | stated | F322, F251, F277, F261, F138 |
+| [CL280](docs/claims/CL280-running-alpha-leptonic-lattice-bounded-and-two-loop.md) | The model's leptonic running of alpha reproduces PDG Delta alpha(M_Z) to 0.0495%, and its… | derivation | contingent | quantitative | stated | F322, F311, F251, F277, F261, F138 |
 
 ### open (86)
 
@@ -320,7 +322,7 @@
 | [CL247](docs/claims/CL247-three-is-the-only-multiple-of-three-and.md) | Three is the only multiple of three: $d=6$ and $d=9$ excluded, and a reducible $d=3n$ freezes | no_go | open | unset | unset | F292 |
 | [CL248](docs/claims/CL248-freeing-and-does-not-narrow-the-loop-would.md) | Freeing $\alpha$ and $G$ does **not** narrow the loop ($\alpha$ would need evaluating 68… | no_go | open | exact | unset | F295 |
 | [CL249](docs/claims/CL249-f295-s-structure-has-a-published-home-holographic.md) | F295''s structure has a published home: **holographic cosmology** computes $n_s-1$ from a 3D… | no_go | open | unset | unset | F296 |
-| [CL252](docs/claims/CL252-d1-tadpole-free-band-subtracted-against-wilson.md) | The lattice-to-MSbar constant for the rule action is bracketed: Lambda_MSbar/Lambda_rule in [1… *(→ CL022)* | derivation | open | bracketed | stated | F280, F287, F163, F162, F155, F239 |
+| [CL252](docs/claims/CL252-d1-tadpole-free-band-subtracted-against-wilson.md) | The lattice-to-MSbar constant for the rule action is bracketed: Lambda_MSbar/Lambda_rule in [1… *(→ CL022)* | derivation | open | bracketed | stated | F280, F287, F163, F162, F155, F239, F325 |
 
 ### not_claimed (1)
 

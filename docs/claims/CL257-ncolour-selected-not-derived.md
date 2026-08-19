@@ -1,22 +1,22 @@
 ---
 id: CL257
-title: N_c is not derived here — two routes are closed exactly, one is circular, the C7 identity supplies a structural N_c <= 3 bound that consumes no measured number, and the 28-decade Lambda-scale selector that picks 3 rests on a bare-coupling normalisation the model's own confinement engine contradicts
+title: N_c is not derived here — two routes are closed exactly, one is circular, the Lambda-scale selector is retired, and the C7 identity's structural N_c <= 3 bound is WITHDRAWN as a mixed-matching artefact, leaving only the Z_2 doublet parity and hence odd N_c
 slug: ncolour-selected-not-derived
 tier: supporting
 kind: derivation
 status: narrowed
 domain: [QCD, SM]
 exactness: bracketed
-findings: [F293, F294, F298, F299, F303]
-tests: [F293-why-three-colours, F298-casimir-ladder, F299-casimir-scaling, F303-coupling-normalisation]
-modules: [casim.engine.gauge.derive_ncolour, casim.engine.gauge.casimir_ladder, casim.engine.gauge.casimir_scaling]
+findings: [F293, F294, F298, F299, F303, F324, F325]
+tests: [F293-why-three-colours, F298-casimir-ladder, F299-casimir-scaling, F303-coupling-normalisation, F324-ncolour-bracket, F325-x1-branch]
+modules: [casim.engine.gauge.derive_ncolour, casim.engine.gauge.casimir_ladder, casim.engine.gauge.casimir_scaling, casim.engine.gauge.derive_x1_branch]
 constants: []
-supersessions: []
+supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
 reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-05
-last_verified: 2026-08-06
+last_verified: '2026-08-18'
 provenance: authored
 review_state: authored
 confidence: low
@@ -29,6 +29,32 @@ confidence: low
 **$N_c=3$ is not derived in this model, and this card does not claim it is.** What is claimed is
 four-fold, and **the fourth leg replaced the third as the load-bearing one on 2026-08-06** — see
 `## Status & history`.
+
+**2026-08-18 — the C7 leg is WITHDRAWN and the selector's premise is no longer contradicted (F325, S22-F298-mixed-matching-C_F-and-the-X1-branch).**
+Two changes, in opposite directions.
+
+*The good direction.* This card's headline worry — that the Lambda-scale selector rests on a bare-coupling
+normalisation *"the model's own confinement engine contradicts"* — is **removed**. F299's engine never
+discriminated: it gives sigma_6/sigma_3 = 2.49115 at beta = 24 (branch B's coupling) and 2.49540 at beta = 32
+(branch A's), because Casimir scaling in d = 2 is a theorem about the SU(3) Wilson measure at weak coupling and
+is beta-independent. What it establishes — that link cost is C_2(R) — is the PREMISE under which the C_F
+cancels, so it is evidence FOR the normalisation it was read as contradicting. X1 is resolved and branch B is
+adopted.
+
+*The bad direction, and it is larger.* F298's **structural N_c <= 3 bound is withdrawn**. It is a property of
+the MIXED C7 matching (abelian rotor eigenvalue against SU(N) gauge eigenvalue); under either self-consistent
+evaluation chi = 1/(4 g^2) for every N and every irrep, exact over Q (leg L6 of `F298-casimir-ladder`, with the
+declared control `numerator=casimir` reddening exactly L2 and L3). The mixed matching is not even
+level-independent at N = 3 once you leave the k-string tower: chi in {3/4, 3/10, 3/16} plus UNDEFINED for the
+adjoint, decuplet and 27, where the Z_3 rotor's s^2 = 0 against C_2 != 0. F324 §3 U1c had found the sextet leg
+and booked it as its own falsifier 5b.
+
+*Net position.* The Lambda-scale selector stays retired (F324 retired it, and this card should not revive it on
+the strength of the first paragraph — it consumes a measured number, which the parity leg does not). What is
+left is F324's **lower** leg alone: the Z_2 doublet parity of the derived SU(2)_L, giving N_c **odd**, and with
+premise (ii) removing N = 1 that is {3, 5, 7, ...}. **N_c = 3 is favoured by everything empirical and by
+nothing structural**, which is a weaker position than this card held on 2026-08-06 and a much weaker one than
+CL281 held on 2026-08-17. `confidence` stays low, and it is low for a different reason than before.
 
 **(a) Two routes are closed.** Anomaly cancellation *cannot* select $N_c$ here: the full
 six-constraint hypercharge system (two anomaly rows, three mass-step rows, the F47 Majorana row)

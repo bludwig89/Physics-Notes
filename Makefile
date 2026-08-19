@@ -13,7 +13,7 @@ export PYTHONPATH := src
 .PHONY: gate constants supersessions stamp battery indexes inventory claims \
         install backend manifest health numerics constants-report drift clean help \
         graph deadcode structure registry registry-gen records control control-todo can-fail \
-        indexes-check
+        indexes-check citations
 
 ## install: editable install with the fast FFT backend and pytest
 install:
@@ -39,6 +39,13 @@ constants-report:
 ## supersessions: check docs/theory/supersessions.yaml is true and banners current
 supersessions:
 	@$(PY) tests/casim/test_supersession_ledger.py
+	@$(PY) tools/check_superseded_citations.py
+
+## citations: grading docs may not cite a superseded finding without its replacement,
+## and the public claims summary must record every headline card at its current status
+citations:
+	@$(PY) tools/check_superseded_citations.py $(if $(V),--verbose,)
+	@$(PY) tools/check_summary_claims.py $(if $(V),--verbose,)
 
 ## stamp: (re)write supersession banners from the ledger — run after editing it
 stamp:

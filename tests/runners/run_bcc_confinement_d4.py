@@ -27,11 +27,23 @@ needs a transfer matrix with positivity, which the repo does not have at any
 dimension above a single mode.  The honest contribution here is that the d=4
 leg now runs on the right lattice.
 
-The anisotropy is a free input.  `--beta-t` defaults to `--beta`, i.e.
-xi = a_s/a_t = 1 by CONVENTION.  F313's primitivity result (no local half-tick)
-says a_t is fixed by the rule rather than tunable and c_lat = 1/sqrt3 is where a
-derived xi would come from, but that argument is not made here and no default
-encodes it.  Sweep `--beta-t` to see how much it matters.
+The anisotropy is now DERIVED, and the default encodes it.  `--beta-t` defaults
+to `beta_s * 4`, from `bcc_action.anisotropy_from_c_lat()`: isotropy of the
+weak-field limit forces `beta_t/beta_s = 4 lambda^2/a_t^2`, F313's primitivity
+(no local half-tick) is what licenses a FIXED a_t rather than a refinable one,
+and `c_lat^2 = 1/3` fixes the value -- giving `xi = 1/c_lat = sqrt3` and
+`beta_t/beta_s = 4` exactly.  Note that is `(4/3) xi^2`, NOT the hypercubic
+`xi^2`: the 4/3 is BCC geometry.  Pass `--beta-t` explicitly to override, and
+`--isotropic` to reproduce the earlier `beta_t = beta_s` convention.
+
+It also executes F299's d=4 Casimir successor, which F299 specified in
+`mc_reach()` and left unrun: the higher-rep loops chi_6, chi_8, chi_10 built
+from Tr W, Tr W^2, Tr W^3 of the same loop matrices ("no new sampling -- the
+same configurations, a different trace").  Casimir scaling is expected at
+INTERMEDIATE R only; the triality-0 reps 8 and 10 must fall below the Casimir
+line asymptotically once the string can break, and locating that crossover is
+the question d=2 could not be asked.  Use `--N 3` -- the character polynomials
+are SU(3).
 """
 
 import argparse
@@ -67,7 +79,11 @@ def main(argv=None):
     p.add_argument("--N", type=int, default=2, help="gauge group SU(N)")
     p.add_argument("--beta", type=float, default=2.0, help="beta_s")
     p.add_argument("--beta-t", type=float, default=None,
-                   help="beta_t; defaults to beta_s (xi = 1 by convention)")
+                   help="beta_t; defaults to the DERIVED beta_s * 4/(3 c_lat^2)")
+    p.add_argument("--isotropic", action="store_true",
+                   help="force beta_t = beta_s, the superseded convention")
+    p.add_argument("--casimir", action="store_true",
+                   help="also run F299's d=4 higher-rep measurement (needs --N 3)")
     p.add_argument("--therm", type=int, default=40, help="thermalisation sweeps")
     p.add_argument("--meas", type=int, default=40, help="measurement sweeps")
     p.add_argument("--n-or", type=int, default=1,
@@ -83,8 +99,19 @@ def main(argv=None):
                 "bipartition of the BCC nearest-neighbour graph, and an odd "
                 "extent does not close it under a <111> hop")
 
+    der = B.anisotropy_from_c_lat()
     beta_s = args.beta
-    beta_t = args.beta if args.beta_t is None else args.beta_t
+    if args.beta_t is not None:
+        beta_t = args.beta_t
+        xi_source = "explicit --beta-t"
+    elif args.isotropic:
+        beta_t = beta_s
+        xi_source = "--isotropic, the superseded beta_t = beta_s convention"
+    else:
+        beta_t = beta_s * float(der["beta_ratio"])
+        xi_source = ("derived: beta_t/beta_s = 4 lambda^2/a_t^2 "
+                     "= 4/(3 c_lat^2) = %s, xi = 1/c_lat = %.6f"
+                     % (der["beta_ratio"], der["xi"]))
     shape = (args.L, args.L, args.L, args.Lt)
     tag = f"{args.seed_tag}_{args.L}_{args.Lt}_{args.N}_{beta_s}_{beta_t}"
 
@@ -103,6 +130,29 @@ def main(argv=None):
         tables.append(B.wilson_loop_table(links, args.r_max, args.t_max))
         plaqs.append(B.mean_plaquette_4d(links))
         polys.append(B.polyakov_loop_4d(links))
+
+    casimir = None
+    if args.casimir:
+        if args.N != 3:
+            p.error("--casimir needs --N 3: chi_6, chi_8 and chi_10 are the "
+                    "SU(3) character polynomials")
+        rep_tabs = []
+        for _ in range(max(1, args.meas // 4)):
+            for _ in range(4):
+                B.sweep_4d(links, beta_s, beta_t, gen, n_or=args.n_or)
+            rep_tabs.append(B.higher_rep_loop_table(links, args.r_max,
+                                                    args.t_max))
+        avg = {}
+        for lab in rep_tabs[0]:
+            avg[lab] = {k: float(np.mean([t[lab][k] for t in rep_tabs]))
+                        for k in rep_tabs[0][lab]}
+        casimir = B.casimir_scaling_from_loops(avg)
+        casimir["n_configs"] = len(rep_tabs)
+        casimir["rep_loops"] = {lab: {f"{R}x{T}": v
+                                      for (R, T), v in avg[lab].items()}
+                                for lab in avg}
+        casimir["character_identity"] = B.character_identity_residual(
+            n_samples=4)
 
     keys = sorted(tables[0].keys())
     wl_mean, wl_err = {}, {}
@@ -132,8 +182,12 @@ def main(argv=None):
                     "mixed_area_over_at": B.BCC4_MIXED_AREA,
                     "sites": (args.L ** 3 // 4) * args.Lt},
         "couplings": {"beta_s": beta_s, "beta_t": beta_t,
-                      "xi_note": "beta_t/beta_s is a CONVENTION; xi = a_s/a_t "
-                                 "is not derived here"},
+                      "beta_ratio": beta_t / beta_s,
+                      "xi": der["xi"], "xi_sq": str(der["xi_sq"]),
+                      "beta_ratio_derived": str(der["beta_ratio"]),
+                      "bcc_factor_vs_hypercubic": str(
+                          der["beta_ratio"] / der["xi_sq"]),
+                      "source": xi_source},
         "run": {"start": args.start, "therm": args.therm, "meas": args.meas,
                 "n_or": args.n_or, "r_max": args.r_max, "t_max": args.t_max},
         "therm_history": [round(h, 6) for h in therm_hist],
@@ -146,11 +200,37 @@ def main(argv=None):
         "wilson_loops_err": {f"{R}x{T}": wl_err[(R, T)] for (R, T) in keys},
         "creutz_ratios": {f"{R}x{T}": v for (R, T), v in sorted(chi.items())},
         "static_potential_at_Tmax": {str(R): v for R, v in static_v.items()},
+        "casimir_d4": casimir,
         "scope": ("Wilson loops and Creutz ratios on the model's own BCC "
-                  "action. NOT a claim of an area law or a string tension: "
+                  "action, and (with --casimir) F299's d=4 higher-rep "
+                  "successor. NOT a claim of an area law or a string tension: "
                   "row B7's residual is a missing transfer matrix with "
-                  "positivity, which no amount of sampling supplies."),
+                  "positivity, which no amount of sampling supplies. The "
+                  "anisotropy IS derived (see couplings.source); what is not "
+                  "derived is the radiative correction to it -- the Karsch "
+                  "coefficients of the hypercubic literature -- since the "
+                  "matching here is tree level."),
     }
+
+    # The runner's own failure mode (P1 / D9). Its registry record
+    # `run-bcc-confinement-d4` fails by baseline diff, but the FILE had no
+    # assert and the manifest could not link either artifact to it (the linker
+    # matches `F107_x.json <-> test_F107_x.py` by stem, and `run_` is not
+    # `test_`), so tools/audit_tests.py read it as UNFALSIFIABLE — which is what
+    # put it on the 2026-08-19 ratchet list. These three are properties of the
+    # SAMPLER, not of the physics under study, so they cannot make a real result
+    # pass by accident: the links must stay in SU(N) (this is the check that
+    # catches a broken reunitarisation or a wrong generator basis), and a mean
+    # plaquette or Wilson loop is Re Tr U / N over a unitary loop, so it is
+    # bounded by 1 by construction. A run that violates any of them has a broken
+    # update, and every number below it is noise.
+    assert res["unitarity_residual"] < 1e-10, (
+        f"links left SU({args.N}): unitarity residual "
+        f"{res['unitarity_residual']:.3e}")
+    for _name, _v in res["plaquette"].items():
+        assert -1.0 <= _v <= 1.0, f"plaquette {_name} = {_v} is not Re Tr U / N"
+    for _loop, _v in res["wilson_loops"].items():
+        assert -1.0 <= _v <= 1.0, f"Wilson loop {_loop} = {_v} is not Re Tr U / N"
 
     out_json = os.path.join(root, "test-results", "bcc_confinement_d4.json")
     os.makedirs(os.path.dirname(out_json), exist_ok=True)
@@ -166,7 +246,10 @@ def main(argv=None):
         f"{res['lattice']['sites']} genuine BCC sites, "
         f"{B.BCC4_N_LOOPS} plaquettes per site "
         f"(6 rhombi + 4 mixed rectangles).",
-        f"beta_s = {beta_s}, beta_t = {beta_t} (xi not derived).",
+        f"beta_s = {beta_s}, beta_t = {beta_t}; xi = {der['xi']:.6f} = 1/c_lat, "
+        f"beta_t/beta_s derived {der['beta_ratio']} = "
+        f"{der['beta_ratio'] / der['xi_sq']} x xi^2 (the 4/3 is BCC geometry).",
+        f"Anisotropy source: {xi_source}.",
         "",
         f"Mean plaquette: spatial {res['plaquette']['spatial']:.6f}, "
         f"temporal {res['plaquette']['temporal']:.6f}.",
@@ -185,6 +268,29 @@ def main(argv=None):
               "| R x T | chi |", "|---|---:|"]
     for (R, T), v in sorted(chi.items()):
         lines.append(f"| {R} x {T} | {v:.6f} |")
+    if casimir:
+        lines += ["", "## F299 d=4 Casimir successor", "",
+                  f"{casimir['n_configs']} configs; character polynomials "
+                  f"verified against explicit rep matrices at "
+                  f"{casimir['character_identity']['worst_overall']:.2e}.", "",
+                  "| R x T | sigma_6/sigma_3 | 5/2 | sigma_8/sigma_3 | 9/4 "
+                  "| sigma_10/sigma_3 | 9/2 |",
+                  "|---|---:|---:|---:|---:|---:|---:|"]
+        if not casimir["rows"]:
+            lines += [f"| (none) | — | 2.5 | — | 2.25 | — | 4.5 |", "",
+                      f"**No usable row.** {casimir['coverage']}. This is a "
+                      f"regime/statistics statement, not a failure: "
+                      f"chi_8/d_8 = (|Tr W|^2 - 1)/8 sits near zero on a "
+                      f"disordered configuration, so a corner loop goes "
+                      f"non-positive and -ln is undefined. Raise --meas and "
+                      f"--r-max, and go to the scaling window beta 5.8-6.2."]
+        for row in casimir["rows"]:
+            lines.append(
+                f"| {row['R']} x {row['T']} "
+                f"| {row.get('ratio_6') if row.get('ratio_6') is None else format(row['ratio_6'], '.4f')} | 2.5 "
+                f"| {row.get('ratio_8') if row.get('ratio_8') is None else format(row['ratio_8'], '.4f')} | 2.25 "
+                f"| {row.get('ratio_10') if row.get('ratio_10') is None else format(row['ratio_10'], '.4f')} | 4.5 |")
+        lines += ["", casimir["coverage"], "", casimir["note"]]
     lines += ["", "## Scope", "", res["scope"], ""]
 
     out_md = os.path.join(root, "test-results", "bcc_confinement_d4.md")

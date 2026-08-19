@@ -1,5 +1,15 @@
 # F299 — F298's withdrawal of the discriminator was **too broad**: the degeneracy is the k-string restriction, not $N=3$, and once you leave that tower the model's own exactly solvable 2D SU(3) engine **answers** — $\sigma_6/\sigma_3=2.4911511$ against $5/2$ (Casimir) and $1$ (centre), so the model's confinement sector says **H2**
 
+> **[SUB-CLAIM SUPERSEDED 2026-08-18 by F325 — ledger S22-F298-mixed-matching-C_F-and-the-X1-branch]**
+>
+> **DEAD:** The INFERENCE that the measurement selects a coupling normalisation -- 'the model's own confinement sector says H2'. The engine is beta-independent on this question: 2.49115 at beta = 24 (branch B's coupling) against 2.49540 at beta = 32 (branch A's), because Casimir scaling in d = 2 is a theorem about the SU(3) single-plaquette Wilson measure at weak coupling, as F299 section 3 itself states. It never discriminated.
+>
+> **STILL LIVE:** EVERYTHING ELSE, and the finding is REINFORCED rather than damaged. Every number reproduces independently. The relocation of F298's degeneracy from N = 3 to the antisymmetric tower is correct and is the finding's real content. What it establishes -- that link electric cost is C_2(R), i.e. that the link variables carry SU(3) representation content -- is precisely the premise under which the C_F cancels in F325 section 2, so F299 is evidence FOR the adopted branch.
+>
+> **NOTE:** Cite F299 for representation content, not for coupling normalisation. Its mc_reach pointer to forks/gauge/lgt_fork_A_mc.py is separately stale (S21); F323 runs the d = 4 successor on the BCC ensemble.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-08-06 - 12:35
 **Numbering:** **F299**, taken as `NEXT FREE NUMBER` (a backlog number — spending it **closes** a gap). Session `bright-keen-wilson`, sector `gauge`.
 **Status:** Confirmed — **10/10 PASS**, both declared controls verified red at exactly the checks declared. The group theory is exact over ℚ; the quadrature is anchored on `confinement.string_tension` at $1.1\times10^{-16}$ and grid-converged at $5.8\times10^{-15}$; the headline $1.4\%$ is a finite-$\beta$ lattice artefact that S5 drives to $1.7\times10^{-4}$.

@@ -1,11 +1,22 @@
 # F322 — B9 re-derived post-F277: the $0.24\%$ never touched the refold, and what F277 actually supplied was its **warrant** — plus the shortfall is two-loop, and $80\%$ of it is already in the tree
 
+> **[CITATION AMENDMENT 2026-08-18 - 16:20 — cross-reference added; no leg, control or number changed]**
+>
+> §6 of this finding and **§2.2 of [[F311-gap5-three-numbers-adjudicated]]** (2026-08-11 - 21:20, six days
+> earlier) close the **same** residual by different routes, and this file cited F311 nowhere. It does now:
+> **§6.1** is the reconciliation. Nothing in §1–§9 moves — no leg, no control, no value, and the `Status:`
+> line below is unchanged. What changes is that the two published residuals stop being readable as rivals:
+> **$0.0495\%$ is the model-internal number** (this finding, from F261's sympy-exact $b_1=1$: the two-loop
+> *leading log* only) and **$0.00158\%$ is the number after importing the Källén–Sabry two-loop constant**
+> (F311, which its own §8 states is *cited, not derived here*). Raised by
+> `docs/status/completeness-2026-08-18.md` gap #4 and row **H5** item (ii).
+
 **Date:** 2026-08-17 - 21:55
 **Status:** Confirmed — 6/6 legs PASS, 2/2 declared controls verified `CONTROL` over **disjoint** red sets. Closes `docs/status/completeness-2026-08-07.md` gap **#5(a)** and moves rubric row **B9**, flagged un-re-derived for three consecutive reports. Roadmap item `next-steps-pt2` b9.
 **Module:** `casim.engine.interactions.running_alpha_lattice_bound`
 **Record:** `F322-b9-running-rederived` (`tests/registry/interactions.yaml`, gate tier, entry-driven)
 **Results:** `test-results/F322_b9_running_rederivation.json`
-**Cross-references:** [[F251-qed-vacuum-polarization-running-alpha]] (the $\Pi$ and the Pi4 number under review; superseded by S12), [[F277-qed-gluon-refold-period]] (the sign flip that raised the flag), [[F261-twoloop-qed-ae-amu]] (the sympy-exact $b_1=1$ this feeds into the running for the first time), [[F115-coupling-magnitudes-running-rotor]] (B9's EW leg as graded — CM2's Planck-anchored negative), [[F138-weinberg-gap-closure-4piv-matching]] (the $\mu_\star=4\pi v$ matching that replaced it), [[F231-weinberg-2over9-onshell-face-of-1over4]] (the $8/9$ bridge), [[F162-bgfield-self-energy-b0-gate]] (the non-abelian $b_0$ template), [[F151-scheme-constant-determined]] / [[F152-ir-coupling-the-irface]] (the hadronic piece this still defers — rubric row G3)
+**Cross-references:** [[F311-gap5-three-numbers-adjudicated]] (the *same* residual, identified six days earlier as the two-loop leptonic term using the **cited** Källén–Sabry constant, and the first closure of gap #5(a) — see §6.1), [[F251-qed-vacuum-polarization-running-alpha]] (the $\Pi$ and the Pi4 number under review; superseded by S12), [[F277-qed-gluon-refold-period]] (the sign flip that raised the flag), [[F261-twoloop-qed-ae-amu]] (the sympy-exact $b_1=1$ this feeds into the running for the first time), [[F115-coupling-magnitudes-running-rotor]] (B9's EW leg as graded — CM2's Planck-anchored negative), [[F138-weinberg-gap-closure-4piv-matching]] (the $\mu_\star=4\pi v$ matching that replaced it), [[F231-weinberg-2over9-onshell-face-of-1over4]] (the $8/9$ bridge), [[F162-bgfield-self-energy-b0-gate]] (the non-abelian $b_0$ template), [[F151-scheme-constant-determined]] / [[F152-ir-coupling-the-irface]] (the hadronic piece this still defers — rubric row G3)
 
 ---
 
@@ -89,6 +100,46 @@ $$\Delta\alpha_\ell(M_Z)=0.03148241\quad\text{vs PDG }0.031498:\qquad 0.2447\%\;
 
 $79.8\%$ of the shortfall, with the correct sign, from a coefficient the tree already owned. $1/\alpha(M_Z)\big|_\text{lep}$ moves $132.7302\to132.7218$. **Honest scope:** the leading log is what $b_1$ fixes; the two-loop non-log constant and three loops are **not** derived here, and they are the residual $1.559\times10^{-5}$.
 
+### 6.1 Relation to F311 — the same residual, two published numbers, and the difference is one imported constant
+
+F311 §2.2 reached this residual six days earlier and from the other end, and the two results are two
+rows of **one sum**, not two answers to one question:
+
+| piece of $\Delta\alpha_\ell(M_Z)$ | value | source | derived on the model's own fields? |
+|---|---:|---|:---:|
+| one loop, $\sum_\ell\frac{\alpha}{3\pi}[L_\ell-\frac53]$ | $3.1420928\times10^{-2}$ | F251 Pi4 / §2 here | **yes** ($b_0^\text{QED}=4/3$, sympy-exact) |
+| two loop, **leading log** $\alpha^2L_\ell/(4\pi^2)$ | $+6.1483\times10^{-5}$ | §6 here, from F261's $b_1=1$ | **yes** (sympy-exact) |
+| two loop, **non-log constant** $(\alpha/\pi)^2[\zeta(3)-\frac5{24}]$ per lepton | $+1.6085\times10^{-5}$ | **F311 §2.2** | **no — Källén–Sabry, cited** |
+| two loop, total $(\alpha/\pi)^2[\frac{L_\ell}{4}+\zeta(3)-\frac5{24}]$ | $+7.7568\times10^{-5}$ | the two rows above, additively | mixed |
+| PDG shortfall after one loop | $7.7072\times10^{-5}$ | — | — |
+
+The third row **is** this finding's stated residual: $1.5589\times10^{-5}$ against the constant's
+$1.6085\times10^{-5}$, i.e. the imported term supplies $\mathbf{103.2\%}$ of it. The excess is
+$4.96\times10^{-7}$ in $\Delta\alpha$ — the *same* number F311 reports from the other side as
+$100.6\%$ of the one-loop residual, and it is what $0.00158\%$ measures. So:
+
+$$\underbrace{0.0495\%}_{\textbf{model-internal}\ (\text{one loop}+b_1\ \text{leading log})}\qquad\text{and}\qquad\underbrace{0.00158\%}_{\text{after importing the Källén–Sabry constant (F311)}}$$
+
+**Three things follow, and they are the reason this section exists.**
+
+1. **Neither finding supersedes the other and there is nothing to adjudicate.** The numbers are
+   compatible by construction: they differ by exactly one term, whose value is known and whose
+   *derivation on the model's own fields* is open in both files. This is **not** a Part D
+   contradiction in `docs/status/open-derivations.md`, and it should not be recorded as one.
+2. **B9's model-internal headline is the $0.0495\%$**, because it is the number the model derives
+   end to end with zero imported constants. The $0.00158\%$ is quotable only with its provenance
+   attached — *"after importing the two-loop constant"* — which is exactly how F311 §8 states it.
+3. **The open work is unchanged and is jointly owned.** §9's third bullet and F311 §8 name the same
+   target by the same route: the two-loop leptonic bubble on the model's own fields, starting from
+   F261's dispersive machinery. Having the literature value of the term does not derive it.
+
+**One priority note, recorded rather than absorbed.** §2 and the *refold restored* rows of §5 reproduce
+F311 leg A1 — that S12-F277 does not reach Pi4, proved by reinstating the removed refold — which F311
+established on 2026-08-11 and which closed `completeness-2026-08-07` gap #5(a) at that date. This
+finding reached it independently and measured it differently (a $7.3\times{+}0.5$ kernel perturbation
+on the *whole* Pi4 payload here, the reinstated `_fermion_B` refold there), so it stands as an
+independent reproduction of a result whose first closure belongs to F311, not as its first statement.
+
 ## 7. B9's EW leg — reproduced, and the input its precision is owed to
 
 B9's other half is graded on F115 (2026-06-08), whose CM2 anchored the bare angle at the Planck scale and overshot by $-74\%$. That reading is superseded in substance: F138 identifies $\tfrac14$ as the **compositeness-scale matching** at $\mu_\star=4\pi v=3094.09$ GeV, and F231 decomposes the $8/9$ bridge to the on-shell $\tfrac29$. One-loop Higgs-free running to $M_Z$ is reproduced here exactly:
@@ -131,11 +182,11 @@ Neither control touches the other's legs, and neither touches B9-1, B9-2 or B9-6
 **Not closed, and stated rather than absorbed:**
 
 * **The hadronic piece is still row G3.** It is $3.795$ in $\alpha^{-1}(\overline{\text{MS}})$, and §7 now quantifies what B9 pays for not having it: a factor 2 on the EW residual. F151/F152 remain the place it has to come from.
-* **The two-loop non-log constant is not derived.** $1.559\times10^{-5}$ of $\Delta\alpha$, i.e. the residual $0.0495\%$. F261's dispersive machinery (the $K_1$ kernel on F251's spectral function) is the natural route and was not attempted here.
+* **The two-loop non-log constant is not derived.** $1.559\times10^{-5}$ of $\Delta\alpha$, i.e. the residual $0.0495\%$. F261's dispersive machinery (the $K_1$ kernel on F251's spectral function) is the natural route and was not attempted here. **F311 §2.2 supplies its literature value** — $(\alpha/\pi)^2[\zeta(3)-\tfrac5{24}]$ per lepton, $1.6085\times10^{-5}$ summed, $103.2\%$ of this residual — which is what turns $0.0495\%$ into the imported $0.00158\%$. F311 §8 is explicit that the form is **cited, not derived**, so this bullet is unchanged by it: what is open is the constant *on the model's own fields*. See §6.1.
 * **The absolute BZ measure for rule-kernel integrals is still F277 §8's open item.** Every number in §5 is a *subtracted* lattice$-$continuum difference on a common domain, which is what makes it meaningful; the fundamental domain of a $\sqrt3\cdot$fcc-periodic function is still not the midpoint cube, and F267 is where that gets settled. The §4 fit failure is an independent, milder symptom of the same thing.
 * **The extrapolation in §5 is a bound, not a value.** Reading the residual non-flatness as a residual log over $\ln(M_Z^2/m_e^2)$ is deliberately the *pessimistic* reading — the measured $n$-dependence says it is grid noise, in which case the true lattice shift is smaller still. It is quoted as a ceiling on purpose.
 * **$\alpha$ itself is not derived** (F127's four-avenue no-go). B9 was never a claim that it is.
 
 ## 10. Cross-references
 
-[[F251-qed-vacuum-polarization-running-alpha]] · [[F277-qed-gluon-refold-period]] · [[F261-twoloop-qed-ae-amu]] · [[F272-bgfield-loop-refold-period]] · [[F267-walk-bz-measure-not-the-fft-cube]] · [[F115-coupling-magnitudes-running-rotor]] · [[F138-weinberg-gap-closure-4piv-matching]] · [[F231-weinberg-2over9-onshell-face-of-1over4]] · [[F127-alpha-em-derivation-four-avenue-nogo]] · [[F151-scheme-constant-determined]] / [[F152-ir-coupling-the-irface]] · `docs/status/completeness-2026-08-07.md` row B9 + gap #5(a) · `docs/theory/supersessions.yaml` S12
+[[F311-gap5-three-numbers-adjudicated]] · [[F251-qed-vacuum-polarization-running-alpha]] · [[F277-qed-gluon-refold-period]] · [[F261-twoloop-qed-ae-amu]] · [[F272-bgfield-loop-refold-period]] · [[F267-walk-bz-measure-not-the-fft-cube]] · [[F115-coupling-magnitudes-running-rotor]] · [[F138-weinberg-gap-closure-4piv-matching]] · [[F231-weinberg-2over9-onshell-face-of-1over4]] · [[F127-alpha-em-derivation-four-avenue-nogo]] · [[F151-scheme-constant-determined]] / [[F152-ir-coupling-the-irface]] · `docs/status/completeness-2026-08-07.md` row B9 + gap #5(a) · `docs/status/completeness-2026-08-18.md` gap #4 + row H5 (ii) · `docs/theory/supersessions.yaml` S12

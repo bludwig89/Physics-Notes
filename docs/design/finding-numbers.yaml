@@ -221,8 +221,15 @@ gaps:
       to findings-index.md, which is exactly the hole the audit exists to find.'
   219:
     status: resolved
-    reason: Abandoned after a collision — the changelog records "concurrent session took F219 for spin-2
-      DM", and the work was renumbered. The number is deliberately unused.
+    reason: 'BLANK — abandoned after a concurrent-session collision. The changelog records "concurrent
+      session took F219 for spin-2 DM"; the scaling work that would have been F219 was renumbered to
+      F222 (F222-scaled-quantum-algorithms.md). No file exists at this number and none is coming, so
+      a citation of "F219" is a citation of the collision, not of physics. Deliberately unused and
+      NOT retakable. 2026-08-19: two test records (F220-field-native-execution,
+      F221-noise-error-correction) carried F219 in `findings:` — the old regex-filled field picked it
+      out of docstrings that narrate the renumbering. Both were cleared and annotated; see
+      docs/roadmaps/finding-coverage-rollout.md. tools/audit_finding_coverage.py now fails a record
+      that names a blank number, which is what stops it coming back.'
   229:
     status: resolved
     reason: Abandoned after a collision — the changelog records that F229-F232 were taken by a concurrent

@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_FG2_quark_complex_mass.py`, `tests/findings/test_FG3_quark_electroweak.py`
 **Results:** `test-results/FG2_quark_complex_mass.json`, `test-results/FG3_quark_electroweak.json`
 **Closes:** `first-gen-completeness-review.md` §3 items 1 and 2 (quark electroweak wiring + unified mass mechanism); §5.1 FG-2 and FG-3.
+**Test record:** record `FG2-quark-complex-mass` (tier battery), record `FG3-quark-electroweak` (tier battery) — `tests/registry/`, D9.
 
 ---
 

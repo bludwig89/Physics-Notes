@@ -5,6 +5,7 @@
 **Module:** none new. **Test:** `tests/findings/test_P0_dynamical_fermions.py` (~8 s).
 **Results:** `test-results/P0_dynamical_fermions.json`.
 **Cross-references:** [[F46-pythagorean-lattice-mass]] (rest rotation $\Omega_\text{rest}=\arcsin m$ → zitter $2\arcsin m$), F43 (SU(3) colour sector), F38/FG-1 (charge content), F83 (the physical $m_\text{lat}$ are ~$10^{-22}$; P0 uses representative O(0.05–0.4) test masses), `docs/roadmaps/roadmap-matter-binding.md` P0.
+**Test record:** record `P0-dynamical-fermions` (tier battery) — `tests/registry/`, D9.
 
 ---
 

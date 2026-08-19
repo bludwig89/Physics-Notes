@@ -7,16 +7,16 @@ kind: derivation
 status: open
 domain: [QCD]
 exactness: bracketed
-findings: [F280, F287, F163, F162, F155, F239]
-tests: [F280-d1-subtracted]
+findings: [F280, F287, F163, F162, F155, F239, F325]
+tests: [F280-d1-subtracted, F303-coupling-normalisation, F325-x1-branch]
 modules: [src/casim/engine/gauge/lpt_d1_subtracted.py]
 constants: [q_star_a_implied]
-supersessions: []
+supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
 reviews: []
 rolls_up_to: CL022
 falsifier: stated
 first_issued: '2026-08-05'
-last_verified: '2026-08-05'
+last_verified: '2026-08-18'
 provenance: authored
 review_state: authored
 confidence: medium
@@ -51,6 +51,17 @@ QCD's lattice-to-$\overline{\rm MS}$ scheme matching. In lattice gauge theory $\
 A completed computation of the rule's $\cos(k/2)$-dressed 3-gluon $+$ ghost vertex form factors that returns $\Lambda_{\overline{\rm MS}}/\Lambda_\text{rule}$ **outside $[1,\ 7.980]$** — equivalently a vertex leg outside $[-2.257,\ -1.446]$ in $\Delta C$ units. Which edge is crossed says which premise died: below $1$ means $\Delta C_\text{rule}^\text{loops}<0$ and the monotonicity assumption is wrong; above $7.980$ means the rule's loops-only constant exceeds Wilson's and the $g_s=\tfrac12$ lock is wrong.
 
 ## Status & history
+
+**2026-08-18 — the bracket did a second job nobody had asked it to do (F325, S22-F298-mixed-matching-C_F-and-the-X1-branch).** Confronted
+with the X1 fork's Casimir branch, which requires Lambda_MSbar/Lambda_rule = 3.4e6, this band **excludes it by
+5.63 decades** — and the exclusion does not rest on the band's named monotonicity assumption, because the branch
+needs the rule's own loops-only one-loop constant to be 7.24x Wilson's for an action F287 section 4 MEASURES at
+5.3-5.7x SMALLER discretisation error than Wilson's. Every value the d_1 apparatus has ever returned (F307's
+2.1348 and 1.633, the withdrawn 2.06-2.08, even its non-converged 14.27) sits with the adopted branch; none is
+within five decades of the other. The comparison had never been made: this card landed 2026-08-05 and the fork
+was framed on 2026-08-06 without it. Now registered as leg **N8** of `F303-coupling-normalisation`, with a
+declared control (`casimir_on=False` collapses the requirement onto 1.0, inside the band, and N8 goes red).
+The card's own bracket, target and falsifier are unchanged.
 
 `open` — the band is a bracket, and the number inside it is not yet computed. The gap this card fills is that the *route* to that number changed on 2026-08-05: F287 had forbidden taking $d_1$ from the quadrature's absolute normalisation, leaving the item apparently blocked behind F267's fundamental-domain question, and F280 shows it is not — the subtracted formulation reaches the same object without one. What the card asserts is therefore weaker than a value and stronger than "open": a two-sided bracket with a stated falsifier, plus the statement that the open piece is now 36.2% of the required shift rather than all of it.
 

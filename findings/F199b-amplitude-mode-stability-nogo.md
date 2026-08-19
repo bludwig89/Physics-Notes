@@ -21,6 +21,7 @@ F198 found that the heavy amplitude mode could reach $\Omega_\text{DM}h^2\approx
 **Mode 1 — the electroweak radial mode.** F73 identifies the radial/breathing mode of the *symmetry-breaking* condensate as the Cooper-pair scalar = the **observed 125 GeV Higgs**. It decays ($\Gamma_H\approx4$ MeV → $\tau\approx1.6\times10^{-22}$ s) and has been seen at the LHC. Not dark matter, by observation.
 
 **Mode 2 — the $E_g$ second-shell amplitude mode.** This is the scalar F197/F198 actually meant: the radial fluctuation of the F93 orthorhombic condensate. But F93 O1 establishes that this condensate **is the crystal field that sets the charged-lepton mass hierarchy** — it lives on the $T_{1u}$ generation triplet and splits the three lepton masses. So a fluctuation $\delta e$ of its amplitude **modulates the lepton masses directly**, i.e. couples linearly to the lepton mass operator:
+**Test record:** record `F199-amplitude-mode-stability` (tier battery) — `tests/registry/`, D9.
 $$\mathcal L \supset \frac{\delta e}{f}\sum_\ell m_\ell\,\bar\ell\ell,\qquad g_\ell=\frac{m_\ell}{f}.$$
 
 ## The stability no-go

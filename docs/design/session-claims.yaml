@@ -3665,3 +3665,99 @@ claims:
     carry a pytest `path:`. Those belong to the gauge sessions and need one of the two contracts
     dropped. Also pre-existing: 3 STALE F321 control verdicts and 13 never-armed controls
     (F317, F318, gauge-bcc-mc-d4) -- run `make control` on a machine without the 45 s ceiling.
+  follow_up:
+    - at: 2026-08-17 - 23:30
+      note: >-
+        Amendment 10 / ledger S20. Asked why nothing caught B9's stale EW citation, and the
+        answer was structural: F115 had NO ledger entry, so no banner existed and
+        test_no_orphan_banners had nothing to find; and check_claims.py rule 4 fires only on a
+        WHOLLY superseded live card, so a PARTIAL supersession cited without its replacement had
+        no owner anywhere in the tree. Fixed both. (1) S20-F115-weinberg-gap-account-replaced-by-
+        4piv-matching, partially_superseded by F138/F231, banner stamped, findings-index now
+        reads SUPERSEDED. Dead is ONLY CM2's conclusion (the gap as a few-TeV matching offset
+        located by a crossing); CM1's exact rationals -- still B9's correct citation -- CM3's
+        rotor lock, CM4's notation no-go and CM2's -74% overshoot NEGATIVE are all retained,
+        the last because F138 rests on it. CM2b demoted to a consistency check on 4 pi v.
+        test_F115_coupling_magnitudes.py stays live: its CM2 check ASSERTS the overshoot, so
+        retiring it would delete the successor's evidence. (2) tools/check_superseded_citations.py
+        in `make gate` + `make citations`. A citation unit naming a superseded finding must name a
+        replacement from `by:`, or acknowledge it, or (cards) declare the ledger id. Unit = ONE
+        TABLE ROW. Grading docs at zero; claim cards ratcheted 20 -> 19; older completeness
+        reports excluded by design as frozen records. Found 5 live violations on first run, all
+        cleared -- including F115 without F138/F231 still live in open-derivations.md, the same
+        error as B9 in a second document. Shown FAILING on the real repo, not just a fixture.
+        The ledger's `about:` now states both obligations. supersession-ledger 48 -> 51 passed.
+        NOT MINE, still red: tools/audit_tests.py --ratchet (unfalsifiable 70->75, no_assert
+        231->236, import_time 323->325). Measured file-by-file: none of the unfalsifiable or
+        no_assert entries are this session's, and the one import_time entry that names a file I
+        touched (tests/casim/test_supersession_ledger.py) was already counted for its pre-existing
+        module-level sys.path preamble -- the tests added here import inside the function body on
+        purpose. Baseline deliberately NOT raised: that file's own guard exists to stop a session
+        absorbing another's regression, and the 2026-08-07 history entry already records these
+        three keys as left red on purpose.
+
+- session: keen-lucid-symanzik
+  opened: 2026-08-17 - 21:40
+  status: released
+  sector: gauge
+  topic: >-
+    Follow-on to brisk-eager-creutz, three items. (a) Mark F94 in the supersession ledger: its 3+1D
+    result is measured on a SIMPLE-HYPERCUBIC action, which F265 proved blind to 1/3 of the
+    curvature-carrying link content, so the LATTICE is dead while the engine certificates (FA1-FA3) and
+    the CMP2 bridge (exact at 1e-16, re-affirmed by F311) are live -- partially_superseded, not fully,
+    and CL087 must be narrowed because it is status live on F94 alone. (b) DERIVE the anisotropy
+    xi = a_s/a_t that brisk-eager-creutz left as a flagged convention: the claim is that isotropy of the
+    weak-field limit forces beta_t/beta_s = 4 lambda^2/a_t^2, that F313's primitivity (no local half-tick)
+    is what licenses a FIXED a_t rather than a refinable one, and that c_lat = 1/sqrt3 then fixes the
+    value -- giving xi = 1/c_lat = sqrt3 and beta_t/beta_s = 4/(3 c_lat^2) = 4 exactly, where the 4/3
+    relative to the hypercubic xi^2 is BCC geometric content. (c) Execute F299's d=4 Casimir successor,
+    which F299 specified in mc_reach() and left unrun: the three character polynomials chi_6, chi_8,
+    chi_10 have NEVER been applied to a loop matrix anywhere in the tree (they exist only as torus-
+    eigenvalue expressions in a docstring), and no function returns Tr W, Tr W^2, Tr W^3 from a Wilson
+    loop -- lgt_fork_A_mc.wilson_loop_planar traces and averages before you can see the matrix. Build
+    that, and cross-check the polynomials against EXPLICIT rep matrices (sym^2, adjoint, sym^3), which
+    the tree has never done either. Note for the record: completeness row H8's "F299's claimed gate
+    record does not exist" is STALE -- it was armed 2026-08-07 and passes.
+  used:
+    323: findings/F323-anisotropy-derived-and-d4-casimir.md
+  tests:
+  - gauge-bcc-mc-d4
+  - run-bcc-confinement-d4
+  files:
+  - findings/F323-anisotropy-derived-and-d4-casimir.md
+
+  released: 2026-08-17 - 22:00
+  release_note: >-
+    RELEASED. All three items landed. (a) Ledger S21-F94-hypercubic-action-not-the-model-lattice,
+    partially_superseded by F323 and F265, banner stamped; CL087 narrowed (it stood on F94 alone, so
+    check_claims rule 4 fired correctly) with falsifier unset -> stated, debt 226 -> 225. fully_superseded
+    was REJECTED as false: FA1-FA3 certify the sampler not its lattice, CMP2's bridge is exact at 1e-16
+    and F311 re-verified it at 1.2e-16 over five seeds, and F311's separate undeclared-input adjudication
+    is deliberately not re-homed. (b) The anisotropy is DERIVED: F313's primitivity licenses a fixed a_t
+    and supplies no value; isotropy of the weak-field limit supplies it via two exact BCC closure
+    identities, giving beta_t/beta_s = 4/(3 c_lat^2) = 4 and xi = 1/c_lat = sqrt3, i.e. (4/3) xi^2 rather
+    than the hypercubic xi^2. Measured too: 4 - g^2/16 with the coefficient held at exactly 1/16 over a
+    factor 2 in g, Richardson-extrapolating to 3.99999999908. (c) F299's d=4 successor RUNS: the three
+    character polynomials had never touched a loop matrix and no function returned Tr W, Tr W^2, Tr W^3 --
+    both supplied, and the polynomials cross-checked against explicit Sym^2/Ad/Sym^3 matrices at 4.6e-16,
+    which the tree had never done. Record gauge-bcc-mc-d4 28/28, 5/5 controls CONTROL, CAN FAIL measured.
+    Amendment 11 to completeness-2026-08-07.md. 8 Tier-1 exactness rows, 2 Tier-3.
+
+    ONE WITHDRAWAL, recorded because it was this session's own prior claim: the predecessor session
+    (brisk-eager-creutz) speculated that F313's primitivity might FIX a_t. It does not -- it licenses a
+    fixed a_t and c_lat fixes the value. The weaker statement is the correct one and the finding says so.
+
+    NOT DONE, FLAGGED. (1) The d=4 Casimir numbers are PRELIMINARY -- 3 configs, 6^4, no error estimate,
+    and the 2x3 vs 3x2 asymmetry exceeds the 3x3 effect being read. The screening crossover is NOT
+    located; that needs the production run and it is Ben's. (2) The anisotropy matching is TREE LEVEL --
+    radiative corrections (the Karsch coefficients of the hypercubic literature) are not computed and are
+    not negligible at a working beta. This is the sharpest open item on (b). (3) B7's grade does not move
+    and should not: the residual is a missing transfer matrix with positivity, absent repo-wide, and
+    nothing here touches it. (4) Row H8 still carries "F299's claimed gate record does not exist", which
+    is STALE (armed 2026-08-07, passes). B7's copy is removed in Amendment 11; H8 itself is left to the
+    next sweep, which owns that row. (5) F299's mc_reach still names forks/gauge/lgt_fork_A_mc.py as the
+    successor engine -- that pointer is now stale and was NOT edited, because F299 is another session's
+    finding. (6) F146 (3D cubic) has the SAME F265 blindness as F94 and is untouched; F265 named both.
+    (7) F311's clears_by -- declare artifacts_read_only on the FA-vs-FC record and re-run -- is still
+    open. (8) The lattice still stores links on the full cubic array while only 1/4 of entries are BCC
+    sites, so memory is 4x the minimum. (9) H1/H2 colour normalisation (F303) and N_c untouched.

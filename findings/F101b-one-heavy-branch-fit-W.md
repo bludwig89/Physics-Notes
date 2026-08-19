@@ -9,6 +9,7 @@
 **Script:** `tests/findings/test_F101_one_heavy_branch_fit_W.py` (~40 s)
 **Results:** `test-results/F101_one_heavy_branch_fit_W.json`
 **Cross-references:** [[F96-second-shell-Eg-gap-saturation]] (the framework; the wall result this sharpens), [[F95-B-derived-C-localized]] (the $C=0.636|B|$ requirement that meets the fit at $W^*=1.46$), [[F93-orthorhombic-Eg-vacuum]] (the $E_g$ condensate), [[F92-per-constituent-phase-consistency]] (saturation kinematics), [[F83-fix-lattice-spacing-from-fermion-mass]] (the scale question A0 sharpens), [[F46-pythagorean-lattice-mass]] (the dispersion whose arccos edge is the cliff).
+**Test record:** record `F101b-one-heavy-branch-fit-W` (tier battery) — `tests/registry/`, D9.
 
 ---
 

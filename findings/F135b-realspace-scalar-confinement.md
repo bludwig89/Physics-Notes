@@ -10,6 +10,7 @@
 **Test:** `tests/findings/test_F135_realspace_confinement.py` (3/3, ~25 s).
 **Results:** `test-results/casim_confined_baryon{,_free}.json`.
 **Cross-references:** [[F134-unified-real-space-integration]] (the U1 null this closes — linearised gluon does not confine), [[F86-colour-dielectric-dual-superconductor]] (the dual-superconductor / dielectric mechanism this realises: ε_c→0 ⇒ ∞ effective mass in the vacuum = the scalar bag wall), [[F70-gradient-flow-confinement-string-tension]] (the string tension σ), [[F122-p2-dynamical-baryon-three-body]] (the spectral constituent baryon this puts in real space; "the mass is the string"), [[F110-realtime-link-hamiltonian-confinement]] (the dynamical flux tube this coarse-represents), `docs/roadmaps/roadmap-unified-real-space.md` (U1).
+**Test record:** record `F135-realspace-confinement` (tier battery) — `tests/registry/`, D9.
 
 ---
 

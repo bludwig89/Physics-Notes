@@ -73,7 +73,7 @@
 | `forks.particles.derive_weight_as_phase` | forks | fork_live | standalone | F230 F253 F255 F256 |  |  | E1 attack: derive the 'weight-as-phase' principle behind delta* = 2/9 rad. |
 | `gauge.bcc_action` | gauge | live | driven (29 ch) |  |  | 1 | ca_bcc_gauge.py — the gauge action on the *genuine* BCC lattice (F265) |
 | `gauge.bgfield_loop` | gauge | live | test-only |  |  | 1 | ca_bgfield_loop.py — the background-field one-loop gluon self-energy: the |
-| `gauge.bilinear` | gauge | partial | package-only |  |  | 2 | ca_maxwell.py — Composite-photon EM sector (Paper 1 Eq. 35) |
+| `gauge.bilinear` | gauge | partial | package-only |  |  | 3 | ca_maxwell.py — Composite-photon EM sector (Paper 1 Eq. 35) |
 | `gauge.bilinear_2d` | gauge | live | driven (15 ch) |  |  |  | ca_maxwell_2d.py — Composite-photon bilinear on the 2D square QCA |
 | `gauge.casimir_ladder` | gauge | live | standalone | F298 F294 F293 F110 F144 F86 F97 | exact | 1 | casimir_ladder.py — the SU(N) Casimir ladder F110 deferred, and what it does to C7 |
 | `gauge.casimir_scaling` | gauge | live | standalone (2 ch) | F299 F298 F294 F293 F144 F110 F94 F86 | quantitative | 1 | casimir_scaling.py — the F294 discriminator, reinstated and then run |
@@ -89,7 +89,9 @@
 | `gauge.derive_coupling_normalisation` | gauge | live | standalone (3 ch) | F303 F299 F298 F294 F144 F115 F101 F110 F91 | exact | 1 | derive_coupling_normalisation.py — is F144's bare coupling centre-normalised? |
 | `gauge.derive_gauge_boson_masses` | gauge | live | standalone | F320 F141 F138 F231 F49 F51 F41 F27 F119 F127 | bracketed | 1 | derive_gauge_boson_masses.py — the ABSOLUTE W and Z masses, and rho = 1 |
 | `gauge.derive_ncolour` | gauge | live | standalone | F293 F294 F279 F144 F110 F107 F280 F291 | bracketed | 1 | derive_ncolour.py — why three colours? (completeness row B10) |
+| `gauge.derive_ncolour_bracket` | gauge | live | standalone | F324 F317 F318 F298 F293 F279 F27 F75 F144 | exact | 1 | derive_ncolour_bracket.py — the N_c interval, closed from both sides |
 | `gauge.derive_su3_structure` | gauge | live | standalone | F317 F91 F27 F68 F279 F293 F298 F289 F43 | exact | 1 | derive_su3_structure.py — deriving the STRUCTURE of the colour gauge field |
+| `gauge.derive_x1_branch` | gauge | live | standalone (3 ch) | F325 F324 F303 F299 F298 F294 F144 F111b F110 F101 F280 | exact | 1 | derive_x1_branch.py — X1 resolved: branch A closed, branch B adopted |
 | `gauge.emission` | gauge | live | test-only |  |  |  | ca_emission.py |
 | `gauge.gluon` | gauge | partial | driven (15 ch) |  |  |  | ca_gluon.py — Dynamical SU(3) gauge sector (FG-7, 2026-05-27) |
 | `gauge.gluon_self_energy` | gauge | live | test-only |  |  |  | ca_gluon_self_energy.py — Residual A of the strong-sector scale problem, |
@@ -129,7 +131,7 @@
 | `interactions.derive_beta_LV` | interactions | live | standalone | F12 F15 | exact |  | derive_beta_LV.py — Analytic derivation of the SR-2 Lorentz-violation coefficient |
 | `interactions.derive_boost_covariance` | interactions | live | standalone | F301 F22 F24 F246 F26 | exact | 1 | derive_boost_covariance.py — finite-$a$ boost covariance on the canonical BCC lattice |
 | `interactions.derive_curl_subleading` | interactions | live | standalone | F7 F245 | machine | 1 | derive_curl_subleading.py — Closed forms for the composite-photon curl-residual |
-| `interactions.derive_dielectric_noconfine` | interactions | partial | standalone | F86 F139 F142 | quantitative |  | derive_dielectric_noconfine.py — Why the colour-dielectric tension does NOT |
+| `interactions.derive_dielectric_noconfine` | interactions | partial | standalone | F86 F139 F142 | quantitative | 1 | derive_dielectric_noconfine.py — Why the colour-dielectric tension does NOT |
 | `interactions.derive_f26_dispersion` | interactions | live | standalone | F26 F30 F246 | machine | 1 | derive_f26_dispersion.py — Subleading coefficients of the F26 even-rotation law (L2) |
 | `interactions.derive_gap5_adjudication` | interactions | live | standalone | F311 | exact | 1 | derive_gap5_adjudication.py — the three numbers no report re-derived (F311) |
 | `interactions.derive_velocity_addition` | interactions | partial | standalone | F15 | exact | 1 | derive_velocity_addition.py — Velocity addition from the QCA arccos dispersion |
@@ -226,7 +228,7 @@
 | `particles.positronium` | particles | live | test-only |  |  |  | ca_positronium.py — bound-state QED part 1: positronium reduced-mass spectrum, the 7/12 ortho-para hyperfine splitting, and the para/ortho decay rates (F262) |
 | `particles.second_quant` | particles | live | driven |  |  |  | ca_second_quant.py — field-native second quantization on a lattice chain (F217) |
 
-*218 registered module(s); **51 are channel-driven** (23%), which is P6's kernel-coverage question as a value rather than a survey. Fork status: 25 `fork_live`, 23 `fork_unclaimed` — a recorded negative result, not dead code.*
+*220 registered module(s); **51 are channel-driven** (23%), which is P6's kernel-coverage question as a value rather than a survey. Fork status: 25 `fork_live`, 23 `fork_unclaimed` — a recorded negative result, not dead code.*
 
 ## `casim` — the package layer (CLI, suite, io, analysis, viz, gui)
 

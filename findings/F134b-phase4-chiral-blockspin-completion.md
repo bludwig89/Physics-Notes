@@ -18,6 +18,7 @@ steps), `src/casim/lattice/chiral_core.py` (hand-rolled core),
 
 F133 made the block-spin transform $R_b$ a first-class engine operation, but the
 **renormalised propagator** $\Omega(\kappa/b)$ was implemented only for the
+**Test record:** record `F134-phase4-completion` (tier battery) — `tests/registry/`, D9.
 even-law ($\gamma$) channel; the roadmap also lists a verified hand-rolled chiral
 linear-algebra core, the FFT-floor characterisation, and GPU/distributed kernels.
 F134 closes all but the GPU item (hardware, see §5).

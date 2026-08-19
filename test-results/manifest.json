@@ -40,8 +40,8 @@
   "test-results/_to_delete/F300_coupling_normalisation.json",
   "test-results/generator_norm_from_F118.json"
  ],
- "generated": "2026-08-17 20:47 UTC",
- "git_sha": "ab0ba8f",
+ "generated": "2026-08-19 14:55 UTC",
+ "git_sha": "de01710",
  "orphan_results": [
   "test-results/F229_mass_scale_N_transmutation.json",
   "test-results/F319_uv_completion.json",
@@ -177,7 +177,7 @@
    "bytes": 4528,
    "findings": [],
    "fingerprint": "a945d499356fa5d8",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-08-19 13:43",
    "numeric_fields": true,
    "tests": [
     {
@@ -210,7 +210,7 @@
     "F101"
    ],
    "fingerprint": "19c01f7bf089b402",
-   "mtime": "2026-08-01 02:24",
+   "mtime": "2026-08-19 13:45",
    "numeric_fields": true,
    "tests": [
     {
@@ -386,15 +386,15 @@
    ]
   },
   "test-results/F111_tree_gauge_su3_ladder.json": {
-   "bytes": 1593,
+   "bytes": 3272,
    "declared_findings": [
     "F111"
    ],
    "findings": [
     "F111"
    ],
-   "fingerprint": "804969c5adb3070c",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "c2d4f2c81c6f121a",
+   "mtime": "2026-08-18 22:03",
    "numeric_fields": true,
    "tests": [
     {
@@ -1318,7 +1318,7 @@
     "F174"
    ],
    "fingerprint": "2e0601fb3fa7197f",
-   "mtime": "2026-07-31 23:09",
+   "mtime": "2026-08-19 13:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -1363,7 +1363,7 @@
     "F176"
    ],
    "fingerprint": "ed5e7648998a4696",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-08-18 22:02",
    "numeric_fields": true,
    "tests": [
     {
@@ -1846,7 +1846,7 @@
     "F199"
    ],
    "fingerprint": "1495ab35fccc8b4c",
-   "mtime": "2026-07-31 23:09",
+   "mtime": "2026-08-19 13:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -3700,7 +3700,7 @@
     "F313"
    ],
    "fingerprint": "fdb6f20e4027a55d",
-   "mtime": "2026-08-16 11:11",
+   "mtime": "2026-08-19 14:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -3730,7 +3730,7 @@
     "F315"
    ],
    "fingerprint": "b7eab0f948ad70c3",
-   "mtime": "2026-08-13 17:26",
+   "mtime": "2026-08-19 14:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -3745,7 +3745,7 @@
     "F316"
    ],
    "fingerprint": "1716ff4ac0c88f55",
-   "mtime": "2026-08-16 11:33",
+   "mtime": "2026-08-19 14:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -3833,6 +3833,21 @@
    "mtime": "2026-08-17 20:45",
    "numeric_fields": true,
    "tests": []
+  },
+  "test-results/F324_ncolour_bracket.json": {
+   "bytes": 8128,
+   "findings": [
+    "F324"
+   ],
+   "fingerprint": "a1cf91a8290346d9",
+   "mtime": "2026-08-18 11:54",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F324_ncolour_bracket.py"
+    }
+   ]
   },
   "test-results/F37_delta_omega.json": {
    "bytes": 1631,
@@ -5128,7 +5143,7 @@
     "FG2"
    ],
    "fingerprint": "9e06bb4e2b56a21c",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-08-19 13:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -5143,7 +5158,7 @@
     "FG3"
    ],
    "fingerprint": "f0affc30f4859591",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-08-19 13:46",
    "numeric_fields": true,
    "tests": [
     {
@@ -5307,7 +5322,7 @@
    "bytes": 3075,
    "findings": [],
    "fingerprint": "b81b506365c5ff2b",
-   "mtime": "2026-08-01 00:06",
+   "mtime": "2026-08-19 13:43",
    "numeric_fields": true,
    "tests": [
     {
@@ -5457,24 +5472,24 @@
    "tests": []
   },
   "test-results/bcc_confinement_d4.json": {
-   "bytes": 1709,
+   "bytes": 7678,
    "findings": [],
-   "fingerprint": "cbbb9a1f510af447",
-   "mtime": "2026-08-17 20:42",
+   "fingerprint": "29763c4db59e3192",
+   "mtime": "2026-08-17 21:44",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/bcc_confinement_d4.md": {
-   "bytes": 869,
+   "bytes": 2288,
    "findings": [],
-   "mtime": "2026-08-17 20:42",
+   "mtime": "2026-08-17 21:44",
    "tests": []
   },
   "test-results/bcc_gauge_mc_d4.json": {
-   "bytes": 4223,
+   "bytes": 7593,
    "findings": [],
-   "fingerprint": "a24b71c9c4218668",
-   "mtime": "2026-08-17 20:42",
+   "fingerprint": "a6ae05996bb396b9",
+   "mtime": "2026-08-17 21:43",
    "numeric_fields": true,
    "tests": [
     {
@@ -5496,17 +5511,17 @@
    "tests": []
   },
   "test-results/can-fail.json": {
-   "bytes": 8918,
+   "bytes": 9775,
    "findings": [],
-   "fingerprint": "f2e760758423176f",
-   "mtime": "2026-08-17 20:45",
+   "fingerprint": "8af0dd60ceadff07",
+   "mtime": "2026-08-19 13:28",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/casim-exactness-inventory.md": {
    "bytes": 1690,
    "findings": [],
-   "mtime": "2026-08-17 20:45",
+   "mtime": "2026-08-19 13:41",
    "tests": []
   },
   "test-results/casim_bcc_weyl.json": {
@@ -5804,10 +5819,10 @@
    "tests": []
   },
   "test-results/control-soundness.json": {
-   "bytes": 58978,
+   "bytes": 116091,
    "findings": [],
-   "fingerprint": "bd58dd0b2d4faa27",
-   "mtime": "2026-08-17 20:45",
+   "fingerprint": "b5fa84f1f20e8988",
+   "mtime": "2026-08-19 14:43",
    "numeric_fields": true,
    "tests": []
   },
@@ -6043,7 +6058,7 @@
    "bytes": 1583,
    "findings": [],
    "fingerprint": "26bd676acbee660e",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-08-19 13:43",
    "numeric_fields": true,
    "tests": []
   },
@@ -6432,7 +6447,7 @@
    "bytes": 1111,
    "findings": [],
    "fingerprint": "8a372bb1059634b4",
-   "mtime": "2026-08-01 00:06",
+   "mtime": "2026-08-19 13:43",
    "numeric_fields": true,
    "tests": [
     {
@@ -6471,7 +6486,7 @@
    "bytes": 1504,
    "findings": [],
    "fingerprint": "e91f0b05cdb51436",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-08-19 13:43",
    "numeric_fields": true,
    "tests": [
     {
@@ -6511,6 +6526,7 @@
   "tests/findings/test_F199_angular_self_duality_derivation.py",
   "tests/findings/test_F200_eg_sextic_coupling_computation.py",
   "tests/findings/test_F208_relativistic_scf_ie.py",
+  "tests/findings/test_F325_x1_branch.py",
   "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
   "tests/findings/test_FA09_deflection_coefficient.py",
   "tests/findings/test_FA10_black_hole_shadow.py",
@@ -6580,12 +6596,12 @@
   "ambiguous_results": 39,
   "no_output_tests": 64,
   "orphan_results": 128,
-  "results": 472,
-  "silent_tests": 67,
-  "tests": 410,
-  "tests_with_assert": 174,
-  "tests_with_results": 279,
-  "unfalsifiable_tests": 75
+  "results": 473,
+  "silent_tests": 68,
+  "tests": 412,
+  "tests_with_assert": 181,
+  "tests_with_results": 280,
+  "unfalsifiable_tests": 70
  },
  "tests": {
   "tests/casim/test_backend.py": {
@@ -10627,12 +10643,14 @@
   "tests/findings/test_F308_refold_repaired.py": {
    "declares_results_write": false,
    "findings": [
+    "F24",
+    "F306",
     "F307",
     "F308"
    ],
-   "has_assert": false,
+   "has_assert": true,
    "has_main": true,
-   "has_pytest_funcs": false,
+   "has_pytest_funcs": true,
    "results": [],
    "suite": "findings",
    "summary": "F308 \u2014 the refold in ``lpt_selfenergy`` is repaired, and the audit found two"
@@ -10917,6 +10935,53 @@
    ],
    "suite": "findings",
    "summary": "F321 \u2014 strong CP: theta_QCD = 0 from the rule's loop set (completeness B11)."
+  },
+  "tests/findings/test_F324_ncolour_bracket.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F110",
+    "F293",
+    "F298",
+    "F317",
+    "F318",
+    "F324",
+    "F75",
+    "F97",
+    "F99"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F324_ncolour_bracket.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F324 \u2014 the N_c bracket (completeness row B10, \"why 3 colours\")."
+  },
+  "tests/findings/test_F325_x1_branch.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F100",
+    "F101",
+    "F111",
+    "F144",
+    "F155",
+    "F280",
+    "F298",
+    "F303",
+    "F324",
+    "F325",
+    "F99"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F325 \u2014 X1 resolved: branch A tested and closed, branch B adopted."
   },
   "tests/findings/test_F37_delta_omega.py": {
    "declares_results_write": true,
@@ -13428,9 +13493,10 @@
    "declares_results_write": true,
    "findings": [
     "F265",
+    "F299",
     "F313"
    ],
-   "has_assert": false,
+   "has_assert": true,
    "has_main": true,
    "has_pytest_funcs": false,
    "results": [],
@@ -13562,7 +13628,7 @@
    "findings": [
     "F313"
    ],
-   "has_assert": false,
+   "has_assert": true,
    "has_main": true,
    "has_pytest_funcs": false,
    "results": [],
@@ -13574,7 +13640,7 @@
    "findings": [
     "F315"
    ],
-   "has_assert": false,
+   "has_assert": true,
    "has_main": true,
    "has_pytest_funcs": false,
    "results": [],
@@ -13586,7 +13652,7 @@
    "findings": [
     "F316"
    ],
-   "has_assert": false,
+   "has_assert": true,
    "has_main": true,
    "has_pytest_funcs": false,
    "results": [],
@@ -13810,7 +13876,6 @@
   }
  },
  "unfalsifiable_tests": [
-  "tests/findings/test_F308_refold_repaired.py",
   "tests/findings/test_F65_helicity_chirality_map.py",
   "tests/findings/test_F66_allsky_birefringence_anisotropy.py",
   "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
@@ -13859,15 +13924,11 @@
   "tests/runners/run_F263_euler_heisenberg_schwinger.py",
   "tests/runners/run_L192_tests.py",
   "tests/runners/run_L_tests.py",
-  "tests/runners/run_bcc_confinement_d4.py",
   "tests/runners/run_bgfield_loop.py",
   "tests/runners/run_confinement_mc.py",
   "tests/runners/run_d1_selfenergy.py",
   "tests/runners/run_d1_static_potential.py",
   "tests/runners/run_d1_vertex_formfactor.py",
-  "tests/runners/run_f313_time_signature.py",
-  "tests/runners/run_f315_v_interaction.py",
-  "tests/runners/run_f316_laurent_pell.py",
   "tests/runners/run_heavy_rerun.py",
   "tests/runners/run_kns_seagull.py",
   "tests/runners/run_lgt_confinement.py",

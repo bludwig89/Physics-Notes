@@ -1,5 +1,20 @@
 # F111b — 3D tree-gauge KS link Hamiltonian + the SU(3) Casimir ladder / character rotor
 
+> **X1 RESOLVED 2026-08-18 (F325, ledger record S22).** **This finding is the object F110 deferred and F294 §"Remains" item 1 asked for, and it was
+never cited by the four findings that wanted it** (F294, F298, F299, F303; F299's cross-reference list
+carries a dangling `[[F111-su3-ladder-casimir-scaling]]` pointing here). Its regression-candidate flag
+is **discharged**: the artifact re-runs to **7/7 PASS** with T3/T6/T7 present and T4 flipped FAIL→PASS.
+>
+> **One correction to T7, and it matters because T7 reads as a confirmation of the C7 map.** T7's
+> *"IDENTICAL to the F101 U(1) rotor $2\lambda\chi$ under $\chi=1/(4g^2)$"* compares a **one-link**
+> SU(3) rotor (`su3_rotor_hamiltonian`'s $\tfrac{g^2}{2}C_2$) against a **four-link** U(1) one;
+> the electric gaps differ by exactly $n/C_F=3$. Compared at equal $n$ the exact statement is
+> $s_1^{SU(N)}/s_1^{U(1)}\to2/(N^2-1)$, independent of $n$ — so the agreement at $N=3$ is
+> $C_Fd_F=(N^2-1)/2=4$ coinciding with the four links, **not** a statement about the group, and there
+> is no $N_c$ selector in it. T7 is arithmetically right and is **not** independent confirmation of
+> $\chi=1/(4g^2)$; F325 X3 records the measurement and F325 X4 the exact $\ln4$ string-tension offset
+> that follows.
+
 *2026-06-07. **Recovered and renumbered 2026-07-31** at the roadmap C8.2 close-out. Two tests claimed F111 and no finding file existed for either; this one takes the `b` suffix under the close-out rule (the less-cited of a colliding pair takes `b`, which keeps the number findable). **`tests/findings/test_F111_tree_gauge_su3_ladder.py` remains the primary record** — nothing here is new physics, and every number is quoted from that test and `test-results/F111_tree_gauge_su3_ladder.json`.*
 
 ## Summary
@@ -37,3 +52,4 @@ The **SU(3) character rotor** $H = (g^2/2)C_2 - (\lambda/2)(\chi_F + \chi_{\bar 
 C8.2's audit reported F111 as a gap while two live tests claimed the number — a collision inside the test tree that no index could show, because there was no finding file on either side to compare. See [[F111-second-order-light-deflection]] for the sibling, which keeps the bare number.
 
 **Status:** live. Artifact `test-results/F111_tree_gauge_su3_ladder.json`; registry record `F111-tree-gauge-su3-ladder`. Note that this record is one of the C7 close-out's **regression candidates** — a real run drifts against the committed baseline with no supersession link, so the numbers above need a re-check before they are quoted as current (`docs/status/baseline-provenance.md`).
+**Test record:** record `F111-tree-gauge-su3-ladder` (tier battery) — `tests/registry/`, D9.

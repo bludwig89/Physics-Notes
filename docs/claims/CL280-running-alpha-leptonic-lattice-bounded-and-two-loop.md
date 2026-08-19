@@ -7,7 +7,7 @@ kind: derivation
 status: contingent
 domain: [QFT, SM]
 exactness: quantitative
-findings: [F322, F251, F277, F261, F138]
+findings: [F322, F311, F251, F277, F261, F138]
 tests: [F322-b9-running-rederived]
 modules: [casim.engine.interactions.running_alpha_lattice_bound, casim.engine.interactions.qed_vacuum_polarization, casim.engine.interactions.qed_twoloop_ae]
 constants: [sin2_thetaW_uv]
@@ -36,6 +36,14 @@ coefficient $\Delta=B_\text{rule}-B_\text{cont}$ is $q$-flat and a $q$-independe
 $\Pi$ cancels identically in $\Pi(0)-\Pi(s)$. The conversion between the two is exact and
 model-internal: $\delta(\Delta\alpha)=4\pi\alpha\,\delta B$.
 
+The $0.0495\%$ is the **model-internal** number, and this card asserts that one. A second residual,
+$0.00158\%$, is in the tree (F311 §2.2, 2026-08-11) and is **not** a rival: it is the same quantity
+after adding the two-loop **non-log constant** $(\alpha/\pi)^2[\zeta(3)-\tfrac5{24}]$ per lepton
+($1.6085\times10^{-5}$ summed, $103.2\%$ of this card's residual), which is the standard
+Källén–Sabry form — *cited, not derived*, by F311 §8's own statement. The two differ by exactly that
+one imported term, so the honest quotation is: $0.0495\%$ derived end to end, $0.00158\%$ after the
+import. F322 §6.1 carries the term-by-term reconciliation.
+
 Separately, on the electroweak side, one-loop Higgs-free running from the F138 matching
 condition $\sin^2\theta_W(\mu_\star)=\tfrac14$ at $\mu_\star=4\pi v=3094.09$ GeV gives
 $\sin^2\bar\theta_W(M_Z)=0.2317341$, $+0.222\%$ against PDG $\overline{\text{MS}}$ $0.23122$ —
@@ -57,6 +65,7 @@ that the lattice's *own* modification of the running is here bounded rather than
 | `findings/F322-b9-running-alpha-ew-rederived-post-f277.md` | all six legs; the bound, the two-loop closure, the EW $\alpha$-sensitivity | quantitative |
 | `findings/F251-qed-vacuum-polarization-running-alpha.md` | $b_0^\text{QED}=4/3$ and Ward transversality, sympy-exact | exact |
 | `findings/F261-twoloop-qed-ae-amu.md` | $b_1=1$, sympy-exact | exact |
+| `findings/F311-gap5-three-numbers-adjudicated.md` | the two-loop **non-log** constant that separates this card's $0.0495\%$ from the imported $0.00158\%$; and the first closure of gap #5(a) | quantitative (**literature form, cited**) |
 | `findings/F277-qed-gluon-refold-period.md` | the refold removal that makes $\Delta$ $q$-flat to $1.7\times10^{-5}$ | quantitative |
 | `findings/F138-weinberg-gap-closure-4piv-matching.md` | the $\mu_\star=4\pi v$ matching and $+0.222\%$ | quantitative |
 | `test-results/F322_b9_running_rederivation.json` | the artifact | — |
@@ -93,6 +102,17 @@ Two further limits are stated rather than absorbed: the two-loop **non-log** con
 loops are not derived (they are the residual $1.559\times10^{-5}$), and $\alpha$ itself is not
 derived at all (F127's four-avenue no-go). This card does not assert either.
 
+**Amended 2026-08-18 - 16:20 — F311 named, and the two residuals separated (no number moves).**
+`completeness-2026-08-18` gap #4 and row **H5** item (ii) recorded that B9 carried two published
+residuals in two live documents from findings six days apart, of which the later cited neither the
+earlier nor this distinction. The disposition: they are **two rows of one sum**, not a
+contradiction — $0.0495\%$ is one loop plus the model's own two-loop leading log ($b_1=1$, F261),
+$0.00158\%$ adds the Källén–Sabry non-log constant, which F311 §8 states is cited rather than
+derived. This card continues to assert the model-internal $0.0495\%$ and now names the other number
+and its provenance so a reader cannot pick one by which document they opened. F311 is added to
+`findings:` and to Evidence; **no value, falsifier, status or exactness changes**, and no Part D
+row is opened in `docs/status/open-derivations.md` because there is no disagreement to adjudicate.
+
 Issued 2026-08-17, on the re-derivation that closed `completeness-2026-08-07` gap #5(a) — the
 $0.24\%$ carried un-re-derived for three consecutive reports. F322 establishes that the number
 never depended on the refolded path (disjoint call closure, measured bitwise), so F277 did not
@@ -101,7 +121,8 @@ uncertainty on $\Delta\alpha$ was $183$–$190\times$ the agreement being claime
 
 ## Sources
 
-- `findings/F322-b9-running-alpha-ew-rederived-post-f277.md`
+- `findings/F322-b9-running-alpha-ew-rederived-post-f277.md` (§6.1 — the reconciliation)
+- `findings/F311-gap5-three-numbers-adjudicated.md`
 - `findings/F251-qed-vacuum-polarization-running-alpha.md`
 - `findings/F261-twoloop-qed-ae-amu.md`
 - `findings/F277-qed-gluon-refold-period.md`

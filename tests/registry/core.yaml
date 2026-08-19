@@ -5,7 +5,11 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
   on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
   adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
-  not undo it.'
+  not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding is false, THIS RECORD GOES
+  RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
+  `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
+  tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
+  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: 01-GR1-light-deflection
   path: tests/priority/test_01_GR1_light_deflection.py
@@ -15,6 +19,7 @@ tests:
   - test-results/top10_T01_GR1_light_deflection.json
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -34,6 +39,7 @@ tests:
   - test-results/top10_T05_GR2_shapiro.json
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -53,6 +59,7 @@ tests:
   - test-results/top10_T07_QFT5_neutrino.json
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -72,6 +79,7 @@ tests:
   - test-results/top10_T09_GR4_mercury.json
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -89,6 +97,7 @@ tests:
   tier: battery
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -109,6 +118,7 @@ tests:
   tier: battery
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -133,6 +143,8 @@ tests:
   - F102
   sector: core
   evidence:
+    mentions:
+    - F102
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -156,6 +168,9 @@ tests:
   - F112
   sector: core
   evidence:
+    mentions:
+    - F107
+    - F112
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -182,6 +197,13 @@ tests:
   - F116
   sector: core
   evidence:
+    mentions:
+    - F77
+    - F86
+    - F88
+    - F107
+    - F115
+    - F116
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -210,6 +232,14 @@ tests:
   - F120
   sector: core
   evidence:
+    mentions:
+    - F78
+    - F80
+    - F92
+    - F101
+    - F107
+    - F119
+    - F120
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -234,6 +264,11 @@ tests:
   - F121
   sector: core
   evidence:
+    mentions:
+    - F78
+    - F101
+    - F120
+    - F121
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -255,6 +290,10 @@ tests:
   - F134
   sector: core
   evidence:
+    mentions:
+    - F74
+    - F122
+    - F134
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -273,6 +312,9 @@ tests:
   - F136
   sector: core
   evidence:
+    mentions:
+    - F135
+    - F136
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -293,6 +335,11 @@ tests:
   - F137
   sector: core
   evidence:
+    mentions:
+    - F86
+    - F135
+    - F136
+    - F137
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -315,6 +362,11 @@ tests:
   - F138
   sector: core
   evidence:
+    mentions:
+    - F41
+    - F49
+    - F115
+    - F138
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -335,6 +387,9 @@ tests:
   - F141
   sector: core
   evidence:
+    mentions:
+    - F138
+    - F141
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -362,6 +417,10 @@ tests:
   - F143
   sector: core
   evidence:
+    mentions:
+    - F42
+    - F138
+    - F143
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -384,6 +443,11 @@ tests:
   - F156
   sector: core
   evidence:
+    mentions:
+    - F125
+    - F134
+    - F135
+    - F156
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -404,6 +468,11 @@ tests:
   - F158
   sector: core
   evidence:
+    mentions:
+    - F86
+    - F123
+    - F135
+    - F158
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -424,6 +493,11 @@ tests:
   - F160
   sector: core
   evidence:
+    mentions:
+    - F135
+    - F156
+    - F159
+    - F160
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -447,6 +521,12 @@ tests:
   - F170
   sector: core
   evidence:
+    mentions:
+    - F124
+    - F144
+    - F145
+    - F150
+    - F170
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -471,6 +551,11 @@ tests:
   - F175
   sector: core
   evidence:
+    mentions:
+    - F49
+    - F92
+    - F174
+    - F175
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -498,6 +583,14 @@ tests:
   - F176
   sector: core
   evidence:
+    mentions:
+    - F73
+    - F82
+    - F86
+    - F92
+    - F174
+    - F175
+    - F176
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -522,6 +615,13 @@ tests:
   - F195
   sector: core
   evidence:
+    mentions:
+    - F123
+    - F156
+    - F157
+    - F159
+    - F160
+    - F195
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -547,6 +647,14 @@ tests:
   - F206
   sector: core
   evidence:
+    mentions:
+    - F104
+    - F113
+    - F126
+    - F128
+    - F135
+    - F195
+    - F206
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -567,6 +675,9 @@ tests:
   - F208
   sector: core
   evidence:
+    mentions:
+    - F125
+    - F208
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -591,6 +702,12 @@ tests:
   - F231
   sector: core
   evidence:
+    mentions:
+    - F41
+    - F45
+    - F49
+    - F138
+    - F231
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -617,6 +734,13 @@ tests:
   - F235
   sector: core
   evidence:
+    mentions:
+    - F86
+    - F124
+    - F144
+    - F154
+    - F233
+    - F235
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -637,6 +761,9 @@ tests:
   - F253
   sector: core
   evidence:
+    mentions:
+    - F175
+    - F253
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -661,6 +788,10 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions:
+    - F265
+    - F267
+    - F272
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -682,6 +813,10 @@ tests:
   - F28
   sector: core
   evidence:
+    mentions:
+    - F26
+    - F27
+    - F28
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -707,6 +842,11 @@ tests:
   - F30
   sector: core
   evidence:
+    mentions:
+    - F25
+    - F26
+    - F28
+    - F30
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -731,6 +871,11 @@ tests:
   - F65
   sector: core
   evidence:
+    mentions:
+    - F30
+    - F37
+    - F39
+    - F65
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -754,6 +899,9 @@ tests:
   - F74
   sector: core
   evidence:
+    mentions:
+    - F73
+    - F74
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -776,6 +924,9 @@ tests:
   - F75
   sector: core
   evidence:
+    mentions:
+    - F27
+    - F75
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -798,6 +949,9 @@ tests:
   - F76
   sector: core
   evidence:
+    mentions:
+    - F75
+    - F76
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -821,6 +975,10 @@ tests:
   - F77
   sector: core
   evidence:
+    mentions:
+    - F73
+    - F74
+    - F77
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -845,6 +1003,11 @@ tests:
   - F78
   sector: core
   evidence:
+    mentions:
+    - F69
+    - F73
+    - F76
+    - F78
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -868,6 +1031,10 @@ tests:
   - F80
   sector: core
   evidence:
+    mentions:
+    - F73
+    - F78
+    - F80
     pytest_funcs: false
     has_assert: true
     has_main: false
@@ -893,6 +1060,12 @@ tests:
   - F81
   sector: core
   evidence:
+    mentions:
+    - F69
+    - F73
+    - F74
+    - F80
+    - F81
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -917,6 +1090,11 @@ tests:
   - F82
   sector: core
   evidence:
+    mentions:
+    - F76
+    - F80
+    - F81
+    - F82
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -941,6 +1119,11 @@ tests:
   - F84
   sector: core
   evidence:
+    mentions:
+    - F75
+    - F76
+    - F82
+    - F84
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -962,6 +1145,8 @@ tests:
   - F97
   sector: core
   evidence:
+    mentions:
+    - F97
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -979,10 +1164,12 @@ tests:
   tier: battery
   results:
   - test-results/FA03_newton_constant.json
-  findings:
+  briefs:
   - FA03
   sector: core
   evidence:
+    mentions:
+    - FA03
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1002,9 +1189,13 @@ tests:
   - test-results/FA04_mz_mw_ratio.json
   findings:
   - F45
+  briefs:
   - FA04
   sector: core
   evidence:
+    mentions:
+    - F45
+    - FA04
     pytest_funcs: false
     has_assert: true
     has_main: false
@@ -1022,10 +1213,12 @@ tests:
   tier: battery
   results:
   - test-results/FA05_koide_relation.json
-  findings:
+  briefs:
   - FA05
   sector: core
   evidence:
+    mentions:
+    - FA05
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1048,9 +1241,16 @@ tests:
   - F45
   - F49
   - F115
+  briefs:
   - FA07
   sector: core
   evidence:
+    mentions:
+    - F35
+    - F45
+    - F49
+    - F115
+    - FA07
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -1072,9 +1272,15 @@ tests:
   - F27
   - F38
   - F75
+  briefs:
   - FA08
   sector: core
   evidence:
+    mentions:
+    - F27
+    - F38
+    - F75
+    - FA08
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1097,10 +1303,18 @@ tests:
   - F101
   - F120
   - F121
+  briefs:
   - FA05
   - FB01
   sector: core
   evidence:
+    mentions:
+    - F78
+    - F101
+    - F120
+    - F121
+    - FA05
+    - FB01
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1120,9 +1334,13 @@ tests:
   - test-results/FB05_hydrogen_fine_structure.json
   findings:
   - F125
+  briefs:
   - FB05
   sector: core
   evidence:
+    mentions:
+    - F125
+    - FB05
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1145,9 +1363,18 @@ tests:
   - F113
   - F126
   - F128
+  briefs:
   - FB07
   sector: core
   evidence:
+    mentions:
+    - F77
+    - F103
+    - F104
+    - F113
+    - F126
+    - F128
+    - FB07
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1165,10 +1392,12 @@ tests:
   path: tests/findings/test_FG1_anomaly_cancellation.py
   kind: legacy_script
   tier: battery
-  findings:
+  briefs:
   - FG1
   sector: core
   evidence:
+    mentions:
+    - FG1
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1195,6 +1424,8 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions:
+    - F268
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -1216,6 +1447,8 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions:
+    - F269
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -1237,6 +1470,8 @@ tests:
     exactness: machine
     tol: 1.0e-12
   evidence:
+    mentions:
+    - F270
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -1254,6 +1489,8 @@ tests:
   - F45
   sector: core
   evidence:
+    mentions:
+    - F45
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1278,6 +1515,11 @@ tests:
   - F165
   sector: core
   evidence:
+    mentions:
+    - F38
+    - F51
+    - F165
+    - F279
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -1304,6 +1546,9 @@ tests:
   - F143
   sector: core
   evidence:
+    mentions:
+    - F139
+    - F143
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1325,6 +1570,9 @@ tests:
   - F143
   sector: core
   evidence:
+    mentions:
+    - F139
+    - F143
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1346,6 +1594,9 @@ tests:
   - F206
   sector: core
   evidence:
+    mentions:
+    - F135
+    - F206
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1367,6 +1618,8 @@ tests:
   - F208
   sector: core
   evidence:
+    mentions:
+    - F208
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1390,6 +1643,11 @@ tests:
   - F162
   sector: core
   evidence:
+    mentions:
+    - F26
+    - F151
+    - F155
+    - F162
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1416,6 +1674,11 @@ tests:
   - F139
   sector: core
   evidence:
+    mentions:
+    - F70
+    - F135
+    - F137
+    - F139
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1434,6 +1697,7 @@ tests:
   tier: battery
   sector: core
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: false

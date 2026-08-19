@@ -2,7 +2,7 @@
 # The machine-readable face of docs/theory/key-decisions.md.
 # ---------------------------------------------------------------------------
 version: 1
-updated: "2026-08-02 - 09:05"
+updated: "2026-08-18 - 23:40"
 
 about: >
   Roadmap P0.3. key-decisions.md is the human narrative; this file is what
@@ -17,6 +17,38 @@ about: >
   the specific gate IDs inside a test. Marking a whole file superseded when only
   its conclusion is dead would silently retire working coverage — a worse
   outcome than the sprawl this file replaces.
+
+  -- A SUPERSESSION HAS TWO DIRECTIONS (added 2026-08-17, with S20) ----------
+
+  For its first year this file propagated INWARD only. `apply_supersession_banners.py`
+  stamps each record into the superseded FILE, and `test_no_orphan_banners` keeps
+  the two in step. Nothing propagated OUTWARD, to the rubric rows, ledgers and
+  claim cards that cite the finding as EVIDENCE. So a document could go on
+  grading a row against a reading replaced months earlier, and every check here
+  stayed green.
+
+  What it cost, measured: completeness rubric row B9 ("running of alpha, EW
+  couplings") cited F115 as its electroweak evidence for three consecutive
+  reports — 2026-08-02, -04 and -07 — while F138 (2026-06-11) and F231
+  (2026-07-02) had superseded that reading. Two failures stacked. F115 had no
+  record here at all, so there was no banner and nothing for the orphan check to
+  find; and `check_claims.py` rule 4 fires only when a LIVE card rests on WHOLLY
+  superseded ground, deliberately not on partials — which leaves the common case,
+  a partial supersession cited without its replacement, with no owner.
+
+  So there are now two obligations when you add a record here, not one:
+
+    1. INWARD — run `make stamp`. The banner goes on the superseded file.
+    2. OUTWARD — run `make citations`. Every markdown table row in the CURRENT
+       completeness report and in open-derivations.md, and every claim card's
+       front matter, must either name a finding from this record's `by:` list
+       alongside the superseded one, or say `superseded` / name this record`s id
+       in the same row. `make gate` runs it; the unit is one TABLE ROW, because
+       an acknowledgement 400 lines away from the row that gets it wrong is how
+       B9 read for three reports.
+
+  Both are cheap. The second one is the one nobody thought of, which is why it
+  is written here rather than only in the tool.
 
 status_vocabulary:
   fully_superseded:   Everything the file tests has been replaced. Safe to mark.
@@ -1659,3 +1691,423 @@ supersessions:
                F15's own closed form with a negative control asserted to go red,
                and separately measures the nonzero O(vk) coefficient by which
                claim 1 fails -- i.e. it ASSERTS THE FAILURE. Do not mark."
+
+  - id: S20-F115-weinberg-gap-account-replaced-by-4piv-matching
+    date: 2026-08-17
+    kind: superseded
+    by: [F138, F231]
+    superseded: [F115]
+    scope: >
+      F115's CM2 -- the ACCOUNT of the +12% Weinberg gap, not its arithmetic.
+      CM2 (2026-06-08) computed that running the bare sin^2 theta_W = 1/4 down
+      from the Planck scale overshoots catastrophically (0.059 SM / 0.055
+      Higgs-free, a -74% miss, with alpha_s going negative through a Landau
+      pole), and concluded that the gap is instead "a low-scale (~few-TeV)
+      matching offset", with CM2b measuring where the MEASURED SM trajectory
+      passes through 1/4: mu_star ~ 3.7 TeV (SM) / 3.4 TeV (Higgs-free).
+      F138 (2026-06-11) replaced the conclusion three days later: mu_star is not
+      an observed crossing to be reported, it is DERIVED as the compositeness
+      scale 4 pi v = 3094 GeV, forced by hypercharge having no lattice kinetic
+      term (F41), and one-loop Higgs-free running from that anchor gives
+      sin^2 thetabar_W(M_Z) = 0.23173 -- residual +0.22%, no new free parameter.
+      F231 (2026-07-02) completed it by decomposing the exact 8/9 bridge into
+      one-loop running (0.927) x MSbar->on-shell conversion (0.965), which makes
+      F49's 2/9 the ON-SHELL FACE of the same 1/4 rather than a competing tree
+      value. So F115's ledger line "+12% gap: not running; a few-TeV matching
+      offset (CM2)" is dead, and its replacement is a derivation rather than an
+      observation.
+    reason: >
+      Written 2026-08-17 during the F322 B9 re-derivation, and the reason it is
+      being written 67 days late is the point of the record. Completeness rubric
+      row B9 ("running of alpha, EW couplings") cited F115 as its EW evidence
+      for THREE consecutive reports (2026-08-02, -04, -07) while F138 and F231
+      had superseded that reading since June and July. Nothing caught it,
+      because F115 had no ledger entry at all -- so no banner was stamped on it,
+      `test_no_orphan_banners` had nothing to find, and `check_claims.py` rule 4
+      (a live card standing on WHOLLY superseded ground) could not fire either,
+      since F115's CM1/CM3/CM4 are alive and the supersession is partial.
+      The gap was structural: the ledger records supersessions, and the banner
+      tooling propagates them into the SUPERSEDED file, but nothing propagated
+      them into the documents that CITE it. `tools/check_superseded_citations.py`
+      (added with this record) is the closure.
+    impact: >
+      No number moves and no test changes verdict. CM2's computation is
+      unchanged and F138 says so explicitly in its own cross-references: CM2's
+      negative is "*resolved*, not contradicted". What changes is standing --
+      CM2's few-TeV reading was the model's account of the Weinberg gap and is
+      now the negative result that MOTIVATES the account, and CM2b's measured
+      3.4-3.7 TeV crossing is demoted from the finding's honest positive to a
+      consistency check on F138's derived 3.094 TeV (agreement ~10%, and F138's
+      WM3(a) is where that check now lives). Row B9's EW leg reads +0.222%
+      (F138) rather than "+12% gap unexplained" (F115), which is the grade
+      F322/Amendment 9 gave it.
+    retained: >
+      MOST OF THE FINDING, and this is why the record is `partially_superseded`
+      rather than a blanket mark. CM1 is untouched and load-bearing: at
+      sin^2 theta_W = 1/4 the relations e = g/2, g' = g/sqrt3, g_Z = 2g/sqrt3
+      hold as exact rationals, so the electroweak sector has ONE magnitude and
+      not three -- that is what row B9 means by "e = g/2 reduces EW to one
+      magnitude" and it is still the correct citation. CM3 is untouched: the
+      rotor lock g_s^2 chi = 1/4 from F110's C7 matrix identity removes g_s as
+      an independent knob. CM4 is untouched: the F95 sextic's "e" is the E_g
+      condensate amplitude, not the electric charge, so there is no
+      over-determination of alpha -- a no-go that F127 later confirmed by a
+      different route. CM2's NEGATIVE is also retained and load-bearing: that
+      Planck-anchored running overshoots is exactly why a matching
+      interpretation is needed, and F138 rests on it.
+    findings:
+      - path: findings/F115-coupling-magnitudes-running-rotor.md
+        status: partially_superseded
+        dead: "CM2's CONCLUSION -- that the +12% gap is 'a low-scale (~few-TeV)
+                matching offset' identified by where the measured SM trajectory
+                happens to cross 1/4. F138 derives the scale instead
+                (mu_star = 4 pi v = 3094 GeV, forced by hypercharge having no
+                lattice kinetic term) and closes the gap to +0.22%; F231 makes
+                F49's 2/9 the on-shell face of the same 1/4 via the 8/9 bridge.
+                Section 6's ledger row '+12% gap -> a few-TeV matching offset'
+                is superseded by 'gap closed to +0.22% at a DERIVED scale'."
+        live: "CM1 (e = g/2, g' = g/sqrt3, g_Z = 2g/sqrt3 as exact rationals;
+                one EW magnitude, not three) -- this is B9's correct citation.
+                CM3 (g_s^2 chi = 1/4, the rotor lock). CM4 (the F95 e^6
+                notation no-go). CM2's negative result that Planck-anchored
+                running overshoots by -74%, which F138 builds on. CM2b's
+                measured 3.4-3.7 TeV crossing, DEMOTED from headline to a
+                consistency check on F138's 3.094 TeV."
+        note: "Read F138 section 1 and F231 section 1 before citing F115 for
+                anything about the Weinberg angle's SCALE. F115 remains the
+                correct citation for the coupling-magnitude COUNT (CM1/CM3/CM4),
+                which is a different question and the one B9 actually needs."
+    tests:
+      - path: tests/findings/test_F115_coupling_magnitudes.py
+        status: live
+        note: "Do not mark. All four checks still pass and CM2 asserts the
+               OVERSHOOT -- i.e. it asserts the negative that F138 relies on, so
+               retiring it would delete the evidence for the successor. The
+               superseded object is the finding's conclusion, not any check."
+
+  - id: S21-F94-hypercubic-action-not-the-model-lattice
+    date: 2026-08-17
+    kind: superseded
+    by: [F323, F265]
+    superseded: [F94]
+    scope: >
+      F94's 3+1D confinement measurement, specifically the LATTICE it runs on.
+      F94 samples a simple-hypercubic ensemble with the textbook Wilson action
+      (forks/gauge/lgt_fork_A_mc.py, "by convention the LAST lattice axis is
+      Euclidean time", D=4 cubic). That is not the model's lattice, and F265
+      proved the difference is not cosmetic: the composite simple-cubic
+      construction has an EXACT kernel -- one of the four <111> link axes is
+      left completely free, so S_SC vanishes to round-off on configurations
+      where the genuine BCC Wilson density is about 1 -- and it misses
+      asymptotically 1/3 of the curvature-carrying link content. Both actions
+      have the same classical continuum limit, which is exactly why the defect
+      was invisible in F94's normalisation checks (FA4, FA5) and why those
+      checks passing is not evidence that the ensemble is the right one.
+      Note what this record does NOT cover: F94's engine certificates and its
+      CMP2 bridge, both of which survive -- see `retained`.
+    reason: >
+      F265 (2026-07-30) established the blindness and named the remedy in its
+      own text -- "the Monte-Carlo actions (F94 4D cubic, F146 3D cubic) ... to
+      be rebuilt on the BCC lattice" -- but no replacement existed, so the
+      statement sat unactioned for seven weeks and F94 remained the tree's only
+      d=4 confinement leg. F323 supplies the replacement: a 3+1D sampler and
+      Wilson-loop observable on the genuine BCC action, as BCC_3 spatial x Z
+      Euclidean time (6 minimal rhombi + 4 mixed space-time rectangles, ten
+      plaquettes per site, not the hypercubic six), with the staple identity
+      sum_links Re tr(U A) = 4 sum_loops beta Re tr P verified at 2.3e-16 and
+      gauge invariance at 3.8e-17. Two further reasons the hypercubic leg cannot
+      simply be re-pointed at the new lattice: (1) the geometry is ANISOTROPIC by
+      construction, because F291 S1 caps the Cayley graph at three spatial
+      generators and F313 computes the "+1" as the update's commutant -- a
+      commuting flow, explicitly not a fourth graph generator -- so a 4D cubic
+      or 4D BCC lattice contradicts the model's own structure; and (2) F323
+      derives beta_t/beta_s = 4 lambda^2/a_t^2 = (4/3) xi^2, so the hypercubic
+      relation beta_t/beta_s = xi^2 that F94's isotropic action implicitly
+      assumes is wrong here by a factor 4/3.
+    retained: >
+      A great deal, and `fully_superseded` would be false. LIVE: the engine
+      certificates FA1 (SU(3) closure 1.1e-15), FA2 (over-relaxation action
+      invariance 1.2e-16) and FA3 (the staple/action-gradient ratio-4 identity
+      8.9e-16) are properties of the Cabibbo-Marinari machinery, not of the
+      lattice it is run on, and F323's own BCC sampler reuses the same
+      quaternion conventions precisely so the two can be compared rather than
+      guessed at. LIVE: CMP2, the bridge sigma_A -> v* = sqrt(sigma_A/2 pi) that
+      fixes Option C's only free parameter, is exact at 1e-16 and F311 leg B
+      re-affirmed that identity at 1.2e-16 after five-seed testing. LIVE: the
+      Luscher-Weisz two-level estimator and its measured 84x variance
+      reduction. LIVE, and worth saying explicitly: the QUALITATIVE conclusion
+      that the 3+1D potential rises is not contradicted by anything here --
+      F323's own smoke run also gives a positive Creutz ratio. What is dead is
+      the ensemble's standing as a measurement on the model's lattice, and
+      therefore any number read off it as the model's d=4 string tension.
+      This record deliberately does NOT re-home F311's baseline finding: F311
+      adjudicated FA_vs_FC_comparison.json's drift as an UNDECLARED INPUT
+      (test-results/lgt_confinement.json read by _measure_sigma_A, making the
+      record seed-independent), explicitly not a supersession, and that cause
+      is unchanged. Its `clears_by` action -- declare artifacts_read_only and
+      re-run -- is still open and is still the right fix.
+    findings:
+      - path: findings/F94-lattice-gauge-mc-confinement-vs-F86.md
+        status: partially_superseded
+        dead: "The ensemble as a measurement on the model's lattice. F94's D=4
+                simple-hypercubic Wilson action is F265-blind: it has an exact
+                kernel that frees one of the four <111> link axes and misses
+                asymptotically 1/3 of the curvature-carrying link content, so
+                any sigma or V(R) read off it is a number about the wrong
+                lattice. The absolute-normalisation (FA4) and strong-coupling
+                (FA5) anchors do not rescue it -- both actions share a classical
+                continuum limit, which is why those checks could pass on a blind
+                action. Also dead: the implicit isotropic beta_t = beta_s, which
+                F323 derives to be beta_t/beta_s = 4 on the model's geometry."
+        live: "FA1, FA2 and FA3 (engine certificates, properties of the sampler
+                not the lattice); CMP2, the sigma_A -> v* bridge, exact at 1e-16
+                and re-affirmed by F311 at 1.2e-16; CMP3's shared large-R slope
+                with the Coulomb difference; the Luscher-Weisz two-level
+                estimator and its 84x variance reduction; and the qualitative
+                statement that the 3+1D potential rises, which F323's BCC run
+                also finds."
+        note: "The replacement is `gauge-bcc-mc-d4` (gate, 28/28, 5/5 controls
+                CONTROL) and `run-bcc-confinement-d4` (battery). F94's own
+                heading is NOT rewritten -- per D12 a finding records what a
+                session concluded. Three consequences tracked elsewhere rather
+                than here: CL087 rests on F94 ALONE and is narrowed in the same
+                edit as this record; F299's `mc_reach` names
+                forks/gauge/lgt_fork_A_mc.py as the successor engine and that
+                pointer is now stale, with F323 executing the successor on the
+                BCC ensemble instead; and rubric row B7's evidence list should
+                gain F323 beside F94 on the next completeness sweep."
+    tests:
+      - path: tests/findings/test_FA_lgt_mc.py
+        status: live
+        note: "Do not mark. Every check in this file is an ENGINE certificate --
+               SU(3) closure, over-relaxation action invariance, the ratio-4
+               staple identity, the two-level variance reduction -- and each is
+               a property of the Cabibbo-Marinari sampler rather than of the
+               lattice it runs on. Retiring it would delete the coverage that
+               F323's BCC sampler is checked against."
+      - path: tests/findings/test_FA_vs_FC_comparison.py
+        status: live
+        note: "Do not mark. Its load-bearing assertion is CMP2's matching
+               identity at 1.2e-16, which F311 leg B re-verified and which is
+               independent of the ensemble's lattice. Its baseline drift has a
+               separate, already-adjudicated cause (S1's baselines block: an
+               undeclared read of test-results/lgt_confinement.json) and must
+               not be re-attributed to this supersession."
+
+  - id: S22-F298-mixed-matching-C_F-and-the-X1-branch
+    date: 2026-08-18
+    kind: superseded
+    by: [F325]
+    superseded: [F298, F299, F303]
+    scope: >
+      The CASIMIR READING of the F110 C7 identity, and with it the X1 fork's
+      branch A. NOT the arithmetic on either side -- every number in F298, F299
+      and F303 reproduces, and F325 reproduces them before disagreeing with what
+      they were taken to mean.
+
+      F298 (2026-08-05) evaluated C7 as chi_k = s(k)^2 / (4 g^2 C_2(antisym k)):
+      the ABELIAN rotor's Z_N symmetric residue in the numerator against the
+      SU(N) gauge theory's quadratic Casimir in the denominator. That is a MIXED
+      matching -- the two sides are eigenvalues of operators belonging to
+      different theories -- and it is the sole origin of the C_F that created
+      the fork. Under EITHER self-consistent evaluation (both sides abelian, or
+      both sides SU(N)) chi = 1/(4 g^2) identically, for every N and every
+      irrep, exact over Q. F294 had already measured the all-abelian case
+      N-free with worst deviation literally 0.0 and given the reason -- "the
+      s(m)^2 cancels between the electric term and the rotor level" -- and the
+      same cancellation holds with C_2 on both sides.
+
+      The mixed evaluation is not a rival convention either: off the k-string
+      tower it is level-dependent at N = 3 as well. F324 section 3 U1c found the
+      sextet leg (chi_6 = 3/10 against the tower's 3/4) and booked it as
+      "falsifier 5b ... the most serious structural exposure on the upper side";
+      F325 completes the table and finds chi in {3/4, 3/10, 3/16} plus UNDEFINED
+      for the adjoint, decuplet and 27, where the Z_3 rotor's s^2 = 0 against
+      C_2 != 0 -- i.e. the mixed reading assigns ZERO electric cost to a
+      triality-0 link.
+
+      Which evaluation the model is entitled to turns on whether the integer
+      spectrum is derived from the rule. It is not: the rule's own (E, B) are
+      continuous real fields under an SO(2) rotation (F26,
+      weak_wmu._f26_rotation_step), the integer spectrum is introduced as the
+      exactly-solvable case (F101 section 2; link_hamiltonian "the integer
+      (compact) electric field", U(1) "truncated at |m| <= m_max"), Gauss's law
+      is solved by a HEIGHT representation that exists only for abelian groups,
+      and the model's own links are SU(3)-valued matrices (strong.py, gluon.py,
+      bcc_action.plaquette_field_strength_su3, F94, F99 D3, group derived in
+      F317). link_hamiltonian.py holds no SU(3) matrix at all. F298 and F303
+      both already call the Z_3 side an "effective description" of SU(3).
+
+      Independently of all of that, branch A is excluded quantitatively: it
+      requires Lambda_MSbar/Lambda_rule = 3.4e6, which is 5.63 decades outside
+      F280 S5 / CL252's committed [1, 7.98] and needs the rule's own loops-only
+      one-loop constant to be 7.24x Wilson's for an action F287 section 4
+      MEASURES at 5.3-5.7x SMALLER discretisation error than Wilson's.
+    reason: >
+      Written 2026-08-18 during the X1 research pass. The fork was framed on
+      2026-08-06 by F299 (12:35) and F303 (19:58); F280's bracket had landed on
+      2026-08-05 (12:40), the previous day, and the two were never compared --
+      the ledger's own d_1 row prints "required 1.773444 on branch B, ~3.4e6 on
+      branch A" and, in the same cell, "band in [1, 7.98]". F303 section 4.1
+      computed the 3.4e6 and compared it against F144's A4 residual and Wilson's
+      28.81, the two comparisons available in June, but not against the model's
+      own bracket.
+
+      The structural half has the same shape as the lesson F303 section 5 drew
+      about F101 section 7: a deferral coming due. F294 section 5 wrote "H1 is
+      the model's choice, and it has never been validated against a genuine
+      SU(N) link Hamiltonian" and made building one its Remains item 1. That
+      Hamiltonian ALREADY EXISTED -- su3_ladder.py, 2026-06-07, five days before
+      F144, finding F111b, record F111-tree-gauge-su3-ladder -- and none of
+      F294, F298, F299 or F303 cites it. F299's cross-reference list even names
+      "F111-su3-ladder-casimir-scaling", a dangling link to it.
+
+      The mechanical enabler is a D9 gap and is recorded because it is
+      generalisable: F298-casimir-ladder declared two controls (tower=symmetric,
+      n_max=3) and BOTH perturb the tower. Neither perturbed the MATCHING, which
+      was the one assumption doing all the work, so the record could not see its
+      own premise fail. The control is now declared (numerator=casimir, reddens
+      exactly L2 and L3, verified CONTROL).
+    impact: >
+      X1 leaves Part D of the open-derivations ledger: branch A is TESTED and
+      CLOSED, branch B (chi = 1, g_s = 1/2, alpha_s(mu_0) = 1/(16 pi)) is
+      ADOPTED, and the "centre-normalised coupling with an SU(N_c) beta
+      function" inconsistency X1 named never existed. F144's headline, F119's
+      19-decade hierarchy channel, F233's factor-1.9 mass-scale result and
+      CL022's 2.1 sigma framing all stand and stop being contingent.
+
+      Two things move the other way and are not softened. CN19 falls: "the C7
+      identity is well-defined only for N_c <= 3" is a property of the mixed
+      matching. F324's UPPER constraint falls with it, since F324 imports
+      F298's criterion verbatim as its upper bound -- so B10 closes on ODD N_c
+      only, {3, 5, 7, ...}, its lower (Z_2 doublet parity) leg untouched. F324's
+      incremental content over F298 was priced by its own section 8 at "one
+      bit"; this spends it.
+
+      d_1's role changes and does not disappear: it now PINS alpha_s(M_Z) inside
+      branch B and closes E3/Q1/Q2, rather than choosing between branches six
+      decades apart. Its two-sided falsifier is unchanged and is now the
+      sharpest statement in the sector -- a completed vertex computation
+      returning Lambda outside [1, 7.98] falsifies the g_s = 1/2 lock or F280's
+      monotonicity assumption, and a return of 3.4e6 would REINSTATE branch A
+      and CN19 with it.
+
+      No test changes verdict. Exactly three registry records consume the edited
+      modules -- F298-casimir-ladder, F303-coupling-normalisation, and
+      F324-ncolour-bracket via derive_ncolour_bracket.py -- and all three pass.
+    retained: >
+      ALMOST EVERYTHING, which is why all three files are partially_superseded
+      rather than blanket-marked.
+
+      F298: result (2), the exact proportionality of the two ladders at N = 3
+      with constant C_F, is unchanged arithmetic and is what makes the dispute a
+      single rational number rather than an interpretation. Result (3)'s
+      k-string degeneracy at N = 3 is correct about that tower (F299 reproduced
+      it as its own control S2b). Its section 5 scope note -- that the tower is
+      a restriction, not the full link Hilbert space -- is exactly the sentence
+      that turns out to matter most.
+
+      F299: EVERYTHING, re-characterised rather than contradicted. Its
+      sigma_6/sigma_3 = 2.4911511 reproduces independently to 5-6 significant
+      figures, its relocation of F298's degeneracy from N = 3 to the
+      antisymmetric tower is right, and its reinstatement of F294's
+      discriminator is right. What is dead is only the INFERENCE that the
+      measurement selects a coupling normalisation: the same engine gives 2.49115
+      at beta = 24 (branch B) and 2.49540 at beta = 32 (branch A), because
+      Casimir scaling in d = 2 is a theorem about the SU(3) Wilson measure at
+      weak coupling, true at every beta. Read correctly, F299 establishes that
+      the link variables carry SU(3) representation content -- which is the
+      PREMISE under which the C_F cancels. It is evidence FOR branch B.
+
+      F303: EVERYTHING except the framing as an unchooseable fork. Its three
+      closed candidates are closed and stay closed (scheme constant off by 26x;
+      the BCC graph's absence of a 3-bond loop, by parity and exhaustive
+      enumeration; the Cartan reading's Landau pole). Its section 2 audit of
+      F144 A1 -- steps 1-2 group-blind, step 3 the break -- is right and is what
+      located the problem. Its N1 lemma is reused verbatim by F325 section 6.
+      Its closing sentence asks for "a fourth normalisation nobody has written
+      down"; the answer is that there is no fourth normalisation, because there
+      is nothing to bridge.
+    findings:
+      - path: findings/F298-casimir-ladder-c7-rerun.md
+        status: partially_superseded
+        dead: "Results (1) and (2) AS READINGS OF C7. The C7 identity does not
+                'exist only for N_c <= 3' and does not 'carry 1/C_F where it
+                exists': both statements are properties of the MIXED matching
+                (abelian rotor eigenvalue against SU(N) gauge eigenvalue). Under
+                either self-consistent matching chi = 1/(4 g^2) for every N and
+                every irrep, and the mixed matching is itself level-dependent at
+                N = 3 off the k-string tower. CN19 falls with result (1)."
+        live: "The arithmetic, in full. The exact proportionality at N = 3 with
+                constant C_F (result 2's computation, as opposed to its reading)
+                is what makes the dispute one rational number. Result (3) is
+                correct about the antisymmetric tower. The section 5 scope note
+                naming the tower as a restriction is the load-bearing sentence.
+                The weakened form of result (1) survives and is useful: the
+                model's Z_N link Hilbert space is a faithful effective
+                description of the SU(N) k-string ladder only for N <= 3 -- a
+                constraint on where link_hamiltonian.py may be used, not a
+                selector for N_c."
+        note: "Read F325 sections 2 and 7 before citing F298 for anything about
+                N_c or about the value of chi. F298 remains the correct citation
+                for the ladder arithmetic and for the k-string degeneracy at
+                N = 3, which are different questions."
+      - path: findings/F299-casimir-scaling-discriminator-reinstated.md
+        status: sub_claim_superseded
+        dead: "The INFERENCE that the measurement selects a coupling
+                normalisation -- 'the model's own confinement sector says H2'.
+                The engine is beta-independent on this question: 2.49115 at
+                beta = 24 (branch B's coupling) against 2.49540 at beta = 32
+                (branch A's), because Casimir scaling in d = 2 is a theorem
+                about the SU(3) single-plaquette Wilson measure at weak coupling,
+                as F299 section 3 itself states. It never discriminated."
+        live: "EVERYTHING ELSE, and the finding is REINFORCED rather than
+                damaged. Every number reproduces independently. The relocation of
+                F298's degeneracy from N = 3 to the antisymmetric tower is
+                correct and is the finding's real content. What it establishes --
+                that link electric cost is C_2(R), i.e. that the link variables
+                carry SU(3) representation content -- is precisely the premise
+                under which the C_F cancels in F325 section 2, so F299 is
+                evidence FOR the adopted branch."
+        note: "Cite F299 for representation content, not for coupling
+                normalisation. Its mc_reach pointer to
+                forks/gauge/lgt_fork_A_mc.py is separately stale (S21); F323
+                runs the d = 4 successor on the BCC ensemble."
+      - path: findings/F303-no-centre-normalisation-argument.md
+        status: sub_claim_superseded
+        dead: "The verdict that the tree faces 'a genuine fork the tree cannot
+                currently choose between', and the branch-A half of section
+                'Remains' item 1. The argument F299 asked for does exist; it is
+                not a normalisation but the observation that the two sides of
+                C7 are one operator. Item 3's 'the computation cannot be
+                ambiguous, which makes it the single highest-value open item'
+                is demoted: d_1 pins alpha_s inside branch B, it does not choose
+                a branch."
+        live: "The three closed candidates, each still closed by the computation
+                that closed it (26x, no 3-bond loop, Landau pole). The section 2
+                audit of F144 A1 -- steps 1-2 group-blind, step 3 the break --
+                which is what located the problem, and whose N1 lemma F325
+                section 6 reuses verbatim to show the lemma fixes only a RATIO
+                and therefore does not derive chi = 1. Section 5's lesson about
+                the age of the caveat."
+        note: "F303 asked for 'a fourth normalisation nobody has written down'.
+                F325 is the answer and it is not a normalisation: there is
+                nothing to bridge, because the numerator and denominator carry
+                the same operator."
+    tests:
+      - path: tests/findings/test_F298_casimir_ladder.py
+        status: live
+        note: "Do not mark. Every leg still passes and the record now carries
+               the control it was missing (numerator=casimir, reddens exactly
+               L2 and L3) plus leg L6, which asserts the operator-consistency
+               result. Retiring the file would delete the coverage that proves
+               its own headline is reading-dependent."
+      - path: tests/findings/test_F299_casimir_scaling.py
+        status: live
+        note: "Do not mark. The measurement is correct and is now cited as the
+               premise of the adopted branch rather than as a discriminator."
+      - path: tests/findings/test_F303_coupling_normalisation.py
+        status: live
+        note: "Do not mark. N1-N7 all still pass and are all still true; the
+               record gained N8 (the CL252 confrontation) and its casimir_on
+               control in the same pass."

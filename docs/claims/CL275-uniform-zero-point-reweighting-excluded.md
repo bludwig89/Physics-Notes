@@ -7,7 +7,7 @@ kind: no_go
 status: live
 domain: [GR, QFT, cosmology]
 exactness: quantitative
-findings: [F319, F164, F59, F79, F107]
+findings: [F319, F164, F59, F79, F107, F193, F196]
 tests: [F319-uv-completion]
 modules: [casim.engine.interactions.qed_uv_completion]
 constants: [a_over_ellP, ell_P_m, c_lat]
@@ -47,8 +47,27 @@ with it. Any surviving mechanism must be order-selective in the heat-kernel expa
 suppress $a_0$ by $\ge120.76$ decades while perturbing $a_1$ by $\le2.2\times10^{-5}$ (CODATA's
 relative uncertainty on $G$), a required relative selectivity between two *adjacent* heat-kernel
 coefficients of $\ge1.27\times10^{116}$. F164's channel (ii) (sequestering through the
-$AB\equiv1$ dielectric) is order-selective by construction and is the only one of the three with
-the right shape.
+$AB\equiv1$ dielectric) is order-selective by construction and is the only one of **F164's three**
+with the right shape.
+
+**The excluded route is F193 Part A, named** (added 2026-08-18): F164 stated channel (i) as a
+position, and F193 turned it into a derivation via A2 — the beable field-energy density carries
+*"no additive $c$-number per mode"*, so the $+\tfrac12$-per-mode offset does not gravitate. That is
+a **uniform** statement in the sense above and is what this card excludes: F59 Part C builds
+$1/16\pi G=\eta g_*\int_\text{BZ}d^3k/(2\pi)^3\,(1/2\omega)$ out of the same $\tfrac12$, with
+$\eta$ the Seeley $a_1$ number of the same one-loop determinant, so the deletion cannot tell the
+two moments apart.
+
+**And the tree carries a fourth candidate that F164 §C did not list** (added 2026-08-18, and it is
+*not* excluded): F193 **Part B** with F196's derived $p=2$ — the capacity ceiling
+$\rho_\text{grav}(L)\le3c^4/8\pi GL^2$, which is order-selective **by construction because it
+contains $G$ rather than perturbing it**. Against this card's own price it delivers $120.66$ of the
+required $120.76$ decades with $a_1$ untouched, short by $0.10$ dex — the sub-unity factor
+$\Omega_\Lambda$, which F241 (CL212) classifies as the coincidence problem. So the selectivity
+requirement stated here is **met in shape and in magnitude** by a route already in the tree; what is
+missing is the *dynamics*, since F241 proves that sector fixes a **ceiling**, not a value, and a
+ceiling is a consistency requirement rather than a suppression mechanism. This card's no-go is
+unaffected either way: a ceiling is not a uniform reweighting.
 
 ## What it extends
 
@@ -70,6 +89,8 @@ is generic to induced-gravity frameworks and is stated here in the model's own n
 | `findings/F59-induced-eh-prefactor-and-f10-selection.md` Part A | $\int d^3k/2\omega$ is the $\Lambda^2$ Newton sector, $\int\omega/2$ the $\Lambda^4$ CC sector | derived |
 | `findings/F79-structural-newton-constant.md` | $G=a^2c^3/(8\pi\sqrt3\hbar)$ structural — what channel (i) would destroy | exact |
 | record `F319-uv-completion`, legs `U8-reproduces-F164`, `U8-uniform-channel-excluded`, `U8-selectivity-required` | 21/21 PASS; control `zero_point_weight` reddens exactly these three | computed |
+| `findings/F193-ontic-vacuum-gravitates-as-zero.md` Part A (A2) | the excluded route, in its strongest form — the per-mode $c$-number deleted as a template artefact | derived, **and excluded here** |
+| `findings/F196-dilution-exponent-derived.md` | the order-selective route this card does **not** exclude: $p=3-1=2$ by two independent model-native paths, converging on $3c^4/8\pi GR_H^2$ | derived |
 
 `sakharov_moments` computes both moments in one function over one grid, and reproduces F164's
 $I_\text{cc}=4.081$ independently.
@@ -85,7 +106,10 @@ $I_\text{cc}=4.081$ independently.
    and withdraw this card.
 3. An order-selective mechanism delivering $\ge1.27\times10^{116}$. That would *close* the
    problem rather than falsify this no-go, and this card would then be narrowed to "the uniform
-   subclass is excluded", which is what it already says.
+   subclass is excluded", which is what it already says. **Partially met as of 2026-08-18**: F193
+   §B/F196's ceiling has the shape and $120.66$ of the $120.76$ decades, and lacks the dynamics.
+   A demonstration that the F164 sum is *made* to respect the F183 capacity bound would meet it in
+   full — and still not falsify this card.
 
 ## Status & history
 
@@ -99,8 +123,24 @@ F164 itself is **not** superseded — its computation of $\rho_\text{vac}$ and i
 problem stand unchanged, and are reproduced here independently. What moves is the disposition of
 one of its three candidate resolutions, which is exactly the finding/claim split D12 exists for.
 
+**Amended 2026-08-18 - 17:15 — scope stated precisely; the no-go itself is untouched.**
+`completeness-2026-08-18` **Amendment 4** adjudicated rubric row **K9**'s F311-vs-F319 disagreement,
+and two of its conclusions belong on this card. (a) The excluded route is **F193 Part A**, now named
+here rather than left as "F164's channel (i)" — which matters because headline card CL021 was, until
+the same amendment, citing that leg as `exact` evidence, so two headline cards disagreed about one
+leg for two days and no gate check could see it. (b) F319 §6's *"sole survivor"* was written against
+F164 §C's list of three and did not enumerate **F193 §B/F196/F241**, which is order-selective by
+construction and clears the price stated here. Both are additions to *scope*: no value, status,
+falsifier or exactness moves, the $2\times2$ solve and the $\ge1.27\times10^{116}$ requirement are
+unchanged, and F193/F196 are added to `findings:` and to Evidence so the card names what it excludes
+and what it does not. **F319 is not edited** — a finding records what a session concluded (D12).
+
 ## Sources
 
 - `findings/F319-uv-sector-reconciled-physical-cutoff-and-counterterms.md` §6
 - `findings/F164-cosmological-constant-120-orders-and-candidate-cancellations.md` §C
 - `src/casim/engine/interactions/qed_uv_completion.py` (`sakharov_moments`, `two_sector_solve`)
+- `findings/F193-ontic-vacuum-gravitates-as-zero.md` Part A (excluded) and Part B (not excluded)
+- `findings/F196-dilution-exponent-derived.md`
+- `docs/status/completeness-2026-08-18.md` — Amendment 4
+- `docs/status/open-derivations.md` — row G1

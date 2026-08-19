@@ -5,7 +5,11 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
   on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
   adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
-  not undo it.'
+  not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding is false, THIS RECORD GOES
+  RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
+  `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
+  tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
+  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: E2E-nonabelian-bilinear
   path: tests/findings/test_E2E_nonabelian_bilinear.py
@@ -20,8 +24,16 @@ tests:
   - F68
   - F69
   - F89
+  - F90
   sector: gauge
   evidence:
+    mentions:
+    - F36
+    - F43
+    - F67
+    - F68
+    - F69
+    - F89
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -43,6 +55,8 @@ tests:
   - F100
   sector: gauge
   evidence:
+    mentions:
+    - F100
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -64,6 +78,8 @@ tests:
   - F101
   sector: gauge
   evidence:
+    mentions:
+    - F101
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -83,6 +99,8 @@ tests:
   - F110
   sector: gauge
   evidence:
+    mentions:
+    - F110
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -103,9 +121,12 @@ tests:
   kind: result_dump
   tier: battery
   findings:
-  - F111
+  - F111b
+  - F110
   sector: gauge
   evidence:
+    mentions:
+    - F111
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -135,6 +156,11 @@ tests:
   - F130
   sector: gauge
   evidence:
+    mentions:
+    - F30
+    - F105
+    - F129
+    - F130
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -154,13 +180,16 @@ tests:
   tier: battery
   findings:
   - F133
-  - F134
+  - F134b
   sector: gauge
   evidence:
+    mentions:
+    - F133
+    - F134
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 231
+    lines: 241
     n_test_funcs: 13
     artifacts_written: []
     artifact_rule: {}
@@ -176,6 +205,8 @@ tests:
   - F155
   sector: gauge
   evidence:
+    mentions:
+    - F155
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -197,6 +228,8 @@ tests:
   - F155
   sector: gauge
   evidence:
+    mentions:
+    - F155
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -222,6 +255,12 @@ tests:
   - F155
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F129
+    - F151
+    - F154
+    - F155
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -243,6 +282,8 @@ tests:
   - F155
   sector: gauge
   evidence:
+    mentions:
+    - F155
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -264,6 +305,10 @@ tests:
   - F161
   sector: gauge
   evidence:
+    mentions:
+    - F125
+    - F156
+    - F161
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -284,6 +329,9 @@ tests:
   - F162
   sector: gauge
   evidence:
+    mentions:
+    - F155
+    - F162
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -303,6 +351,8 @@ tests:
   - F163
   sector: gauge
   evidence:
+    mentions:
+    - F163
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -325,6 +375,11 @@ tests:
   - F166
   sector: gauge
   evidence:
+    mentions:
+    - F91
+    - F162
+    - F163
+    - F166
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -347,6 +402,11 @@ tests:
   - F169
   sector: gauge
   evidence:
+    mentions:
+    - F69
+    - F74
+    - F168
+    - F169
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -372,6 +432,8 @@ tests:
   - F185
   sector: gauge
   evidence:
+    mentions:
+    - F185
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -399,6 +461,14 @@ tests:
   - F239
   sector: gauge
   evidence:
+    mentions:
+    - F110
+    - F144
+    - F151
+    - F155
+    - F162
+    - F235
+    - F239
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -418,6 +488,8 @@ tests:
   - F24
   sector: gauge
   evidence:
+    mentions:
+    - F24
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -479,6 +551,12 @@ tests:
   - F249
   sector: gauge
   evidence:
+    mentions:
+    - F69
+    - F87
+    - F125
+    - F169
+    - F249
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -502,6 +580,14 @@ tests:
   - F264
   sector: gauge
   evidence:
+    mentions:
+    - F68
+    - F87
+    - F107
+    - F251
+    - F252
+    - F258
+    - F264
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -520,6 +606,9 @@ tests:
   - F265
   sector: gauge
   evidence:
+    mentions:
+    - F264
+    - F265
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -531,6 +620,48 @@ tests:
       test-results/F265_bcc_gauge_geometry.json: file
     artifacts_read_only: []
     summary: F265 — The gauge sectors live on the genuine BCC lattice.
+- id: F26b-spin-axis-scalar-contamination
+  kind: assertion
+  tier: gate
+  sector: gauge
+  findings:
+  - F26b
+  - F24
+  module: casim.engine.gauge.bilinear
+  entry: check_spin_axis_scalar_contamination
+  params:
+    k_mag: 0.3
+    n_dirs: 12
+    seed: 7
+  expect:
+    exactness: machine
+    tol: 1.0e-12
+  control:
+  - params:
+      axis_control: true
+    reds:
+    - algebraic_identity
+    - eigensolver_identity
+    - f24_mean_reproduced
+    reason: 'swap n_hat_y for n_hat_x in the identity. The contamination is NOT isotropic in the spin
+      axis - y is picked out by the Bisio BCC walk''s intrinsic chirality convention (the continuum limit
+      is n_hat -> (k_x, -k_y, k_z)/|k|), so the two identity legs and the mean must go red while spin-momentum
+      locking and the continuum leg, which never mention y, stay green. MEASURED: alg 2.84e-14 -> 6.5e-01,
+      eig 6.20e-14 -> 6.5e-01, mean 0.6898 vs a different closed form.'
+  summary: 'F26b - the (1,0)-bilinear scalar contamination is closed form: |psi^T psi|^2 = 1 - n_hat_y^2,
+    with n_hat the BCC spin axis. Five legs: Track A algebraic (2.84e-14), Track B against np.linalg.eig
+    (6.20e-14), spin-momentum locking (n_hat.sigma) psi_+ = +psi_+ at finite k (1.8e-14), the continuum
+    sign flip on k_y (converges to 1.3e-05 flipped, stays 1.99 unflipped), and F24''s "typically ~0.67"
+    reproduced as a DERIVED mean (0.6897826774 measured vs closed form, agreeing to 1.1e-14).'
+  note: 'Written 2026-08-18 for completeness row H8. F26b was one of sixteen findings the index carried
+    as `no test record`, and it was the harder kind: the two verification tracks it quotes were sitting
+    in `weyl_spin_axis_scalar_contamination` (bilinear.py), a function with no assert, no caller, no test
+    file and no registry record - the residuals 2.84e-14 / 6.20e-14 in the finding were produced once,
+    by hand, on 2026-05-23, and nothing had re-read them since. The `Test tag: C9` the finding names does
+    not resolve to anything in tests/. This record executes both tracks and adds three legs the finding
+    states in prose and never checked: spin-momentum locking (the premise both tracks rest on), the y
+    sign flip in the continuum limit (WHY the singled-out axis is y), and the F24 mean as a derived rather
+    than empirical number. The two residuals reproduce the finding''s digits exactly.'
 - id: F279-hypercharge-attribution
   path: tests/findings/test_F279_hypercharge_attribution.py
   kind: assertion
@@ -558,6 +689,13 @@ tests:
     drifting apart again -- the contradiction F279 section 8 logged and could not fix in-finding. It is
     the only check in this record that imports casim.'
   evidence:
+    mentions:
+    - F27
+    - F38
+    - F41
+    - F47
+    - F165
+    - F279
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -587,6 +725,8 @@ tests:
   - F155
   sector: gauge
   evidence:
+    mentions:
+    - F280
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -618,13 +758,20 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F162
+    - F272
+    - F277
+    - F287
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 274
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F287_bgfield_apparatus.json
+    artifact_rule:
+      test-results/F287_bgfield_apparatus.json: local
     artifacts_read_only: []
     summary: 'run_f287_bgfield_apparatus.py — F287: re-establish that the F162 background-field'
 - id: F287-bgfield-slope
@@ -651,13 +798,19 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F162
+    - F277
+    - F287
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 199
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F287_bgfield_slope.json
+    artifact_rule:
+      test-results/F287_bgfield_slope.json: file
     artifacts_read_only: []
     summary: 'run_f287_slope.py — F287 stage 2: the log-SLOPE tests, done at RESOLVED Q.'
 - id: F293-why-three-colours
@@ -716,6 +869,11 @@ tests:
     matching it has NO ROOT, so the wrong translation destroys the selector rather than shifting it. F293
     sec.4.5 framed this as a 25% shift and was wrong; CL257 falsifier 1 is rewritten.'
   evidence:
+    mentions:
+    - F110
+    - F279
+    - F280
+    - F293
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -748,7 +906,22 @@ tests:
     reds:
     - L2
     reason: a scan that cannot see the N>=4 failure cannot claim it.
+  - params:
+      numerator: casimir
+    reds:
+    - L2
+    - L3
+    reason: ADDED 2026-08-18. Take the rotor eigenvalue from the SAME operator as the gauge theory's instead
+      of from the abelian Z_N ladder. Both other controls perturb the TOWER; neither perturbs the MATCHING,
+      which is the one assumption doing all the work. Under the operator-consistent matching chi = 1/(4
+      g^2) for every N and every irrep, so the N<=3 restriction (L2) and the C_F (L3) both vanish -- which
+      is what makes them falsifiable rather than definitional.
   evidence:
+    mentions:
+    - F86
+    - F110
+    - F294
+    - F298
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -758,6 +931,8 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F298 — the SU(N) Casimir ladder F110 deferred, and the C7 re-run against it.
+    ledger_status: live
+    ledger_record: S22-F298-mixed-matching-C_F-and-the-X1-branch
   module: casim.engine.gauge.casimir_ladder
   entry: check_casimir_ladder
   params:
@@ -802,6 +977,11 @@ tests:
     reason: at strong coupling the ratio is 2.14, neither law, so the result is a statement about the
       model's own weak coupling and not about the quadrature.
   evidence:
+    mentions:
+    - F94
+    - F294
+    - F298
+    - F299
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -811,6 +991,8 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F299 — reinstating F294's discriminator and running it on the model's own engine.
+    ledger_status: live
+    ledger_record: S22-F298-mixed-matching-C_F-and-the-X1-branch
   module: casim.engine.gauge.casimir_scaling
   entry: check_casimir_scaling
   params:
@@ -837,6 +1019,8 @@ tests:
   - F302
   sector: gauge
   evidence:
+    mentions:
+    - F302
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -893,7 +1077,19 @@ tests:
     - N4
     reason: pretend F144's A4 residual were 20 rather than the measured 0.64, under which the Casimir
       shift would be absorbable as a scheme constant. N4 is then a comparison and not a tautology.
+  - params:
+      casimir_on: false
+    reds:
+    - N8
+    reason: ADDED 2026-08-18. Set C_F -> 1 so the Casimir shift vanishes and the branch's required Lambda-ratio
+      collapses onto 1.0, which is INSIDE F280/CL252's band. An exclusion that survives a zero shift is
+      not an exclusion.
   evidence:
+    mentions:
+    - F110
+    - F144
+    - F299
+    - F303
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -904,6 +1100,8 @@ tests:
     artifacts_read_only: []
     summary: F303 — is F144's bare coupling centre-normalised?  No argument exists, and three candidates
       are closed.
+    ledger_status: live
+    ledger_record: S22-F298-mixed-matching-C_F-and-the-X1-branch
   module: casim.engine.gauge.derive_coupling_normalisation
   entry: check_coupling_normalisation
   expect:
@@ -956,13 +1154,17 @@ tests:
     about the model''s link content. Section 5 is a DECLARED GAP: the rhombic action''s quadratic form
     and the F26 rotation law agree only in the continuum limit (86% apart at generic k).'
   evidence:
+    mentions:
+    - F305
     pytest_funcs: true
     has_assert: true
     has_main: true
     lines: 101
     n_test_funcs: 9
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F305_bcc_rhombic_vertices.json
+    artifact_rule:
+      test-results/F305_bcc_rhombic_vertices.json: local
     artifacts_read_only: []
     summary: F305 — LPT Feynman rules of the GENUINE BCC gauge action (the 4-bond rhombus).
 - id: F306-curl-closes-at-k3
@@ -1015,6 +1217,8 @@ tests:
   - F306
   sector: gauge
   evidence:
+    mentions:
+    - F306
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -1068,17 +1272,24 @@ tests:
     (including the 2026-07-19 rule Lambda ~ 2.08). Demonstrated, NOT repaired. Closing S3 needs one native
     sweep at n = 28-40.'
   evidence:
+    mentions:
+    - F272
+    - F277
+    - F280
+    - F287
+    - F307
     pytest_funcs: true
     has_assert: true
     has_main: true
     lines: 98
     n_test_funcs: 8
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F307_action_consistent_d1.json
+    artifact_rule:
+      test-results/F307_action_consistent_d1.json: local
     artifacts_read_only: []
     summary: F307 — the F280 subtracted estimator on one code path, each side on its own
 - id: F308-refold-repaired
-  path: tests/findings/test_F308_refold_repaired.py
   kind: assertion
   tier: gate
   sector: gauge
@@ -1114,16 +1325,45 @@ tests:
     rule-propagator fold); R5 measures that K_true_4d has no axis-wise period at 2 pi, 4 pi or 8 pi, which
     is what makes folding the rule branch illegal rather than merely redundant. n=4 is the smallest EVEN
     grid on which the fold still fires (odd n puts a point on k=0).
+  note: 'path dropped 2026-08-19: this record declared BOTH a pytest file and an `entry:`, so conftest.pytest_ignore_collect
+    hid the file and any test function written in it was dead code -- the same ambiguity F24 and F306
+    already carry a note about. The file was in fact EMPTY of tests (two imports and a printing __main__),
+    which made it the only file in tests/findings/ with no assert and no result artifact, i.e. UNFALSIFIABLE
+    in tools/audit_tests.py, and it is one of the five files that put that ratchet into the red at HEAD.
+    Dropping `entry:` instead would be wrong for the reason F24 records: a gate-tier record whose path
+    sits outside tests/casim/ MUST be entry-driven or test_registry_integrity''s `bare pytest == the gate
+    tier` equality breaks. So the gate contract stays here as a registry-only record and gen_test_registry.py
+    scaffolds a separate battery record for the file, whose seven test functions -- six legs plus the
+    control as a test rather than a sentence in notes: -- now actually run.'
+- id: F308-refold-repaired.findings
+  path: tests/findings/test_F308_refold_repaired.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F308
+  - F307
+  - F272
+  - F277
+  sector: gauge
   evidence:
-    pytest_funcs: false
-    has_assert: false
+    mentions:
+    - F24
+    - F306
+    - F307
+    - F308
+    pytest_funcs: true
+    has_assert: true
     has_main: true
-    lines: 32
-    n_test_funcs: 0
+    lines: 112
+    n_test_funcs: 8
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
     summary: F308 — the refold in ``lpt_selfenergy`` is repaired, and the audit found two
+  note: 'findings: corrected by hand 2026-08-19. The scaffolder inferred F24 and F306 from the module
+    docstring, where they appear only as PRECEDENT for dropping `path:` from an entry-driven gate record
+    -- not as physics this file verifies. The list is the gate record''s: F308 and the F307/F272/F277
+    fold lineage it repairs.'
 - id: F314-pair-group-velocity-closed-form
   kind: assertion
   tier: gate
@@ -1216,6 +1456,10 @@ tests:
   - F314
   sector: gauge
   evidence:
+    mentions:
+    - F20
+    - F69
+    - F314
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -1320,13 +1564,21 @@ tests:
     section 8: three of the seven legs are textbook group theory and the finding claims no new mathematics,
     only that the model''s six colour impositions reduce to one.'
   evidence:
+    mentions:
+    - F27
+    - F68
+    - F91
+    - F313
+    - F317
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 92
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F317_su3_structure.json
+    artifact_rule:
+      test-results/F317_su3_structure.json: local
     artifacts_read_only: []
     summary: F317 — the STRUCTURE of the colour gauge field (completeness row B1, colour leg).
 - id: F320-gauge-boson-masses
@@ -1402,13 +1654,20 @@ tests:
       tree masses through alpha directly rather than through u -- that is a real separation of the two
       routes, and writing the MEASURED red set rather than the expected one is what exposed it.
   evidence:
+    mentions:
+    - F41
+    - F119
+    - F141
+    - F320
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 97
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F320_gauge_boson_masses.json
+    artifact_rule:
+      test-results/F320_gauge_boson_masses.json: local
     artifacts_read_only: []
     summary: F320 — the absolute W and Z masses, and rho = 1 (completeness row B12).
 - id: F321-strong-cp
@@ -1463,15 +1722,219 @@ tests:
       legs must fail -- Im S = 0 would then be a statement about an operator the configuration does not
       carry
   evidence:
+    mentions:
+    - F26
+    - F27
+    - F43
+    - F53
+    - F321
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 117
     n_test_funcs: 0
+    artifacts_written:
+    - test-results/F321_strong_cp.json
+    artifact_rule:
+      test-results/F321_strong_cp.json: local
+    artifacts_read_only: []
+    summary: 'F321 — strong CP: theta_QCD = 0 from the rule''s loop set (completeness B11).'
+- id: F324-ncolour-bracket
+  path: tests/findings/test_F324_ncolour_bracket.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.derive_ncolour_bracket
+  entry: check_ncolour_bracket
+  params:
+    n_generations: 3
+    include_lepton_doublet: true
+    vector_like_su2: false
+    quark_colour_rep: fundamental
+    per_generation: false
+    n_max: 12
+    c7_n_max: 9
+    scan_from: 1
+    doubler_multiplicity: 1
+    empty_tower_passes: false
+    cross_check_f317: true
+  expect:
+    exactness: exact
+  findings:
+  - F324
+  - F298
+  - F317
+  - F318
+  - F293
+  - F294
+  - F279
+  - F75
+  - F27
+  - F97
+  - F99
+  - F110
+  results:
+  - test-results/F324_ncolour_bracket.json
+  control:
+  - params:
+      n_generations: 2
+    reds:
+    - W2
+    - W2b
+    - W3b
+    - B1
+    reason: break premise (i), n_gen odd. At n_gen = 2 the doublet count D = n_gen(N_c + 1) is even for
+      every N_c, so the Z_2 parity stops selecting and the bracket returns {2,3} instead of {3}. This
+      control prices how much of B10 now rests on rubric row C1, which is the transfer of debt F324 section
+      10 asks a completeness sweep to record. G0, W1, Y1, W4 and the whole C7 side stay green on purpose,
+      because none of them reads the generation count.
+  - params:
+      include_lepton_doublet: false
+    reds:
+    - W1
+    - W2
+    - B1
+    reason: break premise (v), one colour-singlet lepton doublet per generation. Without it D = n_gen
+      * N_c and the parity INVERTS, selecting even N_c and returning {2}. The conclusion does not merely
+      weaken, it reverses, which is the sharpest available statement of how much work the assumed multiplet
+      content is doing. W2b stays green because the constraint is still non-vacuous, just pointed the
+      other way.
+  - params:
+      vector_like_su2: true
+    reds:
+    - W1
+    - W2
+    - W2b
+    - B1
+    reason: pair every left-handed doublet with a right-handed one. D doubles, every N_c passes, and the
+      mod-2 obstruction is vacuous, which is what W2b measures. This is the control that makes F27's derived
+      chirality load-bearing for the colour COUNT, the same dependency F317 section 5 found from the other
+      side for colour's tracelessness.
+  - params:
+      quark_colour_rep: adjoint
+    reds:
+    - W1
+    - W2
+    - B1
+    reason: break premise (iv), quarks in the defining rep with multiplicity N_c. In the adjoint the multiplicity
+      is N_c^2 - 1 and the bracket returns {2}. This refutes any reading of section 2.1 as "the lower
+      constraint consumes no colour input" - it consumes premise (iv) and the bit's sign is a function
+      of it. What it does NOT consume is the epsilon-singlet index count, which is why F324 and F298 can
+      be paired without double-counting.
+  - params:
+      c7_n_max: 3
+    reds:
+    - U1
+    reason: F298's own idiom - a scan that never tests N >= 4 cannot claim to have excluded it. The support
+      is still {2,3} but it is no longer measured as an upper edge, so the leg asserting the scan reached
+      past the claim goes red. B1 stays green because the intersection is unchanged; the defect is in
+      the evidence, not in the answer, and separating those is the point.
+  - params:
+      scan_from: 2
+    reds:
+    - U1
+    - U1b
+    - B1
+    reason: an untested LOWER edge is not an excluded one. Starting the C7 scan at N = 2 never evaluates
+      the empty tower at N = 1, so U1b's declaration that the N = 1 edge is a CONVENTION fixed by premise
+      (ii) has nothing behind it, and the bracket is reported over 2..12 rather than 1..12.
+  - params:
+      doubler_multiplicity: 2
+    reds:
+    - W2
+    - W2b
+    - B1
+    reason: 'break premise (vi), no fermion doubling. An even multiplicity f makes D even for every N_c
+      and the parity vacuous. CL020 is narrowed for exactly this reason, and F324 falsifier 1 names it
+      as the most likely way the argument dies: a naively doubled spectrum is vector-like, so by Nielsen-Ninomiya
+      there is no chiral gauge theory left to constrain.'
+  - params:
+      empty_tower_passes: true
+    reds:
+    - U1
+    - B1
+    reason: break premise (ii), the colour sector exists. Read F298's criterion as "no two levels disagree"
+      rather than "a unique chi is determined" and the empty N = 1 tower passes vacuously, the support
+      becomes {1,2,3} and the bracket returns {1,3}. Uniqueness turns on one character in _c7_exists_on_ladder,
+      and this is where that is MEASURED rather than admitted in prose. The N = 1 edge is premise (ii)
+      restated in the ladder's vocabulary, not an independent leg.
+  evidence:
+    mentions:
+    - F75
+    - F97
+    - F99
+    - F110
+    - F293
+    - F298
+    - F317
+    - F318
+    - F324
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 109
+    n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
-    summary: 'F321 — strong CP: theta_QCD = 0 from the rule''s loop set (completeness B11).'
+    summary: F324 — the N_c bracket (completeness row B10, "why 3 colours").
+- id: F325-x1-branch
+  path: tests/findings/test_F325_x1_branch.py
+  kind: assertion
+  tier: gate
+  findings:
+  - F111b
+  - F144
+  - F298
+  - F303
+  - F324
+  - F325
+  sector: gauge
+  module: casim.engine.gauge.derive_x1_branch
+  entry: check_x1_branch
+  control:
+  - params:
+      magnetic_scale: 2.0
+    reds:
+    - X2
+    reason: double the SU(N) magnetic term only. The ratio law s1_SU(N)/s1_U(1) = 2/(N^2-1) is a statement
+      about MATCHED magnetic normalisations, so a check that survives an unmatched one is not testing
+      the matching.
+  - params:
+      su3_cut: 2
+    reds:
+    - X2
+    reason: truncate the character ladder below convergence. An unconverged rotor cannot assert an exact
+      ratio.
+  notes: 'F325. X1 resolved -- branch A (Casimir, g_s = sqrt3/4) TESTED and CLOSED, branch B (chi = 1,
+    g_s = 1/2) ADOPTED. Carries the third leg of the close, the magnetic side of C7, which no module held:
+    the magnetic term is a unit-entry adjacency in both theories and adds no factor to the chi-map, so
+    X1''s named residual closes negatively. The other two legs are leg L6 of F298-casimir-ladder (structural)
+    and leg N8 of F303-coupling-normalisation (quantitative). Also records two defects: F111b T7 compares
+    a 1-link SU(3) rotor with a 4-link U(1) one, and F144 A1 step 2 fixes only a ratio so chi = 1 is a
+    normalisation.'
+  evidence:
+    mentions:
+    - F99
+    - F100
+    - F101
+    - F111
+    - F144
+    - F155
+    - F280
+    - F298
+    - F303
+    - F324
+    - F325
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 125
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F325 — X1 resolved: branch A tested and closed, branch B adopted.'
 - id: F37-delta-omega
   path: tests/findings/test_F37_delta_omega.py
   kind: result_dump
@@ -1483,6 +1946,9 @@ tests:
   - F37
   sector: gauge
   evidence:
+    mentions:
+    - F30
+    - F37
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1509,6 +1975,13 @@ tests:
   - F67
   sector: gauge
   evidence:
+    mentions:
+    - F37
+    - F39
+    - F64
+    - F65
+    - F66
+    - F67
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1533,6 +2006,11 @@ tests:
   - F69
   sector: gauge
   evidence:
+    mentions:
+    - F65
+    - F66
+    - F67
+    - F69
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1559,6 +2037,13 @@ tests:
   - F91
   sector: gauge
   evidence:
+    mentions:
+    - F67
+    - F68
+    - F69
+    - F70
+    - F72
+    - F91
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1583,6 +2068,9 @@ tests:
   - F87
   sector: gauge
   evidence:
+    mentions:
+    - F68
+    - F87
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1606,6 +2094,12 @@ tests:
   - F89
   sector: gauge
   evidence:
+    mentions:
+    - F29
+    - F39
+    - F68
+    - F69
+    - F89
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1635,6 +2129,14 @@ tests:
   - F91
   sector: gauge
   evidence:
+    mentions:
+    - F37
+    - F45
+    - F67
+    - F68
+    - F69
+    - F89
+    - F91
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1662,6 +2164,8 @@ tests:
   - F98
   sector: gauge
   evidence:
+    mentions:
+    - F98
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1683,6 +2187,8 @@ tests:
   - F99
   sector: gauge
   evidence:
+    mentions:
+    - F99
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1706,6 +2212,10 @@ tests:
   - F87
   sector: gauge
   evidence:
+    mentions:
+    - F70
+    - F86
+    - F87
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1719,6 +2229,8 @@ tests:
       test-results/lgt_confinement.json: file
     artifacts_read_only: []
     summary: test_FA_vs_FC_comparison.py — Option A (lattice-gauge MC) vs Option C (colour-dielectric)
+    ledger_status: live
+    ledger_record: S21-F94-hypercubic-action-not-the-model-lattice
 - id: FA02-vacuum-birefringence
   path: tests/findings/test_FA02_vacuum_birefringence.py
   kind: legacy_script
@@ -1728,9 +2240,16 @@ tests:
   - F67
   - F68
   - F69
+  briefs:
   - FA02
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F67
+    - F68
+    - F69
+    - FA02
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -1749,9 +2268,14 @@ tests:
   tier: battery
   findings:
   - F27
+  - F40
+  briefs:
   - FG2
   sector: gauge
   evidence:
+    mentions:
+    - F27
+    - FG2
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1775,9 +2299,16 @@ tests:
   - F27
   - F31
   - F34
+  - F40
+  briefs:
   - FG3
   sector: gauge
   evidence:
+    mentions:
+    - F27
+    - F31
+    - F34
+    - FG3
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1802,9 +2333,14 @@ tests:
   findings:
   - F35
   - F45
+  briefs:
   - FG4
   sector: gauge
   evidence:
+    mentions:
+    - F35
+    - F45
+    - FG4
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1827,9 +2363,18 @@ tests:
   - F67
   - F69
   - F91
+  briefs:
   - FG6
   sector: gauge
   evidence:
+    mentions:
+    - F29
+    - F30
+    - F37
+    - F67
+    - F69
+    - F91
+    - FG6
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1856,9 +2401,15 @@ tests:
   - F29
   - F33
   - F36
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - F29
+    - F33
+    - F36
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1878,9 +2429,13 @@ tests:
   - test-results/FG7b_gradient_flow.json
   findings:
   - F43
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - F43
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1898,10 +2453,12 @@ tests:
   tier: battery
   results:
   - test-results/FG7c_confinement.json
-  findings:
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1919,10 +2476,12 @@ tests:
   tier: battery
   results:
   - test-results/FG10_baryon_singlet.json
-  findings:
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1943,9 +2502,14 @@ tests:
   findings:
   - F43
   - F64
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - F43
+    - F64
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1968,9 +2532,16 @@ tests:
   - F43
   - F86
   - F88
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F43
+    - F86
+    - F88
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1992,9 +2563,15 @@ tests:
   - F86
   - F88
   - F91
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - F86
+    - F88
+    - F91
+    - FG7
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2018,9 +2595,17 @@ tests:
   - F35
   - F36
   - F48
+  briefs:
   - FG8
   sector: gauge
   evidence:
+    mentions:
+    - F29
+    - F34
+    - F35
+    - F36
+    - F48
+    - FG8
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2039,9 +2624,14 @@ tests:
   findings:
   - F27
   - F34
+  briefs:
   - FG9
   sector: gauge
   evidence:
+    mentions:
+    - F27
+    - F34
+    - FG9
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2063,7 +2653,10 @@ tests:
   results:
   - test-results/P0_dynamical_fermions.json
   sector: gauge
+  findings:
+  - F85
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2081,6 +2674,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2102,6 +2696,9 @@ tests:
   - F26
   sector: gauge
   evidence:
+    mentions:
+    - F25
+    - F26
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -2127,6 +2724,10 @@ tests:
     include_mixed: true
     skip_checkerboard: false
     bad_reverse_shift: false
+    hypercubic_anisotropy: false
+    unsymmetrised_reps: false
+    iso_L: 8
+    iso_g: 0.004
   expect:
     exactness: machine
   findings:
@@ -2134,6 +2735,9 @@ tests:
   - F94
   - F291
   - F313
+  - F323
+  - F299
+  - F298
   results:
   - test-results/bcc_gauge_mc_d4.json
   control:
@@ -2174,14 +2778,43 @@ tests:
       hops only and daggers whole legs, so the Wilson-loop path never reaches the corrupted branch. The
       same asymmetry is why W1a reddens -- the action''s mixed rectangle is corrupted while the loop is
       not, so the two objects that leg asserts are identical stop agreeing.'
+  - params:
+      hypercubic_anisotropy: true
+    reds:
+    - X1c
+    - X1d
+    reason: 'Predict the TEXTBOOK hypercubic beta_t/beta_s = xi^2 instead of the BCC 4 lambda^2/a_t^2
+      = (4/3) xi^2. The measured weak-field ratio is unchanged at 4, so the prediction misses it by exactly
+      the 4/3 this derivation supplies -- i.e. the control IS the new content, and the leg it reddens
+      is the one that measured rather than assumed. Note what is NOT a control here: c_lat cannot be perturbed
+      to redden anything, because changing it moves a_t and the prediction together (the derivation is
+      self-consistent at any c_lat). The falsifiable content is the relation beta_t/beta_s = 4 lambda^2/a_t^2,
+      and this is the control that tests it.'
+  - params:
+      unsymmetrised_reps: true
+    reds:
+    - K1a
+    reason: 'Build the higher reps as the raw tensor power, chi = (Tr W)^k, instead of projecting onto
+      the symmetric subspace. This is the realistic mistake and it is precisely why the explicit-matrix
+      cross-check exists: F299''s polynomials had only ever been checked against the Jacobi-Trudi determinant
+      that produced them, which cannot catch a wrong SYMMETRISATION because both sides would carry it.
+      Single-legged -- K1b''s dimension count is deliberately left green, since forgetting to symmetrise
+      does not change the dimension of the matrix you built.'
   evidence:
+    mentions:
+    - F94
+    - F265
+    - F291
+    - F313
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 143
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/bcc_gauge_mc_d4.json
+    artifact_rule:
+      test-results/bcc_gauge_mc_d4.json: local
     artifacts_read_only: []
     summary: 'BCC 3+1D gauge Monte-Carlo: sampler + Wilson loops on the model''s own lattice.'
 - id: hypercharge
@@ -2195,6 +2828,9 @@ tests:
   - F34
   sector: gauge
   evidence:
+    mentions:
+    - F27
+    - F34
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2217,6 +2853,9 @@ tests:
   - F42
   sector: gauge
   evidence:
+    mentions:
+    - F41
+    - F42
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2234,6 +2873,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -2256,10 +2896,16 @@ tests:
   findings:
   - F26
   - F64
+  briefs:
   - FA09
   - FC04
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F64
+    - FA09
+    - FC04
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2283,11 +2929,19 @@ tests:
   - F38
   - F47
   - F54
+  briefs:
+  - FC07
   - FG1
   - FG8
-  - FC07
   sector: gauge
   evidence:
+    mentions:
+    - F38
+    - F47
+    - F54
+    - FG1
+    - FG8
+    - FC07
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2307,6 +2961,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2325,6 +2980,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2350,13 +3006,21 @@ tests:
   - test-results/bcc_confinement_d4.json
   - test-results/bcc_confinement_d4.md
   evidence:
+    mentions:
+    - F265
+    - F299
+    - F313
     pytest_funcs: false
-    has_assert: false
+    has_assert: true
     has_main: true
-    lines: 200
+    lines: 306
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/bcc_confinement_d4.json
+    - test-results/bcc_confinement_d4.md
+    artifact_rule:
+      test-results/bcc_confinement_d4.json: local
+      test-results/bcc_confinement_d4.md: local
     artifacts_read_only: []
     summary: 'Battery runner: the d=4 confinement measurement on the model''s OWN lattice.'
 - id: run-bgfield-loop
@@ -2368,6 +3032,9 @@ tests:
   - F162
   sector: gauge
   evidence:
+    mentions:
+    - F155
+    - F162
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2390,10 +3057,12 @@ tests:
   results:
   - test-results/confinement_mc.json
   - test-results/confinement_mc.md
-  findings:
+  briefs:
   - FG7
   sector: gauge
   evidence:
+    mentions:
+    - FG7
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2413,13 +3082,16 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
     lines: 151
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/d1_selfenergy.json
+    artifact_rule:
+      test-results/d1_selfenergy.json: file
     artifacts_read_only: []
     summary: run_d1_selfenergy.py — NATIVE runner for the d1 exact-vertex self-energy
   notes: 'DEBT CATEGORY (C7 close-out): the file names a result artifact that is not committed and not
@@ -2439,6 +3111,13 @@ tests:
   - F239
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F144
+    - F151
+    - F155
+    - F162
+    - F239
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2462,6 +3141,8 @@ tests:
   - F163
   sector: gauge
   evidence:
+    mentions:
+    - F163
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2481,6 +3162,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2502,6 +3184,8 @@ tests:
   - F163
   sector: gauge
   evidence:
+    mentions:
+    - F163
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2523,6 +3207,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2542,6 +3227,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2566,6 +3252,10 @@ tests:
   - F29
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F27
+    - F29
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2585,6 +3275,7 @@ tests:
   findings:
   - F20
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2613,6 +3304,8 @@ tests:
   - F154
   sector: gauge
   evidence:
+    mentions:
+    - F154
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2637,6 +3330,9 @@ tests:
   - F135
   sector: gauge
   evidence:
+    mentions:
+    - F70
+    - F135
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2689,6 +3385,10 @@ tests:
   - F69
   sector: gauge
   evidence:
+    mentions:
+    - F26
+    - F27
+    - F69
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2709,6 +3409,7 @@ tests:
   tier: battery
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -2734,6 +3435,8 @@ tests:
   - F27
   sector: gauge
   evidence:
+    mentions:
+    - F27
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2752,9 +3455,12 @@ tests:
   results:
   - test-results/wmu_phase2.json
   findings:
+  - F32
   - F26
   sector: gauge
   evidence:
+    mentions:
+    - F26
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2774,6 +3480,7 @@ tests:
   - test-results/wmu_phase3.json
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2793,6 +3500,7 @@ tests:
   - test-results/wmu_phase4.json
   sector: gauge
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2811,7 +3519,10 @@ tests:
   results:
   - test-results/wmu_phase5_stueckelberg.json
   sector: gauge
+  findings:
+  - F34b
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2833,6 +3544,8 @@ tests:
   - F26
   sector: gauge
   evidence:
+    mentions:
+    - F26
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2856,6 +3569,10 @@ tests:
   - F44
   sector: gauge
   evidence:
+    mentions:
+    - F34
+    - F41
+    - F44
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -2874,7 +3591,11 @@ tests:
   results:
   - test-results/phase7_backreaction_results.json
   sector: gauge
+  findings:
+  - F36
+  - F90
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true

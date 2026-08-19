@@ -5,7 +5,11 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
   on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
   adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
-  not undo it.'
+  not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding is false, THIS RECORD GOES
+  RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
+  `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
+  tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
+  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: 01b-GR1-openBC
   path: tests/priority/test_01b_GR1_openBC.py
@@ -15,6 +19,7 @@ tests:
   - test-results/top10_T01b_GR1_openBC.json
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -34,6 +39,7 @@ tests:
   - test-results/top10_T05b_GR2_openBC.json
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -53,6 +59,7 @@ tests:
   - test-results/top10_T06_QG2_LV.json
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -70,6 +77,7 @@ tests:
   tier: battery
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -92,6 +100,7 @@ tests:
   - test-results/test_15_QM6_twoslit.json
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -115,9 +124,16 @@ tests:
   - F92
   - F95
   - F96
-  - F101
+  - F101b
   sector: lattice
   evidence:
+    mentions:
+    - F46
+    - F83
+    - F92
+    - F95
+    - F96
+    - F101
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -143,6 +159,12 @@ tests:
   - F108
   sector: lattice
   evidence:
+    mentions:
+    - F46
+    - F95
+    - F96
+    - F101
+    - F108
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -172,6 +194,16 @@ tests:
   - F118
   sector: lattice
   evidence:
+    mentions:
+    - F46
+    - F92
+    - F93
+    - F95
+    - F96
+    - F101
+    - F108
+    - F109
+    - F118
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -203,6 +235,18 @@ tests:
   - F119
   sector: lattice
   evidence:
+    mentions:
+    - F46
+    - F79
+    - F83
+    - F95
+    - F96
+    - F101
+    - F107
+    - F115
+    - F116
+    - F118
+    - F119
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -224,6 +268,10 @@ tests:
   - F127
   sector: lattice
   evidence:
+    mentions:
+    - F45
+    - F115
+    - F127
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -249,6 +297,14 @@ tests:
   - F130
   sector: lattice
   evidence:
+    mentions:
+    - F30
+    - F64
+    - F91
+    - F106
+    - F110
+    - F129
+    - F130
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -267,6 +323,9 @@ tests:
   - F131
   sector: lattice
   evidence:
+    mentions:
+    - F130
+    - F131
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -289,6 +348,13 @@ tests:
   - F132
   sector: lattice
   evidence:
+    mentions:
+    - F74
+    - F103
+    - F104
+    - F122
+    - F130
+    - F132
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -307,6 +373,9 @@ tests:
   - F133
   sector: lattice
   evidence:
+    mentions:
+    - F130
+    - F133
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -324,6 +393,8 @@ tests:
   - F159
   sector: lattice
   evidence:
+    mentions:
+    - F159
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -349,6 +420,14 @@ tests:
   - F167
   sector: lattice
   evidence:
+    mentions:
+    - F26
+    - F27
+    - F46
+    - F119
+    - F120
+    - F121
+    - F167
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -374,6 +453,14 @@ tests:
   - F168
   sector: lattice
   evidence:
+    mentions:
+    - F27
+    - F37
+    - F68
+    - F69
+    - F73
+    - F74
+    - F168
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -460,6 +547,8 @@ tests:
   - F20
   sector: lattice
   evidence:
+    mentions:
+    - F20
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -480,6 +569,11 @@ tests:
   - F250
   sector: lattice
   evidence:
+    mentions:
+    - F68
+    - F69
+    - F168
+    - F250
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -506,13 +600,19 @@ tests:
   results:
   - test-results/F267_walk_bz_measure.json
   evidence:
+    mentions:
+    - F69
+    - F250
+    - F267
     pytest_funcs: true
     has_assert: true
     has_main: true
     lines: 140
     n_test_funcs: 6
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F267_walk_bz_measure.json
+    artifact_rule:
+      test-results/F267_walk_bz_measure.json: local
     artifacts_read_only: []
     summary: F267 — the fermion walk's BZ is not the cubic FFT cube. Roadmap P3.1's spike.
 - id: F276-curved-weyl-ordering-second-order
@@ -601,6 +701,8 @@ tests:
       to 3, `ker_zero_dimensions == [1,2,3]` is trivially true, which is the false pass the guard exists
       to make impossible.'
   evidence:
+    mentions:
+    - F291
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -650,6 +752,9 @@ tests:
       3n collapses to 3 -- every assertion would pass on the single irreducible block the finding is not
       about.
   evidence:
+    mentions:
+    - F291
+    - F292
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -717,6 +822,11 @@ tests:
       space/time split can leak non-local operators, voiding the rank count. C2 must go red. This is the
       leg that could have failed quietly. VERIFIED RED 2026-08-12.
   evidence:
+    mentions:
+    - F291
+    - F292
+    - F298
+    - F313
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -784,6 +894,15 @@ tests:
       "no deformation can repair V" is a statement about nothing. C5 must go red rather than pass vacuously.
       VERIFIED RED 2026-08-12.'
   evidence:
+    mentions:
+    - F20
+    - F68
+    - F77
+    - F217
+    - F298
+    - F301
+    - F313
+    - F315
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -851,6 +970,10 @@ tests:
 
       '
   evidence:
+    mentions:
+    - F298
+    - F313
+    - F316
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -937,13 +1060,21 @@ tests:
     and F317 section 6 consumes the SAME three-constituent fact, so the two findings do not independently
     confirm each other.'
   evidence:
+    mentions:
+    - F291
+    - F313
+    - F315
+    - F317
+    - F318
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 90
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F318_cell_internal_index.json
+    artifact_rule:
+      test-results/F318_cell_internal_index.json: local
     artifacts_read_only: []
     summary: F318 — can the model's CELL carry the internal index? (F317's residual).
 - id: F49-bcc-weinberg-2over9
@@ -959,6 +1090,11 @@ tests:
   - F49
   sector: lattice
   evidence:
+    mentions:
+    - F30
+    - F45
+    - F47
+    - F49
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -985,6 +1121,13 @@ tests:
   - F93
   sector: lattice
   evidence:
+    mentions:
+    - F30
+    - F49
+    - F75
+    - F76
+    - F84
+    - F93
     pytest_funcs: false
     has_assert: true
     has_main: false
@@ -1016,6 +1159,18 @@ tests:
   - F95
   sector: lattice
   evidence:
+    mentions:
+    - F46
+    - F57
+    - F61
+    - F76
+    - F78
+    - F79
+    - F80
+    - F83
+    - F92
+    - F93
+    - F95
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1044,6 +1199,15 @@ tests:
   - F96
   sector: lattice
   evidence:
+    mentions:
+    - F46
+    - F73
+    - F78
+    - F83
+    - F92
+    - F93
+    - F95
+    - F96
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1071,6 +1235,14 @@ tests:
   - F122
   sector: lattice
   evidence:
+    mentions:
+    - F77
+    - F97
+    - F103
+    - F104
+    - F107
+    - F112
+    - F122
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1088,6 +1260,7 @@ tests:
   tier: battery
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1113,6 +1286,8 @@ tests:
   - F155
   sector: lattice
   evidence:
+    mentions:
+    - F155
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1130,6 +1305,7 @@ tests:
   tier: battery
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1149,6 +1325,7 @@ tests:
   tier: battery
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1181,13 +1358,17 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F291
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 67
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F291_dimension_selectors.json
+    artifact_rule:
+      test-results/F291_dimension_selectors.json: local
     artifacts_read_only: []
     summary: F291 runner — emit the dimension-selector result artifact.
 - id: run-F292-higher-multiples
@@ -1208,13 +1389,17 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F292
     pytest_funcs: false
     has_assert: true
     has_main: true
     lines: 70
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F292_higher_multiples.json
+    artifact_rule:
+      test-results/F292_higher_multiples.json: local
     artifacts_read_only: []
     summary: F292 runner — emit the higher-multiples result artifact.
 - id: run-F313-time-signature
@@ -1239,13 +1424,17 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F313
     pytest_funcs: false
-    has_assert: false
+    has_assert: true
     has_main: true
-    lines: 84
+    lines: 89
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F313_time_signature.json
+    artifact_rule:
+      test-results/F313_time_signature.json: local
     artifacts_read_only: []
     summary: F313 runner — emit the time-signature result artifact.
 - id: run-F315-V-interaction
@@ -1268,13 +1457,17 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F315
     pytest_funcs: false
-    has_assert: false
+    has_assert: true
     has_main: true
-    lines: 75
+    lines: 80
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F315_V_interaction.json
+    artifact_rule:
+      test-results/F315_V_interaction.json: local
     artifacts_read_only: []
     summary: F315 runner — emit the falsifier-5 result artifact.
 - id: run-F316-laurent-pell
@@ -1296,13 +1489,17 @@ tests:
 
     '
   evidence:
+    mentions:
+    - F316
     pytest_funcs: false
-    has_assert: false
+    has_assert: true
     has_main: true
-    lines: 75
+    lines: 80
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F316_laurent_pell.json
+    artifact_rule:
+      test-results/F316_laurent_pell.json: local
     artifacts_read_only: []
     summary: F316 runner — emit the Laurent-Pell descent artifact.
 - id: run-FC02-shapiro
@@ -1313,9 +1510,13 @@ tests:
   - test-results/FC02_shapiro.json
   findings:
   - F64
+  briefs:
   - FC02
   sector: lattice
   evidence:
+    mentions:
+    - F64
+    - FC02
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1333,6 +1534,7 @@ tests:
   tier: battery
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1351,6 +1553,7 @@ tests:
   tier: battery
   sector: lattice
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1373,6 +1576,8 @@ tests:
   - F159
   sector: lattice
   evidence:
+    mentions:
+    - F159
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1396,6 +1601,10 @@ tests:
   - F146
   sector: lattice
   evidence:
+    mentions:
+    - F131
+    - F135
+    - F146
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1433,6 +1642,10 @@ tests:
   - F51
   sector: lattice
   evidence:
+    mentions:
+    - F38
+    - F41
+    - F51
     pytest_funcs: true
     has_assert: false
     has_main: true

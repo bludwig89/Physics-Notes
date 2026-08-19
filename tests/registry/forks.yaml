@@ -5,7 +5,11 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
   on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
   adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
-  not undo it.'
+  not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding is false, THIS RECORD GOES
+  RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
+  `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
+  tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
+  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: F106-psi-K-sourcing
   path: tests/findings/test_F106_psi_K_sourcing.py
@@ -19,6 +23,12 @@ tests:
   - F106
   sector: forks
   evidence:
+    mentions:
+    - F26
+    - F62
+    - F64
+    - F79
+    - F106
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -52,6 +62,16 @@ tests:
   - F107
   sector: forks
   evidence:
+    mentions:
+    - F28
+    - F30
+    - F64
+    - F66
+    - F67
+    - F69
+    - F79
+    - F83
+    - F107
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -75,6 +95,10 @@ tests:
   - F111
   sector: forks
   evidence:
+    mentions:
+    - F64
+    - F107
+    - F111
     pytest_funcs: false
     has_assert: true
     has_main: false
@@ -100,6 +124,14 @@ tests:
   - F115
   sector: forks
   evidence:
+    mentions:
+    - F45
+    - F79
+    - F100
+    - F101
+    - F107
+    - F110
+    - F115
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -109,6 +141,8 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: F115 — Gauge coupling magnitudes e, g, g_s from the model.
+    ledger_status: live
+    ledger_record: S20-F115-weinberg-gap-account-replaced-by-4piv-matching
   notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
     it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
     record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
@@ -133,6 +167,19 @@ tests:
   - F172
   sector: forks
   evidence:
+    mentions:
+    - F92
+    - F96
+    - F124
+    - F144
+    - F145
+    - F150
+    - F151
+    - F155
+    - F163
+    - F164
+    - F170
+    - F172
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -152,6 +199,8 @@ tests:
   - F180
   sector: forks
   evidence:
+    mentions:
+    - F180
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -173,6 +222,10 @@ tests:
   - F193
   sector: forks
   evidence:
+    mentions:
+    - F164
+    - F192
+    - F193
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -195,6 +248,9 @@ tests:
   - F196
   sector: forks
   evidence:
+    mentions:
+    - F193
+    - F196
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -220,6 +276,12 @@ tests:
   - F197
   sector: forks
   evidence:
+    mentions:
+    - F69
+    - F93
+    - F191
+    - F193
+    - F197
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -242,6 +304,9 @@ tests:
   - F198
   sector: forks
   evidence:
+    mentions:
+    - F197
+    - F198
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -263,9 +328,14 @@ tests:
   - F73
   - F93
   - F198
-  - F199
+  - F199b
   sector: forks
   evidence:
+    mentions:
+    - F73
+    - F93
+    - F198
+    - F199
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -289,6 +359,12 @@ tests:
   - F199
   sector: forks
   evidence:
+    mentions:
+    - F92
+    - F176
+    - F177
+    - F179
+    - F199
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -312,6 +388,10 @@ tests:
   - F200
   sector: forks
   evidence:
+    mentions:
+    - F47
+    - F199
+    - F200
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -335,6 +415,10 @@ tests:
   - F201
   sector: forks
   evidence:
+    mentions:
+    - F76
+    - F93
+    - F201
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -359,6 +443,11 @@ tests:
   - F202
   sector: forks
   evidence:
+    mentions:
+    - F47
+    - F53
+    - F200
+    - F202
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -380,6 +469,8 @@ tests:
   - F203
   sector: forks
   evidence:
+    mentions:
+    - F203
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -402,6 +493,9 @@ tests:
   - F205
   sector: forks
   evidence:
+    mentions:
+    - F203
+    - F205
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -421,6 +515,8 @@ tests:
   - F216
   sector: forks
   evidence:
+    mentions:
+    - F216
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -439,6 +535,9 @@ tests:
   - F223
   sector: forks
   evidence:
+    mentions:
+    - F216
+    - F223
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -461,6 +560,13 @@ tests:
   - F228
   sector: forks
   evidence:
+    mentions:
+    - F107
+    - F182
+    - F188
+    - F190
+    - F223
+    - F228
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -486,6 +592,14 @@ tests:
   - F230
   sector: forks
   evidence:
+    mentions:
+    - F75
+    - F76
+    - F78
+    - F80
+    - F179
+    - F199
+    - F230
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -511,6 +625,12 @@ tests:
   - F232
   sector: forks
   evidence:
+    mentions:
+    - F55
+    - F79
+    - F83
+    - F107
+    - F232
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -533,6 +653,11 @@ tests:
   - F237
   sector: forks
   evidence:
+    mentions:
+    - F205
+    - F223
+    - F228
+    - F237
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -554,6 +679,10 @@ tests:
   - F238
   sector: forks
   evidence:
+    mentions:
+    - F223
+    - F228
+    - F238
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -576,6 +705,11 @@ tests:
   - F241
   sector: forks
   evidence:
+    mentions:
+    - F183
+    - F190
+    - F196
+    - F241
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -596,6 +730,9 @@ tests:
   - F248
   sector: forks
   evidence:
+    mentions:
+    - F180
+    - F248
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -618,6 +755,11 @@ tests:
   - F56
   sector: forks
   evidence:
+    mentions:
+    - F25
+    - F26
+    - F55
+    - F56
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -641,6 +783,10 @@ tests:
   - F57
   sector: forks
   evidence:
+    mentions:
+    - F26
+    - F56
+    - F57
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -665,6 +811,11 @@ tests:
   - F58
   sector: forks
   evidence:
+    mentions:
+    - F25
+    - F26
+    - F52
+    - F58
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -686,6 +837,8 @@ tests:
   - F59
   sector: forks
   evidence:
+    mentions:
+    - F59
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -707,6 +860,8 @@ tests:
   - F60
   sector: forks
   evidence:
+    mentions:
+    - F60
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -728,6 +883,8 @@ tests:
   - F61
   sector: forks
   evidence:
+    mentions:
+    - F61
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -753,6 +910,11 @@ tests:
   - F64
   sector: forks
   evidence:
+    mentions:
+    - F46
+    - F50
+    - F62
+    - F64
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -779,6 +941,9 @@ tests:
   - F63
   sector: forks
   evidence:
+    mentions:
+    - F62
+    - F63
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -806,6 +971,13 @@ tests:
   - F64
   sector: forks
   evidence:
+    mentions:
+    - F25
+    - F26
+    - F50
+    - F52
+    - F62
+    - F64
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -829,6 +1001,10 @@ tests:
   - F66
   sector: forks
   evidence:
+    mentions:
+    - F64
+    - F65
+    - F66
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -853,6 +1029,10 @@ tests:
   - F73
   sector: forks
   evidence:
+    mentions:
+    - F46
+    - F69
+    - F73
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -874,6 +1054,8 @@ tests:
   - F79
   sector: forks
   evidence:
+    mentions:
+    - F79
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -903,6 +1085,16 @@ tests:
   - F107
   sector: forks
   evidence:
+    mentions:
+    - F10
+    - F12
+    - F27
+    - F46
+    - F59
+    - F61
+    - F79
+    - F83
+    - F107
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -922,7 +1114,7 @@ tests:
   tier: battery
   results:
   - test-results/FA_lgt_mc.json
-  findings:
+  briefs:
   - FA1
   - FA2
   - FA3
@@ -931,6 +1123,13 @@ tests:
   - FA6
   sector: forks
   evidence:
+    mentions:
+    - FA1
+    - FA2
+    - FA3
+    - FA4
+    - FA5
+    - FA6
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -942,6 +1141,8 @@ tests:
       test-results/FA_lgt_mc.json: local
     artifacts_read_only: []
     summary: test_FA_lgt_mc.py — correctness battery for the Option-A SU(3) lattice-gauge MC fork
+    ledger_status: live
+    ledger_record: S21-F94-hypercubic-action-not-the-model-lattice
 - id: FA01-liv-tof
   path: tests/findings/test_FA01_liv_tof.py
   kind: result_dump
@@ -952,9 +1153,15 @@ tests:
   - F30
   - F79
   - F107
+  briefs:
   - FA01
   sector: forks
   evidence:
+    mentions:
+    - F30
+    - F79
+    - F107
+    - FA01
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -976,9 +1183,15 @@ tests:
   - F64
   - F79
   - F107
+  briefs:
   - FA09
   sector: forks
   evidence:
+    mentions:
+    - F64
+    - F79
+    - F107
+    - FA09
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -999,9 +1212,14 @@ tests:
   findings:
   - F64
   - F114
+  briefs:
   - FA10
   sector: forks
   evidence:
+    mentions:
+    - F64
+    - F114
+    - FA10
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1023,9 +1241,15 @@ tests:
   - F16
   - F64
   - F112
+  briefs:
   - FC01
   sector: forks
   evidence:
+    mentions:
+    - F16
+    - F64
+    - F112
+    - FC01
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1045,10 +1269,15 @@ tests:
   - test-results/FC03_redshift.json
   findings:
   - F64
+  briefs:
   - FA10
   - FC03
   sector: forks
   evidence:
+    mentions:
+    - F64
+    - FA10
+    - FC03
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1073,6 +1302,10 @@ tests:
   - F64
   sector: forks
   evidence:
+    mentions:
+    - F46
+    - F62
+    - F64
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1100,6 +1333,10 @@ tests:
   - F43
   sector: forks
   evidence:
+    mentions:
+    - F27
+    - F41
+    - F43
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1123,6 +1360,8 @@ tests:
   - F64
   sector: forks
   evidence:
+    mentions:
+    - F64
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1143,6 +1382,7 @@ tests:
   - test-results/lgt_confinement.json
   sector: forks
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true

@@ -1,6 +1,6 @@
 # casim exactness inventory (auto-generated)
 
-_Generated 2026-08-17 - 21:05 by `casim inventory` (casim.analysis.inventory). 14/14 checks pass._
+_Generated 2026-08-19 - 13:41 by `casim inventory` (casim.analysis.inventory). 14/14 checks pass._
 
 Auto-generated from `casim.verify.run_all()`; do not edit by hand. This is scoped to the `casim` engine and does **not** replace the repository's hand-maintained `docs/status/exactness-inventory.md`.
 

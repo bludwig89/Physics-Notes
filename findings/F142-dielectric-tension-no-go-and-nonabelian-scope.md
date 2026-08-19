@@ -16,6 +16,7 @@ F139 closed the self-consistent dual-GL back-reaction but left two threads expli
 **Q1.** Can the F139 colour-dielectric (Friedberg–Lee) tube — $\varepsilon_c(f)=1-f^2$, quartic bag $\tfrac1{4\xi^2}(f^2-1)^2$ — be mapped onto F86's exact $\sigma=2\pi v^2 n$ with **algebraic exactness**?
 
 **Q2.** Can the **full non-Abelian** condensate be solved / algebraically derived?
+**Test record:** record `F142-dielectric-noconfine` (tier gate) — `tests/registry/`, D9.
 
 The answers are sharp: **Q1 — no, not through the dielectric tube** (a structural obstruction, proved below); the exact map already exists by a *different* route (F99). **Q2 — the condensate is solvable exactly only in its centre-projected (N-ality) content**; its dynamical magnitude in 3+1D is the open confinement problem.
 

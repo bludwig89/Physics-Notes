@@ -5,6 +5,7 @@
 **Module:** none new (one test-local candidate primitive, `chiral_massive_step`). **Tests:** `tests/findings/test_E2E_nonabelian_bilinear.py` (~0.4 s); `tests/findings/test_wmu_phase7_backreaction.py` (WB.5 repaired).
 **Results:** `test-results/E2E_nonabelian_bilinear.json`, `test-results/phase7_backreaction_results.json`.
 **Cross-references:** F36 (Phase-7 back-reaction), F43/FG-7 (gluons), FG-4 (Z), FG-8 (β-decay pipeline), F30/F37 (birefringence / chiral aliasing), [[F68-minimal-coupling-forces-even-photon]], [[F69-paired-spinor-photon]], [[F89-singlet-bilinear-is-paired-photon]].
+**Test record:** record `E2E-nonabelian-bilinear` (tier battery), record `wmu-phase7-backreaction` (tier battery) — `tests/registry/`, D9.
 
 ---
 

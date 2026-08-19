@@ -128,11 +128,105 @@
       "ok": true,
       "value": 0.0,
       "note": "the staple construction is translation covariant -- shifting the configuration shifts the staple by the same vector, for a cubic translation, a time step and a <111> hop (which swaps the two parity classes). Catches any indexing error that survives the trace"
+    },
+    {
+      "name": "X1a",
+      "ok": true,
+      "value": {
+        "sum_m_mT": [
+          4,
+          0,
+          0
+        ],
+        "sum_a_aT": [
+          4,
+          0,
+          0
+        ]
+      },
+      "note": "the two closure identities the derivation rests on, over Z and exact: the 6 <110> rhombus half-normals and the 4 <111> link axes EACH give 4*I. They are independent -- different vector sets, different orbit -- and the shared constant is why beta_t/beta_s comes out rational"
+    },
+    {
+      "name": "X1b",
+      "ok": true,
+      "value": {
+        "beta_ratio": "4",
+        "xi_sq": "3",
+        "xi": 1.7320508075688772
+      },
+      "note": "from c_lat^2 = 1/3: beta_t/beta_s = 4 and xi^2 = 3 as exact Fractions, so xi = 1/c_lat = sqrt3. No fitted content"
+    },
+    {
+      "name": "X1c",
+      "ok": true,
+      "value": {
+        "extrapolated": 3.9999999991422235,
+        "predicted": 4.0,
+        "residual": 2.1444412912074995e-10
+      },
+      "note": "MEASURED: a constant-F abelian configuration gives S_B/S_E -> 4 as g -> 0, matching 4 lambda^2/a_t^2. The g^2 truncation has an exact coefficient (residual/g^2 = 1/16 held over a factor 4 in g), so one Richardson step removes it and the limit is the identity"
+    },
+    {
+      "name": "X1d",
+      "ok": true,
+      "value": "4/3",
+      "note": "the BCC answer is (4/3) xi^2, NOT the hypercubic xi^2. The 4/3 is geometric -- the rhombus carries |d1 x d2| = 2 sqrt2 against the mixed rectangle's |d| = sqrt3 -- and it is what a naive hypercubic substitution would have got wrong by a third"
+    },
+    {
+      "name": "K1a",
+      "ok": true,
+      "value": 3.3766115072321297e-16,
+      "note": "F299's three character polynomials verified against EXPLICIT representation matrices -- Sym^2 and Sym^3 by symmetric-subspace isometry, the adjoint by Ad(U)_ab = 2 tr(T_a U T_b U^dag). The tree had only ever checked them against the Jacobi-Trudi determinant that PRODUCED them, which is self-consistency, not verification"
+    },
+    {
+      "name": "K1b",
+      "ok": true,
+      "value": {
+        "6": 6,
+        "10": 10,
+        "8": 8
+      },
+      "note": "the explicit reps come out 6, 8 and 10 dimensional"
+    },
+    {
+      "name": "K1c",
+      "ok": true,
+      "value": {
+        "3": "1",
+        "6": "5/2",
+        "8": "9/4",
+        "10": "9/2"
+      },
+      "note": "C_2(R)/C_F reproduces F299's table exactly over Q from the Dynkin labels alone -- 1, 5/2, 9/4, 9/2 -- not tabulated"
+    },
+    {
+      "name": "K1d",
+      "ok": true,
+      "value": 0.0,
+      "note": "every higher-rep loop is exactly 1 on the ordered start, for all four reps and all R x T"
+    },
+    {
+      "name": "K1e",
+      "ok": true,
+      "value": 7.632783294297951e-17,
+      "note": "every higher-rep loop is gauge invariant, so chi_R measures a holonomy class and not a gauge artifact"
+    },
+    {
+      "name": "K1f",
+      "ok": true,
+      "value": 3.469446951953614e-18,
+      "note": "the rep-3 entry of the character table equals `wilson_loop_rt` -- the trace-based path and the matrix-based path are the same object"
     }
   ],
-  "n_pass": 18,
-  "n_total": 18,
+  "n_pass": 28,
+  "n_total": 28,
   "verdict": "PASS",
+  "anisotropy": {
+    "xi": 1.7320508075688772,
+    "xi_sq": "3",
+    "beta_ratio": "4",
+    "bcc_factor_vs_hypercubic": "4/3"
+  },
   "params": {
     "L": 4,
     "Lt": 4,
@@ -141,6 +235,10 @@
     "beta_t": 1.7,
     "include_mixed": true,
     "skip_checkerboard": false,
-    "bad_reverse_shift": false
+    "bad_reverse_shift": false,
+    "hypercubic_anisotropy": false,
+    "unsymmetrised_reps": false,
+    "iso_L": 8,
+    "iso_g": 0.004
   }
 }

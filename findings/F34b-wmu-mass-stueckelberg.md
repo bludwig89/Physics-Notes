@@ -6,6 +6,7 @@
 **Tests:** `tests/findings/test_wmu_phase5_stueckelberg.py` (W5.1–W5.5)  
 **Results:** `test-results/wmu_phase5_stueckelberg.json`  
 **Roadmap:** `roadmap-wmu-implementation.md` Phase 5B
+**Test record:** record `wmu-phase5-stueckelberg` (tier battery) — `tests/registry/`, D9.
 
 ---
 

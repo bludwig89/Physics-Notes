@@ -9,6 +9,7 @@
 **Tests:** `tests/test_particle_layer.py` (P2 block, tests `test_P2_1` … `test_P2_8`)
 **Results:** `test-results/F102_particle_backaction_P2.json`
 **Cross-refs:** F27 (complex mass / chiral SU(2), "static gauge angle unobservable"), F31/F34 (W_μ covariant hopping + fermion vertex — the audited SU(2) rotate-then-step), F40/FG-3 (quark electroweak wiring + Ward-identity standard), F41/F42 (hypercharge Stueckelberg wrap), F43 (SU(3) colour sector), F64 (gravity dielectric / Poisson solver), F68 (paired-photon U(1) minimal coupling), F87 (charge→field source coupling)
+**Test record:** record `particle-layer` (tier gate) — `tests/registry/`, D9.
 
 ---
 

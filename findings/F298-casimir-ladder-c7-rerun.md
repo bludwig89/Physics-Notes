@@ -1,5 +1,15 @@
 # F298 — Building the SU(N) Casimir ladder F110 deferred: the C7 identity **exists only for $N_c\le3$** (a structural selector that needs no measured number), it carries $1/C_F$ where it exists, and the discriminator F294 recommended is **degenerate at $N=3$**
 
+> **[PARTIALLY SUPERSEDED 2026-08-18 by F325 — ledger S22-F298-mixed-matching-C_F-and-the-X1-branch]**
+>
+> **DEAD:** Results (1) and (2) AS READINGS OF C7. The C7 identity does not 'exist only for N_c <= 3' and does not 'carry 1/C_F where it exists': both statements are properties of the MIXED matching (abelian rotor eigenvalue against SU(N) gauge eigenvalue). Under either self-consistent matching chi = 1/(4 g^2) for every N and every irrep, and the mixed matching is itself level-dependent at N = 3 off the k-string tower. CN19 falls with result (1).
+>
+> **STILL LIVE:** The arithmetic, in full. The exact proportionality at N = 3 with constant C_F (result 2's computation, as opposed to its reading) is what makes the dispute one rational number. Result (3) is correct about the antisymmetric tower. The section 5 scope note naming the tower as a restriction is the load-bearing sentence. The weakened form of result (1) survives and is useful: the model's Z_N link Hilbert space is a faithful effective description of the SU(N) k-string ladder only for N <= 3 -- a constraint on where link_hamiltonian.py may be used, not a selector for N_c.
+>
+> **NOTE:** Read F325 sections 2 and 7 before citing F298 for anything about N_c or about the value of chi. F298 remains the correct citation for the ladder arithmetic and for the k-string degeneracy at N = 3, which are different questions.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-08-05 - 23:20
 **Numbering:** **F298**, taken as `NEXT FREE NUMBER` (a backlog number — spending it **closes** a gap). Session `tender-gifted-pascal-3`, sector `gauge`.
 **Status:** Confirmed — **8/8 PASS**, two declared controls verified red. Every Casimir is exact over ℚ (`Fraction`, not floats), so "proportional" below means proportional, not proportional-to-round-off.

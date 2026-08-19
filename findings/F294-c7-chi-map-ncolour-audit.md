@@ -1,5 +1,15 @@
 # F294 — Auditing the F110 C7 χ-map for $N_c$: the identity is **measured** $N$-free across $\mathbb Z_2..\mathbb Z_9$ and $U(1)$ (deviation literally `0.0`), but the F293 selector **does not survive** a Casimir reading — H2 gives $N_c=1.28$ and H3 has no root at all
 
+> **X1 RESOLVED 2026-08-18 (F325, ledger record S22).** **§"Remains" item 1 — *"Build the $SU(N)$ Casimir ladder that F110 deferred, and re-run C7
+against it"* — was already closed when this finding was written.** `su3_ladder.py` (2026-06-07, five
+days before F144; finding **F111b**, record `F111-tree-gauge-su3-ladder`) is that Hamiltonian. Item 2
+was executed by F299, and its result is correct but does **not** discriminate (F325 §4: the engine is
+$\beta$-independent on this question). H1 is **adopted**: the $C_F$ of the H2 reading comes from a
+mixed operator matching, and under either self-consistent matching $\chi=1/(4g^2)$ for every $N$
+(F325 §2). This finding's own measurement — the $\chi$-map exactly $N$-free, worst deviation literally
+`0.0`, *"the $s(m)^2$ cancels between the electric term and the rotor level"* — is the cancellation
+that generalises, and is the strongest evidence in the chain for the adopted reading.
+
 **Date:** 2026-08-05 - 22:10
 **Numbering:** **F294**, taken as `NEXT FREE NUMBER` (a backlog number — spending it **closes** a gap). Session `tender-gifted-pascal-3`, sector `gauge`.
 **Status:** Confirmed — the $N$-independence is **exact** (worst deviation across seven groups is literal `0.0`); the hypothesis comparison is a root-finding result. Folded into the F293 gate as checks **B6/B6b** (record now 17/17).

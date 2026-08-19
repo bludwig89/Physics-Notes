@@ -7,16 +7,16 @@ kind: derivation
 status: live
 domain: [QCD, QFT]
 exactness: exact
-findings: [F317, F91, F27, F68, F279, F293, F298, F289]
+findings: [F317, F91, F27, F68, F279, F293, F298, F289, F325]
 tests: [F317-su3-structure]
 modules: [casim.engine.gauge.derive_su3_structure]
 constants: []
-supersessions: []
+supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
 reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: '2026-08-16'
-last_verified: '2026-08-16'
+last_verified: '2026-08-18'
 provenance: authored
 review_state: authored
 confidence: medium
@@ -148,6 +148,16 @@ in it.
    by the tree's own binding sector. The $\Lambda^3$ count then selects a different $N$.
 
 ## Status & history
+
+**2026-08-18 — the F298 citation is re-pointed; nothing in this card's six legs moves
+(F325, S22-F298-mixed-matching-C_F-and-the-X1-branch).** F298 is cited here only for its $N_c\le3$ agreement with F298's C7 support, which F325
+withdraws as a property of the mixed C7 matching. **None of the six impositions this card derives depends on it:**
+unitarity (the commutant computed = $M_3$, dim 9), speciality (F27's chirality removing the $U(1)$), locality,
+connection, vector-like coupling and the gluon count are all reached without the C7 identity. What changes is the
+sentence noting that the $\Lambda^3(\mathbb C^N)$ singlet at $N=3$ *"agrees with F298's $N_c\le3$"*: that
+agreement is withdrawn, and the honest replacement is that it agrees with F324's surviving $\mathbb Z_2$
+doublet-parity leg, which gives $N_c$ **odd** rather than $N_c\le3$. The card's own status — colour pinned given
+**one** empirical input, that the index exists — is unchanged.
 
 **2026-08-16 — first issued** with F317 (drafted at F316, renumbered after a 70-second collision with
 a concurrent session; recorded in the finding header and on the claim board).

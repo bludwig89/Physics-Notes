@@ -110,6 +110,7 @@ __all__ = [
     "circularity_lemma_is_group_blind", "ladder_proportionality",
     "plaquette_link_count", "n_that_would_rescue_gs", "scheme_absorption_test",
     "cartan_weight_norm_sq", "hypothesis_predictions", "chi_required_by_data",
+    "casimir_branch_vs_f280_band",
     "check_coupling_normalisation", "summary",
 ]
 
@@ -120,6 +121,19 @@ F144_A4_RESIDUAL_INV_ALPHA = 0.64
 #: F144 A4: the same thing as a Lambda ratio, and the Wilson-action comparison.
 F144_A4_LAMBDA_RATIO = 1.78
 WILSON_LAMBDA_RATIO = 28.81
+
+# -- F280 / CL252 inputs, so the band is REBUILT here rather than quoted -------
+#: Kawai-Nakayama-Seo, Nucl. Phys. B189 (1981) 40 -- SU(3) pure gauge.
+#: External anchor (a target, not an input to the model's chain).
+KNS_LAMBDA_RATIO_WILSON = 28.8086
+#: F163, Wilson loops-only lattice constant (its Q->0 extrapolation is open;
+#: it cannot move the total, only the leg1/leg3 split -- F280 S4).
+F163_C_LAT_LOOPS = 6.138643
+#: F163, analytic dim-reg MS-bar constant, 131/66.
+F163_C_MSBAR = 131.0 / 66.0
+#: F280 S5's required target on the no-C_F branch, derived there from F239's
+#: exact e^(11/42) and the registered q_star_a, not written as a literal.
+F280_TARGET_LAMBDA_RATIO = 1.773444
 
 
 def _b0(n_c: float = 3.0, n_f: int = N_F) -> float:
@@ -387,11 +401,80 @@ def chi_required_by_data() -> Dict[str, Any]:
 
 
 # ==========================================================================
+# The Casimir branch against the model's OWN Lambda bracket (CL252 / F280 S5)
+# ==========================================================================
+def casimir_branch_vs_f280_band(casimir_on: bool = True) -> Dict[str, Any]:
+    """Put the Casimir branch's required Lambda-ratio on F280's committed band.
+
+    F303 4.1 converted the Casimir shift into a Lambda-ratio of 3.4e6 and
+    compared it with two things that were available in June: F144's A4 residual
+    and the Wilson action's 28.81.  It never compared it with the bracket the
+    model's own d_1 apparatus had published the previous day.
+
+    F280 S5 (record `F280-d1-subtracted`, 6/6 PASS, 2026-08-05; card CL252):
+
+        0 <= dC_rule^loops <= dC_W^loops   =>   Lambda_MSbar/Lambda_rule in [1, 7.98]
+
+    the lower edge from `dC >= 0`, the upper from the rule's action being nearer
+    the continuum than Wilson's (F129/F130 near-perfect action; F287 4 MEASURES
+    the rule's b_0 discretisation error at 5.3-5.7x smaller than Wilson's at
+    every grid) together with the rule's seagull/Haar sector being exactly empty
+    (F155-A0, u_0 == 1).  F280 labels the monotonicity step an assumption.
+
+    The band is rebuilt here from the same three committed inputs rather than
+    quoted, so this check moves if F163 or the KNS anchor moves.
+
+    ``casimir_on=False`` is the declared control: with C_F -> 1 the shift
+    vanishes, the Casimir branch's requirement collapses onto 1.0, which is
+    INSIDE the band, and the exclusion must go red.  An exclusion that holds for
+    a zero shift is not an exclusion.
+    """
+    cf = float(casimir2(1, 0)) if casimir_on else 1.0
+    dC_W = 2.0 * math.log(KNS_LAMBDA_RATIO_WILSON)
+    dC_W_loops = F163_C_LAT_LOOPS - F163_C_MSBAR
+    T_W = dC_W - dC_W_loops                       # Wilson seagull + Haar
+    band_lo, band_hi = 1.0, math.exp(dC_W_loops / 2.0)
+
+    shift_inv_alpha = 16.0 * math.pi * (cf - 1.0)          # 16 pi (C_F - 1)
+    lam_casimir = math.exp(shift_inv_alpha / (2.0 * _b0()))
+    dC_casimir = 2.0 * math.log(lam_casimir)
+
+    outside = lam_casimir > band_hi
+    return {
+        "band": [band_lo, band_hi],
+        "dC_W": dC_W, "dC_W_loops": dC_W_loops, "T_W_seagull_haar": T_W,
+        "casimir_shift_inv_alpha": shift_inv_alpha,
+        "casimir_branch_lambda_ratio": lam_casimir,
+        "casimir_branch_dC_required": dC_casimir,
+        "casimir_branch_x_wilson_loops_only": (dC_casimir / dC_W_loops
+                                               if dC_W_loops else math.inf),
+        "casimir_branch_outside_band": bool(outside),
+        "casimir_branch_decades_above_band": (math.log10(lam_casimir / band_hi)
+                                              if outside else 0.0),
+        "no_casimir_branch_lambda_ratio": F280_TARGET_LAMBDA_RATIO,
+        "no_casimir_branch_inside_band": bool(
+            band_lo <= F280_TARGET_LAMBDA_RATIO <= band_hi),
+        "no_casimir_branch_position_in_band": (
+            (F280_TARGET_LAMBDA_RATIO - band_lo) / (band_hi - band_lo)),
+        "wilson_above_band_by": KNS_LAMBDA_RATIO_WILSON / band_hi,
+        "conclusion": ("the Casimir branch needs the rule's own loops-only "
+                       "one-loop constant to be ~7.2x Wilson's, for an action "
+                       "F287 4 measures at 5.3-5.7x SMALLER discretisation "
+                       "error than Wilson's; it lands 5.6 decades above the "
+                       "band top, while the no-Casimir branch sits inside at "
+                       "11% of the band.  The exclusion therefore does not "
+                       "rest on F280's monotonicity assumption -- dropping it "
+                       "still requires a 7.2x excess in the wrong direction"),
+    }
+
+
+# ==========================================================================
 # Registry entry point
 # ==========================================================================
 def check_coupling_normalisation(assume_three_bond_loop: bool = False,
                                  scheme_residual: float
-                                 = F144_A4_RESIDUAL_INV_ALPHA
+                                 = F144_A4_RESIDUAL_INV_ALPHA,
+                                 casimir_on: bool = True,
                                  ) -> Dict[str, Any]:
     """The F303 gate.
 
@@ -404,6 +487,10 @@ def check_coupling_normalisation(assume_three_bond_loop: bool = False,
     ``--param scheme_residual=20.0``         pretend F144's A4 residual were 20
         instead of the measured 0.64.  N4 must go red: the Casimir would then be
         absorbable, so N4 is a quantitative comparison and not a tautology.
+    ``--param casimir_on=False``             (added 2026-08-18) set C_F -> 1 so
+        the Casimir shift vanishes.  N8 must go red: the branch's requirement
+        collapses onto Lambda = 1, which is inside F280's band, and an exclusion
+        that survives a zero shift is not an exclusion.
     """
     checks: List[Tuple[str, bool, Any]] = []
 
@@ -465,13 +552,27 @@ def check_coupling_normalisation(assume_three_bond_loop: bool = False,
                    {"required_chi": chi["required_chi"],
                     "casimir_chi": chi["casimir_reading_chi"]}))
 
+    bnd = casimir_branch_vs_f280_band(casimir_on=casimir_on)
+    checks.append(("N8 the Casimir branch's required Lambda-ratio lies OUTSIDE "
+                   "F280/CL252's committed band [1, 7.98] by >5 decades, while "
+                   "the no-Casimir branch sits inside it",
+                   bnd["casimir_branch_outside_band"]
+                   and bnd["casimir_branch_decades_above_band"] > 5.0
+                   and bnd["no_casimir_branch_inside_band"],
+                   {"band": bnd["band"],
+                    "casimir_lambda": bnd["casimir_branch_lambda_ratio"],
+                    "decades_above": bnd["casimir_branch_decades_above_band"],
+                    "x_wilson_loops_only":
+                        bnd["casimir_branch_x_wilson_loops_only"]}))
+
     rows = [{"name": nm, "ok": bool(ok), "value": val} for nm, ok, val in checks]
     return {"checks": rows,
             "passed": all(r["ok"] for r in rows),
             "n_pass": sum(1 for r in rows if r["ok"]),
             "n_total": len(rows),
             "params": {"assume_three_bond_loop": assume_three_bond_loop,
-                       "scheme_residual": scheme_residual},
+                       "scheme_residual": scheme_residual,
+                       "casimir_on": casimir_on},
             "summary": summary()}
 
 

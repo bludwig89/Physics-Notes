@@ -1,5 +1,15 @@
 # F115 — Gauge coupling magnitudes $e$, $g$, $g_s$: the electroweak sector reduces to one magnitude, $g_s$ is locked by the rotor stiffness, and the +12% Weinberg gap is a low-scale matching, not a running effect
 
+> **[PARTIALLY SUPERSEDED 2026-08-17 by F138, F231 — ledger S20-F115-weinberg-gap-account-replaced-by-4piv-matching]**
+>
+> **DEAD:** CM2's CONCLUSION -- that the +12% gap is 'a low-scale (~few-TeV) matching offset' identified by where the measured SM trajectory happens to cross 1/4. F138 derives the scale instead (mu_star = 4 pi v = 3094 GeV, forced by hypercharge having no lattice kinetic term) and closes the gap to +0.22%; F231 makes F49's 2/9 the on-shell face of the same 1/4 via the 8/9 bridge. Section 6's ledger row '+12% gap -> a few-TeV matching offset' is superseded by 'gap closed to +0.22% at a DERIVED scale'.
+>
+> **STILL LIVE:** CM1 (e = g/2, g' = g/sqrt3, g_Z = 2g/sqrt3 as exact rationals; one EW magnitude, not three) -- this is B9's correct citation. CM3 (g_s^2 chi = 1/4, the rotor lock). CM4 (the F95 e^6 notation no-go). CM2's negative result that Planck-anchored running overshoots by -74%, which F138 builds on. CM2b's measured 3.4-3.7 TeV crossing, DEMOTED from headline to a consistency check on F138's 3.094 TeV.
+>
+> **NOTE:** Read F138 section 1 and F231 section 1 before citing F115 for anything about the Weinberg angle's SCALE. F115 remains the correct citation for the coupling-magnitude COUNT (CM1/CM3/CM4), which is a different question and the one B9 actually needs.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-06-08 - 14:40
 **Status:** Partial — half structural reduction, half a sharp negative. 4/4 check blocks PASS (CM1 exact rationals; CM3 exact lock; CM2 a decisive numerical result; CM4 a notation no-go). Addresses audit C.5 (`docs/audits/project-audit-inputs-dynamism-2026-06-06.md`, open input #5) and uses F110's rotor identity.
 **Script:** `tests/findings/test_F115_coupling_magnitudes.py` (<0.2 s, numpy + fractions)

@@ -7,8 +7,8 @@
   "test-only": "referenced only by tests",
   "unreferenced": "nothing in the tree references it"
  },
- "generated": "2026-08-17 19:46 UTC",
- "git_sha": "ab0ba8f",
+ "generated": "2026-08-19 13:33 UTC",
+ "git_sha": "de01710",
  "nodes": {
   "src/casim/__init__.py": {
    "channel_types": [],
@@ -545,6 +545,7 @@
     "src/casim/engine/interactions/qi_decoherence_floor.py",
     "src/casim/engine/interactions/qi_qc_si.py",
     "src/casim/engine/interactions/raytrace.py",
+    "src/casim/engine/interactions/running_alpha_lattice_bound.py",
     "src/casim/engine/interactions/running_alpha_s.py",
     "src/casim/engine/interactions/running_gap_solve.py",
     "src/casim/engine/interactions/running_ir_coupling.py",
@@ -5971,6 +5972,7 @@
     "tests/findings/test_F317_su3_structure.py",
     "tests/findings/test_F320_gauge_boson_masses.py",
     "tests/findings/test_F321_strong_cp.py",
+    "tests/findings/test_F324_ncolour_bracket.py",
     "tests/findings/test_F69_paired_photon.py",
     "tests/findings/test_F72_universal_even_propagator.py",
     "tests/findings/test_F87_charge_coupling_paired_photon.py",
@@ -6001,6 +6003,7 @@
     "tests/runners/run_FC07_charge_anomaly_beta.py",
     "tests/runners/run_L192_tests.py",
     "tests/runners/run_L_tests.py",
+    "tests/runners/run_bcc_confinement_d4.py",
     "tests/runners/run_bgfield_loop.py",
     "tests/runners/run_confinement_mc.py",
     "tests/runners/run_d1_selfenergy.py",
@@ -6014,7 +6017,8 @@
     "tests/runners/run_phase_tests.py",
     "tests/runners/run_propagation_demo.py",
     "tests/runners/run_residual_AB_highres.py",
-    "tests/runners/run_su3_3d_string_tension.py"
+    "tests/runners/run_su3_3d_string_tension.py",
+    "tools/x1_s8_magnetic.py"
    ],
    "imports": [],
    "key": "casim.engine.gauge",
@@ -6064,27 +6068,90 @@
   "src/casim/engine/gauge/bcc_action.py": {
    "channel_types": [],
    "defines": [
+    "BCC4_LOOPS",
+    "BCC4_MIXED_AREA",
+    "BCC4_N_LOOPS",
+    "BCC4_STAPLE_TERMS",
+    "D4_CASIMIR_REPS",
     "PAULI",
+    "TIME_AXIS",
+    "_AXIS_INDEX",
     "_DIR_INDEX",
+    "_T_HOP",
     "__all__",
     "_as_matrix_list",
+    "_build_loops",
+    "_build_staple_terms",
+    "_class_action_density",
+    "_creutz_a0",
     "_dagger",
+    "_embed_su2",
+    "_field_of",
+    "_h4",
+    "_leg_field",
     "_matmul",
     "_normal_matrix",
+    "_quat_to_mat",
+    "_reunitarise",
+    "_reverse_leg",
+    "_sample_su2_heatbath",
+    "_site_masks",
+    "_stored",
+    "_su2_from_block",
+    "_su2_overrelax",
+    "_su2_subgroups",
+    "_su3_generators",
+    "_sym_power_isometry",
+    "_transporter",
+    "_update_field",
+    "_vadd",
+    "_vneg",
+    "adjoint_rep",
+    "anisotropy_from_c_lat",
+    "bcc_closure_identities",
     "bcc_plaquette",
     "bcc_plaquette_set",
     "cartesian_field_strength",
     "cartesian_reconstruction_residual",
+    "casimir_ratio_exact",
+    "casimir_scaling_from_loops",
+    "character_identity_residual",
+    "check_bcc_gauge_mc",
+    "cold_links_4d",
+    "constant_field_links_4d",
+    "creutz_ratios",
+    "gauge_transform_4d",
+    "higher_rep_loop_table",
+    "hot_links_4d",
+    "interior_mask_4d",
     "link_for_direction",
     "link_reversal_residual",
+    "mean_plaquette_4d",
+    "plaquette_4d",
     "plaquette_field_strength_su2",
     "plaquette_field_strength_su3",
     "plaquette_phases",
+    "plaquette_traces_4d",
+    "polyakov_loop_4d",
+    "rep_character_from_traces",
+    "rep_dimension",
+    "shift4",
     "shift_by",
+    "staple_identity_residual",
+    "staple_sum",
     "su2_matrix_to_pair",
     "su2_pair_to_matrix",
+    "sweep_4d",
+    "sym_power_rep",
     "symmetrise_links",
-    "wilson_action_density"
+    "thermalise_4d",
+    "unitarity_residual_4d",
+    "weak_field_isotropy",
+    "wilson_action_4d",
+    "wilson_action_density",
+    "wilson_loop_rt",
+    "wilson_loop_table",
+    "wilson_loop_traces_rt"
    ],
    "doc": "ca_bcc_gauge.py \u2014 the gauge action on the *genuine* BCC lattice (F265)",
    "driven": true,
@@ -6095,19 +6162,25 @@
    ],
    "has_main": false,
    "import_evidence": {
-    "src/casim/engine/lattice/geometry.py": "static"
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/rng.py": "static"
    },
    "imported_by": [
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/weak_wmu.py",
-    "tests/findings/test_F265_bcc_gauge_geometry.py"
+    "tests/findings/test_F265_bcc_gauge_geometry.py",
+    "tests/findings/test_bcc_gauge_mc_d4.py",
+    "tests/runners/run_bcc_confinement_d4.py"
    ],
    "imports": [
-    "src/casim/engine/lattice/geometry.py"
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/rng.py"
    ],
    "key": "casim.engine.gauge.bcc_action",
-   "lines": 337,
-   "np_sites": 46,
+   "lines": 1879,
+   "np_sites": 182,
    "package_reachable": true,
    "path": "src/casim/engine/gauge/bcc_action.py",
    "reach": "driven",
@@ -6143,7 +6216,8 @@
     "z_even"
    ],
    "results": [
-    "test-results/F265_bcc_gauge_geometry.json"
+    "test-results/F265_bcc_gauge_geometry.json",
+    "test-results/bcc_gauge_mc_d4.json"
    ],
    "role": "kernel",
    "scipy_sites": 0,
@@ -6156,11 +6230,21 @@
     "casim.engine.lattice.geometry.BCC_PLAQ_LABELS",
     "casim.engine.lattice.geometry.BCC_PLAQ_NORMALS",
     "casim.engine.lattice.geometry.bcc_site_mask",
+    "casim.numerics",
+    "casim.numerics.rng",
+    "fractions",
+    "fractions.Fraction",
+    "itertools",
+    "itertools.combinations_with_replacement",
+    "itertools.permutations",
+    "math",
     "numpy"
    ],
    "test_referenced": true,
    "tests": [
-    "tests/findings/test_F265_bcc_gauge_geometry.py"
+    "tests/findings/test_F265_bcc_gauge_geometry.py",
+    "tests/findings/test_bcc_gauge_mc_d4.py",
+    "tests/runners/run_bcc_confinement_d4.py"
    ]
   },
   "src/casim/engine/gauge/bgfield_loop.py": {
@@ -6295,6 +6379,7 @@
     "bt",
     "c_from_rotation_rate",
     "check_curl_closes_at_k3",
+    "check_spin_axis_scalar_contamination",
     "composite_photon_energy_conservation",
     "composite_photon_energy_conservation_c2",
     "composite_photon_propagation_full_lattice",
@@ -6401,8 +6486,8 @@
     "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.gauge.bilinear",
-   "lines": 2675,
-   "np_sites": 327,
+   "lines": 2796,
+   "np_sites": 344,
    "package_reachable": true,
    "path": "src/casim/engine/gauge/bilinear.py",
    "reach": "package-only",
@@ -6550,6 +6635,7 @@
     "check_casimir_ladder",
     "h1_vs_h2_empirical",
     "kstring_tension_laws",
+    "operator_consistency",
     "out",
     "res",
     "su_n_casimir",
@@ -6576,6 +6662,7 @@
     "src/casim/engine/particles/_results_path.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/derive_ncolour_bracket.py",
     "tests/findings/test_F298_casimir_ladder.py"
    ],
    "imports": [
@@ -6583,7 +6670,7 @@
     "src/casim/engine/particles/_results_path.py"
    ],
    "key": "casim.engine.gauge.casimir_ladder",
-   "lines": 360,
+   "lines": 524,
    "np_sites": 0,
    "package_reachable": false,
    "path": "src/casim/engine/gauge/casimir_ladder.py",
@@ -6687,8 +6774,7 @@
    "reach": "test-only",
    "reachable_from": [],
    "results": [
-    "test-results/F299_casimir_scaling.json",
-    "test-results/F94_BC_from_qca_loop.json"
+    "test-results/F299_casimir_scaling.json"
    ],
    "role": "kernel",
    "scipy_sites": 0,
@@ -7633,11 +7719,16 @@
    "defines": [
     "F144_A4_LAMBDA_RATIO",
     "F144_A4_RESIDUAL_INV_ALPHA",
+    "F163_C_LAT_LOOPS",
+    "F163_C_MSBAR",
+    "F280_TARGET_LAMBDA_RATIO",
+    "KNS_LAMBDA_RATIO_WILSON",
     "WILSON_LAMBDA_RATIO",
     "__all__",
     "_b0",
     "_run_to_mz",
     "cartan_weight_norm_sq",
+    "casimir_branch_vs_f280_band",
     "check_coupling_normalisation",
     "chi_required_by_data",
     "circularity_lemma_is_group_blind",
@@ -7685,7 +7776,7 @@
     "src/casim/engine/particles/_results_path.py"
    ],
    "key": "casim.engine.gauge.derive_coupling_normalisation",
-   "lines": 514,
+   "lines": 615,
    "np_sites": 0,
    "package_reachable": false,
    "path": "src/casim/engine/gauge/derive_coupling_normalisation.py",
@@ -7885,6 +7976,7 @@
     "src/casim/engine/gauge/casimir_ladder.py",
     "src/casim/engine/gauge/casimir_scaling.py",
     "src/casim/engine/gauge/derive_coupling_normalisation.py",
+    "src/casim/engine/gauge/derive_ncolour_bracket.py",
     "src/casim/engine/gauge/derive_su3_structure.py",
     "tests/findings/test_F293_why_three_colours.py"
    ],
@@ -7929,6 +8021,106 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F293_why_three_colours.py"
+   ]
+  },
+  "src/casim/engine/gauge/derive_ncolour_bracket.py": {
+   "channel_types": [],
+   "defines": [
+    "COLOUR_REPS",
+    "N_GEN_MODEL",
+    "_c7_exists_on_ladder",
+    "_sort_sign",
+    "bracket",
+    "c7_identity_support",
+    "check_ncolour_bracket",
+    "colour_own_z2_at_n2",
+    "dynkin_index_normalised",
+    "falsifiability_counterfactual",
+    "lambda_n_singlets",
+    "local_system_is_blind",
+    "local_u2_quantisation",
+    "minimal_all_quark_singlet",
+    "mixed_symmetry_breaks_n3",
+    "rep_sensitivity",
+    "su2L_doublet_content",
+    "summary",
+    "three_is_a_corollary",
+    "witten_contributes",
+    "witten_scan"
+   ],
+   "doc": "derive_ncolour_bracket.py \u2014 the N_c interval, closed from both sides",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F110",
+    "F144",
+    "F27",
+    "F279",
+    "F293",
+    "F298",
+    "F299",
+    "F303",
+    "F317",
+    "F318",
+    "F75",
+    "F97",
+    "F99"
+   ],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/engine/gauge/casimir_ladder.py": "static",
+    "src/casim/engine/gauge/derive_ncolour.py": "static",
+    "src/casim/engine/gauge/derive_su3_structure.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F324_ncolour_bracket.py"
+   ],
+   "imports": [
+    "src/casim/engine/gauge/casimir_ladder.py",
+    "src/casim/engine/gauge/derive_ncolour.py",
+    "src/casim/engine/gauge/derive_su3_structure.py"
+   ],
+   "key": "casim.engine.gauge.derive_ncolour_bracket",
+   "lines": 852,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/derive_ncolour_bracket.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F324_ncolour_bracket.json"
+   ],
+   "role": "derivation",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge.casimir_ladder",
+    "casim.engine.gauge.casimir_ladder.antisymmetric_ladder",
+    "casim.engine.gauge.casimir_ladder.c7_against_casimir_ladder",
+    "casim.engine.gauge.casimir_ladder.casimir_fundamental",
+    "casim.engine.gauge.casimir_ladder.su_n_casimir",
+    "casim.engine.gauge.casimir_ladder.zn_symmetric_residue_sq",
+    "casim.engine.gauge.derive_ncolour",
+    "casim.engine.gauge.derive_ncolour.hypercharge_nullspace_symbolic",
+    "casim.engine.gauge.derive_su3_structure",
+    "casim.engine.gauge.derive_su3_structure.multiplicity_squeeze",
+    "fractions",
+    "fractions.Fraction",
+    "itertools",
+    "itertools.combinations",
+    "sympy",
+    "typing",
+    "typing.Any",
+    "typing.Dict",
+    "typing.List",
+    "typing.Sequence",
+    "typing.Tuple"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F324_ncolour_bracket.py"
    ]
   },
   "src/casim/engine/gauge/derive_su3_structure.py": {
@@ -7986,6 +8178,7 @@
     "src/casim/numerics/__init__.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/derive_ncolour_bracket.py",
     "tests/findings/test_F317_su3_structure.py"
    ],
    "imports": [
@@ -8485,7 +8678,8 @@
     "src/casim/engine/interactions/running_scheme_constant.py",
     "src/casim/engine/lattice/blockspin.py",
     "tests/findings/test_F110_link_hamiltonian_realtime.py",
-    "tests/findings/test_F111_tree_gauge_su3_ladder.py"
+    "tests/findings/test_F111_tree_gauge_su3_ladder.py",
+    "tools/x1_s8_magnetic.py"
    ],
    "imports": [],
    "key": "casim.engine.gauge.link_hamiltonian",
@@ -9855,7 +10049,8 @@
    "imported_by": [
     "src/casim/engine/gauge/casimir_scaling.py",
     "src/casim/engine/gauge/derive_coupling_normalisation.py",
-    "tests/findings/test_F111_tree_gauge_su3_ladder.py"
+    "tests/findings/test_F111_tree_gauge_su3_ladder.py",
+    "tools/x1_s8_magnetic.py"
    ],
    "imports": [],
    "key": "casim.engine.gauge.su3_ladder",
@@ -10313,6 +10508,7 @@
     "src/casim/engine/interactions/qi_decoherence_floor.py",
     "src/casim/engine/interactions/qi_noise.py",
     "src/casim/engine/interactions/raytrace.py",
+    "src/casim/engine/interactions/running_alpha_lattice_bound.py",
     "src/casim/engine/interactions/running_gap_solve.py",
     "src/casim/engine/interactions/running_ir_coupling.py",
     "src/casim/engine/interactions/running_qstar_logmoment.py",
@@ -11618,8 +11814,11 @@
     "_grad2",
     "_lap",
     "bag_dictionary",
+    "check_dielectric_noconfine",
     "main",
     "spread_tension",
+    "su3_casimir_ratios",
+    "su_n_k_string_ratios",
     "tube_tension_box"
    ],
    "doc": "derive_dielectric_noconfine.py \u2014 Why the colour-dielectric tension does NOT",
@@ -11637,8 +11836,8 @@
    "imported_by": [],
    "imports": [],
    "key": "casim.engine.interactions.derive_dielectric_noconfine",
-   "lines": 140,
-   "np_sites": 24,
+   "lines": 299,
+   "np_sites": 40,
    "package_reachable": false,
    "path": "src/casim/engine/interactions/derive_dielectric_noconfine.py",
    "reach": "entry-script",
@@ -11649,6 +11848,8 @@
    "static_imports": [
     "__future__",
     "__future__.annotations",
+    "fractions",
+    "fractions.Fraction",
     "numpy"
    ],
    "test_referenced": false,
@@ -13217,6 +13418,7 @@
    "import_evidence": {},
    "imported_by": [
     "src/casim/engine/interactions/qed_amu.py",
+    "src/casim/engine/interactions/running_alpha_lattice_bound.py",
     "tests/findings/test_F261_twoloop_ae_amu.py",
     "tests/runners/run_F261_twoloop_qed.py"
    ],
@@ -13392,6 +13594,7 @@
    },
    "imported_by": [
     "src/casim/engine/interactions/derive_gap5_adjudication.py",
+    "src/casim/engine/interactions/running_alpha_lattice_bound.py",
     "tests/casim/test_bz_period_lattices.py",
     "tests/findings/test_F249_qed_comparison_battery.py",
     "tests/findings/test_F251_vacuum_polarization.py"
@@ -14705,6 +14908,91 @@
     "casim.numerics",
     "casim.numerics.xp",
     "json"
+   ],
+   "test_referenced": false,
+   "tests": []
+  },
+  "src/casim/engine/interactions/running_alpha_lattice_bound.py": {
+   "channel_types": [],
+   "defines": [
+    "ALPHA",
+    "ALPHA_INV",
+    "ALPHA_MZ_INV_ONSHELL",
+    "B0_QED",
+    "DALPHA_LEP_PDG",
+    "INV_ALPHA_EM_MZ_MSBAR",
+    "M_LEPTON_MEV",
+    "M_Z_GEV",
+    "M_Z_MEV",
+    "SIN2_MZ_MSBAR_PDG",
+    "V_EW_GEV",
+    "_fermion_B_refold",
+    "_sin2_MZ",
+    "b_to_dalpha_factor",
+    "check_b9_rederivation",
+    "ew_leg_alpha_dependence",
+    "lattice_bound_on_dalpha",
+    "out",
+    "p",
+    "refold_independence",
+    "report",
+    "two_loop_leading_log"
+   ],
+   "doc": "running_alpha_lattice_bound.py \u2014 the B9 re-derivation, post-F277 (F322).",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F115",
+    "F138",
+    "F231",
+    "F251",
+    "F261",
+    "F277",
+    "F322"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/interactions/__init__.py": "static",
+    "src/casim/engine/interactions/qed_twoloop_ae.py": "static",
+    "src/casim/engine/interactions/qed_vacuum_polarization.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/interactions/__init__.py",
+    "src/casim/engine/interactions/qed_twoloop_ae.py",
+    "src/casim/engine/interactions/qed_vacuum_polarization.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.interactions.running_alpha_lattice_bound",
+   "lines": 396,
+   "np_sites": 5,
+   "package_reachable": false,
+   "path": "src/casim/engine/interactions/running_alpha_lattice_bound.py",
+   "reach": "unreferenced",
+   "reachable_from": [],
+   "results": [],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.sin2_thetaW_uv_f",
+    "casim.engine.interactions",
+    "casim.engine.interactions.qed_twoloop_ae",
+    "casim.engine.interactions.qed_vacuum_polarization",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "math"
    ],
    "test_referenced": false,
    "tests": []
@@ -18182,6 +18470,7 @@
     "src/casim/engine/interactions/qi_measurement.py",
     "src/casim/engine/interactions/qi_spin_statistics.py",
     "src/casim/engine/interactions/run_q3_omega_degeneracy.py",
+    "src/casim/engine/interactions/running_alpha_lattice_bound.py",
     "src/casim/engine/interactions/thermodynamics.py",
     "src/casim/engine/interactions/thermodynamics_gstar.py",
     "src/casim/engine/lattice/derive_walk_bz_measure.py",
@@ -19992,7 +20281,7 @@
     "src/casim/constants/__init__.py"
    ],
    "key": "casim.engine.registry",
-   "lines": 1143,
+   "lines": 1167,
    "np_sites": 0,
    "package_reachable": true,
    "path": "src/casim/engine/registry.py",
@@ -21640,6 +21929,7 @@
     "src/casim/engine/forks/gravity/gr_fork_F58_clockrate_coupling_derivation.py",
     "src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py",
     "src/casim/engine/forks/particles/complex_mass_fork.py",
+    "src/casim/engine/gauge/bcc_action.py",
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/bilinear_2d.py",
     "src/casim/engine/gauge/casimir_scaling.py",
@@ -21676,6 +21966,7 @@
     "src/casim/engine/interactions/qi_measurement.py",
     "src/casim/engine/interactions/qi_spin_statistics.py",
     "src/casim/engine/interactions/run_q3_omega_degeneracy.py",
+    "src/casim/engine/interactions/running_alpha_lattice_bound.py",
     "src/casim/engine/interactions/running_gap_solve.py",
     "src/casim/engine/interactions/running_njl.py",
     "src/casim/engine/interactions/running_scheme_constant.py",
@@ -22365,13 +22656,14 @@
     "spawn"
    ],
    "doc": "casim.numerics.rng \u2014 seeded generators, one per consumer. Roadmap C1.1.",
-   "driven": false,
+   "driven": true,
    "dynamic_refs": [],
    "fft_sites": 0,
    "findings": [],
    "has_main": false,
    "import_evidence": {},
    "imported_by": [
+    "src/casim/engine/gauge/bcc_action.py",
     "src/casim/engine/gauge/colour_theta.py"
    ],
    "imports": [],
@@ -22380,7 +22672,37 @@
    "np_sites": 10,
    "package_reachable": true,
    "path": "src/casim/numerics/rng.py",
-   "reachable_from": [],
+   "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "entanglement_register",
+    "error_correction",
+    "fermion_algorithm",
+    "fermion_chain",
+    "fermion_doublet",
+    "gauge_mc",
+    "gluon_bcc",
+    "gluon_sourced",
+    "gravity_dielectric",
+    "njl_meson",
+    "njl_nucleon",
+    "nr_electron",
+    "particle",
+    "photon_pair",
+    "photon_sourced",
+    "quantum_circuit",
+    "quark_dirac",
+    "refraction_2d",
+    "string_tension",
+    "two_grid_atom",
+    "w_chiral",
+    "w_sourced",
+    "weyl_bcc",
+    "z_even"
+   ],
    "role": "package",
    "scipy_sites": 0,
    "static_imports": [
@@ -24882,7 +25204,9 @@
     "test_every_ledger_path_exists",
     "test_ledger_schema_is_well_formed",
     "test_no_orphan_banners",
-    "test_supersession_summary_is_reported"
+    "test_supersession_summary_is_reported",
+    "test_supersessions_reach_the_documents_that_cite_them",
+    "test_the_citation_matcher_actually_fires"
    ],
    "doc": "Roadmap P0.3/P0.4 \u2014 the supersession ledger gate.",
    "driven": false,
@@ -24905,7 +25229,7 @@
     "src/casim/tests/ledger.py"
    ],
    "key": "tests/casim/test_supersession_ledger.py",
-   "lines": 407,
+   "lines": 458,
    "np_sites": 0,
    "package_reachable": false,
    "path": "tests/casim/test_supersession_ledger.py",
@@ -24920,6 +25244,10 @@
     "ast",
     "casim.tests",
     "casim.tests.ledger",
+    "check_superseded_citations",
+    "check_superseded_citations._FN",
+    "check_superseded_citations._unit_ok",
+    "check_superseded_citations.main",
     "os",
     "pytest",
     "re",
@@ -27491,13 +27819,13 @@
     "src/casim/lattice/chiral_core.py"
    ],
    "key": "tests/findings/test_F134_phase4_completion.py",
-   "lines": 232,
+   "lines": 242,
    "np_sites": 70,
    "package_reachable": false,
    "path": "tests/findings/test_F134_phase4_completion.py",
    "reachable_from": [],
    "role": "test",
-   "scipy_sites": 0,
+   "scipy_sites": 1,
    "static_imports": [
     "casim.engine",
     "casim.engine.LatticeSpec",
@@ -37123,6 +37451,56 @@
    ],
    "test_referenced": false
   },
+  "tests/findings/test_F324_ncolour_bracket.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F324 \u2014 the N_c bracket (completeness row B10, \"why 3 colours\").",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F110",
+    "F293",
+    "F298",
+    "F317",
+    "F318",
+    "F324",
+    "F75",
+    "F97",
+    "F99"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/derive_ncolour_bracket.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/derive_ncolour_bracket.py"
+   ],
+   "key": "tests/findings/test_F324_ncolour_bracket.py",
+   "lines": 110,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F324_ncolour_bracket.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge",
+    "casim.engine.gauge.derive_ncolour_bracket",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
   "tests/findings/test_F37_delta_omega.py": {
    "channel_types": [],
    "defines": [
@@ -43151,6 +43529,49 @@
    ],
    "test_referenced": false
   },
+  "tests/findings/test_bcc_gauge_mc_d4.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "_res",
+    "_results_path",
+    "main"
+   ],
+   "doc": "BCC 3+1D gauge Monte-Carlo: sampler + Wilson loops on the model's own lattice.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F265",
+    "F291",
+    "F313",
+    "F94"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/bcc_action.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/bcc_action.py"
+   ],
+   "key": "tests/findings/test_bcc_gauge_mc_d4.py",
+   "lines": 144,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_bcc_gauge_mc_d4.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge.bcc_action",
+    "casim.engine.gauge.bcc_action.check_bcc_gauge_mc",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
   "tests/findings/test_complex_mass_chiral.py": {
    "channel_types": [],
    "defines": [
@@ -46498,6 +46919,51 @@
    ],
    "test_referenced": false
   },
+  "tests/runners/run_bcc_confinement_d4.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "Battery runner: the d=4 confinement measurement on the model's OWN lattice.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F265",
+    "F299",
+    "F313"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/bcc_action.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/bcc_action.py"
+   ],
+   "key": "tests/runners/run_bcc_confinement_d4.py",
+   "lines": 287,
+   "np_sites": 8,
+   "package_reachable": false,
+   "path": "tests/runners/run_bcc_confinement_d4.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "argparse",
+    "casim.engine.gauge",
+    "casim.engine.gauge.bcc_action",
+    "json",
+    "numpy",
+    "os",
+    "sys",
+    "time"
+   ],
+   "test_referenced": false
+  },
   "tests/runners/run_bgfield_loop.py": {
    "channel_types": [],
    "defines": [
@@ -48789,6 +49255,108 @@
    ],
    "test_referenced": false
   },
+  "tools/check_summary_claims.py": {
+   "channel_types": [],
+   "defines": [
+    "CLAIMS_DIR",
+    "SUMMARY",
+    "_ANCHOR",
+    "_CEILINGS",
+    "_ENTRY",
+    "_REPO",
+    "check_unit",
+    "load_cards",
+    "main",
+    "parse_units",
+    "selftest"
+   ],
+   "doc": "The public summary is a VIEW of the claim register, and a view can go stale silently.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F320"
+   ],
+   "has_main": true,
+   "import_evidence": {},
+   "imported_by": [],
+   "imports": [],
+   "key": "tools/check_summary_claims.py",
+   "lines": 266,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tools/check_summary_claims.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "argparse",
+    "check_superseded_citations",
+    "check_superseded_citations._FN",
+    "check_superseded_citations._unit_ok",
+    "check_superseded_citations.load_ledger",
+    "glob",
+    "os",
+    "re",
+    "sys",
+    "yaml"
+   ],
+   "test_referenced": false
+  },
+  "tools/check_superseded_citations.py": {
+   "channel_types": [],
+   "defines": [
+    "CLAIMS_DIR",
+    "LEDGER",
+    "ROW_DOCS",
+    "ROW_DOCS_GLOB_NEWEST",
+    "_ACK",
+    "_CEILINGS",
+    "_FN",
+    "_REPO",
+    "_unit_ok",
+    "load_ledger",
+    "main",
+    "scan_claim_cards",
+    "scan_rows",
+    "selftest"
+   ],
+   "doc": "A supersession must reach the documents that CITE the finding, not just the finding.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F115",
+    "F138",
+    "F231",
+    "F251"
+   ],
+   "has_main": true,
+   "import_evidence": {},
+   "imported_by": [],
+   "imports": [],
+   "key": "tools/check_superseded_citations.py",
+   "lines": 248,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tools/check_superseded_citations.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "argparse",
+    "glob",
+    "os",
+    "re",
+    "sys",
+    "yaml"
+   ],
+   "test_referenced": false
+  },
   "tools/check_test_registry.py": {
    "channel_types": [],
    "defines": [
@@ -49186,7 +49754,7 @@
     "src/casim/cli.py"
    ],
    "key": "tools/run_gate.py",
-   "lines": 227,
+   "lines": 235,
    "np_sites": 0,
    "package_reachable": false,
    "path": "tools/run_gate.py",
@@ -49345,6 +49913,117 @@
     "sys"
    ],
    "test_referenced": false
+  },
+  "tools/x1_probe.py": {
+   "channel_types": [],
+   "defines": [
+    "CENTRE",
+    "C_F",
+    "C_LAT_LOOPS",
+    "C_MSBAR",
+    "G2",
+    "LAMBDA_W",
+    "MU0",
+    "MZ",
+    "N_LINKS",
+    "PDG",
+    "REPS",
+    "_h",
+    "b0",
+    "block_A",
+    "block_B",
+    "block_C",
+    "casimir",
+    "chi",
+    "irreps",
+    "schur",
+    "sigmas",
+    "sym_residue_sq"
+   ],
+   "doc": "x1_probe.py \u2014 reproduction script for docs/status/x1-colour-normalisation-fork-2026-08-18.md",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F280",
+    "F299"
+   ],
+   "has_main": true,
+   "import_evidence": {},
+   "imported_by": [],
+   "imports": [],
+   "key": "tools/x1_probe.py",
+   "lines": 268,
+   "np_sites": 15,
+   "package_reachable": false,
+   "path": "tools/x1_probe.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 0,
+   "static_imports": [
+    "fractions",
+    "fractions.Fraction",
+    "math",
+    "numpy"
+   ],
+   "test_referenced": false
+  },
+  "tools/x1_s8_magnetic.py": {
+   "channel_types": [],
+   "defines": [
+    "a",
+    "b",
+    "casimir_N",
+    "chi",
+    "dim_N",
+    "fuse_box",
+    "ladder_N",
+    "lam_m",
+    "normalise",
+    "offdiag",
+    "reps3",
+    "s1_su3",
+    "s1_u1",
+    "suN_rotor_s1",
+    "u1_rotor_s1"
+   ],
+   "doc": "Section 8.2 \u2014 audit the MAGNETIC side of the C7 identity.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F111"
+   ],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/link_hamiltonian.py": "static",
+    "src/casim/engine/gauge/su3_ladder.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/link_hamiltonian.py",
+    "src/casim/engine/gauge/su3_ladder.py"
+   ],
+   "key": "tools/x1_s8_magnetic.py",
+   "lines": 182,
+   "np_sites": 11,
+   "package_reachable": false,
+   "path": "tools/x1_s8_magnetic.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 1,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.link_hamiltonian",
+    "casim.engine.gauge.su3_ladder",
+    "fractions",
+    "fractions.Fraction",
+    "math",
+    "numpy"
+   ],
+   "test_referenced": false
   }
  },
  "summary": {
@@ -49380,19 +50059,19 @@
    "weyl_bcc",
    "z_even"
   ],
-  "derivations": 18,
+  "derivations": 19,
   "dynamic_edges": 25,
-  "engine": 223,
+  "engine": 225,
   "fft_sites_total": 217,
-  "files": 723,
+  "files": 732,
   "forks": 54,
-  "kernels": 151,
-  "np_sites_total": 14829,
+  "kernels": 152,
+  "np_sites_total": 15037,
   "package": 69,
   "reach": {
    "derivation": {
     "entry-script": 7,
-    "test-only": 11
+    "test-only": 12
    },
    "fork": {
     "driven": 2,
@@ -49403,11 +50082,11 @@
     "driven": 50,
     "package-only": 4,
     "test-only": 92,
-    "unreferenced": 5
+    "unreferenced": 6
    }
   },
   "support": 0,
-  "tests": 408,
+  "tests": 411,
   "unparseable": []
  },
  "version": 1

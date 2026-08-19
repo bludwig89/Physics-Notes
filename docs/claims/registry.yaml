@@ -4,8 +4,8 @@
 # projection of it. Editing here changes nothing and will be overwritten.
 # ---------------------------------------------------------------------------
 version: 1
-count: 280
-next_claim: CL281
+count: 282
+next_claim: CL283
 
 claims:
   - id: CL001
@@ -379,7 +379,7 @@ claims:
     falsifier: none
     review_state: authored
     confidence: high
-    findings: [F164, F193, F196]
+    findings: [F164, F193, F196, F241, F319]
     tests: []
     modules: []
     constants: []
@@ -396,12 +396,12 @@ claims:
     exactness: quantitative
     falsifier: stated
     review_state: authored
-    confidence: medium
-    findings: [F144, F115, F124, F299, F303]
-    tests: [F303-coupling-normalisation]
+    confidence: high
+    findings: [F144, F115, F124, F299, F303, F325]
+    tests: [F303-coupling-normalisation, F325-x1-branch]
     modules: [casim.engine.gauge.derive_coupling_normalisation]
     constants: []
-    supersessions: []
+    supersessions: [S20-F115-weinberg-gap-account-replaced-by-4piv-matching, S22-F298-mixed-matching-C_F-and-the-X1-branch]
     rolls_up_to: null
     first_issued: '2026-06-08'
   - id: CL023
@@ -1558,20 +1558,20 @@ claims:
     first_issued: '2026-08-04'
   - id: CL087
     file: docs/claims/CL087-confinement-from-3-1d-lattice-gauge-monte-carlo.md
-    title: 'Confinement from 3+1D lattice-gauge Monte-Carlo (P1 Option A), tested against Option C (F86)'
+    title: 'Confinement from 3+1D lattice-gauge Monte-Carlo: the engine and the Option-A/Option-C bridge, narrowed off the hypercubic ensemble'
     tier: supporting
     kind: derivation
-    status: live
+    status: narrowed
     domain: [QCD]
     exactness: machine
-    falsifier: unset
+    falsifier: stated
     review_state: unreviewed-seed
     confidence: medium
-    findings: [F94]
-    tests: []
-    modules: []
+    findings: [F94, F323, F265, F311]
+    tests: [gauge-bcc-mc-d4, FA-lgt-mc, FA-vs-FC-comparison]
+    modules: [src/casim/engine/gauge/bcc_action.py, src/casim/engine/forks/gauge/lgt_fork_A_mc.py]
     constants: []
-    supersessions: []
+    supersessions: [S21-F94-hypercubic-action-not-the-model-lattice]
     rolls_up_to: null
     first_issued: '2026-08-04'
   - id: CL088
@@ -4537,11 +4537,11 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F280, F287, F163, F162, F155, F239]
-    tests: [F280-d1-subtracted]
+    findings: [F280, F287, F163, F162, F155, F239, F325]
+    tests: [F280-d1-subtracted, F303-coupling-normalisation, F325-x1-branch]
     modules: [src/casim/engine/gauge/lpt_d1_subtracted.py]
     constants: [q_star_a_implied]
-    supersessions: []
+    supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
     rolls_up_to: CL022
     first_issued: '2026-08-05'
   - id: CL253
@@ -4618,7 +4618,7 @@ claims:
     first_issued: '2026-08-05'
   - id: CL257
     file: docs/claims/CL257-ncolour-selected-not-derived.md
-    title: 'N_c is not derived here — two routes are closed exactly, one is circular, the C7 identity supplies a structural N_c <= 3 bound that consumes no measured number, and the 28-decade Lambda-scale selector that picks 3 rests on a bare-coupling normalisation the model''s own confinement engine contradicts'
+    title: 'N_c is not derived here — two routes are closed exactly, one is circular, the Lambda-scale selector is retired, and the C7 identity''s structural N_c <= 3 bound is WITHDRAWN as a mixed-matching artefact, leaving only the Z_2 doublet parity and hence odd N_c'
     tier: supporting
     kind: derivation
     status: narrowed
@@ -4627,11 +4627,11 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: low
-    findings: [F293, F294, F298, F299, F303]
-    tests: [F293-why-three-colours, F298-casimir-ladder, F299-casimir-scaling, F303-coupling-normalisation]
-    modules: [casim.engine.gauge.derive_ncolour, casim.engine.gauge.casimir_ladder, casim.engine.gauge.casimir_scaling]
+    findings: [F293, F294, F298, F299, F303, F324, F325]
+    tests: [F293-why-three-colours, F298-casimir-ladder, F299-casimir-scaling, F303-coupling-normalisation, F324-ncolour-bracket, F325-x1-branch]
+    modules: [casim.engine.gauge.derive_ncolour, casim.engine.gauge.casimir_ladder, casim.engine.gauge.casimir_scaling, casim.engine.gauge.derive_x1_branch]
     constants: []
-    supersessions: []
+    supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
     rolls_up_to: null
     first_issued: '2026-08-05'
   - id: CL258
@@ -4879,11 +4879,11 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F317, F91, F27, F68, F279, F293, F298, F289]
+    findings: [F317, F91, F27, F68, F279, F293, F298, F289, F325]
     tests: [F317-su3-structure]
     modules: [casim.engine.gauge.derive_su3_structure]
     constants: []
-    supersessions: []
+    supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
     rolls_up_to: null
     first_issued: '2026-08-16'
   - id: CL272
@@ -4951,7 +4951,7 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: high
-    findings: [F319, F164, F59, F79, F107]
+    findings: [F319, F164, F59, F79, F107, F193, F196]
     tests: [F319-uv-completion]
     modules: [casim.engine.interactions.qed_uv_completion]
     constants: [a_over_ellP, ell_P_m, c_lat]
@@ -5041,10 +5041,46 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F322, F251, F277, F261, F138]
+    findings: [F322, F311, F251, F277, F261, F138]
     tests: [F322-b9-running-rederived]
     modules: [casim.engine.interactions.running_alpha_lattice_bound, casim.engine.interactions.qed_vacuum_polarization, casim.engine.interactions.qed_twoloop_ae]
     constants: [sin2_thetaW_uv]
     supersessions: [S12-F277-refold-removed-qed-and-gluon]
     rolls_up_to: null
     first_issued: '2026-08-17'
+  - id: CL281
+    file: docs/claims/CL281-ncolour-bracketed-to-three.md
+    title: '$N_c=3$ is bracketed by two constraints that consume no measured number — F298''''s C7 support $\{2,3\}$ and the $\mathbb Z_2$ doublet parity of the derived $SU(2)_L$ — at the cost of six named premises'
+    tier: supporting
+    kind: derivation
+    status: narrowed
+    domain: [SM, QCD, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: low
+    findings: [F324, F317, F298, F318, F293, F279, F27, F75, F97, F99, F325]
+    tests: [F324-ncolour-bracket]
+    modules: [gauge.derive_ncolour_bracket]
+    constants: []
+    supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
+    rolls_up_to: CL271
+    first_issued: '2026-08-17'
+  - id: CL282
+    file: docs/claims/CL282-casimir-colour-normalisation-excluded.md
+    title: 'The Casimir normalisation of the model''''s bare colour coupling is excluded: g_s = sqrt3/4 with alpha_s(M_Z) = 0.0397 is a tested no-go, and g_s = 1/2 with alpha_s(mu_0) = 1/(16 pi) is the adopted reading'
+    tier: headline
+    kind: no_go
+    status: live
+    domain: [QCD, SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F325, F298, F299, F303, F294, F280, F144, F111b, F110, F101]
+    tests: [F325-x1-branch, F298-casimir-ladder, F303-coupling-normalisation]
+    modules: [casim.engine.gauge.derive_x1_branch, casim.engine.gauge.casimir_ladder, casim.engine.gauge.derive_coupling_normalisation]
+    constants: []
+    supersessions: [S22-F298-mixed-matching-C_F-and-the-X1-branch]
+    rolls_up_to: CL022
+    first_issued: '2026-08-18'

@@ -1,5 +1,17 @@
 # F110 — Real-time link Hamiltonian evolution for the confinement sector: the F101 rotor made multi-plaquette and dynamical, with Gauss's law exact by construction
 
+> **X1 RESOLVED 2026-08-18 (F325, ledger record S22).** **The C7 identity is confirmed as $\chi=1/(4g^2)$ against a genuine $SU(N)$ link Hamiltonian,
+with no Casimir**, and the deferral in this file's scope note is discharged in both sectors: the
+electric side by the operator-consistency argument (F325 §2), the magnetic side by measurement — the
+magnetic term is $-\tfrac{\lambda}{2}\times$(unit-entry adjacency $+$ transpose) in **both**
+theories, so it adds no factor (F325 §5, leg X1).
+>
+> **Read the $\mathbb Z_N$/U(1) ladder as an exactly-solvable reduction, not as the model's spectrum.**
+> C7 transfers a **coefficient**, not a spectrum: the rotor *is* this Hamiltonian on one plaquette's
+> Gauss sector (check C1), so both sides carry the same operator and its eigenvalue cancels. Matching
+> the integer ladder against $SU(N)$'s $C_2$ ladder instead produces a constant that is a spectral
+> discrepancy rather than a stiffness — that is the whole of the X1 fork, and it is closed.
+
 **Date:** 2026-06-06 - 23:55
 **Status:** Confirmed — 7/7 checks PASS. C1/C2/C7 machine-precision/exact (direct-vs-dual spectral identity; λ=0 potential in integer arithmetic; rotor matrix identity); C3/C4 convergent/asymptotic (linear potential, strong-coupling PT); C5 machine-precision real-time unitarity; C6 quantitative (flux-tube localisation and persistence). **Closes audit B.2 item 2** ("real-time link Hamiltonian evolution (Kogut–Susskind-type) is not built; Wilson-loop tests run on frozen links").
 **Module:** `ca-simulation/ca_link_hamiltonian.py`

@@ -101,6 +101,14 @@ def main() -> int:
              [py, "tests/casim/test_supersession_ledger.py"])
     gate.run("supersession banners are current",
              [py, "tools/apply_supersession_banners.py", "--check"])
+    gate.run("no grading document cites a superseded finding bare",
+             [py, "tools/check_superseded_citations.py"])
+    # Added 2026-08-18: the register moved (F320 withdrew CL016) and the public
+    # summary did not follow it for two days. `check_superseded_citations.py`
+    # grades docs/ against the ledger and never opens papers/; this grades
+    # papers/Claims-and-Falsifiers-Summary.md against docs/claims/.
+    gate.run("the public claims summary matches the claim register",
+             [py, "tools/check_summary_claims.py"])
 
     # -- 1b. Test-suite health (roadmap P1) --------------------------------
     print("\ntest-suite health")

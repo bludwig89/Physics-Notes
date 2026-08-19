@@ -243,8 +243,20 @@ def render(repo: str) -> tuple[str, str, int]:
         marks.append(f"{n_tests} test rec" if n_tests else "**no test record**")
         if m and int(m.group(1)) in audit["duplicates"]:
             marks.append("number reused")
-        rows.append((fnum, fname.replace('.md', ''), summary, tests,
+        # 2026-08-19 - 15:20 — order the table by finding NUMBER, not by
+        # filename string.  `sorted(os.listdir())` is ASCII order, so the table
+        # ran F1, F100, F101, ... F110, F111b, F112, ... and only reached F2,
+        # F20, F99 at the very bottom; the padding is inconsistent too (of 317
+        # files, `F01-F15-findings.md` is the only zero-padded name), so the
+        # index could not be read as a sequence.  A suffix letter sorts directly
+        # after its own number (F101, then F101b).  A file whose name does not
+        # match FINDING_FILE_RE has no number to sort on, so it goes last under
+        # a sentinel rather than being silently interleaved with real numbers.
+        sort_key = (int(m.group(1)), m.group(2)) if m else (1 << 30, fname)
+        rows.append((sort_key, fnum, fname.replace('.md', ''), summary, tests,
                      "; ".join(marks)))
+
+    rows.sort(key=lambda r: r[0])
 
     lines = [
         "# Findings Index", "", HEADER_NOTE,
@@ -256,7 +268,7 @@ def render(repo: str) -> tuple[str, str, int]:
         "| # | File | Summary | Tests | Status |",
         "|---|------|---------|-------|--------|",
     ]
-    for fnum, slug, summary, tests, marks in rows:
+    for _sort_key, fnum, slug, summary, tests, marks in rows:
         lines.append(f"| {fnum} | `{slug}` | {esc(summary)} | {tests} | "
                      f"{esc(marks)} |")
     lines += [

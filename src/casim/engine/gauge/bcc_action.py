@@ -1007,7 +1007,10 @@ def check_bcc_gauge_mc(L: int = 4, Lt: int = 4, N: int = 2,
                        beta_s: float = 1.7, beta_t: float = 1.7,
                        include_mixed: bool = True,
                        skip_checkerboard: bool = False,
-                       bad_reverse_shift: bool = False) -> dict:
+                       bad_reverse_shift: bool = False,
+                       hypercubic_anisotropy: bool = False,
+                       unsymmetrised_reps: bool = False,
+                       iso_L: int = 8, iso_g: float = 4.0e-3) -> dict:
     """Gate-tier legs for the 3+1D BCC sampler and its Wilson loops.
 
     Deterministic and fast by construction: every leg is either an exact
@@ -1027,6 +1030,21 @@ def check_bcc_gauge_mc(L: int = 4, Lt: int = 4, N: int = 2,
                                dropped.  Nothing leaves SU(N), so no unitarity
                                leg can see it; gauge invariance and the staple
                                identity must -> G1a/G1b/S1a/S1b/O1a.
+    ``hypercubic_anisotropy``   predict ``beta_t/beta_s = xi^2``, the textbook
+                               hypercubic relation, instead of the BCC
+                               ``4 lambda^2/a_t^2 = (4/3) xi^2`` -> X1c/X1d.
+                               This is the mistake the derivation exists to
+                               prevent and the control is the 4/3 itself.
+    ``unsymmetrised_reps``      build the higher reps as the raw tensor power
+                               (``chi = (Tr W)^k``) instead of projecting onto
+                               the symmetric subspace -> K1a.  Also the realistic
+                               mistake, and the reason the explicit-matrix
+                               cross-check is here at all.
+
+    Note on what is NOT a control: ``c_lat`` cannot be one.  Changing it moves
+    ``a_t`` and the prediction together, because the derivation is
+    self-consistent at any ``c_lat`` -- the falsifiable content is the relation
+    ``beta_t/beta_s = 4 lambda^2/a_t^2``, not the value of ``c_lat`` fed into it.
     """
     # ── structural guards ─────────────────────────────────────────────────
     # These RAISE rather than returning a red check, because a malformed input
@@ -1209,14 +1227,652 @@ def check_bcc_gauge_mc(L: int = 4, Lt: int = 4, N: int = 2,
         "translation, a time step and a <111> hop (which swaps the two parity "
         "classes). Catches any indexing error that survives the trace")
 
+    # ── X: the anisotropy, derived ────────────────────────────────────────
+    from fractions import Fraction
+    ci = bcc_closure_identities()
+    add("X1a", ci["normals_close_on_4I"] and ci["axes_close_on_4I"],
+        {"sum_m_mT": ci["sum_m_mT"][0], "sum_a_aT": ci["sum_a_aT"][0]},
+        "the two closure identities the derivation rests on, over Z and exact: "
+        "the 6 <110> rhombus half-normals and the 4 <111> link axes EACH give "
+        "4*I. They are independent -- different vector sets, different orbit -- "
+        "and the shared constant is why beta_t/beta_s comes out rational")
+    der = anisotropy_from_c_lat()
+    add("X1b", der["beta_ratio"] == Fraction(4) and der["xi_sq"] == Fraction(3),
+        {"beta_ratio": str(der["beta_ratio"]), "xi_sq": str(der["xi_sq"]),
+         "xi": der["xi"]},
+        "from c_lat^2 = 1/3: beta_t/beta_s = 4 and xi^2 = 3 as exact "
+        "Fractions, so xi = 1/c_lat = sqrt3. No fitted content")
+    predicted = (float(der["xi_sq"]) if hypercubic_anisotropy
+                 else float(der["beta_ratio"]))
+    iso1 = weak_field_isotropy(shape4=(iso_L,) * 3 + (iso_L,), g=iso_g, pad=2)
+    iso2 = weak_field_isotropy(shape4=(iso_L,) * 3 + (iso_L,), g=iso_g / 2.0,
+                               pad=2)
+    # measured(g) = ratio - c g^2 exactly (coefficient held to 4 digits over a
+    # factor 2 in g), so one Richardson step is exact in the g^2 term.
+    extrap = (4.0 * iso2["beta_ratio_measured"]
+              - iso1["beta_ratio_measured"]) / 3.0
+    r_iso_x = abs(extrap - predicted) / abs(predicted)
+    add("X1c", r_iso_x < 1e-8, {"extrapolated": extrap,
+                                "predicted": predicted,
+                                "residual": r_iso_x},
+        "MEASURED: a constant-F abelian configuration gives "
+        "S_B/S_E -> 4 as g -> 0, matching 4 lambda^2/a_t^2. The g^2 truncation "
+        "has an exact coefficient (residual/g^2 = 1/16 held over a factor 4 in "
+        "g), so one Richardson step removes it and the limit is the identity")
+    ratio_over_xi2 = (Fraction(1) if hypercubic_anisotropy
+                      else der["beta_ratio"] / der["xi_sq"])
+    add("X1d", ratio_over_xi2 == Fraction(4, 3), str(ratio_over_xi2),
+        "the BCC answer is (4/3) xi^2, NOT the hypercubic xi^2. The 4/3 is "
+        "geometric -- the rhombus carries |d1 x d2| = 2 sqrt2 against the mixed "
+        "rectangle's |d| = sqrt3 -- and it is what a naive hypercubic "
+        "substitution would have got wrong by a third")
+
+    # ── K: F299's d=4 Casimir successor ───────────────────────────────────
+    if unsymmetrised_reps:
+        cid = {"worst_overall": None, "dimensions_match": False}
+        gen_c = _rng.for_channel('bcc_casimir_ctrl')
+        worst_u = 0.0
+        for _ in range(4):
+            Z = (gen_c.normal(size=(3, 3))
+                 + 1j * gen_c.normal(size=(3, 3))) / np.sqrt(2.0)
+            Q, Rq = np.linalg.qr(Z)
+            ph = np.diagonal(Rq)
+            Q = Q * (ph / np.abs(ph))[None, :]
+            Q = Q * np.linalg.det(Q) ** (-1.0 / 3.0)
+            t1 = np.trace(Q)
+            # the unsymmetrised tensor power: chi = (Tr W)^k
+            worst_u = max(worst_u,
+                          float(abs(np.trace(sym_power_rep(Q, 2)) - t1 ** 2)),
+                          float(abs(np.trace(sym_power_rep(Q, 3)) - t1 ** 3)))
+        cid["worst_overall"] = worst_u
+        cid["dimensions_match"] = True
+    else:
+        cid = character_identity_residual(n_samples=4)
+    add("K1a", cid["worst_overall"] is not None and cid["worst_overall"] < 1e-13,
+        cid["worst_overall"],
+        "F299's three character polynomials verified against EXPLICIT "
+        "representation matrices -- Sym^2 and Sym^3 by symmetric-subspace "
+        "isometry, the adjoint by Ad(U)_ab = 2 tr(T_a U T_b U^dag). The tree "
+        "had only ever checked them against the Jacobi-Trudi determinant that "
+        "PRODUCED them, which is self-consistency, not verification")
+    add("K1b", cid["dimensions_match"],
+        cid.get("explicit_dimensions", "n/a"),
+        "the explicit reps come out 6, 8 and 10 dimensional")
+    ratios = {lab: casimir_ratio_exact(lab) for lab, _pq in D4_CASIMIR_REPS}
+    want = {"3": Fraction(1), "6": Fraction(5, 2), "8": Fraction(9, 4),
+            "10": Fraction(9, 2)}
+    add("K1c", ratios == want, {k: str(v) for k, v in ratios.items()},
+        "C_2(R)/C_F reproduces F299's table exactly over Q from the Dynkin "
+        "labels alone -- 1, 5/2, 9/4, 9/2 -- not tabulated")
+    ctab = higher_rep_loop_table(cold_links_4d((4, 4, 4, 4), N=3), 2, 2)
+    worst_c = max(abs(v - 1.0) for d in ctab.values() for v in d.values())
+    add("K1d", worst_c < eps, worst_c,
+        "every higher-rep loop is exactly 1 on the ordered start, for all four "
+        "reps and all R x T")
+    hot3 = hot_links_4d((4, 4, 4, 4), N=3, channel='bcc_casimir_gate')
+    rot3 = gauge_transform_4d(hot3, channel='bcc_casimir_gate_omega')
+    ta = higher_rep_loop_table(hot3, 2, 2)
+    tb = higher_rep_loop_table(rot3, 2, 2)
+    d_rep = max(abs(ta[lab][k] - tb[lab][k]) for lab in ta for k in ta[lab])
+    add("K1e", d_rep < 1e-11, d_rep,
+        "every higher-rep loop is gauge invariant, so chi_R measures a "
+        "holonomy class and not a gauge artifact")
+    fund_direct = float(np.mean([wilson_loop_rt(hot3, ax, 2, 2)
+                                 for ax in range(len(BCC_LINK_AXES))]))
+    add("K1f", abs(ta["3"][(2, 2)] - fund_direct) < 1e-12,
+        abs(ta["3"][(2, 2)] - fund_direct),
+        "the rep-3 entry of the character table equals `wilson_loop_rt` -- the "
+        "trace-based path and the matrix-based path are the same object")
+
     n_pass = sum(1 for c in checks if c["ok"])
     return {
         "checks": checks,
         "n_pass": n_pass,
         "n_total": len(checks),
         "verdict": "PASS" if n_pass == len(checks) else "FAIL",
+        "anisotropy": {"xi": der["xi"], "xi_sq": str(der["xi_sq"]),
+                       "beta_ratio": str(der["beta_ratio"]),
+                       "bcc_factor_vs_hypercubic": str(
+                           der["beta_ratio"] / der["xi_sq"])},
         "params": {"L": L, "Lt": Lt, "N": N, "beta_s": beta_s,
                    "beta_t": beta_t, "include_mixed": include_mixed,
                    "skip_checkerboard": skip_checkerboard,
-                   "bad_reverse_shift": bad_reverse_shift},
+                   "bad_reverse_shift": bad_reverse_shift,
+                   "hypercubic_anisotropy": hypercubic_anisotropy,
+                   "unsymmetrised_reps": unsymmetrised_reps,
+                   "iso_L": iso_L, "iso_g": iso_g},
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════
+#  the anisotropy xi = a_s/a_t, derived
+# ══════════════════════════════════════════════════════════════════════════
+#
+# `brisk-eager-creutz` left ``beta_t = beta_s`` as a flagged CONVENTION.  It is
+# not free.  Two separate statements are needed and they do different jobs.
+#
+# 1.  WHAT LICENSES A FIXED a_t.  On an ordinary anisotropic lattice the
+#     temporal spacing is a tunable and one takes a_t -> 0.  Here it is not:
+#     F313 proves the update A is the FUNDAMENTAL unit of ker(det) and, by the
+#     review's blind agent, PRIMITIVE -- there is no local half-tick, so the
+#     tick has no root inside the local homogeneous algebra and cannot be
+#     refined.  a_t is therefore a fixed quantity to be computed, not a limit.
+#     Primitivity does NOT supply its value.
+#
+# 2.  WHAT FIXES ITS VALUE.  Isotropy of the weak-field limit.  Expanding the
+#     two loop classes to O(Phi^2) with a physical step lambda per unit integer
+#     coordinate:
+#
+#       6 rhombi   sum (1 - Re tr P/N)  ->  8 g^2 lambda^4 |B|^2
+#       4 mixed    sum (1 - Re tr P/N)  ->  2 g^2 lambda^2 a_t^2 |E|^2
+#
+#     using the TWO independent closure identities of the BCC geometry --
+#     sum_p m_p m_p^T = 4 I over the 6 <110> half-normals (F265) and
+#     sum_a a a^T = 4 I over the 4 <111> link axes -- and |f| = |B| from the
+#     module's own Phi_p = 2 m_p . f.  Equality of the E^2 and B^2 coefficients
+#     is Euclidean isotropy, and gives
+#
+#       beta_t / beta_s = 4 lambda^2 / a_t^2 .
+#
+#     The emergent light cone then closes it.  One tick moves amplitude one
+#     hop, the hop has length lambda sqrt3, and the emergent signal speed is
+#     c_lat (a GROUP velocity, not the raw hop rate), so in units c = 1
+#
+#       a_t = c_lat * lambda sqrt3   ==>   beta_t/beta_s = 4 / (3 c_lat^2) ,
+#       xi := (hop length) / a_t     ==>   xi = 1 / c_lat .
+#
+#     At the model's c_lat^2 = 1/3 these are  beta_t/beta_s = 4  and
+#     xi = sqrt3, both EXACT rationals/surds with no fitted content.
+#
+# WHAT IS NEW HERE, stated narrowly.  On a hypercubic lattice the standard
+# relation is beta_t/beta_s = xi^2.  Here it is (4/3) xi^2 -- the 4/3 is BCC
+# geometric content, traceable to the rhombus carrying |d1 x d2| = 2 sqrt2
+# against the mixed rectangle's |d| = sqrt3, and it is the reason the naive
+# hypercubic substitution would have been wrong by a third.  xi = 1/c_lat
+# reproduces F284's ratio r = 1/c_lat = 3^(1/2) by a route that never mentions
+# cosmology, which is a consistency check on both rather than a new number.
+#
+# WHAT IS NOT CLAIMED.  c_lat is an input here, not re-derived.  And isotropy
+# of the CLASSICAL weak-field limit is a tree-level matching condition: it
+# fixes the bare couplings, and radiative corrections to the anisotropy (the
+# Karsch coefficients, in the hypercubic literature) are NOT computed.
+
+def anisotropy_from_c_lat(c_lat_sq=None):
+    """The derived anisotropy and coupling ratio.
+
+    ``c_lat_sq`` defaults to the model's own 1/3 as an exact ``Fraction``.
+    Returns exact objects where they are exact: ``beta_ratio`` is a
+    ``Fraction`` and ``xi_sq`` is a ``Fraction``; ``xi`` is the irrational
+    square root and is returned as a float alongside ``xi_sq``.
+    """
+    from fractions import Fraction
+    if c_lat_sq is None:
+        c_lat_sq = Fraction(1, 3)
+    c_lat_sq = Fraction(c_lat_sq).limit_denominator(10 ** 9)
+    hop_sq = Fraction(3)                      # |d|^2 for d in {+-1}^3, lambda = 1
+    a_t_sq = c_lat_sq * hop_sq                # a_t = c_lat * lambda sqrt3
+    beta_ratio = Fraction(4) / a_t_sq         # 4 lambda^2 / a_t^2
+    xi_sq = hop_sq / a_t_sq                   # (hop length / a_t)^2 = 1/c_lat^2
+    return {
+        "c_lat_sq": c_lat_sq,
+        "hop_length_sq": hop_sq,
+        "a_t_sq": a_t_sq,
+        "beta_ratio": beta_ratio,
+        "beta_ratio_float": float(beta_ratio),
+        "xi_sq": xi_sq,
+        "xi": float(xi_sq) ** 0.5,
+        "beta_ratio_over_xi_sq": beta_ratio / xi_sq,
+        "hypercubic_would_give": xi_sq,
+        "bcc_geometric_factor": beta_ratio / xi_sq,
+    }
+
+
+# ── a constant-field-strength configuration, to MEASURE the expansion ─────
+
+def constant_field_links_4d(shape4, E=(0.0, 0.0, 0.0), B=(0.0, 0.0, 0.0),
+                            N=2, g=1.0e-3, a_t=1.0):
+    """Abelian constant-$F_{\\mu\\nu}$ configuration on the 3+1D BCC lattice.
+
+    Built from the linear potential ``A_nu(X) = (1/2) X^mu F_mu_nu``, for which
+    the midpoint rule is EXACT, so the link phase is
+    ``theta(X, H) = (g/2) X^mu F_mu_nu H^nu`` -- the ``H F H`` term drops by
+    antisymmetry.  The generator is a single Cartan direction, so the holonomy
+    is abelian and the plaquette flux carries no commutator correction; that is
+    what makes the O(Phi^2) coefficients readable off the lattice rather than
+    inferred.
+
+    NOT periodic -- a constant field strength cannot be, without flux
+    quantisation.  Callers must mask to the interior; :func:`interior_mask_4d`
+    is provided for that and the flux of a fixed loop shape is
+    position-independent, so an interior sample is exact rather than
+    approximate.
+
+    Coordinates are physical: ``X = (x1, x2, x3, a_t * t)`` with the spatial
+    step lambda = 1, and the hop ``H = (d1, d2, d3, a_t * dt)``.
+    """
+    Lx, Ly, Lz, Lt = (int(c) for c in shape4)
+    F = np.zeros((4, 4))
+    Bx, By, Bz = (float(c) for c in B)
+    Ex, Ey, Ez = (float(c) for c in E)
+    # F_ij = eps_ijk B_k
+    F[0, 1], F[1, 0] = Bz, -Bz
+    F[2, 0], F[0, 2] = By, -By
+    F[1, 2], F[2, 1] = Bx, -Bx
+    # F_i4 = E_i
+    for i, Ei in enumerate((Ex, Ey, Ez)):
+        F[i, 3], F[3, i] = Ei, -Ei
+
+    gx, gy, gz, gt = np.indices((Lx, Ly, Lz, Lt))
+    X = [gx.astype(float), gy.astype(float), gz.astype(float),
+         a_t * gt.astype(float)]
+
+    # A single Cartan generator, normalised so tr(T^2) = 1/2 as for su(2).
+    T = np.zeros((N, N), dtype=complex)
+    T[0, 0], T[1, 1] = 0.5, -0.5
+
+    def _phase(H):
+        th = np.zeros_like(X[0])
+        for mu in range(4):
+            for nu in range(4):
+                if F[mu, nu] != 0.0 and H[nu] != 0.0:
+                    th = th + X[mu] * F[mu, nu] * H[nu]
+        return 0.5 * g * th
+
+    def _link(H):
+        th = _phase(H)
+        # exp(i th T) for a diagonal Cartan T: exact, no series.
+        U = np.zeros(th.shape + (N, N), dtype=complex)
+        for k in range(N):
+            U[..., k, k] = np.exp(1j * th * T[k, k].real)
+        return U
+
+    out = {'N': N, 's': [], 't': None}
+    for a in BCC_LINK_AXES:
+        out['s'].append(_link((float(a[0]), float(a[1]), float(a[2]), 0.0)))
+    out['t'] = _link((0.0, 0.0, 0.0, a_t))
+    return out
+
+
+def interior_mask_4d(shape4, pad=2):
+    """BCC sites at least ``pad`` away from every torus face, in all 4 axes."""
+    sites, _, _ = _site_masks(shape4)
+    keep = np.zeros(tuple(shape4), dtype=bool)
+    keep[pad:-pad, pad:-pad, pad:-pad, pad:-pad] = True
+    return sites & keep
+
+
+def _class_action_density(links, bkind, mask):
+    """Mean ``1 - Re tr P / N`` over one loop class, on ``mask``."""
+    N = links['N']
+    vals = []
+    for lab, bk, _legs in BCC4_LOOPS:
+        if bk != bkind:
+            continue
+        P = plaquette_4d(links, lab)
+        dens = 1.0 - np.real(np.trace(P, axis1=-2, axis2=-1)) / N
+        vals.append(dens[mask])
+    return float(np.mean(np.concatenate([v.ravel() for v in vals])) * len(vals))
+
+
+def weak_field_isotropy(shape4=(10, 10, 10, 10), N=2, g=1.0e-3,
+                        c_lat_sq=None, field=1.0, pad=3, a_t=None):
+    """Measure ``beta_t/beta_s`` by demanding the weak-field limit be isotropic.
+
+    Puts a pure magnetic field of magnitude ``field`` on the lattice, then a
+    pure electric field of the same magnitude, and reads the ratio of the two
+    loop classes' action densities.  Isotropy requires
+    ``beta_t/beta_s = S_B / S_E`` at equal field magnitude, and the derivation
+    predicts ``4 / (3 c_lat^2)``.
+
+    Returns the measured ratio, the predicted one, and the relative residual.
+    """
+    from fractions import Fraction
+    der = anisotropy_from_c_lat(c_lat_sq)
+    if a_t is None:
+        a_t = float(der["a_t_sq"]) ** 0.5
+    mask = interior_mask_4d(shape4, pad=pad)
+
+    magnetic = constant_field_links_4d(shape4, B=(0.0, 0.0, field), N=N, g=g,
+                                       a_t=a_t)
+    electric = constant_field_links_4d(shape4, E=(0.0, 0.0, field), N=N, g=g,
+                                       a_t=a_t)
+    S_B = _class_action_density(magnetic, 's', mask)
+    S_E = _class_action_density(electric, 't', mask)
+    measured = S_B / S_E if S_E != 0.0 else float('inf')
+    predicted = float(der["beta_ratio"])
+    return {
+        "S_B_spatial_class": S_B,
+        "S_E_mixed_class": S_E,
+        "beta_ratio_measured": measured,
+        "beta_ratio_predicted": predicted,
+        "relative_residual": abs(measured - predicted) / abs(predicted),
+        "a_t": a_t,
+        "xi": der["xi"],
+        "c_lat_sq": str(der["c_lat_sq"]),
+    }
+
+
+def bcc_closure_identities():
+    """The two ``sum = 4 I`` identities the derivation rests on, over Z.
+
+    Both are exact integer statements and are computed here rather than quoted:
+    the 6 <110> rhombus half-normals and the 4 <111> link axes each close on
+    ``4 I``.  They are independent -- different vector sets, different orbit --
+    and the coincidence of the constant is what makes ``beta_t/beta_s`` come out
+    as a clean rational.
+    """
+    M = np.array(BCC_PLAQ_NORMALS, dtype=np.int64)
+    A = np.array(BCC_LINK_AXES, dtype=np.int64)
+    MtM = M.T @ M
+    AtA = A.T @ A
+    eye4 = 4 * np.eye(3, dtype=np.int64)
+    return {
+        "n_normals": int(M.shape[0]),
+        "n_axes": int(A.shape[0]),
+        "sum_m_mT": MtM.tolist(),
+        "sum_a_aT": AtA.tolist(),
+        "normals_close_on_4I": bool(np.array_equal(MtM, eye4)),
+        "axes_close_on_4I": bool(np.array_equal(AtA, eye4)),
+        "rhombus_area": BCC_PLAQ_AREA,
+        "mixed_area_over_at": BCC4_MIXED_AREA,
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════
+#  F299's d=4 Casimir successor
+# ══════════════════════════════════════════════════════════════════════════
+#
+# F299 specified this and left it unrun ("Remains" item 2): *"Run F94 at
+# beta in [5.8, 6.2] with the three character polynomials above and measure
+# where Casimir scaling gives way to screening. No new sampling; parameters in
+# mc_reach()."*  Two things blocked it, and both are engine gaps rather than
+# physics.
+#
+#   * The three character polynomials had NEVER been applied to a loop matrix.
+#     They exist in `casimir_scaling.mc_reach` as expressions in the three
+#     TORUS EIGENVALUES, verified against a 2D quadrature -- not against any
+#     Wilson loop, in any dimension.
+#   * No function anywhere returned the traces needed to evaluate them.
+#     `lgt_fork_A_mc.wilson_loop_planar` takes `np.real(np.trace(acc))/3` and
+#     averages over sites on its last line, so the matrix field is local and
+#     discarded; `polyakov_loop_field` returns Tr W only, i.e. the first power.
+#
+# So this section supplies (a) the three traces from a genuine R x T loop
+# matrix, (b) the higher-rep loops built from them, and (c) the cross-check the
+# tree has never done -- the polynomials against EXPLICIT representation
+# matrices, sym^2 and sym^3 built by symmetric-subspace isometry and the adjoint
+# by Ad(U)_ab = 2 tr(T_a U T_b U^dag).  A polynomial verified only against a
+# torus quadrature is verified against the same Jacobi-Trudi machinery that
+# produced it; against an explicit rep matrix it is not.
+#
+# The asymptotic-tension question stays where it belongs.  Casimir scaling
+# holds at intermediate R and must break for triality-0 sources (8, 10) once
+# the string can decay -- that is the regime structure F299 says d=2 cannot be
+# asked about, it is a STATISTICAL statement, and it lives in the battery
+# runner.  Nothing here claims it.
+
+#: Dynkin labels for the reps F299's successor names, in its order.
+D4_CASIMIR_REPS = (("3", (1, 0)), ("6", (2, 0)), ("8", (1, 1)), ("10", (3, 0)))
+
+
+def wilson_loop_traces_rt(links, axis_idx: int, R: int, T: int) -> dict:
+    """``Tr W``, ``Tr W^2``, ``Tr W^3`` fields for the R x T loop.
+
+    The gap this fills: every existing loop routine in the tree traces and
+    averages before returning, so the powers needed for a higher-rep character
+    are unrecoverable.  Here the loop MATRIX is kept and the three traces are
+    taken from it.
+
+    Returns ``{'t1','t2','t3'}`` as complex fields on the 4D grid, plus
+    ``'W'`` (the matrix field) so a caller can build any character it likes.
+    """
+    ha = _h4(BCC_LINK_AXES[axis_idx])
+    Sr, end_s = _transporter(links, ha, R)
+    Tt_far, _ = _transporter(links, _T_HOP, T, off0=end_s)
+    Sr_top, _ = _transporter(links, ha, R,
+                             off0=tuple(c * T for c in _T_HOP))
+    Tt_base, _ = _transporter(links, _T_HOP, T)
+    W = _matmul(_matmul(Sr, Tt_far), _matmul(_dagger(Sr_top), _dagger(Tt_base)))
+    W2 = _matmul(W, W)
+    W3 = _matmul(W2, W)
+    tr = lambda M: np.trace(M, axis1=-2, axis2=-1)
+    return {'W': W, 't1': tr(W), 't2': tr(W2), 't3': tr(W3)}
+
+
+def rep_character_from_traces(label, t1, t2, t3):
+    """``chi_R`` from the three traces of the fundamental loop matrix.
+
+    The polynomials are F299 §4's, transcribed:
+
+        chi_3  = Tr W
+        chi_6  = [ (Tr W)^2 + Tr W^2 ] / 2
+        chi_8  = Tr W . Tr W^dag - 1
+        chi_10 = [ (Tr W)^3 + 3 Tr W Tr W^2 + 2 Tr W^3 ] / 6
+
+    ``chi_8`` is written with ``Tr W^dag`` rather than ``|Tr W|^2`` because the
+    two agree only through the identity ``Tr(W^dag) = conj(Tr W)``; that
+    identity is unconditional, but the ADJOINT character equalling
+    ``|chi_F|^2 - 1`` is a statement about SU(3) specifically, so the
+    conjugate is written explicitly to keep the group assumption visible.
+    """
+    if label == "3":
+        return t1
+    if label == "6":
+        return (t1 * t1 + t2) / 2.0
+    if label == "8":
+        return t1 * np.conj(t1) - 1.0
+    if label == "10":
+        return (t1 ** 3 + 3.0 * t1 * t2 + 2.0 * t3) / 6.0
+    raise KeyError(label)
+
+
+def rep_dimension(label) -> int:
+    """``d_R`` for the four reps, from the Dynkin labels."""
+    p, q = dict(D4_CASIMIR_REPS)[label]
+    return (p + 1) * (q + 1) * (p + q + 2) // 2
+
+
+def casimir_ratio_exact(label):
+    """``C_2(R) / C_2(fund)`` as an exact ``Fraction``.
+
+    Computed from the Dynkin labels, not tabulated:
+    ``C_2(p,q) = (p^2 + q^2 + p q + 3p + 3q)/3``, so ``C_F = C_2(1,0) = 4/3``.
+    """
+    from fractions import Fraction
+    p, q = dict(D4_CASIMIR_REPS)[label]
+    c2 = Fraction(p * p + q * q + p * q + 3 * p + 3 * q, 3)
+    cf = Fraction(4, 3)
+    return c2 / cf
+
+
+# ── explicit representation matrices, for the cross-check ─────────────────
+
+def _sym_power_isometry(N: int, k: int) -> np.ndarray:
+    """Isometry ``S`` from ``Sym^k(C^N)`` into ``(C^N)^{otimes k}``.
+
+    Columns are the normalised sums over distinct permutations of a multiset,
+    so ``S^dag S = I`` on the symmetric subspace and
+    ``Sym^k(U) = S^dag (U ox ... ox U) S``.
+    """
+    from itertools import combinations_with_replacement, permutations
+    multisets = list(combinations_with_replacement(range(N), k))
+    S = np.zeros((N ** k, len(multisets)), dtype=complex)
+    for col, ms in enumerate(multisets):
+        for perm in set(permutations(ms)):
+            idx = 0
+            for p in perm:
+                idx = idx * N + p
+            S[idx, col] = 1.0
+        S[:, col] /= np.linalg.norm(S[:, col])
+    return S
+
+
+def sym_power_rep(U: np.ndarray, k: int) -> np.ndarray:
+    """The ``Sym^k`` representation matrix of a single ``(N,N)`` unitary."""
+    N = U.shape[-1]
+    Tk = U
+    for _ in range(k - 1):
+        Tk = np.kron(Tk, U)
+    S = _sym_power_isometry(N, k)
+    return S.conj().T @ Tk @ S
+
+
+def _su3_generators() -> np.ndarray:
+    """The eight ``T_a = lambda_a / 2``, so ``tr(T_a T_b) = delta_ab / 2``."""
+    l = np.zeros((8, 3, 3), dtype=complex)
+    l[0] = [[0, 1, 0], [1, 0, 0], [0, 0, 0]]
+    l[1] = [[0, -1j, 0], [1j, 0, 0], [0, 0, 0]]
+    l[2] = [[1, 0, 0], [0, -1, 0], [0, 0, 0]]
+    l[3] = [[0, 0, 1], [0, 0, 0], [1, 0, 0]]
+    l[4] = [[0, 0, -1j], [0, 0, 0], [1j, 0, 0]]
+    l[5] = [[0, 0, 0], [0, 0, 1], [0, 1, 0]]
+    l[6] = [[0, 0, 0], [0, 0, -1j], [0, 1j, 0]]
+    l[7] = np.array([[1, 0, 0], [0, 1, 0], [0, 0, -2]]) / np.sqrt(3.0)
+    return l / 2.0
+
+
+def adjoint_rep(U: np.ndarray) -> np.ndarray:
+    """``Ad(U)_ab = 2 tr(T_a U T_b U^dag)`` -- the 8-dimensional real rep."""
+    T = _su3_generators()
+    Ud = np.conj(U.T)
+    out = np.zeros((8, 8), dtype=complex)
+    for a in range(8):
+        for b in range(8):
+            out[a, b] = 2.0 * np.trace(T[a] @ U @ T[b] @ Ud)
+    return out
+
+
+def character_identity_residual(n_samples: int = 6,
+                               channel='bcc_casimir_charcheck') -> dict:
+    """Verify the three polynomials against EXPLICIT rep matrices.
+
+    This is the check the tree has never run.  `casimir_scaling.mc_reach`
+    verifies the same polynomials against `rep_character`, which is the
+    Jacobi-Trudi determinant that generated them -- a self-consistency, not an
+    independent one.  Here ``chi_6`` and ``chi_10`` are compared against
+    ``Sym^2`` and ``Sym^3`` built by symmetric-subspace isometry from the
+    fundamental, and ``chi_8`` against ``Ad(U)_ab = 2 tr(T_a U T_b U^dag)``.
+    """
+    gen = _rng.for_channel(channel)
+    worst = {"6": 0.0, "8": 0.0, "10": 0.0}
+    dims = {}
+    for _ in range(int(n_samples)):
+        Z = (gen.normal(size=(3, 3)) + 1j * gen.normal(size=(3, 3))) / np.sqrt(2.0)
+        Q, Rq = np.linalg.qr(Z)
+        ph = np.diagonal(Rq)
+        Q = Q * (ph / np.abs(ph))[None, :]
+        Q = Q * np.linalg.det(Q) ** (-1.0 / 3.0)
+        t1 = np.trace(Q)
+        t2 = np.trace(Q @ Q)
+        t3 = np.trace(Q @ Q @ Q)
+        explicit = {"6": sym_power_rep(Q, 2),
+                    "10": sym_power_rep(Q, 3),
+                    "8": adjoint_rep(Q)}
+        for lab, M in explicit.items():
+            dims[lab] = int(M.shape[0])
+            poly = rep_character_from_traces(lab, t1, t2, t3)
+            worst[lab] = max(worst[lab], float(abs(np.trace(M) - poly)))
+    return {
+        "n_samples": int(n_samples),
+        "worst_residual": worst,
+        "worst_overall": max(worst.values()),
+        "explicit_dimensions": dims,
+        "dimensions_expected": {lab: rep_dimension(lab)
+                                for lab in ("6", "8", "10")},
+        "dimensions_match": all(dims[lab] == rep_dimension(lab)
+                                for lab in ("6", "8", "10")),
+    }
+
+
+# ── higher-rep loops on a configuration ───────────────────────────────────
+
+def higher_rep_loop_table(links, r_max: int, t_max: int,
+                          reps=D4_CASIMIR_REPS) -> dict:
+    """``{rep: {(R,T): mean chi_R(W)/d_R}}``, averaged over the 4 spatial axes.
+
+    "No new sampling -- the same configurations, a different trace" (F299).
+    The loop matrix is built once per (axis, R, T) and every rep reads its
+    traces, so the cost over the fundamental alone is the two extra matrix
+    products in :func:`wilson_loop_traces_rt`.
+    """
+    sites, _, _ = _site_masks(links['t'].shape[:4])
+    out = {lab: {} for lab, _pq in reps}
+    for R in range(1, r_max + 1):
+        for T in range(1, t_max + 1):
+            acc = {lab: [] for lab, _pq in reps}
+            for ax in range(len(BCC_LINK_AXES)):
+                tr = wilson_loop_traces_rt(links, ax, R, T)
+                for lab, _pq in reps:
+                    chi = rep_character_from_traces(lab, tr['t1'], tr['t2'],
+                                                    tr['t3'])
+                    acc[lab].append(float(np.real(chi[sites].mean())
+                                          / rep_dimension(lab)))
+            for lab, _pq in reps:
+                out[lab][(R, T)] = float(np.mean(acc[lab]))
+    return out
+
+
+def casimir_scaling_from_loops(table: dict, reps=D4_CASIMIR_REPS) -> dict:
+    """``sigma_R/sigma_3`` from per-rep Creutz ratios, against the exact law.
+
+    Returns per-rep Creutz ratios, the ratio to the fundamental at the largest
+    common (R,T), and the exact ``C_2(R)/C_F`` it should approach at
+    intermediate R.  A deviation is NOT a failure: for the triality-0 reps (8,
+    10) the asymptotic tension must fall BELOW Casimir once the string can
+    break, and detecting where that happens is the point of running this in
+    d=4 rather than d=2.
+    """
+    chis = {lab: creutz_ratios(table[lab]) for lab, _pq in reps}
+    # Record what a Creutz ratio COULD NOT be formed for, and why. A rep loop
+    # can come out non-positive -- chi_8/d_8 sits near zero on a disordered
+    # configuration, since chi_8 = |Tr W|^2 - 1 and <|Tr W|^2> ~ 1 -- and the
+    # log is then undefined. That is a real regime statement (it is the
+    # screening the triality-0 reps are here to show) and low statistics makes
+    # it worse, so it is REPORTED rather than silently dropped: an empty rows
+    # table with no explanation reads as "measured and consistent".
+    dropped = []
+    for lab, _pq in reps:
+        for (R, T) in sorted(table[lab]):
+            if R < 2 or T < 2:
+                continue
+            if (R, T) in chis[lab]:
+                continue
+            corners = {f"{r}x{t}": table[lab].get((r, t))
+                       for r, t in ((R, T), (R - 1, T - 1), (R - 1, T),
+                                    (R, T - 1))}
+            dropped.append({"rep": lab, "R": R, "T": T, "corners": corners,
+                            "why": "a corner loop is <= 0, so -ln is undefined"})
+    common = None
+    for lab, _pq in reps:
+        keys = set(chis[lab])
+        common = keys if common is None else (common & keys)
+    common = sorted(common or [])
+    rows = []
+    for (R, T) in common:
+        base = chis["3"].get((R, T))
+        if not base:
+            continue
+        row = {"R": R, "T": T, "sigma_3": base}
+        for lab, _pq in reps:
+            ex = casimir_ratio_exact(lab)
+            meas = chis[lab].get((R, T))
+            row[f"ratio_{lab}"] = (meas / base) if meas is not None else None
+            row[f"casimir_{lab}"] = float(ex)
+            row[f"casimir_{lab}_exact"] = str(ex)
+        rows.append(row)
+    return {
+        "creutz_by_rep": {lab: {f"{R}x{T}": v for (R, T), v in chis[lab].items()}
+                          for lab, _pq in reps},
+        "rows": rows,
+        "dropped": dropped,
+        "n_dropped": len(dropped),
+        "coverage": (f"{len(rows)} usable (R,T) row(s); {len(dropped)} "
+                     f"(rep,R,T) Creutz ratio(s) undefined -- see `dropped`"),
+        "casimir_law_exact": {lab: str(casimir_ratio_exact(lab))
+                              for lab, _pq in reps},
+        "dimensions": {lab: rep_dimension(lab) for lab, _pq in reps},
+        "note": ("Casimir scaling is expected at INTERMEDIATE R only. The "
+                 "triality-0 reps 8 and 10 must fall below the Casimir line "
+                 "asymptotically once the string breaks; locating that is why "
+                 "d=4 was asked for and d=2 could not answer."),
     }

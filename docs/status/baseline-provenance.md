@@ -103,6 +103,57 @@ difference. The trajectory moved; the distribution did not.
 Two further artifacts (`FG7c_confinement.json`, `FG7e_colour_condensate.json`)
 were re-run and **restored to HEAD**: their only diffs were `elapsed_s` timings.
 
+## H8 wiring pass — three baselines the `no test record` sweep exposed (2026-08-19)
+
+Row **H8** of `docs/status/completeness-2026-08-18.md` counted sixteen findings with
+`no test record`. Fourteen of them turned out to HAVE a test, and a registry record
+for it: what was missing was the `findings:` line, and in the ten `b`-suffix cases
+that line named the **wrong finding** — `F101b-one-heavy-branch-fit-W` was attributed
+to F101 (`strong-coupling-sigma-compact-rotor`), a different finding that happens to
+share the number. Running the fourteen as the first act of wiring them is what turned
+these three up; none was visible from the index, because a record nobody's finding
+claims is a record nobody re-runs.
+
+| Artifact | Verdict | What moved |
+|---|---|---|
+| `F111_tree_gauge_su3_ladder.json` | **accept the new numbers** | Purely additive plus one FAIL→PASS. The committed baseline is from `58e79ca` and records **3/4 PASS with T4 FAIL**; the test gained T3, T6, T7 in `de01710` and T4 now passes, so a re-run is **7/7 PASS (7 total)** with 19 added keys and **zero** changed values outside T4's own row and the summary string. The baseline is stale by growth, not by drift |
+| `FG2_quark_complex_mass.json` | **leave red — a decision is owed** | `n_pass` 11 → **10**: `Q7_cold_link_regression` residual 0.0 → 0.548 |
+| `FG3_quark_electroweak.json` | **leave red — a decision is owed** | `n_pass` 6 → **3**: `QE1_cold_w_regression` 0.0 → 0.361, `QE4_norm_conservation` 2.1e-14 → 0.992 (the norm falls 102.98 → 0.815 over 20 steps), `QE6_color_charge_conservation` 2.5e-14 → 1.045 |
+
+**FG2/FG3 now have a named cause, which they did not before.** This file's own queue
+section says only *"`FG2`/`FG3` already have C5's analysis pointing at stale committed
+baselines rather than regressions."* The mechanism, isolated this pass by bisecting the
+step: **`casim.engine.gauge.strong.covariant_half_step`**. Every unitary piece checks
+out — `_weyl_half_step_2c` conserves norm to 4e-16, the site-centred `u_eff_from_w_links_2d`
+is SU(2) to 1e-15, `quark_doublet_mass_step_su2` to 2e-16 — and then the SU(3) transport
+loses **75 % of the norm in one call at COLD links**, where it should be the identity.
+That is not a bug: it is the documented 2026-06-10 replacement of the gauge-variant
+`parallel_transport` by the symmetric covariant shift sum, whose own docstring says
+*"This is NOT the identity … the eigenvalue spectrum of the cold-link step is
+(cos k_x + cos k_y)/2 ⊂ [−1, 1], so this step is NOT unitary"*, with full unitarity
+deferred to V15 (exponentiating the covariant Hamiltonian, with dynamical gluons).
+
+So all four failing legs are **the same one change**, and it is exactly the three
+properties the FG-2/FG-3 suites were written to certify: a cold-link regression
+against the pre-transport step, norm conservation, and colour-charge conservation.
+**F40's header still says "Confirmed — FG-2 11/11 PASS, FG-3 6/6 PASS"**, which has
+been false since 2026-06-10 and was invisible because neither record named F40.
+
+**Why this is not filed as `stale_by_design` here.** That status must sit on the
+supersession record whose physics moved, and there is none — `covariant_half_step`
+replaced `parallel_transport` with no entry in `docs/theory/supersessions.yaml`. The
+decision is a real one and belongs to Ben, in one of three shapes:
+
+1. write the supersession record for the 2026-06-10 transport change, hang
+   `stale_by_design` baselines for FG2/FG3 on it, and correct F40's header; or
+2. treat the lost unitarity as the regression it looks like from the suite's side and
+   restore a unitary cold-link path (this is V15's job, and it is not small); or
+3. narrow the three legs to what the covariant step is *supposed* to preserve —
+   gauge covariance — and retire the unitarity claim from F40 explicitly.
+
+Whichever, the record should not be silently re-armed: re-blessing FG2/FG3 would erase
+the only visible trace that four certified properties stopped holding.
+
 ## Commands
 
 ```bash

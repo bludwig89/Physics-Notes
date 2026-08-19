@@ -4328,3 +4328,387 @@ in `src`, and the 36 downstream tests that consume `bcc_action` (F265 geometry, 
 ## 2026-08-17 - 21:55 — F322: rubric row B9 re-derived post-F277, and the flag was pointing at the wrong thing
 
 Roadmap `next-steps-pt2` item b9 and `completeness-2026-08-07` gap #5(a), carried unverified for three consecutive reports. New module `interactions/running_alpha_lattice_bound.py` (registered in `_SPINE`, exactness `quantitative`), finding `F322`, claim card `CL280` (`contingent`), gate record `F322-b9-running-rederived` — 6/6 legs, 2/2 controls `CONTROL` over disjoint red sets. **The accounting half:** the $0.24\%$ B9 is graded on never touched the refolded path — `leptonic_running`'s call closure is `{_dalpha_lepton}`, disjoint from `_fermion_B`/`_K_lat`, and the number returns bitwise identical under a $7.3\times{+}0.5$ kernel perturbation. That is the fourth consecutive residual (A11, B12, B11, now B9) whose three-report immobility was an accounting statement rather than a hard physics one. **The physics half, which nobody had computed:** since $B=-\Pi$ and $\Delta\alpha=\Pi(0)-\Pi(s)$ is subtracted, a $q$-independent constant in $\Pi$ cancels identically — so F251's Pi3 $q$-flatness *is* $\Delta\alpha$ invariance, with the exact model-internal conversion $\delta(\Delta\alpha)=4\pi\alpha\,\delta B$ read off the module's own $b_0^\text{QED}=4/3$ (a fitted normalisation was tried and rejected: the unsubtracted leg is IR-grid-limited, still $62\%$ low at $n{=}28$). Measured: post-F277 the bound is $6.77\times10^{-6}$ at $n{=}28$, $0.088$ of the $7.71\times10^{-5}$ PDG shortfall, and it *falls* with refinement (ratio $0.398$); with the refold restored it is $1.41\times10^{-2}$, $183$–$190\times$ the shortfall, $45\%$ of $\Delta\alpha$ itself, and $n$-**independent** (ratio $0.965$) — the signature of a real spurious log. So F277 did not change the number, it created its warrant. Then the shortfall is attributed rather than tolerated: F261's sympy-exact $b_1=1$, present in the tree since 2026-07-23 and never fed into the running, contributes $\alpha^2L_\ell/(4\pi^2)$ per lepton and closes $79.8\%$ of it — B9's number moves $0.2447\%\to\mathbf{0.0495\%}$, $1/\alpha(M_Z)|_\text{lep}$ $132.7302\to132.7218$. B9's EW leg was graded on F115's Planck-anchored negative; F138's $\mu_\star=4\pi v=3094.09$ GeV matching is reproduced here at $\sin^2\bar\theta_W(M_Z)=0.2317341$, $+0.222\%$, and then measured for its $\alpha$ dependence — on the model's own leptonic-only $\alpha(M_Z)$ it degrades to $+0.450\%$, a factor $2.02$. So B9's two halves share one input and half the EW precision is owed to the hadronic vacuum polarization the model defers to row G3; that, not the refold, is B9's real residual. Open and stated: the two-loop non-log constant (the residual $1.559\times10^{-5}$), the absolute BZ measure for rule-kernel integrals (F277 §8, F267), and $\alpha$ itself (F127 no-go).
+
+## 2026-08-17 - 23:30 — S20: F115 enters the ledger, and supersessions now propagate outward as well as inward
+
+Follow-on to F322/Amendment 9, which found row B9 grading its electroweak leg against F115 while F138 and F231 had superseded that reading since June and July, but did not ask why nothing caught it. **Two stacked failures.** F115 had **no ledger entry at all**, so `apply_supersession_banners.py` stamped nothing and `test_no_orphan_banners` had nothing to find; and `check_claims.py` rule 4 fires only when a `live` card rests on *wholly* superseded ground — deliberately, and correctly, for that rule — which leaves the common case, **a partial supersession cited without its replacement, with no owner anywhere in the tree**. Fixed at both levels. **(1) The record.** `S20-F115-weinberg-gap-account-replaced-by-4piv-matching`, `partially_superseded`, by F138/F231, banner stamped. Dead: CM2's *conclusion* that the +12% gap is "a few-TeV matching offset" located by where the measured SM trajectory crosses $\tfrac14$ — F138 derives $\mu_\star=4\pi v=3094$ GeV from hypercharge having no lattice kinetic term and closes the gap to $+0.22\%$, F231 supplies the $8/9$ bridge to the on-shell $\tfrac29$. Live, and most of the finding: CM1's exact rationals $e=g/2,\ g'=g/\sqrt3,\ g_Z=2g/\sqrt3$ (still B9's correct citation — one EW magnitude, not three), CM3's rotor lock $g_s^2\chi=\tfrac14$, CM4's $e^6$ notation no-go, and CM2's *negative* that Planck-anchored running overshoots by $-74\%$, which F138 builds on and which would be deleted by a blanket mark. CM2b's $3.4$–$3.7$ TeV crossing is demoted to a consistency check on F138's $3.094$ TeV. No number moves, no test changes verdict, `test_F115_coupling_magnitudes.py` stays `live` because its CM2 check *asserts the overshoot* — retiring it would delete the evidence for the successor. **(2) The mechanism.** New `tools/check_superseded_citations.py`, in `make gate` next to the banner check and available as `make citations` (`V=1` to list). Rule: a citation unit naming a superseded finding must also name a replacement from the record's `by:` list, or carry an explicit acknowledgement, or (claim cards) declare the ledger id in `supersessions:`. **The unit is one markdown table row** — an acknowledgement 400 lines away is how B9 read for three reports. Grading documents are held at **zero**; claim cards carry a falling ceiling, 20 → **19**. Only the *current* completeness report is graded: older ones are frozen records and rewriting them to satisfy a later check would falsify the audit trail. It found five live violations on first run, all cleared — C2/F165 without F279, G8/F258 without F277, and in `open-derivations.md` F155 without F277, F67 without F69, and **F115 without F138/F231, the same error as B9 still live in a second document**. Demonstrated failing, not merely passing: removing the replacement from `open-derivations.md` reddens that exact line and restoring it clears it, and `test_the_citation_matcher_actually_fires` pins three matcher cases against the literal B9 row. The ledger's own `about:` block now states the two obligations — inward `make stamp`, outward `make citations` — because the second is the one nobody thought of. `supersession-ledger` 48 → 51 passed.
+
+## 2026-08-17 - 21:55 — F323: F94 enters the ledger, the anisotropy is derived, and F299's d=4 successor runs
+
+Three items on completeness row **B7**, all in the gauge sector. **(1) F94 is marked** — ledger
+`S21-F94-hypercubic-action-not-the-model-lattice`, `partially_superseded` by F323 and F265, banner
+stamped. What is dead is the *ensemble*: every 3+1D confinement statement in the tree ran on
+`forks/gauge/lgt_fork_A_mc.py`, a **simple-hypercubic** Wilson action, which F265 proved in July has an
+exact kernel freeing one of the four ⟨111⟩ link axes and missing asymptotically **1/3** of the
+curvature-carrying link content. F265 named the remedy in its own text and nothing was built for seven
+weeks. **Why it stayed invisible is why it matters:** both actions share a classical continuum limit, so
+F94's normalisation anchors (FA4, FA5) could pass on a blind action and their passing was never evidence
+the ensemble was right. `fully_superseded` would be false and was rejected — FA1–FA3 are certificates of
+the Cabibbo–Marinari *sampler*, not of its lattice; CMP2's bridge v* = √(σ_A/2π) is exact at 1e-16 and
+F311 leg B re-verified it at 1.2e-16 over five seeds; the Lüscher–Weisz 84× variance reduction stands;
+and so does the qualitative rising potential, which the BCC run also finds. F311's separate adjudication
+is deliberately **not** re-homed: `FA_vs_FC_comparison.json`'s drift is an *undeclared input*, not a
+supersession, and its `clears_by` is still open. **CL087 narrowed** — it rested on F94 alone, so
+`check_claims.py` rule 4 fired correctly; its two surviving parts are now stated, F323/F265/F311 added,
+`falsifier: unset → stated` (debt 226 → 225), and the test records and modules the 2026-08-04 seed left
+empty are filled. **And Amendment 10's brand-new `make citations` check caught row B7 within the hour** —
+B7 cited F94 with no replacement named, which is the exact failure mode that check was built for, on a
+supersession created ninety minutes after it landed. First real case, not a self-test.
+
+**(2) The anisotropy is derived, and the previous session's guess about it is withdrawn.** ξ = a_s/a_t was
+a flagged convention (β_t = β_s). Two statements close it and the distinction *is* the content. **F313's
+primitivity** — no local half-tick, so the tick has no root in the local homogeneous algebra — is what
+licenses a **fixed** a_t rather than a refinable one; it supplies no value, and the earlier speculation
+that it *fixes* a_t is withdrawn in favour of this weaker correct claim. **Isotropy of the weak-field
+limit** supplies the value, on two independent exact closure identities of the BCC geometry
+(`Σ_p m_p m_pᵀ = 4I` over the 6 ⟨110⟩ rhombus half-normals, `Σ_a a aᵀ = 4I` over the 4 ⟨111⟩ axes):
+6 rhombi → 8g²λ⁴|B|², 4 mixed rectangles → 2g²λ²a_t²|E|², so **β_t/β_s = 4λ²/a_t²**; then
+a_t = c_lat·λ√3 from the emergent light cone (c_lat is a **group** velocity, not the raw hop rate), giving
+**β_t/β_s = 4/(3c_lat²) = 4** and **ξ = 1/c_lat = √3**, exact. **The new number is the 4/3**: the
+hypercubic relation is ξ², the BCC answer is (4/3)ξ², and the textbook substitution would have been wrong
+by a third. Measured as well as derived — a constant-F abelian configuration (linear potential, midpoint
+rule exact, `H F H` drops by antisymmetry) gives 4 − g²/16 + O(g⁴) with the truncation coefficient held at
+**exactly 1/16** over a factor two in g, so one Richardson step lands on 3.99999999908 (2.3e-10). Two
+consistency notes, neither new: ξ = 1/c_lat reproduces **F284's r** by a route that never mentions
+cosmology, and a_t = λ exactly in integer units, so the entire anisotropy is the ⟨111⟩ hop length — which
+is why the predecessor's a_t = 1 default was accidentally right while its β_t = β_s was wrong.
+
+**(3) F299's d=4 Casimir successor ran, and two ENGINE gaps were what had blocked it since 2026-08-06** —
+not physics. Its three character polynomials had **never been applied to a loop matrix anywhere in the
+tree**: they lived in `mc_reach`'s docstring as torus-eigenvalue expressions, verified against the same
+Jacobi–Trudi determinant that produced them, which is self-consistency and cannot catch a wrong
+symmetrisation because both sides would carry it. And **no function returned the traces** —
+`wilson_loop_planar` ends on `np.real(np.trace(acc))/3` averaged over sites, `polyakov_loop_field` returns
+Tr W only. `wilson_loop_traces_rt` now supplies Tr W, Tr W², Tr W³ from a genuine R×T loop matrix, so
+F299's *"no new sampling — the same configurations, a different trace"* is met literally (two extra matrix
+products). The polynomials are cross-checked against **explicit representation matrices** — Sym²/Sym³ by
+symmetric-subspace isometry, adjoint by Ad(U)_ab = 2tr(T_a U T_b U†) — at ≤4.6e-16, a check the tree had
+never run; χ_8 is written with Tr W† rather than |Tr W|² to keep the SU(3) assumption visible. C₂(R)/C_F
+comes from the Dynkin labels rather than a table and reproduces F299's 1, 5/2, 9/4, 9/2 exactly over ℚ.
+**First measurement**, β_s = 5.9 on 6⁴ with **3 configs**: σ_6/σ_3 = 2.466, σ_8/σ_3 = 2.224,
+σ_10/σ_3 = 4.378 at 2×2 against 5/2, 9/4, 9/2 (−1.4%, −1.2%, −2.7%), with all three falling **below**
+Casimir at 3×3, steepest for the decuplet (−19%). **Labelled preliminary and not a claim**: no error
+estimate, and the 2×3 vs 3×2 asymmetry alone exceeds the effect being read at 3×3. Also fixed on the way:
+`casimir_scaling_from_loops` used to emit a silently blank table when a corner loop went non-positive
+(χ_8/d_8 sits near zero on a disordered configuration, so −ln is undefined); it now reports `dropped` and
+`coverage`, because an empty rows table with no explanation reads as "measured and consistent".
+
+**Record** `gauge-bcc-mc-d4` **28/28** (was 18/18), **5/5 controls `CONTROL`** on distinct measured red
+sets — the two new ones are `hypercubic_anisotropy=true` → X1c/X1d (the control *is* the 4/3) and
+`unsymmetrised_reps=true` → K1a (χ = (Tr W)^k instead of projecting, the realistic mistake). Noted for the
+record: **c_lat cannot be a control**, because changing it moves a_t and the prediction together — the
+derivation is self-consistent at any c_lat, and the falsifiable content is the relation β_t/β_s = 4λ²/a_t².
+CAN FAIL measured. Battery `run-bcc-confinement-d4 --casimir` carries the measurement; `--isotropic`
+reproduces the superseded convention. **Not claimed:** no area law, no string tension — B7's residual is a
+missing transfer matrix with positivity (`reflection positiv`/`Osterwalder`/`Schrader`/`cluster expansion`
+= zero hits repo-wide) and no amount of sampling supplies one; c_lat is an input; the anisotropy matching
+is **tree level**, so radiative corrections to it (the Karsch coefficients) are not computed and are not
+negligible at a working β; the screening crossover is not located. **Amendment 11** to
+`completeness-2026-08-07.md` records all of it and removes B7's stale copy of H8's *"F299's claimed gate
+record does not exist"* — it was armed 2026-08-07 and passes. Verified: ledger 52 passed, banners 42/42,
+citations ok, claims 280 cards (narrowed 4 → 5), `casim index` ok, module registry 217/217, test registry
+429 valid, numerics and constants ratchets OK, 8 new Tier-1 exactness rows and 2 Tier-3.
+
+## 2026-08-18 - 10:21 — Completeness sweep: `docs/status/completeness-2026-08-18.md`
+
+Full 74-row sweep plus the 28-row parameter ledger, graded against the external rubric in
+`.claude/commands/state-of-model.md`. **Three rows move and two of them are regressions.** **K3
+`OPEN → PARTIAL`** — F310 (2026-08-11) made the tilt's operator internal ($n_s = 3 - 2y$,
+$\gamma \equiv y-1$ identically, so $\gamma$ *is* the anomalous part of the model's own block-spin
+eigenvalue) and the previous report never recorded it. **H6 `QUANT → PARTIAL`: the gate is red, and
+this sweep demonstrated it rather than inferring it** — `tools/check_finding_records.py`, the guard
+Amendment 1 built for exactly this and wired into `make gate`, was executed against the committed
+registry and fires on **F324**, which declares `F324-ncolour-bracket` at tier gate where no such
+record exists. F324 is in **no index** (findings-index still reports max F323), and `CL281` is on
+disk but in neither `claims-index.md` nor `docs/claims/registry.yaml`, so `make indexes-check` and
+`make claims` fail by the same cause. This is honestly-declared debt — F324 §11 says all of it and
+withholds `Confirmed`, because the device workspace was unavailable to that session as it was to
+this one — but the barrier is red until the arming pass (`make indexes` → `make claims` →
+`make gate` → `make control`) runs. **H4 `QUANT → PARTIAL`**: the inward supersession machinery
+improved (S20, S21, the new outward `make citations`), while `papers/Claims-and-Falsifiers-Summary.md`
+is still at revision 4 and still lists *"m_W and m_Z in absolute terms"* under **Scope — what is not
+claimed**, fourteen days after F320 derived them and CL016 was withdrawn — H4's own second clause, a
+derived result published as an input. **The sharpest single finding is about this document rather
+than the physics:** the 08-07 report was amended eleven times and **six findings (F310, F312, F315,
+F316, F317, F318) still passed it by**, because every amendment was written by the session that
+produced its own finding. The measurable cost: **all three legs of gap #5 were closed by F311 on
+2026-08-11** — B9's Δα proved untouched by S12-F277 by *reinstating* the refold, the ten `candidate`
+baselines re-run to **zero** regressions, and K9 adjudicated — and Amendment 9, six days later,
+records two of them as still open "on their fourth report" and re-derives the third from scratch
+without citing F311. Two new same-shape contradictions with no ledger row, both flagged for Part D
+of `open-derivations`: (i) **K9** — F311 C dissolved the F192-vs-F193 framing as *consecutive*
+(12.75 h apart), then F319 U8 five days later **excluded** the very channel F193 closed, since
+1/16πG and ρ_vac are two moments of one zero-point sum, leaving a priced requirement of ≥1.27e116
+order-selectivity; neither finding cites the other. (ii) **B9 now carries two published residuals** —
+F311's **0.00158 %** (using the cited Källén–Sabry two-loop form) and F322's **0.0495 %** (from
+F261's sympy-exact b₁ = 1, model-internal); `grep -c F311` in F322 returns 0, and the row is graded
+on the model-internal number with the other stated alongside. Content moved without grade motion on
+**B1** (colour reduced six impositions to one by F317/F318), **A1** (F318 removes F291's self-flagged
+*"conditional on s=2"*; F313's "+1" survives while its boxed identity and its d_space=3 claim are
+both withdrawn by its own remediation), **A6** (F312 closes F304's non-contextuality residual by a
+Schur reduction valid for any compact group), **B3** (the Witten SU(2) global anomaly, unchecked for
+four reports, is discharged as a by-product of F324 W2 — physics-verified, tree-unverified), and
+**B10** (F324: X1-dependence removed, empirical selector retired, six premises booked; explicitly
+*not* a promotion). Regressions carried: **H7** module coverage 51/218 = 23.4 %, third consecutive
+fall with the driven count literally 51 in all three; **H2** `gate_assertion_no_control` at **48**,
+exactly its ceiling and unmoved since 2026-08-08, even though gate-tier assertions went 61 → 78 and
+declared controls 29 → 76. Standstills: **d₁/X1** (nothing since F308, 2026-08-11) and **Q4**, the
+36.6σ m_n − m_p exclusion. Scoreboard 14 exact / 3 machine / 16 quant / 35 partial / 1 posit / 1 open
+/ 4 excluded / **0 absent**; parameter ledger unchanged for the fourth report at 6 of 28 derived.
+**Not run this session** (device workspace unavailable): `make gate`, `make indexes`,
+`make indexes-check`, `make registry`, `make numerics`, `make health`, `make claims`, `make control`,
+`casim test` — so the new report is **not yet in `docs-index.md`** and Step 7's `make indexes` +
+`make indexes-check` are outstanding. No ledger was edited by this sweep, per the command's own rule.
+
+## 2026-08-18 - 12:04 — F324's arming pass executed; the journal shows F323's controls were unarmed too
+
+Ben asked for the F324 arming pass the same day `completeness-2026-08-18.md` named it. The device
+workspace was still unavailable — third consecutive session — so the pass ran by staging the
+repository into an isolated container and executing the repository's own code against it; two files
+changed and nothing else, verified by diff. **(1) The record.** `F324-ncolour-bracket` is written into
+`tests/registry/gauge.yaml`: `kind: assertion`, `tier: gate`, module
+`casim.engine.gauge.derive_ncolour_bracket`, entry `check_ncolour_bracket`, eleven declared `params:`,
+`expect.exactness: exact`, twelve `findings:`, and **eight `control:` blocks** each carrying its
+measured red set and reason. `casim test --id F324-ncolour-bracket` → **PASS**. **(2) The physics
+re-measured in-tree.** F324 §11 records its 14/14 as measured in an isolated harness against a
+`casim.numerics` shim; run against the real `casimir_ladder.py`, `derive_ncolour.py` and
+`derive_su3_structure.py` the entry returns **15/15**, the extra leg being P2, the F317 cross-check the
+harness could only reach by extracting one function. **(3) The controls.** All eight verify through
+`casim test --control` and redden exactly what F324 §7 declares and nothing else — `n_generations=2`
+→ W2/W2b/W3b/B1, `include_lepton_doublet=false` → W1/W2/B1 (the parity *inverts*, bracket {2}),
+`vector_like_su2=true` → W1/W2/W2b/B1, `quark_colour_rep=adjoint` → W1/W2/B1, `c7_n_max=3` → U1,
+`scan_from=2` → U1/U1b/B1, `doubler_multiplicity=2` → W2/W2b/B1, `empty_tower_passes=true` → U1/B1.
+`tools/check_finding_records.py`, which fired on F324 this morning, now returns zero violations over
+the staged findings. **(4) What the pass found that nobody was looking for.** The committed
+control-soundness journal is stamped 2026-08-17 - 16:31, five hours before F323 landed — so **all five
+`gauge-bcc-mc-d4` controls were unarmed**: controls 3 and 4 (`hypercubic_anisotropy`,
+`unsymmetrised_reps`, the two F323 wrote, and the first of them *is* the 4/3) were absent from the
+journal, and 0–2 carried a fingerprint measured against the pre-F323 `bcc_action.py`. That is a
+**second gate red, older than F324's and independent of it**. All five were re-verified and each
+returns `CONTROL` on exactly F323's declared red set. Journal 123 → 133 items: ten added, three
+fingerprints refreshed, **none removed or changed**, diffed rather than asserted. F323's own changelog
+entry lists nine things it verified and `make control` is not among them, which is why the two
+controls it had just written were never armed — the same shape as the report's finding that an
+amendment mechanism firing only when the author remembers is not a mechanism. **(5) What is still
+red, and why it was not touched.** F324 is in **no index** and CL281 is in neither `claims-index.md`
+nor `docs/claims/registry.yaml`, so `make indexes-check` and `make claims` are still red, and no gate
+record has been executed. Regenerating the indexes from a partial checkout would be worse than leaving
+them stale — `casim index` rewrites each index from what it can see and a missing file reads as a
+deleted row — so that step is deliberately left for the real tree. **Owed, in order: `make indexes` →
+`make claims` → `make gate` → `make control`**; the third should now clear the two checks that were
+failing, and the fourth is a no-op for F324 and `gauge-bcc-mc-d4`. Row **H6 does not move** and
+`completeness-2026-08-18.md` gains Amendment 1 saying so. F324 itself is **not rewritten** — per D12 a
+finding records what a session concluded, and the Amendment-1 precedent from 2026-08-07 is to record
+an arming in the report and the changelog rather than in the finding.
+## 2026-08-18 - 16:20 — B9's two published residuals reconciled: F322 now cites F311, and it is not a Part D contradiction
+
+`completeness-2026-08-18` gap #4 and row **H5** item (ii) recorded that rubric row B9 carried two live
+residuals — $0.00158\%$ (F311, 2026-08-11, in `open-derivations`) and $0.0495\%$ (F322, 2026-08-17, in the
+report's Amendment 9 and card CL280) — from findings six days apart of which the later cited the earlier
+nowhere, so a reader picked whichever document they opened. Worked out, they are **two rows of one sum**:
+both are $\Delta\alpha_\ell(M_Z)$ against PDG $0.031498$ and they differ by exactly one term, the two-loop
+**non-log constant** $(\alpha/\pi)^2[\zeta(3)-\tfrac5{24}]$ per lepton, $1.6085\times10^{-5}$ summed, which
+is $\mathbf{103.2\%}$ of F322's stated residual, overshooting it by $4.96\times10^{-7}$ — the same excess
+F311 reports from the other side as $100.6\%$ of the one-loop residual. F322 derives the two-loop **leading log** from F261's sympy-exact $b_1=1$ and
+leaves the constant open; F311 imports the Källén–Sabry form and says so (its §8: *cited, not derived here*).
+**The quotation rule adopted:** B9's headline is the model-internal $0.0495\%$, and $0.00158\%$ is quotable
+only with the import named. **No Part D row was opened** — Part D is for two adopted results that cannot both
+be true, and diluting X1 with an additive-decomposition bookkeeping item would cost more than it records.
+Edits, all citation-side: F322 gains a dated citation banner, F311 in its header cross-references and §10, a
+new **§6.1** (reconciliation table, the not-a-contradiction statement, and a priority note that §2 and §5's
+*refold restored* rows independently reproduce **F311 leg A1**, so gap #5(a)'s first closure belongs to F311),
+and a pointer in §9; **CL280** gains F311 in `findings:` and Evidence plus a dated amendment; `open-derivations`
+gains both numbers in its closed B9 row, a corrected structural note (*"B9's $0.24\%$ has not been re-derived"*
+had been false since 2026-08-11, and the correction is marked in place), and an addendum; the report gains
+**Amendment 2** and three in-row pointers. **No physics ran and nothing moved**: no leg, control, status,
+falsifier, exactness or value changed in any finding or card, B9 stays `QUANT` and H5 stays `PARTIAL` with one
+of its three items closed. What is still open is unchanged and jointly owned by both findings — the two-loop
+leptonic bubble on the model's **own** fields, from F261's dispersive machinery — and B9's real residual
+remains the hadronic piece in row **G3** (F322 §7's factor 2.02). The H6 gate reds from Amendment 1 are
+untouched; nothing here needs a gate record, and `make citations` was re-run clean.
+
+## 2026-08-18 - 16:35 — `make citations` now reaches the public summary; Claims-and-Falsifiers at revision 5
+
+`check_superseded_citations.py` propagates a supersession outward into the documents that cite the
+finding — and it never opens `papers/`. So when F320 derived $m_W$ and $m_Z$ absolutely on 2026-08-16
+and CL016 was withdrawn with a full retraction record, `docs/claims/` was right and
+`papers/Claims-and-Falsifiers-Summary.md` went on publishing *"$m_W$ and $m_Z$ in absolute terms"* under
+**Scope — what is not claimed**, under a heading whose whole purpose is that absence is not read as a
+prediction. This morning's report caught it by hand and downgraded H4 to `PARTIAL` for it. A check that
+is run by hand is the thing that failed here, so the fix is a checker, not an edit.
+
+**`tools/check_summary_claims.py`** grades the summary against the claim register. Every claim, falsifier
+and scope entry carries an anchor — `<!-- claims: CL276=live, CL277=live -->`, an HTML comment, invisible
+in the PDF — naming its cards **and the status it records them at**. The anchor is an assertion, not a
+cross-reference, so it fires on *any* status move, not just withdrawal. Three failure modes at **zero**:
+unknown id; recorded status the card disagrees with; and the inherited rule that a unit naming a
+superseded finding must name its replacement (imported from `check_superseded_citations.py`, same unit
+granularity — one markdown block, table rows individually). Coverage of headline cards is a **ratchet at
+0/38**, not a flat fail: a headline card the summary has not mentioned yet means the summary is behind,
+not wrong, and holding it at zero would block a finding from being recorded until it had been written up
+for a lay reader. Supporting cards are not counted — CL278–CL281 are correctly absent. The CL016 miss is
+the tool's selftest fixture; it runs on every invocation and prints PASS/FAIL. Wired into `make citations`
+and into `make gate` in the provenance block.
+
+**Claims-and-Falsifiers-Summary is at revision 5.** The $m_W$/$m_Z$ Scope entry is struck through and
+moved to **core claim 12** (CL276 + CL277: the two-input count, the $\Delta r$-free residual, $\rho=1$
+from rank rather than custodial $SU(2)$, and the inputs that remain). The $\alpha_s(M_Z)$ row is
+corrected in what it omitted rather than in value: $0.11955$ is the **H1/centre** branch of the X1 fork,
+$0.03970$ is H2, and the $2.1\sigma$ had been quoted without either. Ten headline cards issued since
+revision 4 were absent entirely and are added as claims 12–18 with their falsifiers — the Born rule via
+Gleason, exact no-signalling, the finite-$a$ Poincaré defect as one scalar gradient, the two Sakharov
+sectors and the CC no-go, structure formation with DES Y6 at $3.00\sigma$ and no screening available, and
+the tilt with $n_s = 1$ excluded at $8.4$–$9.9\sigma$ recorded as an unpaid bill. Authored-card count
+corrected $28 \to 58$. The PDF is regenerated — **it had been sitting at the 2026-06-08 first issue**,
+three revisions behind.
+
+Recorded as Amendment 3 to `completeness-2026-08-18`. **H4 stays `PARTIAL`**: both named instances are
+closed and guarded, but the amendment turned up a third on a surface nobody had audited —
+`papers/README.md` still headlines $m_Z/m_W = 2/\sqrt3$ at $1.77\%$, the number revision 2 of the summary
+moved off on 2026-08-02, and still leads its black-hole line with the superseded shadow. Not fixed, and
+now on the record. No physics ran: no leg, control, status, falsifier, exactness or value moved.
+
+## 2026-08-18 - 17:15 — K9's F311-vs-F319 disagreement adjudicated: F311 leg C3 withdrawn, F319 §6 narrowed, and the cosmological-constant residual restated
+
+`completeness-2026-08-18` §3 recorded that rubric row **K9** had a live contradiction — F311's accounting
+argument (2026-08-11) against F319 U8's mechanism argument (2026-08-16), five days apart, neither citing
+the other, with `open-derivations` **G1** carrying only F311's side — and asked one question: is F193's
+*"the CA ground state costs nothing to update"* order-selective or uniform?
+
+**Uniform.** F193 A2 deletes the $\tfrac12$-per-mode $c$-number as a template artefact, and F59 Part C
+builds $1/16\pi G = \eta g_* \int_\text{BZ} d^3k/(2\pi)^3 (1/2\omega)$ out of that same $\tfrac12$, with
+$\eta$ the Seeley $a_1$ number of the same one-loop determinant. The deletion cannot tell the two moments
+apart, so **F193 Part A is inside CL275 and is excluded**: it cannot be quoted as a derivation of "the bare
+CC is zero in the ontology" without also deleting F79's $G$.
+
+**F311 leg C3 is withdrawn.** Its premise — no tree stiffness, so $1/G$ *is* the mode sum — is F79's and is
+right. Its inference, that the same modes therefore cannot carry a cosmological constant, **proves too
+much**: $a_0$ and $a_1$ are different coefficients of one heat-kernel expansion, not one number counted
+twice, and on C3's rule Sakharov induced gravity could never induce a CC at all. This is **F311's own
+falsifier 5**, hit by F319 U8. C1 (the chronology, exact) and C2 (the vacuity of F192's sign, now
+explicitly conditional) stand; leg C's headline — *"K9 collapses to a single $O(1)$ coincidence"* — does
+not. **F319 §6 is narrowed** in the other direction: its *"channel (ii) is the sole survivor"* enumerates
+F164 §C's three and never sees **F193 §B/F196/F241**, whose capacity ceiling
+$\rho_\text{grav}(L)\le3c^4/8\pi GL^2$ is order-selective *because it contains $G$ rather than perturbing
+it*, and which delivers **120.66 of the required 120.76 decades with $a_1$ untouched** — short by $0.10$
+dex, which is $\Omega_\Lambda$.
+
+K9/G1's residual is restated: **a dynamical enforcement of the F183/F190 capacity ceiling on the F164
+zero-point sum, plus $\Omega_\Lambda$** — weaker than F311's "one $O(1)$ coincidence" and narrower than
+F319's "channel (ii) at a $1.27\times10^{116}$ price". What is missing is not selectivity but dynamics:
+F241 (CL212) proves that sector fixes a **ceiling**, and a ceiling is a consistency requirement, not a
+suppression mechanism.
+
+The adjudication also caught something no gate check can see: headline card **CL021** was citing F193 Part
+A as `exact` evidence while headline card **CL275** excluded that same leg — two headline cards
+contradicting each other for two days, because `check_claims.py` tests supersession and vocabulary, not
+agreement between cards. CL021's Evidence row is withdrawn in place (the retraction record is the point of
+the layer) and the card now names F193 §B, F196, F241 and F319 as the route that actually carries the
+reduction. Its `not_claimed` position is unchanged.
+
+Recorded as Amendment 4 to `completeness-2026-08-18`, with a rewritten **G1** row and a dated addendum in
+`open-derivations`. **No Part D row was opened** — the second refusal in one day, and the same reason:
+Part D is for forks the tree cannot choose between, not for errors or mis-citations; **X1 remains the only
+one**, and it is now the whole of what row **H5** has left. **K9, A11, H5, K10, E5 and parameter #28 all
+keep their grades.** No physics ran: no leg, control, status, falsifier, exactness or value moved in any
+finding or card, and no gate record was executed.
+
+## 2026-08-19 - 13:55 — H8 closed: sixteen findings with `no test record`, fourteen of which had a test all along
+
+Row **H8** of `completeness-2026-08-18` reported *"16 findings carry `no test record` — unchanged
+list, all `b`-suffix sub-findings or pre-convention files"*, and had reported the same 16 for three
+reports running. The list is now **zero**. What it was measuring turned out not to be missing tests.
+
+**Fourteen of the sixteen had a test, a passing test, and a registry record for it.** What was
+missing was the `findings:` line on the record, and in the ten `b`-suffix cases that line was not
+absent but **wrong**: the record `F101b-one-heavy-branch-fit-W` — already renamed to `F101b` at the
+C8.2 close-out — carried `findings: [..., F101]`, and F101 is
+`F101-strong-coupling-sigma-compact-rotor`, a different finding that happens to share the number.
+Same shape for F111b, F134b, F135b, F174b, F176b, F199b, F218b: the number collision the C8.2
+close-out resolved in the *filenames* was never propagated into the *registry*, so each of these
+records has been certifying the wrong finding since 2026-07-31 — and the finding that actually owns
+the test read as unverified. Four more (F34b, F85, F90, F102b) had records with **no** `findings:`
+key at all, and two (F32, F40) had records that named their co-authors and not them.
+
+`src/casim/index/findings.py` builds the `no test record` mark from exactly this field. It was
+telling the truth about the registry; the registry was not telling the truth about the findings.
+
+**The two that genuinely had nothing now have gate records with measured controls.**
+
+- **F26b** (BCC spin axis; `|psi^T psi|^2 = 1 - n_hat_y^2`). Its two verification tracks were sitting
+  inside `weyl_spin_axis_scalar_contamination` in `gauge/bilinear.py` — a function with no assert, no
+  caller, no test file and no record. The residuals the finding quotes, 2.84e-14 and 6.20e-14, were
+  produced once by hand on 2026-05-23 and never re-read; the `Test tag: C9` it names resolves to
+  nothing in `tests/`. New record `F26b-spin-axis-scalar-contamination` (gate) executes both and
+  **reproduces both digits exactly**, and adds three legs the finding states in prose and never
+  checked: spin-momentum locking `(n_hat . sigma) psi_+ = +psi_+` at finite k (1.8e-14) — the premise
+  both tracks rest on; the continuum **sign flip** on k_y (1.3e-05 flipped, **1.99 unflipped**), which
+  is *why* the singled-out axis is y; and F24's "typically ~0.67" recovered as a **derived** mean,
+  0.6897826774145224 measured against 0.6897826774145116 closed-form. Control: swap n_hat_y for
+  n_hat_x — reddens exactly the two identity legs and the mean, MEASURED.
+- **F142** (the colour-dielectric no-go). Its module was described as "self-checking": three asserts
+  inside a printing `main()` that no runner reads, and **T3/T4 — two of the five rows the finding
+  tabulates, under the sentence "All assertions in derive_dielectric_noconfine.py pass" — had no
+  assertion in the module at all.** New record `F142-dielectric-noconfine` (gate) runs all five: the
+  BPS prefactor 1/sqrt2 = 0.70710678 (not 1); the spread-thin decade ratio 2.154434690 = 10^(1/3);
+  the growing-box minimisation falling 1.3745 / 1.0412 / 0.7714 at L = 61/91/141, tracking L^(-2/3)
+  to 1.88 % — the finding's own "<2%"; and T3/T4 as new code in `Fraction`s, so the Casimir ratios
+  1, 9/4, 5/2, 9/2 and the SU(3) k-string degeneracy have residual **identically zero**. T4 also
+  asserts the two candidate laws **disagree for SU(4)** (4/3 vs sqrt2), so `sigma_2/sigma_1 = 1` is a
+  fact about N = 3 rather than an identity. Control: `bag_power=1` — the linear-in-conductivity
+  potential the finding's own §5 names as the alternative and nothing had ever evaluated. The
+  analytic exponent goes to 0 (ratio 2.1544 -> 1.0000) and the box tension stops falling (790, 1546,
+  4612 — it rises), reddening exactly the two T2 legs. `nit` 40000 -> 8000 for the gate budget after
+  checking convergence: identical to four digits, 10.8 s -> 2.2 s.
+
+**Running the fourteen before wiring them is what turned up the rot, and there was rot.**
+
+- **F134b was raising `KeyError`, not failing an assertion.** `backend.use("numpy_fft")` — the backend
+  was renamed to `"numpy"` at some point after F134b was written. Repaired by resolving the second
+  backend against the live `_REGISTRY` instead of hard-coding it again; **15/15 PASS**, which is what
+  the finding claims. This is the defect shape H8 exists to catch, caught: an unclaimed record is a
+  record nobody re-runs.
+- **F111b's baseline is stale by growth.** The test gained T3/T6/T7 in `de01710` and T4 now passes;
+  the committed artifact is from `58e79ca` and records **3/4 PASS with T4 FAIL**. A re-run is 7/7 with
+  19 added keys and zero changed values outside T4's own row. Recorded in `baseline-provenance.md` as
+  an accept; the working-tree artifact is the new one.
+- **F40's evidence has been false since 2026-06-10, and nothing said so.** FG-2 is 10/11 and FG-3 is
+  **3/6**, against a header that still reads "Confirmed — FG-2 11/11 PASS, FG-3 6/6 PASS". Bisected
+  this pass to a single cause: `gauge/strong.covariant_half_step` loses **75 % of the norm in one
+  call at COLD links**, where it should be the identity — while every other piece is unitary to
+  1e-15 (`_weyl_half_step_2c` 4e-16, `u_eff_from_w_links_2d` 1e-15, `quark_doublet_mass_step_su2`
+  2e-16). Not a bug: it is the documented 2026-06-10 replacement of the gauge-variant
+  `parallel_transport` by the symmetric covariant shift sum, whose docstring says outright that the
+  cold-link step is not the identity and not unitary, with unitarity deferred to V15. But that change
+  has **no supersession record**, so all four failing legs — cold-link regression, norm conservation,
+  colour-charge conservation — are the three properties FG-2/FG-3 were written to certify, silently
+  invalidated. **Deliberately left red**; the decision (write the supersession, restore a unitary
+  cold-link path, or retire the claim from F40) is set out in `baseline-provenance.md` and is Ben's.
+
+**Wiring, both directions.** 15 records gained or corrected `findings:`; the 16 findings gained a
+`**Test record:**` header naming the record id and its tier, so `check_finding_records.py` reads the
+link from the finding side too — it previously had nothing to read for any of them. `make records`
+316/316, `make registry` 432 records all valid (gate 82 -> 84), `make control` CONTROL on both new
+controls, `make can-fail` CAN FAIL on both, indexes regenerated.
+
+**One number in this session's favour and one against.** `tests-index.md` now resolves 432 records
+against 316 findings with the collisions correct, and `findings-index.md` carries **zero**
+`no test record` marks. Against: `tools/audit_tests.py --ratchet` is **red on arrival** —
+`unfalsifiable 70 -> 75`, `no_assert 231 -> 236`, `import_time_work 323 -> 325` — from the F324 work
+already uncommitted in the tree. Measured, not assumed: removing both new records and re-running
+leaves all three counts unchanged, so this pass contributes zero to it. It still has to be cleared
+before `make gate` is green.
+
+## 2026-08-19 - 15:20 — `findings-index.md` now reads in finding-number order
+
+`casim.index.findings.render()` built its table from `sorted(os.listdir("findings"))`, i.e. ASCII
+order on the filename, so the index ran F1, F100, F101, ... F110, F111b, F112 and did not reach F2,
+F20, F99 until the bottom — with 317 files over 306 numbers that is not readable as a sequence, and
+the inconsistent padding (`F01-F15-findings.md` is the only zero-padded name in the tree) meant no
+amount of squinting recovered the order. Rows now carry a `(number, suffix)` sort key parsed from
+`FINDING_FILE_RE` and are sorted before rendering, so a suffixed follow-on sits directly after its
+own number (F101 then F101b, F26 then F26b) and the table runs F1 -> F325 monotonically. A filename
+the regex cannot match has no number to sort on and goes last under a sentinel rather than being
+interleaved with real numbers. No content, summary, status or count changed — same 317 rows, same
+cells, only their order; the `audit_numbers()` pass and every other index target are untouched.
+`casim index --check` ok, `test_index_integrity.py` 7/7 PASS including `test_index_is_idempotent`.

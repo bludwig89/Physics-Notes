@@ -40,9 +40,19 @@
    },
    "reason": "F291 and F292 armed with two declared controls each (cell_dim=4 / d_scan_max=3; clifford_D_max=2 / n_blocks_max=1), all four verified RED. Scan-truncation controls in the F298 idiom -- 'a scan that cannot see d>=4 cannot claim an upper bound at 3'. Both use the no-`reds:` verdict-flip form because these drivers assert (39 and 30 asserts) rather than emitting a `checks` list.",
    "when": "2026-08-08 - 10:20"
+  },
+  {
+   "changed": {
+    "import_time_work": [
+     323,
+     326
+    ]
+   },
+   "reason": "import_time_work 323 -> 326, and NOTHING ELSE MOVED. The two counts this ratchet is actually for -- unfalsifiable and no_assert -- are back at 70 and 231 after the five files that raised them were repaired this session (test_F308_refold_repaired.py given seven real test functions once its gate record dropped the ambiguous path:; run_f313/f315/f316 given the assert their integer return was standing in for; run_bcc_confinement_d4.py given a sampler-level failure mode on SU(N) unitarity and the Re Tr U / N bound). That is the condition _has_import_time_work's own docstring names for moving this baseline rather than contorting a file to dodge a proxy. Attribution of the +3, measured file-by-file against ab0ba8f: tests/findings/test_F313_time_signature.py (sp.symbols at module scope), test_F316_laurent_pell.py (math.sqrt and laurent_const constants at module scope) and test_F325_x1_branch.py (the sys.path preamble plus an os.path.join OUT constant). All three are the documented blunt edge -- a module-level preamble or a constant built by a call -- in files that assert, are falsifiable, and do no physics at import. Replacing sqrt(5) with a decimal literal to dodge the proxy would also plant a rogue literal for the C2 constants sweep, which is the wrong trade.",
+   "when": "2026-08-19 - 14:45"
   }
  ],
- "import_time_work": 323,
+ "import_time_work": 326,
  "legacy_script": 47,
  "no_assert": 231,
  "unfalsifiable": 70

@@ -21,10 +21,10 @@
 | priority | `test_13_QFT8_CPT.py` | `13-QFT8-CPT` |  | legacy_script ⚠ | battery |  | test_13_QFT8_CPT.py  —  QFT-8: CPT-invariance  (particle vs antiparticle) |  |  |
 | priority | `test_14_QM4_zeno.py` | `14-QM4-zeno` |  | legacy_script ⚠ | battery |  | test_14_QM4_zeno.py  —  QM-4: Quantum Zeno effect |  |  |
 | priority | `test_15_QM6_twoslit.py` | `15-QM6-twoslit` |  | result_dump | battery |  | test_15_QM6_twoslit.py  —  QM-6: Two-slit interference / fringe visibility | `test_15_QM6_twoslit.json` |  |
-| findings | `test_E2E_nonabelian_bilinear.py` | `E2E-nonabelian-bilinear` | F36 F43 F67 F68 F69 F89 | result_dump | battery |  | test_E2E_nonabelian_bilinear.py | `E2E_nonabelian_bilinear.json` |  |
+| findings | `test_E2E_nonabelian_bilinear.py` | `E2E-nonabelian-bilinear` | F36 F43 F67 F68 F69 F89 F90 | result_dump | battery |  | test_E2E_nonabelian_bilinear.py | `E2E_nonabelian_bilinear.json` |  |
 | findings | `test_F100_gamma_from_transfer_operator.py` | `F100-gamma-from-transfer-operator` | F100 | result_dump | battery |  |  | `F100_gamma_from_transfer_operator.json` |  |
 | findings | `test_F101_strong_coupling_sigma.py` | `F101-strong-coupling-sigma` | F101 | result_dump | battery |  |  | `F101_strong_coupling_sigma.json` |  |
-| findings | `test_F101_one_heavy_branch_fit_W.py` | `F101b-one-heavy-branch-fit-W` | F46 F83 F92 F95 F96 F101 | result_dump | battery |  | test_F101_one_heavy_branch_fit_W.py | `F101_one_heavy_branch_fit_W.json` |  |
+| findings | `test_F101_one_heavy_branch_fit_W.py` | `F101b-one-heavy-branch-fit-W` | F46 F83 F92 F95 F96 F101b | result_dump | battery |  | test_F101_one_heavy_branch_fit_W.py | `F101_one_heavy_branch_fit_W.json` |  |
 | findings | `test_F102_coupled_rotors.py` | `F102-coupled-rotors` | F102 | result_dump | battery |  |  | `F102_coupled_rotors.json` | `F102_particle_backaction_P2.json` |
 | findings | `test_F106_psi_K_sourcing.py` | `F106-psi-K-sourcing` | F26 F62 F64 F79 F106 | result_dump | battery |  | test_F106_psi_K_sourcing.py — the ψ→K sourcing derivation. | `F106_psi_K_sourcing.json` |  |
 | findings | `test_F107_canonical_a_L4_grb_gate.py` | `F107-canonical-a-L4-grb-gate` | F28 F30 F64 F66 F67 F69 F79 F83 F107 | result_dump | battery |  | test_F107_canonical_a_L4_grb_gate.py — Adopt a = sqrt(8*pi)*3^(1/4) ell_P (F79) | `F107_canonical_a_L4_grb_gate.json` |  |
@@ -32,7 +32,7 @@
 | findings | `test_F109_f92_bridge_construction.py` | `F109-f92-bridge-construction` | F27 F46 F73 F92 F93 F95 F96 F101 F108 F109 | result_dump | battery |  | test_F109_f92_bridge_construction.py | `F109_f92_bridge_construction.json` |  |
 | findings | `test_F110_link_hamiltonian_realtime.py` | `F110-link-hamiltonian-realtime` | F110 | result_dump | battery |  |  | `F110_link_hamiltonian_realtime.json` |  |
 | findings | `test_F111_second_order_deflection.py` | `F111-second-order-deflection` | F64 F107 F111 | result_dump | battery |  | F111 — Second-order light deflection: canonical dielectric K=e^{2u} vs GR. | `F111_second_order_deflection.json` |  |
-| findings | `test_F111_tree_gauge_su3_ladder.py` | `F111-tree-gauge-su3-ladder` | F111 | result_dump | battery |  |  | `F111_tree_gauge_su3_ladder.json` |  |
+| findings | `test_F111_tree_gauge_su3_ladder.py` | `F111-tree-gauge-su3-ladder` | F111b F110 | result_dump | battery |  |  | `F111_tree_gauge_su3_ladder.json` |  |
 | findings | `test_F112_si_predictions.py` | `F112-si-predictions` | F107 F112 | result_dump | battery |  | test_F112_si_predictions.py — The SI prediction registry at the canonical cell | `F112_si_predictions.json`, `F112_si_predictions.md` |  |
 | findings | `test_F113_repulsive_core.py` | `F113-repulsive-core` | F71 F103 F113 | result_dump | battery |  | test_F113_repulsive_core.py | `F113_repulsive_core.json` |  |
 | findings | `test_F115_coupling_magnitudes.py` | `F115-coupling-magnitudes` | F45 F79 F100 F101 F107 F110 F115 | legacy_script ⚠ | battery |  | F115 — Gauge coupling magnitudes e, g, g_s from the model. |  | `F115_coupling_magnitudes.json` |
@@ -50,16 +50,17 @@
 | findings | `test_F131_blockspin_bound_state.py` | `F131-blockspin-bound-state` | F130 F131 | assertion | battery |  | test_F131_blockspin_bound_state.py |  |  |
 | findings | `test_F132_blockspin_dynamical_bound_states.py` | `F132-blockspin-dynamical-bound-states` | F74 F103 F104 F122 F130 F132 | assertion | battery |  | test_F132_blockspin_dynamical_bound_states.py |  |  |
 | findings | `test_F133_blockspin_engine.py` | `F133-blockspin-engine` | F130 F133 | assertion | battery |  | test_F133_blockspin_engine.py |  |  |
-| findings | `test_F134_phase4_completion.py` | `F134-phase4-completion` | F133 F134 | assertion | battery |  | test_F134_phase4_completion.py |  |  |
+| findings | `test_F134_phase4_completion.py` | `F134-phase4-completion` | F133 F134b | assertion | battery |  | test_F134_phase4_completion.py |  |  |
 | findings | `test_F134_unified_real_space.py` | `F134-unified-real-space` | F74 F122 F134 | assertion | battery |  | F134 — Unified real-space integration: the full chain on one BCC lattice. |  |  |
 | findings | `test_F135_blockspin_wavepacket_realtime.py` | `F135-blockspin-wavepacket-realtime` | F129 F130 F131 F132 F135 | result_dump | battery |  | F135 — Real-time wave-packet dynamics under block-spin coarse-graining (Phase 2) | `F135_blockspin_wavepacket_realtime.json`, `F135_blockspin_wavepacket_realtime_summary.md` |  |
-| findings | `test_F135_realspace_confinement.py` | `F135-realspace-confinement` | F70 F86 F134 F135 | assertion | battery |  | F135 — Real-space confinement (U1): the proton holds together as a |  |  |
+| findings | `test_F135_realspace_confinement.py` | `F135-realspace-confinement` | F70 F86 F134 F135b | assertion | battery |  | F135 — Real-space confinement (U1): the proton holds together as a |  |  |
 | findings | `test_F136_colour_quark_confinement.py` | `F136-colour-quark-confinement` | F135 F136 | assertion | battery |  | F136 — Real-space confined PROTON on genuine SU(3) colour-triplet quarks |  |  |
 | findings | `test_F137_live_flux_tube.py` | `F137-live-flux-tube` | F86 F135 F136 F137 | assertion | battery |  | F137 — Live colour-dielectric flux-tube field (roadmap-unified-real-space.md |  |  |
 | findings | `test_F138_weinberg_matching_4piv.py` | `F138-weinberg-matching-4piv` | F41 F49 F115 F138 | result_dump | battery |  | F138 — Closing the +12% Weinberg gap: sin^2 th_W = 1/4 as the COMPOSITENESS-SCALE | `F138_weinberg_matching_4piv.json` |  |
 | findings | `test_F139_dual_gl_backreaction.py` | `F139-dual-gl-backreaction` | F86 F137 F139 | assertion | battery |  | F139 — Self-consistent dual-Ginzburg-Landau back-reaction (closes F137 §5). |  | `F139_dual_gl_backreaction.json` |
 | findings | `test_F140_coarse_grained_baryon.py` | `F140-coarse-grained-baryon` | F122 F130 F132 F140 | assertion | battery |  | test_F140_coarse_grained_baryon.py |  |  |
 | findings | `test_F141_ws_cell_mass_counting.py` | `F141-ws-cell-mass-counting` | F138 F141 | result_dump | battery |  | F141 — BCC Wigner-Seitz cell face counting and the on-shell 7:9 mass ratio. | `F141_ws_cell_mass_counting.json` |  |
+| registry | `F142-dielectric-noconfine` | `F142-dielectric-noconfine` | F142 F139 F86 F99 | assertion | gate | quantitative |  |  |  |
 | findings | `test_F143_wrap_loop_stiffness.py` | `F143-wrap-loop-stiffness` | F42 F138 F143 | result_dump | battery |  | F143 — The lattice fermion loop of the induced U(1)_Y (wrap) stiffness on U(x). | `F143_wrap_loop_stiffness_test.json` | `F143_wrap_loop_stiffness.json` |
 | findings | `test_F144_route_a_alpha_s.py` | `F144-route-a-alpha-s` | F26 F101 F107 F110 F119 F144 | result_dump | battery |  | F144 — Route A of the QCD calibration block: alpha_s from the rule by | `F144_route_a_alpha_s.json` |  |
 | findings | `test_F145_route_c_induced_njl.py` | `F145-route-c-induced-njl` | F77 F88 F116 F117 F124 F144 F145 | result_dump | battery |  | F145 — Route C of the QCD calibration block: the NJL coupling ghat = G Lambda^2 | `F145_route_c_induced_njl.json` |  |
@@ -92,10 +93,10 @@
 | findings | `test_F171_slowlight.py` | `F171-slowlight` | F171 | result_dump | battery |  | test_F171_slowlight.py  --  Track 1.b: slow-light / EIT as a test of the | `F171_slowlight.json` |  |
 | findings | `test_F172_residual_algebraic_or_computed.py` | `F172-residual-algebraic-or-computed` | F92 F96 F124 F144 F145 F150 F151 F155 F163 F164 F170 F172 | result_dump | battery |  | F172 — Is the one shared IR residual an algebraic connection or a computed | `F172_residual_algebraic_or_computed.json` |  |
 | findings | `test_F173_tolman_pressure.py` | `F173-tolman-pressure` | F106 F173 F178 | result_dump | battery |  | [PARTIALLY SUPERSEDED 2026-06-29 by F178 — ledger S4-F178-full-stress-energy] | `F173_tolman_pressure.json` |  |
-| findings | `test_F174_shape_angle_2_9.py` | `F174-shape-angle-2-9` | F49 F93 F96 F118 F145 F172 F174 F175 F253 F255 F256 | result_dump | battery |  | [PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase] | `F174_shape_angle_2_9.json` |  |
+| findings | `test_F174_shape_angle_2_9.py` | `F174-shape-angle-2-9` | F49 F93 F96 F118 F145 F172 F174b F175 F253 F255 F256 | result_dump | battery |  | [PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase] | `F174_shape_angle_2_9.json` |  |
 | findings | `test_F174_stellar_overlay.py` | `F174-stellar-overlay` | F106 F173 F174 F178 FC09 | result_dump | battery |  | [HISTORICAL BASELINE 2026-06-29 — ledger S4-F178-full-stress-energy] | `F174_stellar_overlay.json` |  |
 | findings | `test_F175_lattice_2_9_eg_weight.py` | `F175-lattice-2-9-eg-weight` | F49 F92 F174 F175 | result_dump | battery |  | F175 — Deriving 2/9 from the lattice: the lepton-condensate angle delta* = 2/9 rad | `F175_lattice_2_9_eg_weight.json` |  |
-| findings | `test_F176_covariant_stellar.py` | `F176-covariant-stellar` | F174 F176 | result_dump | battery |  | test_F176_covariant_stellar.py  --  How much of TOV does the covariant | `F176_covariant_stellar.json` |  |
+| findings | `test_F176_covariant_stellar.py` | `F176-covariant-stellar` | F174 F176b | result_dump | battery |  | test_F176_covariant_stellar.py  --  How much of TOV does the covariant | `F176_covariant_stellar.json` |  |
 | findings | `test_F176_saturation_self_duality.py` | `F176-saturation-self-duality` | F73 F82 F86 F92 F174 F175 F176 | result_dump | battery |  | F176 — The dynamical principle behind delta* = 2/9: SATURATION SELF-DUALITY. | `F176_saturation_self_duality.json` |  |
 | findings | `test_F177_bps_self_duality_completion.py` | `F177-bps-self-duality-completion` | F73 F82 F101 F118 F119 F150 F172 F174 F175 F176 F177 | result_dump | battery |  | F177 — Completing the self-duality condition from the BPS structure: the RADIAL | `F177_bps_self_duality_completion.json` |  |
 | findings | `test_F179_lambda6_relabel.py` | `F179-lambda6-relabel` | F92 F95 F115 F118 F145 F150 F179 F253 F255 F256 | assertion | battery |  | [PARTIALLY SUPERSEDED 2026-07-16 by F253, F255, F256 — ledger S6-F253-weight-as-phase] |  | `F179_lambda6_relabel.json` |
@@ -118,7 +119,7 @@
 | findings | `test_F196_dilution_exponent.py` | `F196-dilution-exponent` | F193 F196 | result_dump | battery |  | test_F196_dilution_exponent.py  --  deriving the p=2 holographic dilution exponent | `F196_dilution_exponent_test.json` | `F196_dilution_exponent.json` |
 | findings | `test_F197_first_excitation_dark.py` | `F197-first-excitation-dark` | F69 F93 F191 F193 F197 | result_dump | battery |  | test_F197_first_excitation_dark.py | `F197_first_excitation_dark_test.json` | `F197_first_excitation_dark.json` |
 | findings | `test_F198_angular_misalignment.py` | `F198-angular-misalignment` | F197 F198 | result_dump | battery |  | test_F198_angular_misalignment.py | `F198_angular_misalignment_test.json` | `F198_angular_misalignment.json` |
-| findings | `test_F199_amplitude_mode_stability.py` | `F199-amplitude-mode-stability` | F73 F93 F198 F199 | result_dump | battery |  | test_F199_amplitude_mode_stability.py | `F199_amplitude_mode_stability_test.json` | `F199_amplitude_mode_stability.json` |
+| findings | `test_F199_amplitude_mode_stability.py` | `F199-amplitude-mode-stability` | F73 F93 F198 F199b | result_dump | battery |  | test_F199_amplitude_mode_stability.py | `F199_amplitude_mode_stability_test.json` | `F199_amplitude_mode_stability.json` |
 | findings | `test_F199_angular_self_duality_derivation.py` | `F199-angular-self-duality-derivation` | F92 F176 F177 F179 F199 | assertion | battery |  | F199 — First-principles attempt at the angular self-duality C/\|B\| = 1/(2 cos 2/3). |  |  |
 | registry | `F20-bcc-onaxis-dispersion-exact` | `F20-bcc-onaxis-dispersion-exact` | F20 F26 | assertion | gate | exact |  |  |  |
 | registry | `F20-wavepacket-group-velocity` | `F20-wavepacket-group-velocity` | F20 | assertion | gate | machine |  | `F20_wavepacket_group_velocity.json` |  |
@@ -143,7 +144,7 @@
 | findings | `test_F216_massive_spin2.py` | `F216-massive-spin2` | F216 | assertion | battery |  | Test wrapper for F216 — massive spin-2 / second-polarization dark-sector fork. |  | `F216_massive_spin2.json` |
 | findings | `test_F217_field_native_fermion_entanglement.py` | `F217-field-native-fermion-entanglement` | F214 F217 | assertion | battery |  | F217 — Field-native two-fermion second quantization: super-exchange J and |  | `F217_field_native_fermion_entanglement.json` |
 | findings | `test_F218_algorithm_through_engine.py` | `F218-algorithm-through-engine` | F212 F218 | assertion | battery |  | F218 — A quantum ALGORITHM run through the engine: native exchange→CZ/CNOT |  | `F218_algorithm_through_engine.json` |
-| findings | `test_F218_alpha2F_and_pade_gap.py` | `F218-alpha2F-and-pade-gap` | F215 F218 | assertion | battery |  | test_F218_alpha2F_and_pade_gap.py |  | `F218_alpha2F_and_pade_gap.json` |
+| findings | `test_F218_alpha2F_and_pade_gap.py` | `F218-alpha2F-and-pade-gap` | F215 F218b | assertion | battery |  | test_F218_alpha2F_and_pade_gap.py |  | `F218_alpha2F_and_pade_gap.json` |
 | findings | `test_F22_rho_identity.py` | `F22-rho-identity` | F22 | assertion | battery |  | F22 — the ρ identity, its negative control, and the O(vk) off-shell coefficient. |  | `F22_rho_identity_and_offshell.json` |
 | registry | `F22-rho-identity-and-offshell` | `F22-rho-identity-and-offshell` | F15 F22 | assertion | gate | exact |  | `F22_rho_identity_and_offshell.json` |  |
 | findings | `test_F220_field_native_execution.py` | `F220-field-native-execution` | F214 F217 F218 F219 F220 | assertion | battery |  | F220 — Field-native execution: quantum gates and a full algorithm run on the |  | `F220_field_native_execution.json` |
@@ -194,6 +195,7 @@
 | findings | `test_F264_qed_allorders_anomaly.py` | `F264-qed-allorders-anomaly` | F68 F87 F107 F251 F252 F258 F264 | assertion | battery |  | test_F264_qed_allorders_anomaly.py — F264: the ALL-ORDERS / STRUCTURAL |  | `F264_qed_allorders_anomaly.json` |
 | findings | `test_F265_bcc_gauge_geometry.py` | `F265-bcc-gauge-geometry` | F264 F265 | assertion | battery |  | F265 — The gauge sectors live on the genuine BCC lattice. |  | `F265_bcc_gauge_geometry.json` |
 | findings | `test_F267_walk_bz_measure.py` | `F267-walk-bz-measure` | F267 F265 F250 | assertion | battery | exact | F267 — the fermion walk's BZ is not the cubic FFT cube. Roadmap P3.1's spike. | `F267_walk_bz_measure.json` |  |
+| registry | `F26b-spin-axis-scalar-contamination` | `F26b-spin-axis-scalar-contamination` | F26b F24 | assertion | gate | machine |  |  |  |
 | casim | `test_bz_period_lattices.py` | `F272-F273-bz-period-lattices` | F272 F273 F267 F277 | assertion | gate | exact | Which period lattice does each dispersion actually have? — F272 / F267. |  |  |
 | registry | `F276-curved-weyl-ordering-second-order` | `F276-curved-weyl-ordering-second-order` | F271 F276 | assertion | gate | quantitative |  |  |  |
 | registry | `F278-bcc-lattice-constant` | `F278-bcc-lattice-constant` | F267 F273 F278 | assertion | gate | exact |  |  |  |
@@ -229,7 +231,8 @@
 | registry | `F306-curl-closes-at-k3` | `F306-curl-closes-at-k3` | F306 F21 F23 F25 | assertion | gate | quantitative |  | `F306_curl_closes_at_k3.json` |  |
 | findings | `test_F306_curl_closes_at_k3.py` | `F306-curl-closes-at-k3.findings` | F306 | assertion | battery |  | F306 — the σ-bilinear curl equation closes at O(k³); the O(k) failure was a reading. |  | `F306_curl_closes_at_k3.json` |
 | findings | `test_F307_action_consistent_d1.py` | `F307-action-consistent-d1` | F307 F305 F280 F287 | assertion | gate | bracketed | F307 — the F280 subtracted estimator on one code path, each side on its own | `F307_action_consistent_d1.json` |  |
-| findings | `test_F308_refold_repaired.py` | `F308-refold-repaired` | F308 F307 F272 F277 | assertion | gate | machine | F308 — the refold in ``lpt_selfenergy`` is repaired, and the audit found two |  |  |
+| registry | `F308-refold-repaired` | `F308-refold-repaired` | F308 F307 F272 F277 | assertion | gate | machine |  |  |  |
+| findings | `test_F308_refold_repaired.py` | `F308-refold-repaired.findings` | F308 F307 F272 F277 | assertion | battery |  | F308 — the refold in ``lpt_selfenergy`` is repaired, and the audit found two |  |  |
 | findings | `test_F309_gstar.py` | `F309-gstar-model-content` | F121 F297 F300 F309 | assertion | gate | exact | F309 — K2/G10: g_*(T) and g_*s(T) from the model's own field content. | `F309_gstar_model_content.json` |  |
 | findings | `test_F310_critical_measure.py` | `F310-critical-measure` | F106 F130 F284 F285 F295 F296 F310 | assertion | gate | exact | F310 — K3/G2: gamma is a block-spin eigenvalue, and the model needs no dual. | `F310_critical_measure.json` |  |
 | findings | `test_F311_gap5_adjudication.py` | `F311-gap5-adjudication` | F79 F192 F193 F196 F251 F277 F311 | assertion | gate | exact | F311 — completeness gap #5: the three numbers no report had re-derived. | `F311_gap5_adjudication.json` |  |
@@ -246,6 +249,8 @@
 | findings | `test_F320_gauge_boson_masses.py` | `F320-gauge-boson-masses` | F320 F141 F138 F231 F49 F51 F41 F27 F119 F127 | assertion | gate | bracketed | F320 — the absolute W and Z masses, and rho = 1 (completeness row B12). | `F320_gauge_boson_masses.json` |  |
 | findings | `test_F321_strong_cp.py` | `F321-strong-cp` | F321 F53 F43 F305 F307 F265 F91 F27 | assertion | gate | exact | F321 — strong CP: theta_QCD = 0 from the rule's loop set (completeness B11). | `F321_strong_cp.json` |  |
 | registry | `F322-b9-running-rederived` | `F322-b9-running-rederived` | F322 F251 F277 F261 F138 | assertion | gate | quantitative |  | `F322_b9_running_rederivation.json` |  |
+| findings | `test_F324_ncolour_bracket.py` | `F324-ncolour-bracket` | F324 F298 F317 F318 F293 F294 F279 F75 F27 F97 F99 F110 | assertion | gate | exact | F324 — the N_c bracket (completeness row B10, "why 3 colours"). | `F324_ncolour_bracket.json` |  |
+| findings | `test_F325_x1_branch.py` | `F325-x1-branch` | F111b F144 F298 F303 F324 F325 | assertion | gate |  |  |  |  |
 | findings | `test_F37_delta_omega.py` | `F37-delta-omega` | F30 F37 | result_dump | battery |  | test_F37_delta_omega.py  —  F37 chirality split: measure ΔΩ vs F30 analytical value | `F37_delta_omega.json` |  |
 | findings | `test_F46_pythagorean_mass.py` | `F46-pythagorean-mass` | F25 F26 F27 F46 | result_dump | battery |  | F46 — Spherical Pythagorean identity for lattice mass: | `F46_pythagorean_mass.json` |  |
 | findings | `test_F49_bcc_weinberg_2over9.py` | `F49-bcc-weinberg-2over9` | F30 F45 F47 F49 | result_dump | battery |  | F47 derivation attempt — try to derive sin^2 theta_W = 2/9 (notebook's | `F47_bcc_weinberg_2over9.json` | `F49_bcc_weinberg_2over9.json` |
@@ -314,8 +319,8 @@
 | runners | `FC01_mercury_perihelion.py` | `FC01-mercury-perihelion` | F16 F64 F112 FC01 | result_dump | battery |  | FC01 — Mercury perihelion precession (Tier C consistency regression) | `FC01_mercury.json` |  |
 | runners | `FC03_redshift.py` | `FC03-redshift` | F64 FA10 FC03 | result_dump | battery |  | FC03 — Gravitational redshift (Pound-Rebka) | `FC03_redshift.json` |  |
 | findings | `test_FG1_anomaly_cancellation.py` | `FG1-anomaly-cancellation` | FG1 | legacy_script ⚠ | battery |  | FG-1 — Anomaly cancellation across a single first-generation Standard-Model |  | `FG1_anomaly_cancellation.json` |
-| findings | `test_FG2_quark_complex_mass.py` | `FG2-quark-complex-mass` | F27 FG2 | result_dump | battery |  | FG-2 — F27 complex-mass adoption for the quark sector. | `FG2_quark_complex_mass.json` |  |
-| findings | `test_FG3_quark_electroweak.py` | `FG3-quark-electroweak` | F27 F31 F34 FG3 | result_dump | battery |  | FG-3 — Electroweak wiring of the quark doublet (2D analog of F34). | `FG3_quark_electroweak.json` |  |
+| findings | `test_FG2_quark_complex_mass.py` | `FG2-quark-complex-mass` | F27 F40 FG2 | result_dump | battery |  | FG-2 — F27 complex-mass adoption for the quark sector. | `FG2_quark_complex_mass.json` |  |
+| findings | `test_FG3_quark_electroweak.py` | `FG3-quark-electroweak` | F27 F31 F34 F40 FG3 | result_dump | battery |  | FG-3 — Electroweak wiring of the quark doublet (2D analog of F34). | `FG3_quark_electroweak.json` |  |
 | findings | `test_FG4_dynamical_Z.py` | `FG4-dynamical-Z` | F35 F45 FG4 | result_dump | battery |  | test_FG4_dynamical_Z.py | `FG4_dynamical_Z.json` |  |
 | findings | `test_FG6_two_helicity_photon.py` | `FG6-two-helicity-photon` | F29 F30 F37 F67 F69 F91 FG6 | legacy_script ⚠ | battery |  | [PARTIALLY SUPERSEDED 2026-06-01 by F69 — ledger S1-F69-sigma-bilinear-photon] |  | `FG6_two_helicity_photon.json` |
 | findings | `test_FG7_gluon_dynamics.py` | `FG7-gluon-dynamics` | F29 F33 F36 FG7 | result_dump | battery |  | test_FG7_gluon_dynamics.py — FG-7: dynamical SU(3) gluon sector | `FG7_gluon_dynamics.json` |  |
@@ -327,7 +332,7 @@
 | findings | `test_FG7f_gluon_dielectric_gap.py` | `FG7f-gluon-dielectric-gap` | F86 F88 F91 FG7 | result_dump | battery |  | test_FG7f_gluon_dielectric_gap.py — gap-coupled colour-dielectric gluon propagator | `FG7f_gluon_dielectric_gap.json` |  |
 | findings | `test_FG8_beta_decay.py` | `FG8-beta-decay` | F29 F34 F35 F36 F48 FG8 | result_dump | battery |  | test_FG8_beta_decay.py | `FG8_beta_decay.json` |  |
 | findings | `test_FG9_C_CP_per_species.py` | `FG9-C-CP-per-species` | F27 F34 FG9 | legacy_script ⚠ | battery |  | test_FG9_C_CP_per_species.py  —  FG-9: antiparticle / per-species C and CP |  | `FG9_C_CP_per_species.json` |
-| findings | `test_P0_dynamical_fermions.py` | `P0-dynamical-fermions` |  | result_dump | battery |  |  | `P0_dynamical_fermions.json` |  |
+| findings | `test_P0_dynamical_fermions.py` | `P0-dynamical-fermions` | F85 | result_dump | battery |  |  | `P0_dynamical_fermions.json` |  |
 | findings | `test_P2_baryon_bound_state.py` | `P2-baryon-bound-state` | F71 F74 F97 | result_dump | battery |  | test_P2_baryon_bound_state.py | `P2_baryon_bound_state.json` |  |
 | findings | `test_P3_pion.py` | `P3-pion` | F74 F77 | result_dump | battery |  | test_P3_pion.py | `P3_pion.json` |  |
 | casim | `test_engine_clock.py` | `P3.2-engine-clock` | F268 | assertion | gate | exact | Engine clock — roadmap P3.2, blocker B2, finding F268. |  |  |
@@ -360,7 +365,7 @@
 | casim | `test_field_dump_vtk.py` | `field-dump-vtk` |  | assertion | gate |  | Tests for the visualisation seam: casim.io.vtk + the field_dump observer. |  |  |
 | findings | `test_fork_B_fresnel.py` | `fork-B-fresnel` |  | legacy_script ⚠ | battery |  | test_fork_B_fresnel.py  —  Fork B: Fizeau/refractive-index test |  |  |
 | findings | `test_fork_D_doppler.py` | `fork-D-doppler` |  | legacy_script ⚠ | battery |  | test_fork_D_doppler.py  —  Fork D / Phase L1: |  |  |
-| findings | `test_bcc_gauge_mc_d4.py` | `gauge-bcc-mc-d4` | F265 F94 F291 F313 | assertion | gate | machine | BCC 3+1D gauge Monte-Carlo: sampler + Wilson loops on the model's own lattice. | `bcc_gauge_mc_d4.json` |  |
+| findings | `test_bcc_gauge_mc_d4.py` | `gauge-bcc-mc-d4` | F265 F94 F291 F313 F323 F299 F298 | assertion | gate | machine | BCC 3+1D gauge Monte-Carlo: sampler + Wilson loops on the model's own lattice. | `bcc_gauge_mc_d4.json` |  |
 | casim | `test_gravity_element.py` | `gravity-element` | F62 F64 F79 F106 | assertion | gate |  | Gravity-element suite — the F64 fork mainlined (audit B.2 #1, 2026-06-06). |  |  |
 | casim | `test_gui_render_spinor.py` | `gui-render-spinor` |  | assertion | gate |  | Headless tests for Bloch-sphere spinor colouring (casim.gui.render). |  |  |
 | findings | `test_hypercharge.py` | `hypercharge` | F27 F34 | result_dump | battery |  | test_hypercharge.py — U(1)_Y hypercharge gauging on the | `hypercharge_fork.json` |  |
@@ -368,7 +373,7 @@
 | findings | `test_hypercharge_quantisation.py` | `hypercharge-quantisation` | F38 F51 F165 | result_dump | battery |  | [PARTIALLY SUPERSEDED 2026-08-02 by F279 — ledger S13-F279-hypercharge-attribution] | `hypercharge_quantisation.json` |  |
 | casim | `test_index_integrity.py` | `index-integrity` |  | assertion | gate |  | `casim index` is idempotent, complete, and able to say no — roadmap C8. |  |  |
 | findings | `test_majorana_fork.py` | `majorana-fork` | F27 F41 F43 | result_dump | battery |  | test_majorana_fork.py — F43 bare ν_R Majorana mass step and see-saw | `majorana_fork.json` |  |
-| casim | `test_particle_layer.py` | `particle-layer` |  | assertion | gate |  | Particle-layer suite (roadmap-particle-layer.md, Phase P1). |  |  |
+| casim | `test_particle_layer.py` | `particle-layer` | F102b | assertion | gate |  | Particle-layer suite (roadmap-particle-layer.md, Phase P1). |  |  |
 | casim | `test_registry_entries.py` | `registry-entries` |  | assertion | gate |  | Run the gate-tier registry entry points under pytest — roadmap C7.3 (**D9**). |  |  |
 | casim | `test_registry_integrity.py` | `registry-integrity` |  | assertion | gate |  | The test registry is complete, valid, and identical to what pytest runs. |  |  |
 | casim | `test_results_compare.py` | `results-compare` | F275 | assertion | gate |  | Results compare (P5.4) — finding F275. |  |  |
@@ -427,12 +432,12 @@
 | casim | `test_supersession_ledger.py` | `supersession-ledger` | F52 F62 F178 F179 | assertion | gate |  | Roadmap P0.3/P0.4 — the supersession ledger gate. |  |  |
 | casim | `test_viz_api.py` | `viz-api` | F275 | assertion | gate |  | casim.viz static-figure API — roadmap P5.1, finding F275. |  |  |
 | findings | `test_wmu_phase1.py` | `wmu-phase1` | F27 | result_dump | battery |  | test_wmu_phase1.py — Phase 1 tests: SU(2) link variables & covariant BCC hopping | `wmu_phase1.json` |  |
-| findings | `test_wmu_phase2.py` | `wmu-phase2` | F26 | result_dump | battery |  | test_wmu_phase2.py — Phase 2: Free W propagation (F26 rotation law per a-component) | `wmu_phase2.json` |  |
+| findings | `test_wmu_phase2.py` | `wmu-phase2` | F32 F26 | result_dump | battery |  | test_wmu_phase2.py — Phase 2: Free W propagation (F26 rotation law per a-component) | `wmu_phase2.json` |  |
 | findings | `test_wmu_phase3.py` | `wmu-phase3` |  | result_dump | battery |  | test_wmu_phase3.py — Phase 3: Non-Abelian Self-Coupling (Yang–Mills) | `wmu_phase3.json` |  |
 | findings | `test_wmu_phase4.py` | `wmu-phase4` |  | result_dump | battery |  | test_wmu_phase4.py — Phase 4: Fermion–W_μ Vertex (Covariant Derivative) | `wmu_phase4.json` |  |
-| findings | `test_wmu_phase5_stueckelberg.py` | `wmu-phase5-stueckelberg` |  | result_dump | battery |  | test_wmu_phase5_stueckelberg.py — Phase 5B: Stueckelberg W Mass Generation | `wmu_phase5_stueckelberg.json` |  |
+| findings | `test_wmu_phase5_stueckelberg.py` | `wmu-phase5-stueckelberg` | F34b | result_dump | battery |  | test_wmu_phase5_stueckelberg.py — Phase 5B: Stueckelberg W Mass Generation | `wmu_phase5_stueckelberg.json` |  |
 | findings | `test_wmu_phase6.py` | `wmu-phase6` | F26 | result_dump | battery |  | test_wmu_phase6.py — Phase 6: Electroweak Mixing (W³ ↔ B ↔ γ) | `wmu_phase6.json` |  |
 | findings | `test_wmu_phase6_rank1.py` | `wmu-phase6-rank1` | F34 F41 F44 | result_dump | battery |  | test_wmu_phase6_rank1.py — F44 numerical confirmation | `wmu_phase6_rank1.json` |  |
-| findings | `test_wmu_phase7_backreaction.py` | `wmu-phase7-backreaction` |  | result_dump | battery |  | test_wmu_phase7_backreaction.py | `phase7_backreaction_results.json` |  |
+| findings | `test_wmu_phase7_backreaction.py` | `wmu-phase7-backreaction` | F36 F90 | result_dump | battery |  | test_wmu_phase7_backreaction.py | `phase7_backreaction_results.json` |  |
 
-*429 record(s): 268 declare a baseline, 64 have manifest-linked artifacts they do not yet declare, 97 emit nothing. Every empty `Baselines` cell is a record with no declared `results:` — the registry has nothing to fill it with, which is a different statement from the old index's silence.*
+*434 record(s): 269 declare a baseline, 64 have manifest-linked artifacts they do not yet declare, 101 emit nothing. Every empty `Baselines` cell is a record with no declared `results:` — the registry has nothing to fill it with, which is a different statement from the old index's silence.*

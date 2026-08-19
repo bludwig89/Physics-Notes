@@ -1,5 +1,19 @@
 # F101 — Full strong-coupling σ from the rule's compact-rotor transfer operator: the non-perturbative log law and the Gaussian–confinement crossover
 
+> **X1 RESOLVED 2026-08-18 (F325, ledger record S22).** **§7's "A-vs-C / Casimir caveat", written here on 2026-06-05 and load-bearing for two months,
+is resolved in favour of the $\chi=1$ normalisation** — but not by the argument the caveat expected.
+The Casimir reading's $C_F$ comes from matching this rotor's **integer** $\hat E^2$ spectrum against an
+$SU(N)$ link's $C_2$; the two are different operators, and under either self-consistent matching
+$\chi=1/(4g^2)$ (F325 §2).
+>
+> **Two items land back here.** (i) §7's third bullet is sharpened rather than cleared: circularity
+> fixes the stiffness *ratio*, so $\chi=1/\Omega(k)$ and the value $\chi=1$ is **this section's
+> normalisation**, not a derivation — F144 A1 step 2 overstated it (F325 §6). S5's hardcoded
+> $\Omega=1.3$ is a representative mid-zone value; the data wants $\Omega=0.997829$. (ii) If the
+> colour group is $SU(3)$ rather than the $\mathbb Z_3$/U(1) implemented here, $\sigma_1$ carries an
+> **exact** offset $\ln((N^2-1)/2)=\ln4=1.386294$ nats (F325 X4) — a correction to this finding's
+> $\sigma$, orthogonal to $g_s$.
+
 **Date:** 2026-06-05 - 15:35
 **Status:** Confirmed — 5/5 checks PASS. S1 exact (charge-basis diagonalisation, truncation-converged $4\times10^{-16}$); S2/S3 asymptotically exact (weak→Gaussian, strong→log, relative errors $\to0$); S4 reconciliation with F70 (both slopes $\to-1$; leading character $\beta/18$); S5 the compact correction at the rule's coupling. **Extends F100 past the Gaussian/spin-wave regime to all couplings.**
 **Script:** `tests/findings/test_F101_strong_coupling_sigma.py` (<0.2 s)

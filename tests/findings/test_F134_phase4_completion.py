@@ -169,12 +169,22 @@ def test_E_chiral_core_registers_and_dispatches():
 
 
 def test_E_numpy_backend_matches_cafft():
+    # The backend was registered as "numpy_fft" when F134b was written and is
+    # registered as "numpy" now (casim.numerics.backends._REGISTRY). The rename
+    # went unnoticed because this record had no `findings:` entry naming F134b,
+    # so nothing in the index reported the finding as unverified while its only
+    # test raised KeyError. Resolved against the live registry rather than
+    # hard-coded again, so the next rename fails on the ASSERT, not the lookup.
     rng = np.random.default_rng(2)
     a = rng.standard_normal((16, 16, 16)) + 1j * rng.standard_normal((16, 16, 16))
+    available = backend.available()
+    second = next((n for n in ("numpy", "numpy_fft", "scipy") if n in available),
+                  None)
+    assert second is not None, f"no second FFT backend registered: {available}"
     try:
         backend.use("ca_fft")
         fa = backend.fftn(a)
-        backend.use("numpy_fft")
+        backend.use(second)
         fb = backend.fftn(a)
         assert np.max(np.abs(fa - fb)) < 1e-10            # identical to round-off
         assert np.allclose(backend.ifftn(backend.fftn(a)), a)

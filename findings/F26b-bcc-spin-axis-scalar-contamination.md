@@ -9,6 +9,7 @@
 **Test tag:** C9  
 **Track A residual:** 2.84 × 10⁻¹⁴ (formula algebraic identity)  
 **Track B residual:** 6.20 × 10⁻¹⁴ (vs. np.linalg.eig eigenmode)
+**Test record:** record `F26b-spin-axis-scalar-contamination` (tier gate) — `tests/registry/`, D9.
 
 ---
 

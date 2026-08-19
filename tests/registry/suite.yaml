@@ -5,7 +5,11 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
   on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
   adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
-  not undo it.'
+  not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding is false, THIS RECORD GOES
+  RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
+  `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
+  tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
+  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: backend
   path: tests/casim/test_backend.py
@@ -13,6 +17,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -28,6 +33,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -47,6 +53,7 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -62,6 +69,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -81,6 +89,7 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -96,6 +105,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -125,6 +135,10 @@ tests:
     easy failure absorb the hard one, which is the A10 over-grade this report corrected by hand. No physics;
     this is the instrument.'
   evidence:
+    mentions:
+    - F22
+    - F298
+    - F303
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -148,6 +162,7 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -163,6 +178,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -178,6 +194,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -193,6 +210,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -213,6 +231,11 @@ tests:
   - F106
   sector: suite
   evidence:
+    mentions:
+    - F62
+    - F64
+    - F79
+    - F106
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -228,6 +251,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -243,6 +267,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -257,7 +282,10 @@ tests:
   kind: assertion
   tier: gate
   sector: suite
+  findings:
+  - F102b
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -273,6 +301,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: false
@@ -288,6 +317,7 @@ tests:
   tier: gate
   sector: suite
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -305,6 +335,8 @@ tests:
   findings:
   - F275
   evidence:
+    mentions:
+    - F275
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -325,6 +357,8 @@ tests:
     exactness: exact
     tol: 0
   evidence:
+    mentions:
+    - F274
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -345,11 +379,16 @@ tests:
   - F179
   sector: suite
   evidence:
+    mentions:
+    - F52
+    - F62
+    - F178
+    - F179
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 406
-    n_test_funcs: 10
+    lines: 457
+    n_test_funcs: 12
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
@@ -362,6 +401,8 @@ tests:
   findings:
   - F275
   evidence:
+    mentions:
+    - F275
     pytest_funcs: true
     has_assert: true
     has_main: true

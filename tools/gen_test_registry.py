@@ -14,6 +14,36 @@ Field ownership, same convention as the migration manifest:
     `expect:` — is exactly the C7.4/C7.5 work, and re-running this tool must
     never undo it.
 
+`findings:` is human-owned too — since 2026-08-19, and it was not before
+-------------------------------------------------------------------------
+Until then this tool wrote `findings:` itself, from ``FINDING_RE`` applied to
+the test's filename plus its docstring. The field said it was a record of what a
+test verifies; what it actually held was a list of F-numbers the file *mentions*.
+
+The two are not close. Measured on 2026-08-19: **67 of 317 findings** had no
+record whose filename or id named them — their whole association was a prose
+mention. **F26** is one of them. It is the finding behind CL001, the speed of
+light as a rotation rate, and it read as "covered by 32 test records", none of
+which can go red on it. In the other direction, **53 records** named an id with
+no ``findings/F*.md`` at all: falsification briefs (``FA*``/``FB*``/``FC*``),
+first-generation tags (``FG*``), and ``F219`` — a number
+``docs/design/finding-numbers.yaml`` records as deliberately vacant after a
+session collision. Nothing was wrong with the regex. It was answering a
+different question than the field name asked.
+
+So the regex answer moved to ``evidence.mentions``, where it is still useful and
+is plainly labelled as an index, and ``findings:`` became an assertion a person
+makes:
+
+    findings: [F234]        # if F234 is false, THIS RECORD GOES RED
+
+The test to apply before writing an entry is that sentence, not "is this test
+about that finding". This tool no longer writes the field on a new record, and
+no longer back-fills it on an existing one — a new record arrives with no
+``findings:`` and stays that way until someone can make the claim.
+
+See ``docs/roadmaps/finding-coverage-rollout.md`` for the drain and the ratchets.
+
 Kind assignment (first match wins), for records the tool creates fresh:
 
   1. the ledger marks the file `fully_superseded`     -> tier `archive`
@@ -189,10 +219,12 @@ def _scan_file(rel: str, tracked: set[str]) -> dict[str, Any]:
                 read_only.append(cand)
     written = sorted(by_rule)
 
-    findings = sorted(set(FINDING_RE.findall(os.path.basename(rel) + " " + doc)),
+    # F-numbers the file NAMES. An index, not a coverage claim — see the module
+    # docstring. Lands in `evidence.mentions`; `findings:` is written by hand.
+    mentions = sorted(set(FINDING_RE.findall(os.path.basename(rel) + " " + doc)),
                       key=lambda s: (len(s), s))
     return {
-        "findings": findings,
+        "mentions": mentions,
         "pytest_funcs": bool(re.search(r"^\s*(?:async )?def test_|^\s*class Test",
                                        src, re.M)),
         "has_assert": bool(re.search(r"^\s*assert\b", src, re.M)),
@@ -348,18 +380,21 @@ def build(promote: bool = False) -> dict[str, list[dict[str, Any]]]:
             else:
                 rec["kind"] = "legacy_script"
                 rec["tier"] = "battery"
-            if ev["findings"]:
-                rec["findings"] = ev["findings"]
+            # NOTE: no `findings:` is written here, and none is back-filled
+            # below. A new record arrives unjoined on purpose — see the module
+            # docstring. `tools/audit_finding_coverage.py` counts what is owed.
 
         rec.setdefault("kind", "legacy_script")
         rec.setdefault("tier", "battery")
+        # Mentions still drive the sector FALLBACK (D11 join), which is a
+        # heuristic for a file that imports no model module — a wrong sector is
+        # a filing error, where a wrong `findings:` is a false coverage claim.
         rec["sector"] = rec.get("sector") or _sector_for(
-            rel, imports, sec_of, finding_sectors, ev["findings"])
-        if ev["findings"] and not rec.get("findings"):
-            rec["findings"] = ev["findings"]
+            rel, imports, sec_of, finding_sectors, ev["mentions"])
 
         # generated evidence, always refreshed
         rec["evidence"] = {
+            "mentions": ev["mentions"],
             "pytest_funcs": ev["pytest_funcs"],
             "has_assert": ev["has_assert"],
             "has_main": ev["has_main"],
@@ -393,7 +428,14 @@ _ABOUT = (
     "generated and rewritten on every run; every other field is human-owned and "
     "preserved. Promote a record off `legacy_script` by adding `module:`/`entry:` "
     "(+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will "
-    "not undo it."
+    "not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding "
+    "is false, THIS RECORD GOES RED. It is not \"this test is about that finding\" "
+    "— the F-numbers a file merely names are generated into `evidence.mentions`, "
+    "which is an index and not a coverage claim. Falsification-brief ids "
+    "(FA*/FB*/FC*, tests/falsification/) and first-generation tags (FG*) are a "
+    "different id space and do not belong in `findings:`; they have their own "
+    "`briefs:` field. "
+    "Measure what is owed with tools/audit_finding_coverage.py."
 )
 
 

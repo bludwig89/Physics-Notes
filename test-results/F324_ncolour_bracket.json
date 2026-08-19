@@ -1,0 +1,269 @@
+{
+  "checks": [
+    {
+      "name": "G0 the mod-2 index rule (Witten 1982, QUOTED): 2j = 1 mod 4 agrees with the independent 'Dynkin index odd' form on every isospin tested, and the model's content exercises only the 2j = 1 clause",
+      "ok": true,
+      "value": {
+        "rule": {
+          "1": true,
+          "2": false,
+          "3": false,
+          "4": false,
+          "5": true
+        },
+        "T_j": {
+          "1": "1",
+          "2": "4",
+          "3": "10",
+          "4": "20",
+          "5": "35"
+        }
+      }
+    },
+    {
+      "name": "W1 the model's content is N_c quark doublets + 1 lepton doublet per generation -- the y_L = -N_c y_Q row, imported from derive_ncolour. NOT param-adaptive, so the content controls must break it",
+      "ok": true,
+      "value": {
+        "content": [
+          [
+            "Q_L",
+            3
+          ],
+          [
+            "L_L",
+            1
+          ]
+        ],
+        "y_ratios": [
+          "1",
+          "N_c + 1",
+          "1 - N_c",
+          "-N_c",
+          "-2*N_c",
+          "0",
+          "N_c"
+        ]
+      }
+    },
+    {
+      "name": "W2 the Z_2 parity: doublet count even <=> N_c ODD.  Exact over Z. PRIOR ART (Baer & Wiese 2001); what is new is the derived content it is evaluated on and the pairing in B1",
+      "ok": true,
+      "value": {
+        "allowed": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11
+        ],
+        "n_gen": 3,
+        "per_generation": false
+      }
+    },
+    {
+      "name": "W2b ... and it is not vacuous: it excludes a non-empty set, exactly the even N_c",
+      "ok": true,
+      "value": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12
+      ]
+    },
+    {
+      "name": "W3 colour's OWN Z_2 anomaly at N_c = 2 is SATISFIED (4 doublets per generation; pseudoreal conjugation is count-preserving), so N_c = 2 does not fall to a colour anomaly.  This does NOT show the constraint is colour-input-free -- premise (iv) is consumed",
+      "ok": true,
+      "value": 12
+    },
+    {
+      "name": "W3b premise (iv), measured: the bracket is a FUNCTION of the quark's colour rep -- fundamental {3}, adjoint {2}, two-index-antisym {2,3}, symmetric {2}.  The bit's sign is set by an empirically fixed content",
+      "ok": true,
+      "value": {
+        "fundamental": [
+          3
+        ],
+        "adjoint": [
+          2
+        ],
+        "two_index_antisym": [
+          2,
+          3
+        ],
+        "symmetric": [
+          2
+        ]
+      }
+    },
+    {
+      "name": "Y1 the SAME constraint arrives LOCALLY if the electroweak factor is U(2): the rule q = 2j mod 2 on the model's own y_L = -N_c reads N_c odd.  The conclusion does not wait on the global group structure",
+      "ok": true,
+      "value": [
+        1,
+        3,
+        5,
+        7
+      ]
+    },
+    {
+      "name": "W4 F293's six ANOMALY-CANCELLATION rows contain neither reading: nullspace dim 1 at every N_c, grav and cubic identically zero in N_c, while the Z_2 invariant alternates.  R1 stays closed",
+      "ok": true,
+      "value": {
+        "z2": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "U1 the C7 identity's support is {2,3} -- F298's criterion imported and scanned down to N = 1, where the tower is EMPTY",
+      "ok": true,
+      "value": {
+        "support": [
+          2,
+          3
+        ],
+        "tower_sizes": {
+          "1": 0,
+          "2": 1,
+          "3": 2,
+          "4": 3,
+          "5": 4,
+          "6": 5,
+          "7": 6,
+          "8": 7,
+          "9": 8
+        }
+      }
+    },
+    {
+      "name": "U1b ... and both edges are declared for what they are: N = 1 fails by CONVENTION (premise (ii); the other reading gives {1,2,3}) and N = 2 passes VACUOUSLY (one level).  Exactly one non-trivial pass, at N = 3",
+      "ok": true,
+      "value": {
+        "other_convention": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "U1c ... and the truncation cuts BOTH ways: under the model's own rotor rule the sextet (2,0) gives chi = 3/10 against the k-string tower's 3/4, so level-independence fails at N = 3 too outside the sector F110 deferred",
+      "ok": true,
+      "value": {
+        "chi_sextet": "3/10",
+        "chi_tower": "3/4"
+      }
+    },
+    {
+      "name": "B1 {Z_2-consistent} AND {C7 support} = {3}, over the scanned range with both edges actually scanned",
+      "ok": true,
+      "value": {
+        "allowed": [
+          3
+        ],
+        "scanned": [
+          1,
+          12
+        ]
+      }
+    },
+    {
+      "name": "B1c the argument CAN fail: at a true N_c >= 4 the bracket returns the EMPTY set, falsifying the model and taking F144's g_s with it",
+      "ok": true,
+      "value": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "name": "P1 at N_c = 3 the minimal totally antisymmetric all-quark singlet has exactly 3 constituents -- a COROLLARY of premise (iv), not a discovery.  Its content is the DIRECTION: F317 sec 6's input was never independent of N_c, so discharging it costs nothing",
+      "ok": true,
+      "value": [
+        {
+          "n_constituents": 1,
+          "dim_lambda_n": 3,
+          "singlets": 0
+        },
+        {
+          "n_constituents": 2,
+          "dim_lambda_n": 3,
+          "singlets": 0
+        },
+        {
+          "n_constituents": 3,
+          "dim_lambda_n": 1,
+          "singlets": 1
+        },
+        {
+          "n_constituents": 4,
+          "dim_lambda_n": 0,
+          "singlets": 0
+        },
+        {
+          "n_constituents": 5,
+          "dim_lambda_n": 0,
+          "singlets": 0
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 14,
+  "n_total": 14,
+  "declarations": {
+    "consumes_measured_number": false,
+    "consumes_three_constituent_baryon": false,
+    "depends_on_X1_branch": false,
+    "consumes_empirical_input": true
+  },
+  "premises": [
+    "(i) n_gen odd (F75) -- or per-generation consistency (Baer-Wiese)",
+    "(ii) the colour sector exists (F318's residual); this is what excludes N=1, restated in the ladder's vocabulary",
+    "(iii) the rotor modulus is the centre Z_{N_c} (F97/F99)",
+    "(iv) quarks in the defining rep with multiplicity N_c",
+    "(v) one colour-singlet lepton doublet per generation, right-handers SU(2) singlets (posited in derive_ncolour)",
+    "(vi) no fermion doubling, f = 1 (CL020 is `narrowed`)"
+  ],
+  "params": {
+    "n_generations": 3,
+    "include_lepton_doublet": true,
+    "vector_like_su2": false,
+    "quark_colour_rep": "fundamental",
+    "per_generation": false,
+    "n_max": 12,
+    "c7_n_max": 9,
+    "scan_from": 1,
+    "doubler_multiplicity": 1,
+    "empty_tower_passes": false,
+    "cross_check_f317": false
+  },
+  "summary": {
+    "N_c": [
+      3
+    ],
+    "lower_constraint": "Witten Z_2 (Baer & Wiese 2001) on the DERIVED SU(2)_L and content => N_c odd; the same constraint arrives locally under a U(2) embedding",
+    "upper_constraint": "F298: C7 support = {2,3}, on the k-string truncation",
+    "incremental_content_over_F298": "one bit",
+    "premises": [
+      "(i) n_gen odd (F75) -- or per-generation consistency (Baer-Wiese)",
+      "(ii) the colour sector exists (F318's residual); this is what excludes N=1, restated in the ladder's vocabulary",
+      "(iii) the rotor modulus is the centre Z_{N_c} (F97/F99)",
+      "(iv) quarks in the defining rep with multiplicity N_c",
+      "(v) one colour-singlet lepton doublet per generation, right-handers SU(2) singlets (posited in derive_ncolour)",
+      "(vi) no fermion doubling, f = 1 (CL020 is `narrowed`)"
+    ],
+    "three_constituent_baryon": "corollary, not input",
+    "X1_branch_independent": true,
+    "falsifiable": "the bracket is EMPTY at a true N_c >= 4"
+  },
+  "harness_note": "cross_check_f317 disabled in the isolated harness (importing derive_su3_structure pulls gauge.strong); P2 verified separately by extracting multiplicity_squeeze from the real module. In-tree the record runs 15/15 with cross_check_f317=true."
+}

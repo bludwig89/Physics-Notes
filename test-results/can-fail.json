@@ -1,8 +1,57 @@
 {
-  "generated": "2026-08-17 - 20:45",
+  "generated": "2026-08-19 - 13:28",
   "method": "execution trace (sys.settrace): a record can fail when an assert/raise line is actually reached",
-  "n": 18,
+  "n": 20,
   "items": [
+    {
+      "id": "F142-dielectric-noconfine",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 3,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/interactions/derive_dielectric_noconfine.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 30.46,
+      "fingerprint": "e0f172facd49cec4"
+    },
+    {
+      "id": "F26b-spin-axis-scalar-contamination",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 3,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/gauge/bilinear.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.09,
+      "fingerprint": "5304d07bff00a0bb"
+    },
+    {
+      "id": "gauge-bcc-mc-d4",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "src/casim/engine/gauge/bcc_action.py:1055",
+      "guard_lines_total": 11,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_bcc_gauge_mc_d4.py",
+        "src/casim/engine/gauge/bcc_action.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.13,
+      "fingerprint": "e2a3727011efb227"
+    },
     {
       "id": "F322-b9-running-rederived",
       "can_fail": true,
@@ -18,23 +67,6 @@
       "detail": "",
       "seconds": 16.62,
       "fingerprint": "773acdca669b2bbd"
-    },
-    {
-      "id": "gauge-bcc-mc-d4",
-      "can_fail": true,
-      "verdict": "CAN_FAIL",
-      "guards_executed": 1,
-      "guard_line_hit": "src/casim/engine/gauge/bcc_action.py:1037",
-      "guard_lines_total": 10,
-      "route": "guard",
-      "traced_files": [
-        "tests/findings/test_bcc_gauge_mc_d4.py",
-        "src/casim/engine/gauge/bcc_action.py"
-      ],
-      "status": "PASS",
-      "detail": "",
-      "seconds": 0.09,
-      "fingerprint": "6deede8f42d1f9e5"
     },
     {
       "id": "F321-strong-cp",

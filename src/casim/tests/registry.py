@@ -59,6 +59,30 @@ Field ownership
 ``evidence:`` is **generated** — ``tools/gen_test_registry.py`` rewrites it from
 the tree on every run. Everything else is **human-owned** and preserved across
 regeneration, exactly as ``dead_symbols`` is in the migration manifest.
+
+``findings:`` means one thing, and it is a claim
+------------------------------------------------
+    **If that finding is false, this record goes red.**
+
+Not "this test is about that finding". Until 2026-08-19 the generator wrote the
+field itself, from a regex over the filename and docstring, and the difference
+between the two readings was 67 findings — including **F26**, the founding
+rotation-rate finding behind CL001, which read as covered by 32 records and was
+named by none of them. The regex answer still exists, correctly labelled, in
+``evidence.mentions``; it is an index, and nothing should quote it as coverage.
+
+A finding that no record can go red on says so in its own file
+(``**Test record:** none — no-test (<reason>)``) rather than staying silent.
+``tools/audit_finding_coverage.py`` measures both directions; the drain is
+``docs/roadmaps/finding-coverage-rollout.md``.
+
+``briefs:`` is the neighbouring id space, kept out of ``findings:``
+-------------------------------------------------------------------
+Falsification briefs live in ``tests/falsification/`` as ``FA*``/``FB*``/``FC*``
+markdown, and ``FG*`` tags name first-generation work. They are real things a
+test can implement and worth recording — they are simply **not findings**, and
+40 of them sitting in ``findings:`` made the referential check unsatisfiable,
+which is how a check gets switched off. They have their own field.
 """
 from __future__ import annotations
 
@@ -168,7 +192,8 @@ class TestRecord:
     sector: str
     tier: str = "battery"
     path: str | None = None            # repo-relative test file, if it has one
-    findings: tuple[str, ...] = ()
+    findings: tuple[str, ...] = ()     # F-numbers this record CAN GO RED ON
+    briefs: tuple[str, ...] = ()       # FA*/FB*/FC*/FG* spec briefs it implements
     module: str | None = None          # dotted import path of the entry point
     entry: str | None = None           # callable inside `module` (or `path`)
     params: dict[str, Any] = field(default_factory=dict)
@@ -262,6 +287,8 @@ class TestRecord:
             out["path"] = self.path
         if self.findings:
             out["findings"] = list(self.findings)
+        if self.briefs:
+            out["briefs"] = list(self.briefs)
         if self.module:
             out["module"] = self.module
         if self.entry:
@@ -455,6 +482,7 @@ def _record_from_dict(d: dict[str, Any], source_file: str) -> TestRecord:
         tier=str(d.get("tier", "battery")),
         path=d.get("path"),
         findings=tuple(d.get("findings") or ()),
+        briefs=tuple(d.get("briefs") or ()),
         module=d.get("module"),
         entry=d.get("entry"),
         params=params,

@@ -29,6 +29,7 @@ $$\lambda(\nu)=2\int_0^{\omega_\text{max}}\alpha^2F(\omega)\frac{\omega}{\omega^
 (AF3, matches the numerical integral), and the log-moment gives the exact relation $\omega_\text{log}=\omega_\text{max}/\sqrt e$ (AF2), so the model reuses the elastic-sector $\omega_\text{log}$ to fix the whole spectrum with no extra input.
 
 **T_c is shape-insensitive (AF4) — the reframing.** Feeding this distributed spectrum to the F215 solver, at fixed $\omega_\text{log}$ the Debye and Einstein T_c agree to within a few % across all seven elements (mean 27.6% vs 27.4% error). This is the well-known Eliashberg result that $T_c\approx f(\lambda,\omega_\text{log},\mu^*)$ depends on the spectrum only through its moments, not its shape — and it **explains why F215's single Einstein mode already reproduced the data**. The consequence is that the F215 residual (~27% high) is *not* a shape artifact but a μ*/ω_log **calibration** matter (our Matsubara μ* cutoff convention vs the tabulated μ*), which a Morel-Anderson μ* from the F64 retarded dielectric would settle.
+**Test record:** record `F218-alpha2F-and-pade-gap` (tier battery) — `tests/registry/`, D9.
 
 ## Part B — the dynamic strong-coupling gap ratio (Padé)
 

@@ -5,7 +5,11 @@ about: 'Roadmap C7.1, decision D9. One declarative record per test file: what it
   diverge. AUTO-SCAFFOLDED by tools/gen_test_registry.py: the `evidence:` block is generated and rewritten
   on every run; every other field is human-owned and preserved. Promote a record off `legacy_script` by
   adding `module:`/`entry:` (+ `params:`/`expect:`) — that is the C7.4/C7.5 work, and regeneration will
-  not undo it.'
+  not undo it. `findings:` is HUMAN-OWNED and means one thing: if that finding is false, THIS RECORD GOES
+  RED. It is not "this test is about that finding" — the F-numbers a file merely names are generated into
+  `evidence.mentions`, which is an index and not a coverage claim. Falsification-brief ids (FA*/FB*/FC*,
+  tests/falsification/) and first-generation tags (FG*) are a different id space and do not belong in
+  `findings:`; put them in `notes:`. Measure what is owed with tools/audit_finding_coverage.py.'
 tests:
 - id: 02-QM1-CHSH
   path: tests/priority/test_02_QM1_CHSH.py
@@ -15,6 +19,7 @@ tests:
   - test-results/top10_T02_QM1_CHSH.json
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -34,6 +39,7 @@ tests:
   - test-results/top10_T04_GR3_pound_rebka.json
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -55,6 +61,8 @@ tests:
   - F41
   sector: particles
   evidence:
+    mentions:
+    - F41
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -74,6 +82,7 @@ tests:
   - test-results/top10_T10_QG4_charge.json
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -91,6 +100,7 @@ tests:
   tier: battery
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -124,6 +134,17 @@ tests:
   - F109
   sector: particles
   evidence:
+    mentions:
+    - F27
+    - F46
+    - F73
+    - F92
+    - F93
+    - F95
+    - F96
+    - F101
+    - F108
+    - F109
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -147,6 +168,10 @@ tests:
   - F113
   sector: particles
   evidence:
+    mentions:
+    - F71
+    - F103
+    - F113
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -172,6 +197,12 @@ tests:
   - F126
   sector: particles
   evidence:
+    mentions:
+    - F77
+    - F103
+    - F104
+    - F113
+    - F126
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -198,6 +229,13 @@ tests:
   - F128
   sector: particles
   evidence:
+    mentions:
+    - F69
+    - F77
+    - F89
+    - F113
+    - F126
+    - F128
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -224,6 +262,12 @@ tests:
   - F135
   sector: particles
   evidence:
+    mentions:
+    - F129
+    - F130
+    - F131
+    - F132
+    - F135
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -245,9 +289,14 @@ tests:
   - F70
   - F86
   - F134
-  - F135
+  - F135b
   sector: particles
   evidence:
+    mentions:
+    - F70
+    - F86
+    - F134
+    - F135
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -268,6 +317,11 @@ tests:
   - F140
   sector: particles
   evidence:
+    mentions:
+    - F122
+    - F130
+    - F132
+    - F140
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -289,6 +343,12 @@ tests:
   - F147
   sector: particles
   evidence:
+    mentions:
+    - F49
+    - F51
+    - F138
+    - F141
+    - F147
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -316,6 +376,10 @@ tests:
   - F148
   sector: particles
   evidence:
+    mentions:
+    - F122
+    - F125
+    - F148
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -339,6 +403,12 @@ tests:
   - F149
   sector: particles
   evidence:
+    mentions:
+    - F38
+    - F49
+    - F141
+    - F147
+    - F149
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -374,6 +444,20 @@ tests:
   - F150
   sector: particles
   evidence:
+    mentions:
+    - F45
+    - F49
+    - F80
+    - F92
+    - F93
+    - F95
+    - F115
+    - F118
+    - F124
+    - F144
+    - F145
+    - F147
+    - F150
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -398,6 +482,10 @@ tests:
   - F153
   sector: particles
   evidence:
+    mentions:
+    - F118
+    - F141
+    - F153
     pytest_funcs: false
     has_assert: true
     has_main: false
@@ -418,6 +506,9 @@ tests:
   - F157
   sector: particles
   evidence:
+    mentions:
+    - F148
+    - F157
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -440,13 +531,25 @@ tests:
   - F118
   - F145
   - F172
-  - F174
+  - F174b
   - F175
   - F253
   - F255
   - F256
   sector: particles
   evidence:
+    mentions:
+    - F49
+    - F93
+    - F96
+    - F118
+    - F145
+    - F172
+    - F174
+    - F175
+    - F253
+    - F255
+    - F256
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -480,6 +583,18 @@ tests:
   - F177
   sector: particles
   evidence:
+    mentions:
+    - F73
+    - F82
+    - F101
+    - F118
+    - F119
+    - F150
+    - F172
+    - F174
+    - F175
+    - F176
+    - F177
     pytest_funcs: false
     has_assert: true
     has_main: true
@@ -508,6 +623,17 @@ tests:
   - F256
   sector: particles
   evidence:
+    mentions:
+    - F92
+    - F95
+    - F115
+    - F118
+    - F145
+    - F150
+    - F179
+    - F253
+    - F255
+    - F256
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -534,6 +660,13 @@ tests:
   - F200
   sector: particles
   evidence:
+    mentions:
+    - F118
+    - F145
+    - F152
+    - F154
+    - F199
+    - F200
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -554,6 +687,9 @@ tests:
   - F217
   sector: particles
   evidence:
+    mentions:
+    - F214
+    - F217
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -573,10 +709,15 @@ tests:
   - F214
   - F217
   - F218
-  - F219
   - F220
   sector: particles
   evidence:
+    mentions:
+    - F214
+    - F217
+    - F218
+    - F219
+    - F220
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -588,6 +729,10 @@ tests:
       test-results/F220_field_native_execution.json: local
     artifacts_read_only: []
     summary: 'F220 — Field-native execution: quantum gates and a full algorithm run on the'
+  notes: 'F219 removed from findings: — a BLANK number. docs/design/finding-numbers.yaml declares it abandoned
+    after a concurrent-session collision and deliberately unused (F219''s work was renumbered to F222).
+    No finding file exists and none is coming. The test''s docstring still names it, which is why the
+    old regex-filled findings: picked it up.'
 - id: F224-qc-si-coldatom
   path: tests/findings/test_F224_qc_si_coldatom.py
   kind: assertion
@@ -597,6 +742,9 @@ tests:
   - F224
   sector: particles
   evidence:
+    mentions:
+    - F214
+    - F224
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -618,6 +766,10 @@ tests:
   - F225
   sector: particles
   evidence:
+    mentions:
+    - F217
+    - F220
+    - F225
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -646,6 +798,15 @@ tests:
   - F234
   sector: particles
   evidence:
+    mentions:
+    - F95
+    - F108
+    - F118
+    - F150
+    - F174
+    - F175
+    - F179
+    - F234
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -678,6 +839,12 @@ tests:
   - F236
   sector: particles
   evidence:
+    mentions:
+    - F47
+    - F76
+    - F93
+    - F201
+    - F236
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -703,6 +870,12 @@ tests:
   - F240
   sector: particles
   evidence:
+    mentions:
+    - F104
+    - F113
+    - F126
+    - F128
+    - F240
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -726,6 +899,10 @@ tests:
   - F254
   sector: particles
   evidence:
+    mentions:
+    - F92
+    - F236
+    - F254
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -748,6 +925,11 @@ tests:
   - F255
   sector: particles
   evidence:
+    mentions:
+    - F118
+    - F234
+    - F253
+    - F255
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -768,6 +950,11 @@ tests:
   - F256
   sector: particles
   evidence:
+    mentions:
+    - F95
+    - F118
+    - F150
+    - F256
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -789,6 +976,12 @@ tests:
   - F262
   sector: particles
   evidence:
+    mentions:
+    - F125
+    - F252
+    - F257
+    - F260
+    - F262
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -811,6 +1004,11 @@ tests:
   - F46
   sector: particles
   evidence:
+    mentions:
+    - F25
+    - F26
+    - F27
+    - F46
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -834,6 +1032,10 @@ tests:
   - F64
   sector: particles
   evidence:
+    mentions:
+    - F46
+    - F50
+    - F64
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -860,6 +1062,11 @@ tests:
   - F68
   sector: particles
   evidence:
+    mentions:
+    - F39
+    - F66
+    - F67
+    - F68
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -889,6 +1096,16 @@ tests:
   - F92
   sector: particles
   evidence:
+    mentions:
+    - F27
+    - F46
+    - F69
+    - F73
+    - F78
+    - F80
+    - F81
+    - F84
+    - F92
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -904,10 +1121,12 @@ tests:
   path: tests/findings/test_FA06_np_splitting.py
   kind: assertion
   tier: battery
-  findings:
+  briefs:
   - FA06
   sector: particles
   evidence:
+    mentions:
+    - FA06
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -930,9 +1149,16 @@ tests:
   - F120
   - F121
   - F125
+  briefs:
   - FB04
   sector: particles
   evidence:
+    mentions:
+    - F74
+    - F120
+    - F121
+    - F125
+    - FB04
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -952,11 +1178,17 @@ tests:
   - test-results/FB06_positronium.json
   findings:
   - F125
+  briefs:
   - FB04
   - FB05
   - FB06
   sector: particles
   evidence:
+    mentions:
+    - F125
+    - FB04
+    - FB05
+    - FB06
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -981,10 +1213,20 @@ tests:
   - F113
   - F126
   - F128
+  briefs:
   - FB07
   - FB08
   sector: particles
   evidence:
+    mentions:
+    - F77
+    - F103
+    - F104
+    - F113
+    - F126
+    - F128
+    - FB07
+    - FB08
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1005,10 +1247,16 @@ tests:
   findings:
   - F104
   - F113
+  briefs:
   - FB07
   - FB08
   sector: particles
   evidence:
+    mentions:
+    - F104
+    - F113
+    - FB07
+    - FB08
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1028,10 +1276,15 @@ tests:
   - test-results/FB10_lamb_shift_boundary.json
   findings:
   - F125
+  briefs:
   - FB05
   - FB10
   sector: particles
   evidence:
+    mentions:
+    - F125
+    - FB05
+    - FB10
     pytest_funcs: false
     has_assert: true
     has_main: false
@@ -1056,11 +1309,22 @@ tests:
   - F112
   - F118
   - F119
+  briefs:
   - FA05
   - FB01
   - FB11
   sector: particles
   evidence:
+    mentions:
+    - F93
+    - F96
+    - F101
+    - F112
+    - F118
+    - F119
+    - FA05
+    - FB01
+    - FB11
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1089,11 +1353,22 @@ tests:
   - F112
   - F118
   - F119
+  briefs:
   - FA05
   - FB01
   - FB11
   sector: particles
   evidence:
+    mentions:
+    - F78
+    - F93
+    - F101
+    - F112
+    - F118
+    - F119
+    - FA05
+    - FB01
+    - FB11
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1117,6 +1392,10 @@ tests:
   - F97
   sector: particles
   evidence:
+    mentions:
+    - F71
+    - F74
+    - F97
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1139,6 +1418,9 @@ tests:
   - F77
   sector: particles
   evidence:
+    mentions:
+    - F74
+    - F77
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1161,6 +1443,9 @@ tests:
   - F77
   sector: particles
   evidence:
+    mentions:
+    - F74
+    - F77
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1185,6 +1470,11 @@ tests:
   - F121
   sector: particles
   evidence:
+    mentions:
+    - F69
+    - F74
+    - F120
+    - F121
     pytest_funcs: false
     has_assert: false
     has_main: false
@@ -1202,6 +1492,7 @@ tests:
   tier: battery
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1222,6 +1513,8 @@ tests:
   - F27
   sector: particles
   evidence:
+    mentions:
+    - F27
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1242,6 +1535,8 @@ tests:
   - F1
   sector: particles
   evidence:
+    mentions:
+    - F1
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1261,6 +1556,7 @@ tests:
   tier: battery
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: true
     has_assert: false
     has_main: true
@@ -1280,6 +1576,7 @@ tests:
   tier: battery
   sector: particles
   evidence:
+    mentions: []
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1300,9 +1597,13 @@ tests:
   - test-results/FC05_qm_battery.json
   findings:
   - F41
+  briefs:
   - FC05
   sector: particles
   evidence:
+    mentions:
+    - F41
+    - FC05
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1325,10 +1626,18 @@ tests:
   - F24
   - F53
   - F54
+  briefs:
   - FA01
   - FC06
   sector: particles
   evidence:
+    mentions:
+    - F22
+    - F24
+    - F53
+    - F54
+    - FA01
+    - FC06
     pytest_funcs: false
     has_assert: false
     has_main: true
@@ -1353,6 +1662,11 @@ tests:
   - F4
   sector: particles
   evidence:
+    mentions:
+    - F1
+    - F2
+    - F3
+    - F4
     pytest_funcs: true
     has_assert: true
     has_main: true
@@ -1375,6 +1689,11 @@ tests:
   - F4
   sector: particles
   evidence:
+    mentions:
+    - F1
+    - F2
+    - F3
+    - F4
     pytest_funcs: true
     has_assert: true
     has_main: true

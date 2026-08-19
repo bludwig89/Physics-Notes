@@ -1,5 +1,15 @@
 # F94 — Confinement from 3+1D lattice-gauge Monte-Carlo (P1 Option A), tested against Option C (F86)
 
+> **[PARTIALLY SUPERSEDED 2026-08-17 by F323, F265 — ledger S21-F94-hypercubic-action-not-the-model-lattice]**
+>
+> **DEAD:** The ensemble as a measurement on the model's lattice. F94's D=4 simple-hypercubic Wilson action is F265-blind: it has an exact kernel that frees one of the four <111> link axes and misses asymptotically 1/3 of the curvature-carrying link content, so any sigma or V(R) read off it is a number about the wrong lattice. The absolute-normalisation (FA4) and strong-coupling (FA5) anchors do not rescue it -- both actions share a classical continuum limit, which is why those checks could pass on a blind action. Also dead: the implicit isotropic beta_t = beta_s, which F323 derives to be beta_t/beta_s = 4 on the model's geometry.
+>
+> **STILL LIVE:** FA1, FA2 and FA3 (engine certificates, properties of the sampler not the lattice); CMP2, the sigma_A -> v* bridge, exact at 1e-16 and re-affirmed by F311 at 1.2e-16; CMP3's shared large-R slope with the Coulomb difference; the Luscher-Weisz two-level estimator and its 84x variance reduction; and the qualitative statement that the 3+1D potential rises, which F323's BCC run also finds.
+>
+> **NOTE:** The replacement is `gauge-bcc-mc-d4` (gate, 28/28, 5/5 controls CONTROL) and `run-bcc-confinement-d4` (battery). F94's own heading is NOT rewritten -- per D12 a finding records what a session concluded. Three consequences tracked elsewhere rather than here: CL087 rests on F94 ALONE and is narrowed in the same edit as this record; F299's `mc_reach` names forks/gauge/lgt_fork_A_mc.py as the successor engine and that pointer is now stale, with F323 executing the successor on the BCC ensemble instead; and rubric row B7's evidence list should gain F323 beside F94 on the next completeness sweep.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-06-04 - 14:33
 **Status:** Confirmed — engine 6/6 PASS (correctness), comparison 4/4 PASS; FA2/FA3 machine-ε, FA1 machine-ε, FA4/FA5 statistical, multilevel 84× variance reduction. Production σ is user-run.
 **Modules:** `ca-simulation/forks/lgt_fork_A_mc.py` (new)
