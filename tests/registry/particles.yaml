@@ -991,6 +991,527 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'test_F262_positronium_hyperfine.py — F262: bound-state QED (two-body + hyperfine).'
+- id: F328-discrete-cpt-theorem
+  sector: particles
+  kind: assertion
+  tier: gate
+  module: casim.engine.particles.discrete_cpt
+  entry: check_discrete_cpt_theorem
+  params:
+    seed: 2026
+    n_trials: 500
+  expect:
+    exactness: exact
+    tol: 1.0e-10
+  findings:
+  - F328
+  - F53
+  - F301
+  - F327
+  - F26
+  results:
+  - test-results/F328_discrete_cpt_theorem.json
+  control:
+  - params:
+      use_naive_theta: true
+    reds:
+    - B1-theta-D-theta-inv-eq-Dinv
+    - B2-edge-cases
+    - C1-theta-squared-minus-one
+    - E1-realspace-cpt-roundtrip
+    reason: swap THETA's internal matrix M for plain Sigma (block swap only, no sigma_y twist, still composed
+      with K) -- the naive parity-like reflection ca-reference.md's own Time-reversibility section effectively
+      tests. Reddens exactly B1 (the operator identity fails, since block-swap alone does not conjugate
+      A^+ into A^-), B2 (same failure at the edge-case momenta/masses), C1 (Sigma^2=+1, not the Kramers
+      -1 the real THETA has), and E1 (the real-space many-step round trip misses by O(0.09), not floating
+      noise). Every OTHER leg -- A1/A2 (lattice-embedding identities, independent of which THETA is tested),
+      B3 (unitarity of D(k) itself), C2 (M is still unitary even without the twist), D1-D3 (the parity
+      no-go, which is about D(k) alone), and E2 (plain invertibility, which every unitary CA has for free)
+      -- stays green, which is what proves B1/B2/C1/E1 are testing the sigma_y twist specifically and
+      not a bookkeeping tautology. VERIFIED RED 2026-08-26.
+  summary: 'F328 (rubric row A4, ledger row A4r). Twelve legs in five blocks. A: the two lattice-embedding
+    identities behind D(k) itself -- A1 conjugation at fixed k, A2 conjugation-equals-branch-swap-plus-momentum-flip
+    -- both exact 0.0 over 500 random momenta, independent of which THETA is under test. B: the core operator
+    theorem THETA D(k) THETA^-1 = D(k)^-1 for THETA = Sigma . (sigma_y (+) sigma_y) . K, exact 0.0 over
+    500 random (k, m) samples (B1) and at five edge cases including k=0, an axis-aligned k, and |m| in
+    {0, 1} with no small-k expansion anywhere (B2); D(k) itself is exactly unitary to floating precision
+    (B3). C: THETA^2 = -1 exactly, the Kramers antiunitary-involution signature, not +1 (C1); the internal
+    matrix M is exactly unitary (C2). D: the companion no-go -- no fixed unitary parity can exist at any
+    finite generic k, since omega(k) != omega(-k) there (D1, nonzero over 500 samples, a re-derivation
+    of F301''s chirality-odd defect as a spectral fact), vanishing identically on the cubic axes as F301
+    requires (D2), and a naive parity-only operator (block swap, no twist, no K) misses D(-k) by O(1)
+    -- not a small defect (D3). E: a real-space, many-step (N=12), nonlinear FFT round trip under the
+    real THETA returns to the reflected/conjugated/branch-swapped start to 8.5e-16 (E1), contrasted with
+    the trivial fact that plain forward-then-dagger application returns to the start for any unitary CA,
+    which is not a test of any antiunitary symmetry (E2). Explicitly does NOT reuse F321''s theta_QCD
+    reality result (a different theorem about a different object, rubric row B11) and does NOT claim the
+    gauge-coupled sector, which is named open (ledger row A4r).'
+- id: F341-majorana-forced-by-hypercharge-closure
+  path: tests/findings/test_F341_majorana_forced_by_hypercharge_closure.py
+  kind: assertion
+  tier: battery
+  sector: particles
+  findings:
+  - F341
+  - F47
+  - F165
+  - F202
+  - F266
+  - F279
+  module: tests.findings.test_F341_majorana_forced_by_hypercharge_closure
+  entry: check_majorana_forced_by_hypercharge_closure
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  notes: 'Rubric C4 residual (Dirac vs Majorana nu, PARTIAL for 5+ reports). Battery tier -- a structural/consistency
+    argument, not a new physics mechanism, matching F339''s characterization-record precedent. Two legs,
+    both re-derived independently in this file rather than cited: S1 confirms by direct inspection of
+    casim.constants / casim.engine.gauge.hypercharge that no lepton-number / B-L / matter-parity generator
+    is registered anywhere the model would have to declare one if it existed -- the only charge nu_R carries
+    is Y=0, which permits rather than forbids the Majorana bilinear. S2 independently re-derives F279
+    A1/A2''s hypercharge linear algebra and sharpens it: with the F47 Majorana row (2*y_nu=0) dropped,
+    y_phi is a genuinely FREE symbol in the general solution (appears in the nullspace basis), so a Dirac-only
+    nu_R does not merely differ by one assumption -- it reopens the model''s own gate-tier-certified F165/F279
+    hypercharge closure (rank 6 -> rank 5, dim 1 -> dim 2), leaving the derived quark-charge fractions
+    2/3, -1/3 undetermined. The control check confirms other yphi/yQ ratios solve the Dirac-only system
+    equally well while giving the wrong charges -- the certified line is not singled out without the Majorana
+    row. Conclusion is a structural forcing ARGUMENT (no protecting symmetry + consistency with an established
+    result), not a gauge-invariance no-go: a Dirac-only completion remains logically constructible if
+    one is willing to add an unmotivated protecting symmetry found nowhere else in the model AND accept
+    that F165/F279 no longer closes. See findings/F341-*.md.'
+  evidence:
+    mentions:
+    - F47
+    - F165
+    - F202
+    - F266
+    - F279
+    - F341
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 206
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F341 -- Does anything in the model force Majorana over Dirac for nu_R? (rubric C4)
+- id: F342-generation-identification-gap
+  path: tests/findings/test_F342_generation_identification_gap.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.particles.derive_generation_identification_gap
+  entry: check_generation_identification_gap
+  params:
+    charge_locality: site_diagonal
+    symmetry_group: full_Oh
+    charge_value: 7/3
+    block_charges:
+    - '1'
+    - '2'
+    - '3'
+    - '5'
+  expect:
+    exactness: exact
+  findings:
+  - F342
+  - F75
+  - F292
+  - F324
+  - F27
+  - F38
+  results:
+  - test-results/F342_generation_identification_gap.json
+  control:
+  - params:
+      symmetry_group: C4z_only
+    reds:
+    - H1_diagonal_forced_constant
+    reason: Replace the full O_h vacuum symmetry with the non-transitive C4z-only subgroup (two 4-vertex
+      orbits instead of one 8-vertex orbit). A diagonal (site-local) invariant charge operator is no longer
+      forced constant -- it can differ between the two orbits -- so H1 goes red. This is what "the shell
+      is a single O_h orbit" is doing; without it, condition (i) would not even be trivially satisfied,
+      let alone selectively so.
+  - params:
+      charge_locality: block
+    reds:
+    - H3_condition_i_no_selecting_power
+    reason: Replace the model's actual charge structure (a scalar diagonal in the site basis, matching
+      charge_coupling.py / minimal_coupling.py, which carry no site or irrep index anywhere) with a hypothetical
+      irrep-block-dependent charge (distinct rational eigenvalues on A1g, A2u, T1u, T2g). Under this charge
+      T_1u and T_2g DO carry different charges, so H3 goes red. This is the sharpest statement of what
+      F75 Sec.7's identification is missing -- a physical mechanism giving a non-diagonal (orbital-shape-dependent),
+      not merely site-scalar, gauge coupling -- which nothing in the adopted engine currently supplies.
+  evidence:
+    mentions:
+    - F75
+    - F292
+    - F342
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 68
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F342 -- rubric row C1 (exactly three generations): does F75''s own defining'
+- id: F343-majorana-scale-no-link-found
+  path: tests/findings/test_F343_majorana_scale_no_link_found.py
+  kind: assertion
+  tier: battery
+  sector: particles
+  findings:
+  - F343
+  - F47
+  - F79
+  - F107
+  - F201
+  - F236
+  - F253
+  - F282
+  - F341
+  module: casim.engine.particles.derive_M_R_scale_link
+  entry: check_M_R_scale_link_null_result
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F343_majorana_scale_no_link_found.json
+  notes: 'Ledger D4 (rubric C5): does the F183/F107 lattice cutoff or the E_g/Z3 condensate offer a scale
+    link for the absolute Majorana mass M_R? Battery tier -- a three-legged mechanical null result on
+    an open ledger row, not a new physics mechanism (same tier class as F341''s characterization record
+    immediately above). Six named legs, each independently checked: C1 the F183/F107 cutoff hierarchy
+    is genuinely large (~19 decades at F201''s own M_R0 benchmark, not a rounding-level gap); C2 an exhaustive
+    scan of small integer powers of every already-registered lattice-fixed dimensionless ratio finds no
+    near-exact match to the required suppression (closest: (1/(72*pi))^8, 0.13 dex / factor 1.35 away
+    -- reported and explicitly flagged as an unclaimed numerical coincidence in the project''s own sense,
+    cf. F332''s reciprocal_cube_coincidence, not claimed as a structural link, since a comparable near-hit
+    among 72 scanned combinations is not statistically surprising and the exponent is unmotivated); C3
+    F79''s G = a^2 c^3/(8*pi*sqrt3*hbar) is confirmed NOT a scale-generation precedent (its prefactor
+    is O(1e-2), not the ~1e-19 suppression M_R/Lambda would need -- G is the same scale a re-expressed,
+    not a second hierarchically-separated scale); C4 the Z3/E_g texture (casim.engine.particles.majorana.z3_sqrt_texture,
+    F201) provably factors the overall prefactor M_R0 out of its defining relation identically (sympy-exact,
+    d(bracket)/d(M_R0) = 0 for every generation and every delta), generalizing F253''s POSIT-N no-go (which
+    proved the same machinery supplies a dimensionless weight/angle but not an absolute scale) one further
+    dimensional category from a radian to a mass; C5 independently confirms C4 numerically (rescaling
+    M_R0 by up to 6 decades leaves every ratio, every angle, and the F201 cancellation-node location unchanged
+    to better than 1e-10); C6 nu_R''s total gauge-singlet status (F47 Y=0 forced, reaffirmed F341) forecloses
+    the model''s only dynamical scale-generation mechanism -- mechanically confirmed by source inspection
+    that casim.engine.particles.majorana imports nothing beyond numpy (zero coupling to any gauge/running/confinement
+    module). What this does NOT claim: that M_R is provably unfixable in any future extension (a new gauge
+    coupling for nu_R would void leg C6, named explicitly in F343 as the escape hatch), or that the C2
+    near-coincidence has physical meaning. See findings/F343-majorana-scale-no-link-found.md for the full
+    writeup.'
+  evidence:
+    mentions:
+    - F47
+    - F79
+    - F107
+    - F165
+    - F183
+    - F201
+    - F236
+    - F253
+    - F254
+    - F279
+    - F282
+    - F332
+    - F341
+    - F343
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 170
+    n_test_funcs: 8
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F343 -- Does anything in the model fix the absolute Majorana scale M_R? (ledger D4, rubric
+      C5)
+- id: F346-quark-shape-probe
+  path: tests/findings/test_F346_quark_shape_probe.py
+  kind: assertion
+  tier: battery
+  sector: particles
+  findings:
+  - F346
+  - F80
+  - F92
+  - F121
+  - F123
+  - F175
+  module: casim.engine.particles.derive_quark_shape_probe
+  entry: check_quark_shape_probe_leaning_null_result
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0
+  results:
+  - test-results/F346_quark_shape_probe.json
+  notes: 'Ledger E6 (docs/status/open-derivations.md) first attack: does the charged-lepton E_g/T_1u "weight-as-phase"
+    SHAPE mechanism (F175 delta*=2/9, F92 eta^2=1/2, F80''s EM/colour selection rule) have any quark-sector
+    face? Inverts the same 3-parameter circulant ansatz on the PDG 2024 up-type (u,c,t) and down-type
+    (d,s,b) current-quark mass triplets. C1 cross-checks the recomputed Koide Q against F80-D4''s already-recorded
+    values (0.849, 0.731); C2 finds up-type incompatible (>50-sigma, measurement precision) with every
+    single-irrep O_h weight in the same T_1u x T_1u decomposition that supplies the lepton''s 2/9; C3
+    finds down-type NOT excluded (<3-sigma) from the A_1g weight 1/9 by current data -- a genuinely weaker
+    statement than "confirmed"; C4 is a SEPARATE, correctly-scaled range-based look-elsewhere estimate
+    (revised after this record''s own review, docs/reviews/F346-review-2026-09-02.md, caught a first draft
+    using the wrong -- measurement-precision -- scale for this question, which would have called an increasingly
+    PRECISE future exact match "not significant"): under a uniform-domain null the down-type proximity
+    is a real but modest coincidence (roughly 0.1-5%, not the ~62%-by-chance the retracted first draft
+    claimed) -- flagged, not adopted, for reasons independent of this number (no theoretical motivation
+    for A_1g in the down-type sector, and no matching behaviour in up-type), parallel to F343''s own "closest
+    hit...not claimed" treatment; C5 confirms neither quark sector''s fitted eta^2 approaches the lepton''s
+    derived eta^2=2 (F92); C6 is a lepton-sector self-check confirming the identical fitting code recovers
+    F175''s own delta*=2/9 (<0.01%) and F92''s eta=sqrt(2) (<1e-3) from the PDG lepton masses, so the
+    quark-sector null result is not a fitting artefact. Leaning no-go for E6''s smallest-version question,
+    not a full closure: a different (non-transplanted) quark-sector mechanism is not ruled out. See findings/F346-*.md
+    for the full writeup and docs/reviews/F346-review-2026-09-02.md for the review that corrected C3/C4.'
+  evidence:
+    mentions:
+    - F75
+    - F80
+    - F92
+    - F121
+    - F123
+    - F175
+    - F346
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 218
+    n_test_funcs: 10
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F346 -- does the charged-lepton E_g/T_1u SHAPE mechanism have a quark-sector face?
+- id: F347-quark-mixed-koide-probe
+  path: tests/findings/test_F347_quark_mixed_koide_probe.py
+  kind: assertion
+  tier: battery
+  sector: particles
+  findings:
+  - F347
+  - F346
+  - F80
+  - F92
+  - F121
+  - F123
+  - F175
+  module: casim.engine.particles.derive_quark_mixed_koide_probe
+  entry: check_quark_mixed_koide_probe_result
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0
+  results:
+  - test-results/F347_quark_mixed_koide_probe.json
+  notes: 'Direct follow-up to F346''s review (Attack 11, docs/reviews/F346-review-2026-09-02.md): do the
+    LITERATURE-favoured mixed-generation-type Koide quark tuples -- (u,d,s), Harari-Haut-Weyers 1978,
+    Phys. Lett. B 78, 459; (c,b,t), Rodejohann-Zhang arXiv:1101.5525 -- carry F175/F92''s charged-lepton
+    E_g/T_1u shape mechanism, checked against CURRENT PDG 2024 masses rather than the historical/assumed
+    values those papers used? C1: (u,d,s)''s Koide Q is NOT close to 2/3 today (>10% off) -- the 1978
+    near-hit relied on a since-superseded massless-up-quark assumption; (c,b,t)''s Q IS close to 2/3 (<1%),
+    a real, still-valid coincidence; the algebraic identity Q=1/3+eta^2/6 (delta-independent) is checked
+    exactly for both, showing Q alone says nothing about the phase F175''s stronger claim also needs.
+    C2/C3: (c,b,t)''s fitted phase delta is a clean, decisive (>50-sigma, measurement precision) miss
+    from every single-irrep O_h weight, AND that miss is not numerically unusual in absolute terms either
+    (range-based look-elsewhere p>5%, built in from the start this time, never conflated with measurement
+    precision the way F346''s first draft was). C4: (c,b,t)''s eta^2 sits within ~0.8% of the lepton''s
+    derived eta^2=2 (F92) in relative terms, but is a many-sigma EXCLUDED value at measurement precision
+    -- "looks close" and "is close" kept explicitly separate. C5: (u,d,s) fails both axes independently
+    of its Q mismatch. C6: lepton-sector self-check confirms the identical fitting code recovers F175''s
+    2/9 and F92''s sqrt(2). Rivero''s signed (s,c,b) tuple (arXiv:1111.7232) uses a DIFFERENT ansatz (a
+    sign flip on sqrt(m_s)) this pipeline does not fit and is explicitly out of scope. Sharper leaning
+    no-go than F346''s, not a full closure of E6. See findings/F347-*.md for the full writeup.'
+  evidence:
+    mentions:
+    - F92
+    - F175
+    - F346
+    - F347
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 169
+    n_test_funcs: 12
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F347 -- do the LITERATURE-FAVOURED mixed-generation-type Koide quark tuples carry
+- id: F348-lepton-shape-precision-floor
+  path: tests/findings/test_F348_lepton_shape_precision_floor.py
+  kind: assertion
+  tier: battery
+  sector: particles
+  findings:
+  - F348
+  - F175
+  - F92
+  - F174b
+  - F76
+  - F256
+  module: casim.engine.particles.derive_lepton_shape_precision_floor
+  entry: check_lepton_shape_residual_is_precision_floor_limited
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0
+  results:
+  - test-results/F348_lepton_shape_precision_floor.json
+  notes: 'Ledger row E1 (docs/status/open-derivations.md; CLAUDE.md decision #7): is the 0.007% m_tau/m_e
+    shape residual from the exact {delta*=2/9 (F175), eta^2=1/2 (F92)} prediction (F175 D4) closeable
+    by a computed next-order correction, or already measurement-floor-limited? D1: the tau residual (+0.125
+    MeV) is a single ~1.04-sigma effect against the current PDG m_tau uncertainty (+-0.12 MeV) -- statistically
+    indistinguishable from measurement noise. D2: a numeric Jacobian of (m_mu/m_e, m_tau/m_e) with respect
+    to (delta, eta2) shows the SAME small offset F174 S4 already flagged (the free-fit values sitting
+    ~1 sigma from {2/9, 1/2}) reconstructs BOTH the 0.001% muon and 0.007% tau residuals simultaneously
+    to <1% relative error -- one joint offset, not two independent unexplained corrections. D3: computes
+    the named, falsifiable re-attack threshold -- the PDG m_tau uncertainty would need to tighten by ~2.9x
+    (to 3-sigma) or ~4.8x (to 5-sigma) before this residual becomes a live discrepancy. Reuses, does not
+    relitigate, F256''s route-(I) dynamical no-go (cos(3 delta*)=-B/(2C) cannot be exact -- independent
+    sea-B/induced-C origins): that no-go already rules out the model''s only candidate mechanism for computing
+    an independent correction here, so this record''s verdict is a measurement-floor statement with a
+    computed threshold, not a fabricated correction. Ledger row E1 stays honestly QUANT x2. See findings/F348-*.md
+    for the full writeup.'
+  evidence:
+    mentions:
+    - F92
+    - F174
+    - F175
+    - F256
+    - F348
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 105
+    n_test_funcs: 8
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F348 -- is the E1 charged-lepton shape residual (ledger row E1,
+- id: F352-higgs-bhl-compositeness
+  path: tests/findings/test_F352_higgs_bhl_compositeness.py
+  kind: assertion
+  tier: battery
+  sector: particles
+  findings:
+  - F352
+  - F73
+  - F74
+  - F77
+  - F107
+  module: casim.engine.particles.derive_higgs_bhl_compositeness
+  entry: check_bhl_compositeness_prediction
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0
+  results:
+  - test-results/F352_higgs_bhl_compositeness.json
+  notes: 'Ledger E8/parameter #18 (m_H=125.25 GeV). RG-improves the F73/F77 Cooper-pair compositeness
+    condition (m_H(Lambda)=2 m_t(Lambda), y_t(Lambda)->large) down from the model''s own F79/F107 lattice
+    cutoff Lambda=E_Planck/(a/ell_P)=1.850e18 GeV via the standard 1-loop SM RGEs (Bardeen-Hill-Lindner
+    top-condensation method). Result is a quantified NEGATIVE: predicts m_t=226.56 GeV (+31.3%), m_H=248.76
+    GeV (+98.6%, essentially double) -- reproduces the historical minimal-BHL exclusion verdict at a cutoff
+    the model does not get to choose. The 7 checks assert: Y0-boundary convergence (<0.1%, the compositeness-ray
+    criterion), that RG running moves the ratio m_H/m_t below F77''s flat ceiling of 2.0, that the ratio
+    still exceeds the measured 0.726, and that both masses overshoot measured by >10% (i.e. the negative
+    result is confirmed, not accidentally reproducing 125.25 GeV).'
+  evidence:
+    mentions:
+    - F73
+    - F74
+    - F77
+    - F79
+    - F107
+    - F352
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 106
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F352 -- ledger E8 / parameter #18 (m_H = 125.25 GeV): does RG-improving the'
+- id: F353-delta-cp-t2g-inheritance
+  path: tests/findings/test_F353_delta_cp_t2g_inheritance.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F353_delta_cp_t2g_inheritance.json
+  findings:
+  - F92
+  - F236
+  - F254
+  - F353
+  sector: particles
+  notes: 'open-derivations D4 / parameter #26 (nu Dirac CP phase). Confirms F254''s D_2h inequivalent-irrep
+    / equipartition-inapplicability no-go transfers verbatim to a complex T_2g and hence to delta_CP (Jarlskog
+    invariant): T1 formal (group action is real-sign-only, machine precision), T2-T4 numerical (F254''s
+    real fit gives J=0 exactly, but independent phases populate a continuous unprotected range; phase-democracy
+    equally unprotected). T5/T6 are bonus repo-hygiene fixes to majorana.takagi_light_masses (branch-selection
+    tolerance, Takagi phase correction) found while building this check; F236/F254 untouched (both real-only).
+    Ledger #26: ABSENT -> EXCLUDED.'
+  evidence:
+    mentions:
+    - F92
+    - F236
+    - F254
+    - F353
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 165
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F353_delta_cp_t2g_inheritance.py
+- id: F373-quark-size-from-confinement-radius
+  path: tests/findings/test_F373_quark_size_from_confinement_radius.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F373_quark_size_from_confinement_radius.json
+  findings:
+  - F104
+  - F113
+  - F122
+  - F126
+  - F128
+  - F146
+  - F240
+  - F373
+  sector: particles
+  evidence:
+    mentions:
+    - F104
+    - F113
+    - F122
+    - F123
+    - F126
+    - F128
+    - F146
+    - F240
+    - F265
+    - F372
+    - F373
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 401
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F373_quark_size_from_confinement_radius.py
 - id: F46-pythagorean-mass
   path: tests/findings/test_F46_pythagorean_mass.py
   kind: result_dump
@@ -1390,6 +1911,7 @@ tests:
   - F71
   - F74
   - F97
+  - F122
   sector: particles
   evidence:
     mentions:
@@ -1416,6 +1938,7 @@ tests:
   findings:
   - F74
   - F77
+  - F103
   sector: particles
   evidence:
     mentions:
@@ -1441,6 +1964,7 @@ tests:
   findings:
   - F74
   - F77
+  - F104
   sector: particles
   evidence:
     mentions:
@@ -1468,6 +1992,7 @@ tests:
   - F74
   - F120
   - F121
+  - F125
   sector: particles
   evidence:
     mentions:

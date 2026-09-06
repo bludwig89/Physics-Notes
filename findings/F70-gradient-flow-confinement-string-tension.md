@@ -5,6 +5,7 @@
 **Modules:** `ca-simulation/ca_cooling.py` (new), `ca-simulation/ca_confinement.py` (new)
 **Tests:** `tests/findings/test_FG7b_gradient_flow.py`, `tests/findings/test_FG7c_confinement.py`, `tests/runners/run_confinement_mc.py` (heavy MC, user-run)
 **Results:** `test-results/FG7b_gradient_flow.json`, `test-results/FG7c_confinement.json`
+**Test record:** record `FG7b-gradient-flow` (tier battery) and record `FG7c-confinement` (tier battery) — the two scripts above, each with a committed baseline. The heavy MC (`run-confinement-mc`) is the user-run production leg and is deliberately not the home record. Declared 2026-08-19.
 **Cross-refs:** F43 (FG-7 dynamical gluons + Wilson-loop primitives), `docs/design/ca-strong-design.md`
 
 ---

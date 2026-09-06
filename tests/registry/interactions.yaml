@@ -208,6 +208,12 @@ tests:
     next_num: 11
     next_denom: 90
     tol: 0.0001
+  control:
+  - params:
+      lead_denom: 7
+    reason: 'W4 is the records designated failure mode per the module docstring: beta_LV(m) = -m^2/6 -
+      11 m^4/90 + O(m^6) is a fixed closed-form result. lead_denom=7 was already verified by hand on 2026-08-03
+      (see the note below) to drop check_all to 5 of 6 passing checks, flipping the records overall assert.'
   expect:
     exactness: exact
     tol: 1.0e-12
@@ -558,10 +564,11 @@ tests:
     - F174
     - F181
     - F184
+    - F356
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 90
+    lines: 99
     n_test_funcs: 0
     artifacts_written:
     - test-results/F184_tabulated_ns.json
@@ -757,6 +764,8 @@ tests:
       test-results/F194_emergent_gravity_bullet.json: local
     artifacts_read_only: []
     summary: test_F194_emergent_gravity_bullet.py
+    ledger_status: live
+    ledger_record: S23-F194-bullet-cluster-clump-shape-claim
 - id: F200-alcubierre-structural
   path: tests/findings/test_F200_alcubierre_structural.py
   kind: result_dump
@@ -766,8 +775,13 @@ tests:
   findings:
   - F181
   - F193
-  - F200
+  - F204
   sector: interactions
+  notes: 'The finding this record can go red on is F204, not F200. F204''s own header says so: "*(filename
+    retains the working `F200` tag; the finding is F204.)*" — the structural-exclusion computation G1/G2/PA1/PA3/PC1
+    is F204''s, and today F200 is the E_g sextic-coupling computation this test says nothing about. Corrected
+    2026-08-19, finding-coverage rollout section 4 bucket 2 (this also takes F204 out of the debt_only
+    bucket: its only other record, run-warp-openitems-explore, is a legacy_script with no failure mode).'
   evidence:
     mentions:
     - F181
@@ -1077,6 +1091,15 @@ tests:
     k: 0.001
     v: 1.0e-06
     tol: 1.0e-14
+  control:
+  - params:
+      tol: 0
+    reds:
+    - identity_holds
+    reason: rho_num (a sympy limit, evaluated numerically) and rho_from_f15 (the hand-written derive_beta_LV.beta_LV
+      float formula) are two genuinely separate computational routes to the same closed form, so their
+      difference is floating-point noise, not literal zero. tol=0 removes all headroom for that noise,
+      so numeric_identity -- and with it identity_holds -- must go red.
   expect:
     exactness: exact
     tol: 0
@@ -1327,6 +1350,13 @@ tests:
   sector: interactions
   module: casim.engine.interactions.derive_curl_subleading
   entry: check_closed_forms
+  control:
+  - params:
+      alpha_on_axis_override: -0.01
+    reason: 'alpha_on_axis_override is a new debug-only param (added 2026-09-06, default None -- identical
+      to prior behaviour), mirroring the rho_override pattern already used by F22. A2 is an exact (tolerance-0)
+      rational compare against -1/96, so any wrong on-axis value must fail it. Measured 2026-09-06: AssertionError
+      on A2 alone.'
   expect:
     exactness: machine
     tol: 1.0e-11
@@ -1352,6 +1382,13 @@ tests:
   sector: interactions
   module: casim.engine.interactions.derive_f26_dispersion
   entry: check_closed_forms
+  control:
+  - params:
+      c3_111_override: -0.01
+    reason: 'c3_111_override is a new debug-only param (added 2026-09-06, default None -- identical to
+      prior behaviour), mirroring the rho_override pattern already used by F22. C3 is asserted to 1e-55
+      (the mpmath arithmetic floor, not a real tolerance) against -sqrt3/486, so any wrong value must
+      fail it. Measured 2026-09-06: AssertionError on C3 alone.'
   expect:
     exactness: machine
     tol: 1.0e-17
@@ -1842,6 +1879,12 @@ tests:
   module: casim.engine.interactions.cosmology_growth
   entry: run
   params: {}
+  control:
+  - params:
+      mu: 0.9
+    reason: 'The module''s own sweep handle (see note below): mu is derived to be exactly 1 with zero
+      free functions (F106/F178), so mu=0.90 forces the run() entry''s own "control" leg to False by construction
+      and must flip the record''s overall verdict.'
   expect:
     exactness: exact
     tol: 0
@@ -2738,6 +2781,1371 @@ tests:
     piece to row G3.
 
     '
+- id: F327-chiral-liv-bound
+  sector: interactions
+  kind: assertion
+  tier: gate
+  module: casim.engine.interactions.derive_chiral_liv_bound
+  entry: check_chiral_liv_bound
+  params:
+    branch: single
+    ruler: f232
+  expect:
+    exactness: quantitative
+    tol: 1.0e-10
+  findings:
+  - F327
+  - F301
+  - F246
+  - F91
+  - F232
+  results:
+  - test-results/F327_chiral_liv_bound.json
+  control:
+  - params:
+      branch: paired
+    reds:
+    - C1-superluminal-excluded
+    - C2-subluminal-excluded
+    - C3-vacuum-cherenkov-threshold
+    - C4-orientation-escape-measured
+    reason: put the fermion on the F26 EVEN law instead of a single chiral branch - the photon's channel.
+      The chirality-odd O(|k|^2) term cancels, the leading defect drops to O(|k|^3) (dimension 6), eta
+      goes to 0 and E_LV to infinity, so all four confrontation legs stop being able to exclude anything
+      while every structural leg (A1-A4, B1-B5) stays green. This is the control that matters - it makes
+      the exclusion a statement about the BRANCH ASSIGNMENT rather than about the lattice or the ruler,
+      and it is exactly the repair the finding says the model owes itself.
+  - params:
+      ruler: tuned
+    reds:
+    - C1-superluminal-excluded
+    - C2-subluminal-excluded
+    - C3-vacuum-cherenkov-threshold
+    - C4-orientation-escape-measured
+    reason: shrink a/ell_P by 1e8, i.e. abandon the F79/F107 ruler. eta falls below the LHAASO bound and
+      the exclusion evaporates, which confirms the exclusion is carried by the RULER x COEFFICIENT product
+      and not by an arithmetic slip in the bound comparison. C6-ruler-escape-costs-G deliberately stays
+      green under this control - it is the leg that prices the escape (G moves by 1e14), so a control
+      that reddened it would be measuring the wrong thing.
+  summary: 'F327 (rubric row A2, ledger row L8, F301 follow-up 1). TWENTY legs in three blocks, after
+    the 2026-08-26 attack pass added A2b/A2c/A2d and de-tautologised A3/B2/B3. A: the 4x4 BCC Dirac eigenphases
+    are +-arccos(n u_+) two-fold degenerate (2.3e-33), so a massive Dirac fermion rides ONE chiral branch
+    spin-independently; branch-PAIRING it is unitary at m=0 and non-unitary for every m != 0 (0.156 at
+    m=0.3); and no k-independent unitary mass mixing escapes, because unitarity forces B(k) = V A(k)^dag
+    V^dag whose trace is tr A(k) (residual exactly 0.0 against a branch gap of 0.0866). B: the defect
+    in physical units is E^2 = m^2c^4 + c^2p^2 - (2/sqrt3)(cp_x)(cp_y)(cp_z)/E_a, direction-differenced
+    so rho(m) cancels, exponent 3.0000065 and mass-independent up to a relative -m^2/3; |eta|_max = 2
+    sqrt(8pi) 3^(1/4)/9 = 1.4661814811 and E_LV = (9/2) E_a = 8.327e18 GeV exactly; the same eta is the
+    fermion-photon group-velocity gap (5.8e-12), so no momentum redefinition removes it; and khat_x khat_y
+    khat_z = i sqrt(2pi/105)(Y_3,-2 - Y_3,2) pointwise (1.9e-34), a single SME (j,m) = (3,+-2) coefficient.
+    C: against Li & Ma arXiv:2204.02956 the model is 7.05 decades short superluminal and 5.08 decades
+    short subluminal, its own vacuum-Cherenkov threshold is 1.94 decades below the Crab electron energy,
+    only 6.2e-7 of the sky evades, the photon channel at the same ruler is 2.0e13 times softer, and buying
+    the escape from the ruler costs G a factor 1.3e14. A FALSIFICATION, and the legs localise it on the
+    branch assignment.'
+  notes: 'EXACTNESS `quantitative`, not `machine`: eleven legs are machine-precision residuals, but the
+    binding assertions on the C block are decade comparisons against published bounds, and a record is
+    graded by its loosest binding leg -- the 2026-08-26 attack pass graded the first draft one class high
+    for exactly this. REGISTRY-ONLY record (no `path:`), same shape as F301-boost-covariance-defect. The
+    entry returns an explicit `pass:` key, so the verdict is honoured by _interpret_return rather than
+    resting on asserts - deliberately stronger than the F301 record, whose verdict-less dict and absent
+    `--param` control are called out in its own notes. TWO STRONG PARAMETER CONTROLS, both verified red
+    on exactly the four C legs and nothing else. What this record asserts is a NEGATIVE result: if any
+    leg goes green->red the right reading is usually that the model changed, not that the arithmetic broke.'
+- id: F329-gleason-regularity
+  path: tests/findings/test_F329_gleason_regularity.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F304
+  - F312
+  - F329
+  module: casim.engine.interactions.qi_gleason_regularity
+  entry: check_gleason_regularity
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-09
+  results:
+  - test-results/F329_gleason_regularity.json
+  control:
+  - params:
+      control: true
+    reason: adds F304 section 3.1's own P_3(x_1) mode (a k=3 harmonic) to the regular frame function under
+      test. F304 section 5.3 proves this mode is NOT annihilated by the frame condition at d=3 (unlike
+      at d=2, where every odd k survives), so it must break the frame condition itself, and with it the
+      equator-constancy identity that is a CONSEQUENCE of the frame condition rather than an independent
+      fact. H2 and H3 must go RED; H1 (the completely-real-subspace existence checks, which do not touch
+      the perturbed function) must stay green. Verified RED 2026-08-27 on exactly H2/H3, with every H1
+      leg (including the d=2 negative control) unaffected.
+  note: 'F329 (rubric row A6r, docs/status/open-derivations.md). Closes F304 section 5.5''s last-named
+    residual: "Gleason''s theorem holds for merely bounded f, and the bridge -- a non-negative frame function
+    is automatically continuous -- is the Cooke-Keane-Moran regularity lemma ... not reproved here." The
+    identical proposition is already Theorem 2.8 of Gleason''s OWN 1957 paper -- the theorem F304 section
+    5 independently reproves the OTHER half of (Theorem 2.3, continuous frame function on R^3 is regular,
+    by harmonic analysis for general d) -- proved by non-negativity plus compactness of the sphere alone,
+    with no appeal to Cooke-Keane-Moran''s separate, later, lower-prerequisite proof of the SAME fact
+    required or made here. Combined with the reduction to any Hilbert space of dimension >= 3 (Lemma 3.3
+    / Theorem 3.5, via "completely real" subspaces -- one on which the inner product is real-valued),
+    this closes for every dimension the model actually builds a Born-rule measurement context on. H1 machine-checks
+    Theorem 3.5''s hypothesis (dim >= 3 admits a completely real 3-dim subspace) for MODEL_DIMENSIONS
+    = (3,4,6,8,9,16, 64,96) -- F304 section 1.1''s minimal pointer space and F312 G7''s internal/combined
+    dimensions -- PLUS a negative control confirming d=2 (isospin alone, no pointer) correctly FAILS the
+    hypothesis, i.e. F304''s own d=2 hole is not papered over. H2 checks the frame condition itself (sum
+    over MANY random orthonormal bases of R^3 is exactly constant) on a genuine regular (quadratic-form)
+    frame function -- the converse half of Gleason''s Lemma 2.1, which licenses testing the mechanics
+    on a regular example at all. H3 checks the {p,q,uq} orthonormal-triple equator-constancy identity
+    Theorem 2.8''s own proof turns on: g(q) = f(q) + f(uq) is exactly constant over the equator of a pole
+    p. What this does NOT claim: that Gleason''s Lemmas 2.5-2.7 (the oscillation-propagation covering
+    argument turning "small oscillation somewhere" into "continuous everywhere") have been independently
+    re-derived -- they are CITED from the primary 1957 text (quoted, not guessed), not re-proved. Nor
+    does it claim a genuinely non-measurable (Hamel-basis) frame function has been numerically exhibited
+    failing the identity -- impossible on a computer, and not what closes the residual: what closes it
+    is that the proposition F304 section 5.5 named is Gleason''s own peer-reviewed theorem, whose hypothesis
+    (dim >= 3) is what H1 verifies transfers to this model. CL264 moves status: contingent -> status:
+    live on this closure.
+
+    '
+  evidence:
+    mentions:
+    - F304
+    - F312
+    - F329
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 103
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F329 — A6r: closing the Cooke-Keane-Moran / Gleason regularity residual.'
+- id: F330-belt-trick-reduction
+  path: tests/findings/test_F330_belt_trick_reduction.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_belt_trick
+  entry: check_belt_trick_reduction
+  params:
+    theta_exchange: 3.141592653589793
+    wrong_singlet: false
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F330
+  - F289
+  - F291
+  - F292
+  results:
+  - test-results/F330_belt_trick_reduction.json
+  control:
+  - params:
+      theta_exchange: 6.283185307179586
+    reds:
+    - B2
+    reason: at 2pi (instead of the belt trick's own pi) the triplet becomes a scalar again (integer-spin
+      2pi-periodicity), so the "triplet is non-scalar" assertion goes red -- pi is not an arbitrary choice.
+  - params:
+      wrong_singlet: true
+    reds:
+    - B1
+    reason: substituting the m=0 TRIPLET member (same normalisation, wrong sign) for the tested state
+      breaks invariance under a generic axis -- showing B1 is a real statement about the antisymmetric
+      combination, not a tautology about 1-dimensional subspaces.
+  notes: 'Completeness row A9 residual, precisely named (NOT closed). F289 left the belt trick (particle
+    exchange <-> 2pi rotation) external; this record does not derive it. It pins the residual to Anastopoulos''s
+    named "Postulate 1" (quant-ph/0110169) and machine-verifies, on the model''s OWN rotor (reusing F289''s
+    R(2pi)=-1, not recomputing it), the two representation-theoretic facts that make Postulate 1''s spin-1/2
+    consequence concrete: the antisymmetric singlet is an exact scalar under R(theta,n)(x)R(theta,n) for
+    every swept (theta,n) (B1), while the symmetric triplet is an invariant subspace but NOT a scalar
+    representation at theta=pi, eigenvalues {-1,+1,-1} (B2/B2b) -- the reason the naive geometric argument
+    is clean for the antisymmetric (fermionic) channel and is exactly the still-partially-open "Berry-Robbins
+    problem" beyond it. B3 recovers "two exchanges = identity" from the geometric route, reusing F289''s
+    own R(2pi) number. See findings/F330-*.md Sec.4 for the separate, non-numeric POSIT-narrowing argument
+    (the model has no spin Hilbert space independent of its own SU(2) rotor, so Postulate 1 has no rival
+    transport law to be an arbitrary choice among) -- that argument is prose, not represented by any check
+    here.'
+  evidence:
+    mentions:
+    - F289
+    - F330
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 92
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F330 — the belt-trick residual, precisely named (completeness row A9).
+- id: F331-cluster-interacting-3d
+  path: tests/findings/test_F331_cluster_interacting_3d.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_cluster_interacting_3d
+  entry: check_cluster_interacting_3d
+  params:
+    use_correct_bz: true
+    g_below_gc: 2.0
+    g_above_gc: 2.9
+    m_free: 0.5
+    L: 64
+    n_mc: 20000
+    seed: 0
+  expect:
+    exactness: quantitative
+    tol: 0.35
+  findings:
+  - F331
+  - F290
+  - F267
+  - F77
+  results:
+  - test-results/F331_cluster_interacting_3d.json
+  control:
+  - params:
+      use_correct_bz: false
+    reds:
+    - C1
+    reason: the naive cubic FFT grid (F267's own named hazard) is the WRONG Brillouin zone for this lattice
+      -- inverse-FFTing on it samples the wrong dual real-space lattice, and the measured (100)-axis decay
+      rate comes out far from the exact closed form (ratio ~0.34 vs the correct-BZ ~1.17), demonstrating
+      the oblique-generator construction is load-bearing, not decorative.
+  - params:
+      g_above_gc: 2.5
+    reds:
+    - C2
+    - C3
+    reason: 2.5 is below the measured critical NJL coupling (g_c ~ 2.637 for n_mc=20000, seed=0; the exact
+      upper edge of the physical window is g_max=pi from I1_lat(m=1)=1/pi exactly) -- the gap equation
+      then has only the trivial m*=0 solution, so both "dynamical mass exists" (C2) and "interacting theory
+      clusters" (C3) go red, showing the dynamical mass -- not an incidental default parameter -- is what
+      produces clustering here.
+  notes: 'Completeness row A10 residual 1 (F290 "what remains" item 1: the clustering leg was 1-D, free-fermion
+    only). Closes it in two pieces, kept honestly separate. (1) FREE 3-D: exact closed-form kappa_100(m)
+    = sqrt(3)*arccosh(1/sqrt(1-m^2)) and kappa_110(m), derived by a genuine 3-D saddle-point extremisation
+    over the transverse real momenta (not a 1-D slice dressed up as 3-D -- the extremisation is proved
+    in the module docstring: max R(b,c)=1 is attained exactly at the axis, a bilinear-function corner
+    argument, not an assumption). Validated against the model''s own bcc_dirac_dispersion via a from-scratch
+    oblique-lattice FFT built on WALK_RECIPROCAL_GENERATORS (F267) -- NOT the naive cubic grid, which
+    is the wrong reciprocal lattice for this BCC theory and gives both the wrong magnitude and a spurious
+    checkerboard artifact (diagnosed and fixed in this session, not merely avoided). The measured/exact
+    ratio is quoted honestly as a residual that SHRINKS monotonically toward 1 as mass grows (1.53 at
+    m=0.05 down to 0.95 at m=0.95, L=96) -- the same shape of honesty as F290 C3''s own -0.93-vs-continuum-(-1)
+    exponent residual. The fit window is scaled to the expected decay length (`_adaptive_window`, added
+    in this record''s own review-finding pass after a fixed index-unit window was found to give sign-flipped
+    nonsense outside a narrow mid-mass band), not hidden behind a generous fixed tolerance. (2) INTERACTING:
+    a lattice-native self-consistent NJL gap equation (F77''s continuum form 1=g*I1(M), rebuilt on the
+    BCC dispersion with the model''s OWN finite BZ as the regulator instead of an artificial cutoff, I1_lat
+    sampled on the TRUE fundamental domain via F267''s own Monte Carlo method) gives a dynamically generated
+    mass m* from a bare-massless starting point, for couplings in a narrow measured window (g_c~2.637,
+    g_max=pi exactly). Evaluating the SAME closed-form kappa_100 at m* demonstrates cluster decomposition
+    holds in the interacting 3-D theory. Explicitly MEAN-FIELD (Hartree-type self-consistency), not a
+    full non-perturbative correlator -- same scope as F77, stated with the same honesty. Does not touch
+    no-signalling or the free-field causal cone, both closed exactly by F290.'
+  evidence:
+    mentions:
+    - F77
+    - F267
+    - F290
+    - F331
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 82
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F331 — cluster decomposition, interacting 3-D BCC theory (completeness
+- id: F332-cc-dynamics
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_lambda_dynamics
+  entry: run
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-08
+  findings:
+  - F332
+  - F164
+  - F193
+  - F196
+  - F241
+  - F319
+  - F311
+  - F178
+  - F182
+  - F130
+  - F79
+  - F59
+  results:
+  - test-results/F332_cc_dynamics.json
+  control:
+  - params:
+      subtract_source_mean: true
+    reds:
+    - K2-homogeneous-source-blind
+    reason: the source's mean is removed before the static Poisson solve, so the equation DOES fully absorb
+      it (dc residual -> 0) -- the leg asserting the UNMODIFIED (homogeneous) source is fully unabsorbed
+      must go red under this perturbation
+  - params:
+      allowed_delta_G_over_G: 1.0e+35
+    reds:
+    - K4-blockspin-order-selectivity-excluded
+    reason: loosening the CODATA G budget far past the measured 3.1e30 relative perturbation must flip
+      the exclusion verdict to False -- proves the leg reads the comparison rather than being hard-coded
+  summary: 'F332 -- is the F164 zero-point sum dynamically driven to respect the F183/F190 capacity ceiling,
+    or is it not? Negative on two dynamical channels, each closed with computed content rather than restated
+    as a consistency check. K1: F196''s ceiling rho<=3c^4/(8 pi G L^2) IS F182''s Friedmann-I constraint
+    (relative residual 0.0, not an import from BH/holographic physics); solving that SAME equation self-consistently
+    with F164''s BARE zero-point density gives a closed-form horizon R_H(rho_vac) = a*sqrt(3/(g_star*I_cc))
+    = 0.606 a -- sub-lattice-cell, matching a direct Friedmann solve exactly. K2: F164 channel (ii) (AB=1
+    dielectric sequestering) is CLOSED -- the static Poisson law is exactly Fredholm-blind to a homogeneous
+    source (dc residual/S0 = 1.000 to machine precision; falls to 0 only if the source''s mean is removed
+    first, the declared control), and F178 restricts AB=1 to T_mu_nu=0 regions, never the matter-filled
+    cosmological interior a homogeneous vacuum energy always is. K3/K4: F130''s own proven blocking transform
+    applied literally to the F59/F164 heat-kernel moments gives EXACT asymptotic exponents I_cc(b)~b^-1,
+    I_g(b)~b^+1 (fit to 1e-5), and closing F319 U8''s required 120.76-decade a_0 suppression via this
+    channel demands perturbing a_1 (1/G) by 35.15 orders beyond the CODATA budget -- worse than F319''s
+    own uniform-lambda exclusion, because a_0 falls while a_1 simultaneously rises, so no block size helps
+    both. The surviving F193B/F196/F241 ceiling route is untouched by this finding and remains undynamicised;
+    Weinberg''s 1989 no-go theorem is cited (not derived) as context for why both tested channels, being
+    local constructions, were expected to fail.
+
+    '
+- id: F334-hadronic-vmd-estimate
+  path: tests/findings/test_F334_hadronic_vmd_estimate.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.running_alpha_lattice_bound
+  entry: check_f334_hadronic_vmd
+  params: {}
+  expect:
+    exactness: quantitative
+  findings:
+  - F334
+  - F103
+  - F128
+  - F240
+  - F322
+  - F138
+  - F231
+  results:
+  - test-results/F334_hadronic_vmd_estimate.json
+  control:
+  - params:
+      charge_weight_control: 1.0
+    reds:
+    - V2
+    reason: drops the exact quark-charge-derived x3 isoscalar/isovector photon-coupling ratio (Q_u=2/3,
+      Q_d=-1/3) down to 1, which must break the exact V2 gate and only V2.
+  - params:
+      dhmz_reference_control: 0.001
+    reds:
+    - V4
+    reason: replaces the DHMZ2020 external reference Delta alpha_had^(5)(M_Z) with a wildly wrong value,
+      which must break the V4 plausibility-range check and only V4 -- the physics (V1,V2,V3,V5,V6) does
+      not depend on the external comparison anchor.
+  summary: 'F334 -- a model-internal (zero imported couplings) narrow-resonance VMD estimate of the hadronic
+    piece of Delta alpha(M_Z): rho+omega, from the model''s own F103/F240 KSRF g_rhopipi and the quark-charge
+    photon-coupling weighting (Q_u=2/3, Q_d=-1/3, exactly x3 isoscalar suppression, independently the
+    same number as F128/F240''s baryon-number coherence). Captures ~10.2% of DHMZ2020''s Delta alpha_had^(5)(M_Z)
+    = (276.0+/-1.0)e-4; the universality posit needs a downward coupling quench (0.83) in the same direction
+    F240 already found in two other channels, checked here against the real PDG rho0->e+e- width rather
+    than assumed. Feeding it into B9''s EW leg (F322 SS7) closes ~10.2% of the gap between the model''s
+    leptonic-only alpha(M_Z) and the PDG value, moving the sin^2 theta_W(M_Z) residual from +0.450% to
+    +0.427%. Honest scope: two narrow resonances only (no phi, no continuum, no charm/bottom), and the
+    narrow-width formula is a KNOWN underestimate for the real (broad) rho -- not a replacement for the
+    data-driven value, the model''s first non-imported quantitative handle on a piece of it.
+
+    '
+  evidence:
+    mentions:
+    - F41
+    - F42
+    - F103
+    - F128
+    - F240
+    - F322
+    - F334
+    pytest_funcs: false
+    has_assert: true
+    has_main: false
+    lines: 120
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F334_hadronic_vmd_estimate.py
+- id: F336-twoloop-vp-nonlog-scope
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qed_twoloop_vacuum_polarization_nonlog
+  entry: check_f336_twoloop_nonlog
+  params: {}
+  expect:
+    exactness: quantitative
+  findings:
+  - F336
+  - F251
+  - F261
+  - F311
+  - F322
+  results:
+  - test-results/F336_twoloop_vp_nonlog.json
+  control:
+  - params:
+      R1_control: 1
+    reds:
+    - F336-2
+    - F336-3
+    reason: 'replaces the cited massless R^(1)=3/4 with 1 (a wrong coefficient): the symbolic (F336-2)
+      and numeric (F336-3) leading-log legs both stop matching F261''s fixed b1=1 reference and go red;
+      F336-1 (the one-loop calibration gate, which never reads R1_control) is untouched, so the red set
+      is disjoint from it by construction.'
+  summary: 'F336 — extends F261''s dispersive (Kallen-Lehmann) machinery from the g-2 vertex to the vacuum-polarization
+    two-point function itself, via the optical theorem Im Pi(s) = (alpha/3) R(s). F336-1 calibrates the
+    machinery: the Euclidean dispersion integral of F251''s own one-loop spectral function reproduces
+    F251''s closed-form Delta alpha^(1)(Q^2) to 1.8e-13, zero free parameters. F336-2/F336-3 (symbolic
+    and numeric) feed in the cited massless R^(1)=(3/4)(alpha/pi) [Appelquist-Georgi 1973 / Zee 1973]
+    and independently re-derive F261''s sympy-exact b1=1 two-loop leading-log coefficient (alpha/pi)^2/4
+    from a disjoint construction (unitarity+dispersion, not beta-function algebra). The Kallen-Sabry non-log
+    constant (alpha/pi)^2[zeta(3)-5/24] that F311/F322 cite rather than derive is explicitly NOT derived
+    here; nonlog_constant_scope() names the two missing calculations (F252''s vertex at general timelike
+    s; F259''s hard, non-soft, real-emission phase space) that a derivation would need, narrowing the
+    open target rather than closing it.
+
+    '
+- id: F345-field-equation-uniqueness
+  kind: assertion
+  tier: gate
+  sector: interactions
+  path: tests/findings/test_F345_field_equation_uniqueness.py
+  module: casim.engine.interactions.gravity_field_equation_uniqueness
+  entry: check_uniqueness
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F345
+  - F178
+  - F297
+  - F291
+  - F326
+  - F319
+  - F288
+  - F59
+  results:
+  - test-results/F345_field_equation_uniqueness.json
+  control:
+  - params:
+      lovelock_dim: 5
+    reds:
+    - L3
+    reason: run the SAME Lanczos-Lovelock computation in five dimensions. The d=4 vanishing is the whole
+      substance of L3 - it is what makes the leading curvature-squared correction topological and so leaves
+      aG_uv + bg_uv as the only candidate left side. In d=5 the identical code returns 25 non-zero components,
+      so the zero is a statement about the DIMENSION and not about the contraction routine. This is also
+      what makes F291/F326 (derived d=3 plus the closed "+1") load-bearing for E1 rather than merely adjacent
+      to it.
+  - params:
+      gb_ricci_coeff: -3
+    reds:
+    - L3
+    reason: perturb the Ricci-squared coefficient in the Gauss-Bonnet scalar from -4 to -3. Nothing else
+      changes - same curvature tensors, same contractions, same dimension - and the identity breaks. Without
+      this control L3 could be an artifact of a symmetric-looking contraction that happens to cancel;
+      with it, the zero is pinned to the Gauss-Bonnet combination specifically.
+  - params:
+      model_gamma: '0.999999'
+    reds:
+    - L5
+    reason: give the model a PPN gamma that is 1 to six digits instead of exactly 1. A finite Brans-Dicke
+      omega then solves (1+w)/(2+w) = gamma and the scalar-tensor family is no longer closed - it is merely
+      constrained, which is what external data alone can ever deliver. The control is the point of L5
+      - the closure comes from AB == 1 making gamma EXACTLY 1 (F64 D-EM9, F288 S1), not from Cassini.
+  summary: 'F345 - how much of rubric E1 (the fundamental field equation) is still posited, given model
+    content that did not exist at the 2026-06-29 decision. Eight legs. L1 the Bianchi identity (sympy
+    literal zero on a 4-function inhomogeneous metric) forces ANY source of a Lovelock-permitted left
+    side to be a conserved symmetric 2-tensor. L2 the determinant identity plus the metric variation deliver
+    all 10 components for the scalar and for Maxwell, so the full-tensor source is by construction, not
+    by choice. L2b nabla^mu T_uv == (box phi) d_nu phi - conservation IS the matter field equation. L3
+    the Lanczos-Lovelock tensor is identically zero in d=4 and non-zero in d=5 on generic ALGEBRAIC curvature
+    tensors (Kulkarni-Nomizu/Fiedler, strictly more general than any metric ansatz), so Einstein uniqueness
+    is INHERITED from the derived d=3+1. L4 the two-derivative truncation is bounded by 1.4e-76 at the
+    worst curvature any observation reaches, from F319''s dimension-6 leading irrelevant operator. L5/L6
+    close the scalar-tensor and f(R) families on the model''s own structure (AB == 1, mu == 1 with d(mu)/dk
+    a literal zero, no screening) rather than on external bounds. L7 states the surviving posit: that
+    the long-wavelength description is a local diffeomorphism-invariant metric theory at all. Does NOT
+    re-attack the energy-only law (F178, F297).'
+  evidence:
+    mentions:
+    - F178
+    - F297
+    - F345
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 115
+    n_test_funcs: 11
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F345 -- the induced Einstein equation is the only field equation the model's
+- id: F354-core-geodesic-completeness
+  path: null
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.gravity_core_completeness
+  entry: run_all
+  params:
+    solid_angle_deficit: 0.0
+    core_profile: bardeen
+    point_group: Oh
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F354
+  results:
+  - test-results/F354_core_geodesic_completeness.json
+  control:
+  - params:
+      solid_angle_deficit: 0.1
+    reds:
+    - B1_sum_of_squares_regular_centre
+    reason: 'give the metric a genuine solid-angle deficit, B(0) = 1 - delta (a global monopole). The
+      sum-of-squares decomposition must DETECT it: the R_thphthph = (1-B)/r^2 term then makes K ~ 4 delta^2
+      / r^4, which is unbounded, so the theorem''s premise fails. MEASURED: K r^4 -> 0.0400000000000000
+      at delta = 0.1, i.e. exactly 4 delta^2, which is the decomposition''s own prediction and not a fitted
+      number. This is the control that matters, because a conical or monopole defect is the classic case
+      of bounded-some-invariants-but-incomplete, and excluding it is precisely what the curvature bound
+      has to do for B1 to mean anything. B2-B7 never read the metric functions and stay green.'
+  - params:
+      core_profile: gaussian
+    reds:
+    - B6_scales
+    reason: 'swap the even Bardeen core for an even Gaussian one. L is fixed by rho(0) and the ceiling
+      alone, so it does NOT move (24^(1/4) a either way) - but the mass-to-core-radius relation does,
+      and with it the comparison against F183 SS L1''s proxy: MEASURED ratio 0.7218 for the Gaussian against
+      2^(1/6) = 1.12246 for Bardeen. The control therefore establishes exactly which part of the scale
+      block is profile-independent (L) and which is not (the ratio), which the first draft of this finding
+      asserted as though both were exact. B1-B5 and B7 do not read the profile and stay green.'
+  summary: 'F354 - the lattice-regulated black-hole core is geodesically complete at the centre, and the
+    point-group route to that conclusion is a no-go. Seven counted legs plus one uncounted structural
+    declaration. B1 is the result: for the general TWO-function static metric the Kretschmann scalar is
+    an exact sum of squares of orthonormal-frame Riemann components, so a global bound K <= 1/a^4 bounds
+    each separately and forces B(0)=1 (no solid-angle defect), B(0)=0 and A(0)=0 in first derivatives
+    - a C^{1,1} Lorentzian regular centre, using ONLY the curvature bound, with no parity, no point group,
+    no saturation and no A=B. B2 is the no-go: the earlier claim that -1 in O_h forces the parity condition
+    is false in both directions - Hayward''s own density is a function of r alone (hence O(3)- hence O_h-invariant)
+    yet carries an odd r^3 term, because r^(2k+1) is a NON-POLYNOMIAL O_h invariant; and every odd T_d
+    invariant carries xyz, whose spherical average vanishes, so a non-centrosymmetric lattice gives the
+    same regular centre in the monopole channel. The real hypothesis is smoothness of the coarse-grained
+    density at the centre. B3 keeps the Reynolds projection at its true strength (polynomials only). B4
+    the geodesic regimes, with completeness resting on the E>1 and null cases passing through and the
+    E=1 case explicitly de-weighted as sub-cell extrapolation. B5 the parity screen, calibrated on Zhou-Modesto''s
+    published Hayward coefficient 2M/L^6 and cross-checked against their verdicts, with the smooth-but-flat
+    CSV rows reported as out of scope rather than scored. B6 the scales as a contingency table over both
+    curvature-ceiling conventions - under F284''s the core radius is L = a exactly and the e-folding is
+    sqrt(3) ticks, one cell crossing. B7 resolvability, the corrected covering radius sqrt(3) a/4, and
+    M_ext ~ 19 Planck masses below which no horizon exists. Runs in about 7 s.'
+- id: F355-horizon-entanglement
+  path: tests/findings/test_F355_horizon_entanglement.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F355
+  - F79
+  - F190
+  - F278
+  - F300
+  module: casim.engine.interactions.horizon_entanglement
+  entry: check_e9
+  params:
+    scale: gate
+  expect:
+    exactness: bracketed
+    tol: 0.003
+  results:
+  - test-results/F355_horizon_entanglement.json
+  control:
+  - params:
+      flat_control: true
+    reds:
+    - E9-5
+    - E9-7
+    - E9-8
+    - E9-11
+    reason: 'replace the walk''s spin axis n_hat(p) by a CONSTANT axis. The filled-branch projector stops
+      depending on p, the real-space correlator collapses to site-diagonal, the vacuum becomes an exact
+      product state and every entropy is identically zero. E9-11 is the leg that catches it -- and it
+      only does so because it was HARDENED after the 2026-09-03 review to require the smallest node-counting
+      ratio be > 0.2 as well as every ratio be more than 20% from 1; without that clause a collapsed vacuum
+      passes E9-11 vacuously (all ratios 0, all more than 20% from 1), which is exactly what the first
+      version did. The machinery legs that never touch the BCC walk -- E9-1''s brute-force ED check and
+      E9-2''s CFT calibration -- stay green, which is why they are separated out. E9-10 (the four gapless
+      points and their Berry charges) also stays green: it is a property of the walk''s dispersion, not
+      of the entropy computation, and no entropy-side control can move it. MEASURED 2026-09-03 after remediation;
+      the measured set is what is written here.'
+  - params:
+      random_control: true
+    reds:
+    - E9-5
+    - E9-7
+    - E9-8
+    reason: 'replace n_hat(p) by an independent random unit vector at every p. The correlator becomes
+      white noise, correlations stop decaying with distance, and the entropy follows a VOLUME law -- S/A
+      then drifts ~20% across the radius ladder instead of 0.7%. Without this control "the entropy obeys
+      an area law" would be an unexercised assertion rather than a measurement, and the per-cell number
+      would be meaningless. NOTE E9-11 deliberately stays GREEN here, and for the wrong reason: a volume
+      law makes every node-counting ratio enormous, so "every ratio misses 1" is satisfied trivially.
+      E9-8 is the leg that catches it, and the pair is what makes the ledger honest -- do not read E9-11
+      alone. MEASURED 2026-09-03 after remediation; the measured set is what is written here.'
+  notes: 'F355 (rubric row E9, ledger row G4). THE HEADLINE IS A MISMATCH, AND IT IS BRACKETED: E9-11
+    asserts that S = A/4 is missed under every defensible node counting (12 / 24 / 48 walks give ratios
+    0.795 / 1.590 / 3.179), NOT that any particular one of them is right. A future edit that makes E9-11
+    pass by getting a MATCH has changed the physics and needs its own finding number, not a tolerance
+    tweak; an edit that narrows the bracket by DECIDING the doubler question (F278 section 6) is the finding
+    this row is waiting for. The gate runs `scale: gate` (about 9 s: box 16, radii 4.0-5.0, three planes)
+    and reports TWELVE checks -- E9-9 needs at least four crystal planes and E9-13 runs the box scan,
+    so both appear only at `scale: full`, which is what test-results/F355_horizon_entanglement.json holds
+    (14/14, box 24, radii 5.0-6.5 plus a single-offset R=7 probe, nine planes, about 165 s). The gate
+    scale is deliberately too coarse to resolve the flagged pi proximity, which in any case is 1.2 sigma
+    and beaten by 2^(5/3); see finding section 5.1 and `pi_proximity()`. Reviewed 2026-09-03 (docs/reviews/F355-review-2026-09-03.md,
+    verdict OVERSTATED against the first draft, remediated in-session) -- the record''s `expect.exactness`
+    is `bracketed` rather than `quantitative` BECAUSE of that review: only c_walk is a single number,
+    the per-cell entropy is a range and the range is the result.'
+  evidence:
+    mentions:
+    - F79
+    - F107
+    - F190
+    - F278
+    - F355
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 117
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F355 — E9: the boundary entanglement entropy of the BCC vacuum, computed.'
+- id: F356-eos-robustness
+  path: tests/findings/test_F356_eos_robustness.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F356_eos_robustness.json
+  findings:
+  - F181
+  - F184
+  - F356
+  sector: interactions
+  evidence:
+    mentions:
+    - F181
+    - F184
+    - F356
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 150
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F356_eos_robustness.py
+- id: F357-graviton-band-top
+  path: null
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.gravity_band_cutoff
+  entry: run_all
+  params:
+    pairing_law: even
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F357
+  results:
+  - test-results/F357_graviton_band_cutoff.json
+  control:
+  - params:
+      pairing_law: chiral_double
+    reds:
+    - C_grid_bandtop
+    - E_planck_ratio
+    - F_lambda_model_relation
+    reason: 'swap the physical paired "even" law Omega_even=omega_+(K/2)+omega_-(K/2) for the un-paired
+      single-branch doubled law 2*omega_+(K/2), explicitly flagged in F248/CLAUDE.md as NOT the photon/graviton
+      dispersion. C, E, F test the COMPUTED quantity against a FIXED physical target (pi; the even-law
+      closed form 0.82473; pi*sqrt(3)) rather than adapting to whichever law is selected, so all three
+      correctly go red: MEASURED zone-sweep max 2*pi (not pi), E_max/E_Planck 1.6495 (not 0.8247), E_max/Lambda_model
+      2*pi*sqrt(3) (not pi*sqrt(3)) -- exactly double in every case, which is the point: the pi bound
+      is a genuine consequence of the PAIRING structure (F69), not generic arccos saturation. A and B
+      do not read the dispersion law and stay green; D (the even-law-only boundary-saturation identity)
+      is reported not-applicable (pass=None, uncounted) rather than forced red.'
+  summary: 'F357 - the paired photon/graviton "even" dispersion law (F248/F69) is bounded above by pi
+    exactly on the BCC Brillouin zone: an exact trig identity (arccos(-a)=pi-arccos(a)) plus strict monotonicity
+    forces Omega_even<=pi whenever a+b=2*cx*cy*cz>=0, which holds everywhere on the declared single-constituent-branch
+    domain (bcc.py''s own |q_i|<=pi*sqrt(3)/2), with equality exact and attained on the WHOLE zone boundary
+    (any one constituent component reaching its own BZ edge forces u_-=-u_+ identically, sympy-verified,
+    independent of the other two components). Converts via F79/F107''s registered a_over_ellP (tau/t_Planck=a_over_ellP/sqrt(3))
+    to E_max/E_Planck=sqrt(pi*sqrt(3)/8)=0.824727, zero new free parameters. Relates by an exact closed
+    form to F352''s cruder Lambda_model=E_Planck/a_over_ellP: E_max=pi*sqrt(3)*Lambda_model, and pi*sqrt(3)
+    is exactly one reciprocal-lattice-vector magnitude 2*pi/a per bcc.py''s own F273 comment. SCOPED explicitly
+    away from A11/K9''s rho_vac EFT-coefficient residual (see F357 section 1 and session-claims.yaml session
+    quiet-precise-regge) -- this is a single-particle KINEMATIC band-top result, not a graviton-graviton
+    scattering/unitarity calculation, and F357 section 7 states that scope limit directly. Runs in under
+    2 s.'
+- id: F359-graviton-collapse-threshold
+  path: null
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.graviton_collapse_threshold
+  entry: run_all
+  params:
+    pairing_law: even
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F359
+  results:
+  - test-results/F359_graviton_collapse_threshold.json
+  control:
+  - params:
+      pairing_law: chiral_double
+    reds:
+    - C_two_quantum_threshold
+    - D_single_quantum_subthreshold
+    - E_geon_virial_cross_check
+    reason: 'swap F357''s physical paired "even" law for the un-paired chiral_double doubled law (F248/CLAUDE.md:
+      NOT the physical photon/graviton dispersion), doubling E_max/E_Planck. C and D test the COMPUTED
+      ratio against FIXED physical targets (sqrt(pi); sqrt(pi)/2) rather than adapting to whichever law
+      is selected, so both correctly go red: MEASURED sqrt(s_max)/M_rem 2*sqrt(pi) (not sqrt(pi)), E_max/M_rem
+      sqrt(pi) (not sqrt(pi)/2) -- exactly double, the same pairing-specific signature F357''s own control
+      shows. E (order-of-magnitude, vs F223''s mu_geon) also flips: doubling the band top pushes even
+      the single-quantum energy above mu_geon, failing its direction check too -- a stronger control effect
+      than required, left as measured rather than loosened. A and B (the canonical-cell identity and the
+      remnant-mass re-derivation) do not read the dispersion law at all and correctly stay green.'
+  summary: F359 - a head-on collision of two of the model's own maximum-energy photons/gravitons (F357's
+    E_max=0.8247 E_Planck) carries CM energy sqrt(s_max)=2*E_max exactly sqrt(pi)~=1.7725 times the rest-mass
+    energy of the model's own one-cell Planck-mass black-hole remnant (F228's M_rem=(sqrt3/2)^(1/2) M_Pl,
+    re-derived here from the SAME registered a_over_ellP ruler as M_rem/M_Pl=a_over_ellP/(4*sqrt(pi)))
+    -- exact-algebraic, zero new free parameters, both sides of the ratio traced to F79/F107's canonical
+    cell A^2=8*pi*sqrt(3). A single band-top quantum alone falls short, E_max/M_rem=sqrt(pi)/2~=0.886.
+    This is the kinematic precondition of the standard "self-completeness via classicalization" resolution
+    (Dvali-Gomez 1005.3497; 't Hooft 1987) of the naive graviton-graviton perturbative-unitarity puzzle,
+    realised exactly in the model's own already-published numbers -- a kinematic THRESHOLD bearing on
+    E12's still-open dynamical residual (F357 Sec.7), not a computation of that residual itself (no scattering
+    amplitude or partial-wave bound computed; honest scope stated in the module docstring). Cross-checked
+    against F223's order-of-magnitude geon virial mass mu=sqrt(2) M_Pl at its own weaker tier (check E,
+    not folded into the exact headline).
+- id: F360-horizon-thermodynamics-frw
+  path: null
+  kind: assertion
+  tier: battery
+  sector: interactions
+  module: casim.engine.interactions.cosmology_horizon_thermodynamics
+  entry: run_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F360
+  - F182
+  - F188
+  - F284
+  - F178
+  results:
+  - test-results/F360_horizon_thermodynamics.json
+  notes: 'sympy-exact: (1) the quasi-static Cai-Kim Clausius-relation argument at the flat-FRW apparent
+    horizon reproduces Hdot=-4 pi G(rho+p) and, on integration via continuity, H^2=(8 pi G/3) rho -- F182/F188''s
+    own Friedmann pair -- from horizon thermodynamics rather than by positing and solving the covariant
+    field equation (F178) with the model''s stress-energy as input. (2) quantifies, also exact and closed-form
+    (-3(1+w)/4), that the "horizon radius slowly varying" step this needs is an O(1) convention for radiation
+    (ratio -1) and matter (ratio -3/4), not a small-parameter expansion -- vanishing only for pure Lambda
+    (w=-1). tier: battery (no control block -- this is an interpretive/ foundational cross-check of an
+    already-established result, not a gate-tier physics prediction).'
+- id: F361-bbn-a7-repair
+  path: null
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_bbn
+  entry: check_k2
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0.1
+  findings:
+  - F361
+  - F297
+  - F284
+  results:
+  - test-results/F361_bbn_a7_repair.json
+  control:
+  - params:
+      legacy_a7_bug: true
+    reds:
+    - K2-13
+    reason: 'revert the five A=7 rate fits (He3a_Be7, ta_Li7, Be7n_Li7, Li7p_He4, Be7n_He4) in _rate_fits
+      to their pre-F361 transcription against Kawano''s reference NUC123 code (missing narrow-resonance
+      terms, a wrong-sign term, and for Be7n_He4 an outright wrong functional form). MEASURED: Li7_H_rel_err
+      goes from -6.28% to -92.2% and ONLY K2-13 turns red (12/13) -- Y_p, D/H and He3/H (K2-1/K2-2, which
+      do not touch A=7) are bit-for-bit unchanged, isolating the control to exactly the leg the repair
+      targets.'
+  notes: 'F297 flagged the A=7 chain as 92% low against the same published reference the other three light-element
+    ratios validate on, and excluded Li7 from the K2 battery rather than claim it. F361 diagnosed the
+    cause: all five A=7-adjacent forward rate fits in _rate_fits (He3a_Be7, ta_Li7, Be7n_Li7, Li7p_He4,
+    Be7n_He4) disagreed with Kawano''s reference NUC123 Fortran code -- the primary source SKM93 itself
+    updates -- fetched and compared term-by-term. Missing narrow-resonance terms (He3a_Be7, ta_Li7, Be7n_Li7),
+    a dropped dominant low-T9 tail plus a sign error (Li7p_He4), and an outright wrong functional form
+    (Be7n_He4: t9^-0.5 implemented where the source has (1+3760 t9), a DECREASING function substituted
+    for an INCREASING one) were repaired against the source. Y_p, D/H and He3/H are numerically unchanged
+    (none of the five reactions is an A<=3 bottleneck); Li7_H moves from -92% to -6.28%, inside a declared
+    10% validation band, and is added to check_k2 as K2-13. Verified control isolates the repair to exactly
+    that leg. Separately registers dot-G/G=0 as a BBN-internal confirmed prediction (gdot_over_g_prediction())
+    alongside F284''s external LLR comparison -- deliberately QUALITATIVE: a naive G-perturbation sensitivity
+    sweep was tried and discarded because Y_p''s sensitivity to G is too weak at fixed eta_b to support
+    a competitive numeric bound (the linearisation breaks down before the network''s own margin is used
+    up). F297''s 12 checks (K2-1 through K2-12) are numerically identical, re-verified passing with the
+    repaired A=7 fits in place. tol=0.10 reflects LI7_VALIDATION_TOL, the loosest of check_k2''s per-species
+    bands (Y_p 3%, D/H 5%, Li7/H 10%) since a resonance-dominated 5-species secondary chain is intrinsically
+    harder to hold to the A<=3 digit.'
+- id: F362-blockspin-fluctuation-eigenvalue
+  path: null
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_blockspin_fluctuation
+  entry: run_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F362
+  - F310
+  - F295
+  - F296
+  - F285
+  - F130
+  results:
+  - test-results/F362_blockspin_fluctuation.json
+  control:
+  - params:
+      wrong_c2_sign: true
+    reds:
+    - c1_closed_form_matches_sigma_strong_pt2
+    reason: 'flips the sign of the closed-form c2(g2)=1/(6 g2) so it disagrees with the REAL, unperturbed
+      link_hamiltonian.sigma_strong_pt2 Kogut-Susskind-Hamiltonian measurement by 2*c2 (>1e-1, tol is
+      1e-9) at every g2 tested. MEASURED: only c1 turns red (c2/c3/c5 bit-for-bit unchanged), isolating
+      the control to exactly the leg it targets.'
+  - params:
+      wrong_power: true
+    reds:
+    - c2_power_counting_matches_magnetic_deformation_ratio
+    reason: 'predicts the n=1 relative eigenvalue as b^-4 (an n_shift of +1) instead of the derived b^-2,
+      which blockspin.magnetic_deformation_ratio''s independently- measured small-lambda ratio (still
+      exactly b^-2, unperturbed) then misses by a large, b-growing margin (25%-94% across b=2..4). MEASURED:
+      only c2 turns red (c1/c3/c5 bit-for-bit unchanged).'
+  notes: 'NEGATIVE RESULT, taken as valuable per the ledger''s own framing (F310 falsifier 1 / CL267 falsifier
+    2). Composes the repo''s own EXACT strong-coupling PT machinery (link_hamiltonian.sigma_strong_pt2,
+    c2(g2)=1/(6g2) exact, C1) with F130''s bond-moving rule to test whether a fluctuation (beyond lam=0)
+    correction can move the C1 confinement eigenvalue off b^1 by the required 1.4-1.8%. Finds structurally
+    NOT: every order-n term in the lam=0 expansion carries an exact integer eigenvalue b^(1-2n) (C2, generalising
+    F130 C3/C4 to the whole series); the composite finite-b "effective" exponent this would define is
+    scheme (b)-dependent, failing the universality test a real critical exponent must pass (C3, fractional
+    spread 30%-82% across b=2..5 at every tuning tried); and the model''s own calibrated coupling (g_s^2=1/4,
+    lambda=Omega^2) sits at epsilon~5-15, two orders of magnitude past the O(lam^2) truncation''s validity
+    radius (C5) -- the truncated sigma-hat is negative (unphysical) there. Closes the SPECIFIC route open-derivations
+    G2 named; a successful route needs a genuinely non-perturbative RG treatment, not a higher order of
+    this expansion.'
+- id: F365-geon-relic-gw-bounds
+  path: null
+  kind: assertion
+  tier: battery
+  sector: interactions
+  module: casim.engine.interactions.cosmology_geon_relic_gw_bounds
+  entry: run_all
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0.05
+  findings:
+  - F365
+  - F228
+  - F238
+  - F223
+  - F216
+  results:
+  - test-results/F365_geon_relic_gw_bounds.json
+  notes: 'Literature-comparison sharpening of rubric row K7 (dark-matter identity), tier: battery (an
+    external-literature placement of an already-derived model result, not a gate-tier physics prediction
+    -- no control block, matching F360''s precedent for this class of record). S1/S5 reproduce F228''s
+    own beta_required(M_form) and F238''s own sigma_req(M_form) formulas to <5%/<2% (self-check against
+    their stated worked-example numbers). S2 cross-checks F228''s beta_required against the external eq-2.3
+    formula of arXiv:2506.16154 (Cheek-Ghoshal-Heurtier): a CONSTANT ratio 11.7x, EXPECTED since both
+    share the same M^1.5 scaling by construction -- a mild, not strong, cross-check that the two independent
+    O(1) normalisations differ by only ~12x. S3/S4 combine the external eq-2.3 formula with that paper''s
+    DLS gravitational-wave-from-early-mergers bound (its Eq. 2.8) to locate an order-of-magnitude formation-mass
+    ceiling M_form <~ 1.6e8 g (caveat: 2506.16154 itself flags the DLS bound''s monochromatic-mass-function
+    assumption as possibly unrealistic, and notes early mergers may weaken it): F228''s own M_form=1e8
+    g worked example sits at only a 2.9x margin (not safely interior as its Sec.4 table implied), while
+    the 1e4 g and 1e6 g examples remain comfortably allowed. S6 converts F238''s own sigma_req(M_form)
+    to a curvature power spectrum P_R under BOTH conventions found in the external paper -- its general
+    Eq.9 integral relation (P_R=(81/16)sigma^2, giving P_R~0.017-0.032, 3/3 inside the band) and its OWN
+    Eq.10 narrow-bump approximation (P_R=(9/4)sigma^2, the formula it actually uses for its own headline
+    number, giving P_R~0.0077-0.0141, only 1/3 inside the band). REVIEW-FINDING FINDING (2026-09-04, attack
+    6): these two conventions disagree by 2.25x, enough to move 2 of 3 points across the LIGO-Gaussian-exclusion
+    band''s stated lower edge -- so S6 is downgraded to exactness: bracketed (a same-order-of-magnitude
+    plausibility placement, not a quantitative "inside the band" hit) and its record kept PASS under a
+    widened "straddles the band within one order of magnitude" criterion rather than the original "inside
+    the band" criterion. Attack 5 (numerology) also found that Press-Schechter''s erfc^-1 compresses ~20
+    orders of magnitude in beta into O(1) range in sigma, so landing near this band is expected for most
+    sub-dominant beta values, not a sharp coincidence -- stated explicitly in the module and finding.
+    Net effect on K7: the candidate''s identity (graviton-graviton J=2 geon = one-cell Planck-mass BH
+    remnant, M_rem=(sqrt3/2)^(1/2) M_Pl, F228) is untouched and remains outside any mass-window lensing/dynamical
+    exclusion plot (it is far too light for those to apply at all); the previously "genuinely free" abundance
+    input (F238/CL209) now carries two named literature constraints -- a formation-mass ceiling (S3/S4,
+    the more robust of the two, order-of-magnitude/bracketed) and a non-Gaussianity plausibility argument
+    (S6, bracketed, convention-sensitive) -- rather than being wholly unconstrained. Attacked by review-finding
+    2026-09-04 (cold subagent, 13/13 attacks run): verdict OVERSTATED -> CONFIRMED-NARROWER after this
+    record and the finding/claim card were corrected; see F365''s "Reviewed & corrected" section.'
+- id: F366-geon-domain-wall-reopening
+  path: tests/findings/test_F366_geon_domain_wall_reopening.py
+  kind: assertion
+  tier: battery
+  sector: interactions
+  module: casim.engine.interactions.cosmology_geon_domain_wall_reopening
+  entry: run_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F366
+  - F238
+  - F228
+  - F282
+  - F285
+  - F150
+  - F175
+  - F234
+  results:
+  - test-results/F366_geon_domain_wall_reopening.json
+  notes: 'K8 re-examination -- scoping/reopening finding, tier: battery (a structural/logical re-scoping
+    of an existing exclusion, not a gate-tier physics prediction -- no control block, matching F360/F365
+    precedent for this class of record). C1-C3 are exact-algebraic (sympy, independently re-derived in
+    the test with a different simplification path than the module uses for C3): the model''s own E_g clock
+    potential V(delta)=(A/2)(1+cos 6 delta) (F150/F175/F234, reused verbatim from F282''s eg_clock_coefficient,
+    no new constant) has exactly 6 degenerate global minima per period and an exact discrete Z_6 symmetry
+    -- the Kibble-mechanism precondition for a domain-wall network sourced without any inflaton or primordial
+    spectrum. C4 is structural (directory search, F238 sec.6''s own methodology run on the complementary
+    question): none of F238/F228/F282/F283/F284/F285 -- the findings that jointly frame "the geon abundance
+    is a free input" -- ever discusses a domain wall, topological defect, bubble collision, cosmic string
+    or the Kibble mechanism, so this channel was never examined or excluded. Does NOT compute a domain-wall
+    relic abundance; open_derivation_items() in the module names the four pieces (finite-temperature/causal
+    settling dynamics, transition order, wall tension in physical units, network-collapse fraction, and
+    a resolution of the standard domain-wall overclosure problem) still needed to turn "the precondition
+    is met" into "an abundance is derived." K8 stays EXCLUDED for the inflaton/Press-Schechter route specifically
+    (F238 unchanged); this finding sharpens the row''s characterization from "no route can ever derive
+    this abundance" to "the standard route is provably closed, a structurally distinct non-inflationary
+    route is open in principle with its precondition already satisfied, and its full derivation is untouched."'
+  evidence:
+    mentions:
+    - F150
+    - F175
+    - F228
+    - F234
+    - F238
+    - F282
+    - F283
+    - F284
+    - F285
+    - F366
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 119
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F366 — Is the F238 geon-abundance exclusion scoped to the inflaton/Press-
+- id: F367-cc-sequestering
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_lambda_sequestering
+  entry: run
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-08
+  findings:
+  - F367
+  - F332
+  - F164
+  - F193
+  - F196
+  - F241
+  - F319
+  - F178
+  - F182
+  - F79
+  - F59
+  results:
+  - test-results/F367_cc_sequestering.json
+  control:
+  - params:
+      include_vacuum_subtraction: false
+    reds:
+    - S3-constant-source-exactly-cancels
+    reason: evaluating the raw trace T(t0) without subtracting the spacetime average leaves it linearly
+      dependent on the arbitrary constant C by inspection (T(t0) = -rho_m0 - C) -- the leg asserting exact
+      C-independence must go red under this perturbation
+  - params:
+      measure_power: 2
+    reds:
+    - S3-coefficient-is-exact-3n-at-physical-measure
+    reason: replacing the correct sqrt(-g) FRW spatial-volume measure (a^3, measure_power=3) with the
+      wrong power a^2 changes the exact closed-form coefficient from 3n=2 to 6 (general form 3n/((p-3)n+1))
+      -- proves the "3n" result is read off the physical measure, not a hardcoded constant
+  summary: 'F367 -- does a genuinely non-local/global mechanism (Kaloper-Padilla-style vacuum-energy sequestering)
+    achieve the order-selectivity F319 U8 requires, the shape of channel F332 sec.5 named and did not
+    build? The mechanism''s core consequence -- a spacetime-constant trace contribution cancels EXACTLY
+    under spacetime averaging, sympy-verified via d(residual)/dC == 0 identically for any n and any measure
+    power -- gives UNBOUNDED order-selectivity, dwarfing F319''s required >=1.27e116 by construction rather
+    than a fitted number. F164''s bare rho_vac (computed from the fixed, non-dynamical lattice cell a,
+    F107) is exactly the class of source this mechanism eliminates exactly -- a structural match to this
+    model''s specific residual, not a generic remark. The surviving (matter-domination) residual is an
+    exact closed form, 3n*rho_m0 for a(t)~t^n domination; evaluated at n=2/3 (matter) with Omega_m0=0.3153
+    this lands 0.036 dex from the observed Omega_Lambda*rho_crit -- the same parametric scale as F196/F241''s
+    ceiling, via a genuinely dynamical (evolving-history) computation rather than a restated bound. Flagged
+    per F241''s own numerology-caution standard as a crude single-fluid toy, not a derivation of Omega_Lambda,
+    which stays exactly F241''s open residual. Distinguished from F241''s own excluded "future event horizon"
+    holographic-DE route (circular: R_EH is defined in terms of Omega_Lambda) -- this identity holds for
+    ANY finite spacetime 4-volume, not self-referentially. Costs stated plainly: grafting sequestering
+    in requires new global, non-propagating Lagrange-multiplier fields beyond the CLAUDE.md decision-4
+    action (imported, not derived from the CA, and not hereby adopted), and it inherits F241''s O(1)/
+    Omega_Lambda "why now" residual unchanged rather than resolving it.
+
+    '
+- id: F368-cc-sequestering-consistency
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_lambda_sequestering_consistency
+  entry: run
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-08
+  findings:
+  - F369
+  - F367
+  - F332
+  - F164
+  - F241
+  - F319
+  - F178
+  - F182
+  - F79
+  - F59
+  results:
+  - test-results/F368_cc_sequestering_consistency.json
+  control:
+  - params:
+      substitute_vacuum: false
+    reds:
+    - C1-vacuum-reduces-to-ordinary-GR-plus-Lambda_eff
+    reason: without substituting tau_munu=0 in the vacuum leg, the field equation keeps an inhomogeneous
+      tau term and no longer reduces to the pure -Lambda_eff*g_munu form -- proves the reduction is not
+      a tautology of the symbols involved
+  - params:
+      finite_time_only: true
+    reds:
+    - C2a-eternal-de-Sitter-V4-diverges
+    reason: measuring the de Sitter 4-volume only over a finite window [0,T0] can never detect a divergence
+      that only appears in the T->infinity limit -- proves the real check is not vacuously true regardless
+      of which limit is taken
+  - params:
+      wa_sign_flip: true
+    reds:
+    - C3-desi-preferred-quadrant-trends-toward-less-negative-w
+    reason: flipping wa's sign from DESI DR2's own preferred negative value to positive reverses dw/da's
+      sign, so w would trend toward MORE negative (more phantom) in the future instead of less -- proves
+      the directional check is sensitive to the actual sign, not hardcoded true
+  summary: 'F368 -- runs CL303''s own falsifier 4 (a worked construction showing sequestering''s global
+    Lagrange-multiplier sector is inconsistent with decision 4''s PPN/F178-vacuum/induced-G content) against
+    the actual Kaloper-Padilla base action (Padilla 2015 review sec.7, consulted directly, not just F367''s
+    isolated local-consequence identity). Result: those three legs are NOT in tension -- in vacuum the
+    KP local field equation reduces algebraically to ordinary GR plus a Lambda_eff term (Schwarzschild-de
+    Sitter/Kottler), the same qualitative object decision 4 already needs to explain, with PPN corrections
+    from a small Lambda utterly negligible at solar-system scales (standard, cited) and the Einstein-Hilbert
+    coefficient untouched by construction (F367 S1) -- so CL303 stays `contingent`, not `withdrawn`. But
+    the actual KP base action (not just F367''s narrower identity) carries two further requirements F367
+    did not name, both shown (Padilla sec.7, cited) to be base-mechanism features rather than only the
+    "why now" extension''s: spatial closure (k>0) and non-eternal ("transient") dark energy. Independently
+    sympy-verified here: eternal (w=-1-forever) de Sitter expansion has divergent total spacetime 4-volume,
+    ordinary flat/open matter-only eternal expansion ALSO diverges (proving finiteness is not generic
+    to deceleration), while a closed matter-dominated FRW recollapse has finite 4-volume over its full
+    bang-to-crunch history -- matching KP''s own finite-V4 requirement for the multiplier field. Neither
+    new cost is excluded by current data: Planck CMB-alone has a live, disputed >99% C.L. preference for
+    positive curvature (Di Valentino, Melchiorri & Silk 2020; resolved to flat once BAO is added), and
+    DESI DR2''s own w0>-1,wa<0 preference (3.1 sigma over LambdaCDM with CMB, arXiv:2503.14738) gives
+    dw/da>0 -- w trending toward LESS negative in the future, the qualitative direction transience needs,
+    not eternal-w=-1''s. Both alignments are reported as "not excluded, directionally not contradicted",
+    explicitly not as evidence for adoption or as a promotion of rubric row K10, which stays exactly where
+    Amendment 4 left it.
+
+    '
+- id: F369-transfer-function-scoping
+  path: tests/findings/test_F369_transfer_function_scoping.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  findings:
+  - F125
+  - F182
+  - F188
+  - F288
+  - F297
+  - F369
+  module: casim.engine.interactions.cosmology_transfer_function
+  entry: run
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0.01
+  results:
+  - test-results/F369_transfer_function_scoping.json
+  control:
+  - params:
+      z_drag_multiplier: 1.1
+    reds:
+    - D1_sound_horizon_vs_planck
+    - D2_model_native_vs_eh98_internal_fit
+    reason: carrying the sound-horizon integral to the wrong epoch (10% high in z_drag) pushes the model-native
+      r_s 6.2% off Planck's r_drag, past the 1% tolerance, while EH98's own internal fitting formula (z_drag-independent)
+      does not move -- proving D1/D2 are not vacuously insensitive to the epoch they integrate to.
+  - params:
+      b_ion_multiplier: 1.2
+    reds:
+    - D4_saha_recombination_redshift
+    reason: an unphysical +20% hydrogen ionisation energy pushes the Saha bias to 52.8%, outside the known
+      15-40% equilibrium-approximation band; a -20% perturbation pushes it to 0.3%, spuriously near zero
+      -- either direction is caught.
+  note: 'K11/S2 (docs/status/open-derivations.md row S2; F288 sec. 7''s own open item). Six checks plus
+    a two-axis control. S1/S2 are sympy literal zeros (the radiation-era sound-speed limit, and R(a)''s
+    exact linearity in a). D1 integrates the model''s OWN F182/F188 background to the (imported) Planck
+    drag redshift and lands 0.11% from Planck''s own r_drag -- an INDEPENDENT published result, so this
+    leg can genuinely fail. D2 compares that same integral to the closed-form fitting formula cosmology_growth.transfer_eh98
+    already uses internally (1.86% off Planck) -- a 16x improvement. D3 swaps the model-native sound horizon
+    into the (otherwise unchanged) EH98 shape and re-measures sigma_8: the shift is 0.013%, two orders
+    of magnitude below the sigma_8-vs-Planck residual itself, DIAGNOSING that residual as the missing
+    acoustic wiggles / Boltzmann-calibrated envelope rather than the sound-horizon scale. D4 derives the
+    hydrogen recombination redshift from the plain Saha equation using the model''s own F125 Rydberg energy
+    and the unchanged imported eta10, reproducing the textbook ~26% Saha-vs-true (Peebles 1968) bias honestly
+    -- asserted to land IN that band, not at zero. Sweep handles: `casim test --id F369-transfer-function-scoping
+    --param z_drag_multiplier=1.1` and `--param b_ion_multiplier=1.2`.
+
+    '
+  evidence:
+    mentions:
+    - F125
+    - F182
+    - F188
+    - F369
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 139
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F369 -- toward a model-native EH98 replacement (K11/S2).
+- id: F372-npsplit-theory-uncertainty
+  path: null
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_bbn
+  entry: check_k2
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0.1
+  findings:
+  - F372
+  - F297
+  - F122
+  - F123
+  - F40
+  results:
+  - test-results/F372_npsplit_theory_uncertainty.json
+  control:
+  - params:
+      delta_m_theory_sigma_mev: 0.0056
+    reds:
+    - K2-14
+    reason: 'force the theory-uncertainty-aware significance to use the BBN-inferred OBSERVATIONAL band
+      (+-0.0056 MeV, the precision to which the measured Y_p pins Delta m) in place of BMW 2015''s literature
+      theory uncertainty (+-0.280 MeV, sqrt(0.16^2+0.23^2) combined stat+sys) on the model''s OWN Delta
+      m=1.51 MeV estimate. MEASURED: sig_theory_aware goes from 0.77 to 38.7 and ONLY K2-14 turns red
+      (14/15) -- K2-9 (the pre-existing naive 36.6 sigma check), K2-15 (the P2 pairwise EM re-derivation)
+      and every BBN/network leg are bit-for-bit unchanged, isolating the control to exactly the statistic
+      F372 corrects.'
+  notes: 'F297/CL259 computed "the model''s Delta m=1.51 MeV is excluded at 36.6 sigma" (K2-9) by comparing
+    a POINT prediction against the BBN-inferred observational band +-0.0056 MeV -- the precision to which
+    the MEASURED Y_p pins Delta m, not the theoretical uncertainty on the model''s own two-term ESTIMATE
+    of Delta m. Per F297 Sec.10 item 1, both named fixes were checked directly: (1) baryon_dynamics.em_self_energy_pairwise
+    re-derives the EM term from the model''s own P2 three-body <1/r> (zero new parameters) and gets 0.968
+    MeV against the ad hoc classical 1.00 MeV -- 3.2%, not the ~22% an EM-side fix would need (added as
+    K2-15); (2) PDG 2024''s own m_u=2.20(7)/m_d=4.69(5) MeV give m_d-m_u=2.49 MeV against F40''s 2.51
+    MeV -- 0.8%, not the 8.6% an F40-side fix would need. Neither branch survives contact with an independent
+    check. BMW 2015 (ab initio lattice QCD+QED, arXiv:1406.4088) computes the SAME split self-consistently
+    -- QCD +2.52(17)(24), QED -1.00(07)(14), total 1.51(16)(23) MeV -- matching the model''s 2.51/-1.00/1.51
+    to <=0.01 MeV on every term while sitting the SAME ~0.22 MeV from the measured 1.29333 MeV the model
+    does: a known, field-wide feature of the state of the art, not a defect unique to this model. Propagating
+    BMW''s own combined stat+sys (0.280 MeV) onto the model''s Delta m and recomputing: sig_theory_aware=0.77
+    (K2-14, new), tau_n at Delta m=1.51+-0.280 MeV spans [120.7, 1225.1] s and contains the measured 878.4
+    s, Y_p at the same band spans [0.0219, 0.2834] and contains the measured 0.2453 -- neither G5''s BBN
+    tension nor G7''s neutron-lifetime "factor 2.7" survives correct uncertainty propagation. K2-9 is
+    left exactly as F297 wrote it (still true, and still the naive-band statistic it always was); K2-14/K2-15
+    are additive, not corrective, to the pre-existing thirteen checks.'
+- id: F374-eliashberg-cutoff-reconciliation
+  path: tests/findings/test_F374_eliashberg_cutoff_reconciliation.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F374_eliashberg_cutoff_reconciliation.json
+  findings:
+  - F242
+  - F215
+  - F218
+  - F374
+  sector: interactions
+  evidence:
+    mentions:
+    - F64
+    - F215
+    - F218
+    - F242
+    - F374
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 217
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F374 — Reconciling the F215 Eliashberg solver's Coulomb cutoff with the
+- id: F375-nb-realistic-dos
+  path: tests/findings/test_F375_nb_realistic_dos.py
+  kind: result_dump
+  tier: battery
+  results:
+  - test-results/F375_nb_realistic_dos.json
+  findings:
+  - F242
+  - F374
+  - F375
+  sector: interactions
+  evidence:
+    mentions:
+    - F242
+    - F374
+    - F375
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 181
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F375 — A real (DFT-sourced) N(0) for Nb, not free-electron, in the F242
+- id: F376-interacting-sector-eth-onset
+  path: tests/findings/test_F376_interacting_sector_eth_onset.py
+  kind: assertion
+  tier: gate
+  findings:
+  - F110
+  - F300
+  - F309
+  - F376
+  sector: interactions
+  control:
+  - params:
+      v2_control: true
+    reds:
+    - C3
+    - C4
+    - C5
+    - C6
+    reason: forces V2 -> 0 inside the 'generic_V1V2' regime, i.e. makes it identical to 'integrable_V1'.
+      Every regime-SEPARATION check (the level-spacing-ratio GOE-separation, its finite-size flow, the
+      entanglement-plateau ordering, the ETH eigenstate-fluctuation trend) must then go red, since there
+      is no longer a second regime to separate from. C0-C2 (construction sanity, parity block- diagonalisation,
+      integrable_V1's own Poisson consistency) are untouched. Measured 2026-09-06.
+  module: casim.engine.interactions.thermodynamics_interacting
+  entry: check_f375
+  params:
+    Ls:
+    - 10
+    - 12
+    - 14
+  expect:
+    exactness: quantitative
+    tol: 0.05
+  results:
+  - test-results/F376_interacting_sector_eth_onset.json
+  notes: 'F376 (rubric row G10 residual). ARMED 2026-09-06. Declared control `v2_control=True` verified
+    red at exactly {C3, C4, C5, C6} and only those. NOT F110''s link Hamiltonian coupled to matter (F110
+    sec5: that coupling is not built) -- the smallest interacting extension instead, on a 1D single-band
+    OBC chain reduction of the free-fermion machinery. Two-tier result: a nearest-neighbour-only interaction
+    (V1, Jordan-Wigner-integrable/XXZ) does not separate from Poisson level statistics or develop the
+    ETH eigenstate-fluctuation signature; adding a next-nearest-neighbour term (V2, generic) does, on
+    all three independent diagnostics, with the expected finite-size flow across L=10,12,14.'
+  evidence:
+    mentions:
+    - F110
+    - F300
+    - F309
+    - F376
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 67
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F376 -- G10 residual: does an interacting extension of the free-fermion'
 - id: F52-restleg-backreaction
   path: tests/findings/test_F52_restleg_backreaction.py
   kind: result_dump

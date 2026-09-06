@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "name": "B1 singlet: exact scalar eigenstate over axis x angle sweep",
+      "ok": true,
+      "value": 1.7730632026843772e-16
+    },
+    {
+      "name": "B2 triplet: invariant subspace, NOT a scalar rep at theta_exchange",
+      "ok": true,
+      "value": 1.6329931618554518
+    },
+    {
+      "name": "B2b triplet subspace leak (should be 0 -- it IS invariant)",
+      "ok": true,
+      "value": 1.5700924586837752e-16
+    },
+    {
+      "name": "B3 two exchanges == identity, via F289's own R(2pi)",
+      "ok": true,
+      "value": 3.463824224941973e-16
+    }
+  ],
+  "passed": true,
+  "n_pass": 4,
+  "n_total": 4,
+  "params": {
+    "theta_exchange": 3.141592653589793,
+    "wrong_singlet": false
+  },
+  "summary": {
+    "F330_singlet_worst_leak": 1.7730632026843772e-16,
+    "F330_singlet_worst_phase_deviation": 3.3306690738754696e-16,
+    "F330_triplet_deviation_from_scalar_at_pi": 1.6329931618554518,
+    "F330_triplet_subspace_leak_at_pi": 1.5700924586837752e-16,
+    "F330_triplet_eigenvalues_at_pi": [
+      "(-1-1.2246467991473532e-16j)",
+      "(-1+1.2246467991473532e-16j)",
+      "(0.9999999999999998+0j)"
+    ],
+    "F330_two_exchanges_minus_identity": 3.463824224941973e-16,
+    "F330_f289_r2pi_residual": 1.7319121124709866e-16
+  }
+}

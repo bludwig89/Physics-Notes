@@ -35,7 +35,10 @@ the block-diagonalisation is cross-checked against the exact type-I see-saw
 formula m_nu = -M_D M_R^{-1} M_D^T.
 
 Real arithmetic throughout (the textures are real-symmetric); complex phases
-(Dirac CP phase) are supported via complex M_D / M_R but default to real.
+(Dirac CP phase) are supported via complex M_D / M_R but default to real --
+see F353 for the delta_CP / Jarlskog-invariant machinery (jarlskog_invariant,
+sin_delta_cp) and the Takagi-factorisation fix that makes the complex branch
+trustworthy for phase-sensitive quantities.
 """
 
 from __future__ import annotations
@@ -137,25 +140,57 @@ def takagi_light_masses(m_nu: np.ndarray):
     """Physical (non-negative) light masses + PMNS mixing from m_nu.
 
     For a complex symmetric m_nu the physical masses are the singular values
-    (Takagi factorisation); the PMNS matrix is the associated unitary.  For a
-    REAL symmetric m_nu this reduces to |eigenvalues| with the eigenvector
-    orthogonal matrix, which is what we use (real textures).  Returns
-    (masses_sorted_ascending, U_pmns, residual_on_m_nu).
+    (Takagi/Autonne factorisation); the PMNS matrix is the associated unitary.
+    For a REAL symmetric m_nu this reduces to |eigenvalues| with the
+    eigenvector orthogonal matrix, which is what we use (real textures).
+    Returns (masses_sorted_ascending, U_pmns, residual).
+
+    F353 fix (2026-09-03): the complex branch previously returned the raw
+    eigenvectors of m_nu^dagger m_nu (an eigh call) AS IF they were the Takagi
+    U.  That reproduces every modulus |U_ij| exactly -- so it never affected a
+    PMNS ANGLE (F236/F254 only ever fit real T_2g, and pmns_angles() below only
+    reads np.abs(U)) -- but it silently drops the Takagi phase correction, so
+    any phase-sensitive invariant built on it (the Jarlskog invariant, the
+    Dirac CP phase) was forced toward an unphysical value regardless of the
+    input phases.  See F353 (open-derivations D4 / parameter #26) for the
+    numerical demonstration and docs/reviews/F353-review-2026-09-03.md.  The
+    correct construction (Horn & Johnson-style, via SVD) is used below and
+    verified by reconstructing m_nu = U diag(masses) U^T to machine precision
+    (folded into the returned residual), not merely by an eigenvalue check on
+    the auxiliary Hermitian matrix.
     """
     m_nu = np.asarray(m_nu)
-    if np.allclose(m_nu.imag, 0.0):
+    # F353: the branch test must be SCALE-RELATIVE.  Light-neutrino m_nu is
+    # typically ~1e-9 to 1e-20 in these units (GeV), so np.allclose(imag, 0)
+    # at its numpy DEFAULT absolute tolerance (atol=1e-8) silently called
+    # EVERY such matrix "real" regardless of its imaginary content -- the
+    # complex branch below was unreachable dead code for any physically
+    # scaled input.  Compare the imaginary part to the matrix's own scale.
+    abs_scale = float(np.max(np.abs(m_nu))) or 1.0
+    if np.max(np.abs(m_nu.imag)) <= 1e-10 * abs_scale:
         M = m_nu.real
         w, V = np.linalg.eigh(M)            # M symmetric real
         res = _residual(M, w, V)
         masses = np.abs(w)
         order = np.argsort(masses)
         return masses[order], V[:, order], res
-    # complex-symmetric Takagi via eigh of m_nu^dagger m_nu
-    H = m_nu.conj().T @ m_nu
-    w2, V = np.linalg.eigh(H)
-    masses = np.sqrt(np.clip(w2, 0.0, None))
+    # Complex-symmetric Autonne-Takagi factorisation m_nu = U diag(masses) U^T,
+    # via SVD m_nu = W diag(S) V^dagger (W, V unitary, S >= 0 real).  Symmetry
+    # of m_nu forces Phi = V^T W to be diagonal unitary (checked, not assumed);
+    # U = W with each column rephased by Phi_ii^{-1/2} then satisfies the
+    # Takagi identity exactly (Horn & Johnson, *Matrix Analysis*, Corollary
+    # 4.4.4, specialised to n=3).
+    W, S, Vh = np.linalg.svd(m_nu)
+    Vsvd = Vh.conj().T
+    Phi = Vsvd.T @ W
+    phi_offdiag_err = float(np.max(np.abs(Phi - np.diag(np.diag(Phi)))))
+    col_phase = np.exp(-1j * np.angle(np.diag(Phi)) / 2.0)
+    U = W * col_phase[np.newaxis, :]
+    masses = S
     order = np.argsort(masses)
-    return masses[order], V[:, order], _residual(H, w2, V)
+    recon_res = float(np.max(np.abs(m_nu - (U * masses[np.newaxis, :]) @ U.T)))
+    res = max(phi_offdiag_err, recon_res)
+    return masses[order], U[:, order], res
 
 
 def pmns_angles(U: np.ndarray):
@@ -175,6 +210,37 @@ def pmns_angles(U: np.ndarray):
     th12 = np.degrees(np.arcsin(np.clip(s12, 0, 1)))
     th23 = np.degrees(np.arcsin(np.clip(s23, 0, 1)))
     return th12, th13, th23
+
+
+def jarlskog_invariant(U: np.ndarray) -> float:
+    """Standard rephasing-invariant Jarlskog combination (F353).
+
+        J = Im( U_e1 U_mu2 U_e2^* U_mu1^* ),   rows (e,mu,tau), cols (1,2,3).
+
+    J is invariant under U -> U @ diag(phases) (any column/Majorana-phase
+    rephasing) -- only the Dirac-type phase content survives in it.  J = 0
+    identically whenever U is real (e.g. every F236/F254 result: real T_2g).
+    """
+    U = np.asarray(U)
+    return float(np.imag(U[0, 0] * U[1, 1] * np.conj(U[0, 1]) * np.conj(U[1, 0])))
+
+
+def sin_delta_cp(U: np.ndarray):
+    """sin(delta_CP) via J = s12 c12 s13 c13^2 s23 c23 sin(delta) (standard PDG
+    relation).  Returns (sin_delta, J); sin_delta is None where the angle
+    prefactor is ~0 (delta undefined there, e.g. theta13 = 0).  Does not
+    resolve the delta <-> 180 deg - delta branch ambiguity that sin(delta)
+    alone carries -- this module only needs whether delta is free, not its
+    value.
+    """
+    th12, th13, th23 = pmns_angles(U)
+    J = jarlskog_invariant(U)
+    r12, r13, r23 = np.radians(th12), np.radians(th13), np.radians(th23)
+    pref = (np.sin(r12) * np.cos(r12) * np.sin(r13) * np.cos(r13) ** 2
+            * np.sin(r23) * np.cos(r23))
+    if abs(pref) < 1e-12:
+        return None, J
+    return float(np.clip(J / pref, -1.0, 1.0)), J
 
 
 # ---------------------------------------------------------------------------

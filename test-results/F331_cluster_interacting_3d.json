@@ -1,0 +1,52 @@
+{
+  "checks": [
+    {
+      "name": "C1 free 3-D (100)-axis kappa matches closed form (correct BZ, window-limited residual)",
+      "ok": true,
+      "value": 1.1707307147999126
+    },
+    {
+      "name": "C1c I1_lat(m=1) == 1/pi exactly (MC sanity anchor)",
+      "ok": true,
+      "value": 0.31830988618379064
+    },
+    {
+      "name": "C2 nontrivial self-consistent dynamical mass m* exists at g=2.9",
+      "ok": true,
+      "value": 0.6054958071708678
+    },
+    {
+      "name": "C2b trivial-only below the measured critical coupling (g=2.0)",
+      "ok": true,
+      "value": 0.0
+    },
+    {
+      "name": "C3 interacting-theory (100)-axis clustering: finite kappa(m*) > 0, measured decay matches",
+      "ok": true,
+      "value": 1.2155169993381942
+    }
+  ],
+  "passed": true,
+  "n_pass": 5,
+  "n_total": 5,
+  "params": {
+    "use_correct_bz": true,
+    "g_below_gc": 2.0,
+    "g_above_gc": 2.9,
+    "m_free": 0.5,
+    "L": 64,
+    "n_mc": 20000,
+    "seed": 0
+  },
+  "summary": {
+    "F331_axis100_kappa_exact_at_m_free": 0.9514261508963463,
+    "F331_axis100_kappa_measured_at_m_free": 1.113863817718209,
+    "F331_axis100_ratio_at_m_free": 1.1707307147999126,
+    "F331_axis110_kappa_exact_at_m_free": 0.6648059190032467,
+    "F331_gap_equation_coupling": 2.9,
+    "F331_gap_equation_m_star": 0.6054958071708678,
+    "F331_gap_equation_residual": 2.9270340817788565e-08,
+    "F331_interacting_kappa_exact_at_m_star": 1.2155169993381942,
+    "F331_interacting_kappa_ratio_at_m_star": 1.132659301161742
+  }
+}

@@ -385,8 +385,13 @@ tests:
   findings:
   - F47
   - F199
-  - F200
+  - F266
   sector: forks
+  notes: 'The finding this record can go red on is F266, not F200. This dark-sector relic WAS F200 and
+    was renumbered to F266 on 2026-07-31 (docs/design/finding-numbers.yaml, duplicates: 200); today F200
+    is the E_g sextic-coupling computation, which this test says nothing about and whose own record is
+    F200-eg-sextic-coupling-computation. The id and the test filename keep the pre-renumber tag. Corrected
+    2026-08-19, finding-coverage rollout section 4 bucket 2.'
   evidence:
     mentions:
     - F47
@@ -742,6 +747,25 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: Test wrapper for F248 — the explicit transverse-traceless (TT) graviton mode
+- id: F364-baryogenesis-boltzmann
+  path: tests/findings/test_F364_baryogenesis_boltzmann.py
+  kind: assertion
+  tier: battery
+  sector: forks
+  evidence:
+    mentions:
+    - F201
+    - F202
+    - F364
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 133
+    n_test_funcs: 1
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F364_baryogenesis_boltzmann.py
 - id: F56-einstein-coupling-derivation
   path: tests/findings/test_F56_einstein_coupling_derivation.py
   kind: result_dump
@@ -1114,6 +1138,8 @@ tests:
   tier: battery
   results:
   - test-results/FA_lgt_mc.json
+  findings:
+  - F94
   briefs:
   - FA1
   - FA2

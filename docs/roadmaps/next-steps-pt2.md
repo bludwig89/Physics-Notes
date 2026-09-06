@@ -1,18 +1,23 @@
 # Continuing Next Research Steps
 
 
-- per completeness-2026-08-18 itme b7, 3+1d confinement is built but not proven within the model. If possible execute a full proof.
-
-- ~~per completeness-1016-08-07 item b7, now that we have derived the +1 time dimension as the update rule, does this allow confinement to be built stronger?~~
-
-- ~~per completeness-2026-08-07 item B10, now that we have derived the SU(3) gauge field from the model structure, does this answer the "why 3 colors" question or is there more work to be done?~~
-
-- per completeness-2026-08-07 item g3, Hadronic VP, HLbL and EW are not claimed yet. build out each from within the model structure.
 
 ## Project Status 
 
- 
-- I would like to change the review-finding skill so it does not create a review file, but is instead run automatically after a finding is built within a session, attacks the finding, then updates and fixes the finding and it's tests to reflect anything that was missed, omitted, or misread.
+- I keep seeing this python message: " SyntaxWarning: "\_" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\_"? A raw string is also an option." for many "\" escape messages. investigate the issue and propose solutions.
+
+- **Two records are both a pytest file and an `entry:`** — `F305-bcc-rhombic-vertices` and
+  `F307-action-consistent-d1`. `tests/casim/test_registry_entries.py::test_entry_driven_records_are_hidden_from_file_collection`
+  fails on them ("Pick one contract"). **F305 was already red at HEAD**; F307 only became visible
+  when F327's session had to run `tools/gen_test_registry.py` (the committed `evidence:` block was
+  stale, so `pytest_funcs: true` had never been recorded for it). Both records carry rich
+  `params:`/`control:` blocks, so the `entry:` contract is the one that actually runs and the
+  pytest functions are the redundant half — but which half to drop is a decision for whoever owns
+  the d1/LPT line, not for a passing session. Landing site: this row.
+- **`CLAUDE.md`'s V-004 paragraph is stale.** It says the entry-driven route through
+  `tests/casim/test_registry_entries.py` carries "today exactly one" record
+  (`F276-curved-weyl-ordering-second-order`). That file now collects 60 tests, ~15 of them
+  entry-driven. The 27-vs-24 arithmetic in the same paragraph should be re-measured with it.
 
 ## Skills Cheat Sheet
 

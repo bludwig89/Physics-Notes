@@ -4,7 +4,7 @@ title: 'The k-resolved dielectric photon propagator: Weyl ordering and the secon
 slug: 'the-k-resolved-dielectric-photon-propagator-weyl-ordering'
 tier: supporting
 kind: derivation
-status: withdrawn
+status: live
 domain: [QFT]
 exactness: unset
 findings: [F271]
@@ -46,11 +46,18 @@ The k-resolved dielectric photon propagator: Weyl ordering and the second-order 
 
 ## Status & history
 
-`withdrawn`, inferred from the finding's own status line, quoted here verbatim so the inference is checkable:
+`live`, quoted from the finding's own status line — which the seed missed because F271 writes it in
+italics (`*Status: ...*`) rather than `**Status:**`:
 
-> *The finding states no `**Status:**` line.*
+> *Status: **established** for the operator's exactness, convergence and norm behaviour; the deflection **coefficient** against GR is explicitly not claimed.*
 
-**A supersession/withdrawal banner appears in this finding's header**, which is why the card reads `withdrawn`. The specific ledger record has not been attached — do that before relying on this status.
+**Corrected from `withdrawn` on 2026-08-19** (finding-coverage rollout section 4 bucket 2). The seed read
+`withdrawn` off the word *Supersedes* in F271's header, but the direction is the other way: F271 is the
+**superseder** in ledger entry `S10-F271-eikonal-dielectric-photon`, which retires F270 §4's eikonal
+`dielectric_mix_half` for the photon channel. F271 appears in no `superseded:` list. Evidence is now
+carried by a record: `P3.4-P3.6-total-energy-and-gravity-loop` (gate tier), legs T8b–T8d, T9, T10.
+Still `review_state: unreviewed-seed`: the statement is the finding's title, and the finding's own
+explicit non-claim — the deflection coefficient against GR — is not yet written into this card.
 
 Seeded 2026-08-04 as part of standing up the claims layer (D12). No physics was read, changed or judged in creating this card.
 

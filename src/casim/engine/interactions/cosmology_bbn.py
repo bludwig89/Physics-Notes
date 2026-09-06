@@ -24,6 +24,12 @@ MODEL-NATIVE (derived in this tree, no BBN input):
   * ``\\dot G/G = 0`` — exactly, on the rigid substrate (F79/F284).  The standard
                        BBN speed-up factor from a varying G is therefore
                        identically 1: a structural prediction, not a bound met.
+                       This BBN run holds G fixed throughout by construction
+                       (it cannot return a nonzero drift) and still matches
+                       Y_p/D_H — a BBN-INTERNAL CONSISTENCY CHECK on the
+                       assumption, not a second independent measurement of it
+                       the way F284's LLR comparison is (F361,
+                       `gdot_over_g_prediction()`).
   * ``N_eff``        — from the model's own light content.  ``nu_R`` is a
                        structurally forced *total* singlet (Y = 0, F47/F279) and
                        carries a Majorana mass (F47/F236), so it neither
@@ -63,13 +69,18 @@ full law — so the network's absolute offset cancels to first order.  That is t
 whole reason the differential quantities are the headline and the absolute ones
 are not.
 
-**Lithium-7 is NOT validated here and no lithium claim is made.**  Measured
-against the same published reference the A = 7 chain comes out about an order of
-magnitude low, so the four A = 7 rate fits in `_rate_fits` are wrong or
-incomplete in this implementation.  ``Li7_H`` is returned because suppressing it
-would hide the defect, and it is excluded from `check_k2` for the same reason it
-is named here: an unvalidated number must not be allowed to look like a result.
-The famous lithium problem is untouched by this module in either direction.
+**Lithium-7 is now validated (F361).**  The five A = 7 rate fits in
+`_rate_fits` (He3a_Be7, ta_Li7, Be7n_Li7, Li7p_He4, Be7n_He4) were transcribed
+with terms missing or, for Be7n_He4, an outright wrong functional form; F297
+caught the order-of-magnitude symptom and F361 repaired them against Kawano's
+reference NUC123 code (Smith, Kawano & Malaney 1993, ApJS 85, 219).  Li7_H now
+reproduces the same published reference to within the module's declared 10%
+band (`LI7_VALIDATION_TOL`) and is included in `check_k2` as K2-13; the
+pre-repair fits survive only as `legacy_a7_bug=True`, the control that proves
+the repair is load-bearing.  This still makes **no claim about the standing
+(observational) lithium problem** — standard BBN's own ~5e-10 prediction
+against the ~1.6e-10 Spite-plateau measurement — which this repair does not
+touch in either direction; see `validate_network()`'s `Li7_note`.
 
 THE RESULT, IN ONE LINE
 -----------------------
@@ -81,6 +92,8 @@ confirmation, and it turns a loosely-checked prediction into a tightly bounded
 one.
 
 Date: 2026-08-05 - 22:40
+F361 update: 2026-09-03 - 18:35 (A=7 rate repair, Li7 validated; dot G/G BBN
+registration).
 """
 
 from __future__ import annotations
@@ -88,6 +101,7 @@ from __future__ import annotations
 from casim.numerics import xp
 
 from casim.constants import G_CODATA, c_SI, hbar_SI, g_A
+from casim.engine.particles import baryon_dynamics as BAR
 
 __all__ = [
     "MODEL_DELTA_M_MEV", "PDG_DELTA_M_MEV", "B_D_MODEL_MEV",
@@ -135,6 +149,25 @@ REFERENCE_LI7H = 5.00e-10
 OBS_YP = (0.2453, 0.0034)       # Aver et al. 2021
 OBS_DH = (2.527e-5, 0.030e-5)   # Cooke, Pettini & Steidel 2018
 OBS_NEFF = (2.99, 0.17)         # Planck 2018 TT,TE,EE+lowE+lensing+BAO
+
+# ---------------------------------------------------------------------------
+# F372: literature comparison for the model's own Delta m = m_n - m_p
+# decomposition (F122/F123), used by delta_m_theory_uncertainty() below.
+# ---------------------------------------------------------------------------
+# BMW collaboration 2015 (Borsanyi et al., Science 347, 1452; arXiv:1406.4088),
+# ab initio lattice QCD+QED, Table 1: (central, stat, sys), all MeV.
+BMW_QCD_MEV = (2.52, 0.17, 0.24)
+BMW_QED_MEV = (-1.00, 0.07, 0.14)
+BMW_TOTAL_MEV = (1.51, 0.16, 0.23)
+BMW_TOTAL_SIGMA_MEV = (BMW_TOTAL_MEV[1] ** 2 + BMW_TOTAL_MEV[2] ** 2) ** 0.5  # 0.280
+
+# Thomas, Wang & Young, Phys. Rev. C 91, 015209 (2015): dispersive Cottingham-
+# sum-rule electromagnetic contribution, (p-n) convention -- (central, sigma).
+TWY_EM_P_MINUS_N_MEV = (1.04, 0.11)
+
+# PDG 2024 quark-mass review (MS-bar, 2 GeV): m_u = 2.20(7), m_d = 4.69(5) MeV.
+PDG2024_MU_MEV = 2.20
+PDG2024_MD_MEV = 4.69
 
 
 # ===========================================================================
@@ -463,9 +496,20 @@ BINDING_MEV = {"n": 0.0, "p": 0.0, "d": B_D_MODEL_MEV, "t": 8.481795,
 G_NUC = {"n": 2, "p": 2, "d": 3, "t": 2, "He3": 2, "He4": 1, "Li7": 4, "Be7": 4}
 
 
-def _rate_fits(t9):
+def _rate_fits(t9, legacy_a7_bug=False):
     """Thermonuclear rates N_A<sigma v> (cm^3 mol^-1 s^-1), Smith-Kawano-Malaney
-    1993 analytic forms.  EXTERNAL nuclear data — not derived in this tree."""
+    1993 analytic forms, cross-checked term-by-term against Kawano's reference
+    NUC123 Fortran code (Smith, Kawano & Malaney 1993, ApJS 85, 219 — reactions
+    17, 19, 24, 26, 27).  EXTERNAL nuclear data — not derived in this tree.
+
+    F361 repair: the five A = 7 fits below (He3a_Be7, ta_Li7, Be7n_Li7,
+    Li7p_He4, Be7n_He4) were transcribed with missing narrow-resonance terms
+    and, in two cases, wrong polynomial coefficients or a wrong functional
+    form outright (Be7n_He4).  Each is now the exact NUC123 sum, including the
+    resonance-narrowed temperatures t9a/t9d/t9e/t9f = t9/(1+c t9) that the
+    original fits used in their second term and this implementation had
+    silently replaced with bare t9 (i.e. dropped, since the terms using them
+    were absent)."""
     t9 = max(float(t9), 1e-4)
     e = xp.exp
     t13, t23, t43, t53 = t9 ** (1 / 3), t9 ** (2 / 3), t9 ** (4 / 3), t9 ** (5 / 3)
@@ -490,20 +534,64 @@ def _rate_fits(t9):
                      * (1 + 0.058 * t13 + 0.603 * t23 + 0.245 * t9
                         + 6.97 * t43 + 7.19 * t53)
                      + 5.212e8 / t9 ** 0.5 * e(-1.762 / t9))
-    r["He3a_Be7"] = 4.817e6 * t9 ** (-2 / 3) * e(-14.964 / t13) * (
+
+    if legacy_a7_bug:
+        # PRE-F361 transcription: the four A = 7 production/exchange fits
+        # missing their NUC123 narrow-resonance term, and Be7n_He4 with the
+        # wrong functional form outright.  Kept ONLY as the control leg that
+        # proves F361's repair is load-bearing (`casim test --param
+        # legacy_a7_bug=true` must turn K2-13 red) -- never the default path.
+        r["He3a_Be7"] = 4.817e6 * t9 ** (-2 / 3) * e(-14.964 / t13) * (
+            1 + 0.0325 * t13 - 1.04e-3 * t23 - 2.37e-4 * t9
+            - 8.11e-5 * t43 - 4.69e-5 * t53)
+        r["ta_Li7"] = 3.032e5 * t9 ** (-2 / 3) * e(-8.090 / t13) * (
+            1 + 0.0516 * t13 - 4.06e-3 * t23 - 5.15e-4 * t9
+            - 3.05e-4 * t43 - 5.62e-5 * t53)
+        r["Be7n_Li7"] = 2.675e9 * (1 - 0.560 * t9 ** 0.5 + 0.179 * t9
+                                   - 0.0283 * t9 ** 1.5 + 2.214e-3 * t9 ** 2
+                                   - 6.851e-5 * t9 ** 2.5)
+        r["Li7p_He4"] = (1.096e9 * t9 ** (-2 / 3) * e(-8.472 / t13)
+                         + 4.830e8 * t9 ** (-2 / 3)
+                         * e(-8.472 / t13 - (t9 / 1.696) ** 2)
+                         * (1 + 0.759 * t9 ** 1.6)
+                         + 1.06e10 * t9 ** (-1.5) * e(-30.442 / t9))
+        r["Be7n_He4"] = 2.05e4 / t9 ** 0.5
+        return r
+
+    # --- A = 7 fits (F361 repair): NUC123's own resonance-narrowed
+    # temperatures, each scoped to the one reaction that uses it (Kawano's
+    # t9a/t9d/t9e/t9f).
+    t9a = t9 / (1.0 + 13.076 * t9)                       # reaction 17
+    t9a32 = t9a ** 1.5
+    t9d = t9 / (1.0 + 0.759 * t9)                        # reaction 24
+    t9d13, t9d56 = t9d ** (1 / 3), t9d ** (5 / 6)
+    t9e = t9 / (1.0 + 0.1378 * t9)                       # reaction 26
+    t9e13, t9e56 = t9e ** (1 / 3), t9e ** (5 / 6)
+    t9f = t9 / (1.0 + 0.1071 * t9)                       # reaction 27
+    t9f13, t9f56 = t9f ** (1 / 3), t9f ** (5 / 6)
+
+    r["He3a_Be7"] = (4.817e6 * t9 ** (-2 / 3) * e(-14.964 / t13) * (
         1 + 0.0325 * t13 - 1.04e-3 * t23 - 2.37e-4 * t9
         - 8.11e-5 * t43 - 4.69e-5 * t53)
-    r["ta_Li7"] = 3.032e5 * t9 ** (-2 / 3) * e(-8.090 / t13) * (
-        1 + 0.0516 * t13 - 4.06e-3 * t23 - 5.15e-4 * t9
-        - 3.05e-4 * t43 - 5.62e-5 * t53)
-    r["Be7n_Li7"] = 2.675e9 * (1 - 0.560 * t9 ** 0.5 + 0.179 * t9
-                               - 0.0283 * t9 ** 1.5 + 2.214e-3 * t9 ** 2
-                               - 6.851e-5 * t9 ** 2.5)
+        + 5.938e6 * t9f56 * t9 ** (-1.5) * e(-12.859 / t9f13))
+    r["ta_Li7"] = (3.032e5 * t9 ** (-2 / 3) * e(-8.090 / t13) * (
+        1 + 0.0516 * t13 + 0.0229 * t23 + 8.28e-3 * t9
+        - 3.28e-4 * t43 - 3.01e-4 * t53)
+        + 5.109e5 * t9e56 * t9 ** (-1.5) * e(-8.068 / t9e13))
+    r["Be7n_Li7"] = (2.675e9 * (1 - 0.560 * t9 ** 0.5 + 0.179 * t9
+                                - 0.0283 * t9 ** 1.5 + 2.214e-3 * t9 ** 2
+                                - 6.851e-5 * t9 ** 2.5)
+                     + 9.391e8 * t9a32 * t9 ** (-1.5)
+                     + 4.467e7 * t9 ** (-1.5) * e(-0.07486 / t9))
     r["Li7p_He4"] = (1.096e9 * t9 ** (-2 / 3) * e(-8.472 / t13)
-                     + 4.830e8 * t9 ** (-2 / 3) * e(-8.472 / t13 - (t9 / 1.696) ** 2)
-                     * (1 + 0.759 * t9 ** 1.6)
-                     + 1.06e10 * t9 ** (-1.5) * e(-30.442 / t9))
-    r["Be7n_He4"] = 2.05e4 / t9 ** 0.5
+                     - 4.830e8 * t9d56 * t9 ** (-1.5) * e(-8.472 / t9d13)
+                     + 1.06e10 * t9 ** (-1.5) * e(-30.442 / t9)
+                     + 1.56e5 * t9 ** (-2 / 3)
+                     * e(-8.472 / t13 - (t9 / 1.696) ** 2) * (
+                         1 + 0.049 * t13 - 2.498 * t23 + 0.860 * t9
+                         + 3.518 * t43 + 3.08 * t53)
+                     + 1.55e6 * t9 ** (-1.5) * e(-4.478 / t9))
+    r["Be7n_He4"] = 2.05e4 * (1.0 + 3760.0 * t9)
     return r
 
 
@@ -534,7 +622,8 @@ def _q_value(reactants, products):
 
 
 def run_bbn(delta_m_mev=PDG_DELTA_M_MEV, law="full", eta10=ETA10_PLANCK,
-            n_eff=None, G=None, b_d_mev=None, n=1200, m_e=None):
+            n_eff=None, G=None, b_d_mev=None, n=1200, m_e=None,
+            legacy_a7_bug=False):
     """Full BBN: weak freeze-out then the nuclear network, to final abundances.
 
     Returns Y_p (helium mass fraction), D/H, 3He/H, 7Li/H and the diagnostics.
@@ -543,12 +632,14 @@ def run_bbn(delta_m_mev=PDG_DELTA_M_MEV, law="full", eta10=ETA10_PLANCK,
     if b_d_mev is not None:
         BINDING_MEV["d"] = b_d_mev
     try:
-        return _run_bbn_inner(delta_m_mev, law, eta10, n_eff, G, n, m_e)
+        return _run_bbn_inner(delta_m_mev, law, eta10, n_eff, G, n, m_e,
+                               legacy_a7_bug=legacy_a7_bug)
     finally:
         BINDING_MEV["d"] = b_d_saved
 
 
-def _run_bbn_inner(delta_m_mev, law, eta10, n_eff, G, n, m_e=None):
+def _run_bbn_inner(delta_m_mev, law, eta10, n_eff, G, n, m_e=None,
+                    legacy_a7_bug=False):
     fo = np_freezeout(delta_m_mev=delta_m_mev, law=law, n_eff=n_eff, G=G, n=n,
                       m_e=m_e)
     T, a, H, X_n = fo["T"], fo["a"], fo["H"], fo["X_n"]
@@ -571,7 +662,8 @@ def _run_bbn_inner(delta_m_mev, law, eta10, n_eff, G, n, m_e=None):
         dt = (lna[i + 1] - lna[i]) / (0.5 * (H[i] + H[i + 1]))
         t9 = T[i + 1] * KELVIN_PER_MEV / 1e9
         Y = _network_step(Y, dt, t9, float(rho_b[i + 1]),
-                          float(lam_np[i + 1]), float(lam_pn[i + 1]))
+                          float(lam_np[i + 1]), float(lam_pn[i + 1]),
+                          legacy_a7_bug=legacy_a7_bug)
         if t9 < 5e-3:
             break
 
@@ -593,7 +685,7 @@ def _run_bbn_inner(delta_m_mev, law, eta10, n_eff, G, n, m_e=None):
     }
 
 
-def _network_step(Y, dt, t9, rho_b, lam_np, lam_pn):
+def _network_step(Y, dt, t9, rho_b, lam_np, lam_pn, legacy_a7_bug=False):
     """One implicit (backward-Euler) step of the 8-species network.
 
     BBN is stiff — ``p(n,gamma)d`` runs far faster than the expansion — so the
@@ -601,7 +693,7 @@ def _network_step(Y, dt, t9, rho_b, lam_np, lam_pn):
     """
     ns = len(SPECIES)
     idx = {s: k for k, s in enumerate(SPECIES)}
-    rates = _rate_fits(t9)
+    rates = _rate_fits(t9, legacy_a7_bug=legacy_a7_bug)
     M = xp.zeros((ns, ns))
     b = xp.array(Y, dtype=float)
 
@@ -664,15 +756,26 @@ def _network_step(Y, dt, t9, rho_b, lam_np, lam_pn):
 # ===========================================================================
 #  6. The checks
 # ===========================================================================
-def validate_network():
+LI7_VALIDATION_TOL = 0.10   # F361: the A=7 network's own acceptance band
+
+
+def validate_network(legacy_a7_bug=False):
     """How well does this compact network reproduce published standard BBN?
 
     Run with the MEASURED Delta m, the model's G, N_eff = 3.044 and Planck eta.
     Every absolute number this module quotes carries this offset; every
     *differential* number does not, which is why the differentials are the
     result and the absolutes are the context.
+
+    ``legacy_a7_bug=True`` reverts the five A=7 rate fits to their pre-F361
+    transcription (missing NUC123 terms / wrong functional form) — it exists
+    only so the K2-13 control can demonstrate the repair is load-bearing, and
+    is never the default.
     """
-    r = run_bbn(delta_m_mev=PDG_DELTA_M_MEV, law="full")
+    r = run_bbn(delta_m_mev=PDG_DELTA_M_MEV, law="full",
+                legacy_a7_bug=legacy_a7_bug)
+    li7_rel_err = (r["Li7_H"] - REFERENCE_LI7H) / REFERENCE_LI7H
+    li7_validated = abs(li7_rel_err) < LI7_VALIDATION_TOL
     return {
         "Y_p": r["Y_p"], "Y_p_reference": REFERENCE_YP,
         "Y_p_rel_err": (r["Y_p"] - REFERENCE_YP) / REFERENCE_YP,
@@ -681,13 +784,22 @@ def validate_network():
         "He3_H": r["He3_H"], "He3_H_reference": REFERENCE_HE3H,
         "He3_H_rel_err": (r["He3_H"] - REFERENCE_HE3H) / REFERENCE_HE3H,
         "Li7_H": r["Li7_H"], "Li7_H_reference": REFERENCE_LI7H,
-        "Li7_H_rel_err": (r["Li7_H"] - REFERENCE_LI7H) / REFERENCE_LI7H,
-        "Li7_validated": False,
-        "Li7_note": "the A=7 chain is about an order of magnitude low against "
-                    "the same reference: four rate fits in _rate_fits are wrong "
-                    "or incomplete here. No lithium claim is made and Li7 is "
-                    "excluded from check_k2 — declaring the defect rather than "
-                    "hiding it.",
+        "Li7_H_rel_err": li7_rel_err,
+        "Li7_validated": li7_validated,
+        "Li7_note": ("F361: the five A=7 rate fits in _rate_fits were repaired "
+                     "against Kawano's reference NUC123 code (missing "
+                     "narrow-resonance terms, and Be7n_He4's wrong functional "
+                     "form). Li7_H now reproduces the same published reference "
+                     f"to {li7_rel_err:+.1%} (was -92% pre-repair) and is "
+                     f"validated to the {LI7_VALIDATION_TOL:.0%} band declared "
+                     "here — included in check_k2 as K2-13. This still makes "
+                     "no claim about the standing (observational) lithium "
+                     "problem, which compares standard BBN's own ~5e-10 "
+                     "prediction to the ~1.6e-10 Spite-plateau measurement and "
+                     "is untouched by this repair in either direction."
+                     if not legacy_a7_bug else
+                     "legacy_a7_bug=True: reproducing the PRE-F361 bug on "
+                     "purpose, for the K2-13 control."),
         "detailed_balance_ratio": r["detailed_balance_ratio"],
         "T_freezeout_MeV": r["T_freezeout_MeV"],
     }
@@ -799,6 +911,80 @@ def f122_decomposition():
     }
 
 
+def delta_m_theory_uncertainty(sigma_theory_mev=None):
+    """F372: is the model's own Delta m = +1.51 MeV really excluded at 36.6
+    sigma (F297 Sec.5), or is that significance computed against the wrong
+    error bar?
+
+    F297/CL259 compare the model's POINT prediction (implicit zero theory
+    uncertainty) against the BBN-INFERRED band +-0.0056 MeV -- the precision
+    to which the measured Y_p pins Delta m, via this network's steep
+    dYp/ddeltam.  That is the right band for "what does Y_p say Delta m is",
+    and the wrong one for "is the model's theoretical ESTIMATE of Delta m
+    consistent with that", because the estimate is not exact: it is built
+    from two O(1-3 MeV) terms (F40's current-quark gap, a constituent-quark
+    Coulomb self-energy), each with a real, literature-quantified uncertainty
+    of order 10-20%, not zero.
+
+    Per F297 Sec.10 item 1, both branches were checked directly rather than
+    assumed:
+
+      * The EM term.  `baryon_dynamics.em_self_energy_pairwise` re-derives it
+        from the model's OWN P2 three-body <1/r> (zero new parameters) and
+        gets 0.968 MeV against the ad hoc classical 1.00 MeV -- 3.2%, not the
+        ~22% an EM-side fix would need.  BMW 2015 (ab initio lattice QCD+QED,
+        arXiv:1406.4088) gets -1.00(07)(14) MeV; Thomas, Wang & Young (Phys.
+        Rev. C 91, 015209, 2015; dispersive Cottingham sum rule) get
+        +1.04(11) MeV in the same (p-n) convention.  Three independent
+        methods, none of them fit to this splitting, agree to <=4%.
+      * The strong term.  PDG 2024's own m_u=2.20(7), m_d=4.69(5) MeV give
+        m_d-m_u=2.49 MeV against the model's 2.51 MeV (F40) -- 0.8%, not the
+        8.6% an F40-side fix would need, and BMW's own QCD piece is
+        2.52(17)(24) MeV, matching both.
+
+    So neither branch survives contact with an independent check, and BMW's
+    own total (1.51(16)(23) MeV) reproduces the model's 1.51 MeV to <=0.01 MeV
+    on every term while sitting the same ~0.22 MeV from the measured 1.29333
+    MeV that the model does -- this is a known, field-wide feature of the
+    state of the art, not a defect unique to this model.  What was actually
+    wrong is the STATISTICS: a ~20%-uncertain theoretical estimate was
+    compared against an observational band as though it carried zero
+    uncertainty of its own.  Propagating BMW's own combined stat+sys
+    (sqrt(0.16^2+0.23^2)=0.280 MeV) instead:
+    """
+    sigma_theory = BMW_TOTAL_SIGMA_MEV if sigma_theory_mev is None else float(sigma_theory_mev)
+    excess = MODEL_DELTA_M_MEV - PDG_DELTA_M_MEV
+    tau_short = neutron_lifetime(MODEL_DELTA_M_MEV + sigma_theory)   # larger dm -> shorter tau
+    tau_long = neutron_lifetime(MODEL_DELTA_M_MEV - sigma_theory)    # smaller dm -> longer tau
+    yp_at_plus = run_bbn(delta_m_mev=MODEL_DELTA_M_MEV + sigma_theory)["Y_p"]
+    yp_at_minus = run_bbn(delta_m_mev=MODEL_DELTA_M_MEV - sigma_theory)["Y_p"]
+    obs_yp, _sig_yp = OBS_YP
+    em_check = BAR.em_self_energy_pairwise(m_q=0.785, sigma=1.0, alpha_s=0.5)
+    em_check_rel_err = (em_check["delta_em_p_minus_n_MeV"] - 1.00) / 1.00
+    return {
+        "sigma_theory_MeV": sigma_theory,
+        "sigma_theory_source": "BMW 2015 (arXiv:1406.4088) combined stat+sys, "
+                                "sqrt(0.16^2+0.23^2)",
+        "excess_MeV": excess,
+        "sig_naive_observational_band": excess / 0.0056,
+        "sig_theory_aware": excess / sigma_theory,
+        "tau_n_range_s": (tau_short, tau_long),
+        "tau_n_measured_s": TAU_N_MEASURED_S,
+        "tau_n_within_range": tau_short <= TAU_N_MEASURED_S <= tau_long,
+        "Y_p_range": (yp_at_plus, yp_at_minus),
+        "Y_p_measured": obs_yp,
+        "Y_p_within_range": yp_at_plus <= obs_yp <= yp_at_minus,
+        "bmw_qcd_MeV": BMW_QCD_MEV, "bmw_qed_MeV": BMW_QED_MEV,
+        "bmw_total_MeV": BMW_TOTAL_MEV,
+        "twy_em_p_minus_n_MeV": TWY_EM_P_MINUS_N_MEV,
+        "model_em_pairwise_check_MeV": em_check["delta_em_p_minus_n_MeV"],
+        "em_pairwise_vs_adhoc_rel_err": em_check_rel_err,
+        "pdg2024_md_minus_mu_MeV": PDG2024_MD_MEV - PDG2024_MU_MEV,
+        "f40_vs_pdg2024_rel_err": (2.51 - (PDG2024_MD_MEV - PDG2024_MU_MEV))
+                                   / (PDG2024_MD_MEV - PDG2024_MU_MEV),
+    }
+
+
 def bd_sensitivity():
     """Does BBN see the model's deuteron binding, or only the measured one?
 
@@ -821,6 +1007,64 @@ def bd_sensitivity():
         "D_H_shift_in_sigma": (model["D_H"] - base["D_H"]) / sig_dh,
         "D_H_at_B_d_plus_1pct": wide["D_H"],
         "dDH_dBd_per_percent": wide["D_H"] - base["D_H"],
+    }
+
+
+def gdot_over_g_prediction():
+    """dot G/G is not merely a bound this model satisfies -- it is a
+    structural, zero-freedom PREDICTION (F79's structural G + F284's rigid
+    substrate: dot G/G is exactly 0, not a small fitted drift).  F297 Sec.10.4:
+    register that, in the BBN context specifically, rather than only via the
+    external LLR comparison F284 already makes.
+
+    What this function does NOT do, stated plainly so the number below is not
+    over-read: `run_bbn` accepts G as a parameter, so the naive move is to
+    perturb it and read off "the bound this network implies".  That naive move
+    was tried and discarded -- Y_p's sensitivity to G at fixed eta_b is so
+    weak (`dYp_per_1pct_G` below) that inverting the network's own ~1 sigma
+    margin gives a G-shift of order unity, where the linearisation, and the
+    whole non-relativistic weak-freeze-out picture, have long since broken
+    down.  Reporting that as "a bound" would be a bigger number attached to a
+    smaller claim than the real one.
+
+    The real, defensible content is qualitative, and its limit must be stated
+    plainly rather than glossed: **every leg of `check_k2` already runs at one
+    fixed G = `model_G()`, unchanged between the BBN epoch and today** -- there
+    is no G(t) term anywhere in `hubble_rate`, so this calculation is
+    structurally INCAPABLE of returning a nonzero dot G/G even if one were
+    true.  That is unlike F284's LLR comparison, which is a genuine external
+    MEASUREMENT that could in principle have come back nonzero.  What passing
+    K2-1/K2-2/K2-7 with G held fixed actually shows is that the dot G/G = 0
+    assumption is CONSISTENT WITH the light-element data -- a BBN-internal
+    consistency check, not a second independent confirmation and not a new
+    falsifier alongside F284's LLR bound.
+    """
+    base = run_bbn(G=model_G())
+    plus = run_bbn(G=model_G() * 1.01)
+    dyp_per_1pct_g = plus["Y_p"] - base["Y_p"]
+    return {
+        "Gdot_over_G_model": 0.0,
+        "Gdot_over_G_provenance": "F79 structural G + F284 rigid substrate; "
+                                   "exact, zero free parameters",
+        "G_held_fixed_in_this_run": True,
+        "Y_p_at_G_model": base["Y_p"],
+        "dYp_per_1pct_G": dyp_per_1pct_g,
+        "consistency_check": ("qualitative, not a new numeric bound, and NOT "
+                          "a second independent measurement: this run holds G "
+                          "fixed at one value across the BBN epoch (no G(t) "
+                          "term in hubble_rate, so a nonzero dot G/G could "
+                          "not have come out even if it were physically true) "
+                          "and still reproduces Y_p (K2-1) and D/H (K2-2) "
+                          "while K2-7 holds Y_p within 2 sigma of Aver 2021 "
+                          "-- the dot G/G = 0 assumption is CONSISTENT WITH "
+                          "the light-element data. Contrast F284's LLR "
+                          "comparison, which measures dot G/G and could have "
+                          "falsified it."),
+        "note": (f"Y_p moves only {dyp_per_1pct_g:+.2e} per 1% change in G at "
+                 "fixed eta_b -- far too weakly for this network to turn that "
+                 "into a competitive *quantitative* bound on dot G/G (LLR "
+                 "already does that 1e13x tighter, F284); the value here is "
+                 "the qualitative one stated in `consistency_check`."),
     }
 
 
@@ -854,7 +1098,9 @@ def summary():
         "law_control": law_control(),
         "delta_m": delta_m_confrontation(),
         "f122": f122_decomposition(),
+        "delta_m_theory": delta_m_theory_uncertainty(),
         "b_d": bd_sensitivity(),
+        "gdot_over_g": gdot_over_g_prediction(),
         "inputs": input_ledger(),
     }
 
@@ -872,24 +1118,34 @@ def _tnu_ratio_error():
     return float(T_nu[-1] / T[-1]) / (4.0 / 11.0) ** (1.0 / 3.0) - 1.0
 
 
-def check_k2(delta_m_mev=None, law="full", eta10=None):
+def check_k2(delta_m_mev=None, law="full", eta10=None, legacy_a7_bug=False,
+             delta_m_theory_sigma_mev=None):
     """The registry entry point: every K2 assertion, with an explicit verdict.
 
     Parametrised so `casim test --param delta_m_mev=1.51` re-runs the whole
     battery at the model's own splitting and **goes red** — the perturbation
     under which this record fails, which is what the 2026-08-04 report's gap #2
-    asks every assertion record to declare.
+    asks every assertion record to declare.  `legacy_a7_bug=true` is F361's own
+    declared control: it reverts the A=7 rate fits to their pre-repair form and
+    must turn K2-13 (only) red.  `delta_m_theory_sigma_mev` is F372's declared
+    control: forcing it down to the BBN-inferred observational band (0.0056
+    MeV) instead of BMW's literature theory uncertainty (0.280 MeV) must turn
+    K2-14 (only) red — reproducing the exact 36.6 sigma naive-significance bug
+    F372 corrects.
     """
     dm = PDG_DELTA_M_MEV if delta_m_mev is None else float(delta_m_mev)
     eta = ETA10_PLANCK if eta10 is None else float(eta10)
-    v = validate_network()
+    v = validate_network(legacy_a7_bug=legacy_a7_bug)
     ne = n_eff_model()
     lc = law_control()
     conf = delta_m_confrontation()
+    dmt = delta_m_theory_uncertainty(sigma_theory_mev=delta_m_theory_sigma_mev)
     bd = bd_sensitivity()
+    gg = gdot_over_g_prediction()
     obs_yp, sig_yp = OBS_YP
     obs_dh, sig_dh = OBS_DH
-    run = run_bbn(delta_m_mev=dm, law=law, eta10=eta)
+    run = run_bbn(delta_m_mev=dm, law=law, eta10=eta,
+                   legacy_a7_bug=legacy_a7_bug)
 
     checks = [
         ("K2-1 network reproduces standard BBN Y_p to 3%",
@@ -920,6 +1176,16 @@ def check_k2(delta_m_mev=None, law="full", eta10=None):
         ("K2-12 the run at the swept delta m matches D/H within 3 sigma",
          abs((run["D_H"] - obs_dh) / sig_dh) < 3.0,
          (run["D_H"] - obs_dh) / sig_dh),
+        (f"K2-13 network reproduces standard BBN Li7/H to {LI7_VALIDATION_TOL:.0%} "
+         "(F361 A=7 repair)",
+         abs(v["Li7_H_rel_err"]) < LI7_VALIDATION_TOL, v["Li7_H_rel_err"]),
+        ("K2-14 model delta m is consistent with measured within its own "
+         "literature theory uncertainty (<2 sigma, F372)",
+         abs(dmt["sig_theory_aware"]) < 2.0, dmt["sig_theory_aware"]),
+        ("K2-15 model's P2 pairwise EM self-energy confirms the ad hoc "
+         "classical estimate to <10% (F372, zero new parameters)",
+         abs(dmt["em_pairwise_vs_adhoc_rel_err"]) < 0.10,
+         dmt["em_pairwise_vs_adhoc_rel_err"]),
     ]
     results = [{"check": c, "passed": bool(p), "value": val} for c, p, val in checks]
     return {
@@ -929,6 +1195,8 @@ def check_k2(delta_m_mev=None, law="full", eta10=None):
         "checks": results,
         "delta_m_mev": dm, "law": law, "eta10": eta,
         "Y_p": run["Y_p"], "D_H": run["D_H"], "Li7_H": run["Li7_H"],
+        "gdot_over_g": gg,
+        "delta_m_theory": dmt,
     }
 
 

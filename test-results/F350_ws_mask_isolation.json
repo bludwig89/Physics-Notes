@@ -1,0 +1,81 @@
+{
+ "rows": [
+  {
+   "n": 8,
+   "n_ambiguous": 193,
+   "hard_estimate": 0.359375,
+   "hard_err": 0.109375,
+   "smooth_estimate": 0.25054606795310974,
+   "smooth_err": 0.0005460679531097412
+  },
+  {
+   "n": 12,
+   "n_ambiguous": 463,
+   "hard_estimate": 0.3194444444444444,
+   "hard_err": 0.06944444444444442,
+   "smooth_estimate": 0.2503352165222168,
+   "smooth_err": 0.0003352165222167969
+  },
+  {
+   "n": 16,
+   "n_ambiguous": 768,
+   "hard_estimate": 0.30078125,
+   "hard_err": 0.05078125,
+   "smooth_estimate": 0.25004176795482635,
+   "smooth_err": 4.176795482635498e-05
+  },
+  {
+   "n": 20,
+   "n_ambiguous": 1304,
+   "hard_estimate": 0.29,
+   "hard_err": 0.03999999999999998,
+   "smooth_estimate": 0.2502912712097168,
+   "smooth_err": 0.00029127120971678133
+  },
+  {
+   "n": 24,
+   "n_ambiguous": 2185,
+   "hard_estimate": 0.2829861111111111,
+   "hard_err": 0.032986111111111105,
+   "smooth_estimate": 0.25004368358188206,
+   "smooth_err": 4.368358188205912e-05
+  },
+  {
+   "n": 28,
+   "n_ambiguous": 2110,
+   "hard_estimate": 0.2780612244897959,
+   "hard_err": 0.028061224489795922,
+   "smooth_estimate": 0.2500462559847373,
+   "smooth_err": 4.625598473728676e-05
+  },
+  {
+   "n": 32,
+   "n_ambiguous": 2326,
+   "hard_estimate": 0.2744140625,
+   "hard_err": 0.0244140625,
+   "smooth_estimate": 0.2500536092557013,
+   "smooth_err": 5.360925570130348e-05
+  },
+  {
+   "n": 36,
+   "n_ambiguous": 4867,
+   "hard_estimate": 0.2716049382716049,
+   "hard_err": 0.021604938271604923,
+   "smooth_estimate": 0.2500736039688885,
+   "smooth_err": 7.360396888850262e-05
+  },
+  {
+   "n": 40,
+   "n_ambiguous": 4872,
+   "hard_estimate": 0.269375,
+   "hard_err": 0.019374999999999976,
+   "smooth_estimate": 0.25003650307655334,
+   "smooth_err": 3.6503076553340286e-05
+  }
+ ],
+ "target": 0.25,
+ "slope_hard": -1.0723316290624183,
+ "slope_smooth": -1.5344768973634035,
+ "pass": true,
+ "statement": "hard mask's own volume-estimate error falls as ~n^slope_hard (staircase, ~-1); the smoothed mask's error is far smaller and does not need to fall with n at all to already be sub-dominant to the physics integral's own O(1/n^2) floor"
+}

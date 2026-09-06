@@ -4,19 +4,19 @@ title: At finite lattice spacing the entire failure of Poincare covariance is th
 slug: finite-a-boost-defect-is-one-scalar
 tier: headline
 kind: deviation
-status: live
+status: narrowed
 domain: [SR, QFT]
 exactness: machine
-findings: [F301]
-tests: [F301-boost-covariance-defect]
-modules: [casim.engine.interactions.derive_boost_covariance]
+findings: [F301, F327]
+tests: [F301-boost-covariance-defect, F327-chiral-liv-bound]
+modules: [casim.engine.interactions.derive_boost_covariance, casim.engine.interactions.derive_chiral_liv_bound]
 constants: [c_lat]
 supersessions: []
 reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-06
-last_verified: 2026-08-06
+last_verified: 2026-08-26
 provenance: authored
 review_state: authored
 confidence: high
@@ -88,12 +88,16 @@ residual to scale as $O(v^2)$.
 
 Three independent kills, in decreasing order of reach:
 
-1. **Observational.** A measured dispersion for a chiral fermion channel that excludes an
-   $O(\lvert k\rvert^2)$ anisotropic term of the stated angular form
-   $\propto\hat k_x\hat k_y\hat k_z$ at the model's coefficient, once converted to physical units
-   via the F107 ruler $a$. **This confrontation has not been done** (see `## Status & history`), so
-   the claim is not yet observationally constrained — but the coefficient is fixed and parameter-free,
-   so the test exists.
+1. **Observational — THIS HAS NOW FIRED (F327, 2026-08-26).** The stated test was: a measured
+   dispersion for a chiral fermion channel excluding an $O(\lvert k\rvert^2)$ anisotropic term of
+   the form $\propto\hat k_x\hat k_y\hat k_z$ at the model's coefficient, once converted through
+   the F107 ruler. F327 did the conversion — $\lvert\eta\rvert_\text{max}=2\sqrt{8\pi}3^{1/4}/9=1.4662$,
+   $E_\text{LV}=\tfrac92E_a=8.327\times10^{18}$ GeV — and the LHAASO/Crab electron limits exclude it
+   by **7.05 decades** superluminal and **5.08 decades** subluminal. What the firing kills is the
+   **physical assignment** (that an elementary fermion of this model rides a single chiral branch),
+   recorded as **CL284**; the algebra of this card is untouched. That is why this card is `narrowed`
+   rather than `withdrawn`. The front matter keeps `falsifier: stated` (the closed
+   vocabulary has no `fired` value); that it has fired is recorded here and in `## Status & history`.
 2. **Internal, structural.** Any $\Omega$ used by a live channel of this model for which
    $\Omega^2-c_\text{lat}^2\lvert k\rvert^2$ is *constant* off the cubic axes would contradict the
    claim that covariance is broken; conversely, a channel whose defect appears at an order other
@@ -114,18 +118,34 @@ is the position operator on the BZ torus, so every statement is for smooth wavep
 of the zone, away from $\mathbf k=0$ and away from the edge. **(b) One-particle and free:** this is the
 free one-particle algebra; interacting and multi-particle statements are not made.
 
-**Deliberately not claimed here:** an experimental bound. F28's GRB/AGN limit constrains the *photon*
-$\lvert k\rvert^3$ term (F246) and is structurally inapplicable to the chiral $\lvert k\rvert^2$ one,
-which lives in a sector with different bounds. Nothing in this card should be read as saying the
-chiral defect is observationally allowed *or* excluded — it is unconstrained by anything in the tree,
-and F301 §7 records that as its first recommended follow-up.
+**NARROWED 2026-08-26 (F327).** The broad form this card carried until then was that its whole
+content — including the chiral $O(\lvert k\rvert^2)$ branch — was a `live` description of how the
+model's channels propagate. F327 converted the chiral coefficient into physical units and confronted
+it with the LHAASO/Crab electron limits; it is **outside them by 7.05 decades**. So the card is
+narrowed to its **structural, per-channel** content:
 
-Rows A2 of `docs/status/completeness-2026-08-04.md` stays `PARTIAL` on the strength of this card:
-the residual is addressed and the answer is negative.
+> *Given a channel and its branch structure, the finite-$a$ Poincaré defect is $\partial_i\Phi$ and
+> its order follows — even $\Rightarrow O(\lvert k\rvert^3)$, chiral $\Rightarrow O(\lvert k\rvert^2)$.*
+
+Which channels the model may **use** is no longer part of this card. The chiral branch is now known
+to be unavailable to any elementary matter field, and that exclusion is **CL284**. Everything the
+evidence table above certifies is unchanged: no leg was re-run, no residual moved, and F301 is not
+superseded.
+
+**Superseded within this card:** the paragraph that read *"Nothing in this card should be read as
+saying the chiral defect is observationally allowed or excluded — it is unconstrained by anything in
+the tree."* It is now constrained, and excluded. F28's GRB/AGN limit is still structurally
+inapplicable here (it constrains the *photon* $\lvert k\rvert^3$ term, F246) — the confrontation that
+fired came from the electron sector instead, exactly as F301 §7 recommended.
+
+Row A2 of the completeness rubric stays `PARTIAL` on the strength of this card and CL284 together;
+ledger row **L8** closes with F327 and **L9** opens for the repair.
 
 ## Sources
 
 - `findings/F301-finite-a-boost-covariance-poincare-defect.md`
+- `findings/F327-chiral-liv-coefficient-excluded-by-crab-electrons.md` (the confrontation that fired falsifier 1)
+- `docs/claims/CL284-elementary-single-branch-fermion-excluded.md` (what the firing excludes)
 - `findings/F246-f26-even-dispersion-subleading.md` (the $c_3$ closed form and even-power vanishing this builds on)
 - `findings/F22-velocity-addition-deformed-formula.md` and `docs/reviews/F22-review-2026-08-04.md` (the $\rho(m)$ this reproduces)
 - `docs/reviews/F24-remediation-2026-08-04.md` item 10 (the deferral this discharges)

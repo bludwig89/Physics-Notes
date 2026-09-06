@@ -12,6 +12,8 @@
 *2026-08-01 - 00:10. Roadmap `roadmap-unified-program.md` **P3.4 / P3.5 / P3.6**, structural blocker **B5** (both parts) and **B4**.*
 *Status: **established** (fixed, gated). One deliberately-labelled open item: the eikonal order of the gauge-side dielectric coupling.*
 
+**Test record:** record `P3.4-P3.6-total-energy-and-gravity-loop` (tier gate) — `tests/casim/test_total_energy_and_gravity_loop.py`, T1–T10: one gauge-energy convention across the engine, agreement with the gravity source, global conservation to machine class, a missing energy leg reported rather than counted as zero, and the dielectric legs — T8 keeps `dielectric_mix_half` as the control this banner describes. Declared 2026-08-19.
+
 ## 1. B4 was two defects, not one (P3.5)
 
 The roadmap recorded B4 as *"six incompatible energy conventions; nothing a

@@ -1,0 +1,9 @@
+{
+  "involution_residual": 0.0,
+  "plaquette_mapping": {
+    "rhombus_residual": 0.0,
+    "mixed_trace_residual": 3.569485997778505e-16,
+    "mixed_raw_matrix_residual_EXPECTED_NONZERO": 1.9850549076416364
+  },
+  "wall_time_s": 0.003719806671142578
+}

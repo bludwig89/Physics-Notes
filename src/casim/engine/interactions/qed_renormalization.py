@@ -107,6 +107,7 @@ from __future__ import annotations
 import math
 from casim.constants import ell_P_m as _ell_P_m
 from casim.constants import a_over_ellP as _a_over_ellP
+from casim.constants import m_e_GeV as _m_e_GeV
 
 # ----------------------------------------------------------------------
 #  gate targets
@@ -121,7 +122,7 @@ N_COUNTERTERMS = 4                 # {Z_1, Z_2, Z_3, delta m}
 A_OVER_LPLANCK = _a_over_ellP   # exact closed form; was a 5-sf 6.5978 before C2
 L_PLANCK_M = _ell_P_m          # CODATA 2018
 HBAR_C_GEV_M = 1.97327e-16         # GeV*m
-M_E_GEV = 0.51099895e-3
+M_E_GEV = _m_e_GeV             # registry (F327 registered it; was a literal)
 ALPHA_INV_0 = 137.035999
 
 

@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "id": "A1-conjugate-fixed-k",
+      "desc": "A^s(k)* = sigma_y A^s(k) sigma_y, any fixed k",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "A2-branch-swap",
+      "desc": "A^+(k)* = A^-(-k) (conjugation = branch swap + momentum flip)",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "B1-theta-D-theta-inv-eq-Dinv",
+      "desc": "THETA D(k) THETA^-1 = D(k)^-1 at random (k, m), n_trials samples",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "B2-edge-cases",
+      "desc": "k=0, axis-aligned k, |m| in {0,1} (no small-k expansion used anywhere)",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "B3-unitarity-sanity",
+      "desc": "D(k) is exactly unitary (dagger = inverse), floating floor",
+      "pass": true,
+      "value": "4.445731235686453e-16"
+    },
+    {
+      "id": "C1-theta-squared-minus-one",
+      "desc": "THETA^2 = -1 exactly (Kramers antiunitary involution)",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "C2-M-unitary",
+      "desc": "the internal matrix M is exactly unitary",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "D1-generic-k-spectral-mismatch",
+      "desc": "omega(k) != omega(-k) at generic k (nonzero over n_trials samples) -- conjugation-invariant, so NO fixed unitary can implement parity here",
+      "pass": true,
+      "value": "1.5818426119862394e-05"
+    },
+    {
+      "id": "D2-cubic-axis-degenerate",
+      "desc": "on a cubic axis (k_y=k_z=0) the obstruction vanishes identically, matching F301's own 'exact on cubic axes' -- consistency, not a new claim",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "D3-naive-parity-fails-O1",
+      "desc": "plain block-swap alone (no twist, no K) misses D(-k) by O(1), not a small defect",
+      "pass": true,
+      "value": "1.9281335809468196"
+    },
+    {
+      "id": "E1-realspace-cpt-roundtrip",
+      "desc": "many-step (N=12), nonlinear FFT position-space round trip under the real THETA",
+      "pass": true,
+      "value": "8.491573300505515e-16"
+    },
+    {
+      "id": "E2-naive-invertibility-sanity",
+      "desc": "plain D then D^dagger returns to start (every unitary CA has this for free; NOT a check of any antiunitary symmetry -- contrast with E1)",
+      "pass": true,
+      "value": "7.978219391693747e-16"
+    }
+  ],
+  "n_pass": 12,
+  "n_total": 12,
+  "pass": true,
+  "use_naive_theta": false,
+  "n_trials": 500,
+  "seed": 2026
+}

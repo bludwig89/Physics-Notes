@@ -343,7 +343,7 @@ def parallel_transport(q, U):
 
 
 def covariant_half_step(q, U):
-    """
+    r"""
     Gauge-covariant kinetic half-step via symmetric covariant shift sum.
 
     Computes

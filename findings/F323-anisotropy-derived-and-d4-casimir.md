@@ -5,7 +5,7 @@
 **Sector:** gauge
 **Status:** Confirmed — 28/28 PASS, **five** declared controls each verified `CONTROL` on a distinct measured red set
 **Module:** `src/casim/engine/gauge/bcc_action.py`
-**Record:** `gauge-bcc-mc-d4` (tier gate, `casim test --id gauge-bcc-mc-d4`)
+**Test record:** record `gauge-bcc-mc-d4` (tier gate, `casim test --id gauge-bcc-mc-d4`) — the five declared controls are F323's own content: `hypercubic_anisotropy` reddens X1c/X1d (the derived BCC ratio against the textbook one) and `unsymmetrised_reps` reddens K1a (F299's d=4 Casimir characters). Field renamed from `**Record:**` on 2026-08-19 so `check_finding_records.py` and `make coverage` can read it.
 **Script:** `tests/findings/test_bcc_gauge_mc_d4.py` (driver only; the contract is the record)
 **Battery:** `run-bcc-confinement-d4` → `tests/runners/run_bcc_confinement_d4.py --casimir`
 **Results:** `test-results/bcc_gauge_mc_d4.json`, `test-results/bcc_confinement_d4.{json,md}`

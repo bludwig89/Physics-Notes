@@ -1,0 +1,93 @@
+{
+ "rows": [
+  {
+   "n": 12,
+   "b0_recovery_wilson": 1.1144124446552042,
+   "b0_recovery_rule_phys": 0.4843319240122383,
+   "b0_recovery_rule_raw": 0.5918381070316959,
+   "dLoops_slope_normalised": -0.14314850706746185,
+   "dLoops_analytic_normalised": -0.9748351216773603
+  },
+  {
+   "n": 16,
+   "b0_recovery_wilson": 1.1405571830954218,
+   "b0_recovery_rule_phys": 0.5079078495457454,
+   "b0_recovery_rule_raw": 0.6433071546605073,
+   "dLoops_slope_normalised": -0.11769546211163995,
+   "dLoops_analytic_normalised": -1.3218654169796313
+  },
+  {
+   "n": 20,
+   "b0_recovery_wilson": 1.12300191128857,
+   "b0_recovery_rule_phys": 0.5234886408665432,
+   "b0_recovery_rule_raw": 0.6935702166058504,
+   "dLoops_slope_normalised": -0.16828177729994254,
+   "dLoops_analytic_normalised": -1.584442389619897
+  },
+  {
+   "n": 24,
+   "b0_recovery_wilson": 1.0984056534617117,
+   "b0_recovery_rule_phys": 0.5453962980987229,
+   "b0_recovery_rule_raw": 0.7582502308038988,
+   "dLoops_slope_normalised": -0.2875462418361736,
+   "dLoops_analytic_normalised": -1.782086795726697
+  },
+  {
+   "n": 28,
+   "b0_recovery_wilson": 1.0756192297718525,
+   "b0_recovery_rule_phys": 0.576098150590413,
+   "b0_recovery_rule_raw": 0.8405847261369362,
+   "dLoops_slope_normalised": -0.4692420105918069,
+   "dLoops_analytic_normalised": -1.9334880070915235
+  },
+  {
+   "n": 32,
+   "b0_recovery_wilson": 1.056338662889207,
+   "b0_recovery_rule_phys": 0.6152702295755351,
+   "b0_recovery_rule_raw": 0.9400101625130096,
+   "dLoops_slope_normalised": -0.6963405914491694,
+   "dLoops_analytic_normalised": -2.049370923118097
+  },
+  {
+   "n": 36,
+   "b0_recovery_wilson": 1.0404225791807025,
+   "b0_recovery_rule_phys": 0.6631233691157803,
+   "b0_recovery_rule_raw": 1.0567480049785656,
+   "dLoops_slope_normalised": -0.9556111033426831,
+   "dLoops_analytic_normalised": -2.1362871919674493
+  },
+  {
+   "n": 40,
+   "b0_recovery_wilson": 1.0273301056278872,
+   "b0_recovery_rule_phys": 0.7186151994122305,
+   "b0_recovery_rule_raw": 1.1894819056445214,
+   "dLoops_slope_normalised": -1.2314704740963207,
+   "dLoops_analytic_normalised": -2.199488237454064
+  }
+ ],
+ "convergence_exponent_wilson_n28_40": 2.8322929060974373,
+ "convergence_exponent_phys_smoothed_n28_40": 1.1353207710564455,
+ "convergence_exponent_wilson_n24_40": 2.4761621977852806,
+ "convergence_exponent_phys_smoothed_n24_40": 0.916276746955946,
+ "dLoops_analytic_limit_p2840fit": -2.7365183654154492,
+ "max_resid_p2840fit": 0.0024110197178703885,
+ "implied_lambda_p2840fit": 31.348181044688577,
+ "dLoops_analytic_limit_p2440fit": -2.908552711539372,
+ "max_resid_p2440fit": 0.005279646489880996,
+ "implied_lambda_p2440fit": 34.16403277937056,
+ "lambda_target": 1.773444498280506,
+ "bracket": [
+  1.0,
+  7.98
+ ],
+ "mask_bugfix_note": "this JSON supersedes an earlier version computed with a buggy shared-node-budget mask whose effective octree depth silently degraded from 6 (n=8) to 3 (n=40); fixed 2026-09-02 by batching (see lpt_ws_mask_cutcell.py). Re-running the full sweep with the fix changed the n=36,40 rows by ~0.6-1% in b0_recovery_rule_raw and left everything else within ~1e-4 of the pre-fix numbers.",
+ "F337_reference": {
+  "convergence_exponent_wilson_n28_40": 2.83,
+  "convergence_exponent_phys_sharp_n28_40": 1.35,
+  "convergence_exponent_wilson_n24_40": 2.97,
+  "convergence_exponent_phys_sharp_n24_40": 1.11,
+  "dLoops_analytic_limit_p135": -2.671,
+  "dLoops_analytic_limit_p111": -2.792,
+  "implied_lambda_headline_F337": 31.3
+ }
+}

@@ -7,7 +7,7 @@ kind: no_go
 status: open
 domain: [cosmology]
 exactness: exact
-findings: [F282]
+findings: [F282, F363]
 tests: []
 modules: []
 constants: []

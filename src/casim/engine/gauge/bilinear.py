@@ -2599,7 +2599,8 @@ def _bcc_uvec_local(kx, ky, kz, sign='+'):
     return _bcc_uvec(kx, ky, kz, sign=sign)
 
 
-def check_curl_closes_at_k3(k_values=(1e-1, 1e-2, 1e-3), n_dirs=8, seed=0):
+def check_curl_closes_at_k3(k_values=(1e-1, 1e-2, 1e-3), n_dirs=8, seed=0,
+                            exact_dt=True):
     """F306 gate entry. The curl equation closes at O(k^3) under analytic amplitudes.
 
     Asserts four things, each able to fail:
@@ -2612,11 +2613,21 @@ def check_curl_closes_at_k3(k_values=(1e-1, 1e-2, 1e-3), n_dirs=8, seed=0):
        checks would not establish that the difference is the reading;
     4. B = n_hat x E exactly, which is the geometric reason the original residual
        is quadrature rather than a physical failure.
+
+    ``exact_dt`` is passed straight through to
+    :func:`maxwell_curl_residual_analytic` and defaults to ``True`` (the exact
+    time derivative). ``casim test --param exact_dt=False`` is a genuine
+    negative control: that function's own docstring says the one-tick
+    difference is O(k) with coefficient c_lat^2/4, not O(k^3), which must
+    break both the closed-form match (checks 1) and the k^2 falloff (check 2)
+    while leaving the control legs (3, 4) -- which do not depend on exact_dt
+    -- untouched.
     """
     from casim.constants import c_lat
     rows = []
     for k in k_values:
-        r_an = maxwell_curl_residual_analytic(k_mag=k, n_dirs=n_dirs, seed=seed)
+        r_an = maxwell_curl_residual_analytic(k_mag=k, n_dirs=n_dirs, seed=seed,
+                                              exact_dt=exact_dt)
         closed = c_lat ** 3 * k * k / 48.0
         rows.append({"k": float(k), "analytic": r_an, "closed_form": closed,
                      "rel": abs(r_an - closed) / closed})

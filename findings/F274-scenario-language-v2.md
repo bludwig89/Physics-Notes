@@ -3,6 +3,7 @@
 *2026-07-31 - 22:55. Roadmap **P4**. Software/engineering finding, no physics decision reversed.*
 *Status: **established** (built, gated; `tests/casim/test_scenario_schema_v2.py`, 12/12).*
 
+**Test record:** record `scenario-schema-v2` (tier gate) — `tests/casim/test_scenario_schema_v2.py`, 12/12: a misspelled key is an error, every shipped scenario validates strictly under v2, dangling channel/observer references are caught, and `complex64` needs an explicit opt-in. Declared 2026-08-19.
 **Claim:** none — software/engineering; a scenario-loader schema and template mechanism, and the finding's own header records that no physics decision is reversed. Declared 2026-08-19.
 
 ## 1. Claim

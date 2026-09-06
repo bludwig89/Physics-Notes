@@ -559,5 +559,6 @@ register(Constant(
                "the dual-Meissner scale in the F152-J2 saturating-branch check.",
     sector="strong",
     tol=1e-9,
-    sites=(Site("src/casim/engine/interactions/running_ir_coupling.py", "SQRT_SIGMA_GEV", kind="import"),),
+    sites=(Site("src/casim/engine/interactions/running_ir_coupling.py", "SQRT_SIGMA_GEV", kind="import"),
+           Site("src/casim/engine/particles/baryon_dynamics.py", "SQRT_SIGMA_GEV_DEFAULT", kind="import")),
 ))

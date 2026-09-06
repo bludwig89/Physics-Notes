@@ -292,15 +292,29 @@ def tilt_needs_a_second_scale() -> dict:
 
 # ---------------------------------------------------------------------------
 def run() -> dict:
+    d1 = measure_predictions()
+    d3 = blockspin_tilt_marginality()
+    synthesis = tilt_needs_a_second_scale()
+    # D9: the gate record must be able to fail. These are the finding's own
+    # already-computed exact claims: D3 is a symbolic theorem (every power
+    # law is a block-spin fixed point, and the exponent is exactly marginal
+    # — proved via sympy, not measured), and D1 is the observational fact
+    # that n_s=0.9649 sits strictly between the two generic-measure
+    # predictions (0 and 4) without matching either.
+    passed = bool(
+        d3["every_power_law_preserved"] and d3["exponent_is_marginal"]
+        and d1["generic_measures_bracket_without_hitting"]
+    )
     return {
         "finding": "F285",
         "question": "what n_s can an initial-condition measure actually give?",
         "key_relation": "P_rho(k) ~ k^(n_s), via Poisson + Delta^2 = k^3 P",
-        "D1_measures": measure_predictions(),
+        "D1_measures": d1,
         "D1b_non_genericity": required_non_genericity(),
         "D2_brillouin_zone": brillouin_zone_reach(),
-        "D3_blockspin": blockspin_tilt_marginality(),
-        "synthesis": tilt_needs_a_second_scale(),
+        "D3_blockspin": d3,
+        "synthesis": synthesis,
+        "passed": passed,
         "verdict": (
             "all three directions close: generic measures give n_s = 0 or 4, "
             "the one scale-free choice gives exactly 1 (8.4 sigma off), the BZ "

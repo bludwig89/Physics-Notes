@@ -150,7 +150,7 @@ def _coeff3d(dvec):
     k = mp.mpf('1e-4'); return 2 * f(k / 2) - f(k)
 
 
-def check_closed_forms():
+def check_closed_forms(alpha_on_axis_override=None):
     """
     F245 (L1) — registry entry point for `F245-l1-curl-coefficient`.
 
@@ -181,6 +181,14 @@ def check_closed_forms():
           re-promoting a random-seed artifact to a fundamental number.
 
     Returns the result dict; raises AssertionError on any failure.
+
+    ``alpha_on_axis_override``, when set, replaces the measured on-axis value
+    in A2 before it is compared against the exact -1/96. Default ``None``
+    leaves A2 exactly as measured. ``casim test --param
+    alpha_on_axis_override=-0.01`` is a genuine negative control: A2 is an
+    exact (tolerance-0) rational compare, so any value other than the true
+    measurement must fail it, while A1/A3 (which recompute alpha_2d
+    independently) and every 3D leg are untouched.
     """
     out = {}
 
@@ -198,7 +206,8 @@ def check_closed_forms():
     assert worst2d < mp.mpf('1e-17'), f"2D alpha(p) closed form: {worst2d}"
 
     # -- A2: 2D on-axis is exactly -1/96 (algebraic leg) ------------------
-    on_axis = alpha_2d(mp.pi / 2)
+    on_axis = (alpha_2d(mp.pi / 2) if alpha_on_axis_override is None
+              else mp.mpf(alpha_on_axis_override))
     r_a2 = abs(on_axis + mp.mpf(1) / 96)
     out["A2_on_axis"] = mp.nstr(on_axis, 15)
     out["A2_residual_vs_minus_1_over_96"] = mp.nstr(r_a2, 4)

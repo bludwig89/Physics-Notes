@@ -48,7 +48,7 @@ P0: the electron and the up/down quarks certified as dynamical, real-time wavepa
 
 `live`, inferred from the finding's own status line, quoted here verbatim so the inference is checkable:
 
-> Confirmed — 16/16 PASS. This is an **integration / certification** finding: it does not introduce a new algebraic identity, it certifies that the existing first-generation machinery (`ca_dirac_bcc`, `ca_bcc`, `ca_strong`, `ca_charged_current`) behaves as a *measured, non-dispersing, correctly-charged real-time wavepacket* for each of e, u, d — the P0 foundation of `docs/roadmaps/roadmap-matter-binding.md`.
+> Confirmed — 16/16 PASS. This is an **integration / certification** finding: it does not introduce a new algebraic identity, it certifies that the existing first-generation machinery (`ca_dirac_bcc`, `ca_bcc`, `ca_strong`, `ca_charged_current`) behaves as a *measured, non-dispersing, correctly-charged real-time wavepacket* for each of e, u, d — the P0 foundation of `docs/roadmaps/completed/roadmap-matter-binding.md`.
 
 **Date:** 2026-06-03 - 00:35
 

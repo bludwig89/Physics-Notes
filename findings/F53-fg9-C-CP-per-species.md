@@ -4,6 +4,7 @@
 **Status:** Confirmed — 6/6 parts PASS (P1–P4 exact / bit-for-bit, P5–P6 at machine ε)
 **Verification script:** `tests/findings/test_FG9_C_CP_per_species.py`
 **Results:** `test-results/FG9_C_CP_per_species.json`
+**Test record:** record `run-FC06-cpt-lorentz` (tier battery) — the armed record: it re-runs P4c (single-generation Jarlskog J = 0 exactly) and P6 (ω₀(+m) = ω₀(−m), algebraic) against a committed baseline; record `FG9-C-CP-per-species` (tier battery) — this finding's own 6/6 script, **declared debt**: `legacy_script`, demoted because a real run does not rewrite the declared baseline, so it has no failure mode of its own. Arming it is C7.5 work, not curation. Declared 2026-08-19.
 **Builds on:** `test_13_QFT8_CPT.py` (CPT mass equality), F27 (chiral SU(2), θ pure gauge), F34/FG-3 (right-handed decoupling), F48/F35 (per-species Z couplings), F38/FG-1 (anomaly cancellation)
 **Closes:** first-gen-completeness §3 item 7 and §5.1 row FG-9 — the last open Tier-A structural item
 

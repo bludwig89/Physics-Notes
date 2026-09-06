@@ -19,7 +19,7 @@
       ],
       "max_rel_resid": 0.0,
       "note": "3x3 diagonal see-saw = three copies of the F47 2x2 block (F47 Vieta form M_D^2/M_R, machine precision)",
-      "_seconds": 0.001,
+      "_seconds": 0.011,
       "_desc": "3x3 diagonal see-saw = three F47 blocks (exact)"
     },
     "S2_eg_only_no_mixing": {
@@ -76,7 +76,7 @@
       "n_free_inputs": 6,
       "n_observables": 5,
       "note": "all 5 observables reproduced, but with 6 free inputs (3 T_2g) => PMNS angles are free, not texture outputs (F93 no-go confirmed)",
-      "_seconds": 12.759,
+      "_seconds": 9.525,
       "_desc": "data reproduced with free T_2g (not predictive)"
     },
     "S5_seesaw_block_consistency": {
@@ -89,5 +89,5 @@
     }
   },
   "verdict": "E_g texture fixes the light-mass hierarchy/ordering (F201 node) and reduces exactly to F47 per generation; PMNS mixing is a NO-GO from E_g alone (diagonal => identity) and requires the second-shell T_2g channel, whose three amplitudes are free inputs the texture does not pin. All five oscillation observables are reproducible but with 6 inputs for 5 observables: masses derived, mixing angles free.",
-  "seconds": 12.76
+  "seconds": 9.54
 }

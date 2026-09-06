@@ -4,7 +4,7 @@ title: 'The model-native dark-matter relic: the F47 sterile right-handed neutrin
 slug: 'the-model-native-dark-matter-relic-the-f47'
 tier: supporting
 kind: derivation
-status: withdrawn
+status: live
 domain: [cosmology]
 exactness: quantitative
 findings: [F266]
@@ -46,13 +46,20 @@ The model-native dark-matter relic: the F47 sterile right-handed neutrino. It is
 
 ## Status & history
 
-`withdrawn`, inferred from the finding's own status line, quoted here verbatim so the inference is checkable:
+`live`, inferred from the finding's own status line, quoted here verbatim so the inference is checkable:
 
 > **Identifies a viable, model-native dark-matter candidate.** Existence and stability are derived/computed from the model's own F47 sterile sector; the keV mass and the production mechanism are accommodated within the established $\nu$MSM window, not derived. 5/5 checks PASS.
 
 **Date:** 2026-06-30 - 21:15
 
-**A supersession/withdrawal banner appears in this finding's header**, which is why the card reads `withdrawn`. The specific ledger record has not been attached — do that before relying on this status.
+**Corrected from `withdrawn` on 2026-08-19** (finding-coverage rollout section 4 bucket 2). The seed read
+`withdrawn` because a banner appears in the finding's header — but that banner is a **renumbering**, not a
+withdrawal: *"Renumbered F200 → F266 on 2026-07-31 (roadmap C8.2 close-out)"*, recorded under
+`duplicates: 200` in `docs/design/finding-numbers.yaml`. F266 appears in no `superseded:` list in
+`docs/theory/supersessions.yaml`, and its own status line above reads 5/5 PASS. The `live` here still
+carries `review_state: unreviewed-seed` — the scope the finding itself limits (the keV mass and the
+lepton asymmetry are **accommodated**, not derived) has not been written into this card's statement,
+which is what promotion to `authored` consists of.
 
 Seeded 2026-08-04 as part of standing up the claims layer (D12). No physics was read, changed or judged in creating this card.
 

@@ -1,0 +1,82 @@
+{
+  "finding": "F325",
+  "date": "2026-08-18",
+  "title": "X1 resolved: branch A tested and closed, branch B adopted",
+  "checks": [
+    {
+      "name": "X1 the magnetic term is -(lam/2) x (unit-entry adjacency + transpose) in BOTH theories, so it adds no factor to the chi-map",
+      "ok": true,
+      "value": {
+        "su3": [
+          1.0
+        ],
+        "u1": [
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "X2 at equal n_links, s1_SU(N)/s1_U(1) -> 2/(N^2-1) as lam -> 0, independent of n, with the residual linear in lam -- so there is no N_c selector in it",
+      "ok": true,
+      "value": {
+        "extrapolated_dev": 3.985924146299169e-09,
+        "vanishes_in_lam": true,
+        "slopes": [
+          10.0,
+          100.0,
+          100.0,
+          10.0,
+          100.07,
+          100.07
+        ]
+      }
+    },
+    {
+      "name": "X3 F111b T7 reproduces, and its electric gaps differ by exactly n/C_F = 3 -- the agreement is a 1-link-vs-4-link artefact, not a confirmation",
+      "ok": true,
+      "value": {
+        "t7_dev": 0.0011255421876663618,
+        "gap_ratio": 3.0
+      }
+    },
+    {
+      "name": "X4 sigma_1 carries an exact offset ln((N^2-1)/2) = ln 4 = 1.386294 nats between the implemented Z_3/U(1) engine and the SU(3) one -- affects F99/F100/F101, not g_s",
+      "ok": true,
+      "value": 1.3862943611198906
+    },
+    {
+      "name": "X5 the circularity lemma vanishes at a=b for EVERY b, so a=b=Omega(k) and chi=1/Omega(k): chi=1 is a normalisation, not a derivation (and branch A's chi=3/4 is not derived either)",
+      "ok": true,
+      "value": [
+        "1",
+        "pi**2/(b**2*t**2)"
+      ]
+    },
+    {
+      "name": "X6 branch A is closed on BOTH legs -- structural (the C_F is a mixed-matching artefact) and quantitative (5.6 decades outside CL252's band)",
+      "ok": true,
+      "value": "required Lambda ratio 3.4e+06 is 5.63 decades above CL252's committed band"
+    },
+    {
+      "name": "X7 branch B is adopted and sits inside the model's own Lambda bracket",
+      "ok": true,
+      "value": 0.11081380965528309
+    }
+  ],
+  "n_pass": 7,
+  "n_total": 7,
+  "summary": {
+    "X1_resolved": true,
+    "branch_A_status": "TESTED, CLOSED",
+    "branch_B_status": "ADOPTED",
+    "g_s_adopted": 0.5,
+    "alpha_0_adopted": 0.019894367886486918,
+    "magnetic_side_of_C7": "audited, no factor -- X1's named residual closes",
+    "cost": {
+      "CN19": "falls -- the N_c <= 3 restriction is a mixed-matching artefact",
+      "F324_upper_constraint": "falls with it; B10 closes on ODD N_c only, {3, 5, 7, ...}, the lower (Z_2 doublet parity) leg untouched",
+      "d1": "role changes, does not disappear: it now PINS alpha_s inside branch B rather than choosing a branch"
+    },
+    "residual": "which Omega the single-plaquette rotor carries, on the BCC dispersion -- plausibly the same object as F155's q_*.  Replaces 'the magnetic side is unaudited', closed here"
+  }
+}

@@ -87,6 +87,7 @@ from casim.numerics import xp as np
 from casim.constants import sin2_thetaW_uv_f
 from casim.engine.interactions import qed_vacuum_polarization as vp
 from casim.engine.interactions import qed_twoloop_ae as tl
+from casim.engine.particles import nuclear as nuc
 
 # ---- reference values: imported, never re-declared (single source = F251 module)
 ALPHA_INV = vp.ALPHA_INV
@@ -310,6 +311,289 @@ def ew_leg_alpha_dependence() -> dict:
                      "polarization the model defers to row G3. B9's two halves "
                      "share one input.",
     }
+
+
+# ======================================================================
+#  L5 — F334: a model-internal (non-imported) VMD estimate of the hadronic
+#  piece, rho+omega narrow-resonance, and its effect on the EW leg
+# ======================================================================
+#
+# B9's EW leg (L4 above) showed the model's leptonic-only alpha(M_Z) doubles
+# the sin^2 theta_W residual relative to using the PDG (hadronic-inclusive)
+# value -- the missing 3.795 in 1/alpha_MSbar is the hadronic vacuum
+# polarisation, which G3 declares out of scope entirely and B6/B9 both
+# defer. This section gives the model a FIRST non-imported number for a
+# piece of that gap, reusing the SAME universality posit F240 already uses
+# for g_omegaNN (there: baryon coupling; here: the photon coupling), applied
+# to the model's own vector-meson sector (F103's KSRF g_rhopipi, F128/F240's
+# rho-omega degeneracy).
+#
+# DERIVATION (see finding F334 SS2 for the full derivation).
+#
+# 1) VMD leptonic width of a vector meson V (standard, from the mixing term
+#    L = (e m_V^2 / g_V) V_mu A^mu):
+#        Gamma(V -> e+e-) = 4 pi alpha^2 m_V / (3 g_V^2)
+#
+# 2) Narrow-resonance dispersion integral (zero-width limit of the standard
+#    spin-1 Breit-Wigner, PDG "Cross-section formulae" Sec. 51.1, folded into
+#    Delta alpha_had(s) = -(alpha s)/(3 pi) P-integral ds' R(s')/(s'(s'-s))):
+#        Delta alpha_V(s) = [3 Gamma_ee/(alpha m_V)] * s/(s - m_V^2)
+#    which for s = M_Z^2 >> m_V^2 (m_V^2/M_Z^2 ~ 7e-5, negligible) reduces to
+#        Delta alpha_V(M_Z^2) ~= 3 Gamma_ee/(alpha m_V)
+#
+# 3) Combining (1) and (2), m_V cancels identically:
+#        Delta alpha_V(M_Z^2) = 4 pi alpha / g_V^2                    [rho]
+#
+# 4) The photon couples to the ELECTROMAGNETIC (charge-weighted) quark
+#    bilinear, not the baryonic one, so the isoscalar/isovector split is
+#    NOT F128/F240's baryon-coherence x3 -- it is the independent SU(3)
+#    quark-charge weighting: rho0 ~ (e_u - e_d) ubar-u - dbar-d bilinear
+#    contracted with e_u - e_d = 1, omega ~ e_u + e_d = 1/3. So
+#        g_omega,EM = 3 g_rho,EM
+#    (larger g => weaker coupling, since g sits in the mixing term's
+#    denominator) -- the SAME numerical factor 3 as F128/F240's baryon
+#    coherence, but a DIFFERENT physical origin; V2 below derives it exactly
+#    from the quark charges instead of importing the coincidence.
+#
+# HONEST SCOPE (stated, not absorbed): this is TWO resonances (rho, omega)
+# in the narrow-width approximation, using ONE modelling posit (VMD
+# universality g_V,EM = g_rhopipi, the same class of posit F240 already
+# uses and already found needs an O(20-50%) quench in two OTHER channels).
+# It is not a replacement for the data-driven Delta alpha_had^(5)(M_Z); phi,
+# the multi-hadron continuum, and the charm/bottom continuum are entirely
+# absent, and the real rho is BROAD (Gamma/m ~ 19%), so the narrow-width
+# formula is known to UNDERSHOOT a broad resonance's true dispersive
+# contribution (duality violation) -- V5 below quantifies this directly
+# against the PDG rho width rather than asserting it.
+
+DHMZ2020_DALPHA_HAD5_MZ = 0.02760          # Davier-Hoecker-Malaescu-Zhang,
+DHMZ2020_DALPHA_HAD5_MZ_ERR = 0.00010      # EPJC 80 (2020) 241, "5-flavour"
+                                            # Delta alpha_had^(5)(M_Z^2) =
+                                            # (276.0 +/- 1.0) x 10^-4. EXTERNAL
+                                            # COMPARISON ANCHOR ONLY (V4) -- never
+                                            # enters the dalpha_v_total computed
+                                            # in hadronic_vmd_narrow_resonance();
+                                            # same "bare module-level PDG
+                                            # constant" convention already used
+                                            # by ALPHA_MZ_INV_MEAS/DALPHA_LEP_PDG
+                                            # above (vp module) and
+                                            # INV_ALPHA_EM_MZ_MSBAR/
+                                            # SIN2_MZ_MSBAR_PDG in this file --
+                                            # not newly introduced by F334.
+
+PDG_GAMMA_EE_RHO_MEV = 7.04e-3              # PDG rho0 -> e+e- partial width.
+                                             # EXTERNAL CROSS-CHECK ONLY (V5) --
+                                             # compares AGAINST the universality
+                                             # prediction, never feeds it; same
+                                             # bare-literal convention as above.
+
+
+def _quark_charge_photon_weights() -> dict:
+    """Exact SU(3)-flavour charge decomposition of the isovector (rho) and
+    isoscalar (omega) vector currents' photon coupling, from the model's own
+    quark hypercharge assignment (F41/F42: Q_u = 2/3, Q_d = -1/3). Sympy
+    exact rationals -- this is what fixes g_omega,EM = 3 g_rho,EM, distinct
+    from (numerically coincident with) F128/F240's baryon-number coherence."""
+    import sympy as sp
+
+    Qu, Qd = sp.Rational(2, 3), sp.Rational(-1, 3)
+    isovector = sp.together((Qu - Qd) / sp.sqrt(2))   # rho0 ~ (uubar-ddbar)/sqrt2
+    isoscalar = sp.together((Qu + Qd) / sp.sqrt(2))   # omega ~ (uubar+ddbar)/sqrt2
+    ratio = sp.simplify(isovector / isoscalar)
+    return {
+        "Q_u": str(Qu), "Q_d": str(Qd),
+        "isovector_weight": str(isovector),
+        "isoscalar_weight": str(isoscalar),
+        "g_omega_over_g_rho_EM": str(ratio),           # = 3 exactly
+        "ratio_is_exactly_3": bool(sp.simplify(ratio - 3) == 0),
+        "statement": "g_V,EM in Gamma(V->e+e-) = 4 pi alpha^2 m_V/(3 g_V^2) sits "
+                     "in the denominator of the mixing term, so g_omega,EM/"
+                     "g_rho,EM = (isovector weight)/(isoscalar weight) = 3 "
+                     "exactly, from Q_u=2/3, Q_d=-1/3 alone.",
+    }
+
+
+def hadronic_vmd_narrow_resonance() -> dict:
+    """Model-internal (zero imported couplings) narrow-resonance VMD estimate
+    of the hadronic piece of Delta alpha(M_Z), rho + omega. Uses ONLY the
+    model's own g_rhopipi (F103 KSRF, model f_pi) -- no PDG width, no PDG
+    mass -- combined with the quark-charge-derived x3 isoscalar suppression."""
+    g_rhopipi = nuc.M_OMEGA_DEFAULT / (math.sqrt(2.0) * nuc.F_PI_DEFAULT)   # F103/F240 KSRF
+    weights = _quark_charge_photon_weights()
+    g_omega_em = float(weights["g_omega_over_g_rho_EM"]) * g_rhopipi
+
+    dalpha_rho_exact = _dalpha_V_exact(M_Z_MEV ** 2, nuc.M_OMEGA_DEFAULT, g_rhopipi)
+    dalpha_rho_asym = 4.0 * math.pi * ALPHA / g_rhopipi ** 2
+    dalpha_omega_exact = _dalpha_V_exact(M_Z_MEV ** 2, nuc.M_OMEGA_DEFAULT, g_omega_em)
+    dalpha_omega_asym = 4.0 * math.pi * ALPHA / g_omega_em ** 2
+
+    dalpha_v_total = dalpha_rho_exact + dalpha_omega_exact
+    frac_dhmz = dalpha_v_total / DHMZ2020_DALPHA_HAD5_MZ
+
+    # V5 -- honest cross-check against the REAL rho0->e+e- width (not used as
+    # an input anywhere above; this only measures how good the universality
+    # posit g_rho,EM = g_rhopipi is, the same class of check F240 ran for
+    # g_rhoNN).
+    gamma_ee_predicted = 4.0 * math.pi * ALPHA ** 2 * nuc.M_OMEGA_DEFAULT / (3.0 * g_rhopipi ** 2)
+    quench_on_coupling = math.sqrt(gamma_ee_predicted / PDG_GAMMA_EE_RHO_MEV)
+
+    return {
+        "g_rhopipi_KSRF": g_rhopipi,
+        "photon_charge_weights": weights,
+        "g_omega_EM": g_omega_em,
+        "dalpha_rho_MZ": dalpha_rho_exact,
+        "dalpha_rho_asymptotic_form": dalpha_rho_asym,
+        "asymptotic_form_rel_err": abs(dalpha_rho_exact - dalpha_rho_asym) / dalpha_rho_exact,
+        "dalpha_omega_MZ": dalpha_omega_exact,
+        "dalpha_omega_asymptotic_form": dalpha_omega_asym,
+        "dalpha_v_total_MZ": dalpha_v_total,
+        "dhmz2020_dalpha_had5_MZ": DHMZ2020_DALPHA_HAD5_MZ,
+        "dhmz2020_err": DHMZ2020_DALPHA_HAD5_MZ_ERR,
+        "fraction_of_dhmz2020_captured": frac_dhmz,
+        "pdg_gamma_ee_rho_MeV": PDG_GAMMA_EE_RHO_MEV,
+        "gamma_ee_rho_predicted_MeV": gamma_ee_predicted,
+        "gamma_ee_rho_predicted_over_measured": gamma_ee_predicted / PDG_GAMMA_EE_RHO_MEV,
+        "universality_coupling_quench_needed": quench_on_coupling,
+        "statement": "rho+omega narrow-resonance VMD, zero imported couplings "
+                     "(g_rhopipi is the model's own F103/F240 KSRF output): "
+                     "Delta alpha_V(M_Z) captures a double-digit-percent "
+                     "fraction of DHMZ2020's Delta alpha_had^(5)(M_Z); the "
+                     "universality posit itself needs the same O(15-30%) "
+                     "quench direction F240 already found in two other "
+                     "channels (NN vector, NN scalar), measured here against "
+                     "the PDG rho0->e+e- width rather than assumed.",
+    }
+
+
+def _dalpha_V_exact(s, m_V, g_V) -> float:
+    """Delta alpha_V(s) = 3 Gamma_ee/(alpha m_V) * s/(s-m_V^2), the EXACT
+    narrow-resonance dispersion result (not the s>>m_V^2 asymptotic form),
+    with Gamma_ee eliminated via the VMD width formula so only g_V appears:
+    Delta alpha_V(s) = (4 pi alpha/g_V^2) * s/(s - m_V^2)."""
+    return (4.0 * math.pi * ALPHA / g_V ** 2) * (s / (s - m_V ** 2))
+
+
+def ew_leg_with_hadronic_vmd() -> dict:
+    """Feed the L5 hadronic VMD piece into the L4 EW leg: subtract its
+    contribution to 1/alpha_MSbar(M_Z) from the leptonic-only value before
+    running sin^2 theta_W, and report how much of the +0.450% residual (L4)
+    it removes."""
+    tll = two_loop_leading_log()
+    hvp = hadronic_vmd_narrow_resonance()
+    offset = ALPHA_MZ_INV_ONSHELL - INV_ALPHA_EM_MZ_MSBAR
+    inv_lep_msbar = tll["alpha_MZ_inv_lep_two_loop"] - offset
+    delta_inv_had = ALPHA_INV * hvp["dalpha_v_total_MZ"]
+    inv_with_had_msbar = inv_lep_msbar - delta_inv_had
+
+    pdg = _sin2_MZ(INV_ALPHA_EM_MZ_MSBAR)
+    lep_only = _sin2_MZ(inv_lep_msbar)
+    with_had = _sin2_MZ(inv_with_had_msbar)
+
+    gap_before = inv_lep_msbar - INV_ALPHA_EM_MZ_MSBAR
+    gap_after = inv_with_had_msbar - INV_ALPHA_EM_MZ_MSBAR
+    return {
+        "hadronic_vmd": hvp,
+        "inv_alpha_lep_msbar": inv_lep_msbar,
+        "inv_alpha_with_had_msbar": inv_with_had_msbar,
+        "delta_inv_alpha_had_vmd": delta_inv_had,
+        "gap_to_pdg_before": gap_before,
+        "gap_to_pdg_after": gap_after,
+        "fraction_of_gap_closed": 1.0 - gap_after / gap_before,
+        "sin2_pdg": pdg["sin2_MZ"],
+        "resid_pdg_pct": pdg["resid_vs_PDG_msbar_pct"],
+        "sin2_lep_only": lep_only["sin2_MZ"],
+        "resid_lep_only_pct": lep_only["resid_vs_PDG_msbar_pct"],
+        "sin2_with_had_vmd": with_had["sin2_MZ"],
+        "resid_with_had_vmd_pct": with_had["resid_vs_PDG_msbar_pct"],
+        "statement": "Adding the model-internal rho+omega VMD hadronic piece "
+                     "moves 1/alpha_MSbar(M_Z) and sin^2 theta_W(M_Z) in the "
+                     "correct direction, closing roughly a tenth of the gap "
+                     "to PDG that L4 attributed entirely to the missing "
+                     "hadronic vacuum polarisation. The remainder needs "
+                     "either the data-driven value (as before) or the "
+                     "resonances/continuum this two-resonance estimate does "
+                     "not include.",
+    }
+
+
+# ======================================================================
+#  F334 entry point — the registry record's `entry:`
+# ======================================================================
+def check_f334_hadronic_vmd(charge_weight_control=None,
+                            dhmz_reference_control=None) -> dict:
+    """F334's verification: 6 legs (V1-V6), 2 declared D9/H2 controls.
+
+    charge_weight_control: overrides the exact 3x isoscalar/isovector ratio
+      (control for V2 -- breaks the exact quark-charge derivation).
+    dhmz_reference_control: overrides the DHMZ2020 external reference value
+      used for the sanity-range check V4 (control -- a wildly wrong external
+      anchor must fail the plausibility bound).
+    """
+    weights = _quark_charge_photon_weights()
+    hvp = hadronic_vmd_narrow_resonance()
+    ew = ew_leg_with_hadronic_vmd()
+
+    ratio = (float(charge_weight_control) if charge_weight_control is not None
+             else float(weights["g_omega_over_g_rho_EM"]))
+    dhmz_ref = (float(dhmz_reference_control) if dhmz_reference_control is not None
+                else DHMZ2020_DALPHA_HAD5_MZ)
+    frac = hvp["dalpha_v_total_MZ"] / dhmz_ref
+
+    checks = {
+        "V1": {"ok": bool(hvp["asymptotic_form_rel_err"] < 1e-4),
+               "what": "s>>m_V^2 asymptotic closed form matches the exact "
+                       "narrow-resonance dispersion integral",
+               "rel_err": hvp["asymptotic_form_rel_err"]},
+        "V2": {"ok": bool(abs(ratio - 3.0) < 1e-12),
+               "what": "g_omega,EM/g_rho,EM = 3 exactly, from quark charges "
+                       "Q_u=2/3, Q_d=-1/3 alone (not F128/F240's baryon "
+                       "coherence, independently the same number)",
+               "ratio": ratio},
+        "V3": {"ok": bool(0.0 < hvp["dalpha_v_total_MZ"] < DHMZ2020_DALPHA_HAD5_MZ),
+               "what": "rho+omega VMD piece is positive and strictly below "
+                       "the full data-driven hadronic Delta alpha (a "
+                       "physical necessity: two resonances cannot exceed "
+                       "the whole spectrum)",
+               "dalpha_v_total": hvp["dalpha_v_total_MZ"]},
+        "V4": {"ok": bool(0.03 < frac < 0.30),
+               "what": "captured fraction of DHMZ2020 Delta alpha_had^(5)(M_Z) "
+                       "lands in the physically sane range for two light "
+                       "narrow resonances out of the full hadronic spectrum "
+                       "(not <3%: too small to be the leading resonances; "
+                       "not >30%: rho+omega alone do not dominate a "
+                       "spectrum that also has phi, 4pi, and the continuum)",
+               "fraction": frac},
+        "V5": {"ok": bool(0.5 < hvp["universality_coupling_quench_needed"] < 1.0),
+               "what": "universality (g_rho,EM = g_rhopipi) needs a downward "
+                       "quench on the coupling to match the PDG rho0->e+e- "
+                       "width -- the SAME direction (quench, not enhancement) "
+                       "F240 already found for g_rhoNN and g_sigmaNN (0.43, "
+                       "0.45), here measured independently via a third, "
+                       "electromagnetic channel rather than assumed",
+               "quench": hvp["universality_coupling_quench_needed"]},
+        "V6": {"ok": bool(0.0 < ew["fraction_of_gap_closed"] < 1.0
+                          and ew["resid_with_had_vmd_pct"] < ew["resid_lep_only_pct"]),
+               "what": "adding the VMD piece moves 1/alpha_MSbar(M_Z) and "
+                       "sin^2 theta_W(M_Z) toward PDG (not past it, not away "
+                       "from it) and closes a genuine, bounded fraction of "
+                       "the gap L4 attributed to the missing hadronic piece",
+               "fraction_of_gap_closed": ew["fraction_of_gap_closed"],
+               "resid_lep_only_pct": ew["resid_lep_only_pct"],
+               "resid_with_had_vmd_pct": ew["resid_with_had_vmd_pct"]},
+    }
+    all_pass = all(c["ok"] for c in checks.values())
+    return {"all_pass": all_pass,
+            "verdict": "PASS" if all_pass else "FAIL",
+            "checks": checks,
+            "n_pass": sum(1 for c in checks.values() if c["ok"]),
+            "n_total": len(checks),
+            "photon_charge_weights": weights,
+            "hadronic_vmd": hvp,
+            "ew_leg_with_hadronic_vmd": ew}
+
+
+def report_f334() -> dict:
+    return check_f334_hadronic_vmd()
 
 
 # ======================================================================

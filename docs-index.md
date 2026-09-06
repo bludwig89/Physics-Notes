@@ -21,21 +21,9 @@
 
 | File | Title |
 |------|-------|
-| `bucket-c-observational-criteria.md` | Bucket C pass criteria from live data, not from a judgement call |
 | `control-soundness-rollout.md` | Control soundness — the rollout, 50 → 0 |
 | `finding-coverage-rollout.md` | Finding coverage — the rollout: joining 317 findings to their tests and their claims |
-| `k11-structure-formation-prompt.md` | K11 — Structure formation and $\sigma_8$: the investigation prompt |
-| `loop-sector-buildout-prompt.md` | New-session prompt — build the interacting one-loop QED sector |
 | `next-steps-pt2.md` | Continuing Next Research Steps |
-| `next-steps.md` | Next Research Steps |
-| `open-derivations-prompts-v2.md` | Open-Derivations Prompt Library — v2 |
-| `open-derivations-prompts.md` | Open-Derivations Prompt Library |
-| `prompt-weinberg-8over7-closure.md` | Session prompt — close the F49 8/7: diamagnetic-complete R(m), the 8-vs-7 multiplicity test, and the F118 matching |
-| `roadmap-casim-consolidation.md` | Roadmap — CASIM Consolidation (C0–C9) — **COMPLETE 2026-07-31 - 18:20** |
-| `roadmap-matter-binding.md` | Roadmap — Dynamical Matter & Binding: electrons, u/d quarks → protons, neutrons, atoms |
-| `roadmap-scale-to-real-space.md` | Roadmap — Running the lattice at a scale analogous to real space |
-| `roadmap-unified-program.md` | Roadmap — CASIM as a Single Comprehensive Modeling Program |
-| `roadmap-unified-real-space.md` | Roadmap — Unified real-space integration: one lattice carrying a confined proton **and** an EM-bound electron |
 
 ## docs/roadmaps/completed/ — spent one-off prompts — the finding that closed each is in docs/audits/consolidation-plan-2026-08-04.md §3.1
 
@@ -44,29 +32,44 @@
 | `F216-followon-spin2-mass-abundance-prompt.md` | Session prompt — close the F216 obstruction: mass and relic abundance of the dark spin-2 bound state |
 | `F223-followup-geon-production-brief.md` | Research brief — Geon production within the model as it stands (F223 follow-on) |
 | `angular-self-duality-solve-2026-06-30.md` | Session prompt — derive the angular self-duality (C/\|B\| = 0.636) |
+| `bucket-c-observational-criteria.md` | Bucket C pass criteria from live data, not from a judgement call |
 | `gravity-sector-scenarios-2026-06-30.md` | Gravity-sector scenario catalog (post-F178 full-tensor adoption) |
+| `k11-structure-formation-prompt.md` | K11 — Structure formation and $\sigma_8$: the investigation prompt |
+| `loop-sector-buildout-prompt.md` | New-session prompt — build the interacting one-loop QED sector |
 | `mass-magnitude-derivation-2026-06-29.md` | Roadmap — Deriving the mass *magnitude* (the open half of audit G1 / F167) |
 | `next-session-bgfield-loop.md` | Next-session prompt — the background-field one-loop gluon self-energy → **pin q\*** |
 | `next-session-prompt-vacuum-energy.md` | Next-session prompt — the BCC zero-point / vacuum-energy density and the cosmological-constant sector |
 | `next-session-residual-A-solve.md` | Next-session prompt — build out Residuals A & B, then **solve/derive Residual A** |
 | `next-session-stable-atomic-structure.md` | Next-session prompt — build the **fully stable blockspin atom**: multi-nucleon nucleus + multi-electron shells, general (Z,N) |
+| `next-steps.md` | Next Research Steps |
+| `open-derivations-prompts-v2.md` | Open-Derivations Prompt Library — v2 |
+| `open-derivations-prompts.md` | Open-Derivations Prompt Library |
 | `p5-gui-workbench-handback.md` | P5 GUI workbench — hand-back for the display-dependent items |
 | `prompt-superconductivity-construction-2026-06-30.md` | Session prompt — construct electrical superconductivity on the lattice: pairing glue → BCS gap → Meissner/London → flux quantum h/2e → Josephson → Tc |
+| `prompt-weinberg-8over7-closure.md` | Session prompt — close the F49 8/7: diamagnetic-complete R(m), the 8-vs-7 multiplicity test, and the F118 matching |
 | `qc-routes-3-4-prompt.md` | Session prompt — QC empirical thread, Routes 3 & 4 (Bell/Tsirelson + intrinsic-decoherence floor) |
+| `roadmap-casim-consolidation.md` | Roadmap — CASIM Consolidation (C0–C9) — **COMPLETE 2026-07-31 - 18:20** |
+| `roadmap-matter-binding.md` | Roadmap — Dynamical Matter & Binding: electrons, u/d quarks → protons, neutrons, atoms |
+| `roadmap-scale-to-real-space.md` | Roadmap — Running the lattice at a scale analogous to real space |
+| `roadmap-unified-program.md` | Roadmap — CASIM as a Single Comprehensive Modeling Program |
+| `roadmap-unified-real-space.md` | Roadmap — Unified real-space integration: one lattice carrying a confined proton **and** an EM-bound electron |
 
 ## docs/status/ — project status, changelog, exactness — what is CURRENT
 
 | File | Title |
 |------|-------|
 | `baseline-provenance.md` | Baseline provenance — telling supersession apart from regression |
-| `changelog.md` | The n = 8/12/16 sweep finished (~78 min). The pre-F265 rule -- F26 propagator against the |
+| `changelog.md` | **Rubric row E10 (singularity resolution) moves off PARTIAL, but not by the route the session set |
 | `completeness-2026-08-02.md` | Completeness overview — 2026-08-02 - 08:30 |
 | `completeness-2026-08-04.md` | Completeness overview — 2026-08-04 - 21:12 |
 | `completeness-2026-08-07.md` | Completeness overview — 2026-08-07 - 14:11 |
 | `completeness-2026-08-18.md` | Completeness overview — 2026-08-18 - 10:21 |
+| `completeness-2026-08-20-prompts.md` | Research prompts — completeness 2026-08-20 - 15:50 |
+| `completeness-2026-08-20.md` | Completeness overview — 2026-08-20 - 15:50 |
 | `exactness-inventory.md` | Exactness Inventory |
 | `findings-supersession-triage-2026-08-04.md` | Findings supersession triage — header pass over all 282 active findings |
 | `open-derivations.md` | Open-Derivations Ledger |
+| `prediction-date-catalogue.md` | Prediction-date catalogue — watching for a second H3 instance |
 | `project-status-guide.md` | Status of the Project — In-Depth Guide |
 | `project-status.md` | Project Status — Physics Notes Transcription |
 | `qcd-ir-coupling-problem-status.md` | The strong-sector scale-setting problem (the "IR coupling") — what's been tried, what's left |
@@ -101,6 +104,7 @@
 | `consolidation-plan-2026-08-04.md` | Consolidation and deprecation plan — the claims layer, and what moves |
 | `model-observations.md` | Model review — nonsensical or self-inconsistent constructs flagged |
 | `module-disposition-2026-08-03.md` | Module disposition pass — `dead_candidate` and unreferenced modules |
+| `module-disposition-2026-09-06.md` | Module disposition pass — H7 channel-driven fraction, fourth consecutive fall |
 | `physics-audit-2026-08-01-full-rerun-prompt.md` | Physics Audit V — complete re-run and consistency audit of CASIM |
 | `physics-audit-prompt.md` | You are a theoretical physics auditor for a cellular automaton (CA) model of particle physics. Your job is a **complete internal consistency audit**: find… |
 | `physics-audit-report-2026-06-29.md` | Physics Audit Report — 2026-06-29 |
@@ -122,6 +126,7 @@
 | `ca-strong-design.md` | SU(3) Strong-Force Gauge Sector — Design |
 | `casimir-effect-build-brief.md` | Build Brief / Next-Session Prompt — The Casimir Effect in the BCC Weyl-QCA Model |
 | `dead-code-proposal.md` | Dead-code proposal |
+| `finding-claim-test-guide.md` | Finding, Claim & Test Guide |
 | `finding-number-decisions.md` | Finding-number collisions — decision sheet |
 | `qstar-gluon-d1-computation-plan.md` | Computing the gluonic $d_1$ — the one number that pins $q_\ast$ (a validatable plan) |
 | `session-claims-command-patches.md` | Slash-command patches for the claim board |

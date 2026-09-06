@@ -5,6 +5,7 @@
 **Module:** `ca-simulation/ca_atom.py`
 **Script:** `tests/findings/test_P5_hydrogen.py` (~12 s)
 **Results:** `test-results/P5_hydrogen.json`
+**Test record:** record `P5-hydrogen` (tier battery) — the script above, baseline `test-results/P5_hydrogen.json`. Declared 2026-08-19.
 **Cross-references:** [[higgs-free-su2-key-choice]] / F27 (the dynamical electron the atom binds), [[f87-charge-coupling-paired-photon]] / F69 (the EM U(1) paired-spinor photon — the binding channel), the F74 two-body solver (the engine this generalises contact→Coulomb), [[f123-p6-si-scale-matter]] / F121 / F120 (the electron mass anchor), `docs/roadmaps/roadmap-matter-binding.md` (P5).
 
 ---

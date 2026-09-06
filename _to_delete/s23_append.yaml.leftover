@@ -1,0 +1,60 @@
+
+
+  # =========================================================================
+  - id: S23-F194-bullet-cluster-clump-shape-claim
+    date: 2026-09-03
+    kind: superseded
+    by: [F358]
+    superseded: [F194]
+    scope: >
+      One sub-claim inside F194's Bullet-Cluster falsifier (section "The
+      falsifier (E4)" / "Why the conclusion is robust"), NOT its conclusion:
+      the statement that the QUMOND-type phantom-density lensing peak "can
+      never migrate to the offset galaxies... regardless of a0, the
+      interpolation function, or the clump shapes" -- stated as a strict,
+      geometry-independent topological impossibility.
+    reason: >
+      Per the E13 reopening-condition protocol
+      (docs/status/completeness-2026-08-20-prompts.md), a literature check
+      found a live 2026 dispute working the exact QUMOND functional F194
+      uses. Hernandez (arXiv:2604.10811, 2026-04-12) shows that because the
+      phantom density is the divergence of a nonlinear vector field, compact
+      point-like galaxy clumps versus diffuse gas CAN pull a disproportionate
+      share of the phantom-density signal toward the galaxies despite the gas
+      dominating baryonic mass -- clump shape is exactly the lever F194
+      claimed was irrelevant. F194's own toy model used smooth, roughly
+      Gaussian clumps and did not explore this regime. The strict form of the
+      claim does not survive and is withdrawn.
+    decision_ref: "F358 sections 'Physics' and 'Status'"
+    findings:
+      - path: findings/F194-emergent-gravity-bullet-falsification.md
+        status: sub_claim_superseded
+        dead: "The single sentence, in 'Why the conclusion is robust', claiming
+                the phantom-density lensing peak can never migrate to the
+                offset galaxies 'regardless of a0, the interpolation function,
+                or the clump shapes'. This overstates the discriminator as a
+                strict topological impossibility; it is not one."
+        live: "EVERYTHING F194 CONCLUDES. E1-E5 all still pass and are
+                unaffected (they are numerical results of one specific toy
+                geometry, not the withdrawn universal claim). The bottom-line
+                verdict -- the model-native emergent-gravity route is
+                falsified and a dark, collisionless gravitating source is
+                required -- is RETAINED IN FULL and is independently
+                reinforced: F358 finds the MOND/QUMOND community's own 2026
+                internal dispute (Famaey's arXiv:2605.10022 rebuttal of
+                Hernandez) reaches the same bottom line by a different route,
+                against the sharpest currently available (JWST) data."
+        note: "Rubric row E13 stays EXCLUDED. CL168's falsifier field, unset
+                when this record was written, is filled in by F358: an
+                independently-verified baryon-only QUMOND/MOND match to the
+                FULL kappa profile (not just the offset centroid) would
+                undercut this exclusion; none has survived scrutiny as of
+                2026-09."
+    tests:
+      - path: tests/findings/test_F194_emergent_gravity_bullet.py
+        status: live
+        note: "Do not mark. E1-E5 all still pass; the test computes one toy
+               geometry's numbers and never asserted the withdrawn universal
+               'regardless of clump shape' claim -- that was interpretive
+               prose layered on top of the computation, not a checked
+               assertion."

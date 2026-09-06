@@ -196,6 +196,23 @@ register_measured(MeasuredConstant(
     provenance=("F295", "F286", "F175"),
 ))
 
+register_measured(MeasuredConstant(
+    path="src/casim/engine/particles/derive_quark_shape_probe.py",
+    name=None,
+    compares_to="e_saturation",
+    kind="coincidence",
+    value=0.731,
+    reason="F80-D4's own recorded down-type-quark Koide Q (0.731, "
+           "test_F80_em_saturation_45deg.py), quoted here as the target for "
+           "F346's pipeline-consistency cross-check (does this module's "
+           "independently recomputed Q reproduce F80's number?). It is not "
+           "the lepton saturation amplitude e ~ 0.733 (F92/F118/F234), which "
+           "lives in a different sector and matches only because "
+           "e_saturation carries a 5e-3 tolerance -- the same collision shape "
+           "already documented for q_star_a_implied above.",
+    provenance=("F346", "F80"),
+))
+
 # ---------------------------------------------------------------------------
 # NOT here: the two non-anchor f_pi sites.
 #
@@ -207,3 +224,62 @@ register_measured(MeasuredConstant(
 # distinction is carried by the name at the point of use, which is where it
 # was always missing.  Two allowlist entries deleted rather than ported.
 # ---------------------------------------------------------------------------
+
+# --- F355 (E9): two arithmetic collisions in horizon_entanglement.py ---------
+register_measured(MeasuredConstant(
+    path="src/casim/engine/interactions/horizon_entanglement.py",
+    name="C_PLANE_REF",
+    compares_to="e_saturation",
+    kind="coincidence",
+    value=0.734202,
+    reason="The MEASURED entanglement-entropy coefficient of the BCC vacuum "
+           "across the (111) crystal plane, in nats per a^2 per Weyl field. It "
+           "is an output of this finding's own computation, recorded as the "
+           "gate tier's reference value; that it lands within 1e-6 of a "
+           "saturation parameter from an unrelated sector is arithmetic. "
+           "Importing e_saturation here would replace a result with an input.",
+    provenance=("F355",),
+))
+
+register_measured(MeasuredConstant(
+    path="src/casim/engine/interactions/horizon_entanglement.py",
+    name=None,
+    compares_to="m0_current_quark_MeV",
+    kind="coincidence",
+    value=5.5,
+    reason="A ball RADIUS in units of the BCC conventional cube edge a, in the "
+           "radius ladder the sphere-averaged coefficient is measured over "
+           "(5.0, 5.5, 6.0, 6.5). A length in lattice units, not a quark mass "
+           "in MeV; the collision is arithmetic.",
+    provenance=("F355",),
+))
+
+register_measured(MeasuredConstant(
+    path="src/casim/engine/interactions/cosmology_transfer_function.py",
+    name=None,
+    compares_to="lambda_6",
+    kind="coincidence",
+    value=2.0 * 1.2020569031595943 / math.pi ** 2,
+    reason="2*zeta(3)/pi^2, the standard Bose-Einstein photon-number-density "
+           "prefactor n_gamma = (2 zeta(3)/pi^2) T^3/(hbar c)^3 used to convert "
+           "the CMB temperature to a baryon number density for the Saha "
+           "equation (F369, K11/S2). Zeta(3) and pi have no connection to the "
+           "lepton sextic clock coupling lambda_6; the collision is arithmetic.",
+    provenance=("F369",),
+))
+
+register_measured(MeasuredConstant(
+    path="src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py",
+    name="w0",
+    compares_to="m_V_F117_lattice",
+    kind="coincidence",
+    value=-0.727,
+    reason="DESI DR2 BAO+CMB's own preferred CPL dark-energy equation-of-state "
+           "parameter w0 (illustrative sign/quadrant value; see the module's "
+           "own docstring -- exact published digits are not re-transcribed "
+           "here) used in the F368 sequestering-consistency check. Has no "
+           "relation to m_V_F117_lattice, the strong-sector dual-Meissner "
+           "gluon vector mass from the F117 L=6 lattice run; the collision "
+           "is arithmetic, and the sign even differs (-0.727 vs +0.727).",
+    provenance=("F368",),
+))

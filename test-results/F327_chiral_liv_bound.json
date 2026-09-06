@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "id": "A0-c_lat",
+      "desc": "module c_lat matches casim.constants",
+      "pass": true,
+      "value": "7.7572021723159311624529338480944e-17"
+    },
+    {
+      "id": "A1-dirac-eigenphase",
+      "desc": "4x4 BCC Dirac eigenphases = +-arccos(n u_+), two-fold degenerate: a massive Dirac fermion rides ONE branch, spin-independently",
+      "pass": true,
+      "value": "2.3111159332646830236671735311019e-33"
+    },
+    {
+      "id": "A2-ultralocal-pairing-fails",
+      "desc": "the ULTRALOCAL branch-paired ansatz [[nA_+,im],[im,nA_-]] is unitary at m=0 and NOT for any m != 0 (the m=0 case is block-diagonal, i.e. two independent Weyl states, not a paired one)",
+      "pass": true,
+      "value": "{'0': '7.7037197775489434122239117703397e-34', '1e-3': '0.00054409794763724481294873675145735', '0.3': '0.15571098635401436889599040376242', '0.7': '0.27199469457917202654001583789765'}"
+    },
+    {
+      "id": "A2b-local-pairing-DOES-exist",
+      "desc": "a LOCAL (finite-range, k-dependent) mixing M = -m A_+(k) A_-(k)^dag IS exactly unitary at every m and has the right rest phase arcsin(m) - so the k-independent theorem A3 is NOT a theorem about local mass terms",
+      "pass": true,
+      "value": "({'0': '7.7037197775489434122239117703397e-34', '1e-3': '7.7037197775489434122239117703397e-34', '0.3': '7.7037197775489434122239117703397e-34', '0.7': '7.7037197775489434122239117703397e-34'}, mpf('0.00000000057735026812969331654443512736999332'))"
+    },
+    {
+      "id": "A2c-local-mass-is-not-a-mass",
+      "desc": "...but that construction's mass enters LINEARLY and with opposite signs on the two states (an axial CPT-odd LV term), where a Lorentz-scalar Dirac mass must shift an ultrarelativistic energy by m^2/(2c|k|) - which the model's own single-branch propagator does",
+      "pass": true,
+      "value": "(mpf('0.57087760218829492804957619919111986'), mpf('0.00084963488680872394889017418994862005'), mpf('0.00006388088070294008432496520745542132'))"
+    },
+    {
+      "id": "A2d-pairing-splits-it-does-not-cancel",
+      "desc": "and even granting that construction, its two positive-energy eigenstates carry b_2 = -|b_2| and +|b_2| - a SPLIT, not a cancellation - so a superluminal eigenstate survives and vacuum Cherenkov still fires. This is why the photon's escape needs a SUM inside one eigenvalue (A4).",
+      "pass": true,
+      "value": "([mpf('-0.064150029909942578761352492737709386'), mpf('0.064150029909942578769700574757336608')], mpf('1.5839517441816206952612185211093748e-14'))"
+    },
+    {
+      "id": "A3-k-independent-mass-forces-same-u",
+      "desc": "no k-INDEPENDENT unitary mass mixing escapes: unitarity forces B(k) = V A(k)^dag V^dag, and tr(V A^dag V^dag) = conj(tr A) = tr A because tr A_s = 2 u_s is REAL. The trace identity itself is cyclicity and holds for any matrices; the physics is the reality of tr A_s and the nonzero u_+ - u_- gap that make it bite.",
+      "pass": true,
+      "value": "(mpf('0.0'), mpf('0.0'), mpf('0.086625913173789714812170840857432348'))"
+    },
+    {
+      "id": "A4-even-law-needs-two-quanta",
+      "desc": "Omega_even(k) - omega_+(k) = +(1/3) khat_x khat_y khat_z |k|^2 (F301 3.7) and the even law carries k/2 per constituent - a one-quantum channel has nothing to pair with",
+      "pass": true,
+      "value": "(mpf('1.5839664894480443683177266812956253e-12'), mpf('0.000013333440972884279418713774783947871'))"
+    },
+    {
+      "id": "B1-b2-closed-form",
+      "desc": "leading O(|k|^2) coefficient matches the closed form for this branch over five directions, with the un-extrapolated residual verified to fall 10x per 10x in |k| (so the agreement is convergence, not a choice of |k|)",
+      "pass": true,
+      "value": "(mpf('1.6676761517444271789083566055339353e-14'), mpf('0.000010000027997090875862988864339928754'))"
+    },
+    {
+      "id": "B1b-cartesian-dim5-operator",
+      "desc": "direction-differenced (every isotropic term, rho(m) included, cancels): E^2 - E_rest^2 - c^2 p^2 = -(2/sqrt3)(c p_x)(c p_y)(c p_z)/E_a, analytic in the momentum components and mass-independent to O(m^2) - a genuine local dimension-5 operator. Exponent 3 (chiral) vs 4 (even).",
+      "pass": true,
+      "value": "(mpf('5.1000153303417573771172353221666222e-16'), mpf('3.0000065143575115974906582403390868'), mpf('0.00000039838369987384476535221371168032394'), mpf('1.5943476843015247987232771755769257e-22'))"
+    },
+    {
+      "id": "B2-eta-from-measured-b2",
+      "desc": "eta = 2 sqrt3 (a/ell_P) b_2 evaluated on the MEASURED b_2 reproduces the closed form |eta|_max = 2 (a/ell_P)/9 = 2 sqrt(8pi) 3^(1/4)/9 on <111>",
+      "pass": true,
+      "value": "(mpf('1.4661814810546422460665883733121167'), mpf('1.466181481055023401912270249643674'), mpf('3.8115584568187633155727905070578346e-13'))"
+    },
+    {
+      "id": "B3-E_LV-is-9-halves-E_a",
+      "desc": "E_LV = M_Pl/|eta|_max = (9/2) E_a. The 9/2 is the reciprocal of the 2/9 in |eta|_max and carries NO content beyond it - the leg is here because E_LV in GeV is what the published bounds are quoted in, and it is fed by the measured b_2 through B2",
+      "pass": true,
+      "value": "4.5000000000011698424292841826408"
+    },
+    {
+      "id": "B4-parametrisation-free",
+      "desc": "the fermion-photon group-velocity difference carries the SAME eta, so no momentum redefinition removes it (F301 section 4, second horn)",
+      "pass": true,
+      "value": "5.8106328415042869568461270196675e-12"
+    },
+    {
+      "id": "B5-pure-j3-m2",
+      "desc": "khat_x khat_y khat_z = i sqrt(2pi/105) (Y_{3,-2} - Y_{3,2}) pointwise, so the model's dimension-5 anisotropy is a SINGLE SME spherical coefficient (j,m) = (3,+-2) in the lattice frame and every other (j, m) is exactly zero",
+      "pass": true,
+      "value": "(mpf('1.9259299443872358530559779425849273e-34'), mpf('0.24462187160672492505349200231834797'))"
+    },
+    {
+      "id": "C1-superluminal-excluded",
+      "desc": "model E_LV is BELOW the LHAASO/Crab superluminal bound by > 5 decades",
+      "pass": true,
+      "value": "7.0526389947573772561857052128541"
+    },
+    {
+      "id": "C2-subluminal-excluded",
+      "desc": "model E_LV is BELOW the Crab-synchrotron subluminal bound by > 3 decades - so neither sign of the chirality-odd coefficient survives",
+      "pass": true,
+      "value": "5.0795111411576786114403048703378"
+    },
+    {
+      "id": "C3-vacuum-cherenkov-threshold",
+      "desc": "the model's own vacuum-Cherenkov threshold sits > 1 decade BELOW a CONSERVATIVE floor on the parent-electron energy of the observed 1.12 PeV Crab photon (inverse Compton gives E_e >= E_gamma; the inferred parent is higher, so the margin is understated)",
+      "pass": true,
+      "value": "1.9367750645574916840810746297701"
+    },
+    {
+      "id": "C4-orientation-escape-measured",
+      "desc": "the solid-angle fraction on which |eta(khat)| falls under the bound is < 1e-5, so no lattice orientation makes the sky safe",
+      "pass": true,
+      "value": "0.00000061501189651076625036920020567581"
+    },
+    {
+      "id": "C5-photon-channel-is-softer",
+      "desc": "at the SAME ruler and the SAME 1.12 PeV, the even-law photon's fractional velocity shift is > 1e10 times smaller than the chiral fermion's - the exclusion is channel-specific, not a blanket ruler failure",
+      "pass": true,
+      "value": "19826203906129.4055768990428332"
+    },
+    {
+      "id": "C6-ruler-escape-costs-G",
+      "desc": "absorbing the exclusion in the ruler needs a -> a/1.1e7, and G ~ a^2 then moves by > 1e13 - the ruler leg cannot give",
+      "pass": true,
+      "value": "127431850429684.68087671333403899"
+    }
+  ],
+  "n_pass": 20,
+  "n_total": 20,
+  "pass": true,
+  "branch": "single",
+  "ruler": "f232",
+  "eta_max": "1.4661814810546422460665883733121",
+  "E_LV_model_GeV": "8327005640576374186.1105393056569",
+  "E_a_GeV": "1850445697905379879.1600096025115",
+  "M_Planck_GeV": "12208901462850628289.011963729109",
+  "decades_short_superluminal": "7.0526389947573772561857052128541",
+  "decades_short_subluminal": "5.0795111411576786114403048703378",
+  "cherenkov_threshold_GeV": "12955.165282789219592888094160283",
+  "sky_fraction_evading": "0.00000061501189651076625036920020567581",
+  "G_factor_if_ruler_rescaled": "127431850429684.68087671333403899",
+  "eta_by_direction": {
+    "<111>": "-1.4661814810550234019122702496437",
+    "<211>": "-1.0367468677041426072190327645198",
+    "<321>": "-0.87262732611966152347497430584742",
+    "<110>": "0.0",
+    "<100>": "0.0"
+  }
+}

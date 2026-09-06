@@ -4,19 +4,19 @@ title: The rule supplies both premises of Gleason's theorem — a measurement he
 slug: born-rule-gleason-premises-forced
 tier: headline
 kind: derivation
-status: contingent
+status: live
 domain: [QM]
 exactness: exact
-findings: [F304, F312, F281, F290, F227]
-tests: [F304-born-rule-gleason, F312-born-nonabelian]
-modules: [casim.engine.interactions.qi_born_gleason]
+findings: [F304, F312, F329, F281, F290, F227]
+tests: [F304-born-rule-gleason, F312-born-nonabelian, F329-gleason-regularity]
+modules: [casim.engine.interactions.qi_born_gleason, casim.engine.interactions.qi_gleason_regularity]
 constants: []
 supersessions: []
 reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-06
-last_verified: 2026-08-11
+last_verified: 2026-08-27
 provenance: authored
 review_state: authored
 confidence: high
@@ -104,10 +104,12 @@ theory with no objective collapse" is unchanged.
 | `findings/F312-born-rule-nonabelian-premises.md` | Non-contextuality on $SU(2)_L$ and $SU(3)_c$, and the Schur reduction making the internal index irrelevant for any compact group; 18/18, three controls red | exact |
 | `test-results/F304_born_rule_gleason.json` | the result artifact | machine |
 | `test-results/F312_born_nonabelian.json` | the non-Abelian premises artifact | exact |
+| `findings/F329-gleason-regularity-closes-a6r.md` | The regularity bridge (F304 §5.5's residual) is Gleason's own Theorem 2.8 + Theorem 3.5/Lemma 3.3 (1957), quoted from the primary source; the dim$\ge3$/completely-real-subspace hypothesis machine-verified for every dimension this model builds a measurement context on, $d=2$ confirmed excluded; the frame-condition and equator-constancy identities checked on a regular example, both broken by a declared control | exact |
+| `test-results/F329_gleason_regularity.json` | the regularity-bridge result artifact | exact |
 
 ## Falsifier
 
-Three, each a declared parameter perturbation of the gate record, and each verified to fire:
+Five, each a declared parameter perturbation of a gate record, and each verified to fire:
 
 1. `casim test --id F304-born-rule-gleason --param coupling=contextual` — replace the record
    channel with any generator that references the measured basis. B2a/B2b go red. **If a
@@ -127,6 +129,7 @@ Three, each a declared parameter perturbation of the gate record, and each verif
    two trivial modes; with it, the closed form is tested where it does work. A measured
    $b_k$ departing from $(-1)^k/\binom{k+d-2}{k}$ by more than $10^{-12}$ at any $(d,k)$ would
    falsify §5 directly.
+5. `casim test --id F329-gleason-regularity --param control=True` — H2/H3 go red. Adds F304 §3.1's own $P_3(x_1)$ mode, which §5.3 proves is not annihilated by the frame condition at $d\ge3$, to a regular frame function under test. **If the completely-real-subspace existence check (H1) ever failed for a dimension this model actually builds a measurement context on, or the $d=2$ negative control ever passed, the regularity bridge would not transfer and this claim's `status: live` would revert to `contingent`.**
 
 The claim is **not** falsifiable by experiment, and that is the correct outcome rather than an
 evasion: a model that agrees with quantum mechanics about probabilities is supposed to be
@@ -144,8 +147,7 @@ The judgement made here is that leg 1's hypothesis **is** closed, and the card i
 `contingent` anyway, on a premise the earlier session did not name because F281's route did not
 isolate it.
 
-**`status: contingent`, and the hypothesis is named.** Two things were granted at first issue.
-The first has since been discharged; the second has not, and cannot be.
+**`status: live`.** Two hypotheses were named at first issue (Gleason's theorem being external, including the regularity bridge it needed; non-contextuality proved for only one of three gauge factors). **Both are now fully discharged** — the first by F304 §5 (2026-08-06) plus F329 (2026-08-27, the regularity bridge); the second by F312 (2026-08-11). One further premise (item 2 below) was never a hypothesis to discharge: it is definitional, and stays exactly as recorded.
 
 1. ~~**Gleason's theorem itself is external and is not reproved here.**~~ **Discharged
    2026-08-06 - 18:20.** F304 §5 proves the frame-function theorem for $f\in L^2$ by harmonic
@@ -153,13 +155,21 @@ The first has since been discharged; the second has not, and cannot be.
    $d=2$ hole and the $d\ge3$ rigidity come out of the *same line* of the *same formula*
    ($\binom{k}{k}=1$ versus $\binom{k+d-2}{k}>d-1$), so "why is $d\ge3$ the hinge" is answered by
    arithmetic rather than deferred to someone else's proof.
-   **What replaces it is one lemma, not a theorem.** §5 is complete for $f\in L^2$; Gleason's
-   theorem holds for merely *bounded* $f$, and the bridge — a non-negative frame function is
-   automatically continuous — is the Cooke–Keane–Moran regularity lemma, cited not reproved. Its
-   entire content is the exclusion of **non-measurable** weight assignments: every bounded
-   measurable weight on a compact ray space lies in $L^2$ and is covered. `status` stays
-   `contingent` on that lemma. **Closing it is a real, bounded piece of work** (CKM is three pages
-   of sphere geometry) and is the obvious next step for anyone who wants this card `live`.
+   ~~**What replaces it is one lemma, not a theorem.**~~ **Discharged 2026-08-27 by F329.** §5 is
+   complete for $f\in L^2$; Gleason's theorem holds for merely *bounded* $f$, and the bridge — a
+   non-negative frame function is automatically continuous — was cited to the Cooke–Keane–Moran
+   1985 regularity lemma without being reproved. F329 shows the identical proposition is already
+   **Theorem 2.8 of Gleason's own 1957 paper** — proved by non-negativity plus compactness alone,
+   the same primary source whose *other* half (Theorem 2.3) F304 §5 already independently
+   re-derives — and, combined with the dimension-$\ge3$ reduction (Gleason's own Lemma 3.3 /
+   Theorem 3.5, via "completely real" subspaces), closes for every dimension this model actually
+   builds a measurement context on ($d\in\{3,4,6,64,96\}$, machine-verified, with $d=2$
+   confirmed to correctly stay excluded). No appeal to CKM's own 1985 proof — a different, longer,
+   lower-prerequisite route through Cauchy's functional equation — was needed or made; CKM is cited
+   in F329 as an independent proof of the same fact, described secondhand since the scanned
+   original could not be retrieved in machine-readable form. See F329 §5 for the explicit
+   boundary between what is cited from the primary 1957 text, what is adapted to this model, and
+   what is machine-verified.
 1b. ~~**Non-contextuality is proved for the $U(1)$ wrap generator only; the $SU(2)_L$ and
    $SU(3)_c$ commutators are not written out.**~~ **Discharged 2026-08-11 by F312**, and by a
    *theorem* rather than by running the $U(1)$ check twice more. The current algebra is written
@@ -173,7 +183,8 @@ The first has since been discharged; the second has not, and cannot be.
    next, not just for these two. One consequence strengthens the card: since
    $\dim(\mathcal H_p\otimes V)=d_pN$, **$SU(3)_c$ clears the $d\ge3$ premise on its own** and
    §5's $d=2$ hole is **unreachable in any gauge-charged sector**. *This was the second of
-   rubric A6's two stated reasons for `PARTIAL`; only the CKM lemma of item 1 now remains.*
+   rubric A6's two stated reasons for `PARTIAL`; item 1's CKM lemma was the first, and F329
+   (2026-08-27) closes it too — both reasons are now discharged.*
    The non-Abelian result carries its own card, **CL268**, which rolls up to this one.
 
 2. **One premise is irreducible: that an exhaustive set of records carries weights summing to
@@ -198,6 +209,7 @@ stated condition has been met.
 ## Sources
 
 - `findings/F304-born-rule-gleason-premises-forced.md`
+- `findings/F329-gleason-regularity-closes-a6r.md` — the regularity bridge, closed
 - `findings/F281-measurement-pointer-basis-born-rule-rg-classicality.md` §2.6 — the two hypotheses this card discharges and declines
 - `docs/claims/CL253-measurement-pointer-born-rg.md` §"Status & history" — the request this card answers
 - `findings/F290-cluster-decomposition-strict-cone.md` — exact no-signalling
@@ -206,6 +218,6 @@ stated condition has been met.
 - `src/casim/engine/gauge/minimal_coupling.py` — the generator whose context-blindness is the argument
 - `src/casim/engine/lattice/bcc.py` — `weyl_step_3d_bcc`, whose momentum blocks are the objection §1.2 answers
 - `docs/status/completeness-2026-08-04.md` — row A6, the gap this closes
-- A. M. Gleason, *J. Math. Mech.* **6** (1957) 885 — the theorem, reproved for $L^2$ in F304 §5
-- R. Cooke, M. Keane & W. Moran, *Math. Proc. Camb. Phil. Soc.* **98** (1985) 117 — the regularity lemma, the one step still cited
+- A. M. Gleason, *J. Math. Mech.* **6** (1957) 885 — the theorem; F304 §5 reproves the continuity-implies-regularity half for $f\in L^2$; F329 §2 quotes and adapts the non-negativity-implies-continuity half (Theorems 2.8, 3.5, Lemma 3.3)
+- R. Cooke, M. Keane & W. Moran, *Math. Proc. Camb. Phil. Soc.* **98** (1985) 117 — an independent, lower-prerequisite proof of the same regularity bridge; described secondhand in F329 §5 since the scanned original could not be retrieved in machine-readable form
 - J. S. Bell, *Rev. Mod. Phys.* **38** (1966) 447 — the non-contextuality objection this model removes

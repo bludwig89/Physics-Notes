@@ -1,0 +1,219 @@
+{
+  "finding": "F344",
+  "title": "The induced Einstein equation is the only field equation the model's own derived structure can carry",
+  "target": "rubric row E1 / ledger E1g (fundamental field equation), POSIT",
+  "carried_not_reattacked": "the energy-only law, closed three times already: Lorentz covariance and no NS maximum mass (F178), and independently by BBN Y_p = 0.1856 at -17.6 sigma (F297)",
+  "params": {
+    "lovelock_dim": 4,
+    "gb_ricci_coeff": -4,
+    "model_gamma": "1"
+  },
+  "legs": [
+    {
+      "leg": "L1",
+      "claim": "nabla^mu G_{mu nu} == 0 and nabla^mu g_{mu nu} == 0 identically",
+      "div_G_components": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "div_G_all_zero": true,
+      "div_g_all_zero": true,
+      "curvature_nontrivial": true,
+      "corollary": "Any local metric field equation E_uv[g] = kappa S_uv whose left side is a linear combination of G_uv and g_uv forces nabla^mu S_uv = 0. The source is therefore constrained to be a CONSERVED SYMMETRIC 2-TENSOR before any physics input -- by an identity of the geometry, not by a covariance argument about frames.",
+      "exactness": "exact",
+      "pass": true
+    },
+    {
+      "scalar_matches_textbook": true,
+      "scalar_symmetric": true,
+      "scalar_independent_components": 10,
+      "maxwell_matches_textbook": true,
+      "maxwell_symmetric": true,
+      "leg": "L2",
+      "claim": "the metric variation of ANY local matter action delivers a symmetric 10-component tensor; there is no variational route to a source with fewer components",
+      "determinant_identity_ok": true,
+      "determinant_identity_failures": [],
+      "component_count_metric_variation": 10,
+      "component_count_scalar_source": 1,
+      "unspecified_components": 9,
+      "exactness": "exact",
+      "pass": true
+    },
+    {
+      "leg": "L2b",
+      "claim": "nabla^mu T_{mu nu} == (box phi) d_nu phi identically",
+      "identity_residual": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "identity_holds": true,
+      "offshell_divergence_nonzero": true,
+      "exactness": "exact",
+      "pass": true
+    },
+    {
+      "leg": "L3",
+      "d4": [
+        {
+          "seed": 11,
+          "dim": 4,
+          "first_bianchi_ok": true,
+          "GB_scalar_nonzero": true,
+          "GB_scalar": "-4265944095197/1190700000",
+          "R_scalar_nonzero": true,
+          "H_all_zero": true,
+          "H_max_abs": "0"
+        },
+        {
+          "seed": 12,
+          "dim": 4,
+          "first_bianchi_ok": true,
+          "GB_scalar_nonzero": true,
+          "GB_scalar": "223922549947/37800000",
+          "R_scalar_nonzero": true,
+          "H_all_zero": true,
+          "H_max_abs": "0"
+        }
+      ],
+      "d5": [
+        {
+          "seed": 11,
+          "first_bianchi_ok": true,
+          "H_nonzero_components": 25,
+          "H_all_zero": false
+        }
+      ],
+      "lovelock_dim": 4,
+      "gb_ricci_coeff": -4,
+      "claim": "Gauss-Bonnet's metric variation is identically zero in d=4 and non-zero in d=5, so the leading curvature-squared correction cannot alter the field equation in four dimensions",
+      "d4_vanishes": true,
+      "d5_does_not_vanish": true,
+      "model_supplies_d": "d_space = 3 by two independent selectors (F291); the '+1' closed by F326. The model does not assume d=4 -- it derives it, and Lovelock uniqueness is INHERITED from that derived dimension.",
+      "exactness": "exact",
+      "pass": true
+    },
+    {
+      "leg": "L4",
+      "claim": "the two-derivative truncation is quantitative: the dimension-6 correction scales as (a/L_curv)^2, bounded by 1.448e-76 over every regime observation reaches",
+      "a_m": 1.0663754173481642e-34,
+      "rows": [
+        {
+          "regime": "Mercury orbit (Sun)",
+          "epsilon_a2R": 1.7297911947652234e-97,
+          "L_curv_m": 256397203403347.44
+        },
+        {
+          "regime": "neutron-star surface (F185: 2.08 Msun, R=11.1 km)",
+          "epsilon_a2R": 5.108886763953033e-77,
+          "L_curv_m": 14919.249830789307
+        },
+        {
+          "regime": "stellar black-hole horizon (3 Msun)",
+          "epsilon_a2R": 1.4479530620099146e-76,
+          "L_curv_m": 8862.023209473296
+        },
+        {
+          "regime": "Sgr A* horizon (4.297e6 Msun)",
+          "epsilon_a2R": 7.057750244318201e-89,
+          "L_curv_m": 12693371243.702251
+        },
+        {
+          "regime": "M87* horizon (6.5e9 Msun)",
+          "epsilon_a2R": 3.084397055169048e-95,
+          "L_curv_m": 19201050287192.145
+        },
+        {
+          "regime": "BBN epoch, T = 10 MeV (g_* = 10.749339, F309)",
+          "epsilon_a2R": 5.804609396724231e-82,
+          "L_curv_m": 4426124.488456959
+        }
+      ],
+      "worst_regime": "stellar black-hole horizon (3 Msun)",
+      "worst_epsilon": 1.4479530620099146e-76,
+      "reads": "F319 (physical cutoff, dimension-6 leading irrelevant operator), F107 (the cell), F309 (g_*)",
+      "exactness": "computed",
+      "pass": true
+    },
+    {
+      "leg": "L5",
+      "claim": "the scalar-tensor family is closed by the model's own structure, not by external data: gamma = 1 forces the scalar to decouple, and three independent structural sources leave no dial that could restore it",
+      "gamma_bd": "(omega + 1)/(omega + 2)",
+      "model_gamma": "1",
+      "finite_omega_solutions_of_gamma_eq_1": [],
+      "no_finite_solution": true,
+      "gamma_bd_limit_omega_to_infinity": "1",
+      "omega_min_from_cassini_alone": 43476.260869565216,
+      "cassini_bound_gamma_minus_one": 2.3e-05,
+      "llr_bound_Gdot_over_G_per_yr": 1.5e-13,
+      "model_Gdot_over_G": 0.0,
+      "signatures": [
+        {
+          "signature": "PPN gamma",
+          "brans_dicke": "(1+w)/(2+w) != 1 for any finite w",
+          "this_model": "gamma = 1 EXACTLY",
+          "structural_source": "AB == 1, the impedance lock (F64 D-EM9)",
+          "exactness": "exact"
+        },
+        {
+          "signature": "linear slip Sigma - 1",
+          "brans_dicke": "non-zero",
+          "this_model": "literal sympy 0",
+          "structural_source": "AB == 1 (F288 S1)",
+          "exactness": "exact"
+        },
+        {
+          "signature": "d(mu)/dk (scale-dependent coupling)",
+          "brans_dicke": "non-zero -- the scalar's Compton scale",
+          "this_model": "literal sympy 0, mu == 1",
+          "structural_source": "the F106 reduction (F288 S2)",
+          "exactness": "exact"
+        },
+        {
+          "signature": "Gdot/G",
+          "brans_dicke": "non-zero, tracks the scalar's roll",
+          "this_model": "identically 0",
+          "structural_source": "G structural on a rigid substrate (F79/F284; F288 S3)",
+          "exactness": "exact"
+        }
+      ],
+      "independent_structural_sources": 3,
+      "exactness": "exact",
+      "pass": true
+    },
+    {
+      "leg": "L6",
+      "claim": "both f(R) branches are closed: unscreened metric f(R) is w = 0 Brans-Dicke with gamma = 1/2, and the chameleon escape needs the k-dependence the model provably does not have",
+      "gamma_fR": "1/2",
+      "gamma_deviation": "1/2",
+      "cassini_overshoot_factor": 21739.130434782608,
+      "chameleon_branch": "a chameleon screens by giving the scalar an environment-dependent mass, which shows up as a k-dependent mu(k, a). F288 S2 computes d(mu)/dk as a sympy LITERAL ZERO from the F106 reduction, and F288 states the consequence directly: 'the model has no screening mechanism'. The escape route does not exist in this model.",
+      "exactness": "exact",
+      "pass": true
+    },
+    {
+      "leg": "L7",
+      "derived_given_the_premises": [
+        "the source is a conserved symmetric 2-tensor (L1, identity)",
+        "the source is the FULL stress-energy tensor, all 10 components (L2, by construction of the metric variation)",
+        "the left side is a*G_uv + b*g_uv and nothing else (L3, Lovelock in the model's own derived d=4)",
+        "a is fixed by the induced Einstein-Hilbert coefficient (F59) and the structural G = a^2c^3/(8 pi sqrt3 hbar) (F79/F107)",
+        "higher-derivative corrections are suppressed by <= 1.4e-76 everywhere observation reaches (L4)"
+      ],
+      "still_posited": [
+        "THE PREMISE: that the long-wavelength description of the lattice is a LOCAL, DIFFEOMORPHISM-INVARIANT METRIC theory at all -- i.e. that an emergent Lorentzian metric exists and carries the dynamics. Everything else in the field equation then follows.",
+        "b (the cosmological constant) is PERMITTED by Lovelock, not fixed by it -- consistent with CL021, which already records that Lambda is not derived. This finding does not change that."
+      ],
+      "what_would_finish_it": "a derivation that the model's blockspin/coarse-graining flow (F130) drives the long-wavelength effective action to a local diff-invariant metric functional, rather than that being assumed as the form of the emergent description.",
+      "grade_effect": "E1 stays POSIT, but the posit's CONTENT shrinks: from 'the fundamental field equation' to 'an emergent local diff-invariant metric description exists'. Two further alternative families (scalar-tensor, f(R)) are closed by the model's own structure.",
+      "exactness": "structural",
+      "pass": true
+    }
+  ],
+  "n_pass": 8,
+  "n_legs": 8,
+  "all_pass": true
+}

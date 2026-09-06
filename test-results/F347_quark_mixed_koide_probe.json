@@ -1,0 +1,132 @@
+{
+  "C1": {
+    "check": "C1",
+    "uds": {
+      "mu": 4.435727329148215,
+      "eta": 1.183417074499846,
+      "eta2": 1.400475972217774,
+      "delta": 2.1712688888424374,
+      "delta_mod_2pi_over_3": 0.07687378644924214,
+      "max_reconstruction_residual": 1.7763568394002505e-15,
+      "Q": 0.566745995369629,
+      "Q_from_eta2_identity": 0.566745995369629
+    },
+    "cbt": {
+      "mu": 171.92356546452024,
+      "eta": 1.419623556705011,
+      "eta2": 2.015331042751786,
+      "delta": 2.163042621760685,
+      "delta_mod_2pi_over_3": 0.0686475193674898,
+      "max_reconstruction_residual": 6.394884621840902e-14,
+      "Q": 0.6692218404586309,
+      "Q_from_eta2_identity": 0.669221840458631
+    },
+    "uds_Q_vs_two_thirds_rel_diff": 0.14988100694555645,
+    "cbt_Q_vs_two_thirds_rel_diff": 0.003832760687946357
+  },
+  "C2_C3": {
+    "check": "C2_C3",
+    "uds": {
+      "delta_mod_2pi_over_3": 0.07687378644924214,
+      "mc_delta_sigma": 0.0031628857812027117,
+      "eta2": 1.400475972217774,
+      "mc_eta2_sigma": 0.012885380433760175,
+      "distances": {
+        "A_1g (1/9)": {
+          "abs_diff_rad": 0.03423732466186896,
+          "sigma": 10.824711048797328,
+          "two_sided_tail_p": 0.0
+        },
+        "E_g (2/9)": {
+          "abs_diff_rad": 0.14534843577298007,
+          "sigma": 45.95437389386543,
+          "two_sided_tail_p": 0.0
+        },
+        "T_1g_or_T_2g (1/3)": {
+          "abs_diff_rad": 0.25645954688409117,
+          "sigma": 81.08403673893353,
+          "two_sided_tail_p": 0.0
+        }
+      },
+      "nearest_candidate": "A_1g (1/9)",
+      "nearest_sigma_measurement_precision": 10.824711048797328,
+      "nearest_central_distance_rad": 0.03423732466186896,
+      "p_uniform_domain_lookelsewhere": 0.098082710247213
+    },
+    "cbt": {
+      "delta_mod_2pi_over_3": 0.0686475193674898,
+      "mc_delta_sigma": 0.00020766311160755438,
+      "eta2": 2.015331042751786,
+      "mc_eta2_sigma": 0.0015858769544458604,
+      "distances": {
+        "A_1g (1/9)": {
+          "abs_diff_rad": 0.0424635917436213,
+          "sigma": 204.4830755684225,
+          "two_sided_tail_p": 0.0
+        },
+        "E_g (2/9)": {
+          "abs_diff_rad": 0.1535747028547324,
+          "sigma": 739.5377140691253,
+          "two_sided_tail_p": 0.0
+        },
+        "T_1g_or_T_2g (1/3)": {
+          "abs_diff_rad": 0.2646858139658435,
+          "sigma": 1274.592352569828,
+          "two_sided_tail_p": 0.0
+        }
+      },
+      "nearest_candidate": "A_1g (1/9)",
+      "nearest_sigma_measurement_precision": 204.4830755684225,
+      "nearest_central_distance_rad": 0.0424635917436213,
+      "p_uniform_domain_lookelsewhere": 0.12164922949380345
+    },
+    "p_at_least_one_of_2_tuples_this_extreme_by_chance": 0.20780025361277898,
+    "note": "nearest_sigma_measurement_precision answers 'is this candidate excluded by current data' (small sigma = compatible, NOT 'found by chance'); p_uniform_domain_lookelsewhere is the SEPARATE, correctly-scaled range-based question 'is this central proximity numerically unusual for a generic angle' -- see F346's review (docs/reviews/F346-review-2026-09-02.md, Attack 7) for why these must never be merged into one number."
+  },
+  "C4": {
+    "check": "C4",
+    "eta2_central": 2.015331042751786,
+    "eta2_mc_sigma": 0.0015952054250902537,
+    "lepton_target": 2.0,
+    "absolute_diff": 0.015331042751785873,
+    "relative_diff": 0.007665521375892936,
+    "sigma_measurement_precision": 9.610701236750415
+  },
+  "C5": {
+    "check": "C5",
+    "mu": 4.435727329148215,
+    "eta": 1.183417074499846,
+    "eta2": 1.400475972217774,
+    "delta": 2.1712688888424374,
+    "delta_mod_2pi_over_3": 0.07687378644924214,
+    "max_reconstruction_residual": 1.7763568394002505e-15,
+    "eta2_diff_from_lepton_target": 0.599524027782226
+  },
+  "C6": {
+    "check": "C6",
+    "mu": 17.71556171020294,
+    "eta": 1.4142005051594106,
+    "eta2": 1.9999630687931322,
+    "delta": 2.3166247338734784,
+    "delta_mod_2pi_over_3": 0.22222963148028319,
+    "max_reconstruction_residual": 1.0658141036401503e-14,
+    "delta_star_target_2_over_9": 0.2222222222222222,
+    "delta_relative_error": 3.3341661274388645e-05,
+    "eta_target_sqrt2": 1.4142135623730951,
+    "eta_absolute_error": 1.3057213684497526e-05
+  },
+  "verdict_record": {
+    "checks": {
+      "C1_uds_Q_not_close_to_two_thirds_today": true,
+      "C1_cbt_Q_close_to_two_thirds_today": true,
+      "C1_Q_eta2_identity_holds": true,
+      "C2_cbt_phase_decisively_excluded": true,
+      "C3_cbt_phase_not_numerically_unusual": true,
+      "C4_cbt_eta2_close_but_excluded": true,
+      "C5_uds_also_fails_both_axes": true,
+      "C6_method_validated_on_leptons": true
+    },
+    "pass": true,
+    "verdict": "Leaning no-go, sharper than F346's: the literature's mixed-generation-type Koide tuples do not carry F175/F92's shape mechanism either. (u,d,s) (Harari-Haut-Weyers 1978) is not even close to Q=2/3 with current, nonzero up-quark mass data -- the historical near-hit relied on a since-superseded m_u=0 assumption. (c,b,t) (Rodejohann-Zhang) DOES reproduce Q~2/3 to <1% with current PDG 2024 data, a real and still-valid literature coincidence -- but Q depends only on eta (Q=1/3+eta^2/6, delta-independent, checked exactly), and decomposing it shows: the phase delta is a clean, decisive (>50 sigma) miss from every single-irrep O_h weight, and that miss is NOT numerically unusual in absolute terms either (range-based look-elsewhere p>5%) -- so the Q-coincidence carries no accompanying phase/shape coincidence. Even the eta^2 closeness that DOES drive the Q~2/3 value is itself a measurement-precision miss (many-sigma) despite looking close in percentage terms, since PDG's c,b,t masses are precise enough to resolve it. Combined with F346's same-generation-type no-go, this closes off the two literature-favoured 3-quark Koide groupings as carriers of the lepton's specific E_g/T_1u shape mechanism -- not a full closure of E6 (Rivero's signed (s,c,b) variant and other orderings/groupings remain untested), but the structurally-lepton-only reading strengthens further."
+  }
+}

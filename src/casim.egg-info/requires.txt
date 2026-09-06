@@ -3,6 +3,12 @@ matplotlib>=3.7
 pyyaml>=6.0
 scipy>=1.10
 
+[dev]
+pytest>=7.0
+
+[fast]
+pyfftw>=0.13
+
 [gui]
 vispy
 PyQt6

@@ -15,20 +15,20 @@
   "statement": "lpt_selfenergy._pi_bgfield refolds the ghost momenta by 2 pi while the vertex form factors have period 4 pi. Longitudinal only, and the transverse projection subtracts the longitudinal part, so it propagates."
  },
  "S2_estimator_runs": {
-  "dLoops": -0.7092513018785301,
-  "halfwidth": 0.6237353113841214,
+  "dLoops": -0.5506306978387584,
+  "halfwidth": 0.44540646760462016,
   "series_slope_normalised": [
-   -0.42176398918416513,
-   -0.3007147096558529
+   -0.6679615794786304,
+   -0.42176398918416513
   ],
   "series_analytic_normalised": [
-   -0.624239081078162,
-   -0.8793881926645781
+   -0.3350627932385488,
+   -0.624239081078162
   ],
   "pass": true
  },
  "S3_quotable": {
-  "worst_b0_recovery_deviation": 0.6903088601177882,
+  "worst_b0_recovery_deviation": 0.7913274398973636,
   "tol": 0.15,
   "pass": false
  },
@@ -47,18 +47,18 @@
    },
    {
     "leg": "propagator face",
-    "dC": -0.7092513018785301,
-    "share": 0.12720854403508744,
-    "halfwidth": 0.6237353113841214,
+    "dC": -0.5506306978387584,
+    "share": 0.09875897187297494,
+    "halfwidth": 0.44540646760462016,
     "status": "MEASURED (this module), grid-convergent"
    },
    {
     "leg": "vertex form factors",
-    "dC": -2.298695422249211,
-    "share": 0.4122850350361752,
+    "dC": -2.457316026288983,
+    "share": 0.4407346071982877,
     "range_from_F163_spread": [
-     -2.539350453351947,
-     -1.7284202371356177
+     -2.697971057391719,
+     -1.8870408411753896
     ],
     "status": "OPEN"
    }
@@ -68,10 +68,10 @@
   "d1_rule_required": 0.07981779766465598,
   "d1_wilson": 0.4681977613810587,
   "statement": "the open piece is one leg of three and no longer the whole number: the seagull-emptiness leg is structural and the propagator leg is measured, so the vertex form factors must supply the stated dC and nothing else.",
-  "fed_dLoops": -0.7092513018785301,
-  "residual_in_leg3_slot": -2.298695422249211,
-  "implied_dC_rule_loops": 4.863045425448234,
-  "implied_lambda_rule": 11.376191569621904,
+  "fed_dLoops": -0.5506306978387584,
+  "residual_in_leg3_slot": -2.457316026288983,
+  "implied_dC_rule_loops": 4.704424821408462,
+  "implied_lambda_rule": 10.508793792541613,
   "lambda_rule_target": 1.773444498280506,
   "quotable": false,
   "note": "the residual is meaningful only when dLoops is quotable; with b0 recovery far from 1 it measures the grid, not the physics."

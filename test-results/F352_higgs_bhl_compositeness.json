@@ -1,0 +1,106 @@
+{
+  "A_gauge_at_mt": {
+    "g1": 0.46426031698839515,
+    "g2": 0.6483493788844575,
+    "g3": 1.169203157066708,
+    "alpha_s_mt": 0.10878527018236203
+  },
+  "B_lambda_model": {
+    "a_over_ellP": 6.597816664747605,
+    "E_Planck_GeV": 1.22089e+19,
+    "Lambda_model_GeV": 1.8504454761879992e+18
+  },
+  "C_headline": {
+    "Lambda_GeV": 1.8504454761879992e+18,
+    "Y0": 300.0,
+    "n_steps": 200000,
+    "y_t_mt": 1.3012823841781258,
+    "lambda_mt": 0.5103726074056231,
+    "m_t_pred_GeV": 226.5582491619539,
+    "m_H_pred_GeV": 248.76083350406458,
+    "ratio_mH_over_mt_pred": 1.0979994523449874
+  },
+  "D_Y0_convergence": {
+    "table": {
+      "50.0": {
+        "m_t": 226.55229890479444,
+        "m_H": 248.7515175356998
+      },
+      "100.0": {
+        "m_t": 226.55689023633022,
+        "m_H": 248.75870592293427
+      },
+      "300.0": {
+        "m_t": 226.5582491619539,
+        "m_H": 248.76083350406458
+      }
+    },
+    "spread_mt_GeV": 0.0059502571594691744,
+    "spread_mh_GeV": 0.009315968364774108,
+    "spread_mt_pct": 0.0026263696782083032,
+    "spread_mh_pct": 0.003744949811249885
+  },
+  "E_lambda_sweep": {
+    "1.000e+06": {
+      "m_t": 316.32302567612703,
+      "m_H": 382.6691937643058
+    },
+    "1.000e+09": {
+      "m_t": 268.25076166422883,
+      "m_H": 312.236380940547
+    },
+    "1.000e+12": {
+      "m_t": 246.91637586964328,
+      "m_H": 280.1404860741326
+    },
+    "1.000e+15": {
+      "m_t": 234.8077920257049,
+      "m_H": 261.5868769904097
+    },
+    "1.000e+16": {
+      "m_t": 231.87515565560608,
+      "m_H": 257.04681981155824
+    },
+    "1.000e+17": {
+      "m_t": 229.3285735286469,
+      "m_H": 253.08745945169588
+    },
+    "1.850e+18": {
+      "m_t": 226.5582491619539,
+      "m_H": 248.76083350406458
+    },
+    "1.000e+19": {
+      "m_t": 225.15443294050803,
+      "m_H": 246.56009670124155
+    }
+  },
+  "F_f77_flat_ceiling_mH": 345.14,
+  "measured": {
+    "m_t_GeV": 172.57,
+    "m_H_GeV": 125.25,
+    "ratio_mH_over_mt": 0.7257924320565567
+  },
+  "verdict_record": {
+    "checks": {
+      "Y0_converged_mt_lt_0.1pct": true,
+      "Y0_converged_mH_lt_0.1pct": true,
+      "ratio_moved_below_f77_flat_ceiling": true,
+      "ratio_still_above_measured_ratio": true,
+      "mt_overshoots_measured_by_more_than_10pct": true,
+      "mH_overshoots_measured_by_more_than_10pct": true,
+      "mH_within_30pct_of_2x_measured": true
+    },
+    "pass": true,
+    "headline": {
+      "Lambda_GeV": 1.8504454761879992e+18,
+      "Y0": 300.0,
+      "n_steps": 200000,
+      "y_t_mt": 1.3012823841781258,
+      "lambda_mt": 0.5103726074056231,
+      "m_t_pred_GeV": 226.5582491619539,
+      "m_H_pred_GeV": 248.76083350406458,
+      "ratio_mH_over_mt_pred": 1.0979994523449874
+    },
+    "verdict": "NEGATIVE (quantified). RG-improving the F73/F77 compositeness condition down from the model's own F79/F107 lattice cutoff (Lambda=1.850e+18 GeV) predicts m_t=226.56 GeV (+31.3%) and m_H=248.76 GeV (+98.6%, essentially double). RG running DOES move the ratio m_H/m_t away from F77's flat ceiling (2.0 -> 1.098), but not far enough: minimal single-channel top condensation, anchored at this model's own derived Planck-scale cutoff, is excluded as the origin of BOTH m_t and m_H simultaneously -- the same verdict the historical BHL literature reaches for a GUT/Planck-scale cutoff, reproduced here with a cutoff the model does not get to choose."
+  }
+}

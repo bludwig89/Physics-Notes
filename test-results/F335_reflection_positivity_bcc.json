@@ -1,0 +1,129 @@
+{
+  "checks": [
+    {
+      "name": "H1",
+      "ok": true,
+      "value": true,
+      "note": "every rhombus has zero net time component -- lies entirely within one time-slice"
+    },
+    {
+      "name": "H2",
+      "ok": true,
+      "value": true,
+      "note": "every mixed rectangle contains exactly two temporal-link legs, degree 1 each"
+    },
+    {
+      "name": "H3",
+      "ok": true,
+      "value": true,
+      "note": "the two temporal legs of a mixed rectangle are one forward, one reverse -- a single time-step crossing, not two"
+    },
+    {
+      "name": "H4",
+      "ok": true,
+      "value": {
+        "only_nn_time_hop": true,
+        "n_rhombi": 6,
+        "n_mixed": 4
+      },
+      "note": "the only temporal hop is the nearest-neighbour +-t_hat, and the loop count is 6 rhombi + 4 mixed rectangles -- the three OS-Seiler/Menotti-Pelissetto hypotheses this module exists to verify"
+    },
+    {
+      "name": "I1",
+      "ok": true,
+      "value": 0.0,
+      "note": "theta o theta == identity"
+    },
+    {
+      "name": "M1",
+      "ok": true,
+      "value": 4.47545209131181e-16,
+      "note": "Tr(theta P_mixed(tau)) == conj(Tr P_mixed(tau_mirror)) -- the cyclic-rotation trace identity that certifies the dagger convention"
+    },
+    {
+      "name": "S1",
+      "ok": true,
+      "value": 1.023947749319084e-06,
+      "note": "SU(2) Wilson character coefficients a_j(beta) > 0 for every sampled (beta, j), closed form a_j = I_2j(2 beta) - I_2j+2(2 beta) via Bessel recursion"
+    },
+    {
+      "name": "G1",
+      "ok": true,
+      "value": 6.80525947205741,
+      "note": "the dominant (O_h-symmetric) Gram-matrix eigenvalue is positive at smoke statistics -- the sub-leading near-zero directions are NOT asserted here, see the battery record for the honest high-statistics reading"
+    }
+  ],
+  "n_pass": 8,
+  "n_total": 8,
+  "verdict": "PASS",
+  "hypotheses": {
+    "rhombus_dt_zero": true,
+    "mixed_two_temporal_linear": true,
+    "mixed_one_forward_one_reverse": true,
+    "only_nn_time_hop": true,
+    "n_rhombi": 6,
+    "n_mixed": 4,
+    "all_hypotheses_hold": true
+  },
+  "su2_positivity": {
+    "min_coefficient": 1.023947749319084e-06,
+    "all_positive": true,
+    "coefficients": {
+      "beta=0.3_j=0": 1.0456800853497406,
+      "beta=0.3_j=0.5": 0.30910185978399407,
+      "beta=0.3_j=1": 0.04602165820928089,
+      "beta=0.3_j=1.5": 0.004581610110908659,
+      "beta=0.3_j=2": 0.0003425951669909053,
+      "beta=0.3_j=3": 1.023947749319084e-06,
+      "beta=1.0_j=0": 1.5906368546373288,
+      "beta=1.0_j=0.5": 1.3778968953974766,
+      "beta=1.0_j=1": 0.6382198777195582,
+      "beta=1.0_j=1.5": 0.202914279916721,
+      "beta=1.0_j=2": 0.049128396615658494,
+      "beta=1.0_j=3": 0.0015724739940094481,
+      "beta=3.0_j=0": 20.447312259213412,
+      "beta=3.0_j=0.5": 31.19139647817638,
+      "beta=3.0_j=1": 30.15054029946387,
+      "beta=3.0_j=1.5": 22.182072557067603,
+      "beta=3.0_j=2": 13.280779570660437,
+      "beta=3.0_j=3": 2.9328087789367236
+    }
+  },
+  "gram_smoke": {
+    "shape4": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "N": 2,
+    "beta_s": 2.0,
+    "beta_t": 8.0,
+    "n_sweeps_sampled": 12,
+    "tau_pos": 1,
+    "tau_neg": 2,
+    "eigenvalues": [
+      -0.0017448454249114945,
+      -0.0005862228335231142,
+      -0.00038360713696525956,
+      -0.00024099094614410152,
+      9.38551976321459e-05,
+      0.00022024043546946235,
+      0.0006601512921747702,
+      0.0011784016228121572,
+      0.0020044704982098865,
+      6.80525947205741
+    ],
+    "min_eig": -0.0017448454249114945,
+    "max_eig": 6.80525947205741,
+    "min_eig_bootstrap_std": 0.0007150243545089187,
+    "min_eig_bootstrap_mean": -0.0023648921527940044
+  },
+  "params": {
+    "L": 4,
+    "Lt": 4,
+    "N": 2,
+    "gram_n_sweeps": 24,
+    "broken_dagger": false
+  }
+}

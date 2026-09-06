@@ -5,6 +5,7 @@
 **Module:** `ca-simulation/ca_charged_current.py` (new, additive — no existing surface modified)
 **Verification script:** `tests/findings/test_FG8_beta_decay.py`
 **Results:** `test-results/FG8_beta_decay.json`
+**Test record:** record `FG8-beta-decay` (tier battery) — this finding's own 10/10 script, baseline `test-results/FG8_beta_decay.json`. `run-FC06-cpt-lorentz` and `run-FC07-charge-anomaly-beta` also name F54 and carry the CPT/anomaly legs. Declared 2026-08-19.
 **Closes:** first-gen-completeness.md §5.1 row **FG-8** and §7 step 5 (β-decay half)
 
 ---

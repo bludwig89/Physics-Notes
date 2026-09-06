@@ -1,0 +1,247 @@
+{
+  "checks": [
+    {
+      "id": "C0",
+      "desc": "construction check: free many-body GS == sum of N lowest single-particle OBC levels (validates the fermionic sign convention)",
+      "pass": true,
+      "measured": 7.105427357601002e-15,
+      "expected": "< 1e-10"
+    },
+    {
+      "id": "C1",
+      "desc": "reflection-parity transform block-diagonalises H (U orthonormal, H commutes with reflection) for every regime and L",
+      "pass": true,
+      "measured": 2.4524369846450014e-16,
+      "expected": "< 1e-10"
+    },
+    {
+      "id": "C2",
+      "desc": "integrable_V1 <r> consistent with Poisson (0.3863) at L=14",
+      "pass": true,
+      "measured": 0.37966377349063357,
+      "expected": "~ 0.3863"
+    },
+    {
+      "id": "C3",
+      "desc": "generic_V1V2 <r> separated from Poisson by >10 sigma and closer to GOE (0.5307) than to Poisson at L=14 -- RED under the V2->0 control",
+      "pass": true,
+      "measured": {
+        "r_gen": 0.5224334521733415,
+        "sigma_from_Poisson": 20.750020605208192
+      },
+      "expected": "> 10 sigma, closer to GOE"
+    },
+    {
+      "id": "C4",
+      "desc": "finite-size flow: generic_V1V2 <r> increases with L (toward GOE) and integrable_V1 <r> converges toward Poisson",
+      "pass": true,
+      "measured": {
+        "generic_by_L": [
+          0.4724560945333698,
+          0.5140863456477441,
+          0.5224334521733415
+        ],
+        "integrable_by_L": [
+          0.4168006687883727,
+          0.3874991078343557,
+          0.37966377349063357
+        ]
+      },
+      "expected": "monotone toward class value"
+    },
+    {
+      "id": "C5",
+      "desc": "entanglement-plateau fraction of the volume-law ceiling: generic_V1V2 > integrable_V1 at every L, and the gap does not close as L grows (GGE-style suppression persists for V1-only)",
+      "pass": true,
+      "measured": {
+        "integrable_by_L": [
+          0.7302001695711781,
+          0.6932163383264222,
+          0.6486843385686412
+        ],
+        "generic_by_L": [
+          0.7374523025276712,
+          0.7617139150588389,
+          0.7455627203972259
+        ]
+      },
+      "expected": "generic > integrable, gap non-closing"
+    },
+    {
+      "id": "C6",
+      "desc": "ETH signature: eigenstate-to-eigenstate entanglement-entropy fluctuation shrinks with L for generic_V1V2 and does not shrink for integrable_V1",
+      "pass": true,
+      "measured": {
+        "integrable_by_L": [
+          0.29975381050869637,
+          0.2875137241916154,
+          0.31752118197300117
+        ],
+        "generic_by_L": [
+          0.2834795622806663,
+          0.16235640617006106,
+          0.14784926407190915
+        ]
+      },
+      "expected": "generic shrinks, integrable does not"
+    }
+  ],
+  "n_pass": 7,
+  "n_total": 7,
+  "all_pass": true,
+  "by_L": {
+    "10": [
+      {
+        "tag": "free",
+        "L": 10,
+        "N": 5,
+        "dim": 252,
+        "n_even": 126,
+        "parity_offblock_max": 2.2371143170757382e-17,
+        "r_mean": 0.5706319575682953,
+        "r_err": 0.033735855630860796,
+        "E0": -7.771561172376096e-16,
+        "sA_plateau": 2.021025419612178,
+        "ceiling": 3.4657359027997265,
+        "frac_ceiling": 0.5831446700770052,
+        "ETH_nc_std": 0.02461921727279728,
+        "ETH_sA_std": 0.2971375598408781
+      },
+      {
+        "tag": "integrable_V1",
+        "L": 10,
+        "N": 5,
+        "dim": 252,
+        "n_even": 126,
+        "parity_offblock_max": 4.4742286341514763e-17,
+        "r_mean": 0.4168006687883727,
+        "r_err": 0.025836299908675173,
+        "E0": 2.0000000000000004,
+        "sA_plateau": 2.5306809439132802,
+        "ceiling": 3.4657359027997265,
+        "frac_ceiling": 0.7302001695711781,
+        "ETH_nc_std": 0.05645568796098183,
+        "ETH_sA_std": 0.29975381050869637
+      },
+      {
+        "tag": "generic_V1V2",
+        "L": 10,
+        "N": 5,
+        "dim": 252,
+        "n_even": 126,
+        "parity_offblock_max": 4.4742286341514763e-17,
+        "r_mean": 0.4724560945333698,
+        "r_err": 0.025381651260646895,
+        "E0": 3.4999999999999956,
+        "sA_plateau": 2.555814921472476,
+        "ceiling": 3.4657359027997265,
+        "frac_ceiling": 0.7374523025276712,
+        "ETH_nc_std": 0.04416403745121777,
+        "ETH_sA_std": 0.2834795622806663
+      }
+    ],
+    "12": [
+      {
+        "tag": "free",
+        "L": 12,
+        "N": 6,
+        "dim": 924,
+        "n_even": 472,
+        "parity_offblock_max": 2.2371143170757382e-17,
+        "r_mean": 0.4381720506309178,
+        "r_err": 0.021213357007566377,
+        "E0": -8.326672684688674e-16,
+        "sA_plateau": 2.5255681104388175,
+        "ceiling": 4.1588830833596715,
+        "frac_ceiling": 0.607270764726232,
+        "ETH_nc_std": 0.02869721485288916,
+        "ETH_sA_std": 0.2959207684070148
+      },
+      {
+        "tag": "integrable_V1",
+        "L": 12,
+        "N": 6,
+        "dim": 924,
+        "n_even": 472,
+        "parity_offblock_max": 4.4742286341514763e-17,
+        "r_mean": 0.3874991078343557,
+        "r_err": 0.01329283199043885,
+        "E0": 2.500000000000001,
+        "sA_plateau": 2.883005702574292,
+        "ceiling": 4.1588830833596715,
+        "frac_ceiling": 0.6932163383264222,
+        "ETH_nc_std": 0.047703259644288766,
+        "ETH_sA_std": 0.2875137241916154
+      },
+      {
+        "tag": "generic_V1V2",
+        "L": 12,
+        "N": 6,
+        "dim": 924,
+        "n_even": 472,
+        "parity_offblock_max": 2.0216823890552788e-16,
+        "r_mean": 0.5140863456477441,
+        "r_err": 0.012306174028600545,
+        "E0": 4.499999999999996,
+        "sA_plateau": 3.167879115697871,
+        "ceiling": 4.1588830833596715,
+        "frac_ceiling": 0.7617139150588389,
+        "ETH_nc_std": 0.03449200499050949,
+        "ETH_sA_std": 0.16235640617006106
+      }
+    ],
+    "14": [
+      {
+        "tag": "free",
+        "L": 14,
+        "N": 7,
+        "dim": 3432,
+        "n_even": 1716,
+        "parity_offblock_max": 2.2371143170757382e-17,
+        "r_mean": 0.6133239819511866,
+        "r_err": 0.01164000284711157,
+        "E0": 6.661338147750939e-16,
+        "sA_plateau": 2.533031096055742,
+        "ceiling": 4.852030263919617,
+        "frac_ceiling": 0.5220559143853077,
+        "ETH_nc_std": 0.018629416879181914,
+        "ETH_sA_std": 0.08528720995210996
+      },
+      {
+        "tag": "integrable_V1",
+        "L": 14,
+        "N": 7,
+        "dim": 3432,
+        "n_even": 1716,
+        "parity_offblock_max": 4.4742286341514763e-17,
+        "r_mean": 0.37966377349063357,
+        "r_err": 0.007160034921137352,
+        "E0": 3.0000000000000018,
+        "sA_plateau": 3.147436042465726,
+        "ceiling": 4.852030263919617,
+        "frac_ceiling": 0.6486843385686412,
+        "ETH_nc_std": 0.041968807601251414,
+        "ETH_sA_std": 0.31752118197300117
+      },
+      {
+        "tag": "generic_V1V2",
+        "L": 14,
+        "N": 7,
+        "dim": 3432,
+        "n_even": 1716,
+        "parity_offblock_max": 2.4524369846450014e-16,
+        "r_mean": 0.5224334521733415,
+        "r_err": 0.006560641782648274,
+        "E0": 5.499999999999991,
+        "sA_plateau": 3.61749288301758,
+        "ceiling": 4.852030263919617,
+        "frac_ceiling": 0.7455627203972259,
+        "ETH_nc_std": 0.02052778975663783,
+        "ETH_sA_std": 0.14784926407190915
+      }
+    ]
+  },
+  "control": {
+    "v2_control": false
+  }
+}

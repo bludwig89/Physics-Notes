@@ -7,8 +7,8 @@ kind: derivation
 status: live
 domain: [QCD, SM, QFT]
 exactness: exact
-findings: [F321, F53, F43, F305, F307, F265, F91]
-tests: [F321-strong-cp]
+findings: [F321, F53, F43, F305, F307, F265, F91, F337, F340]
+tests: [F321-strong-cp, F340-strong-cp-nonperturbative]
 modules: [casim.engine.gauge.colour_theta, casim.engine.gauge.lpt_bcc_vertex]
 constants: []
 supersessions: []
@@ -16,10 +16,10 @@ reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-17
-last_verified: 2026-08-17
+last_verified: 2026-08-31
 provenance: authored
 review_state: authored
-confidence: medium
+confidence: high
 ---
 
 # CL278 — theta_QCD = 0 from reversal closure of the minimal-loop set
@@ -88,18 +88,35 @@ $\bar\theta$, not $\theta$. That is CL279's subject.
 
 ## Status & history
 
-`live` as stated, `confidence: medium` rather than high, for two named reasons carried from F321 §6:
+`live`, `confidence: high` as of F340 (2026-08-31), upgraded from `medium`. The two reasons for
+`medium` recorded at first issue are resolved or narrowed:
 
-1. **The action fork is open.** `lpt_bcc_vertex`'s own HONEST SCOPE records that the F26 rotation
-   law and the rhombic plaquette action agree in the continuum limit and **disagree at finite
-   momentum**, and does not choose between them. F321 T4 runs the argument on the other branch —
-   the F26 **even** law is P-even (literal `0.0`), the retained **chiral** law is not (1.98), and
-   $\theta\,\mathbf E\!\cdot\!\mathbf B$ is P-odd — so the conclusion survives the fork. But
-   "survives on both branches" is weaker than "derived on the settled branch".
-2. **Non-perturbative $\theta$-sectors are not addressed.** The all-orders statement is about the
-   loop expansion and the configuration-by-configuration statement is about the action; neither
-   asks whether the rule's Hilbert space carries distinct $\theta$-vacua that a real action could
-   still select between. Not measured.
+1. **The action fork is closed, not merely survived.** F337 (2026-08-30) decided ledger row L6:
+   the rule's gauge action at finite $a$ is the rhombic action's **own** quadratic form, not the
+   F26/$\Omega_\text{even}$ alternative — the latter independently disqualified (F308 §3: not
+   periodic under $2\pi$, $4\pi$, or $8\pi$ axis shifts, i.e. not a well-defined function on the
+   Brillouin zone the vertices live on). F340 checks — rather than assumes — that this claim's
+   construction already sits on that decided branch: `colour_theta`'s loop-word action is exactly
+   `lpt_bcc_vertex`'s rhombic action (exact set-equality of all 20 loop words). So F321 §3–4 were
+   never on an undecided branch; T4's "survives both branches" is superseded by "was always on the
+   one branch that is now known correct".
+2. **Non-perturbative $\theta$-sectors are addressed as far as reality-per-configuration can
+   address them.** F340 upgrades F321 T1a from a measurement (three sampled configurations) to an
+   exact proof: the identity $\text{holonomy}(U,\text{reverse}(w)) = \text{holonomy}(U,w)^\dagger$
+   holds for every word and every configuration (checked to $4.97\times10^{-16}$, floating-point
+   roundoff), which combined with reversal closure (T0a) and the trivial trace identity proves
+   $\operatorname{Im}S=0$ for the **full** non-perturbative configuration space, any topological
+   content included — not a sampled subset. F340 §3 further shows the model's partition function,
+   as literally constructed (an unrestricted sum over all link configurations with a real,
+   $\theta$-independent-in-phase weight), **is** the $\theta=0$ member of the standard
+   $Z(\theta)=\sum_Q e^{i\theta Q}Z_Q$ family by direct comparison to the definition — there is no
+   room for a hidden $\theta$ between sectors, because the construction never introduces the
+   $e^{i\theta Q}$ grading for any $Q$. Cross-checked (not verified in full) against Vafa & Witten
+   (1984), whose hypothesis is exactly this reality property. What is **not** addressed, and is
+   genuinely separate: whether this lattice's naive clover-based $Q$ is a properly quantized
+   topological invariant in the continuum-limit sense — a standard, well-documented lattice-QCD
+   subtlety (F321 §7 already found the clover does not flip sign under the model's own parity map
+   at finite $a$), unrelated to whether $\theta$ is zero.
 
 Separately recorded because it corrects a live citation: completeness row **B11**'s residual
 quoted $3.3\times10^{-16}$ against F53, but F53 P5 measures the F27 **complex-mass** phase and
@@ -110,6 +127,9 @@ record it under the quantity it measures.
 ## Sources
 
 - `findings/F321-strong-cp-theta-zero-and-loop-stable.md`
+- `findings/F340-strong-cp-l6-bridge-and-nonperturbative-reality.md` — the action-fork closure and
+  the non-perturbative reality proof this Status section rests on
+- `findings/F337-l6-decided-native-sweep-outside-bracket.md` — closes ledger row L6, the object F340 confirms F321 already used
 - `findings/F53-fg9-C-CP-per-species.md`
 - `findings/F305-bcc-rhombic-lpt-vertices.md`
 - `findings/F265-bcc-gauge-action-blindness.md`
@@ -117,3 +137,5 @@ record it under the quantity it measures.
 - `src/casim/engine/gauge/colour_theta.py`
 - `docs/status/completeness-2026-08-07.md` — row B11
 - `docs/audits/physics-audit-report-2026-06-29.md` — the G1 caveat and the "Strong CP at loop level" row
+- Vafa, C. & Witten, E., *Phys. Rev. Lett.* **53**, 535 (1984); *Nucl. Phys. B* **234**, 173 (1984)
+  — cross-check cited by F340 §3, not verified against this model's full hypothesis set

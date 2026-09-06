@@ -58,7 +58,8 @@ import numpy as np
 
 from casim.engine.particles import meson as MES
 from casim.engine.particles import baryon_dynamics as BAR
-from casim.constants import ell_P_m, c_SI, hbar_SI, G_CODATA as _G_CODATA, a_over_ellP
+from casim.constants import (ell_P_m, c_SI, hbar_SI, G_CODATA as _G_CODATA,
+                             a_over_ellP, J_per_GeV)
 from casim.constants import f_pi_anchor_MeV as _f_pi_anchor_MeV
 
 
@@ -72,6 +73,7 @@ HBAR = hbar_SI             # J s (CODATA)
 G_CODATA = _G_CODATA       # m^3 kg^-1 s^-2 (CODATA)
 
 A_OVER_ELLP = a_over_ellP                          # = 6.59782 (F79, parameter-free)
+J_PER_GEV = J_per_GeV      # J/GeV (exact by SI; registered F327)
 
 
 def canonical_cell():
@@ -79,7 +81,7 @@ def canonical_cell():
     a = A_OVER_ELLP * ELL_P                       # metre anchor
     tau = a / (C_SI * np.sqrt(3.0))               # Option C: a/tau = c sqrt3
     G_pred = a ** 2 * C_SI ** 3 / (8.0 * np.pi * np.sqrt(3.0) * HBAR)
-    uv_GeV = HBAR * C_SI / a / 1.602176634e-10    # hbar c / a in GeV
+    uv_GeV = HBAR * C_SI / a / J_PER_GEV          # hbar c / a in GeV
     return {
         "a_over_ellP": A_OVER_ELLP,
         "a_m": a,
@@ -158,6 +160,14 @@ def np_splitting(f_pi_phys=F_PI_PHYS):
     res = BAR.neutron_minus_proton(m_u=2.16, m_d=4.67, sigma=1.0, alpha_s=0.5,
                                    delta_em_p=1.00, delta_em_n=0.0)
     res["m_n_minus_m_p_PDG"] = 1.293
+    # F372: independent model-native check of the ad hoc EM self-energy
+    # (delta_em_p=1.00, delta_em_n=0.0 above) against the SAME P2 three-body
+    # wavefunction's own pairwise <1/r> -- zero new free parameters.  See
+    # findings/F372-*.md and BAR.em_self_energy_pairwise's docstring.
+    em_check = BAR.em_self_energy_pairwise(m_q=0.785, sigma=1.0, alpha_s=0.5)
+    res["em_pairwise_check_MeV"] = em_check["delta_em_p_minus_n_MeV"]
+    res["em_pairwise_check_vs_adhoc_rel_err"] = (
+        (em_check["delta_em_p_minus_n_MeV"] - 1.00) / 1.00)
     return res
 
 

@@ -1,0 +1,35 @@
+{
+  "checks": [
+    {
+      "name": "U1_action_identity",
+      "ok": true,
+      "value": {
+        "n_mine": 20,
+        "n_theirs": 20,
+        "match": true
+      },
+      "note": "colour_theta's loop-word action is EXACTLY lpt_bcc_vertex's rhombic action -- the object F337/L6 leg 1 decided IS the rule's gauge action at finite a. F321 Sec.3-4 therefore already sit on the now-DECIDED branch, closing F321 Sec.6 item 1 (the action fork) in F321's favour."
+    },
+    {
+      "name": "U2_reversal_identity_exact",
+      "ok": true,
+      "value": {
+        "defect": 4.965068306494546e-16,
+        "n_loops_checked": 20,
+        "bad_reverse": false
+      },
+      "note": "holonomy(reverse(w)) = dagger(holonomy(w)) to machine precision for every one of the rule's 20 loop words -- the geometric ingredient that, composed with the trivial trace identity and T0's reversal closure, proves Im(S)=0 EXACTLY for every SU(3) configuration, not just the ones sampled. Extends F321 T1a to a theorem covering the full non-perturbative configuration space, any topological content included -- closing F321 Sec.6 item 2 as far as reality-per-configuration can close it (the theta-vacuum sum argument is in the finding text; lattice topological-charge quantization is separate and stays open)."
+    },
+    {
+      "name": "U3_extended_sweep",
+      "ok": true,
+      "value": {
+        "defect": 3.019806626980426e-14,
+        "n_seeds": 12
+      },
+      "note": "regression check: Im S on 12 independent Haar-random configurations (F321 T1 used 3), consistent with U2's proof rather than a coincidence of the sampled set"
+    }
+  ],
+  "n_pass": 3,
+  "n_total": 3
+}

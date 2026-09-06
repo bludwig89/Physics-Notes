@@ -1,0 +1,130 @@
+{
+  "D1_sound_horizon_vs_planck": {
+    "pass": true,
+    "r_drag_planck_Mpc": 147.09,
+    "r_s_model_Mpc": 146.92289764627824,
+    "relative_residual": -0.001136055161613747,
+    "scope_caveat": "Omega_b/Omega_m/h/T_cmb feeding this integral are the SAME Planck-fit values Planck's own analysis used to derive r_drag -- this is substantially an internal-consistency check of the model's own integrator, not an independent nature-test.",
+    "z_drag_multiplier": 1.0,
+    "z_drag_source": "Planck 2018 VI, Table 2 -- baryon drag redshift",
+    "z_drag_used": 1059.94
+  },
+  "D2_model_native_vs_eh98_internal_fit": {
+    "improvement_factor": 16.359368184975093,
+    "pass": true,
+    "r_s_model_Mpc": 146.92289764627824,
+    "residual_eh98_fit_vs_planck": 0.018585144667280673,
+    "residual_model_vs_planck": -0.001136055161613747,
+    "s_eh98_internal_fit_Mpc": 149.82368892911032
+  },
+  "D3_sigma8_shift_localises_residual": {
+    "diagnosis": "the shift is two orders of magnitude smaller than the residual itself -- the sound-horizon SCALE is not where the ~1% sigma_8 residual lives; it is in EH98's missing acoustic wiggles / Boltzmann-calibrated envelope, both still imported.",
+    "narrowing_caveat": "added after adversarial review, 2026-09-05: this small shift holds ONLY because both candidate s values (146.9, 149.8 Mpc) sit close together on a locally flat part of sigma_8(s) -- the true sensitivity is ASYMMETRIC (halving s shifts sigma_8 by +1.23%, comparable to the whole residual; doubling s shifts it by only -0.21%). This demonstrates sigma_8 is insensitive to the narrow ~2% band the two estimates occupy -- not that sigma_8 is generically insensitive to the sound-horizon scale.",
+    "pass": true,
+    "relative_shift": 0.0001291979524102871,
+    "residual_vs_planck_eh98_fitting_s": 0.01145216732650578,
+    "residual_vs_planck_model_native_s": 0.011582844875485332,
+    "sigma_8_eh98_fitting_s": 0.8203888529185288,
+    "sigma_8_model_native_s": 0.8204948454785062
+  },
+  "D4_saha_recombination_redshift": {
+    "B_ion_eV_codata": 13.605693122994,
+    "B_ion_eV_model_native": 13.598287264302241,
+    "b_ion_multiplier": 1.0,
+    "eta10_used": 6.137,
+    "known_mechanism": "plain Saha assumes instantaneous equilibrium; the true 2s-1s two-photon decay bottleneck (Peebles 1968) delays recombination, giving z_true < z_Saha. The ~26% bias measured here matches the well-known Saha-vs-RECFAST gap.",
+    "pass": true,
+    "relative_bias": 0.26488402341473316,
+    "z_recombination_saha_Xe_0.5": 1378.6223948001862,
+    "z_star_planck": 1089.92
+  },
+  "S1_sound_speed_radiation_limit": {
+    "c_s_a_to_0_symbolic": "sqrt(3)/3",
+    "pass": true,
+    "residual": "0",
+    "target_1_over_sqrt3": "sqrt(3)/3"
+  },
+  "S2_R_exactly_linear_in_a": {
+    "R_over_a_symbolic": "3*Omega_b/(4*Omega_gamma)",
+    "d(R_over_a)/da": "0",
+    "pass": true
+  },
+  "b_ion_multiplier": 1.0,
+  "checks": {
+    "D1_sound_horizon_vs_planck": {
+      "pass": true,
+      "r_drag_planck_Mpc": 147.09,
+      "r_s_model_Mpc": 146.92289764627824,
+      "relative_residual": -0.001136055161613747,
+      "scope_caveat": "Omega_b/Omega_m/h/T_cmb feeding this integral are the SAME Planck-fit values Planck's own analysis used to derive r_drag -- this is substantially an internal-consistency check of the model's own integrator, not an independent nature-test.",
+      "z_drag_multiplier": 1.0,
+      "z_drag_source": "Planck 2018 VI, Table 2 -- baryon drag redshift",
+      "z_drag_used": 1059.94
+    },
+    "D2_model_native_vs_eh98_internal_fit": {
+      "improvement_factor": 16.359368184975093,
+      "pass": true,
+      "r_s_model_Mpc": 146.92289764627824,
+      "residual_eh98_fit_vs_planck": 0.018585144667280673,
+      "residual_model_vs_planck": -0.001136055161613747,
+      "s_eh98_internal_fit_Mpc": 149.82368892911032
+    },
+    "D3_sigma8_shift_localises_residual": {
+      "diagnosis": "the shift is two orders of magnitude smaller than the residual itself -- the sound-horizon SCALE is not where the ~1% sigma_8 residual lives; it is in EH98's missing acoustic wiggles / Boltzmann-calibrated envelope, both still imported.",
+      "narrowing_caveat": "added after adversarial review, 2026-09-05: this small shift holds ONLY because both candidate s values (146.9, 149.8 Mpc) sit close together on a locally flat part of sigma_8(s) -- the true sensitivity is ASYMMETRIC (halving s shifts sigma_8 by +1.23%, comparable to the whole residual; doubling s shifts it by only -0.21%). This demonstrates sigma_8 is insensitive to the narrow ~2% band the two estimates occupy -- not that sigma_8 is generically insensitive to the sound-horizon scale.",
+      "pass": true,
+      "relative_shift": 0.0001291979524102871,
+      "residual_vs_planck_eh98_fitting_s": 0.01145216732650578,
+      "residual_vs_planck_model_native_s": 0.011582844875485332,
+      "sigma_8_eh98_fitting_s": 0.8203888529185288,
+      "sigma_8_model_native_s": 0.8204948454785062
+    },
+    "D4_saha_recombination_redshift": {
+      "B_ion_eV_codata": 13.605693122994,
+      "B_ion_eV_model_native": 13.598287264302241,
+      "b_ion_multiplier": 1.0,
+      "eta10_used": 6.137,
+      "known_mechanism": "plain Saha assumes instantaneous equilibrium; the true 2s-1s two-photon decay bottleneck (Peebles 1968) delays recombination, giving z_true < z_Saha. The ~26% bias measured here matches the well-known Saha-vs-RECFAST gap.",
+      "pass": true,
+      "relative_bias": 0.26488402341473316,
+      "z_recombination_saha_Xe_0.5": 1378.6223948001862,
+      "z_star_planck": 1089.92
+    },
+    "S1_sound_speed_radiation_limit": {
+      "c_s_a_to_0_symbolic": "sqrt(3)/3",
+      "pass": true,
+      "residual": "0",
+      "target_1_over_sqrt3": "sqrt(3)/3"
+    },
+    "S2_R_exactly_linear_in_a": {
+      "R_over_a_symbolic": "3*Omega_b/(4*Omega_gamma)",
+      "d(R_over_a)/da": "0",
+      "pass": true
+    }
+  },
+  "n_checks": 6,
+  "pass": true,
+  "scope": {
+    "already_model_native_no_new_physics_needed": [
+      "gravity sector: mu = Sigma = 1 exactly (F288 S1-S3) -- perturbation equations are GR-identical, nothing to derive there",
+      "background H(a): full multi-component Friedmann, F182/F188",
+      "CDM long-wavelength growth shape (Meszaros stagnation): F288 D2, exact sympy zero"
+    ],
+    "built_here_partial": [
+      "sound horizon r_s(z_drag): direct integral on the model's own background (D1, D2) -- replaces a closed-form fitting formula",
+      "recombination redshift: Saha equation with the model's own Rydberg energy (D4) -- replaces a fitted Hu-Sugiyama formula, with its known equilibrium-approximation bias reported rather than hidden"
+    ],
+    "requires_full_multipole_boltzmann_solver": "a minimal but genuine replacement of EH98's shape (not just its scale-setting numbers) needs: photon monopole/dipole (Theta_0, Theta_1) + baryon velocity in the tight-coupling approximation, transitioning to a truncated free-streaming hierarchy (l_max ~ 6-10) at recombination, sourced by the model's own Phi/Psi (already GR-identical, F288), with the Peebles recombination history above. This is the F288 sec. 7 'real piece of work' -- estimated at several sessions of numerical development and validation against known Boltzmann-code output, not a single-session task, which is why this session scoped it and delivered the two tractable pieces above rather than a rushed partial solver.",
+    "scoped_but_not_built": [
+      "Silk damping k_Silk: needs the diffusion-order (quadrupole/polarization) tight-coupling expansion; EH98's own coefficient is itself only a phenomenological fit (+/-20%), so no closed form exists to derive against -- the target would be a genuine numerical diffusion integral, not a formula lookup",
+      "non-equilibrium (Peebles effective 3-level atom) recombination: standard atomic physics, would close most of D4's bias -- tractable but not attempted this session"
+    ],
+    "still_imported_named": [
+      "CDM/baryon envelope alpha_c, beta_c (EH98 eqs 11-12): calibrated against a numerical Boltzmann code (CMBFAST) by EH98's own account, no closed form to derive",
+      "baryon acoustic envelope G(y) (EH98 eq 14): same",
+      "the acoustic OSCILLATIONS themselves (EH98's full, non-no-wiggle eqs 15-19): needs the actual multipole hierarchy solved as a function of k, not a scale"
+    ]
+  },
+  "verdict": "K11/S2: TWO of EH98's imported scale-setting numbers replaced with model-native derivations -- the sound horizon (direct integral on the model's own F182/F188 background, 0.11% vs Planck's own r_drag -- an INTERNAL-CONSISTENCY check, since the same Planck-fit background inputs feed both sides -- and 16.4x closer than the internal fitting formula already in cosmology_growth.py) and the recombination redshift (Saha with the model's own F125 Rydberg energy, reproducing the textbook ~26% equilibrium-approximation bias honestly). Swapping the model-native sound horizon into sigma_8 shifts it by <0.02%, DIAGNOSING that the ~1.15% sigma_8 residual is not the sound-horizon scale but EH98's missing acoustic wiggles and Boltzmann-calibrated envelope -- which remain imported, named, and scoped as needing a full multipole Boltzmann solver this session does not build. CAVEAT (post-review): the sigma_8 shift is small only because both candidate sound-horizon values sit close together on a locally flat part of sigma_8(s) -- the true sensitivity is asymmetric (halving s moves sigma_8 by +1.23%), so this shows sigma_8 is insensitive to the narrow band the two estimates occupy, not generically insensitive to the sound-horizon scale.",
+  "z_drag_multiplier": 1.0
+}

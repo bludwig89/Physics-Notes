@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "D1 mu_coulomb_real_dos(rs, alpha=1) == mu_coulomb_jellium(rs) exactly": true,
+    "D2a alpha_Nb matches recomputation from cited N(Ef)=1.49 eV^-1/atom": true,
+    "D2b alpha_Nb > 1 (real d-band DOS exceeds free-electron)": true,
+    "D3a reproduces F242/F374 6.3% Allen-Dynes baseline (within 0.2pt)": true,
+    "D3b Nb-corrected Allen-Dynes mean error is lower than baseline": true,
+    "D3c Nb-corrected Allen-Dynes mean error crosses below the 6.3% G9 target": true,
+    "D3d Nb's own Allen-Dynes error improves substantially (corrected < baseline/2)": true,
+    "D4a reproduces F374's 17.2% reconciled Eliashberg baseline (within 0.5pt)": true,
+    "D4b Nb-corrected Eliashberg mean error is lower than baseline (same direction)": true,
+    "D4c reconciled Eliashberg floor (Nb-corrected) still exceeds 6.3% -- F374's NO-GO on the solver route is untouched, not re-litigated": true,
+    "D5 Ta intentionally absent from DOS_ENHANCEMENT (no sourced N(Ef) found)": true,
+    "D6a perturbing alpha_Nb changes the result (test can fail, not vacuous)": true,
+    "D6b crossing below 6.3% is robust over alpha in [2.0, 4.5], not fine-tuned": true
+  },
+  "notes": {
+    "alpha_Nb": 3.0839,
+    "N0_free_Nb_eV-1_per_atom_bothspin": 0.4831541140797068,
+    "N0_real_Nb_eV-1_per_atom_bothspin_source": "DFT N(Ef)=1.49 eV^-1/atom (both-spin, per atom; De Marzi et al. Quantum ESPRESSO calc, via Frontiers Phys. 11:1269872 (2023), doi:10.3389/fphy.2023.1269872) vs this model's own free-electron 0.4832 eV^-1/atom (fermi_energy_free_electron/dos_free_electron_per_spin at Z=5, n=2.7775e29 m^-3).",
+    "allen_dynes_mean_err_baseline": 0.06348720600508354,
+    "allen_dynes_mean_err_nb_corrected": 0.04860903166889954,
+    "allen_dynes_per_element_baseline": {
+      "Al": 0.08798857257140598,
+      "Sn": 0.01819858898611696,
+      "In": 0.16286389448320682,
+      "Ta": 0.003179280663858205,
+      "Nb": 0.10596276690869624,
+      "Pb": 0.0033446080195039243,
+      "Hg": 0.0628727304027966
+    },
+    "allen_dynes_per_element_nb_corrected": {
+      "Al": 0.08798857257140598,
+      "Sn": 0.01819858898611696,
+      "In": 0.16286389448320682,
+      "Ta": 0.003179280663858205,
+      "Nb": 0.001815546555408249,
+      "Pb": 0.0033446080195039243,
+      "Hg": 0.0628727304027966
+    },
+    "eliashberg_mean_err_baseline": 0.17161427598214565,
+    "eliashberg_mean_err_nb_corrected": 0.15848977696964636,
+    "alpha_sensitivity_scan_mean_err": {
+      "1.0": 0.06348720600508354,
+      "2.0": 0.05328929113705374,
+      "2.5": 0.05072266864743419,
+      "3.0839": 0.04860903166889954,
+      "4.0": 0.05033305723872714,
+      "4.5": 0.05122179972411118,
+      "6.0": 0.053092900813247475
+    }
+  }
+}

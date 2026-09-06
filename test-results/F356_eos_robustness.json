@@ -1,0 +1,156 @@
+{
+  "finding": "F356",
+  "title": "Multi-EoS robustness of the F181/F184 kernel vs current NICER/PSR data",
+  "timestamp": "2026-09-03 - 16:30",
+  "n_pass": 3,
+  "n_total": 3,
+  "results": {
+    "E1_standard_cores_absolute": {
+      "pass": true,
+      "cores": {
+        "SLy": {
+          "M_max": 2.076828190467066,
+          "R_at_Mmax_km": 9.85715381843743,
+          "z_surf_at_Mmax": 0.6269899463470354,
+          "turnover": true,
+          "R_1418_km": 11.144751865364373,
+          "R_208_km": null,
+          "mass_ok_J0740": true,
+          "radius_ok_J0437": true,
+          "radius_ok_J0740": true,
+          "_curve_i_turnover": 58,
+          "_curve_n": 80,
+          "_stable_rising": true,
+          "_falls_after": true
+        },
+        "APR": {
+          "M_max": 2.215789059274501,
+          "R_at_Mmax_km": 9.87252073357999,
+          "z_surf_at_Mmax": 0.722161909452619,
+          "turnover": true,
+          "R_1418_km": 10.80726697510872,
+          "R_208_km": 10.599171501783248,
+          "mass_ok_J0740": true,
+          "radius_ok_J0437": true,
+          "radius_ok_J0740": false,
+          "_curve_i_turnover": 56,
+          "_curve_n": 80,
+          "_stable_rising": true,
+          "_falls_after": true
+        },
+        "MPA1": {
+          "M_max": 2.491024123336745,
+          "R_at_Mmax_km": 11.172337419947539,
+          "z_surf_at_Mmax": 0.7111329262272743,
+          "turnover": true,
+          "R_1418_km": 11.725149694178482,
+          "R_208_km": 12.06071396828575,
+          "mass_ok_J0740": true,
+          "radius_ok_J0437": true,
+          "radius_ok_J0740": true,
+          "_curve_i_turnover": 49,
+          "_curve_n": 80,
+          "_stable_rising": true,
+          "_falls_after": true
+        }
+      },
+      "band_J0740": {
+        "M": 2.08,
+        "M_lo": 2.01,
+        "M_hi": 2.15,
+        "R": 12.92,
+        "R_lo": 11.79,
+        "R_hi": 15.01
+      },
+      "band_J0437": {
+        "M": 1.418,
+        "R": 11.36,
+        "R_lo": 10.73,
+        "R_hi": 12.31
+      },
+      "_seconds": 16.08,
+      "_desc": "SLy+APR4+MPA1 each: turnover, M_max>=J0740 floor, R(1.418)@J0437-4715 band"
+    },
+    "E2_bracket_falsification": {
+      "pass": true,
+      "cores": {
+        "WFF1": {
+          "M_max": 2.1527664561140356,
+          "R_at_Mmax_km": 9.275026741304456,
+          "z_surf_at_Mmax": 0.7830432926372641,
+          "turnover": true,
+          "R_1418_km": 10.008889429061691,
+          "R_208_km": 9.772119383560977,
+          "mass_ok_J0740": true,
+          "radius_ok_J0437": false,
+          "radius_ok_J0740": false,
+          "_curve_i_turnover": 59,
+          "_curve_n": 80,
+          "_stable_rising": true,
+          "_falls_after": true
+        },
+        "MS1": {
+          "M_max": 2.7889152171161937,
+          "R_at_Mmax_km": 13.204943929985713,
+          "z_surf_at_Mmax": 0.6302422130881589,
+          "turnover": true,
+          "R_1418_km": 13.918435061075966,
+          "R_208_km": 14.377182413962503,
+          "mass_ok_J0740": true,
+          "radius_ok_J0437": false,
+          "radius_ok_J0740": true,
+          "_curve_i_turnover": 40,
+          "_curve_n": 80,
+          "_stable_rising": true,
+          "_falls_after": true
+        }
+      },
+      "note": "both WFF1 and MS1 clear the J0740 mass floor but are excluded by the tighter J0437-4715 radius band -- the discriminator with current data is the radius, not the mass",
+      "_seconds": 11.67,
+      "_desc": "WFF1/MS1 both excluded by the J0437-4715 radius band -- check has real power"
+    },
+    "E3_stable_branch_all_five": {
+      "pass": true,
+      "cores": {
+        "SLy": {
+          "turnover": true,
+          "stable_rising": true,
+          "falls_after_turnover": true,
+          "i_turnover": 58,
+          "n": 80
+        },
+        "APR": {
+          "turnover": true,
+          "stable_rising": true,
+          "falls_after_turnover": true,
+          "i_turnover": 56,
+          "n": 80
+        },
+        "MPA1": {
+          "turnover": true,
+          "stable_rising": true,
+          "falls_after_turnover": true,
+          "i_turnover": 49,
+          "n": 80
+        },
+        "WFF1": {
+          "turnover": true,
+          "stable_rising": true,
+          "falls_after_turnover": true,
+          "i_turnover": 59,
+          "n": 80
+        },
+        "MS1": {
+          "turnover": true,
+          "stable_rising": true,
+          "falls_after_turnover": true,
+          "i_turnover": 40,
+          "n": 80
+        }
+      },
+      "_seconds": 27.75,
+      "_desc": "all five cores: stable rising branch + maximum-mass turnover"
+    }
+  },
+  "seconds": 55.49
+}

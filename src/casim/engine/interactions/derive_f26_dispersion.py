@@ -108,7 +108,7 @@ def _all_powers(fn, d, nterms=6):
     return [x[j] for j in range(nterms)]      # c1..c6
 
 
-def check_closed_forms():
+def check_closed_forms(c3_111_override=None):
     """
     F246 (L2) — registry entry point for `F246-l2-curl-coefficient`.
 
@@ -139,6 +139,14 @@ def check_closed_forms():
           exact mpmath compare.
 
     Returns the result dict; raises AssertionError on any failure.
+
+    ``c3_111_override``, when set, replaces the measured C3 body-diagonal
+    value before it is compared against the exact -sqrt3/486. Default
+    ``None`` leaves C3 exactly as measured. ``casim test --param
+    c3_111_override=-0.01`` is a genuine negative control: C3 is asserted to
+    1e-55 (the mpmath arithmetic floor, not a real tolerance), so any wrong
+    value must fail it, while S1/S2/C1/C2 (which do not read this override)
+    are untouched.
     """
     out = {}
 
@@ -186,7 +194,8 @@ def check_closed_forms():
     assert abs(c_lat_meas - 1 / _R3) < mp.mpf('1e-30'), c_lat_meas
 
     # -- C3: the body-diagonal extremum -----------------------------------
-    c3_111 = c3_closed((1, 1, 1))
+    c3_111 = (c3_closed((1, 1, 1)) if c3_111_override is None
+             else mp.mpf(c3_111_override))
     r = abs(c3_111 + _R3 / 486)
     out["C3_c3_111"] = mp.nstr(c3_111, 12)
     out["C3_residual_vs_minus_sqrt3_over_486"] = mp.nstr(r, 4)

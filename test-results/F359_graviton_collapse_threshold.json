@@ -1,0 +1,59 @@
+{
+  "all_pass": true,
+  "checks": {
+    "A_canonical_cell_identity": {
+      "detail": {
+        "A_squared_minus_8pi_sqrt3_numeric": 7.105427357601002e-15,
+        "A_squared_minus_8pi_sqrt3_symbolic": "0",
+        "registered_a_over_ellP": 6.597816664747605
+      },
+      "pass": true
+    },
+    "B_remnant_mass_closed_form": {
+      "detail": {
+        "F228_published_value": 0.9306,
+        "M_rem_over_MPl_F228_closed_form": 0.9306048591020996,
+        "M_rem_over_MPl_from_A": 0.9306048591020996,
+        "residual_symbolic": "0"
+      },
+      "pass": true
+    },
+    "C_two_quantum_threshold": {
+      "detail": {
+        "closed_form": "sqrt(pi)",
+        "pairing_law": "even",
+        "physical_expected": 1.772453850905516,
+        "physical_expected_closed_form": "sqrt(pi)",
+        "sqrt_s_max_over_MremC2": 1.772453850905516,
+        "super_threshold": true
+      },
+      "pass": true
+    },
+    "D_single_quantum_subthreshold": {
+      "detail": {
+        "E_max_over_MremC2": 0.886226925452758,
+        "closed_form": "sqrt(pi)/2",
+        "pairing_law": "even",
+        "physical_expected": 0.886226925452758,
+        "physical_expected_closed_form": "sqrt(pi)/2",
+        "sub_threshold_alone": true
+      },
+      "pass": true
+    },
+    "E_geon_virial_cross_check": {
+      "detail": {
+        "E_max_over_mu_geon": 0.5831701130835802,
+        "mu_geon_over_MPl": 1.4142135623730951,
+        "pairing_law": "even",
+        "sqrt_s_max_over_mu_geon": 1.1663402261671605,
+        "tier": "order-of-magnitude (inherits F223's mu tier, not exact)"
+      },
+      "pass": true
+    }
+  },
+  "finding": "F359",
+  "n_pass": 5,
+  "n_total": 5,
+  "pairing_law": "even",
+  "title": "Two band-top photons/gravitons collide with sqrt(pi) times the model's own minimal black-hole remnant energy -- a kinematic threshold on E12's still-open dynamical residual, not a computation of it"
+}

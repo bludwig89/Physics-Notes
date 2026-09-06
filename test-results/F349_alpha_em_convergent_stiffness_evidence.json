@@ -1,0 +1,57 @@
+{
+  "finding": "F349",
+  "date": "2026-09-02",
+  "overall": "6/6 PASS",
+  "checks": {
+    "G1": {
+      "pass": true,
+      "counts": {
+        "F143::findings/F339-alpha-em-nogo-reopening-conditions.md": 0,
+        "F147::findings/F339-alpha-em-nogo-reopening-conditions.md": 0,
+        "F149::findings/F339-alpha-em-nogo-reopening-conditions.md": 0,
+        "F153::findings/F339-alpha-em-nogo-reopening-conditions.md": 0
+      },
+      "detail": "grep counts of F143/F147/F149/F153 in F339 + CL113 (expect all 0)"
+    },
+    "G2": {
+      "pass": true,
+      "source_value": 1.3322676295501878e-15,
+      "detail": "F143 check A loaded from committed JSON; matches quoted 1.33e-15, PASS"
+    },
+    "G3": {
+      "pass": true,
+      "source_detail": "one-tick chi: vec -0.0e+00, stag -0.0e+00 \u2014 exactly zero (theta\u2192pi\u2212theta pairs filled states to constant sum \u2212pi)",
+      "detail": "F147 check L6 loaded from committed JSON; matches quoted zero-stiffness claim"
+    },
+    "G4": {
+      "pass": true,
+      "source_detail": "one-tick chi at m=0.4: vec -2.1e-11, stag -2.1e-11 \u2014 rigidity survives the mass",
+      "detail": "F149 check N4 loaded from committed JSON; matches quoted mass-surviving rigidity"
+    },
+    "G5": {
+      "pass": true,
+      "D2_detail": "max|stag transfer-0 block \u2212 vector block| = 1.11e-10 (P\u00b2=1) \u21d2 channel splitting is purely paramagnetic",
+      "P1_detail": "E_g amplitude at lepton point e=0.728 (O(1), y_\u03c4=1) \u21d2 outside the perturbative small-m R(m) regime; on-shell 2/9 \u21d2 m_Z/m_W=3/\u221a7=1.133893 vs PDG 1.134614 (-0.063%) stands as exact algebra",
+      "detail": "F153 checks D2 and P1 loaded from committed JSON; matches quoted values"
+    },
+    "G6": {
+      "pass": true,
+      "bare": {
+        "sumT3sq": "1/2",
+        "sumY2sq": "2",
+        "t2": "1/4",
+        "sin2": "1/5",
+        "gap_to_2_7": "8/7"
+      },
+      "sm": {
+        "sumT3sq": "2",
+        "sumY2sq": "10/3",
+        "t2": "3/5",
+        "sin2": "3/8",
+        "gap_to_2_7": "10/21"
+      },
+      "detail": "exact Fraction recomputation of F147 N9 (bare) and F149 N8 (SM content) bookkeeping"
+    }
+  },
+  "conclusion": "F339 (2026-08-31) is corroborated by an independent, previously-uncited evidence line (F41/F143/F147/F149/F153, 2026-06-08 to 2026-06-12) bearing on the same two avenues (A, D). Avenue A is closed by two independent mechanisms; avenue D's residual attack surface is narrowed from a generic \"unattempted vertex calculation\" to the specific non-perturbative F118 condensate self-energy. alpha_em remains OPEN; no number is claimed."
+}

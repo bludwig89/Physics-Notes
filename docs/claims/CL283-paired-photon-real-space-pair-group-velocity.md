@@ -152,7 +152,7 @@ as a property of space.
    $\mathbf k$ it holds for $i=x$ only ($1.2\times10^{-10}$), failing on $y$ ($0.722$, a sign flip)
    and $z$ ($0.407$). No number in this card or in F20 depends on it — every F20 call site passes
    `axis=0` — but F20's own "closed forms" wording is wrong as written. Open in
-   `docs/roadmaps/next-steps.md`.
+   `docs/roadmaps/completed/next-steps.md`.
 
 Authored 2026-08-19 while working §E of the finding-coverage audit
 (`tools/audit_finding_coverage.py`), which found F314 named by no claim card. The physics was read

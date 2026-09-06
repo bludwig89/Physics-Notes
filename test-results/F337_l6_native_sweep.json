@@ -1,0 +1,97 @@
+{
+ "rows": [
+  {
+   "n": 24,
+   "b0_recovery_wilson": 1.098405653461565,
+   "b0_recovery_rule_phys": 0.526472650020386,
+   "b0_recovery_rule_raw": 0.7671316506583675,
+   "dLoops_slope_phys": -0.43887956058673794,
+   "dLoops_analytic_phys": -1.9119336512758065
+  },
+  {
+   "n": 28,
+   "b0_recovery_wilson": 1.0756192297718525,
+   "b0_recovery_rule_phys": 0.5678912661887544,
+   "b0_recovery_rule_raw": 0.8671800709723672,
+   "dLoops_slope_phys": -0.6388903183085863,
+   "dLoops_analytic_phys": -2.0533036572970214
+  },
+  {
+   "n": 32,
+   "b0_recovery_wilson": 1.056338662889207,
+   "b0_recovery_rule_phys": 0.6163098017147437,
+   "b0_recovery_rule_raw": 0.9826025502268533,
+   "dLoops_slope_phys": -0.8781458491355756,
+   "dLoops_analytic_phys": -2.1583227380844723
+  },
+  {
+   "n": 36,
+   "b0_recovery_wilson": 1.0404225791807025,
+   "b0_recovery_rule_phys": 0.6719252361540499,
+   "b0_recovery_rule_raw": 1.1136052385696,
+   "dLoops_slope_phys": -1.141741524265743,
+   "dLoops_analytic_phys": -2.234710527969747
+  },
+  {
+   "n": 40,
+   "b0_recovery_wilson": 1.0273301056278872,
+   "b0_recovery_rule_phys": 0.7347004574673995,
+   "b0_recovery_rule_raw": 1.2601334451826918,
+   "dLoops_slope_phys": -1.4176614404990768,
+   "dLoops_analytic_phys": -2.2875989225723448
+  }
+ ],
+ "power_fit_n28_40": 1.3507910481274388,
+ "power_fit_n24_40": 1.1064828922877863,
+ "p_from_n28_40": {
+  "power": 1.3507910481274388,
+  "dLoops_slope_inf": -2.271472793487696,
+  "dLoops_slope_resid": [
+   -0.08401244115906636,
+   0.07625263159074525,
+   0.09385579276136258,
+   0.02139824665968071,
+   -0.10749422985271795
+  ],
+  "dLoops_analytic_inf": -2.6710939197768107,
+  "dLoops_analytic_resid": [
+   0.00014235487084524046,
+   0.0014494852460282814,
+   -0.0018479158362789683,
+   -0.002540811422795386,
+   0.0027968871422054953
+  ]
+ },
+ "p_from_n24_40": {
+  "power": 1.1064828922877863,
+  "dLoops_slope_inf": -2.5832030061382785,
+  "dLoops_slope_resid": [
+   -0.07967589786201446,
+   0.06906267427243651,
+   0.0873791539797959,
+   0.02144727611281172,
+   -0.09821320650303389
+  ],
+  "dLoops_analytic_inf": -2.791571093389834,
+  "dLoops_analytic_resid": [
+   0.0028226727370019855,
+   -0.0010524351252065856,
+   -0.004523400044956105,
+   -0.00298196871675227,
+   0.005735131149910089
+  ]
+ },
+ "central_estimate": {
+  "dLoops_analytic_central": -2.731332506583322,
+  "halfwidth": 0.06023858680651162,
+  "implied_dC_rule_loops": 6.885126630153025,
+  "implied_lambda_rule": 31.267002714240267,
+  "lambda_rule_target": 1.773444498280506,
+  "lambda_bracket_F280": [
+   1.0,
+   7.98
+  ],
+  "outside_bracket": true,
+  "note": "central value from the ANALYTIC-normalised dLoops series only (clean sub-1/n^2 power-law convergence, residuals < 0.006); the SLOPE-normalised series' increments do not shrink through n=40 and is not used for the central value -- see Sec.4 of the finding."
+ }
+}

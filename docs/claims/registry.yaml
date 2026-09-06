@@ -4,8 +4,8 @@
 # projection of it. Editing here changes nothing and will be overwritten.
 # ---------------------------------------------------------------------------
 version: 1
-count: 283
-next_claim: CL284
+count: 305
+next_claim: CL306
 
 claims:
   - id: CL001
@@ -73,7 +73,7 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: high
-    findings: [F75]
+    findings: [F75, F292, F342]
     tests: []
     modules: []
     constants: []
@@ -1909,7 +1909,7 @@ claims:
     falsifier: unset
     review_state: unreviewed-seed
     confidence: medium
-    findings: [F119]
+    findings: [F119, F233, F351]
     tests: []
     modules: []
     constants: []
@@ -2026,17 +2026,17 @@ claims:
     first_issued: '2026-08-04'
   - id: CL113
     file: docs/claims/CL113-deriving-from-the-lattice-rule-a-four-avenue.md
-    title: 'Deriving $\alpha_\text{em}$ from the lattice rule: a four-avenue no-go'
+    title: 'Deriving $\alpha_\text{em}$ from the lattice rule: a four-avenue no-go, characterized'
     tier: supporting
     kind: no_go
     status: live
-    domain: [SR]
+    domain: [SM, QFT]
     exactness: quantitative
-    falsifier: unset
-    review_state: unreviewed-seed
+    falsifier: none
+    review_state: authored
     confidence: medium
-    findings: [F127]
-    tests: []
+    findings: [F127, F339, F349]
+    tests: [F127-alpha-em-derivation, F339-alpha-em-reopening-conditions, F349-alpha-em-convergent-stiffness-evidence]
     modules: []
     constants: []
     supersessions: []
@@ -2908,18 +2908,18 @@ claims:
     first_issued: '2026-08-04'
   - id: CL162
     file: docs/claims/CL162-tabulated-eos-neutron-stars-on-the-f181-kernel.md
-    title: 'Tabulated-EoS neutron stars on the F181 kernel: SLy gives M_max=2.08 M⊙ and R(1.4)=11.1 km, consistent with PSR J0740 and NICER (scenario S1)'
+    title: 'Tabulated-EoS neutron stars on the F181 kernel: three published nuclear-matter cores (SLy, AP4, MPA1) each clear the PSR J0740+6620 mass floor and fall inside the PSR J0437-4715 68% NICER radius band, while a deliberately soft/stiff bracket (WFF1, MS1) is correctly excluded by the same check'
     tier: supporting
     kind: derivation
     status: live
     domain: [GR]
-    exactness: exact
-    falsifier: unset
-    review_state: unreviewed-seed
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
     confidence: medium
-    findings: [F184]
-    tests: []
-    modules: []
+    findings: [F181, F184, F356]
+    tests: [F184-tabulated-ns, F356-eos-robustness]
+    modules: [casim.engine.interactions.ns_eos, casim.engine.interactions.interior_metric]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -3022,14 +3022,14 @@ claims:
     status: live
     domain: [cosmology]
     exactness: machine
-    falsifier: unset
+    falsifier: stated
     review_state: unreviewed-seed
     confidence: medium
-    findings: [F194]
+    findings: [F194, F358]
     tests: []
     modules: []
     constants: []
-    supersessions: []
+    supersessions: [S23-F194-bullet-cluster-clump-shape-claim]
     rolls_up_to: null
     first_issued: '2026-08-04'
   - id: CL169
@@ -3160,18 +3160,18 @@ claims:
     first_issued: '2026-08-04'
   - id: CL176
     file: docs/claims/CL176-can-the-model-source-the-lepton-asymmetry-resonant.md
-    title: 'Can the model source the lepton asymmetry resonant keV-DM production needs? Yes: all three Sakharov conditions are met by the model''''s own structure — L-violatio'
+    title: 'The model''''s own Sakharov ingredients are structurally present, but neither of the two free residuals — CP phase, N₂,₃ degeneracy — reaches the observed baryon asymmetry at the model''''s own native F201 masses without further, unexplained fine-tuning'
     tier: supporting
     kind: no_go
-    status: open
-    domain: [QCD]
-    exactness: unset
-    falsifier: unset
-    review_state: unreviewed-seed
+    status: narrowed
+    domain: [SM, cosmology]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
     confidence: medium
-    findings: [F202]
-    tests: []
-    modules: []
+    findings: [F202, F364, F201, F47, F53, F320]
+    tests: [F364-baryogenesis-boltzmann]
+    modules: [src/casim/engine/forks/darkmatter/dm_fork_F364_baryogenesis_boltzmann.py]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -3277,9 +3277,9 @@ claims:
     falsifier: unset
     review_state: unreviewed-seed
     confidence: medium
-    findings: [F208]
-    tests: []
-    modules: []
+    findings: [F208, F371]
+    tests: [F208-relativistic-scf-ie, F371-medium-z-scf-ionization-energies]
+    modules: [src/casim/engine/core/manybody.py]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -4171,7 +4171,7 @@ claims:
     title: 'The model-native dark-matter relic: the F47 sterile right-handed neutrino. It is a total SM singlet ($Y=0$ structurally forced), cosmologically long-lived ($\ta'
     tier: supporting
     kind: derivation
-    status: withdrawn
+    status: live
     domain: [cosmology]
     exactness: quantitative
     falsifier: unset
@@ -4225,7 +4225,7 @@ claims:
     title: 'The k-resolved dielectric photon propagator: Weyl ordering and the second-order half-step'
     tier: supporting
     kind: derivation
-    status: withdrawn
+    status: live
     domain: [QFT]
     exactness: unset
     falsifier: unset
@@ -4321,7 +4321,7 @@ claims:
     falsifier: unset
     review_state: unreviewed-seed
     confidence: medium
-    findings: [F282]
+    findings: [F282, F363]
     tests: []
     modules: []
     constants: []
@@ -4591,7 +4591,7 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F289]
+    findings: [F289, F330]
     tests: [F289-spin-statistics]
     modules: [casim.engine.interactions.qi_spin_statistics]
     constants: []
@@ -4645,8 +4645,8 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F297, F178, F182, F284, F79, F202]
-    tests: [F297-bbn-light-elements]
+    findings: [F297, F178, F182, F284, F79, F202, F361]
+    tests: [F297-bbn-light-elements, F361-bbn-a7-repair]
     modules: [src/casim/engine/interactions/cosmology_bbn.py]
     constants: [G_CODATA, g_A]
     supersessions: []
@@ -4654,18 +4654,18 @@ claims:
     first_issued: '2026-08-05'
   - id: CL259
     file: docs/claims/CL259-bbn-bounds-np-splitting.md
-    title: 'BBN and the free-neutron lifetime bound m_n - m_p to +-0.0056 MeV, and the model''''s own derived +1.51 MeV is excluded — the sign F122 claimed survives, the value does not'
+    title: 'BBN and the free-neutron lifetime bound m_n - m_p to +-0.0056 MeV; the model''''s own derived +1.51 MeV differs from measurement by 0.217 MeV but is NOT excluded once its own literature-informed theory uncertainty (+-0.280 MeV, F372) is propagated'
     tier: supporting
     kind: no_go
-    status: live
+    status: narrowed
     domain: [QCD, cosmology, SM]
     exactness: quantitative
     falsifier: stated
     review_state: authored
     confidence: high
-    findings: [F297, F122, F123, F40]
-    tests: [F297-bbn-light-elements]
-    modules: [src/casim/engine/interactions/cosmology_bbn.py]
+    findings: [F297, F122, F123, F40, F372]
+    tests: [F297-bbn-light-elements, F372-npsplit-theory-uncertainty]
+    modules: [src/casim/engine/interactions/cosmology_bbn.py, src/casim/engine/particles/baryon_dynamics.py]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -4711,15 +4711,15 @@ claims:
     title: 'At finite lattice spacing the entire failure of Poincare covariance is the gradient of one scalar, the off-shell invariant mass, and it is exact on the cubic axes, O(k^3) for the paired-spinor photon and O(k^2) on a chiral branch'
     tier: headline
     kind: deviation
-    status: live
+    status: narrowed
     domain: [SR, QFT]
     exactness: machine
     falsifier: stated
     review_state: authored
     confidence: high
-    findings: [F301]
-    tests: [F301-boost-covariance-defect]
-    modules: [casim.engine.interactions.derive_boost_covariance]
+    findings: [F301, F327]
+    tests: [F301-boost-covariance-defect, F327-chiral-liv-bound]
+    modules: [casim.engine.interactions.derive_boost_covariance, casim.engine.interactions.derive_chiral_liv_bound]
     constants: [c_lat]
     supersessions: []
     rolls_up_to: null
@@ -4747,15 +4747,15 @@ claims:
     title: 'The rule supplies both premises of Gleason''s theorem — a measurement here cannot live in dimension 2, and the record channel is a fixed operator that carries no reference to the measured basis — so the Born rule follows rather than being assumed'
     tier: headline
     kind: derivation
-    status: contingent
+    status: live
     domain: [QM]
     exactness: exact
     falsifier: stated
     review_state: authored
     confidence: high
-    findings: [F304, F312, F281, F290, F227]
-    tests: [F304-born-rule-gleason, F312-born-nonabelian]
-    modules: [casim.engine.interactions.qi_born_gleason]
+    findings: [F304, F312, F329, F281, F290, F227]
+    tests: [F304-born-rule-gleason, F312-born-nonabelian, F329-gleason-regularity]
+    modules: [casim.engine.interactions.qi_born_gleason, casim.engine.interactions.qi_gleason_regularity]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -4807,8 +4807,8 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F310, F285, F296, F130]
-    tests: [F310-critical-measure]
+    findings: [F310, F285, F296, F130, F362]
+    tests: [F310-critical-measure, F362-blockspin-fluctuation-eigenvalue]
     modules: [src/casim/engine/interactions/cosmology_critical_measure.py]
     constants: []
     supersessions: []
@@ -4843,9 +4843,9 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: high
-    findings: [F313, F291, F292, F315, F316, F318]
-    tests: [F313-time-signature, F315-V-interaction, F316-laurent-pell]
-    modules: [casim.engine.lattice.time_signature, casim.engine.lattice.time_signature_interacting, casim.engine.lattice.laurent_pell]
+    findings: [F313, F291, F292, F315, F316, F318, F326]
+    tests: [F313-time-signature, F315-V-interaction, F316-laurent-pell, F326-time-single-generator]
+    modules: [casim.engine.lattice.time_signature, casim.engine.lattice.time_signature_interacting, casim.engine.lattice.laurent_pell, casim.engine.lattice.time_single_generator]
     constants: []
     supersessions: []
     rolls_up_to: null
@@ -5004,9 +5004,9 @@ claims:
     exactness: exact
     falsifier: stated
     review_state: authored
-    confidence: medium
-    findings: [F321, F53, F43, F305, F307, F265, F91]
-    tests: [F321-strong-cp]
+    confidence: high
+    findings: [F321, F53, F43, F305, F307, F265, F91, F337, F340]
+    tests: [F321-strong-cp, F340-strong-cp-nonperturbative]
     modules: [casim.engine.gauge.colour_theta, casim.engine.gauge.lpt_bcc_vertex]
     constants: []
     supersessions: []
@@ -5041,7 +5041,7 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F322, F311, F251, F277, F261, F138]
+    findings: [F322, F311, F251, F277, F261, F138, F336]
     tests: [F322-b9-running-rederived]
     modules: [casim.engine.interactions.running_alpha_lattice_bound, casim.engine.interactions.qed_vacuum_polarization, casim.engine.interactions.qed_twoloop_ae]
     constants: [sin2_thetaW_uv]
@@ -5102,3 +5102,399 @@ claims:
     supersessions: []
     rolls_up_to: CL002
     first_issued: '2026-08-19'
+  - id: CL284
+    file: docs/claims/CL284-elementary-single-branch-fermion-excluded.md
+    title: 'An elementary fermion of this model cannot ride a single BCC chiral branch: that assignment is a local dimension-5 CPT-odd operator with parameter-free eta = 2 sqrt(8 pi) 3^(1/4)/9 = 1.4662, which Crab-Nebula electrons exclude by 7.05 decades'
+    tier: headline
+    kind: no_go
+    status: live
+    domain: [SR, SM, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F327, F301, F246, F91, F232]
+    tests: [F327-chiral-liv-bound]
+    modules: [casim.engine.interactions.derive_chiral_liv_bound]
+    constants: [a_over_ellP, c_lat, E_LV_e_sup_min_GeV, E_LV_e_sub_min_GeV, m_e_GeV, J_per_GeV]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-26'
+  - id: CL285
+    file: docs/claims/CL285-discrete-cpt-theorem-free-dirac-walk.md
+    title: 'The free BCC Dirac walk has an exact discrete CPT theorem: Theta = Sigma . (sigma_y (+) sigma_y) . K satisfies Theta D(k) Theta^-1 = D(k)^-1 at every k and every mass, and no fixed unitary parity can exist at finite k at all'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [SR, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F328, F53, F301, F327, F26]
+    tests: [F328-discrete-cpt-theorem]
+    modules: [casim.engine.particles.discrete_cpt]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-26'
+  - id: CL286
+    file: docs/claims/CL286-cluster-decomposition-interacting-3d-njl.md
+    title: 'The interacting, 3-D BCC Dirac theory obeys cluster decomposition — an NJL-generated dynamical mass gives an exponentially decaying (100)-axis correlator matching a genuine 3-D closed-form pole rate'
+    tier: headline
+    kind: derivation
+    status: live
+    domain: [QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F331, F290, F267, F77]
+    tests: [F331-cluster-interacting-3d]
+    modules: [casim.engine.interactions.qi_cluster_interacting_3d]
+    constants: [c_lat]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-27'
+  - id: CL287
+    file: docs/claims/CL287-internal-index-existence-narrowed-to-confinement-and-baryon-statistics.md
+    title: 'The colour index must exist ($N>1$) granted two named observational facts — real baryons are fermions, and quarks are confined — combined with a generalised $SU(N)$ constituent-count theorem and a computed composite-exchange-statistics rule'
+    tier: supporting
+    kind: derivation
+    status: contingent
+    domain: [QCD, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F333, F317, F318, F324, F289]
+    tests: [F333-internal-index-existence]
+    modules: [casim.engine.gauge.derive_internal_index_existence]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL272
+    first_issued: '2026-08-28'
+  - id: CL288
+    file: docs/claims/CL288-hadronic-vmd-rho-omega-delta-alpha.md
+    title: 'A model-internal rho+omega narrow-resonance VMD estimate captures ~10.2% of the data-driven hadronic Delta alpha(M_Z), reusing the model''s existing couplings'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [SM, QCD]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F334, F103, F128, F240]
+    tests: [F334-hadronic-vmd-estimate]
+    modules: [casim.engine.interactions.running_alpha_lattice_bound]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL280
+    first_issued: '2026-08-30'
+  - id: CL289
+    file: docs/claims/CL289-reflection-positivity-bcc-lattice-action.md
+    title: 'Link reflection positivity holds for the BCC3xZ lattice gauge action, for any compact group and any beta_s, beta_t >= 0'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [QCD, QFT]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F335, F265, F323, F313, F94]
+    tests: [F335-reflection-positivity-bcc, F335-reflection-positivity-gram]
+    modules: [casim.engine.gauge.reflection_positivity]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-30'
+  - id: CL290
+    file: docs/claims/CL290-majorana-neutrino-structurally-forced.md
+    title: 'Majorana is the required completion of this model''''s own hypercharge derivation, conditional on no protecting symmetry existing and F165/F279 standing'
+    tier: supporting
+    kind: reinterpretation
+    status: contingent
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F341, F47, F165, F202, F266, F279]
+    tests: [F341-majorana-forced-by-hypercharge-closure]
+    modules: [casim.constants.electroweak, casim.engine.gauge.hypercharge]
+    constants: [Y_NU_R, Y_LEPTON_L, Y_E_R]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-31'
+  - id: CL291
+    file: docs/claims/CL291-majorana-scale-no-link-found.md
+    title: 'Neither of ledger row D4''''s two named candidates -- the F183/F107 lattice cutoff or the E_g/Z3 condensate -- supplies a scale link for the absolute Majorana mass M_R; M_R joins the model''''s existing E5-E7 scale-anchoring cluster'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F343, F47, F79, F107, F201, F236, F253, F282, F341]
+    tests: [F343-majorana-scale-no-link-found]
+    modules: [casim.engine.particles.derive_M_R_scale_link, casim.engine.particles.majorana]
+    constants: [a_over_ellP, delta_star_f, lambda_6]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-08-31'
+  - id: CL292
+    file: docs/claims/CL292-einstein-uniqueness-inherited-from-derived-dimension.md
+    title: 'Given an emergent local diffeomorphism-invariant metric-only theory with second-order field equations, the two-derivative left-hand side is forced to aG+bg by Lanczos-Bach in the model''s derived d=4 and the source is the full ten-component stress-energy tensor by construction; a is adopted rather than derived, and the scalar-tensor and f(R) families are absent for want of a parameter rather than excluded'
+    tier: supporting
+    kind: derivation
+    status: contingent
+    domain: [GR, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F345, F178, F297, F59, F319, F288, F291, F326, F79, F107, F64, F106]
+    tests: [F345-field-equation-uniqueness]
+    modules: [casim.engine.interactions.gravity_field_equation_uniqueness]
+    constants: [a_over_ellP, ell_P_m, G_CODATA, c_SI, hbar_SI]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-01'
+  - id: CL293
+    file: docs/claims/CL293-minimal-top-condensation-excluded-at-model-cutoff.md
+    title: 'Minimal single-channel top condensation for the F73 Cooper-pair Higgs, RG-improved from the model''''s own F79/F107 lattice cutoff, is excluded: it predicts m_t=226.6 GeV (+31%) and m_H=248.8 GeV (+99%, essentially double) against the measured 172.57/125.25 GeV'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F352, F73, F74, F77, F107]
+    tests: [F352-higgs-bhl-compositeness]
+    modules: [casim.engine.particles.derive_higgs_bhl_compositeness]
+    constants: [a_over_ellP]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-02'
+  - id: CL294
+    file: docs/claims/CL294-delta-cp-inherits-the-t2g-no-go.md
+    title: 'The Dirac CP phase inherits F254''''s $T_{2g}$ no-go: $D_{2h}$ transports a complex amplitude by sign alone, so no residual symmetry fixes any $T_{2g}$ phase either'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [cosmology]
+    exactness: exact
+    falsifier: unset
+    review_state: unreviewed-seed
+    confidence: medium
+    findings: [F353]
+    tests: [F353-delta-cp-t2g-inheritance]
+    modules: [casim.engine.particles.derive_delta_cp_t2g, casim.engine.particles.majorana]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL223
+    first_issued: '2026-09-03'
+  - id: CL295
+    file: docs/claims/CL295-bounded-curvature-forces-a-regular-core-centre.md
+    title: 'Bounded curvature alone forces a regular centre in the lattice core: the Kretschmann scalar is a sum of squares, so K <= 1/a^4 makes the centre a C^{1,1} manifold interior point rather than a boundary'
+    tier: supporting
+    kind: derivation
+    status: contingent
+    domain: [GR]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F354, F183]
+    tests: [F354-core-geodesic-completeness]
+    modules: [casim.engine.interactions.gravity_core_completeness]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-03'
+  - id: CL296
+    file: docs/claims/CL296-the-models-own-vacuum-puts-3-18-times-the-beken.md
+    title: 'The model computes its own induced 1/G two ways -- F79''s Seeley-DeWitt heat-kernel mode sum and F355''s vacuum entanglement coefficient -- and they disagree by a factor bracketed 0.79 to 3.18, the position inside that bracket being fixed only by a node-counting convention the tree has not decided'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [GR, QFT]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F355, F79, F190, F300, F278]
+    tests: [F355-horizon-entanglement]
+    modules: [casim.engine.interactions.horizon_entanglement]
+    constants: [a_over_ellP, c_lat]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-03'
+  - id: CL297
+    file: docs/claims/CL297-graviton-photon-band-top-planck-scale.md
+    title: 'The paired photon/graviton dispersion law is bounded above by pi radians per CA tick exactly, giving a computed, zero-free-parameter maximum propagating energy of 0.8247 E_Planck -- a kinematic UV-completion number for rubric row E12, distinct from A11/K9''''s rho_vac EFT-coefficient residual'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F357, F248, F69, F79, F352]
+    tests: [F357-graviton-band-top]
+    modules: [casim.engine.interactions.gravity_band_cutoff]
+    constants: [a_over_ellP, c_lat]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-03'
+  - id: CL298
+    file: docs/claims/CL298-graviton-pair-collapse-threshold.md
+    title: 'Two of the model''''s own maximum-energy photons/gravitons collide head-on with exactly sqrt(pi) times the rest-mass energy of the model''''s own minimal Planck-mass black-hole remnant -- an exact kinematic THRESHOLD on the necessary energetic precondition of self-completeness via classicalization (not the geometric hoop criterion itself, and not a scattering-amplitude computation) -- narrower than E12''''s still-open dynamical residual (F357 sec.7)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [GR, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F359, F357, F228, F223, F79, F107]
+    tests: [F359-graviton-collapse-threshold]
+    modules: [casim.engine.interactions.graviton_collapse_threshold]
+    constants: [a_over_ellP]
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-03'
+  - id: CL299
+    file: docs/claims/CL299-horizon-thermodynamics-reproduces-frw-friedmann.md
+    title: 'A Jacobson/Cai-Kim Clausius-relation argument at the flat-FRW apparent horizon reproduces the model''''''''s own exact Friedmann pair from local horizon thermodynamics, without positing the covariant Einstein field equation -- though the step making it exact is a convention (bracketed -3(1+w)/4, not small) rather than a controlled approximation'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [GR, cosmology]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: low
+    findings: [F360, F182, F188, F284, F178, F180, F79, F190, F355]
+    tests: [F360-horizon-thermodynamics-frw]
+    modules: [casim.engine.interactions.cosmology_horizon_thermodynamics]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-03'
+  - id: CL300
+    file: docs/claims/CL300-blockspin-fluctuation-corrections-stay-integer.md
+    title: 'Under F130''''s fixed-lambda bond-moving convention, no finite-order strong-coupling fluctuation correction to the block-spin confinement eigenvalue can supply a non-integer exponent: every order is exactly integer, and the composite quantity such an expansion could define is scheme-dependent, not universal'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [QCD, cosmology]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F362, F130, F310]
+    tests: [F362-blockspin-fluctuation-eigenvalue]
+    modules: [src/casim/engine/interactions/cosmology_blockspin_fluctuation.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-04'
+  - id: CL301
+    file: docs/claims/CL301-geon-relic-abundance-bounded-by-2025-gw-literature.md
+    title: 'The F228/F238 geon / one-cell Planck-mass black-hole remnant dark-matter candidate''''s free abundance input carries two named 2025 gravitational-wave constraints of unequal strength: an order-of-magnitude formation-mass ceiling $M_\text{form}\lesssim1.6\times10^8$ g (from early-merger GW bounds, caveated), and a weaker, convention-sensitive non-Gaussianity plausibility argument on whatever sources the relic-forming perturbations (from the LIGO O3 exclusion of Gaussian-sourced Planck relics)'
+    tier: supporting
+    kind: prediction
+    status: open
+    domain: [cosmology]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F365, F228, F238, F223]
+    tests: [F365-geon-relic-gw-bounds]
+    modules: [src/casim/engine/interactions/cosmology_geon_relic_gw_bounds.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-04'
+  - id: CL302
+    file: docs/claims/CL302-geon-domain-wall-reopening-scope-boundary.md
+    title: 'CL209''''s "the geon relic abundance is a genuinely free input" is scoped to the inflaton/Press-Schechter production route: it is not a claim that every conceivable geon-production mechanism is foreclosed, and a structurally distinct, non-inflationary domain-wall-collapse channel remains open with its Kibble-mechanism precondition already exactly satisfied by the model''''s own E_g clock potential'
+    tier: supporting
+    kind: non_claim
+    status: open
+    domain: [cosmology]
+    exactness: bracketed
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F366, F238, F228, F282, F285, F150, F175, F234]
+    tests: [F366-geon-domain-wall-reopening]
+    modules: [src/casim/engine/interactions/cosmology_geon_domain_wall_reopening.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL209
+    first_issued: '2026-09-04'
+  - id: CL303
+    file: docs/claims/CL303-sequestering-selectivity-identity-not-adopted.md
+    title: 'A Kaloper-Padilla-style non-local/global sequestering mechanism achieves unbounded order-selectivity between the F164/F59 heat-kernel moments as an exact, sympy-verified identity, dwarfing F319 U8''''s required selectivity of >=1.27e116 -- contingent on grafting new global Lagrange-multiplier fields onto the model''''s gravity sector, which is not adopted here'
+    tier: supporting
+    kind: derivation
+    status: contingent
+    domain: [GR, cosmology]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F367, F368, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59]
+    tests: [F367-cc-sequestering, F368-cc-sequestering-consistency]
+    modules: [src/casim/engine/interactions/cosmology_lambda_sequestering.py, src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-04'
+  - id: CL304
+    file: docs/claims/CL304-transfer-function-scale-setting-numbers-model-native.md
+    title: 'Two of the imported EH98 transfer-function scale-setting numbers -- the sound horizon and the hydrogen recombination redshift -- are derived model-natively (direct integration of the model''''s own F182/F188 background; Saha equation with the model''''s own F125 Rydberg energy), agreeing with Planck to 0.11% and reproducing the textbook ~26% Saha-vs-true recombination bias honestly; the acoustic-oscillation envelope and Silk damping remain imported'
+    tier: supporting
+    kind: derivation
+    status: open
+    domain: [cosmology]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F369, F288, F182, F188]
+    tests: [F369-transfer-function-scoping]
+    modules: [casim.engine.interactions.cosmology_transfer_function]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL254
+    first_issued: '2026-09-05'
+  - id: CL305
+    file: docs/claims/CL305-interacting-sector-eth-onset.md
+    title: 'A next-nearest-neighbour interaction breaks a quadratic lattice-fermion sector''''s generalised Gibbs ensemble toward genuine eigenstate thermalisation; a nearest-neighbour interaction alone does not'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM, condensed-matter]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F300, F309, F376]
+    tests: [F376-interacting-sector-eth-onset]
+    modules: [src/casim/engine/interactions/thermodynamics_interacting.py]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-06'

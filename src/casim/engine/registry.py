@@ -366,6 +366,24 @@ _SPINE: tuple[Module, ...] = (
            role="kernel", origin="spine", status="live",
            tests=("tests/findings/test_F288_structure_formation.py",),
            results=("test-results/F288_structure_formation.json",)),
+    # F369 -- K11/S2: TWO of EH98's imported scale-setting numbers replaced
+    # with model-native derivations. Sound horizon by direct integral on the
+    # model's own F182/F188 background (0.11% vs Planck, 15x better than the
+    # fitting formula cosmology_growth.transfer_eh98 already uses). Hydrogen
+    # recombination redshift via Saha with the model's own F125 Rydberg
+    # energy, honestly reproducing the textbook ~26% equilibrium-vs-true
+    # bias. Swapping the model-native sound horizon into sigma_8 shifts it
+    # <0.02%, diagnosing the ~1.15% residual as the missing acoustic wiggles
+    # / Boltzmann-calibrated envelope, not the sound-horizon scale -- both
+    # scoped and named as still imported, needing a full multipole Boltzmann
+    # solver this session does not build.
+    Module("interactions.cosmology_transfer_function",
+           "src/casim/engine/interactions/cosmology_transfer_function.py",
+           "interactions",
+           findings=("F369",), exactness="quantitative", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F369_transfer_function_scoping.py",),
+           results=("test-results/F369_transfer_function_scoping.json",)),
     # F296 — literature placement: holographic cosmology computes n_s-1 from a
     # 3D QFT with no inflaton. Retrodicts HC's published tension with F286 T1
     # (validating the instrument), names the operator, and excludes the naive
@@ -419,6 +437,22 @@ _SPINE: tuple[Module, ...] = (
            role="kernel", origin="spine", status="live",
            tests=("tests/findings/test_F312_born_nonabelian.py",),
            results=("test-results/F312_born_nonabelian.json",)),
+    # F329 -- A6r: closes the last named residual on the Born-rule/Gleason
+    # closure. F304 sec.5.5 named the Cooke-Keane-Moran regularity lemma
+    # (a non-negative frame function is automatically continuous) as external.
+    # The identical proposition is Gleason's OWN Theorem 2.8 (1957), proved by
+    # the same non-negativity + compactness Theorem 2.3 already assumes -- no
+    # appeal to CKM's separate, later, lower-prerequisite proof is needed.
+    # Combined with the dim>=3 reduction (Lemma 3.3/Theorem 3.5, "completely
+    # real" subspaces), this closes for every dimension the model actually
+    # builds a measurement context on (MODEL_DIMENSIONS), verified machine.
+    Module("interactions.qi_gleason_regularity",
+           "src/casim/engine/interactions/qi_gleason_regularity.py",
+           "interactions",
+           findings=("F329",), exactness="exact", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F329_gleason_regularity.py",),
+           results=("test-results/F329_gleason_regularity.json",)),
     # F297 — K2: Big-Bang nucleosynthesis. The first module in the tree that
     # COMPUTES a light-element abundance rather than quoting a BBN bound. The
     # expansion side is entirely model-native (structural G from F79/F107, the
@@ -460,6 +494,21 @@ _SPINE: tuple[Module, ...] = (
            role="kernel", origin="spine", status="live",
            tests=("tests/findings/test_F309_gstar.py",),
            results=("test-results/F309_gstar_model_content.json",)),
+    # F376 -- G10 residual: does an interacting extension of the free-fermion
+    # lattice sector break F300/F309's GGE toward genuine (ETH) thermalisation?
+    # NOT F110's link Hamiltonian coupled to matter (F110 sec5: not built) --
+    # the smallest interacting extension instead: an OBC single-band chain
+    # with NN (V1) and NNN (V2) density-density terms. V1-only is JW-integrable
+    # (XXZ); V1+V2 is generic. Three diagnostics (level-spacing ratio, entangl-
+    # ement-plateau/ceiling fraction, eigenstate-fluctuation finite-size trend)
+    # agree: generic_V1V2 shows the ETH signature, integrable_V1 does not.
+    Module("interactions.thermodynamics_interacting",
+           "src/casim/engine/interactions/thermodynamics_interacting.py",
+           "interactions",
+           findings=("F376",), exactness="quantitative", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F376_interacting_sector_eth_onset.py",),
+           results=("test-results/F376_interacting_sector_eth_onset.json",)),
     # F15 — the closed-form SR-2 Lorentz-violation coefficients. Declared HERE,
     # in the spine, deliberately: the frozen C0 manifest carries this file as
     # `status=dead_candidate, reach=package-only, tests=(), findings=(),
@@ -664,6 +713,48 @@ _SPINE: tuple[Module, ...] = (
            origin="spine", status="live",
            tests=("tests/registry/interactions.yaml#F301-boost-covariance-defect",),
            results=("test-results/F301_boost_covariance.json",)),
+    # F327: the observational face of the same defect. Converts F301's chiral
+    # O(|k|^2) coefficient into physical units (E^2 = m^2c^4 + c^2p^2
+    # - (2/sqrt3)(cp_x)(cp_y)(cp_z)/E_a), establishes that a MASSIVE Dirac
+    # fermion cannot branch-pair the way the paired photon does (unitarity of
+    # any local mass mixing forces both Weyl blocks onto one branch invariant),
+    # and confronts |eta| = 1.4662 with the LHAASO/Crab electron bounds. The
+    # answer is negative by 7.05 decades, so this module is the FALSIFICATION
+    # record for the physical reading of CL262 and must not be deleted for
+    # being a no-go: `exactness="machine"` because the confrontation imports
+    # two external experimental bounds.
+    Module("interactions.derive_chiral_liv_bound",
+           "src/casim/engine/interactions/derive_chiral_liv_bound.py",
+           "interactions",
+           findings=("F327", "F301", "F246", "F91", "F232"),
+           exactness="quantitative", reach="standalone", role="derivation",
+           origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml#F327-chiral-liv-bound",),
+           results=("test-results/F327_chiral_liv_bound.json",)),
+
+    # F328 -- rubric row A4 (CPT, and C/P/T separately), PARTIAL for five
+    # reports. F53 built C/P/CP at the level of SU(2)xU(1) charge LABELS and
+    # coupling magnitudes; no module built C, P or T as an operator on the
+    # one-tick unitary. This one does, for the free (gauge-decoupled) massive
+    # BCC Dirac walk: THETA = [reflect x -> -x] . [Sigma . (sigma_y (+)
+    # sigma_y)] . K is an EXACT antiunitary symmetry, THETA D(k) THETA^-1 =
+    # D(k)^-1 at every k and every |m|<=1, no small-k expansion, THETA^2=-1
+    # (Kramers). Proves NO fixed unitary parity can exist at generic finite k
+    # (D(k), D(-k) have different spectra -- the operator face of F301's
+    # chirality-odd defect), so only the FULL combination survives -- sharper
+    # than the continuum lore, where the free sector is separately C,P,T-
+    # symmetric. Explicitly excludes F321 (theta_QCD reality, a different
+    # object) from its support, per three prior reports' standing trap
+    # warning. Scope: free/kinetic sector only; the SU(2)_L charged-current
+    # extension (F53's own "C, P maximally violated by the coupling") is
+    # named open, not assumed.
+    Module("particles.discrete_cpt",
+           "src/casim/engine/particles/discrete_cpt.py", "particles",
+           findings=("F328", "F53", "F301", "F327", "F26"),
+           exactness="exact", reach="standalone", role="derivation",
+           origin="spine", status="live",
+           tests=("tests/registry/particles.yaml#F328-discrete-cpt-theorem",),
+           results=("test-results/F328_discrete_cpt_theorem.json",)),
     # Finding 15's velocity-addition extension. Live inventory row, no test
     # record yet — un-wired, not dead. Left `partial` deliberately: the status
     # says "this is real and unguarded", which is a truer statement than
@@ -773,6 +864,27 @@ _SPINE: tuple[Module, ...] = (
            role="kernel", origin="spine", status="live",
            tests=("tests/findings/test_F313_time_signature.py",),
            results=("test-results/F313_time_signature.json",)),
+
+    # F326 — the "+1" closes: no second candidate generator. Where F313 asked
+    # what else commutes with the update A, this asks where A itself, as the
+    # ONLY candidate, comes from: BDPT uniqueness (cited, not re-derived)
+    # gives no second solution to start from, and F313 sec.3-4's own
+    # commutant closure (cited, not re-derived, its sec.5/sec.8 withdrawals
+    # NOT reused) leaves no room for a second one to hide as a symmetry of
+    # the first. Two new grounding checks: the live engine's Clock carries
+    # exactly one time-state field and a channel's finer sub-stepping is a
+    # deterministic subdivision of it (G1); the model's own coupled two-branch
+    # (s=4) composite -- F313 sec.9's own object -- evolves as powers of ONE
+    # matrix D_k, and its production stepper has no per-branch dt (G2). Names
+    # the one remaining irreducible input (dynamics = one map iterated) as the
+    # QCA-defining posit itself, not an added assumption. Audit kernel.
+    Module("lattice.time_single_generator",
+           "src/casim/engine/lattice/time_single_generator.py",
+           "lattice",
+           findings=("F326",), exactness="machine", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F326_time_single_generator.py",),
+           results=("test-results/F326_time_single_generator.json",)),
 
     # F315 — F313 falsifier 5. The second dispersive commuting flow V = I (x) A
     # that F313 sec.9 measured on the FREE composite cell does not survive the
@@ -894,10 +1006,36 @@ _SPINE: tuple[Module, ...] = (
     Module("gauge.lpt_d1_action_consistent",
            "src/casim/engine/gauge/lpt_d1_action_consistent.py",
            "gauge",
-           findings=("F307", "F305", "F280", "F287", "F272", "F277"),
+           findings=("F307", "F305", "F280", "F287", "F272", "F277", "F337", "F350"),
            exactness="bracketed", reach="standalone",
            role="derivation", origin="spine", status="partial",
-           tests=("tests/findings/test_F307_action_consistent_d1.py",)),
+           tests=("tests/findings/test_F307_action_consistent_d1.py",
+                  "tests/findings/test_F337_l6_decision.py",
+                  "tests/findings/test_F350_ws_mask_cutcell.py")),
+
+    # F350 -- F337 Sec.4/6's named next step: an anti-aliased (cut-cell)
+    # Wigner-Seitz-cell mask, replacing lpt_bcc_vertex.ws_mask's sharp 0/1
+    # pointwise indicator (a hypothesised O(1/n) staircase discretisation
+    # source for d1 leg 3's anomalously slow convergence). Verified in
+    # isolation (first-shell-only half-space test reproduces ws_mask exactly;
+    # the mask's own volume-estimate error is ~100x smaller than the sharp
+    # mask's and roughly flat in n, not falling further -- i.e. already
+    # sub-dominant to the O(1/n^2) grid floor). Re-running the native
+    # n=12-40 dLoops sweep with it swapped in (lpt_d1_action_consistent's
+    # new mask_grid parameter) measures NO improvement in the fitted
+    # convergence exponent (~0.92-1.14, same order as F337's sharp-mask
+    # result, still >2x below the Wilson side's ~2.5-2.8) and an
+    # extrapolated Lambda_MSbar/Lambda_rule (~31-34) statistically
+    # unchanged from F337's 31.3 -- F337's own named exhaustion condition
+    # for retiring the "non-convergence, not falsification" reading fires.
+    Module("gauge.lpt_ws_mask_cutcell",
+           "src/casim/engine/gauge/lpt_ws_mask_cutcell.py",
+           "gauge",
+           findings=("F350", "F337", "F305", "F280"),
+           exactness="exact", reach="driven",
+           reachable_from=("lpt_d1_action_consistent",),
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F350_ws_mask_cutcell.py",)),
 
     Module("gauge.lpt_d1_subtracted",
            "src/casim/engine/gauge/lpt_d1_subtracted.py",
@@ -939,6 +1077,22 @@ _SPINE: tuple[Module, ...] = (
            exactness="exact", reach="standalone",
            role="derivation", origin="spine", status="live",
            tests=("tests/findings/test_F289_spin_statistics.py",)),
+
+    # F330 — completeness row A9 residual, precisely named (not closed).
+    # F289 left the belt trick (exchange <-> 2pi rotation) external. This
+    # module does not derive it; it pins the residual to Anastopoulos's
+    # named "Postulate 1" (quant-ph/0110169) and machine-verifies, on the
+    # model's own rotor, the two representation-theoretic facts that make
+    # that postulate's spin-1/2 consequence concrete: the antisymmetric
+    # singlet is an exact scalar under R(theta,n)(x)R(theta,n) for every
+    # (theta,n), while the symmetric triplet is not, at theta=pi.
+    Module("interactions.qi_belt_trick",
+           "src/casim/engine/interactions/qi_belt_trick.py",
+           "interactions",
+           findings=("F330", "F289", "F291", "F292", "F26"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F330_belt_trick_reduction.py",)),
 
     # F290 — completeness row A10 (cluster decomposition / no-signalling),
     # ABSENT. The CA-specific result is that the causal cone is STRICT where a
@@ -1128,6 +1282,27 @@ _SPINE: tuple[Module, ...] = (
            tests=("tests/findings/test_F317_su3_structure.py",),
            results=("test-results/F317_su3_structure.json",)),
 
+    Module("gauge.derive_internal_index_existence",
+           "src/casim/engine/gauge/derive_internal_index_existence.py",
+           "gauge",
+           findings=("F333", "F317", "F318", "F324", "F289"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F333_internal_index_existence.py",),
+           results=("test-results/F333_internal_index_existence.json",)),
+
+    Module("gauge.reflection_positivity",
+           "src/casim/engine/gauge/reflection_positivity.py",
+           "gauge",
+           findings=("F335", "F265", "F323", "F313", "F94"),
+           exactness="machine", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F335_reflection_positivity_bcc.py",),
+           results=("test-results/F335_reflection_positivity_bcc.json",
+                     "test-results/F335_reflection_positivity_gram_anisotropic.json",
+                     "test-results/F335_reflection_positivity_gram_isotropic.json",
+                     "test-results/F335_reflection_positivity_gram_strong.json")),
+
     Module("gauge.derive_gauge_boson_masses",
            "src/casim/engine/gauge/derive_gauge_boson_masses.py",
            "gauge",
@@ -1142,11 +1317,13 @@ _SPINE: tuple[Module, ...] = (
            "src/casim/engine/gauge/colour_theta.py",
            "gauge",
            findings=("F321", "F53", "F43", "F305", "F307", "F265", "F91",
-                     "F27", "F162"),
+                     "F27", "F162", "F337", "F340", "F308"),
            exactness="exact", reach="standalone",
            role="derivation", origin="spine", status="live",
-           tests=("tests/findings/test_F321_strong_cp.py",),
-           results=("test-results/F321_strong_cp.json",)),
+           tests=("tests/findings/test_F321_strong_cp.py",
+                  "tests/findings/test_F340_strong_cp_nonperturbative.py"),
+           results=("test-results/F321_strong_cp.json",
+                    "test-results/F340_strong_cp_nonperturbative.json")),
 
     Module("gauge.derive_ncolour",
            "src/casim/engine/gauge/derive_ncolour.py",
@@ -1175,6 +1352,493 @@ _SPINE: tuple[Module, ...] = (
            role="derivation", origin="spine", status="live",
            tests=("tests/registry/interactions.yaml",),
            results=("test-results/F322_b9_running_rederivation.json",)),
+
+    # F336 -- extends F261's dispersive (Kallen-Lehmann) machinery from the
+    # g-2 VERTEX to the vacuum-polarization TWO-POINT function itself, via the
+    # optical theorem (Im Pi = (alpha/3) R(s)). Independently re-derives F261's
+    # sympy-exact b1=1 two-loop leading-log coefficient from a disjoint
+    # construction (unitarity + dispersion vs. direct beta-function algebra),
+    # and precisely scopes (does NOT derive) the Kallen-Sabry non-log constant
+    # (alpha/pi)^2[zeta(3)-5/24] that F311/F322 cite rather than derive.
+    Module("interactions.qed_twoloop_vacuum_polarization_nonlog",
+           "src/casim/engine/interactions/qed_twoloop_vacuum_polarization_nonlog.py",
+           "interactions",
+           findings=("F336", "F251", "F261", "F311", "F322"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F336_twoloop_vp_nonlog.json",)),
+
+    # F331 -- completeness row A10 residual 1: F290's cluster-decomposition
+    # result was 1-D and free-fermion only. Extends it to the interacting
+    # (lattice-native NJL mean field), 3-D BCC case: exact free-fermion
+    # (100)/(110)-axis closed forms, validated on the model's own dispersion
+    # using the CORRECT reciprocal lattice (F267's own generators, not the
+    # naive cubic FFT grid -- that mismatch is the module's own control);
+    # a self-consistent dynamical-mass gap equation; and cluster
+    # decomposition (finite correlation length) demonstrated AT the
+    # dynamically-generated mass in the interacting theory.
+    Module("interactions.qi_cluster_interacting_3d",
+           "src/casim/engine/interactions/qi_cluster_interacting_3d.py",
+           "interactions",
+           findings=("F331", "F290", "F267", "F77", "F26"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F331_cluster_interacting_3d.json",)),
+
+    # F332 -- rubric K9 / ledger G1: is the F164 zero-point sum DYNAMICALLY
+    # driven to respect the F183/F190 capacity ceiling, or is it not?
+    # Negative on the two dynamical channels tested: (i) F164 channel (ii)
+    # (AB=1 dielectric sequestering) is CLOSED (not merely unevidenced) --
+    # the static Poisson law is exactly Fredholm-blind to any homogeneous
+    # source, and F178 restricts AB=1 to T_mu_nu=0 regions, never the
+    # matter/energy-filled cosmological interior; (ii) a literal F130 block-
+    # spin coarse-graining of the F59/F164 heat-kernel moments is excluded
+    # by 35+ orders beyond the CODATA G budget, because a_0 falls (~b^-4)
+    # while a_1 simultaneously RISES (~b) -- worse than F319 U8's uniform-
+    # lambda "enhancement". Also shows F196's capacity ceiling IS F182's
+    # Friedmann-I constraint (not an import), and the bare F164 sum's own
+    # self-consistent Friedmann horizon is sub-lattice-cell. The surviving
+    # F193B/F196/F241 ceiling route is untouched and still undynamicised.
+    Module("interactions.cosmology_lambda_dynamics",
+           "src/casim/engine/interactions/cosmology_lambda_dynamics.py",
+           "interactions",
+           findings=("F332", "F164", "F193", "F196", "F241", "F319", "F311",
+                     "F178", "F182", "F130", "F79", "F59"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F332_cc_dynamics.json",)),
+
+    # F367 -- rubric K9/ledger G1, F332's own named next step (a non-local/
+    # global mechanism). Kaloper-Padilla-style sequestering, cited not
+    # re-derived in full generality: sympy-verified that a spacetime-constant
+    # trace contribution cancels EXACTLY under spacetime averaging (unbounded
+    # selectivity, dwarfing F319 U8's >=1.27e116), and that the surviving
+    # matter-domination residual is exactly 3n*rho_m0, landing 0.036 dex from
+    # the observed Omega_Lambda*rho_crit. Requires new global fields beyond
+    # decision 4 -- flagged as imported, not adopted; does not resolve F241's
+    # O(1) residual.
+    Module("interactions.cosmology_lambda_sequestering",
+           "src/casim/engine/interactions/cosmology_lambda_sequestering.py",
+           "interactions",
+           findings=("F367", "F332", "F164", "F193", "F196", "F241", "F319",
+                     "F178", "F182", "F79", "F59"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F367_cc_sequestering.json",)),
+
+    # F368 -- rubric K9/ledger G1, running CL303's own falsifier 4 against
+    # the actual Kaloper-Padilla base action (Padilla 2015 review sec.7,
+    # consulted directly). PPN/F178-vacuum/induced-G legs: NOT in tension
+    # (vacuum reduces algebraically to ordinary GR + Lambda_eff) -- CL303
+    # stays contingent, not withdrawn. Two NEW costs surfaced (not in F367):
+    # spatial closure (k>0) and non-eternal w, both shown (cited) to be
+    # base-mechanism features; independently sympy-verified that eternal
+    # de Sitter has divergent total 4-volume while closed matter recollapse
+    # is finite. Neither cost is excluded by current data; the w-transience
+    # cost is directionally (not quantitatively) aligned with DESI DR2's
+    # w0>-1,wa<0 preference -- touches rubric K10, not adopted or absorbed.
+    Module("interactions.cosmology_lambda_sequestering_consistency",
+           "src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py",
+           "interactions",
+           findings=("F368", "F367", "F332", "F164", "F241", "F319",
+                     "F178", "F182", "F79", "F59"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F368_cc_sequestering_consistency.json",)),
+
+    # F338 -- rubric B10, after F325's withdrawal of F324's upper C7 bound.
+    # Does NOT narrow the odd-N_c bracket {3,5,7,...}. G0 recomputes the
+    # current bracket directly from the surviving Witten-parity leg (F324's
+    # witten_scan, unmodified); G1 closes a previously-untested candidate
+    # (pi_4(SU(N))=0 for N>=3, cited, so the colour group itself carries no
+    # analogous global anomaly); G2 is an exact per-generation Weyl count
+    # (4(N_c+1) = 16 at N_c=3); G3 is an explicitly FLAGGED, UNVERIFIED
+    # mod-16 coincidence, kept out of the pass count. External literature
+    # cross-check (Bar & Wiese 2001 itself, Tanizaki 2018, hep-ph/0009242)
+    # confirms the residual is generic to any chiral-gauge theory of this
+    # shape, not a lattice-specific gap.
+    Module("gauge.derive_ncolour_ceiling",
+           "src/casim/engine/gauge/derive_ncolour_ceiling.py",
+           "gauge",
+           findings=("F338", "F324", "F325", "F293", "F298", "F317", "F75"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/gauge.yaml",),
+           results=("test-results/F338_ncolour_ceiling.json",)),
+
+    # F342 -- rubric C1 (exactly three generations).  F75's group theory
+    # (T_1u the unique maximal single-valued O_h triplet) is not re-attacked;
+    # nor is F292's independent n-copies multiplicity check.  This asks
+    # whether F75 Sec.1 condition (i) ("identical gauge quantum numbers") has
+    # any power to select T_1u over T_2g, under the charge structure this
+    # project's own minimal-coupling modules implement (a scalar, diagonal
+    # in the site basis).  It does not: forced by the shell's 8 vertices
+    # forming a single O_h orbit (transitivity).  Exhibits, exactly, what
+    # WOULD select it (a non-diagonal, irrep-block-dependent charge) and
+    # confirms no such coupling exists in the adopted engine.
+    Module("particles.derive_generation_identification_gap",
+           "src/casim/engine/particles/derive_generation_identification_gap.py",
+           "particles",
+           findings=("F342", "F75", "F292", "F324", "F27", "F38"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F342_generation_identification_gap.json",)),
+    # F343 -- ledger D4 (rubric C5): does the F183/F107 lattice cutoff or the
+    # E_g/Z3 condensate offer a scale link for the absolute Majorana mass
+    # M_R? Three-legged mechanical null result: C1/C2 exhaustive ratio scan
+    # (closest hit (1/(72*pi))^8, flagged not claimed), C3 contrasts F79's
+    # zero-hierarchy G derivation, C4/C5 sympy-exact + numerical proof the
+    # E_g/Z3 texture (majorana.z3_sqrt_texture) factors M_R0 out identically
+    # (generalizes F253's POSIT-N no-go one dimensional category further),
+    # C6 nu_R's gauge-singlet status (F47/F341) forecloses the model's only
+    # dynamical scale mechanism (QCD-style running, SU(3)_c only).
+    Module("particles.derive_M_R_scale_link",
+           "src/casim/engine/particles/derive_M_R_scale_link.py",
+           "particles",
+           findings=("F343", "F47", "F79", "F107", "F201", "F236", "F253", "F282", "F341"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F343_majorana_scale_no_link_found.json",)),
+    # F353 -- does F254's D_2h T_2g no-go inherit to the Dirac CP phase?
+    # (open-derivations D4 / parameter #26). T1: D_2h transports a COMPLEX
+    # T_2g entry by the same real sign as a real one (never rotates its
+    # phase, machine precision) -- F254's T1/T2 transfer verbatim. T2-T4:
+    # F254's own real fit gives J=0 exactly (real-only consequence, not
+    # protected); independent phases populate a generic, unprotected J
+    # (1000 draws); phase-democracy equally unprotected. Bonus T5/T6: found
+    # and fixed two independent defects in majorana.takagi_light_masses's
+    # complex branch (branch-selection tolerance; Takagi phase correction),
+    # F236/F254 untouched (both real-only). Ledger #26: ABSENT -> EXCLUDED.
+    Module("particles.derive_delta_cp_t2g",
+           "src/casim/engine/particles/derive_delta_cp_t2g.py",
+           "particles",
+           findings=("F353", "F92", "F236", "F254"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F353_delta_cp_t2g_inheritance.json",)),
+    # F344 -- exact point-group covariance audit of the ADOPTED BCC free-Weyl
+    # walk (bcc._bcc_uvec, Paper 1 Eq. 15).  Pure integer arithmetic on the
+    # 8-monomial basis {c,s}^3: unitarity forces every coefficient to +-1
+    # (rank-8, C1); u carries an exact branch map tau_g(s)=s*prod(eps_g) so 24
+    # of 48 elements swap chirality (C2 -- the trap that made a fixed-branch
+    # test look like a leading-order failure); the covariance group is D_4h,
+    # |L|=16 of 48, with a unitarily-implementable D_2h of order 8 (C3/C4); NO
+    # unitary convention (576 swept) admits a body-diagonal C_3 (C5); the
+    # defect is exactly (q_x-q_z)*T2g = -2s s_x s_y c_z (C6); the O(k)
+    # truncation is covariant under all 48 (C7), so O_h is an exact IR
+    # symmetry.  C8 cross-checks every element of L against the shipped
+    # _bcc_uvec at residual 0.0.
+    Module("lattice.bcc_point_symmetry",
+           "src/casim/engine/lattice/bcc_point_symmetry.py",
+           "lattice",
+           findings=("F344", "F26", "F30", "F291", "F302", "F342"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/lattice.yaml",),
+           results=("test-results/F344_bcc_walk_point_symmetry.json",)),
+
+    # F345 -- rubric E1 / ledger E1g (fundamental field equation, POSIT).  Does
+    # NOT re-attack the energy-only law (closed three times: F178 Lorentz
+    # covariance + NS max mass, F297 BBN).  Asks instead how much of the field
+    # equation is still posited given post-decision content: L1 the Bianchi
+    # identity constrains ANY source to a conserved symmetric 2-tensor; L2 the
+    # metric variation delivers all 10 components by construction; L3 the
+    # Lanczos-Lovelock tensor vanishes identically in d=4 and not in d=5, on
+    # generic ALGEBRAIC curvature tensors (Kulkarni-Nomizu/Fiedler), so
+    # uniqueness is INHERITED from the model's derived d=3+1 (F291/F326);
+    # L4 the two-derivative truncation is bounded by 1.4e-76 via F319's
+    # dimension-6 operator; L5/L6 close the scalar-tensor and f(R) families on
+    # the model's own AB==1 / no-screening structure (F288), not on data.
+    Module("interactions.gravity_field_equation_uniqueness",
+           "src/casim/engine/interactions/gravity_field_equation_uniqueness.py",
+           "interactions",
+           findings=("F345", "F178", "F297", "F59", "F319", "F288", "F291",
+                     "F326", "F79", "F107", "F64", "F106", "F309"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F345_field_equation_uniqueness.json",)),
+
+    # F346 -- ledger E6 first attack: does the charged-lepton E_g/T_1u
+    # "weight-as-phase" SHAPE mechanism (F175 delta*=2/9, F92 eta^2=1/2, F80's
+    # EM/colour selection rule) have any quark-sector face?  Inverts the same
+    # 3-parameter circulant ansatz on the up-type (u,c,t) and down-type
+    # (d,s,b) PDG current-quark mass triplets: up-type is a clean >200-sigma
+    # miss against every single-irrep O_h weight from the SAME T_1u x T_1u
+    # decomposition; down-type's nominal ~1.4-sigma proximity to the A_1g
+    # weight 1/9 is not excluded by data (measurement precision) and is a
+    # modest, not-dismissible coincidence under a range-based look-
+    # elsewhere estimate (p~0.57%, corrected on review from an earlier,
+    # wrongly-scaled p~0.6 -- F346-review-2026-09-02.md); flagged, not
+    # adopted. A lepton-
+    # sector self-check (C5) confirms the identical method recovers F175's
+    # own delta*=2/9 and F92's eta=sqrt(2) from the PDG lepton masses, so the
+    # quark-sector null result is not a fitting artefact. Leaning no-go, not
+    # a full closure -- see F346 for what would reopen it.
+    Module("particles.derive_quark_shape_probe",
+           "src/casim/engine/particles/derive_quark_shape_probe.py",
+           "particles",
+           findings=("F346", "F80", "F92", "F121", "F123", "F175"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F346_quark_shape_probe.json",)),
+
+    # F347: direct follow-up to F346's review (Attack 11) -- do the LITERATURE
+    # -favoured mixed-generation-type Koide quark tuples (u,d,s: Harari-Haut-
+    # Weyers 1978; c,b,t: Rodejohann-Zhang) carry F175/F92's shape mechanism?
+    # (u,d,s)'s Koide Q is NOT close to 2/3 with current, nonzero-m_u PDG 2024
+    # data -- the 1978 near-hit relied on a since-superseded m_u=0 assumption.
+    # (c,b,t)'s Q IS close to 2/3 (<1%), a real, still-valid literature
+    # coincidence -- but Q depends only on eta (Q=1/3+eta^2/6, delta-
+    # independent, checked exactly), and the phase delta is a clean, decisive
+    # (>50-sigma) miss from every single-irrep O_h weight that is ALSO not
+    # numerically unusual in absolute terms (range-based look-elsewhere
+    # p>5%). Even the eta^2 closeness driving Q~2/3 is itself a many-sigma
+    # measurement-precision miss despite looking close in percentage terms.
+    # Sharper leaning no-go than F346's, not a full closure of E6 -- Rivero's
+    # signed (s,c,b) variant (arXiv:1111.7232) uses a different ansatz and is
+    # explicitly out of scope.
+    Module("particles.derive_quark_mixed_koide_probe",
+           "src/casim/engine/particles/derive_quark_mixed_koide_probe.py",
+           "particles",
+           findings=("F347", "F346", "F80", "F92", "F121", "F123", "F175"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F347_quark_mixed_koide_probe.json",)),
+
+    # F348: ledger row E1 (docs/status/open-derivations.md) -- is the 0.007%
+    # m_tau/m_e shape residual from the exact {delta*=2/9 (F175), eta^2=1/2
+    # (F92)} prediction (F175 D4) closeable by a computed next-order
+    # correction, or already measurement-floor-limited? A numeric Jacobian
+    # shows the SAME small (delta, eta2) offset F174 S4 already flagged (the
+    # free-fit values sitting ~1 sigma from the exact ones) reconstructs
+    # BOTH the 0.001% muon and 0.007% tau residuals simultaneously (<1%
+    # relative error) -- one joint offset, not two independent unexplained
+    # corrections. The tau residual itself is a single ~1.04-sigma effect
+    # against the current PDG m_tau uncertainty (+-0.12 MeV) -- statistically
+    # indistinguishable from measurement noise. F256's route-(I) dynamical
+    # no-go (cos(3 delta*)=-B/(2C) cannot be exact) is reused, not
+    # relitigated: it already rules out the model's only candidate mechanism
+    # for computing an independent correction here. Verdict: no fabricated
+    # correction; a named, falsifiable re-attack threshold instead (m_tau
+    # precision would need to tighten ~2.9x for 3-sigma, ~4.8x for 5-sigma).
+    # Ledger row E1 stays honestly QUANT x2.
+    Module("particles.derive_lepton_shape_precision_floor",
+           "src/casim/engine/particles/derive_lepton_shape_precision_floor.py",
+           "particles",
+           findings=("F348", "F175", "F92", "F174b", "F76", "F256"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F348_lepton_shape_precision_floor.json",)),
+
+    # F352 (ledger E8, parameter #18, m_H=125.25 GeV): BHL-style top-
+    # condensation compositeness/RG attempt for the F73 Cooper-pair scalar,
+    # anchored at the model's OWN derived UV cutoff (F79/F107 a/ell_P).
+    # Quantified negative result -- see F352 for the honest verdict.
+    Module("particles.derive_higgs_bhl_compositeness",
+           "src/casim/engine/particles/derive_higgs_bhl_compositeness.py",
+           "particles",
+           findings=("F352", "F73", "F74", "F77", "F107"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F352_higgs_bhl_compositeness.json",)),
+
+    # F354 (rubric E10, singularity resolution): converts F183 SS L1's curvature-
+    # SATURATION estimate into a regular-centre result.  The Kretschmann scalar
+    # is an exact SUM OF SQUARES in the two-function class, so K <= 1/a^4 bounds
+    # each orthonormal-frame Riemann component separately and forces B(0)=1,
+    # A'(0)=B'(0)=0 -- a C^{1,1} manifold interior point, with no parity, no
+    # point group and no saturation assumed.  Also records the NO-GO on the
+    # -1-in-O_h route (false in both directions; see F354 SS5) and the exact
+    # parity screen calibrated against Zhou-Modesto PRD 107 044016.
+    Module("interactions.gravity_core_completeness",
+           "src/casim/engine/interactions/gravity_core_completeness.py",
+           "interactions",
+           findings=("F354", "F183", "F284", "F178", "F107"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F354_core_geodesic_completeness.json",)),
+
+    # F355 (rubric E9 / ledger G4): COMPUTES the boundary entanglement entropy of
+    # the BCC vacuum -- F190's per-cell constant is measured instead of posited,
+    # and it misses 2 pi sqrt3 by a factor 3.18.  The vacuum projector is F26's
+    # spin axis in closed form; two geometries (crystal-plane slabs and
+    # offset-averaged balls) agree.  Executes F300 section 8 next step #3.
+    Module("interactions.horizon_entanglement",
+           "src/casim/engine/interactions/horizon_entanglement.py",
+           "interactions",
+           findings=("F355", "F190", "F300", "F183", "F278"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F355_horizon_entanglement.json",)),
+
+    # F357 (rubric E12, quantum-gravity sector): the paired photon/graviton
+    # "even" dispersion law (F69/F248) is bounded above by pi EXACTLY on the
+    # BCC Brillouin zone -- a computed, closed-form band top, not the
+    # qualitative "lattice is the cutoff" slogan E12 previously carried.
+    # Converts to E_max = sqrt(pi*sqrt(3)/8) * E_Planck = 0.8247 E_Planck via
+    # F79/F107's registered a_over_ellP; relates it to F352's cruder
+    # Lambda_model=E_Planck/a_over_ellP by the closed form E_max=pi*sqrt(3)*
+    # Lambda_model. Scoped explicitly AWAY from A11/K9's rho_vac coefficient
+    # (see docs/design/session-claims.yaml, session quiet-precise-regge).
+    Module("interactions.gravity_band_cutoff",
+           "src/casim/engine/interactions/gravity_band_cutoff.py",
+           "interactions",
+           findings=("F357", "F248", "F69", "F26", "F79", "F107", "F352"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F357_graviton_band_cutoff.json",)),
+
+    # F359 (rubric E12, quantum-gravity sector -- the DYNAMICAL half F357
+    # Sec.7 left open): a head-on collision of two of the model's own
+    # maximum-energy photons/gravitons (F357's E_max) carries CM energy
+    # sqrt(pi) times the rest-mass energy of the model's own exact one-cell
+    # Planck-mass black-hole remnant (F228's M_rem) -- exact-algebraic, zero
+    # new free parameters, both numbers traced to the same registered
+    # a_over_ellP ruler. A single quantum alone falls short (sqrt(pi)/2). The
+    # kinematic precondition of the standard "self-completeness via
+    # classicalization" resolution of the naive graviton-graviton unitarity
+    # puzzle (Dvali-Gomez 1005.3497) is cleared exactly by the model's own
+    # numbers -- NOT the geometric hoop/impact-parameter criterion that
+    # literature actually uses, only the necessary weaker energetic
+    # precondition for it; no scattering amplitude or partial-wave bound is
+    # computed either (see the module docstring's "Honest scope"). Cross-checked against
+    # F223's order-of-magnitude geon virial mass at its own (weaker) tier.
+    Module("interactions.graviton_collapse_threshold",
+           "src/casim/engine/interactions/graviton_collapse_threshold.py",
+           "interactions",
+           findings=("F359", "F357", "F228", "F223", "F79", "F107"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F359_graviton_collapse_threshold.json",)),
+
+    # F360 -- re-derives the flat-FRW Friedmann pair (F182/F188's own
+    # equations) from a Jacobson/Cai-Kim Clausius-relation argument at the
+    # cosmological apparent horizon (Unruh-type temperature from the model's
+    # own light cone F26/F180, entropy S=A/4G with the model's induced G
+    # F79, dQ=TdS) rather than positing and solving the covariant field
+    # equation (F178) with the model's stress-energy as input -- F284's own
+    # residual, re-read via local horizon thermodynamics instead of ontology.
+    # Sympy-exact for the quasi-static match; also quantifies (exact, closed
+    # form -3(1+w)/4) that the quasi-static step is a convention, not a
+    # small-parameter expansion -- honest scope in the module docstring.
+    Module("interactions.cosmology_horizon_thermodynamics",
+           "src/casim/engine/interactions/cosmology_horizon_thermodynamics.py",
+           "interactions",
+           findings=("F360", "F182", "F188", "F284", "F178", "F180", "F79", "F190", "F355"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F360_horizon_thermodynamics.json",)),
+
+    # F362 -- G2/K3/K12: fluctuation corrections to F130's C1 confinement
+    # eigenvalue, composed from the repo's own exact strong-coupling PT
+    # machinery (link_hamiltonian.sigma_strong_pt2, c2(g2)=1/(6g2) exact).
+    # NEGATIVE RESULT: every order-n term in the lam=0 expansion carries an
+    # exact integer eigenvalue b^(1-2n) (generalising F130 C3/C4 to the whole
+    # series, not just its leading term); the composite "effective" exponent
+    # built at any finite b is not b-independent (fails the universality test
+    # a real critical exponent must pass); and the model's own calibrated
+    # coupling (g_s^2=1/4, lambda=Omega^2) sits at epsilon~5-15, two orders of
+    # magnitude past the truncation's validity radius. F310 falsifier 1 /
+    # CL267 falsifier 2, fired.
+    Module("interactions.cosmology_blockspin_fluctuation",
+           "src/casim/engine/interactions/cosmology_blockspin_fluctuation.py",
+           "interactions",
+           findings=("F362", "F310", "F295", "F296", "F285", "F130"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F362_blockspin_fluctuation.json",)),
+
+    # F365 -- K7 sharpening: literature-comparison of the F228/F238 geon/Planck-
+    # relic dark-matter candidate against two 2025 gravitational-wave papers not
+    # previously checked against this thread (arXiv:2506.16154 DLS/PVL early-
+    # merger GW bounds on beta_i(M_form); arXiv:2509.20533 LIGO-O3 exclusion of
+    # Gaussian-sourced Planck relics). Reproduces F228's own beta_required and
+    # F238's own sigma_req formulas (self-check, <5%/<2%) and cross-checks them
+    # against the external eq-2.3 literature formula (constant ratio 11.7x,
+    # confirming the same M^1.5 scaling). Result: a formation-mass ceiling
+    # M_form <~ 1.6e8 g (order-of-magnitude, from the DLS bound) that puts F228's
+    # own M_form=1e8 g worked example AT the excluded boundary rather than safely
+    # interior; and a named non-Gaussianity requirement (F238's own sigma_req
+    # converts to P_R~0.017-0.032, inside the P_R~1e-2..1e-1 band 2509.20533 shows
+    # is LIGO-excluded for Gaussian statistics). Quantitative comparison tier
+    # throughout (declared tolerances per check) -- no new model physics derived.
+    Module("interactions.cosmology_geon_relic_gw_bounds",
+           "src/casim/engine/interactions/cosmology_geon_relic_gw_bounds.py",
+           "interactions",
+           findings=("F365", "F228", "F238", "F223", "F216"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F365_geon_relic_gw_bounds.json",)),
+
+    # F366 -- K8 re-examination: is the F238 geon-abundance exclusion scoped to
+    # the inflaton/Press-Schechter route, or does it foreclose every geon
+    # production mechanism? Checks (exact-algebraic, sympy) that the model's
+    # OWN already-derived E_g clock potential (F150/F175/F234, reused verbatim
+    # from F282's eg_clock_coefficient) carries an EXACT discrete Z_6 symmetry
+    # with 6 degenerate global minima -- the textbook Kibble-mechanism
+    # precondition for a domain-wall network, sourced without any inflaton or
+    # primordial spectrum. Also checks (structural, directory search) that
+    # none of the six findings framing "the geon abundance is a free input"
+    # (F238/F228/F282/F283/F284/F285) ever discusses a domain wall,
+    # topological defect, bubble collision or the Kibble mechanism -- the
+    # exclusion was never extended to, or tested against, this channel. Does
+    # NOT compute a domain-wall relic abundance (open_derivation_items()
+    # names the four pieces still missing); this is a scoping/reopening
+    # finding, not a derivation.
+    Module("interactions.cosmology_geon_domain_wall_reopening",
+           "src/casim/engine/interactions/cosmology_geon_domain_wall_reopening.py",
+           "interactions",
+           findings=("F366", "F238", "F228", "F282", "F285", "F150", "F175", "F234"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F366_geon_domain_wall_reopening.py",),
+           results=("test-results/F366_geon_domain_wall_reopening.json",)),
+
+    # F364 -- K6 baryogenesis: a real Boltzmann computation of Y_B, replacing
+    # F202's Sakharov-conditions checklist with an actual number. Casas-Ibarra
+    # Yukawas fit exactly to measured neutrino oscillation data, sitting on the
+    # model's OWN untuned F201 Z3/E_g heavy masses (M2~0.40 GeV, M3~5.60 GeV);
+    # Pilaftsis-Underwood regulated resonant CP asymmetry; standard freeze-in-
+    # to-T_sph=131.7 GeV Boltzmann transport, converted via the inherited SM
+    # sphaleron factor c_sph=28/79. NEGATIVE at native parameters on both free
+    # residuals F202 named: the CP-phase lever caps ~10-11 decades short of
+    # observed Y_B even at the edge of perturbativity; the N2,3 mass-splitting
+    # lever CAN resonantly reach/exceed observed Y_B, but only in a window
+    # ~16-17 orders of magnitude finer than the F201 texture's own native
+    # split (1.73, order-unity) -- a new structural fact about F201 surfaced
+    # here. Sphaleron rate confirmed fast (Gamma_sph/H~1e16 at T_sph) using the
+    # model's own sin^2(theta_W)=2/9 (F320, imported from casim.constants, not
+    # a literal). F202's own Sakharov-conditions check (5/5 PASS) was NOT
+    # re-attacked.
+    Module("forks.darkmatter.dm_fork_F364_baryogenesis_boltzmann",
+           "src/casim/engine/forks/darkmatter/dm_fork_F364_baryogenesis_boltzmann.py",
+           "forks",
+           findings=("F364", "F202", "F201", "F47", "F53", "F320"),
+           exactness="bracketed", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/forks.yaml#F364-baryogenesis-boltzmann",),
+           results=("test-results/F364_baryogenesis_boltzmann.json",
+                     "test-results/F364_baryogenesis_boltzmann_test.json")),
 )
 
 

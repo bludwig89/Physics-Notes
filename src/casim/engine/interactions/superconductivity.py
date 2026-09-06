@@ -657,6 +657,91 @@ def mustar_from_dielectric(n_per_m3, omega_c_eV, E_F_eV=None):
     return mu / (1.0 + mu * L), mu, L
 
 
+def eliashberg_matsubara_cutoff_eV(omega_log_K, omega_c_factor=6.0, spectrum="einstein"):
+    """The Coulomb cutoff (eV) that eliashberg_solve/eliashberg_tc ACTUALLY
+    apply mu* within, for a given spectral shape: omega_c_factor * scale,
+    where scale is the solver's own phonon scale (_cutoff_scale).  For
+    spectrum='einstein' that scale IS omega_log (omega_E==omega_log there),
+    matching F242's original mustar_from_dielectric convention.  For
+    spectrum='debye' the solver's scale is omega_max=sqrt(e)*omega_log
+    (F218b AF2) -- sqrt(e)=1.6487 LARGER than omega_log, a factor F242's own
+    C5 check omitted (F374).  mustar_from_dielectric must be evaluated at
+    THIS omega_c or the derived mu* under-suppresses a debye-spectrum solve
+    and Tc comes out systematically high."""
+    scale_K = omega_log_K if spectrum == "einstein" else omega_max_from_omega_log(omega_log_K)
+    return K_B * omega_c_factor * scale_K / E_CHARGE
+
+
+def mustar_from_dielectric_for_spectrum(n_per_m3, omega_log_K, omega_c_factor=6.0,
+                                        spectrum="einstein", E_F_eV=None):
+    """mustar_from_dielectric evaluated at the solver-consistent cutoff
+    (eliashberg_matsubara_cutoff_eV) for the given spectral shape -- the
+    correct way to feed a derived mu* into eliashberg_tc(spectrum=...).
+    Using the einstein-convention cutoff for a debye-spectrum solve (F242's
+    original C5 check) misses the sqrt(e) scale factor and overestimates Tc
+    by an extra ~4-5 points of mean error (F374)."""
+    omega_c_eV = eliashberg_matsubara_cutoff_eV(omega_log_K, omega_c_factor, spectrum)
+    return mustar_from_dielectric(n_per_m3, omega_c_eV, E_F_eV=E_F_eV)
+
+
+# ===========================================================================
+# F375 -- real (non-free-electron) N(0) for d-band metals: Nb corrected via
+# sourced DFT band structure (F374's flagged open next step)
+# ---------------------------------------------------------------------------
+# mu_coulomb_jellium/mustar_from_dielectric implicitly assume a free-electron
+# N(0) (baked into k_F via r_s).  A d-band metal's TRUE N(0) (from band
+# structure/DFT) can exceed free-electron by a large factor alpha =
+# N(0)_real/N(0)_free -- but the electron COUNT n, hence k_F (Luttinger's
+# theorem), is unchanged; only the density of STATES at that same Fermi
+# surface is enhanced.  Generalizing mu = N(0)<V_screened>_FS with Thomas-
+# Fermi screening k_TF^2 = 4 pi e^2 N(0) (this needs only N(0), not a free-
+# electron Fermi surface) while keeping k_F fixed:
+#
+#     mu(r_s, alpha) = alpha * 0.082930 * r_s * ln(1 + (6.0299/r_s)/alpha)
+#
+# which reduces EXACTLY to mu_coulomb_jellium(r_s) at alpha=1 (both N(0) and
+# k_TF^2 scale as alpha since both trace to the same real N(0); k_F, and so
+# the prefactor's r_s-only dependence through 6.0299/r_s, does not).
+DOS_ENHANCEMENT = {
+    # element: (alpha = N(0)_real/N(0)_free [both-spin, per atom], source)
+    "Nb": (3.0839, "DFT N(Ef)=1.49 eV^-1/atom (both-spin, per atom; De Marzi "
+                   "et al. Quantum ESPRESSO calc, via Frontiers Phys. "
+                   "11:1269872 (2023), doi:10.3389/fphy.2023.1269872) vs "
+                   "this model's own free-electron 0.4832 eV^-1/atom "
+                   "(fermi_energy_free_electron/dos_free_electron_per_spin "
+                   "at Z=5, n=2.7775e29 m^-3)."),
+    # Ta: no equally solid sourced N(Ef) found this session -- left
+    # UNCORRECTED (free-electron) rather than guessed.  Open for a future
+    # session (see F375 finding "Open/next").
+}
+
+
+def mu_coulomb_real_dos(rs, alpha):
+    """Generalization of mu_coulomb_jellium(rs) to a real (enhanced) N(0) =
+    alpha * N(0)_free -- see the F375 banner above.  alpha=1 reproduces
+    mu_coulomb_jellium(rs) exactly (checked in test_F375)."""
+    x2 = 6.0299 / rs   # = (2 k_F/k_TF_free)^2, unchanged (k_F fixed by n)
+    return alpha * 0.082930 * rs * math.log(1.0 + x2 / alpha)
+
+
+def mustar_from_real_dos(n_per_m3, omega_log_K, alpha, omega_c_factor=6.0,
+                         spectrum="einstein", E_F_eV=None):
+    """mustar_from_dielectric_for_spectrum, but mu is computed from a real
+    (sourced, non-free-electron) N(0) via mu_coulomb_real_dos instead of
+    mu_coulomb_jellium.  E_F_eV (the Morel-Anderson retardation log's large-
+    energy cutoff) is left at the free-electron value unless given -- no
+    sourced d-band bandwidth is available, and this log argument is a broad
+    energy scale, not sensitive to the N(0) enhancement (matches
+    mustar_from_dielectric's own convention).  Returns (mustar, mu, ln_arg)."""
+    if E_F_eV is None:
+        E_F_eV = fermi_energy_free_electron(n_per_m3)
+    rs = wigner_seitz_rs(n_per_m3)
+    mu = mu_coulomb_real_dos(rs, alpha)
+    omega_c_eV = eliashberg_matsubara_cutoff_eV(omega_log_K, omega_c_factor, spectrum)
+    L = math.log(E_F_eV / omega_c_eV)
+    return mu / (1.0 + mu * L), mu, L
+
+
 # ===========================================================================
 # F212 Part B -- mass renormalization Z=1+lambda and the (non-)universal gap
 # ratio; what the model needs (the Eliashberg extension)

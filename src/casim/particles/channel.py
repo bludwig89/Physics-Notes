@@ -694,7 +694,7 @@ class ColourDiracQuarkChannel(ParticleChannel):
 # ======================================================================
 @register
 class NonRelElectronChannel(Channel):
-    """Non-relativistic electron orbital ψ(x) bound by a Coulomb potential.
+    r"""Non-relativistic electron orbital ψ(x) bound by a Coulomb potential.
 
     Evolves  i ∂_t ψ = (−∇²/2m + V)ψ  with V(x) = q·φ_em(x), where
     φ_em = −Poisson(ρ_src) is the *same* open-boundary electrostatic

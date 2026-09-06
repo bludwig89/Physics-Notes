@@ -7,8 +7,8 @@ kind: prediction
 status: contingent
 domain: [cosmology, QFT]
 exactness: exact
-findings: [F310, F285, F296, F130]
-tests: [F310-critical-measure]
+findings: [F310, F285, F296, F130, F362]
+tests: [F310-critical-measure, F362-blockspin-fluctuation-eigenvalue]
 modules: [src/casim/engine/interactions/cosmology_critical_measure.py]
 constants: []
 supersessions: []
@@ -16,7 +16,7 @@ reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-11
-last_verified: 2026-08-11
+last_verified: 2026-09-04
 provenance: authored
 review_state: authored
 confidence: medium
@@ -94,6 +94,17 @@ which is an inference about the initial state rather than a derivation. The mode
 Closing that hypothesis, or falsifier 2 returning a non-integer eigenvalue, would make this card
 `live`.
 
+**Falsifier 2 has been tested and did not fire (F362, 2026-09-04).** The fluctuation-corrected
+block-spin computation this falsifier named was run on the repo's own exact strong-coupling PT
+machinery and returns exactly $\lambda_\sigma=b^1$ -- structurally, not as a numerical near-miss:
+every order of the expansion around $\lambda=0$ carries an integer eigenvalue (`docs/claims/CL300-blockspin-fluctuation-corrections-stay-integer.md`),
+and the one composite quantity a finite-order expansion could define is scheme ($b$)-dependent, so it
+could not supply a universal $\gamma$ even where it is formally evaluable. This closes the specific
+mechanism falsifier 2 pointed at without resolving the card's contingency: the identification
+$\gamma\equiv y-1$ is unaffected, and *whether* any mechanism (perturbative or not) supplies the
+eigenvalue's value remains the open question. `status: contingent` stands; a non-perturbative
+confinement-RG computation clearing CL300's own falsifier would still make this card `live`.
+
 **What this card does not claim.** The primordial spectrum is still a **free initial condition** —
 F282, F284 and F285 stand unchanged and CL-level statements about $A_s$ and $\Omega_\text{DM}$ are
 untouched. What narrows is the *shape* of the freedom: a free function $P(k)$ becomes a choice of
@@ -114,6 +125,7 @@ computed from the identity reading instead. F296's finding is unedited.
 - `findings/F285-initial-condition-measure-cannot-tilt.md` (the Poisson bridge; D1 row 2, corrected)
 - `findings/F296-holographic-cosmology-names-the-operator-and-validates-T1.md` (the operator, and the exclusion this re-homes)
 - `findings/F130-blockspin-rg-gauge-gravity.md` (the measured Kadanoff spectrum)
+- `findings/F362-blockspin-fluctuation-eigenvalue-remains-integer.md` (falsifier 2, tested and did not fire) / `docs/claims/CL300-blockspin-fluctuation-corrections-stay-integer.md`
 - `docs/status/open-derivations.md` row **G2**
 - Balkenhol et al. 2025, *Inflation at the End of 2025* — $n_s = 0.9682\pm0.0032$ (CMB-only), $0.9728\pm0.0029$ (+DESI DR2), $r < 0.034$ (95 %)
 - BICEP/Keck BK18; Planck 2018 X

@@ -101,12 +101,28 @@ def _Vgf(action, k, q):
             - xp.einsum('ml,...a->...aml', d, bv.khat(action, k)))
 
 
-def pi_loop(action, Q, n, branch="phys", domain=None, wrap_control: bool = False):
+def _domain_weight(k, domain, mask_grid=None):
+    """The Pi_loop integration-domain weight. ``mask_grid`` (F337 Sec.4/6's
+    named remedy, ``lpt_ws_mask_cutcell.smoothed_ws_mask``) is an (n,n,n)
+    anti-aliased fractional-coverage array over the SPATIAL grid only; it is
+    broadcast along the temporal axis (the mask does not depend on k_t) to
+    match k's shape. ``mask_grid=None`` (the default, unchanged since F337)
+    uses the sharp pointwise ``lpt_bcc_vertex.ws_mask`` instead."""
+    if domain == "cube":
+        return xp.ones(k.shape[:-1])
+    if mask_grid is not None:
+        return xp.broadcast_to(mask_grid[..., None], k.shape[:-1]).astype(float)
+    return xp.asarray(bv.ws_mask(k), dtype=float)
+
+
+def pi_loop(action, Q, n, branch="phys", domain=None, wrap_control: bool = False,
+            mask_grid=None):
     """One-loop background-field Pi_{mn} in axis space, external q temporal.
 
     No momentum is refolded anywhere: the vertex form factors have period 4 pi
     and wrapping them into the cube is the F272/F277 defect (see
-    ``refold_defect``).
+    ``refold_defect``). ``mask_grid`` overrides the WS-cell domain mask (see
+    ``_domain_weight``); default ``None`` reproduces F337 exactly.
     """
     from casim.engine.core import lpt_generator as gen
     N = bv.ACTIONS[action]["N"]
@@ -131,8 +147,7 @@ def pi_loop(action, Q, n, branch="phys", domain=None, wrap_control: bool = False
     den = bv.quadratic_form(action, k) * bv.quadratic_form(action, kq)
     if domain is None:
         domain = "ws" if action == "bcc" else "cube"
-    w = (xp.ones(k.shape[:-1]) if domain == "cube"
-         else xp.asarray(bv.ws_mask(k), dtype=float))
+    w = _domain_weight(k, domain, mask_grid=mask_grid)
     Pi = (C_A / 2.0) * xp.tensordot(w, M / den[..., None, None],
                                     axes=([0, 1, 2, 3], [0, 1, 2, 3])) / xp.sum(w)
     return Pi, tax
@@ -296,6 +311,213 @@ def check_action_consistent_d1(ns=(8, 10), b0_recovery_tol: float = 0.15,
     out["legs"] = dict(out["checks"])
     out["pass"] = (out["checks"]["S1_refold_defect_demonstrated"]
                    and out["checks"]["S2_estimator_runs"])
+    return out
+
+
+
+# ======================================================================
+#  F337 -- L6 decision: which object is the propagator, and is the
+#  redundant link-axis mode dynamical? Plus a memory-bounded evaluator so
+#  the native sweep can reach n = 28-40 on a resource-constrained machine.
+# ======================================================================
+def pi_loop_chunked(action, Q, n, branch="phys", domain=None,
+                     wrap_control: bool = False, chunk: int | None = None,
+                     quadratic_form_fn=None, mask_grid=None):
+    """Bit-identical reimplementation of ``pi_loop`` that streams over the
+    first grid axis in slices of size ``chunk`` instead of building the full
+    (n, n, n, n, N, N, N) tensor at once.  The unchunked path needs ~4 GB at
+    n=32 and is OOM-killed by n=32 on a 4 GB machine (measured); this path
+    peaks under 1 GB through n=40 with ``chunk`` picked by ``_chunk_for``.
+
+    ``quadratic_form_fn(action, k)`` overrides ``bv.quadratic_form`` for this
+    call only (used by ``propagator_scheme_divergence`` to swap in the F26/
+    Omega_even kinetic form without monkeypatching the shared module state).
+    Verified bit-identical to ``pi_loop`` at n=8 for both branches (max|diff|
+    ~1e-16), 2026-08-30.
+    """
+    from casim.engine.core import lpt_generator as gen
+    qf = quadratic_form_fn or bv.quadratic_form
+    N = bv.ACTIONS[action]["N"]
+    tax = bv.ACTIONS[action]["tax"]
+    if domain is None:
+        domain = "ws" if action == "bcc" else "cube"
+    if chunk is None:
+        chunk = _chunk_for(n)
+    qv = xp.zeros(4)
+    qv[3] = Q
+    istrip = 1j * gen.F_ABC[0, 1, 2]
+    ax1d = (xp.arange(n) + 0.5) / n * 2 * math.pi - math.pi
+
+    Msum = xp.zeros((N, N), dtype=complex)
+    wsum = 0.0
+    for i0 in range(0, n, chunk):
+        i1 = min(i0 + chunk, n)
+        k0slice = ax1d[i0:i1]
+        k = xp.stack(xp.meshgrid(k0slice, ax1d, ax1d, ax1d, indexing='ij'), axis=-1)
+        kq = k + qv
+        if wrap_control:
+            kq = ((kq + math.pi) % (2 * math.pi)) - math.pi
+        W = xp.real(_T3grid(action, k, qv, 'W') / istrip) + _Vgf(action, k, qv)
+        Z = xp.real(_T3grid(action, k, qv, 'Z') / istrip) + _Vgf(action, kq, -qv)
+        t = bv.khat(action, k) + bv.khat(action, kq)
+        if action == "bcc" and branch == "phys":
+            P = xp.eye(N) - xp.outer(bv.NHAT_BCC, bv.NHAT_BCC)
+            W = xp.einsum('...aml,lb->...amb', W, P)
+            Z = xp.einsum('...aml,ab->...bml', Z, P)
+            t = t @ P
+        M = xp.real(xp.einsum('...aml,...lna->...mn', W, Z)
+                    - 2.0 * xp.einsum('...m,...n->...mn', t, t))
+        den = qf(action, k) * qf(action, kq)
+        mg_slice = mask_grid[i0:i1] if mask_grid is not None else None
+        w = _domain_weight(k, domain, mask_grid=mg_slice)
+        Msum = Msum + xp.tensordot(w, M / den[..., None, None],
+                                   axes=([0, 1, 2, 3], [0, 1, 2, 3]))
+        wsum += float(xp.sum(w))
+    Pi = (C_A / 2.0) * Msum / wsum
+    return Pi, tax
+
+
+def _chunk_for(n: int, target: int = 131072) -> int:
+    """Pick a first-axis chunk size so peak memory stays roughly constant
+    (~1 GB) from n=28 through n=40: chunk * n^3 ~= target."""
+    return max(1, round(target / n ** 3))
+
+
+def transverse_B_chunked(action, Q, n, branch="phys", domain=None,
+                         chunk: int | None = None, quadratic_form_fn=None,
+                         mask_grid=None):
+    Pi, tax = pi_loop_chunked(action, Q, n, branch, domain,
+                              chunk=chunk, quadratic_form_fn=quadratic_form_fn,
+                              mask_grid=mask_grid)
+    trans = xp.mean(xp.asarray([Pi[i, i] for i in range(Pi.shape[0]) if i != tax]))
+    return float(xp.real((Pi[tax, tax] - trans) / Q ** 2))
+
+
+def _side_chunked(action, Qs, n, branch="phys", chunk: int | None = None,
+                  quadratic_form_fn=None, mask_grid=None):
+    """Chunked analogue of ``_side``, bit-identical output at shared n when
+    ``mask_grid=None`` (default, unchanged since F337). ``mask_grid`` (F337
+    Sec.4/6's named remedy) overrides the WS-cell domain mask -- see
+    ``lpt_ws_mask_cutcell.smoothed_ws_mask``; has no effect for action='sc'
+    (domain='cube', no mask)."""
+    B = [transverse_B_chunked(action, Q, n, branch, chunk=chunk,
+                              quadratic_form_fn=quadratic_form_fn,
+                              mask_grid=mask_grid) for Q in Qs]
+    x = [math.log(1.0 / Q) for Q in Qs]
+    P = B if float(xp.polyfit(xp.asarray(x), xp.asarray(B), 1)[0]) > 0 else [-b for b in B]
+    return (slope_normalised_constant(Qs, P),
+            slope_normalised_constant(Qs, P, slope=SLOPE_ANALYTIC))
+
+
+def _omega_even_quadratic_form(action, k):
+    """L6 leg 1, the rejected candidate: the F26/Omega_even rotation-law
+    propagator, generalised to 4D (F308's K_true_4d = 3 Omega_even^2 + kt^2),
+    substituted for the rhombic action's own quadratic form on the BCC side
+    only (the Wilson/'sc' reference is untouched in either scheme)."""
+    from casim.engine.gauge import gluon_self_energy as se
+    if action != "bcc":
+        return bv.quadratic_form(action, k)
+    kx, ky, kz, kt = k[..., 0], k[..., 1], k[..., 2], k[..., 3]
+    return se.K_true_4d(kx, ky, kz, kt)
+
+
+def propagator_scheme_divergence(ns=(6, 8, 10, 12), swap_control: bool = False) -> dict:
+    """L6 leg 1, decided empirically (F305 Sec.7.4: 'the machinery is
+    action-agnostic ... costs one function').  Runs the SAME rhombic
+    vertices against two propagator choices -- the action's own quadratic
+    form (default, action-consistent) and the F26/Omega_even K_true_4d
+    (the alternative L6 names) -- and reports the b0-recovery trend for each.
+
+    G_OWN must not get WORSE with n (its |1 - b0_recovery| trend should be
+    non-increasing, matching the established slow monotonic approach); the
+    swapped scheme must get WORSE (b0_recovery must diverge AWAY from 1,
+    not toward it), because K_true_4d is aperiodic under the reciprocal
+    lattice the rhombic vertices are exactly periodic under (F308 Sec.3),
+    so pairing it with those vertices is not a lattice Feynman rule on this
+    Brillouin zone at all.
+
+    Control (D9): ``swap_control=True`` uses the OWN quadratic form for
+    BOTH branches (the swap is a no-op), which must equalise the two
+    sequences and kill the measured divergence gap.
+    """
+    own_fn = _omega_even_quadratic_form if swap_control else bv.quadratic_form
+    swap_fn = bv.quadratic_form if swap_control else _omega_even_quadratic_form
+    rows = []
+    for n in ns:
+        sp = 2 * math.pi / n
+        Qs = [r * sp for r in CELL_RATIOS]
+        own_m, _ = _side_chunked("bcc", Qs, n, "phys", quadratic_form_fn=own_fn)
+        swap_m, _ = _side_chunked("bcc", Qs, n, "phys", quadratic_form_fn=swap_fn)
+        rows.append({"n": n, "b0_recovery_own": own_m["b0_recovery"],
+                     "b0_recovery_swapped": swap_m["b0_recovery"],
+                     "dev_own": abs(own_m["b0_recovery"] - 1.0),
+                     "dev_swapped": abs(swap_m["b0_recovery"] - 1.0)})
+    dev_own = [r["dev_own"] for r in rows]
+    dev_swap = [r["dev_swapped"] for r in rows]
+    own_nonincreasing = all(dev_own[i + 1] <= dev_own[i] + 1e-9
+                            for i in range(len(dev_own) - 1))
+    swap_diverges = dev_swap[-1] > dev_swap[0]
+    # No XOR here: under swap_control the two quadratic_form choices trade
+    # places, so a genuine measurement naturally REDDENS this leg (the
+    # diverging K_true_4d kernel now occupies the "own" slot) rather than
+    # needing to be forced back to green -- that is the point of a D9
+    # control, and it is what makes this leg falsifiable (make can-fail).
+    return {"rows": rows, "own_dev_nonincreasing": own_nonincreasing,
+            "swap_diverges": swap_diverges, "swap_control": swap_control,
+            "pass": bool(own_nonincreasing and swap_diverges),
+            "statement": "the rhombic vertices paired with the action's OWN "
+                         "quadratic form converge monotonically; paired with "
+                         "the F26/Omega_even K_true_4d they diverge, because "
+                         "that kernel is not periodic on the vertices' own "
+                         "reciprocal lattice (F308 Sec.3). Decides L6 leg 1."}
+
+
+def branch_fork_native_sweep(ns=(28, 32, 36, 40), mask_kind="sharp",
+                             mask_depth_max=5) -> dict:
+    """L6 leg 2, the native n=28-40 sweep the ledger called for -- run with
+    ``pi_loop_chunked`` so it fits in 4 GB.  Reports the extended b0-recovery
+    trend for BOTH branches (phys/raw) and the full dLoops series.  This is
+    a NATIVE, multi-minute computation (see ``tests/runners/run_l6_native_sweep.py``);
+    it is committed as a result_dump artifact, not re-run at gate tier.
+
+    ``mask_kind="sharp"`` (default) reproduces F337 exactly (the pointwise
+    ``lpt_bcc_vertex.ws_mask``). ``mask_kind="smoothed"`` swaps in F337's
+    named next step -- ``lpt_ws_mask_cutcell.smoothed_ws_mask``, the
+    anti-aliased cut-cell mask -- for the BCC/'phys' and BCC/'raw' rows only
+    (the Wilson/'sc' row never uses a mask, domain='cube')."""
+    rows = {"phys": [], "raw": [], "sc": []}
+    for n in ns:
+        sp = 2 * math.pi / n
+        Qs = [r * sp for r in CELL_RATIOS]
+        mask_grid = None
+        if mask_kind == "smoothed":
+            from casim.engine.gauge import lpt_ws_mask_cutcell as wsm
+            mask_grid, _ = wsm.smoothed_ws_mask(n, depth_max=mask_depth_max)
+        elif mask_kind != "sharp":
+            raise ValueError(f"unknown mask_kind {mask_kind!r}")
+        w_m, w_a = _side_chunked("sc", Qs, n)
+        rows["sc"].append({"n": n, **w_m})
+        for branch in ("phys", "raw"):
+            m, a = _side_chunked("bcc", Qs, n, branch, mask_grid=mask_grid)
+            rows[branch].append({"n": n, "b0_recovery": m["b0_recovery"],
+                                 "dLoops_slope": m["C_hat"] - w_m["C_hat"],
+                                 "dLoops_analytic": a["C_hat"] - w_a["C_hat"]})
+    return rows
+
+
+def check_l6_decision(ns=(6, 8, 10, 12), swap_control: bool = False) -> dict:
+    """Registry entry point (D9), gate tier, cheap.  Decides L6 leg 1
+    empirically (``propagator_scheme_divergence``).  Leg 2 (is the redundant
+    link-axis mode dynamical) rests on F305's own exact isometry gate
+    (``lpt_bcc_vertex.mode_fork``, already gated there) PLUS the native
+    n=28-40 sweep this record does not re-run at gate speed (see
+    ``branch_fork_native_sweep`` / ``test-results/F337_l6_native_sweep.json``)."""
+    prop = propagator_scheme_divergence(ns, swap_control=swap_control)
+    out = {"L6_leg1_propagator_divergence": prop}
+    out["checks"] = {k: bool(v["pass"]) for k, v in out.items()
+                     if isinstance(v, dict) and "pass" in v}
+    out["legs"] = dict(out["checks"])
+    out["pass"] = all(out["checks"].values())
     return out
 
 

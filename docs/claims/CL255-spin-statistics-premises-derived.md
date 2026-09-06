@@ -7,7 +7,7 @@ kind: derivation
 status: live
 domain: [QM]
 exactness: exact
-findings: [F289]
+findings: [F289, F330]
 tests: [F289-spin-statistics]
 modules: [casim.engine.interactions.qi_spin_statistics]
 constants: []
@@ -16,7 +16,7 @@ reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-05
-last_verified: 2026-08-05
+last_verified: 2026-08-27
 provenance: authored
 review_state: authored
 confidence: medium
@@ -110,3 +110,40 @@ of ten.
 - `docs/status/completeness-2026-08-04.md` — row A9, ABSENT, the gap this closes
 - Finkelstein & Rubinstein, *J. Math. Phys.* **9** (1968) 1762 — the homotopy step, external
 - Leinaas & Myrheim, *Nuovo Cim.* **B37** (1977) 1 — the $d=2$ braid case, i.e. why I1 is load-bearing
+- `findings/F330-belt-trick-residual-named-not-closed.md` — Postulate 1 named, spin-½ consequence machine-verified
+- `src/casim/engine/interactions/qi_belt_trick.py`
+- Anastopoulos, "Spin-statistics theorem and geometric quantisation," quant-ph/0110169 — Postulate 1, the belt trick's isolated non-topological content
+- Berry & Robbins, *Proc. R. Soc. A* **453** (1997) 1771 — the geometric-phase route; general $n$ is the still only partially resolved "Berry–Robbins problem"
+
+## Amendment 2026-08-27 — the belt-trick residual is now a named postulate, not a vague import (F330)
+
+F330 does not close this card's residual (item 1 in F289's own "what remains," and the reason this
+card is `tier: supporting` rather than `headline`). It narrows it precisely, on three fronts:
+
+1. **The residual is now a single, citable, peer-reviewed statement** — Anastopoulos's Postulate 1
+   (quant-ph/0110169): exchange must be realisable as a smooth $\mathrm{SO}(3)$-orbit path composing,
+   twice, to exactly one $2\pi$ rotation — rather than an unspecified "the belt trick, imported."
+   $\pi_1(S^2)=0$ (so every collision-avoiding exchange path is homotopic to the same representative)
+   is elementary and transfers to this model unchanged, at no cost; Postulate 1's *further* claim —
+   that spin transports via the *same* rotation realising the positional exchange — is what stays
+   external.
+2. **F289's own unexhibited mechanism is now machine-verified.** F289 asserted "premise I2 then picks
+   the one for spin-½: $-1$" without showing why the eigenvalue is $-1$ rather than $+1$ (both are
+   consistent with $\mathrm{SWAP}^2=\mathbb 1$). F330 shows it: at the belt-trick's own exchange angle
+   $\theta=\pi$, the antisymmetric singlet is an exact scalar under $R(\theta,\hat n)\otimes
+   R(\theta,\hat n)$ for *every* $(\theta,\hat n)$ (residual $1.8\times10^{-16}$), while the symmetric
+   triplet is an invariant subspace but is **not** a scalar representation at $\theta=\pi$
+   (eigenvalues exactly $\{-1,+1,-1\}$, deviation $\sqrt{8/3}=1.632993$) — the reason the naive
+   geometric identification is clean for the antisymmetric (fermionic) channel specifically, and not a
+   general-$n$ corollary (the still only partially resolved Berry–Robbins problem).
+3. **A lattice-native derivation was attempted and its failure diagnosed, not left unexamined.** $O_h$
+   is a finite point group and carries no substitute for $\pi_1(\mathrm{SO}(3))=\mathbb Z_2$'s
+   continuous content; the rotor's $\Omega(\mathbf k)$ (decision 2) is a *dynamical* rotation rate, not
+   the *kinematic* parallel-transport law Postulate 1 needs. Both are stated as the reason, not as an
+   unresolved gap for a future session to blindly re-search.
+
+**Status, unchanged and reaffirmed:** `tier: supporting`, `confidence: medium`. Postulate 1 is **not**
+derived. A separate, explicitly non-numeric argument (F330 §4) narrows its status further *in this
+model specifically* — no independent spin Hilbert space exists for it to be an arbitrary choice among
+alternatives to — but this is stated as a POSIT-narrowing claim, not a derivation, and is not what
+would move this card's tier.

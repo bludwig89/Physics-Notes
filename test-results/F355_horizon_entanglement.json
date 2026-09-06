@@ -1,0 +1,427 @@
+{
+ "scale": "full",
+ "checks": [
+  {
+   "id": "E9-1",
+   "desc": "Peschel correlation matrix == brute-force many-body ED (3 systems)",
+   "pass": true,
+   "got": 2.220446049250313e-15,
+   "want": "< 1e-12",
+   "class": "machine"
+  },
+  {
+   "id": "E9-2",
+   "desc": "1-D free-fermion chain reproduces the c=1 CFT slope dS/dln(l)=1/3",
+   "pass": true,
+   "got": 0.3334625248642659,
+   "want": "1/3",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-3",
+   "desc": "BCC vacuum correlator is an exact projector (the sea is pure)",
+   "pass": true,
+   "got": 4.508755896465121e-16,
+   "want": "< 1e-12",
+   "class": "machine"
+  },
+  {
+   "id": "E9-4",
+   "desc": "complementarity S(l) == S(L-l)",
+   "pass": true,
+   "got": 4.575895218295045e-12,
+   "want": "< 1e-9",
+   "class": "machine"
+  },
+  {
+   "id": "E9-5",
+   "desc": "planar coefficients reproduce the converged reference (001/110/111)",
+   "pass": true,
+   "got": 2.0311383371107716e-05,
+   "want": "< 3e-3",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-6",
+   "desc": "left and right chirality give the same coefficient",
+   "pass": true,
+   "got": 3.4416913763379853e-15,
+   "want": "< 1e-12",
+   "class": "machine"
+  },
+  {
+   "id": "E9-7",
+   "desc": "the coefficient is anisotropic and the densest plane (110) is the minimum",
+   "pass": true,
+   "got": {
+    "spread": 0.21604938006706437,
+    "110_is_min": true
+   },
+   "want": "spread > 15% with (110) lowest",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-8",
+   "desc": "area law: S/A is constant while the enclosed volume grows",
+   "pass": true,
+   "got": {
+    "S_over_A_drift": 0.0063295412017886354,
+    "volume_ratio": 2.1673363271094304
+   },
+   "want": "drift < 2% over > 1.8x volume",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-9",
+   "desc": "ball value is consistent with the O_h cubic-harmonic constant term (a CONSISTENCY check -- the two share the projector and the entropy routine, and the harmonic fit's own rms residual is 4%)",
+   "pass": true,
+   "got": {
+    "ball": 0.7208666010399071,
+    "harmonic_c0": 0.7179349386893688
+   },
+   "want": "|difference| < 0.02",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-10",
+   "desc": "the walk carries FOUR gapless points, charges summing to zero",
+   "pass": true,
+   "got": {
+    "n_gapless": 4,
+    "charge_sum": 0
+   },
+   "want": "4 nodes, sum(charge) == 0 (Nielsen-Ninomiya)",
+   "class": "exact"
+  },
+  {
+   "id": "E9-11",
+   "desc": "S = A/4 is missed under EVERY defensible node counting",
+   "pass": true,
+   "got": {
+    "ratios": [
+     3.1794766951823497,
+     1.5897383475911748,
+     0.7948691737955874
+    ],
+    "closest_to_unity": 0.2051308262044126
+   },
+   "want": "every ratio at least 20% from 1",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-12",
+   "desc": "the ratio is independent of g_* (F79's own a-g_* identity)",
+   "pass": true,
+   "got": 4.440892098500626e-16,
+   "want": "< 1e-12",
+   "class": "machine"
+  },
+  {
+   "id": "E9-13",
+   "desc": "the result is independent of the periodic box",
+   "pass": true,
+   "got": 0.0002110046979563185,
+   "want": "< 1e-3 over box 16-24",
+   "class": "quantitative"
+  },
+  {
+   "id": "E9-14",
+   "desc": "a flat/spherical cut is the right leading object for a horizon",
+   "pass": true,
+   "got": 1.303157755808923e-75,
+   "want": "(a/r_h)^2 < 1e-70 at 1 M_sun",
+   "class": "quantitative"
+  }
+ ],
+ "n_pass": 14,
+ "n_total": 14,
+ "all_pass": true,
+ "planes": {
+  "(0, 0, 1)": 0.7516587084590546,
+  "(1, 1, 0)": 0.5963236886166289,
+  "(1, 1, 1)": 0.7341990074801268,
+  "(0, 1, 2)": 0.7403589091960731,
+  "(1, 1, 2)": 0.7286572526185073,
+  "(0, 1, 3)": 0.7577975181295767,
+  "(1, 1, 3)": 0.7606648600745317,
+  "(1, 2, 2)": 0.7261109329918206,
+  "(1, 2, 3)": 0.7197378154635988
+ },
+ "plane_info": {
+  "(0, 0, 1)": {
+   "area_over_a2": 1.0,
+   "d_over_a": 0.5,
+   "ell": 24,
+   "L3": 48
+  },
+  "(1, 1, 0)": {
+   "area_over_a2": 0.7071067811865476,
+   "d_over_a": 0.7071067811865475,
+   "ell": 17,
+   "L3": 34
+  },
+  "(1, 1, 1)": {
+   "area_over_a2": 1.7320508075688772,
+   "d_over_a": 0.2886751345948129,
+   "ell": 42,
+   "L3": 84
+  },
+  "(0, 1, 2)": {
+   "area_over_a2": 2.23606797749979,
+   "d_over_a": 0.22360679774997896,
+   "ell": 54,
+   "L3": 108
+  },
+  "(1, 1, 2)": {
+   "area_over_a2": 1.224744871391589,
+   "d_over_a": 0.4082482904638631,
+   "ell": 30,
+   "L3": 60
+  },
+  "(0, 1, 3)": {
+   "area_over_a2": 1.5811388300841898,
+   "d_over_a": 0.31622776601683794,
+   "ell": 38,
+   "L3": 76
+  },
+  "(1, 1, 3)": {
+   "area_over_a2": 3.3166247903554,
+   "d_over_a": 0.15075567228888181,
+   "ell": 80,
+   "L3": 160
+  },
+  "(1, 2, 2)": {
+   "area_over_a2": 3.0,
+   "d_over_a": 0.16666666666666666,
+   "ell": 72,
+   "L3": 144
+  },
+  "(1, 2, 3)": {
+   "area_over_a2": 1.8708286933869707,
+   "d_over_a": 0.2672612419124244,
+   "ell": 45,
+   "L3": 90
+  }
+ },
+ "ball": {
+  "rows": [
+   {
+    "R": 5.0,
+    "N_mean": 1057.75,
+    "S_mean": 227.63848811481327,
+    "area_over_a2": 314.1592653589793,
+    "S_over_A": 0.7245958124287639,
+    "n_offsets": 4
+   },
+   {
+    "R": 5.5,
+    "N_mean": 1401.0,
+    "S_mean": 273.3658174914358,
+    "area_over_a2": 380.1327110843649,
+    "S_over_A": 0.7191325805970069,
+    "n_offsets": 4
+   },
+   {
+    "R": 6.0,
+    "N_mean": 1813.75,
+    "S_mean": 325.5975287453276,
+    "area_over_a2": 452.3893421169302,
+    "S_over_A": 0.7197285577545052,
+    "n_offsets": 4
+   },
+   {
+    "R": 6.5,
+    "N_mean": 2292.5,
+    "S_mean": 382.27401316355025,
+    "area_over_a2": 530.929158456675,
+    "S_over_A": 0.7200094533793525,
+    "n_offsets": 4
+   }
+  ],
+  "c_sphere": 0.7208666010399071,
+  "sd": 0.0025128794314237595,
+  "sem": 0.0012564397157118798
+ },
+ "convergence_probe": {
+  "R": 7.0,
+  "N": 2877,
+  "S": 444.25139210810534,
+  "S_over_A": 0.7214776023414367,
+  "note": "single-offset R=7 anchor; evidence that c is flat in R, NOT averaged into c_sphere"
+ },
+ "cubic_harmonic": {
+  "c0": 0.7179349386893688,
+  "coefficients": [
+   0.7179349386893688,
+   0.2787118306293923,
+   3.9976918691950862
+  ],
+  "rms_residual": 0.029933878318591855,
+  "max_residual": 0.05566681111270444
+ },
+ "ledger": {
+  "c_walk_per_a2": 0.7208666010399071,
+  "c_walk_sigma": 0.007,
+  "c_required_closed_form": 0.22672492052927723,
+  "c_required_expression": "pi/(8 sqrt3) == pi sqrt3/24",
+  "ratio_at_fixed_counting": 3.179476695182349,
+  "ratio_sigma": 0.03087441814362036,
+  "ratio_is_independent_of_gstar": true,
+  "gstar_cancellation_residual": 4.440892098500626e-16,
+  "s_cell_required": 10.882796185405304,
+  "node_counting_bracket": {
+   "48_one_walk_one_field": {
+    "walks": 48,
+    "s_cell": 34.60159684991554,
+    "ratio": 3.1794766951823497
+   },
+   "24_pi_pair_discounted": {
+    "walks": 24,
+    "s_cell": 17.30079842495777,
+    "ratio": 1.5897383475911748
+   },
+   "12_all_four_nodes": {
+    "walks": 12,
+    "s_cell": 8.650399212478884,
+    "ratio": 0.7948691737955874
+   }
+  },
+  "ratio_bracket": [
+   0.7948691737955874,
+   3.1794766951823497
+  ],
+  "inverse_G_entanglement_over_heat_kernel": 3.179476695182349,
+  "ratio_over_pi": 1.0120588649675086
+ },
+ "weyl_nodes": {
+  "nodes": [
+   {
+    "name": "Gamma",
+    "phi": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "u": 1.0,
+    "omega": 0.0,
+    "gapless": true,
+    "charge": -1
+   },
+   {
+    "name": "R",
+    "phi": [
+     1.5707963267948966,
+     1.5707963267948966,
+     1.5707963267948966
+    ],
+    "u": 1.0,
+    "omega": 0.0,
+    "gapless": true,
+    "charge": 1
+   },
+   {
+    "name": "H",
+    "phi": [
+     3.141592653589793,
+     0.0,
+     0.0
+    ],
+    "u": -1.0,
+    "omega": 3.141592653589793,
+    "gapless": true,
+    "charge": 1
+   },
+   {
+    "name": "R'",
+    "phi": [
+     -1.5707963267948966,
+     -1.5707963267948966,
+     -1.5707963267948966
+    ],
+    "u": -1.0,
+    "omega": 3.141592653589793,
+    "gapless": true,
+    "charge": -1
+   }
+  ],
+  "n_gapless": 4,
+  "charge_sum": 0
+ },
+ "box_scan": {
+  "rows": [
+   {
+    "box": 14,
+    "N": 1050,
+    "S": 224.84104061276525,
+    "S_over_A": 0.7156912604689436
+   },
+   {
+    "box": 16,
+    "N": 1055,
+    "S": 226.47060115197218,
+    "S_over_A": 0.7208783127665892
+   },
+   {
+    "box": 20,
+    "N": 1055,
+    "S": 226.5201513629138,
+    "S_over_A": 0.7210360359866412
+   },
+   {
+    "box": 24,
+    "N": 1055,
+    "S": 226.53689023286944,
+    "S_over_A": 0.7210893174645455
+   }
+  ],
+  "spread_from_largest": 0.0002110046979563185
+ },
+ "pi_proximity": {
+  "ratio": 3.179476695182349,
+  "sigma": 0.03087441814362036,
+  "pi": 3.141592653589793,
+  "sigmas_from_pi": 1.227036617057159,
+  "rel_gap_to_pi": 0.012058864967508524,
+  "nearer_alternative": "2^(5/3)",
+  "nearer_value": 3.174802103936399,
+  "rel_gap_to_alternative": 0.0014724039776066904,
+  "look_elsewhere_note": "2^(5/3) is closer than pi; ~15-30 simple constants live in [2.5,4]; p(some hit within 1.2%) ~ 0.3-0.5",
+  "kind": "coincidence",
+  "claimed": false
+ },
+ "validation": {
+  "ed": [
+   {
+    "L": 8,
+    "ell": 3,
+    "exact": 1.0166065701578502,
+    "peschel": 1.016606570157851
+   },
+   {
+    "L": 10,
+    "ell": 4,
+    "exact": 1.0817882368165277,
+    "peschel": 1.0817882368165277
+   },
+   {
+    "L": 12,
+    "ell": 5,
+    "exact": 1.163826273208937,
+    "peschel": 1.1638262732089393
+   }
+  ],
+  "ed_max_error": 2.220446049250313e-15,
+  "cft_slope": 0.3334625248642659,
+  "cft_slope_expected": 0.3333333333333333,
+  "projector_residual": 4.508755896465121e-16,
+  "hermiticity_residual": 7.574942044150913e-17,
+  "complementarity_residual": 4.575895218295045e-12
+ },
+ "scope": {
+  "M_solar": 1.0,
+  "r_h_m": 2954.007736491099,
+  "a_m": 1.0663754173481642e-34,
+  "r_h_over_a": 2.770138628886487e+37,
+  "curvature_correction": 1.303157755808923e-75
+ }
+}

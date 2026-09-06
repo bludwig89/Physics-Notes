@@ -4,13 +4,13 @@
 
 *One line per claim card (**D12**). A **claim** is what the project asserts *right now*; a **finding** is what a session did. The two move independently — a finding may be superseded without any claim changing, and a claim may be narrowed without any finding changing. See `docs/claims/README.md` for the contract and the closed vocabularies; `tools/check_claims.py` enforces them at `make gate`.*
 
-**283 cards** — **153** live, **6** narrowed, **5** contingent, **87** open, **5** not_claimed, **27** withdrawn. **222** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
+**305 cards** — **164** live, **9** narrowed, **9** contingent, **93** open, **5** not_claimed, **25** withdrawn. **220** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
 
 ## Headline claims
 
 *The claims the project makes publicly — the rows of `papers/Claims-and-Falsifiers-Summary.md`, plus what has been authored since. Every one is `review_state: authored`.*
 
-### live (22)
+### live (25)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -30,28 +30,31 @@
 | [CL253](docs/claims/CL253-measurement-pointer-born-rg.md) | The lattice's minimal coupling forces the einselected pointer basis to be site charge density… | derivation | live | exact | stated | F281 |
 | [CL254](docs/claims/CL254-structure-formation-zero-free-functions.md) | The model's gravity law fixes linear structure formation with zero free functions where the EFT… *(→ CL008)* | derivation | live | exact | stated | F288 |
 | [CL256](docs/claims/CL256-strict-causal-cone-no-signalling.md) | The automaton's causal cone is strictly finite where a generic Lieb-Robinson system has only an… | derivation | live | machine | stated | F290 |
-| [CL262](docs/claims/CL262-finite-a-boost-defect-is-one-scalar.md) | At finite lattice spacing the entire failure of Poincare covariance is the gradient of one… | deviation | live | machine | stated | F301 |
+| [CL264](docs/claims/CL264-born-rule-gleason-premises-forced.md) | The rule supplies both premises of Gleason's theorem — a measurement here cannot live in… | derivation | live | exact | stated | F304, F312, F329, F281, F290, F227 |
 | [CL273](docs/claims/CL273-uv-sensitivity-ledger-two-unabsorbable-coefficients.md) | The model's UV sensitivity reduces to exactly two operator coefficients with no free parameter… | reinterpretation | live | exact | stated | F319, F264, F164, F59, F79, F116, F284 |
 | [CL274](docs/claims/CL274-no-dimension-5-photon-operator.md) | The model has no dimension-5 Lorentz-violating photon operator, and the dimension-6 coefficient… *(→ CL273)* | prediction | live | exact | stated | F319, F69, F67, F301, F26 |
 | [CL275](docs/claims/CL275-uniform-zero-point-reweighting-excluded.md) | A uniform reweighting of the zero-point sum cannot solve the cosmological-constant problem… *(→ CL273)* | no_go | live | quantitative | stated | F319, F164, F59, F79, F107, F193, F196 |
 | [CL276](docs/claims/CL276-absolute-gauge-boson-masses-two-inputs.md) | m_W and m_Z are predicted absolutely from two electroweak inputs, where the Standard Model… *(→ CL007)* | prediction | live | bracketed | stated | F320, F141, F138, F231, F49, F51 |
 | [CL282](docs/claims/CL282-casimir-colour-normalisation-excluded.md) | The Casimir normalisation of the model''s bare colour coupling is excluded: g_s = sqrt3/4 with… *(→ CL022)* | no_go | live | exact | stated | F325, F298, F299, F303, F294, F280, F144, F111b, F110, F101 |
+| [CL284](docs/claims/CL284-elementary-single-branch-fermion-excluded.md) | An elementary fermion of this model cannot ride a single BCC chiral branch: that assignment is… | no_go | live | quantitative | stated | F327, F301, F246, F91, F232 |
+| [CL285](docs/claims/CL285-discrete-cpt-theorem-free-dirac-walk.md) | The free BCC Dirac walk has an exact discrete CPT theorem: Theta = Sigma . (sigma_y (+)… | derivation | live | exact | stated | F328, F53, F301, F327, F26 |
+| [CL286](docs/claims/CL286-cluster-decomposition-interacting-3d-njl.md) | The interacting, 3-D BCC Dirac theory obeys cluster decomposition — an NJL-generated dynamical… | derivation | live | quantitative | stated | F331, F290, F267, F77 |
 
-### narrowed (3)
+### narrowed (4)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
 | [CL006](docs/claims/CL006-confinement-exact-2d-centre-closure-4d.md) | Confinement: exact in 2D, and a Z3 centre-phase colour-dielectric dual superconductor in 3+1D | derivation | narrowed | exact | unset | F97, F101, F110, F142 |
 | [CL015](docs/claims/CL015-mercury-precession-ppn-consistency.md) | PPN beta = gamma = 1 (Mercury 42.98 arcsec/cy); the linear dielectric is excluded *(→ CL008)* | prediction | narrowed | quantitative | stated | F64, F178 |
 | [CL020](docs/claims/CL020-no-doublers-has-a-domain.md) | \"No doublers\" holds on the cubic FFT grid; on the true BCC zone the omega = pi mode sits at… | non_claim | narrowed | exact | stated | F278 |
+| [CL262](docs/claims/CL262-finite-a-boost-defect-is-one-scalar.md) | At finite lattice spacing the entire failure of Poincare covariance is the gradient of one… | deviation | narrowed | machine | stated | F301, F327 |
 
-### contingent (3)
+### contingent (2)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
-| [CL004](docs/claims/CL004-exactly-three-fermion-generations.md) | Exactly three fermion generations | derivation | contingent | exact | stated | F75 |
-| [CL264](docs/claims/CL264-born-rule-gleason-premises-forced.md) | The rule supplies both premises of Gleason's theorem — a measurement here cannot live in… | derivation | contingent | exact | stated | F304, F312, F281, F290, F227 |
-| [CL267](docs/claims/CL267-tilt-is-a-blockspin-eigenvalue.md) | The primordial tilt's anomalous dimension is the anomalous part of the model's own block-spin… | prediction | contingent | exact | stated | F310, F285, F296, F130 |
+| [CL004](docs/claims/CL004-exactly-three-fermion-generations.md) | Exactly three fermion generations | derivation | contingent | exact | stated | F75, F292, F342 |
+| [CL267](docs/claims/CL267-tilt-is-a-blockspin-eigenvalue.md) | The primordial tilt's anomalous dimension is the anomalous part of the model's own block-spin… | prediction | contingent | exact | stated | F310, F285, F296, F130, F362 |
 
 ### open (1)
 
@@ -83,7 +86,7 @@
 
 *One per qualifying finding not already carried by a headline card. Findings judged not to clear the bar are listed with their reason in `docs/audits/consolidation-plan-2026-08-04.md` §5, so "no card" is a recorded decision rather than an omission.*
 
-### live (131)
+### live (139)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -132,7 +135,7 @@
 | [CL110](docs/claims/CL110-p6-si-absolute-scale-closure-for-the-matter.md) | P6: SI absolute-scale closure for the matter sector — the canonical cell + a single f_π anchor… | derivation | live | unset | unset | F123 |
 | [CL111](docs/claims/CL111-p5-the-atom-hydrogen-as-an-electromagnetic-bound.md) | P5: the atom — hydrogen as an electromagnetic bound state, Rydberg series + Dirac fine structure | prediction | live | machine | unset | F125 |
 | [CL112](docs/claims/CL112-the-nn-intermediate-range-attraction-scalar-isoscalar-exchange.md) | The NN intermediate-range attraction (scalar-isoscalar σ exchange) | derivation | live | machine | unset | F126 |
-| [CL113](docs/claims/CL113-deriving-from-the-lattice-rule-a-four-avenue.md) | Deriving $\alpha_\text{em}$ from the lattice rule: a four-avenue no-go | no_go | live | quantitative | unset | F127 |
+| [CL113](docs/claims/CL113-deriving-from-the-lattice-rule-a-four-avenue.md) | Deriving $\alpha_\text{em}$ from the lattice rule: a four-avenue no-go, characterized | no_go | live | quantitative | none | F127, F339, F349 |
 | [CL114](docs/claims/CL114-the-nn-short-range-repulsion-from-the-isoscalar.md) | The NN short-range repulsion from the isoscalar-vector (ω) meson, derived from existing model… | derivation | live | exact | unset | F128 |
 | [CL115](docs/claims/CL115-block-spin-rg-for-the-free-paired-photon.md) | Block-spin RG for the free paired-photon: c_lat is an exact RG fixed point and the… | derivation | live | exact | unset | F129 |
 | [CL119](docs/claims/CL119-unified-real-space-integration-the-full-chain-on.md) | Unified real-space integration: the full chain on one BCC lattice (proton quarks ↔ gluon… | derivation | live | exact | unset | F134 |
@@ -160,19 +163,19 @@
 | [CL157](docs/claims/CL157-how-much-of-tov-the-covariant-dielectric-recovers.md) | How much of TOV the covariant dielectric recovers: curvature feedback restores the maximum… | prediction | live | unset | unset | F176b |
 | [CL158](docs/claims/CL158-completing-the-self-duality-condition-from-the-bps.md) | Completing the self-duality condition from the BPS structure: the **radial** half *is* derived… | derivation | live | quantitative | unset | F177 |
 | [CL161](docs/claims/CL161-cosmology-under-the-f178-full-tensor-source-pressure.md) | Cosmology under the F178 full-tensor source: pressure gravitates, so radiation enters the… | derivation | live | exact | unset | F182 |
-| [CL162](docs/claims/CL162-tabulated-eos-neutron-stars-on-the-f181-kernel.md) | Tabulated-EoS neutron stars on the F181 kernel: SLy gives M_max=2.08 M⊙ and R(1.4)=11.1 km… | derivation | live | exact | unset | F184 |
+| [CL162](docs/claims/CL162-tabulated-eos-neutron-stars-on-the-f181-kernel.md) | Tabulated-EoS neutron stars on the F181 kernel: three published nuclear-matter cores (SLy, AP4… | derivation | live | quantitative | stated | F181, F184, F356 |
 | [CL163](docs/claims/CL163-slow-rotation-frame-dragging-and-moment-of-inertia.md) | Slow-rotation frame dragging and moment of inertia on the F181 kernel: I/MR²≈0.31, I≈0.6×10⁴⁵ g… | derivation | live | quantitative | unset | F185 |
 | [CL164](docs/claims/CL164-multi-component-cosmology-under-the-full-tensor-source.md) | Multi-component cosmology under the full-tensor source: z_eq≈3430, z_acc≈0.63, age≈13.8 Gyr… | derivation | live | quantitative | unset | F188 |
 | [CL165](docs/claims/CL165-compact-binary-inspiral-and-gw-phasing-gw150914-chirp.md) | Compact-binary inspiral and GW phasing: GW150914 chirp mass 28.1 M⊙, ISCO 67.6 Hz, ~0.19 s in… | derivation | live | quantitative | unset | F189 |
 | [CL166](docs/claims/CL166-dark-matter-under-f178-rotation-curves-cannot-separate.md) | Dark matter under F178: rotation curves cannot separate a dark halo from modified gravity, but… | no_go | live | unset | unset | F191 |
-| [CL168](docs/claims/CL168-the-model-native-emergent-gravity-dark-matter-without.md) | The model-native emergent-gravity (\"dark matter without dark matter\") route, falsified by the… | no_go | live | machine | unset | F194 |
+| [CL168](docs/claims/CL168-the-model-native-emergent-gravity-dark-matter-without.md) | The model-native emergent-gravity (\"dark matter without dark matter\") route, falsified by the… | no_go | live | machine | stated | F194, F358 |
 | [CL169](docs/claims/CL169-fully-stable-block-spin-atom-for-a-general.md) | Fully stable block-spin atom for a general element (Z, N) | derivation | live | unset | unset | F195 |
 | [CL172](docs/claims/CL172-the-angular-self-duality-the-first-principles-derivation.md) | The angular self-duality $C/\lvert B\rvert=1/(2\cos\tfrac23)=0.63622$: the first-principles… | no_go | live | exact | unset | F199 |
 | [CL174](docs/claims/CL174-the-saturated-condensate-induced-coupling-computation-built-end.md) | The saturated-condensate induced-coupling computation, built end-to-end: $C/\lvert B\rvert$… | no_go | live | exact | unset | F200 |
 | [CL178](docs/claims/CL178-the-alcubierre-warp-family-under-the-model-s.md) | The Alcubierre warp family under the model''s induced-gravity / beable source: the superluminal… | no_go | live | exact | unset | F204 |
 | [CL180](docs/claims/CL180-tier-b-inter-nucleon-nn-one-boson-exchange.md) | Tier-B inter-nucleon NN one-boson-exchange binding (closes the F195 frontier) | derivation | live | unset | unset | F206 |
 | [CL181](docs/claims/CL181-the-casimir-effect-in-the-bcc-weyl-qca.md) | The Casimir effect in the BCC Weyl-QCA model: the force is reproduced exactly from the F69… | no_go | live | exact | unset | F207 |
-| [CL182](docs/claims/CL182-relativistic-f125-dirac-coulomb-ionization-energies-in-the.md) | Relativistic (F125 Dirac–Coulomb) ionization energies in the multi-electron SCF, and the… | derivation | live | unset | unset | F208 |
+| [CL182](docs/claims/CL182-relativistic-f125-dirac-coulomb-ionization-energies-in-the.md) | Relativistic (F125 Dirac–Coulomb) ionization energies in the multi-electron SCF, and the… | derivation | live | unset | unset | F208, F371 |
 | [CL183](docs/claims/CL183-time-modulating-a-casimir-cavity-does-not-break.md) | Time-modulating a Casimir cavity does **not** break the F207-G1 degeneracy: the beable-source… | derivation | live | exact | unset | F209 |
 | [CL184](docs/claims/CL184-electrical-superconductivity-on-the-lattice-the-electric-s.md) | Electrical superconductivity on the lattice: the electric S-dual of F86 | derivation | live | exact | unset | F210 |
 | [CL185](docs/claims/CL185-tc-magnitude-from-real-superconductors-feeding-the-f210.md) | T_c magnitude from real superconductors: feeding the F210 gap equation real couplings | derivation | live | quantitative | unset | F211 |
@@ -203,38 +206,53 @@
 | [CL228](docs/claims/CL228-bound-state-qed-positronium-reduced-mass-spectrum-ortho.md) | Bound-state QED: positronium (reduced-mass spectrum + ortho–para hyperfine + decay rates)… | prediction | live | exact | unset | F262 |
 | [CL229](docs/claims/CL229-nonlinear-non-perturbative-qed-the-euler-heisenberg-effective.md) | Nonlinear & non-perturbative QED: the Euler–Heisenberg effective Lagrangian, light-by-light… | derivation | live | exact | unset | F263 |
 | [CL230](docs/claims/CL230-all-orders-qed-renormalizability-closure-ward-takahashi-and.md) | All-orders QED: renormalizability closure, Ward–Takahashi $Z_1=Z_2$ and charge universality… | derivation | live | exact | unset | F264 |
-| [CL255](docs/claims/CL255-spin-statistics-premises-derived.md) | The two premises the topological spin-statistics argument needs — the spatial dimension and the… | derivation | live | exact | stated | F289 |
-| [CL259](docs/claims/CL259-bbn-bounds-np-splitting.md) | BBN and the free-neutron lifetime bound m_n - m_p to +-0.0056 MeV, and the model''s own derived… | no_go | live | quantitative | stated | F297, F122, F123, F40 |
+| [CL232](docs/claims/CL232-the-model-native-dark-matter-relic-the-f47.md) | The model-native dark-matter relic: the F47 sterile right-handed neutrino. It is a total SM… | derivation | live | quantitative | unset | F266 |
+| [CL235](docs/claims/CL235-the-k-resolved-dielectric-photon-propagator-weyl-ordering.md) | The k-resolved dielectric photon propagator: Weyl ordering and the second-order half-step | derivation | live | unset | unset | F271 |
+| [CL255](docs/claims/CL255-spin-statistics-premises-derived.md) | The two premises the topological spin-statistics argument needs — the spatial dimension and the… | derivation | live | exact | stated | F289, F330 |
 | [CL260](docs/claims/CL260-lattice-radiation-equation-of-state.md) | The continuum radiation equation of state is a theorem of the lattice, with closed-form… | derivation | live | exact | stated | F300, F69, F26, F107 |
 | [CL261](docs/claims/CL261-cell-entropy-is-not-a-state-count.md) | The Bekenstein-Hawking per-cell entropy 2 pi sqrt3 cannot be a microstate count of any finite… | no_go | live | exact | none | F300, F190 |
 | [CL263](docs/claims/CL263-no-universal-momentum-map.md) | No single momentum reparametrisation can restore exact Lorentz covariance for both the photon… *(→ CL262)* | no_go | live | machine | stated | F301 |
 | [CL265](docs/claims/CL265-lattice-fermion-equation-of-state.md) | The lattice corrections to a relativistic Fermi gas are closed-form pure numbers exactly 31/4… *(→ CL260)* | derivation | live | exact | stated | F309, F300, F26, F67, F107 |
 | [CL266](docs/claims/CL266-gstar-from-model-content.md) | The relativistic degree-of-freedom count is derived from the model''s own content, not… | derivation | live | quantitative | stated | F309, F297, F47, F165, F279, F121 |
 | [CL268](docs/claims/CL268-noncontextuality-holds-for-any-compact-gauge-group.md) | Gleason's non-contextuality premise holds on every gauge factor of this model, and holds for… *(→ CL264)* | derivation | live | exact | stated | F312, F304, F281, F27, F41 |
-| [CL269](docs/claims/CL269-one-time-from-update-commutant.md) | For an s = 2 QCA on an infinite BCC Cayley graph, the local-homogeneous commutant of the update… | derivation | live | quantitative | stated | F313, F291, F292, F315, F316, F318 |
+| [CL269](docs/claims/CL269-one-time-from-update-commutant.md) | For an s = 2 QCA on an infinite BCC Cayley graph, the local-homogeneous commutant of the update… | derivation | live | quantitative | stated | F313, F291, F292, F315, F316, F318, F326 |
 | [CL270](docs/claims/CL270-second-clock-is-an-artifact-of-freeness.md) | The second dispersive clock that a free composite cell carries is an artifact of freeness — the… *(→ CL269)* | no_go | live | machine | stated | F315, F313 |
 | [CL271](docs/claims/CL271-colour-structure-forced-by-one-index.md) | Granted one internal index the rule does not read, the colour gauge group's unitarity… | derivation | live | exact | stated | F317, F91, F27, F68, F279, F293, F298, F289, F325 |
 | [CL272](docs/claims/CL272-cell-carries-the-internal-index-free.md) | An internal tensor factor costs the model zero spatial directions and zero time directions… *(→ CL271)* | derivation | live | exact | stated | F318, F317, F291, F313, F315, F289 |
 | [CL277](docs/claims/CL277-rho-equals-one-from-rank-not-custodial.md) | rho = 1 exactly, from the rank of the Higgs-free breaking rather than from custodial SU(2) *(→ CL007)* | derivation | live | exact | none | F320, F41, F27, F51, F141 |
-| [CL278](docs/claims/CL278-theta-qcd-zero-from-loop-set-reversal-closure.md) | The rule contains no theta-term, and no loop generates one — theta_QCD = 0 because the… | derivation | live | exact | stated | F321, F53, F43, F305, F307, F265, F91 |
+| [CL278](docs/claims/CL278-theta-qcd-zero-from-loop-set-reversal-closure.md) | The rule contains no theta-term, and no loop generates one — theta_QCD = 0 because the… | derivation | live | exact | stated | F321, F53, F43, F305, F307, F265, F91, F337, F340 |
 | [CL283](docs/claims/CL283-paired-photon-real-space-pair-group-velocity.md) | The paired-spinor photon propagates in real space at a closed-form pair group velocity… *(→ CL002)* | derivation | live | machine | stated | F314, F69, F105, F20 |
+| [CL291](docs/claims/CL291-majorana-scale-no-link-found.md) | Neither of ledger row D4''s two named candidates -- the F183/F107 lattice cutoff or the E_g/Z3… | no_go | live | exact | stated | F343, F47, F79, F107, F201, F236, F253, F282, F341 |
+| [CL293](docs/claims/CL293-minimal-top-condensation-excluded-at-model-cutoff.md) | Minimal single-channel top condensation for the F73 Cooper-pair Higgs, RG-improved from the… | no_go | live | quantitative | stated | F352, F73, F74, F77, F107 |
+| [CL296](docs/claims/CL296-the-models-own-vacuum-puts-3-18-times-the-beken.md) | The model computes its own induced 1/G two ways -- F79's Seeley-DeWitt heat-kernel mode sum and… | no_go | live | bracketed | stated | F355, F79, F190, F300, F278 |
+| [CL297](docs/claims/CL297-graviton-photon-band-top-planck-scale.md) | The paired photon/graviton dispersion law is bounded above by pi radians per CA tick exactly… | derivation | live | exact | stated | F357, F248, F69, F79, F352 |
+| [CL298](docs/claims/CL298-graviton-pair-collapse-threshold.md) | Two of the model''s own maximum-energy photons/gravitons collide head-on with exactly sqrt(pi)… | derivation | live | exact | stated | F359, F357, F228, F223, F79, F107 |
+| [CL300](docs/claims/CL300-blockspin-fluctuation-corrections-stay-integer.md) | Under F130''s fixed-lambda bond-moving convention, no finite-order strong-coupling fluctuation… | no_go | live | exact | stated | F362, F130, F310 |
+| [CL305](docs/claims/CL305-interacting-sector-eth-onset.md) | A next-nearest-neighbour interaction breaks a quadratic lattice-fermion sector''s generalised… | derivation | live | quantitative | stated | F300, F309, F376 |
 
-### narrowed (3)
+### narrowed (5)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
 | [CL087](docs/claims/CL087-confinement-from-3-1d-lattice-gauge-monte-carlo.md) | Confinement from 3+1D lattice-gauge Monte-Carlo: the engine and the Option-A/Option-C bridge… | derivation | narrowed | machine | stated | F94, F323, F265, F311 |
+| [CL176](docs/claims/CL176-can-the-model-source-the-lepton-asymmetry-resonant.md) | The model''s own Sakharov ingredients are structurally present, but neither of the two free… | no_go | narrowed | bracketed | stated | F202, F364, F201, F47, F53, F320 |
 | [CL257](docs/claims/CL257-ncolour-selected-not-derived.md) | N_c is not derived here — two routes are closed exactly, one is circular, the Lambda-scale… | derivation | narrowed | bracketed | stated | F293, F294, F298, F299, F303, F324, F325 |
+| [CL259](docs/claims/CL259-bbn-bounds-np-splitting.md) | BBN and the free-neutron lifetime bound m_n - m_p to +-0.0056 MeV; the model''s own derived… | no_go | narrowed | quantitative | stated | F297, F122, F123, F40, F372 |
 | [CL281](docs/claims/CL281-ncolour-bracketed-to-three.md) | $N_c=3$ is bracketed by two constraints that consume no measured number — F298''s C7 support… *(→ CL271)* | derivation | narrowed | exact | stated | F324, F317, F298, F318, F293, F279, F27, F75, F97, F99, F325 |
 
-### contingent (2)
+### contingent (7)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
-| [CL258](docs/claims/CL258-bbn-light-elements.md) | The model reproduces the primordial light elements on a structurally derived G with a… *(→ CL008)* | derivation | contingent | quantitative | stated | F297, F178, F182, F284, F79, F202 |
-| [CL280](docs/claims/CL280-running-alpha-leptonic-lattice-bounded-and-two-loop.md) | The model's leptonic running of alpha reproduces PDG Delta alpha(M_Z) to 0.0495%, and its… | derivation | contingent | quantitative | stated | F322, F311, F251, F277, F261, F138 |
+| [CL258](docs/claims/CL258-bbn-light-elements.md) | The model reproduces the primordial light elements on a structurally derived G with a… *(→ CL008)* | derivation | contingent | quantitative | stated | F297, F178, F182, F284, F79, F202, F361 |
+| [CL280](docs/claims/CL280-running-alpha-leptonic-lattice-bounded-and-two-loop.md) | The model's leptonic running of alpha reproduces PDG Delta alpha(M_Z) to 0.0495%, and its… | derivation | contingent | quantitative | stated | F322, F311, F251, F277, F261, F138, F336 |
+| [CL287](docs/claims/CL287-internal-index-existence-narrowed-to-confinement-and-baryon-statistics.md) | The colour index must exist ($N>1$) granted two named observational facts — real baryons are… *(→ CL272)* | derivation | contingent | exact | stated | F333, F317, F318, F324, F289 |
+| [CL290](docs/claims/CL290-majorana-neutrino-structurally-forced.md) | Majorana is the required completion of this model''s own hypercharge derivation, conditional on… | reinterpretation | contingent | exact | stated | F341, F47, F165, F202, F266, F279 |
+| [CL292](docs/claims/CL292-einstein-uniqueness-inherited-from-derived-dimension.md) | Given an emergent local diffeomorphism-invariant metric-only theory with second-order field… | derivation | contingent | quantitative | stated | F345, F178, F297, F59, F319, F288, F291, F326, F79, F107, F64, F106 |
+| [CL295](docs/claims/CL295-bounded-curvature-forces-a-regular-core-centre.md) | Bounded curvature alone forces a regular centre in the lattice core: the Kretschmann scalar is… | derivation | contingent | exact | stated | F354, F183 |
+| [CL303](docs/claims/CL303-sequestering-selectivity-identity-not-adopted.md) | A Kaloper-Padilla-style non-local/global sequestering mechanism achieves unbounded… | derivation | contingent | quantitative | stated | F367, F368, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59 |
 
-### open (86)
+### open (92)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -266,7 +284,7 @@
 | [CL099](docs/claims/CL099-the-f92-bridge-executed-as-a-dynamical-construction.md) | The F92 bridge executed as a dynamical construction: the pair-sum law is derived from the… | derivation | open | exact | unset | F109 |
 | [CL103](docs/claims/CL103-njl-calibration-the-cutoff-is-the-brillouin-zone.md) | NJL calibration: the cutoff $\Lambda$ is the Brillouin-zone edge (not a fit), the contact $G$… | derivation | open | exact | unset | F116 |
 | [CL105](docs/claims/CL105-the-self-consistent-derivation-closes-on-the-spontaneous.md) | The self-consistent $(W,v,c)$ derivation closes on the spontaneous-$E_g$ (Mexican-hat) branch… | no_go | open | exact | unset | F118 |
-| [CL106](docs/claims/CL106-tying-the-kilogram-into-the-mass-sector-the.md) | Tying the kilogram into the mass sector: the overall scale $N$ factorises cleanly out of the… | no_go | open | machine | unset | F119 |
+| [CL106](docs/claims/CL106-tying-the-kilogram-into-the-mass-sector-the.md) | Tying the kilogram into the mass sector: the overall scale $N$ factorises cleanly out of the… | no_go | open | machine | unset | F119, F233, F351 |
 | [CL116](docs/claims/CL116-a-proven-block-spin-rg-scheme-gauge-gravity.md) | A proven block-spin RG scheme (gauge + gravity sectors) | derivation | open | unset | unset | F130 |
 | [CL117](docs/claims/CL117-phase-2-a-coarse-grained-bound-state-reproduces.md) | Phase-2: a coarse-grained bound state reproduces the fine spectrum | prediction | open | unset | unset | F131 |
 | [CL118](docs/claims/CL118-coarse-graining-the-dynamical-relativistic-bound-states.md) | Coarse-graining the dynamical / relativistic bound states | prediction | open | unset | unset | F132 |
@@ -292,7 +310,6 @@
 | [CL171](docs/claims/CL171-the-f197-relic-obstruction-computed-vacuum-misalignment-of.md) | The F197 relic obstruction, computed: vacuum-misalignment of the $E_g$ **angular** mode… | derivation | open | exact | unset | F198 |
 | [CL173](docs/claims/CL173-working-out-the-amplitude-mode-from-f73-f93.md) | Working out the amplitude mode from F73/F93: $\Omega_\text{DM}=0.26$ does **not** fall out… | derivation | open | unset | unset | F199b |
 | [CL175](docs/claims/CL175-does-the-lattice-prefer-a-kev-sterile-the.md) | Does the lattice prefer a keV sterile? The F93/F76 Z₃ (E_g) generation texture, applied to the… | no_go | open | exact | unset | F201 |
-| [CL176](docs/claims/CL176-can-the-model-source-the-lepton-asymmetry-resonant.md) | Can the model source the lepton asymmetry resonant keV-DM production needs? Yes: all three… | no_go | open | unset | unset | F202 |
 | [CL177](docs/claims/CL177-the-dark-sector-falsifiability-battery-the-six-observational.md) | The dark-sector falsifiability battery: the six observational tests of… | no_go | open | exact | unset | F203 |
 | [CL179](docs/claims/CL179-the-full-boltzmann-quantum-kinetic-computation-of-kev.md) | The full Boltzmann (quantum-kinetic) computation of keV sterile-neutrino dark matter… | no_go | open | quantitative | unset | F205 |
 | [CL190](docs/claims/CL190-does-the-induced-gravity-sector-admit-a-massive.md) | Does the induced gravity sector admit a massive bound mode or a second polarization branch, and… | prediction | open | exact | unset | F216 |
@@ -313,7 +330,7 @@
 | [CL234](docs/claims/CL234-one-energy-convention-a-global-conservation-gate-and.md) | One energy convention, a global conservation gate, and the closed gravity loop | derivation | open | unset | unset | F270 |
 | [CL237](docs/claims/CL237-the-mode-sum-audit-every-dispersion-is-3.md) | The mode-sum audit: every dispersion is √3·fcc-periodic, and the cube is a *biased* sub-region | derivation | open | unset | unset | F273 |
 | [CL239](docs/claims/CL239-the-f272-refold-defect-was-in-four-places.md) | The $\bmod 2\pi$ refold is a real defect wherever the integrand lacks that period: four sites… | derivation | open | machine | stated | F277, F308, F307 |
-| [CL240](docs/claims/CL240-the-model-admits-no-slow-roll-inflaton-the.md) | The model admits **no** slow-roll inflaton: the F107 cell puts the lattice cutoff at… | no_go | open | exact | unset | F282 |
+| [CL240](docs/claims/CL240-the-model-admits-no-slow-roll-inflaton-the.md) | The model admits **no** slow-roll inflaton: the F107 cell puts the lattice cutoff at… | no_go | open | exact | unset | F282, F363 |
 | [CL241](docs/claims/CL241-an-elastic-lattice-is-excluded-four-ways-and.md) | An elastic lattice is excluded four ways, and it **cannot** rescue F282: because F79 ties $G$… | no_go | open | exact | unset | F283 |
 | [CL242](docs/claims/CL242-on-a-rigid-lattice-cosmic-expansion-is-the.md) | On a rigid lattice, cosmic expansion is the conformal mode of $K$, not the substrate… | prediction | open | exact | unset | F284 |
 | [CL243](docs/claims/CL243-all-three-initial-condition-routes-close-via-poisson.md) | All three initial-condition routes close: via Poisson the primordial index is just the density… | no_go | open | exact | unset | F285 |
@@ -324,6 +341,13 @@
 | [CL248](docs/claims/CL248-freeing-and-does-not-narrow-the-loop-would.md) | Freeing $\alpha$ and $G$ does **not** narrow the loop ($\alpha$ would need evaluating 68… | no_go | open | exact | unset | F295 |
 | [CL249](docs/claims/CL249-f295-s-structure-has-a-published-home-holographic.md) | F295''s structure has a published home: **holographic cosmology** computes $n_s-1$ from a 3D… | no_go | open | unset | unset | F296 |
 | [CL252](docs/claims/CL252-d1-tadpole-free-band-subtracted-against-wilson.md) | The lattice-to-MSbar constant for the rule action is bracketed: Lambda_MSbar/Lambda_rule in [1… *(→ CL022)* | derivation | open | bracketed | stated | F280, F287, F163, F162, F155, F239, F325 |
+| [CL288](docs/claims/CL288-hadronic-vmd-rho-omega-delta-alpha.md) | A model-internal rho+omega narrow-resonance VMD estimate captures ~10.2% of the data-driven… *(→ CL280)* | derivation | open | quantitative | stated | F334, F103, F128, F240 |
+| [CL289](docs/claims/CL289-reflection-positivity-bcc-lattice-action.md) | Link reflection positivity holds for the BCC3xZ lattice gauge action, for any compact group and… | derivation | open | machine | stated | F335, F265, F323, F313, F94 |
+| [CL294](docs/claims/CL294-delta-cp-inherits-the-t2g-no-go.md) | The Dirac CP phase inherits F254''s $T_{2g}$ no-go: $D_{2h}$ transports a complex amplitude by… *(→ CL223)* | no_go | open | exact | unset | F353 |
+| [CL299](docs/claims/CL299-horizon-thermodynamics-reproduces-frw-friedmann.md) | A Jacobson/Cai-Kim Clausius-relation argument at the flat-FRW apparent horizon reproduces the… | derivation | open | exact | stated | F360, F182, F188, F284, F178, F180, F79, F190, F355 |
+| [CL301](docs/claims/CL301-geon-relic-abundance-bounded-by-2025-gw-literature.md) | The F228/F238 geon / one-cell Planck-mass black-hole remnant dark-matter candidate''s free… | prediction | open | bracketed | stated | F365, F228, F238, F223 |
+| [CL302](docs/claims/CL302-geon-domain-wall-reopening-scope-boundary.md) | CL209''s "the geon relic abundance is a genuinely free input" is scoped to the… *(→ CL209)* | non_claim | open | bracketed | stated | F366, F238, F228, F282, F285, F150, F175, F234 |
+| [CL304](docs/claims/CL304-transfer-function-scale-setting-numbers-model-native.md) | Two of the imported EH98 transfer-function scale-setting numbers -- the sound horizon and the… *(→ CL254)* | derivation | open | quantitative | stated | F369, F288, F182, F188 |
 
 ### not_claimed (1)
 
@@ -331,7 +355,7 @@
 |---|---|---|---|---|---|---|
 | [CL279](docs/claims/CL279-theta-bar-not-predicted-strong-cp-not-solved.md) | The model does not predict theta-bar and does not solve the strong CP problem — the residual is… | non_claim | not_claimed | exact | none | F321, F53 |
 
-### withdrawn (21)
+### withdrawn (19)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -350,8 +374,6 @@
 | [CL200](docs/claims/CL200-route-3-the-lattice-register-saturates-tsirelson-exactly.md) | Route 3: the lattice register saturates Tsirelson $S_\text{CHSH}=2\sqrt2$ **exactly**, so it is… | derivation | withdrawn | exact | unset | F226 |
 | [CL205](docs/claims/CL205-the-overall-mass-scale-is-not-the-deepest.md) | The overall mass scale $N$ is **not** the deepest free number: F119''s \"no running channel\"… | no_go | withdrawn | machine | unset | F233 |
 | [CL231](docs/claims/CL231-the-gauge-sectors-were-bcc-in-the-propagator.md) | The gauge sectors were BCC in the propagator and cubic in the action; the composite plaquette… | derivation | withdrawn | unset | unset | F265 |
-| [CL232](docs/claims/CL232-the-model-native-dark-matter-relic-the-f47.md) | The model-native dark-matter relic: the F47 sterile right-handed neutrino. It is a total SM… | derivation | withdrawn | quantitative | unset | F266 |
-| [CL235](docs/claims/CL235-the-k-resolved-dielectric-photon-propagator-weyl-ordering.md) | The k-resolved dielectric photon propagator: Weyl ordering and the second-order half-step | derivation | withdrawn | unset | unset | F271 |
 | [CL236](docs/claims/CL236-the-background-field-loop-refolded-k-q-by.md) | The background-field loop refolded k+q by a period the rule kernel does not have | no_go | withdrawn | unset | unset | F272 |
 | [CL238](docs/claims/CL238-the-variable-weyl-stepper-had-global-order-zero.md) | The variable-$c$ Weyl stepper had global order **zero**; Weyl ordering plus the $h^2W^2/2$ term… | derivation | withdrawn | machine | unset | F276 |
 | [CL250](docs/claims/CL250-i-is-the-object-that-makes-a-transpose.md) | ε = iσ₂ is the object that makes a transpose bilinear a 3-vector; and no live gauge sector was… | derivation | withdrawn | exact | unset | F302 |

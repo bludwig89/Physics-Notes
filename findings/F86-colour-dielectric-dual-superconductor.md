@@ -5,6 +5,7 @@
 **Modules:** `ca-simulation/ca_colour_dielectric.py` (new)
 **Tests:** `tests/findings/test_FG7d_colour_dielectric.py`
 **Results:** `test-results/FG7d_colour_dielectric.json`
+**Test record:** record `FG7d-colour-dielectric` (tier battery) — this finding's own 6/6 script, baseline `test-results/FG7d_colour_dielectric.json`. `FG7e-colour-condensate` (F88) and `FG7f-gluon-dielectric-gap` (F117) both name F86 too: they derive its input and wire it into time evolution, so each goes red if the dual-superconductor construction is wrong. Declared 2026-08-19.
 **Cross-refs:** F43 (dynamical SU(3) gluons + Wilson primitives), F64 (gravity dielectric — the structural template), F70 (2D-exact area-law σ — the complementary anchor), F26 (c = rotation rate), F71/F74 (baryon, downstream P2).
 
 ---

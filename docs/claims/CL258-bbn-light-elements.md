@@ -7,8 +7,8 @@ kind: derivation
 status: contingent
 domain: [cosmology, GR, SM]
 exactness: quantitative
-findings: [F297, F178, F182, F284, F79, F202]
-tests: [F297-bbn-light-elements]
+findings: [F297, F178, F182, F284, F79, F202, F361]
+tests: [F297-bbn-light-elements, F361-bbn-a7-repair]
 modules: [src/casim/engine/interactions/cosmology_bbn.py]
 constants: [G_CODATA, g_A]
 supersessions: []
@@ -16,7 +16,7 @@ reviews: []
 rolls_up_to: CL008
 falsifier: stated
 first_issued: '2026-08-05'
-last_verified: '2026-08-05'
+last_verified: '2026-09-03'
 provenance: authored
 review_state: authored
 confidence: medium
@@ -57,6 +57,18 @@ and tests it on an unrelated observable, and agrees.
 | `tests/registry/interactions.yaml` → `F297-bbn-light-elements` | gate-tier record, 12/12 PASS, two declared red controls | quantitative |
 | `test-results/F297_bbn_light_elements.json` | the numbers | quantitative |
 | `src/casim/engine/interactions/cosmology_bbn.py` | `validate_network()` measures the network's own offset against published reference values | quantitative |
+| `findings/F361-bbn-a7-rate-repair-and-gdot-prediction.md` | the A=7 repair, K2-13 (Li7 validation), and the dot-G/G BBN-internal consistency check | quantitative |
+| `tests/registry/interactions.yaml` → `F361-bbn-a7-repair` | gate-tier record, 13/13 PASS, one declared red control | quantitative |
+| `test-results/F361_bbn_a7_repair.json` | the repaired numbers, and the control run | quantitative |
+
+**dot-G/G, stated precisely.** F284 derives $\dot G/G\equiv0$ exactly and compares it to the
+Hofmann–Müller 2018 LLR bound -- a genuine external *measurement* this claim could have failed.
+F361 additionally notes that every leg of this claim's own BBN run holds $G$ fixed across the whole
+BBN epoch by construction (no $G(t)$ term anywhere in `hubble_rate`), so the run is *structurally
+incapable* of returning $\dot G\ne0$. That the resulting $Y_p$/D/H still match data is a
+**BBN-internal consistency check** on the assumption, not a second independent measurement of it
+and not a new falsifier alongside F284's LLR bound -- stated this way deliberately, after F361's own
+attack-and-fix pass caught and corrected an earlier "confirmation" framing that overstated it.
 
 ## Falsifier
 
@@ -84,9 +96,14 @@ Three further limits are on the card deliberately rather than in a footnote:
 - The network carries a **measured $\sim0.9\%$ absolute offset** against published reference values.
   Every model-level conclusion is stated as a *difference computed inside the same network*, so the
   offset cancels; the absolute abundances quoted above carry it.
-- **No lithium claim is made.** The $A=7$ chain in this implementation is $92\%$ low against the same
-  reference, so four of the twelve rate fits are wrong or incomplete. Li7 is returned by the module
-  and excluded from the battery, and the standing lithium problem is untouched in either direction.
+- **Lithium is now validated (F361).** The five $A=7$-adjacent rate fits in `_rate_fits` were
+  transcribed with terms missing, mis-slotted, or (for $^7\text{Be}(n,\alpha)^4\text{He}$) an
+  outright wrong functional form, relative to L. Kawano's reference NUC123 code that Smith, Kawano &
+  Malaney 1993 itself updates. Repairing them term-by-term takes Li7/H from $-92\%$ to $-6.3\%$
+  against the same reference the other three species validate on, now included as check K2-13. The
+  standing *observational* lithium problem (standard BBN's own $\sim5\times10^{-10}$ prediction
+  against the $\sim1.6\times10^{-10}$ Spite-plateau measurement) is a different question and remains
+  untouched in either direction.
 - The energy-only exclusion is **conditional on a reading**. F182 A1 showed that law is internally
   inconsistent for $p\ne0$, so evaluating it requires choosing which equation survives; this control
   keeps the dynamical equation. Under the other reading the expansion history is identical and BBN
@@ -104,5 +121,7 @@ independent observational leg of.
 - `findings/F178-gravity-full-tensor-adoption.md`, `findings/F182-friedmann-pressure-cosmology.md`
 - `findings/F284-rigid-lattice-expansion-and-primordial-state.md`, `findings/F202-leptogenesis-from-intrinsic-L-violation.md`
 - `docs/status/completeness-2026-08-04.md` — rubric row K2
+- `findings/F361-bbn-a7-rate-repair-and-gdot-prediction.md`
 - Aver et al. 2021 JCAP 03, 027; Cooke, Pettini & Steidel 2018 ApJ 855, 102; Planck 2018 VI;
-  Smith, Kawano & Malaney 1993 ApJS 85, 219; Pitrou et al. 2018 (PRIMAT)
+  Smith, Kawano & Malaney 1993 ApJS 85, 219; L. Kawano's reference NUC123 code (LA-UR-92-3164);
+  Pitrou et al. 2018 (PRIMAT); Hofmann & Müller 2018 (LLR dot-G/G bound, via F284)

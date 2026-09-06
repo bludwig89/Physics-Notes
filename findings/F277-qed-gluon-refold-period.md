@@ -3,6 +3,8 @@
 *2026-08-02 - 07:19. Closes audit-V item **V-023** (`docs/audits/physics-audit-report-2026-08-01.md` §V4.4).*
 *Status: **established** (measured, fixed, grid-convergence verified, guarded). Extends [[F272]] to the QED and gluon sectors.*
 
+**Test record:** record `F272-F273-bz-period-lattices` (tier gate) — `tests/casim/test_bz_period_lattices.py` T6–T9: source-level, no refold survives at any of the four sites; $\Delta$ is negative, $q$-flat and grid-convergent; the self-energy spreads are $P$-flat; and the gluon bubble runs at the continuum log-slope. Declared 2026-08-19.
+
 ## 1. Claim
 
 F272 removed `((k+π) % 2π) − π` from `gauge/bgfield_loop._Bcoeff_numeric` because

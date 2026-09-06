@@ -48,7 +48,7 @@ Block-spin RG for the free paired-photon: c_lat is an exact RG fixed point and t
 
 `live`, inferred from the finding's own status line, quoted here verbatim so the inference is checkable:
 
-> Confirmed — 5/5 checks PASS. Part A is **Tier-1 exact** (sympy, symbolic in $b$); T1/T2/K/RS/V are **machine-precision** (FFT/round-off floor). This is the free-photon half of Phase 1 of `docs/roadmaps/roadmap-scale-to-real-space.md`; the gauge + gravity + confinement half is [[F130-blockspin-gauge-gravity]] (`ca_blockspin.py`).
+> Confirmed — 5/5 checks PASS. Part A is **Tier-1 exact** (sympy, symbolic in $b$); T1/T2/K/RS/V are **machine-precision** (FFT/round-off floor). This is the free-photon half of Phase 1 of `docs/roadmaps/completed/roadmap-scale-to-real-space.md`; the gauge + gravity + confinement half is [[F130-blockspin-gauge-gravity]] (`ca_blockspin.py`).
 
 **Date:** 2026-06-11
 

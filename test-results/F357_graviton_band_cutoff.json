@@ -1,0 +1,63 @@
+{
+  "all_pass": true,
+  "checks": {
+    "A_identity_theorem": {
+      "detail": {
+        "cos(pi-acos(a))+a": "0",
+        "d/db[acos a+acos b] - (-1/sqrt(1-b^2))": "0",
+        "numeric_identity_max_residual": 4.440892098500626e-16
+      },
+      "pass": true
+    },
+    "B_domain_nonneg": {
+      "detail": {
+        "cos(+-pi/2)_residual": 6.123233995736766e-17,
+        "min_cos_over_domain": 6.123233995736766e-17
+      },
+      "pass": true
+    },
+    "C_grid_bandtop": {
+      "detail": {
+        "grid_max": 3.1415926535897936,
+        "grid_max_over_pi": 1.0000000000000002,
+        "grid_min": 0.0,
+        "n_per_axis": 161,
+        "pairing_law": "even",
+        "physical_expected_max": 3.141592653589793
+      },
+      "pass": true
+    },
+    "D_boundary_saturation": {
+      "detail": {
+        "u_plus_plus_u_minus_at_theta_x=pi/2": "0"
+      },
+      "pass": true
+    },
+    "E_planck_ratio": {
+      "detail": {
+        "E_max_over_E_Planck_closed_form_even_law": 0.8247270830934508,
+        "E_max_over_E_Planck_numeric": 0.824727083093451,
+        "closed_form_expr": "sqrt(pi*sqrt(3)/8)",
+        "pairing_law": "even",
+        "physical_expected": 0.8247270830934508,
+        "tau_over_tPlanck": 3.809251227455829
+      },
+      "pass": true
+    },
+    "F_lambda_model_relation": {
+      "detail": {
+        "E_max_over_Lambda_model": 5.441398092702654,
+        "Lambda_model_over_E_Planck": 0.15156529058211626,
+        "pairing_law": "even",
+        "physical_expected": 5.441398092702654,
+        "physical_expected_closed_form": "pi*sqrt(3)"
+      },
+      "pass": true
+    }
+  },
+  "finding": "F357",
+  "n_pass": 6,
+  "n_total": 6,
+  "pairing_law": "even",
+  "title": "The paired photon/graviton band top: Omega_max = pi exactly, and E_max = 0.8248 E_Planck -- a computed answer to E12's 'UV completion beyond lattice-is-cutoff'"
+}

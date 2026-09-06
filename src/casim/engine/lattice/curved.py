@@ -407,7 +407,8 @@ def weyl_step_2d_varc_strang(f, g, c_field, n_sub=4,
     return f, g
 
 
-def f276_convergence_check(L=48, ticks=10, dc_amp=0.05) -> bool:
+def f276_convergence_check(L=48, ticks=10, dc_amp=0.05,
+                          ordering="weyl", order=2) -> bool:
     """F276 falsification handle, as a registry entry point (D9).
 
     Two sharp claims, both of which the algebra fixes and neither of which is
@@ -422,6 +423,14 @@ def f276_convergence_check(L=48, ticks=10, dc_amp=0.05) -> bool:
        The pre-F276 ratio is 1.00, a plateau.
 
     Returns True, or raises AssertionError naming the measurement that failed.
+
+    ``ordering`` and ``order`` are passed straight through to
+    :func:`weyl_step_2d_varc_strang` and default to the F276 scheme
+    (``ordering='weyl', order=2``). ``casim test --param ordering=asymmetric
+    --param order=1`` is a genuine negative control: those are the legacy
+    pre-F276 values this module's own docstring already measures at order
+    0.00 (no convergence at all) and norm-error ratio 1.00 (a plateau), both
+    of which this record's two assertions require to fail.
     """
     x = np.arange(L) - L / 2
     f0 = (np.exp(-(x[:, None] ** 2 + x[None, :] ** 2) / 64).astype(complex)
@@ -433,7 +442,8 @@ def f276_convergence_check(L=48, ticks=10, dc_amp=0.05) -> bool:
     def run(n_sub):
         f, g = f0.copy(), g0.copy()
         for _ in range(ticks):
-            f, g = weyl_step_2d_varc_strang(f, g, c_field, n_sub=n_sub)
+            f, g = weyl_step_2d_varc_strang(f, g, c_field, n_sub=n_sub,
+                                            ordering=ordering, order=order)
         return f, g
 
     # (1) global order

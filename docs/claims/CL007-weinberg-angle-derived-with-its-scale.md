@@ -42,7 +42,7 @@ The Standard Model, in which the weak mixing angle is a free input. The model pr
 
 Headline numbers: $\sin^2\bar\theta_W(M_Z)=0.23173$ vs $0.23122$ (+0.22%); $m_Z/m_W=3/\sqrt7=1.133893$ vs $91.1880/80.3692=1.134614$ (**−0.064%**). Both zero-free-parameter, against **PDG 2025 / CODATA 2022**.
 
-**Open:** F49's title says *partial derivation*; the 8/7 closure is a named open item (`docs/roadmaps/prompt-weinberg-8over7-closure.md`, F141, F147). This card states what is closed.
+**Open:** F49's title says *partial derivation*; the 8/7 closure is a named open item (`docs/roadmaps/completed/prompt-weinberg-8over7-closure.md`, F141, F147). This card states what is closed.
 
 ## Falsifier
 

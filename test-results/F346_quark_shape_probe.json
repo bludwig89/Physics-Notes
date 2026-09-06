@@ -1,0 +1,120 @@
+{
+  "C1": {
+    "check": "C1",
+    "up_type": {
+      "mu": 150.85475803038338,
+      "eta": 1.7586248279426557,
+      "eta2": 3.0927612854563353,
+      "delta": 2.1689120431938322,
+      "delta_mod_2pi_over_3": 0.07451694080063698,
+      "max_reconstruction_residual": 1.2079226507921703e-13,
+      "Q": 0.8487935475760557
+    },
+    "down_type": {
+      "mu": 25.504534763285083,
+      "eta": 1.5452266697682346,
+      "eta2": 2.3877254609630287,
+      "delta": 2.204513847752493,
+      "delta_mod_2pi_over_3": 0.11011874535929778,
+      "max_reconstruction_residual": 1.5987211554602254e-14,
+      "Q": 0.7312875768271714
+    },
+    "F80_D4_Q_up_recorded": 0.849,
+    "F80_D4_Q_down_recorded": 0.731
+  },
+  "C2_C3": {
+    "check": "C2_C3",
+    "up_type": {
+      "delta_mod_2pi_over_3": 0.07451694080063698,
+      "mc_mean": 0.07451656959857769,
+      "mc_sigma": 0.0001672129936032033,
+      "distances": {
+        "A_1g (1/9)": {
+          "abs_diff_rad": 0.03659417031047413,
+          "sigma": 218.84764767331512,
+          "two_sided_tail_p": 0.0
+        },
+        "E_g (2/9)": {
+          "abs_diff_rad": 0.14770528142158523,
+          "sigma": 883.3361465442698,
+          "two_sided_tail_p": 0.0
+        },
+        "T_1g_or_T_2g (1/3)": {
+          "abs_diff_rad": 0.25881639253269634,
+          "sigma": 1547.8246454152245,
+          "two_sided_tail_p": 0.0
+        }
+      },
+      "nearest_candidate": "A_1g (1/9)",
+      "nearest_sigma": 218.84764767331512,
+      "nearest_tail_p": 0.0
+    },
+    "down_type": {
+      "delta_mod_2pi_over_3": 0.11011874535929778,
+      "mc_mean": 0.11011920407663092,
+      "mc_sigma": 0.0006865797804322172,
+      "distances": {
+        "A_1g (1/9)": {
+          "abs_diff_rad": 0.0009923657518133289,
+          "sigma": 1.445375730681455,
+          "two_sided_tail_p": 0.1483523765289898
+        },
+        "E_g (2/9)": {
+          "abs_diff_rad": 0.11210347686292443,
+          "sigma": 163.2781507086515,
+          "two_sided_tail_p": 0.0
+        },
+        "T_1g_or_T_2g (1/3)": {
+          "abs_diff_rad": 0.22321458797403554,
+          "sigma": 325.1109256866216,
+          "two_sided_tail_p": 0.0
+        }
+      },
+      "nearest_candidate": "A_1g (1/9)",
+      "nearest_sigma": 1.445375730681455,
+      "nearest_tail_p": 0.1483523765289898
+    }
+  },
+  "C4": {
+    "check": "C4",
+    "domain_L_rad": 2.0943951023931953,
+    "per_sector": {
+      "up_type": {
+        "central_distance_to_nearest_rad": 0.03659417031047413,
+        "p_uniform_domain_single_sector": 0.10483457567865545
+      },
+      "down_type": {
+        "central_distance_to_nearest_rad": 0.0009923657518133289,
+        "p_uniform_domain_single_sector": 0.0028429184656115335
+      }
+    },
+    "p_either_sector_within_its_own_observed_distance": 0.10737945799323567,
+    "p_at_least_one_of_2_sectors_this_extreme_by_chance": 0.005677754745820995,
+    "note": "Range-based (uniform-domain) look-elsewhere probability -- NOT the measurement-precision sigma from C2/C3, which answers a different question (data-compatibility with the candidate, where SMALL sigma means the candidate is NOT excluded, not that a match was 'found by chance'). This corrects an earlier draft of this module that used the measurement sigma for the chance-coincidence question, which inverts the wrong direction (a tighter future measurement landing exactly on a candidate would have been reported as 'not significant' by that formula) -- see the review. Under the uniform-domain null, down-type's proximity to 1/9 is NOT common (~0.3% for that sector alone, ~0.6% for the more extreme of the two sectors) -- a modest but real numerical coincidence, not something to wave away as likely by pure chance. It is still not adopted (see C1/finding for the two reasons that do not depend on this number: no independent theoretical motivation, and no matching behaviour in the up-type sector)."
+  },
+  "C5": {
+    "check": "C5",
+    "mu": 17.71556171020294,
+    "eta": 1.4142005051594106,
+    "eta2": 1.9999630687931322,
+    "delta": 2.3166247338734784,
+    "delta_mod_2pi_over_3": 0.22222963148028319,
+    "max_reconstruction_residual": 1.0658141036401503e-14,
+    "delta_star_target_2_over_9": 0.2222222222222222,
+    "delta_relative_error": 3.3341661274388645e-05,
+    "eta_target_sqrt2": 1.4142135623730951,
+    "eta_absolute_error": 1.3057213684497526e-05
+  },
+  "verdict_record": {
+    "checks": {
+      "C1_pipeline_matches_F80_D4": true,
+      "C2_up_type_decisively_excluded": true,
+      "C3_down_type_not_excluded_by_data": true,
+      "C4_lookelsewhere_not_overwhelming_but_not_dismissible": true,
+      "C5_amplitudes_differ_from_lepton": true,
+      "C6_method_validated_on_leptons": true
+    },
+    "pass": true,
+    "verdict": "Leaning no-go for ledger E6's smallest-version question: the F175/F92 E_g/T_1u SHAPE mechanism (a specific delta and eta, not just the generation count) does not carry over to either quark sector. Up-type's fitted angle is incompatible (>50 sigma, measurement precision) with every single-irrep O_h weight -- a clean, decisive miss. Down-type's fitted angle is NOT excluded by current data from the A_1g weight 1/9, and the central proximity is a real, if modest, numerical coincidence under a uniform-domain look-elsewhere estimate (roughly 0.1-5%, not vanishingly rare but not common either -- see the review for the correction of an earlier, wrong framing of this number). It is flagged, not adopted, for two reasons that do NOT depend on that probability estimate: no independent theoretical motivation for the A_1g weight in the down-type sector (unlike the lepton's E_g, which has F80's charge/colour selection story), and no matching behaviour in the up-type sector, which undermines any claim of a shared quark-sector mechanism. Not a full closure: a different quark-sector mechanism has not been ruled out, only the direct transplant of the lepton mechanism."
+  }
+}

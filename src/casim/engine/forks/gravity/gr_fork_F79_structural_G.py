@@ -75,7 +75,7 @@ from casim.constants import (
 # S1 - c_lat = 1/sqrt(d) is structural, and 1/G carries 1/c_lat exactly
 # ----------------------------------------------------------------------
 def s1_clat_and_inverse_G_scaling(d_list=(1, 2, 3, 4), Lambda=1.0, n=240):
-    """
+    r"""
     The induced Newton object is the vacuum mode integral
         I(c) = \int_{|k|<Lambda} d^d k/(2pi)^d * 1/(2 omega),  omega = c|k|.
     For a relativistic cone this is analytic; in d=3,
@@ -159,7 +159,7 @@ def _em_stress_tensor(E, B):
 
 
 def s3_em_traceless_zero_tree_stiffness(n_samples=4000, seed=7):
-    """
+    r"""
     A conformal factor sigma (here ln K, the gravity field) couples to the matter
     action as delta S = \int sqrt(g) T^mu_mu * delta sigma.  If T^mu_mu = 0 the
     conformal factor has NO source and NO tree action -- a flat direction.  The

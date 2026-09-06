@@ -1,0 +1,48 @@
+{
+  "stamp": "2026-09-04 - 17:10",
+  "n_pass": 7,
+  "n_total": 7,
+  "all_pass": true,
+  "elapsed_s": 0.07421255111694336,
+  "results": {
+    "V1_seesaw_roundtrip": {
+      "pass": true,
+      "residual": 6.274325276185621e-09,
+      "note": "Casas-Ibarra M_D regenerates the input light spectrum to <1e-6"
+    },
+    "V2_sphalerons_fast": {
+      "pass": true,
+      "Gamma_sph_over_H_at_Tsph": 1.1787573416294076e+16,
+      "note": "Gamma_sph/H >> 1 at T_sph using the model's own sin^2(theta_W)=2/9"
+    },
+    "V3_native_split_order_unity": {
+      "pass": true,
+      "M23_split_relative": 1.734863659794289,
+      "note": "F201's own texture does NOT naturally deliver near-degenerate N2,N3"
+    },
+    "V4_cp_phase_falls_short": {
+      "pass": true,
+      "best_ratio": -1.865032904282207e-11,
+      "note": "CP-phase-only lever caps ~10-11 decades short of observed Y_B"
+    },
+    "V5_resonance_reaches_observed": {
+      "pass": true,
+      "peak_ratio": -1.4677428786900852,
+      "peak_r": 1e-17,
+      "note": "the mass-splitting resonance lever CAN reach/exceed observed Y_B"
+    },
+    "V6_required_degeneracy_far_below_native": {
+      "pass": true,
+      "success_window_r": {
+        "r_lo": 5.623413251903491e-18,
+        "r_hi": 1.7782794100389228e-17
+      },
+      "native_split_r": 1.734863659794289,
+      "note": "required degeneracy is >=10 orders of magnitude finer than the texture's own native split"
+    },
+    "V7_solver_success": {
+      "pass": true,
+      "note": "Boltzmann ODE integration reports success"
+    }
+  }
+}

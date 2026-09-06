@@ -5,6 +5,7 @@
 **Module:** `ca-simulation/ca_baryon_dynamics.py`
 **Script:** `tests/findings/test_P2_baryon_bound_state.py` (~1.5 s)
 **Results:** `test-results/P2_baryon_bound_state.json`
+**Test record:** record `P2-baryon-bound-state` (tier battery) — the script above, baseline `test-results/P2_baryon_bound_state.json`. `P6-si-scale` (F123) also names F122: the 3m_c nucleon rests on this bound state. Declared 2026-08-19.
 **Cross-references:** [[F71-colour-singlet-baryon-proton]] (the operator-level proton this makes dynamical), [[F97-baryon-phase-closure-no-go]] (mass is centre-closure/string, not constituent phase — the constraint this obeys), [[F74-bound-state-binding]] (the two-body solver generalised here to three bodies), [[F70-gradient-flow-confinement-string-tension]] / [[F94-lattice-gauge-mc-vs-F86]] / [[F110-realtime-link-hamiltonian-confinement]] (P1 — the confining string that sources the mass), [[F40-quark-Y-and-dynamical-chi-kinetic]] (d–u mass ratio used in the n–p splitting), [[F103-p3-dynamical-pion-goldstone]] / [[F104-p4-deuteron-tensor-bound-nucleus]] (the P3/P4 siblings that reused the same F74 engine).
 
 ---

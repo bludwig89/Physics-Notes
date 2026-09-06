@@ -1,0 +1,77 @@
+{
+  "z6_degeneracy": {
+    "n_vacua_exact": 6,
+    "vacua_deltas": [
+      0.5235987755982989,
+      1.5707963267948966,
+      2.6179938779914944,
+      3.6651914291880923,
+      4.71238898038469,
+      5.759586531581288
+    ],
+    "exactly_degenerate": true
+  },
+  "z6_symmetry": {
+    "shift": "delta -> delta + pi/3",
+    "V_shift_minus_V": "0",
+    "identically_zero": true
+  },
+  "f238_scope_check": {
+    "framing_findings_checked": [
+      "F238",
+      "F228",
+      "F282",
+      "F283",
+      "F284",
+      "F285"
+    ],
+    "per_finding": {
+      "F238": {
+        "found_file": true,
+        "file": "F238-geon-relic-abundance.md",
+        "defect_terms_present": []
+      },
+      "F228": {
+        "found_file": true,
+        "file": "F228-geon-production-and-stability.md",
+        "defect_terms_present": []
+      },
+      "F282": {
+        "found_file": true,
+        "file": "F282-no-slow-roll-inflaton-sub-planckian-cutoff.md",
+        "defect_terms_present": []
+      },
+      "F283": {
+        "found_file": true,
+        "file": "F283-elastic-lattice-excluded-and-f282-invariance.md",
+        "defect_terms_present": []
+      },
+      "F284": {
+        "found_file": true,
+        "file": "F284-rigid-lattice-expansion-and-primordial-state.md",
+        "defect_terms_present": []
+      },
+      "F285": {
+        "found_file": true,
+        "file": "F285-initial-condition-measure-cannot-tilt.md",
+        "defect_terms_present": []
+      }
+    },
+    "defect_channel_previously_discussed": false
+  },
+  "reused_clock_amplitude_A": 0.037690345750370856,
+  "open_items": [
+    "A causally-early dynamics for delta establishing that it actually SETTLES into one of the 6 wells via a horizon-limited process (rather than being pinned there from t=0 by fiat) -- argued from F285's own generic/natural t=0 measure (sec.D1 of that finding), not separately derived here.",
+    "Confirmation the settling is a genuine phase transition capable of leaving a real Z_6 wall network, not a smooth wall-free relaxation -- no finite-temperature (or other causally-early) effective potential for the E_g condensate exists in the model yet.",
+    "The wall tension sigma_wall in physical units. This needs the E_g doublet's canonical kinetic-term normalisation, which F282's own 2026-09-04 update (F363) explicitly flags as unresolved: 'whether the E_g doublet's kinetic term is exactly canonical (assumed here, never independently derived)'.",
+    "A network-collapse-fraction (wall-collision PBH yield) computation -- standard in the literature (Rubin-Sakharov-Khlopov; Gouttenoire-Sfakianakis 2023) but not yet built on this lattice.",
+    "A resolution of the generic Z_6 domain-wall overclosure problem: either an explicit small bias breaking the exact vacuum degeneracy (new physics not currently in the model) or a demonstration that the network collapses to PBHs within a few Hubble times of formation, before reaching the scaling regime that would overclose the universe -- itself an open calculation, not a given."
+  ],
+  "checks": {
+    "C1_six_exact_vacua": true,
+    "C2_vacua_exactly_degenerate": true,
+    "C3_exact_z6_symmetry": true,
+    "C4_defect_channel_not_previously_examined": true
+  },
+  "all_checks_pass": true
+}

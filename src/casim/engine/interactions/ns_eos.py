@@ -35,8 +35,21 @@ GC4 = G_CGS / C_CGS**4         # s^2 g^-1 cm^-1  (pressure -> geometric cm^-2)
 # Core: (log10 p1 [dyn/cm^2 at rho1=10^14.7], Gamma1, Gamma2, Gamma3)
 EOS_PARAMS = {
     "SLy": (34.384, 3.005, 2.988, 2.851),
-    "APR": (34.616, 3.514, 3.141, 3.291),   # APR4
+    # F356 (2026-09-03): the digits previously here, (34.616, 3.514, 3.141, 3.291),
+    # did NOT match Read et al. (2009) Table III's AP4 row under any labeling checked
+    # against the paper directly -- corrected to the verified AP4 row (the Read
+    # piecewise-polytrope fit to the Akmal-Pandharipande-Ravenhall EoS). See F356
+    # "Reviewed & corrected" and findings/F184-tabulated-eos-neutron-stars.md's
+    # correction note for the numeric consequence (F184 N2 flips PASS->FAIL).
+    "APR": (34.269, 2.830, 3.445, 3.348),   # AP4 (Read fit to APR), corrected F356
     "MPA1": (34.495, 3.446, 3.572, 2.887),
+    # F356: two more Read et al. (2009) Table III entries, chosen to bracket
+    # SLy/APR/MPA1 on stiffness -- WFF1 (soft) and MS1 (very stiff, the
+    # literature's standard "too stiff" boundary case) -- so the absolute
+    # NICER/PSR comparison in F356 has genuine discriminating power, not just
+    # EoS that all happen to pass.
+    "WFF1": (34.031, 2.519, 3.791, 3.660),
+    "MS1": (34.858, 3.224, 3.033, 1.325),
 }
 # common crust low-density polytrope (Read et al.): p = K_crust rho^Gamma_crust
 GAMMA_CRUST = 1.35692

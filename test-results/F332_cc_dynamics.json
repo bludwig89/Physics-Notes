@@ -1,0 +1,77 @@
+{
+  "all_pass": true,
+  "bare_source_horizon": {
+    "I_cc": 4.08104856952699,
+    "R_H_closed_m": 6.465019999999999e-35,
+    "R_H_direct_m": 6.465019999999999e-35,
+    "R_H_over_a": 0.6062611623284649,
+    "a_m": 1.0663754173481642e-34,
+    "closed_form_relative_residual": 0.0,
+    "ratio_to_observed_RH_dex": 60.32952945211138,
+    "rho_vac_bare_SI": 3.45635824918628e+111
+  },
+  "blockspin_asymptotics": {
+    "C_cc": 7.839379218968002,
+    "C_g": 0.9842102735623445,
+    "I_cc_values": [
+      0.07839594261146475,
+      0.02613331683727077,
+      0.007840040639340243,
+      0.002613348215672581,
+      0.0007840045105194828
+    ],
+    "I_g_values": [
+      98.41875334894449,
+      295.24354661149715,
+      984.1403357274061,
+      2952.419736324896,
+      9841.398623666786
+    ],
+    "b_values": [
+      100.0,
+      300.0,
+      1000.0,
+      3000.0,
+      10000.0
+    ],
+    "p_cc": -0.9999895401459726,
+    "p_g": 0.9999911896979506
+  },
+  "blockspin_selectivity": {
+    "G_ratio_coarse_over_bare": 3.1202762892189124e+30,
+    "allowed_delta_G_over_G": 2.2e-05,
+    "b_star": 1.5495151303010785e+30,
+    "delta_G_over_G": 3.1202762892189124e+30,
+    "density_exponent_3_minus_p_cc": 3.9999895401459726,
+    "excess_orders_of_magnitude": 35.15177037010991,
+    "excluded": true,
+    "required_dex": 120.76046750008447
+  },
+  "ceiling_is_friedmann": {
+    "G_SI": 6.67429980237485e-11,
+    "relative_residual": 0.0,
+    "rho_ceiling": 3.4563582491862806e+111,
+    "rho_friedmann": 3.4563582491862806e+111
+  },
+  "checks": {
+    "K1-bare-source-subcell-horizon": true,
+    "K1-ceiling-is-friedmann": true,
+    "K2-homogeneous-source-blind": true,
+    "K3-blockspin-asymptotic-exponents": true,
+    "K4-blockspin-order-selectivity-excluded": true
+  },
+  "finding": "F332",
+  "homogeneous_source_blind": {
+    "S0": 1.0,
+    "dc_residual_over_S0": 1.0,
+    "max_offdiagonal_residual": 0.0,
+    "subtract_source_mean": false
+  },
+  "params": {
+    "allowed_delta_G_over_G": null,
+    "g_star": 2.0,
+    "n": 90,
+    "required_dex": null,
+    "subtract_source_mean": false
+  }
+}

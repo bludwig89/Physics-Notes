@@ -1,0 +1,41 @@
+{
+  "all_pass": true,
+  "checks": {
+    "S3-coefficient-is-exact-3n-at-physical-measure": true,
+    "S3-constant-source-exactly-cancels": true,
+    "S5-matter-residual-within-1dex-of-observed": true
+  },
+  "finding": "F367",
+  "matter_dominated_residual": {
+    "coefficient_3n": 2.0,
+    "dex_from_observed": -0.0356881175626839,
+    "omega_lambda_observed": 0.68460818,
+    "omega_m0": 0.3153,
+    "predicted_omega_lambda_over_rho_crit": 0.6306
+  },
+  "params": {
+    "include_vacuum_subtraction": true,
+    "measure_power": 3,
+    "omega_m0": 0.3153,
+    "power_denominator": 3,
+    "power_numerator": 2
+  },
+  "required_selectivity": {
+    "required_a0_suppression_dex": 120.76046750008447,
+    "required_relative_selectivity": 1.27e+116,
+    "this_mechanism_selectivity": Infinity
+  },
+  "sequestering_symbolic_identity": {
+    "coefficient_at_n": "2",
+    "coefficient_matches_3n": true,
+    "dresidual_dC_at_n": "0",
+    "dresidual_dC_general": "0",
+    "dresidual_dC_is_zero": true,
+    "expected_3n_at_n": "2",
+    "measure_power": 3,
+    "n": "2/3",
+    "residual_at_n": "2*rho_m0",
+    "residual_general": "3*n*rho_m0",
+    "residual_over_rho_m0_general": "3*n"
+  }
+}

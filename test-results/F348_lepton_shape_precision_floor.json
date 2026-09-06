@@ -1,0 +1,56 @@
+{
+  "D1": {
+    "r_mu_e_pred": 206.77031597272907,
+    "r_mu_e_pdg": 206.76828298766566,
+    "pct_err_mu": 0.0009832190092318172,
+    "r_tau_e_pred": 3477.4728371046003,
+    "r_tau_e_pdg": 3477.228280018971,
+    "pct_err_tau": 0.007033104125908629,
+    "resid_tau_MeV": 0.12496841397166665,
+    "m_tau_unc_MeV": 0.12,
+    "resid_tau_sigma": 1.0414034497638889
+  },
+  "D2": {
+    "delta_offset": 6.777777777799976e-06,
+    "eta2_offset": -9.199999999986996e-06,
+    "jacobian": {
+      "dmu_ddelta": 11608.934057107945,
+      "dtau_ddelta": 178140.46105286252,
+      "dmu_deta2": 9536.154294380594,
+      "dtau_deta2": 169443.50095400296
+    },
+    "linearized_delta_r_mu": -0.00904984423196592,
+    "actual_delta_r_mu": -0.009050694845569751,
+    "linearized_delta_r_tau": -0.35148375052349023,
+    "actual_delta_r_tau": -0.35148052950080455,
+    "rel_reconstruction_err_mu": 9.398323756849072e-05,
+    "rel_reconstruction_err_tau": 9.16415680339126e-06
+  },
+  "D3": {
+    "thresholds": {
+      "2": {
+        "needed_unc_MeV": 0.062484206985833325,
+        "improvement_factor": 1.920485284020759
+      },
+      "3": {
+        "needed_unc_MeV": 0.04165613799055555,
+        "improvement_factor": 2.8807279260311383
+      },
+      "5": {
+        "needed_unc_MeV": 0.02499368279433333,
+        "improvement_factor": 4.8012132100518965
+      }
+    }
+  },
+  "verdict_record": {
+    "checks": {
+      "D1_reproduces_F175_D4": true,
+      "D1_tau_residual_below_2sigma": true,
+      "D2_single_offset_explains_both_residuals": true,
+      "D3_3sigma_needs_improvement_factor_between_2_and_4": true,
+      "D3_5sigma_needs_improvement_factor_between_4_and_6": true
+    },
+    "pass": true,
+    "verdict": "No computed next-order correction is available or owed: the 0.007% m_tau/m_e residual from the exact delta*=2/9, eta^2=1/2 prediction (F175 D4) is a single 1.041-sigma effect against the current PDG m_tau uncertainty (+-0.12 MeV) -- statistically indistinguishable from measurement noise, not a discrepancy the model owes a correction for. A numeric Jacobian shows the SAME small (delta, eta2) offset that F174 S4 already flagged (the free-fit values sitting ~1 sigma from the exact ones) reconstructs both the 0.001% muon and 0.007% tau residuals simultaneously to <1% relative error -- there is one joint offset, not two independent unexplained corrections. F256 already showed the model's only candidate dynamical mechanism for shifting delta* away from exactly 2/9 (the Landau route cos(3 delta*)=-B/(2C)) cannot do so exactly, so no in-model computation can supply an independent next-order term here; adding one by hand would be a fit, not a derivation, and this project's stated precision philosophy (CLAUDE.md Practices) rules that out. Ledger row E1 stays honestly QUANT x2. Named re-attack condition: the m_tau world average would need to tighten from +-0.12 MeV to +-0.0417 MeV (a 2.88x improvement) for this residual to reach 3-sigma significance, or +-0.0250 MeV (4.80x) for 5-sigma -- below that, this is not a live question and effort is better spent on higher-priority ledger rows."
+  }
+}

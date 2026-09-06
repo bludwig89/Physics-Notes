@@ -1,0 +1,69 @@
+{
+  "all_pass": true,
+  "verdict": "PASS",
+  "checks": {
+    "F336-1": {
+      "ok": true,
+      "what": "Euclidean dispersion integral of F251's own Im Pi reproduces F251's closed-form Delta alpha^(1) (zero free parameters)",
+      "rel_err": 1.8034529263474921e-13
+    },
+    "F336-2": {
+      "ok": true,
+      "what": "sympy: Im Pi=(alpha/3)R(s) at m->0 matches F251; cited R^(1) -> leading-log coeff (alpha/pi)^2/4, identical to F261's sympy-exact b1=1",
+      "R1_used": "3*alpha/(4*pi)"
+    },
+    "F336-3": {
+      "ok": true,
+      "what": "the SAME dispersion quadrature as F336-1, given a constant Im Pi^(2), reproduces the elementary closed form to machine precision",
+      "rel_err": 4.1077786261527494e-13
+    }
+  },
+  "n_pass": 3,
+  "n_total": 3,
+  "CAL_one_loop_calibration": {
+    "Q2_probe_over_mf2": 1000000000000.0,
+    "dispersive_numeric": 0.0201035026300004,
+    "closed_form_F251": 0.020103502630004027,
+    "rel_err": 1.8034529263474921e-13,
+    "gate_pass": true,
+    "statement": "the Euclidean dispersion integral of F251's own Im Pi reproduces F251's closed-form Delta alpha^(1)(Q^2) to 1.80e-13 at Q^2/mf^2=1e+12, zero free parameters -- the machinery is validated before extending it to two loops."
+  },
+  "LL_two_loop_leading_log_symbolic": {
+    "R_tree_unit_charge": "1",
+    "one_loop_calibration_ok": true,
+    "R1_massless_cited": "3*alpha/(4*pi)",
+    "R1_massless_source": "Appelquist-Georgi 1973 / Zee 1973 (abelian C_F->1 limit of the QCD 1+alpha_s/pi K-factor)",
+    "Im_Pi2_infty_symbolic": "alpha**2/(4*pi)",
+    "Im_Pi2_infty_matches_alpha2_over_4pi": true,
+    "coeff_of_L_two_loop_units_alpha_over_pi_sq": "1/4",
+    "F261_b1": 1,
+    "F261_b1_over_4": "1/4",
+    "matches_F261_leading_log": true,
+    "gate_pass": true,
+    "statement": "Im Pi(s)=(alpha/3)R(s) checked exactly at m->0 against F251; feeding the cited massless R^(1)=(3/4)(alpha/pi) gives Im Pi^(2)(inf)=alpha^2/4pi, hence a leading-log coefficient (alpha/pi)^2/4 -- identical to F261's sympy-exact b1=1, via an independent construction (unitarity+dispersion vs. direct beta-function algebra)."
+  },
+  "LL_two_loop_leading_log_numeric": {
+    "C_ImPi2_infty": 4.237608143381182e-06,
+    "C_matches_alpha2_over_4pi": true,
+    "Q2_probe_over_mf2": 1000000000000.0,
+    "dispersive_numeric": 3.540079191676263e-05,
+    "closed_form_elementary": 3.540079191677717e-05,
+    "rel_err_quadrature_vs_elementary": 4.1077786261527494e-13,
+    "coeff_over_L_finite_Q2": 1.2811973820379377e-06,
+    "target_alpha_pi_sq_over_4": 1.3488725658111685e-06,
+    "C_over_pi_exact_LL_coeff": 1.3488725658111685e-06,
+    "F261_reference_coeff": 1.3488725658111685e-06,
+    "matches_F261_reference": true,
+    "note": "coeff_over_L undershoots target at finite Q2 by the elementary ln(4)/L correction (the same subleading finite-Q2 shift the one-loop '-5/3' constant reflects) -- the exact C/pi check above is the honest one; the naive coeff/L ratio converges only logarithmically slowly and is reported for transparency.",
+    "gate_pass": true,
+    "statement": "the SAME dispersion quadrature as the one-loop calibration gate, given a constant Im Pi^(2), reproduces the elementary closed form to machine precision (4.11e-13); its exact Q^2->inf log coefficient C/pi matches F261's fixed (alpha/pi)^2/4 reference."
+  },
+  "NONLOG_scope": {
+    "missing_piece_a": "F252 vertex form factor F1(s) at general timelike s (currently q^2=0 only, the Schwinger term).",
+    "missing_piece_b": "F259 hard (non-soft) f-fbar-gamma real-emission phase-space integral (currently soft/eikonal limit only, per F259.md's own honesty ledger).",
+    "why_not_naively_computable_from_euclidean_LL_machinery": "the log coefficient is continuation-safe (a single power of a real momentum-space log); the non-log constant is exactly the analytic-continuation-sensitive piece, so it cannot be read off the same Euclidean dispersion quadrature used for LL above.",
+    "target_value_cited_by_F311_F322": "(alpha/pi)^2 * (zeta(3) - 5/24) per lepton [Kallen-Sabry 1955]",
+    "derived_this_session": false,
+    "statement": "the non-log constant is NOT derived here. This function records precisely what a derivation needs (a) and (b) above, converting a generic 'not attempted' into a well-posed target for a follow-up session."
+  }
+}

@@ -1,0 +1,46 @@
+{
+ "L6_leg1_propagator_divergence": {
+  "rows": [
+   {
+    "n": 6,
+    "b0_recovery_own": 0.20867256010263635,
+    "b0_recovery_swapped": 0.4929108707927354,
+    "dev_own": 0.7913274398973636,
+    "dev_swapped": 0.5070891292072646
+   },
+   {
+    "n": 8,
+    "b0_recovery_own": 0.3096911398822117,
+    "b0_recovery_swapped": 1.1269254509904598,
+    "dev_own": 0.6903088601177882,
+    "dev_swapped": 0.12692545099045982
+   },
+   {
+    "n": 10,
+    "b0_recovery_own": 0.37786014174717636,
+    "b0_recovery_swapped": 1.6634943726542015,
+    "dev_own": 0.6221398582528237,
+    "dev_swapped": 0.6634943726542015
+   },
+   {
+    "n": 12,
+    "b0_recovery_own": 0.4134356072225095,
+    "b0_recovery_swapped": 2.077790984879829,
+    "dev_own": 0.5865643927774905,
+    "dev_swapped": 1.077790984879829
+   }
+  ],
+  "own_dev_nonincreasing": true,
+  "swap_diverges": true,
+  "swap_control": false,
+  "pass": true,
+  "statement": "the rhombic vertices paired with the action's OWN quadratic form converge monotonically; paired with the F26/Omega_even K_true_4d they diverge, because that kernel is not periodic on the vertices' own reciprocal lattice (F308 Sec.3). Decides L6 leg 1."
+ },
+ "checks": {
+  "L6_leg1_propagator_divergence": true
+ },
+ "legs": {
+  "L6_leg1_propagator_divergence": true
+ },
+ "pass": true
+}

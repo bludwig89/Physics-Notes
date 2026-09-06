@@ -58,8 +58,36 @@ What this enables
 
 Scope (honest):  pure-gauge sector with *static* charges; ℤ_N exact / U(1)
 truncated; 2D spatial lattices (open boundaries).  Dynamical-matter coupling
-and the SU(3) Casimir ladder remain future work (the centre projection
-argument F97–F99 is why ℤ₃ is the load-bearing case).
+remains future work (the centre projection argument F97–F99 is why ℤ₃ is the
+load-bearing case).
+
+The SU(3) Casimir ladder is NO LONGER future work, and how it relates to this
+module is now settled (F325, 2026-08-18, ledger record S22):
+
+  * It was built on 2026-06-07 -- `su3_ladder.py`, finding F111b -- five days
+    before F144.  F110's deferral here, and F294's request for it, were both
+    already answered when they were written.
+  * **The Ehat spectrum in this module is a solvability choice, not the model's.**
+    The rule's own (E, B) are CONTINUOUS real fields under an SO(2) rotation
+    (F26, `weak_wmu._f26_rotation_step`), and the model's links are SU(3)-valued
+    matrices (`strong.py`, `gluon.py`, `bcc_action.plaquette_field_strength_su3`,
+    F94, F99 D3; the group is derived in F317).  The integer ladder here is the
+    exactly-solvable abelian reduction of that -- which is why Gauss's law can be
+    solved by heights at all, a construction with no non-abelian analogue.
+  * **C7 therefore transfers a COEFFICIENT, not a spectrum.**  Check C1 verifies
+    that the F101 rotor IS this Hamiltonian on one plaquette's Gauss sector, so
+    both sides of the matching carry the same operator and its eigenvalue
+    cancels: chi = 1/(4 g^2), for any group, carrying only the geometric factor
+    n = 4.  Matching this module's integer levels against an SU(N) link's C_2
+    instead yields a constant (C_F at N <= 3) that is a spectral discrepancy
+    rather than a stiffness.  That mixed reading is the whole of the X1 fork,
+    and it is CLOSED: branch A excluded, branch B (g_s = 1/2) adopted.
+  * **Validity bound, the useful survivor of the withdrawn CN19:** the Z_N ladder
+    is a faithful effective description of the SU(N) k-string ladder only for
+    N <= 3, and off the k-string tower it is not faithful even at N = 3 -- the
+    sextet gives chi = 3/10 against 3/4, and triality-0 irreps give s^2 = 0
+    against C_2 != 0, i.e. zero electric cost for an adjoint link.  Use this
+    module for the k-string sector at N <= 3, and `su3_ladder.py` otherwise.
 
 All entries dated: 2026-06-06.
 """

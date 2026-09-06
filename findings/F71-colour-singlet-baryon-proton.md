@@ -5,6 +5,7 @@
 **Module:** `ca-simulation/ca_baryon.py` (new)
 **Tests:** `tests/findings/test_FG7d_baryon_singlet.py`
 **Results:** `test-results/FG10_baryon_singlet.json`
+**Test record:** record `FG7d-baryon-singlet` (tier battery) — this finding's own 8/8 script, baseline `test-results/FG10_baryon_singlet.json`. `P2-baryon-bound-state` (F122's record) also names F71: it is the dynamical successor to this operator-level construction. Declared 2026-08-19.
 **Cross-refs:** F38 (FG-1 anomaly cancellation / quark charges), F40/F42 (quark mass + hypercharge), F43 (SU(3) colour sector), F70 (string tension / binding)
 
 ---

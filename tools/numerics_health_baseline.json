@@ -1,11 +1,11 @@
 {
  "by_module": {
-  "numpy": 165,
-  "scipy": 7
+  "numpy": 168,
+  "scipy": 8
  },
  "device_fft_call_sites": 8,
  "device_fft_files": 1,
  "fft_call_sites": 0,
- "files_with_direct_imports": 165,
- "scanned": 240
+ "files_with_direct_imports": 168,
+ "scanned": 315
 }

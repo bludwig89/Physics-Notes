@@ -48,7 +48,7 @@ Real-time wave-packet dynamics survive block-spin: a moving, spreading massive D
 
 `live`, inferred from the finding's own status line, quoted here verbatim so the inference is checkable:
 
-> Confirmed — 5/5 checks PASS. RT1 faithfulness and RT4 mass-eigenvalue are **machine-precision**; RT2/RT3 are quantitative (velocity/width agree fine-vs-coarse); RT5 unitarity at the FFT floor. Closes the dynamical check left open by [[F132-blockspin-dynamical-bound-states]] §6 (RG commutes with binding was shown only for static eigenstates). Phase-2 item "real-time wave-packet dynamics under $R_b$" of `docs/roadmaps/roadmap-scale-to-real-space.md`.
+> Confirmed — 5/5 checks PASS. RT1 faithfulness and RT4 mass-eigenvalue are **machine-precision**; RT2/RT3 are quantitative (velocity/width agree fine-vs-coarse); RT5 unitarity at the FFT floor. Closes the dynamical check left open by [[F132-blockspin-dynamical-bound-states]] §6 (RG commutes with binding was shown only for static eigenstates). Phase-2 item "real-time wave-packet dynamics under $R_b$" of `docs/roadmaps/completed/roadmap-scale-to-real-space.md`.
 
 **Date:** 2026-06-11
 

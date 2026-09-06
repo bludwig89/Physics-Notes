@@ -4,6 +4,8 @@
 **Numbering:** F177 was taken by a concurrent session; this is **F178** (re-checked per CLAUDE.md).
 **Status:** Decision / reclassification (no new test — it changes the canonical status of the gravity sector and records the supersession map). Cross-checked against the exact results it rests on: F173 (single scalar ⇒ anisotropic stress, sympy-exact), F174 (energy-only ⇒ no maximum mass, 5/5), F176 (covariant recovery, 5/5).
 **Decision note:** `docs/theory/key-decisions.md` (2026-06-29 entry).
+**Test record:** record `F173-tolman-pressure` (tier battery) — the no-go that **forces** this decision (a single impedance-locked scalar cannot match a perfect fluid under full Einstein, so the interior gains a second function).
+**Test record:** record `F288-structure-formation-growth` (tier gate) — its sympy-literal legs S1/S2 rest on the full-tensor source (AB = 1 ⇒ zero linear slip; F106 ⇒ Poisson with μ ≡ 1). Both records already named F178. This finding introduces no test of its own — it is a reclassification — but it is not untestable: those two records go red if the decision is wrong. Declared 2026-08-19.
 **Cross-references:** [[F64-em-connection-gravity]], [[F106-psi-K-sourcing-derivation]], [[F173-pressure-tolman-discriminator]], [[F174-stellar-structure-overlay]], [[F176b-covariant-dielectric-tov-recovery]], [[F114-dielectric-black-hole]], [[F79-structural-newton-constant]], [[F107-canonical-a-adoption-L4-grb-gate]]; papers `Paper-07-Gravity.md`, `Paper-12-Unification-Rotation-Currency.md`; brief `FC09`.
 
 ---

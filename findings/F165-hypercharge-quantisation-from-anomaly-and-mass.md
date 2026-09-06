@@ -16,6 +16,7 @@
 **Modules touched:** none (analytical study + verification harness only)
 **Verification script:** `tests/findings/test_hypercharge_quantisation.py`
 **Result file:** `test-results/hypercharge_quantisation.json`
+**Test record:** record `hypercharge-quantisation` (tier battery) — the ℚ-exact harness above, baseline `test-results/hypercharge_quantisation.json`; it already named F165. The S13 sub-claim supersession above touches two steps inside the derivation, not its conclusion, so the record still carries what this finding concludes. Declared 2026-08-19.
 
 > ## ⚠ Partially superseded by [F279](F279-hypercharge-constraint-attribution.md) (2026-08-02, S13)
 >

@@ -15,6 +15,7 @@
 **Modules:** `ca-simulation/forks/lgt_fork_A_mc.py` (new)
 **Tests:** `tests/findings/test_FA_lgt_mc.py` (engine, 6/6), `tests/findings/test_FA_vs_FC_comparison.py` (A-vs-C, 4/4), `tests/runners/run_lgt_confinement.py` (heavy, user-run)
 **Results:** `test-results/FA_lgt_mc.json`, `test-results/FA_vs_FC_comparison.json`, `test-results/lgt_confinement.{json,md}` (smoke)
+**Test record:** record `FA-lgt-mc` (tier battery) — the engine-correctness legs (FA1–FA3: SU(3) closure, over-relaxation invariance, the staple/action ratio-4 identity), which **ledger S21 keeps live**; record `FA-vs-FC-comparison` (tier battery) — the A-vs-C bridge, re-verified by F311 leg B. What S21 retires is the *lattice* this ensemble samples (simple-hypercubic, not the model's BCC action), so FA4/FA5's normalisation anchors are numbers about the wrong lattice; the replacement measurement is F323's `gauge-bcc-mc-d4`. See CL087, narrowed to exactly these two survivors. Declared 2026-08-19.
 **Cross-refs:** F86 (Option C, the dual-SC/colour-dielectric route this is tested against), F70 (2D-exact area-law σ), F43 (dynamical gluons + Wilson primitives), `run_confinement_mc.py` (the plain-Metropolis wall this repairs).
 
 ---

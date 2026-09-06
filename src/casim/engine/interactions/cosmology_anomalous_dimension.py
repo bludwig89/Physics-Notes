@@ -207,7 +207,7 @@ def gravity_inverse_problem() -> dict:
         "T1_bound_on_p": 0.32,
         "excluded_on_shape": 2 > 0.32,
         "shortfall_decades": math.log10(g / g_grav),
-        "excluded_on_magnitude": True,
+        "excluded_on_magnitude": math.log10(g / g_grav) > 0.0,  # D9: derived, not hardcoded
         "verdict": ("doubly excluded: F286 T1 rules out p = 2 on SHAPE before "
                     "magnitude is considered, and the magnitude is 1.7e-116"),
     }
@@ -245,14 +245,35 @@ def representation_weight_target() -> dict:
 
 # ---------------------------------------------------------------------------
 def run() -> dict:
+    a1 = anomalous_dimension_branch()
+    a2 = subclass_discriminator()
+    a3_alpha = alpha_inverse_problem()
+    a3_grav = gravity_inverse_problem()
+    a4 = representation_weight_target()
+    # D9: the gate record must be able to fail. These are the finding's own
+    # already-computed claims behind "answer_to_ben" below: A1 is the exact
+    # symbolic theorem (dn_s/dlnk = 0 for a constant anomalous dimension), A2
+    # is that both candidate predictions are still consistent with Planck
+    # today, A3 is that both the alpha and gravity routes are excluded (by
+    # cutoff and by shape/magnitude respectively), and A4 is that the two
+    # registered 2/9 representation weights actually match the required
+    # scale-free coupling to the declared exactness.
+    passed = bool(
+        a1["dns_dlnk_exact_zero"]
+        and a2["both_consistent_today"]
+        and a3_alpha["excluded"]
+        and a3_grav["excluded_on_shape"] and a3_grav["excluded_on_magnitude"]
+        and a4["delta_star_matches"] and a4["sin2_thetaW_matches"]
+    )
     return {
         "finding": "F295",
         "question": "does freeing alpha and G narrow the loop? can geometry help?",
-        "A1_anomalous_dimension": anomalous_dimension_branch(),
-        "A2_discriminator": subclass_discriminator(),
-        "A3_alpha": alpha_inverse_problem(),
-        "A3_gravity": gravity_inverse_problem(),
-        "A4_representation_weight": representation_weight_target(),
+        "A1_anomalous_dimension": a1,
+        "A2_discriminator": a2,
+        "A3_alpha": a3_alpha,
+        "A3_gravity": a3_grav,
+        "A4_representation_weight": a4,
+        "passed": passed,
         "answer_to_ben": (
             "No — freeing alpha needs it 68 decades above the lattice cutoff, "
             "and freeing G is excluded by SHAPE before magnitude. But asking "

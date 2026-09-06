@@ -1,0 +1,41 @@
+{
+  "records": [
+    {
+      "name": "S1_reproduce_F228_beta_required",
+      "passed": true,
+      "detail": "F228 Sec.4 beta_required(M_form) reproduced from its own stated formula/constants to <5% at all 3 worked examples: {'1e+04': {'computed': 6.619797564022904e-15, 'stated': 6.6e-15, 'rel_err': 0.0029996309125612055}, '1e+06': {'computed': 6.619797564022906e-12, 'stated': 6.6e-12, 'rel_err': 0.0029996309125615048}, '1e+08': {'computed': 6.619797564022904e-09, 'stated': 6.6e-09, 'rel_err': 0.0029996309125611726}}"
+    },
+    {
+      "name": "S2_cross_check_vs_eq2p3",
+      "passed": true,
+      "detail": "F228/eq2.3 ratio at M_form=(10000.0, 1000000.0, 100000000.0) g: [11.7165, 11.7165, 11.7165] (constant to 3.03e-16 relative spread). NOTE (review-finding attack 2): the constant ratio is EXPECTED, not a discovery -- both formulas share the same M^1.5 scaling by construction (entropy-conserved comoving relic number), so any two such formulas give an exactly-constant ratio regardless of whether their O(1) normalisations agree. The only informative content is that mean ratio 11.716 -- i.e. the two independently-chosen O(1) normalisations (F228's gamma_coll/g_star convention vs eq2.3's) differ by only ~12x, unremarkable at F228's own declared order-of-magnitude tier. This is a mild, not a strong, cross-check."
+    },
+    {
+      "name": "S3_formation_mass_ceiling",
+      "passed": true,
+      "detail": "DLS crossover M_form=1.609e+08 g; PVL crossover M_form=1.680e+11 g -- DLS is the tighter bound across this range, consistent with 2506.16154's own statement that DLS dominates PVL for M_form below ~1e9 g. Order-of-magnitude ceiling: M_form <~ 1.6e+08 g. CAVEAT (review-finding attack 6): 2506.16154 itself states the DLS bound assumes a MONOCHROMATIC PBH mass function that 'may not reflect a realistic physical scenario,' and that early PBH mergers may weaken it -- so this is an order-of-magnitude placement against a bound that is itself model-dependent, not an unconditional exclusion."
+    },
+    {
+      "name": "S4_F228_1e8g_example_status",
+      "passed": true,
+      "detail": "At F228's own M_form=1e8 g example: eq2.3-required beta=5.650e-10 vs DLS bound=1.615e-09 -- margin factor 2.86x. Allowed but marginal (within a factor 2.9 of the DLS ceiling), NOT a safely-interior illustration as F228 Sec.4's table implied; M_form=1e4 g and 1e6 g remain comfortably interior (margins 1.9e+09x and 7.5e+04x)."
+    },
+    {
+      "name": "S5_reproduce_F238_sigma_req",
+      "passed": true,
+      "detail": "F238 Sec.3 sigma_req(M_form) (Press-Schechter inversion at delta_c=0.45) reproduced from F228's own beta_required to <2% at all 3 examples: {'1e+04': {'computed': 0.05841505624129549, 'stated': 0.058, 'rel_err': 0.007156142091301509}, '1e+06': {'computed': 0.06650906303652115, 'stated': 0.066, 'rel_err': 0.007713076310926534}, '1e+08': {'computed': 0.07918431587531086, 'stated': 0.079, 'rel_err': 0.002333112345707037}}"
+    },
+    {
+      "name": "S6_gaussianity_requirement",
+      "passed": true,
+      "detail": "P_R at M_form=(10000.0, 1000000.0, 100000000.0) g -- general-integral convention (Eq.9, P_R=(81/16)sigma^2): [0.0173, 0.0224, 0.0317] (3/3 inside the stated band); THIS PAPER'S OWN narrow-bump convention (Eq.10, P_R=(9/4)sigma^2 -- what it uses for its own headline number): [0.0077, 0.01, 0.0141] (1/3 inside the stated band). The two conventions disagree on which side of the arXiv:2509.20533 P_R~[0.01,0.1] LIGO-O3-Gaussian-exclusion band edge the result falls (review-finding attack 6, 2026-09-04) -- so this is graded on 'same order of magnitude as the excluded band' (bracketed), not 'inside the band' (quantitative). EXACTNESS: bracketed. Also (attack 5): because sigma_req=erfc^-1 compresses ~20 orders of magnitude in beta into O(1) range in sigma, landing near this band is not a sharp coincidence -- most sub-dominant beta values would land somewhere in a similar range. This is reported as a same-regime PLAUSIBILITY argument, not a from-first-principles exclusion (see Sec.5-6 of F365 and its Reviewed & corrected note)."
+    }
+  ],
+  "passed": 6,
+  "total": 6,
+  "all_pass": true,
+  "M_ceiling_DLS_g": 160877572.19673297,
+  "M_ceiling_PVL_g": 167953220528.1781,
+  "M_rem_over_Mpl": 0.9306048591020996,
+  "M_rem_GeV": 1.1361661664291623e+19
+}

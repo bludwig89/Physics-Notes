@@ -1,8 +1,126 @@
 {
-  "generated": "2026-08-19 - 13:28",
+  "generated": "2026-09-03 - 16:30",
   "method": "execution trace (sys.settrace): a record can fail when an assert/raise line is actually reached",
-  "n": 20,
+  "n": 27,
   "items": [
+    {
+      "id": "F357-graviton-band-top",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 0,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/interactions/gravity_band_cutoff.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 2.76,
+      "fingerprint": "b5a597ab485f998a"
+    },
+    {
+      "id": "F355-horizon-entanglement",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 6,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F355_horizon_entanglement.py",
+        "src/casim/engine/interactions/horizon_entanglement.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 19.46,
+      "fingerprint": "6d50ba753c05f20f"
+    },
+    {
+      "id": "F342-generation-identification-gap",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 4,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F342_generation_identification_gap.py",
+        "src/casim/engine/particles/derive_generation_identification_gap.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 18.8,
+      "fingerprint": "0e5720b658f1eba7"
+    },
+    {
+      "id": "F340-strong-cp-nonperturbative",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "src/casim/engine/gauge/colour_theta.py:246",
+      "guard_lines_total": 4,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_F340_strong_cp_nonperturbative.py",
+        "src/casim/engine/gauge/colour_theta.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.17,
+      "fingerprint": "a5b5c40dfdc40c26"
+    },
+    {
+      "id": "F339-strong-cp-nonperturbative",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 1,
+      "guard_line_hit": "src/casim/engine/gauge/colour_theta.py:246",
+      "guard_lines_total": 4,
+      "route": "guard",
+      "traced_files": [
+        "tests/findings/test_F339_strong_cp_nonperturbative.py",
+        "src/casim/engine/gauge/colour_theta.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.17,
+      "fingerprint": "fe232bf0a548fb8e"
+    },
+    {
+      "id": "F338-ncolour-ceiling",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F338_ncolour_ceiling.py",
+        "src/casim/engine/gauge/derive_ncolour_ceiling.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.02,
+      "fingerprint": "231c6e722935e629"
+    },
+    {
+      "id": "F336-twoloop-vp-nonlog-scope",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 0,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/interactions/qed_twoloop_vacuum_polarization_nonlog.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 24.56,
+      "fingerprint": "86b1c282cb76bfc3",
+      "journalled": true
+    },
     {
       "id": "F142-dielectric-noconfine",
       "can_fail": true,

@@ -489,6 +489,17 @@ tests:
     k0: 0.8
     m: 0.3
     n_k: 500
+  control:
+  - params:
+      h: 0.001
+    reds:
+    - weyl_closed_form
+    - dirac_closed_form
+    reason: 'h is the central-difference step used only by the weyl_closed_form and dirac_closed_form
+      legs (note below: default h=1e-5 gives residual ~5e-11, "the h^2 floor"). Widening h to 1e-3 grows
+      the O(h^2) truncation error by ~1e4x, past the 1e-8 leg tolerance, while every other leg (the exact
+      on-axis identities, the arccos-bounded checks, the off-axis control) is h-independent and must stay
+      green.'
   expect:
     exactness: exact
     tol: 0
@@ -523,6 +534,15 @@ tests:
     seed: branch-pure
     n_steps: 44
     tol: 1.0e-12
+  control:
+  - params:
+      tol: 0
+    reds:
+    - drift_matches_closed_form
+    reason: 'tol=0 removes all headroom between the measured centroid drift and its closed form, so any
+      nonzero float64 residual (the FFT round-off floor this leg is designed to sit just above) must fail
+      it. Measured 2026-09-06: reddens drift_matches_closed_form only, wrap_free and subluminal untouched
+      (both are tol-independent).'
   expect:
     exactness: machine
     tol: 1.0e-12
@@ -625,6 +645,15 @@ tests:
     L: 48
     ticks: 10
     dc_amp: 0.05
+  control:
+  - params:
+      ordering: asymmetric
+      order: 1
+    reason: '`ordering`/`order` are new passthrough params (added 2026-09-06, default ''weyl''/2 -- identical
+      to prior behaviour) threaded to weyl_step_2d_varc_strang. asymmetric/1 is the exact pre-F276 legacy
+      scheme this module''s own docstring already measures at global order 0.00 (no convergence) and norm-error
+      ratio 1.00 (a plateau). Measured 2026-09-06: AssertionError on the global-order check, orders [1.01,
+      1.02] instead of [2.0, 2.0].'
   expect:
     exactness: quantitative
   findings:
@@ -1077,6 +1106,139 @@ tests:
       test-results/F318_cell_internal_index.json: local
     artifacts_read_only: []
     summary: F318 — can the model's CELL carry the internal index? (F317's residual).
+- id: F326-time-single-generator
+  path: tests/findings/test_F326_time_single_generator.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F291
+  - F313
+  - F326
+  module: tests.findings.test_F326_time_single_generator
+  entry: check_all
+  params: {}
+  expect:
+    exactness: machine
+    tol: 1.0e-08
+  note: 'Closes A1''s "+1" residual to a named posit rather than an unexamined construction choice. F313
+    asked what else commutes with the update A; this asks where A, as the ONLY candidate, comes from --
+    BDPT uniqueness (cited, not re-derived) gives no second solution to start from at (s,d)=(2,3), and
+    F313 sec.3-4''s own commutant closure (cited, not re-derived; sec.5/sec.8''s WITHDRAWN content is
+    NOT reused) leaves no room for a second one to hide as a symmetry of the first. Two grounding checks,
+    both re-implemented independently of casim.engine.lattice.time_single_generator: G1 -- the live engine''s
+    Clock carries exactly one persisted time-state field, Channel carries none, and a channel running
+    at twice the native resolution is sub-stepped an exact, engine-determined multiple of the one outer
+    tick (not an independently drifting counter). G2 -- on the model''s own coupled s=4 composite at non-zero
+    mass (F313 sec.9''s own object), n calls to the production stepper dirac_step_3d_bcc_splitstep reproduce
+    build_D_k_matrix(...)**n applied once to an isolated Fourier mode, machine precision, for ONE shared
+    n. The remaining irreducible input -- dynamics is a single map iterated -- is named as the QCA-defining
+    posit itself (Paper 1: "the discrete time T comes from the automaton''s update steps"), not an added
+    assumption; a genuine two-generator alternative (Bars'' two-time physics, Sp(2,R)-gauged) is cited
+    as informed contrast, not attempted in-repo.
+
+    '
+  control:
+  - params:
+      break_single_clock: true
+    reason: 'asserts the WRONG relation (that the finer channel''s call count equals the outer tick count,
+      i.e. n_sub=1) on a channel actually running at n_sub=2 under clock mode "strict". Must go red --
+      otherwise G1 could not detect a channel silently running on its own clock, which is exactly the
+      failure mode the check exists to catch. VERIFIED RED 2026-08-20.
+
+      '
+  - params:
+      break_composite_single_generator: true
+    reason: 'compares n engine ticks of the coupled composite against n-1 applications of D_k, which must
+      NOT agree. Must go red -- otherwise G2''s comparison would pass regardless of n and prove nothing
+      about the composite being a single generator. VERIFIED RED 2026-08-20 (baseline residual 2.48e-16,
+      broken residual 0.92).
+
+      '
+  evidence:
+    mentions:
+    - F313
+    - F326
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 222
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F326 — the "+1" closes: no second candidate generator to close it against.'
+- id: F344-bcc-walk-point-symmetry
+  path: tests/findings/test_F344_bcc_walk_point_symmetry.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  module: casim.engine.lattice.bcc_point_symmetry
+  entry: check_bcc_walk_point_symmetry
+  params:
+    coefficient_source: module
+    expansion_order: exact
+  expect:
+    exactness: exact
+    tol: 0
+  findings:
+  - F344
+  - F30
+  - F26
+  - F342
+  - F291
+  - F302
+  results:
+  - test-results/F344_bcc_walk_point_symmetry.json
+  control:
+  - params:
+      expansion_order: leading
+    reds:
+    - C3_L_is_D4h_order_16
+    - C4_unitary_subgroup_order_8
+    - C5_no_C3_for_any_convention
+    - C8_shipped_code_agrees
+    reason: Truncate n(k) to its O(k) (T_1u) part and drop the O(k^2) (T_2g) part. The covariance group
+      jumps from 16 to all 48, and every one of the 576 unitary conventions then admits the body-diagonal
+      C_3 rotations, so both legs go red. This is the finding's positive content stated as a control --
+      the entire O_h to D_4h breaking lives in the T_2g term and nowhere else, so O_h is an exact infrared
+      symmetry of the walk and an exactly broken one at the lattice scale. Without it the result could
+      be misread as a defect of the whole walk rather than of its second-order term. C4 and C8 are declared
+      red with them and are not spill to be explained away -- under the truncation there is no longer
+      a proper/improper split inside L to count (L is all of O_h) and the truncated n is not what _bcc_uvec
+      returns, so both legs lose their subject. Every leg that does NOT go red here (C0, C1, C1b, C2,
+      C2b, C6, C7) is one whose subject is the O(k) part or u alone, which the truncation leaves untouched
+      -- exactly the partition the finding claims.
+  - params:
+      coefficient_source: cyclic
+    reds:
+    - C0_convention_is_unitary
+    - C3_L_is_D4h_order_16
+    - C4_unitary_subgroup_order_8
+    - C8_shipped_code_agrees
+    reason: 'Replace the shipped Eq. 15 coefficients with the cyclic-symmetric assignment q_x = q_y =
+      q_z = -s, which is C_3-covariant by construction. Unitarity (u^2 + |n|^2 = 1, i.e. sum_a p_a q_a
+      = -s) then fails identically, so C0 goes red while the covariance group rises to 48. This exhibits
+      the exact exclusivity the finding proves -- a C_3-covariant walk of this form exists but is not
+      unitary -- and guards against the theorem being an artifact of scanning too small a coefficient
+      family. C3, C4 and C8 are declared red with C0 because they are statements about the SHIPPED walk,
+      and this control is no longer running the shipped walk -- C8 in particular compares against _bcc_uvec,
+      which keeps the module''s coefficients. C5 stays green under it, correctly and importantly: the
+      sweep it runs is over all 576 UNITARY conventions, and the cyclic one is not among them.'
+  evidence:
+    mentions:
+    - F30
+    - F342
+    - F344
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 78
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F344 -- what is the EXACT point-group covariance of the adopted BCC
 - id: F49-bcc-weinberg-2over9
   path: tests/findings/test_F49_bcc_weinberg_2over9.py
   kind: result_dump
@@ -1233,6 +1395,7 @@ tests:
   - F107
   - F112
   - F122
+  - F123
   sector: lattice
   evidence:
     mentions:

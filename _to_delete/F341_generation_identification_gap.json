@@ -1,0 +1,72 @@
+{
+  "pass": true,
+  "checks": {
+    "G1_group_orders": {
+      "pass": true,
+      "|O|": "24",
+      "|O_h|": "48"
+    },
+    "G2_orbit_structure": {
+      "pass": true,
+      "symmetry_group": "full_Oh",
+      "n_orbits": "1",
+      "orbit_sizes": "[8]"
+    },
+    "H1_diagonal_forced_constant": {
+      "pass": true,
+      "symmetry_group": "full_Oh",
+      "n_orbits": "1"
+    },
+    "H2a_MtM_is_8I3": {
+      "pass": true
+    },
+    "H2b_NtN_is_8I3": {
+      "pass": true
+    },
+    "H2c_MtN_is_zero": {
+      "pass": true
+    },
+    "H2d_ranks_1_1_3_3": {
+      "pass": true,
+      "A1g": "1",
+      "A2u": "1",
+      "T1u": "3",
+      "T2g": "3",
+      "note": "cross-checks F75 T2 by explicit equivariant embedding, not character-table projection"
+    },
+    "H2e_partition_of_unity": {
+      "pass": true
+    },
+    "H2f_idempotent_and_orthogonal": {
+      "pass": true,
+      "idempotent": "True",
+      "mutually_orthogonal": "True"
+    },
+    "H2g_projectors_commute_with_group": {
+      "pass": true,
+      "T1u": "True",
+      "T2g": "True",
+      "symmetry_group": "full_Oh"
+    },
+    "H3_condition_i_no_selecting_power": {
+      "pass": true,
+      "charge_locality": "site_diagonal",
+      "condition_i_holds_T1u": "True",
+      "condition_i_holds_T2g": "True",
+      "lambda_T1u": "7/3",
+      "lambda_T2g": "7/3",
+      "reads": "site-diagonal: both triplets carry the SAME charge -- zero selecting power"
+    }
+  },
+  "params": {
+    "charge_locality": "site_diagonal",
+    "symmetry_group": "full_Oh",
+    "charge_value": "7/3",
+    "block_charges": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ]
+  }
+}

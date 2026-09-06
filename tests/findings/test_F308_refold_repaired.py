@@ -38,61 +38,76 @@ Run:  casim test --id F308-refold-repaired    (the gate contract)
 """
 from __future__ import annotations
 
+import pytest
+
 from casim.engine.gauge.lpt_selfenergy import (
     check_refold_repaired, TOL_AGREE, TOL_EXACT,
 )
 
 
-def test_F308_all_legs():
-    r = check_refold_repaired()
-    assert r["passed"], r["checks"]
-    assert r["n_pass"] == r["n_total"] == 6
+# The entry costs ~21 s. Module-scoped so the six legs and the control are two
+# runs, not eight — and a FIXTURE rather than a module-level constant, because a
+# call at module scope is what `tools/audit_tests.py::_has_import_time_work`
+# counts (and it would also run on `pytest --collect-only`).
+@pytest.fixture(scope="module")
+def repaired():
+    return check_refold_repaired()
 
 
-def test_F308_R1_repaired_matches_the_independent_path():
+@pytest.fixture(scope="module")
+def unrepaired():
+    return check_refold_repaired(unrepair_control=True)
+
+
+def test_F308_all_legs(repaired):
+    assert repaired["passed"], repaired["checks"]
+    assert repaired["n_pass"] == repaired["n_total"] == 6
+
+
+def test_F308_R1_repaired_matches_the_independent_path(repaired):
     """The content of "repaired": two paths written from different actions agree."""
-    leg = check_refold_repaired()["checks"]["R1_repaired_matches_F307_path"]
+    leg = repaired["checks"]["R1_repaired_matches_F307_path"]
     assert leg["pass"], leg
     assert leg["max_abs_diff"] < TOL_AGREE
 
 
-def test_F308_R2_fold_fires_iff_Q_ge_pi_over_n():
+def test_F308_R2_fold_fires_iff_Q_ge_pi_over_n(repaired):
     """Counted against grid points leaving [-pi, pi), not against the formula."""
-    leg = check_refold_repaired()["checks"]["R2_fires_iff_Q_ge_pi_over_n"]
+    leg = repaired["checks"]["R2_fires_iff_Q_ge_pi_over_n"]
     assert leg["pass"], leg
     assert leg["rows"] >= 24
 
 
-def test_F308_R3_exact_wilson_is_fold_invariant():
+def test_F308_R3_exact_wilson_is_fold_invariant(repaired):
     """Why the defect was invisible on the published branch."""
-    leg = check_refold_repaired()["checks"]["R3_exact_wilson_fold_invariant"]
+    leg = repaired["checks"]["R3_exact_wilson_fold_invariant"]
     assert leg["pass"], leg
     assert leg["max_abs_diff"] < TOL_EXACT
 
 
-def test_F308_R4_two_mechanisms_not_one():
+def test_F308_R4_two_mechanisms_not_one(repaired):
     """THE POINT OF THE AUDIT. F307 reported one fold; there are two, and they
     differ by more than an order of magnitude — so a single repair to the
     `leading` branch would have left the `rule`/`exact` one in place."""
-    leg = check_refold_repaired()["checks"]["R4_two_distinct_mechanisms"]
+    leg = repaired["checks"]["R4_two_distinct_mechanisms"]
     assert leg["pass"], leg
     assert leg["leading_defect"] > 10.0 * leg["rule_exact_defect"] > 0.0
 
 
-def test_F308_R5_rule_kernel_has_no_axis_period():
+def test_F308_R5_rule_kernel_has_no_axis_period(repaired):
     """What makes the rule-branch fold illegal rather than merely inelegant."""
-    leg = check_refold_repaired()["checks"]["R5_rule_kernel_has_no_axis_period"]
+    leg = repaired["checks"]["R5_rule_kernel_has_no_axis_period"]
     assert leg["pass"], leg
     assert leg["min_over_shifts_of_max_dev"] > 1.0
 
 
-def test_F308_R6_committed_n8_rows_are_bit_unchanged():
-    leg = check_refold_repaired()["checks"]["R6_inert_below_threshold"]
+def test_F308_R6_committed_n8_rows_are_bit_unchanged(repaired):
+    leg = repaired["checks"]["R6_inert_below_threshold"]
     assert leg["pass"], leg
     assert leg["n8_grid_never_leaves_cube"]
 
 
-def test_F308_control_unrepairing_reddens_R1_and_only_R1():
+def test_F308_control_unrepairing_reddens_R1_and_only_R1(unrepaired):
     """THE CONTROL, as a test rather than as a sentence in `notes:`.
 
     Putting the fold back into the production default must break R1 — and must
@@ -102,8 +117,7 @@ def test_F308_control_unrepairing_reddens_R1_and_only_R1():
     alone, not the R1/R3/R6 the finding's first draft expected) is the record's
     declared `reds:`; this asserts it at the same time as the physics.
     """
-    r = check_refold_repaired(unrepair_control=True)
-    red = {k for k, v in r["checks"].items() if not v["pass"]}
+    red = {k for k, v in unrepaired["checks"].items() if not v["pass"]}
     assert red == {"R1_repaired_matches_F307_path"}, red
 
 

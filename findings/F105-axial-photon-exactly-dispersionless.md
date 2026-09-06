@@ -3,6 +3,7 @@
 `2026-06-06 - 17:25`
 
 **Status:** Confirmed (algebraic identity + machine-precision numerical check). Minor corollary, fell out of building the `photon_beam_all_fields` scenario.
+**Test record:** record `F314-pair-group-velocity-closed-form` (tier gate) — `casim.engine.gauge.photon_packet`, entry `check_pair_group_velocity_closed_form`: its on-axis legs assert the pair velocity is exactly c_lat and the on-axis **curvature is zero**, i.e. this finding's identity, at gate tier. It already named F105 on its side of the join. `F129-blockspin-free-photon` and `F227-decoherence-floor` also name F105. Declared 2026-08-19.
 
 **Cross-references:** [[F69-paired-spinor-photon]] (the pair law), [[F26-speed-of-light-as-rotation-rate]], [[F28-grb-dispersion-test]], [[F30-photon-dispersion-order-anisotropy-birefringence]].
 

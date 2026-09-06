@@ -158,7 +158,10 @@ def t1_retrodiction() -> dict:
         "planck_sigma": RUN_SIGMA,
         "tension_sigma": (alpha - RUN_OBS) / RUN_SIGMA,
         "published_global_disfavour_sigma": HC_DISFAVOURED_SIGMA,
-        "retrodiction_agrees": True,
+        # D9: derived, not hardcoded -- both land solidly past the standard
+        # 2-sigma disfavour threshold, which is the qualitative claim made.
+        "retrodiction_agrees": (abs((alpha - RUN_OBS) / RUN_SIGMA) > 2.0
+                               and HC_DISFAVOURED_SIGMA > 2.0),
         "why_it_matters": ("T1 was built from Planck's running alone, with no "
                            "knowledge of holographic cosmology. Recovering HC's "
                            "published tension makes T1 a usable instrument "
@@ -216,12 +219,28 @@ def tensor_ratio_from_model_content(n_psi: int = N_WEYL_FERMIONS,
         "matches_published_exclusion": ("the PRL rules out 'Yang-Mills coupled "
                                         "to fermions only'; this model is "
                                         "fermion-dominated"),
-        "naive_holographic_reading_excluded": True,
+        # D9: derived, not hardcoded
+        "naive_holographic_reading_excluded": out["minimal"]["excluded"]
+                                              and out["conformal"]["excluded"],
     }
 
 
 # ---------------------------------------------------------------------------
 def run() -> dict:
+    l2 = t1_retrodiction()
+    l5 = tensor_ratio_from_model_content()
+    # D9: the gate record must be able to fail. L2 is that T1's bound
+    # actually flags holographic cosmology's own fitted spectrum (the
+    # retrodiction), and that the retrodicted tension and the paper's
+    # published global disfavour agree on being solidly >2 sigma. L5 is
+    # that the model's own field content, read as the naive holographic
+    # dual, is excluded by the BK18 tensor-to-scalar bound in both the
+    # minimal and conformal coupling cases.
+    passed = bool(
+        l2["t1_flags_hc"] and l2["retrodiction_agrees"]
+        and l5["cases"]["minimal"]["excluded"]
+        and l5["cases"]["conformal"]["excluded"]
+    )
     return {
         "finding": "F296",
         "question": "where does F295's structure live in the literature?",
@@ -232,10 +251,11 @@ def run() -> dict:
             "fitted_to_planck": True,
             "global_disfavour_sigma": HC_DISFAVOURED_SIGMA,
         },
-        "L2_t1_retrodiction": t1_retrodiction(),
+        "L2_t1_retrodiction": l2,
         "L3_branch": branch_identification(),
         "L4_operator": named_operator(),
-        "L5_tensor_ratio": tensor_ratio_from_model_content(),
+        "L5_tensor_ratio": l5,
+        "passed": passed,
         "verdict": (
             "F295's structure has an established home; F286 T1 is VALIDATED by "
             "retrodicting holographic cosmology's published tension (0.675 vs "

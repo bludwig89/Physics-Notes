@@ -6,6 +6,7 @@
 **Module:** `ca-simulation/ca_meson.py`
 **Script:** `tests/findings/test_P3_pion.py` (~7 s, numpy only)
 **Results:** `test-results/P3_pion.json`
+**Test record:** record `P3-pion` (tier battery) — the script above, baseline `test-results/P3_pion.json`. `P6-si-scale` (F123) also names F103: it carries m_π/f_π into the SI closure. Declared 2026-08-19.
 **Cross-references:** [[F77-njl-gap-rpa-selfconsistent]] (the calibrated NJL gap+RPA ladder this reuses), [[F74-two-constituent-bound-state-binding]] (the relative-coordinate two-body solver reused for the real-space cross-check), [[F73-spin0-bound-pair-scalar]] (the m→2m_c kinematic ceiling = the scalar partner), [[F69-paired-spinor-photon]] (the spin-1 sibling pairing channel; the pion is the spin-0 antisymmetric partner).
 
 ---

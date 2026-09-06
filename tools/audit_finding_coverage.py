@@ -93,17 +93,43 @@ _CLAIMS = os.path.join(_REPO, "docs", "claims", "registry.yaml")
 #        11 records gained the finding on their side of the join.
 # `claim_unset`/`unclaimed` read 2 as of this run but are NOT re-armed here: a
 # concurrent session owns rollout section 6 and is mid-pass on those cards.
+#
+# 2026-08-19, rollout section 4 BUCKET 2 (the F251-F300 tail + the F301+ straggler,
+# 9 findings, plus F204 which fell out of the same id collision):
+# weak_only/untested re-armed 30 -> 20, and `debt_only` 1 -> 0. Again nothing needed
+# an `awaiting-test` declaration — every one of the ten had a real record in the tree
+# and the join was missing on the finding's side. Three were more than a missing
+# header: `F200-sterile-neutrino-dm` and `F200-alcubierre-structural` both named
+# F200 in `findings:`, a PRE-RENUMBER id (the sterile relic became F266 on
+# 2026-07-31; the alcubierre computation is F204 and says so in its own header),
+# so each declared it could go red on the E_g sextic-coupling finding, which
+# neither touches. F323 carried its record in a field named `**Record:**`, which
+# neither this tool nor check_finding_records.py reads.
+# `claim_unset`/`unclaimed` re-armed 10 -> 0: section 6's ten are measured closed
+# (audit section E, same day, in a concurrent session).
+#
+# 2026-08-19, rollout section 4 BUCKET 3 (the F51-F250 middle, 20 findings):
+# weak_only/untested re-armed 20 -> **0**. THE DRAIN IS CLOSED. Nineteen of the
+# twenty already had their own script named in the finding's header and a record
+# for it in the tree; fourteen records simply never named the finding back
+# (`P3-pion` named F74/F77 but not F103; `FG7c-confinement` and
+# `FG7d-baryon-singlet` had no `findings:` key at all). One is a genuine no-test:
+# **F114** is wholly superseded by ledger `S4-F178-full-stress-energy` and its
+# script no longer exists in the tree, so it declares `no-test (superseded)` —
+# the first use of that reason. `awaiting_test` gets its own ceiling here, at 0,
+# which is section 5's "fourth ratchet once 5a is at zero".
 CEILINGS = {
     "unjoined": 0,        # findings with no record and no no-test declaration
-    "weak_only": 30,      # findings whose only records are prose mentions
-    "untested": 30,       # weak_only + awaiting-test: the number that must fall
+    "weak_only": 0,       # findings whose only records are prose mentions
+    "untested": 0,        # weak_only + awaiting-test: the number that must fall
+    "awaiting_test": 0,   # the honest successor number — must not grow back
     "dangling": 0,        # records naming a finding id that resolves to nothing
     "blank": 0,           # records naming a collision-vacated number — never ok
     "retired": 0,         # records naming a finding retired to deprecated/
     "briefs_in_findings": 0,   # brief ids in `findings:` — never ok
     "bad_declaration": 0,      # a no-test/claim header outside the vocabulary
-    "claim_unset": 10,    # findings in no card, declaring no claim state
-    "unclaimed": 10,      # claim_unset + pending: the claim-side equivalent
+    "claim_unset": 0,     # findings in no card, declaring no claim state
+    "unclaimed": 0,       # claim_unset + pending: the claim-side equivalent
 }
 
 # The neighbouring id space: falsification briefs in tests/falsification/ and

@@ -1,0 +1,184 @@
+{
+  "finding": "F373",
+  "title": "Is the OBE quark-size regulator b=0.55 fm consistent with a derived model scale (F146 R_conf), or independently tuned?",
+  "checks": {
+    "A1 R_conf (F146) within 10% of the tuned b=0.55 fm": {
+      "residual": 0.05463585419544823,
+      "target": 0.1,
+      "tier": "quantitative",
+      "status": "PASS",
+      "R_conf_fm": 0.5215070185714286,
+      "b_tuned_fm": 0.55,
+      "sqrt_sigma_GeV": 0.42
+    },
+    "B0 P2 ground state is S3-symmetric (three pair <r^2> equal)": {
+      "residual": 4.112193458131314e-11,
+      "target": 1e-08,
+      "tier": "machine",
+      "status": "PASS"
+    },
+    "B1 P2-ECG single-quark spread vs tuned b (companion candidate, INFORMATIONAL, not required to pass)": {
+      "residual": 0.3377452768836426,
+      "target": 0.1,
+      "tier": "quantitative",
+      "status": "PASS",
+      "b_P2_fm": 0.41113955661369095,
+      "note": "documents the weaker candidate; NOT required to pass -- residual 33.8% shows R_conf (A1, 5.5%) is the clearly better match, not that any model number works",
+      "raw_residual_uncapped": 0.3377452768836426
+    },
+    "B2 R_conf (F146) is the CLOSER of the two candidates to the tuned b": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "C0 route-A and route-B root search actually bracketed a real root (not a silent-garbage bisection) at both b=tuned and b=R_conf": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "integrity",
+      "status": "PASS",
+      "route_bracket_ok": {
+        "tuned": {
+          "routeA": true,
+          "routeB": true
+        },
+        "R_conf": {
+          "routeA": true,
+          "routeB": true
+        }
+      }
+    },
+    "C1 route A r_d within 5% of 1.97 fm AT b=R_conf": {
+      "residual": 0.0022251061407317675,
+      "target": 0.05,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omega2_4pi": 6.380843592561632,
+      "E_b_MeV": 2.2195521451040032,
+      "r_d_fm": 1.9656165409027584,
+      "P_D": 0.06460928658857829
+    },
+    "C2 route A required g_omega^2/4pi stays in the OBE/SU(6) window [3,12]": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omega2_4pi": 6.380843592561632,
+      "E_b_MeV": 2.2195521451040032,
+      "r_d_fm": 1.9656165409027584,
+      "P_D": 0.06460928658857829
+    },
+    "C3 route B r_d within 8% of 1.97 fm AT b=R_conf": {
+      "residual": 0.048353696702421775,
+      "target": 0.08,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "g_omega2_4pi": 11.329685446825806,
+      "E_b_MeV": 2.215525805010436,
+      "r_d_fm": 1.874743217496229,
+      "P_D": 0.07259225934812649
+    },
+    "C4 r_d shifts <10% between b=0.55 (tuned) and b=R_conf (insensitivity)": {
+      "residual": 0.006204329265556274,
+      "target": 0.1,
+      "tier": "Tier-B",
+      "status": "PASS",
+      "shift_rd_routeA": 0.006204329265556274,
+      "shift_rd_routeB": 0.003099378756837937,
+      "shift_gomega_routeA": 0.18341455897989625,
+      "shift_gomega_routeB": 0.0161717247270142
+    },
+    "D1 route A finds a real (bracket-valid) root at b_P2, the one value the old fixed-bracket bisect_bind() silently broke on": {
+      "residual": 0.0,
+      "target": 0.5,
+      "tier": "integrity",
+      "status": "PASS",
+      "g_omega2_4pi": 9.556248397991567,
+      "E_b_MeV": 2.2139272456436703,
+      "r_d_fm": 1.9290833050942342,
+      "P_D": 0.07183017853321808
+    },
+    "D3 every compared b (b_P2, R_conf, b_tuned) sits >=15% below route A's physical (non-negative coupling) crossover, found near b~0.68 fm": {
+      "residual": 0.18575854265717895,
+      "target": 0.15,
+      "tier": "integrity",
+      "status": "PASS",
+      "b_crossover_fm": 0.6754753090009182
+    }
+  },
+  "derived": {
+    "R_conf_fm": 0.5215070185714286,
+    "b_tuned_fm": 0.55,
+    "rel_dev_Rconf_vs_b_tuned": 0.05463585419544823,
+    "b_P2_ECG_fm": 0.41113955661369095,
+    "rel_dev_P2_vs_b_tuned": 0.3377452768836426,
+    "routes": {
+      "tuned": {
+        "b_fm": 0.55,
+        "routeA_core_sigma_omega": {
+          "g_omega2_4pi": 5.391892083921903,
+          "E_b_MeV": 2.2202232588762927,
+          "r_d_fm": 1.9778880093632436,
+          "P_D": 0.06252063817538032
+        },
+        "routeB_sigma_omega_only": {
+          "g_omega2_4pi": 11.1493807307711,
+          "E_b_MeV": 2.216869613452825,
+          "r_d_fm": 1.880571821851584,
+          "P_D": 0.07057071931387966
+        }
+      },
+      "R_conf": {
+        "b_fm": 0.5215070185714286,
+        "routeA_core_sigma_omega": {
+          "g_omega2_4pi": 6.380843592561632,
+          "E_b_MeV": 2.2195521451040032,
+          "r_d_fm": 1.9656165409027584,
+          "P_D": 0.06460928658857829
+        },
+        "routeB_sigma_omega_only": {
+          "g_omega2_4pi": 11.329685446825806,
+          "E_b_MeV": 2.215525805010436,
+          "r_d_fm": 1.874743217496229,
+          "P_D": 0.07259225934812649
+        }
+      }
+    },
+    "route_bracket_ok": {
+      "tuned": {
+        "routeA": true,
+        "routeB": true
+      },
+      "R_conf": {
+        "routeA": true,
+        "routeB": true
+      }
+    },
+    "routeA_at_b_P2": {
+      "g_omega2_4pi": 9.556248397991567,
+      "E_b_MeV": 2.2139272456436703,
+      "r_d_fm": 1.9290833050942342,
+      "P_D": 0.07183017853321808
+    },
+    "routeB_at_b_P2": {
+      "g_omega2_4pi": 12.097202982220097,
+      "E_b_MeV": 2.204714663862894,
+      "r_d_fm": 1.8646363818111402,
+      "P_D": 0.07910455532245372
+    },
+    "b_P2_bracket_ok": {
+      "routeA": true,
+      "routeB": true
+    },
+    "routeA_physical_crossover_b_fm": 0.6754753090009182,
+    "routeA_gw_vs_b_scan": {
+      "0.6": 3.4600761157394118,
+      "0.63": 2.170117960837615,
+      "0.66": 0.7758220622349654,
+      "0.69": -0.7281648284738367,
+      "0.72": -2.3470714812533515,
+      "0.75": -4.086022844996933
+    }
+  },
+  "notes": []
+}

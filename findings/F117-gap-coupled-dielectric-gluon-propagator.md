@@ -5,6 +5,7 @@
 **Modules:** `ca-simulation/ca_colour_dielectric.py` (new **Part D**)
 **Tests:** `tests/findings/test_FG7f_gluon_dielectric_gap.py` (new)
 **Results:** `test-results/FG7f_gluon_dielectric_gap.json`
+**Test record:** record `FG7f-gluon-dielectric-gap` (tier battery) — this finding's own 6/6 script, baseline `test-results/FG7f_gluon_dielectric_gap.json`. Declared 2026-08-19.
 **Cross-refs:** F86 (dual-superconductor flux tube — Parts A/C), F88 (colour-magnetic condensate *derived*, the gap source), F91 (gluon propagator is the **even** law), F64 (gravity dielectric — the structural template), F43/FG-7 (dynamical gluon sector), F26 (c = rotation rate).
 
 ---

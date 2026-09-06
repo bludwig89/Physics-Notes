@@ -1,5 +1,15 @@
 # F194 — The model-native emergent-gravity ("dark matter without dark matter") route, falsified by the Bullet-Cluster lensing/gas offset
 
+> **[SUB-CLAIM SUPERSEDED 2026-09-03 by F358 — ledger S23-F194-bullet-cluster-clump-shape-claim]**
+>
+> **DEAD:** The single sentence, in 'Why the conclusion is robust', claiming the phantom-density lensing peak can never migrate to the offset galaxies 'regardless of a0, the interpolation function, or the clump shapes'. This overstates the discriminator as a strict topological impossibility; it is not one.
+>
+> **STILL LIVE:** EVERYTHING F194 CONCLUDES. E1-E5 all still pass and are unaffected (they are numerical results of one specific toy geometry, not the withdrawn universal claim). The bottom-line verdict -- the model-native emergent-gravity route is falsified and a dark, collisionless gravitating source is required -- is RETAINED IN FULL and is independently reinforced: F358 finds the MOND/QUMOND community's own 2026 internal dispute (Famaey's arXiv:2605.10022 rebuttal of Hernandez) reaches the same bottom line by a different route, against the sharpest currently available (JWST) data.
+>
+> **NOTE:** Rubric row E13 stays EXCLUDED. CL168's falsifier field, unset when this record was written, is filled in by F358: an independently-verified baryon-only QUMOND/MOND match to the FULL kappa profile (not just the offset centroid) would undercut this exclusion; none has survived scrutiny as of 2026-09.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-06-30 - 15:10
 **Numbering:** drafted as F193, but a concurrent session claimed F193 for `F193-ontic-vacuum-gravitates-as-zero` (the CA-native vacuum candidate (i)); renumbered to **F194** on merge (re-checked per CLAUDE.md).
 **Status:** Confirmed — 5/5 checks PASS. The acceleration-scale derivation (E1) and the QUMOND solver self-consistency (E3) are quantitative/machine-level; the Bullet-Cluster falsifier (E4) is a 3D toy whose **conclusion is a robust topological discriminator**, not a parameter fit. This builds the one gravity-*side* dark-matter candidate that the catalog (§4) and [[F191-dark-matter-rotation-curves-bullet]] left open, and shows it fails the same test that breaks MOND at cluster scales.

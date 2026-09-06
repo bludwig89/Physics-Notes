@@ -714,6 +714,18 @@ tests:
   params:
     lambda_wilson: 28.8086
     C_lat_wilson_loops: 6.138642608418188
+  control:
+  - params:
+      lambda_wilson: 1.0
+    reds:
+    - S5
+    - S6
+    reason: 'Named directly in check_d1_subtracted''s own docstring: with no Wilson scheme gap (lambda_wilson=1.0)
+      the seagull leg changes sign, the tadpole-free band collapses below the target, so S5 (target inside
+      the tadpole-free band, Wilson excluded) must go red; measured 2026-09-06, the same perturbation
+      also moves the open-vertex share leg3/total past the 0.5 ceiling, reddening S6 (open vertex leg
+      is a minority share) as well -- both legs are downstream of the same dC_w_tot(lambda_wilson) term,
+      so this is one physical perturbation with two named legs, not two perturbations.'
   expect:
     exactness: bracketed
   findings:
@@ -1181,6 +1193,17 @@ tests:
   params:
     n_dirs: 8
     seed: 0
+  control:
+  - params:
+      exact_dt: false
+    reds:
+    - analytic_matches_closed_form
+    - analytic_falls_like_k2
+    reason: 'exact_dt is a new passthrough param (added 2026-09-06, default true -- identical to prior
+      behaviour) to maxwell_curl_residual_analytic, whose own docstring states the one-tick difference
+      (exact_dt=False) is O(k) with coefficient c_lat^2/4, not O(k^3). Measured 2026-09-06: reddens exactly
+      the two closed-form/falloff legs; the two original-real-pair control legs and the B=nxE geometry
+      leg (none of which read exact_dt) stay green.'
   expect:
     exactness: quantitative
     tol: 0.05
@@ -1354,7 +1377,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: true
-    lines: 112
+    lines: 126
     n_test_funcs: 8
     artifacts_written: []
     artifact_rule: {}
@@ -1379,6 +1402,15 @@ tests:
     k0: 0.8
     h: 1.0e-05
     seed: 314
+  control:
+  - params:
+      h: 0.001
+    reds:
+    - closed_form_all_axes
+    reason: h is the central-difference step used only by the closed_form_all_axes leg (the F20 pattern,
+      already-verified 2026-09-06 elsewhere in this repo). Widening h by 100x grows the O(h^2) truncation
+      error past the 1e-8 leg tolerance; the six h-independent legs (exact on-axis identities, arccos-bounded
+      checks, the off-axis control, on-axis velocity/curvature) stay green.
   expect:
     exactness: exact
     tol: 0
@@ -1937,6 +1969,529 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'F325 — X1 resolved: branch A tested and closed, branch B adopted.'
+- id: F333-internal-index-existence
+  path: tests/findings/test_F333_internal_index_existence.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.derive_internal_index_existence
+  entry: check_internal_index_existence
+  params:
+    n_probe: 3
+    bosonic_baryon: false
+    partial_generator_check: false
+  expect:
+    exactness: exact
+  findings:
+  - F333
+  - F317
+  - F318
+  - F324
+  - F289
+  results:
+  - test-results/F333_internal_index_existence.json
+  control:
+  - params:
+      n_probe: 4
+    reds:
+    - S3
+    reason: probe an EVEN colour count. A 4-quark colour-4 "baryon" has 4 constituents, which the block-swap
+      parity predicts bosonic, contradicting the observed fact that real baryons (protons, neutrons) are
+      fermions. Shows the oddness requirement genuinely discriminates rather than being vacuously true
+      for every N.
+  - params:
+      n_probe: 1
+    reds:
+    - S4
+    reason: probe the excluded case itself. dim su(1) = 0 exactly -- no gauge boson is even possible --
+      so a theory with N=1 has no connection to confine with, inconsistent with quarks being observed
+      confined (never free). This is the leg that actually excludes N=1.
+  - params:
+      bosonic_baryon: true
+    reds:
+    - S3
+    reason: treat the composite exchange as bosonic regardless of constituent count, i.e. ignore that
+      quarks are themselves fermions. S3 goes red AT EVERY N INCLUDING N=3 -- without fermionic valence
+      quarks nothing ever predicts a fermionic baryon, at any colour count, which is what shows S2's fermion-specific
+      sign (not group theory alone) is doing the work in S3.
+  - params:
+      partial_generator_check: true
+    reds:
+    - S1
+    reason: check invariance under only the FIRST generator of su(N) instead of the full algebra. Several
+      off-diagonal (N,k) cells acquire spurious "singlets" (states invariant under that one generator
+      but not the whole group) -- e.g. (N=4,k=2) goes from singlet_dim 0 to 2 -- showing the "iff k=N"
+      result depends on the FULL joint kernel, not a partial one.
+  notes: 'Completeness row B1. Does NOT re-derive N_c=3 (F317 S6 / F318 SD / F324''s own business, row
+    B10) and does not re-attack F317''s four closed legs. Narrows F324''s own named residual ("the index
+    exists by fiat", SS10 item 1) to two named observational facts -- baryons are fermions; quarks are
+    confined (no free fractional charge ever observed) -- combined with a genuine two-parameter generalisation
+    of F317 S6''s fixed-k=3 Lambda^3 scan (S1: SU(N)-invariant subspace of Lambda^k(C^N) is 1-dim iff
+    k=N, scanned over N=1..6, k=1..4) and an explicitly computed (not quoted) composite-fermion exchange-parity
+    rule (S2: block-swap signature = (-1)^k for k=1..6). Combining "a quark-only colour-N baryon has k=N
+    constituents" (S1) with "such a composite is a fermion iff N odd" (S2) against the observed fact that
+    real baryons are fermions forces N odd (S3); combining dim su(N)>0 iff N>=2 against quarks being observed
+    confined (never free, S4) excludes N=1. N odd and N>=2 gives {3,5,7,9,11} over N=1..12 (S5) -- matching
+    F324''s own independent post-S22 bracket, reached from entirely different premises (Witten''s SU(2)_L
+    anomaly + generation parity), reported as a cross-check only, not depended upon and not used to pin
+    N=3. 6/6 PASS, four controls each verified red and red only where declared.'
+  evidence:
+    mentions:
+    - F289
+    - F317
+    - F318
+    - F324
+    - F333
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 74
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F333 — does the colour index have to exist at all? (completeness row B1).
+- id: F335-reflection-positivity-bcc
+  path: tests/findings/test_F335_reflection_positivity_bcc.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.reflection_positivity
+  entry: check_reflection_positivity_bcc
+  params:
+    L: 4
+    Lt: 4
+    N: 2
+    gram_n_sweeps: 24
+    broken_dagger: false
+  expect:
+    exactness: machine
+  findings:
+  - F335
+  - F265
+  - F323
+  - F313
+  - F94
+  results:
+  - test-results/F335_reflection_positivity_bcc.json
+  control:
+  - params:
+      broken_dagger: true
+    reds:
+    - M1
+    reason: Drops the dagger on the reflected temporal field (see theta_reflect_config). Every field stays
+      in SU(N) (unitarity is untouched), and the bare time-index permutation tau -> (Lt-2-tau) mod Lt
+      is ALREADY self-inverse, so I1 (the involution check) provably CANNOT see this bug -- measured,
+      not assumed, and the reason M1 rather than I1 is the leg that certifies the dagger convention. M1
+      is the cyclic-rotation trace identity Tr(theta P_mixed) == conj(Tr P_mixed at the mirrored slice),
+      which depends on the dagger and reddens to O(1) under the control. H1-H4 (pure loop-structure combinatorics)
+      and S1 (the SU(2) character-coefficient quadrature, which never touches theta) are untouched by
+      construction and stay green, single-legged.
+  evidence:
+    mentions:
+    - F335
+    pytest_funcs: false
+    has_assert: false
+    has_main: false
+    lines: 52
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: Reflection positivity for the BCC_3 x Z action -- human-readable driver.
+- id: F335-reflection-positivity-gram
+  path: tests/runners/run_reflection_positivity_gram.py
+  kind: result_dump
+  tier: battery
+  sector: gauge
+  findings:
+  - F335
+  results:
+  - test-results/F335_reflection_positivity_gram_anisotropic.json
+  - test-results/F335_reflection_positivity_gram_isotropic.json
+  - test-results/F335_reflection_positivity_gram_strong.json
+  evidence:
+    mentions:
+    - F335
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 72
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'Battery runner: the reflection-positivity Gram-matrix cross-check (F335).'
+- id: F337-l6-decision
+  path: tests/findings/test_F337_l6_decision.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.lpt_d1_action_consistent
+  entry: check_l6_decision
+  params:
+    ns:
+    - 6
+    - 8
+    - 10
+    - 12
+    swap_control: false
+  expect:
+    exactness: bracketed
+  findings:
+  - F337
+  - F305
+  - F307
+  - F308
+  results:
+  - test-results/F337_l6_decision.json
+  control:
+  - params:
+      swap_control: true
+    reds:
+    - L6_leg1_propagator_divergence
+    reason: swap which quadratic_form occupies the "own" vs "swapped" slot. A genuine measurement, not
+      a hardcoded verdict, must flip both conditions (own_dev_nonincreasing, swap_diverges) to False,
+      because the diverging K_true_4d kernel now occupies the slot the check requires to converge. MEASURED.
+  notes: 'Decides ledger row L6 leg 1 (which object is the rule''s gauge action at finite a) empirically,
+    per F305 sec.7.4 (''the machinery is action-agnostic ... costs one function''): the rhombic vertices
+    paired with the action''s OWN quadratic form converge monotonically (b0-recovery deviation from 1
+    is non-increasing through n=12); paired with the F26/Omega_even K_true_4d propagator (F308''s K_true_4d
+    = 3 Omega_even^2 + kt^2) they DIVERGE instead (b0_recovery 1.13 -> 1.66 -> 2.08 at n=8,10,12), because
+    that kernel is not periodic under the reciprocal lattice the vertices are exactly periodic under (F308
+    sec.3''s own aperiodicity measurement). Leg 2 (is the redundant link-axis mode dynamical) rests on
+    F305''s own exact isometry gate (mode_fork, already gated there) PLUS a native n=24-40 sweep this
+    record does NOT re-run at gate speed -- the unprojected (raw) branch''s b0-recovery crosses 1 between
+    n=32 and n=36 and keeps climbing (measured 0.38 at n=8 through 1.26 at n=40, a clean divergence),
+    while the projected (phys) branch approaches 1 monotonically from below throughout, never crossing
+    it. See findings/F337-*.md for the full native-sweep account (test-results/F337_l6_native_sweep.json,
+    test-results/F337_l6_native_sweep_raw_per_Q.json, tests/runners/run_l6_native_sweep.py) -- that sweep
+    does NOT close d1 leg 3''s quotability gate (S3 in F307''s record); it sharpens the tension instead
+    (implied Lambda_MSbar/Lambda_rule ~31, outside F280''s [1, 7.98] bracket, read as non-convergence
+    per F307''s own standing caution on this exact failure mode, not as a falsification).'
+  evidence:
+    mentions:
+    - F26
+    - F337
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 71
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F337 — ledger row L6 decided: the rhombic action''s own quadratic form is the'
+- id: F338-ncolour-ceiling
+  path: tests/findings/test_F338_ncolour_ceiling.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.derive_ncolour_ceiling
+  entry: check_ncolour_ceiling
+  params:
+    n_gen: 3
+    n_max: 10
+    mod16_n_max: 15
+    su3_pi4_order_override: null
+    include_nu_r: true
+    assumed_anomaly_modulus: 16
+  expect:
+    exactness: exact
+  findings:
+  - F338
+  - F324
+  - F325
+  - F293
+  - F298
+  - F317
+  - F75
+  results:
+  - test-results/F338_ncolour_ceiling.json
+  control:
+  - params:
+      su3_pi4_order_override: 2
+    reds:
+    - G1
+    reason: falsely claim SU(3) carries the pi_4 obstruction (order 2, matching SU(2)'s). G1 must catch
+      that this contradicts "only N=2 carries it" -- the check is reading the table, not hard-coded to
+      pass.
+  - params:
+      include_nu_r: false
+    reds:
+    - G2
+    reason: drop the right-handed neutrino from the per-generation count. At N_c=3 the total falls from
+      16 to 15, breaking the fixed (not conditional) expectation G2 checks against.
+  - params:
+      assumed_anomaly_modulus: 8
+    reds:
+    - G3
+    reason: G3's own flagged necessary-condition arithmetic, re-run at a different assumed modulus. The
+      comparison is against a FIXED expectation (N_c = 3 mod 4, the modulus-16 result), so any other modulus
+      must turn this red -- confirming the scan actually reads the parameter rather than returning a hard-coded
+      set. Does not touch G0/G1/G2.
+  - params:
+      n_gen: 2
+    reds:
+    - G0
+    - G3
+    reason: break F324's premise (i), n_gen odd (reusing witten_scan's own, already-tested, control).
+      G0 goes red because the surviving Witten-parity leg stops selecting odd N_c at all. G3 also goes
+      red because n_gen=2 is no longer coprime to the modulus, breaking the exact N_c = 3 (mod 4) reduction
+      that holds for any odd n_gen.
+  evidence:
+    mentions:
+    - F293
+    - F303
+    - F317
+    - F318
+    - F324
+    - F325
+    - F338
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 96
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F338 -- B10 after F325: the odd-N_c bracket does not narrow further.'
+- id: F339-alpha-em-reopening-conditions
+  path: tests/findings/test_F339_alpha_em_reopening_conditions.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F339
+  - F127
+  - F138
+  - F251
+  - F165
+  - F279
+  sector: gauge
+  evidence:
+    mentions:
+    - F127
+    - F138
+    - F339
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 252
+    n_test_funcs: 4
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F339 — F127's four-avenue alpha_em no-go, characterized
+  notes: 'D#14 ledger prompt (completeness-2026-08-20-prompts.md): re-examines F127''s four-avenue alpha_em
+    no-go for the one assumption whose failure would reopen each avenue, using three findings that post-date
+    F127 (F138, F251/F277, F165/F279). Not a physics result -- does not move alpha_em off OPEN. Independently
+    re-derives (does not just cite) the Ward-transversality identity behind avenue A and the hypercharge
+    rank-6/7 result behind avenue D. Battery tier, matching F127''s own record -- a characterization/gap-analysis
+    finding, not a gate-tier physics claim.'
+- id: F340-strong-cp-nonperturbative
+  path: tests/findings/test_F340_strong_cp_nonperturbative.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.colour_theta
+  entry: check_strong_cp_nonperturbative
+  params:
+    one_sense: false
+    bad_reverse: false
+  expect:
+    exactness: exact
+  findings:
+  - F340
+  - F321
+  - F337
+  - F305
+  - F307
+  - F308
+  results:
+  - test-results/F340_strong_cp_nonperturbative.json
+  control:
+  - params:
+      one_sense: true
+    reds:
+    - U1_action_identity
+    reason: comparing colour_theta's 20-loop action against lpt_bcc_vertex's one-sense 10-loop action
+      instead of its genuine rhombic action must fail the set-equality check -- this is what makes a green
+      U1 a fact about the real action rather than a vacuous size coincidence
+  - params:
+      bad_reverse: true
+    reds:
+    - U2_reversal_identity_exact
+    reason: reversing step ORDER without negating direction is a different, unphysical closed word (same
+      step multiset, wrong path) -- its holonomy must not equal dagger(holonomy(w)), which is what makes
+      the exact machine-precision match under the correct reversal a fact about the geometry rather than
+      a coincidence of the identity matrix or similar degeneracy
+  evidence:
+    mentions:
+    - F26
+    - F308
+    - F321
+    - F337
+    - F340
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 95
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F340 — strong CP: the L6 bridge, and reality extended to the full'
+- id: F349-alpha-em-convergent-stiffness-evidence
+  path: tests/findings/test_F349_alpha_em_convergent_stiffness_evidence.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F349
+  - F127
+  - F339
+  - F41
+  - F143
+  - F147
+  - F149
+  - F153
+  sector: gauge
+  evidence:
+    mentions:
+    - F41
+    - F143
+    - F147
+    - F149
+    - F153
+    - F339
+    - F349
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 238
+    n_test_funcs: 6
+    artifacts_written:
+    - test-results/F143_wrap_loop_stiffness_test.json
+    - test-results/F147_induced_stiffness_loop.json
+    - test-results/F149_condensate_channel_splitting.json
+    - test-results/F153_diamagnetic_chargeblind_multiplicity.json
+    artifact_rule:
+      test-results/F143_wrap_loop_stiffness_test.json: file
+      test-results/F147_induced_stiffness_loop.json: file
+      test-results/F149_condensate_channel_splitting.json: file
+      test-results/F153_diamagnetic_chargeblind_multiplicity.json: file
+    artifacts_read_only: []
+    summary: F349 — Independent convergent-evidence check on F339's alpha_em reopening-condition
+  notes: Citation-completeness + independent cross-verification pass on F339 (2026-08-31). Documents a
+    previously-uncited evidence line (F41/F143/F147/F149/F153, all 2026-06) bearing on F127 avenues A
+    and D that F339 does not cite. G1 is a mechanical grep confirming the citation gap; G2-G5 load and
+    assert against the already-committed F143/F147/F149/F153 result JSONs (artifact verification, not
+    a re-run); G6 independently recomputes F147 N9 and F149 N8's exact-rational bookkeeping via fractions.Fraction.
+    Not a physics result -- does not move alpha_em off OPEN. Battery tier, matching F127/F339's own records.
+- id: F350-ws-mask-cutcell
+  path: tests/findings/test_F350_ws_mask_cutcell.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.lpt_ws_mask_cutcell
+  entry: mask_isolation_convergence
+  params:
+    ns:
+    - 8
+    - 12
+    - 16
+    - 20
+    - 24
+    - 28
+    - 32
+    - 36
+    - 40
+    depth_max: 5
+  expect:
+    exactness: exact
+  findings:
+  - F350
+  - F337
+  results:
+  - test-results/F350_ws_mask_isolation.json
+  control:
+  - params:
+      depth_max: 1
+    reds:
+    - pass
+    reason: cutting the octree refinement to depth_max=1 (barely any refinement past the initial ambiguous
+      classification) must NOT meet the isolation gate's accuracy bar (worst_err 0.0196 vs the 5e-3 threshold,
+      MEASURED) -- a hardcoded pass could not fail this way, only a genuine per-depth measurement can.
+  notes: 'Gate-cheap correctness/accuracy tests for the anti-aliased WS-cell mask F337 Sec.4/6 named as
+    d1 leg 3''s next step. G1 (shell1_matches_ws_mask): the first reciprocal shell alone (26 half-spaces)
+    reproduces lpt_bcc_vertex.ws_mask''s boundary exactly at every n tested -- this is what keeps the
+    octree refinement numerically well behaved (an earlier version using the full rng=2 shell, 124 half-spaces,
+    produced spurious near-degenerate ambiguous classifications that were measured and discarded). G2
+    (mask_isolation_convergence): the sharp mask''s own volume-estimate error falls as ~n^-1.07 (the F337-diagnosed
+    staircase order); the smoothed mask''s error is ~100x smaller at every n and does NOT need to shrink
+    further with n to already be below the physics integral''s own O(1/n^2)-class floor. This record does
+    NOT cover whether swapping the mask into the actual loop integral (lpt_d1_action_consistent.pi_loop_chunked''s
+    new mask_grid parameter) changes the measured convergence rate -- that native n=12-40 re-run is not
+    gate-tier (same reasoning as F337''s own native sweep); see findings/F350-*.md and test-results/smoothed_ws_mask_sweep_checkpoint.json
+    / F350_smoothed_dloops_sweep.json for the full account. HEADLINE RESULT (not asserted at gate tier,
+    reported in the finding): the native re-run measures NO improvement -- fitted convergence exponent
+    ~0.92-1.14 (same order as F337''s sharp-mask ~0.92-1.35), extrapolated Lambda_MSbar/Lambda_rule ~31-34
+    (statistically unchanged from F337''s 31.3), both still firing F337''s own named exhaustion condition
+    for the "non-convergence, not falsification" reading. REVIEWED 2026-09-02 (inline adversarial self-review,
+    F350 Sec.9): found and fixed a real bug where a shared node-count budget made the octree''s effective
+    depth silently fall from 6 (n=8) to 3 (n=40); fixed by batching (default depth_max=5, node_budget=4e6,
+    verified output independent of the budget -- see test_effective_depth_is_independent_of_node_budget).
+    Full native sweep re-run post-fix (checkpoint file renamed to smoothed_ws_mask_sweep_checkpoint_v2.json);
+    conclusion unchanged (numbers moved by less than the fits'' own noise).'
+  evidence:
+    mentions:
+    - F337
+    - F350
+    pytest_funcs: true
+    has_assert: true
+    has_main: false
+    lines: 71
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F350 -- an anti-aliased (cut-cell) Wigner-Seitz-cell mask, built to test
+- id: F351-v-second-pin-scope
+  path: tests/findings/test_F351_v_second_pin_scope.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F351
+  - F79
+  - F119
+  - F143
+  - F150
+  - F232
+  - F233
+  - F118
+  - F234
+  - F320
+  sector: gauge
+  results:
+  - test-results/F351_v_second_pin_scope.json
+  evidence:
+    mentions:
+    - F79
+    - F118
+    - F143
+    - F232
+    - F233
+    - F234
+    - F351
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 228
+    n_test_funcs: 5
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F351 -- Ledger row E7 / parameter #17 (v): is v a second dimensionful pin'
 - id: F37-delta-omega
   path: tests/findings/test_F37_delta_omega.py
   kind: result_dump
@@ -2212,6 +2767,7 @@ tests:
   - F70
   - F86
   - F87
+  - F94
   sector: gauge
   evidence:
     mentions:
@@ -2434,6 +2990,7 @@ tests:
   - test-results/FG7b_gradient_flow.json
   findings:
   - F43
+  - F70
   briefs:
   - FG7
   sector: gauge
@@ -2458,6 +3015,8 @@ tests:
   tier: battery
   results:
   - test-results/FG7c_confinement.json
+  findings:
+  - F70
   briefs:
   - FG7
   sector: gauge
@@ -2481,6 +3040,8 @@ tests:
   tier: battery
   results:
   - test-results/FG10_baryon_singlet.json
+  findings:
+  - F71
   briefs:
   - FG7
   sector: gauge
@@ -2507,6 +3068,7 @@ tests:
   findings:
   - F43
   - F64
+  - F86
   briefs:
   - FG7
   sector: gauge
@@ -2568,6 +3130,7 @@ tests:
   - F86
   - F88
   - F91
+  - F117
   briefs:
   - FG7
   sector: gauge
@@ -2600,6 +3163,7 @@ tests:
   - F35
   - F36
   - F48
+  - F54
   briefs:
   - FG8
   sector: gauge
@@ -2629,6 +3193,7 @@ tests:
   findings:
   - F27
   - F34
+  - F53
   briefs:
   - FG9
   sector: gauge
@@ -3334,6 +3899,7 @@ tests:
   findings:
   - F70
   - F135
+  - F146
   sector: gauge
   evidence:
     mentions:

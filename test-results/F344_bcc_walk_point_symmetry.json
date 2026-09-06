@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "C0_convention_is_unitary": true,
+    "C1_unitarity_forces_unit_coefficients": true,
+    "C1b_group_is_Oh_48": true,
+    "C2_branch_map_exact": true,
+    "C2b_proper_Rz_swaps_branch": true,
+    "C3_L_is_D4h_order_16": true,
+    "C4_unitary_subgroup_order_8": true,
+    "C5_no_C3_for_any_convention": true,
+    "C6_defect_is_exactly_qx_minus_qz_times_T2g": true,
+    "C7_leading_order_covariant_under_all_48": true,
+    "C8_shipped_code_agrees": true
+  },
+  "detail": {
+    "squared_monomial_rank": 8,
+    "branch_swapping_elements": 24,
+    "branch_preserving_order": 24,
+    "L_order": 16,
+    "L_closed": true,
+    "L_invariant_axes": [
+      2
+    ],
+    "L_proper_elements": 8,
+    "unitary_subgroup_order": 8,
+    "admissible_conventions": 576,
+    "max_L_over_conventions": 16,
+    "conventions_admitting_a_C3": 0,
+    "n_body_diagonal_C3": 8,
+    "C3_defect_coefficient_branch_+": -2,
+    "C3_defect_coefficient_branch_-": 2,
+    "L_order_leading": 48,
+    "max_residual_on_L_shipped_code": 0.0,
+    "C3_residual_floor_k0.1": 0.10162338430333878,
+    "C3_residual_floor_k0.01": 0.010279833922526682,
+    "C3_residual_slope": 9.88570292761702
+  },
+  "params": {
+    "coefficient_source": "module",
+    "expansion_order": "exact"
+  },
+  "n_pass": 11,
+  "n_total": 11,
+  "all_pass": true
+}

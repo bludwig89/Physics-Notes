@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "name": "S0 dim su(1) = 0 exactly: the N=1 case carries no generators at all -- no gauge boson is even possible",
+      "ok": true,
+      "value": 0
+    },
+    {
+      "name": "S1 the SU(N)-invariant subspace of Lambda^k(C^N) is 1-dimensional IFF k=N, over the whole tested (N,k) grid (generalises F317 S6's fixed k=3 scan)",
+      "ok": true,
+      "value": [
+        24,
+        0
+      ]
+    },
+    {
+      "name": "S2 the block-swap permutation of k identical fermions has signature exactly (-1)^k, computed for k=1..6 (not quoted)",
+      "ok": true,
+      "value": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "S3 a quark-only colour-3 baryon (k=3 constituents, S1) is predicted fermionic iff 3 is odd (S2); matches the observed fact that real baryons are fermions",
+      "ok": true,
+      "value": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "S4 dim su(3) = 8 > 0 (a connection exists to confine with), consistent with quarks being observed confined (never free)",
+      "ok": true,
+      "value": 8
+    },
+    {
+      "name": "S5 {N odd and N has gauge bosons} = {3,5,7,9,11} over N=1..12 -- matches F324's independent post-S22 bracket (different premises: Witten anomaly + generation parity, not composite statistics or confinement); NOT used to pin N=3",
+      "ok": true,
+      "value": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 6,
+  "n_total": 6,
+  "params": {
+    "n_probe": 3,
+    "bosonic_baryon": false,
+    "partial_generator_check": false
+  },
+  "summary": {
+    "row": "B1",
+    "verdict": "The internal index's existence is not derived from nothing, but the residual is renamed and shrunk again: from 'the index exists, by fiat' (F324's own words) to two named observational facts -- baryons are fermions, and quarks are confined -- combined with the model's own SU(N) representation theory (generalised here) and derived Fermi statistics (F289). N=3 itself is not re-derived; that stays F317 S6 / F318 SD / F324's."
+  }
+}

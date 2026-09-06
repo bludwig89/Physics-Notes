@@ -121,7 +121,7 @@ above the $\sigma_8$ scale. The probe that is not blind is the Lyman-α forest, 
 ## Sources
 
 - `findings/F288-structure-formation-zero-free-functions.md`
-- `docs/roadmaps/k11-structure-formation-prompt.md`
+- `docs/roadmaps/completed/k11-structure-formation-prompt.md`
 - `docs/status/completeness-2026-08-04.md` (row K11, ABSENT table)
 - `src/casim/engine/interactions/cosmology_growth.py`
 - Planck Collaboration 2020 (Planck 2018 VI); Alam et al. 2021 (eBOSS DR16); DESI DR1

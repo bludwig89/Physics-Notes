@@ -6,6 +6,7 @@
 **Module:** reuses `ca-simulation/ca_interior_metric.py` (F181) — no new module.
 **Test:** `tests/findings/test_F200_alcubierre_structural.py` (~7 s; numpy + sympy + F181 kernel). *(filename retains the working `F200` tag; the finding is F204.)*
 **Results:** `test-results/F200_alcubierre_structural.json`
+**Test record:** record `F200-alcubierre-structural` (tier battery) — the record for the test above; its id and filename keep the working `F200` tag, and its `findings:` now names **F204** rather than F200 (a different finding, the E_g sextic-coupling computation). The finding's other record, `run-warp-openitems-explore`, is a `legacy_script` with no failure mode and remains declared debt. Declared 2026-08-19.
 **Cross-references:** [[F193-ontic-vacuum-gravitates-as-zero]] (M2: beable $T^{00}\ge0$, the fatal bound), [[F178-gravity-full-tensor-adoption]] (M1: induced full-tensor source), [[F181-covariant-interior-kernel-battery]] (M3: the two-function kernel, reused as control), [[F64-em-connection-gravity]] (the enclosed-mass dielectric), [[F107-canonical-a-adoption-L4-grb-gate]] / Findings 25/26 (M4: $c_\text{lat}=1/\sqrt3$). Brief: `docs/design/alcubierre-warp-structural-test.md`. External: Alcubierre 1994; Pfenning–Ford 1997 (gr-qc/9702026); Bobrick–Martire 2021 (2102.06824); Fuchs et al. 2024 (2404.03095).
 
 ---

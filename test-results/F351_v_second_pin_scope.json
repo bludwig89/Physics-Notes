@@ -1,0 +1,54 @@
+{
+  "finding": "F351",
+  "date": "2026-09-02",
+  "overall": "5/5 PASS",
+  "checks": {
+    "T1": {
+      "statement": "v not in free_symbols(1/G); G-equation cannot pin a second unknown",
+      "free_symbols": [
+        "a",
+        "c",
+        "d",
+        "eta",
+        "g_star",
+        "hbar"
+      ],
+      "v_excluded": true,
+      "a_over_ellP_reproduced": 6.597816664747606,
+      "pass": true
+    },
+    "T2": {
+      "statement": "F118/F234 'v' (~0.16, dimensionless) vs ledger v (246.22 GeV): disjoint, neither registered",
+      "V_EW_GeV": 246.21965079413738,
+      "v_F118": 0.16,
+      "ratio": 1538.8728174633586,
+      "disjoint": true,
+      "v_registered_as_constant": false,
+      "pass": true
+    },
+    "T3": {
+      "statement": "fermion-loop share of v^2 reproduces F143 Sec.5 (96-215 GeV^2, 0.16-0.36%)",
+      "share_GeV2_lo": 96.17917472788741,
+      "share_GeV2_hi": 214.98874350939536,
+      "fraction_lo": 0.0015864792357362732,
+      "fraction_hi": 0.003546247703410493,
+      "pass": true
+    },
+    "T4": {
+      "statement": "F233 transmutation factor N_F119/N_pred ~ 1.9",
+      "N_F119": 5.54e-19,
+      "N_pred": 2.86e-19,
+      "ratio": 1.937062937062937,
+      "pass": true
+    },
+    "T5": {
+      "statement": "v_lat in the fermion m_lat order-of-magnitude regime (illustrative)",
+      "lambda_lat_GeV": 1.8504379301937398e+18,
+      "v_lat": 1.3306039396534684e-16,
+      "tau_m_lat": 5.54e-19,
+      "top_m_lat": 5.39e-17,
+      "pass": true
+    }
+  },
+  "conclusion": "v is not forced by G (mechanically -- v is outside the free-symbol set of F79's G-fixing equation), and v is not an independent scale gap needing its own new dimensionful pin: the Sakharov/loop-induction route is checked and negligible (F143, 0.16-0.36% of v^2), and the NJL/dynamical-transmutation route is NOT absent as F119 originally concluded -- F233 already supersedes that for the sibling quantity N via QCD asymptotic freedom (factor 1.9), contingent on the shared constant d_1. v is plausibly (not yet provably) the same single d_1 residual as N and the lepton brake lambda_6. No number for v is claimed; ledger row E7 stays FIT(N=1)."
+}

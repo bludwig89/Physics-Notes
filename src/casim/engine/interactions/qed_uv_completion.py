@@ -122,7 +122,8 @@ from fractions import Fraction
 
 from casim.numerics import xp as np
 
-from casim.constants import c_lat, a_over_ellP, ell_P_m, hbar_SI, c_SI
+from casim.constants import (c_lat, a_over_ellP, ell_P_m, hbar_SI, c_SI,
+                             J_per_GeV, m_e_GeV)
 
 __all__ = [
     "bz_factor", "I_lattice", "I_continuum_sphere", "scheme_constant",
@@ -391,7 +392,7 @@ def dispersion_excess_mp(nvec, kmag: str = "1e-10", dps: int = 60) -> float:
 def lambda_uv_GeV() -> float:
     """``Lambda_UV = hbar c / a`` at the F107 canonical cell, in GeV."""
     a_m = float(a_over_ellP) * float(ell_P_m)
-    joule_per_GeV = 1.602176634e-10
+    joule_per_GeV = float(J_per_GeV)
     return float(hbar_SI) * float(c_SI) / a_m / joule_per_GeV
 
 
@@ -632,7 +633,7 @@ def check_uv_completion(zero_point_weight: float = 1.0,
 
     # ---- U6 : decoupling at the measured scales ---------------------------
     Lam = lambda_uv_GeV()
-    scales = {"m_e": 0.51099895e-3, "M_Z": 91.1876,
+    scales = {"m_e": float(m_e_GeV), "M_Z": 91.1876,
               "LHC_13TeV": 1.3e4, "LHAASO_1.4PeV": 1.4e6}
     dec = {}
     for nm, E in scales.items():
@@ -642,7 +643,7 @@ def check_uv_completion(zero_point_weight: float = 1.0,
     legs["U6-decoupled-at-LHC"] = dec["LHC_13TeV"]["max_frac_deviation"] < 1e-28
 
     # ---- U7 : the perturbative domain -------------------------------------
-    me, alpha = 0.51099895e-3, 1.0 / 137.035999177
+    me, alpha = float(m_e_GeV), 1.0 / 137.035999177
     log10_mu_L = math.log10(me) + (3.0 * math.pi / (2.0 * alpha)) / math.log(10.0)
     inv_alpha_uv = 1.0 / alpha - (2.0 / (3.0 * math.pi)) * math.log(Lam / me)
     out["U7"] = {"log10_Landau_GeV": log10_mu_L,

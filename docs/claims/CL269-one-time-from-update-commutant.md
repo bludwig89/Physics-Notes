@@ -7,16 +7,16 @@ kind: derivation
 status: live
 domain: [QM, SR, QFT]
 exactness: quantitative
-findings: [F313, F291, F292, F315, F316, F318]
-tests: [F313-time-signature, F315-V-interaction, F316-laurent-pell]
-modules: [casim.engine.lattice.time_signature, casim.engine.lattice.time_signature_interacting, casim.engine.lattice.laurent_pell]
+findings: [F313, F291, F292, F315, F316, F318, F326]
+tests: [F313-time-signature, F315-V-interaction, F316-laurent-pell, F326-time-single-generator]
+modules: [casim.engine.lattice.time_signature, casim.engine.lattice.time_signature_interacting, casim.engine.lattice.laurent_pell, casim.engine.lattice.time_single_generator]
 constants: []
 supersessions: []
 reviews: [docs/reviews/F313-review-2026-08-13.md]
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-12
-last_verified: 2026-08-16
+last_verified: 2026-08-20
 provenance: authored
 review_state: authored
 confidence: high
@@ -206,6 +206,8 @@ claim does not move it.
 - `references/qca-papers-1-4-overview.md` — Paper 1 Eq. 15 (the walk) and Eq. 23 (the Dirac composite of §9)
 - N. H. Abel, *J. reine angew. Math.* **1** (1826) 185 — the Pell/unit theorem for a quadratic extension, **external**
 - M. Tegmark, *Class. Quantum Grav.* **14** (1997) L69 — the ultrahyperbolic argument for one time, i.e. the external route this claim replaces
+- `findings/F326-the-plus-one-closes-no-second-generator.md` — why $A$ is the only candidate generator; two new grounding checks
+- I. Bars, "Survey of two-time physics," *Class. Quantum Grav.* **18** (2001) 3113, arXiv:hep-th/0008164 — informed contrast, not tested against this model, **external**
 
 ## Amendment 2026-08-16 — the criterion this count needs on a cell with an internal factor (F318)
 
@@ -231,3 +233,43 @@ The one scope note: F318 measures the commutant in momentum space over seven pro
 over F313's Laurent ring; the added elements are constants, hence degree-0 Laurent and local by
 F313's own definition, so the extension is expected to be exact but is not re-derived on that
 footing. See also **CL272**.
+
+## Amendment 2026-08-20 — why $A$ is the only candidate to begin with (F326)
+
+Every result above computes the commutant of a GIVEN update $A$. It never asks where $A$, as the
+only candidate to take a commutant of, comes from — that is a different question, and
+[[F326-the-plus-one-closes-no-second-generator]] answers it without recomputing anything above.
+
+Two facts already load-bearing elsewhere in this project close it jointly. **BDPT uniqueness**
+(cited by F291 §1, not re-derived) gives exactly one walk at $(s,d)=(2,3)$ up to conjugation and
+the chirality sign — there is no second, independent solution to start from. **This card's own
+C1–C2** (§§3-4, undisturbed by the 2026-08-13 remediation) show that if a second generator is
+instead proposed as *commuting* with $A$, it has nowhere to live: any such candidate is an element
+of $\mathrm{span}\{\mathbb I,\ \boldsymbol\sigma\cdot\tilde{\mathbf n}\}$, and that space is already
+exhausted by the shift lattice and the powers of $A$. A second candidate generator is foreclosed
+whichever way it is proposed.
+
+F326 adds two grounding checks tying this to the running engine rather than only to the algebra:
+the live `Simulation`/`Clock` carry exactly one persisted time-state field, with any channel's
+finer sub-stepping a deterministic multiple of it (G1, a genuine independent check); and the
+model's own coupled two-branch $s=4$ composite — this card's own falsifier-5 object,
+§"Falsifier" item 5 above — evolves as powers of ONE matrix $D_k$ to machine precision, with no
+per-branch time parameter in the production stepper's own signature (G2). **Scoped in F326's own
+2026-08-20 review pass:** G2's matrix builder and the production stepper share the same underlying
+primitives, so its residual is closer to a code self-consistency check than independent physical
+evidence — the leg of G2 that actually bears on "single generator" is the absence of a per-branch
+`dt` in the stepper's signature, not the residual's size.
+
+**What this changes.** The honest description of the "+1" moves from *"assumed and unexamined"* to
+*"the model's dynamics is a single map iterated, which is the QCA-defining posit itself
+(`references/qca-papers-1-4-overview.md`: "the discrete time $T$ comes from the automaton's update
+steps"), not an added assumption — and no second candidate exists to replace it with, checked from
+both directions."* **What does not change**: this card's `exactness: quantitative` and
+`confidence: high` — F326 is a synthesis of already-cited results plus two new machine-precision
+grounding checks, not a new derivation of $d_\text{time}=1$ itself. **What remains genuinely open**
+is named rather than hidden: whether a fundamentally different kind of theory — one built from two
+independent generators from the start, e.g. Bars' two-time physics
+(I. Bars, *Class. Quantum Grav.* **18** (2001) 3113, arXiv:hep-th/0008164), where consistency needs
+an $Sp(2,\mathbb R)$ gauge symmetry that collapses the extra direction back to ordinary one-time
+dynamics — could be built on this lattice and would reduce the same way. Cited as informed
+contrast; not attempted here.

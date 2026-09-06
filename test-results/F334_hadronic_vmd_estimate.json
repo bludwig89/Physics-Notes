@@ -1,0 +1,136 @@
+{
+  "finding": "F334",
+  "title": "Model-internal rho+omega VMD estimate of the hadronic Delta alpha(M_Z) piece, and its effect on B6/B9's EW leg",
+  "checks": {
+    "V1": {
+      "status": "PASS",
+      "what": "s>>m_V^2 asymptotic closed form matches the exact narrow-resonance dispersion integral",
+      "rel_err": 7.366729210039507e-05
+    },
+    "V2": {
+      "status": "PASS",
+      "what": "g_omega,EM/g_rho,EM = 3 exactly, from quark charges Q_u=2/3, Q_d=-1/3 alone (not F128/F240's baryon coherence, independently the same number)",
+      "ratio": 3.0
+    },
+    "V3": {
+      "status": "PASS",
+      "what": "rho+omega VMD piece is positive and strictly below the full data-driven hadronic Delta alpha (a physical necessity: two resonances cannot exceed the whole spectrum)",
+      "dalpha_v_total": 0.0028202310071843797
+    },
+    "V4": {
+      "status": "PASS",
+      "what": "captured fraction of DHMZ2020 Delta alpha_had^(5)(M_Z) lands in the physically sane range for two light narrow resonances out of the full hadronic spectrum (not <3%: too small to be the leading resonances; not >30%: rho+omega alone do not dominate a spectrum that also has phi, 4pi, and the continuum)",
+      "fraction": 0.10218228286899926
+    },
+    "V5": {
+      "status": "PASS",
+      "what": "universality (g_rho,EM = g_rhopipi) needs a downward quench on the coupling to match the PDG rho0->e+e- width -- the SAME direction (quench, not enhancement) F240 already found for g_rhoNN and g_sigmaNN (0.43, 0.45), here measured independently via a third, electromagnetic channel rather than assumed",
+      "quench": 0.828456817259558
+    },
+    "V6": {
+      "status": "PASS",
+      "what": "adding the VMD piece moves 1/alpha_MSbar(M_Z) and sin^2 theta_W(M_Z) toward PDG (not past it, not away from it) and closes a genuine, bounded fraction of the gap L4 attributed to the missing hadronic piece",
+      "fraction_of_gap_closed": 0.10184348827795986,
+      "resid_lep_only_pct": 0.449872211255462,
+      "resid_with_had_vmd_pct": 0.4272995909105292
+    },
+    "control-charge-weight": {
+      "status": "PASS",
+      "what": "charge_weight_control=1.0 (drops the exact x3 isoscalar/isovector ratio) reddens V2 and ONLY V2",
+      "reddened": [
+        "V2"
+      ]
+    },
+    "control-dhmz-reference": {
+      "status": "PASS",
+      "what": "dhmz_reference_control=0.001 (a wildly wrong external anchor) reddens V4 and ONLY V4",
+      "reddened": [
+        "V4"
+      ]
+    }
+  },
+  "derived": {
+    "photon_charge_weights": {
+      "Q_u": "2/3",
+      "Q_d": "-1/3",
+      "isovector_weight": "sqrt(2)/2",
+      "isoscalar_weight": "sqrt(2)/6",
+      "g_omega_over_g_rho_EM": "3",
+      "ratio_is_exactly_3": true,
+      "statement": "g_V,EM in Gamma(V->e+e-) = 4 pi alpha^2 m_V/(3 g_V^2) sits in the denominator of the mixing term, so g_omega,EM/g_rho,EM = (isovector weight)/(isoscalar weight) = 3 exactly, from Q_u=2/3, Q_d=-1/3 alone."
+    },
+    "hadronic_vmd": {
+      "g_rhopipi_KSRF": 6.010906846567429,
+      "photon_charge_weights": {
+        "Q_u": "2/3",
+        "Q_d": "-1/3",
+        "isovector_weight": "sqrt(2)/2",
+        "isoscalar_weight": "sqrt(2)/6",
+        "g_omega_over_g_rho_EM": "3",
+        "ratio_is_exactly_3": true,
+        "statement": "g_V,EM in Gamma(V->e+e-) = 4 pi alpha^2 m_V/(3 g_V^2) sits in the denominator of the mixing term, so g_omega,EM/g_rho,EM = (isovector weight)/(isoscalar weight) = 3 exactly, from Q_u=2/3, Q_d=-1/3 alone."
+      },
+      "g_omega_EM": 18.032720539702286,
+      "dalpha_rho_MZ": 0.0025382079064659416,
+      "dalpha_rho_asymptotic_form": 0.0025380209235626844,
+      "asymptotic_form_rel_err": 7.366729210039507e-05,
+      "dalpha_omega_MZ": 0.00028202310071843805,
+      "dalpha_omega_asymptotic_form": 0.0002820023248402983,
+      "dalpha_v_total_MZ": 0.0028202310071843797,
+      "dhmz2020_dalpha_had5_MZ": 0.0276,
+      "dhmz2020_err": 0.0001,
+      "fraction_of_dhmz2020_captured": 0.10218228286899926,
+      "pdg_gamma_ee_rho_MeV": 0.00704,
+      "gamma_ee_rho_predicted_MeV": 0.0048318385143694105,
+      "gamma_ee_rho_predicted_over_measured": 0.6863406980638367,
+      "universality_coupling_quench_needed": 0.828456817259558,
+      "statement": "rho+omega narrow-resonance VMD, zero imported couplings (g_rhopipi is the model's own F103/F240 KSRF output): Delta alpha_V(M_Z) captures a double-digit-percent fraction of DHMZ2020's Delta alpha_had^(5)(M_Z); the universality posit itself needs the same O(15-30%) quench direction F240 already found in two other channels (NN vector, NN scalar), measured here against the PDG rho0->e+e- width rather than assumed."
+    },
+    "ew_leg_with_hadronic_vmd": {
+      "hadronic_vmd": {
+        "g_rhopipi_KSRF": 6.010906846567429,
+        "photon_charge_weights": {
+          "Q_u": "2/3",
+          "Q_d": "-1/3",
+          "isovector_weight": "sqrt(2)/2",
+          "isoscalar_weight": "sqrt(2)/6",
+          "g_omega_over_g_rho_EM": "3",
+          "ratio_is_exactly_3": true,
+          "statement": "g_V,EM in Gamma(V->e+e-) = 4 pi alpha^2 m_V/(3 g_V^2) sits in the denominator of the mixing term, so g_omega,EM/g_rho,EM = (isovector weight)/(isoscalar weight) = 3 exactly, from Q_u=2/3, Q_d=-1/3 alone."
+        },
+        "g_omega_EM": 18.032720539702286,
+        "dalpha_rho_MZ": 0.0025382079064659416,
+        "dalpha_rho_asymptotic_form": 0.0025380209235626844,
+        "asymptotic_form_rel_err": 7.366729210039507e-05,
+        "dalpha_omega_MZ": 0.00028202310071843805,
+        "dalpha_omega_asymptotic_form": 0.0002820023248402983,
+        "dalpha_v_total_MZ": 0.0028202310071843797,
+        "dhmz2020_dalpha_had5_MZ": 0.0276,
+        "dhmz2020_err": 0.0001,
+        "fraction_of_dhmz2020_captured": 0.10218228286899926,
+        "pdg_gamma_ee_rho_MeV": 0.00704,
+        "gamma_ee_rho_predicted_MeV": 0.0048318385143694105,
+        "gamma_ee_rho_predicted_over_measured": 0.6863406980638367,
+        "universality_coupling_quench_needed": 0.828456817259558,
+        "statement": "rho+omega narrow-resonance VMD, zero imported couplings (g_rhopipi is the model's own F103/F240 KSRF output): Delta alpha_V(M_Z) captures a double-digit-percent fraction of DHMZ2020's Delta alpha_had^(5)(M_Z); the universality posit itself needs the same O(15-30%) quench direction F240 already found in two other channels (NN vector, NN scalar), measured here against the PDG rho0->e+e- width rather than assumed."
+      },
+      "inv_alpha_lep_msbar": 131.7457754983086,
+      "inv_alpha_with_had_msbar": 131.35930232432912,
+      "delta_inv_alpha_had_vmd": 0.38647317397946856,
+      "gap_to_pdg_before": 3.79477549830861,
+      "gap_to_pdg_after": 3.408302324329128,
+      "fraction_of_gap_closed": 0.10184348827795986,
+      "sin2_pdg": 0.2317340667189211,
+      "resid_pdg_pct": 0.22232796424232193,
+      "sin2_lep_only": 0.2322601945268649,
+      "resid_lep_only_pct": 0.449872211255462,
+      "sin2_with_had_vmd": 0.23220800211410333,
+      "resid_with_had_vmd_pct": 0.4272995909105292,
+      "statement": "Adding the model-internal rho+omega VMD hadronic piece moves 1/alpha_MSbar(M_Z) and sin^2 theta_W(M_Z) in the correct direction, closing roughly a tenth of the gap to PDG that L4 attributed entirely to the missing hadronic vacuum polarisation. The remainder needs either the data-driven value (as before) or the resonances/continuum this two-resonance estimate does not include."
+    }
+  },
+  "notes": [],
+  "all_pass": true,
+  "n_pass": 8,
+  "n_total": 8
+}

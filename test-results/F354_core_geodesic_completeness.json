@@ -1,0 +1,245 @@
+{
+  "all_pass": true,
+  "checks": {
+    "B1_sum_of_squares_regular_centre": {
+      "K_expression_is_sum_of_squares": "K = 4 R_trtr^2 + 8 R_tththt^2 + 8 R_rthrth^2 + 4 R_thphthph^2",
+      "deficit_detected_as_unbounded_K": false,
+      "deficit_leading_K_times_r4": "0",
+      "forced_by_bound": {
+        "Aprime(0)=0": "B|A'|/(2rA) bounded  =>  A(0) finite nonzero, A'(0)=0",
+        "B(0)=1_no_solid_angle_defect": "|1-B|/r^2 <= K^(1/2)/2 bounded  =>  B(0)=1",
+        "Bprime(0)=0": "|B'|/(2r) bounded  =>  B'(0)=0",
+        "conclusion": "metric = eta_uv + O(r^2) in Cartesian coords: C^{1,1}, Lorentzian, centre is a manifold interior point"
+      },
+      "pass": true,
+      "solid_angle_deficit": 0.0,
+      "sum_of_squares_identity": true,
+      "two_function_class": true,
+      "uses_parity": false,
+      "uses_saturation": false
+    },
+    "B2_point_group_nogo": {
+      "leg_i_not_sufficient": {
+        "holds": true,
+        "m_is_not_odd": true,
+        "odd_r3_coefficient": "-3*M/(2*pi*L**6)",
+        "rho_hayward": "3*L**3*M/(4*pi*(L**3 + r**3)**2)",
+        "series": "9*M*r**6/(4*pi*L**9) - 3*M*r**3/(2*pi*L**6) + 3*M/(4*pi*L**3) + O(r**7)",
+        "why": "rho depends on r alone, so it is O(3)- hence O_h- hence -1-invariant, yet it is ODD in r. r^(2k+1) = (x^2+y^2+z^2)^((2k+1)/2) is a non-polynomial O_h invariant, which is the loophole a polynomial-only Reynolds argument leaves open."
+      },
+      "leg_ii_not_necessary": {
+        "Td_invariant_ring": "R[r^2, xyz, x^4+y^4+z^4]",
+        "holds": true,
+        "spherical_averages": {
+          "xyz": "0",
+          "xyz*(x^4+y^4+z^4)": "0",
+          "xyz*r^2": "0"
+        },
+        "why": "every odd-degree T_d invariant carries xyz, whose monopole vanishes, so m(r) is unchanged and a non-centrosymmetric lattice gives the same regular centre in the f(r) channel"
+      },
+      "pass": true,
+      "verdict": "the point-group route is CLOSED. The load-bearing hypothesis is smoothness/analyticity of the coarse-grained core density at the centre, not inversion symmetry."
+    },
+    "B3_polynomial_parity": {
+      "group_order": 48,
+      "inversion_in_group": true,
+      "odd_degree_polynomial_invariants_vanish": true,
+      "pass": true,
+      "per_degree": {
+        "0": {
+          "n_distinct_invariants": 1
+        },
+        "1": {
+          "n_distinct_invariants": 0
+        },
+        "2": {
+          "n_distinct_invariants": 1
+        },
+        "3": {
+          "n_distinct_invariants": 0
+        },
+        "4": {
+          "n_distinct_invariants": 2
+        },
+        "5": {
+          "n_distinct_invariants": 0
+        },
+        "6": {
+          "n_distinct_invariants": 3
+        }
+      },
+      "point_group": "Oh",
+      "scope_limit": "POLYNOMIALS ONLY. Non-polynomial O_h invariants such as r^3 = (x^2+y^2+z^2)^(3/2) are odd in r -- see B2(i).",
+      "what_it_buys": "given smoothness as a separate hypothesis, an anisotropic lattice density has no odd-degree Cartesian terms"
+    },
+    "B4_geodesics": {
+      "E_eq_1_caveat": "de-weighted: after tau = L ln(L/a) = 3.046 ticks the infaller is inside the central cell, where the model resolves no metric; the continuum law is extrapolation there",
+      "E_eq_1_efold_rate": "1/L",
+      "E_eq_1_proper_time_diverges": true,
+      "E_gt_1_no_cusp": true,
+      "E_gt_1_rdot2_at_centre": "E**2 - 1",
+      "E_gt_1_transversal": true,
+      "E_lt_1_turning_radius": "L*sqrt(1 - E**2)",
+      "load_bearing": "E>1 and null: they reach r=0 and must pass through, which requires B1's C^{1,1} interior point",
+      "nonradial": "Lz^2/r^2 barrier diverges as r->0 since f(0)=1>0: no non-radial geodesic reaches the centre",
+      "null_radial": "dr/dlam = +/- E: reaches and CROSSES the centre at finite affine parameter",
+      "pass": true,
+      "scope": "LOCAL r->0 analysis. NOT a completeness proof for the maximal extension, which for a two-horizon core requires the full conformal diagram."
+    },
+    "B5_parity_screen": {
+      "agreement_with_ZM": {
+        "bardeen": true,
+        "csv_even_modified_ZM": "out-of-scope (smooth-but-flat: True), ZM say complete",
+        "culetu_simpson_visser": true,
+        "hayward_r3_plus_L3": true
+      },
+      "bonanno_reuter_note": "BR carries an odd r^3 from the linear alpha*r in its denominator, so it sits in ZM's incomplete class. Reported as this screen's output; we have found no paper stating or disputing it and claim no priority.",
+      "cases": {
+        "bardeen": {
+          "T1_f0_is_1_no_pole": true,
+          "T2_functional_parity": true,
+          "T3_no_odd_series_term": true,
+          "T4_analytic_nonflat": true,
+          "analytically_even_regular_centre": true,
+          "lowest_odd_coeff": null,
+          "lowest_odd_power": null,
+          "smooth_but_flat": false
+        },
+        "bonanno_reuter_rg_improved": {
+          "T1_f0_is_1_no_pole": true,
+          "T2_functional_parity": false,
+          "T3_no_odd_series_term": false,
+          "T4_analytic_nonflat": true,
+          "analytically_even_regular_centre": false,
+          "lowest_odd_coeff": "2/(M*alpha*gamma**2)",
+          "lowest_odd_power": 3,
+          "smooth_but_flat": false
+        },
+        "csv_even_modified_ZM": {
+          "T1_f0_is_1_no_pole": true,
+          "T2_functional_parity": false,
+          "T3_no_odd_series_term": true,
+          "T4_analytic_nonflat": false,
+          "analytically_even_regular_centre": false,
+          "lowest_odd_coeff": null,
+          "lowest_odd_power": null,
+          "smooth_but_flat": true
+        },
+        "culetu_simpson_visser": {
+          "T1_f0_is_1_no_pole": true,
+          "T2_functional_parity": false,
+          "T3_no_odd_series_term": true,
+          "T4_analytic_nonflat": false,
+          "analytically_even_regular_centre": false,
+          "lowest_odd_coeff": null,
+          "lowest_odd_power": null,
+          "smooth_but_flat": true
+        },
+        "hayward_r3_plus_L3": {
+          "T1_f0_is_1_no_pole": true,
+          "T2_functional_parity": false,
+          "T3_no_odd_series_term": false,
+          "T4_analytic_nonflat": true,
+          "analytically_even_regular_centre": false,
+          "lowest_odd_coeff": "2*M/L**6",
+          "lowest_odd_power": 5,
+          "smooth_but_flat": false
+        },
+        "schwarzschild": {
+          "T1_f0_is_1_no_pole": false,
+          "T2_functional_parity": false,
+          "T3_no_odd_series_term": true,
+          "T4_analytic_nonflat": false,
+          "analytically_even_regular_centre": false,
+          "lowest_odd_coeff": null,
+          "lowest_odd_power": null,
+          "smooth_but_flat": false
+        }
+      },
+      "pass": true,
+      "reproduces_ZM_hayward_r5_coeff_2M_over_L6": true,
+      "screen_scope": "adjudicates the ANALYTICALLY-even class only; metrics that are smooth but flat at the origin (CSV and its even modification) are out of scope and are reported as such, not scored"
+    },
+    "B6_scales": {
+      "L_is_profile_independent": true,
+      "ceiling_conventions": {
+        "F183_K_le_1_over_a4": {
+          "L_over_a": "2**(3/4)*3**(1/4)",
+          "L_over_a_float": 2.213363839400643,
+          "efold_ticks": "6**(3/4)",
+          "efold_ticks_float": 3.833658625477635
+        },
+        "F284_H_le_1_over_a": {
+          "L_over_a": "1",
+          "L_over_a_float": 1.0,
+          "efold_ticks": "sqrt(3)",
+          "efold_ticks_float": 1.7320508075688772
+        }
+      },
+      "ceiling_fork_is_open": "F183 and F284 imply ceilings differing by a factor 24 in K (24^(1/4) in length); under F284's the core radius is L = a exactly and the e-folding is sqrt(3) ticks = one cell crossing = F284's own t_min. Open decision.",
+      "core_profile": "bardeen",
+      "core_radius_of_M_and_L": "2**(1/3)*L**(2/3)*M**(1/3)",
+      "pass": true,
+      "ratio_is_profile_dependent": true,
+      "ratio_to_F183_proxy": "2**(1/6)",
+      "ratio_to_F183_proxy_float": 1.122462048309373,
+      "saturation_is_an_assumption": "without saturation as an EQUALITY every scale is a one-sided bound: L >= 24^(1/4) a, etc."
+    },
+    "B7_resolvability": {
+      "L_over_a": 2.213363839400643,
+      "L_universal_m": 2.3602767879841956e-34,
+      "M_crit_note": "core one cell across; NOT a black-hole threshold",
+      "M_crit_planck_masses": 0.6733868435442991,
+      "M_ext_note": "horizon disappears below this: sub-~19-Planck-mass black holes do not exist in this model. This is the physically meaningful small-mass threshold.",
+      "M_ext_over_M_crit": 28.17152244131917,
+      "M_ext_planck_masses": 18.970332574597304,
+      "a_cell_m": 1.0663754173481642e-34,
+      "covering_radius_note": "simple-cubic inversion-centre array of spacing a/2; worst-case point (1/4,1/4,1/4) is Wyckoff 8c, site symmetry -43m = T_d",
+      "covering_radius_over_a": 0.4330127018922193,
+      "first_draft_said": "a/4 = 0.25 a  -- WRONG by sqrt(3)",
+      "pass": true,
+      "rows": [
+        {
+          "F183_proxy_m": 4.8821093259734675e-22,
+          "M_solar": 1.0,
+          "core_over_a": 5138886685638.304,
+          "core_radius_m": 5.47998243410247e-22,
+          "offset_parity_bound": 8.426196730555746e-14,
+          "r_horizon_m": 2954.007736491099
+        },
+        {
+          "F183_proxy_m": 1.0518185692405417e-21,
+          "M_solar": 10.0,
+          "core_over_a": 11071395743682.135,
+          "core_radius_m": 1.1806264256795724e-21,
+          "offset_parity_bound": 3.911094065437205e-14,
+          "r_horizon_m": 29540.07736491099
+        },
+        {
+          "F183_proxy_m": 4.882109325973466e-20,
+          "M_solar": 1000000.0,
+          "core_over_a": 513888668563830.25,
+          "core_radius_m": 5.479982434102469e-20,
+          "offset_parity_bound": 8.426196730555748e-16,
+          "r_horizon_m": 2954007736.491099
+        }
+      ]
+    }
+  },
+  "finding": "F354",
+  "n_pass": 7,
+  "n_total": 7,
+  "substrate_tier_not_counted": {
+    "conclusion": "chain length is unbounded: the substrate is tick-complete",
+    "counted_in_pass_tally": false,
+    "criterion": "Grant-Kunzinger-Saemann property (TC), with length = maximal causal chain length = tick count",
+    "pass": null,
+    "premises": {
+      "lattice_is_boundaryless": "infinite, rigid, eternal (F283/F284); no boundary, no excised region",
+      "update_is_norm_preserving": "unitary, so no chain terminates for want of amplitude",
+      "update_is_total": "the BCC rule is defined at every cell for every neighbourhood configuration"
+    },
+    "sufficiency": "NECESSARY, NOT SUFFICIENT -- it does not forbid the emergent affine parameter saturating while ticks run on. B1 is what rules that out."
+  },
+  "title": "Lattice core geodesic completeness from bounded curvature; point-group route to the parity condition is a no-go"
+}

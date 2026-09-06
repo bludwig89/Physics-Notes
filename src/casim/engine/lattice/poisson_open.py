@@ -1,4 +1,4 @@
-"""
+r"""
 poisson_open.py  —  Open-boundary 3D Poisson solver
 ====================================================
 Date: 2026-05-19

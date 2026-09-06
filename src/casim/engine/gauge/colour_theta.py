@@ -99,6 +99,8 @@ __all__ = [
     "loop_action", "topological_density", "parity_map", "cp_map",
     "vertex_reality_defect", "even_law_parity_defect", "thetabar_one_generation",
     "check_strong_cp",
+    "action_matches_lpt_bcc_vertex", "reversal_holonomy_identity",
+    "extended_reality_sweep", "check_strong_cp_nonperturbative",
 ]
 
 #: 4 spatial <111> link axes + Euclidean time, as integer 4-vectors
@@ -722,3 +724,164 @@ if __name__ == "__main__":
     with open(path, "w") as fh:
         json.dump(res, fh, indent=2, default=str)
     print(f"  wrote {path}")
+
+
+# ══════════════════════════════════════════════════════════════════════════
+#  T6 — F340: the L6 bridge, and the reality argument extended to the FULL
+#  non-perturbative configuration space (F321 Sec.6's two open items)
+# ══════════════════════════════════════════════════════════════════════════
+
+def action_matches_lpt_bcc_vertex(one_sense: bool = False) -> dict:
+    """Is the action this module sums holonomies over EXACTLY the rhombic
+    action ``lpt_bcc_vertex`` builds its vertices and quadratic form from --
+    i.e. the object F337/L6 leg 1 DECIDED is "the rule's gauge action at
+    finite a" (over the F26/Omega_even alternative, which F308 Sec.3 measured
+    non-periodic under the very reciprocal lattice these vertices are exactly
+    periodic under, F305 G7 -- disqualified independent of any numerics)?
+
+    This is not an analogy checked by eye: both modules build their loop-word
+    list from the SAME ``BCC_PLAQUETTES`` / ``BCC_LINK_AXES`` generators in the
+    SAME order, so ``loop_action``'s nonlinear ``S(U) = -sum_loops Tr(U_loop)``
+    and ``lpt_bcc_vertex.terms``'s momentum-space Taylor coefficients are
+    expansions of the IDENTICAL action functional, not two constructions that
+    happen to agree. Checked here as exact set-equality of loop words.
+
+    ``one_sense=True`` is the control: compare against the one-sense 10-loop
+    action instead (the same object F321's control 2 uses) -- this must NOT
+    match, which is what makes a green U1 a fact about the genuine rhombic
+    action rather than a vacuously-true size coincidence.
+    """
+    raw = []
+    for d1, d2 in BCC_PLAQUETTES:
+        a = tuple(int(c) for c in d1) + (0,)
+        b = tuple(int(c) for c in d2) + (0,)
+        raw += [(a, b, _neg(a), _neg(b)), (b, a, _neg(b), _neg(a))]
+    t = (0, 0, 0, 1)
+    for d in BCC_LINK_AXES:
+        a = tuple(int(c) for c in d) + (0,)
+        raw += [(a, t, _neg(a), _neg(t)), (t, a, _neg(t), _neg(a))]
+    mine = sorted(raw)
+
+    theirs_raw = bv._loops_bcc()
+    if one_sense:
+        theirs_raw = theirs_raw[0::2]
+    theirs = sorted(tuple(tuple(int(round(float(c))) for c in v) for v in w)
+                     for w in theirs_raw)
+    return {"n_mine": len(mine), "n_theirs": len(theirs), "match": mine == theirs}
+
+
+def reversal_holonomy_identity(seed: int = 0, shape=(3, 3, 3, 3),
+                                bad_reverse: bool = False) -> dict:
+    """Prove -- not sample -- that Im(S) = 0 for EVERY SU(3) configuration.
+
+    F321 T1a MEASURED Im S ~ 1e-14 on three Haar-random configurations. This
+    leg upgrades that to an exact, configuration-independent theorem: for any
+    link configuration U and any loop word w in the rule's reversal-closed set
+    (T0a), ``holonomy(U, reverse(w)) = dagger(holonomy(U, w))`` -- an identity
+    of path-ordered products, true for the based loop at every site regardless
+    of how ordered, disordered, smooth, or topologically nontrivial U is (it is
+    a statement about the WORD, not about U). Composed with
+    ``Tr(dagger(M)) = conj(Tr(M))`` (true for any complex matrix, no group
+    structure needed) and T0's reversal closure (F321 T0a, exact combinatorics),
+    this proves
+
+        S = -sum_loops Tr(U_loop) = -sum_pairs 2 Re Tr(U_loop)
+
+    is real for the FULL non-perturbative configuration space
+    ``{U : links -> SU(3)}`` -- not for a measured sample of it. There is no
+    regime, ordering, smoothness, or topological content this can fail for,
+    because the proof never restricts U. This closes F321 Sec.6 item 2 in the
+    sense F321 posed it: a real action here is not a property that could fail
+    off the sampled set, so there is no room for a hidden theta between
+    configurations the sampling missed.
+
+    What is checked numerically is the one non-trivial, code-level ingredient
+    (the group-theory identity is exact by construction): that the module's
+    own reversed-word construction actually computes the reversed path's
+    holonomy. ``bad_reverse=True`` is the control: reverse step ORDER without
+    negating direction (a different, unphysical word, still closed since the
+    step multiset is unchanged) -- this must NOT equal ``dagger(holonomy(w))``.
+    """
+    U = random_su3_links_4d(shape, seed=seed, scale=1.0)
+    words = _words()
+    worst = 0.0
+    for w in words:
+        raw = [_STEPS[i] if s > 0 else _neg(_STEPS[i]) for i, s in w]
+        rev = tuple(raw[::-1]) if bad_reverse else _reverse(tuple(raw))
+        rev_w = [_axis_of(v) for v in rev]
+        P = holonomy(U, w)
+        Prev = holonomy(U, rev_w)
+        worst = max(worst, float(xp.max(xp.abs(Prev - _dag(P)))))
+    return {"defect": worst, "n_loops_checked": len(words),
+            "bad_reverse": bad_reverse}
+
+
+def extended_reality_sweep(seeds=tuple(range(12)), shape=(4, 4, 4, 4)) -> dict:
+    """Im S across four times as many configurations as F321 T1 sampled.
+
+    A regression / robustness check laid on top of the proof in
+    ``reversal_holonomy_identity`` -- not itself the argument. Included because
+    the project's practice is algebraic exactness first, machine-precision
+    corroboration second.
+    """
+    worst = 0.0
+    for s in seeds:
+        U = random_su3_links_4d(shape, seed=s, scale=1.0)
+        worst = max(worst, abs(loop_action(U).imag))
+    return {"defect": worst, "n_seeds": len(seeds)}
+
+
+def check_strong_cp_nonperturbative(one_sense: bool = False,
+                                    bad_reverse: bool = False,
+                                    seeds=tuple(range(12)),
+                                    shape=(4, 4, 4, 4),
+                                    tol: float = 1e-10) -> dict:
+    """F340 gate entry point: F321 Sec.6's two open items, addressed.
+
+    Item 1 (action fork): U1 shows F321's construction already sits on the
+    branch F337/L6 leg 1 decided is correct -- not one of two undecided
+    branches (F321 T4's weaker "survives both").
+
+    Item 2 (non-perturbative theta-sectors): U2 upgrades T1a from a sampled
+    measurement to a proof covering the full non-perturbative configuration
+    space. U3 is the corroborating sweep. See the finding for the further,
+    non-code argument (the definitional theta=0 identification of Z, and the
+    Vafa-Witten 1984 cross-check) and for what remains genuinely open (lattice
+    topological-charge quantization/admissibility -- a distinct question from
+    whether theta is zero).
+    """
+    checks: list[dict] = []
+
+    def add(name, ok, value, note=""):
+        checks.append({"name": name, "ok": bool(ok), "value": value, "note": note})
+
+    m = action_matches_lpt_bcc_vertex(one_sense=one_sense)
+    add("U1_action_identity",
+        m["match"] and (one_sense or (m["n_mine"] == 20 and m["n_theirs"] == 20)),
+        m,
+        "colour_theta's loop-word action is EXACTLY lpt_bcc_vertex's rhombic "
+        "action -- the object F337/L6 leg 1 decided IS the rule's gauge action "
+        "at finite a. F321 Sec.3-4 therefore already sit on the now-DECIDED "
+        "branch, closing F321 Sec.6 item 1 (the action fork) in F321's favour.")
+
+    rv = reversal_holonomy_identity(seed=0, bad_reverse=bad_reverse)
+    add("U2_reversal_identity_exact", rv["defect"] < tol, rv,
+        "holonomy(reverse(w)) = dagger(holonomy(w)) to machine precision for "
+        "every one of the rule's 20 loop words -- the geometric ingredient "
+        "that, composed with the trivial trace identity and T0's reversal "
+        "closure, proves Im(S)=0 EXACTLY for every SU(3) configuration, not "
+        "just the ones sampled. Extends F321 T1a to a theorem covering the "
+        "full non-perturbative configuration space, any topological content "
+        "included -- closing F321 Sec.6 item 2 as far as reality-per-"
+        "configuration can close it (the theta-vacuum sum argument is in the "
+        "finding text; lattice topological-charge quantization is separate "
+        "and stays open).")
+
+    sweep = extended_reality_sweep(seeds=seeds, shape=shape)
+    add("U3_extended_sweep", sweep["defect"] < tol, sweep,
+        "regression check: Im S on 12 independent Haar-random configurations "
+        "(F321 T1 used 3), consistent with U2's proof rather than a "
+        "coincidence of the sampled set")
+
+    n_pass = sum(c["ok"] for c in checks)
+    return {"checks": checks, "n_pass": n_pass, "n_total": len(checks)}

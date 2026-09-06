@@ -70,6 +70,26 @@ what an infinitely long string costs.  Screening is an IR phenomenon and cannot
 renormalise the UV cost of a link.  The regime C7 lives in is exactly the
 regime where d = 2 and d = 4 agree and where the 2D computation is exact.
 
+RE-CHARACTERISED 2026-08-18 (F325 section 4, ledger record S22)
+---------------------------------------------------------------
+The measurement below is correct and reproduces independently to 5-6 significant
+figures.  **The inference does not follow.**  Run the same engine at branch A's
+own coupling -- g_s = sqrt3/4 gives beta = 2N/g_s^2 = 32 -- and it returns
+sigma_6/sigma_3 = 2.49540 against 2.49115 at beta = 24.  The same answer.  It
+has to be: as the section below states, in the continuum limit
+sigma_R = (g_0^2/2) C_2(R) EXACTLY, so Casimir scaling is a theorem about the
+SU(3) single-plaquette Wilson measure at weak coupling -- true at every beta, and
+therefore carrying no information about which beta the rule fixes.  The measure
+exp((beta/N) Re Tr U) dU_Haar is standard Wilson normalisation put in by hand;
+nothing in it comes from the CA rule.
+
+So this module measures the link variables' REPRESENTATION CONTENT -- that their
+electric cost is C_2(R) -- and not a coupling normalisation.  That content is
+precisely the premise under which the C_F cancels in the C7 matching, so this
+module is evidence FOR the adopted branch (chi = 1, g_s = 1/2) rather than
+against it.  Read "the model's own confinement sector says H2" below as "says
+the links carry SU(3) irreps".
+
 What that costs the B10 selector
 --------------------------------
 Under H2, F294's root-finding gives N_c = 1.28 — the F293/CL257 selector does

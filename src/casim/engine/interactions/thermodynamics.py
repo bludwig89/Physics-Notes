@@ -83,7 +83,8 @@ import math
 import numpy as np
 
 from casim.numerics import xp  # noqa: F401  (D8: array namespace of record)
-from casim.constants import c_lat, ell_P_m, c_SI, hbar_SI, a_over_ellP
+from casim.constants import (c_lat, ell_P_m, c_SI, hbar_SI, a_over_ellP,
+                             J_per_GeV)
 from casim.engine.gauge.photon import pair_dispersion
 from casim.engine.lattice.bcc import bcc_unitary
 
@@ -294,7 +295,7 @@ def lattice_scales():
     tau_s = a_m / (c_SI * math.sqrt(3.0))      # a/tau = c sqrt3 (F107 option C)
     T_lat = hbar_SI / (K_B_SI * tau_s)
     return {"a_m": a_m, "tau_s": tau_s, "T_lattice_K": T_lat,
-            "E_lattice_GeV": hbar_SI / tau_s / 1.602176634e-10}
+            "E_lattice_GeV": hbar_SI / tau_s / float(J_per_GeV)}
 
 
 def cosmology_margins():

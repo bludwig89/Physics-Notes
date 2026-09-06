@@ -12,22 +12,23 @@
       "z_surf_at_Mmax": 0.6178954753347827,
       "turnover": true,
       "J0740_consistent": true,
-      "_seconds": 4.62,
+      "_seconds": 4.59,
       "_desc": "SLy M_max~2.05, R(1.4)~11 km, J0740-consistent"
     },
     "N2_eos_ordering": {
       "pass": true,
       "M_max": {
         "SLy": 2.0769190640363115,
-        "APR": 2.514364263861093,
+        "APR": 2.21591059819839,
         "MPA1": 2.4910013712845362
       },
       "R_1.4": {
         "SLy": 11.139546829601613,
-        "APR": 12.226550056362912,
+        "APR": 10.797102208359815,
         "MPA1": 11.704727100321465
       },
-      "_seconds": 12.46,
+      "_note": "R_1.4 reported, not asserted to order with M_max -- see docstring",
+      "_seconds": 11.85,
       "_desc": "stiffer EoS -> larger M_max and R(1.4)"
     },
     "N3_stable_branch_turnover": {
@@ -35,9 +36,9 @@
       "i_turnover": 58,
       "stable_branch_monotone": true,
       "unstable_after_turnover": true,
-      "_seconds": 5.28,
+      "_seconds": 5.24,
       "_desc": "GR/TOV stable branch + max-mass turnover"
     }
   },
-  "seconds": 22.36
+  "seconds": 21.68
 }

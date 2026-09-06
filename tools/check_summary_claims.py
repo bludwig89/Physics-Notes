@@ -4,12 +4,20 @@
 WHY THIS EXISTS
 ===============
 `docs/claims/` is the register: one card per claim, each carrying a present-tense
-`status`. `papers/Claims-and-Falsifiers-Summary.md` is the document the outside world
-actually reads, and until this file existed nothing connected the two. A card could be
-withdrawn and replaced while the summary went on publishing the retracted position,
-and every check stayed green -- `check_claims.py` grades cards against findings,
-`check_superseded_citations.py` grades grading documents against the ledger, and
-neither of them opens `papers/`.
+`status`. `papers/Claims-and-Falsifiers-Summary.md` and `papers/README.md` (the
+paper series' own front matter) are the documents the outside world actually reads,
+and until this file existed nothing connected them to the register. A card could be
+withdrawn and replaced while a public document went on publishing the retracted
+position, and every check stayed green -- `check_claims.py` grades cards against
+findings, `check_superseded_citations.py` grades grading documents against the
+ledger, and neither of them opens `papers/`.
+
+`papers/README.md` was added to GRADED_FILES on 2026-09-06: it carried no claim
+anchors at all, so this checker had never looked at it, and its $m_Z/m_W$ headline
+sat on the withdrawn revision-1 UV-scale number for weeks after the summary moved
+off it on 2026-08-02 -- unnoticed until the 2026-08-18/08-20 completeness audits
+named it by hand. That is the shape of blind spot this file exists to close, on
+the one surface it had not yet reached.
 
 That is not hypothetical. On 2026-08-16 **F320** derived $m_W$ and $m_Z$ absolutely
 (cards **CL276**, **CL277**), and **CL016** -- "the absolute masses are not predicted"
@@ -71,7 +79,16 @@ from check_superseded_citations import _FN, _unit_ok, load_ledger  # noqa: E402
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLAIMS_DIR = os.path.join(_REPO, "docs", "claims")
-SUMMARY = os.path.join(_REPO, "papers", "Claims-and-Falsifiers-Summary.md")
+GRADED_FILES = [
+    os.path.join(_REPO, "papers", "Claims-and-Falsifiers-Summary.md"),
+    # 2026-09-06 (H4 audit): papers/README.md is the series front matter and a
+    # PUBLIC document, but it carried no claim anchors and was never opened by
+    # this checker -- which is exactly how its $m_Z/m_W$ headline sat on the
+    # revision-1 UV-scale number for weeks after the summary moved off it (see
+    # docs/status/completeness-2026-08-18.md and -20.md). It now carries the
+    # same `<!-- claims: CLnnn=status -->` anchors, so it gets the same check.
+    os.path.join(_REPO, "papers", "README.md"),
+]
 
 # Declared debt: headline cards the summary does not yet mention. May fall, never
 # rise (`--ratchet-update` rewrites downward).
@@ -207,22 +224,27 @@ def main() -> int:
 
     cards = load_cards()
     dead = load_ledger()
-    text = open(SUMMARY, encoding="utf-8").read()
-    rel = os.path.relpath(SUMMARY, _REPO)
 
     errs: list[str] = []
     anchored: set[str] = set()
-    for n, unit in parse_units(text):
-        for cid, _ in _ENTRY.findall(" ".join(_ANCHOR.findall(unit))):
-            anchored.add(cid)
-        for e in check_unit(unit, cards, dead):
-            errs.append(f"    {rel}:{n} — {e}")
+    for path in GRADED_FILES:
+        text = open(path, encoding="utf-8").read()
+        rel = os.path.relpath(path, _REPO)
+        file_anchored: set[str] = set()
+        for n, unit in parse_units(text):
+            for cid, _ in _ENTRY.findall(" ".join(_ANCHOR.findall(unit))):
+                file_anchored.add(cid)
+            for e in check_unit(unit, cards, dead):
+                errs.append(f"    {rel}:{n} — {e}")
+        anchored |= file_anchored
+        print(f"[summary-claims] {rel}: {len(file_anchored)} card(s) anchored")
 
     headline = {c for c, v in cards.items() if v["tier"] == "headline"}
     missing = sorted(headline - anchored)
 
-    print(f"[summary-claims] {rel}: {len(anchored)} card(s) anchored, "
-          f"{len(headline)} headline card(s) in the register")
+    print(f"[summary-claims] {len(anchored)} card(s) anchored across "
+          f"{len(GRADED_FILES)} graded file(s), {len(headline)} headline "
+          f"card(s) in the register")
 
     if not selftest():
         errs.insert(0, "  selftest failed — the matcher does not fire on the "

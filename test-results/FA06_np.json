@@ -2,7 +2,7 @@
   "test_id": "FA06",
   "title": "Neutron-proton mass splitting (sign and magnitude, no QCD anchor)",
   "verdict": "PASS",
-  "timestamp": "2026-06-11T00:22:56Z",
+  "timestamp": "2026-09-05T18:54:28Z",
   "date": "2026-06-10",
   "predicted": {
     "np_strong_term_MeV": 2.51,
@@ -38,7 +38,7 @@
     "python3 tests/findings/test_FA06_np_splitting.py",
     "pytest tests/findings/test_FA06_np_splitting.py"
   ],
-  "engine": "ca-simulation/ca_baryon_dynamics.neutron_minus_proton (via scenarios/njl_nucleon.yaml -> casim njl_nucleon channel)",
+  "engine": "casim.engine.particles.baryon_dynamics.neutron_minus_proton (via scenarios/njl_nucleon.yaml -> casim njl_nucleon channel)",
   "provenance": "F123 H3 (sharpest matter prediction), F40 (quark Y / down-up gap), F122 (dynamical baryon three-body)",
   "caveat_check": "Pure real arithmetic; no chiral/Dirac numpy transforms involved."
 }

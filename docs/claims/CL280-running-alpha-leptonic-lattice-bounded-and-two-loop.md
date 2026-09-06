@@ -7,7 +7,7 @@ kind: derivation
 status: contingent
 domain: [QFT, SM]
 exactness: quantitative
-findings: [F322, F311, F251, F277, F261, F138]
+findings: [F322, F311, F251, F277, F261, F138, F336]
 tests: [F322-b9-running-rederived]
 modules: [casim.engine.interactions.running_alpha_lattice_bound, casim.engine.interactions.qed_vacuum_polarization, casim.engine.interactions.qed_twoloop_ae]
 constants: [sin2_thetaW_uv]
@@ -16,7 +16,7 @@ reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: 2026-08-17
-last_verified: 2026-08-17
+last_verified: 2026-08-30
 provenance: authored
 review_state: authored
 confidence: medium
@@ -66,6 +66,7 @@ that the lattice's *own* modification of the running is here bounded rather than
 | `findings/F251-qed-vacuum-polarization-running-alpha.md` | $b_0^\text{QED}=4/3$ and Ward transversality, sympy-exact | exact |
 | `findings/F261-twoloop-qed-ae-amu.md` | $b_1=1$, sympy-exact | exact |
 | `findings/F311-gap5-three-numbers-adjudicated.md` | the two-loop **non-log** constant that separates this card's $0.0495\%$ from the imported $0.00158\%$; and the first closure of gap #5(a) | quantitative (**literature form, cited**) |
+| `findings/F336-twoloop-vp-nonlog-scope.md` | independently re-derives the two-loop leading-log coefficient $(\alpha/\pi)^2/4$ from a disjoint construction (unitarity + dispersion); precisely scopes, but does not derive, the non-log constant | exact (leading log) / structural (scope) |
 | `findings/F277-qed-gluon-refold-period.md` | the refold removal that makes $\Delta$ $q$-flat to $1.7\times10^{-5}$ | quantitative |
 | `findings/F138-weinberg-gap-closure-4piv-matching.md` | the $\mu_\star=4\pi v$ matching and $+0.222\%$ | quantitative |
 | `test-results/F322_b9_running_rederivation.json` | the artifact | — |
@@ -102,6 +103,18 @@ Two further limits are stated rather than absorbed: the two-loop **non-log** con
 loops are not derived (they are the residual $1.559\times10^{-5}$), and $\alpha$ itself is not
 derived at all (F127's four-avenue no-go). This card does not assert either.
 
+**Amended 2026-08-30 - 13:08 — F336 named (no number moves).** F336 extends F261's
+dispersive machinery from the g-2 vertex to the vacuum-polarization two-point function itself,
+via the optical theorem, and independently re-derives the two-loop leading-log coefficient
+$(\alpha/\pi)^2/4$ (equivalently F261's $b_1=1$) from a construction sharing no algebra with
+F261's original beta-function derivation -- a genuine new cross-check, now on two independent
+legs. It does **not** derive the non-log constant $\zeta(3)-\tfrac5{24}$; it precisely scopes what
+a derivation needs (F252's vertex at general timelike $s$; F259's hard, non-soft, real-emission
+phase space -- neither exists in the tree) and gives a structural reason (analytic-continuation
+sensitivity) the constant cannot be read off the same Euclidean machinery used for the log. No
+value, falsifier, status or exactness changes; this card continues to assert the model-internal
+$0.0495\%$.
+
 **Amended 2026-08-18 - 16:20 — F311 named, and the two residuals separated (no number moves).**
 `completeness-2026-08-18` gap #4 and row **H5** item (ii) recorded that B9 carried two published
 residuals in two live documents from findings six days apart, of which the later cited neither the
@@ -123,6 +136,7 @@ uncertainty on $\Delta\alpha$ was $183$–$190\times$ the agreement being claime
 
 - `findings/F322-b9-running-alpha-ew-rederived-post-f277.md` (§6.1 — the reconciliation)
 - `findings/F311-gap5-three-numbers-adjudicated.md`
+- `findings/F336-twoloop-vp-nonlog-scope.md`
 - `findings/F251-qed-vacuum-polarization-running-alpha.md`
 - `findings/F261-twoloop-qed-ae-amu.md`
 - `findings/F277-qed-gluon-refold-period.md`

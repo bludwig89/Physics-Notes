@@ -3,6 +3,7 @@
 *2026-07-31 - 23:00. Roadmap **P5** (checkable core). Software/engineering finding.*
 *Status: **established** for the headless half; interactive half handed forward. Tests: `tests/casim/test_viz_api.py` (5/5), `tests/casim/test_results_compare.py` (5/5).*
 
+**Test record:** record `viz-api` (tier gate) — `tests/casim/test_viz_api.py`, 5/5: the API is populated rather than `None` and its `density_to_rgba` **is** `casim.gui.render`'s, so the `_viz_live_display` duplicate cannot be the one picked up; record `results-compare` (tier gate) — `tests/casim/test_results_compare.py`, 5/5: the headless run-diff reuses `casim.baselines.compare` and classifies a sub-1e-12 difference as noise, not drift. Declared 2026-08-19.
 **Claim:** none — software/engineering; one viz API and a headless run-diff that reuses the project's existing numeric comparison. Declared 2026-08-19.
 
 ## 1. Claim

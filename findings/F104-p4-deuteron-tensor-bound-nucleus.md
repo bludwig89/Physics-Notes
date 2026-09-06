@@ -6,6 +6,7 @@
 **Module:** `ca-simulation/ca_nuclear.py`
 **Script:** `tests/findings/test_P4_deuteron.py` (~8 s, numpy only)
 **Results:** `test-results/P4_deuteron.json`
+**Test record:** record `P4-deuteron` (tier battery) — the script above, baseline `test-results/P4_deuteron.json`. Declared 2026-08-19.
 **Cross-references:** [[F103-p3-dynamical-pion-goldstone]] (supplies m_π, f_π — the force carrier), [[F74-two-constituent-bound-state-binding]] (the two-body solver generalised contact→2-channel), [[F77-njl-gap-rpa-selfconsistent]] (Goldberger-Treiman tie for the coupling), [[F71-colour-singlet-baryon-proton]] (the nucleons being bound).
 
 ---

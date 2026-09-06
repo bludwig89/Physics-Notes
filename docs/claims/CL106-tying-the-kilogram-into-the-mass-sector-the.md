@@ -7,7 +7,7 @@ kind: no_go
 status: open
 domain: [GR]
 exactness: machine
-findings: [F119]
+findings: [F119, F233, F351]
 tests: []
 modules: []
 constants: []
@@ -37,8 +37,10 @@ Tying the kilogram into the mass sector: the overall scale $N$ factorises cleanl
 | Source | What it shows | Exactness |
 |---|---|---|
 | `findings/F119-kg-scale-three-routes.md` | The finding, in full | machine |
+| `findings/F233-mass-scale-N-transmutation-supersedes-F119.md` | **Partially supersedes this card's Route 1.** F119's "no marginal/running channel exists" no-go is not airtight: QCD asymptotic freedom is such a channel, and it reproduces $N$ to a factor $1.9$ with zero free parameters, contingent on the shared scheme constant $d_1$. | machine |
+| `findings/F351-electroweak-scale-v-not-second-pin-collapses-to-d1.md` | Extends this card's question to the electroweak scale $v$ (ledger parameter #17): checks the two known generation mechanisms against $v$ specifically (Sakharov/loop-induction: negligible, F143; NJL/dynamical-transmutation: not absent, contra a literal reading of F119, per F233) and flags — honestly, as unproven — that $v$'s residual is plausibly the SAME $d_1$ residual this card's $N$ reduces to. | machine |
 
-**This card's only evidence is the prose of its own finding.** That is what `review_state: unreviewed-seed` means, and it is why the card may not be cited as independent support. Promoting it to `authored` means naming the test-registry records and result artifacts that carry it, and confirming the classification above by hand.
+**This card's evidence is no longer only the prose of its own finding** — F233 and F351 are independent test records with their own result artifacts (`test-results/F233_mass_scale_N_transmutation.json`, `test-results/F351_v_second_pin_scope.json`). Full promotion to `review_state: authored` still requires a dedicated review pass confirming the `domain`/`kind`/`exactness` classification by hand; not done here.
 
 ## Falsifier
 
@@ -52,9 +54,24 @@ Tying the kilogram into the mass sector: the overall scale $N$ factorises cleanl
 
 **Date:** 2026-06-09 - 15:40
 
+**Update, 2026-09-02 (F233, F351).** The "3D gap mechanism cannot generate $N$" no-go (Route 1)
+is qualified, not overturned: F233 (2026-07-02) found that QCD asymptotic freedom — a channel
+F119 did not consider, distinct from the 3D NJL gap equation it excluded — reduces $N$'s gap to a
+factor $1.9$ across 19 decades with no free parameter, with the entire residual collapsing to one
+shared one-loop matching constant $d_1$ (also owning the lepton brake $\lambda_6$, F150, and the
+QCD scale-setting residuals Q1/Q2). F351 (2026-09-02) checks the SAME two mechanisms against the
+electroweak scale $v$ (ledger parameter #17, a sibling anchor): Sakharov/loop-induction is
+checked directly and found negligible (F143, $\le0.36\%$ of $v^2$); dynamical transmutation is
+not absent (correcting a literal reading of this card's own F119 citation); and $v$'s residual is
+plausibly — not yet provably — the same $d_1$ cluster $N$ and $\lambda_6$ collapse to. $N$ (and
+now, plausibly, $v$) remain FIT — this update does not close either — but the mechanism-space is
+now documented rather than merely absent.
+
 Seeded 2026-08-04 as part of standing up the claims layer (D12). No physics was read, changed or judged in creating this card.
 
 ## Sources
 
 - `findings/F119-kg-scale-three-routes.md`
+- `findings/F233-mass-scale-N-transmutation-supersedes-F119.md` — partial supersession of Route 1
+- `findings/F351-electroweak-scale-v-not-second-pin-collapses-to-d1.md` — extension to $v$
 - `docs/claims/README.md` — the `unreviewed-seed` contract

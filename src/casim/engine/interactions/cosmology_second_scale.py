@@ -288,14 +288,34 @@ def coincidence_look_elsewhere(rational_max: int = 12) -> dict:
 
 # ---------------------------------------------------------------------------
 def run() -> dict:
+    t1 = classification_theorem()
+    t2 = running_prediction()
+    t3 = required_coefficient()
+    t5 = coincidence_look_elsewhere()
+    # D9: the gate record must be able to fail. These are the finding's own
+    # already-computed claims: T1 is the classification theorem (every length
+    # scale excluded by shape, only a log-type scale allowed), T2 is the
+    # class prediction actually matching Planck's measured running, T3 is
+    # the coefficient being a natural O(1) (not unnaturally tuned), and T5
+    # is that the delta*/(2pi) numerical coincidence correctly does NOT
+    # survive a look-elsewhere count (the finding's own conclusion — if this
+    # flipped to True it would mean the seed family stopped being a fair
+    # look-elsewhere test).
+    passed = bool(
+        t1["length_scales_excluded"] and t1["log_type_allowed"]
+        and t2["consistent_with_planck"]
+        and t3["is_order_unity"]
+        and not t5["survives_look_elsewhere"]
+    )
     return {
         "finding": "F286",
         "question": "what could supply the 3.5% tilt on a rigid lattice?",
-        "T1_classification": classification_theorem(),
-        "T2_running_prediction": running_prediction(),
-        "T3_required_coefficient": required_coefficient(),
+        "T1_classification": t1,
+        "T2_running_prediction": t2,
+        "T3_required_coefficient": t3,
         "T4_inventory": coupling_inventory(),
-        "T5_coincidence": coincidence_look_elsewhere(),
+        "T5_coincidence": t5,
+        "passed": passed,
         "verdict": (
             "a second scale must be a LOG, not a length; the whole class "
             "predicts dn_s/dlnk = -2.6e-4 with no free parameter; the required "

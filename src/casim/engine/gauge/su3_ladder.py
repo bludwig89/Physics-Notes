@@ -52,6 +52,33 @@ Content
 Conventions: unnormalised characters in the magnetic term (χ = e^{iφ} is
 the U(1) case); truncation by p+q ≤ cut with checked convergence (the F101
 S1 policy).  Exact statements use `fractions.Fraction`.
+
+NOTE 2026-08-18 (F325, ledger record S22) -- read before quoting item 3.
+--------------------------------------------------------------------------
+This module IS the genuine SU(N) link Hamiltonian F110 deferred and F294's
+"Remains" item 1 asked for.  It was built here on 2026-06-07 and then went
+uncited by F294, F298, F299 and F303, all four of which wanted it (F299's
+cross-reference list even carries a dangling [[F111-su3-ladder-casimir-scaling]]
+pointing at this file).  It is central to the X1 close: branch A excluded,
+branch B (chi = 1, g_s = 1/2) adopted.
+
+Item 3's strong-coupling identity is arithmetically correct, and its claim of
+"the SAME leading log ... under the F110 chi-map" is LINK-COUNT INCONSISTENT.
+`su3_rotor_hamiltonian` puts (g^2/2) C_2 on ONE link; the U(1) comparison at
+chi = 1/(4 g^2) is FOUR.  The electric gaps differ by exactly n/C_F = 3.  At
+equal n the exact statement is
+
+    s1_SU(N) / s1_U(1)  ->  2 / (N^2 - 1)        (independent of n_links)
+
+so the agreement at N = 3 is C_F d_F = (N^2 - 1)/2 = 4 coinciding with the four
+links, NOT a statement about the group -- setting the ratio to 1 needs N^2 = 3,
+so there is no N_c selector in it.  Two consequences.  (a) F111b T7 must not be
+quoted as confirming chi = 1/(4 g^2); the confirmation is the coefficient
+argument (F325 section 2) plus the magnetic audit (F325 section 5), which finds
+the magnetic term to be a unit-entry adjacency in BOTH theories and therefore
+free of any group factor.  (b) sigma_1 carries an EXACT offset
+ln((N^2 - 1)/2) = ln 4 = 1.386294 nats between the Z_3/U(1) engine and this one
+at N = 3 -- a correction to F99/F100/F101's string tension, orthogonal to g_s.
 """
 
 from fractions import Fraction

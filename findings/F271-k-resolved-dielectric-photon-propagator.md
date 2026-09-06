@@ -3,6 +3,8 @@
 *2026-08-01 - 01:40. Roadmap **P3.6** follow-through. Supersedes the eikonal `dielectric_mix_half` (F270 §4) for the photon channel.*
 *Status: **established** for the operator's exactness, convergence and norm behaviour; the deflection **coefficient** against GR is explicitly not claimed.*
 
+**Test record:** record `P3.4-P3.6-total-energy-and-gravity-loop` (tier gate) — `tests/casim/test_total_energy_and_gravity_loop.py` T8b–T8d, T9, T10: uniform $K$ exact with no free parameter (E2/E8), second-order convergence and converging norm drift (E3/E4), and the bend's exact-zero baseline, linearity and direction (E5–E7); record `F276-curved-weyl-ordering-second-order` (tier gate) — the same two corrections carried into the 2-D reference this finding handed back. Declared 2026-08-19.
+
 ## 1. The problem F270 left open
 
 F270 closed the gravity loop on the gauge side, but only at **eikonal** order: the

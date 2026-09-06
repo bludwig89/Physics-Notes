@@ -80,6 +80,8 @@ from __future__ import annotations
 
 import numpy as np
 
+from casim.constants import sqrt_sigma_GeV as SQRT_SIGMA_GEV_DEFAULT
+
 try:
     from scipy.linalg import eigh as _scipy_eigh
     _HAVE_SCIPY = True
@@ -358,6 +360,98 @@ def harmonic_ground_energy_ecg(k, m, basis=None):
     except np.linalg.LinAlgError:     # overcomplete -> canonical orthogonalisation
         w, _ = _solve_canonical(H, Smat)
         return float(w[0])
+
+
+# ===========================================================================
+#  EM self-energy -- pairwise quark-charge Coulomb from the SAME <1/r> as OGE.
+#
+#  F372: an independent, model-native check of the ad hoc classical EM self-
+#  energy input (delta_em_p=1.00, delta_em_n=0.0 MeV) used by
+#  neutron_minus_proton() below.  Re-derives the proton-neutron EM difference
+#  from the P2 three-body ground state's own <1/r> -- the SAME position-space
+#  expectation value the OGE term already uses -- instead of importing an
+#  external classical estimate.  Zero new free parameters.
+# ===========================================================================
+def pair_inv_radii(c0, basis):
+    """Ground-state <1/r_p> for the three pairs, S-normalised (companion to
+    pair_radii; the input the pairwise Coulomb self-energy needs)."""
+    n = len(basis)
+    out = {}
+    norm = 0.0
+    for p, w in PAIR_W.items():
+        acc = 0.0
+        for i in range(n):
+            for j in range(n):
+                C = basis[i] + basis[j]
+                Sij = _overlap(C)
+                beta = float(w @ np.linalg.inv(C) @ w)
+                acc += c0[i] * c0[j] * _inv_r_over_S(beta) * Sij
+        out[p] = acc
+    for i in range(n):
+        for j in range(n):
+            C = basis[i] + basis[j]
+            norm += c0[i] * c0[j] * _overlap(C)
+    return {p: out[p] / norm for p in out}
+
+
+ALPHA_EM = 1.0 / 137.035999084          # CODATA fine-structure constant
+
+# Quark electric charges in units of e (up-type +2/3, down-type -1/3).  A
+# baryon's pairwise Coulomb self-energy is alpha_em * <1/r> * sum_{i<j} q_i q_j;
+# for the S3-symmetric P2 ground state <1/r> is common to all three pairs
+# (F122 check S4), so the charge structure alone fixes each species' factor:
+#   proton (u,u,d):  sum q_i q_j = (2/3)(2/3) + 2*(2/3)(-1/3) = 4/9 - 4/9 = 0
+#   neutron(u,d,d):  sum q_i q_j = 2*(2/3)(-1/3) + (-1/3)(-1/3) = -4/9 + 1/9 = -1/3
+CHARGE_SUM_PROTON = 0.0
+CHARGE_SUM_NEUTRON = -1.0 / 3.0
+
+
+def em_self_energy_pairwise(m_q, sigma, alpha_s, sqrt_sigma_gev=SQRT_SIGMA_GEV_DEFAULT,
+                             basis=None, conf_per_pair=1.0, oge_casimir=2.0 / 3.0):
+    """Model-native re-derivation of the proton-neutron EM self-energy
+    difference, reusing the P2 three-body ground state's own <1/r>.
+
+        delta_EM(B) = alpha_em * <1/r> * sum_{i<j} q_i q_j      (pairwise Coulomb)
+
+    With the common <1/r> (S3 symmetry, F122 S4) this collapses to a single
+    number X = alpha_em * <1/r> times each baryon's charge factor: proton -> 0
+    (its two up quarks' mutual repulsion exactly cancels the two u-d
+    attractions for a net +1 baryon); neutron -> -X/3 (net attractive).  So
+    delta_EM_p - delta_EM_n = +X/3 > 0 -- EM makes the proton's self-energy
+    the larger (less negative) of the two, the same qualitative statement
+    F122 made from its classical whole-nucleon estimate.
+
+    ``sqrt_sigma_gev`` defaults to the registered ``sqrt_sigma_GeV`` constant
+    (D7; F122/F124/F146) -- F122 Sec.5's own quoted empirical string-tension
+    scale; this function does not derive it (unifying it with the f_pi anchor
+    is F123 Sec.5's open debt) -- it is the same external anchor F122 already
+    used to state its own m_p/sqrt(sigma) ~ 2.24 comparison, reused here for
+    the same reason: dimensionless P2 output times one length anchor.
+    Defaults (m_q=0.785, sigma=1.0, alpha_s=0.5) match F122's own baseline
+    three-body solve.
+    """
+    if basis is None:
+        basis = make_basis()
+    _, c0, basis2, _, _ = spectrum_and_ground_vector(
+        m_q, sigma, alpha_s, basis=basis,
+        conf_per_pair=conf_per_pair, oge_casimir=oge_casimir)
+    inv_r = pair_inv_radii(c0, basis2)
+    inv_r_vals = list(inv_r.values())
+    inv_r_spread = max(inv_r_vals) - min(inv_r_vals)           # S3-symmetry check
+    inv_r_common = sum(inv_r_vals) / 3.0                        # units of sqrt(sigma)
+    inv_r_phys_mev = inv_r_common * sqrt_sigma_gev * 1000.0     # MeV
+    X = ALPHA_EM * inv_r_phys_mev                                # MeV
+    delta_em_p = CHARGE_SUM_PROTON * X
+    delta_em_n = CHARGE_SUM_NEUTRON * X
+    return {
+        "inv_r_common_units_sqrt_sigma": inv_r_common,
+        "inv_r_spread_units_sqrt_sigma": inv_r_spread,
+        "inv_r_phys_MeV": inv_r_phys_mev,
+        "X_alpha_over_r_MeV": X,
+        "delta_em_p_MeV": delta_em_p,
+        "delta_em_n_MeV": delta_em_n,
+        "delta_em_p_minus_n_MeV": delta_em_p - delta_em_n,
+    }
 
 
 # ===========================================================================

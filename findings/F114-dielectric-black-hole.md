@@ -17,6 +17,7 @@
 **Script:** `tests/findings/test_F114_dielectric_black_hole.py`
 **Scenario:** `scenarios/dielectric_black_hole.yaml`
 **Results:** `test-results/F114_dielectric_black_hole.{json,md}`, `test-results/casim_dielectric_black_hole.json`
+**Test record:** none — no-test (superseded). Ledger `S4-F178-full-stress-energy` supersedes this finding outright: *"the exact vacuum solution is Schwarzschild; the exponential K = e^{2u} is only PPN-order, differing at O(u²)"*, so the horizon-free object and the +4.6 % shadow are dead, and Paper VIII was deprecated with it (`S7-paper-08-deprecated`). The script named above no longer exists in the tree. What survives is carried by other findings' records — `F183-blackhole` and `FA10-black-hole-shadow` both still name F114 as history. Cards CL023–CL027 are the retraction record and are `withdrawn` by design; do not archive them. Declared 2026-08-19.
 **Cross-references:** [[F64-em-connection-gravity]] (canonical $K=e^{2u}$, $A=1/K$, $B=K$, PPN $\beta=\gamma=1$/D-EM9), [[F107-canonical-a-adoption-L4-grb-gate]] (the SI lock that turns the shadow into $\mu$as), [[F112-si-predictions-from-canonical-a]] (the prediction registry this extends into the strong field), the F111 second-order-deflection script (the $O(u^2)$ departure reused here), [[F106-psi-K-sourcing-derivation]] (how the well is sourced).
 
 ---

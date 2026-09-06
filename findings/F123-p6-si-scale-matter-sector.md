@@ -5,6 +5,7 @@
 **Module:** `ca-simulation/ca_si_scale.py`
 **Script:** `tests/findings/test_P6_si_scale.py` (~2 s)
 **Results:** `test-results/P6_si_scale.json`
+**Test record:** record `P6-si-scale` (tier battery) — the script above, baseline `test-results/P6_si_scale.json`. Declared 2026-08-19.
 **Cross-references:** [[F107-canonical-a-adoption-L4-grb-gate]] (the geometric SI cell adopted here), [[F112-si-predictions-from-canonical-a]] (the gravity/EW registry this extends to the strong sector), [[F119-kg-scale-three-routes]] (the hierarchy: the cell fixes $a$, not the hadron scale $N$ — which this finding fixes with $f_\pi$), [[F77-njl-gap-rpa]] / [[F103-p3-dynamical-pion-goldstone]] (the dimensionless χSB spectrum anchored here), [[F122-p2-dynamical-baryon-three-body]] (the P2 nucleon whose absolute mass this delivers; resolves its $m_p/\sqrt\sigma$ overshoot), [[F97-baryon-phase-closure-no-go]] (mass is dynamical, not current-quark sum — made quantitative), [[F40-quark-Y-and-dynamical-chi-kinetic]] ($d$–$u$ gap in the $n$–$p$ splitting), [[F104-p4-deuteron-tensor-bound-nucleus]] (deuteron OPEP range now predicted).
 
 ---

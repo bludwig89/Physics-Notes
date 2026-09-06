@@ -1,0 +1,49 @@
+{
+  "C1_vacuum_reduction": {
+    "G_munu_solution": "-g_munu*tau_avg/(4*M_pl**2)",
+    "reduces_to_gr_plus_lambda_eff": true,
+    "substitute_vacuum": true,
+    "target_minus_lambda_eff_g": "-g_munu*tau_avg/(4*M_pl**2)"
+  },
+  "C2a_eternal_de_sitter": {
+    "V4_as_T_to_infinity": "oo",
+    "V4_of_T": "(exp(3*H*T) - 1)/(3*H)",
+    "diverges": true,
+    "measure_power": 3
+  },
+  "C2b_flat_open_matter_only": {
+    "V4_as_T_to_infinity": "oo",
+    "V4_of_T": "T**3/(3*t_star**2)",
+    "diverges": true,
+    "measure_power": 3
+  },
+  "C2c_closed_recollapse": {
+    "V4_closed_recollapse": "35*pi*A**4/4",
+    "finite": true,
+    "measure_power": 3
+  },
+  "C3_desi_w_direction": {
+    "dw_da": "21/20",
+    "quadrant_matches_desi_dr2_preferred": true,
+    "trending_toward_less_negative_future_w": true,
+    "w0": -0.727,
+    "wa": -1.05
+  },
+  "all_pass": true,
+  "checks": {
+    "C1-vacuum-reduces-to-ordinary-GR-plus-Lambda_eff": true,
+    "C2a-eternal-de-Sitter-V4-diverges": true,
+    "C2b-flat-open-matter-only-V4-also-diverges": true,
+    "C2c-closed-recollapse-V4-finite": true,
+    "C3-desi-preferred-quadrant-trends-toward-less-negative-w": true
+  },
+  "cl303_status_recommendation": "contingent (unchanged, costs added)",
+  "falsifier_4_met": false,
+  "finding": "F368",
+  "params": {
+    "finite_time_only": false,
+    "measure_power": 3,
+    "substitute_vacuum": true,
+    "wa_sign_flip": false
+  }
+}

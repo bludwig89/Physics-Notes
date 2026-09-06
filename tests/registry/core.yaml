@@ -860,6 +860,29 @@ tests:
       test-results/F30_dispersion_order_summary.md: local
     artifacts_read_only: []
     summary: F30 — Order of the leading photon-dispersion correction in the BCC vacuum.
+- id: F371-medium-z-scf-ionization-energies
+  path: tests/findings/test_F371_medium_z_ionization_energies.py
+  kind: assertion
+  tier: battery
+  findings:
+  - F208
+  - F371
+  sector: core
+  results:
+  - test-results/F371_medium_z_ie_sweep.json
+  evidence:
+    mentions:
+    - F208
+    - F371
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 127
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F371 — Extending F208's relativistic SCF ionization-energy map from
 - id: F65-helicity-chirality-map
   path: tests/findings/test_F65_helicity_chirality_map.py
   kind: legacy_script
@@ -1467,6 +1490,7 @@ tests:
   sector: core
   findings:
   - F270
+  - F271
   module: casim.engine.core.observers
   expect:
     exactness: machine
@@ -1665,6 +1689,25 @@ tests:
   - test-results/d1_static_potential.json
   notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
     rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-l6-native-sweep
+  path: tests/runners/run_l6_native_sweep.py
+  kind: legacy_script
+  tier: battery
+  sector: core
+  evidence:
+    mentions:
+    - F280
+    - F307
+    - F337
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 102
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_l6_native_sweep.py — NATIVE runner for F337's ledger-d1 / L6 native sweep.
 - id: run-su2-3d-fluxtube
   path: tests/runners/run_su2_3d_fluxtube.py
   kind: legacy_script
@@ -1693,6 +1736,23 @@ tests:
   notes: 'DEBT CATEGORY (C7 close-out): emits no result artifact at all, so a baseline diff cannot give
     it a failure mode. Needs either an `assert` or an entry function returning a dict that a `result_dump`
     record can write. Until then it runs and cannot fail, which is what `legacy_script` says.'
+- id: run-ws-mask-smoothed-sweep
+  path: tests/runners/run_ws_mask_smoothed_sweep.py
+  kind: legacy_script
+  tier: battery
+  sector: core
+  evidence:
+    mentions:
+    - F337
+    pytest_funcs: false
+    has_assert: false
+    has_main: true
+    lines: 78
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: run_ws_mask_smoothed_sweep.py -- checkpointed runner for the F337 Sec.4/6
 - id: sr2-3d-scan
   path: tests/runners/_sr2_3d_scan.py
   kind: legacy_script

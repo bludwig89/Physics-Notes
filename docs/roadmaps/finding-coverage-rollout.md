@@ -6,8 +6,8 @@
 
 **Ratchets, end state in brackets.** Armed at the morning's numbers; re-armed the
 same afternoon where a step closed:
-`untested` **30** [0] · `unclaimed` **2** [0] · `weak_only` **30** [0] ·
-`claim_unset` **2** [0] · `dangling` **0** [0, hold] · `blank` **0** [0, hold] ·
+`untested` **20** [0] · `unclaimed` **0** [0, hold] · `weak_only` **20** [0] ·
+`claim_unset` **0** [0, hold] · `dangling` **0** [0, hold] · `blank` **0** [0, hold] ·
 `retired` **0** [0, hold] · `briefs_in_findings` **0** [0, hold] ·
 `bad_declaration` **0** [0, hold] · `unjoined` **0** [0, hold].
 
@@ -28,6 +28,8 @@ same afternoon where a step closed:
 | **2 — the teeth** | `awaiting-test` and `pending` are DEBT, not exits. They clear `weak_only`/`claim_unset` because the finding has stopped being silent, but the new `untested` and `unclaimed` totals hold the sum — so relabelling moves a finding between counters and leaves the real number where it was. | The 66-drain cannot be closed by find-and-replace |
 | **4 — bucket 1** | *2026-08-19 - 13:35.* The **F1–F50 era, all 24 findings** (F21 F23 F25 F26 F26b F27 F29 F31–F36 F38–F45 F47 F48). Eleven records gained the finding on their side of the join (`wmu-phase1`+F31, `wmu-phase3`+F33, `wmu-phase4`+F34, `wmu-phase6`+F35, `wmu-phase7-backreaction` already had F36, `su2-photon-bridge`+F29, `hypercharge`+F41, `FG1-anomaly-cancellation`+F38, `FG6-two-helicity-photon`+F39, `FG7-gluon-dynamics`+F43, `FG4-dynamical-Z`+F48, `majorana-fork`+F47). Twenty findings gained a `**Test record:** record `X`` header. **Zero `awaiting-test` declarations were needed** — every one of the 24 had a real record already in the tree. | `weak_only` / `untested` **66 → 30**; bucket 1 is empty in section B |
 | **4 — the measurement** | *Same pass.* Bucket 1's own recipe (steps 1–4 below) rewrites `findings:` and never renames a file, so under the original name-only `strong` test it could not move `weak_only` **at all**. Two fixes, both in `audit_finding_coverage.py`: `_NAME_ID` makes the NAME test case- and suffix-aware (`f26-rotation-law` **is** F26's record; `F26b-…` **is** F26b's), and a **two-sided DECLARED join** — the finding's header names record X *and* X's `findings:` names the finding back — counts as strong. `_FINDING_RE` is untouched, because it must keep reproducing what the generator inferred. | −4 from the name fix, −32 from the declared join, measured separately |
+| **4 — bucket 2** | *2026-08-19 - 19:00.* The **recent tail: 9 findings** (F266 F268 F269 F270 F271 F274 F275 F277 F323), plus **F204**, which fell out of the same defect. Again **zero `awaiting-test` declarations** — all ten had a real record in the tree. Seven needed only the finding's side of the join (`P3.2-engine-clock`, `P3.3-exchange-bus`, `P3.4-P3.6-total-energy-and-gravity-loop`, `scenario-schema-v2`, `viz-api`+`results-compare`, `F272-F273-bz-period-lattices`, `gauge-bcc-mc-d4` all already named their finding). Three were worse than a missing header: **two records named a pre-renumber `F200`** — `F200-sterile-neutrino-dm` is F266's (renumbered 2026-07-31) and `F200-alcubierre-structural` is F204's (its own header says so) — so both declared they could go red on the *E_g sextic-coupling* finding, which neither touches; and **F323 carried its record in a field called `**Record:**`**, which neither `check_finding_records.py` nor this tool reads. `P3.4-P3.6` gained F271 (T8b–T8d, T9, T10 are F271's own evidence legs E2–E8). | `weak_only` / `untested` **30 → 20**; `legacy-debt-only` **1 → 0** (F204's real record is a `result_dump`, not the `legacy_script`); bucket 2 is empty in section B |
+| **6 — the claim side** | *Same pass, verification not curation.* The eight `**Claim:** none` declarations and the cards behind the other two were read against the ledger. **Two seeded cards were statused backwards**: `CL232` (F266) read `withdrawn` off a **renumbering** banner, and `CL235` (F271) read `withdrawn` off the word *Supersedes* in a finding that is the **superseder** (`S10`). Neither finding is in any `superseded:` list. Both corrected to `live` with the reason quoted in `## Status & history`; both stay `unreviewed-seed`. | `withdrawn` **27 → 25**; `claim_unset` / `unclaimed` re-armed **10 → 0** |
 | **5** | `make coverage` wired into the Makefile beside `records`/`registry`. | Failure mode demonstrated by injection: a bogus, blank, retired, or brief id in any record's `findings:` turns it red; every declaration case verified against a live finding and reverted. |
 
 **Not yet in `run_gate.py`.** A ratchet outside the gate is a tool, not a barrier
@@ -35,9 +37,16 @@ same afternoon where a step closed:
 was left out because `run_gate.py` is shared infra with a live collision history
 (see the `repo-gotcha-shared-infra-stale-read` note).
 
-**Still open:** the drain's remaining **30** (§4 buckets 2 and 3), the no-test
-vocabulary rollout beyond the bundle, and the claim-gap findings (§6, down to 2
-and mid-pass in a concurrent session as of 2026-08-19 - 13:35).
+**Still open:** the drain's remaining **20** — all of it §4 bucket 3, the F51–F250
+middle — and the no-test vocabulary rollout beyond the bundle. §6's claim gap is
+measured closed (0), so its ratchets are re-armed at 0.
+
+**Not caused here, seen from here.** Two things this pass found and did not own:
+`check_summary_claims.py` is **red at HEAD** (`CL282`, a live headline card, does
+not reach `papers/Claims-and-Falsifiers-Summary.md`), and
+`docs/design/module-graph.json` is stale in the tree by one module
+(`gauge/derive_x1_branch.py`, F325) — regenerating it is a 285-line diff that
+belongs to F325's session, so it was left alone. Both are in the HEAD commit.
 
 ---
 
@@ -77,7 +86,7 @@ That is the defect. Everything below is draining it.
 |---|---|
 | Findings joined to no record at all | **0** |
 | Findings whose only records are prose mentions | **67** |
-| Findings backed only by `legacy_script` debt | **1** (F204) |
+| Findings backed only by `legacy_script` debt | **1** (F204) — **0 since bucket 2**: F204's real record was there, filed under a pre-renumber `F200` id |
 | Records naming a finding id that has no file | **53** (48 distinct ids) |
 | Records with an empty `findings:` | **50** |
 | Findings named by no claim card, declaring no `claim: none` | **10** |
@@ -230,12 +239,43 @@ order: they are the foundation findings, they carry the largest false counts
 (32, 27, 11, 10), and every later finding's prose mentions them, which is
 precisely why the regex inflated them.
 
-### Bucket 2 — the recent tail (F251–F300, 9 findings, plus F301+ stragglers)
+### Bucket 2 — the recent tail (F251–F300 + the F301+ straggler) — **DRAINED 2026-08-19 - 19:00**
 
-The convention existed when these were written. Either the test is named
-differently for a reason worth recording, or the record was never written.
-Expect a genuine `awaiting-test` declaration or two here — that is a finding
-about the tree, not a failure of the pass.
+> **All 9 closed, and F204 with them.** The prediction above was that the
+> convention existed when these were written, so either the test is named
+> differently for a reason worth recording or the record was never written.
+> **The second case did not occur once.** Every one of the ten had a real record;
+> what was missing was a declaration, and in three cases the record's own
+> `findings:` pointed at the wrong finding.
+>
+> | Finding | Record it declares now | What was actually wrong |
+> |---|---|---|
+> | F266 | `F200-sterile-neutrino-dm` (battery) | record named **F200**, a pre-renumber id — F266 since 2026-07-31 |
+> | F268 | `P3.2-engine-clock` (gate) | finding-side declaration only |
+> | F269 | `P3.3-exchange-bus` (gate) | finding-side declaration only |
+> | F270 | `P3.4-P3.6-total-energy-and-gravity-loop` (gate) | finding-side declaration only |
+> | F271 | `P3.4-P3.6-…` (gate) + `F276-curved-weyl-ordering-second-order` (gate) | the record carrying T8b–T10, its own evidence legs, did not name it |
+> | F274 | `scenario-schema-v2` (gate) | finding-side declaration only |
+> | F275 | `viz-api` + `results-compare` (gate) | finding-side declaration only |
+> | F277 | `F272-F273-bz-period-lattices` (gate) | finding-side declaration only (T6–T9 are F277's) |
+> | F323 | `gauge-bcc-mc-d4` (gate) | declared in a field called `**Record:**`, which no tool reads |
+> | F204 | `F200-alcubierre-structural` (battery) | record named **F200**; F204's own header already said the filename kept the working tag |
+>
+> **The lesson is the mirror of bucket 1's.** Bucket 1 was a *convention* gap —
+> pre-F150 tests are named for the physics. Bucket 2 is a *declaration* gap: the
+> curation is right on both sides in most cases and the metric cannot see it
+> until the finding says so. The three real defects were all **id drift**, not
+> missing coverage: a renumber (F266), a filename that kept a working tag (F204),
+> and a field name a human chose that no parser reads (F323). A renumbered
+> finding is the dangerous one — the stale id resolves to a **live, unrelated
+> finding**, so the record reads as covered and asserts something false, which is
+> exactly the shape §5b was built for and cannot catch.
+>
+> **Not done here.** `run-bcc-confinement-d4` (battery) is F323's declared
+> battery and still names only F265/F94. Adding F323 was judged an *addition*
+> rather than a correction — the runner dumps numbers and F323's anisotropy
+> derivation is not what would move them — so §9's safe direction was taken and
+> the association was left alone. Also left: 20 findings' worth of bucket 3.
 
 ### Bucket 3 — the middle (F51–F250, 33 findings)
 
@@ -244,9 +284,11 @@ reached, buckets 1 and 2 will have established the per-case pattern.
 
 ### Alongside: the two singletons
 
-* **F204** — its only record is `legacy_script`, i.e. declared debt with possibly
-  no failure mode at all. Either arm the record with `module:`/`entry:` or
-  declare `awaiting-test`.
+* **F204** — ~~its only record is `legacy_script`~~ **CLOSED with bucket 2.** It was
+  never debt-only: `F200-alcubierre-structural` is F204's `result_dump` record,
+  filed under the working `F200` id the finding's own header flags. The
+  `legacy_script` (`run-warp-openitems-explore`) stays declared debt; it is no
+  longer the only record. `debt_only` is 0.
 * **50 records with an empty `findings:`** — not in the 67 (no finding is missing
   because of them), but each is a test that verifies nothing nameable. Sweep once
   after bucket 3; expect most to be infrastructure and legitimately empty.

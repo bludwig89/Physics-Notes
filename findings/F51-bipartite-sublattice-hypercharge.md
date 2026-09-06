@@ -5,6 +5,7 @@
 **Modules touched:** none (analytical study + verification harness only)
 **Verification script:** `tests/findings/test_sublattice_hypercharge.py`
 **Result file:** `test-results/sublattice_hypercharge.json`
+**Test record:** record `sublattice-hypercharge` (tier battery) — the verification harness above, baseline `test-results/sublattice_hypercharge.json`; record `hypercharge-quantisation` (tier battery) — the ℚ-exact Y-assignment harness this finding's representation theory feeds. Both already named F51 on their side of the join. Declared 2026-08-19.
 
 Closes the explicit gap named in [F49](F49-bcc-finite-k-weinberg-angle.md) §"What this derives and what it does not" (line 109): *"to derive it rather than match it requires showing that the bipartite sublattice DOF carries hypercharge as a matter of representation theory on the BCC walk, which has not been done."* This finding does that for the abelian factor itself; the **value** of the coupling ratio ($2{:}7 \to \sin^2\theta_W = 2/9$) remains F49's separate, still-partial question.
 

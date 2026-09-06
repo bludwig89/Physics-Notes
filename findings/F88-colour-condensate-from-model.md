@@ -5,6 +5,7 @@
 **Modules:** `ca-simulation/ca_colour_condensate.py`, `ca-simulation/derive_colour_condensate.py` (new)
 **Tests:** `tests/findings/test_FG7e_colour_condensate.py`
 **Results:** `test-results/FG7e_colour_condensate.json`
+**Test record:** record `FG7e-colour-condensate` (tier battery) — this finding's own 8/8 script, baseline `test-results/FG7e_colour_condensate.json`; it already named F88 on its side of the join. Declared 2026-08-19.
 **Cross-refs:** F86 (dual superconductor — this closes its flagged research risk), F43 ($f^{abc}$ dynamical gluons — the self-coupling that drives the instability), F26 (c = rotation rate — the tachyon is an *imaginary rotation rate*), F70 (strong-coupling area law), F64 (dielectric mechanism).
 
 ---

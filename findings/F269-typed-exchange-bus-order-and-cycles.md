@@ -3,6 +3,7 @@
 *2026-07-31 - 23:55. Roadmap `roadmap-unified-program.md` **P3.3**, structural blocker **B3**.*
 *Status: **established** (measured, fixed, gated).*
 
+**Test record:** record `P3.3-exchange-bus` (tier gate) — `tests/casim/test_exchange_bus.py`, T1–T10: a dangling coupling name is a build error, topological order is stable on registration order, a real dependency reorders and is reported, a leapfrog loop reads as a cycle, and every shipped scenario resolves strictly. Declared 2026-08-19.
 **Claim:** none — engine infrastructure; the migration is bit-identical under `gauss_seidel` and the 5 ordering violations are reported, not applied, so no physics is asserted. Declared 2026-08-19.
 
 ## Claim

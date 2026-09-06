@@ -1,0 +1,156 @@
+{
+  "control": {
+    "all_pass": false,
+    "checks": [
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=3]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=4]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=6]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=64]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=96]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "NEGATIVE control: d=2 (isospin alone, no pointer) must FAIL Theorem 3.5's hypothesis -- confirming F304 section 3's d=2 hole is excluded by this check, not silently papered over",
+        "id": "H1[d=2, excluded]",
+        "pass": true,
+        "value": {
+          "d": 2,
+          "has_completely_real_3dim_subspace": false,
+          "max_imag_inner_product": null,
+          "max_real_deviation_from_identity": null
+        }
+      },
+      {
+        "desc": "the frame condition holds across random bases (Lemma 2.1 converse); must go RED under control=True (F304 section 5.3's k=3 mode is not annihilated at d=3)",
+        "id": "H2",
+        "pass": false,
+        "value": 0.9250168921643016
+      },
+      {
+        "desc": "equator-constancy identity (Theorem 2.8's mechanical core) holds; must go RED under control=True",
+        "id": "H3",
+        "pass": false,
+        "value": 0.4066318790356134
+      }
+    ],
+    "control": true,
+    "n_checks": 8,
+    "n_fail": 2,
+    "n_pass": 6
+  },
+  "honest": {
+    "all_pass": true,
+    "checks": [
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=3]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=4]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=6]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=64]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "Theorem 3.5's hypothesis: C^d contains a completely real 3-dim subspace, d >= 3",
+        "id": "H1[d=96]",
+        "pass": true,
+        "value": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "desc": "NEGATIVE control: d=2 (isospin alone, no pointer) must FAIL Theorem 3.5's hypothesis -- confirming F304 section 3's d=2 hole is excluded by this check, not silently papered over",
+        "id": "H1[d=2, excluded]",
+        "pass": true,
+        "value": {
+          "d": 2,
+          "has_completely_real_3dim_subspace": false,
+          "max_imag_inner_product": null,
+          "max_real_deviation_from_identity": null
+        }
+      },
+      {
+        "desc": "the frame condition holds across random bases (Lemma 2.1 converse); must go RED under control=True (F304 section 5.3's k=3 mode is not annihilated at d=3)",
+        "id": "H2",
+        "pass": true,
+        "value": 2.886579864025407e-15
+      },
+      {
+        "desc": "equator-constancy identity (Theorem 2.8's mechanical core) holds; must go RED under control=True",
+        "id": "H3",
+        "pass": true,
+        "value": 4.440892098500626e-16
+      }
+    ],
+    "control": false,
+    "n_checks": 8,
+    "n_fail": 0,
+    "n_pass": 8
+  }
+}

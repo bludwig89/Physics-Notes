@@ -9,8 +9,15 @@ Checks:
   N1  SLy: maximum mass in [1.95, 2.15] M_sun with a turnover, consistent with
       PSR J0740+6620 (2.08 +/- 0.07 M_sun); R(1.4) in [10.5, 12.0] km
       (NICER J0030/J0740 ~ 11-12.5 km); surface redshift at M_max in [0.3, 0.9].
-  N2  EoS ordering (stiffness): the stiffer cores (APR4, MPA1) give larger
-      M_max and larger R(1.4) than SLy -- the expected monotonic trend.
+  N2  EoS ordering (stiffness): the stiffer cores (AP4, MPA1) give larger
+      M_max than SLy. (Corrected 2026-09-03, found by the F356 attack pass:
+      N2 originally also required R(1.4) to order the same way as M_max, but
+      that compound claim is false for the *correct* Read et al. 2009 AP4
+      digits -- AP4's genuinely higher M_max comes with a genuinely *smaller*
+      R(1.4) than SLy in this crust-simplified kernel, a real and literature-
+      -known feature of AP4, not a code defect. Only the M_max ordering,
+      which does hold, is asserted now; see F184's "Correction" section and
+      findings/F356-multi-eos-nicer-robustness.md for the numbers.)
   N3  GR consistency: each EoS shows a stable branch (dM/drho_c > 0) terminating
       at the maximum-mass turnover (the GR/TOV instability), i.e. a physical
       mass-radius sequence (not the literal-F106 runaway of F174).
@@ -42,14 +49,16 @@ def check_N1_sly():
 
 
 def check_N2_ordering():
+    """M_max ordering only -- see the N2 docstring above (corrected 2026-09-03)
+    for why R(1.4) is reported but no longer asserted to order the same way."""
     sly = e.summarize(e.PiecewisePolytrope("SLy"), n=60)
     apr = e.summarize(e.PiecewisePolytrope("APR"), n=60)
     mpa = e.summarize(e.PiecewisePolytrope("MPA1"), n=60)
-    ok = (apr["M_max"] > sly["M_max"] and mpa["M_max"] > sly["M_max"]
-          and apr["R_1.4_km"] > sly["R_1.4_km"] and mpa["R_1.4_km"] > sly["R_1.4_km"])
+    ok = (apr["M_max"] > sly["M_max"] and mpa["M_max"] > sly["M_max"])
     return {"pass": bool(ok),
             "M_max": {"SLy": sly["M_max"], "APR": apr["M_max"], "MPA1": mpa["M_max"]},
-            "R_1.4": {"SLy": sly["R_1.4_km"], "APR": apr["R_1.4_km"], "MPA1": mpa["R_1.4_km"]}}
+            "R_1.4": {"SLy": sly["R_1.4_km"], "APR": apr["R_1.4_km"], "MPA1": mpa["R_1.4_km"]},
+            "_note": "R_1.4 reported, not asserted to order with M_max -- see docstring"}
 
 
 def check_N3_stable_branch():

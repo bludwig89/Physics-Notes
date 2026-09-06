@@ -180,7 +180,7 @@ def varying_G_bounds() -> dict:
         "comoving_bbn_decades_off": -math.log10(comoving_G_ratio),
         "q_max": q_max,
         "rigid_to_percent": 100.0 * q_max,
-        "fully_comoving_excluded": True,
+        "fully_comoving_excluded": q_max < 1.0,  # D9: derived from q_max, not hardcoded
     }
 
 
@@ -281,15 +281,31 @@ def lattice_cell_budget() -> dict:
 
 # ---------------------------------------------------------------------------
 def run() -> dict:
+    e1 = invariance_under_stretch()
+    e2 = varying_G_bounds()
+    epoch = earliest_resolvable_epoch()
+    cell_budget = lattice_cell_budget()
+    # D9: the gate record must be able to fail. These are the finding's own
+    # already-computed exact/definitional claims (docstring E1/F284 above),
+    # not new physics: dr/ds = 0 exactly (E1), the comoving (q=1) elasticity
+    # is excluded by the LLR/BBN bound (E2), and the rigid-substrate F284
+    # consequences (no substrate singularity, no trans-Planckian problem).
+    passed = bool(
+        e1["invariant"] and e1["r_equals_inverse_c_lat"]
+        and e2["fully_comoving_excluded"]
+        and epoch["singularity_in_substrate"] is False
+        and cell_budget["trans_planckian_problem"] is False
+    )
     return {
         "findings": ["F283", "F284"],
         "question": "can the BCC lattice be elastic, and if not what is expansion?",
-        "E1_invariance": invariance_under_stretch(),
-        "E2_varying_G": varying_G_bounds(),
+        "E1_invariance": e1,
+        "E2_varying_G": e2,
         "E3_volume_mode": volume_mode_dichotomy(),
         "E4_graviton_cone": graviton_cone_bound(),
-        "F284_earliest_epoch": earliest_resolvable_epoch(),
-        "F284_cell_budget": lattice_cell_budget(),
+        "F284_earliest_epoch": epoch,
+        "F284_cell_budget": cell_budget,
+        "passed": passed,
         "verdict": (
             "the lattice is rigid (q < 1e-3); elasticity cannot rescue F282 "
             "(dr/ds = 0 exactly); cosmic expansion is the conformal mode of K "

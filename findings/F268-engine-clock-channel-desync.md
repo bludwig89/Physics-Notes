@@ -3,6 +3,7 @@
 *2026-07-31 - 23:35. Roadmap `roadmap-unified-program.md` **P3.2**, structural blocker **B2**.*
 *Status: **established** (measured, fixed, gated). Supersedes nothing; closes B2.*
 
+**Test record:** record `P3.2-engine-clock` (tier gate) — `tests/casim/test_engine_clock.py`, T1–T9: the ratio is exact, strict mode sub-cycles the fine channel, `legacy` is bit-identical, a non-dividing `dt` is a build error, and the clock survives a checkpoint resume. Declared 2026-08-19.
 **Claim:** none — engine infrastructure; `legacy` mode is bit-identical to the pre-P3.2 engine, so no physics moved, and promoting the 18 desynchronised scenarios is named as open work rather than asserted. Declared 2026-08-19.
 
 ## Claim

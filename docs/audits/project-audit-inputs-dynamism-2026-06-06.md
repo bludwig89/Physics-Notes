@@ -38,7 +38,7 @@ The structural sector is essentially input-free: generation count, Koide $Q=2/3$
 | Photon channel | even law, non-birefringent | forced by U(1) minimal coupling | F68/F69 |
 | Propagator classification | γ even, W± chiral, Z mixed, gluon even | branch structure of each coupling | F91 |
 | $\sigma$ (string tension, 2D) | $-\ln w(\beta)>0$ all finite β | exact area law; centre-Lagrange identity | F70/F99 |
-| Confinement form | compact rotor $\hat E^2-\lambda\cos\hat\phi$ | from rule's transfer operator | F100/F101(strong) |
+| Confinement form | compact rotor $\hat E^2-\lambda\cos\hat\phi$ | ~~from rule's transfer operator~~ — **STALE, corrected 2026-08-18 (F325, S22)**: the rule's transfer operator gives the *quadratic* rotor and fixes the electric/magnetic stiffness **ratio**; **compactness and the integer $\hat E$ spectrum are a solvability choice**, not derived. F101 §2 keeps the operator *but compact*; `link_hamiltonian` calls $\hat E$ *the integer (compact) electric field* and truncates U(1) at $\lvert m\rvert\le m_\text{max}$. This row is the only place in the tree that files it as derived, and it predates F294/F298/F299/F303 by two months | F100/F101(strong); corrected by F325 |
 | Baryon binder | $Z_3$ centre closure; binder = colour dielectric | cap-coincidence no-go for $N=3$ | F97/F98 |
 | Anomaly cancellation | all six traces exactly 0 | exact rationals | F38 |
 | Mass mechanism | chiral SU(2)$_L$ complex mass, Higgs-free | Ward identities at machine precision | F27/F41/F44 |

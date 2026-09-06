@@ -1,0 +1,67 @@
+{
+  "C1": {
+    "check": "C1",
+    "Lambda_GeV": 9.276757902551728e+18,
+    "M_R0_GeV": 1.0,
+    "ratio": 9.276757902551728e+18,
+    "log10_ratio": 18.967396222873447
+  },
+  "C2": {
+    "check": "C2",
+    "target_log10_suppression": -18.967396222873447,
+    "base_ratios": {
+      "delta_star (2/9, E_g weight)": 0.2222222222222222,
+      "1/(72*pi) (G_LATTICE)": 0.004420970641441538,
+      "sqrt2 (Fock amplitude)": 1.4142135623730951,
+      "6*lambda_6 (W)": 1.458,
+      "8*pi*sqrt3 (a/ellP prefactor)": 43.531184741621225,
+      "1/a_over_ellP": 0.15156529058211626
+    },
+    "n_samples_scanned": 72,
+    "closest": {
+      "name": "1/(72*pi) (G_LATTICE)",
+      "power": 8,
+      "log10_value": -18.835858953003218,
+      "distance_dex": 0.13153726987022907
+    },
+    "verdict": "closest hit is 1/(72*pi) (G_LATTICE)^8, 0.132 dex away (factor 1.35); flagged as an unclaimed numerical coincidence, NOT a structural link -- the exponent is unmotivated, and a comparable near-hit among 72 scanned combinations is not statistically surprising on its own."
+  },
+  "C3": {
+    "check": "C3",
+    "G_prefactor_1_over_8pi_sqrt3": 0.022972037309241338,
+    "log10_G_prefactor": -1.6388004870459085,
+    "log10_M_R_over_Lambda_target": -18.967396222873447,
+    "verdict": "F79's G-from-cutoff prefactor is O(1e-2) (no hierarchy); M_R/Lambda needs O(1e-19) (a genuine hierarchy). Citing F79 as precedent for 'the cutoff fixes scales' is a category error -- F79 is the one case with no hierarchy to explain."
+  },
+  "C4": {
+    "check": "C4",
+    "d_bracket_d_M_R0": [
+      "0",
+      "0",
+      "0"
+    ],
+    "M_R0_fully_factors_out": true
+  },
+  "C5": {
+    "check": "C5",
+    "delta_nu_deg": 134.86,
+    "lambdas_tested": [
+      0.1,
+      1.0,
+      10.0,
+      1000000.0
+    ],
+    "max_ratio_residual": 5.551115123125783e-17,
+    "max_amplitude_scaling_residual": 0.0,
+    "texture_blind_to_M_R0": true
+  },
+  "C6": {
+    "check": "C6",
+    "majorana_module_imports": [
+      "from __future__ import annotations",
+      "import numpy as np"
+    ],
+    "majorana_imports_any_gauge_or_running_module": false,
+    "verdict": "casim.engine.particles.majorana imports nothing beyond numpy -- zero coupling to any gauge, running, or confinement module. nu_R's total-singlet status (F47, Y=0 forced; reaffirmed F341) removes the only dynamical scale-generation route the model has (asymptotic-freedom running of a confining gauge coupling, implemented only for SU(3)_c in casim.engine.interactions.running_*): there is no gauge coupling attached to nu_R whose running could generate an intermediate scale."
+  }
+}
