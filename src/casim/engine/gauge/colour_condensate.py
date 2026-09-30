@@ -394,8 +394,10 @@ def u1_metropolis_3d(L=8, beta=1.0, n_sweeps=300, step=1.0, seed=1,
     meas_every = max(1, n_sweeps // (2 * n_meas))
     for sweep in range(n_sweeps):
         for mu in range(3):
-            Sre, Sim = _staple_sum_3d(theta, mu)
             for mk in masks:
+                # Recompute per parity: link mu's staple contains theta_mu(n±nu),
+                # which lives on the opposite parity and has just been updated.
+                Sre, Sim = _staple_sum_3d(theta, mu)
                 prop = theta[mu] + rng.uniform(-step, step, size=(L, L, L))
                 dS = -beta * ((np.cos(prop) - np.cos(theta[mu])) * Sre
                               + (np.sin(prop) - np.sin(theta[mu])) * Sim)

@@ -13,22 +13,22 @@
         1,
         6
       ],
-      "sigma_cornell": 0.25870657374189365,
-      "sqrt_sigma": 0.5086320612602923,
+      "sigma_cornell": 0.2587065737418935,
+      "sqrt_sigma": 0.508632061260292,
       "sigma_perseed": [
         0.2735,
         0.2455,
         0.2522,
         0.2637
       ],
-      "sigma_seed_std": 0.010722768441633172,
-      "alpha_V_full": 0.04354939635493406,
-      "alpha_V_short_R1-4": 0.0676157613351663,
-      "cornell_rms": 0.004574834953525198,
-      "scaling_invariant_sqrt_sigma_x_beta": 4.57768855134263,
-      "sqrt_sigma_over_g2": 0.7629480918904384,
-      "a_g_inverse_GeV": 0.865065404862141,
-      "a_g_fm": 0.22807524019694467
+      "sigma_seed_std": 0.010722768441633146,
+      "alpha_V_full": 0.04354939635493447,
+      "alpha_V_short_R1-4": 0.06761576133516627,
+      "cornell_rms": 0.004574834953525206,
+      "scaling_invariant_sqrt_sigma_x_beta": 4.577688551342629,
+      "sqrt_sigma_over_g2": 0.7629480918904381,
+      "a_g_inverse_GeV": 0.8650654048621413,
+      "a_g_fm": 0.22807524019694458
     },
     "12.0": {
       "n_seeds": 1,
@@ -40,19 +40,19 @@
         1,
         10
       ],
-      "sigma_cornell": 0.12839436780695077,
-      "sqrt_sigma": 0.35832159829816396,
+      "sigma_cornell": 0.12839436780695082,
+      "sqrt_sigma": 0.358321598298164,
       "sigma_perseed": [
         0.1284
       ],
       "sigma_seed_std": 0.0,
-      "alpha_V_full": 0.017440894203830472,
-      "alpha_V_short_R1-4": 0.05693868850090606,
-      "cornell_rms": 0.022933798085038506,
-      "scaling_invariant_sqrt_sigma_x_beta": 4.299859179577967,
-      "sqrt_sigma_over_g2": 0.7166431965963279,
-      "a_g_inverse_GeV": 1.2279471907073556,
-      "a_g_fm": 0.16067466214597215
+      "alpha_V_full": 0.017440894203830635,
+      "alpha_V_short_R1-4": 0.056938688500905846,
+      "cornell_rms": 0.02293379808503849,
+      "scaling_invariant_sqrt_sigma_x_beta": 4.299859179577968,
+      "sqrt_sigma_over_g2": 0.716643196596328,
+      "a_g_inverse_GeV": 1.2279471907073554,
+      "a_g_fm": 0.1606746621459722
     }
   },
   "anchor_sqrt_sigma_phys_GeV": 0.44,
@@ -65,7 +65,7 @@
       4.578,
       4.3
     ],
-    "spread_pct": 6.259146786605954,
+    "spread_pct": 6.259146786605894,
     "verdict": "3D super-renormalizable scaling sqrt(sigma)~g^2 holds to 6% across the two couplings"
   },
   "blockspin_rg_prediction": {
@@ -74,18 +74,18 @@
     "predictions": {
       "9.0": {
         "lambda_sigma": 1.0,
-        "sqrt_sigma_pred": 0.5086320612602923,
-        "sqrt_sigma_meas": 0.5086320612602923,
+        "sqrt_sigma_pred": 0.508632061260292,
+        "sqrt_sigma_meas": 0.508632061260292,
         "dev_pct": 0.0
       },
       "12.0": {
         "lambda_sigma": 0.75,
-        "sqrt_sigma_pred": 0.38147404594521916,
-        "sqrt_sigma_meas": 0.35832159829816396,
-        "dev_pct": -6.06920651434828
+        "sqrt_sigma_pred": 0.38147404594521905,
+        "sqrt_sigma_meas": 0.358321598298164,
+        "dev_pct": -6.069206514348247
       }
     },
-    "max_abs_dev_pct": 6.06920651434828,
+    "max_abs_dev_pct": 6.069206514348247,
     "verdict": "block-spin relevant-direction RG (lambda_sigma=b) predicts the MC sqrt(sigma)(beta) to the quoted %; the residual is the finite-beta scaling violation. The 3D scaling sqrt(sigma)~g^2 IS the block-spin confinement fixed flow \u2014 a cheap analytic stand-in for extra MC betas"
   },
   "alpha_V_verdict": "alpha_V (the A-NP q* leg) is NOT cleanly resolved at these parameters: the confining sigma R term dominates the accessible R range, so the perturbative Coulomb -(4/3)alpha_V/R is a small, fit-range-dependent correction (0.02-0.06). Moreover the MC lattice (a_g~0.2 fm) is the IR scale ~19 decades coarser than the fundamental cell, so a resolved alpha_V would cross-check Residual B's IR freeze (~0.3-0.5), NOT the q* matching scale. Direct nonperturbative q* needs step-scaling across many scales toward the UV, or the A-PT gluonic vertex integral (F155 sec 6)."

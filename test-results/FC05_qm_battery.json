@@ -1,7 +1,7 @@
 {
   "test_id": "FC05",
   "title": "Quantum-mechanics regression battery (5 sub-tests)",
-  "date": "2026-06-16 - 16:39",
+  "date": "2026-09-29 - 14:00",
   "verdict": "PASS",
   "overall_pass": true,
   "subtests": {
@@ -26,8 +26,8 @@
       "residual": 1.1102230246251565e-16,
       "eigenstate_matches_schrodinger": true,
       "wkb_is_thickbarrier_limit": true,
-      "lattice_T": 0.3999304084347386,
-      "lattice_P_inside": 0.04636199257463934,
+      "lattice_T": 0.39993040843473926,
+      "lattice_P_inside": 0.04636199257464005,
       "lattice_evanescent_inside": true,
       "lattice_tunnels": true,
       "E_kin_lat": 0.07294089235805251,
@@ -263,7 +263,7 @@
     },
     "QM6_twoslit": {
       "name": "QM-6 two-slit fringe + which-path decoherence",
-      "value_V_double": 0.9894153024043882,
+      "value_V_double": 0.9894153024043011,
       "qm_target": "V>=0.80, decohered V<0.40, central ratio->2, period\u221d1/d",
       "residual": 0.019607843137254832,
       "fringe_spacing_meas": 34.0,
@@ -273,9 +273,9 @@
       "period_ratio_meas": 1.4705882352941178,
       "period_ratio_expected_lambdaL_over_d": 1.5,
       "fringe_scaling_rel_err": 0.019607843137254832,
-      "V_double_coherent": 0.9894153024043882,
+      "V_double_coherent": 0.9894153024043011,
       "V_whichpath_decohered": 0.0,
-      "central_enhancement_coherent": 1.9888621156305553,
+      "central_enhancement_coherent": 1.9888621156305533,
       "central_enhancement_target": 2.0,
       "fringe_scaling_ok": true,
       "pass": true
@@ -301,6 +301,6 @@
       "all_ok": true
     },
     "note_qm2": "Tunneling rebuilt on the variable-mass primitive (V(x) stepper removed in F41); barrier = raised rest mass, evanescent kappa=sqrt(m_b^2-E^2), vs WKB exp(-2 kappa w).",
-    "runtime_s": 4.98
+    "runtime_s": 9.85
   }
 }

@@ -1,4 +1,15 @@
 """
+[PARTIALLY SUPERSEDED 2026-09-27 by F319, F408 — ledger S25-F193-partA-excluded-and-secB-sign-reading]
+
+  NOTE:
+    A1/A2 compute Part A's zero beable T00 and flat dielectric on the empty
+    lattice; the arithmetic still passes but the conclusion it served (bare CC
+    = 0) is excluded. A3 (template density = F164) is live. B computes the
+    magnitude |rho_vac| (a/R_H)^2 and still passes; it asserts nothing about
+    sign, and its number must not be quoted as the residual (F408 S2).
+
+  See docs/theory/supersessions.yaml for the full record.
+
 test_F193_ontic_vacuum.py  --  CA-native ontic vacuum gravitates as zero (candidate (i)),
 residual rho_Lambda as holographic IR back-reaction (S9 follow-up to F164/F192).
 """

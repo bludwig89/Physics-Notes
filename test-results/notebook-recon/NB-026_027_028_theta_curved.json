@@ -1,0 +1,78 @@
+{
+  "build": "NB-026/027/028",
+  "stamp": "2026-09-22 - 16:20",
+  "A1_canonical_minus_(corrected_form - g L)_is_zero": true,
+  "A1_canonical_minus_(notebook_form - g L)_is_zero": false,
+  "A1_difference_notebook_minus_canonical_00": "I*(e1(t, x, y, z)*Derivative(eb1(t, x, y, z), t) + e2(t, x, y, z)*Derivative(eb2(t, x, y, z), t))",
+  "A2_L_M_on_shell": "0",
+  "A3_Legendre_H_minus_corrected_Theta00_(with -gL)": "0",
+  "A3_notebook_Theta00_equals_i/2_d0(eta^+eta)": true,
+  "A4_plane_wave_is_solution": "0",
+  "A4_notebook_Theta00_plane_wave": "0",
+  "A4_corrected_Theta00_plane_wave": "k",
+  "B1_metric_identity": true,
+  "B2_Omega_eta_solved": [
+    "Matrix([[0, 0], [0, 0]])",
+    "Matrix([[0, Derivative(a(tau), tau)/(2*a(tau))], [Derivative(a(tau), tau)/(2*a(tau)), 0]])",
+    "Matrix([[0, -I*Derivative(a(tau), tau)/(2*a(tau))], [I*Derivative(a(tau), tau)/(2*a(tau)), 0]])",
+    "Matrix([[Derivative(a(tau), tau)/(2*a(tau)), 0], [0, -Derivative(a(tau), tau)/(2*a(tau))]])"
+  ],
+  "B2_Omega_chi_solved": [
+    "Matrix([[0, 0], [0, 0]])",
+    "Matrix([[0, -Derivative(a(tau), tau)/(2*a(tau))], [-Derivative(a(tau), tau)/(2*a(tau)), 0]])",
+    "Matrix([[0, I*Derivative(a(tau), tau)/(2*a(tau))], [-I*Derivative(a(tau), tau)/(2*a(tau)), 0]])",
+    "Matrix([[-Derivative(a(tau), tau)/(2*a(tau)), 0], [0, Derivative(a(tau), tau)/(2*a(tau))]])"
+  ],
+  "B2_Sachs_3.77_as_cited": [
+    "Matrix([[0, 0], [0, 0]])",
+    "Matrix([[0, -Derivative(a(tau), tau)/(2*a(tau))], [-Derivative(a(tau), tau)/(2*a(tau)), 0]])",
+    "Matrix([[0, I*Derivative(a(tau), tau)/(2*a(tau))], [-I*Derivative(a(tau), tau)/(2*a(tau)), 0]])",
+    "Matrix([[-Derivative(a(tau), tau)/(2*a(tau)), 0], [0, Derivative(a(tau), tau)/(2*a(tau))]])"
+  ],
+  "B2_Sachs_3.77_equals_solved_Omega_chi_(as_labelled_on_p17)": true,
+  "B2_Sachs_3.79b_equals_solved_Omega_chi": true,
+  "B2_p15_3.88_first_form_equals_Omega_eta": true,
+  "B2_p15_3.88_second_form_equals_Omega_eta": true,
+  "B2_Sachs_3.77_equals_solved_Omega_eta": false,
+  "B2_Sachs_3.77_with_q_<->_q~_equals_solved_Omega": true,
+  "eta_sector": {
+    "B3_leibniz_residual": "0",
+    "B4_field_equation_residual": "Matrix([[0], [0]])",
+    "B5_L_M_on_shell": "0",
+    "B5_Theta_is_real": true,
+    "B7_notebook_as_written_Theta00_is_pure_imaginary": true,
+    "B5_Theta_antisymmetric_part_zero": false,
+    "B5_Theta_antisymmetric_part": "Matrix([[0, 0, 0, 0], [0, 0, Derivative(a(tau), tau)/(2*a(tau)**7), 0], [0, -Derivative(a(tau), tau)/(2*a(tau)**7), 0, 0], [0, 0, 0, 0]])",
+    "B5_Theta_canonical_upper": "Matrix([[k/a(tau)**6, 0, 0, k/a(tau)**6], [0, 0, Derivative(a(tau), tau)/(2*a(tau)**7), 0], [0, -Derivative(a(tau), tau)/(2*a(tau)**7), 0, 0], [k/a(tau)**6, 0, 0, k/a(tau)**6]])",
+    "B5_T_upper": "Matrix([[k/a(tau)**6, 0, 0, k/a(tau)**6], [0, 0, 0, 0], [0, 0, 0, 0], [k/a(tau)**6, 0, 0, k/a(tau)**6]])",
+    "B5_covariant_divergence": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "B5_trace": "0",
+    "B5_rho_comoving": "k/a(tau)**4",
+    "B7_notebook_as_written_Theta00": "-3*I*Derivative(a(tau), tau)/(2*a(tau)**7)"
+  },
+  "chi_sector": {
+    "B3_leibniz_residual": "0",
+    "B4_field_equation_residual": "Matrix([[0], [0]])",
+    "B5_L_M_on_shell": "0",
+    "B5_Theta_is_real": true,
+    "B7_notebook_as_written_Theta00_is_pure_imaginary": true,
+    "B5_Theta_antisymmetric_part_zero": false,
+    "B5_Theta_antisymmetric_part": "Matrix([[0, 0, 0, 0], [0, 0, -Derivative(a(tau), tau)/(2*a(tau)**7), 0], [0, Derivative(a(tau), tau)/(2*a(tau)**7), 0, 0], [0, 0, 0, 0]])",
+    "B5_Theta_canonical_upper": "Matrix([[k/a(tau)**6, 0, 0, k/a(tau)**6], [0, 0, -Derivative(a(tau), tau)/(2*a(tau)**7), 0], [0, Derivative(a(tau), tau)/(2*a(tau)**7), 0, 0], [k/a(tau)**6, 0, 0, k/a(tau)**6]])",
+    "B5_T_upper": "Matrix([[k/a(tau)**6, 0, 0, k/a(tau)**6], [0, 0, 0, 0], [0, 0, 0, 0], [k/a(tau)**6, 0, 0, k/a(tau)**6]])",
+    "B5_covariant_divergence": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "B5_trace": "0",
+    "B5_rho_comoving": "k/a(tau)**4",
+    "B7_notebook_as_written_Theta00": "-3*I*Derivative(a(tau), tau)/(2*a(tau)**7)"
+  }
+}

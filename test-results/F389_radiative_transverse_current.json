@@ -1,0 +1,27 @@
+{
+  "L": 16,
+  "width": 1.5,
+  "k0": [
+    0.6,
+    0.0,
+    0.0
+  ],
+  "sign": "+",
+  "q": 1.0,
+  "longitudinal_only": false,
+  "res_full": 0.006491511290718635,
+  "res_reference_longitudinal": 0.006491511290718635,
+  "continuity_diff": 0.0,
+  "norm_transverse": 0.038621665883935175,
+  "norm_full": 0.056181527928606353,
+  "transverse_fraction": 0.6874442064483245,
+  "longitudinal_sector_max_diff": 8.673617379884035e-19,
+  "checks": {
+    "continuity_untouched": true,
+    "transverse_current_genuinely_nonzero": true,
+    "longitudinal_sector_unchanged": true
+  },
+  "n_pass": 3,
+  "n_checks": 3,
+  "ok": true
+}

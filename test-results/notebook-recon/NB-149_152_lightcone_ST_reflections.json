@@ -1,0 +1,30 @@
+{
+  "NB-149": {
+    "length_contraction_and_time_dilation_formulas_as_stated": "standard, correctly given",
+    "self_consistency_(d/d0)*(t/t0)=1": true,
+    "photon_rest_frame_argument": {
+      "assessment": "The MATHEMATICAL conclusion the page reaches -- that null-separated points naturally correspond to 'a direction with zero length,' i.e. points on the light cone / null rays -- is sound and matches the actual structure of Minkowski space (a null vector V has V.V=0, and a null ray really is characterized only by its direction, not a length). However, the specific PHYSICAL argument used to motivate it -- invoking 'the photon's own frame of reference' and what things look like 'in that body's frame' as v->c -- is not rigorous special relativity: there is no valid inertial rest frame for a massless particle (the Lorentz transformation to v=c is singular, not merely a boundary case), so speaking literally of what a photon 'sees' or experiences is an informal, if extremely common and pedagogically standard, heuristic rather than a rigorously defined statement in the theory. This is a well-known point of caution in relativity pedagogy (occasionally phrased as 'photons don't have a rest frame').",
+      "mathematical_conclusion_is_still_correct_via_the_null_vector_structure_alone": true
+    },
+    "verdict": "SOLID (mathematical conclusion correct and standard); the photon-rest-frame framing used to motivate it is a common but not rigorously valid SR argument -- worth noting, doesn't affect the correctness of the conclusion itself"
+  },
+  "NB-150": {
+    "claim": "p21 = -f12 and p12 = -f21, given the four stated null-vector definitions",
+    "p21_equals_neg_f12": true,
+    "p12_equals_neg_f21": true,
+    "verdict": "SOLID"
+  },
+  "NB-151": {
+    "claim": "S(zeta) = T(zeta) = -1/zeta*, valid on the null cone (x^2+y^2=t^2-z^2)",
+    "S_zeta_matches_-1/zeta*_on_the_null_cone": true,
+    "T_zeta_matches_-1/zeta*_on_the_null_cone": true,
+    "note": "Both S(zeta) (from full spatial reflection) and T(zeta) (from time reversal) independently reduce to the SAME expression -1/zeta*, confirmed by direct symbolic substitution using the null-cone condition to eliminate y -- this is because space reflection and time reversal, applied to an on-shell null 4-vector, produce related but numerically coincident actions on the projective ratio zeta in this specific construction (both flip the sign of the 'time minus z' denominator structure relative to the numerator in an equivalent way once the null constraint is used).",
+    "verdict": "SOLID"
+  },
+  "NB-152": {
+    "claim": "S(xi)=-eta*, S(eta)=xi* reproduces S(xi/eta)=-eta*/xi*, but the individual assignment is ambiguous up to an overall common rescaling",
+    "assignment_reproduces_the_ratio_S(zeta)=-eta*/xi*": true,
+    "any_common_rescaling_(lambda*S(xi),lambda*S(eta))_preserves_the_same_ratio": true,
+    "verdict": "SOLID (the notebook's own point -- that the individual component assignment is genuinely ambiguous, only the ratio is fixed -- is confirmed exactly: any overall common complex rescaling of the pair leaves the physically meaningful ratio unchanged)"
+  }
+}

@@ -223,7 +223,7 @@ def string_tension_numeric(profile, v=1.0):
             + n ** 2 * f ** 2 * (1.0 - a) ** 2 / x ** 2
             + (n ** 2 / (2.0 * x ** 2)) * ax ** 2
             + 0.5 * (f ** 2 - 1.0) ** 2)        # critical-coupling potential
-    integ = np.trapz(x * dens, x)
+    integ = np.trapezoid(x * dens, x)
     return 2.0 * np.pi * v ** 2 * integ
 
 
@@ -436,7 +436,7 @@ def tube_rms_radius(profile):
             + (n ** 2 / (2.0 * x ** 2)) * ax ** 2
             + 0.5 * (f ** 2 - 1.0) ** 2)        # critical-coupling potential
     w = x * dens                      # radial weight (2D measure)
-    r2 = np.trapz(x ** 2 * w, x) / np.trapz(w, x)
+    r2 = np.trapezoid(x ** 2 * w, x) / np.trapezoid(w, x)
     return np.sqrt(r2)
 
 

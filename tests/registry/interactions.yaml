@@ -1766,7 +1766,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 185
+    lines: 189
     n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
@@ -2917,8 +2917,10 @@ tests:
     has_main: true
     lines: 103
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F329_gleason_regularity.json
+    artifact_rule:
+      test-results/F329_gleason_regularity.json: local
     artifacts_read_only: []
     summary: 'F329 — A6r: closing the Cooke-Keane-Moran / Gleason regularity residual.'
 - id: F330-belt-trick-reduction
@@ -3181,8 +3183,10 @@ tests:
     has_main: false
     lines: 120
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F334_hadronic_vmd_estimate.json
+    artifact_rule:
+      test-results/F334_hadronic_vmd_estimate.json: local
     artifacts_read_only: []
     summary: test_F334_hadronic_vmd_estimate.py
 - id: F336-twoloop-vp-nonlog-scope
@@ -3465,8 +3469,10 @@ tests:
     has_main: true
     lines: 150
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F356_eos_robustness.json
+    artifact_rule:
+      test-results/F356_eos_robustness.json: local
     artifacts_read_only: []
     summary: test_F356_eos_robustness.py
 - id: F357-graviton-band-top
@@ -4051,6 +4057,7 @@ tests:
   evidence:
     mentions:
     - F64
+    - F211
     - F215
     - F218
     - F242
@@ -4058,10 +4065,12 @@ tests:
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 217
+    lines: 310
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F374_eliashberg_cutoff_reconciliation.json
+    artifact_rule:
+      test-results/F374_eliashberg_cutoff_reconciliation.json: local
     artifacts_read_only: []
     summary: test_F374 — Reconciling the F215 Eliashberg solver's Coulomb cutoff with the
 - id: F375-nb-realistic-dos
@@ -4085,8 +4094,10 @@ tests:
     has_main: true
     lines: 181
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F375_nb_realistic_dos.json
+    artifact_rule:
+      test-results/F375_nb_realistic_dos.json: local
     artifacts_read_only: []
     summary: test_F375 — A real (DFT-sourced) N(0) for Nb, not free-electron, in the F242
 - id: F376-interacting-sector-eth-onset
@@ -4146,6 +4157,268 @@ tests:
     artifact_rule: {}
     artifacts_read_only: []
     summary: 'F376 -- G10 residual: does an interacting extension of the free-fermion'
+- id: F379-so3-kinematic-gap
+  path: tests/findings/test_F379_so3_kinematic_gap.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_so3_kinematic_gap
+  entry: check_so3_kinematic_gap
+  params:
+    use_uncorrelated_rotor: false
+    n_axes: 8
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F379
+  - F330
+  - F289
+  - F344
+  - F129
+  - F130
+  results:
+  - test-results/F379_so3_kinematic_gap.json
+  control:
+  - params:
+      use_uncorrelated_rotor: true
+    reds:
+    - K1
+    reason: transporting spin via a rotation UNCORRELATED with the one applied to momentum breaks the
+      "same rotation" identity at O(1) (0.59) while leaving K2 (the shipped-code decade-ratio check) and
+      K3 (which reports both residuals directly) unaffected -- confirming K1 is a genuine "same rotation,
+      not some other unitary" statement (Postulate 1's own language), not a tautology of SU(2) closure.
+  notes: 'Completeness row A9, continuing F330. Tests whether the model''s own EMERGENT CONTINUOUS SO(3)
+    (F129/F130 RG isotropy, rubric A12; F344''s exact 48-element leading-order covariance of the BCC Weyl
+    walk) supplies Anastopoulos''s Postulate 1 (quant-ph/0110169) where F330 found only the finite, insufficient
+    O_h. K1 extends F344''s 48-element covariance check to the FULL continuous SO(3) (Rodrigues rotations,
+    not restricted to O_h), using literally the SAME rotor function as F289/F330 -- exact machine floor,
+    ~2.5e-16 over a sweep of 8 axes x 7 generic angles x 5 k-directions. K2 extends F344''s own leg C8
+    (which verified the leading-order covariance defect shrinks linearly in |k| for ONE specific discrete
+    C3 rotation) to a GENERIC continuous rotation using the actual shipped `_bcc_uvec` -- decade ratios
+    9.84, 9.98, 9.998, converging to exactly 10 as F344''s closed form predicts. K3 is the control demonstrating
+    non-vacuity. The finding''s closing argument is NOT numeric: grounded in the primary source (fetched
+    and read directly this session), Postulate 1 is stated at the PREQUANTISATION level -- a fact about
+    the classical phase space Gamma and a transitive symplectic G-action on it, with NO Hamiltonian anywhere
+    in its statement -- while K1-K3 are all facts about the model''s DYNAMICS (the Weyl Hamiltonian''s
+    covariance). Since Postulate 1 sits logically prior to any Hamiltonian, no dynamical fact -- however
+    large, however exactly or emergently derived -- can supply it. This generalises F330''s "O_h is finite"
+    diagnosis to "no dynamical symmetry of any kind can do this", closing the row''s one open avenue rather
+    than merely extending F330''s numerics. See findings/F379-*.md for the full argument and the primary-source
+    citations.'
+  evidence:
+    mentions:
+    - F129
+    - F130
+    - F289
+    - F330
+    - F344
+    - F379
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 106
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F379 — the emergent continuous SO(3) is the wrong kind of object for
+- id: F380-cluster-asymptotic-series-K
+  path: tests/findings/test_F380_cluster_asymptotic_series.py
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.qi_cluster_asymptotic_series
+  entry: check_named_residual_K
+  params:
+    reference: axis100
+    g_above_gc: 2.9
+    n_mc: 20000
+    seed: 0
+    L: 256
+  expect:
+    exactness: quantitative
+    tol: 0.05
+  findings:
+  - F380
+  - F331
+  - F290
+  results:
+  - test-results/F380_cluster_asymptotic_series.json
+  control:
+  - params:
+      reference: axis110
+    reds:
+    - C1
+    - C2
+    reason: axis110_kappa_exact is the closed form for a DIFFERENT BCC axis (correct for (110), not (100))
+      -- measuring p_eff against the wrong reference collapses both its stability (relative spread jumps
+      from 2.65% to 33.6%) and its match to theory (mean shifts from 1.489 to 5.10, far from the theoretical
+      1.5), showing p_eff's meaning is tied to the specific closed form axis100_kappa_exact being measured,
+      not a generic artifact of the OLS-bias rescaling.
+  notes: 'Completeness row A10, QUANT->PARTIAL. F331 left its own free-3-D kappa_100(m) residual as a
+    mass-dependent RATIO TABLE (1.53 at m=0.05 down to 0.95 at m=0.95) -- a tolerance, not a named object,
+    which is exactly what the state-of-model QUANT->PARTIAL rung asks to be turned into "one named residual".
+    This record takes the first step named in the rubric prompt: evaluate F331''s own unmodified `axis100_measured_kappa`
+    at the mass the self-consistent NJL gap equation actually selects (m*=0.6055 at g=2.9) instead of
+    the registry default m=0.5. Result: ratio(m*)=1.1096, L-converged, NOT 1 to the numerical floor --
+    the literal hypothesis ("m* is special") is FALSIFIED. What survives is more useful: m* is UNREMARKABLE,
+    sitting at z=-0.62 sigma inside the SAME distribution as every other tested mass, once the table is
+    re-expressed via the EXACT OLS regression-bias formula as an implied algebraic-prefactor power p_eff(m)
+    := (kappa_measured-kappa_100)/(S_{r,ln r}/S_{rr}) over F331''s own fit window. p_eff is measured mass-independent
+    to 2.65% relative spread across the whole admissible range 0.05<=m<=0.90 (vs the raw ratio''s own
+    7.6% relative spread) AND matches an independently, first-principles-derived theoretical power p=3/2
+    (2 real transverse dimensions integrated by stationary phase, PLUS an axial square-root BRANCH POINT
+    in the dispersion omega=arccos(n*u), Watson''s-lemma endpoint asymptotics) to under 1% deviation.
+    An earlier version of this record used a cruder r_mid proxy and a WRONG p=1 "same as the continuum
+    Yukawa propagator" mechanism (missing the axial branch-point contribution) -- caught by this finding''s
+    own review-finding pass (independent blind re-derivation + adversarial referee, both converging on
+    p=3/2 by different routes) and fixed at the source, not just re-labelled. p_eff is MEASURED against
+    a theoretically DERIVED target, not yet a full symbolic (sympy) derivation of the sub-leading term
+    (that is the PARTIAL->MACHINE rung, named as remaining work). Does not touch F290''s separate 1-D
+    exponent shortfall or S-matrix-level clustering, both still open.'
+  evidence:
+    mentions:
+    - F290
+    - F331
+    - F380
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 88
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F380 — cluster decomposition, F331's residual named as one object
+- id: F383-four-derivative-locality
+  kind: result_dump
+  tier: battery
+  sector: interactions
+  path: tests/findings/test_F383_four_derivative_locality.py
+  module: casim.engine.interactions.gravity_four_derivative_locality
+  entry: check_locality_does_not_forbid
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0
+  findings:
+  - F383
+  - F345
+  - F57
+  - F56
+  - F319
+  results:
+  - test-results/F383_four_derivative_locality.json
+  summary: 'F383 -- does lattice locality FORBID the four-derivative (curvature-squared) term in the induced
+    gravitational action, or does it merely SUPPRESS it as an ordinary EFT/Wilsonian tower? Extends F57''s
+    own Brillouin-zone matter-density polarization Pi(q) over the canonical F26/BCC dispersion one order
+    further, to the q^4 coefficient Pi4 (the scalar-channel analogue of a four-derivative curvature-squared
+    Wilson coefficient). M1 the quartic fit reproduces F57''s Pi2 (sign, order of magnitude) -- a continuity
+    guard. M2 Pi4 is robustly nonzero: same sign and within a 5x band across four independent perturbations
+    (finer grid, different q-window, different direction), fit R^2 > 0.999 throughout -- the leg this
+    finding turns on. M3 Pi4 converges under grid refinement (a genuine finite BZ integral, not a quadrature
+    artifact). M4 Pi4 stays finite across a swept cutoff (descriptive; an unresolved numerical anomaly
+    at the largest cutoff tested is flagged honestly in the leg''s own caveat, not load-bearing for the
+    conclusion). M5 Pi4 is isotropic to ~2% across axis/face-diagonal/body-diagonal directions in the
+    sample tested. L states the structural conclusion: at-most-second-order is NOT derivable from lattice
+    locality -- the identical finite BZ mechanism that induces the accepted two-derivative (Einstein-Hilbert)
+    term induces a nonzero four-derivative one too, with no symmetry found or expected to protect it in
+    this channel (F345 L3''s d=4 Gauss-Bonnet cancellation is a property of the full nonlinear curvature-squared
+    invariant under metric variation, not of this scalar polarization). Closes F345 L7''s at-most-second-order
+    sub-item NEGATIVE rather than promoting it to a derivation. Does NOT compute the actual gravitational
+    R^2/Ricci^2 Wilson coefficient (that needs the kinetic-leg T_ij T_kl channel F57 itself left open)
+    -- Pi4 is a proxy in the one channel the tree has actually computed at two-derivative order, extended
+    one order further.'
+  evidence:
+    mentions:
+    - F57
+    - F345
+    - F383
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 118
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: test_F383_four_derivative_locality.py — locality generates, not forbids,
+- id: F408-cc-sign-split
+  kind: assertion
+  tier: gate
+  sector: interactions
+  module: casim.engine.interactions.cosmology_lambda_sign_split
+  entry: run
+  params: {}
+  expect:
+    exactness: exact
+    tol: 1.0e-12
+  findings:
+  - F408
+  results:
+  - test-results/F408_cc_sign_split.json
+  control:
+  - params:
+      lichnerowicz_E: '0'
+    reds:
+    - S1-a1-positive
+    - S1-eta-is-gstar-over-12
+    - S1-sign-split
+    - S2-cell-matches-content
+    - S2-F196-positive
+    - S4-tension-positive
+    reason: deleting the Lichnerowicz R/4 term makes the statistics-signed per-Weyl a1 NEGATIVE -- proves
+      the positive a1 (and with it G>0, F196's sign, the positive capacity tension, and the canonical
+      cell's content) comes from the R/4 term, not from a hardcoded sign
+  - params:
+      fundamental_bosons: 97
+    reds:
+    - S1-a0-negative
+    - S1-eta-is-gstar-over-12
+    - S1-sign-split
+    - S2-cell-matches-content
+    - S2-F193B-negative
+    - S2-ratio-closed-form
+    - S3-no-saturation-for-a0
+    - S3-no-horizon-for-a0
+    reason: a real-scalar tower larger than the 96 fermionic dof (the bosonic tower F164/F67-F69 say the
+      model does not have) flips a0 positive -- the ceiling then has a saturation root and a real horizon;
+      the content no longer matches the canonical cell, so the cell and ratio legs go red too
+  - params:
+      fundamental_vectors: 12
+    reds:
+    - S1-a1-positive
+    - S1-eta-is-gstar-over-12
+    - S1-sign-split
+    - S2-cell-matches-content
+    - S2-F196-positive
+    - S2-ratio-closed-form
+    - S4-tension-positive
+    reason: 'the named falsifier of the a1 sign: if the 12 gauge bosons were fundamental massless vectors
+      (each -4 scalar units of a1 with ghosts) the sum over 48 Weyl + 12 vectors is exactly zero -- no
+      induced 1/G at this order, no positive ceiling, no tension'
+  - params:
+      zero_point_weight: 0.5
+    reds:
+    - S2-ratio-closed-form
+    reason: halving the 1/2-per-mode zero-point weight in the a0 term alone breaks the content-consistent
+      closed form 4 N_b I_cc/(3 sum eta) = 24 sqrt3 pi and nothing else
+  - params:
+      sequester: false
+    reds:
+    - S5-sequestering-sign-blind
+    reason: evaluating the raw trace T(t0) without the Kaloper-Padilla spacetime-average subtraction leaves
+      it linearly dependent on the constant C of either sign
+  summary: 'F408 -- the a0/a1 sign split of the model''s one all-fermion heat-kernel sum and what it does
+    to the live K9/G1 route. Exact: summed over 48 Weyl fields and no fundamental bosons, a0 (zero-point)
+    is negative and a1 (1/16piG) positive (sum eta = 4, which is the canonical cell). Declared inputs:
+    continuum Lichnerowicz R/4; all gauge bosons composite (12 fundamental vectors would zero a1); principal
+    quasi-energy branch. With the same content in both moments the a0 term diluted by (a/R_H)^2 is negative
+    and 130.6x (24 sqrt3 pi, content-independent) the positive F196 ceiling 3c^4/(8piG R_H^2); F193 sec.B''s
+    2.72 used g*=2 against a 48-Weyl G (mismatch). Elementary: the capacity ceiling cannot raise or cancel
+    a negative a0; the a1 capacity energy is linear in L with tension c^4/2G = 4 sqrt3 pi hbar c/a^2;
+    the Kaloper-Padilla subtraction is sign-blind.'
 - id: F52-restleg-backreaction
   path: tests/findings/test_F52_restleg_backreaction.py
   kind: result_dump

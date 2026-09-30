@@ -131,3 +131,112 @@ def su3_adjoint_transform_potential(A_oct, V):
     H_t = np.einsum('ij,xyzjk,lk->xyzil', V, H, np.conj(V))
     # tr(T^a H') = Σ_ij T^a_ij H'_ji  (real: both Hermitian)
     return 2.0 * np.real(np.einsum('aij,xyzji->axyz', cstr.T_GEN, H_t))
+
+
+# ----------------------------------------------------------------------
+# 3. U(1) per-link covariant step (Stage 2, photon-fermion coupling
+#    roadmap) — the directional handle §1.2 found missing from #1's wrap.
+# ----------------------------------------------------------------------
+def u1_link_weyl_step_3d_bcc(f, g, A, q, sign='+'):
+    """Per-link Peierls-phase U(1)-covariant BCC Weyl step — the U(1)
+    analogue of ``weak_wmu.covariant_weyl_step_3d_bcc_exact``.
+
+    Why #1's wrap (``u1_wrap_weyl_step_3d_bcc``) cannot push a fermion
+    -----------------------------------------------------------------
+    That construction multiplies ψ by a *single* site phase e^{∓iqα(x)}
+    before and after the *same* unbiased kinetic step — a common factor
+    applied uniformly across all 8 BCC hop directions from x. A common
+    factor cannot bias the hop amplitude in one direction over its
+    opposite, and a direction-biased hop is what momentum transfer *is*
+    (roadmap §1.2). This function supplies the missing directional handle
+    by attaching a **separate** Peierls phase to **each** of the 8
+    fractional shifts that already appear in the BCC unitary's own
+    decomposition (``weak_wmu._spinor_matrix``'s docstring):
+
+        U_BCC(k) = Σ_{d∈BCC_DIRS} M_d · e^{ik·d/√3}
+        ψ'(x)    = Σ_d  U_d(x) · [M_d · shift_{d/√3}ψ](x) ,
+        U_d(x)   = exp( i q A(x)·d/√3 )
+
+    ``U_d(x)`` is the discretised Wilson-line phase for the hop of
+    physical length ``d/√3`` that ``bcc_fractional_shift`` already
+    implements, evaluated (to leading order) at the destination site —
+    the same site-local convention ``make_w_link_field``'s SU(2) links use.
+    Since ``d`` and ``-d`` are antipodal BCC directions, ``U_d(x)`` and
+    ``U_{-d}(x)`` are exact complex conjugates whenever ``A(x)≠0`` and not
+    parallel to the hop: the +d and −d hop amplitudes genuinely differ.
+    That asymmetry is the force this model has been missing.
+
+    The known tension (stated up front, per the roadmap)
+    ------------------------------------------------------
+    ``covariant_weyl_step_3d_bcc_exact``'s own docstring already records
+    it for the SU(2) case: ``Σ_d U_d M_d shift_d`` is unitary **only**
+    when every ``U_d = I``. The same is true here — see
+    :func:`u1_link_norm_drift` and the fork adjudication in
+    ``engine/forks/gauge/u1_link_unitarity_forks.py`` (Stage 2's declared
+    risk: a construction that pushes the fermion and one that conserves
+    its norm may not be the same operator).
+
+    **Exact special case — spatially uniform A.** When ``A(x)≡A0`` is a
+    constant vector (not a genuine field), every ``U_d(x)=e^{iqA0·d/√3}``
+    is also constant, and the whole sum becomes exactly
+    ``Σ_d M_d e^{i(k+qA0)·d/√3} = U_BCC(k+qA0)`` — a **rigid shift of the
+    momentum argument of the same unitary**, unitary for every argument
+    because ``U_BCC`` is unitary for every argument. This is the lattice
+    form of the continuum canonical-momentum shift ``p→p-qA`` and is
+    verified bit-for-bit in the Stage-2 finding. The tension above is
+    strictly a property of *non-uniform* A — genuinely local physics, not
+    a flaw in the mechanism.
+
+    Parameters
+    ----------
+    f, g : (Lx,Ly,Lz) complex — Weyl spinor (spin ↑, ↓).
+    A    : (3,Lx,Ly,Lz) real — the U(1) vector potential the fermion
+           reads (site-local convention; Stage 3 supplies the dynamical
+           source). ``None`` or all-zero reduces exactly to the free step.
+    q    : float — the particle's U(1) charge (exact Fraction upstream).
+    sign : BCC chirality branch.
+
+    Returns
+    -------
+    f_new, g_new
+    """
+    if q == 0 or A is None or not np.any(A):
+        return weyl_step_3d_bcc(f, g, sign=sign)
+
+    from casim.numerics import fft as _fft
+    from casim.engine.lattice.geometry import make_kgrid_3d
+    from casim.engine.lattice.bcc import bcc_fractional_shift
+    from casim.engine.gauge.weak_wmu import BCC_DIRS, _SPINOR_MATS
+    from casim.constants import c_lat
+
+    KX, KY, KZ = make_kgrid_3d(*f.shape)
+    F_k = _fft.fftn(f)
+    G_k = _fft.fftn(g)
+    M_mats = _SPINOR_MATS[sign]
+    inv_sqrt3 = c_lat
+
+    f_new = np.zeros_like(f)
+    g_new = np.zeros_like(g)
+    for i, (dx, dy, dz) in enumerate(BCC_DIRS):
+        f_sh = _fft.ifftn(bcc_fractional_shift(F_k, KX, KY, KZ, dx, dy, dz))
+        g_sh = _fft.ifftn(bcc_fractional_shift(G_k, KX, KY, KZ, dx, dy, dz))
+        M = M_mats[i]
+        f_rot = M[0, 0] * f_sh + M[0, 1] * g_sh
+        g_rot = M[1, 0] * f_sh + M[1, 1] * g_sh
+        phase = q * inv_sqrt3 * (A[0] * dx + A[1] * dy + A[2] * dz)
+        U_d = np.exp(1j * phase)
+        f_new += U_d * f_rot
+        g_new += U_d * g_rot
+    return f_new, g_new
+
+
+def u1_link_norm_drift(f, g, A, q, sign='+'):
+    """‖ψ'‖² − ‖ψ‖² for one :func:`u1_link_weyl_step_3d_bcc` tick — the
+    diagnostic the Stage-2 fork adjudication reads. Zero exactly when
+    ``A≡0``; zero to machine precision when ``A`` is spatially uniform
+    (see that function's docstring); generically nonzero, and the subject
+    of the fork bound, otherwise."""
+    f2, g2 = u1_link_weyl_step_3d_bcc(f, g, A, q, sign=sign)
+    n0 = float(np.sum(np.abs(f) ** 2 + np.abs(g) ** 2))
+    n1 = float(np.sum(np.abs(f2) ** 2 + np.abs(g2) ** 2))
+    return n1 - n0

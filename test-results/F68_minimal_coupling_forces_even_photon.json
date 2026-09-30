@@ -1,6 +1,6 @@
 {
   "T1": {
-    "max_comm_phase_with_U": 1.1102230246251565e-16,
+    "max_comm_phase_with_U": 0.0,
     "max_comm_sigma_x_with_nsigma": 1.9936447119294758
   },
   "T2": {

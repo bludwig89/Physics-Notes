@@ -1,0 +1,329 @@
+{
+  "name": "fermion_w_backreaction",
+  "title": "Fermion-W Back-Reaction",
+  "description": "Closed Tier-2 loop (E2E B1): the doublet current sources the W field and the W potential, exponentiated into SU(2) links, acts back on the doublet within the same tick.",
+  "seed": 0,
+  "ticks": 20,
+  "lattice": {
+    "L": 8,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 8,
+    "cell_factor": 1
+  },
+  "channels": {
+    "w_sourced": {
+      "name": "w_sourced",
+      "type": "w_sourced",
+      "label": "W Sourced",
+      "propagator": "chiral",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "fermion_doublet": {
+      "name": "fermion_doublet",
+      "type": "fermion_doublet",
+      "label": "Fermion Doublet",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "momentum": {
+      "type": "momentum",
+      "label": "Momentum",
+      "exactness": "exact",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "fermion_doublet": {
+              "P_matter": [
+                0.5000563127600124,
+                -0.00013476368754063948,
+                -0.00013476368754063416
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "fermion_doublet": {
+              "P_matter": [
+                0.5000557854580031,
+                -0.000577472924697725,
+                -0.0011307825007208579
+              ],
+              "rel_drift": 0.002179704096585267
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "fermion_doublet": {
+              "P_matter": [
+                0.5000600525264922,
+                -0.0006232486706196239,
+                -0.0021906523071367674
+              ],
+              "rel_drift": 0.0042257795903370724
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "fermion_doublet": {
+              "P_matter": [
+                0.4999854907975472,
+                -0.0010288224174219277,
+                -0.003047340826008886
+              ],
+              "rel_drift": 0.006094380803467545
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "fermion_doublet": {
+              "P_matter": [
+                0.4999081918283504,
+                -0.0010748963345045073,
+                -0.0048277751339093605
+              ],
+              "rel_drift": 0.009576007131012233
+            }
+          }
+        }
+      ],
+      "summary": {
+        "fermion_doublet": {
+          "P_matter": {
+            "P0": [
+              0.5000563127600124,
+              -0.00013476368754063948,
+              -0.00013476368754063416
+            ],
+            "Pf": [
+              0.4999081918283504,
+              -0.0010748963345045073,
+              -0.0048277751339093605
+            ],
+            "delta": [
+              -0.00014812093166199913,
+              -0.0009401326469638679,
+              -0.004693011446368726
+            ],
+            "delta_mag": 0.004788543164682928
+          }
+        },
+        "P_total": {
+          "P0": [
+            0.5000563127600124,
+            -0.00013476368754063948,
+            -0.00013476368754063416
+          ],
+          "Pf": [
+            0.4999081918283504,
+            -0.0010748963345045073,
+            -0.0048277751339093605
+          ],
+          "delta": [
+            -0.00014812093166199913,
+            -0.0009401326469638679,
+            -0.004693011446368726
+          ],
+          "delta_mag": 0.004788543164682928
+        }
+      }
+    },
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.0,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.0000000000000027,
+              "rel_drift": 1.3322676295501878e-15
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.0000000000000058,
+              "rel_drift": 2.886579864025407e-15
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.000000000000009,
+              "rel_drift": 4.440892098500626e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "fermion_doublet": {
+              "energy": 2.000000000000012,
+              "rel_drift": 5.995204332975845e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "fermion_doublet": 5.995204332975845e-15
+        }
+      }
+    },
+    "energy_trace": {
+      "type": "energy_trace",
+      "label": "Energy Trace",
+      "exactness": "quantitative",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "w_sourced": 0.0,
+            "fermion_doublet": 2.0
+          }
+        },
+        {
+          "tick": 5,
+          "energy": {
+            "w_sourced": 0.0099555353322053,
+            "fermion_doublet": 2.0000000000000027
+          }
+        },
+        {
+          "tick": 10,
+          "energy": {
+            "w_sourced": 0.02230862092259296,
+            "fermion_doublet": 2.0000000000000058
+          }
+        },
+        {
+          "tick": 15,
+          "energy": {
+            "w_sourced": 0.03882673783533035,
+            "fermion_doublet": 2.000000000000009
+          }
+        },
+        {
+          "tick": 20,
+          "energy": {
+            "w_sourced": 0.05936203067945378,
+            "fermion_doublet": 2.000000000000012
+          }
+        }
+      ],
+      "summary": {}
+    }
+  },
+  "clock": {
+    "dt": 1.0,
+    "mode": "auto",
+    "resolved_mode": "strict",
+    "tick": 20,
+    "time": 20.0,
+    "synchronous": true,
+    "channels": {
+      "w_sourced": {
+        "name": "w_sourced",
+        "type": "w_sourced",
+        "dt_native": 1.0,
+        "dt_max": null,
+        "subcyclable": true,
+        "n_sub": 1,
+        "dt_effective": 1.0,
+        "desynchronised": false
+      },
+      "fermion_doublet": {
+        "name": "fermion_doublet",
+        "type": "fermion_doublet",
+        "dt_native": 1.0,
+        "dt_max": null,
+        "subcyclable": true,
+        "n_sub": 1,
+        "dt_effective": 1.0,
+        "desynchronised": false
+      }
+    },
+    "desynchronised": []
+  },
+  "bus": {
+    "order": [
+      "w_sourced",
+      "fermion_doublet"
+    ],
+    "provides": {
+      "w_sourced": [
+        "w_sourced"
+      ],
+      "fermion_doublet": [
+        "fermion_doublet"
+      ]
+    },
+    "consumes": {
+      "w_sourced": [
+        "fermion_doublet"
+      ],
+      "fermion_doublet": [
+        "w_sourced"
+      ]
+    },
+    "edges": {
+      "w_sourced": [
+        "fermion_doublet"
+      ],
+      "fermion_doublet": [
+        "w_sourced"
+      ]
+    },
+    "cycles": [
+      [
+        "w_sourced",
+        "fermion_doublet"
+      ]
+    ],
+    "cycle_scheme": "gauss_seidel",
+    "acyclic": false,
+    "order_mode": "auto",
+    "applied_order": [
+      "w_sourced",
+      "fermion_doublet"
+    ],
+    "order_violations": [],
+    "unresolved": []
+  }
+}

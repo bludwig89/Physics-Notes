@@ -15,6 +15,8 @@ from .common import HEADER_NOTE, esc, md_title
 
 _DOC_GROUPS = [
     ("docs/theory", "internal theory derivations & key decisions"),
+    ("docs/theory/model-map", "equation-level map of the casim engine, "
+     "code-cited (start at 00-overview.md; follow-ups in 99-flags.md)"),
     ("docs/roadmaps", "active roadmaps & next steps"),
     ("docs/roadmaps/completed", "spent one-off prompts — the finding that closed "
      "each is in docs/audits/consolidation-plan-2026-08-04.md \u00a73.1"),

@@ -32,10 +32,10 @@ R_b: average b^d cells, rescale space & time by b; coarse rule Omega_coarse(kapp
 
 ## RS. Real-space faithfulness: R_b o evolve_fine^{bN} == evolve_coarse^N o R_b
 
-- b=2: L 24->12, 16 fine vs 8 coarse ticks, rel residual = 5.54e-15
-- b=3: L 24->8, 24 fine vs 8 coarse ticks, rel residual = 1.25e-14
+- b=2: L 24->12, 16 fine vs 8 coarse ticks, rel residual = 3.96e-15
+- b=3: L 24->8, 24 fine vs 8 coarse ticks, rel residual = 7.46e-15
 - band-limited gate (residual < 1e-9): PASS
-- residual across resolved band (b=2, modes < coarse Nyquist): {'2': 5.540348977272516e-15, '4': 7.052370244444033e-15, '5': 4.91576900330103e-15}
+- residual across resolved band (b=2, modes < coarse Nyquist): {'2': 3.957392126623205e-15, '4': 2.592783178104414e-15, '5': 5.383937479805862e-15}
 
 ## V. Measured rotation rate of a planted on-axis mode (genuine evolution)
 

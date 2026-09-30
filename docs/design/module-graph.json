@@ -7,8 +7,8 @@
   "test-only": "referenced only by tests",
   "unreferenced": "nothing in the tree references it"
  },
- "generated": "2026-09-06 11:27 UTC",
- "git_sha": "b2fcfa5",
+ "generated": "2026-09-27 22:01 UTC",
+ "git_sha": "ed51277",
  "nodes": {
   "src/casim/__init__.py": {
    "channel_types": [],
@@ -113,11 +113,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -490,10 +492,12 @@
     "src/casim/constants/strong.py",
     "src/casim/engine/core/blockspin.py",
     "src/casim/engine/core/channels.py",
+    "src/casim/engine/core/photon_fermion_push.py",
     "src/casim/engine/core/simulation.py",
     "src/casim/engine/core/spectral_matter.py",
     "src/casim/engine/forks/darkmatter/dm_fork_F364_baryogenesis_boltzmann.py",
     "src/casim/engine/forks/gauge/curl_fork_baseline_bcc.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
     "src/casim/engine/forks/gravity/gr_fork_F164_cosmological_constant.py",
     "src/casim/engine/forks/gravity/gr_fork_F180_gw_speed.py",
     "src/casim/engine/forks/gravity/gr_fork_F193_ontic_vacuum.py",
@@ -510,14 +514,19 @@
     "src/casim/engine/forks/gravity/gr_fork_F79_structural_G.py",
     "src/casim/engine/forks/lattice/smearing_fork_harness.py",
     "src/casim/engine/forks/particles/derive_weight_as_phase.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
     "src/casim/engine/gauge/bgfield_loop.py",
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/chiral_anomaly.py",
     "src/casim/engine/gauge/colour_dielectric.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
     "src/casim/engine/gauge/derive_gauge_boson_masses.py",
+    "src/casim/engine/gauge/factorization.py",
     "src/casim/engine/gauge/gluon_self_energy.py",
     "src/casim/engine/gauge/hypercharge.py",
     "src/casim/engine/gauge/lpt_d1_subtracted.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
     "src/casim/engine/gauge/photon.py",
     "src/casim/engine/gauge/photon_packet.py",
     "src/casim/engine/gauge/rotation.py",
@@ -530,6 +539,7 @@
     "src/casim/engine/interactions/cosmology_initial_conditions.py",
     "src/casim/engine/interactions/cosmology_lambda_dynamics.py",
     "src/casim/engine/interactions/cosmology_lambda_sequestering.py",
+    "src/casim/engine/interactions/cosmology_lambda_sign_split.py",
     "src/casim/engine/interactions/cosmology_lattice_elasticity.py",
     "src/casim/engine/interactions/cosmology_primordial.py",
     "src/casim/engine/interactions/cosmology_second_scale.py",
@@ -577,11 +587,14 @@
     "src/casim/engine/lattice/time_single_generator.py",
     "src/casim/engine/lattice/wavepacket.py",
     "src/casim/engine/particles/baryon_dynamics.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
     "src/casim/engine/particles/derive_M_R_scale_link.py",
     "src/casim/engine/particles/derive_generator_norm.py",
     "src/casim/engine/particles/derive_higgs_bhl_compositeness.py",
     "src/casim/engine/particles/derive_lambda6_sextic.py",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
     "src/casim/engine/particles/derive_lepton_shape_precision_floor.py",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py",
     "src/casim/engine/particles/derive_quark_mixed_koide_probe.py",
     "src/casim/engine/particles/derive_quark_shape_probe.py",
     "src/casim/engine/particles/dirac_bcc.py",
@@ -607,6 +620,8 @@
     "tests/findings/test_F314_photon_packet_propagation.py",
     "tests/findings/test_F341_majorana_forced_by_hypercharge_closure.py",
     "tests/findings/test_F373_quark_size_from_confinement_radius.py",
+    "tests/findings/test_F402_baryon_mass_decomposition.py",
+    "tests/findings/test_P2_baryon_bound_state.py",
     "tests/runners/run_propagation_demo.py",
     "tools/audit_constants.py"
    ],
@@ -625,11 +640,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -820,7 +837,7 @@
     "src/casim/constants/__init__.py"
    ],
    "key": "casim.constants.lepton",
-   "lines": 201,
+   "lines": 202,
    "np_sites": 0,
    "package_reachable": true,
    "path": "src/casim/constants/lepton.py",
@@ -1004,6 +1021,7 @@
    "has_main": false,
    "import_evidence": {},
    "imported_by": [
+    "src/casim/engine/core/coupled.py",
     "src/casim/engine/gauge/colour_theta.py",
     "src/casim/engine/gauge/lpt_bcc_vertex.py",
     "src/casim/engine/gauge/lpt_d1_action_consistent.py",
@@ -1014,6 +1032,10 @@
     "tests/findings/test_F157_manybody_atoms.py",
     "tests/findings/test_F208_relativistic_scf_ie.py",
     "tests/findings/test_F371_medium_z_ionization_energies.py",
+    "tests/findings/test_F388_fermion_photon_coupled_channels.py",
+    "tests/findings/test_F389_radiative_current_backreaction.py",
+    "tests/findings/test_F390_photon_fermion_push.py",
+    "tests/findings/test_F395_stage5_circular_beam_rerun.py",
     "tests/findings/test_emergent_time_T1.py",
     "tests/findings/test_emergent_time_T5.py",
     "tests/findings/test_emergent_time_shapiro.py",
@@ -1029,15 +1051,21 @@
    "package_reachable": true,
    "path": "src/casim/engine/core/__init__.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "role": "package",
    "scipy_sites": 0,
@@ -1122,9 +1150,14 @@
    "path": "src/casim/engine/core/_viz_spinor_color.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -1135,6 +1168,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -1260,11 +1294,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -1368,7 +1404,7 @@
     "src/casim/engine/interactions/gravity.py"
    ],
    "key": "casim.engine.core.channel",
-   "lines": 360,
+   "lines": 371,
    "np_sites": 26,
    "package_reachable": true,
    "path": "src/casim/engine/core/channel.py",
@@ -1379,11 +1415,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -1480,6 +1518,7 @@
     "src/casim/lattice/__init__.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/core/coupled.py",
     "tests/casim/test_engine_reproduces_kernels.py",
     "tests/casim/test_total_energy_and_gravity_loop.py",
     "tests/findings/test_F133_blockspin_engine.py",
@@ -1496,16 +1535,31 @@
     "src/casim/lattice/__init__.py"
    ],
    "key": "casim.engine.core.channels",
-   "lines": 437,
+   "lines": 448,
    "np_sites": 27,
-   "package_reachable": false,
+   "package_reachable": true,
    "path": "src/casim/engine/core/channels.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -1592,15 +1646,21 @@
    "path": "src/casim/engine/core/clock.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "results": [],
    "role": "kernel",
@@ -1630,16 +1690,23 @@
    "channel_types": [
     "beta_decay",
     "charge_photon",
+    "em_photon",
     "fermion_doublet",
+    "fermion_em",
     "w_sourced"
    ],
    "defines": [
     "BetaDecayChannel",
     "ChargePhotonChannel",
+    "EmPhotonChannel",
     "FermionDoubletChannel",
+    "FermionEmChannel",
     "ROOT3",
     "WSourcedChannel",
     "_SQRT2",
+    "_self_sourced_momentum_run",
+    "check_fermion_photon_backreaction",
+    "check_radiative_current_backreaction",
     "gaussian_packet",
     "su2_expmap"
    ],
@@ -1648,39 +1715,64 @@
    "dynamic_refs": [],
    "fft_sites": 0,
    "findings": [
+    "F384",
+    "F385",
+    "F386",
     "F54",
     "F87"
    ],
    "has_main": false,
    "import_evidence": {
+    "src/casim/engine/core/__init__.py": "static",
     "src/casim/engine/core/channel.py": "static",
+    "src/casim/engine/core/channels.py": "static",
+    "src/casim/engine/core/observers.py": "static",
+    "src/casim/engine/core/simulation.py": "static",
     "src/casim/engine/gauge/__init__.py": "static",
     "src/casim/engine/gauge/charge_coupling.py": "static",
     "src/casim/engine/gauge/charged_current.py": "static",
+    "src/casim/engine/gauge/em_current.py": "static",
+    "src/casim/engine/gauge/em_photon_sourcing.py": "static",
+    "src/casim/engine/gauge/minimal_coupling.py": "static",
+    "src/casim/engine/gauge/photon.py": "static",
     "src/casim/engine/gauge/weak_wmu.py": "static",
     "src/casim/engine/lattice/geometry.py": "static",
     "src/casim/numerics/__init__.py": "static",
     "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/core/photon_fermion_push.py",
+    "src/casim/engine/gauge/a_field_convention.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/particles/channel.py",
     "src/casim/verify.py",
     "tests/casim/test_particle_layer.py",
-    "tests/casim/test_total_energy_and_gravity_loop.py"
+    "tests/casim/test_total_energy_and_gravity_loop.py",
+    "tests/findings/test_F388_fermion_photon_coupled_channels.py",
+    "tests/findings/test_F389_radiative_current_backreaction.py"
    ],
    "imports": [
+    "src/casim/engine/core/__init__.py",
     "src/casim/engine/core/channel.py",
+    "src/casim/engine/core/channels.py",
+    "src/casim/engine/core/observers.py",
+    "src/casim/engine/core/simulation.py",
     "src/casim/engine/gauge/__init__.py",
     "src/casim/engine/gauge/charge_coupling.py",
     "src/casim/engine/gauge/charged_current.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
+    "src/casim/engine/gauge/photon.py",
     "src/casim/engine/gauge/weak_wmu.py",
     "src/casim/engine/lattice/geometry.py",
     "src/casim/numerics/__init__.py",
     "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.core.coupled",
-   "lines": 251,
-   "np_sites": 44,
+   "lines": 800,
+   "np_sites": 80,
    "package_reachable": true,
    "path": "src/casim/engine/core/coupled.py",
    "reach": "driven",
@@ -1690,7 +1782,9 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
@@ -1699,16 +1793,34 @@
     "two_grid_atom",
     "w_sourced"
    ],
-   "results": [],
+   "results": [
+    "test-results/F388_fermion_photon_coupled_channels.json",
+    "test-results/F389_radiative_current_backreaction.json"
+   ],
    "role": "kernel",
    "scipy_sites": 0,
    "static_imports": [
     "__future__",
     "__future__.annotations",
+    "casim.engine.core",
     "casim.engine.core.channel",
+    "casim.engine.core.channels",
+    "casim.engine.core.observers",
+    "casim.engine.core.observers.Momentum",
+    "casim.engine.core.simulation",
+    "casim.engine.core.simulation.LatticeSpec",
+    "casim.engine.core.simulation.Simulation",
     "casim.engine.gauge",
     "casim.engine.gauge.charge_coupling",
     "casim.engine.gauge.charged_current",
+    "casim.engine.gauge.em_current",
+    "casim.engine.gauge.em_photon_sourcing",
+    "casim.engine.gauge.em_photon_sourcing.iC_dot_B_norm",
+    "casim.engine.gauge.em_photon_sourcing.split_transverse_longitudinal",
+    "casim.engine.gauge.minimal_coupling",
+    "casim.engine.gauge.photon",
+    "casim.engine.gauge.photon.build_beam_packet",
+    "casim.engine.gauge.photon.build_pair_mode",
     "casim.engine.gauge.weak_wmu",
     "casim.engine.lattice.geometry",
     "casim.engine.lattice.geometry.make_kgrid_3d",
@@ -1719,7 +1831,9 @@
    "test_referenced": true,
    "tests": [
     "tests/casim/test_particle_layer.py",
-    "tests/casim/test_total_energy_and_gravity_loop.py"
+    "tests/casim/test_total_energy_and_gravity_loop.py",
+    "tests/findings/test_F388_fermion_photon_coupled_channels.py",
+    "tests/findings/test_F389_radiative_current_backreaction.py"
    ]
   },
   "src/casim/engine/core/entanglement_register.py": {
@@ -1838,15 +1952,21 @@
    "path": "src/casim/engine/core/graph.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "results": [],
    "role": "kernel",
@@ -2039,6 +2159,7 @@
     "EnergyTrace",
     "FieldDump",
     "FieldSnapshot",
+    "Momentum",
     "NormConservation",
     "Observer",
     "TotalEnergy",
@@ -2054,12 +2175,18 @@
    "findings": [],
    "has_main": false,
    "import_evidence": {
+    "src/casim/engine/lattice/geometry.py": "static",
     "src/casim/fields/photon.py": "static",
-    "src/casim/io/vtk.py": "static"
+    "src/casim/io/vtk.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/core/coupled.py",
     "src/casim/engine/core/entanglement_register.py",
+    "src/casim/engine/core/photon_fermion_push.py",
     "src/casim/engine/core/simulation.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/particles/channel.py",
     "src/casim/verify.py",
     "tests/casim/test_engine_reproduces_kernels.py",
@@ -2071,30 +2198,39 @@
     "tests/findings/test_F195_blockspin_element_atom.py"
    ],
    "imports": [
+    "src/casim/engine/lattice/geometry.py",
     "src/casim/fields/photon.py",
-    "src/casim/io/vtk.py"
+    "src/casim/io/vtk.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.core.observers",
-   "lines": 580,
-   "np_sites": 40,
+   "lines": 797,
+   "np_sites": 69,
    "package_reachable": true,
    "path": "src/casim/engine/core/observers.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quantum_circuit",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "results": [
     "test-results/F195_blockspin_element_atom.json"
@@ -2104,9 +2240,13 @@
    "static_imports": [
     "__future__",
     "__future__.annotations",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
     "casim.fields.photon",
     "casim.fields.photon.group_velocity_at",
     "casim.io.vtk",
+    "casim.numerics",
+    "casim.numerics.fft",
     "numpy",
     "os",
     "typing",
@@ -2123,6 +2263,91 @@
     "tests/findings/test_F158_neutral_hydrogen.py",
     "tests/findings/test_F160_live_two_grid_atom.py",
     "tests/findings/test_F195_blockspin_element_atom.py"
+   ]
+  },
+  "src/casim/engine/core/photon_fermion_push.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "_roll_state_dict",
+    "_safe_cos",
+    "build_push_run",
+    "check_photon_fermion_push",
+    "check_stage5_circular_beam_rerun",
+    "r",
+    "run_push_scenario"
+   ],
+   "doc": "casim.engine.core.photon_fermion_push \u2014 Stage 5 of",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F385",
+    "F388",
+    "F389",
+    "F390"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/core/coupled.py": "static",
+    "src/casim/engine/core/observers.py": "static",
+    "src/casim/engine/core/simulation.py": "static",
+    "src/casim/engine/gauge/em_photon_sourcing.py": "static",
+    "src/casim/engine/gauge/photon.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F390_photon_fermion_push.py",
+    "tests/findings/test_F395_stage5_circular_beam_rerun.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/observers.py",
+    "src/casim/engine/core/simulation.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
+    "src/casim/engine/gauge/photon.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.core.photon_fermion_push",
+   "lines": 474,
+   "np_sites": 47,
+   "package_reachable": false,
+   "path": "src/casim/engine/core/photon_fermion_push.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F390_photon_fermion_push.json",
+    "test-results/F395_stage5_circular_beam_rerun.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.c_lat",
+    "casim.engine.core.coupled",
+    "casim.engine.core.coupled.EmPhotonChannel",
+    "casim.engine.core.coupled.FermionEmChannel",
+    "casim.engine.core.observers",
+    "casim.engine.core.observers.Momentum",
+    "casim.engine.core.simulation",
+    "casim.engine.core.simulation.LatticeSpec",
+    "casim.engine.core.simulation.Simulation",
+    "casim.engine.gauge.em_photon_sourcing",
+    "casim.engine.gauge.em_photon_sourcing.split_transverse_longitudinal",
+    "casim.engine.gauge.photon",
+    "casim.engine.gauge.photon.build_beam_packet",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F390_photon_fermion_push.py",
+    "tests/findings/test_F395_stage5_circular_beam_rerun.py"
    ]
   },
   "src/casim/engine/core/simulation.py": {
@@ -2151,6 +2376,9 @@
     "src/casim/engine/core/observers.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/photon_fermion_push.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/engine/lattice/time_single_generator.py",
     "src/casim/particles/channel.py",
     "tests/casim/test_checkpoint_ops.py",
@@ -2174,15 +2402,21 @@
    "path": "src/casim/engine/core/simulation.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "results": [],
    "role": "kernel",
@@ -2764,7 +2998,8 @@
    "imported_by": [
     "src/casim/engine/core/tier3.py",
     "src/casim/engine/forks/gauge/curl_fork_harness.py",
-    "src/casim/verify.py"
+    "src/casim/verify.py",
+    "tests/findings/test_F385_u1_link_covariant_step.py"
    ],
    "imports": [],
    "key": "casim.engine.forks.gauge",
@@ -2777,12 +3012,16 @@
     "gauge_mc",
     "refraction_2d"
    ],
-   "results": [],
+   "results": [
+    "test-results/F385_u1_link_covariant_step.json"
+   ],
    "role": "fork",
    "scipy_sites": 0,
    "static_imports": [],
-   "test_referenced": false,
-   "tests": []
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F385_u1_link_covariant_step.py"
+   ]
   },
   "src/casim/engine/forks/gauge/curl_fork_baseline_bcc.py": {
    "channel_types": [],
@@ -3042,6 +3281,86 @@
     "tests/findings/test_FA_lgt_mc.py",
     "tests/findings/test_FA_vs_FC_comparison.py",
     "tests/runners/run_lgt_confinement.py"
+   ]
+  },
+  "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py": {
+   "channel_types": [],
+   "defines": [
+    "FORK_NAME",
+    "check_u1_link_forks",
+    "gauge_covariance_residual",
+    "matter_momentum",
+    "norm",
+    "u1_link_step_renormalized",
+    "u1_link_step_strang_split"
+   ],
+   "doc": "Fork: U(1) per-link unitarity/momentum-transfer adjudication",
+   "driven": false,
+   "dynamic_refs": [
+    "fork_d_drift",
+    "fork_d_exactly_conserves_norm",
+    "fork_d_preserves_momentum_signal",
+    "momentum_transfer_nonzero_all_forks",
+    "norm_drift_slope_fork_a"
+   ],
+   "fft_sites": 0,
+   "findings": [],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/gauge/minimal_coupling.py": "static",
+    "src/casim/engine/gauge/weak_wmu.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
+   },
+   "imported_by": [
+    "src/casim/engine/gauge/a_field_convention.py",
+    "tests/findings/test_F385_u1_link_covariant_step.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
+    "src/casim/engine/gauge/weak_wmu.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
+   ],
+   "key": "casim.engine.forks.gauge.u1_link_unitarity_forks",
+   "lines": 286,
+   "np_sites": 65,
+   "package_reachable": false,
+   "path": "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F385_u1_link_covariant_step.json"
+   ],
+   "role": "fork",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.constants",
+    "casim.constants.c_lat",
+    "casim.engine.gauge.minimal_coupling",
+    "casim.engine.gauge.minimal_coupling.u1_link_weyl_step_3d_bcc",
+    "casim.engine.gauge.weak_wmu",
+    "casim.engine.gauge.weak_wmu.BCC_DIRS",
+    "casim.engine.gauge.weak_wmu._SPINOR_MATS",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_fractional_shift",
+    "casim.engine.lattice.bcc.bcc_unitary",
+    "casim.engine.lattice.bcc.weyl_step_3d_bcc",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
+    "casim.numerics",
+    "casim.numerics.fft",
+    "casim.numerics.xp"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F385_u1_link_covariant_step.py"
    ]
   },
   "src/casim/engine/forks/gravity/__init__.py": {
@@ -5855,21 +6174,29 @@
    "findings": [],
    "has_main": false,
    "import_evidence": {},
-   "imported_by": [],
+   "imported_by": [
+    "tests/findings/test_F404_koide_pseudomass_fork.py",
+    "tests/findings/test_F407_koide_pseudomass_minimal.py"
+   ],
    "imports": [],
    "key": "casim.engine.forks.particles",
    "lines": 11,
    "np_sites": 0,
    "package_reachable": false,
    "path": "src/casim/engine/forks/particles/__init__.py",
-   "reach": "unreferenced",
+   "reach": "test-only",
    "reachable_from": [],
-   "results": [],
+   "results": [
+    "test-results/F404_koide_pseudomass_fork.json"
+   ],
    "role": "fork",
    "scipy_sites": 0,
    "static_imports": [],
-   "test_referenced": false,
-   "tests": []
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F404_koide_pseudomass_fork.py",
+    "tests/findings/test_F407_koide_pseudomass_minimal.py"
+   ]
   },
   "src/casim/engine/forks/particles/complex_mass_fork.py": {
    "channel_types": [],
@@ -6026,6 +6353,187 @@
    "test_referenced": false,
    "tests": []
   },
+  "src/casim/engine/forks/particles/koide_pseudomass_fork.py": {
+   "channel_types": [],
+   "defines": [
+    "CKM_ANGLES",
+    "CKM_MODULI",
+    "CKM_SIGMA",
+    "LEPTON_MASSES_MEV",
+    "QUARK_MASSES_MEV",
+    "_U3",
+    "_V_EW_MEV",
+    "_ckm_observables",
+    "_levenberg_marquardt",
+    "admissible_delta_intervals",
+    "check_koide_pseudomass_fork",
+    "joint_search",
+    "koide_Q",
+    "koide_shape",
+    "p1_trace_identity",
+    "q_from_amplitudes",
+    "real_S_gives_J_zero",
+    "required_offdiag_fraction",
+    "res",
+    "schur_horn",
+    "unitary_floor"
+   ],
+   "doc": "casim.engine.forks.particles.koide_pseudomass_fork",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F175",
+    "F404",
+    "F76",
+    "F78",
+    "F93"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/rng.py": "static"
+   },
+   "imported_by": [
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
+    "tests/findings/test_F404_koide_pseudomass_fork.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/rng.py"
+   ],
+   "key": "casim.engine.forks.particles.koide_pseudomass_fork",
+   "lines": 380,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F404_koide_pseudomass_fork.json"
+   ],
+   "role": "fork",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.delta_star_f",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.rng",
+    "casim.numerics.xp",
+    "json",
+    "math",
+    "sympy"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F404_koide_pseudomass_fork.py"
+   ]
+  },
+  "src/casim/engine/forks/particles/koide_pseudomass_minimal.py": {
+   "channel_types": [],
+   "defines": [
+    "CANDIDATE_PAIRS",
+    "CERTIFICATES",
+    "CKM5",
+    "CKM5_SIGMA",
+    "DCHI2_95_1DOF",
+    "M5_CERTIFICATES",
+    "MASS_REL_SIGMA",
+    "N_MEASURED",
+    "N_OBS",
+    "N_PARAMS",
+    "OFF_BAND_PAIRS",
+    "SLOTS",
+    "UNITARY_FLOOR",
+    "_OFF",
+    "_POSITIVE_SEED_PAIR",
+    "_eig_by_modulus",
+    "_pull_ms",
+    "_residuals",
+    "amplitude_matrix",
+    "check_koide_pseudomass_minimal",
+    "continue_fit",
+    "delta_landscape",
+    "fit",
+    "jacobian_rank",
+    "ms_profile",
+    "observables",
+    "out",
+    "polish_certificate",
+    "res"
+   ],
+   "doc": "casim.engine.forks.particles.koide_pseudomass_minimal",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F404",
+    "F407"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/rng.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F407_koide_pseudomass_minimal.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/rng.py"
+   ],
+   "key": "casim.engine.forks.particles.koide_pseudomass_minimal",
+   "lines": 406,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [],
+   "role": "fork",
+   "scipy_sites": 2,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.delta_star_f",
+    "casim.engine.forks.particles.koide_pseudomass_fork",
+    "casim.engine.forks.particles.koide_pseudomass_fork.CKM_MODULI",
+    "casim.engine.forks.particles.koide_pseudomass_fork.CKM_SIGMA",
+    "casim.engine.forks.particles.koide_pseudomass_fork.QUARK_MASSES_MEV",
+    "casim.engine.forks.particles.koide_pseudomass_fork._J_OBS",
+    "casim.engine.forks.particles.koide_pseudomass_fork._J_SIG",
+    "casim.engine.forks.particles.koide_pseudomass_fork._levenberg_marquardt",
+    "casim.engine.forks.particles.koide_pseudomass_fork.koide_shape",
+    "casim.engine.forks.particles.koide_pseudomass_fork.unitary_floor",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.rng",
+    "casim.numerics.xp",
+    "json",
+    "math",
+    "sys"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F407_koide_pseudomass_minimal.py"
+   ]
+  },
   "src/casim/engine/gauge/__init__.py": {
    "channel_types": [],
    "defines": [],
@@ -6041,6 +6549,7 @@
     "src/casim/engine/forks/gauge/curl_fork_harness.py",
     "src/casim/engine/forks/gauge/lgt_fork_A_mc.py",
     "src/casim/engine/forks/lattice/smearing_fork_harness.py",
+    "src/casim/engine/gauge/a_field_convention.py",
     "src/casim/engine/gauge/bgfield_loop.py",
     "src/casim/engine/gauge/colour_dielectric.py",
     "src/casim/engine/gauge/colour_theta.py",
@@ -6050,6 +6559,7 @@
     "src/casim/engine/gauge/derive_ncolour.py",
     "src/casim/engine/gauge/derive_su3_structure.py",
     "src/casim/engine/gauge/derive_x1_branch.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/gluon_self_energy.py",
     "src/casim/engine/gauge/lpt_bcc_vertex.py",
@@ -6057,6 +6567,7 @@
     "src/casim/engine/gauge/lpt_selfenergy.py",
     "src/casim/engine/gauge/lpt_ws_mask_cutcell.py",
     "src/casim/engine/gauge/minimal_coupling.py",
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py",
     "src/casim/engine/gauge/photon_packet.py",
     "src/casim/engine/gauge/weak_wmu.py",
     "src/casim/engine/interactions/cosmology_blockspin_fluctuation.py",
@@ -6111,6 +6622,15 @@
     "tests/findings/test_F340_strong_cp_nonperturbative.py",
     "tests/findings/test_F341_majorana_forced_by_hypercharge_closure.py",
     "tests/findings/test_F343_majorana_scale_no_link_found.py",
+    "tests/findings/test_F381_premise_a_irreducibility.py",
+    "tests/findings/test_F384_conserved_em_current.py",
+    "tests/findings/test_F386_a_field_convention.py",
+    "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+    "tests/findings/test_F389_radiative_transverse_em_current.py",
+    "tests/findings/test_F391_ck_transverse_beam_mechanism.py",
+    "tests/findings/test_F392_beam_polarization_null_fix.py",
+    "tests/findings/test_F393_curl_grad_identity_diagnostic.py",
+    "tests/findings/test_F401_photon_bound_state_finite_k.py",
     "tests/findings/test_F69_paired_photon.py",
     "tests/findings/test_F72_universal_even_propagator.py",
     "tests/findings/test_F87_charge_coupling_paired_photon.py",
@@ -6171,11 +6691,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -6203,6 +6725,91 @@
     "__future__.annotations"
    ],
    "test_referenced": true
+  },
+  "src/casim/engine/gauge/a_field_convention.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "accumulate_A",
+    "build_accumulate_scenario",
+    "check_a_field_convention",
+    "longitudinal_fraction",
+    "pure_gradient_A",
+    "r"
+   ],
+   "doc": "casim.engine.gauge.a_field_convention \u2014 Stage 3 of",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F384",
+    "F385",
+    "F386"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/core/coupled.py": "static",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py": "static",
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/charge_coupling.py": "static",
+    "src/casim/engine/gauge/em_current.py": "static",
+    "src/casim/engine/gauge/photon.py": "static",
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F386_a_field_convention.py"
+   ],
+   "imports": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/charge_coupling.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/photon.py",
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
+   ],
+   "key": "casim.engine.gauge.a_field_convention",
+   "lines": 281,
+   "np_sites": 28,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/a_field_convention.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F386_a_field_convention.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.core.coupled",
+    "casim.engine.core.coupled.gaussian_packet",
+    "casim.engine.forks.gauge.u1_link_unitarity_forks",
+    "casim.engine.forks.gauge.u1_link_unitarity_forks.gauge_covariance_residual",
+    "casim.engine.gauge",
+    "casim.engine.gauge.charge_coupling",
+    "casim.engine.gauge.charge_coupling.bcc_curl_symbol",
+    "casim.engine.gauge.charge_coupling.solve_A_coulomb_3d",
+    "casim.engine.gauge.em_current",
+    "casim.engine.gauge.photon",
+    "casim.engine.gauge.photon.build_beam_packet",
+    "casim.engine.gauge.photon.photon_step_spectral",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
+    "casim.numerics",
+    "casim.numerics.fft",
+    "casim.numerics.xp",
+    "json"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F386_a_field_convention.py"
+   ]
   },
   "src/casim/engine/gauge/bcc_action.py": {
    "channel_types": [],
@@ -6330,11 +6937,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -6730,9 +7339,14 @@
    "path": "src/casim/engine/gauge/bilinear_2d.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -6743,6 +7357,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -6967,6 +7582,7 @@
     "_kgrid_2d",
     "ampere_current_2d",
     "bcc_curl_symbol",
+    "check_curl_grad_identity_diagnostic",
     "curl_res",
     "discrete_curl_z",
     "discrete_div",
@@ -6983,6 +7599,7 @@
     "maxwell_curl_step_euler",
     "peierls_loop_phase",
     "solve_A_coulomb_2d",
+    "solve_A_coulomb_3d",
     "sourced_flux_tube_2d"
    ],
    "doc": "ca_charge_coupling.py  \u2014  The U(1) charge-coupling path on the paired-photon field",
@@ -7003,7 +7620,11 @@
    },
    "imported_by": [
     "src/casim/engine/core/coupled.py",
+    "src/casim/engine/gauge/a_field_convention.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "tests/findings/test_F249_qed_comparison_battery.py",
+    "tests/findings/test_F393_curl_grad_identity_diagnostic.py",
     "tests/findings/test_F87_charge_coupling_paired_photon.py"
    ],
    "imports": [
@@ -7013,8 +7634,8 @@
     "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.gauge.charge_coupling",
-   "lines": 424,
-   "np_sites": 56,
+   "lines": 601,
+   "np_sites": 81,
    "package_reachable": true,
    "path": "src/casim/engine/gauge/charge_coupling.py",
    "reach": "driven",
@@ -7024,7 +7645,9 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
@@ -7035,6 +7658,7 @@
    ],
    "results": [
     "test-results/F249_qed_comparison_battery.json",
+    "test-results/F393_curl_grad_identity_diagnostic.json",
     "test-results/F87_charge_coupling_paired_photon.json"
    ],
    "role": "kernel",
@@ -7052,6 +7676,7 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F249_qed_comparison_battery.py",
+    "tests/findings/test_F393_curl_grad_identity_diagnostic.py",
     "tests/findings/test_F87_charge_coupling_paired_photon.py"
    ]
   },
@@ -7134,7 +7759,9 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -7312,9 +7939,14 @@
    "path": "src/casim/engine/gauge/colour_condensate.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -7325,6 +7957,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -7420,9 +8053,14 @@
    "path": "src/casim/engine/gauge/colour_dielectric.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -7433,6 +8071,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -7645,9 +8284,14 @@
    "path": "src/casim/engine/gauge/confinement.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -7658,6 +8302,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -7745,9 +8390,14 @@
    "path": "src/casim/engine/gauge/cooling.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -7760,6 +8410,7 @@
     "refraction_2d",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -7861,6 +8512,104 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F302_bilinear_so3.py"
+   ]
+  },
+  "src/casim/engine/gauge/derive_charge_partition.py": {
+   "channel_types": [],
+   "defines": [
+    "_Q",
+    "_SX",
+    "_SY",
+    "_SZ",
+    "_T3",
+    "_Y",
+    "_bcc_block",
+    "_charges",
+    "_jz_ratio",
+    "_leg_b",
+    "_lowk_frame_residual",
+    "_lz",
+    "_mass_step_dSz",
+    "_packet",
+    "_pure_eta_e_closed_form",
+    "_qprime_identity",
+    "_rand_U",
+    "_rand_state",
+    "_rot",
+    "_step",
+    "_symmetry_residuals",
+    "_sz",
+    "_u_identity_step",
+    "_ward_residual",
+    "check_charge_partition",
+    "r"
+   ],
+   "doc": "p.77 charge-partition hypothesis \u2014 Leg A (J = L + S under the Dirac mass step)",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F27",
+    "F396",
+    "F41",
+    "F54"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/gauge/hypercharge.py": "static",
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/engine/particles/dirac_bcc.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F396_charge_partition_p77.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/gauge/hypercharge.py",
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/engine/particles/dirac_bcc.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
+   ],
+   "key": "casim.engine.gauge.derive_charge_partition",
+   "lines": 334,
+   "np_sites": 73,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/derive_charge_partition.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F396_charge_partition_p77.json"
+   ],
+   "role": "derivation",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.constants",
+    "casim.constants.c_lat",
+    "casim.engine.gauge.hypercharge",
+    "casim.engine.gauge.hypercharge.mass_step_doublet_su2xu1y",
+    "casim.engine.lattice",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
+    "casim.engine.particles.dirac_bcc",
+    "casim.engine.particles.dirac_bcc.dirac_step_3d_bcc_splitstep",
+    "casim.numerics",
+    "casim.numerics.fft",
+    "casim.numerics.xp",
+    "fractions",
+    "fractions.Fraction"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F396_charge_partition_p77.py"
    ]
   },
   "src/casim/engine/gauge/derive_coupling_normalisation.py": {
@@ -8093,6 +8842,7 @@
     "src/casim/numerics/__init__.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
     "tests/findings/test_F333_internal_index_existence.py"
    ],
    "imports": [
@@ -8304,6 +9054,7 @@
    },
    "imported_by": [
     "src/casim/engine/gauge/derive_ncolour_ceiling.py",
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
     "tests/findings/test_F324_ncolour_bracket.py"
    ],
    "imports": [
@@ -8418,6 +9169,89 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F338_ncolour_ceiling.py"
+   ]
+  },
+  "src/casim/engine/gauge/derive_premise_a_irreducibility.py": {
+   "channel_types": [],
+   "defines": [
+    "F333_PREMISE_COUNT",
+    "_COLOUR_TOKENS",
+    "_N_PARAM_PATTERN",
+    "_module_source",
+    "bifurcation_over_n",
+    "check_premise_a_irreducibility",
+    "f324_premise_ii_presupposes_existence",
+    "no_n_valued_parameter",
+    "scope_disjointness",
+    "substitution_net_cost",
+    "summary"
+   ],
+   "doc": "derive_premise_a_irreducibility.py \u2014 is F333 premise (a) reducible to F289/F330?",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F289",
+    "F291",
+    "F292",
+    "F318",
+    "F324",
+    "F330",
+    "F333"
+   ],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/engine/gauge/derive_internal_index_existence.py": "static",
+    "src/casim/engine/gauge/derive_ncolour_bracket.py": "static",
+    "src/casim/engine/interactions/__init__.py": "static",
+    "src/casim/engine/interactions/qi_belt_trick.py": "static",
+    "src/casim/engine/interactions/qi_spin_statistics.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F381_premise_a_irreducibility.py"
+   ],
+   "imports": [
+    "src/casim/engine/gauge/derive_internal_index_existence.py",
+    "src/casim/engine/gauge/derive_ncolour_bracket.py",
+    "src/casim/engine/interactions/__init__.py",
+    "src/casim/engine/interactions/qi_belt_trick.py",
+    "src/casim/engine/interactions/qi_spin_statistics.py"
+   ],
+   "key": "casim.engine.gauge.derive_premise_a_irreducibility",
+   "lines": 309,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F381_premise_a_irreducibility.json"
+   ],
+   "role": "derivation",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge.derive_internal_index_existence",
+    "casim.engine.gauge.derive_internal_index_existence.composite_block_swap_parity",
+    "casim.engine.gauge.derive_ncolour_bracket",
+    "casim.engine.gauge.derive_ncolour_bracket.bracket",
+    "casim.engine.interactions",
+    "casim.engine.interactions.qi_belt_trick",
+    "casim.engine.interactions.qi_spin_statistics",
+    "inspect",
+    "pathlib",
+    "pathlib.Path",
+    "re",
+    "typing",
+    "typing.Any",
+    "typing.Dict",
+    "typing.List",
+    "typing.Tuple"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F381_premise_a_irreducibility.py"
    ]
   },
   "src/casim/engine/gauge/derive_su3_structure.py": {
@@ -8624,6 +9458,226 @@
     "tests/findings/test_F325_x1_branch.py"
    ]
   },
+  "src/casim/engine/gauge/em_current.py": {
+   "channel_types": [],
+   "defines": [
+    "_SIGMA",
+    "bcc_naive_current",
+    "charge_density",
+    "check_conserved_current",
+    "check_full_current",
+    "conserved_current",
+    "continuity_residual",
+    "full_current",
+    "noether_transverse_current"
+   ],
+   "doc": "casim.engine.gauge.em_current \u2014 the U(1) EM current the BCC walk conserves.",
+   "driven": true,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F385",
+    "F388",
+    "F389"
+   ],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/engine/core/coupled.py": "static",
+    "src/casim/engine/gauge/charge_coupling.py": "static",
+    "src/casim/engine/gauge/em_photon_sourcing.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
+   },
+   "imported_by": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/gauge/a_field_convention.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
+    "tests/findings/test_F384_conserved_em_current.py",
+    "tests/findings/test_F389_radiative_transverse_em_current.py"
+   ],
+   "imports": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/gauge/charge_coupling.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
+   ],
+   "key": "casim.engine.gauge.em_current",
+   "lines": 480,
+   "np_sites": 38,
+   "package_reachable": true,
+   "path": "src/casim/engine/gauge/em_current.py",
+   "reach": "driven",
+   "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
+    "gluon_sourced",
+    "nr_electron",
+    "particle",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
+    "w_sourced"
+   ],
+   "results": [
+    "test-results/F384_conserved_em_current.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.core.coupled",
+    "casim.engine.core.coupled.gaussian_packet",
+    "casim.engine.gauge.charge_coupling",
+    "casim.engine.gauge.charge_coupling.bcc_curl_symbol",
+    "casim.engine.gauge.em_photon_sourcing",
+    "casim.engine.gauge.em_photon_sourcing.split_transverse_longitudinal",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.weyl_step_3d_bcc",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
+    "casim.numerics",
+    "casim.numerics.fft",
+    "casim.numerics.xp"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F384_conserved_em_current.py",
+    "tests/findings/test_F389_radiative_transverse_em_current.py"
+   ]
+  },
+  "src/casim/engine/gauge/em_photon_sourcing.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "_push_scenario",
+    "_safe_cos",
+    "build_ck_transverse_beam_packet",
+    "check_ck_transverse_beam_mechanism",
+    "check_em_photon_sourcing",
+    "curl_direction_angle",
+    "iC_dot_B_norm",
+    "naive_sourced_scenario",
+    "r",
+    "r2",
+    "split_sourced_scenario",
+    "split_transverse_longitudinal"
+   ],
+   "doc": "casim.engine.gauge.em_photon_sourcing \u2014 the \u0108(k) direction anisotropy and",
+   "driven": true,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F384",
+    "F386",
+    "F387",
+    "F87"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/core/coupled.py": "static",
+    "src/casim/engine/core/observers.py": "static",
+    "src/casim/engine/core/simulation.py": "static",
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/charge_coupling.py": "static",
+    "src/casim/engine/gauge/em_current.py": "static",
+    "src/casim/engine/gauge/photon.py": "static",
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
+   },
+   "imported_by": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/photon_fermion_push.py",
+    "src/casim/engine/gauge/em_current.py",
+    "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+    "tests/findings/test_F391_ck_transverse_beam_mechanism.py"
+   ],
+   "imports": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/observers.py",
+    "src/casim/engine/core/simulation.py",
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/charge_coupling.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/photon.py",
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
+   ],
+   "key": "casim.engine.gauge.em_photon_sourcing",
+   "lines": 641,
+   "np_sites": 84,
+   "package_reachable": true,
+   "path": "src/casim/engine/gauge/em_photon_sourcing.py",
+   "reach": "driven",
+   "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
+    "gluon_sourced",
+    "nr_electron",
+    "particle",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
+    "w_sourced"
+   ],
+   "results": [
+    "test-results/F387_curl_anisotropy_omega_pair_mismatch.json",
+    "test-results/F391_ck_transverse_beam_mechanism.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.core.coupled",
+    "casim.engine.core.coupled.EmPhotonChannel",
+    "casim.engine.core.coupled.FermionEmChannel",
+    "casim.engine.core.coupled.gaussian_packet",
+    "casim.engine.core.observers",
+    "casim.engine.core.observers.Momentum",
+    "casim.engine.core.simulation",
+    "casim.engine.core.simulation.LatticeSpec",
+    "casim.engine.core.simulation.Simulation",
+    "casim.engine.gauge",
+    "casim.engine.gauge.charge_coupling",
+    "casim.engine.gauge.charge_coupling.bcc_curl_symbol",
+    "casim.engine.gauge.em_current",
+    "casim.engine.gauge.photon",
+    "casim.engine.gauge.photon.build_beam_packet",
+    "casim.engine.gauge.photon.pair_dispersion",
+    "casim.engine.gauge.photon.photon_step_spectral",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
+    "casim.numerics",
+    "casim.numerics.fft",
+    "casim.numerics.xp",
+    "json"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+    "tests/findings/test_F391_ck_transverse_beam_mechanism.py"
+   ]
+  },
   "src/casim/engine/gauge/emission.py": {
    "channel_types": [],
    "defines": [
@@ -8686,6 +9740,76 @@
    "tests": [
     "tests/findings/test_F161_atomic_emission.py"
    ]
+  },
+  "src/casim/engine/gauge/factorization.py": {
+   "channel_types": [],
+   "defines": [
+    "_E0",
+    "_S0",
+    "_SX",
+    "_SY",
+    "_SZ",
+    "_eps",
+    "_outer",
+    "_pair_lattice",
+    "_rand_dir",
+    "_rand_timelike",
+    "_slope",
+    "_spinor_field",
+    "_threshold",
+    "_u1_checks",
+    "check_factorization_route",
+    "lorentz_act",
+    "mink",
+    "sigma_bar_dot",
+    "sigma_dot",
+    "sl2c_element",
+    "sqrtm_herm2",
+    "t1_spinor",
+    "t2_decompose",
+    "vec_from_M"
+   ],
+   "doc": "F397 \u2014 the notebook's FACTORIZATION ROUTE (pp.176-182): a vector is two null vectors,",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F25",
+    "F397"
+   ],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.gauge.factorization",
+   "lines": 401,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/factorization.py",
+   "reach": "unreferenced",
+   "reachable_from": [],
+   "results": [],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.constants",
+    "casim.constants.c_lat",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_dispersion",
+    "casim.engine.lattice.bcc.bcc_spin_axis",
+    "casim.numerics",
+    "casim.numerics.xp"
+   ],
+   "test_referenced": false,
+   "tests": []
   },
   "src/casim/engine/gauge/gluon.py": {
    "channel_types": [],
@@ -8781,9 +9905,14 @@
    "path": "src/casim/engine/gauge/gluon.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -8794,6 +9923,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -8976,6 +10106,7 @@
    },
    "imported_by": [
     "src/casim/engine/forks/electroweak/hypercharge_fork.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
     "src/casim/fields/electroweak.py",
     "tests/findings/test_F279_hypercharge_attribution.py",
     "tests/findings/test_F341_majorana_forced_by_hypercharge_closure.py",
@@ -8994,10 +10125,25 @@
    "path": "src/casim/engine/gauge/hypercharge.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -9236,8 +10382,10 @@
    "defines": [
     "C_A",
     "SIXTEEN_PI2",
+    "_G382_POINTS",
     "_T3grid",
     "_Vgf",
+    "_axis_kernel_at_point",
     "_chunk_for",
     "_delta_loops",
     "_domain_weight",
@@ -9245,18 +10393,22 @@
     "_omega_even_quadratic_form",
     "_side",
     "_side_chunked",
+    "_side_domain",
     "branch_fork_native_sweep",
     "budget_with_full_dloops",
     "bz_grid",
     "check_action_consistent_d1",
+    "check_d1_vertex_domain_f382",
     "check_l6_decision",
     "delta_loops",
+    "domain_choice_divergence",
     "pi_loop",
     "pi_loop_chunked",
     "propagator_scheme_divergence",
     "refold_defect",
     "transverse_B",
-    "transverse_B_chunked"
+    "transverse_B_chunked",
+    "vertex_g_periodicity"
    ],
    "doc": "lpt_d1_action_consistent.py \u2014 the F280 subtracted estimator run on ONE code",
    "driven": false,
@@ -9287,6 +10439,7 @@
     "src/casim/engine/gauge/lpt_selfenergy.py",
     "tests/findings/test_F307_action_consistent_d1.py",
     "tests/findings/test_F337_l6_decision.py",
+    "tests/findings/test_F382_vertex_domain_periodicity.py",
     "tests/runners/run_l6_native_sweep.py",
     "tests/runners/run_ws_mask_smoothed_sweep.py"
    ],
@@ -9302,7 +10455,7 @@
     "src/casim/numerics/__init__.py"
    ],
    "key": "casim.engine.gauge.lpt_d1_action_consistent",
-   "lines": 527,
+   "lines": 723,
    "np_sites": 0,
    "package_reachable": false,
    "path": "src/casim/engine/gauge/lpt_d1_action_consistent.py",
@@ -9310,7 +10463,8 @@
    "reachable_from": [],
    "results": [
     "test-results/F307_action_consistent_d1.json",
-    "test-results/F337_l6_decision.json"
+    "test-results/F337_l6_decision.json",
+    "test-results/F382_vertex_domain_periodicity.json"
    ],
    "role": "kernel",
    "scipy_sites": 0,
@@ -9344,6 +10498,7 @@
    "tests": [
     "tests/findings/test_F307_action_consistent_d1.py",
     "tests/findings/test_F337_l6_decision.py",
+    "tests/findings/test_F382_vertex_domain_periodicity.py",
     "tests/runners/run_l6_native_sweep.py",
     "tests/runners/run_ws_mask_smoothed_sweep.py"
    ]
@@ -9828,10 +10983,7 @@
    "path": "src/casim/engine/gauge/lpt_ws_mask_cutcell.py",
    "reach": "test-only",
    "reachable_from": [],
-   "results": [
-    "test-results/F350_smoothed_dloops_sweep.json",
-    "test-results/F350_ws_mask_isolation.json"
-   ],
+   "results": [],
    "role": "kernel",
    "scipy_sites": 0,
    "static_imports": [
@@ -9856,6 +11008,8 @@
     "su3_adjoint_transform_potential",
     "su3_global_transform",
     "su3_rotate_weyl_step_3d_bcc",
+    "u1_link_norm_drift",
+    "u1_link_weyl_step_3d_bcc",
     "u1_wrap_dirac_step_3d_bcc",
     "u1_wrap_weyl_step_3d_bcc"
    ],
@@ -9870,39 +11024,57 @@
    ],
    "has_main": false,
    "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
     "src/casim/engine/gauge/__init__.py": "static",
     "src/casim/engine/gauge/gluon.py": "static",
     "src/casim/engine/gauge/strong.py": "static",
+    "src/casim/engine/gauge/weak_wmu.py": "static",
     "src/casim/engine/lattice/bcc.py": "static",
-    "src/casim/engine/particles/dirac_bcc.py": "static"
+    "src/casim/engine/lattice/geometry.py": "static",
+    "src/casim/engine/particles/dirac_bcc.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
     "src/casim/particles/channel.py",
     "tests/casim/test_particle_layer.py"
    ],
    "imports": [
+    "src/casim/constants/__init__.py",
     "src/casim/engine/gauge/__init__.py",
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/strong.py",
+    "src/casim/engine/gauge/weak_wmu.py",
     "src/casim/engine/lattice/bcc.py",
-    "src/casim/engine/particles/dirac_bcc.py"
+    "src/casim/engine/lattice/geometry.py",
+    "src/casim/engine/particles/dirac_bcc.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.gauge.minimal_coupling",
-   "lines": 134,
-   "np_sites": 18,
+   "lines": 243,
+   "np_sites": 28,
    "package_reachable": true,
    "path": "src/casim/engine/gauge/minimal_coupling.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "results": [],
    "role": "kernel",
@@ -9910,14 +11082,24 @@
    "static_imports": [
     "__future__",
     "__future__.annotations",
+    "casim.constants",
+    "casim.constants.c_lat",
     "casim.engine.gauge",
     "casim.engine.gauge.gluon",
     "casim.engine.gauge.gluon._su3_expmap_field",
     "casim.engine.gauge.strong",
+    "casim.engine.gauge.weak_wmu",
+    "casim.engine.gauge.weak_wmu.BCC_DIRS",
+    "casim.engine.gauge.weak_wmu._SPINOR_MATS",
     "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_fractional_shift",
     "casim.engine.lattice.bcc.weyl_step_3d_bcc",
+    "casim.engine.lattice.geometry",
+    "casim.engine.lattice.geometry.make_kgrid_3d",
     "casim.engine.particles.dirac_bcc",
     "casim.engine.particles.dirac_bcc.dirac_step_3d_bcc_splitstep",
+    "casim.numerics",
+    "casim.numerics.fft",
     "numpy"
    ],
    "test_referenced": true,
@@ -9932,9 +11114,11 @@
     "_M_weyl",
     "_dielectric_half",
     "_even_rotate",
+    "_field_momentum_k",
     "_pair_omega",
     "build_beam_packet",
     "build_pair_mode",
+    "check_beam_polarization_fix",
     "group_velocity",
     "group_velocity_at",
     "n",
@@ -9964,6 +11148,10 @@
     "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/photon_fermion_push.py",
+    "src/casim/engine/gauge/a_field_convention.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/engine/gauge/photon_packet.py",
     "src/casim/engine/interactions/qed_casimir.py",
     "src/casim/engine/interactions/qed_uv_completion.py",
@@ -9975,6 +11163,7 @@
     "tests/casim/test_total_energy_and_gravity_loop.py",
     "tests/findings/test_F129_blockspin_free_photon.py",
     "tests/findings/test_F249_qed_comparison_battery.py",
+    "tests/findings/test_F392_beam_polarization_null_fix.py",
     "tests/findings/test_F69_paired_photon.py",
     "tests/findings/test_F72_universal_even_propagator.py",
     "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
@@ -9991,19 +11180,24 @@
     "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.gauge.photon",
-   "lines": 399,
-   "np_sites": 38,
+   "lines": 553,
+   "np_sites": 56,
    "package_reachable": true,
    "path": "src/casim/engine/gauge/photon.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -10015,6 +11209,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -10022,6 +11217,7 @@
     "test-results/F129_blockspin_free_photon.json",
     "test-results/F129_blockspin_free_photon_summary.md",
     "test-results/F249_qed_comparison_battery.json",
+    "test-results/F392_beam_polarization_null_fix.json",
     "test-results/F69_paired_photon.json",
     "test-results/F72_universal_even_propagator.json",
     "test-results/F91_pairing_classification.json",
@@ -10049,6 +11245,7 @@
     "tests/casim/test_total_energy_and_gravity_loop.py",
     "tests/findings/test_F129_blockspin_free_photon.py",
     "tests/findings/test_F249_qed_comparison_battery.py",
+    "tests/findings/test_F392_beam_polarization_null_fix.py",
     "tests/findings/test_F69_paired_photon.py",
     "tests/findings/test_F72_universal_even_propagator.py",
     "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
@@ -10069,6 +11266,8 @@
     "omega_even",
     "realspace_rms_radius",
     "relative_dispersion",
+    "threshold_closed_form",
+    "threshold_offset_closed_form",
     "threshold_wavefunction",
     "true_threshold"
    ],
@@ -10079,6 +11278,7 @@
    "findings": [
     "F168",
     "F169",
+    "F397",
     "F69",
     "F74"
    ],
@@ -10089,7 +11289,10 @@
     "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
-    "tests/findings/test_F169_photon_bound_state.py"
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py",
+    "src/casim/engine/gauge/photon_pryce_commutator.py",
+    "tests/findings/test_F169_photon_bound_state.py",
+    "tests/findings/test_F401_photon_bound_state_finite_k.py"
    ],
    "imports": [
     "src/casim/engine/lattice/bcc.py",
@@ -10097,14 +11300,15 @@
     "src/casim/numerics/fft.py"
    ],
    "key": "casim.engine.gauge.photon_bound_state",
-   "lines": 166,
-   "np_sites": 25,
+   "lines": 259,
+   "np_sites": 28,
    "package_reachable": false,
    "path": "src/casim/engine/gauge/photon_bound_state.py",
    "reach": "test-only",
    "reachable_from": [],
    "results": [
-    "test-results/F169_photon_bound_state.json"
+    "test-results/F169_photon_bound_state.json",
+    "test-results/F401_photon_bound_state_finite_k.json"
    ],
    "role": "kernel",
    "scipy_sites": 1,
@@ -10117,7 +11321,81 @@
    ],
    "test_referenced": true,
    "tests": [
-    "tests/findings/test_F169_photon_bound_state.py"
+    "tests/findings/test_F169_photon_bound_state.py",
+    "tests/findings/test_F401_photon_bound_state_finite_k.py"
+   ]
+  },
+  "src/casim/engine/gauge/photon_bound_state_finite_k.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "axis_dispersion_isotropic_cone_exact",
+    "dense_l_scan_comparison",
+    "gc_k_sweep_111",
+    "gc_k_sweep_direction",
+    "in_plane_offset_is_not_exactly_zero",
+    "is_monotonic",
+    "l_convergence",
+    "report"
+   ],
+   "doc": "photon_bound_state_finite_k.py \u2014 repairing the finite-k grid-threshold",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F168",
+    "F169",
+    "F250",
+    "F401"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/photon_bound_state.py": "static",
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/dimensionality.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F401_photon_bound_state_finite_k.py"
+   ],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/photon_bound_state.py",
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/dimensionality.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.gauge.photon_bound_state_finite_k",
+   "lines": 349,
+   "np_sites": 6,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/photon_bound_state_finite_k.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F401_photon_bound_state_finite_k.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge",
+    "casim.engine.gauge.photon_bound_state",
+    "casim.engine.lattice",
+    "casim.engine.lattice.dimensionality",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "sympy",
+    "typing",
+    "typing.Dict",
+    "typing.List"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F401_photon_bound_state_finite_k.py"
    ]
   },
   "src/casim/engine/gauge/photon_packet.py": {
@@ -10219,6 +11497,67 @@
    "tests": [
     "tests/findings/test_F314_photon_packet_propagation.py"
    ]
+  },
+  "src/casim/engine/gauge/photon_pryce_commutator.py": {
+   "channel_types": [],
+   "defines": [
+    "ZERO_K",
+    "_apply_a_dagger_fock",
+    "_apply_creation",
+    "_neg_index_map",
+    "_norm2",
+    "_results_dir",
+    "bulk_normalization_ratio",
+    "bulk_robust_min",
+    "check_pryce_composite_commutator",
+    "deficit_at",
+    "deficit_closed_form",
+    "deficit_robust_min",
+    "fock_two_photon_norm",
+    "out",
+    "result",
+    "two_photon_norm_closed_form"
+   ],
+   "doc": "F398 -- Pryce's 1938 composite-boson objection, tested against the F69/F169 paired photon.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F169",
+    "F398",
+    "F69"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/photon_bound_state.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/photon_bound_state.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.gauge.photon_pryce_commutator",
+   "lines": 326,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/gauge/photon_pryce_commutator.py",
+   "reach": "unreferenced",
+   "reachable_from": [],
+   "results": [],
+   "role": "kernel",
+   "scipy_sites": 1,
+   "static_imports": [
+    "casim.engine.gauge.photon_bound_state",
+    "casim.engine.gauge.photon_bound_state.relative_dispersion",
+    "casim.engine.gauge.photon_bound_state.threshold_wavefunction",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "os"
+   ],
+   "test_referenced": false,
+   "tests": []
   },
   "src/casim/engine/gauge/propagator.py": {
    "channel_types": [],
@@ -10538,9 +11877,14 @@
    "path": "src/casim/engine/gauge/strong.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -10553,6 +11897,7 @@
     "refraction_2d",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -10692,10 +12037,25 @@
    "path": "src/casim/engine/gauge/weak.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -10798,16 +12158,19 @@
    "imported_by": [
     "src/casim/engine/core/blockspin.py",
     "src/casim/engine/core/coupled.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
     "src/casim/engine/gauge/charged_current.py",
     "src/casim/engine/gauge/colour_dielectric.py",
     "src/casim/engine/gauge/derive_bilinear_so3.py",
     "src/casim/engine/gauge/derive_su3_structure.py",
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/gluon_self_energy.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
     "src/casim/engine/gauge/photon.py",
     "src/casim/engine/gauge/weak_z.py",
     "src/casim/engine/interactions/running_alpha_s.py",
     "src/casim/engine/lattice/blockspin.py",
+    "src/casim/engine/particles/discrete_cpt_gauged.py",
     "src/casim/fields/electroweak.py",
     "src/casim/numerics/benchmark.py",
     "src/casim/particles/channel.py",
@@ -10861,11 +12224,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -11028,10 +12393,25 @@
    "path": "src/casim/engine/gauge/weak_z.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -11080,6 +12460,7 @@
     "src/casim/engine/core/entanglement_register.py",
     "src/casim/engine/core/spectral_matter.py",
     "src/casim/engine/forks/gravity/gr_fork_F228_geon_production_stability.py",
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
     "src/casim/engine/gauge/rotation.py",
     "src/casim/engine/interactions/cosmology_growth.py",
     "src/casim/engine/interactions/cosmology_transfer_function.py",
@@ -11098,6 +12479,7 @@
     "src/casim/engine/interactions/running_scheme_constant.py",
     "src/casim/engine/interactions/thermodynamics_gstar.py",
     "src/casim/engine/lattice/blockspin.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
     "src/casim/engine/particles/eg_sextic.py",
     "src/casim/engine/particles/hyperfine.py",
     "src/casim/engine/particles/positronium.py",
@@ -11185,6 +12567,9 @@
     "tests/findings/test_F374_eliashberg_cutoff_reconciliation.py",
     "tests/findings/test_F375_nb_realistic_dos.py",
     "tests/findings/test_F376_interacting_sector_eth_onset.py",
+    "tests/findings/test_F379_so3_kinematic_gap.py",
+    "tests/findings/test_F380_cluster_asymptotic_series.py",
+    "tests/findings/test_F383_four_derivative_locality.py",
     "tests/findings/test_emergent_time_T1.py",
     "tests/findings/test_emergent_time_T5.py",
     "tests/runners/run_F261_twoloop_qed.py",
@@ -11207,11 +12592,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -11350,6 +12737,7 @@
     "src/casim/engine/forks/gravity/gr_fork_F228_geon_production_stability.py",
     "src/casim/engine/interactions/cosmology_lambda_sequestering.py",
     "src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py",
+    "src/casim/engine/interactions/cosmology_lambda_sign_split.py",
     "tests/findings/test_F182_friedmann_pressure.py",
     "tests/findings/test_F188_lcdm.py"
    ],
@@ -12440,6 +13828,92 @@
    "test_referenced": false,
    "tests": []
   },
+  "src/casim/engine/interactions/cosmology_lambda_sign_split.py": {
+   "channel_types": [],
+   "defines": [
+    "_GENERATIONS",
+    "_WEYL_PER_GENERATION",
+    "__all__",
+    "capacity_tension",
+    "ceiling_domain",
+    "heat_kernel_signs",
+    "model_weyl_content",
+    "path",
+    "r",
+    "route_halves",
+    "run",
+    "sequestering_sign_blind"
+   ],
+   "doc": "cosmology_lambda_sign_split.py -- the a0/a1 SIGN SPLIT of the model's one",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F164",
+    "F183",
+    "F190",
+    "F193",
+    "F196",
+    "F241",
+    "F332",
+    "F367",
+    "F408",
+    "F59",
+    "F61",
+    "F67",
+    "F69",
+    "F79",
+    "F86"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/interactions/cosmology.py": "static",
+    "src/casim/engine/interactions/qed_uv_completion.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/interactions/cosmology.py",
+    "src/casim/engine/interactions/qed_uv_completion.py",
+    "src/casim/engine/particles/_results_path.py"
+   ],
+   "key": "casim.engine.interactions.cosmology_lambda_sign_split",
+   "lines": 406,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/interactions/cosmology_lambda_sign_split.py",
+   "reach": "unreferenced",
+   "reachable_from": [],
+   "results": [],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.G_CODATA",
+    "casim.constants.a_over_ellP",
+    "casim.constants.c_SI",
+    "casim.constants.ell_P_m",
+    "casim.constants.hbar_SI",
+    "casim.engine.interactions.cosmology",
+    "casim.engine.interactions.cosmology.H0_KM_S_MPC",
+    "casim.engine.interactions.cosmology.MPC_KM",
+    "casim.engine.interactions.qed_uv_completion",
+    "casim.engine.interactions.qed_uv_completion.sakharov_moments",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "fractions",
+    "fractions.Fraction",
+    "json",
+    "math",
+    "sympy"
+   ],
+   "test_referenced": false,
+   "tests": []
+  },
   "src/casim/engine/interactions/cosmology_lattice_elasticity.py": {
    "channel_types": [],
    "defines": [
@@ -13477,11 +14951,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -13561,9 +15037,14 @@
    "path": "src/casim/engine/interactions/gravity_backreaction.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -13574,6 +15055,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -13871,11 +15353,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -14011,6 +15495,82 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F345_field_equation_uniqueness.py"
+   ]
+  },
+  "src/casim/engine/interactions/gravity_four_derivative_locality.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "_m2_variants",
+    "check_locality_does_not_forbid",
+    "leg_L_conclusion",
+    "leg_M1_pi2_regression",
+    "leg_M2_pi4_robust_nonzero",
+    "leg_M2b_pi4_sign_survives_q6",
+    "leg_M3_pi4_grid_convergence",
+    "leg_M4_pi4_cutoff_scaling",
+    "leg_M5_pi4_direction_spread",
+    "out",
+    "polarization_taylor_fit",
+    "res",
+    "run_all",
+    "static_polarization"
+   ],
+   "doc": "gravity_four_derivative_locality.py -- does lattice locality FORBID the",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F26",
+    "F319",
+    "F345",
+    "F383",
+    "F55",
+    "F56",
+    "F57"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F383_four_derivative_locality.py"
+   ],
+   "imports": [
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.interactions.gravity_four_derivative_locality",
+   "lines": 453,
+   "np_sites": 35,
+   "package_reachable": false,
+   "path": "src/casim/engine/interactions/gravity_four_derivative_locality.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F383_four_derivative_locality.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.lattice",
+    "casim.engine.lattice.bcc",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F383_four_derivative_locality.py"
    ]
   },
   "src/casim/engine/interactions/horizon_entanglement.py": {
@@ -15293,7 +16853,8 @@
    },
    "imported_by": [
     "src/casim/engine/interactions/cosmology_lambda_dynamics.py",
-    "src/casim/engine/interactions/cosmology_lambda_sequestering.py"
+    "src/casim/engine/interactions/cosmology_lambda_sequestering.py",
+    "src/casim/engine/interactions/cosmology_lambda_sign_split.py"
    ],
    "imports": [
     "src/casim/constants/__init__.py",
@@ -15678,6 +17239,7 @@
     "src/casim/numerics/__init__.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
     "tests/findings/test_F330_belt_trick_reduction.py"
    ],
    "imports": [
@@ -16018,6 +17580,80 @@
     "tests/findings/test_F290_cluster.py"
    ]
   },
+  "src/casim/engine/interactions/qi_cluster_asymptotic_series.py": {
+   "channel_types": [],
+   "defines": [
+    "THEORY_POWER",
+    "_SCAN_MASSES",
+    "_STEP_PHYS",
+    "_ols_bias_weight",
+    "check_named_residual_K",
+    "effective_power",
+    "out",
+    "res",
+    "scan_p_eff"
+   ],
+   "doc": "qi_cluster_asymptotic_series.py \u2014 F380: naming F331's residual as ONE object",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F290",
+    "F331",
+    "F380"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/interactions/qi_cluster_interacting_3d.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F380_cluster_asymptotic_series.py"
+   ],
+   "imports": [
+    "src/casim/engine/interactions/qi_cluster_interacting_3d.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.interactions.qi_cluster_asymptotic_series",
+   "lines": 270,
+   "np_sites": 6,
+   "package_reachable": false,
+   "path": "src/casim/engine/interactions/qi_cluster_asymptotic_series.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F380_cluster_asymptotic_series.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.interactions.qi_cluster_interacting_3d",
+    "casim.engine.interactions.qi_cluster_interacting_3d.ROOT3",
+    "casim.engine.interactions.qi_cluster_interacting_3d.axis100_kappa_exact",
+    "casim.engine.interactions.qi_cluster_interacting_3d.axis100_measured_kappa",
+    "casim.engine.interactions.qi_cluster_interacting_3d.axis110_kappa_exact",
+    "casim.engine.interactions.qi_cluster_interacting_3d.solve_gap_equation",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "math",
+    "os",
+    "typing",
+    "typing.Any",
+    "typing.Dict",
+    "typing.List"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F380_cluster_asymptotic_series.py"
+   ]
+  },
   "src/casim/engine/interactions/qi_cluster_interacting_3d.py": {
    "channel_types": [],
    "defines": [
@@ -16060,6 +17696,7 @@
     "src/casim/numerics/rng.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/interactions/qi_cluster_asymptotic_series.py",
     "tests/findings/test_F331_cluster_interacting_3d.py"
    ],
    "imports": [
@@ -16260,6 +17897,7 @@
     "src/casim/engine/interactions/qi_decoherence_floor.py",
     "src/casim/engine/interactions/qi_measurement.py",
     "src/casim/engine/interactions/qi_noise.py",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
     "src/casim/engine/interactions/qi_spin_statistics.py",
     "src/casim/engine/particles/second_quant.py",
     "src/casim/fields/entanglement.py",
@@ -16684,6 +18322,95 @@
     "tests/findings/test_F225_doublon_leakage_spinqubit.py"
    ]
   },
+  "src/casim/engine/interactions/qi_so3_kinematic_gap.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "_dot_sigma",
+    "_fibonacci_axes",
+    "_generic_angles",
+    "check_so3_kinematic_gap",
+    "idealized_weyl_continuous_covariance",
+    "out",
+    "res",
+    "rodrigues",
+    "shipped_walk_continuous_covariance_decades",
+    "summary",
+    "uncorrelated_rotor_control"
+   ],
+   "doc": "qi_so3_kinematic_gap.py \u2014 the model's emergent CONTINUOUS SO(3) is the wrong",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F129",
+    "F130",
+    "F26",
+    "F289",
+    "F291",
+    "F330",
+    "F344"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/interactions/qi_entanglement.py": "static",
+    "src/casim/engine/interactions/qi_spin_statistics.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F379_so3_kinematic_gap.py"
+   ],
+   "imports": [
+    "src/casim/engine/interactions/qi_entanglement.py",
+    "src/casim/engine/interactions/qi_spin_statistics.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.interactions.qi_so3_kinematic_gap",
+   "lines": 385,
+   "np_sites": 19,
+   "package_reachable": false,
+   "path": "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F379_so3_kinematic_gap.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.interactions.qi_entanglement",
+    "casim.engine.interactions.qi_entanglement.SX",
+    "casim.engine.interactions.qi_entanglement.SY",
+    "casim.engine.interactions.qi_entanglement.SZ",
+    "casim.engine.interactions.qi_entanglement.su2_rotor",
+    "casim.engine.interactions.qi_spin_statistics",
+    "casim.engine.interactions.qi_spin_statistics._rotor_for_physical_angle",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc._bcc_uvec",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "math",
+    "os",
+    "typing",
+    "typing.Any",
+    "typing.Dict",
+    "typing.List",
+    "typing.Tuple"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F379_so3_kinematic_gap.py"
+   ]
+  },
   "src/casim/engine/interactions/qi_spin_statistics.py": {
    "channel_types": [],
    "defines": [
@@ -16725,7 +18452,9 @@
     "src/casim/numerics/__init__.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
     "src/casim/engine/interactions/qi_belt_trick.py",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
     "tests/findings/test_F289_spin_statistics.py"
    ],
    "imports": [
@@ -17096,6 +18825,7 @@
    "imported_by": [
     "src/casim/engine/interactions/running_ir_coupling.py",
     "src/casim/engine/interactions/running_scheme_constant.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
     "tests/findings/test_F144_route_a_alpha_s.py",
     "tests/findings/test_F233_mass_scale_N_transmutation.py"
    ],
@@ -18389,15 +20119,21 @@
     "src/casim/engine/forks/particles/complex_mass_fork.py",
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/bilinear_2d.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/gluon_self_energy.py",
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py",
     "src/casim/engine/interactions/cosmology_blockspin_fluctuation.py",
+    "src/casim/engine/interactions/gravity_four_derivative_locality.py",
     "src/casim/engine/interactions/qed_electron_self_energy.py",
     "src/casim/engine/interactions/qed_vacuum_polarization.py",
+    "src/casim/engine/lattice/coordination_selector.py",
     "src/casim/engine/lattice/wavepacket.py",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
     "src/casim/engine/particles/dirac.py",
     "src/casim/engine/particles/dirac_bcc.py",
     "src/casim/engine/particles/discrete_cpt.py",
+    "src/casim/engine/particles/discrete_cpt_gauged.py",
     "src/casim/engine/particles/induced_stiffness.py",
     "src/casim/gravity/__init__.py",
     "src/casim/lattice/__init__.py",
@@ -18422,6 +20158,8 @@
     "tests/findings/test_F313_time_signature.py",
     "tests/findings/test_F318_cell_internal_index.py",
     "tests/findings/test_F344_bcc_walk_point_symmetry.py",
+    "tests/findings/test_F400_coordination_selector.py",
+    "tests/findings/test_F401_photon_bound_state_finite_k.py",
     "tests/findings/test_F46_pythagorean_mass.py",
     "tests/findings/test_F49_bcc_weinberg_2over9.py",
     "tests/findings/test_F50_gravity_fork_dirac.py",
@@ -18469,11 +20207,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -18534,6 +20274,7 @@
    "imported_by": [
     "src/casim/engine/core/blockspin.py",
     "src/casim/engine/forks/gauge/curl_fork_baseline_bcc.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
     "src/casim/engine/forks/gravity/gr_fork_F56_einstein_coupling_derivation.py",
     "src/casim/engine/forks/gravity/gr_fork_F57_induced_eh_from_backreaction.py",
     "src/casim/engine/forks/gravity/gr_fork_F58_clockrate_coupling_derivation.py",
@@ -18542,6 +20283,9 @@
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/charge_coupling.py",
     "src/casim/engine/gauge/colour_theta.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/factorization.py",
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/gluon_self_energy.py",
     "src/casim/engine/gauge/minimal_coupling.py",
@@ -18551,19 +20295,25 @@
     "src/casim/engine/gauge/weak_wmu.py",
     "src/casim/engine/gauge/weak_z.py",
     "src/casim/engine/interactions/cosmology_lambda_dynamics.py",
+    "src/casim/engine/interactions/gravity_four_derivative_locality.py",
     "src/casim/engine/interactions/qed_electron_self_energy.py",
     "src/casim/engine/interactions/qed_uv_completion.py",
     "src/casim/engine/interactions/qed_vacuum_polarization.py",
     "src/casim/engine/interactions/qi_born_gleason.py",
     "src/casim/engine/interactions/qi_measurement.py",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
     "src/casim/engine/interactions/thermodynamics.py",
     "src/casim/engine/interactions/thermodynamics_gstar.py",
     "src/casim/engine/lattice/bcc_point_symmetry.py",
     "src/casim/engine/lattice/blockspin.py",
     "src/casim/engine/lattice/derive_walk_bz_measure.py",
+    "src/casim/engine/lattice/time_generator_axiom_independence.py",
     "src/casim/engine/lattice/wavepacket.py",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py",
     "src/casim/engine/particles/dirac_bcc.py",
     "src/casim/engine/particles/discrete_cpt.py",
+    "src/casim/engine/particles/discrete_cpt_gauged.py",
     "src/casim/engine/particles/eg_sextic.py",
     "src/casim/engine/particles/induced_stiffness.py",
     "src/casim/lattice/__init__.py",
@@ -18585,9 +20335,11 @@
     "tests/findings/test_F134_phase4_completion.py",
     "tests/findings/test_F167_restmass_from_rule.py",
     "tests/findings/test_F168_paired_photon_binding.py",
+    "tests/findings/test_F169_photon_bound_state.py",
     "tests/findings/test_F249_qed_comparison_battery.py",
     "tests/findings/test_F250_allk_gauge_pole.py",
     "tests/findings/test_F291_dimension_selectors.py",
+    "tests/findings/test_F377_time_generator_axiom_independence.py",
     "tests/findings/test_F37_delta_omega.py",
     "tests/findings/test_F46_pythagorean_mass.py",
     "tests/findings/test_F49_bcc_weinberg_2over9.py",
@@ -18635,11 +20387,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -18670,6 +20424,7 @@
     "test-results/F127_alpha_em_derivation.json",
     "test-results/F167_restmass_from_rule.json",
     "test-results/F168_paired_photon_binding.json",
+    "test-results/F169_photon_bound_state.json",
     "test-results/F249_qed_comparison_battery.json",
     "test-results/F250_allk_gauge_pole.json",
     "test-results/F291_dimension_selectors.json",
@@ -18724,9 +20479,11 @@
     "tests/findings/test_F134_phase4_completion.py",
     "tests/findings/test_F167_restmass_from_rule.py",
     "tests/findings/test_F168_paired_photon_binding.py",
+    "tests/findings/test_F169_photon_bound_state.py",
     "tests/findings/test_F249_qed_comparison_battery.py",
     "tests/findings/test_F250_allk_gauge_pole.py",
     "tests/findings/test_F291_dimension_selectors.py",
+    "tests/findings/test_F377_time_generator_axiom_independence.py",
     "tests/findings/test_F37_delta_omega.py",
     "tests/findings/test_F46_pythagorean_mass.py",
     "tests/findings/test_F49_bcc_weinberg_2over9.py",
@@ -19253,6 +21010,77 @@
     "tests/findings/test_F318_cell_internal_index.py"
    ]
   },
+  "src/casim/engine/lattice/coordination_selector.py": {
+   "channel_types": [],
+   "defines": [
+    "Vec",
+    "__all__",
+    "bcc_coordination_shell",
+    "bcc_tetrahedron_equals_diamond_bonds",
+    "diamond_basis_orbit_under_shift",
+    "diamond_bond_vectors",
+    "diamond_is_bravais",
+    "fcc_primitive_vectors",
+    "gram_matrix",
+    "is_regular_simplex_gram",
+    "report",
+    "selector_signature_has_no_lattice_argument",
+    "split_into_dual_tetrahedra",
+    "vector_in_fcc_lattice"
+   ],
+   "doc": "coordination_selector.py \u2014 why BCC and not diamond-cubic (F400)",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F291",
+    "F292",
+    "F400"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/dimensionality.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F400_coordination_selector.py"
+   ],
+   "imports": [
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/dimensionality.py"
+   ],
+   "key": "casim.engine.lattice.coordination_selector",
+   "lines": 335,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/lattice/coordination_selector.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F400_coordination_selector.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.lattice",
+    "casim.engine.lattice.dimensionality",
+    "inspect",
+    "itertools",
+    "itertools.product",
+    "json",
+    "sympy",
+    "typing",
+    "typing.Dict",
+    "typing.List",
+    "typing.Tuple"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F400_coordination_selector.py"
+   ]
+  },
   "src/casim/engine/lattice/core.py": {
    "channel_types": [],
    "defines": [
@@ -19321,11 +21149,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -19434,13 +21264,18 @@
    "path": "src/casim/engine/lattice/core_exact.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -19454,6 +21289,7 @@
     "refraction_2d",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -19546,11 +21382,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -19726,8 +21564,12 @@
     "src/casim/constants/__init__.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py",
+    "src/casim/engine/lattice/coordination_selector.py",
     "tests/findings/test_F291_dimension_selectors.py",
-    "tests/findings/test_F292_higher_multiples.py"
+    "tests/findings/test_F292_higher_multiples.py",
+    "tests/findings/test_F400_coordination_selector.py",
+    "tests/findings/test_F401_photon_bound_state_finite_k.py"
    ],
    "imports": [
     "src/casim/constants/__init__.py"
@@ -19741,7 +21583,9 @@
    "reachable_from": [],
    "results": [
     "test-results/F291_dimension_selectors.json",
-    "test-results/F292_higher_multiples.json"
+    "test-results/F292_higher_multiples.json",
+    "test-results/F400_coordination_selector.json",
+    "test-results/F401_photon_bound_state_finite_k.json"
    ],
    "role": "kernel",
    "scipy_sites": 0,
@@ -19759,7 +21603,9 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F291_dimension_selectors.py",
-    "tests/findings/test_F292_higher_multiples.py"
+    "tests/findings/test_F292_higher_multiples.py",
+    "tests/findings/test_F400_coordination_selector.py",
+    "tests/findings/test_F401_photon_bound_state_finite_k.py"
    ]
   },
   "src/casim/engine/lattice/geometry.py": {
@@ -19801,11 +21647,18 @@
    "imported_by": [
     "src/casim/engine/core/blockspin.py",
     "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/observers.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
+    "src/casim/engine/gauge/a_field_convention.py",
     "src/casim/engine/gauge/bcc_action.py",
     "src/casim/engine/gauge/charge_coupling.py",
     "src/casim/engine/gauge/colour_theta.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
     "src/casim/engine/gauge/derive_coupling_normalisation.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/engine/gauge/lpt_bcc_vertex.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
     "src/casim/engine/gauge/photon.py",
     "src/casim/engine/gauge/photon_packet.py",
     "src/casim/engine/gauge/propagator.py",
@@ -19856,11 +21709,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -20152,11 +22007,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -20284,6 +22141,72 @@
    "tests": [
     "tests/findings/test_P6_si_scale.py"
    ]
+  },
+  "src/casim/engine/lattice/time_generator_axiom_independence.py": {
+   "channel_types": [],
+   "defines": [
+    "__all__",
+    "_gaussian_wavepacket",
+    "_matrix",
+    "_moments",
+    "ballistic_exponent",
+    "check_all",
+    "check_falsification_attempt",
+    "check_regroup",
+    "result",
+    "sturmian_word"
+   ],
+   "doc": "time_generator_axiom_independence.py \u2014 P1 is independent of the five BDPT",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F26",
+    "F27",
+    "F291",
+    "F292",
+    "F313",
+    "F326",
+    "F377"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.lattice.time_generator_axiom_independence",
+   "lines": 323,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/lattice/time_generator_axiom_independence.py",
+   "reach": "unreferenced",
+   "reachable_from": [],
+   "results": [],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_dispersion",
+    "casim.engine.lattice.bcc.bcc_unitary",
+    "casim.engine.lattice.bcc.weyl_step_3d_bcc",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "dataclasses",
+    "json",
+    "typing",
+    "typing.Dict",
+    "typing.List",
+    "typing.Tuple"
+   ],
+   "test_referenced": false,
+   "tests": []
   },
   "src/casim/engine/lattice/time_signature.py": {
    "channel_types": [],
@@ -20646,7 +22569,9 @@
     "src/casim/engine/lattice/blockspin_dynamical.py",
     "src/casim/engine/lattice/si_scale.py",
     "src/casim/engine/lattice/wavepacket.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
     "src/casim/engine/particles/derive_delta_cp_t2g.py",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
     "src/casim/engine/particles/derive_t2g_pmns.py",
     "src/casim/engine/particles/element.py",
     "src/casim/engine/particles/positronium.py",
@@ -20679,6 +22604,10 @@
     "tests/findings/test_F352_higgs_bhl_compositeness.py",
     "tests/findings/test_F353_delta_cp_t2g_inheritance.py",
     "tests/findings/test_F373_quark_size_from_confinement_radius.py",
+    "tests/findings/test_F402_baryon_mass_decomposition.py",
+    "tests/findings/test_F403_oh_residual_pmns.py",
+    "tests/findings/test_F405_quark_B_colour_charge.py",
+    "tests/findings/test_F406_lepton_frame_fork.py",
     "tests/findings/test_F46_pythagorean_mass.py",
     "tests/findings/test_FA06_np_splitting.py",
     "tests/findings/test_FB04_hydrogen_rydberg.py",
@@ -20724,13 +22653,18 @@
    "package_reachable": true,
    "path": "src/casim/engine/particles/__init__.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -20747,6 +22681,7 @@
     "string_tension",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -20775,6 +22710,8 @@
    "import_evidence": {},
    "imported_by": [
     "src/casim/engine/forks/particles/derive_weight_as_phase.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/casimir_ladder.py",
     "src/casim/engine/gauge/casimir_scaling.py",
@@ -20794,6 +22731,7 @@
     "src/casim/engine/interactions/cosmology_lambda_dynamics.py",
     "src/casim/engine/interactions/cosmology_lambda_sequestering.py",
     "src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py",
+    "src/casim/engine/interactions/cosmology_lambda_sign_split.py",
     "src/casim/engine/interactions/cosmology_lattice_elasticity.py",
     "src/casim/engine/interactions/cosmology_primordial.py",
     "src/casim/engine/interactions/cosmology_second_scale.py",
@@ -20805,13 +22743,16 @@
     "src/casim/engine/interactions/gravity_band_cutoff.py",
     "src/casim/engine/interactions/gravity_core_completeness.py",
     "src/casim/engine/interactions/gravity_field_equation_uniqueness.py",
+    "src/casim/engine/interactions/gravity_four_derivative_locality.py",
     "src/casim/engine/interactions/qed_twoloop_vacuum_polarization_nonlog.py",
     "src/casim/engine/interactions/qi_belt_trick.py",
     "src/casim/engine/interactions/qi_born_gleason.py",
     "src/casim/engine/interactions/qi_born_nonabelian.py",
     "src/casim/engine/interactions/qi_cluster.py",
+    "src/casim/engine/interactions/qi_cluster_asymptotic_series.py",
     "src/casim/engine/interactions/qi_cluster_interacting_3d.py",
     "src/casim/engine/interactions/qi_measurement.py",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
     "src/casim/engine/interactions/qi_spin_statistics.py",
     "src/casim/engine/interactions/run_q3_omega_degeneracy.py",
     "src/casim/engine/interactions/running_alpha_lattice_bound.py",
@@ -20825,9 +22766,12 @@
     "src/casim/engine/particles/derive_higgs_bhl_compositeness.py",
     "src/casim/engine/particles/derive_lambda6_sextic.py",
     "src/casim/engine/particles/derive_lepton_shape_precision_floor.py",
+    "src/casim/engine/particles/derive_oh_residual_pmns.py",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py",
     "src/casim/engine/particles/derive_quark_mixed_koide_probe.py",
     "src/casim/engine/particles/derive_quark_shape_probe.py",
     "src/casim/engine/particles/discrete_cpt.py",
+    "src/casim/engine/particles/discrete_cpt_gauged.py",
     "tests/findings/test_F267_walk_bz_measure.py",
     "tests/findings/test_F304_born_gleason.py",
     "tests/findings/test_F310_critical_measure.py",
@@ -20838,7 +22782,10 @@
     "tests/runners/run_f292_higher_multiples.py",
     "tests/runners/run_f313_time_signature.py",
     "tests/runners/run_f315_v_interaction.py",
-    "tests/runners/run_f316_laurent_pell.py"
+    "tests/runners/run_f316_laurent_pell.py",
+    "tests/runners/run_f400_coordination_selector.py",
+    "tests/runners/run_f401_photon_bound_state_finite_k.py",
+    "tests/runners/run_f402_baryon_mass_decomposition.py"
    ],
    "imports": [],
    "key": "casim.engine.particles._results_path",
@@ -20874,7 +22821,10 @@
     "tests/runners/run_f292_higher_multiples.py",
     "tests/runners/run_f313_time_signature.py",
     "tests/runners/run_f315_v_interaction.py",
-    "tests/runners/run_f316_laurent_pell.py"
+    "tests/runners/run_f316_laurent_pell.py",
+    "tests/runners/run_f400_coordination_selector.py",
+    "tests/runners/run_f401_photon_bound_state_finite_k.py",
+    "tests/runners/run_f402_baryon_mass_decomposition.py"
    ]
   },
   "src/casim/engine/particles/atom.py": {
@@ -21104,6 +23054,7 @@
     "src/casim/engine/lattice/blockspin_baryon.py",
     "src/casim/engine/lattice/blockspin_dynamical.py",
     "src/casim/engine/lattice/si_scale.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
     "src/casim/engine/particles/element.py",
     "tests/findings/test_F140_coarse_grained_baryon.py",
     "tests/findings/test_F373_quark_size_from_confinement_radius.py",
@@ -21147,6 +23098,103 @@
     "tests/findings/test_F373_quark_size_from_confinement_radius.py",
     "tests/findings/test_FA06_np_splitting.py",
     "tests/findings/test_P2_baryon_bound_state.py"
+   ]
+  },
+  "src/casim/engine/particles/baryon_mass_decomposition.py": {
+   "channel_types": [],
+   "defines": [
+    "F122_BASELINE",
+    "HALF_RULE",
+    "__all__",
+    "_cornell_matrices",
+    "_pull",
+    "alpha_s_model",
+    "cornell_expectations",
+    "cornell_fh_residuals",
+    "cornell_quartet",
+    "dglap_asymptote",
+    "evolution_scenarios",
+    "ji_quartet",
+    "lattice_targets",
+    "njl_dI1_dM",
+    "njl_derivatives",
+    "njl_nucleon_analog",
+    "report",
+    "tau_integral",
+    "tau_required",
+    "x_g_evolved",
+    "x_g_start_required"
+   ],
+   "doc": "baryon_mass_decomposition.py \u2014 the Ji-type four-term nucleon-mass decomposition,",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F122",
+    "F123",
+    "F144",
+    "F152",
+    "F402",
+    "F77"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/interactions/__init__.py": "static",
+    "src/casim/engine/interactions/running_alpha_s.py": "static",
+    "src/casim/engine/particles/__init__.py": "static",
+    "src/casim/engine/particles/baryon_dynamics.py": "static",
+    "src/casim/engine/particles/meson.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F402_baryon_mass_decomposition.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/interactions/__init__.py",
+    "src/casim/engine/interactions/running_alpha_s.py",
+    "src/casim/engine/particles/__init__.py",
+    "src/casim/engine/particles/baryon_dynamics.py",
+    "src/casim/engine/particles/meson.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.particles.baryon_mass_decomposition",
+   "lines": 439,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/particles/baryon_mass_decomposition.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F402_baryon_mass_decomposition.json"
+   ],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.G_Lambda2_NJL",
+    "casim.constants.Lambda_NJL_GeV",
+    "casim.constants.endpoint",
+    "casim.constants.m0_current_quark_MeV",
+    "casim.engine.interactions",
+    "casim.engine.interactions.running_alpha_s",
+    "casim.engine.particles",
+    "casim.engine.particles.baryon_dynamics",
+    "casim.engine.particles.meson",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "math",
+    "typing",
+    "typing.Dict",
+    "typing.List"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F402_baryon_mass_decomposition.py"
    ]
   },
   "src/casim/engine/particles/derive_M_R_scale_link.py": {
@@ -21285,6 +23333,64 @@
    "tests": [
     "tests/findings/test_FG7e_colour_condensate.py"
    ]
+  },
+  "src/casim/engine/particles/derive_composite_scalar_fermion_coupling.py": {
+   "channel_types": [],
+   "defines": [
+    "_E",
+    "_I1_closed",
+    "_K0_closed",
+    "_K_quad",
+    "_K_sigma_pole_closed",
+    "_results_dir",
+    "check_composite_scalar_fermion_coupling",
+    "f_pi_of",
+    "g_pi_qq",
+    "g_sigma_qq",
+    "gap_solve",
+    "out",
+    "result",
+    "two_flavour_propagator_matrix"
+   ],
+   "doc": "F399 -- does the F73 Cooper-pair Higgs candidate have a natural coupling to fermions?",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F122",
+    "F398",
+    "F399",
+    "F69",
+    "F73",
+    "F74",
+    "F77"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.particles.derive_composite_scalar_fermion_coupling",
+   "lines": 289,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/particles/derive_composite_scalar_fermion_coupling.py",
+   "reach": "entry-script",
+   "reachable_from": [],
+   "results": [],
+   "role": "derivation",
+   "scipy_sites": 1,
+   "static_imports": [
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "os"
+   ],
+   "test_referenced": false,
+   "tests": []
   },
   "src/casim/engine/particles/derive_delta_cp_t2g.py": {
    "channel_types": [],
@@ -21655,6 +23761,107 @@
    "test_referenced": false,
    "tests": []
   },
+  "src/casim/engine/particles/derive_lepton_frame_fork.py": {
+   "channel_types": [],
+   "defines": [
+    "BRANCHES",
+    "DELTA",
+    "F118_DRIVER",
+    "LEPTON_OF_N",
+    "SQRT2",
+    "W",
+    "_PAIRS",
+    "_column_viable_fixed",
+    "_coord_action",
+    "_fourier_num",
+    "_fourier_sym",
+    "_lam_num",
+    "_lam_sym",
+    "_mfun",
+    "_perm_P_num",
+    "_real_constant_diagonal",
+    "_signed_perms_num",
+    "_unitary_batch",
+    "branch_columns",
+    "branch_num",
+    "check_lepton_frame_fork",
+    "circulant_num",
+    "f118_per_axis_fork",
+    "kernel_invariants",
+    "molien_counts",
+    "quadratic_phase",
+    "sea_energy"
+   ],
+   "doc": "casim.engine.particles.derive_lepton_frame_fork",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F118",
+    "F403",
+    "F406",
+    "F46",
+    "F95"
+   ],
+   "has_main": false,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/particles/__init__.py": "static",
+    "src/casim/engine/particles/derive_oh_residual_pmns.py": "static",
+    "src/casim/engine/particles/eg_sextic.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F406_lepton_frame_fork.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/particles/__init__.py",
+    "src/casim/engine/particles/derive_oh_residual_pmns.py",
+    "src/casim/engine/particles/eg_sextic.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.particles.derive_lepton_frame_fork",
+   "lines": 564,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/particles/derive_lepton_frame_fork.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F406_lepton_frame_fork.json"
+   ],
+   "role": "derivation",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.delta_star",
+    "casim.engine.lattice",
+    "casim.engine.lattice.bcc",
+    "casim.engine.particles",
+    "casim.engine.particles.derive_oh_residual_pmns",
+    "casim.engine.particles.eg_sextic",
+    "casim.engine.particles.eg_sextic._bz_omegas",
+    "casim.engine.particles.eg_sextic._f_of_m",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "itertools",
+    "math",
+    "pathlib",
+    "sympy",
+    "types"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F406_lepton_frame_fork.py"
+   ]
+  },
   "src/casim/engine/particles/derive_lepton_shape_precision_floor.py": {
    "channel_types": [],
    "defines": [
@@ -21720,6 +23927,177 @@
    "test_referenced": true,
    "tests": [
     "tests/findings/test_F348_lepton_shape_precision_floor.py"
+   ]
+  },
+  "src/casim/engine/particles/derive_oh_residual_pmns.py": {
+   "channel_types": [],
+   "defines": [
+    "NUFIT60_3SIG",
+    "NUFIT60_TH13_BF_DEG",
+    "NUFIT61_S12SQ_3SIG_APPROX",
+    "W",
+    "_class_label",
+    "_col_moduli",
+    "_column_viable",
+    "_cos_range",
+    "_frame",
+    "_full_matrix_viable",
+    "_full_oh",
+    "_generic_nondegenerate",
+    "_grid",
+    "_invariant_symmetric",
+    "_invariant_symmetric_group",
+    "_joint_eigenlines",
+    "_min_modulus_sq",
+    "_one_dim_eigenlines",
+    "_rotations",
+    "_subgroups",
+    "_verdict",
+    "check_oh_residual_pmns",
+    "res",
+    "residual_table",
+    "subgroup_table"
+   ],
+   "doc": "casim.engine.particles.derive_oh_residual_pmns",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F403",
+    "F75",
+    "F76",
+    "F93"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/_results_path.py": "static"
+   },
+   "imported_by": [
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
+    "tests/findings/test_F403_oh_residual_pmns.py"
+   ],
+   "imports": [
+    "src/casim/engine/particles/_results_path.py"
+   ],
+   "key": "casim.engine.particles.derive_oh_residual_pmns",
+   "lines": 626,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/particles/derive_oh_residual_pmns.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F403_oh_residual_pmns.json"
+   ],
+   "role": "derivation",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "itertools",
+    "json",
+    "math",
+    "sympy"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F403_oh_residual_pmns.py"
+   ]
+  },
+  "src/casim/engine/particles/derive_quark_B_colour_charge.py": {
+   "channel_types": [],
+   "defines": [
+    "ALPHA_EM",
+    "ALPHA_S_MZ",
+    "CHARGED_LEPTONS_MEV",
+    "C_F",
+    "DOWN_MIXED_MEV",
+    "DOWN_MIXED_SIGMA_MEV",
+    "DOWN_MZ_MEV",
+    "MS_OVER_MUD",
+    "MU_OVER_MD",
+    "N_COLOUR",
+    "Q_DOWN",
+    "Q_UP",
+    "SCHEMES",
+    "TAU_SIGMA_MEV",
+    "UP_MIXED_MEV",
+    "UP_MIXED_SIGMA_MEV",
+    "UP_MZ_MEV",
+    "_S4_circle",
+    "_undress_exponent_vec",
+    "check_quark_B_colour_charge",
+    "circulant_delta",
+    "koide_Q",
+    "loop_k2_nonperturbative",
+    "loop_k2_preference",
+    "out",
+    "undress_exponent"
+   ],
+   "doc": "derive_quark_B_colour_charge.py -- F405: F95's Dirac-sea cubic B with quark",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F405",
+    "F76",
+    "F80",
+    "F93",
+    "F95"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static",
+    "src/casim/numerics/rng.py": "static"
+   },
+   "imported_by": [
+    "tests/findings/test_F405_quark_B_colour_charge.py"
+   ],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py",
+    "src/casim/numerics/rng.py"
+   ],
+   "key": "casim.engine.particles.derive_quark_B_colour_charge",
+   "lines": 412,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "src/casim/engine/particles/derive_quark_B_colour_charge.py",
+   "reach": "test-only",
+   "reachable_from": [],
+   "results": [
+    "test-results/F405_quark_B_colour_charge.json"
+   ],
+   "role": "derivation",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.B_sea_cubic",
+    "casim.constants.delta_star_f",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_dispersion",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.rng",
+    "casim.numerics.xp",
+    "cmath",
+    "json",
+    "math",
+    "sympy"
+   ],
+   "test_referenced": true,
+   "tests": [
+    "tests/findings/test_F405_quark_B_colour_charge.py"
    ]
   },
   "src/casim/engine/particles/derive_quark_mixed_koide_probe.py": {
@@ -22058,13 +24436,18 @@
    "path": "src/casim/engine/particles/dirac.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -22078,6 +24461,7 @@
     "refraction_2d",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -22171,6 +24555,7 @@
     "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/gauge/derive_charge_partition.py",
     "src/casim/engine/gauge/minimal_coupling.py",
     "src/casim/engine/gauge/propagator.py",
     "src/casim/engine/interactions/qi_cluster_interacting_3d.py",
@@ -22201,15 +24586,21 @@
    "path": "src/casim/engine/particles/dirac_bcc.py",
    "reach": "driven",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "results": [
     "test-results/P0_dynamical_fermions.json"
@@ -22324,6 +24715,83 @@
    "test_referenced": false,
    "tests": []
   },
+  "src/casim/engine/particles/discrete_cpt_gauged.py": {
+   "channel_types": [],
+   "defines": [
+    "D_covariant_doublet",
+    "D_grafted",
+    "M_ISO_UNTOUCHED",
+    "M_TAU2",
+    "M_cpt_gauged",
+    "_A",
+    "_I2",
+    "_SIGMA_SWAP8",
+    "_SIGMA_Y",
+    "_TAU2",
+    "check_gauged_cpt_theorem",
+    "cpt_operator_residual",
+    "dest",
+    "kinetic_isospin_identity_residual",
+    "mass_isospin_required_identity_residual",
+    "out",
+    "random_su2",
+    "random_unitary_2x2",
+    "tau2_transpose_gives_inverse_residual",
+    "theta_squared",
+    "unitarity_residual"
+   ],
+   "doc": "discrete_cpt_gauged.py \u2014 F378: extending F328's discrete CPT theorem to the",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F328",
+    "F378",
+    "F53",
+    "F91"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/weak_wmu.py": "static",
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/engine/particles/_results_path.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/weak_wmu.py",
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/engine/particles/_results_path.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "casim.engine.particles.discrete_cpt_gauged",
+   "lines": 451,
+   "np_sites": 82,
+   "package_reachable": false,
+   "path": "src/casim/engine/particles/discrete_cpt_gauged.py",
+   "reach": "unreferenced",
+   "reachable_from": [],
+   "results": [],
+   "role": "kernel",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge.weak_wmu",
+    "casim.engine.gauge.weak_wmu.covariant_dirac_doublet_step",
+    "casim.engine.lattice",
+    "casim.engine.lattice.bcc",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json"
+   ],
+   "test_referenced": false,
+   "tests": []
+  },
   "src/casim/engine/particles/eg_sextic.py": {
    "channel_types": [],
    "defines": [
@@ -22378,6 +24846,7 @@
     "src/casim/numerics/fft.py": "static"
    },
    "imported_by": [
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
     "tests/casim/test_bz_period_lattices.py",
     "tests/findings/test_F200_eg_sextic_coupling_computation.py"
    ],
@@ -22844,6 +25313,8 @@
     "src/casim/engine/core/spectral_matter.py",
     "src/casim/engine/interactions/running_scale_ratio.py",
     "src/casim/engine/lattice/si_scale.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
+    "tests/findings/test_F402_baryon_mass_decomposition.py",
     "tests/findings/test_P3_pion.py",
     "tests/findings/test_P4_deuteron.py"
    ],
@@ -22862,6 +25333,7 @@
     "string_tension"
    ],
    "results": [
+    "test-results/F402_baryon_mass_decomposition.json",
     "test-results/P3_pion.json",
     "test-results/P4_deuteron.json"
    ],
@@ -22878,6 +25350,7 @@
    ],
    "test_referenced": true,
    "tests": [
+    "tests/findings/test_F402_baryon_mass_decomposition.py",
     "tests/findings/test_P3_pion.py",
     "tests/findings/test_P4_deuteron.py"
    ]
@@ -23281,7 +25754,7 @@
     "src/casim/constants/__init__.py"
    ],
    "key": "casim.engine.registry",
-   "lines": 1852,
+   "lines": 2257,
    "np_sites": 0,
    "package_reachable": true,
    "path": "src/casim/engine/registry.py",
@@ -23395,10 +25868,25 @@
    "package_reachable": true,
    "path": "src/casim/fields/electroweak.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -23599,13 +26087,18 @@
    "package_reachable": true,
    "path": "src/casim/fields/photon.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -23617,6 +26110,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -23695,9 +26189,14 @@
    "package_reachable": true,
    "path": "src/casim/fields/strong.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
     "gluon_sourced",
     "gravity_dielectric",
@@ -23708,6 +26207,7 @@
     "quark_dirac",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -23780,11 +26280,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -24662,20 +27164,26 @@
    "package_reachable": true,
    "path": "src/casim/io/vtk.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_sourced",
     "nr_electron",
     "particle",
     "photon_sourced",
     "quantum_circuit",
     "quark_dirac",
-    "two_grid_atom"
+    "two_grid_atom",
+    "w_sourced"
    ],
    "role": "package",
    "scipy_sites": 1,
@@ -24742,10 +27250,25 @@
    "package_reachable": true,
    "path": "src/casim/lattice/__init__.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -24922,6 +27445,9 @@
     "src/casim/cli.py",
     "src/casim/engine/core/blockspin.py",
     "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/observers.py",
+    "src/casim/engine/core/photon_fermion_push.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
     "src/casim/engine/forks/gravity/dirac_gravity_fork.py",
     "src/casim/engine/forks/gravity/gr_fork_F180_gw_speed.py",
     "src/casim/engine/forks/gravity/gr_fork_F248_tt_graviton_bcc.py",
@@ -24929,6 +27455,9 @@
     "src/casim/engine/forks/gravity/gr_fork_F58_clockrate_coupling_derivation.py",
     "src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py",
     "src/casim/engine/forks/particles/complex_mass_fork.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
+    "src/casim/engine/gauge/a_field_convention.py",
     "src/casim/engine/gauge/bcc_action.py",
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/bilinear_2d.py",
@@ -24938,17 +27467,24 @@
     "src/casim/engine/gauge/colour_theta.py",
     "src/casim/engine/gauge/cooling.py",
     "src/casim/engine/gauge/derive_bilinear_so3.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
     "src/casim/engine/gauge/derive_internal_index_existence.py",
     "src/casim/engine/gauge/derive_ncolour.py",
     "src/casim/engine/gauge/derive_su3_structure.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
+    "src/casim/engine/gauge/factorization.py",
     "src/casim/engine/gauge/gluon.py",
     "src/casim/engine/gauge/lpt_bcc_vertex.py",
     "src/casim/engine/gauge/lpt_d1_action_consistent.py",
     "src/casim/engine/gauge/lpt_d1_subtracted.py",
     "src/casim/engine/gauge/lpt_ws_mask_cutcell.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
     "src/casim/engine/gauge/photon.py",
     "src/casim/engine/gauge/photon_bound_state.py",
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py",
     "src/casim/engine/gauge/photon_packet.py",
+    "src/casim/engine/gauge/photon_pryce_commutator.py",
     "src/casim/engine/gauge/propagator.py",
     "src/casim/engine/gauge/reflection_positivity.py",
     "src/casim/engine/gauge/weak_wmu.py",
@@ -24964,6 +27500,7 @@
     "src/casim/engine/interactions/gravity_band_cutoff.py",
     "src/casim/engine/interactions/gravity_emergent.py",
     "src/casim/engine/interactions/gravity_emqg.py",
+    "src/casim/engine/interactions/gravity_four_derivative_locality.py",
     "src/casim/engine/interactions/horizon_entanglement.py",
     "src/casim/engine/interactions/qed_casimir.py",
     "src/casim/engine/interactions/qed_twoloop_vacuum_polarization_nonlog.py",
@@ -24972,9 +27509,11 @@
     "src/casim/engine/interactions/qi_born_gleason.py",
     "src/casim/engine/interactions/qi_born_nonabelian.py",
     "src/casim/engine/interactions/qi_cluster.py",
+    "src/casim/engine/interactions/qi_cluster_asymptotic_series.py",
     "src/casim/engine/interactions/qi_cluster_interacting_3d.py",
     "src/casim/engine/interactions/qi_gleason_regularity.py",
     "src/casim/engine/interactions/qi_measurement.py",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
     "src/casim/engine/interactions/qi_spin_statistics.py",
     "src/casim/engine/interactions/run_q3_omega_degeneracy.py",
     "src/casim/engine/interactions/running_alpha_lattice_bound.py",
@@ -24995,14 +27534,20 @@
     "src/casim/engine/lattice/derive_walk_bz_measure.py",
     "src/casim/engine/lattice/multigrid.py",
     "src/casim/engine/lattice/poisson_open.py",
+    "src/casim/engine/lattice/time_generator_axiom_independence.py",
     "src/casim/engine/lattice/time_signature_interacting.py",
     "src/casim/engine/lattice/time_single_generator.py",
     "src/casim/engine/lattice/wavepacket.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
+    "src/casim/engine/particles/derive_composite_scalar_fermion_coupling.py",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py",
     "src/casim/engine/particles/derive_quark_mixed_koide_probe.py",
     "src/casim/engine/particles/derive_quark_shape_probe.py",
     "src/casim/engine/particles/dirac.py",
     "src/casim/engine/particles/dirac_bcc.py",
     "src/casim/engine/particles/discrete_cpt.py",
+    "src/casim/engine/particles/discrete_cpt_gauged.py",
     "src/casim/engine/particles/eg_sextic.py",
     "src/casim/engine/particles/higgs.py",
     "src/casim/lattice/__init__.py",
@@ -25019,6 +27564,7 @@
     "tests/findings/test_F249_qed_comparison_battery.py",
     "tests/findings/test_F315_V_interaction.py",
     "tests/findings/test_F326_time_single_generator.py",
+    "tests/findings/test_F377_time_generator_axiom_independence.py",
     "tests/findings/test_F37_delta_omega.py",
     "tests/findings/test_F67_option1_even_law_photon.py",
     "tests/findings/test_F69_paired_photon.py",
@@ -25052,11 +27598,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -25148,11 +27696,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -25341,7 +27891,9 @@
     "src/casim/cli.py",
     "src/casim/engine/core/blockspin.py",
     "src/casim/engine/core/coupled.py",
+    "src/casim/engine/core/observers.py",
     "src/casim/engine/forks/gauge/curl_fork_harness.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
     "src/casim/engine/forks/gravity/dirac_gravity_fork.py",
     "src/casim/engine/forks/gravity/gr_fork_F180_gw_speed.py",
     "src/casim/engine/forks/gravity/gr_fork_F248_tt_graviton_bcc.py",
@@ -25349,11 +27901,16 @@
     "src/casim/engine/forks/gravity/gr_fork_F58_clockrate_coupling_derivation.py",
     "src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py",
     "src/casim/engine/forks/particles/complex_mass_fork.py",
+    "src/casim/engine/gauge/a_field_convention.py",
     "src/casim/engine/gauge/bilinear.py",
     "src/casim/engine/gauge/bilinear_2d.py",
     "src/casim/engine/gauge/charge_coupling.py",
     "src/casim/engine/gauge/colour_dielectric.py",
+    "src/casim/engine/gauge/derive_charge_partition.py",
+    "src/casim/engine/gauge/em_current.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py",
     "src/casim/engine/gauge/gluon.py",
+    "src/casim/engine/gauge/minimal_coupling.py",
     "src/casim/engine/gauge/photon.py",
     "src/casim/engine/gauge/photon_bound_state.py",
     "src/casim/engine/gauge/photon_packet.py",
@@ -25430,11 +27987,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -25513,10 +28072,25 @@
    "package_reachable": true,
    "path": "src/casim/numerics/lazy.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
+    "colour_bag",
+    "composite",
+    "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gluon_bcc",
+    "gluon_sourced",
     "gravity_dielectric",
+    "nr_electron",
+    "particle",
     "photon_pair",
+    "photon_sourced",
+    "quark_dirac",
+    "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -25567,9 +28141,14 @@
    "package_reachable": true,
    "path": "src/casim/numerics/linalg.py",
    "reachable_from": [
+    "beta_decay",
+    "charge_photon",
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
+    "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -25582,6 +28161,7 @@
     "refraction_2d",
     "two_grid_atom",
     "w_chiral",
+    "w_sourced",
     "weyl_bcc",
     "z_even"
    ],
@@ -25633,11 +28213,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -25686,10 +28268,13 @@
    "has_main": false,
    "import_evidence": {},
    "imported_by": [
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
     "src/casim/engine/gauge/bcc_action.py",
     "src/casim/engine/gauge/colour_theta.py",
     "src/casim/engine/gauge/reflection_positivity.py",
     "src/casim/engine/interactions/qi_cluster_interacting_3d.py",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py",
     "src/casim/engine/particles/derive_quark_mixed_koide_probe.py",
     "src/casim/engine/particles/derive_quark_shape_probe.py"
    ],
@@ -25705,11 +28290,13 @@
     "colour_bag",
     "composite",
     "element_atom",
+    "em_photon",
     "entanglement_register",
     "error_correction",
     "fermion_algorithm",
     "fermion_chain",
     "fermion_doublet",
+    "fermion_em",
     "gauge_mc",
     "gluon_bcc",
     "gluon_sourced",
@@ -32973,6 +35560,7 @@
    "defines": [
     "RESULT",
     "ROOT3",
+    "_pattern_min",
     "main"
    ],
    "doc": "F169 \u2014 The interacting two-body bound-state wavefunction of the paired photon.",
@@ -32988,16 +35576,18 @@
    "has_main": true,
    "import_evidence": {
     "src/casim/engine/gauge/__init__.py": "static",
-    "src/casim/engine/gauge/photon_bound_state.py": "static"
+    "src/casim/engine/gauge/photon_bound_state.py": "static",
+    "src/casim/engine/lattice/bcc.py": "static"
    },
    "imported_by": [],
    "imports": [
     "src/casim/engine/gauge/__init__.py",
-    "src/casim/engine/gauge/photon_bound_state.py"
+    "src/casim/engine/gauge/photon_bound_state.py",
+    "src/casim/engine/lattice/bcc.py"
    ],
    "key": "tests/findings/test_F169_photon_bound_state.py",
-   "lines": 144,
-   "np_sites": 19,
+   "lines": 208,
+   "np_sites": 24,
    "package_reachable": false,
    "path": "tests/findings/test_F169_photon_bound_state.py",
    "reachable_from": [],
@@ -33006,6 +35596,8 @@
    "static_imports": [
     "casim.engine.gauge",
     "casim.engine.gauge.photon_bound_state",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_dispersion",
     "json",
     "numpy",
     "os",
@@ -34245,14 +36837,16 @@
     "out",
     "run"
    ],
-   "doc": "test_F193_ontic_vacuum.py  --  CA-native ontic vacuum gravitates as zero (candidate (i)),",
+   "doc": "[PARTIALLY SUPERSEDED 2026-09-27 by F319, F408 \u2014 ledger S25-F193-partA-excluded-and-secB-sign-reading]",
    "driven": false,
    "dynamic_refs": [],
    "fft_sites": 0,
    "findings": [
     "F164",
     "F192",
-    "F193"
+    "F193",
+    "F319",
+    "F408"
    ],
    "has_main": true,
    "import_evidence": {
@@ -34265,7 +36859,7 @@
     "src/casim/engine/forks/gravity/gr_fork_F193_ontic_vacuum.py"
    ],
    "key": "tests/findings/test_F193_ontic_vacuum.py",
-   "lines": 89,
+   "lines": 100,
    "np_sites": 0,
    "package_reachable": false,
    "path": "tests/findings/test_F193_ontic_vacuum.py",
@@ -42222,6 +44816,7 @@
     "mustar_spectrum_consistent",
     "n_of",
     "ok",
+    "per_element_err",
     "run"
    ],
    "doc": "test_F374 \u2014 Reconciling the F215 Eliashberg solver's Coulomb cutoff with the",
@@ -42229,6 +44824,7 @@
    "dynamic_refs": [],
    "fft_sites": 0,
    "findings": [
+    "F211",
     "F215",
     "F218",
     "F242",
@@ -42246,7 +44842,7 @@
     "src/casim/engine/interactions/superconductivity.py"
    ],
    "key": "tests/findings/test_F374_eliashberg_cutoff_reconciliation.py",
-   "lines": 218,
+   "lines": 311,
    "np_sites": 4,
    "package_reachable": false,
    "path": "tests/findings/test_F374_eliashberg_cutoff_reconciliation.py",
@@ -42359,6 +44955,104 @@
    ],
    "test_referenced": false
   },
+  "tests/findings/test_F377_time_generator_axiom_independence.py": {
+   "channel_types": [],
+   "defines": [
+    "_ballistic_exponent",
+    "_gaussian_wavepacket",
+    "_matrix",
+    "_sturmian_word",
+    "_variance",
+    "check_all",
+    "check_falsification_attempt",
+    "check_regroup"
+   ],
+   "doc": "F377 -- P1 is independent of the five BDPT axioms; the only live",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F377"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/lattice/bcc.py": "static",
+    "src/casim/numerics/__init__.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/lattice/bcc.py",
+    "src/casim/numerics/__init__.py"
+   ],
+   "key": "tests/findings/test_F377_time_generator_axiom_independence.py",
+   "lines": 181,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F377_time_generator_axiom_independence.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.lattice.bcc",
+    "casim.engine.lattice.bcc.bcc_unitary",
+    "casim.engine.lattice.bcc.weyl_step_3d_bcc",
+    "casim.numerics",
+    "casim.numerics.xp",
+    "json",
+    "typing",
+    "typing.Dict"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F379_so3_kinematic_gap.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F379 \u2014 the emergent continuous SO(3) is the wrong kind of object for",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F129",
+    "F130",
+    "F289",
+    "F330",
+    "F344",
+    "F379"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/interactions/__init__.py": "static",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/interactions/__init__.py",
+    "src/casim/engine/interactions/qi_so3_kinematic_gap.py"
+   ],
+   "key": "tests/findings/test_F379_so3_kinematic_gap.py",
+   "lines": 107,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F379_so3_kinematic_gap.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.interactions",
+    "casim.engine.interactions.qi_so3_kinematic_gap",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
   "tests/findings/test_F37_delta_omega.py": {
    "channel_types": [],
    "defines": [
@@ -42420,6 +45114,1131 @@
     "os",
     "sys",
     "time"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F380_cluster_asymptotic_series.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F380 \u2014 cluster decomposition, F331's residual named as one object",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F290",
+    "F331",
+    "F380"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/interactions/__init__.py": "static",
+    "src/casim/engine/interactions/qi_cluster_asymptotic_series.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/interactions/__init__.py",
+    "src/casim/engine/interactions/qi_cluster_asymptotic_series.py"
+   ],
+   "key": "tests/findings/test_F380_cluster_asymptotic_series.py",
+   "lines": 89,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F380_cluster_asymptotic_series.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.interactions",
+    "casim.engine.interactions.qi_cluster_asymptotic_series",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F381_premise_a_irreducibility.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F381 \u2014 is F333's premise (a) (real baryons are fermions) reducible to",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F289",
+    "F317",
+    "F324",
+    "F330",
+    "F333",
+    "F381"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/derive_premise_a_irreducibility.py"
+   ],
+   "key": "tests/findings/test_F381_premise_a_irreducibility.py",
+   "lines": 76,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F381_premise_a_irreducibility.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge",
+    "casim.engine.gauge.derive_premise_a_irreducibility",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F382_vertex_domain_periodicity.py": {
+   "channel_types": [],
+   "defines": [
+    "NS",
+    "test_b0_recovery_deviation_metric_is_not_used_for_the_short_range_false_positive",
+    "test_control_swapping_which_domain_is_asserted_good_reddens_the_leg",
+    "test_cube_domain_diverges_worse_than_ws_both_branches",
+    "test_entry_point_forwards_swap_control_for_the_registry_level_D9_control",
+    "test_propagator_control_confirms_G7_invariance",
+    "test_record_writes_its_artifact",
+    "test_vertex_kernel_is_not_G_periodic"
+   ],
+   "doc": "F382 -- d1 leg 3, next candidate after F350's excluded WS-mask hypothesis.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F280",
+    "F305",
+    "F337",
+    "F350",
+    "F382"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/lpt_d1_action_consistent.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/lpt_d1_action_consistent.py"
+   ],
+   "key": "tests/findings/test_F382_vertex_domain_periodicity.py",
+   "lines": 103,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F382_vertex_domain_periodicity.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge.lpt_d1_action_consistent",
+    "casim.engine.gauge.lpt_d1_action_consistent.check_d1_vertex_domain_f382",
+    "casim.engine.gauge.lpt_d1_action_consistent.domain_choice_divergence",
+    "casim.engine.gauge.lpt_d1_action_consistent.vertex_g_periodicity",
+    "json",
+    "os",
+    "pytest",
+    "warnings"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F383_four_derivative_locality.py": {
+   "channel_types": [],
+   "defines": [
+    "_SRC",
+    "_THIS",
+    "main",
+    "test_L_conclusion",
+    "test_M1_pi2_regression",
+    "test_M2_pi4_robust_nonzero",
+    "test_M2b_pi4_sign_survives_q6",
+    "test_M3_pi4_grid_convergence",
+    "test_M4_pi4_cutoff_scaling",
+    "test_M5_pi4_direction_spread"
+   ],
+   "doc": "test_F383_four_derivative_locality.py \u2014 locality generates, not forbids,",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F345",
+    "F383",
+    "F57"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/interactions/__init__.py": "static",
+    "src/casim/engine/interactions/gravity_four_derivative_locality.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/interactions/__init__.py",
+    "src/casim/engine/interactions/gravity_four_derivative_locality.py"
+   ],
+   "key": "tests/findings/test_F383_four_derivative_locality.py",
+   "lines": 119,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F383_four_derivative_locality.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.interactions",
+    "casim.engine.interactions.gravity_four_derivative_locality",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F384_conserved_em_current.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F384 \u2014 the U(1) EM current the BCC Weyl walk actually conserves",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F384"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/em_current.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/em_current.py"
+   ],
+   "key": "tests/findings/test_F384_conserved_em_current.py",
+   "lines": 63,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F384_conserved_em_current.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.em_current",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F385_u1_link_covariant_step.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F385 \u2014 the per-link U(1) covariant BCC Weyl step, and its unitarity/",
+   "driven": false,
+   "dynamic_refs": [
+    "norm_drift_slope_fork_a"
+   ],
+   "fft_sites": 0,
+   "findings": [
+    "F385"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/forks/gauge/__init__.py": "static",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/forks/gauge/__init__.py",
+    "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py"
+   ],
+   "key": "tests/findings/test_F385_u1_link_covariant_step.py",
+   "lines": 76,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F385_u1_link_covariant_step.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.forks.gauge",
+    "casim.engine.forks.gauge.u1_link_unitarity_forks",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F386_a_field_convention.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F386 -- the A-field convention Stage 2's per-link U(1) step reads",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F384",
+    "F385",
+    "F386"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/a_field_convention.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/a_field_convention.py"
+   ],
+   "key": "tests/findings/test_F386_a_field_convention.py",
+   "lines": 76,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F386_a_field_convention.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.a_field_convention",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F387 -- the \u0108(k) direction anisotropy and the \u03a9_pair(k)/|C_odd(k)|",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F387"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/em_photon_sourcing.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py"
+   ],
+   "key": "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+   "lines": 80,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.em_photon_sourcing",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F388_fermion_photon_coupled_channels.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F388 -- the coupled em_photon/fermion_em channels (Stage 4,",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F387",
+    "F388"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/core/__init__.py": "static",
+    "src/casim/engine/core/coupled.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/core/__init__.py",
+    "src/casim/engine/core/coupled.py"
+   ],
+   "key": "tests/findings/test_F388_fermion_photon_coupled_channels.py",
+   "lines": 67,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F388_fermion_photon_coupled_channels.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.core",
+    "casim.engine.core.coupled",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F389_radiative_current_backreaction.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F389 -- does the fixed current let the fermion<->photon loop (Stage 4,",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F387",
+    "F388",
+    "F389"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/core/__init__.py": "static",
+    "src/casim/engine/core/coupled.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/core/__init__.py",
+    "src/casim/engine/core/coupled.py"
+   ],
+   "key": "tests/findings/test_F389_radiative_current_backreaction.py",
+   "lines": 68,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F389_radiative_current_backreaction.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.core",
+    "casim.engine.core.coupled",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F389_radiative_transverse_em_current.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F389 -- fixing F384's declared-open transverse gauge freedom with the",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F384",
+    "F388",
+    "F389"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/em_current.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/em_current.py"
+   ],
+   "key": "tests/findings/test_F389_radiative_transverse_em_current.py",
+   "lines": 62,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F389_radiative_transverse_em_current.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.em_current",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F390_photon_fermion_push.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F390 -- the photon-fermion push scenario and the roadmap's physics claims",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F387",
+    "F389",
+    "F390"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/core/__init__.py": "static",
+    "src/casim/engine/core/photon_fermion_push.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/core/__init__.py",
+    "src/casim/engine/core/photon_fermion_push.py"
+   ],
+   "key": "tests/findings/test_F390_photon_fermion_push.py",
+   "lines": 76,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F390_photon_fermion_push.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.core",
+    "casim.engine.core.photon_fermion_push",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F391_ck_transverse_beam_mechanism.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F391 -- resolving F390's two structural gaps: does a genuinely \u0108(k)-",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F387",
+    "F390",
+    "F391"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/em_photon_sourcing.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/em_photon_sourcing.py"
+   ],
+   "key": "tests/findings/test_F391_ck_transverse_beam_mechanism.py",
+   "lines": 84,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F391_ck_transverse_beam_mechanism.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.em_photon_sourcing",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F392_beam_polarization_null_fix.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F392 -- the beam-polarization fix (Part A of docs/roadmaps/photon-fermion-",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F390",
+    "F392"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/photon.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/photon.py"
+   ],
+   "key": "tests/findings/test_F392_beam_polarization_null_fix.py",
+   "lines": 76,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F392_beam_polarization_null_fix.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.photon",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F393_curl_grad_identity_diagnostic.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F393 -- Part B of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md:",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F393"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/charge_coupling.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/charge_coupling.py"
+   ],
+   "key": "tests/findings/test_F393_curl_grad_identity_diagnostic.py",
+   "lines": 71,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F393_curl_grad_identity_diagnostic.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge",
+    "casim.engine.gauge.charge_coupling",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F395_stage5_circular_beam_rerun.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F395 -- Part D of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md:",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F384",
+    "F389",
+    "F390",
+    "F391",
+    "F392",
+    "F394",
+    "F395"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/core/__init__.py": "static",
+    "src/casim/engine/core/photon_fermion_push.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/core/__init__.py",
+    "src/casim/engine/core/photon_fermion_push.py"
+   ],
+   "key": "tests/findings/test_F395_stage5_circular_beam_rerun.py",
+   "lines": 82,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F395_stage5_circular_beam_rerun.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.core",
+    "casim.engine.core.photon_fermion_push",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F396_charge_partition_p77.py": {
+   "channel_types": [],
+   "defines": [
+    "main"
+   ],
+   "doc": "F396 -- the p.77 charge-partition hypothesis: Leg A (J = L + S) and Leg B (per-tick",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F27",
+    "F396",
+    "F41"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/derive_charge_partition.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/derive_charge_partition.py"
+   ],
+   "key": "tests/findings/test_F396_charge_partition_p77.py",
+   "lines": 36,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F396_charge_partition_p77.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "casim.engine.gauge.derive_charge_partition",
+    "casim.engine.gauge.derive_charge_partition.check_charge_partition",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F400_coordination_selector.py": {
+   "channel_types": [],
+   "defines": [
+    "CHECKS",
+    "_bcc_shell_indep",
+    "_fcc_primitives_indep",
+    "_gram_indep",
+    "_in_fcc_indep",
+    "check_A1_dual_tetrahedra_are_regular",
+    "check_A2_tetrahedron_equals_diamond_bonds",
+    "check_B1_diamond_shift_not_fcc_vector",
+    "check_C1_selectors_take_no_lattice_argument",
+    "check_all"
+   ],
+   "doc": "F400 \u2014 BCC and diamond-cubic share a generator tetrahedron; only diamond's",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F291",
+    "F292",
+    "F313",
+    "F326",
+    "F377",
+    "F400"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/coordination_selector.py": "static",
+    "src/casim/engine/lattice/dimensionality.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/coordination_selector.py",
+    "src/casim/engine/lattice/dimensionality.py"
+   ],
+   "key": "tests/findings/test_F400_coordination_selector.py",
+   "lines": 192,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F400_coordination_selector.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.lattice",
+    "casim.engine.lattice.coordination_selector",
+    "casim.engine.lattice.dimensionality",
+    "inspect",
+    "itertools",
+    "itertools.product",
+    "json",
+    "sympy"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F401_photon_bound_state_finite_k.py": {
+   "channel_types": [],
+   "defines": [
+    "CHECKS",
+    "L_VALUES",
+    "_axis_identity_indep",
+    "check_A1_axis_identity_exact",
+    "check_A2_in_plane_offset_nonzero",
+    "check_B1_closed_form_converges_monotonically",
+    "check_B2_dense_scan_quantified_improvement",
+    "check_B3_gc_k_sweep_decreasing",
+    "check_all"
+   ],
+   "doc": "F401 \u2014 repairing the finite-k grid-threshold artifact in",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F169",
+    "F401"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/gauge/__init__.py": "static",
+    "src/casim/engine/gauge/photon_bound_state.py": "static",
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py": "static",
+    "src/casim/engine/lattice/__init__.py": "static",
+    "src/casim/engine/lattice/dimensionality.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/gauge/__init__.py",
+    "src/casim/engine/gauge/photon_bound_state.py",
+    "src/casim/engine/gauge/photon_bound_state_finite_k.py",
+    "src/casim/engine/lattice/__init__.py",
+    "src/casim/engine/lattice/dimensionality.py"
+   ],
+   "key": "tests/findings/test_F401_photon_bound_state_finite_k.py",
+   "lines": 226,
+   "np_sites": 5,
+   "package_reachable": false,
+   "path": "tests/findings/test_F401_photon_bound_state_finite_k.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.gauge",
+    "casim.engine.gauge.photon_bound_state",
+    "casim.engine.gauge.photon_bound_state_finite_k",
+    "casim.engine.lattice",
+    "casim.engine.lattice.dimensionality",
+    "json",
+    "numpy",
+    "sympy"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F402_baryon_mass_decomposition.py": {
+   "channel_types": [],
+   "defines": [
+    "CHECKS",
+    "GL2",
+    "LAM",
+    "_M",
+    "_fd",
+    "check_A1_njl_dilatation",
+    "check_A2_sigma_term",
+    "check_B1_cornell_hellmann_feynman",
+    "check_B2_virial_and_quarter_rule",
+    "check_B3_nr_mass_term_unphysical",
+    "check_C1_dglap_closed_form",
+    "check_C2_model_gluon_share_short",
+    "check_all"
+   ],
+   "doc": "F402 \u2014 the Ji-type four-term nucleon-mass decomposition, built in the model's",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F122",
+    "F402"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
+    "src/casim/engine/particles/__init__.py": "static",
+    "src/casim/engine/particles/baryon_mass_decomposition.py": "static",
+    "src/casim/engine/particles/meson.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/constants/__init__.py",
+    "src/casim/engine/particles/__init__.py",
+    "src/casim/engine/particles/baryon_mass_decomposition.py",
+    "src/casim/engine/particles/meson.py"
+   ],
+   "key": "tests/findings/test_F402_baryon_mass_decomposition.py",
+   "lines": 227,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F402_baryon_mass_decomposition.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.constants",
+    "casim.constants.G_Lambda2_NJL",
+    "casim.constants.Lambda_NJL_GeV",
+    "casim.engine.particles",
+    "casim.engine.particles.baryon_mass_decomposition",
+    "casim.engine.particles.meson",
+    "json",
+    "math",
+    "random"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F403_oh_residual_pmns.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F403 -- can any residual symmetry drawn from O_h fix PMNS, given the model's",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F403"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/__init__.py": "static",
+    "src/casim/engine/particles/derive_oh_residual_pmns.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/particles/__init__.py",
+    "src/casim/engine/particles/derive_oh_residual_pmns.py"
+   ],
+   "key": "tests/findings/test_F403_oh_residual_pmns.py",
+   "lines": 46,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F403_oh_residual_pmns.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles",
+    "casim.engine.particles.derive_oh_residual_pmns",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F404_koide_pseudomass_fork.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F404 -- FORK: Koide pseudo-masses for quarks (route 1 of the 2026-09-24",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F404"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/forks/particles/__init__.py": "static",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/forks/particles/__init__.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_fork.py"
+   ],
+   "key": "tests/findings/test_F404_koide_pseudomass_fork.py",
+   "lines": 46,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F404_koide_pseudomass_fork.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.forks.particles",
+    "casim.engine.forks.particles.koide_pseudomass_fork",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F405_quark_B_colour_charge.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F405 -- can quark colour and charge factors on F95's Dirac-sea cubic B",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F405",
+    "F95"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/__init__.py": "static",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/particles/__init__.py",
+    "src/casim/engine/particles/derive_quark_B_colour_charge.py"
+   ],
+   "key": "tests/findings/test_F405_quark_B_colour_charge.py",
+   "lines": 46,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F405_quark_B_colour_charge.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles",
+    "casim.engine.particles.derive_quark_B_colour_charge",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F406_lepton_frame_fork.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F406 -- the charged-lepton frame fork: picture (a) E_g-diagonal vs picture (b)",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F118",
+    "F406"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/__init__.py": "static",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/particles/__init__.py",
+    "src/casim/engine/particles/derive_lepton_frame_fork.py"
+   ],
+   "key": "tests/findings/test_F406_lepton_frame_fork.py",
+   "lines": 47,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F406_lepton_frame_fork.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles",
+    "casim.engine.particles.derive_lepton_frame_fork",
+    "json",
+    "os",
+    "sys"
+   ],
+   "test_referenced": false
+  },
+  "tests/findings/test_F407_koide_pseudomass_minimal.py": {
+   "channel_types": [],
+   "defines": [
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F407 -- FORK: the minimal pseudo-mass quark fit (derivation three of the",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F407"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/forks/particles/__init__.py": "static",
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/forks/particles/__init__.py",
+    "src/casim/engine/forks/particles/koide_pseudomass_minimal.py"
+   ],
+   "key": "tests/findings/test_F407_koide_pseudomass_minimal.py",
+   "lines": 47,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/findings/test_F407_koide_pseudomass_minimal.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.forks.particles",
+    "casim.engine.forks.particles.koide_pseudomass_minimal",
+    "os",
+    "sys"
    ],
    "test_referenced": false
   },
@@ -47804,10 +51623,15 @@
    "defines": [
     "A_exact",
     "Ec",
+    "En",
+    "Ep",
     "Mc",
     "Mh",
+    "Mn_cal",
+    "Mp_cal",
     "Mp_ratio",
     "PASS",
+    "SQRT_SIGMA_MEV",
     "basis",
     "basis_sym",
     "bb",
@@ -47817,6 +51641,10 @@
     "ex",
     "gap",
     "m_N_emp",
+    "m_avg_n",
+    "m_avg_p",
+    "m_d_cal",
+    "m_u_cal",
     "mag_err",
     "maxr",
     "mono",
@@ -47830,6 +51658,10 @@
     "out_path",
     "qfrac",
     "qfrac_h",
+    "qfrac_n_cal",
+    "qfrac_p_cal",
+    "quark_sum_n",
+    "quark_sum_p",
     "r",
     "rad",
     "radh",
@@ -47837,6 +51669,8 @@
     "record",
     "results",
     "rh",
+    "rn",
+    "rp",
     "seq",
     "settled",
     "spread",
@@ -47849,22 +51683,26 @@
    "dynamic_refs": [],
    "fft_sites": 0,
    "findings": [
+    "F120",
+    "F121",
     "F71",
     "F74",
     "F97"
    ],
    "has_main": false,
    "import_evidence": {
+    "src/casim/constants/__init__.py": "static",
     "src/casim/engine/particles/__init__.py": "static",
     "src/casim/engine/particles/baryon_dynamics.py": "static"
    },
    "imported_by": [],
    "imports": [
+    "src/casim/constants/__init__.py",
     "src/casim/engine/particles/__init__.py",
     "src/casim/engine/particles/baryon_dynamics.py"
    ],
    "key": "tests/findings/test_P2_baryon_bound_state.py",
-   "lines": 236,
+   "lines": 292,
    "np_sites": 10,
    "package_reachable": false,
    "path": "tests/findings/test_P2_baryon_bound_state.py",
@@ -47872,6 +51710,8 @@
    "role": "test",
    "scipy_sites": 4,
    "static_imports": [
+    "casim.constants",
+    "casim.constants.sqrt_sigma_GeV",
     "casim.engine.particles",
     "casim.engine.particles.baryon_dynamics",
     "json",
@@ -52405,6 +56245,135 @@
    ],
    "test_referenced": false
   },
+  "tests/runners/run_f400_coordination_selector.py": {
+   "channel_types": [],
+   "defines": [
+    "_assert_verdict",
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F400 runner \u2014 emit the coordination-selector result artifact.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F400"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/_results_path.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/particles/_results_path.py"
+   ],
+   "key": "tests/runners/run_f400_coordination_selector.py",
+   "lines": 56,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/runners/run_f400_coordination_selector.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "json",
+    "os",
+    "sys",
+    "test_F400_coordination_selector",
+    "test_F400_coordination_selector.check_all"
+   ],
+   "test_referenced": false
+  },
+  "tests/runners/run_f401_photon_bound_state_finite_k.py": {
+   "channel_types": [],
+   "defines": [
+    "_assert_verdict",
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F401 runner \u2014 emit the finite-k threshold-repair result artifact.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F401"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/_results_path.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/particles/_results_path.py"
+   ],
+   "key": "tests/runners/run_f401_photon_bound_state_finite_k.py",
+   "lines": 70,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/runners/run_f401_photon_bound_state_finite_k.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "json",
+    "os",
+    "sys",
+    "test_F401_photon_bound_state_finite_k",
+    "test_F401_photon_bound_state_finite_k.check_all"
+   ],
+   "test_referenced": false
+  },
+  "tests/runners/run_f402_baryon_mass_decomposition.py": {
+   "channel_types": [],
+   "defines": [
+    "_assert_verdict",
+    "_bootstrap",
+    "main"
+   ],
+   "doc": "F402 runner \u2014 emit the Ji-type nucleon-mass-decomposition result artifact.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [
+    "F402"
+   ],
+   "has_main": true,
+   "import_evidence": {
+    "src/casim/engine/particles/_results_path.py": "static"
+   },
+   "imported_by": [],
+   "imports": [
+    "src/casim/engine/particles/_results_path.py"
+   ],
+   "key": "tests/runners/run_f402_baryon_mass_decomposition.py",
+   "lines": 57,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tests/runners/run_f402_baryon_mass_decomposition.py",
+   "reachable_from": [],
+   "role": "test",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "casim.engine.particles._results_path",
+    "casim.engine.particles._results_path.results_path",
+    "json",
+    "os",
+    "sys",
+    "test_F402_baryon_mass_decomposition",
+    "test_F402_baryon_mass_decomposition.check_all"
+   ],
+   "test_referenced": false
+  },
   "tests/runners/run_heavy_rerun.py": {
    "channel_types": [],
    "defines": [
@@ -54775,6 +58744,62 @@
    ],
    "test_referenced": false
   },
+  "tools/nb_sm_ledger.py": {
+   "channel_types": [],
+   "defines": [
+    "COLS",
+    "HEADER",
+    "INDEX",
+    "KEEP",
+    "LEDGER",
+    "NOT_DISPOSED",
+    "REPO",
+    "THEORY",
+    "_ROW",
+    "_SEC",
+    "_key",
+    "batch_map",
+    "build_rows",
+    "cmd_set",
+    "cmd_status",
+    "disposed",
+    "id_range",
+    "main",
+    "parse_index",
+    "read_ledger",
+    "status_hash",
+    "write_ledger"
+   ],
+   "doc": "Notebook x Standard Model cross-check -- ledger and readiness tool.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 0,
+   "findings": [],
+   "has_main": true,
+   "import_evidence": {},
+   "imported_by": [],
+   "imports": [],
+   "key": "tools/nb_sm_ledger.py",
+   "lines": 242,
+   "np_sites": 0,
+   "package_reachable": false,
+   "path": "tools/nb_sm_ledger.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 0,
+   "static_imports": [
+    "__future__",
+    "__future__.annotations",
+    "argparse",
+    "datetime",
+    "glob",
+    "hashlib",
+    "os",
+    "re",
+    "sys"
+   ],
+   "test_referenced": false
+  },
   "tools/regen_indexes.py": {
    "channel_types": [],
    "defines": [
@@ -54950,6 +58975,117 @@
    ],
    "test_referenced": false
   },
+  "tools/verify_photon_momentum_diagnosis.py": {
+   "channel_types": [],
+   "defines": [
+    "BAR",
+    "P",
+    "Pmax",
+    "ROOT3",
+    "_bcc_uvec",
+    "bcc_curl_symbol",
+    "bcc_dispersion",
+    "build_beam_packet",
+    "build_beam_packet_RS_null",
+    "build_pair_mode",
+    "c_lat",
+    "defect_1",
+    "defect_2",
+    "kgrid",
+    "pair_dispersion",
+    "photon_step_spectral",
+    "split_TL"
+   ],
+   "doc": "Verification script for the F389/F390 photon-fermion momentum investigation.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 10,
+   "findings": [
+    "F389",
+    "F390"
+   ],
+   "has_main": true,
+   "import_evidence": {},
+   "imported_by": [],
+   "imports": [],
+   "key": "tools/verify_photon_momentum_diagnosis.py",
+   "lines": 285,
+   "np_sites": 104,
+   "package_reachable": false,
+   "path": "tools/verify_photon_momentum_diagnosis.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 0,
+   "static_imports": [
+    "numpy"
+   ],
+   "test_referenced": false
+  },
+  "tools/verify_single_action_prototype.py": {
+   "channel_types": [],
+   "defines": [
+    "Av",
+    "BAR",
+    "Bv",
+    "J",
+    "KAPPA",
+    "SCHEMES",
+    "_A_from_B",
+    "_cache",
+    "_expm_hop",
+    "_sym",
+    "cs",
+    "current",
+    "d0",
+    "d1",
+    "d1_star",
+    "div",
+    "energy",
+    "free_rotate_EB",
+    "gauss",
+    "hop",
+    "init_state",
+    "p0",
+    "p_field",
+    "p_matter",
+    "pf",
+    "phi",
+    "pm",
+    "q",
+    "r",
+    "rf",
+    "rhodot",
+    "rm",
+    "run",
+    "split_TL",
+    "step_bridged",
+    "step_single_action"
+   ],
+   "doc": "Single-action lattice QED prototype -- the alternative derivation path.",
+   "driven": false,
+   "dynamic_refs": [],
+   "fft_sites": 15,
+   "findings": [
+    "F387",
+    "F388"
+   ],
+   "has_main": false,
+   "import_evidence": {},
+   "imported_by": [],
+   "imports": [],
+   "key": "tools/verify_single_action_prototype.py",
+   "lines": 335,
+   "np_sites": 136,
+   "package_reachable": false,
+   "path": "tools/verify_single_action_prototype.py",
+   "reachable_from": [],
+   "role": "tool",
+   "scipy_sites": 0,
+   "static_imports": [
+    "numpy"
+   ],
+   "test_referenced": false
+  },
   "tools/verify_tier3_gravity.py": {
    "channel_types": [],
    "defines": [
@@ -55117,11 +59253,13 @@
    "colour_bag",
    "composite",
    "element_atom",
+   "em_photon",
    "entanglement_register",
    "error_correction",
    "fermion_algorithm",
    "fermion_chain",
    "fermion_doublet",
+   "fermion_em",
    "gauge_mc",
    "gluon_bcc",
    "gluon_sourced",
@@ -55142,34 +59280,34 @@
    "weyl_bcc",
    "z_even"
   ],
-  "derivations": 30,
+  "derivations": 36,
   "dynamic_edges": 25,
-  "engine": 260,
-  "fft_sites_total": 219,
-  "files": 806,
-  "forks": 55,
-  "kernels": 175,
-  "np_sites_total": 15499,
+  "engine": 284,
+  "fft_sites_total": 244,
+  "files": 863,
+  "forks": 58,
+  "kernels": 190,
+  "np_sites_total": 16353,
   "package": 69,
   "reach": {
    "derivation": {
-    "entry-script": 8,
-    "test-only": 22
+    "entry-script": 9,
+    "test-only": 27
    },
    "fork": {
     "driven": 2,
-    "test-only": 24,
-    "unreferenced": 29
+    "test-only": 28,
+    "unreferenced": 28
    },
    "kernel": {
-    "driven": 50,
+    "driven": 52,
     "package-only": 4,
-    "test-only": 104,
-    "unreferenced": 17
+    "test-only": 112,
+    "unreferenced": 22
    }
   },
   "support": 0,
-  "tests": 449,
+  "tests": 479,
   "unparseable": []
  },
  "version": 1

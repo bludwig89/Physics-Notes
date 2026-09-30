@@ -62,9 +62,11 @@ from casim.engine.particles import derive_M_R_scale_link as mod
 def test_C1_cutoff_hierarchy_is_about_19_decades():
     out = mod.c1_cutoff_hierarchy()
     assert out["Lambda_GeV"] == mod.lattice_cutoff_gev()
-    # F282's cutoff, sanity range around 9e18 GeV (3^{-1/4} * 1.22e19)
-    assert 9.0e18 < out["Lambda_GeV"] < 9.5e18
-    assert 18.5 < out["log10_ratio"] < 19.5, (
+    # F282's cutoff = 3^{-1/4} * reduced M_Pl = E_P/(a/ell_P) ~ 1.85e18 GeV
+    # (was 9.0e18..9.5e18, the sqrt(8 pi)-high non-reduced value; 2026-09-29)
+    assert 1.8e18 < out["Lambda_GeV"] < 1.9e18
+    # corrected cutoff (2026-09-29): log10(Lambda/M_R0) = 18.27, was 18.97
+    assert 17.8 < out["log10_ratio"] < 18.8, (
         f"expected ~19 decades of hierarchy, got {out['log10_ratio']}"
     )
 
@@ -78,11 +80,14 @@ def test_C2_ratio_scan_closest_hit_is_flagged_not_claimed():
     assert out["n_samples_scanned"] == 6 * 12  # 6 base ratios x 12 powers
     best = out["closest"]
     # The closest approach found (verified numerically, not asserted by hand):
-    # (1/(72*pi))^8, within ~0.13 dex (~1.35x) of the ~1e-19 target.
+    # (1/(72*pi))^8, 0.57 dex (~3.7x) from the target.  With the corrected
+    # cutoff (2026-09-29, E_P/(a/ell_P)) the near-coincidence is weaker than
+    # the 0.13 dex recorded against the sqrt(8 pi)-high cutoff — which only
+    # strengthens the null result.
     assert best["name"] == "1/(72*pi) (G_LATTICE)"
     assert best["power"] == 8
-    assert best["distance_dex"] < 0.5, (
-        "the closest scanned combination should land within half a dex of "
+    assert best["distance_dex"] < 1.0, (
+        "the closest scanned combination should land within one dex of "
         f"the target; got {best['distance_dex']}"
     )
     # It is still a mismatch, not a hit: distance is bounded away from zero.

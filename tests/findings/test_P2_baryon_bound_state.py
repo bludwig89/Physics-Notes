@@ -37,6 +37,12 @@ CHECKS
       flagged).
   S8  NEUTRON n-p SPLITTING: m_n - m_p sign POSITIVE, driven by (m_d - m_u)
       beating the EM self-energy; rough magnitude vs +1.293 MeV.
+  S9  CALIBRATED QUARK FRACTION (notebook-v2 prompt C, 2026-09-23): repeats S5
+      with the PDG current masses m_u=2.16, m_d=4.67 MeV (F120/F121's own
+      quark-mass readout; SQRT_SIGMA_GEV=0.42 GeV, D7) in place of the toy
+      degenerate m_q=0.01 sqrt-sigma -- reports the proton (uud) and neutron
+      (udd) quark-mass fractions as genuine calibrated numbers rather than a
+      limiting-case demonstration.
 
 All arithmetic REAL (real symmetric generalised eigenproblem) -> CLAUDE.md numpy
 caveat does not bite.  Runs in a few seconds.
@@ -54,6 +60,7 @@ import os as _os, sys as _sys  # noqa: E401
 _sys.path.insert(0, _os.path.join(
     _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "src"))
 from casim.engine.particles import baryon_dynamics as B  # noqa: E402
+from casim.constants import sqrt_sigma_GeV  # noqa: E402
 
 results = {"finding": "F122", "phase": "P2",
            "title": "dynamical baryon: real-time three-quark bound state",
@@ -197,6 +204,46 @@ mag_err = abs(npd["m_n_minus_m_p"] - 1.293)
 record("S8b |m_n-m_p| within 1 MeV of measured", mag_err, 1.0, "tierB", mag_err < 1.0)
 
 # ---------------------------------------------------------------------------
+print("\nS9  calibrated quark fraction (notebook-v2 prompt C): real F120/F121")
+print("    PDG current masses in place of the S5 toy degenerate m_q=0.01")
+SQRT_SIGMA_MEV = sqrt_sigma_GeV * 1000.0
+m_u_cal = M_U / SQRT_SIGMA_MEV
+m_d_cal = M_D / SQRT_SIGMA_MEV
+print(f"       sqrt(sigma) = {SQRT_SIGMA_MEV:.1f} MeV  ->  "
+      f"m_u={m_u_cal:.6f}, m_d={m_d_cal:.6f} sqrt-sigma")
+
+# proton (uud): equal-mass solver run at the average current-mass scale (the
+# solver assumes equal constituent masses -- generalising to unequal u/d masses
+# is a separate structural change, not this rerun); the physical quark-mass
+# numerator uses the true uud sum, not 3x the average.
+m_avg_p = (2.0 * m_u_cal + m_d_cal) / 3.0
+rp = B.ground_state_relative_energy(m_avg_p, SIGMA, ALPHA_S, basis=basis)
+Ep = rp["E_rel_scipy"]
+quark_sum_p = 2.0 * m_u_cal + m_d_cal
+Mp_cal = quark_sum_p + Ep
+qfrac_p_cal = quark_sum_p / Mp_cal
+
+# neutron (udd), same construction
+m_avg_n = (2.0 * m_d_cal + m_u_cal) / 3.0
+rn = B.ground_state_relative_energy(m_avg_n, SIGMA, ALPHA_S, basis=basis)
+En = rn["E_rel_scipy"]
+quark_sum_n = 2.0 * m_d_cal + m_u_cal
+Mn_cal = quark_sum_n + En
+qfrac_n_cal = quark_sum_n / Mn_cal
+
+results["derived"]["quark_fraction_proton_calibrated"] = float(qfrac_p_cal)
+results["derived"]["quark_fraction_neutron_calibrated"] = float(qfrac_n_cal)
+results["derived"]["M_proton_calibrated_sqrt_sigma"] = float(Mp_cal)
+results["derived"]["M_neutron_calibrated_sqrt_sigma"] = float(Mn_cal)
+print(f"       proton (uud):  M={Mp_cal:.4f} sqrt-sigma, quark fraction = {qfrac_p_cal*100:.4f}%")
+print(f"       neutron (udd): M={Mn_cal:.4f} sqrt-sigma, quark fraction = {qfrac_n_cal*100:.4f}%")
+print(f"       (cf. S5 toy 0.01 sqrt-sigma degenerate: {qfrac*100:.4f}%; PDG/F97: 0.96%)")
+record("S9 proton calibrated quark fraction < 2% of M", qfrac_p_cal, 0.02,
+       "quantitative", qfrac_p_cal < 0.02)
+record("S9 neutron calibrated quark fraction < 2% of M", qfrac_n_cal, 0.02,
+       "quantitative", qfrac_n_cal < 0.02)
+
+# ---------------------------------------------------------------------------
 results["notes"] = [
     "ENGINE: explicitly-correlated-Gaussian three-body solver in mass-normalised "
     "Jacobi coords; overlap/kinetic/<r>/<1/r> all closed-form. Validated to "
@@ -218,6 +265,15 @@ results["notes"] = [
     "the relativistic reduction for light quarks. The precise number needs the "
     "relativised / Bethe-Salpeter treatment (the same regime F74 flagged) and the "
     "P6 SI anchor. Structure is the prediction here; the MeV is P6-gated.",
+    "CALIBRATED RERUN (notebook-v2 prompt C, 2026-09-23): substituting the real "
+    "F120/F121 PDG current masses (m_u=2.16, m_d=4.67 MeV, sqrt(sigma)=0.42 GeV) "
+    "for S5's toy degenerate m_q=0.01 sqrt-sigma gives quark-mass fractions of "
+    "0.07% (proton) and 0.09% (neutron) -- SMALLER than the toy value's 0.11%, "
+    "not a move toward the lattice-QCD ~9% four-term decomposition figure (which "
+    "is a structurally different operator split, per F122 Sec.5/NB2-004). "
+    "Caveat: the solver assumes equal constituent masses, so the u/d asymmetry "
+    "enters only via the average current-mass scale in the kinetic/potential "
+    "solve, not a genuinely unequal-mass three-body Hamiltonian.",
 ]
 
 out_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "test-results"))

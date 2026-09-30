@@ -1,0 +1,75 @@
+{
+  "build": "NB-037 ECSK",
+  "stamp": "2026-09-22 - 18:05",
+  "E1_eta_qS-S+q=alpha*eps*s_d": true,
+  "E1_eta_alpha": [
+    "-I"
+  ],
+  "E1_chi_q~S-S+q~=alpha*eps*s~_d": true,
+  "E1_chi_alpha": [
+    "I"
+  ],
+  "E2_Fierz_eta_eta+=1/2 j^a s~_a": true,
+  "E2_j.j": "0",
+  "E0_R_spinor(Omega(w))==R_tensor(w)": true,
+  "E0_R_spinor_chi(Omega_chi(w))==R_tensor(w)": true,
+  "E3_source_rho1_traceless_part": "Matrix([[(x1*y2 - x2*y1)/2, I*(x2**2 + y2**2)/2], [I*(x1**2 + y1**2)/2, -(x1*y2 - x2*y1)/2]])",
+  "E3_dL/dOmega_rho = i/2 (eta eta^+ q^rho)^T": true,
+  "E3_trace_of_source = +i/2 eta^+ q^rho eta  (the notebook's scalar)": true,
+  "E3_eta_eta+q^rho = 1/2 j^rho I + j_a S^{a rho}": true,
+  "E4_eta_spin_tensor_totally_antisymmetric": true,
+  "E4_eta_S^{rho ab} = c eps^{rho a b d} j_d, c =": "{c: 1/2}",
+  "E4_eta_check_all_components": true,
+  "E4_chi_S^{rho ab} = c eps^{rho a b d} j_chi_d, c =": "{c: -1/2}",
+  "E4_chi_check_all_components": true,
+  "E5a_tensor_contorsion_K_{rho ab} = c2 kappa eps j, c2 =": "{c2: -1/4}",
+  "E5a_all_components": true,
+  "E5b_spinor_solution_equals_tensor_solution": true,
+  "E5b_real_trace_(dilation)_equation": [
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "E5b_imag_trace_(U(1))_equation": [
+    "-x1**2 - x2**2 - y1**2 - y2**2",
+    "-2*(x1*x2 + y1*y2)",
+    "-2*(x1*y2 - x2*y1)",
+    "-x1**2 + x2**2 - y1**2 + y2**2"
+  ],
+  "E5b_U1_equation_is_-j^rho": true,
+  "E5_torsion_totally_antisymmetric": true,
+  "E5_torsion_T_{l t n} = c3 kappa eps j, c3 =": "{c3: -1/2}",
+  "E5_torsion_all_components": true,
+  "E5_Cartan_T_{ltn} / (kappa S_{ltn})": "1",
+  "E5_Gamma_metric_compatible_(Gamma_{(l t) n}=0)": true,
+  "E6_dL_G/dw = beta Re Tr(N^rho S_ab), beta =": "{beta: 1/kappa}",
+  "E6_all_24_components": true,
+  "E6_dL_M/dw = gamma Re Tr(i/2 eta eta^+ q^rho S_ab), gamma =": "{gamma_: 2}",
+  "E6_matter_all_24_components": true,
+  "E6_trace_part_of_source_projects_to_zero_on_Lorentz": true,
+  "E6_notebook_LHS_is_traceless": true,
+  "E6_rank_(Lorentz Omega -> LHS)": 24,
+  "E6_trace_directions_absent_from_R": true,
+  "E7_gamma5": "Matrix([[-1, 0, 0, 0], [0, -1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])",
+  "E7_vector_current = j_eta + j_chi": true,
+  "E7_axial_current = j_eta - j_chi": true,
+  "E7_Dirac_spin_tensor S^{rho ab} = c eps^{rho ab d} J5_d (same c as eta)": true,
+  "E7_L_eff = c_HD kappa J5.J5, c_HD =": "3/16",
+  "E7_single_Weyl_L_eff": "0",
+  "E8_LHS_X^{rho ab} fit coefficients [T^{rho ab}, T^{ab rho}-T^{ba rho}, T^{a rho b}-T^{b rho a}, eta^{rho a}T^b-eta^{rho b}T^a, eps eps.T]": "[{c1: -2*c5 - 2, c2: c3 - 2*c5, c4: -2}]",
+  "E8_notebook_LHS = - C^rho_{ab} S^{ab} (full sum), C^{rho ab}=T^{rho ab}+eta^{rho a}T^b-eta^{rho b}T^a, generic connection": true,
+  "E8_corrected_equation_holds_at_solution_(full 2x2)": true,
+  "E8_trace_of_LHS_at_solution": [
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "E8_notebook_RHS_-(i/2)eta^+q^rho eta_times_I_trace": [
+    "-I*x1**2 - I*x2**2 - I*y1**2 - I*y2**2",
+    "-2*I*x1*x2 - 2*I*y1*y2",
+    "-2*I*x1*y2 + 2*I*x2*y1",
+    "-I*x1**2 + I*x2**2 - I*y1**2 + I*y2**2"
+  ]
+}

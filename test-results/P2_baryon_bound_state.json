@@ -4,13 +4,13 @@
   "title": "dynamical baryon: real-time three-quark bound state",
   "checks": {
     "S0 ECG == analytic 3 sqrt(3k/m)": {
-      "residual": 5.18158775783317e-14,
+      "residual": 1.3671905519389264e-13,
       "target": 1e-10,
       "tier": "machine",
       "status": "PASS"
     },
     "S1 scipy eigh == Cholesky reduction": {
-      "residual": 4.5279335836312384e-12,
+      "residual": 5.295319738252147e-12,
       "target": 1e-09,
       "tier": "machine",
       "status": "PASS"
@@ -22,31 +22,31 @@
       "status": "PASS"
     },
     "S2 converged (last step < 1e-2)": {
-      "residual": 5.5189956345336774e-05,
+      "residual": 5.518995634487298e-05,
       "target": 0.01,
       "tier": "quantitative",
       "status": "PASS"
     },
     "S3 finite gap to 1st excited (discrete)": {
-      "residual": -2.889303908758098,
+      "residual": -2.8893039140775594,
       "target": -0.001,
       "tier": "quantitative",
       "status": "PASS"
     },
     "S4 three pair radii equal (symmetric)": {
-      "residual": 8.330832595811488e-11,
+      "residual": 3.5315878812660407e-10,
       "target": 1e-06,
       "tier": "machine",
       "status": "PASS"
     },
     "S5 quark sum < 2% of M (string-dominated)": {
-      "residual": 0.0010588505217289555,
+      "residual": 0.0010588505217289544,
       "target": 0.02,
       "tier": "quantitative",
       "status": "PASS"
     },
     "S6 dominance+symmetry survive 1/2-rule": {
-      "residual": 2.8738039134012728e-11,
+      "residual": 9.476441293039926e-11,
       "target": 1e-06,
       "tier": "quantitative",
       "status": "PASS"
@@ -68,34 +68,50 @@
       "target": 1.0,
       "tier": "tierB",
       "status": "PASS"
+    },
+    "S9 proton calibrated quark fraction < 2% of M": {
+      "residual": 0.0006751856711370252,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
+    },
+    "S9 neutron calibrated quark fraction < 2% of M": {
+      "residual": 0.0009374853637403289,
+      "target": 0.02,
+      "tier": "quantitative",
+      "status": "PASS"
     }
   },
   "derived": {
-    "E_rel_proton": 5.7397663379224975,
+    "E_rel_proton": 5.739766337922448,
     "convergence_sequence": [
-      6.107010241889974,
-      5.742819065999516,
-      5.7397663379224975,
-      5.739449577950844
+      6.107010241889981,
+      5.742819065999512,
+      5.739766337922448,
+      5.739449577950797
     ],
-    "E0": 5.895092523922337,
-    "E1": 8.784396432680435,
-    "level_gap": 2.889303908758098,
+    "E0": 5.895092525116335,
+    "E1": 8.784396439193895,
+    "level_gap": 2.8893039140775594,
     "pair_radii": {
-      "12": 1.4573572541198174,
-      "13": 1.4573572542318098,
-      "23": 1.4573572542412274
+      "12": 1.4573572549836091,
+      "13": 1.4573572551807794,
+      "23": 1.4573572546661009
     },
-    "quark_fraction_current": 0.0010588505217289555,
+    "quark_fraction_current": 0.0010588505217289544,
     "confinement_fraction_current": 0.998941149478271,
-    "m_p_over_sqrt_sigma_NR": 8.094766337922497,
+    "m_p_over_sqrt_sigma_NR": 8.094766337922447,
     "m_N_over_sqrt_sigma_empirical": 2.2357142857142858,
     "np_splitting": {
       "m_d_minus_m_u": 2.51,
       "em_term": -1.0,
       "m_n_minus_m_p": 1.5099999999999998,
       "sign_positive": true
-    }
+    },
+    "quark_fraction_proton_calibrated": 0.0006751856711370252,
+    "quark_fraction_neutron_calibrated": 0.0009374853637403289,
+    "M_proton_calibrated_sqrt_sigma": 31.70203815006306,
+    "M_neutron_calibrated_sqrt_sigma": 29.20680518329302
   },
   "notes": [
     "ENGINE: explicitly-correlated-Gaussian three-body solver in mass-normalised Jacobi coords; overlap/kinetic/<r>/<1/r> all closed-form. Validated to machine precision against the analytic harmonic three-body ground state.",
@@ -103,7 +119,8 @@
     "CONFINEMENT DOMINANCE (the headline, matching F97): with current-mass quarks the quark-mass sum is <1% of the baryon mass -- the mass is the confining STRING (P1: F70/F94/F110), NOT the constituents. The dynamical realisation of F71's energetic-confinement argument and F97's centre-closure no-go.",
     "NON-DISPERSING: a confining potential has a purely discrete spectrum (no scattering continuum), so the ground state is automatically a stationary, normalisable bound state -- the proton cannot fall apart.",
     "n-p SPLITTING: sign POSITIVE and ~+1.5 MeV, the down-up current-mass gap (F40 ratio) beating the proton's larger EM self-energy (P5). Sign is the real test of the F40 ratios; it passes.",
-    "OPEN (Tier-B / P6): the ABSOLUTE m_p/sqrt(sigma) from the NR constituent solve overshoots the lattice value -- the missing additive Cornell constant V0 and the relativistic reduction for light quarks. The precise number needs the relativised / Bethe-Salpeter treatment (the same regime F74 flagged) and the P6 SI anchor. Structure is the prediction here; the MeV is P6-gated."
+    "OPEN (Tier-B / P6): the ABSOLUTE m_p/sqrt(sigma) from the NR constituent solve overshoots the lattice value -- the missing additive Cornell constant V0 and the relativistic reduction for light quarks. The precise number needs the relativised / Bethe-Salpeter treatment (the same regime F74 flagged) and the P6 SI anchor. Structure is the prediction here; the MeV is P6-gated.",
+    "CALIBRATED RERUN (notebook-v2 prompt C, 2026-09-23): substituting the real F120/F121 PDG current masses (m_u=2.16, m_d=4.67 MeV, sqrt(sigma)=0.42 GeV) for S5's toy degenerate m_q=0.01 sqrt-sigma gives quark-mass fractions of 0.07% (proton) and 0.09% (neutron) -- SMALLER than the toy value's 0.11%, not a move toward the lattice-QCD ~9% four-term decomposition figure (which is a structurally different operator split, per F122 Sec.5/NB2-004). Caveat: the solver assumes equal constituent masses, so the u/d asymmetry enters only via the average current-mass scale in the kinetic/potential solve, not a genuinely unequal-mass three-body Hamiltonian."
   ],
   "overall": "PASS"
 }

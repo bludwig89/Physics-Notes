@@ -13,40 +13,40 @@
   "T5B_benchmark": [
     {
       "L": 64,
-      "t_sync": 0.007330000000365544,
-      "t_lazy": 0.007996250002179295,
-      "overhead": 0.09089358823745226,
+      "t_sync": 0.004098999997950159,
+      "t_lazy": 0.004741374999866821,
+      "overhead": 0.15671505299778063,
       "occupied_cells": 4096,
       "lattice_size": 4096,
       "fraction_occupied": 1.0
     },
     {
       "L": 128,
-      "t_sync": 0.021893458997510606,
-      "t_lazy": 0.02416504199936753,
-      "overhead": 0.10375624071624384,
-      "occupied_cells": 14567,
+      "t_sync": 0.02516133399331011,
+      "t_lazy": 0.024521209008526057,
+      "overhead": -0.025440820623987906,
+      "occupied_cells": 14565,
       "lattice_size": 16384,
-      "fraction_occupied": 0.88909912109375
+      "fraction_occupied": 0.88897705078125
     },
     {
       "L": 256,
-      "t_sync": 0.08554649999859976,
-      "t_lazy": 0.09476775000075577,
-      "overhead": 0.10779225336287221,
-      "occupied_cells": 15593,
+      "t_sync": 0.05710495900711976,
+      "t_lazy": 0.06599079199077096,
+      "overhead": 0.15560527733753082,
+      "occupied_cells": 15596,
       "lattice_size": 65536,
-      "fraction_occupied": 0.2379302978515625
+      "fraction_occupied": 0.23797607421875
     }
   ],
   "T5C_asymmetric_clocks": {
     "phi_in": -0.014163618848021548,
     "c_in": 0.33983400799036245,
     "c_out": 0.41740221929507526,
-    "ratio_tick": 0.8141643534245868,
+    "ratio_tick": 0.8141643534245866,
     "ratio_c": 0.8141643534245866,
     "ratio_gr_sqrt": 1.0849171561000726,
-    "rel_diff_vs_c": 2.727270040638037e-16,
+    "rel_diff_vs_c": 0.0,
     "gate": "EXACT \u2014 ratio_tick = c_in/c_out algebraically"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "build": "NB-032 tetrad variation",
+  "stamp": "2026-09-22 - 17:10",
+  "V4_eta_T_full": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, 0, 0], [0, 0, 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])",
+  "V4_eta_T_full_equals_02b_Tetrode": true,
+  "V4_eta_T_Omega_fixed_(canonical)": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, Derivative(a(t), t)/(2*a(t)**7), 0], [0, -Derivative(a(t), t)/(2*a(t)**7), 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])",
+  "V4_chi_T_full": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, 0, 0], [0, 0, 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])",
+  "V4_chi_T_full_equals_02b_Tetrode": true,
+  "V4_chi_T_Omega_fixed_(canonical)": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, -Derivative(a(t), t)/(2*a(t)**7), 0], [0, Derivative(a(t), t)/(2*a(t)**7), 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])"
+}

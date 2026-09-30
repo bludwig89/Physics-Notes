@@ -7,7 +7,7 @@ kind: prediction
 status: live
 domain: [SM]
 exactness: exact
-findings: [F169]
+findings: [F169, F397]
 tests: []
 modules: []
 constants: []
@@ -16,7 +16,7 @@ reviews: []
 rolls_up_to: null
 falsifier: unset
 first_issued: '2026-08-04'
-last_verified: '2026-08-04'
+last_verified: '2026-09-22'
 provenance: extracted
 review_state: unreviewed-seed
 confidence: medium
@@ -31,6 +31,21 @@ The photon's interacting two-body wavefunction: a normalizable threshold bound s
 ## What it extends
 
 *Not yet established by a reviewer.* This card was extracted mechanically from `findings/F169-photon-interacting-two-body-wavefunction.md`; its `domain`, `kind` and `exactness` were inferred from the finding's own title and `**Status:**` line and **have not been confirmed**. The bar in `docs/claims/README.md` — that a card names the specific established result in QM / SM / GR / SR / QFT it derives, extends or contradicts — is **not yet met by this card**. Meeting it is what promotion to `review_state: authored` consists of.
+
+## Amendment — 2026-09-22 (C3 only)
+
+The finding's C3 originally quoted a **fit exponent 2.10** for $\Omega_\text{even}(k)-T(k)$, obtained from a
+local stochastic descent (`true_threshold`) that under-converged at small $|k|$. That number is **withdrawn**.
+Both quantities now have closed forms:
+
+- the two-body floor $T(\mathbf k)=\min\bigl(\omega^+(\mathbf k),\omega^-(\mathbf k)\bigr)$, attained at the
+  collinear endpoint $p=\pm\mathbf k/2$ (exact: $\omega^\pm(0)=0$ identically);
+- the offset $\Omega_\text{even}(\mathbf k)-T(\mathbf k)=|k_xk_yk_z|/(3|\mathbf k|)+O(k^3)$, direction-dependent,
+  vanishing on the coordinate planes.
+
+Converged exponent **2.007**. The claim's substance — a normalizable threshold bound state whose masslessness is
+inherited from gapless constituents — is **unchanged**: it rests on C1/C2/C4/C5/C6, all of which are statements at
+$k=0$ or at fixed finite $k$, none of which used the search. Derived in [F397](../../findings/F397-notebook-factorization-route-pp176-182.md) R6.
 
 ## Evidence
 

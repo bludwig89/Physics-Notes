@@ -1,0 +1,230 @@
+{
+  "primary_states": {
+    "nu_L": {
+      "T3": "1/2",
+      "Y": "-1/2",
+      "chirality": "L"
+    },
+    "e_L": {
+      "T3": "-1/2",
+      "Y": "-1/2",
+      "chirality": "L"
+    },
+    "e_R": {
+      "T3": "0",
+      "Y": "-1",
+      "chirality": "R"
+    },
+    "nu_R": {
+      "T3": "0",
+      "Y": "0",
+      "chirality": "R"
+    }
+  },
+  "derived_states": {
+    "nu_L": {
+      "T3": "1/2",
+      "Y": "-1/2",
+      "Q": "0",
+      "chirality": "L",
+      "EM": false,
+      "W": true
+    },
+    "e_L^-": {
+      "T3": "-1/2",
+      "Y": "-1/2",
+      "Q": "-1",
+      "chirality": "L",
+      "EM": true,
+      "W": true
+    },
+    "e_R^-": {
+      "T3": "0",
+      "Y": "-1",
+      "Q": "-1",
+      "chirality": "R",
+      "EM": true,
+      "W": false
+    },
+    "nu_R": {
+      "T3": "0",
+      "Y": "0",
+      "Q": "0",
+      "chirality": "R",
+      "EM": false,
+      "W": false
+    },
+    "nu_bar_R": {
+      "T3": "-1/2",
+      "Y": "1/2",
+      "Q": "0",
+      "chirality": "R",
+      "EM": false,
+      "W": true
+    },
+    "e_R^+": {
+      "T3": "1/2",
+      "Y": "1/2",
+      "Q": "1",
+      "chirality": "R",
+      "EM": true,
+      "W": true
+    },
+    "e_L^+": {
+      "T3": "0",
+      "Y": "1",
+      "Q": "1",
+      "chirality": "L",
+      "EM": true,
+      "W": false
+    },
+    "nu_bar_L": {
+      "T3": "0",
+      "Y": "0",
+      "Q": "0",
+      "chirality": "L",
+      "EM": false,
+      "W": false
+    }
+  },
+  "notebook_table": {
+    "e_R^-": {
+      "EM": true,
+      "W": false
+    },
+    "e_L^+": {
+      "EM": true,
+      "W": false
+    },
+    "e_R^+": {
+      "EM": true,
+      "W": true
+    },
+    "e_L^-": {
+      "EM": true,
+      "W": true
+    },
+    "nu_R": {
+      "EM": false,
+      "W": false
+    },
+    "nu_bar_L": {
+      "EM": false,
+      "W": false
+    },
+    "nu_bar_R": {
+      "EM": false,
+      "W": true
+    },
+    "nu_L": {
+      "EM": false,
+      "W": true
+    }
+  },
+  "per_state_match": {
+    "e_R^-": {
+      "notebook": {
+        "EM": true,
+        "W": false
+      },
+      "derived": {
+        "EM": true,
+        "W": false
+      },
+      "match": true
+    },
+    "e_L^+": {
+      "notebook": {
+        "EM": true,
+        "W": false
+      },
+      "derived": {
+        "EM": true,
+        "W": false
+      },
+      "match": true
+    },
+    "e_R^+": {
+      "notebook": {
+        "EM": true,
+        "W": true
+      },
+      "derived": {
+        "EM": true,
+        "W": true
+      },
+      "match": true
+    },
+    "e_L^-": {
+      "notebook": {
+        "EM": true,
+        "W": true
+      },
+      "derived": {
+        "EM": true,
+        "W": true
+      },
+      "match": true
+    },
+    "nu_R": {
+      "notebook": {
+        "EM": false,
+        "W": false
+      },
+      "derived": {
+        "EM": false,
+        "W": false
+      },
+      "match": true
+    },
+    "nu_bar_L": {
+      "notebook": {
+        "EM": false,
+        "W": false
+      },
+      "derived": {
+        "EM": false,
+        "W": false
+      },
+      "match": true
+    },
+    "nu_bar_R": {
+      "notebook": {
+        "EM": false,
+        "W": true
+      },
+      "derived": {
+        "EM": false,
+        "W": true
+      },
+      "match": true
+    },
+    "nu_L": {
+      "notebook": {
+        "EM": false,
+        "W": true
+      },
+      "derived": {
+        "EM": false,
+        "W": true
+      },
+      "match": true
+    }
+  },
+  "all_states_match": true,
+  "notebook_category_counts": {
+    "both": 2,
+    "em_only": 2,
+    "w_only": 2,
+    "neither": 2
+  },
+  "derived_category_counts": {
+    "both": 2,
+    "em_only": 2,
+    "w_only": 2,
+    "neither": 2
+  },
+  "counts_match": true,
+  "notebook_claim": "4 charged-interacting (2 EM+W, 2 EM-only), 2 W-only, 2 non-interacting",
+  "conclusion": "SOLID: derived purely from SM (T3,Y) assignments and the standard C transformation (flip all additive charges, flip chirality), the EM/W coupling pattern for all 8 Weyl components exactly reproduces the notebook's own table, including the non-obvious cross assignment that e_R^+ (right-handed positron) and nu_bar_R couple to W (as the C-conjugates of the left-handed doublet members) while e_L^+ and nu_bar_L do not."
+}

@@ -1,0 +1,334 @@
+{
+  "name": "stage0_free_weyl",
+  "title": "Stage 0 baseline \u2014 free Weyl packet",
+  "description": "Photon-fermion coupling roadmap Stage 0: free BCC Weyl packet, momentum observer only. Expected P_matter drift ~= 0 (no interaction exists yet).",
+  "seed": 0,
+  "ticks": 40,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "weyl_bcc": {
+      "name": "weyl_bcc",
+      "type": "weyl_bcc",
+      "label": "Weyl BCC",
+      "propagator": "per-branch",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "momentum": {
+      "type": "momentum",
+      "label": "Momentum",
+      "exactness": "exact",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.139708513506,
+                -3432.312122788134,
+                -3352.483587772467
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.1397085135095,
+                -3432.3121227881347,
+                -3352.483587772469
+              ],
+              "rel_drift": 7.07981548244826e-16
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.1397085135113,
+                -3432.3121227881375,
+                -3352.4835877724718
+              ],
+              "rel_drift": 1.3556814521617965e-15
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.139708513513,
+                -3432.3121227881393,
+                -3352.4835877724736
+              ],
+              "rel_drift": 1.8858425302338624e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.139708513515,
+                -3432.312122788143,
+                -3352.483587772476
+              ],
+              "rel_drift": 2.6320758830622345e-15
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.1397085135177,
+                -3432.312122788146,
+                -3352.483587772478
+              ],
+              "rel_drift": 3.438147732445055e-15
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.1397085135204,
+                -3432.312122788148,
+                -3352.48358777248
+              ],
+              "rel_drift": 4.064842979135212e-15
+            }
+          }
+        },
+        {
+          "tick": 35,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.1397085135213,
+                -3432.312122788151,
+                -3352.483587772484
+              ],
+              "rel_drift": 4.866568553195918e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "weyl_bcc": {
+              "P_matter": [
+                -3411.139708513525,
+                -3432.3121227881534,
+                -3352.4835877724863
+              ],
+              "rel_drift": 5.664379133449723e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "weyl_bcc": {
+          "P_matter": {
+            "P0": [
+              -3411.139708513506,
+              -3432.312122788134,
+              -3352.483587772467
+            ],
+            "Pf": [
+              -3411.139708513525,
+              -3432.3121227881534,
+              -3352.4835877724863
+            ],
+            "delta": [
+              -1.9099388737231493e-11,
+              -1.9554136088117957e-11,
+              -1.9099388737231493e-11
+            ],
+            "delta_mag": 3.3345727438825017e-11
+          }
+        },
+        "P_total": {
+          "P0": [
+            -3411.139708513506,
+            -3432.312122788134,
+            -3352.483587772467
+          ],
+          "Pf": [
+            -3411.139708513525,
+            -3432.3121227881534,
+            -3352.4835877724863
+          ],
+          "delta": [
+            -1.9099388737231493e-11,
+            -1.9554136088117957e-11,
+            -1.9099388737231493e-11
+          ],
+          "delta_mag": 3.3345727438825017e-11
+        }
+      }
+    },
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530028,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530043,
+              "rel_drift": 8.950781010231907e-16
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530059,
+              "rel_drift": 1.9020409646742804e-15
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530073,
+              "rel_drift": 2.7971190656974715e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530088,
+              "rel_drift": 3.692197166720662e-15
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530103,
+              "rel_drift": 4.587275267743853e-15
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530117,
+              "rel_drift": 5.482353368767044e-15
+            }
+          }
+        },
+        {
+          "tick": 35,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530135,
+              "rel_drift": 6.601200995046032e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "weyl_bcc": {
+              "energy": 16257.704452530148,
+              "rel_drift": 7.384394333441324e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "weyl_bcc": 7.384394333441324e-15
+        }
+      }
+    }
+  },
+  "clock": {
+    "dt": 1.0,
+    "mode": "auto",
+    "resolved_mode": "strict",
+    "tick": 40,
+    "time": 40.0,
+    "synchronous": true,
+    "channels": {
+      "weyl_bcc": {
+        "name": "weyl_bcc",
+        "type": "weyl_bcc",
+        "dt_native": 1.0,
+        "dt_max": null,
+        "subcyclable": true,
+        "n_sub": 1,
+        "dt_effective": 1.0,
+        "desynchronised": false
+      }
+    },
+    "desynchronised": []
+  },
+  "bus": {
+    "order": [
+      "weyl_bcc"
+    ],
+    "provides": {
+      "weyl_bcc": [
+        "weyl_bcc"
+      ]
+    },
+    "consumes": {
+      "weyl_bcc": []
+    },
+    "edges": {
+      "weyl_bcc": []
+    },
+    "cycles": [],
+    "cycle_scheme": "gauss_seidel",
+    "acyclic": true,
+    "order_mode": "auto",
+    "applied_order": [
+      "weyl_bcc"
+    ],
+    "order_violations": [],
+    "unresolved": []
+  }
+}

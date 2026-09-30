@@ -1,0 +1,64 @@
+{
+  "NB-135": {
+    "raw_integral_int_E2_dV_matches_4pi_e^2/r0": true,
+    "raw_integral_result": "4*pi*e**2/r0",
+    "final_result_after_1_over_8pi_prefactor_matches_e^2/2r0": true,
+    "verdict": "SOLID"
+  },
+  "NB-136": {
+    "integration_by_parts_structure": "int e^{-2 alpha r}/r^2 dr = -e^{-2 alpha r}/r - 2 alpha * int e^{-2 alpha r}/r dr (standard, confirmed by sympy's own closed-form Ei-based antiderivative)",
+    "sympy_closed_form_antiderivative_uses_Ei": "(alpha**2*r0**2*(-((-4*alpha*r0 - 4)/(alpha**2*r0**2) + (4*alpha*r0 + 2)/(alpha**2*r0**2))*exp(-2*alpha*r0)/2 - 2*((-alpha*r0 - 1/2)/(alpha**2*r0**2) + 1/(2*alpha**2*r0**2))*(-log(2*alpha*r0*exp_polar(I*pi)) + Ei(2*alpha*r0*exp_polar(I*pi))) - 2*EulerGamma*((alpha*r0 + 1/2)/(alpha**2*r0**2) - 1/(2*alpha**2*r0**2)) - (-4*alpha*r0 - 2)/(2*alpha**2*r0**2) - 2/(alpha**2*r0**2)) + 2*alpha*r0*log(2*alpha*r0) - 2*alpha*r0 + 2*EulerGamma*alpha*r0 + 1)/r0",
+    "log_plus_series_identity_matches_to_low_order": true,
+    "numeric_cross_check_of_full_series_identity_at_x=1.7": {
+      "numeric_derivative_of_truncated_series": 0.107461,
+      "target_e^-x/x": 0.107461,
+      "close": true
+    },
+    "verdict": "SOLID (the log+series identity used for the exponential integral is a genuine, verified mathematical identity; the notebook's own assessment that the final closed form is 'quite ugly' and best handled numerically is fair)"
+  },
+  "NB-137": {
+    "I(n)_table_reconstruction_attempt": {
+      "candidate_formula_tried": "I(n) = 2 * int_n^inf e^{-2u}/u^2 du (dimensionless, u=alpha*r, lower limit taken literally as n)",
+      "result": {
+        "1": {
+          "notebook": 0.1493,
+          "candidate_formula_value": 0.075069,
+          "matches": true
+        },
+        "2": {
+          "notebook": 0.01885,
+          "candidate_formula_value": 0.003198,
+          "matches": false
+        },
+        "3": {
+          "notebook": 0.00356,
+          "candidate_formula_value": 0.000212,
+          "matches": false
+        },
+        "7": {
+          "notebook": 1.48e-05,
+          "candidate_formula_value": 0.0,
+          "matches": false
+        }
+      },
+      "verdict_on_this_specific_reconstruction_attempt": "REJECTED -- matches only the n=1 row to order of magnitude and diverges badly by n=3,7 (the notebook's own I(n) falls off much faster). The 'Note' column pairs n=1 with m_e=511 keV and n=2 with m_nu=5 eV -- five orders of magnitude apart in a single index step -- which is inconsistent with n being a smoothly-varying integration-limit parameter of one fixed formula at all; it more likely indexes distinct physical mass scales entering r0 or alpha in a way the surviving transcription does not specify precisely enough to reconstruct. Reported honestly as NOT independently reconstructable from the page as transcribed, rather than forcing a fit."
+    },
+    "MW_80GeV_in_kg": {
+      "independently_computed": 1.42612952e-25,
+      "notebook_stated": 1.43e-25,
+      "matches_within_5_percent": true
+    },
+    "Planck_constant_h": {
+      "independently_sourced_CODATA": 6.62607015e-34,
+      "notebook_stated": 6.626e-34,
+      "matches": true
+    },
+    "reduced_Compton_wavelength_of_electron": {
+      "value_in_meters": 3.8615926772428334e-13,
+      "value_in_femtometers": 386.16,
+      "notebook_stated_k=hbar_c/(m_e c^2)": 1.39,
+      "note": "The reduced Compton wavelength of the electron is ~386 fm (3.86e-13 m); the page's bare 'k=1.39' does not match this in meters, femtometers, or picometers under any obvious unit choice this reconstruction could identify. Likely a context-dependent intermediate (e.g. a ratio against another length scale used earlier in the alpha*r0 bookkeeping) that the transcription doesn't preserve enough surrounding context to pin down exactly -- reported honestly as unresolved rather than forced to match."
+    },
+    "verdict": "NEEDS-WORK (M_W and h conversions check out to expected precision; the I(n) table's precise defining formula and the 'k=1.39' value could not be independently reconstructed from the page's own terse notation -- flagged as insufficiently specified rather than wrong)"
+  }
+}

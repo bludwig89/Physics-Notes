@@ -1,0 +1,9 @@
+{
+  "build": "NB-076/NB-077/NB-078",
+  "NB-076_standard_rep_satisfies_dirac_algebra": true,
+  "NB-077_general_(a,b)_rep_anticommutes_with_alpha_i": true,
+  "NB-077_general_(a,b)_rep_beta_squared_equals_I_given_a2+b2=1": true,
+  "NB-078_gauged_beta_still_anticommutes_with_alpha_i_for_ALL_theta": true,
+  "NB-078_gauged_beta_squared_equals_I_for_ALL_theta": true,
+  "note": "NB-078's gauged beta_g depends only on the UPPER-LEFT 2x2 block (the alpha_i = sigma3 (x) sigma_i representation acts trivially -- via the identity sigma0 -- on the second tensor factor where beta lives), which is exactly why gauging beta only affects 'one half of the bispinor' as the notebook observes: the algebra survives for any theta because alpha_i never touches that second factor's phase at all."
+}

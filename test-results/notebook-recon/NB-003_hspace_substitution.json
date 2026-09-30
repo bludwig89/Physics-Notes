@@ -1,0 +1,7 @@
+{
+  "build": "NB-003",
+  "note": "continuation of the author's stalled p.1-2 substitution: carries the x-integral and p-collapse through symbolically; k.p -> -k^2 after p=-k substitution, reproducing the (m^2+k^2) bracket structure the notebook reaches independently at p.43 (NB-050), up to the still-generic prefactor B(k)B(-k) whose specific form is the object checked (and found broken as transcribed) in NB-002.",
+  "collapsed_bracket": "k**2*phi_k*phi_{-k} + m**2*phi_k*phi_{-k} + pi_k*pi_{-k}",
+  "target_bracket": "phi_k*phi_{-k}*(k**2 + m**2) + pi_k*pi_{-k}",
+  "structural_match": true
+}

@@ -1,0 +1,25 @@
+# Tier-2 closed fermion<->photon U(1) back-reaction loop (Stage 4 of
+# docs/roadmaps/photon-fermion-coupling.md).
+# The charged Weyl fermion's F384 conserved current sources the paired-photon
+# (E,B); the photon's F386 Coulomb-gauge-solved potential A acts back on the
+# fermion via F385's per-link covariant step -- within one tick.
+# Channel ORDER matters: em_photon must come before fermion_em so the field
+# consumes the pre-tick current and publishes the updated potential A for the
+# fermion's covariant step this tick (same convention as
+# fermion_w_backreaction.yaml).
+version: 2
+name: fermion_photon_backreaction
+title: "Fermion-Photon Back-Reaction"
+description: "Closed Tier-2 loop (Stage 4, photon-fermion-coupling roadmap): the Weyl fermion's F384 current sources the paired photon, and the photon's F386 solved potential A acts back on the fermion via F385's per-link covariant step, within the same tick."
+lattice: {L: 16, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
+seed: 0
+ticks: 20
+channels:
+  - {type: em_photon, name: em_photon, fermion: fermion_em, g_lat: 0.5, q: 1.0}
+  - {type: fermion_em, name: fermion_em, photon: em_photon, q: 1.0, width: 1.5, k0: [0.5, 0.0, 0.0]}
+observers:
+  - {type: norm_conservation, every: 5, channels: [fermion_em]}
+  - {type: energy_trace, every: 5}
+  - {type: momentum, every: 5}
+output:
+  json: test-results/casim_fermion_photon_backreaction.json

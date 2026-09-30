@@ -1,0 +1,25 @@
+{
+  "L": 16,
+  "ticks": 20,
+  "g_lat": 0.3,
+  "q": 1.0,
+  "use_radiative_current": true,
+  "dP_matter_norm": 0.0020297621701538073,
+  "dP_field_norm": 0.00022472128244807206,
+  "dP_matter_norm_2g": 0.004030842161525427,
+  "dP_field_norm_2g": 0.0008961508178493093,
+  "recovered_fraction": 0.11071311001477753,
+  "dPm_doubling_ratio": 1.9858691923596083,
+  "dPf_doubling_ratio": 3.9878324299630554,
+  "gauss_for_b_residual": 1.7095565014745551e-15,
+  "gauss_for_b_residual_2g": 3.372233409066979e-15,
+  "checks": {
+    "field_momentum_genuinely_nonzero": true,
+    "no_monopole_holds": true,
+    "momentum_partially_but_not_exactly_conserved": true,
+    "matter_push_scales_linearly_field_push_scales_quadratically": true
+  },
+  "n_pass": 4,
+  "n_checks": 4,
+  "ok": true
+}

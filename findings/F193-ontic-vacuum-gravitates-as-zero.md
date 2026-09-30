@@ -1,5 +1,15 @@
 # F193 — The CA-native ontic vacuum gravitates as **exactly zero**: candidate (i) of F164 turned from a position into a derivation (bare CC = 0, fixing magnitude **and** sign), with the residual $\rho_\Lambda$ as a holographic IR back-reaction (reproduced to 0.54 dex; the dilution exponent is the named obstruction)
 
+> **[PARTIALLY SUPERSEDED 2026-09-27 by F319, F408 — ledger S25-F193-partA-excluded-and-secB-sign-reading]**
+>
+> **DEAD:** PART A in full (A1-A4, 'bare CC = 0 in the ontology', removing magnitude and sign) -- excluded, CL275. SECTION B read as 'the observed rho_Lambda is the IR-diluted zero-point energy', its 0.54 dex agreement (a g* content mismatch), and the line-88 sentence that the vacuum sign is settled by F192's w=-1 argument. 'F193 section B + F196 is one route' (K9, G1, CL021) is withdrawn with it.
+>
+> **STILL LIVE:** Section B's STRUCTURAL observation that |a0| a^2 and a1 are the same kind of object (hbar c / a^2), which F408 S2 sharpens to the exact ratio 24 sqrt3 pi. The named p=2 obstruction as history (closed by F196). Section E's DE/DM remark stays speculative/open as before.
+>
+> **NOTE:** Cite F408 for the sign of the surviving route and F319/CL275 for Part A. The live K9/G1 statement is F408 section 7: a0 removal (sign-blind; F367 sequestering, contingent) + the positive a1 horizon term (the scale, not a source) + Omega_Lambda.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-06-30 - 17:35
 **Numbering:** **F193** (re-checked; prior max F192).
 **Status:** **Materially advances candidate (i).** Part A is a *derivation*: the model's own gravity sector (F64/F178) is sourced by the **beable** field-energy density, which on the ontic vacuum (empty BCC lattice) is **identically zero** — so the bare lattice cosmological constant is $0$ in the ontology, removing both the F164 magnitude and its wrong sign. Part B is *computed + honest*: the observed small $\rho_\Lambda$ is the back-reaction of the actual non-vacuum content, and a single factor of $(a/R_H)^2$ (holographic / Cohen–Kaplan–Nelson IR regulation, which the model's own black-hole sector implies) reproduces $\rho_\Lambda$ to within a factor $3.4$ ($\Delta\log_{10}=0.54$). The dilution **exponent** (why $2$, why $R_H$) is not derived — that is the sharpened, named obstruction. 4/4 checks PASS.

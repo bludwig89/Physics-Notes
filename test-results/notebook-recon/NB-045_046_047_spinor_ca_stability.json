@@ -1,0 +1,76 @@
+{
+  "build": "NB-045/NB-046/NB-047",
+  "grid_size": 24,
+  "steps": 200,
+  "seed": 20260922,
+  "method": "explicit Euler, exactly the p.38 boxed update rule (forward difference in time, central difference in space), independent fresh implementation",
+  "c_sweep": {
+    "0.1": {
+      "final_norm_ratio": 70937855.7500902,
+      "max_norm_ratio_over_run": 70937855.7500902,
+      "steps_completed_before_overflow_or_200": 200,
+      "grew_by_more_than_10x": true
+    },
+    "0.2": {
+      "final_norm_ratio": 1350595715726.998,
+      "max_norm_ratio_over_run": 1350595715726.998,
+      "steps_completed_before_overflow_or_200": 84,
+      "grew_by_more_than_10x": true
+    },
+    "0.3": {
+      "final_norm_ratio": 1739119716252.5623,
+      "max_norm_ratio_over_run": 1739119716252.5623,
+      "steps_completed_before_overflow_or_200": 45,
+      "grew_by_more_than_10x": true
+    },
+    "0.35": {
+      "final_norm_ratio": 1322888825213.2297,
+      "max_norm_ratio_over_run": 1322888825213.2297,
+      "steps_completed_before_overflow_or_200": 36,
+      "grew_by_more_than_10x": true
+    },
+    "0.4": {
+      "final_norm_ratio": 1001329463602.457,
+      "max_norm_ratio_over_run": 1001329463602.457,
+      "steps_completed_before_overflow_or_200": 30,
+      "grew_by_more_than_10x": true
+    },
+    "0.43": {
+      "final_norm_ratio": 1854062823147.91,
+      "max_norm_ratio_over_run": 1854062823147.91,
+      "steps_completed_before_overflow_or_200": 28,
+      "grew_by_more_than_10x": true
+    },
+    "0.45": {
+      "final_norm_ratio": 1004716567920.6785,
+      "max_norm_ratio_over_run": 1004716567920.6785,
+      "steps_completed_before_overflow_or_200": 26,
+      "grew_by_more_than_10x": true
+    },
+    "0.5": {
+      "final_norm_ratio": 3529380172574.982,
+      "max_norm_ratio_over_run": 3529380172574.982,
+      "steps_completed_before_overflow_or_200": 24,
+      "grew_by_more_than_10x": true
+    },
+    "0.55": {
+      "final_norm_ratio": 1368022232422.7336,
+      "max_norm_ratio_over_run": 1368022232422.7336,
+      "steps_completed_before_overflow_or_200": 21,
+      "grew_by_more_than_10x": true
+    },
+    "0.6": {
+      "final_norm_ratio": 4841794979218.183,
+      "max_norm_ratio_over_run": 4841794979218.183,
+      "steps_completed_before_overflow_or_200": 20,
+      "grew_by_more_than_10x": true
+    },
+    "0.7": {
+      "final_norm_ratio": 3030459028191.895,
+      "max_norm_ratio_over_run": 3030459028191.895,
+      "steps_completed_before_overflow_or_200": 17,
+      "grew_by_more_than_10x": true
+    }
+  },
+  "notebook_own_claim": "notebook reports values grow from unity to ~11000 in ~10 steps without the 1/2 factor (i.e. c=1 blows up fast, consistent with 2^10=1024 order-of-magnitude reasoning the author notes), and that with the 1/2 in (c=0.5) it 'comes down to about 120 -- still not ideal', with an empirical stabilization-like value around c~0.43."
+}

@@ -28,7 +28,18 @@ class PhotonPairChannel(Channel):
     type_name = "photon_pair"
     label = "Photon Pair"
     propagator = "even"          # forced (F91)
-    topologies = ("cubic",)      # spectral (E,B) on a cubic FFT grid
+    # Spectral (E,B) on an L^3 FFT grid; Omega_pair(k) is ALREADY built from
+    # the BCC dispersion symbol (gauge.photon.pair_dispersion), so this
+    # channel's own dynamics never reference real-space site positions or
+    # which lattice geometry they came from -- the "cubic" tag described the
+    # array, not the hop rule (roadmap docs/roadmaps/photon-fermion-coupling
+    # .md Sec.1.4). Fixed at Stage 4: "bcc" added so this channel can share a
+    # lattice with the BCC Weyl/fermion channels it was previously exiled
+    # from (see Stage 4's own em_photon, which is BCC-only precisely because
+    # it exists to run alongside fermion_em) -- same precedent as
+    # GravityDielectricChannel's ("cubic","bcc") tag below, and for the same
+    # reason: the field this channel evolves is topology-agnostic.
+    topologies = ("cubic", "bcc")
 
     def init_state(self, lattice, rng):
         from casim.fields.photon import build_pair_mode, build_beam_packet

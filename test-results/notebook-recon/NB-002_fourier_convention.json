@@ -1,0 +1,20 @@
+{
+  "build": "NB-002 vs NB-049",
+  "test_point_x0": 0.7,
+  "phi_true": 0.7827045382418681,
+  "p42_convention_CD_reconstruction": {
+    "re": 0.7827045382416711,
+    "im": 0.0
+  },
+  "p42_matches_true_to_1pct": true,
+  "p1_convention_AB_as_transcribed_reconstruction": {
+    "re": 12.327291180053097,
+    "im": 0.0
+  },
+  "p1_as_transcribed_matches_true_to_1pct": false,
+  "p1_convention_AB_with_corrected_2pi_power_reconstruction": {
+    "re": 0.7827045382416711,
+    "im": 0.0
+  },
+  "p1_corrected_matches_true_to_1pct": true
+}

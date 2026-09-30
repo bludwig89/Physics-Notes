@@ -46,6 +46,7 @@ register(Constant(
         Site("src/casim/engine/particles/derive_generator_norm.py", "delta_star",
              kind="import"),
         Site("src/casim/engine/particles/derive_lambda6_sextic.py", "delta_star", kind="import"),
+        Site("src/casim/engine/forks/particles/koide_pseudomass_fork.py", "delta_star_f", kind="import"),
         Site("tests/findings/test_F234_Wvc_triple_closed.py", "DELTA_STAR",
              kind="literal", note="the third local redefinition; C7 removes it"),
         Site("tests/findings/test_F230_lepton_angle_geometric_nogo.py", None,
@@ -118,17 +119,21 @@ register(Constant(
     exactness="quantitative",
     provenance=("F234", "F253", "F256"),
     derivation=r"\lambda_6 = |B|/(2e^6\cos(2/3)), the F234 arrow angle -> brake, "
-               r"with B = -5.69e-2 the F95 derived full-BZ sea cubic and e ~ 0.733 "
-               r"the F92/F118 saturation amplitude.",
+               r"with B = -5.69e-2 the F95 derived full-BZ sea cubic and "
+               r"e = \sqrt3\,\bar y \approx 0.728 the PDG charged-lepton E_g "
+               r"amplitude (derive_lambda6_sextic.py, which gives 0.2433). "
+               r"[2026-09-29: this text previously cited e ~ 0.733 (e_saturation), "
+               r"which gives 0.2334 — outside tol; see notes.]",
     sector="lepton",
     supersedes=("F179-CN3",),
     tol=5e-3,
     sites=(
         Site("src/casim/engine/particles/derive_generator_norm.py", "lam6_F234",
-             kind="runtime",
-             note="COMPUTED from the F234 arrow — that computation IS the finding. "
-                  "Recorded, never substituted: this script is the derivation, so "
-                  "importing the answer would make it circular."),
+             kind="import",
+             note="Imported, used only to back out the implied e for the "
+                  "circularity analysis (e6_implied = C_req/lambda_6). Was recorded "
+                  "as kind='runtime' ('computed, never substituted'), which the "
+                  "code did not match (corrected 2026-09-29)."),
         Site("tests/findings/test_F234_Wvc_triple_closed.py", None, kind="literal",
              note="comparison target, not a definition; C7"),
     ),
@@ -136,7 +141,10 @@ register(Constant(
           "2/9 and the rotor 1/4 (both miss by 5-20%), which is why 'derive "
           "lambda_6 independently' is the wrong request — it is derivative, not "
           "fundamental. Recorded as quantitative, not exact, because it inherits "
-          "B's and e's tolerances.",
+          "B's and e's tolerances. OPEN TENSION (2026-09-29): the two registered "
+          "determinations of e disagree — sqrt3*ybar (PDG) = 0.728 gives 0.2433 "
+          "(this value); e_saturation = 0.733 (F92/F118 solve) gives 0.2334. A 0.7% "
+          "move in e is a 4% move in lambda_6 (the e^6 lever).",
 ))
 
 register(Constant(

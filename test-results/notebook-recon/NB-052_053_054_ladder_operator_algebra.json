@@ -1,0 +1,14 @@
+{
+  "build": "NB-054 (with NB-052/053 false-start diagnostic)",
+  "fock_truncation": 10,
+  "commutator_checks": {
+    "[ak,akd]=I_on_safe_subspace": true,
+    "[amk,amkd]=I_on_safe_subspace": true,
+    "[ak,amkd]=0_on_safe_subspace": true
+  },
+  "NB-054_true_closed_form_max_abs_diff": 3.552713678800501e-15,
+  "NB-054_true_closed_form_confirmed": true,
+  "NB-054_naive_same-k_form_max_abs_diff_(expected_NOT_to_match_at_fixed_k)": 14.000000000000007,
+  "NB-054_relabeling_note": "the boxed 'a_k^+a_k+a_k a_k^+' form in the notebook is reached only after INT d^3k relabeling k->-k in the second term of the TRUE closed form 2(a_k^+a_k+a_{-k}a_{-k}^+) -- a valid dummy-variable substitution under a symmetric integration domain, not an operator identity holding at each fixed k. Both forms checked above; the notebook's own derivation (lines 1147-1151) explicitly performs this relabeling step, so this is not an error, just a step worth stating precisely.",
+  "NB-052_053_diagnostic": "the crossed-out p.44 attempt's expansion '-a_k^{+2}-a_k^2+2a_k^+a_{-k}+a_k^{+2}+a_{-k}^2+2a_k^+a_k' mixes SAME-index (a_k^+ a_k) and CROSS-index (a_k^+ a_{-k}) terms within what should be a single mode's -(a_k^+-a_k)^2+(a_k^++a_k)^2 expansion (a well-defined identity that reduces cleanly to 4 a_k^+ a_k + 2, verified as a special case of the two-mode check above by setting mode '-k' equal to mode 'k') -- introducing a_{-k} into a single-mode identity is the structural error, consistent with why the author caught it and redid the calculation properly using the actual TWO-mode phi_k=a_k^++a_{-k} substitution at p.45."
+}

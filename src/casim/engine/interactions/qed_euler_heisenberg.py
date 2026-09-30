@@ -54,8 +54,8 @@ EXACT (symbolic, sympy):
        (E parallel vs perpendicular to B) acquire refractive-index shifts in the
        ratio 7 : 4 EXACTLY:
 
-         n_par - 1 = (7/2)(2 alpha^2/45)(B^2/m^4),
-         n_perp - 1 = (4/2)(2 alpha^2/45)(B^2/m^4).
+         n_par - 1 = 7 (2 alpha^2/45)(B^2/m^4)  = (7 alpha/90 pi)(B/B_c)^2,
+         n_perp - 1 = 4 (2 alpha^2/45)(B^2/m^4) = (4 alpha/90 pi)(B/B_c)^2.
 
        This is the nonlinear counterpart of F249-B1's zero *linear* birefringence.
 
@@ -304,7 +304,9 @@ def birefringence_ratio_symbolic() -> dict:
     """Expand L_EH to second order in a probe field about a constant background B
     (along x, probe propagating along z). The two eigen-polarisations, E parallel
     vs perpendicular to B, get refractive-index shifts in the ratio 7:4 exactly.
-    n - 1 = (Delta L)/(2 e^2) reproduces the standard prefactors 7/2 and 4/2."""
+    With Delta L = c kappa B^2 E_probe^2, delta eps = 2 c kappa B^2 and n - 1 = c kappa B^2,
+    i.e. n_par - 1 = 7 (2 alpha^2/45)(B^2/m^4) = (7 alpha/90 pi)(B/B_c)^2 and
+    n_perp - 1 = 4 (2 alpha^2/45)(B^2/m^4) (Adler 1971)."""
     import sympy as sp
 
     kap, B, ee = sp.symbols("kappa B e", positive=True)   # kappa = 2 alpha^2/45 m^4
@@ -335,8 +337,11 @@ def birefringence_ratio_symbolic() -> dict:
         "coeff_parallel": str(coef_par),          # 7
         "coeff_perp": str(coef_per),              # 4
         "ratio_par_perp": str(ratio),             # 7/4
-        "n_par_minus_1": "(7/2)(2 alpha^2/45)(B^2/m^4)",
-        "n_perp_minus_1": "(4/2)(2 alpha^2/45)(B^2/m^4)",
+        # Delta L = 7 kappa B^2 E_x^2 => delta eps = 14 kappa B^2 => n-1 = 7 kappa B^2
+        # (= 7 alpha/(90 pi) (B/B_c)^2, Adler 1971).  Was "(7/2)(...)", a factor 2
+        # low from an n-1 = Delta L/(2 e^2) rule (corrected 2026-09-29).
+        "n_par_minus_1": "7 (2 alpha^2/45)(B^2/m^4)",
+        "n_perp_minus_1": "4 (2 alpha^2/45)(B^2/m^4)",
         "gate_pass": bool(gate),
         "statement": "field-induced vacuum birefringence ratio "
                      "(n_par-1):(n_perp-1) = 7:4 (Adler 1971), derived exactly "

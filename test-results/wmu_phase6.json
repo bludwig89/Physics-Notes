@@ -10,10 +10,10 @@
     },
     {
       "test": "W6.2",
-      "residual": 1.8041124150158794e-15,
+      "residual": 1.3322676295501878e-15,
       "target": 1e-13,
       "passed": true,
-      "description": "mix \u2218 propagate = propagate \u2218 mix: max|\u0394| = 1.80e-15"
+      "description": "mix \u2218 propagate = propagate \u2218 mix: max|\u0394| = 1.33e-15"
     },
     {
       "test": "W6.3",
@@ -68,20 +68,20 @@
     },
     {
       "test": "W6.5",
-      "residual": 1.9984014443252818e-15,
+      "residual": 1.7763568394002505e-15,
       "target": 1e-13,
       "errors_by_theta": {
         "theta=0.1000": 1.7763568394002505e-15,
-        "theta=0.3000": 1.7763568394002505e-15,
+        "theta=0.3000": 1.5543122344752192e-15,
         "theta=0.4916": 1.7763568394002505e-15,
-        "theta=0.7000": 1.9984014443252818e-15,
+        "theta=0.7000": 1.7763568394002505e-15,
         "theta=1.4000": 1.7763568394002505e-15
       },
       "passed": true,
-      "description": "[mix,propagate]=0 for all \u03b8_W: max|\u0394| = 2.00e-15"
+      "description": "[mix,propagate]=0 for all \u03b8_W: max|\u0394| = 1.78e-15"
     }
   ],
-  "elapsed": 0.02601480484008789,
+  "elapsed": 0.017864227294921875,
   "n_pass": 5,
   "n_total": 5
 }

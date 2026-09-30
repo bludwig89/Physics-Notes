@@ -1,0 +1,10 @@
+{
+  "build": "NB-082/NB-083",
+  "rotation_pair_is_genuine_inverse": true,
+  "A_mu_coefficient": "-g*sin(theta) + g_prime*cos(theta)",
+  "gp_over_g_solving_A_coeff=0": "tan(theta)",
+  "matches_g'/g=tan(theta)": true,
+  "alpha_Z_coupling_once_A_coeff=0_imposed": "g/cos(theta)",
+  "alpha_matches_g/cos(theta)_(g_sec_theta)": true,
+  "note": "the notebook's boxed g'/g=tan(theta) is confirmed exactly by direct substitution and demanding the A_mu coupling vanish. As a bonus check: the resulting Z-coupling alpha collapses to the clean closed form g/cos(theta) = g sec(theta), confirmed algebraically -- this is the standard electroweak result that the physical Z coupling is g/cos(theta_W), a good independent cross-check that the rotation algebra is being handled correctly overall, even though the notebook doesn't spell out this particular simplification itself."
+}

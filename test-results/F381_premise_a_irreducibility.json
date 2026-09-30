@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "name": "S1 F289's and F330's own source text contains zero colour/composite-count tokens -- the two derivations never mention the object premise (a) is about",
+      "ok": true,
+      "value": []
+    },
+    {
+      "name": "S2 no public function in F289's or F330's module takes a colour-count-shaped parameter -- no channel exists through which an N could even be supplied",
+      "ok": true,
+      "value": []
+    },
+    {
+      "name": "S3 F333's own S1+S2 machinery genuinely bifurcates over N (fermion at odd N, boson at even N), and F289's rotor fact is identical across every branch because it is never given N",
+      "ok": true,
+      "value": [
+        {
+          "n": 2,
+          "predicted_fermionic": false
+        },
+        {
+          "n": 3,
+          "predicted_fermionic": true
+        },
+        {
+          "n": 4,
+          "predicted_fermionic": false
+        },
+        {
+          "n": 5,
+          "predicted_fermionic": true
+        },
+        {
+          "n": 6,
+          "predicted_fermionic": false
+        },
+        {
+          "n": 7,
+          "predicted_fermionic": true
+        }
+      ]
+    },
+    {
+      "name": "S4 F324's own premise (ii), read from its returned premises list, is literally 'the colour sector exists' -- using F324 to discharge B1's existence residual would be circular",
+      "ok": true,
+      "value": [
+        "(ii) the colour sector exists (F318's residual); this is what excludes N=1, restated in the ladder's vocabulary"
+      ]
+    },
+    {
+      "name": "S5 substituting F324's chain for premise (a) (and (b), since a pinned N also settles N!=1) costs F324's six premises against F333's two -- a net increase, not a reduction",
+      "ok": true,
+      "value": [
+        2,
+        6
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 5,
+  "n_total": 5,
+  "params": {
+    "inject_colour_token": false,
+    "inject_fake_param": false,
+    "force_all_fermionic": false,
+    "strip_premise_ii": false,
+    "assume_f324_premise_count": 0
+  },
+  "summary": {
+    "row": "B1",
+    "verdict": "F333's premise (a) -- real baryons are fermions -- is logically INDEPENDENT of F289/F330's derived spin-statistics connection: that connection is a single-constituent theorem with no channel for a colour count, F333's own S1/S2 combination of it genuinely bifurcates on N, and the one route that could pin N from elsewhere (F324) both presupposes colour's existence (circular for this purpose) and costs more premises than it saves. Row B1 stays PARTIAL at two premises; this closes the reduction attempt with a stated reason."
+  }
+}

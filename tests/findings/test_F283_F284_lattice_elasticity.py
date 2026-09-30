@@ -123,7 +123,11 @@ def check_F2_epoch_si_and_budget():
     bd = el.lattice_cell_budget()
     # t_min is ABOVE the Planck time, because a is 6.6 non-reduced Planck lengths
     assert ep["t_min_over_planck_time"] > 1.0
-    assert 10.0 < ep["t_min_over_planck_time"] < 13.0
+    # t_min = a/c exactly (one cell-crossing at the canonical tick), so
+    # t_min/t_P = a/ell_P.  Was 10 < x < 13 (11.43), which pinned the
+    # sqrt(3)-long tick corrected 2026-09-29.
+    from casim.constants import a_over_ellP
+    assert abs(ep["t_min_over_planck_time"] / a_over_ellP - 1.0) < 1e-5
     assert 1e-35 < ep["a_metres"] < 1e-33
     assert bd["R_H_in_cells"] > 1e59
     assert bd["hubble_volume_in_cells"] > 1e179

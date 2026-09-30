@@ -881,8 +881,352 @@ tests:
     n_test_funcs: 7
     artifacts_written: []
     artifact_rule: {}
-    artifacts_read_only: []
+    artifacts_read_only:
+    - test-results/F371_medium_z_ie_sweep.json
     summary: F371 — Extending F208's relativistic SCF ionization-energy map from
+- id: F388-fermion-photon-coupled-channels
+  path: tests/findings/test_F388_fermion_photon_coupled_channels.py
+  kind: assertion
+  tier: gate
+  sector: core
+  module: casim.engine.core.coupled
+  entry: check_fermion_photon_backreaction
+  params:
+    L: 16
+    ticks: 20
+    g_lat: 0.5
+    q: 1.0
+    width: 1.5
+    k0:
+    - 0.5
+    - 0.0
+    - 0.0
+    photon_amp: 0.15
+    seed: 0
+    use_naive_sourcing: false
+  expect:
+    exactness: machine
+  findings:
+  - F388
+  - F387
+  - F386
+  - F385
+  - F384
+  results:
+  - test-results/F388_fermion_photon_coupled_channels.json
+  control:
+  - params:
+      q: 0.0
+    reds:
+    - seeded_photon_gives_sustained_push
+    reason: zero the fermion's U(1) charge, which makes u1_link_weyl_step_3d_bcc reduce to the free step
+      regardless of A (F385's own A==0-equivalent reduction property). Must, and measured does, turn exactly
+      this one leg red while every other leg (none of which depends on a genuine push) stays green.
+  - params:
+      use_naive_sourcing: true
+    reds:
+    - no_monopole_fix_holds_with_dynamical_current
+    reason: revert em_photon to the roadmap's own original, F386/F387-broken E+=g.J sourcing recipe (no
+      transverse/longitudinal split). Must, and measured does, turn exactly this leg red (iC.B residual
+      jumps from ~4e-16 to 4.30) while every other leg stays green -- this control is also this leg's
+      can-fail proof, since it is the first place the no-monopole fix is exercised under a dynamical current
+      at all.
+  notes: 'Stage 4 of docs/roadmaps/photon-fermion-coupling.md: the coupled em_photon/fermion_em channels,
+    mirroring the fermion<->W loop (WSourcedChannel/FermionDoubletChannel) exactly. em_photon sources
+    (E,B) with the partner fermion''s F384 current, free-rotates at Omega_pair (photon.photon_step_spectral,
+    decision 5), and publishes A via F386''s Coulomb-gauge solve (charge_coupling.solve_A_coulomb_3d).
+    fermion_em advances the charged Weyl fermion via F385''s per-link covariant step (minimal_coupling.u1_link_weyl_step_3d_bcc)
+    using that A. DEVIATION FROM THE ROADMAP''S OWN SKETCH: the roadmap''s literal "E += g.J" recipe is
+    exactly what F386 Sec.5 found broken (a genuine iC.B!=0 "no magnetic monopoles" violation) and F387
+    fixed with a split-sourcing recipe (source only the current''s C(k)-transverse part through Omega_pair;
+    carry the longitudinal/Coulomb sector algebraically via continuity + Gauss law, never populating B_L)
+    -- em_photon implements F387''s fix directly, the first place it is exercised under a genuinely DYNAMICAL
+    (live, changing every tick) current rather than F387''s own static-current harness. Also fixed the
+    topology tags per the roadmap''s Sec.1.4 diagnosis: core.channels.PhotonPairChannel.topologies is
+    now ("cubic","bcc") -- same precedent as GravityDielectricChannel, backward compatible, lets the existing
+    standalone photon_pair channel (not just this stage''s new em_photon) share a lattice with BCC fermion
+    channels for the first time. 7/7 legs PASS: registration verified, topology fix verified, the documented
+    pre-tick/post-tick ordering contract verified exactly (0.0), a current-only source gives EXACTLY zero
+    field momentum (3.9e-36, expected by construction -- a vector crossed with itself vanishes, same pitfall
+    class core.observers.Momentum''s own docstring documents), a genuine Chat(k)-transverse- seeded photon
+    pulse gives a real, non-oscillating, non-reverting matter-momentum push (rises to and holds a plateau
+    ~3e-5 within the gated 20-tick window, NOT F385''s own unboundedly-growing "secular" push against
+    a static field -- described precisely as "sustained", not "secular"), norm drift stays bounded (8.6e-6),
+    and F387''s no-monopole fix holds under the dynamical current in both the self-sourced-only and seeded-photon
+    scenarios (both ~4e-16). Two declared controls, each independently verified to redden exactly its
+    own leg and no other. REVIEWED 2026-09-15 (docs/reviews/F388-review- 2026-09-15.md): CONFIRMED-NARROWER,
+    gate unchanged, but the review found and the finding now discloses prominently (F388 Sec.2) that F384''s
+    current is purely C(k)-longitudinal BY CONSTRUCTION (measured ~2e-16 transverse fraction on every
+    fermion config tried), so this loop''s fermion->photon direction cannot radiate and TOTAL MOMENTUM
+    IS NOT CONSERVED by this construction (dP_field stays at machine zero while dP_matter grows) -- a
+    direct caveat for Stage 5''s own first planned claim. Also fixed: a g_lat scaling inconsistency between
+    E_T''s source and rho''s continuity update (both now use g_lat consistently); the push extended to
+    100 ticks shows a slow oscillation (peak ~5.6e-5 at tick~54, back down to ~2.7e-5 by tick 100), not
+    an indefinite plateau -- the gate''s own 20-tick claim stands, scoped explicitly to that window.'
+  evidence:
+    mentions:
+    - F387
+    - F388
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 66
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F388 -- the coupled em_photon/fermion_em channels (Stage 4,
+- id: F389-radiative-current-backreaction
+  path: tests/findings/test_F389_radiative_current_backreaction.py
+  kind: assertion
+  tier: gate
+  sector: core
+  module: casim.engine.core.coupled
+  entry: check_radiative_current_backreaction
+  params:
+    L: 16
+    ticks: 20
+    g_lat: 0.3
+    q: 1.0
+    width: 1.5
+    k0:
+    - 0.5
+    - 0.0
+    - 0.0
+    use_radiative_current: true
+  expect:
+    exactness: machine
+  findings:
+  - F389
+  - F388
+  - F387
+  - F386
+  - F385
+  - F384
+  results:
+  - test-results/F389_radiative_current_backreaction.json
+  control:
+  - params:
+      use_radiative_current: false
+    reds:
+    - field_momentum_genuinely_nonzero
+    - momentum_partially_but_not_exactly_conserved
+    - matter_push_scales_linearly_field_push_scales_quadratically
+    reason: revert em_photon to F388's own current (conserved_current alone, always Ĉ(k)-transverse-null),
+      measured with A therefore staying exactly zero forever -- fermion_em's per-link step reduces to
+      the free step (F385's own A==0-equivalent reduction), so BOTH dP_matter and dP_field collapse to
+      machine noise (~1.6e-15, ~1.8e-36) -- three of the four legs go red (recovered fraction and both
+      doubling ratios become ill-defined/noise-dominated), leaving only no_monopole_holds green (F387's
+      fix does not depend on which current sources it).
+  notes: 'F389''s companion coupled-loop record: does gauge.em_current.full_current (see F389-radiative-transverse-current
+    in tests/registry/gauge.yaml) actually let the self-sourced em_photon/fermion_em loop (Stage 4, docs/roadmaps/photon-fermion-coupling.md)
+    radiate and recoil, and by how much does it repair Stage 5''s momentum-conservation claim? Answer,
+    measured on the same self-sourced-only scenario F388''s own self_sourced_field_momentum_trivially_zero
+    leg used (no seeded photon): field momentum, machine-zero under F388''s current, is now genuinely
+    nonzero (2.2e-4 at g_lat=0.3) and F387''s no-monopole fix still holds (~2e-15). But conservation is
+    only PARTIAL, not exact: the field recovers ~11% of the matter''s momentum loss at g_lat=0.3 (measured,
+    gated to stay strictly between 1% and 90% -- neither still-zero nor conserved), and the reason is
+    structural, not a tuning accident: dP_matter scales linearly with g_lat (measured ratio 1.986 on doubling
+    -- a Lorentz-force-like leading-order response to the self-sourced A) while dP_field scales quadratically
+    (measured ratio 3.988 -- E cross B needs both factors sourced), because the fermion''s per-link recoil
+    (F385) and this current''s field-sourcing (F389) were derived as two independently-audited constructions,
+    not as the two halves of one covariant lattice action whose Noether identity would force them to match
+    order-by-order. See findings/F389-radiative-transverse-em-current.md Sec.2-3 for the full account,
+    including the disclosed numerical-stability caveat (field energy keeps growing over a longer, non-gated
+    300-tick run without an obvious saturation, though norm drift stays bounded throughout).'
+  evidence:
+    mentions:
+    - F387
+    - F388
+    - F389
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 67
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F389 -- does the fixed current let the fermion<->photon loop (Stage 4,
+- id: F390-photon-fermion-push
+  path: tests/findings/test_F390_photon_fermion_push.py
+  kind: assertion
+  tier: gate
+  sector: core
+  module: casim.engine.core.photon_fermion_push
+  entry: check_photon_fermion_push
+  params:
+    L: 16
+    ticks: 20
+    g_lat: 0.6
+    q: 1.0
+    width: 1.5
+    m_index: 2
+    sigma: 3.0
+    amp: 0.15
+    use_radiative_current: true
+  expect:
+    exactness: quantitative
+  findings:
+  - F390
+  - F389
+  - F388
+  - F387
+  - F386
+  - F385
+  - F384
+  results:
+  - test-results/F390_photon_fermion_push.json
+  control:
+  - params:
+      use_radiative_current: false
+    reds:
+    - field_gains_real_momentum_when_radiative_current_on
+    - field_and_matter_momentum_nearly_antiparallel
+    - closure_residual_has_interior_minimum
+    - antiparallel_result_inverts_off_axis
+    reason: revert em_photon to F388's own current (always C(k)-transverse-null). field_push_norm collapses
+      to machine noise on- and off-axis alike, so there is nothing to be non-zero, anti-parallel, non-monotonic,
+      or invertible -- while the matter push (unconditional, F388 Sec.2, on- and off-axis alike) and the
+      zero-coupling baseline are unaffected, leaving the other 4 legs green.
+  - params:
+      q: 0.0
+    reds:
+    - push_direction_aligned_with_beam
+    - field_momentum_zero_at_zero_coupling
+    - field_gains_real_momentum_when_radiative_current_on
+    - field_and_matter_momentum_nearly_antiparallel
+    - momentum_conservation_not_exact_at_default_coupling
+    - closure_residual_has_interior_minimum
+    - direction_correlation_breaks_down_off_axis
+    - antiparallel_result_inverts_off_axis
+    reason: zero the fermion's U(1) charge entirely -- the per-link step reduces to the free step (F385's
+      A==0-equivalent reduction property), killing ALL momentum transfer in either direction, including
+      the g_lat=0 baseline's own matter push. Every leg goes red or ill-defined -- the blunt "no charge,
+      no physics at all" floor, contrasting with the surgical control above.
+  notes: 'Stage 5 of docs/roadmaps/photon-fermion-coupling.md: the scenario (scenarios/ photon_fermion_push.yaml)
+    and the roadmap''s four physics claims, tested against a genuine beam-packet-pushes-at-rest-fermion
+    configuration built on F388''s coupled channels with F389''s radiative current. CLAIM 1 (momentum
+    conservation): NOT achieved exactly at any coupling tested, confirming F389''s own structural (O(g)
+    matter vs O(g^2)-in-the-self-sourced-case field) prediction extended to a genuinely dynamical, beam-driven
+    scenario. A positive partial result was found ON-AXIS: the field''s and matter''s momentum CHANGES
+    are nearly exactly ANTI-PARALLEL (cos(dPm,dPf)=-0.989 at the default config) -- REVIEWED 2026-09-15
+    and NARROWED: this is axis-specific, not general. An off-axis beam (axis=1, otherwise identical) INVERTS
+    it to cos=+0.99995 (near-exactly PARALLEL), now gated explicitly (antiparallel_result_inverts_off_axis)
+    rather than left undisclosed. Also found in review: g_lat controls ONLY the fermion->field backreaction
+    -- the field->fermion push (|dPm|) is set by q.amp and is independent of g_lat to <0.4% over g_lat
+    in [0,3]; "sweep the coupling" therefore only sweeps HALF the loop. At g_lat=0 the field literally
+    cannot lose momentum at all (dPf exactly machine-zero, 2.2e-17, while dPm=0.041). The conservation
+    residual |dPm+dPf|/|dPm| has a reproducible LOCAL MINIMUM at g_lat=0.6 for this configuration (0.78
+    at g=0.3 -> 0.17 at g=0.6 -> 0.86 at g=1.2) -- this is a structurally-guaranteed crossing point of
+    a flat |dPm| curve and a linearly-growing |dPf| curve (verified in review), not evidence of an approaching
+    Noether identity nor a universal "optimal coupling". CLAIM 2 (direction): CONFIRMED ON-AXIS ONLY (cos=0.995
+    at default config, verified m_index<=3 at L=16) -- REVIEWED and NARROWED: the correlation reverses
+    sign at m_index=4 (cos=-0.988, NOT a remote Brillouin-zone-edge effect, just double the default m_index)
+    and decorrelates entirely for off-axis beams (axis=1 or 2: cos~0, e.g. -0.0019 at m_index=2/axis=1)
+    -- gated explicitly (direction_correlation_breaks_down_off_axis) rather than left undisclosed. Both
+    breakdowns plausibly trace to F387''s documented Chat(k)=(kx,-ky,kz)/|k| axis anisotropy interacting
+    with build_beam_packet''s Euclidean-k-hat (not Chat(k)) polarization convention. CLAIM 3 (magnitude,
+    Delta p=Delta E/c): NOT gated here -- the matter push is set by the unconditional per-link mechanism
+    (g_lat-independent) while the field''s own energy loss is set entirely by the separate, g_lat-dependent
+    radiative-current mechanism, so the two are not mediated by the same channel and there is no reason
+    to expect a shared E=pc-type relation; measured and reported as a precisely characterized negative
+    result in the finding, not forced into a gate threshold. CLAIM 4 (Thomson-limit stretch goal): explicitly
+    out of scope this session. 8/8 legs PASS (2 new legs added in review to gate the axis-breakdown explicitly),
+    two declared controls each independently verified sound. Reviewed 2026-09-15 (docs/reviews/F390-review-2026-09-15.md):
+    CONFIRMED-NARROWER -- CL307''s own stated falsifier was found already triggered by this same review;
+    the card and finding are both narrowed to the on-axis, small-m_index domain accordingly.'
+  evidence:
+    mentions:
+    - F387
+    - F389
+    - F390
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F390 -- the photon-fermion push scenario and the roadmap's physics claims
+- id: F395-stage5-circular-beam-rerun
+  path: tests/findings/test_F395_stage5_circular_beam_rerun.py
+  kind: assertion
+  tier: gate
+  sector: core
+  module: casim.engine.core.photon_fermion_push
+  entry: check_stage5_circular_beam_rerun
+  params:
+    L: 16
+    ticks: 20
+    g_lat: 0.6
+    q: 1.0
+    width: 1.5
+    sigma: 3.0
+    amp: 0.15
+    use_radiative_current: true
+    beam_polarization: circular
+  expect:
+    exactness: quantitative
+  findings:
+  - F395
+  - F392
+  - F390
+  - F389
+  - F387
+  results:
+  - test-results/F395_stage5_circular_beam_rerun.json
+  control:
+  - params:
+      beam_polarization: linear
+    reds:
+    - offaxis_correlation_changes_with_circular_beam
+    reason: revert to F390's original (defective) beam -- the off-axis correlation collapses back to F390/F391's
+      own near-zero number (measured -0.0019, matching F390's own disclosed value exactly), which is exactly
+      what this leg exists to distinguish from the circular beam's own nonzero, axis- dependent correlation
+      (0.328 at axis=1). Every other leg is a property of the coupled dynamics/ architecture (translation
+      covariance, charge drift, coupling-order scaling) or of the matter-side m_index=4/on-axis mechanism,
+      none of which depend on this specific beam-polarization convention, so they stay green under the
+      swap.
+  notes: 'Part D of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md, re-running Stage 5 of docs/roadmaps/photon-fermion-coupling.md
+    against F392''s fixed (circular) beam. Re-measured, before theorising: the m_index=4 sign flip (cos=-0.949
+    with the circular beam, still negative -- persists, consistent with F391''s own already-established
+    spin-dependence candidate, not a beam-construction artifact); the off-axis (axis=1) correlation, which
+    CHANGES from F390/F391''s own near-zero (~-0.002, both linear-type polarizations) to a nonzero, axis-dependent
+    0.328 (axis=1) / -0.101 (axis=2) with the genuinely circular beam -- a new, measured result, not predicted
+    in advance, and not the same defect F391 already ruled out (F391 tested the Chat(k)-vs-khat transversality
+    convention, keeping LINEAR polarization; this finding tests circular-vs-linear polarization itself,
+    orthogonal to F391''s fix). Restates the roadmap''s claim 1 per the audit (docs/audits/2026-09-16-photon-fermion-momentum-
+    investigation.md) Sec.6.2: (A) exact charge conservation -- measured NOT exact under casim''s actual
+    bridged architecture (0.54% norm drift over 20 ticks, bounded not zero, consistent with F385''s own
+    established per-link drift; the audit''s "delivered outright" language was about the single-action
+    PROTOTYPE, not casim''s real construction); (B) exact crystal-momentum translation covariance, checked
+    directly as Phi.T=T.Phi and holding to 1.5e-15 (gated, machine-exact); (C) matched-order approach
+    -- still mismatched (doubling ratios 0.994 matter vs 2.036 field), though for a different, disclosed
+    reason than F389''s self-sourced O(g)-vs-O(g^2) case (the matter push here is dominated by the coupling-INDEPENDENT
+    unconditional per-link push, F390 Sec.3''s own already-disclosed fact, so the "matter ratio~1" reflects
+    that dominance, not a coupling order). 6/6 PASS, one declared control verified red on exactly 1 of
+    6 legs. F390''s own gate record re-verified bit-identical (8/8 PASS, same numbers) after threading
+    the new beam_polarization parameter with a "linear" default.'
+  evidence:
+    mentions:
+    - F384
+    - F389
+    - F390
+    - F391
+    - F392
+    - F394
+    - F395
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 81
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F395 -- Part D of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md:'
 - id: F65-helicity-chirality-map
   path: tests/findings/test_F65_helicity_chirality_map.py
   kind: legacy_script
@@ -1689,6 +2033,57 @@ tests:
   - test-results/d1_static_potential.json
   notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
     rewrites 1 committed artifact(s), so the baseline diff vs HEAD is its failure mode'
+- id: run-f400-coordination-selector
+  path: tests/runners/run_f400_coordination_selector.py
+  kind: legacy_script
+  tier: battery
+  sector: core
+  evidence:
+    mentions:
+    - F400
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 55
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F400 runner — emit the coordination-selector result artifact.
+- id: run-f401-photon-bound-state-finite-k
+  path: tests/runners/run_f401_photon_bound_state_finite_k.py
+  kind: legacy_script
+  tier: battery
+  sector: core
+  evidence:
+    mentions:
+    - F401
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 69
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F401 runner — emit the finite-k threshold-repair result artifact.
+- id: run-f402-baryon-mass-decomposition
+  path: tests/runners/run_f402_baryon_mass_decomposition.py
+  kind: legacy_script
+  tier: battery
+  sector: core
+  evidence:
+    mentions:
+    - F402
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 56
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F402 runner — emit the Ji-type nucleon-mass-decomposition result artifact.
 - id: run-l6-native-sweep
   path: tests/runners/run_l6_native_sweep.py
   kind: legacy_script
@@ -1704,8 +2099,10 @@ tests:
     has_main: true
     lines: 102
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F337_l6_native_sweep_raw_per_Q.json
+    artifact_rule:
+      test-results/F337_l6_native_sweep_raw_per_Q.json: local
     artifacts_read_only: []
     summary: run_l6_native_sweep.py — NATIVE runner for F337's ledger-d1 / L6 native sweep.
 - id: run-su2-3d-fluxtube
@@ -1749,8 +2146,10 @@ tests:
     has_main: true
     lines: 78
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/smoothed_ws_mask_sweep_checkpoint_v2.json
+    artifact_rule:
+      test-results/smoothed_ws_mask_sweep_checkpoint_v2.json: file
     artifacts_read_only: []
     summary: run_ws_mask_smoothed_sweep.py -- checkpointed runner for the F337 Sec.4/6
 - id: sr2-3d-scan

@@ -1,0 +1,10 @@
+{
+  "build": "NB-018/NB-019",
+  "core_identity_sigma_sigmatilde_all_16_combos_match_2eta_I": true,
+  "mismatches": [],
+  "p16_line330_sum_sigma_mu_sigmatilde_mu_raw": "Matrix([[-2, 0], [0, -2]])",
+  "p16_line330_sum_sigma_mu_sigmatilde_mu_eta_lowered": "Matrix([[4, 0], [0, 4]])",
+  "p16_claim_neg4_sigma00_as_matrix": "Matrix([[-4, 0], [0, -4]])",
+  "p16_raw_sum_matches_neg4I": false,
+  "p16_eta_lowered_sum_matches_neg4I": false
+}

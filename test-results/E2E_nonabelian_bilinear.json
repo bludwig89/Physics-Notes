@@ -4,14 +4,14 @@
   "results": [
     {
       "test": "W1",
-      "residual": 8.881784197001252e-16,
+      "residual": 4.440892098500626e-16,
       "target": 1e-15,
       "passed": true,
       "description": "sourced \u2212 free == g\u00b7J\u00b7dt (bit-for-bit)"
     },
     {
       "test": "W2",
-      "residual": 2.0816681711721685e-17,
+      "residual": 2.7755575615628914e-17,
       "target": 1e-13,
       "passed": true,
       "description": "\u0394U_field per tick == g\u00b7dt\u00b7\u03a3J\u00b7E_rot + \u00bdg\u00b2dt\u00b2\u03a3|J|\u00b2 over 30 ticks (machine)"
@@ -23,7 +23,7 @@
       "passed": true,
       "description": "causal W front: |W|@B(emit)=0.0e+00 < 1e-9, @B(t=16\u226513.9)=3.32e-02 > 1e-6",
       "sig_emit": 0.0,
-      "sig_final": 0.03317142934134041,
+      "sig_final": 0.033171429341340444,
       "light_time": 13.856406460551016
     },
     {
@@ -33,7 +33,7 @@
       "passed": true,
       "description": "Proca: even-m0==even-free, chiral-m0==chiral-free (machine), \u0394\u03c9_eff closed form + mass-suppressed birefringence (\u0394\u03c9: 1.03e-02\u21921.18e-03)",
       "res_even_m0": 0.0,
-      "res_chiral_m0": 1.9984014443252818e-15,
+      "res_chiral_m0": 2.220446049250313e-15,
       "res_closed_form": 2.7994370369696236e-13,
       "birefringence_vs_mass": {
         "0.0": 0.01027412602611602,
@@ -54,19 +54,19 @@
     },
     {
       "test": "Z1",
-      "residual": 2.216109240560371e-16,
+      "residual": 2.220446049250313e-16,
       "target": 1e-14,
       "passed": true,
       "description": "massive-Z kick exact + per-species identity + causal front (emit 0.0e+00, t=18: 5.13e-03)",
-      "res_kick": 2.216109240560371e-16,
+      "res_kick": 2.220446049250313e-16,
       "res_species": 1.734723475976807e-18,
       "sig_emit": 0.0,
-      "sig_final": 0.005125930634984614,
+      "sig_final": 0.005125930634984557,
       "m_Z": 0.4618802153517006
     },
     {
       "test": "Z2",
-      "residual": 1.7763568394002505e-15,
+      "residual": 8.881784197001252e-16,
       "target": 1e-13,
       "passed": true,
       "description": "source-basis identity gW\u00b3J\u00b3+g'B(Jem\u2212J3) == eAJem+g_Z\u00b7Z\u00b7J_Z (g' = g\u00b7tan\u03b8_W)"
@@ -82,12 +82,12 @@
     },
     {
       "test": "G2",
-      "residual": 3.1086244689504383e-15,
+      "residual": 2.6645352591003757e-15,
       "target": 1e-13,
       "passed": true,
       "description": "global SU(3): J(Vq)==R_adj\u00b7J(q) + sourced step commutes with adjoint rotation",
       "res_current": 1.2212453270876722e-15,
-      "res_step": 3.1086244689504383e-15
+      "res_step": 2.6645352591003757e-15
     },
     {
       "test": "G3",
@@ -96,7 +96,7 @@
       "passed": true,
       "description": "causal gluon front: emit 0.0e+00 < 1e-9, t=12\u22658.7: 1.46e-02 > 1e-6",
       "sig_emit": 0.0,
-      "sig_final": 0.014605315018372887
+      "sig_final": 0.014605315018372885
     },
     {
       "test": "G4",
@@ -114,15 +114,15 @@
     },
     {
       "test": "B1",
-      "residual": 7.105427357601002e-15,
+      "residual": 6.439293542825908e-15,
       "target": 1e-12,
       "passed": true,
-      "description": "closed fermion\u2194W loop (20 ticks): norm 7.1e-15, ledger 9.5e-18, g=0 control 0.0e+00, back-action 3.25e-03",
-      "norm_res": 7.105427357601002e-15,
-      "ledger_res": 9.540979117872439e-18,
+      "description": "closed fermion\u2194W loop (20 ticks): norm 6.4e-15, ledger 1.1e-17, g=0 control 0.0e+00, back-action 3.25e-03",
+      "norm_res": 6.439293542825908e-15,
+      "ledger_res": 1.0842021724855044e-17,
       "res_control": 0.0,
-      "back_action": 0.0032503524064506116,
-      "field_energy_final": 0.059361315005864806
+      "back_action": 0.003250352406450622,
+      "field_energy_final": 0.05936131500586482
     },
     {
       "test": "B2",
@@ -130,11 +130,11 @@
       "target": 0.0,
       "passed": true,
       "description": "radiation: field energy 0 \u2192 3.883e-02 under fermion current; zero-current control stays 0.0e+00",
-      "field_energy": 0.038825633349945585,
+      "field_energy": 0.0388256333499456,
       "res_zero_control": 0.0
     }
   ],
-  "elapsed": 0.4896664619445801,
+  "elapsed": 0.3358621597290039,
   "n_pass": 14,
   "n_total": 14,
   "overall": "PASS"

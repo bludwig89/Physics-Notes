@@ -1,0 +1,28 @@
+{
+  "NB-128": {
+    "notebooks_boxed_S_dot_grad_matrix_matches_CARTESIAN_generators_(NB-126)": false,
+    "notebooks_boxed_S_dot_grad_matrix_matches_NEW-BASIS_generators_(NB-127_as_literally_stated)": true,
+    "componentwise_expansion_matches_notebook_using_new_basis_generators": true,
+    "finding": "NB-128's boxed 3x3 matrix of partial derivatives, and its componentwise expansion, match EXACTLY -- not the raw Cartesian L=1 generators from NB-126, but the 'new-basis' (Clebsch-Gordan /spherical-type) S_x,S_y,S_z from NB-127, taken literally as transcribed there (i.e. without the missing 1/sqrt(2) normalization factor batch 09's NB-127 check found). The author is carrying the immediately-preceding page's construction forward, not restarting from the Cartesian generators two pages earlier.",
+    "verdict": "SOLID"
+  },
+  "S_dot_grad_vs_curl_relation_CARTESIAN_BASIS_ONLY": {
+    "S_dot_grad_F_equals_plus_i_curl_F": true,
+    "S_dot_grad_F_equals_minus_i_curl_F": false,
+    "confirmed_sign_convention (Cartesian S.grad = sign * i * curl)": 1
+  },
+  "NB-129": {
+    "claim": "psi_+ = E + iB links the 3-component spin-1 construction to electromagnetism",
+    "using_CARTESIAN_generators_(NB-126)_reduces_exactly_to_vacuum_Maxwell": {
+      "real_and_imag_parts_reconstruct_rhs_exactly": true,
+      "real_part_matches_Ampere_no_source_dE/dt=c_curlB": true,
+      "imag_part_matches_Faraday_dB/dt=-c_curlE": true
+    },
+    "using_NB-128s_OWN_new-basis_matrix_literally": {
+      "component_1_raw_expression": "-I*c*Derivative(B1(x1, x2, x3), x3) - I*c*Derivative(B2(x1, x2, x3), x1) - c*Derivative(B2(x1, x2, x3), x2) - c*Derivative(E1(x1, x2, x3), x3) - c*Derivative(E2(x1, x2, x3), x1) + I*c*Derivative(E2(x1, x2, x3), x2)",
+      "note": "Substituting psi_+^i = E_i + iB_i directly into NB-128's own displayed (new-basis) matrix does NOT cleanly separate into recognizable curl(E)/curl(B) components -- the new-basis generators are related to the Cartesian ones by a genuine change of basis (NB-127's transform A), so plugging literal Cartesian E,B components into an expression built from the ROTATED generators mixes components in a way that does not correspond to Maxwell's equations without an accompanying (unstated) change of basis on E and B themselves."
+    },
+    "conclusion": "NB-129's one-line margin note is an independently verifiable and EXACTLY CORRECT piece of physics -- the classical Riemann-Silberstein-vector construction, F=E+iB satisfying a first-order 'Weyl-like' evolution equation built from the L=1 angular-momentum generators, later revived in the modern 'photon wavefunction' literature -- PROVIDED it is read against the Cartesian generators of NB-126, where it reduces exactly and unambiguously to the two source-free Maxwell curl equations. It does NOT follow as a literal next line from NB-128's own specific boxed matrix, which (verified above) instead uses NB-127's rotated 'new' basis -- connecting the two would require an additional, unstated basis change on the field itself. The margin note is best read as an independent flash of conceptual insight rather than a completed derivation chained onto the immediately preceding equation.",
+    "verdict": "SOLID (as an independent, verifiable physical claim); NOT literally continuous with NB-128's own matrix as written"
+  }
+}

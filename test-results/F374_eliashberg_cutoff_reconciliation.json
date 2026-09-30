@@ -2,30 +2,49 @@
   "checks": {
     "D1 reproduces F242 C5 baseline (20%<err<24%)": true,
     "D2 cutoff-scale fix tightens Eliashberg error (fixed<baseline)": true,
-    "D3 debye/einstein cutoff ratio == sqrt(e) exactly": true,
+    "D3 debye/einstein cutoff ratio == sqrt(e) BY CONSTRUCTION (regression guard, not an independent discovery)": true,
     "D4 default-N eigenvalue within 1% of N=3000 converged value": true,
-    "D5 ocf-scan plateaus above 6.3% AD floor for every factor tested": true,
-    "D5b ocf-scan is monotone non-increasing (bigger cutoff, no worse)": true,
+    "D5 ocf-scan (safe range 1-80) stays above 6.3% AD floor throughout": true,
+    "D5b ocf-scan (safe range) is monotone non-increasing, NOT a plateau (32%@1 -> 10.4%@80, still falling -- corrected from the original 'plateaus at 16%' claim)": true,
+    "D5c beyond the safe range the root-finder breaks down (Al Tc jumps >5x from ocf=80 to ocf=110, evidencing a spurious root rather than smooth physics)": true,
     "D6 F242 6.3% headline reproduced with einstein-consistent mu*": true,
     "D6b model's own r=sqrt(e/2) shape factor does not tighten Allen-Dynes": true,
     "D7 removing the Coulomb window entirely is worse than windowed (fixed)": true,
-    "D8 reconciled Eliashberg floor still exceeds the 6.3% AD target": true
+    "D8 reconciled Eliashberg floor (ocf=6) still exceeds the 6.3% AD target": true,
+    "D9 even the widest safe-range cutoff (ocf=80) stays above 6.3%": true,
+    "D10 Ta is NOT a top-2 worst element (contradicts a blanket 'd-band Nb/Ta' causal story; Ta err below both Al and In)": true,
+    "D10b Al and In (simple sp-metals) are the two worst-behaved elements, consistent with F211's weak-coupling lambda-hypersensitivity diagnosis, not a d-band/N(0) story": true
   },
   "notes": {
-    "baseline_mismatched_cutoff_mean_err": 0.2155755326251936,
-    "cutoff_fixed_mean_err": 0.17161427598214565,
-    "N_convergence_rel_shift": 0.0048789080348213346,
+    "baseline_mismatched_cutoff_mean_err": 0.21558939427655738,
+    "cutoff_fixed_mean_err": 0.17162821991915347,
+    "N_convergence_rel_shift": 0.0048778109107116795,
     "ocf_scan_mean_err": {
-      "1.0": 0.3236867349555474,
-      "2.0": 0.2360517422060929,
-      "4.0": 0.18206265037150873,
-      "6.0": 0.17161427598214565,
-      "10.0": 0.16522210147937152,
-      "15.0": 0.16209848215418265
+      "1.0": 0.3237088449621279,
+      "2.0": 0.23606571205078306,
+      "4.0": 0.1820758207604837,
+      "6.0": 0.17162821991915347,
+      "10.0": 0.16523605214934128,
+      "15.0": 0.16213310062571326,
+      "20.0": 0.16085849796068494,
+      "30.0": 0.15982261582233162,
+      "50.0": 0.13290183115593568,
+      "80.0": 0.1040949110861349
     },
+    "al_tc_ocf80": 1.243041820479329,
+    "al_tc_ocf110_spurious": 42.96415636065265,
     "r_model": 1.165821990798562,
-    "allen_dynes_mean_err_no_r": 0.06348720600508354,
-    "allen_dynes_mean_err_with_model_r": 0.0661916629840369,
-    "no_cutoff_mean_err": 0.20922092892431218
+    "allen_dynes_mean_err_no_r": 0.06350498769202045,
+    "allen_dynes_mean_err_with_model_r": 0.06621224951290285,
+    "no_cutoff_mean_err": 0.20924834832236222,
+    "per_element_err_fixed_ocf6": {
+      "Al": 0.4791093396366145,
+      "Sn": 0.06937743569575412,
+      "In": 0.2579614469703297,
+      "Ta": 0.0837718206826099,
+      "Nb": 0.18523323267759303,
+      "Pb": 0.09345795584050245,
+      "Hg": 0.03248630793067066
+    }
   }
 }

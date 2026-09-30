@@ -1,5 +1,5 @@
 {
- "gate_assertion_no_control": 48,
+ "gate_assertion_no_control": 37,
  "history": [
   {
    "changed": {
@@ -82,10 +82,38 @@
    },
    "reason": "F364 (rubric row K6, baryogenesis) adds 1 import_time_work file (tests/findings/test_F364_baryogenesis_boltzmann.py), following the same established module-level OUT=run() pattern already baselined for its direct precedents test_F202_leptogenesis_sakharov.py and test_F205_sterile_qke_boltzmann.py; F364 contributes 0 to unfalsifiable/no_assert/legacy_script (kind: assertion, has_assert: true, real pytest assert). The remaining regression in unfalsifiable/no_assert/legacy_script predates this session's changes (confirmed via file mtimes -- no files outside dm_fork_F364_baryogenesis_boltzmann.py, its test, its result JSON, and session-claims.yaml changed during this session) and traces to other concurrent session activity in the shared tree (e.g. the F365/cowork-k7-geon-sharpening claim), not to F364.",
    "when": "2026-09-04 - 19:55"
+  },
+  {
+   "changed": {
+    "gate_assertion_no_control": [
+     48,
+     37
+    ],
+    "import_time_work": [
+     336,
+     340
+    ],
+    "no_assert": [
+     237,
+     240
+    ]
+   },
+   "reason": "F377 (rubric A1 / open-derivations Part C row P1 session, 2026-09-08). unfalsifiable held at 73 and no_assert's F377 contribution is 0 -- the module and its independent test (tests/findings/test_F377_time_generator_axiom_independence.py) both have real has_assert=true check_all() functions that raise AssertionError on failure (and on a control that fails to redden), matching the F326/F291/F292 idiom, not a returned-dict-only contract. F377 contributes +1 to import_time_work only, the documented blunt edge every new test file trips (module-level sys.path preamble); it asserts and is falsifiable by that mechanism. The remaining regression -- no_assert 237->240 (+3) and import_time_work's other +3 -- predates this session: confirmed via file mtimes, tests/findings/test_F373_quark_size_from_confinement_radius.py, test_F374_eliashberg_cutoff_reconciliation.py and test_F375_nb_realistic_dos.py were all last modified 2026-09-05/06, before this session started (2026-09-08), have has_assert=false, and are unrelated to F377/A1/P1 work.",
+   "when": "2026-09-08 - 19:56"
+  },
+  {
+   "changed": {
+    "import_time_work": [
+     340,
+     342
+    ]
+   },
+   "reason": "two new test files landed this session (test_F383_four_derivative_locality.py and the concurrent session's test_F382_vertex_domain_periodicity.py), each needing the standard sys.path preamble before it can import a kernel -- the documented C1.4 blunt-edge false positive (see test_chiral_core_caching.py's precedent, 320->321), not new unfalsifiable/no-assert debt",
+   "when": "2026-09-10 - 16:12"
   }
  ],
- "import_time_work": 336,
+ "import_time_work": 342,
  "legacy_script": 49,
- "no_assert": 237,
+ "no_assert": 240,
  "unfalsifiable": 73
 }

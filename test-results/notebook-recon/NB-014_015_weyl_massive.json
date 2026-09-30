@@ -1,0 +1,7 @@
+{
+  "build": "NB-014/NB-015",
+  "characteristic_polynomial": "E**4 - 2*E**2*c**4*m0**2 - 2*E**2*c**2*p_x**2 - 2*E**2*c**2*p_y**2 - 2*E**2*c**2*p_z**2 + c**8*m0**4 + 2*c**6*m0**2*p_x**2 + 2*c**6*m0**2*p_y**2 + 2*c**6*m0**2*p_z**2 + c**4*p_x**4 + 2*c**4*p_x**2*p_y**2 + 2*c**4*p_x**2*p_z**2 + c**4*p_y**4 + 2*c**4*p_y**2*p_z**2 + c**4*p_z**4",
+  "expected_dispersion_squared": "E**4 - 2*E**2*c**4*m0**2 - 2*E**2*c**2*p_x**2 - 2*E**2*c**2*p_y**2 - 2*E**2*c**2*p_z**2 + c**8*m0**4 + 2*c**6*m0**2*p_x**2 + 2*c**6*m0**2*p_y**2 + 2*c**6*m0**2*p_z**2 + c**4*p_x**4 + 2*c**4*p_x**2*p_y**2 + 2*c**4*p_x**2*p_z**2 + c**4*p_y**4 + 2*c**4*p_y**2*p_z**2 + c**4*p_z**4",
+  "matches_E2=p2c2+m2c4_dispersion": true,
+  "m0_to_0_fully_decouples_psi+_psi-_blocks": true
+}

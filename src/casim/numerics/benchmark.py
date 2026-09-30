@@ -57,71 +57,78 @@ def bench(fn, E, B, warmup=WARMUP, repeats=REPEATS, extra_kw=None):
     return (time.perf_counter() - t0) / repeats * 1e3   # ms per call
 
 
-print(f"\n{'='*60}")
-print(f"  W-field propagation benchmark  (n={REPEATS} reps after {WARMUP} warmup)")
-print(f"  FFT backend: {_fft.get_backend()}")
-print(f"  JAX available: {_JAX_AVAILABLE}")
-print(f"{'='*60}\n")
+def main():
+    """Run the benchmark.  Guarded (2026-09-29): importing this module used to
+    run the whole benchmark as a side effect."""
+    print(f"\n{'='*60}")
+    print(f"  W-field propagation benchmark  (n={REPEATS} reps after {WARMUP} warmup)")
+    print(f"  FFT backend: {_fft.get_backend()}")
+    print(f"  JAX available: {_JAX_AVAILABLE}")
+    print(f"{'='*60}\n")
 
-for L in SIZES:
-    rng = np.random.default_rng(0)
-    E = rng.standard_normal((3, L, L, L))
-    B = rng.standard_normal((3, L, L, L))
+    for L in SIZES:
+        rng = np.random.default_rng(0)
+        E = rng.standard_normal((3, L, L, L))
+        B = rng.standard_normal((3, L, L, L))
 
-    print(f"  L={L}  ({L**3 * 3 * 2 * 8 / 1e6:.0f} MB for E+B float64)")
+        print(f"  L={L}  ({L**3 * 3 * 2 * 8 / 1e6:.0f} MB for E+B float64)")
 
-    # 1. Original loop (no cache)
-    t_orig = bench(_chiral_loop_orig, E, B)
+        # 1. Original loop (no cache)
+        t_orig = bench(_chiral_loop_orig, E, B)
 
-    # 2. New batched numpy (cached dispersions, single fftn call)
-    use_jax(False)
-    t_batch = bench(w_propagation_step_chiral, E, B)
-
-    print(f"    orig  loop  (no cache):  {t_orig:7.2f} ms")
-    print(f"    numpy batched (cached):  {t_batch:7.2f} ms   {t_orig/t_batch:5.2f}× speedup")
-
-    # 3. JAX JIT
-    if _JAX_AVAILABLE:
-        use_jax(True)
-        # Trigger compilation (not counted in bench)
-        w_propagation_step_chiral(E, B)
-        t_jax = bench(w_propagation_step_chiral, E, B)
+        # 2. New batched numpy (cached dispersions, single fftn call)
         use_jax(False)
-        print(f"    JAX JIT (CPU):           {t_jax:7.2f} ms   {t_orig/t_jax:5.2f}× speedup vs orig")
-    else:
-        print("    JAX: not installed")
+        t_batch = bench(w_propagation_step_chiral, E, B)
 
-    # Massive step
-    t_orig_m = bench(lambda e, b: None, E, B)   # dummy to avoid re-measuring
-    # reconstruct orig massive (with loop)
-    def _massive_loop_orig(E_W, B_W):
-        shape = E_W.shape[1:]
-        from casim.engine.lattice.geometry import make_kgrid_3d
-        from casim.engine.lattice.bcc import bcc_dispersion
-        KX, KY, KZ = make_kgrid_3d(*shape)
-        op = bcc_dispersion(KX/2, KY/2, KZ/2, '+') + bcc_dispersion(KX/2, KY/2, KZ/2, '-')
-        omega_eff = np.sqrt(0.3**2 + op**2)
-        cos_e = np.cos(omega_eff); sin_e = np.sin(omega_eff)
-        E_new = np.zeros_like(E_W); B_new = np.zeros_like(B_W)
-        for a in range(3):
-            Ek = _fft.fftn(E_W[a]); Bk = _fft.fftn(B_W[a])
-            E_new[a] = _fft.ifftn(cos_e*Ek + sin_e*Bk).real
-            B_new[a] = _fft.ifftn(-sin_e*Ek + cos_e*Bk).real
-        return E_new, B_new
+        print(f"    orig  loop  (no cache):  {t_orig:7.2f} ms")
+        print(f"    numpy batched (cached):  {t_batch:7.2f} ms   {t_orig/t_batch:5.2f}× speedup")
 
-    t_mo = bench(_massive_loop_orig, E, B)
-    use_jax(False)
-    t_mb = bench(w_massive_propagation_step_spectral, E, B, extra_kw={'m_W': 0.3})
-    print(f"    massive orig loop:        {t_mo:7.2f} ms")
-    print(f"    massive batched (cached): {t_mb:7.2f} ms   {t_mo/t_mb:5.2f}× speedup")
+        # 3. JAX JIT
+        if _JAX_AVAILABLE:
+            use_jax(True)
+            # Trigger compilation (not counted in bench)
+            w_propagation_step_chiral(E, B)
+            t_jax = bench(w_propagation_step_chiral, E, B)
+            use_jax(False)
+            print(f"    JAX JIT (CPU):           {t_jax:7.2f} ms   {t_orig/t_jax:5.2f}× speedup vs orig")
+        else:
+            print("    JAX: not installed")
 
-    if _JAX_AVAILABLE:
-        use_jax(True)
-        w_massive_propagation_step_spectral(E, B, m_W=0.3)
-        t_mj = bench(w_massive_propagation_step_spectral, E, B, extra_kw={'m_W': 0.3})
+        # Massive step
+        t_orig_m = bench(lambda e, b: None, E, B)   # dummy to avoid re-measuring
+        # reconstruct orig massive (with loop)
+        def _massive_loop_orig(E_W, B_W):
+            shape = E_W.shape[1:]
+            from casim.engine.lattice.geometry import make_kgrid_3d
+            from casim.engine.lattice.bcc import bcc_dispersion
+            KX, KY, KZ = make_kgrid_3d(*shape)
+            op = bcc_dispersion(KX/2, KY/2, KZ/2, '+') + bcc_dispersion(KX/2, KY/2, KZ/2, '-')
+            omega_eff = np.sqrt(0.3**2 + op**2)
+            cos_e = np.cos(omega_eff); sin_e = np.sin(omega_eff)
+            E_new = np.zeros_like(E_W); B_new = np.zeros_like(B_W)
+            for a in range(3):
+                Ek = _fft.fftn(E_W[a]); Bk = _fft.fftn(B_W[a])
+                E_new[a] = _fft.ifftn(cos_e*Ek + sin_e*Bk).real
+                B_new[a] = _fft.ifftn(-sin_e*Ek + cos_e*Bk).real
+            return E_new, B_new
+
+        t_mo = bench(_massive_loop_orig, E, B)
         use_jax(False)
-        print(f"    massive JAX JIT (CPU):    {t_mj:7.2f} ms   {t_mo/t_mj:5.2f}× speedup vs orig")
+        t_mb = bench(w_massive_propagation_step_spectral, E, B, extra_kw={'m_W': 0.3})
+        print(f"    massive orig loop:        {t_mo:7.2f} ms")
+        print(f"    massive batched (cached): {t_mb:7.2f} ms   {t_mo/t_mb:5.2f}× speedup")
 
-    print()
+        if _JAX_AVAILABLE:
+            use_jax(True)
+            w_massive_propagation_step_spectral(E, B, m_W=0.3)
+            t_mj = bench(w_massive_propagation_step_spectral, E, B, extra_kw={'m_W': 0.3})
+            use_jax(False)
+            print(f"    massive JAX JIT (CPU):    {t_mj:7.2f} ms   {t_mo/t_mj:5.2f}× speedup vs orig")
 
-print("Done.")
+        print()
+
+    print("Done.")
+
+
+if __name__ == "__main__":
+    main()

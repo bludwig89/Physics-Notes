@@ -1,0 +1,17 @@
+{
+  "build": "NB-083 (e, beta sign issue)",
+  "reading1_(literal_p64_text,_no_sign_flip)": {
+    "e": "0",
+    "beta": "g/cos(theta)",
+    "e_matches_target_2g_sin_theta": false,
+    "beta_matches_target": false
+  },
+  "reading2_(p63-consistent_T3=-1/2_sign_flip)": {
+    "e": "2*g*sin(theta)",
+    "beta": "g*(-2*cos(theta) + 1/cos(theta))",
+    "e_matches_target_2g_sin_theta": true,
+    "beta_matches_target": false
+  },
+  "beta_target_simplified_closed_form": "g*(2*cos(theta) - 1/cos(theta))",
+  "conclusion": "Reading 2 (the p.63-consistent T3=-1/2 sign flip on the g-term, NOT the literal same-sign reuse of the nu_L combination that p.64's prose text writes) is the physically correct one: it reproduces e=2g*sin(theta) EXACTLY, matching the notebook's own stated result. But the resulting beta = g(1/cos(theta) - 2cos(theta)) is the EXACT NEGATIVE of the notebook's own target g(2cos(theta) - 1/cos(theta)) (beta_target_simplified above) -- i.e. e checks out exactly and pinpoints reading 2 as the intended setup, while beta comes out with the opposite overall sign from what the notebook states. This independently confirms and precisely locates the author's own self-flagged uncertainty ('the author flips a sign somewhere') -- it is specifically in beta, not in e, and the correction is beta -> -beta."
+}

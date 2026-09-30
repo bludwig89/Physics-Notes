@@ -4,8 +4,8 @@
 # projection of it. Editing here changes nothing and will be overwritten.
 # ---------------------------------------------------------------------------
 version: 1
-count: 305
-next_claim: CL306
+count: 317
+next_claim: CL318
 
 claims:
   - id: CL001
@@ -379,11 +379,11 @@ claims:
     falsifier: none
     review_state: authored
     confidence: high
-    findings: [F164, F193, F196, F241, F319]
-    tests: []
-    modules: []
+    findings: [F164, F193, F196, F241, F319, F408]
+    tests: [F408-cc-sign-split]
+    modules: [src/casim/engine/interactions/cosmology_lambda_sign_split.py]
     constants: []
-    supersessions: []
+    supersessions: [S25-F193-partA-excluded-and-secB-sign-reading]
     rolls_up_to: null
     first_issued: '2026-08-02'
   - id: CL022
@@ -2683,7 +2683,7 @@ claims:
     falsifier: unset
     review_state: unreviewed-seed
     confidence: medium
-    findings: [F169]
+    findings: [F169, F397]
     tests: []
     modules: []
     constants: []
@@ -5149,9 +5149,9 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F331, F290, F267, F77]
-    tests: [F331-cluster-interacting-3d]
-    modules: [casim.engine.interactions.qi_cluster_interacting_3d]
+    findings: [F331, F290, F267, F77, F380]
+    tests: [F331-cluster-interacting-3d, F380-cluster-asymptotic-series-K]
+    modules: [casim.engine.interactions.qi_cluster_interacting_3d, casim.engine.interactions.qi_cluster_asymptotic_series]
     constants: [c_lat]
     supersessions: []
     rolls_up_to: null
@@ -5455,11 +5455,11 @@ claims:
     falsifier: stated
     review_state: authored
     confidence: medium
-    findings: [F367, F368, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59]
-    tests: [F367-cc-sequestering, F368-cc-sequestering-consistency]
+    findings: [F367, F368, F408, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59]
+    tests: [F367-cc-sequestering, F368-cc-sequestering-consistency, F408-cc-sign-split]
     modules: [src/casim/engine/interactions/cosmology_lambda_sequestering.py, src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py]
     constants: []
-    supersessions: []
+    supersessions: [S25-F193-partA-excluded-and-secB-sign-reading]
     rolls_up_to: null
     first_issued: '2026-09-04'
   - id: CL304
@@ -5498,3 +5498,219 @@ claims:
     supersessions: []
     rolls_up_to: null
     first_issued: '2026-09-06'
+  - id: CL306
+    file: docs/claims/CL306-gauged-kinetic-cpt-theorem-mass-sector-no-go.md
+    title: 'A uniform SU(2)_L link grafted into the free BCC Dirac walk''''s kinetic term admits an exact discrete CPT-type theorem via the SU(2) pseudoreality identity tau_2 U tau_2^-1 = U*, with a flipped (non-Kramers) antiunitary involution; the same walk''''s SU(2)-gauged mass-generation mechanism admits no fixed-isospin-operator analogue, by a general group-theoretic obstruction'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM, QFT]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F378, F328, F53]
+    tests: [F378-discrete-cpt-gauged-theorem]
+    modules: [casim.engine.particles.discrete_cpt_gauged]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL285
+    first_issued: '2026-09-09'
+  - id: CL307
+    file: docs/claims/CL307-photon-fermion-push-partial-recoil-not-conservation.md
+    title: 'For a photon beam propagating along a lattice-cubic axis at small carrier wavenumber, a photon-fermion push in the model recoils the fermion along the beam''''s own direction and the field''''s and matter''''s momentum changes are nearly anti-parallel, but total momentum is not conserved exactly at any coupling tested, and both the direction and anti-alignment results invert or vanish off-axis'
+    tier: supporting
+    kind: deviation
+    status: narrowed
+    domain: [SR, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: low
+    findings: [F390, F389, F388, F385, F387, F391, F392, F395]
+    tests: [F390-photon-fermion-push, F391-ck-transverse-beam-mechanism, F392-beam-polarization-null-fix, F395-stage5-circular-beam-rerun]
+    modules: [casim.engine.core.photon_fermion_push, casim.engine.core.coupled, casim.engine.gauge.em_photon_sourcing, casim.engine.gauge.photon]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-15'
+  - id: CL308
+    file: docs/claims/CL308-p77-charge-partition-is-f27-stueckelberg-relabel.md
+    title: 'The notebook p.77 charge partition (W± as the non-intrinsic half of charge, mass as its residue) is not an independent alternative to F27: it is the F27 Stueckelberg Ward identity relabelled, and the strong form in which W± absorbs the mass step''''s missing charge finds no support in the model'
+    tier: supporting
+    kind: reinterpretation
+    status: live
+    domain: [SM]
+    exactness: machine
+    falsifier: stated
+    review_state: authored
+    confidence: low
+    findings: [F396, F27, F41, F54, F143]
+    tests: [F396-charge-partition-p77]
+    modules: [casim.engine.gauge.derive_charge_partition]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-21'
+  - id: CL309
+    file: docs/claims/CL309-factorization-route-redundant-with-f168-offset-derived.md
+    title: 'The notebook''s factorization identity (null vector = spinor bilinear; timelike vector = two null vectors with free direction on S²) is exact and boost-covariant, is redundant with F168/F169 for the photon''s binding, and fixes the F169 O(k²) offset as |k_x k_y k_z|/(3|k|)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SR, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F397, F24, F69, F91, F168, F169]
+    tests: [F397-factorization-route]
+    modules: [casim.engine.gauge.factorization]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-21'
+  - id: CL310
+    file: docs/claims/CL310-pryce-composite-photon-deficit-vanishes.md
+    title: 'Pauli blocking between two F69/F169 composite photons vanishes as the BZ grid is refined toward the continuum threshold equation'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [QM, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F398, F69, F169]
+    tests: [F398-pryce-composite-commutator]
+    modules: [casim.engine.gauge.photon_pryce_commutator]
+    constants: []
+    supersessions: [S24-F169-C3-threshold-search-replaced-by-closed-form]
+    rolls_up_to: CL002
+    first_issued: '2026-09-23'
+  - id: CL311
+    file: docs/claims/CL311-cooper-pair-higgs-coupling-species-local-not-universal.md
+    title: 'The F73 Cooper-pair Higgs candidate''''s fermion coupling is real, computable and non-universal within its own species, and structurally species-local across species'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [SM, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F399, F73, F74, F77]
+    tests: [F399-composite-scalar-fermion-coupling]
+    modules: [casim.engine.particles.derive_composite_scalar_fermion_coupling]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL070
+    first_issued: '2026-09-23'
+  - id: CL312
+    file: docs/claims/CL312-bcc-diamond-share-a-generator-tetrahedron-diamond-fails-bravais.md
+    title: 'BCC and diamond-cubic share a generator tetrahedron; diamond-cubic fails the Bravais premise the model''''s dimension selector already assumes'
+    tier: supporting
+    kind: no_go
+    status: live
+    domain: [SM]
+    exactness: exact
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F400, F291, F292]
+    tests: [F400-coordination-selector]
+    modules: [casim.engine.lattice.coordination_selector]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL246
+    first_issued: '2026-09-23'
+  - id: CL313
+    file: docs/claims/CL313-photon-finite-k-critical-coupling-repaired-and-decreasing.md
+    title: 'The photon channel''''s finite-k Koster-Slater threshold coupling is repaired and genuinely decreases with momentum; the coordinate-axis floor is an exact double degeneracy'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F401, F169, F397]
+    tests: [F401-photon-bound-state-finite-k]
+    modules: [casim.engine.gauge.photon_bound_state_finite_k, casim.engine.gauge.photon_bound_state]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL149
+    first_issued: '2026-09-23'
+  - id: CL314
+    file: docs/claims/CL314-nucleon-mass-ji-decomposition-model-support.md
+    title: 'The model supports the quark-mass term and the trace sector of the Ji nucleon-mass decomposition (sigma_N = 46 MeV, 22% below measurement) but not the quark-energy / gluon-energy split (gluon momentum fraction 0.18-0.25 vs lattice 0.43-0.49)'
+    tier: supporting
+    kind: derivation
+    status: live
+    domain: [SM, QFT]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F402, F122, F123, F77, F144, F152]
+    tests: [F402-baryon-mass-decomposition]
+    modules: [casim.engine.particles.baryon_mass_decomposition]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-24'
+  - id: CL315
+    file: docs/claims/CL315-no-oh-residual-fixes-pmns-in-cube-frame.md
+    title: 'In the cube-axis (E_g) charged-lepton frame no residual symmetry drawn from O_h fixes PMNS; the only surviving O_h constraint is CP-type mu-tau reflection, and the [111]-trimaximal frame instead admits TM1'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: high
+    findings: [F403]
+    tests: [F403-oh-residual-pmns]
+    modules: [casim.engine.particles.derive_oh_residual_pmns]
+    constants: []
+    supersessions: []
+    rolls_up_to: CL223
+    first_issued: '2026-09-24'
+  - id: CL316
+    file: docs/claims/CL316-koide-pseudomass-quark-route-nonpredictive.md
+    title: 'Koide pseudo-masses cannot explain the quark hierarchy in this model: with lepton-like amplitudes they are incompatible with the CKM, and with a signed down sector they fit it for any E_g angle pair in a band, predicting nothing'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F404, F407]
+    tests: [F404-koide-pseudomass-fork, F407-koide-pseudomass-minimal]
+    modules: [casim.engine.forks.particles.koide_pseudomass_fork, casim.engine.forks.particles.koide_pseudomass_minimal]
+    constants: []
+    supersessions: []
+    rolls_up_to: null
+    first_issued: '2026-09-24'
+  - id: CL317
+    file: docs/claims/CL317-lepton-frame-fork-trimaximal-reading-splits.md
+    title: 'The charged-lepton frame is the E_g-diagonal one provided the off-diagonal crystal field is stiff (as F118 read per axis gives); the [111]-circulant reading splits into three inequivalent vacua, and the one giving TM1 is not the one carrying delta* = 2/9 as the axial/polar ratio, so the model does not predict TM1'
+    tier: supporting
+    kind: no_go
+    status: open
+    domain: [SM]
+    exactness: quantitative
+    falsifier: stated
+    review_state: authored
+    confidence: medium
+    findings: [F406]
+    tests: [F406-lepton-frame-fork]
+    modules: [casim.engine.particles.derive_lepton_frame_fork]
+    constants: [delta_star]
+    supersessions: []
+    rolls_up_to: CL223
+    first_issued: '2026-09-24'

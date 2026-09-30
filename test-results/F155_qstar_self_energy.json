@@ -3,14 +3,14 @@
     "passed": true,
     "link_residual": 2.220446049250313e-16,
     "u0": 1.0,
-    "wilson_Z0_absent": 0.15486463008695847,
+    "wilson_Z0_absent": 0.15486463008695844,
     "gluon_luminal_dev": 1.6172416655405516e-12
   },
   "A3_d1_subtraction_convergent": {
     "passed": true,
-    "d1_bubble": 0.16509076226718142,
-    "convergence_spread": 9.919850795478413e-05,
-    "b0_slope_ratio": 1.0000542047819057
+    "d1_bubble": 0.16509076226717484,
+    "convergence_spread": 9.919850796463736e-05,
+    "b0_slope_ratio": 1.0000542047819054
   },
   "A5_qstar_bracketed": {
     "passed": true,

@@ -1,0 +1,41 @@
+# Stage 5 of docs/roadmaps/photon-fermion-coupling.md: the scenario and the
+# physics claims. A genuine (Ĉ(k)-transverse) beam packet pushes a localized
+# Weyl packet AT REST via F385's per-link step; the fermion's own F389
+# radiative current sources real field momentum back. See
+# findings/F390-photon-fermion-push-scenario.md for what is and isn't
+# achieved: the fermion recoils along the beam's own direction (confirmed),
+# but exact momentum conservation is NOT achieved at any coupling tested
+# (F389's own structural prediction) -- though the field's and matter's
+# momentum changes are measured to be nearly exactly anti-parallel
+# (cos~=-0.99), a genuine partial result distinct from exact magnitude
+# cancellation. g_lat=0.6 sits at a measured local minimum of the
+# conservation residual for this configuration (not a universal "optimal
+# coupling" -- see the finding's own caveats).
+# Channel ORDER matters: em_photon must come before fermion_em so the field
+# consumes the pre-tick current and publishes the updated potential A for
+# the fermion's covariant step this tick (same convention as
+# fermion_photon_backreaction.yaml / fermion_w_backreaction.yaml).
+#
+# beam_polarization: circular (F392, docs/roadmaps/photon-fermion-coupling-
+# rerun-prompt.md Part A/D) -- the ORIGINAL "linear" beam has E and B in the
+# same Cartesian component (E||B pointwise, Sigma ExB==0 identically), so
+# this scenario used to carry a beam with zero field momentum. "circular" is
+# the fix: a genuine null Riemann-Silberstein field. See
+# findings/F392-beam-polarization-null-fix.md and
+# findings/F395-stage5-circular-beam-rerun.md for the re-measured claims.
+version: 2
+name: photon_fermion_push
+title: "Photon-Fermion Push"
+description: "Stage 5 of the photon-fermion-coupling roadmap: a genuine transverse beam packet pushes a localized Weyl packet at rest, with F389's radiative current letting the fermion's own recoil source real field momentum back. Momentum conservation is not exact (a structural F389 prediction), but field and matter momentum changes are measured to be nearly anti-parallel."
+lattice: {L: 16, dims: 3, topology: bcc, c_lat: 0.5773502691896258}
+seed: 0
+ticks: 20
+channels:
+  - {type: em_photon, name: em_photon, fermion: fermion_em, g_lat: 0.6, q: 1.0, use_radiative_current: true, beam_amp: 0.15, beam_m_index: 2, beam_axis: 0, beam_sigma: 3.0, beam_polarization: circular}
+  - {type: fermion_em, name: fermion_em, photon: em_photon, q: 1.0, width: 1.5, k0: [0.0, 0.0, 0.0]}
+observers:
+  - {type: norm_conservation, every: 5, channels: [fermion_em]}
+  - {type: energy_trace, every: 5}
+  - {type: momentum, every: 5}
+output:
+  json: test-results/casim_photon_fermion_push.json

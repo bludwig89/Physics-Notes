@@ -1,0 +1,7 @@
+{
+  "build": "NB-028/NB-029",
+  "EL_as_transcribed_with_stray_i": "2*mu**2*phi(t, x, y, z) + 2*I*Derivative(phi(t, x, y, z), (t, 2)) - 2*I*Derivative(phi(t, x, y, z), (x, 2)) - 2*I*Derivative(phi(t, x, y, z), (y, 2)) - 2*I*Derivative(phi(t, x, y, z), (z, 2))",
+  "EL_standard_real_KG": "mu**2*phi(t, x, y, z) + Derivative(phi(t, x, y, z), (t, 2)) - Derivative(phi(t, x, y, z), (x, 2)) - Derivative(phi(t, x, y, z), (y, 2)) - Derivative(phi(t, x, y, z), (z, 2))",
+  "as_transcribed_EOM_contains_imaginary_unit": true,
+  "conclusion": "The literal p.21 Lagrangian L_M = i(d phi)^2 - mu^2 phi^2 produces the Euler-Lagrange equation 2 mu^2 phi + 2i*Box(phi) = 0, i.e. Box(phi) = i mu^2 phi -- an equation with an explicit factor of i relating two otherwise-real quantities, which is not a sensible equation of motion for a real scalar field. This is a genuine error (or a slip for the standard 1/2 normalization, not merely a stylistic choice): dropping the 'i' (replacing with 1 or 1/2) recovers the standard real KG equation of motion."
+}

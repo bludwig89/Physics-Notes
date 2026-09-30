@@ -5,5 +5,5 @@
   "ok3_norm": true,
   "overall": true,
   "max_algebraic_delta": 0.0,
-  "max_numerical_rel": 0.0
+  "max_numerical_rel": 8.617469192806006e-16
 }

@@ -17,18 +17,18 @@
     },
     {
       "test": "W1.3",
-      "residual": 1.865174681370263e-14,
+      "residual": 2.020605904817785e-14,
       "target": 1e-13,
       "passed": true,
       "description": "Norm conserved over 100 steps, random links"
     },
     {
       "test": "W1.4",
-      "residual": 1.2049774363595734e-17,
+      "residual": 1.1275702593849246e-17,
       "target": 1e-14,
       "aliasing_random_V": 0.03302824115045222,
       "passed": true,
-      "description": "Ward identity: constant-V=1.20e-17 [exact]; random-V aliasing=3.30e-02 [Nyquist artifact]"
+      "description": "Ward identity: constant-V=1.13e-17 [exact]; random-V aliasing=3.30e-02 [Nyquist artifact]"
     },
     {
       "test": "W1.5",
@@ -39,14 +39,14 @@
     },
     {
       "test": "W1.6",
-      "residual": 9.796293115313137e-18,
-      "decomp_err": 4.079219866531555e-16,
+      "residual": 9.1201962843014e-18,
+      "decomp_err": 3.065703529144609e-16,
       "target": 1e-14,
       "passed": true,
-      "description": "Exact step: identity links == weyl_step_3d_bcc [step=9.8e-18, decomp=4.1e-16]"
+      "description": "Exact step: identity links == weyl_step_3d_bcc [step=9.1e-18, decomp=3.1e-16]"
     }
   ],
-  "elapsed": 0.3586084842681885,
+  "elapsed": 0.21432971954345703,
   "n_pass": 6,
   "n_total": 6
 }

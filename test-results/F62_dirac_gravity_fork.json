@@ -1,106 +1,127 @@
 {
-  "D1_flat_weyl_regression": {
-    "residual_max_abs": 0.0,
-    "pass": true,
-    "L": 48,
-    "n_steps": 1,
-    "dt": 1.0
-  },
-  "D2a_rindler_freefall": {
-    "g_meas_abs": 0.002730147557009507,
-    "g_pred": 0.003,
-    "coeff_ratio": 0.9100491856698357,
-    "falls_toward_low_lapse": true,
-    "final_displacement": -16.528340841589696,
-    "final_disp_by_mass": {
-      "0.2": -16.780063559170458,
-      "0.35": -16.528340841589696,
-      "0.5": -15.4017710837323
-    },
-    "universality_spread": 0.0848873440751793,
-    "norm_drift": 2.8271597168564592e-14,
-    "c_lat_sq": 0.5,
-    "params": {
-      "L": 220,
-      "a": 0.006,
-      "m": 0.35,
+  "finding": "F62",
+  "title": "Dynamical Dirac CA on a curved background (D2) + linearized backreaction (D3a)",
+  "timestamp": "2026-05-30 - 15:30",
+  "module": "src/casim/engine/forks/gravity/dirac_gravity_fork.py",
+  "n_pass": 5,
+  "n_total": 6,
+  "total_seconds": 40.14,
+  "tests": {
+    "D1_flat_weyl_regression": {
+      "residual_max_abs": 0.0,
+      "pass": true,
+      "L": 48,
+      "n_steps": 1,
       "dt": 1.0,
-      "n_steps": 110,
-      "sigma": 16.0,
-      "masses": [
-        0.2,
-        0.35,
-        0.5
-      ]
+      "_seconds": 0.03,
+      "_desc": "flat m=0 \u21d2 two decoupled exact Weyl walks (machine \u03b5)"
     },
-    "pass": true
-  },
-  "D2b_dynamical_redshift": {
-    "freq_near": 0.9050571633610485,
-    "freq_far": 1.0094868360565539,
-    "ratio_meas": 0.8965517241379312,
-    "ratio_pred_sqrtA": 0.9,
-    "ratio_pred_exact_arcsin": 0.8914561316801002,
-    "params": {
-      "L": 96,
-      "m": 0.5,
-      "c0": 0.5,
-      "dt": 0.5,
-      "n_steps": 360,
-      "A_near": 0.81,
-      "A_far": 1.0
+    "D2a_rindler_freefall": {
+      "g_meas_abs": 0.0028088797758579597,
+      "g_pred": 0.003,
+      "coeff_ratio": 0.9362932586193199,
+      "falls_toward_low_lapse": true,
+      "final_displacement": -16.87156060537663,
+      "final_disp_by_mass": {
+        "0.2": -16.890111697244038,
+        "0.35": -16.87156060537663,
+        "0.5": -16.096886631291582
+      },
+      "universality_spread": 0.04772851941051159,
+      "norm_drift": 1.2156786782482779e-14,
+      "c_lat_sq": 0.5,
+      "params": {
+        "L": 220,
+        "a": 0.006,
+        "m": 0.35,
+        "dt": 1.0,
+        "n_steps": 110,
+        "sigma": 16.0,
+        "masses": [
+          0.2,
+          0.35,
+          0.5
+        ]
+      },
+      "pass": true,
+      "_seconds": 2.79,
+      "_desc": "equivalence principle: rest packet falls toward low lapse at a\u00b7c_lat\u00b2"
     },
-    "pass": true
-  },
-  "D2c_schwarzschild_deflection": {
-    "dtheta_meas": -0.5148135921485392,
-    "dtheta_eikonal": -0.5880550224728618,
-    "K_meas": -3.4320906143235947,
-    "K_eikonal": -3.9203668164857453,
-    "ratio_meas_eik": 0.8754513990607016,
-    "params": {
-      "L": 160,
-      "GM": 0.6,
-      "c0": 0.5,
-      "k_in": 0.5,
-      "b": 16,
-      "n_steps": 260,
-      "m": 0.0
+    "D2b_dynamical_redshift": {
+      "freq_near": 0.9398670542595502,
+      "freq_far": 1.0442967269550558,
+      "ratio_meas": 0.8999999999999999,
+      "ratio_pred_sqrtA": 0.9,
+      "ratio_pred_exact_arcsin": 0.9,
+      "params": {
+        "L": 96,
+        "m": 0.5,
+        "c0": 0.5,
+        "dt": 0.5,
+        "n_steps": 360,
+        "A_near": 0.81,
+        "A_far": 1.0
+      },
+      "pass": true,
+      "_seconds": 19.69,
+      "_desc": "clock frequency scales as \u221aA (gravitational redshift)"
     },
-    "pass": true
-  },
-  "D3a_backreaction_norm": {
-    "norm_initial": 113.09733552921944,
-    "norm_final": 113.09733552921972,
-    "norm_drift": 2.5130308594282553e-15,
-    "phi_min": -4.845656922319761,
-    "phi_max": 1.4477809675596798,
-    "params": {
-      "L": 64,
-      "m": 0.4,
-      "c0": 0.5,
-      "G": 0.02,
-      "n_steps": 60
+    "D2c_schwarzschild_deflection": {
+      "dtheta_meas": -0.5148135921485391,
+      "dtheta_eikonal": -0.5880550224728618,
+      "K_meas": -3.432090614323594,
+      "K_eikonal": -3.9203668164857453,
+      "ratio_meas_eik": 0.8754513990607014,
+      "params": {
+        "L": 160,
+        "GM": 0.6,
+        "c0": 0.5,
+        "k_in": 0.5,
+        "b": 16,
+        "n_steps": 260,
+        "m": 0.0
+      },
+      "pass": true,
+      "_seconds": 11.24,
+      "_desc": "fast packet bends toward mass; eikonal K \u2248 4 (Einstein)"
     },
-    "pass": true
-  },
-  "D3a_self_redshift": {
-    "freq_near": 0.9235128010552672,
-    "freq_far": 1.0224606011683317,
-    "A_near": 0.7921429606424849,
-    "A_far": 1.0237052467433867,
-    "ratio_meas": 0.9032258064516128,
-    "ratio_pred_sqrtA": 0.8796589364071542,
-    "ratio_pred_exact_arcsin": 0.8694842642545485,
-    "redshift_detected": true,
-    "params": {
-      "L": 80,
-      "m": 0.5,
-      "c0": 0.5,
-      "well_depth": 0.22,
-      "n_steps": 380,
-      "dt": 0.5
+    "D3a_backreaction_norm": {
+      "norm_initial": 113.09733552921944,
+      "norm_final": 113.0973355292197,
+      "norm_drift": 2.3873793164568426e-15,
+      "phi_min": -5.0544553285498335,
+      "phi_max": 1.453164103708734,
+      "params": {
+        "L": 64,
+        "m": 0.4,
+        "c0": 0.5,
+        "G": 0.02,
+        "n_steps": 60
+      },
+      "pass": true,
+      "_seconds": 0.84,
+      "_desc": "norm conserved while self-sourced metric evolves"
     },
-    "pass": true
+    "D3a_self_redshift": {
+      "freq_near": 1.0554432012060198,
+      "freq_far": 1.0554432012060198,
+      "A_near": 0.7921429606424847,
+      "A_far": 1.0237052467433867,
+      "ratio_meas": 1.0,
+      "ratio_pred_sqrtA": 0.8796589364071541,
+      "ratio_pred_exact_arcsin": 0.8796589364071542,
+      "redshift_detected": false,
+      "params": {
+        "L": 80,
+        "m": 0.5,
+        "c0": 0.5,
+        "well_depth": 0.22,
+        "n_steps": 380,
+        "dt": 0.5
+      },
+      "pass": false,
+      "_seconds": 5.54,
+      "_desc": "probe clock slow in the field's own well (loop closes)"
+    }
   }
 }

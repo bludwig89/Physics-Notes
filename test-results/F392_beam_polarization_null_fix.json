@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "null_condition_holds": true,
+    "equal_magnitude_holds": true,
+    "momentum_nonzero_and_aligned": true,
+    "default_config_magnitude_matches_audit": true,
+    "momentum_conserved_under_free_propagator": true,
+    "linear_mode_bit_identical_to_default": true
+  },
+  "n_pass": 6,
+  "n_checks": 6,
+  "ok": true,
+  "worst_null_condition_ratio": 2.364504632953534e-17,
+  "worst_magnitude_diff_ratio": 2.049439917767924e-16,
+  "worst_cos_P_khat": 1.0,
+  "default_config_momentum_magnitude": 75.12596146539921,
+  "momentum_drift_40_ticks": 3.5940470420893705e-15
+}

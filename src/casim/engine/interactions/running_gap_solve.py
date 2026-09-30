@@ -218,7 +218,7 @@ def freeze_window(Mg: float, L: int = 24,
             "onset_ANCHORFREE_Lstable": round(onset, 4),
             "alpha_phys_M0=1.5": a_phys,
             "freeze_window": [round(onset, 3), round(a_phys, 3)],
-            "freeze_midpoint": round(0.5 * (onset + a_phys), 3),
+            "freeze_midpoint": round(0.5 * (onset + a_phys), 3),   # DISPLAY ONLY (D7)
             "continuum_frozen_window": [0.3, 0.5],
             "M0_vs_alpha": curve,
             "statement": "freeze bracketed anchor-free to [onset, alpha_phys] "

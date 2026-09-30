@@ -1,0 +1,72 @@
+{
+  "NB-171": {
+    "claim": "sigma^mu d_mu applied to sigma^mu V_mu gives four component equations matching (1a),(1b),(2a),(2b)",
+    "entry(1,1)_matches_(1a)_up_to_overall_sign": true,
+    "entry(1,2)_matches_(2a)_up_to_overall_sign": true,
+    "entry(2,1)_matches_(1b)_up_to_overall_sign": true,
+    "entry(2,2)_matches_(2b)_up_to_overall_sign": true,
+    "note": "All four matrix-product entries match the notebook's own displayed (1a),(1b),(2a),(2b) exactly, up to an overall sign on two of them ((1,2) vs (2a), (2,1) vs (1b)) -- an overall sign is immaterial for a homogeneous equation set to zero, so this is not a genuine discrepancy, just a sign convention difference in which row of the product the page associates with which labeled equation.",
+    "verdict": "SOLID"
+  },
+  "NB-172": {
+    "claim": "Im(1a) = dx(Vy)-dy(Vx) = (curl V)_z = 0",
+    "Im(entry_1,1)_matches_curl_z_component": true,
+    "Im(entry_1,1)_exact_value": "-Derivative(Vx(t, x, y, z), y) + Derivative(Vy(t, x, y, z), x)",
+    "notebooks_displayed_Re(1a)_line": "The notebook's displayed 'Re(1a)' intermediate line contains three extra terms (+dy Vx, +dx Vy, and a sign-flipped -dy Vy) that do not belong to the real part at all -- they belong to the imaginary part just confirmed above. This looks like an uncleaned scratch line (real and imaginary contributions partly mixed together mid-calculation) rather than a load-bearing error, since the boxed final results (7)-(9) checked below do not depend on this specific messy intermediate line, and the very next line ('Im(1a): dx Vy - dy Vx = 0, checkmark') is exactly correct.",
+    "verdict": "SOLID (final Im(1a) result exactly correct; an intermediate 'Re(1a)' scratch line is visibly messy/uncleaned but not load-bearing)"
+  },
+  "NB-173": {
+    "claim": "(sigma^mu d_mu)(sigma^mu V_mu)=0 for real V_mu is EQUIVALENT to the boxed system (7) d0 V=-grad V0, (8) curl V=0, (9) div V=-d0 V0 -- 'Maxwell-like equations... in source-free form'",
+    "the_8_real_scalar_equations_from_the_full_matrix_product": {
+      "Re(1,1)": "Derivative(V0(t, x, y, z), t) - Derivative(V0(t, x, y, z), z) + Derivative(Vx(t, x, y, z), x) + Derivative(Vy(t, x, y, z), y) - Derivative(Vz(t, x, y, z), t) + Derivative(Vz(t, x, y, z), z)",
+      "Re(1,2)": "-Derivative(V0(t, x, y, z), x) - Derivative(Vx(t, x, y, z), t) + Derivative(Vx(t, x, y, z), z) - Derivative(Vz(t, x, y, z), x)",
+      "Re(2,1)": "-Derivative(V0(t, x, y, z), x) - Derivative(Vx(t, x, y, z), t) - Derivative(Vx(t, x, y, z), z) + Derivative(Vz(t, x, y, z), x)",
+      "Re(2,2)": "Derivative(V0(t, x, y, z), t) + Derivative(V0(t, x, y, z), z) + Derivative(Vx(t, x, y, z), x) + Derivative(Vy(t, x, y, z), y) + Derivative(Vz(t, x, y, z), t) + Derivative(Vz(t, x, y, z), z)",
+      "Im(1,1)": "-Derivative(Vx(t, x, y, z), y) + Derivative(Vy(t, x, y, z), x)",
+      "Im(1,2)": "Derivative(V0(t, x, y, z), y) + Derivative(Vy(t, x, y, z), t) - Derivative(Vy(t, x, y, z), z) + Derivative(Vz(t, x, y, z), y)",
+      "Im(2,1)": "-Derivative(V0(t, x, y, z), y) - Derivative(Vy(t, x, y, z), t) - Derivative(Vy(t, x, y, z), z) + Derivative(Vz(t, x, y, z), y)",
+      "Im(2,2)": "Derivative(Vx(t, x, y, z), y) - Derivative(Vy(t, x, y, z), x)"
+    },
+    "which_of_the_7_target_equations_[(7)x,y,z;(8)x,y,z;(9)]_are_reached": {
+      "(7)_x": {
+        "direct_single_equation_match": false,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      },
+      "(7)_y": {
+        "direct_single_equation_match": false,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      },
+      "(7)_z": {
+        "direct_single_equation_match": false,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      },
+      "(8)_x": {
+        "direct_single_equation_match": false,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      },
+      "(8)_y": {
+        "direct_single_equation_match": false,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      },
+      "(8)_z": {
+        "direct_single_equation_match": true,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      },
+      "(9)": {
+        "direct_single_equation_match": false,
+        "reached_via_pair_sum_or_diff": true,
+        "reached_at_all": true
+      }
+    },
+    "all_seven_target_components_reached_by_some_combination_of_the_8_source_equations": true,
+    "assessment": "The full system (sigma^mu d_mu)(sigma^mu V_mu)=0 for a real quaternion field V_mu produces exactly 8 real scalar equations (4 complex matrix entries, real+imaginary each). The claimed 7-component target system -- (7) [3 components], (8) [3 curl components], (9) [1 divergence component] -- is confirmed reachable by direct matches or simple pairwise sums/differences of the 8 source equations (matching the page's own (4+/-),(5+/-) construction method). With 8 source equations producing (at most) 7 independent target components, one linear combination of the source system is left over / redundant -- consistent with the fact that a HERMITIAN 2x2 matrix (which sigma^mu V_mu is, for real V_mu) only has 4 real independent components to begin with, so the 8 'source' equations are not all independent of each other either. This is standard, expected redundancy for an overdetermined-looking but actually consistent linear system, not evidence of an error.",
+    "verdict": "SOLID",
+    "central_claim_caveat": "This confirms the ALGEBRA connecting the Weyl-quaternion equation to the boxed (7)-(9) system is correct and complete. It does NOT by itself confirm that (7)-(9) are a physically faithful rendering of vacuum Maxwell's equations -- the page's own comparison table pairs a SINGLE real 3-vector V (not two independent vectors E,B) with a single scalar V_0, and explicitly notes 'there is no E_0, B_0 here' and that V decouples entirely from V_0 at the wave-equation level (confirmed in NB-174 below) -- i.e. this construction produces ONE Maxwell-curl-equation-shaped subsystem from a single real vector field, structurally analogous to (but simpler than, and NOT equivalent to) the genuine two-vector-field Riemann-Silberstein construction independently confirmed correct in batch 09 (NB-129). The notebook's own honest phrasing -- 'these are Maxwell-like equations to be sure' -- is a fair, hedged claim, not an overclaim of a full E&B Maxwell derivation."
+  }
+}

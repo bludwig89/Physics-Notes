@@ -4,7 +4,7 @@
 
 *One line per claim card (**D12**). A **claim** is what the project asserts *right now*; a **finding** is what a session did. The two move independently — a finding may be superseded without any claim changing, and a claim may be narrowed without any finding changing. See `docs/claims/README.md` for the contract and the closed vocabularies; `tools/check_claims.py` enforces them at `make gate`.*
 
-**305 cards** — **164** live, **9** narrowed, **9** contingent, **93** open, **5** not_claimed, **25** withdrawn. **220** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
+**317 cards** — **172** live, **10** narrowed, **9** contingent, **96** open, **5** not_claimed, **25** withdrawn. **220** are `unreviewed-seed`: mechanically extracted from a finding, classification **not confirmed by a reviewer**, and not citable as independent support.
 
 ## Headline claims
 
@@ -38,7 +38,7 @@
 | [CL282](docs/claims/CL282-casimir-colour-normalisation-excluded.md) | The Casimir normalisation of the model''s bare colour coupling is excluded: g_s = sqrt3/4 with… *(→ CL022)* | no_go | live | exact | stated | F325, F298, F299, F303, F294, F280, F144, F111b, F110, F101 |
 | [CL284](docs/claims/CL284-elementary-single-branch-fermion-excluded.md) | An elementary fermion of this model cannot ride a single BCC chiral branch: that assignment is… | no_go | live | quantitative | stated | F327, F301, F246, F91, F232 |
 | [CL285](docs/claims/CL285-discrete-cpt-theorem-free-dirac-walk.md) | The free BCC Dirac walk has an exact discrete CPT theorem: Theta = Sigma . (sigma_y (+)… | derivation | live | exact | stated | F328, F53, F301, F327, F26 |
-| [CL286](docs/claims/CL286-cluster-decomposition-interacting-3d-njl.md) | The interacting, 3-D BCC Dirac theory obeys cluster decomposition — an NJL-generated dynamical… | derivation | live | quantitative | stated | F331, F290, F267, F77 |
+| [CL286](docs/claims/CL286-cluster-decomposition-interacting-3d-njl.md) | The interacting, 3-D BCC Dirac theory obeys cluster decomposition — an NJL-generated dynamical… | derivation | live | quantitative | stated | F331, F290, F267, F77, F380 |
 
 ### narrowed (4)
 
@@ -69,7 +69,7 @@
 | [CL017](docs/claims/CL017-ckm-and-cp-violation-out-of-scope.md) | The CKM matrix and measured CP violation are out of scope | non_claim | not_claimed | exact | none | F53 |
 | [CL018](docs/claims/CL018-neutrino-mass-scale-not-fixed.md) | No absolute neutrino mass is predicted — the see-saw supplies a mechanism, not a scale | non_claim | not_claimed | external | none | F47 |
 | [CL019](docs/claims/CL019-muon-g-2-beyond-qed-not-computed.md) | Muon g-2 beyond the QED piece is not computed and not claimed | non_claim | not_claimed | machine | none | F261, F249 |
-| [CL021](docs/claims/CL021-cosmological-constant-not-derived.md) | The cosmological constant is not derived — the 121-order problem is reduced to the Omega_Lambda… | non_claim | not_claimed | quantitative | none | F164, F193, F196, F241, F319 |
+| [CL021](docs/claims/CL021-cosmological-constant-not-derived.md) | The cosmological constant is not derived — the 121-order problem is reduced to the Omega_Lambda… | non_claim | not_claimed | quantitative | none | F164, F193, F196, F241, F319, F408 |
 
 ### withdrawn (6)
 
@@ -86,7 +86,7 @@
 
 *One per qualifying finding not already carried by a headline card. Findings judged not to clear the bar are listed with their reason in `docs/audits/consolidation-plan-2026-08-04.md` §5, so "no card" is a recorded decision rather than an omission.*
 
-### live (139)
+### live (147)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -156,7 +156,7 @@
 | [CL146](docs/claims/CL146-the-triple-gluon-vertex-is-branch-blind-no.md) | The triple-gluon vertex is branch-blind (no chiral component): the gluon \"even\"… | derivation | live | exact | unset | F166 |
 | [CL147](docs/claims/CL147-rest-mass-derived-from-the-qca-rule-it.md) | Rest mass derived from the QCA rule: it is the unique, unitarity-and-symmetry-forced… | derivation | live | exact | unset | F167 |
 | [CL148](docs/claims/CL148-the-paired-photon-binding-is-gauge-protected-not.md) | The paired-photon binding is gauge-protected, not kinematic: zero binding energy is forced by… | derivation | live | exact | unset | F168 |
-| [CL149](docs/claims/CL149-the-photon-s-interacting-two-body-wavefunction-a.md) | The photon''s interacting two-body wavefunction: a normalizable threshold bound state whose… | prediction | live | exact | unset | F169 |
+| [CL149](docs/claims/CL149-the-photon-s-interacting-two-body-wavefunction-a.md) | The photon''s interacting two-body wavefunction: a normalizable threshold bound state whose… | prediction | live | exact | unset | F169, F397 |
 | [CL151](docs/claims/CL151-slow-light-eit-does-not-distinguish-the-rotation.md) | Slow light / EIT does not distinguish the rotation-rate picture from phase velocity: they are… | no_go | live | exact | unset | F171 |
 | [CL153](docs/claims/CL153-the-pressure-tolman-discriminator-the-single-scalar-dielectric.md) | The pressure/Tolman discriminator: the single-scalar dielectric sources gravity from energy… | derivation | live | exact | unset | F173 |
 | [CL154](docs/claims/CL154-the-nicer-overlay-solving-both-theories-hydrostatic-structure.md) | The NICER overlay: solving both theories'' hydrostatic structure shows the literal energy-only… | no_go | live | unset | unset | F174 |
@@ -229,8 +229,16 @@
 | [CL298](docs/claims/CL298-graviton-pair-collapse-threshold.md) | Two of the model''s own maximum-energy photons/gravitons collide head-on with exactly sqrt(pi)… | derivation | live | exact | stated | F359, F357, F228, F223, F79, F107 |
 | [CL300](docs/claims/CL300-blockspin-fluctuation-corrections-stay-integer.md) | Under F130''s fixed-lambda bond-moving convention, no finite-order strong-coupling fluctuation… | no_go | live | exact | stated | F362, F130, F310 |
 | [CL305](docs/claims/CL305-interacting-sector-eth-onset.md) | A next-nearest-neighbour interaction breaks a quadratic lattice-fermion sector''s generalised… | derivation | live | quantitative | stated | F300, F309, F376 |
+| [CL306](docs/claims/CL306-gauged-kinetic-cpt-theorem-mass-sector-no-go.md) | A uniform SU(2)_L link grafted into the free BCC Dirac walk''s kinetic term admits an exact… *(→ CL285)* | derivation | live | exact | stated | F378, F328, F53 |
+| [CL308](docs/claims/CL308-p77-charge-partition-is-f27-stueckelberg-relabel.md) | The notebook p.77 charge partition (W± as the non-intrinsic half of charge, mass as its… | reinterpretation | live | machine | stated | F396, F27, F41, F54, F143 |
+| [CL309](docs/claims/CL309-factorization-route-redundant-with-f168-offset-derived.md) | The notebook's factorization identity (null vector = spinor bilinear; timelike vector = two… | derivation | live | quantitative | stated | F397, F24, F69, F91, F168, F169 |
+| [CL310](docs/claims/CL310-pryce-composite-photon-deficit-vanishes.md) | Pauli blocking between two F69/F169 composite photons vanishes as the BZ grid is refined toward… *(→ CL002)* | derivation | live | quantitative | stated | F398, F69, F169 |
+| [CL311](docs/claims/CL311-cooper-pair-higgs-coupling-species-local-not-universal.md) | The F73 Cooper-pair Higgs candidate''s fermion coupling is real, computable and non-universal… *(→ CL070)* | no_go | live | quantitative | stated | F399, F73, F74, F77 |
+| [CL312](docs/claims/CL312-bcc-diamond-share-a-generator-tetrahedron-diamond-fails-bravais.md) | BCC and diamond-cubic share a generator tetrahedron; diamond-cubic fails the Bravais premise… *(→ CL246)* | no_go | live | exact | stated | F400, F291, F292 |
+| [CL313](docs/claims/CL313-photon-finite-k-critical-coupling-repaired-and-decreasing.md) | The photon channel''s finite-k Koster-Slater threshold coupling is repaired and genuinely… *(→ CL149)* | derivation | live | quantitative | stated | F401, F169, F397 |
+| [CL314](docs/claims/CL314-nucleon-mass-ji-decomposition-model-support.md) | The model supports the quark-mass term and the trace sector of the Ji nucleon-mass… | derivation | live | quantitative | stated | F402, F122, F123, F77, F144, F152 |
 
-### narrowed (5)
+### narrowed (6)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -239,6 +247,7 @@
 | [CL257](docs/claims/CL257-ncolour-selected-not-derived.md) | N_c is not derived here — two routes are closed exactly, one is circular, the Lambda-scale… | derivation | narrowed | bracketed | stated | F293, F294, F298, F299, F303, F324, F325 |
 | [CL259](docs/claims/CL259-bbn-bounds-np-splitting.md) | BBN and the free-neutron lifetime bound m_n - m_p to +-0.0056 MeV; the model''s own derived… | no_go | narrowed | quantitative | stated | F297, F122, F123, F40, F372 |
 | [CL281](docs/claims/CL281-ncolour-bracketed-to-three.md) | $N_c=3$ is bracketed by two constraints that consume no measured number — F298''s C7 support… *(→ CL271)* | derivation | narrowed | exact | stated | F324, F317, F298, F318, F293, F279, F27, F75, F97, F99, F325 |
+| [CL307](docs/claims/CL307-photon-fermion-push-partial-recoil-not-conservation.md) | For a photon beam propagating along a lattice-cubic axis at small carrier wavenumber, a… | deviation | narrowed | quantitative | stated | F390, F389, F388, F385, F387, F391, F392, F395 |
 
 ### contingent (7)
 
@@ -250,9 +259,9 @@
 | [CL290](docs/claims/CL290-majorana-neutrino-structurally-forced.md) | Majorana is the required completion of this model''s own hypercharge derivation, conditional on… | reinterpretation | contingent | exact | stated | F341, F47, F165, F202, F266, F279 |
 | [CL292](docs/claims/CL292-einstein-uniqueness-inherited-from-derived-dimension.md) | Given an emergent local diffeomorphism-invariant metric-only theory with second-order field… | derivation | contingent | quantitative | stated | F345, F178, F297, F59, F319, F288, F291, F326, F79, F107, F64, F106 |
 | [CL295](docs/claims/CL295-bounded-curvature-forces-a-regular-core-centre.md) | Bounded curvature alone forces a regular centre in the lattice core: the Kretschmann scalar is… | derivation | contingent | exact | stated | F354, F183 |
-| [CL303](docs/claims/CL303-sequestering-selectivity-identity-not-adopted.md) | A Kaloper-Padilla-style non-local/global sequestering mechanism achieves unbounded… | derivation | contingent | quantitative | stated | F367, F368, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59 |
+| [CL303](docs/claims/CL303-sequestering-selectivity-identity-not-adopted.md) | A Kaloper-Padilla-style non-local/global sequestering mechanism achieves unbounded… | derivation | contingent | quantitative | stated | F367, F368, F408, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59 |
 
-### open (92)
+### open (95)
 
 | ID | Claim | Kind | Status | Exact | Falsifier | Findings |
 |---|---|---|---|---|---|---|
@@ -348,6 +357,9 @@
 | [CL301](docs/claims/CL301-geon-relic-abundance-bounded-by-2025-gw-literature.md) | The F228/F238 geon / one-cell Planck-mass black-hole remnant dark-matter candidate''s free… | prediction | open | bracketed | stated | F365, F228, F238, F223 |
 | [CL302](docs/claims/CL302-geon-domain-wall-reopening-scope-boundary.md) | CL209''s "the geon relic abundance is a genuinely free input" is scoped to the… *(→ CL209)* | non_claim | open | bracketed | stated | F366, F238, F228, F282, F285, F150, F175, F234 |
 | [CL304](docs/claims/CL304-transfer-function-scale-setting-numbers-model-native.md) | Two of the imported EH98 transfer-function scale-setting numbers -- the sound horizon and the… *(→ CL254)* | derivation | open | quantitative | stated | F369, F288, F182, F188 |
+| [CL315](docs/claims/CL315-no-oh-residual-fixes-pmns-in-cube-frame.md) | In the cube-axis (E_g) charged-lepton frame no residual symmetry drawn from O_h fixes PMNS; the… *(→ CL223)* | no_go | open | quantitative | stated | F403 |
+| [CL316](docs/claims/CL316-koide-pseudomass-quark-route-nonpredictive.md) | Koide pseudo-masses cannot explain the quark hierarchy in this model: with lepton-like… | no_go | open | quantitative | stated | F404, F407 |
+| [CL317](docs/claims/CL317-lepton-frame-fork-trimaximal-reading-splits.md) | The charged-lepton frame is the E_g-diagonal one provided the off-diagonal crystal field is… *(→ CL223)* | no_go | open | quantitative | stated | F406 |
 
 ### not_claimed (1)
 

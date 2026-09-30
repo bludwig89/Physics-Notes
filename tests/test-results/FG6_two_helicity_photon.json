@@ -1,34 +1,34 @@
 {
   "FG6.1_per_branch_nonzero_and_transverse": {
     "ok": true,
-    "time_s": 0.004258632659912109,
-    "residual": 3.3645469011445413e-17,
-    "worst_transversality_plus": 3.1481202607541624e-17,
-    "worst_transversality_minus": 3.3645469011445413e-17,
+    "time_s": 0.001110076904296875,
+    "residual": 6.684732126069669e-17,
+    "worst_transversality_plus": 5.40661325297241e-17,
+    "worst_transversality_minus": 6.684732126069669e-17,
     "min_branch_E_norm": 0.0015194480100512557,
     "note": "Transversality is exact-by-construction (projection in EM_bilinears); the F29-B4 c_lat\u00b7|k| scaling lives on the raw W-triplet, tested by FG6.9."
   },
   "FG6.2_two_helicity_linearity": {
     "ok": true,
-    "time_s": 0.0015060901641845703,
+    "time_s": 0.0008339881896972656,
     "residual": 0.0
   },
   "FG6.3_both_helicities_present": {
     "ok": true,
-    "time_s": 0.001463174819946289,
+    "time_s": 0.0008552074432373047,
     "min_helicity_ratio_min(|F+|,|F-|)/max(|F+|,|F-|)": 1.0,
     "expected": "O(1) \u2014 single-branch bilinears yield |F+|=|F-| (linear pol), and combined inherits both helicities."
   },
   "FG6.4_singlet_SU2_invariance_per_branch": {
     "ok": true,
-    "time_s": 0.0025262832641601562,
-    "residual_plus_branch": 3.366257611991156e-16,
-    "residual_minus_branch": 2.424500306476223e-16
+    "time_s": 0.0016655921936035156,
+    "residual_plus_branch": 2.603703785810335e-16,
+    "residual_minus_branch": 2.6622212897024595e-16
   },
   "FG6.5_chiral_propagation_per_helicity": {
     "ok": true,
-    "time_s": 0.21949243545532227,
-    "worst_Fp_residual_rel": 1.3417496088851818e-15,
+    "time_s": 0.10064220428466797,
+    "worst_Fp_residual_rel": 1.832841448879225e-15,
     "worst_Fm_residual_rel": 1.0046957504884042e-15,
     "target": 1e-10,
     "n_cases": 12,
@@ -36,40 +36,40 @@
   },
   "FG6.6_birefringence_vs_F30": {
     "ok": true,
-    "time_s": 0.0042989253997802734,
-    "fit_coeff_meas": -0.06415289253272184,
+    "time_s": 0.0015301704406738281,
+    "fit_coeff_meas": -0.06415289253272179,
     "fit_coeff_exact": -0.06415002990995841,
-    "fit_relative_error": 4.462387262248226e-05,
+    "fit_relative_error": 4.462387262161693e-05,
     "n_points_fit": 65,
     "note": "Direct BCC-dispersion evaluation along (1,1,1); reproduces F30 closed form \u2212\u221a3/27 = -6.4150029910e-02"
   },
   "FG6.7_triplet_adjoint_rotation_per_branch": {
     "ok": true,
-    "time_s": 0.005884885787963867,
-    "residual_plus_branch": 2.1036539947654227e-16,
-    "residual_minus_branch": 2.57064876091938e-16
+    "time_s": 0.00397491455078125,
+    "residual_plus_branch": 2.273332849845118e-16,
+    "residual_minus_branch": 2.953943968095403e-16
   },
   "FG6.8_triplet_magnitude_SU2_invariance_combined": {
     "ok": true,
-    "time_s": 0.00465703010559082,
-    "residual": 4.440892098500626e-16
+    "time_s": 0.0027420520782470703,
+    "residual": 5.551115123125784e-16
   },
   "FG6.9_triplet_per_branch_transversality": {
     "ok": true,
-    "time_s": 0.003779888153076172,
+    "time_s": 0.0022101402282714844,
     "residual": 0.02894473584468809,
     "worst_plus_branch": 0.02894473584468809,
-    "worst_minus_branch": 0.02891244380289569,
+    "worst_minus_branch": 0.028912443802895687,
     "expected_scaling": "O(c_lat \u00b7 |k|) = 2.8868e-02"
   },
   "FG6.10_riemann_silberstein_decomposition": {
     "ok": true,
-    "time_s": 0.002637147903442383,
+    "time_s": 0.0014657974243164062,
     "residual": 0.0
   },
   "_meta": {
-    "total_time_s": 0.2505156993865967,
-    "date": "2026-07-31 - 09:31",
+    "total_time_s": 0.1170358657836914,
+    "date": "2026-09-29 - 13:57",
     "C_LAT_analytic": 0.5773502691896258,
     "F30_birefringence_coeff_exact": -0.06415002990995841
   }

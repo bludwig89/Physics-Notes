@@ -13,7 +13,7 @@
     "jarlskog_J": 0.0,
     "n_phase": 0,
     "max_cpt_rest_freq_delta": 0.0,
-    "max_numerical_omega_rel": 1.7234938385612053e-15,
+    "max_numerical_omega_rel": 8.617469192806006e-16,
     "max_C_norm_rel": 2.2058172016931163e-16,
     "floor": 1e-12,
     "note": "No CPT-violating asymmetry: J=0 exactly, p/antip symmetric to numerical floor.",
@@ -29,7 +29,7 @@
   "doppler_lv": {
     "max_doppler_relative_residual": 1.812986607347358e-16,
     "doppler_gate": 1e-12,
-    "measured_lv_residue_coeff_over_k2": -1.0319001112247208e-14,
+    "measured_lv_residue_coeff_over_k2": -1.4726574455540394e-13,
     "fa01_group_velocity_k2_coeff_bound": -0.018518518518518517,
     "fa01_source": "test-results/FA01_liv_tof.json",
     "lv_residue_within_FA01_envelope": true,

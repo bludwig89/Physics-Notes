@@ -40,7 +40,7 @@
     }
   },
   "summary": "7/7 PASS (7 total)",
-  "runtime_s": 3.66,
+  "runtime_s": 3.05,
   "tables": {
     "casimir_ratios": {
       "3": "1",

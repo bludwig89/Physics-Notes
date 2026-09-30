@@ -40,7 +40,7 @@
     }
   },
   "summary": "7/7 PASS (7 total)",
-  "runtime_s": 30.062,
+  "runtime_s": 24.799,
   "tables": {
     "sigma_vs_lambda_Z3": {
       "0.2": 0.49228177459291667,

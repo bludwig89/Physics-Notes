@@ -66,7 +66,7 @@ def ir_coupling_value() -> dict:
     a = 0.5 * (ALPHA_EFF_STAR_mD + ALPHA_EFF_STAR_mV)
     return {"alpha_eff_star_mD": ALPHA_EFF_STAR_mD,
             "alpha_eff_star_mV": ALPHA_EFF_STAR_mV,
-            "alpha_eff_star_mean": a,
+            "alpha_eff_star_mean": a,       # DISPLAY ONLY (D7: a bracket's midpoint is never a result)
             "spread_frac": (ALPHA_EFF_STAR_mV - ALPHA_EFF_STAR_mD) / a,
             "source": "F151-S5 / F145 self-consistent gap, M(0)=1.50 (F77)"}
 
@@ -98,13 +98,17 @@ def saturating_branch(loops: int = 2) -> dict:
 #  J3 — continuum grounding
 # ======================================================================
 def continuum_grounding() -> dict:
-    a = ir_coupling_value()["alpha_eff_star_mean"]
+    # D7: the bracketed alpha_eff* is tested by its ENDPOINTS — the whole
+    # bracket must sit in the continuum window.  (Before 2026-09-29 this tested
+    # the midpoint, which could pass with an endpoint outside the window.)
+    lo, hi = ALPHA_EFF_STAR_mD, ALPHA_EFF_STAR_mV
     return {"alpha_hat0_over_pi": ALPHA_HAT0_OVER_PI,
             "m_g_continuum_GeV": M_G_GEV,
             "model_mD_scale_GeV": SQRT_SIGMA_GEV,
             "model_gap_matches_continuum": abs(SQRT_SIGMA_GEV - M_G_GEV) <= (M_G_ERR + 0.15),
             "alpha_eff_star_in_continuum_frozen_range":
-                ALPHA_FROZEN_CONT_LO <= a <= ALPHA_FROZEN_CONT_HI,
+                ALPHA_FROZEN_CONT_LO <= lo and hi <= ALPHA_FROZEN_CONT_HI,
+            "alpha_eff_star_bracket": [lo, hi],
             "continuum_frozen_range": [ALPHA_FROZEN_CONT_LO, ALPHA_FROZEN_CONT_HI],
             "branch": "saturating/decoupling — model generates m_D>0 (F88/F117); "
                       "dual superconductor and IR saturation are the same gap"}

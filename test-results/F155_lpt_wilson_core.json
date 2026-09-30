@@ -1,15 +1,15 @@
 {
   "W1_sum_rule_exact": {
     "passed": true,
-    "value": 0.24999999999999983,
+    "value": 0.25,
     "exact": 0.25,
-    "dev": 1.6653345369377348e-16
+    "dev": 0.0
   },
   "W2_tadpole_Z0": {
     "passed": true,
-    "Z0": 0.15491623316432648,
+    "Z0": 0.1549162331643265,
     "published": 0.154933390231,
-    "rel_dev": 0.00011073834147656836
+    "rel_dev": 0.00011073834147634631
   },
   "W3_convergence": {
     "passed": true,

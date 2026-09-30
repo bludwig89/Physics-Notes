@@ -1,0 +1,6 @@
+{
+  "build": "NB-062",
+  "reality_constraint_a_k=(a_{-k}^+)*_holds": true,
+  "linear_map_is_invertible": true,
+  "note": "p.51's a_k^+, a_k formulas use phi_{-k},pi_k (cross-indexed) rather than p.45's same-index phi_k,pi_k form -- a different but not necessarily wrong convention. Checked here on its own terms: is it a genuine, invertible, reality-respecting linear change of variables (the minimum bar for a sensible mode definition)? Both conditions hold."
+}

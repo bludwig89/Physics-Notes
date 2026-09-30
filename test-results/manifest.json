@@ -6,6 +6,7 @@
   "test-results/F114_dielectric_black_hole.json",
   "test-results/F114_dielectric_black_hole.md",
   "test-results/F143_induced_stiffness_loop.json",
+  "test-results/F163_kns_seagull.json",
   "test-results/F163_kns_seagull_L12.json",
   "test-results/F163_kns_seagull_L16.json",
   "test-results/F163_kns_seagull_L8.json",
@@ -33,6 +34,9 @@
   "test-results/F335_reflection_positivity_gram_strong.json",
   "test-results/F337_l6_native_sweep.json",
   "test-results/F337_l6_native_sweep_raw_per_Q.json",
+  "test-results/F350_smoothed_dloops_sweep.json",
+  "test-results/F350_ws_mask_isolation.json",
+  "test-results/F389_radiative_transverse_current.json",
   "test-results/F45_sigma_tau_weinberg.json",
   "test-results/F47_bcc_weinberg_2over9.json",
   "test-results/F64_vs_F62_comparison.json",
@@ -45,11 +49,10 @@
   "test-results/_to_delete/F300_coupling_normalisation.json",
   "test-results/generator_norm_from_F118.json"
  ],
- "generated": "2026-09-06 11:27 UTC",
- "git_sha": "b2fcfa5",
+ "generated": "2026-09-29 20:52 UTC",
+ "git_sha": "ed51277",
  "orphan_results": [
   "test-results/F229_mass_scale_N_transmutation.json",
-  "test-results/F319_uv_completion.json",
   "test-results/F327_chiral_liv_bound.json",
   "test-results/F328_discrete_cpt_theorem.json",
   "test-results/F336_twoloop_vp_nonlog.json",
@@ -62,6 +65,9 @@
   "test-results/F365_geon_relic_gw_bounds.json",
   "test-results/F367_cc_sequestering.json",
   "test-results/F368_cc_sequestering_consistency.json",
+  "test-results/F378_discrete_cpt_gauged_theorem.json",
+  "test-results/F398_pryce_composite_commutator.json",
+  "test-results/F399_composite_scalar_fermion_coupling.json",
   "test-results/FALSIFICATION-SUITE-RESULTS.md",
   "test-results/FB02_nucleon.json",
   "test-results/FB02_nucleon_verdict.json",
@@ -98,6 +104,7 @@
   "test-results/casim_njl_nucleon.json",
   "test-results/casim_njl_pion.json",
   "test-results/casim_particles_first_gen.json",
+  "test-results/casim_photon_fermion_push.json",
   "test-results/casim_photon_pair.json",
   "test-results/casim_proton_bag.json",
   "test-results/casim_proton_confined.json",
@@ -139,16 +146,79 @@
   "test-results/lambda6_sextic_E1.json",
   "test-results/lgt_confinement.json",
   "test-results/lgt_confinement.md",
+  "test-results/lpt_vertex_continuum.json",
   "test-results/lpt_vertex_continuum_smoke.json",
+  "test-results/lpt_wilson_validation.json",
   "test-results/lpt_wilson_validation_smoke.json",
+  "test-results/notebook-recon/NB-001_kg_scalar.json",
+  "test-results/notebook-recon/NB-002_fourier_convention.json",
+  "test-results/notebook-recon/NB-003_hspace_substitution.json",
+  "test-results/notebook-recon/NB-004_012_013_em_facts.json",
+  "test-results/notebook-recon/NB-005_006_isomer_counting.json",
+  "test-results/notebook-recon/NB-006_octahedron_attempt.json",
+  "test-results/notebook-recon/NB-014_015_weyl_massive.json",
+  "test-results/notebook-recon/NB-018_019_qmu_pauli_identity.json",
+  "test-results/notebook-recon/NB-026_027_028_theta_curved.json",
+  "test-results/notebook-recon/NB-026_032_035_trace_derivative_identities.json",
+  "test-results/notebook-recon/NB-028_029_scalar_toy_i_factor.json",
+  "test-results/notebook-recon/NB-031_eom_hermitian_check.json",
+  "test-results/notebook-recon/NB-032_tetrad_variation_tetrode_flat.json",
+  "test-results/notebook-recon/NB-032_tetrad_variation_tetrode_frw.json",
+  "test-results/notebook-recon/NB-037_ecsk_spin_source.json",
+  "test-results/notebook-recon/NB-038_q_field_equations.json",
+  "test-results/notebook-recon/NB-039_040_041_sigma_clifford.json",
+  "test-results/notebook-recon/NB-044_lattice_coordination.json",
+  "test-results/notebook-recon/NB-045_046_047_spinor_ca_stability.json",
+  "test-results/notebook-recon/NB-047_vonneumann_stability_proof.json",
+  "test-results/notebook-recon/NB-052_053_054_ladder_operator_algebra.json",
+  "test-results/notebook-recon/NB-056_057_fock_normalization.json",
+  "test-results/notebook-recon/NB-062_mode_inverse_relations.json",
+  "test-results/notebook-recon/NB-065_066_45deg_rotation.json",
+  "test-results/notebook-recon/NB-068_069_reality_condition.json",
+  "test-results/notebook-recon/NB-073_074_T_cross_term.json",
+  "test-results/notebook-recon/NB-076_077_078_dirac_matrix_nonuniqueness.json",
+  "test-results/notebook-recon/NB-082_083_ws_rotation.json",
+  "test-results/notebook-recon/NB-083_e_beta_sign_issue.json",
+  "test-results/notebook-recon/NB-084_mass_matrix_comparison.json",
+  "test-results/notebook-recon/NB-086_chiral_mass_identity.json",
+  "test-results/notebook-recon/NB-093_094_095_helical_velocity.json",
+  "test-results/notebook-recon/NB-099_j_mass_term.json",
+  "test-results/notebook-recon/NB-105_110_dirac_weyl_transform.json",
+  "test-results/notebook-recon/NB-109_110_dirac_equation_check.json",
+  "test-results/notebook-recon/NB-114_mass_perturbed_spinors.json",
+  "test-results/notebook-recon/NB-120_lepton_doublet_table.json",
+  "test-results/notebook-recon/NB-121_122_monopole_confinement_analogies.json",
+  "test-results/notebook-recon/NB-123_124_125_rotation_tensor_products.json",
+  "test-results/notebook-recon/NB-126_127_spin1_clebsch_gordan.json",
+  "test-results/notebook-recon/NB-128_129_3d_dirac_riemann_silberstein.json",
+  "test-results/notebook-recon/NB-130_134_sin2thetaw_numerology.json",
+  "test-results/notebook-recon/NB-135_137_em_yukawa_self_energy.json",
+  "test-results/notebook-recon/NB-138_140_newton_electron_radius_ellipse.json",
+  "test-results/notebook-recon/NB-141_142_ws_vector_bosons.json",
+  "test-results/notebook-recon/NB-143_144_spinor_as_direction_topology.json",
+  "test-results/notebook-recon/NB-145_148_stereographic_projection_half.json",
+  "test-results/notebook-recon/NB-149_152_lightcone_ST_reflections.json",
+  "test-results/notebook-recon/NB-153_general_radius_rederivation.json",
+  "test-results/notebook-recon/NB-154_157_weyl_component_form.json",
+  "test-results/notebook-recon/NB-158_160_lightcone_constraint_field_eq.json",
+  "test-results/notebook-recon/NB-161_164_maxwell_from_weyl.json",
+  "test-results/notebook-recon/NB-165_167_null_vector_spinor.json",
+  "test-results/notebook-recon/NB-168_170_vector_decomposition.json",
+  "test-results/notebook-recon/NB-171_173_maxwell_from_spinor_main.json",
+  "test-results/notebook-recon/NB-174_176_wave_equation_plane_wave.json",
+  "test-results/notebook-recon/NB-177_178_null_case_transverse.json",
+  "test-results/notebook-recon/NB-179_stereographic_summary.json",
+  "test-results/notebook-recon/NB-180_186_null_vectors.json",
   "test-results/p6_scale_tie.json",
   "test-results/phase2_f26_results.json",
   "test-results/phase7_backreaction_results.json",
+  "test-results/phaseAE_L192.json",
   "test-results/phaseF_L192.json",
   "test-results/photon_beam_all_fields_t1360_review.md",
   "test-results/prod_gauge_mc.json",
   "test-results/propagation_demo_2026-05-22.json",
   "test-results/propagation_demo_2026-08-04.json",
+  "test-results/propagation_demo_2026-09-29.json",
   "test-results/qca-verifications-results.md",
   "test-results/residual_AB_highres.json",
   "test-results/review_particles_t13162.md",
@@ -160,6 +230,12 @@
   "test-results/smoke_photon_beam_all_fields.json",
   "test-results/smoothed_ws_mask_sweep_checkpoint.json",
   "test-results/smoothed_ws_mask_sweep_checkpoint_v2.json",
+  "test-results/stage0_fermion_w_backreaction.json",
+  "test-results/stage0_fermion_w_backreaction_eps0.json",
+  "test-results/stage0_fermion_w_backreaction_eps01.json",
+  "test-results/stage0_free_weyl.json",
+  "test-results/stage0_photon_beam.json",
+  "test-results/stage0_photon_pairmode.json",
   "test-results/su2_3d_fluxtube.json",
   "test-results/su3_3d_string_tension.json",
   "test-results/su3_static_potential_b12.json",
@@ -192,10 +268,10 @@
  ],
  "results": {
   "test-results/E2E_nonabelian_bilinear.json": {
-   "bytes": 4528,
+   "bytes": 4524,
    "findings": [],
-   "fingerprint": "a945d499356fa5d8",
-   "mtime": "2026-08-19 13:43",
+   "fingerprint": "49e1b51d1aa7c8dc",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "tests": [
     {
@@ -212,8 +288,8 @@
    "findings": [
     "F100"
    ],
-   "fingerprint": "268cd122f0e0e254",
-   "mtime": "2026-08-01 04:56",
+   "fingerprint": "42d4fda65023291b",
+   "mtime": "2026-09-22 16:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -245,8 +321,8 @@
    "findings": [
     "F101"
    ],
-   "fingerprint": "a985c39990f4c7d8",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "96895eca1221576c",
+   "mtime": "2026-09-22 16:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -292,7 +368,7 @@
    ]
   },
   "test-results/F106_psi_K_sourcing.json": {
-   "bytes": 906,
+   "bytes": 907,
    "declared_findings": [
     "F106"
    ],
@@ -300,7 +376,7 @@
     "F106"
    ],
    "fingerprint": "bd13de0da2f659c9",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "tests": [
     {
@@ -310,15 +386,15 @@
    ]
   },
   "test-results/F107_canonical_a_L4_grb_gate.json": {
-   "bytes": 3899,
+   "bytes": 3894,
    "declared_findings": [
     "F107"
    ],
    "findings": [
     "F107"
    ],
-   "fingerprint": "1cae0fa913a2e4da",
-   "mtime": "2026-08-01 00:06",
+   "fingerprint": "c52fe2260fe4d6bb",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "tests": [
     {
@@ -348,7 +424,7 @@
     "F109"
    ],
    "fingerprint": "4e76258db2043ffa",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "tests": [
     {
@@ -375,8 +451,8 @@
    "findings": [
     "F110"
    ],
-   "fingerprint": "b742b7630abbcd19",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "12f0ba13d8c20400",
+   "mtime": "2026-09-22 16:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -411,8 +487,8 @@
    "findings": [
     "F111"
    ],
-   "fingerprint": "fb9ed022b13ce7ed",
-   "mtime": "2026-08-20 15:37",
+   "fingerprint": "ee462a787af290b9",
+   "mtime": "2026-09-22 16:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -545,7 +621,7 @@
     "F118"
    ],
    "fingerprint": "f682ee979f959d36",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-24 20:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -662,7 +738,7 @@
     "F128"
    ],
    "fingerprint": "fd9488e6105288df",
-   "mtime": "2026-08-12 18:27",
+   "mtime": "2026-09-22 16:28",
    "numeric_fields": true,
    "tests": [
     {
@@ -679,8 +755,8 @@
    "findings": [
     "F129"
    ],
-   "fingerprint": "a1d01f507340b40f",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "fff365ff1c76cbc2",
+   "mtime": "2026-09-22 16:34",
    "numeric_fields": true,
    "tests": [
     {
@@ -690,11 +766,11 @@
    ]
   },
   "test-results/F129_blockspin_free_photon_summary.md": {
-   "bytes": 2132,
+   "bytes": 2133,
    "findings": [
     "F129"
    ],
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:34",
    "tests": [
     {
      "evidence": "stem-prefix",
@@ -703,15 +779,15 @@
    ]
   },
   "test-results/F135_blockspin_wavepacket_realtime.json": {
-   "bytes": 3883,
+   "bytes": 3898,
    "declared_findings": [
     "F135"
    ],
    "findings": [
     "F135"
    ],
-   "fingerprint": "90aab4e83f2ce17d",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "8809e18498332d5f",
+   "mtime": "2026-09-29 18:48",
    "numeric_fields": true,
    "tests": [
     {
@@ -721,11 +797,11 @@
    ]
   },
   "test-results/F135_blockspin_wavepacket_realtime_summary.md": {
-   "bytes": 1569,
+   "bytes": 1571,
    "findings": [
     "F135"
    ],
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:48",
    "tests": [
     {
      "evidence": "stem-prefix",
@@ -837,12 +913,12 @@
    ]
   },
   "test-results/F145_route_c_induced_njl.json": {
-   "bytes": 6033,
+   "bytes": 6026,
    "findings": [
     "F145"
    ],
-   "fingerprint": "d705054a3685a2b4",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "fc992b8bdf40d055",
+   "mtime": "2026-09-29 18:48",
    "numeric_fields": true,
    "tests": [
     {
@@ -989,7 +1065,7 @@
     "F155"
    ],
    "fingerprint": "c113ad6aa3ae2c7f",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:49",
    "numeric_fields": true,
    "tests": [
     {
@@ -999,12 +1075,12 @@
    ]
   },
   "test-results/F155_lpt_wilson_core.json": {
-   "bytes": 585,
+   "bytes": 550,
    "findings": [
     "F155"
    ],
-   "fingerprint": "f3a7faf5427bc739",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "c87b4ac9fe2a1c6e",
+   "mtime": "2026-09-29 18:49",
    "numeric_fields": true,
    "tests": [
     {
@@ -1018,8 +1094,8 @@
    "findings": [
     "F155"
    ],
-   "fingerprint": "424b51d7c4fb155b",
-   "mtime": "2026-08-02 12:22",
+   "fingerprint": "c3809ebc16ed1a1f",
+   "mtime": "2026-09-29 18:49",
    "numeric_fields": true,
    "tests": [
     {
@@ -1034,7 +1110,7 @@
     "F155"
    ],
    "fingerprint": "1acae24314239c5c",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:49",
    "numeric_fields": true,
    "tests": [
     {
@@ -1064,7 +1140,7 @@
     "F162"
    ],
    "fingerprint": "66b46d7077160d0f",
-   "mtime": "2026-08-02 13:54",
+   "mtime": "2026-09-29 18:50",
    "numeric_fields": true,
    "tests": [
     {
@@ -1074,12 +1150,12 @@
    ]
   },
   "test-results/F162_bgfield_loop_highres.json": {
-   "bytes": 1418,
+   "bytes": 1713,
    "findings": [
     "F162"
    ],
-   "fingerprint": "0d157c2492db425c",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "85740ebb1e5ab04e",
+   "mtime": "2026-09-29 19:24",
    "numeric_fields": true,
    "tests": [
     {
@@ -1087,6 +1163,16 @@
      "path": "tests/findings/test_F162_bgfield_loop.py"
     }
    ]
+  },
+  "test-results/F163_kns_seagull.json": {
+   "bytes": 1821,
+   "findings": [
+    "F163"
+   ],
+   "fingerprint": "80cee5b2d0e3b437",
+   "mtime": "2026-09-29 19:48",
+   "numeric_fields": true,
+   "tests": []
   },
   "test-results/F163_kns_seagull_L12.json": {
    "bytes": 1846,
@@ -1168,8 +1254,8 @@
    "findings": [
     "F163"
    ],
-   "fingerprint": "3daa2ac42dcdc7c5",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "7e0e79270697b8b1",
+   "mtime": "2026-09-29 19:58",
    "numeric_fields": true,
    "tests": [
     {
@@ -1206,7 +1292,7 @@
     "F166"
    ],
    "fingerprint": "682fb4f533b3cbc6",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:50",
    "numeric_fields": true,
    "tests": [
     {
@@ -1220,8 +1306,8 @@
    "findings": [
     "F167"
    ],
-   "fingerprint": "c4e226aa6c6db49c",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "c1f4cdadb77e80bf",
+   "mtime": "2026-09-29 18:50",
    "numeric_fields": true,
    "tests": [
     {
@@ -1236,7 +1322,7 @@
     "F168"
    ],
    "fingerprint": "2e2d669849e2e5c3",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:28",
    "numeric_fields": true,
    "tests": [
     {
@@ -1246,12 +1332,12 @@
    ]
   },
   "test-results/F169_photon_bound_state.json": {
-   "bytes": 1759,
+   "bytes": 3084,
    "findings": [
     "F169"
    ],
-   "fingerprint": "b717072c990ea981",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "5392b2dea91dd83b",
+   "mtime": "2026-09-24 00:17",
    "numeric_fields": true,
    "tests": [
     {
@@ -1261,12 +1347,12 @@
    ]
   },
   "test-results/F170_lepton_colour_scale_link.json": {
-   "bytes": 2003,
+   "bytes": 2002,
    "findings": [
     "F170"
    ],
    "fingerprint": "0b24370c6e94d7b4",
-   "mtime": "2026-07-31 23:09",
+   "mtime": "2026-09-29 18:50",
    "numeric_fields": true,
    "tests": [
     {
@@ -1306,7 +1392,7 @@
     "F172"
    ],
    "fingerprint": "5b015bb83cfebebc",
-   "mtime": "2026-07-31 23:09",
+   "mtime": "2026-09-29 18:50",
    "numeric_fields": true,
    "tests": [
     {
@@ -1451,15 +1537,15 @@
    ]
   },
   "test-results/F181_covariant_interior_battery.json": {
-   "bytes": 3799,
+   "bytes": 3813,
    "declared_findings": [
     "F181"
    ],
    "findings": [
     "F181"
    ],
-   "fingerprint": "eb2336d5f9641b35",
-   "mtime": "2026-08-12 18:27",
+   "fingerprint": "bc8ef31b113823d7",
+   "mtime": "2026-09-29 18:51",
    "numeric_fields": true,
    "tests": [
     {
@@ -1798,7 +1884,7 @@
     "F197"
    ],
    "fingerprint": "6b148d83fd2782b8",
-   "mtime": "2026-07-31 23:09",
+   "mtime": "2026-09-22 16:28",
    "numeric_fields": true,
    "tests": [
     {
@@ -1902,12 +1988,12 @@
    ]
   },
   "test-results/F200_eg_sextic_coupling.json": {
-   "bytes": 2595,
+   "bytes": 2590,
    "findings": [
     "F200"
    ],
    "fingerprint": "12a62288bb2dd204",
-   "mtime": "2026-07-30 22:10",
+   "mtime": "2026-09-29 18:51",
    "numeric_fields": true,
    "tests": []
   },
@@ -1935,7 +2021,7 @@
     "F200"
    ],
    "fingerprint": "a83ce0f4d35f7334",
-   "mtime": "2026-08-19 19:12",
+   "mtime": "2026-09-29 18:51",
    "numeric_fields": true,
    "tests": [
     {
@@ -2072,8 +2158,8 @@
    "findings": [
     "F205"
    ],
-   "fingerprint": "dd814d1332661eb7",
-   "mtime": "2026-08-01 00:06",
+   "fingerprint": "0957b7e6f6f7e119",
+   "mtime": "2026-09-29 18:51",
    "numeric_fields": true,
    "tests": [
     {
@@ -2109,7 +2195,7 @@
     "F207"
    ],
    "fingerprint": "ba930e374869fd17",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:28",
    "numeric_fields": true,
    "tests": [
     {
@@ -2749,7 +2835,7 @@
     "F239"
    ],
    "fingerprint": "b1e5a012dc10816a",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:52",
    "numeric_fields": true,
    "tests": [
     {
@@ -2795,12 +2881,12 @@
    ]
   },
   "test-results/F242_mustar_from_dielectric.json": {
-   "bytes": 2097,
+   "bytes": 2098,
    "findings": [
     "F242"
    ],
-   "fingerprint": "67897e9c293c7713",
-   "mtime": "2026-09-06 01:51",
+   "fingerprint": "b8aa280e058ebda2",
+   "mtime": "2026-09-29 18:52",
    "numeric_fields": true,
    "tests": [
     {
@@ -3098,7 +3184,7 @@
    ]
   },
   "test-results/F263_euler_heisenberg_schwinger.json": {
-   "bytes": 9867,
+   "bytes": 9861,
    "declared_findings": [
     "F263"
    ],
@@ -3106,7 +3192,7 @@
     "F263"
    ],
    "fingerprint": "6c70a0fe7f25321a",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "tests": [
     {
@@ -3172,7 +3258,7 @@
     "F27"
    ],
    "fingerprint": "bb8a56fc1e7454a0",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:30",
    "numeric_fields": true,
    "self_declared_source": "F27 GRB/AGN photon dispersion vs F26",
    "tests": []
@@ -3267,15 +3353,15 @@
    ]
   },
   "test-results/F287_bgfield_apparatus.json": {
-   "bytes": 3502,
+   "bytes": 3504,
    "declared_findings": [
     "F287"
    ],
    "findings": [
     "F287"
    ],
-   "fingerprint": "c7c6bf421638a603",
-   "mtime": "2026-08-02 18:55",
+   "fingerprint": "83411f1f373e2254",
+   "mtime": "2026-09-29 18:53",
    "numeric_fields": true,
    "tests": []
   },
@@ -3636,7 +3722,7 @@
     "F30"
    ],
    "fingerprint": "acfc6e363096d840",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:30",
    "numeric_fields": true,
    "tests": [
     {
@@ -3650,7 +3736,7 @@
    "findings": [
     "F30"
    ],
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:30",
    "tests": [
     {
      "evidence": "stem-prefix",
@@ -3810,7 +3896,12 @@
    "fingerprint": "940980d533d93dc2",
    "mtime": "2026-08-16 16:52",
    "numeric_fields": true,
-   "tests": []
+   "tests": [
+    {
+     "evidence": "finding-id",
+     "path": "tests/findings/test_F193_ontic_vacuum.py"
+    }
+   ]
   },
   "test-results/F320_gauge_boson_masses.json": {
    "bytes": 4808,
@@ -4278,12 +4369,7 @@
    "fingerprint": "c9a4a452112cda0e",
    "mtime": "2026-09-02 20:12",
    "numeric_fields": true,
-   "tests": [
-    {
-     "evidence": "finding-id",
-     "path": "tests/findings/test_F350_ws_mask_cutcell.py"
-    }
-   ]
+   "tests": []
   },
   "test-results/F350_ws_mask_isolation.json": {
    "bytes": 2120,
@@ -4293,12 +4379,7 @@
    "fingerprint": "bd438c1e17bfcdef",
    "mtime": "2026-09-02 21:50",
    "numeric_fields": true,
-   "tests": [
-    {
-     "evidence": "finding-id",
-     "path": "tests/findings/test_F350_ws_mask_cutcell.py"
-    }
-   ]
+   "tests": []
   },
   "test-results/F351_v_second_pin_scope.json": {
    "bytes": 2161,
@@ -4598,12 +4679,12 @@
    ]
   },
   "test-results/F374_eliashberg_cutoff_reconciliation.json": {
-   "bytes": 1383,
+   "bytes": 2587,
    "findings": [
     "F374"
    ],
-   "fingerprint": "588a0f4c2f85337b",
-   "mtime": "2026-09-06 01:51",
+   "fingerprint": "8ca91c153aa11172",
+   "mtime": "2026-09-29 18:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -4613,12 +4694,12 @@
    ]
   },
   "test-results/F375_nb_realistic_dos.json": {
-   "bytes": 2709,
+   "bytes": 2715,
    "findings": [
     "F375"
    ],
-   "fingerprint": "f6c7dacacbbd4333",
-   "mtime": "2026-09-06 01:48",
+   "fingerprint": "9e5edfefa03c7c36",
+   "mtime": "2026-09-29 18:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -4642,21 +4723,448 @@
     }
    ]
   },
+  "test-results/F378_discrete_cpt_gauged_theorem.json": {
+   "bytes": 3046,
+   "findings": [
+    "F378"
+   ],
+   "fingerprint": "8c189298127fe1f7",
+   "mtime": "2026-09-10 00:46",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F379_so3_kinematic_gap.json": {
+   "bytes": 1759,
+   "findings": [
+    "F379"
+   ],
+   "fingerprint": "655dd161ae459074",
+   "mtime": "2026-09-10 15:28",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F379_so3_kinematic_gap.py"
+    }
+   ]
+  },
   "test-results/F37_delta_omega.json": {
-   "bytes": 1631,
+   "bytes": 1615,
    "declared_findings": [
     "F37"
    ],
    "findings": [
     "F37"
    ],
-   "fingerprint": "ceb3055dbeaff9c2",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "d4267c1f5578f30e",
+   "mtime": "2026-09-29 18:53",
    "numeric_fields": true,
    "tests": [
     {
      "evidence": "exact-stem",
      "path": "tests/findings/test_F37_delta_omega.py"
+    }
+   ]
+  },
+  "test-results/F380_cluster_asymptotic_series.json": {
+   "bytes": 1199,
+   "findings": [
+    "F380"
+   ],
+   "fingerprint": "1c5cb2788748ee23",
+   "mtime": "2026-09-10 16:55",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F380_cluster_asymptotic_series.py"
+    }
+   ]
+  },
+  "test-results/F381_premise_a_irreducibility.json": {
+   "bytes": 2617,
+   "findings": [
+    "F381"
+   ],
+   "fingerprint": "239c323ddc26ee1f",
+   "mtime": "2026-09-10 18:39",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F381_premise_a_irreducibility.py"
+    }
+   ]
+  },
+  "test-results/F382_vertex_domain_periodicity.json": {
+   "bytes": 9855,
+   "findings": [
+    "F382"
+   ],
+   "fingerprint": "e7a47e21f6643e1d",
+   "mtime": "2026-09-10 21:38",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F382_vertex_domain_periodicity.py"
+    }
+   ]
+  },
+  "test-results/F383_four_derivative_locality.json": {
+   "bytes": 10429,
+   "declared_findings": [
+    "F383"
+   ],
+   "findings": [
+    "F383"
+   ],
+   "fingerprint": "6a9b56bad1d4ba56",
+   "mtime": "2026-09-10 21:14",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F383_four_derivative_locality.py"
+    }
+   ]
+  },
+  "test-results/F384_conserved_em_current.json": {
+   "bytes": 543,
+   "findings": [
+    "F384"
+   ],
+   "fingerprint": "f4d48795d4fcf79f",
+   "mtime": "2026-09-16 17:10",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F384_conserved_em_current.py"
+    }
+   ]
+  },
+  "test-results/F385_u1_link_covariant_step.json": {
+   "bytes": 941,
+   "findings": [
+    "F385"
+   ],
+   "fingerprint": "7099e63ddb884d71",
+   "mtime": "2026-09-16 17:10",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F385_u1_link_covariant_step.py"
+    }
+   ]
+  },
+  "test-results/F386_a_field_convention.json": {
+   "bytes": 933,
+   "findings": [
+    "F386"
+   ],
+   "fingerprint": "34ba8cfd617938d6",
+   "mtime": "2026-09-16 17:10",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F386_a_field_convention.py"
+    }
+   ]
+  },
+  "test-results/F387_curl_anisotropy_omega_pair_mismatch.json": {
+   "bytes": 1418,
+   "findings": [
+    "F387"
+   ],
+   "fingerprint": "1eb09ec0d01a768c",
+   "mtime": "2026-09-16 17:10",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py"
+    }
+   ]
+  },
+  "test-results/F388_fermion_photon_coupled_channels.json": {
+   "bytes": 819,
+   "findings": [
+    "F388"
+   ],
+   "fingerprint": "1f64e45bdebcb990",
+   "mtime": "2026-09-16 17:10",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F388_fermion_photon_coupled_channels.py"
+    }
+   ]
+  },
+  "test-results/F389_radiative_current_backreaction.json": {
+   "bytes": 772,
+   "findings": [
+    "F389"
+   ],
+   "fingerprint": "7740f5bfc0249f55",
+   "mtime": "2026-09-16 16:12",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F389_radiative_current_backreaction.py"
+    }
+   ]
+  },
+  "test-results/F389_radiative_transverse_current.json": {
+   "bytes": 616,
+   "findings": [
+    "F389"
+   ],
+   "fingerprint": "8ee3af22c11a2418",
+   "mtime": "2026-09-16 17:10",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F390_photon_fermion_push.json": {
+   "bytes": 1164,
+   "findings": [
+    "F390"
+   ],
+   "fingerprint": "a2e2c7de8cdd79bb",
+   "mtime": "2026-09-16 17:03",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F390_photon_fermion_push.py"
+    }
+   ]
+  },
+  "test-results/F391_ck_transverse_beam_mechanism.json": {
+   "bytes": 1269,
+   "findings": [
+    "F391"
+   ],
+   "fingerprint": "3d13d032efc541db",
+   "mtime": "2026-09-16 16:45",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F391_ck_transverse_beam_mechanism.py"
+    }
+   ]
+  },
+  "test-results/F392_beam_polarization_null_fix.json": {
+   "bytes": 581,
+   "findings": [
+    "F392"
+   ],
+   "fingerprint": "9556dd17cae736b7",
+   "mtime": "2026-09-16 16:53",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F392_beam_polarization_null_fix.py"
+    }
+   ]
+  },
+  "test-results/F393_curl_grad_identity_diagnostic.json": {
+   "bytes": 835,
+   "findings": [
+    "F393"
+   ],
+   "fingerprint": "c48d367de190869b",
+   "mtime": "2026-09-16 21:14",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F393_curl_grad_identity_diagnostic.py"
+    }
+   ]
+  },
+  "test-results/F395_stage5_circular_beam_rerun.json": {
+   "bytes": 916,
+   "findings": [
+    "F395"
+   ],
+   "fingerprint": "34aab8119beb6425",
+   "mtime": "2026-09-16 17:08",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F395_stage5_circular_beam_rerun.py"
+    }
+   ]
+  },
+  "test-results/F396_charge_partition_p77.json": {
+   "bytes": 1627,
+   "findings": [
+    "F396"
+   ],
+   "fingerprint": "11633f519aea0b2f",
+   "mtime": "2026-09-21 22:07",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F396_charge_partition_p77.py"
+    }
+   ]
+  },
+  "test-results/F398_pryce_composite_commutator.json": {
+   "bytes": 1912,
+   "declared_findings": [
+    "F398"
+   ],
+   "findings": [
+    "F398"
+   ],
+   "fingerprint": "639fedfd3966a0a1",
+   "mtime": "2026-09-23 18:50",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F399_composite_scalar_fermion_coupling.json": {
+   "bytes": 845,
+   "declared_findings": [
+    "F399"
+   ],
+   "findings": [
+    "F399"
+   ],
+   "fingerprint": "47344ff2e3559441",
+   "mtime": "2026-09-23 19:29",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/F400_coordination_selector.json": {
+   "bytes": 1633,
+   "findings": [
+    "F400"
+   ],
+   "fingerprint": "4998f28efbe27bee",
+   "mtime": "2026-09-23 21:56",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F400_coordination_selector.py"
+    }
+   ]
+  },
+  "test-results/F401_photon_bound_state_finite_k.json": {
+   "bytes": 2296,
+   "findings": [
+    "F401"
+   ],
+   "fingerprint": "0ef9761a92703ebc",
+   "mtime": "2026-09-24 00:38",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F401_photon_bound_state_finite_k.py"
+    }
+   ]
+  },
+  "test-results/F402_baryon_mass_decomposition.json": {
+   "bytes": 1616,
+   "findings": [
+    "F402"
+   ],
+   "fingerprint": "6c715ab1ca1b2d3f",
+   "mtime": "2026-09-29 19:47",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F402_baryon_mass_decomposition.py"
+    }
+   ]
+  },
+  "test-results/F403_oh_residual_pmns.json": {
+   "bytes": 3160,
+   "findings": [
+    "F403"
+   ],
+   "fingerprint": "4c826ca3e126e755",
+   "mtime": "2026-09-24 20:02",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F403_oh_residual_pmns.py"
+    }
+   ]
+  },
+  "test-results/F404_koide_pseudomass_fork.json": {
+   "bytes": 1654,
+   "findings": [
+    "F404"
+   ],
+   "fingerprint": "aa89c5c526eb32e2",
+   "mtime": "2026-09-24 20:01",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F404_koide_pseudomass_fork.py"
+    }
+   ]
+  },
+  "test-results/F405_quark_B_colour_charge.json": {
+   "bytes": 4409,
+   "findings": [
+    "F405"
+   ],
+   "fingerprint": "b7368383a311e6c7",
+   "mtime": "2026-09-24 20:12",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F405_quark_B_colour_charge.py"
+    }
+   ]
+  },
+  "test-results/F406_lepton_frame_fork.json": {
+   "bytes": 4983,
+   "findings": [
+    "F406"
+   ],
+   "fingerprint": "35e113f198a05fc6",
+   "mtime": "2026-09-24 20:39",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "exact-stem",
+     "path": "tests/findings/test_F406_lepton_frame_fork.py"
+    }
+   ]
+  },
+  "test-results/F408_cc_sign_split.json": {
+   "bytes": 2969,
+   "declared_findings": [
+    "F408"
+   ],
+   "findings": [
+    "F408"
+   ],
+   "fingerprint": "db20997df60d129b",
+   "mtime": "2026-09-27 11:50",
+   "numeric_fields": true,
+   "tests": [
+    {
+     "evidence": "declared-finding",
+     "path": "tests/findings/test_F193_ontic_vacuum.py"
     }
    ]
   },
@@ -4674,15 +5182,15 @@
    "tests": []
   },
   "test-results/F46_pythagorean_mass.json": {
-   "bytes": 9647,
+   "bytes": 9725,
    "declared_findings": [
     "F46"
    ],
    "findings": [
     "F46"
    ],
-   "fingerprint": "35cc6f2a1fc32b68",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "e29aa028107a147e",
+   "mtime": "2026-09-29 18:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -4717,15 +5225,15 @@
    ]
   },
   "test-results/F50_gravity_fork_dirac.json": {
-   "bytes": 2112,
+   "bytes": 2129,
    "declared_findings": [
     "F50"
    ],
    "findings": [
     "F50"
    ],
-   "fingerprint": "5d5958707c215715",
-   "mtime": "2026-07-31 23:07",
+   "fingerprint": "6d5397c5349cfdbd",
+   "mtime": "2026-09-29 18:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -4870,12 +5378,15 @@
    ]
   },
   "test-results/F62_dirac_gravity_fork.json": {
-   "bytes": 2436,
+   "bytes": 3530,
+   "declared_findings": [
+    "F62"
+   ],
    "findings": [
     "F62"
    ],
-   "fingerprint": "b33ac27cfa2a56fc",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "7dbf93b7851963f9",
+   "mtime": "2026-09-29 18:54",
    "numeric_fields": true,
    "tests": [
     {
@@ -4885,11 +5396,11 @@
    ]
   },
   "test-results/F62_dirac_gravity_fork.md": {
-   "bytes": 790,
+   "bytes": 793,
    "findings": [
     "F62"
    ],
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:54",
    "tests": [
     {
      "evidence": "exact-stem",
@@ -4913,15 +5424,15 @@
    ]
   },
   "test-results/F64_em_connection.json": {
-   "bytes": 16033,
+   "bytes": 16232,
    "declared_findings": [
     "F64"
    ],
    "findings": [
     "F64"
    ],
-   "fingerprint": "fb0cea84241cef82",
-   "mtime": "2026-08-12 18:27",
+   "fingerprint": "ef0de34f312af008",
+   "mtime": "2026-09-29 18:55",
    "numeric_fields": true,
    "tests": [
     {
@@ -4931,11 +5442,11 @@
    ]
   },
   "test-results/F64_em_connection.md": {
-   "bytes": 10022,
+   "bytes": 10028,
    "findings": [
     "F64"
    ],
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:55",
    "tests": [
     {
      "evidence": "exact-stem",
@@ -4944,32 +5455,32 @@
    ]
   },
   "test-results/F64_vs_F62_comparison.json": {
-   "bytes": 3320,
+   "bytes": 3315,
    "findings": [
     "F62",
     "F64"
    ],
-   "fingerprint": "6a2eb720abdf4617",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "b3616b68871f5aca",
+   "mtime": "2026-09-29 18:59",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/F64_vs_F62_comparison.md": {
-   "bytes": 3289,
+   "bytes": 3279,
    "findings": [
     "F62",
     "F64"
    ],
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:59",
    "tests": []
   },
   "test-results/F67_option1_even_law_photon.json": {
-   "bytes": 1224,
+   "bytes": 1169,
    "findings": [
     "F67"
    ],
-   "fingerprint": "c5f02faade59e588",
-   "mtime": "2026-08-01 04:56",
+   "fingerprint": "6688a40409fa4b49",
+   "mtime": "2026-09-29 18:55",
    "numeric_fields": true,
    "tests": [
     {
@@ -4979,12 +5490,12 @@
    ]
   },
   "test-results/F68_minimal_coupling_forces_even_photon.json": {
-   "bytes": 432,
+   "bytes": 413,
    "findings": [
     "F68"
    ],
-   "fingerprint": "4074d2c9c11bd1ba",
-   "mtime": "2026-08-01 04:54",
+   "fingerprint": "be4e046d4ada0bf6",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -4994,12 +5505,12 @@
    ]
   },
   "test-results/F69_paired_photon.json": {
-   "bytes": 992,
+   "bytes": 957,
    "findings": [
     "F69"
    ],
-   "fingerprint": "3c4e9e340e8103d1",
-   "mtime": "2026-08-01 04:56",
+   "fingerprint": "991959207dd84d9f",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5022,15 +5533,15 @@
    "tests": []
   },
   "test-results/F72_universal_even_propagator.json": {
-   "bytes": 2181,
+   "bytes": 2144,
    "declared_findings": [
     "F72"
    ],
    "findings": [
     "F72"
    ],
-   "fingerprint": "999540eb91f6583f",
-   "mtime": "2026-08-01 04:56",
+   "fingerprint": "4207785fbc9efd0f",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5048,7 +5559,7 @@
     "F73"
    ],
    "fingerprint": "c24b22544f055e73",
-   "mtime": "2026-07-31 23:10",
+   "mtime": "2026-09-22 16:29",
    "numeric_fields": true,
    "tests": [
     {
@@ -5129,7 +5640,7 @@
     "F78"
    ],
    "fingerprint": "1672391db16cfa97",
-   "mtime": "2026-07-31 23:05",
+   "mtime": "2026-09-22 16:29",
    "numeric_fields": true,
    "tests": [
     {
@@ -5177,7 +5688,7 @@
     "F81"
    ],
    "fingerprint": "cc2be2b741114306",
-   "mtime": "2026-07-31 23:10",
+   "mtime": "2026-09-22 16:29",
    "numeric_fields": true,
    "tests": [
     {
@@ -5239,8 +5750,8 @@
    "findings": [
     "F87"
    ],
-   "fingerprint": "9036a6f0456d9a56",
-   "mtime": "2026-08-12 18:27",
+   "fingerprint": "715ead9a669580a6",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5250,28 +5761,28 @@
    ]
   },
   "test-results/F89_singlet_bilinear_paired_photon.json": {
-   "bytes": 1543,
+   "bytes": 1542,
    "declared_findings": [
     "F89"
    ],
    "findings": [
     "F89"
    ],
-   "fingerprint": "c64bc81b655f9721",
-   "mtime": "2026-08-01 04:55",
+   "fingerprint": "d0b43e880486f696",
+   "mtime": "2026-09-29 20:34",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/F91_pairing_classification.json": {
-   "bytes": 1644,
+   "bytes": 1608,
    "declared_findings": [
     "F91"
    ],
    "findings": [
     "F91"
    ],
-   "fingerprint": "00061247cc7cd127",
-   "mtime": "2026-08-01 04:56",
+   "fingerprint": "6fe1d5e9cf2ba1d6",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5286,7 +5797,7 @@
     "F92"
    ],
    "fingerprint": "37f3165b16532b0c",
-   "mtime": "2026-08-01 04:55",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5564,10 +6075,10 @@
    ]
   },
   "test-results/FA_vs_FC_comparison.json": {
-   "bytes": 2158,
+   "bytes": 2201,
    "findings": [],
-   "fingerprint": "63d3836873374639",
-   "mtime": "2026-08-12 18:27",
+   "fingerprint": "cc51e86c7c10980a",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5712,7 +6223,7 @@
     "FB08"
    ],
    "fingerprint": "e86d0294b855bc3c",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5829,12 +6340,12 @@
    ]
   },
   "test-results/FC04_deflection_dyn.json": {
-   "bytes": 4283,
+   "bytes": 4282,
    "findings": [
     "FC04"
    ],
    "fingerprint": "5186fdc274fe4099",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "tests": [
     {
@@ -5844,12 +6355,12 @@
    ]
   },
   "test-results/FC05_qm_battery.json": {
-   "bytes": 9057,
+   "bytes": 9058,
    "findings": [
     "FC05"
    ],
-   "fingerprint": "b3096cc493fa5c6b",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "6bc334f72cb8cc94",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "tests": [
     {
@@ -5859,12 +6370,12 @@
    ]
   },
   "test-results/FC06_cpt_lorentz.json": {
-   "bytes": 1983,
+   "bytes": 1982,
    "findings": [
     "FC06"
    ],
-   "fingerprint": "23d46e71b594c17e",
-   "mtime": "2026-08-19 19:34",
+   "fingerprint": "b063cd5d2d817a6a",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "tests": [
     {
@@ -5894,7 +6405,7 @@
     "FC07"
    ],
    "fingerprint": "b56b5174c18af5d3",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "self_declared_source": "FC07",
    "tests": [
@@ -5931,12 +6442,12 @@
    ]
   },
   "test-results/FG2_quark_complex_mass.json": {
-   "bytes": 3315,
+   "bytes": 3328,
    "findings": [
     "FG2"
    ],
-   "fingerprint": "9e06bb4e2b56a21c",
-   "mtime": "2026-08-19 13:46",
+   "fingerprint": "d681bc7c62216af5",
+   "mtime": "2026-09-29 18:56",
    "numeric_fields": true,
    "tests": [
     {
@@ -5946,12 +6457,12 @@
    ]
   },
   "test-results/FG3_quark_electroweak.json": {
-   "bytes": 1220,
+   "bytes": 1233,
    "findings": [
     "FG3"
    ],
-   "fingerprint": "f0affc30f4859591",
-   "mtime": "2026-08-19 13:46",
+   "fingerprint": "efc8d012b08c4bb9",
+   "mtime": "2026-09-29 18:57",
    "numeric_fields": true,
    "tests": [
     {
@@ -5961,12 +6472,12 @@
    ]
   },
   "test-results/FG4_dynamical_Z.json": {
-   "bytes": 4032,
+   "bytes": 4030,
    "findings": [
     "FG4"
    ],
-   "fingerprint": "bcfc02425dda76d5",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "f76cd4fe4e430447",
+   "mtime": "2026-09-29 18:57",
    "numeric_fields": true,
    "tests": [
     {
@@ -5991,12 +6502,12 @@
    ]
   },
   "test-results/FG7_gluon_dynamics.json": {
-   "bytes": 6348,
+   "bytes": 6369,
    "findings": [
     "FG7"
    ],
-   "fingerprint": "55269c6bbfd6459c",
-   "mtime": "2026-08-01 01:34",
+   "fingerprint": "64585f6aa4dd3db6",
+   "mtime": "2026-09-29 18:57",
    "numeric_fields": true,
    "tests": [
     {
@@ -6036,12 +6547,12 @@
    ]
   },
   "test-results/FG7d_colour_dielectric.json": {
-   "bytes": 3077,
+   "bytes": 3082,
    "findings": [
     "FG7"
    ],
-   "fingerprint": "2cb5f59bddfff0d6",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "f2537343540fe034",
+   "mtime": "2026-09-29 20:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -6051,12 +6562,12 @@
    ]
   },
   "test-results/FG7e_colour_condensate.json": {
-   "bytes": 4128,
+   "bytes": 4125,
    "findings": [
     "FG7"
    ],
-   "fingerprint": "47a2a1cfb48be6db",
-   "mtime": "2026-08-19 19:34",
+   "fingerprint": "b3b1af6cc0c5abb3",
+   "mtime": "2026-09-29 20:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -6066,12 +6577,12 @@
    ]
   },
   "test-results/FG7f_gluon_dielectric_gap.json": {
-   "bytes": 2714,
+   "bytes": 2711,
    "findings": [
     "FG7"
    ],
-   "fingerprint": "49ee67a0e0e464cb",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "765cce9a8788eb9f",
+   "mtime": "2026-09-29 20:38",
    "numeric_fields": true,
    "tests": [
     {
@@ -6081,12 +6592,12 @@
    ]
   },
   "test-results/FG8_beta_decay.json": {
-   "bytes": 4094,
+   "bytes": 4091,
    "findings": [
     "FG8"
    ],
-   "fingerprint": "f1ecbb9dec241171",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "2f116ab221aa532a",
+   "mtime": "2026-09-29 18:57",
    "numeric_fields": true,
    "tests": [
     {
@@ -6112,10 +6623,10 @@
    ]
   },
   "test-results/P0_dynamical_fermions.json": {
-   "bytes": 3075,
+   "bytes": 3078,
    "findings": [],
-   "fingerprint": "b81b506365c5ff2b",
-   "mtime": "2026-08-19 13:43",
+   "fingerprint": "51ec25b718e21be8",
+   "mtime": "2026-09-29 18:57",
    "numeric_fields": true,
    "tests": [
     {
@@ -6125,13 +6636,13 @@
    ]
   },
   "test-results/P2_baryon_bound_state.json": {
-   "bytes": 4175,
+   "bytes": 5431,
    "declared_findings": [
     "F122"
    ],
    "findings": [],
-   "fingerprint": "07031bf73a87bf53",
-   "mtime": "2026-09-05 18:54",
+   "fingerprint": "4da5b2c8da34e09a",
+   "mtime": "2026-09-29 18:57",
    "numeric_fields": true,
    "tests": [
     {
@@ -6170,7 +6681,7 @@
    "bytes": 7014,
    "findings": [],
    "fingerprint": "dbfc49e0945a904e",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-22 16:30",
    "numeric_fields": true,
    "tests": [
     {
@@ -6304,17 +6815,17 @@
    "tests": []
   },
   "test-results/can-fail.json": {
-   "bytes": 13197,
+   "bytes": 20460,
    "findings": [],
-   "fingerprint": "e9c6448fcac688cc",
-   "mtime": "2026-09-03 16:30",
+   "fingerprint": "963773cfa9463daa",
+   "mtime": "2026-09-27 11:51",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/casim-exactness-inventory.md": {
    "bytes": 1690,
    "findings": [],
-   "mtime": "2026-09-06 11:22",
+   "mtime": "2026-09-29 20:51",
    "tests": []
   },
   "test-results/casim_bcc_weyl.json": {
@@ -6434,6 +6945,14 @@
    "findings": [],
    "fingerprint": "fa5e8db15ca41bb6",
    "mtime": "2026-06-05 18:30",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/casim_photon_fermion_push.json": {
+   "bytes": 9462,
+   "findings": [],
+   "fingerprint": "e2eaf51922dd24e0",
+   "mtime": "2026-09-16 17:09",
    "numeric_fields": true,
    "tests": []
   },
@@ -6598,12 +7117,11 @@
    "tests": []
   },
   "test-results/confinement_mc.json": {
-   "bytes": 3823,
+   "bytes": 97,
    "findings": [],
-   "fingerprint": "b5206b609533a874",
-   "mtime": "2026-07-31 15:58",
-   "numeric_fields": true,
-   "tests": []
+   "mtime": "2026-09-29 19:26",
+   "tests": [],
+   "unreadable": "Expecting value: line 5 column 12 (char 97)"
   },
   "test-results/confinement_mc.md": {
    "bytes": 1284,
@@ -6612,10 +7130,10 @@
    "tests": []
   },
   "test-results/control-soundness.json": {
-   "bytes": 196906,
+   "bytes": 261109,
    "findings": [],
-   "fingerprint": "e5e4691204dab4a0",
-   "mtime": "2026-09-06 11:22",
+   "fingerprint": "706fb5dc9f18dfc0",
+   "mtime": "2026-09-27 11:51",
    "numeric_fields": true,
    "tests": []
   },
@@ -6668,10 +7186,10 @@
    "tests": []
   },
   "test-results/d1_vertex_formfactor.json": {
-   "bytes": 7099,
+   "bytes": 7110,
    "findings": [],
-   "fingerprint": "03b510e4eca32b7e",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "e10b65d48c2b1dd1",
+   "mtime": "2026-09-29 19:47",
    "numeric_fields": true,
    "tests": []
   },
@@ -6742,10 +7260,10 @@
    "tests": []
   },
   "test-results/hypercharge_extension.json": {
-   "bytes": 1431,
+   "bytes": 1433,
    "findings": [],
-   "fingerprint": "b7f411a9f4e61706",
-   "mtime": "2026-08-07 04:26",
+   "fingerprint": "bb486b89e5611b87",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "tests": [
     {
@@ -6755,10 +7273,10 @@
    ]
   },
   "test-results/hypercharge_fork.json": {
-   "bytes": 1198,
+   "bytes": 1200,
    "findings": [],
-   "fingerprint": "c7819abdcc628412",
-   "mtime": "2026-08-07 04:26",
+   "fingerprint": "54beec10ff191962",
+   "mtime": "2026-09-29 19:00",
    "numeric_fields": true,
    "tests": [
     {
@@ -6802,11 +7320,27 @@
    "mtime": "2026-06-05 03:06",
    "tests": []
   },
+  "test-results/lpt_vertex_continuum.json": {
+   "bytes": 1439,
+   "findings": [],
+   "fingerprint": "911e07a15b41c54e",
+   "mtime": "2026-09-29 19:49",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/lpt_vertex_continuum_smoke.json": {
    "bytes": 1230,
    "findings": [],
    "fingerprint": "0469bfb1055201c5",
    "mtime": "2026-06-17 18:05",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/lpt_wilson_validation.json": {
+   "bytes": 1590,
+   "findings": [],
+   "fingerprint": "7e08e69297e3af66",
+   "mtime": "2026-09-29 19:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -6831,6 +7365,478 @@
     }
    ]
   },
+  "test-results/notebook-recon/NB-001_kg_scalar.json": {
+   "bytes": 183,
+   "findings": [],
+   "fingerprint": "d350d221c68f7f31",
+   "mtime": "2026-09-22 17:57",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-002_fourier_convention.json": {
+   "bytes": 528,
+   "findings": [],
+   "fingerprint": "89ad45ddf140f1ac",
+   "mtime": "2026-09-22 17:57",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-003_hspace_substitution.json": {
+   "bytes": 596,
+   "findings": [],
+   "fingerprint": "802c43748dad65ae",
+   "mtime": "2026-09-22 17:58",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-004_012_013_em_facts.json": {
+   "bytes": 877,
+   "findings": [],
+   "fingerprint": "e64a3fe1959ebe1e",
+   "mtime": "2026-09-22 18:00",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-005_006_isomer_counting.json": {
+   "bytes": 393,
+   "findings": [],
+   "fingerprint": "291a1683ab198c1c",
+   "mtime": "2026-09-22 17:58",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-006_octahedron_attempt.json": {
+   "bytes": 804,
+   "findings": [],
+   "fingerprint": "34041757afa37e83",
+   "mtime": "2026-09-22 17:59",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-014_015_weyl_massive.json": {
+   "bytes": 751,
+   "findings": [],
+   "fingerprint": "3e08d36ffadb8715",
+   "mtime": "2026-09-22 18:36",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-018_019_qmu_pauli_identity.json": {
+   "bytes": 433,
+   "findings": [],
+   "fingerprint": "0016731408d50a50",
+   "mtime": "2026-09-22 18:37",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-026_027_028_theta_curved.json": {
+   "bytes": 4087,
+   "findings": [],
+   "fingerprint": "ee796db87e3dde03",
+   "mtime": "2026-09-22 21:01",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-026_032_035_trace_derivative_identities.json": {
+   "bytes": 707,
+   "findings": [],
+   "fingerprint": "c1dd4493be1cffa6",
+   "mtime": "2026-09-22 18:38",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-028_029_scalar_toy_i_factor.json": {
+   "bytes": 1036,
+   "findings": [],
+   "fingerprint": "4c5ab709d29141ac",
+   "mtime": "2026-09-22 18:40",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-031_eom_hermitian_check.json": {
+   "bytes": 210,
+   "findings": [],
+   "fingerprint": "ca7f2fbcb8c97308",
+   "mtime": "2026-09-22 18:38",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-032_tetrad_variation_tetrode_flat.json": {
+   "bytes": 3381,
+   "findings": [],
+   "fingerprint": "08489854d735e4f4",
+   "mtime": "2026-09-22 21:18",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-032_tetrad_variation_tetrode_frw.json": {
+   "bytes": 797,
+   "findings": [],
+   "fingerprint": "317bad2ddb445ca5",
+   "mtime": "2026-09-22 21:19",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-037_ecsk_spin_source.json": {
+   "bytes": 3065,
+   "findings": [],
+   "fingerprint": "6dc30a41f1e9fbe6",
+   "mtime": "2026-09-22 21:54",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-038_q_field_equations.json": {
+   "bytes": 1930,
+   "findings": [],
+   "fingerprint": "94f4b89fc6eca97b",
+   "mtime": "2026-09-22 22:08",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-039_040_041_sigma_clifford.json": {
+   "bytes": 950,
+   "findings": [],
+   "fingerprint": "072efd5b30e93b42",
+   "mtime": "2026-09-22 20:35",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-044_lattice_coordination.json": {
+   "bytes": 760,
+   "findings": [],
+   "fingerprint": "3b5e97d0413a8588",
+   "mtime": "2026-09-22 20:36",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-045_046_047_spinor_ca_stability.json": {
+   "bytes": 2885,
+   "findings": [],
+   "fingerprint": "d64f514bffa195b8",
+   "mtime": "2026-09-22 20:36",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-047_vonneumann_stability_proof.json": {
+   "bytes": 2346,
+   "findings": [],
+   "fingerprint": "96f71a1916042f0e",
+   "mtime": "2026-09-22 20:37",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-052_053_054_ladder_operator_algebra.json": {
+   "bytes": 1610,
+   "findings": [],
+   "fingerprint": "15f5cfccfac334f3",
+   "mtime": "2026-09-22 20:41",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-056_057_fock_normalization.json": {
+   "bytes": 1239,
+   "findings": [],
+   "fingerprint": "275128ab10fe2ac6",
+   "mtime": "2026-09-22 20:42",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-062_mode_inverse_relations.json": {
+   "bytes": 462,
+   "findings": [],
+   "fingerprint": "dfa43c4dfd350c1a",
+   "mtime": "2026-09-22 20:48",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-065_066_45deg_rotation.json": {
+   "bytes": 381,
+   "findings": [],
+   "fingerprint": "e23f073d71ad9bdb",
+   "mtime": "2026-09-22 20:49",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-068_069_reality_condition.json": {
+   "bytes": 1044,
+   "findings": [],
+   "fingerprint": "cc0cac8ff365e3f7",
+   "mtime": "2026-09-22 20:50",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-073_074_T_cross_term.json": {
+   "bytes": 981,
+   "findings": [],
+   "fingerprint": "6ee6bba5f6f247ba",
+   "mtime": "2026-09-22 20:51",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-076_077_078_dirac_matrix_nonuniqueness.json": {
+   "bytes": 781,
+   "findings": [],
+   "fingerprint": "a4c84555ff43ef50",
+   "mtime": "2026-09-22 20:53",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-082_083_ws_rotation.json": {
+   "bytes": 866,
+   "findings": [],
+   "fingerprint": "1b79fb262c4cda6e",
+   "mtime": "2026-09-22 20:53",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-083_e_beta_sign_issue.json": {
+   "bytes": 522,
+   "findings": [],
+   "fingerprint": "760fce7e80a33e82",
+   "mtime": "2026-09-22 20:54",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-084_mass_matrix_comparison.json": {
+   "bytes": 1605,
+   "findings": [],
+   "fingerprint": "470a4ea881bd0839",
+   "mtime": "2026-09-22 20:55",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-086_chiral_mass_identity.json": {
+   "bytes": 225,
+   "findings": [],
+   "fingerprint": "4e44fcdb634282a4",
+   "mtime": "2026-09-22 20:59",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-093_094_095_helical_velocity.json": {
+   "bytes": 392,
+   "findings": [],
+   "fingerprint": "09f978491059a3f2",
+   "mtime": "2026-09-22 20:58",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-099_j_mass_term.json": {
+   "bytes": 4733,
+   "findings": [],
+   "fingerprint": "35be6cc5d8e8b01f",
+   "mtime": "2026-09-23 03:00",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-105_110_dirac_weyl_transform.json": {
+   "bytes": 1184,
+   "findings": [],
+   "fingerprint": "91088151229f63b6",
+   "mtime": "2026-09-22 21:01",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-109_110_dirac_equation_check.json": {
+   "bytes": 600,
+   "findings": [],
+   "fingerprint": "5373287460db3959",
+   "mtime": "2026-09-22 21:03",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-114_mass_perturbed_spinors.json": {
+   "bytes": 484,
+   "findings": [],
+   "fingerprint": "92b1d93166d2effb",
+   "mtime": "2026-09-22 21:04",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-120_lepton_doublet_table.json": {
+   "bytes": 4162,
+   "findings": [],
+   "fingerprint": "72a84d91eb22e957",
+   "mtime": "2026-09-22 21:57",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-121_122_monopole_confinement_analogies.json": {
+   "bytes": 2108,
+   "findings": [],
+   "fingerprint": "2a0626b9783ec401",
+   "mtime": "2026-09-22 22:05",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-123_124_125_rotation_tensor_products.json": {
+   "bytes": 1703,
+   "findings": [],
+   "fingerprint": "32d187f9b9902d63",
+   "mtime": "2026-09-22 21:58",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-126_127_spin1_clebsch_gordan.json": {
+   "bytes": 2729,
+   "findings": [],
+   "fingerprint": "1b94cbbcbc0c78b9",
+   "mtime": "2026-09-22 22:02",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-128_129_3d_dirac_riemann_silberstein.json": {
+   "bytes": 3327,
+   "findings": [],
+   "fingerprint": "537046fe8dd8d96c",
+   "mtime": "2026-09-22 22:05",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-130_134_sin2thetaw_numerology.json": {
+   "bytes": 4013,
+   "findings": [],
+   "fingerprint": "34a095eaab6ee95e",
+   "mtime": "2026-09-22 23:20",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-135_137_em_yukawa_self_energy.json": {
+   "bytes": 4146,
+   "findings": [],
+   "fingerprint": "0f65e2cba31c412c",
+   "mtime": "2026-09-22 23:22",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-138_140_newton_electron_radius_ellipse.json": {
+   "bytes": 3059,
+   "findings": [],
+   "fingerprint": "7fcdafd1ec7e6894",
+   "mtime": "2026-09-22 23:23",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-141_142_ws_vector_bosons.json": {
+   "bytes": 3825,
+   "findings": [],
+   "fingerprint": "57c862b9c7d9c3f1",
+   "mtime": "2026-09-22 23:24",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-143_144_spinor_as_direction_topology.json": {
+   "bytes": 2560,
+   "findings": [],
+   "fingerprint": "d0a78a568e4c6641",
+   "mtime": "2026-09-22 23:29",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-145_148_stereographic_projection_half.json": {
+   "bytes": 4455,
+   "findings": [],
+   "fingerprint": "c2cf7bfbb73d8cc6",
+   "mtime": "2026-09-22 23:32",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-149_152_lightcone_ST_reflections.json": {
+   "bytes": 3159,
+   "findings": [],
+   "fingerprint": "76b4754f8144b8ca",
+   "mtime": "2026-09-22 23:33",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-153_general_radius_rederivation.json": {
+   "bytes": 3825,
+   "findings": [],
+   "fingerprint": "3737c9205bf7ea5a",
+   "mtime": "2026-09-22 23:35",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-154_157_weyl_component_form.json": {
+   "bytes": 3596,
+   "findings": [],
+   "fingerprint": "51fbf9fb0909dac0",
+   "mtime": "2026-09-23 01:48",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-158_160_lightcone_constraint_field_eq.json": {
+   "bytes": 2425,
+   "findings": [],
+   "fingerprint": "d27c2ff047aec006",
+   "mtime": "2026-09-23 01:49",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-161_164_maxwell_from_weyl.json": {
+   "bytes": 7308,
+   "findings": [],
+   "fingerprint": "fa0550692a4383cf",
+   "mtime": "2026-09-23 01:54",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-165_167_null_vector_spinor.json": {
+   "bytes": 1522,
+   "findings": [],
+   "fingerprint": "51dbb79cc58d691f",
+   "mtime": "2026-09-23 01:58",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-168_170_vector_decomposition.json": {
+   "bytes": 5433,
+   "findings": [],
+   "fingerprint": "7eb76284599ec2cb",
+   "mtime": "2026-09-23 02:01",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-171_173_maxwell_from_spinor_main.json": {
+   "bytes": 6439,
+   "findings": [],
+   "fingerprint": "59c648872ac9e772",
+   "mtime": "2026-09-23 02:30",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-174_176_wave_equation_plane_wave.json": {
+   "bytes": 2323,
+   "findings": [],
+   "fingerprint": "ab3b842ded248d16",
+   "mtime": "2026-09-23 02:32",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-177_178_null_case_transverse.json": {
+   "bytes": 3800,
+   "findings": [],
+   "fingerprint": "15178c49991281d9",
+   "mtime": "2026-09-23 02:33",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-179_stereographic_summary.json": {
+   "bytes": 2922,
+   "findings": [],
+   "fingerprint": "15bd1f78087da842",
+   "mtime": "2026-09-23 02:34",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/notebook-recon/NB-180_186_null_vectors.json": {
+   "bytes": 14516,
+   "findings": [],
+   "fingerprint": "86847205cdbdf09a",
+   "mtime": "2026-09-23 03:00",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/p6_scale_tie.json": {
    "bytes": 549,
    "findings": [],
@@ -6840,18 +7846,26 @@
    "tests": []
   },
   "test-results/phase2_f26_results.json": {
-   "bytes": 3081,
+   "bytes": 3126,
    "findings": [],
-   "fingerprint": "164f8a4ff34ab176",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "6c23cedd06d34bb1",
+   "mtime": "2026-09-29 20:13",
    "numeric_fields": true,
    "tests": []
   },
   "test-results/phase7_backreaction_results.json": {
-   "bytes": 1583,
+   "bytes": 1582,
    "findings": [],
-   "fingerprint": "26bd676acbee660e",
-   "mtime": "2026-08-19 13:43",
+   "fingerprint": "f5881fa1d444697d",
+   "mtime": "2026-09-29 20:32",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/phaseAE_L192.json": {
+   "bytes": 476,
+   "findings": [],
+   "fingerprint": "c9bcfec357d0b361",
+   "mtime": "2026-09-29 19:22",
    "numeric_fields": true,
    "tests": []
   },
@@ -6893,6 +7907,14 @@
    "numeric_fields": true,
    "tests": []
   },
+  "test-results/propagation_demo_2026-09-29.json": {
+   "bytes": 1320,
+   "findings": [],
+   "fingerprint": "2eb0c3f49c330764",
+   "mtime": "2026-09-29 20:30",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/qca-verifications-results.md": {
    "bytes": 13682,
    "findings": [],
@@ -6900,10 +7922,10 @@
    "tests": []
   },
   "test-results/residual_AB_highres.json": {
-   "bytes": 3607,
+   "bytes": 3252,
    "findings": [],
-   "fingerprint": "92300b136e44ecb3",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "8737ac04c6299504",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": []
   },
@@ -6977,6 +7999,54 @@
    "numeric_fields": true,
    "tests": []
   },
+  "test-results/stage0_fermion_w_backreaction.json": {
+   "bytes": 7645,
+   "findings": [],
+   "fingerprint": "3f0a65d25f981324",
+   "mtime": "2026-09-13 17:42",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/stage0_fermion_w_backreaction_eps0.json": {
+   "bytes": 7659,
+   "findings": [],
+   "fingerprint": "01dece3c29997253",
+   "mtime": "2026-09-13 17:43",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/stage0_fermion_w_backreaction_eps01.json": {
+   "bytes": 7633,
+   "findings": [],
+   "fingerprint": "005aaef9da2360b7",
+   "mtime": "2026-09-13 17:43",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/stage0_free_weyl.json": {
+   "bytes": 7775,
+   "findings": [],
+   "fingerprint": "cd605de38d425b59",
+   "mtime": "2026-09-13 17:36",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/stage0_photon_beam.json": {
+   "bytes": 6967,
+   "findings": [],
+   "fingerprint": "fc6556b1206fca27",
+   "mtime": "2026-09-13 17:40",
+   "numeric_fields": true,
+   "tests": []
+  },
+  "test-results/stage0_photon_pairmode.json": {
+   "bytes": 7474,
+   "findings": [],
+   "fingerprint": "8681bb79cf5a9336",
+   "mtime": "2026-09-13 17:40",
+   "numeric_fields": true,
+   "tests": []
+  },
   "test-results/su2_3d_fluxtube.json": {
    "bytes": 2682,
    "findings": [],
@@ -7042,10 +8112,10 @@
    "tests": []
   },
   "test-results/su3_static_potential_summary.json": {
-   "bytes": 3325,
+   "bytes": 3320,
    "findings": [],
    "fingerprint": "fdb8fa515c0e3d2e",
-   "mtime": "2026-07-31 15:58",
+   "mtime": "2026-09-29 18:58",
    "numeric_fields": true,
    "tests": []
   },
@@ -7126,10 +8196,10 @@
    "tests": []
   },
   "test-results/top10_T02_QM1_CHSH.json": {
-   "bytes": 996,
+   "bytes": 1000,
    "findings": [],
-   "fingerprint": "564b3600c537c139",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "d317b4138cc506a8",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "self_declared_source": "QM-1 CHSH",
    "tests": []
@@ -7144,10 +8214,10 @@
    "tests": []
   },
   "test-results/top10_T04_GR3_pound_rebka.json": {
-   "bytes": 1548,
+   "bytes": 1551,
    "findings": [],
    "fingerprint": "6b1dda272b1976c3",
-   "mtime": "2026-07-31 23:11",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "self_declared_source": "GR-3 Pound-Rebka",
    "tests": []
@@ -7207,10 +8277,10 @@
    "tests": []
   },
   "test-results/top10_T10_QG4_charge.json": {
-   "bytes": 879,
+   "bytes": 843,
    "findings": [],
-   "fingerprint": "3ec0edf4be1e87db",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "daf6227ddf4e5ba3",
+   "mtime": "2026-09-29 18:47",
    "numeric_fields": true,
    "self_declared_source": "QG-4 charge conservation",
    "tests": []
@@ -7240,10 +8310,10 @@
    "tests": []
   },
   "test-results/wmu_phase1.json": {
-   "bytes": 1427,
+   "bytes": 1426,
    "findings": [],
-   "fingerprint": "4a0fe0c56aba0c98",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "de4371308f204eeb",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7253,10 +8323,10 @@
    ]
   },
   "test-results/wmu_phase2.json": {
-   "bytes": 1111,
+   "bytes": 1092,
    "findings": [],
-   "fingerprint": "8a372bb1059634b4",
-   "mtime": "2026-08-19 13:43",
+   "fingerprint": "595fa8c9b7f0ad5a",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7268,8 +8338,8 @@
   "test-results/wmu_phase3.json": {
    "bytes": 1202,
    "findings": [],
-   "fingerprint": "3ca10008fcefed8e",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "bab10dba51c18731",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7281,8 +8351,8 @@
   "test-results/wmu_phase4.json": {
    "bytes": 1435,
    "findings": [],
-   "fingerprint": "2687a4b0cc5aaf3d",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "f6d5572b6075d492",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7292,10 +8362,10 @@
    ]
   },
   "test-results/wmu_phase5_stueckelberg.json": {
-   "bytes": 1504,
+   "bytes": 1505,
    "findings": [],
-   "fingerprint": "e91f0b05cdb51436",
-   "mtime": "2026-08-19 13:43",
+   "fingerprint": "93d364a8dd46d3a7",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7305,10 +8375,10 @@
    ]
   },
   "test-results/wmu_phase6.json": {
-   "bytes": 2246,
+   "bytes": 2247,
    "findings": [],
-   "fingerprint": "791a9973a1cc8b64",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "bb6389e4c7b86ec9",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7318,10 +8388,10 @@
    ]
   },
   "test-results/wmu_phase6_rank1.json": {
-   "bytes": 14903,
+   "bytes": 14921,
    "findings": [],
-   "fingerprint": "a82f94e71d4bebaa",
-   "mtime": "2026-07-31 15:58",
+   "fingerprint": "ed7f0069a0b79e01",
+   "mtime": "2026-09-29 20:32",
    "numeric_fields": true,
    "tests": [
     {
@@ -7335,6 +8405,8 @@
   "tests/findings/test_F199_angular_self_duality_derivation.py",
   "tests/findings/test_F200_eg_sextic_coupling_computation.py",
   "tests/findings/test_F208_relativistic_scf_ie.py",
+  "tests/findings/test_F350_ws_mask_cutcell.py",
+  "tests/findings/test_F389_radiative_transverse_em_current.py",
   "tests/findings/test_F89_singlet_bilinear_is_paired_photon.py",
   "tests/findings/test_FA09_deflection_coefficient.py",
   "tests/findings/test_FA10_black_hole_shadow.py",
@@ -7385,6 +8457,9 @@
   "tests/runners/run_f313_time_signature.py",
   "tests/runners/run_f315_v_interaction.py",
   "tests/runners/run_f316_laurent_pell.py",
+  "tests/runners/run_f400_coordination_selector.py",
+  "tests/runners/run_f401_photon_bound_state_finite_k.py",
+  "tests/runners/run_f402_baryon_mass_decomposition.py",
   "tests/runners/run_heavy_rerun.py",
   "tests/runners/run_kns_seagull.py",
   "tests/runners/run_l6_native_sweep.py",
@@ -7404,14 +8479,14 @@
   "tests/runners/run_ws_mask_smoothed_sweep.py"
  ],
  "summary": {
-  "ambiguous_results": 44,
-  "no_output_tests": 66,
-  "orphan_results": 141,
-  "results": 529,
-  "silent_tests": 70,
-  "tests": 449,
-  "tests_with_assert": 209,
-  "tests_with_results": 313,
+  "ambiguous_results": 48,
+  "no_output_tests": 68,
+  "orphan_results": 213,
+  "results": 629,
+  "silent_tests": 75,
+  "tests": 479,
+  "tests_with_assert": 239,
+  "tests_with_results": 336,
   "unfalsifiable_tests": 73
  },
  "tests": {
@@ -9487,7 +10562,9 @@
    "findings": [
     "F164",
     "F192",
-    "F193"
+    "F193",
+    "F319",
+    "F408"
    ],
    "has_assert": false,
    "has_main": true,
@@ -9500,10 +10577,18 @@
     {
      "evidence": "stem-prefix",
      "path": "test-results/F193_ontic_vacuum_test.json"
+    },
+    {
+     "evidence": "finding-id",
+     "path": "test-results/F319_uv_completion.json"
+    },
+    {
+     "evidence": "declared-finding",
+     "path": "test-results/F408_cc_sign_split.json"
     }
    ],
    "suite": "findings",
-   "summary": "test_F193_ontic_vacuum.py  --  CA-native ontic vacuum gravitates as zero (candidate (i)),"
+   "summary": "[PARTIALLY SUPERSEDED 2026-09-27 by F319, F408 \u2014 ledger S25-F193-partA-excluded-and-secB-sign-reading]"
   },
   "tests/findings/test_F194_emergent_gravity_bullet.py": {
    "declares_results_write": true,
@@ -12220,16 +13305,7 @@
    "has_assert": true,
    "has_main": false,
    "has_pytest_funcs": true,
-   "results": [
-    {
-     "evidence": "finding-id",
-     "path": "test-results/F350_smoothed_dloops_sweep.json"
-    },
-    {
-     "evidence": "finding-id",
-     "path": "test-results/F350_ws_mask_isolation.json"
-    }
-   ],
+   "results": [],
    "suite": "findings",
    "summary": "F350 -- an anti-aliased (cut-cell) Wigner-Seitz-cell mask, built to test"
   },
@@ -12459,6 +13535,7 @@
   "tests/findings/test_F374_eliashberg_cutoff_reconciliation.py": {
    "declares_results_write": true,
    "findings": [
+    "F211",
     "F215",
     "F218",
     "F242",
@@ -12516,6 +13593,40 @@
    "suite": "findings",
    "summary": "F376 -- G10 residual: does an interacting extension of the free-fermion"
   },
+  "tests/findings/test_F377_time_generator_axiom_independence.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F377"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F377 -- P1 is independent of the five BDPT axioms; the only live"
+  },
+  "tests/findings/test_F379_so3_kinematic_gap.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F129",
+    "F130",
+    "F289",
+    "F330",
+    "F344",
+    "F379"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F379_so3_kinematic_gap.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F379 \u2014 the emergent continuous SO(3) is the wrong kind of object for"
+  },
   "tests/findings/test_F37_delta_omega.py": {
    "declares_results_write": true,
    "findings": [
@@ -12533,6 +13644,463 @@
    ],
    "suite": "findings",
    "summary": "test_F37_delta_omega.py  \u2014  F37 chirality split: measure \u0394\u03a9 vs F30 analytical value"
+  },
+  "tests/findings/test_F380_cluster_asymptotic_series.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F290",
+    "F331",
+    "F380"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F380_cluster_asymptotic_series.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F380 \u2014 cluster decomposition, F331's residual named as one object"
+  },
+  "tests/findings/test_F381_premise_a_irreducibility.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F289",
+    "F317",
+    "F324",
+    "F330",
+    "F333",
+    "F381"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F381_premise_a_irreducibility.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F381 \u2014 is F333's premise (a) (real baryons are fermions) reducible to"
+  },
+  "tests/findings/test_F382_vertex_domain_periodicity.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F280",
+    "F305",
+    "F337",
+    "F350",
+    "F382"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F382_vertex_domain_periodicity.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F382 -- d1 leg 3, next candidate after F350's excluded WS-mask hypothesis."
+  },
+  "tests/findings/test_F383_four_derivative_locality.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F345",
+    "F383",
+    "F57"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": true,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F383_four_derivative_locality.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "test_F383_four_derivative_locality.py \u2014 locality generates, not forbids,"
+  },
+  "tests/findings/test_F384_conserved_em_current.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F384"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F384_conserved_em_current.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F384 \u2014 the U(1) EM current the BCC Weyl walk actually conserves"
+  },
+  "tests/findings/test_F385_u1_link_covariant_step.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F385"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F385_u1_link_covariant_step.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F385 \u2014 the per-link U(1) covariant BCC Weyl step, and its unitarity/"
+  },
+  "tests/findings/test_F386_a_field_convention.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F384",
+    "F385",
+    "F386"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F386_a_field_convention.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F386 -- the A-field convention Stage 2's per-link U(1) step reads"
+  },
+  "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F387"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F387_curl_anisotropy_omega_pair_mismatch.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F387 -- the \u0108(k) direction anisotropy and the \u03a9_pair(k)/|C_odd(k)|"
+  },
+  "tests/findings/test_F388_fermion_photon_coupled_channels.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F387",
+    "F388"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F388_fermion_photon_coupled_channels.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F388 -- the coupled em_photon/fermion_em channels (Stage 4,"
+  },
+  "tests/findings/test_F389_radiative_current_backreaction.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F387",
+    "F388",
+    "F389"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F389_radiative_current_backreaction.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F389 -- does the fixed current let the fermion<->photon loop (Stage 4,"
+  },
+  "tests/findings/test_F389_radiative_transverse_em_current.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F384",
+    "F388",
+    "F389"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F389 -- fixing F384's declared-open transverse gauge freedom with the"
+  },
+  "tests/findings/test_F390_photon_fermion_push.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F387",
+    "F389",
+    "F390"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F390_photon_fermion_push.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F390 -- the photon-fermion push scenario and the roadmap's physics claims"
+  },
+  "tests/findings/test_F391_ck_transverse_beam_mechanism.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F387",
+    "F390",
+    "F391"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F391_ck_transverse_beam_mechanism.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F391 -- resolving F390's two structural gaps: does a genuinely \u0108(k)-"
+  },
+  "tests/findings/test_F392_beam_polarization_null_fix.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F390",
+    "F392"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F392_beam_polarization_null_fix.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F392 -- the beam-polarization fix (Part A of docs/roadmaps/photon-fermion-"
+  },
+  "tests/findings/test_F393_curl_grad_identity_diagnostic.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F393"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F393_curl_grad_identity_diagnostic.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F393 -- Part B of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md:"
+  },
+  "tests/findings/test_F395_stage5_circular_beam_rerun.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F384",
+    "F389",
+    "F390",
+    "F391",
+    "F392",
+    "F394",
+    "F395"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F395_stage5_circular_beam_rerun.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F395 -- Part D of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md:"
+  },
+  "tests/findings/test_F396_charge_partition_p77.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F27",
+    "F396",
+    "F41"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F396_charge_partition_p77.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F396 -- the p.77 charge-partition hypothesis: Leg A (J = L + S) and Leg B (per-tick"
+  },
+  "tests/findings/test_F400_coordination_selector.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F291",
+    "F292",
+    "F313",
+    "F326",
+    "F377",
+    "F400"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F400_coordination_selector.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F400 \u2014 BCC and diamond-cubic share a generator tetrahedron; only diamond's"
+  },
+  "tests/findings/test_F401_photon_bound_state_finite_k.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F169",
+    "F401"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F401_photon_bound_state_finite_k.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F401 \u2014 repairing the finite-k grid-threshold artifact in"
+  },
+  "tests/findings/test_F402_baryon_mass_decomposition.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F122",
+    "F402"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F402_baryon_mass_decomposition.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F402 \u2014 the Ji-type four-term nucleon-mass decomposition, built in the model's"
+  },
+  "tests/findings/test_F403_oh_residual_pmns.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F403"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F403_oh_residual_pmns.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F403 -- can any residual symmetry drawn from O_h fix PMNS, given the model's"
+  },
+  "tests/findings/test_F404_koide_pseudomass_fork.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F404"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F404_koide_pseudomass_fork.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F404 -- FORK: Koide pseudo-masses for quarks (route 1 of the 2026-09-24"
+  },
+  "tests/findings/test_F405_quark_B_colour_charge.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F405",
+    "F95"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F405_quark_B_colour_charge.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F405 -- can quark colour and charge factors on F95's Dirac-sea cubic B"
+  },
+  "tests/findings/test_F406_lepton_frame_fork.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F118",
+    "F406"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [
+    {
+     "evidence": "exact-stem",
+     "path": "test-results/F406_lepton_frame_fork.json"
+    }
+   ],
+   "suite": "findings",
+   "summary": "F406 -- the charged-lepton frame fork: picture (a) E_g-diagonal vs picture (b)"
+  },
+  "tests/findings/test_F407_koide_pseudomass_minimal.py": {
+   "declares_results_write": false,
+   "findings": [
+    "F407"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "findings",
+   "summary": "F407 -- FORK: the minimal pseudo-mass quark fit (derivation three of the"
   },
   "tests/findings/test_F46_pythagorean_mass.py": {
    "declares_results_write": true,
@@ -14033,6 +15601,8 @@
   "tests/findings/test_P2_baryon_bound_state.py": {
    "declares_results_write": true,
    "findings": [
+    "F120",
+    "F121",
     "F71",
     "F74",
     "F97"
@@ -15191,6 +16761,42 @@
    "results": [],
    "suite": "runners",
    "summary": "F316 runner \u2014 emit the Laurent-Pell descent artifact."
+  },
+  "tests/runners/run_f400_coordination_selector.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F400"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F400 runner \u2014 emit the coordination-selector result artifact."
+  },
+  "tests/runners/run_f401_photon_bound_state_finite_k.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F401"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F401 runner \u2014 emit the finite-k threshold-repair result artifact."
+  },
+  "tests/runners/run_f402_baryon_mass_decomposition.py": {
+   "declares_results_write": true,
+   "findings": [
+    "F402"
+   ],
+   "has_assert": true,
+   "has_main": true,
+   "has_pytest_funcs": false,
+   "results": [],
+   "suite": "runners",
+   "summary": "F402 runner \u2014 emit the Ji-type nucleon-mass-decomposition result artifact."
   },
   "tests/runners/run_heavy_rerun.py": {
    "declares_results_write": true,

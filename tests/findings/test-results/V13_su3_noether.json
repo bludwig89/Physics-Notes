@@ -12,16 +12,16 @@
     "passed": true
   },
   "V13b1_per_cell_divergence": {
-    "div_max": 0.032452065681045125,
-    "div_mean": 0.0002562186465399888,
-    "J0_scale": 0.3798075880506675,
-    "ratio": 0.0854434368928825,
+    "div_max": 0.032452065681045056,
+    "div_mean": 0.00025621864653998865,
+    "J0_scale": 0.37980758805066756,
+    "ratio": 0.08544343689288231,
     "passed": true,
     "gate_type": "informational"
   },
   "V13b2_global_charge": {
-    "charge_drift_max": 4.369837824924616e-13,
-    "norm_drift_max": 8.810729923425242e-13,
+    "charge_drift_max": 4.050093593832571e-13,
+    "norm_drift_max": 7.958078640513122e-13,
     "Q_initial_scale": 28.274333882303182,
     "passed": true
   },

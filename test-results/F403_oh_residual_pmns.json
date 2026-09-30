@@ -1,0 +1,110 @@
+{
+  "pass": true,
+  "checks": {
+    "G1_group_and_classes": {
+      "pass": true,
+      "|O_h|": "48",
+      "|O|": "24",
+      "classes": "{'E': 1, 'C2': 3, 'C4': 6, \"C2'\": 6, 'C3': 8}"
+    },
+    "G2_sign_blind_on_bilinear": {
+      "pass": true
+    },
+    "E1_cube_frame_fixed_columns_exact": {
+      "pass": true,
+      "C2": "[(0, 0, 1), (0, 1, 0), (1, 0, 0)]",
+      "C2'": "[(0, 1/2, 1/2), (1/2, 0, 1/2), (1/2, 1/2, 0)]",
+      "C3": "all |U|^2 = 1/3 (trimaximal)",
+      "C4": "[(0, 0, 1), (0, 1/2, 1/2), (0, 1, 0), (1/2, 0, 1/2), (1/2, 1/2, 0), (1, 0, 0)]"
+    },
+    "E2_majorana_C3_C4_force_degenerate_pair": {
+      "pass": true
+    },
+    "N1_no_viable_unitary_residual": {
+      "pass": true,
+      "frame": "cube_axes",
+      "theta13_lo_deg": "8.19",
+      "viable": "[]"
+    },
+    "N2_minimum_modulus_positive": {
+      "pass": true,
+      "min_abs_U_sq_in_box": "0.02029",
+      "s13sq_lower_edge": "0.02029"
+    },
+    "B1_trimaximal_frame_C2prime_gives_TM1_exact": {
+      "pass": true,
+      "C2'": "[(0, 1/2, 1/2), (0, 1/2, 1/2), (0, 1/2, 1/2), (1/6, 1/6, 2/3), (1/6, 1/6, 2/3), (1/6, 1/6, 2/3)]",
+      "C2": "[(1/3, 1/3, 1/3), (1/3, 1/3, 1/3), (1/3, 1/3, 1/3)]"
+    },
+    "B2_trimaximal_frame_TM1_viable": {
+      "pass": true,
+      "survivors_by_class": "{'C2': 3, 'C4': 0, \"C2'\": 3, 'C3': 0}",
+      "s12sq_band": "nufit60"
+    },
+    "B3_TM1_s12sq_prediction": {
+      "pass": true,
+      "TM1_s12sq_range": "(0.31702, 0.31952)",
+      "TM2_s12sq_at_bf": "0.34089",
+      "s12sq_band": "(0.275, 0.345)"
+    },
+    "B4_TM1_delta_correlation": {
+      "pass": true,
+      "TM1_delta_deg_range": "(252.4, 293.4)",
+      "cos_delta_closed_form": "True"
+    },
+    "S1_subgroup_lattice_admissible_iff_el2_exact": {
+      "pass": true,
+      "n_subgroups_Oh": "98",
+      "n_subgroups_O": "30",
+      "n_admissible": "49",
+      "admissible_orders": "[1, 2, 4, 8]",
+      "forced_columns_covered_by_elements": "True"
+    },
+    "S2_no_viable_residual_subgroup": {
+      "pass": true,
+      "frame": "cube_axes",
+      "n_nontrivial_admissible": "47",
+      "viable": "[]"
+    },
+    "S3_trimaximal_subgroup_survivors_single_column": {
+      "pass": true,
+      "n_survivors": "18",
+      "survivor_orders": "[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4]",
+      "survivor_columns": "[(1/6, 1/6, 2/3), (1/3, 1/3, 1/3)]",
+      "no_three_column_residual": "True"
+    },
+    "S4_bcc_nn_frame_nonorthogonal_face_frame_no_go": {
+      "pass": true,
+      "bcc_111_gram_offdiag": "[-1/3]",
+      "face_diagonal_viable": "[]"
+    },
+    "C1_gCP_diag_gives_J0_and_mutau_reflection": {
+      "pass": true,
+      "J0_diag": "True",
+      "mutau_dm_at_pi4": "2*sin(t12)*sin(t13)*cos(delta)*cos(t12)",
+      "mutau_in_box": "True",
+      "max_Ue3sq": "0.02388",
+      "min_Umu3_or_Utau3_sq": "0.40509",
+      "note": "e<->mu or e<->tau reflections need |U_e3|=|U_mu3| or |U_tau3|: excluded"
+    }
+  },
+  "frame": "cube_axes",
+  "data": {
+    "s12sq": [
+      0.275,
+      0.345
+    ],
+    "s23sq": [
+      0.435,
+      0.585
+    ],
+    "th13_deg": [
+      8.19,
+      8.89
+    ],
+    "delta_deg": [
+      124.0,
+      364.0
+    ]
+  }
+}

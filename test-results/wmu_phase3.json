@@ -18,10 +18,10 @@
     },
     {
       "test": "W3.3",
-      "residual": 1.815344562150604e-16,
+      "residual": 5.44603368645181e-16,
       "target": 1e-10,
       "passed": true,
-      "description": "\u2016F\u2016\u00b2 gauge-invariant: rel change 1.82e-16"
+      "description": "\u2016F\u2016\u00b2 gauge-invariant: rel change 5.45e-16"
     },
     {
       "test": "W3.4",
@@ -39,7 +39,7 @@
       "description": "S_YM=9.3543e+00 (>0), S_identity=0.00e+00 (\u22480)"
     }
   ],
-  "elapsed": 0.04872584342956543,
+  "elapsed": 0.037732839584350586,
   "n_pass": 5,
   "n_total": 5
 }

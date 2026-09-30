@@ -1,0 +1,9 @@
+{
+  "build": "NB-093/NB-094/NB-095",
+  "v2_solved_directly_from_the_notebooks_own_starting_equation": "c**2*(E**2 - E0**2)/E**2",
+  "notebooks_claimed_final_form": "c**2 - E0**2/E**2",
+  "matches_notebooks_claimed_form": false,
+  "independently_known_correct_relativistic_group_velocity_v2": "c**2 - E0**2*c**2/E**2",
+  "matches_correct_group_velocity_relation": true,
+  "conclusion": "Solving the notebook's OWN starting equation (p = m0 v/sqrt(1-v^2/c^2) substituted into E^2=p^2c^2+m0^2c^4, i.e. the standard, CORRECTLY-SET-UP relativistic energy-momentum relation) gives v^2 = c^2(E^2-E0^2)/E^2 = c^2 - c^2*E0^2/E^2 -- which is EXACTLY the correct relativistic group velocity relation v_group=dE/dp, confirmed independently. This does NOT match the notebook's own claimed final form v^2=c^2-E0^2/E^2, which is missing a factor of c^2 on the second term (and is dimensionally suspect as written, since c^2 and E0^2/E^2 don't have compatible units unless c=1 is implicitly set, which the notebook does NOT do here -- c appears explicitly throughout). The starting physics (NB-093's helical setup, the relativistic momentum substitution) was correct; the algebra CARRYING OUT the solve for v^2 introduced the missing c^2 factor. This precisely explains -- and resolves -- the author's own 'Way way, no good' self-assessment: the instinct that something was wrong was correct, and it is fixable (not a dead end in the physics, just an algebra slip) -- the corrected result v^2=c^2(1-E0^2/E^2) is exactly the standard relativistic group-velocity formula."
+}

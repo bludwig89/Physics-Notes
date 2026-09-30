@@ -5,23 +5,23 @@
   "claim": "2\u22972 of the same Weyl constituents: singlet/\u03b5 channel rides \u03a9_pair = \u03a9_even (photon); \u03c3-vector channel rides \u03a9\u00b1 (W/Z/gluon). Same machinery, channel distinction only.",
   "checks": {
     "T1a_singlet_rate_eq_pair_dispersion": {
-      "residual": 4.872213743567499e-13,
-      "pass": true
+      "residual": 6.16090511940115e-13,
+      "pass": false
     },
     "T1b_all_channels_ride_pair_rate": {
-      "residual": 4.872213743567499e-13,
-      "pass": true
+      "residual": 6.16090511940115e-13,
+      "pass": false
     },
     "T2_rate_eq_f26_rotation_step": {
-      "residual": 4.872213743567499e-13,
-      "pass": true
+      "residual": 6.16090511940115e-13,
+      "pass": false
     },
     "T3_branch_swap_symmetric": {
       "residual": 1.1546319456101628e-13,
       "pass": true
     },
     "T4_same_branch_plus_rate": {
-      "residual": 1.9546864127306662e-14,
+      "residual": 1.9616253066345735e-14,
       "pass": true
     },
     "T4_same_branch_minus_rate": {
@@ -37,15 +37,15 @@
       "pass": true
     },
     "T5_sigma0_invariant": {
-      "residual": 2.8435583831733384e-15,
+      "residual": 3.972054645195637e-15,
       "pass": true
     },
     "T5_sigma_vector_adjoint_2omega": {
-      "residual": 6.115071734596043e-14,
+      "residual": 6.137688532916397e-14,
       "pass": true
     }
   },
-  "verdict": "PASS",
+  "verdict": "FAIL",
   "params": {
     "n_k_T123": 2000,
     "n_ticks": 8,

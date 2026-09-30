@@ -155,27 +155,26 @@ def gravity_dirac_step_massive(eta_u, eta_d, chi_u, chi_d,
 
         Mix(δm, dt/2) ∘ Kinetic_exactQCA(m0, dt) ∘ Mix(δm, dt/2)
 
-    with site mass M(x) = √A(x)·m, baseline m0 = ⟨M⟩, δm = M − m0.
+    with site rest angle θ(x) = √A(x)·arcsin(m) (the F46 rest leg), baseline
+    m0 = sin⟨θ⟩ (so the kinetic block's k=0 angle is arcsin m0 = ⟨θ⟩) and
+    δθ = θ − arcsin m0.  At k=0 the tick is then exactly exp(+iβ·θ(x)·dt).
 
-    SIGN CONVENTION.  The exact-QCA kinetic block carries the mass as +i·m0
-    (generator −m0·β), so the per-cell δm correction must be applied with the
-    *matching* sign to make the effective site mass M = m0 + δm (NOT m0 − δm).
-    Concretely the mix angle is θ = −δm·dt/2 (i.e. `_mix_eta_chi(−δm·dt/2)`),
-    the opposite of `ca_dirac.dirac_step_2d_varm_splitstep`, whose δm enters with
-    the wrong relative sign — harmless there because every production use has
-    δm = 0, but it inverts the force of a mass gradient.  Verified 2026-05-30:
-    with the corrected sign a packet free-falls toward *low* lapse (a
-    gravitational well attracts), as gravity requires.
+    SIGN CONVENTION.  The exact-QCA kinetic block carries the mass as +i·m0,
+    and since 2026-09-29 `dirac._mix_eta_chi` rotates in the same sense
+    (exp(+iβθ)), so the correction enters as +δθ·dt/2.  (Before that fix the
+    shared mix had the opposite sign and this function compensated with
+    −δm·dt/2 — the 2026-05-30 note that found the mix-sign bug; a packet
+    free-falls toward low lapse with either consistent choice.)
 
     The lattice speed is the fixed exact-QCA value c_lat = 1/√2 (kinetic-leg
     √A/B renormalisation is dropped; per F52 the free-fall / Newtonian force
     lives entirely on the rest leg, so this is the correct locus for the
     equivalence-principle test).  Each sub-operator is exactly unitary.
     """
-    m_field = sqrtA_field * m
-    m0 = float(m_field.mean())
-    dm = m_field - m0
-    theta_half = -dm * dt * 0.5
+    theta_rest = sqrtA_field * np.arcsin(m)
+    m0 = float(np.sin(theta_rest.mean()))
+    dtheta = theta_rest - np.arcsin(m0)
+    theta_half = dtheta * dt * 0.5
     eta_u, eta_d, chi_u, chi_d = _mix_eta_chi(eta_u, eta_d, chi_u, chi_d,
                                               theta_half)
     eta_u, eta_d, chi_u, chi_d = dirac_step_2d_splitstep(
@@ -194,7 +193,11 @@ def gravity_dirac_step(eta_u, eta_d, chi_u, chi_d,
                        n_sub=4, r_kin_scalar=None):
     """One Strang tick of the curved-background Dirac CA on a 2D lattice.
 
-        Mix_rest(√A·m, dt/2) ∘ Kinetic(c_eff, dt) ∘ Mix_rest(√A·m, dt/2)
+        Mix_rest(√A·arcsin m, dt/2) ∘ Kinetic(c_eff, dt) ∘ Mix_rest(√A·arcsin m, dt/2)
+
+    The rest-leg rate is √A·arcsin(m), the F46 law (flat rest energy arcsin m,
+    lapse-rescaled).  Before 2026-09-29 the mix used √A·m, which is the F46
+    rate only to O(m³) (~1% at m=0.5); the near/far ratio tests hid it.
 
     Parameters
     ----------
@@ -209,7 +212,7 @@ def gravity_dirac_step(eta_u, eta_d, chi_u, chi_d,
 
     Each sub-operator is exactly unitary ⇒ norm conserved to the solver floor.
     """
-    theta_half = lapse(A_field) * m * dt * 0.5          # redshifted rest leg
+    theta_half = lapse(A_field) * np.arcsin(m) * dt * 0.5   # √A·arcsin m (F46)
 
     eta_u, eta_d, chi_u, chi_d = _mix_eta_chi(eta_u, eta_d, chi_u, chi_d,
                                               theta_half)
@@ -443,9 +446,9 @@ def test_dynamical_redshift(L=96, m=0.5, c0=0.5, dt=0.5, n_steps=360,
     in the ratio √(A_near/A_far) — the gravitational-redshift formula, measured
     *dynamically* from the chirality-oscillation (zitterbewegung) frequency.
 
-    Flat-space zitterbewegung is 2·arcsin(m) per unit time; on the rest leg the
-    site-dependent angle √A·m rescales it to 2·arcsin(√A·m).  For the ratio of
-    *frequencies* the leading factor is √A, so f_near/f_far → √(A_near/A_far).
+    Flat-space zitterbewegung is 2·arcsin(m) per unit time; the F46 rest leg
+    √A·arcsin(m) rescales it to 2·√A·arcsin(m), so f_near/f_far = √(A_near/A_far)
+    exactly (it was 2·arcsin(√A·m) before 2026-09-29, when the code used √A·m).
     """
     results = {}
     freqs = {}
@@ -469,7 +472,7 @@ def test_dynamical_redshift(L=96, m=0.5, c0=0.5, dt=0.5, n_steps=360,
         f = _dominant_freq(sig, dt)
         freqs[tag] = f
         # analytic per-position zitterbewegung frequency
-        results[tag + "_freq_analytic"] = 2.0 * float(np.arcsin(np.sqrt(Aval) * m))
+        results[tag + "_freq_analytic"] = 2.0 * float(np.sqrt(Aval) * np.arcsin(m))
 
     ratio_meas = freqs["near"] / freqs["far"]
     ratio_pred_sqrtA = float(np.sqrt(A_near / A_far))
@@ -654,7 +657,7 @@ def test_self_redshift(L=80, m=0.5, c0=0.5, dt=0.5, n_steps=380,
     The effective coupling G is calibrated so the self-generated well stays in
     the weak-field regime (|2Φ/c²| ≈ `well_depth`), where the lapse map
     A = 1+2Φ/c² is valid.  PASS if the measured near/far clock ratio matches the
-    rest-leg prediction 2·arcsin(√A·m) from the field's *own* lapse to a few
+    rest-leg prediction 2·√A·arcsin(m) from the field's *own* lapse to a few
     percent (the backreaction loop closes), and the deep clock runs slower
     (redshift).
     """
@@ -705,8 +708,8 @@ def test_self_redshift(L=80, m=0.5, c0=0.5, dt=0.5, n_steps=380,
 
     ratio_meas = freqs["near"] / freqs["far"]
     ratio_pred_sqrtA = float(np.sqrt(A_at["near"] / A_at["far"]))
-    ratio_pred_exact = float(np.arcsin(np.sqrt(A_at["near"]) * m) /
-                             np.arcsin(np.sqrt(A_at["far"]) * m))
+    ratio_pred_exact = float(np.sqrt(A_at["near"]) * np.arcsin(m) /
+                             (np.sqrt(A_at["far"]) * np.arcsin(m)))
     return {
         "freq_near": freqs["near"], "freq_far": freqs["far"],
         "A_near": A_at["near"], "A_far": A_at["far"],

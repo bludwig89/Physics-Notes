@@ -243,15 +243,42 @@ def _register_from_manifest() -> None:
 # carries no manifest record.  Sector "core"; declared by hand (D11).
 _SPINE: tuple[Module, ...] = (
     Module("core.channel", "src/casim/engine/core/channel.py", "core",
-           reach="driven", role="spine", origin="spine"),
+           findings=("F389",), reach="driven", role="spine", origin="spine"),
     Module("core.observers", "src/casim/engine/core/observers.py", "core",
            reach="driven", role="spine", origin="spine"),
     Module("core.simulation", "src/casim/engine/core/simulation.py", "core",
            reach="driven", role="spine", origin="spine"),
     Module("core.channels", "src/casim/engine/core/channels.py", "core",
+           findings=("F388",),
            reach="driven", role="spine", origin="spine"),
     Module("core.coupled", "src/casim/engine/core/coupled.py", "core",
-           reach="driven", role="spine", origin="spine"),
+           findings=("F395", "F392", "F390", "F389", "F388", "F387", "F386",
+                     "F385", "F384"),
+           reach="driven", role="spine", origin="spine",
+           tests=("tests/findings/test_F388_fermion_photon_coupled_channels.py",
+                  "tests/findings/test_F389_radiative_current_backreaction.py"),
+           results=("test-results/F388_fermion_photon_coupled_channels.json",
+                    "test-results/F389_radiative_current_backreaction.json")),
+    # F390 -- Stage 5 of docs/roadmaps/photon-fermion-coupling.md: the
+    # photon_fermion_push scenario and the roadmap's four physics claims,
+    # built on Stage 4's coupled channels (F388) with F389's radiative
+    # current.
+    # F395 -- re-run of Stage 5 (docs/roadmaps/photon-fermion-coupling-rerun-
+    # prompt.md Part D) against F392's fixed (circular) beam: re-measures the
+    # m_index=4 anomaly and off-axis breakdown, and restates the roadmap's
+    # claim 1 as (A) charge conservation (not exact under the existing
+    # per-link step -- disclosed, not achieved), (B) crystal-momentum
+    # translation covariance (gated), (C) matched-order approach (still
+    # mismatched, confirming F389 §4 extends to the beam-driven case).
+    Module("core.photon_fermion_push",
+           "src/casim/engine/core/photon_fermion_push.py", "core",
+           findings=("F395", "F392", "F390", "F389", "F388", "F387", "F386",
+                     "F385", "F384"),
+           reach="standalone", role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F390_photon_fermion_push.py",
+                  "tests/findings/test_F395_stage5_circular_beam_rerun.py"),
+           results=("test-results/F390_photon_fermion_push.json",
+                    "test-results/F395_stage5_circular_beam_rerun.json")),
     Module("core.tier3", "src/casim/engine/core/tier3.py", "core",
            reach="driven", role="spine", origin="spine"),
     Module("core.spectral_matter", "src/casim/engine/core/spectral_matter.py", "core",
@@ -755,6 +782,35 @@ _SPINE: tuple[Module, ...] = (
            origin="spine", status="live",
            tests=("tests/registry/particles.yaml#F328-discrete-cpt-theorem",),
            results=("test-results/F328_discrete_cpt_theorem.json",)),
+    # F378 (ledger row A4r, rubric row A4): extends F328's Theta to the
+    # SU(2)_L-coupled BCC Dirac doublet (casim.engine.gauge.weak_wmu). Two
+    # results, not one. POSITIVE: grafting a uniform SU(2) link into JUST the
+    # kinetic block of F328's own dirac_bcc.py architecture admits an exact
+    # (machine-precision) CPT-type theorem via Theta' = Sigma.(sigma_y (x)
+    # tau_2 (+) sigma_y (x) tau_2).K, using the SU(2) pseudoreality identity
+    # tau_2 U tau_2^-1 = U*; Theta'^2 = +1, NOT F328's Kramers -1 (a second
+    # pseudoreal twist flips the involution class). NO-GO: once the model's
+    # OWN SU(2)-gauged mass mechanism (Stueckelberg-type link V) is also
+    # switched on, NO fixed isospin operator can restore the identity -- a
+    # general, provable obstruction (V -> V^T is a group anti-automorphism;
+    # conjugation is always an automorphism; the two can coincide only on an
+    # abelian group, and SU(2) is not). Separately notes (leg E1) that the
+    # ACTUAL casim.engine.gauge.weak_wmu.covariant_dirac_doublet_step fails
+    # F328's identity already at ZERO gauge coupling, because it pairs
+    # branch + with the true branch - (not with its own dagger the way
+    # dirac_bcc.py does) -- a pre-existing cross-module architecture
+    # mismatch, not a gauge-coupling effect. Does NOT claim the model's
+    # SU(2)_L gauge theory violates CPT as a physical statement (every test
+    # holds the classical link fixed under the antiunitary map; letting
+    # Theta also transform the background is a different, unattempted
+    # question) -- see the module docstring's Scope section.
+    Module("particles.discrete_cpt_gauged",
+           "src/casim/engine/particles/discrete_cpt_gauged.py", "particles",
+           findings=("F378", "F328", "F53", "F91"),
+           exactness="exact", reach="standalone", role="derivation",
+           origin="spine", status="live",
+           tests=("tests/registry/particles.yaml#F378-discrete-cpt-gauged-theorem",),
+           results=("test-results/F378_discrete_cpt_gauged_theorem.json",)),
     # Finding 15's velocity-addition extension. Live inventory row, no test
     # record yet — un-wired, not dead. Left `partial` deliberately: the status
     # says "this is real and unguarded", which is a truer statement than
@@ -832,6 +888,28 @@ _SPINE: tuple[Module, ...] = (
            results=("test-results/F291_dimension_selectors.json",
                     "test-results/F292_higher_multiples.json")),
 
+    # F400 — why BCC and not diamond-cubic (notebook-v2 T01/T10). S1/S2/S3 in
+    # `dimensionality` above take only (s, d) -- no lattice-type or
+    # coordination-number argument anywhere in their signature -- so they
+    # cannot be "rerun on a diamond-cubic generator set" to a different
+    # verdict. This module locates diamond-cubic in the axiom tree one level
+    # BELOW dimension-counting: its own coordination-4 nearest-neighbour bond
+    # tetrahedron is vertex-for-vertex identical to BCC's own generator
+    # tetrahedron (Paper 2 Eq. 20), but diamond has a genuine 2-point basis
+    # and is not a Bravais lattice -- no pure translation connects its two
+    # sublattices (checked exactly: (1/4,1/4,1/4) is not an FCC lattice
+    # vector). So diamond-cubic was never a competing (s=2, G=Z^3) candidate
+    # for F291's selectors to choose between. Analytical kernel, not a
+    # channel.
+    Module("lattice.coordination_selector",
+           "src/casim/engine/lattice/coordination_selector.py",
+           "lattice",
+           findings=("F400",), exactness="exact", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           reachable_from=("dimensionality",),
+           tests=("tests/findings/test_F400_coordination_selector.py",),
+           results=("test-results/F400_coordination_selector.json",)),
+
     # F316 — closes F313's LAST import. The Pell descent that F313 sec.6 cited
     # from Dubickas-Steuding Thm 2 is proved here over the Laurent ring, where
     # D-S's hypothesis "deg f = 0 => f constant" is FALSE (deg(1+w^-1) = 0 and
@@ -885,6 +963,25 @@ _SPINE: tuple[Module, ...] = (
            role="kernel", origin="spine", status="live",
            tests=("tests/findings/test_F326_time_single_generator.py",),
            results=("test-results/F326_time_single_generator.json",)),
+
+    # F377 -- P1 (single-generator dynamics) is independent of the five stated
+    # BDPT axioms: their own "homogeneity" axiom is spatial-only (graph-vertex
+    # transitivity), and temporal constancy of the update enters only through
+    # unexamined notation (D'Ariano & Perinotti arXiv:1608.02004 Eq. 2 vs Eq.
+    # 4) -- a citation, not re-derived numerically here. Proves the regrouping
+    # lemma (a periodic multi-generator schedule reduces to a single fixed
+    # generator, machine precision) and runs the one falsification attempt a
+    # periodic schedule cannot make: an aperiodic (Sturmian) alternation
+    # between this model's own two admissible per-tick maps A+/A-, tested
+    # against ballistic wavepacket transport. The attempt does not succeed
+    # (quantitative, one numerical experiment, not an asymptotic theorem).
+    Module("lattice.time_generator_axiom_independence",
+           "src/casim/engine/lattice/time_generator_axiom_independence.py",
+           "lattice",
+           findings=("F377",), exactness="quantitative", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F377_time_generator_axiom_independence.py",),
+           results=()),
 
     # F315 — F313 falsifier 5. The second dispersive commuting flow V = I (x) A
     # that F313 sec.9 measured on the FREE composite cell does not survive the
@@ -951,6 +1048,25 @@ _SPINE: tuple[Module, ...] = (
     # statement dOmega_pair/dk_x = c_lat at every k, and the wrap-free measured
     # run that turns F105's percent-level periodic-box beam demo into a 7.8e-16
     # gate. The propagator itself is gauge.photon, unmodified.
+    # F396 -- p.77 charge-partition hypothesis. Leg A (J=L+S on the BCC Dirac kernel)
+    # and Leg B (charge bookkeeping of the F27/F41 mass step). Disposition: relabel
+    # of the F27 Stueckelberg Noether structure; see findings/F396 and CL308.
+    Module("gauge.derive_charge_partition",
+           "src/casim/engine/gauge/derive_charge_partition.py",
+           "gauge",
+           findings=("F396", "F27", "F41", "F54"), exactness="machine",
+           reach="standalone", role="derive", origin="spine", status="live",
+           tests=("tests/findings/test_F396_charge_partition_p77.py",),
+           results=("test-results/F396_charge_partition_p77.json",)),
+    # F397 -- notebook pp.176-182 factorization route (T1 null vector = spinor outer product,
+    # T2 timelike vector = two null vectors with free direction). SL(2,C) covariance, leg-space
+    # U(2)/U(1)^2 = S^2, DOF arithmetic, F169 offset coefficient, local-U(1) leg.
+    Module("gauge.factorization",
+           "src/casim/engine/gauge/factorization.py",
+           "gauge",
+           findings=("F397", "F24", "F69", "F91", "F168", "F169"), exactness="quantitative",
+           reach="standalone", role="derive", origin="spine", status="live",
+           tests=(), results=()),
     Module("gauge.photon_packet",
            "src/casim/engine/gauge/photon_packet.py",
            "gauge",
@@ -958,6 +1074,52 @@ _SPINE: tuple[Module, ...] = (
            reach="standalone", role="kernel", origin="spine", status="live",
            tests=("tests/findings/test_F314_photon_packet_propagation.py",),
            results=("test-results/F314_photon_packet_propagation.json",)),
+    # F398 -- Notebook v2 (Pryce 1938): does the F69/F169 paired photon satisfy exact Bose
+    # commutation? Builds the composite creation operator on an exact, brute-force fermionic
+    # Fock space using F169's own threshold wavefunction; the two-composite-photon norm deficit
+    # from the ideal-boson value has a closed form (sum psi^4) and falls as ~L^-2 with the BZ
+    # grid's resolution (innermost-shell-dominated psi^4 vs. bulk-dominated psi^2), i.e. Pauli
+    # blocking vanishes toward the continuum limit for this specific marginally-bound pairing.
+    Module("gauge.photon_pryce_commutator",
+           "src/casim/engine/gauge/photon_pryce_commutator.py",
+           "gauge",
+           findings=("F398", "F69", "F169"), exactness="quantitative",
+           reach="standalone", role="derive", origin="spine", status="live",
+           tests=(), results=("test-results/F398_pryce_composite_commutator.json",)),
+    # F402 -- Notebook v2 NB2-004 Q2: the Ji-type four-term nucleon-mass
+    # decomposition (H_E + H_m + H_g + H_a) built in the model's own sectors.
+    # NJL constituent nucleon: exact Feynman-Hellmann sigma term (46.2 MeV) and
+    # dilatation identity; Cornell three-body string: exact FH/virial identities,
+    # NR numbers unphysical (H_m < 0 at the F122 baseline); LO momentum-fraction
+    # evolution with the F144 alpha_s: model-native gluon share ~0.2-0.25 vs the
+    # lattice 0.49, so the H_E/H_g split is NOT supported. Analytical kernel.
+    Module("particles.baryon_mass_decomposition",
+           "src/casim/engine/particles/baryon_mass_decomposition.py",
+           "particles",
+           findings=("F402", "F122", "F123", "F77", "F144", "F152"),
+           exactness="quantitative", reach="standalone", role="derive",
+           origin="spine", status="live",
+           tests=("tests/findings/test_F402_baryon_mass_decomposition.py",),
+           results=("test-results/F402_baryon_mass_decomposition.json",)),
+    # F401 -- Notebook v2 (Part VI.3 / F169 C2-C4-note): the finite-k
+    # grid-threshold artifact in photon_bound_state.critical_coupling /
+    # threshold_wavefunction (T = E.min() over the L^3 grid is exact only at
+    # k = 0). Adds threshold="closed" there (default stays "grid", so F169's
+    # own artifact-diagnostic test is unaffected) and characterizes the fix:
+    # an EXACT axis identity (omega+ = omega- = |q|/sqrt(3) along a
+    # coordinate axis, so Omega_even = T to all orders there, not merely
+    # O(k^3)-small as the general offset formula gives off-axis), clean
+    # monotonic L-convergence along a generic (111) direction, and the
+    # re-derived g_c(k) decreasing monotonically with |k| from F169's k = 0
+    # value. Analytical/diagnostic kernel, not a channel.
+    Module("gauge.photon_bound_state_finite_k",
+           "src/casim/engine/gauge/photon_bound_state_finite_k.py",
+           "gauge",
+           findings=("F401", "F169", "F397"), exactness="quantitative",
+           reach="standalone", role="derive", origin="spine", status="live",
+           reachable_from=("photon_bound_state",),
+           tests=("tests/findings/test_F401_photon_bound_state_finite_k.py",),
+           results=("test-results/F401_photon_bound_state_finite_k.json",)),
     #
     # F280 — completeness-2026-08-04 gap #3. The bookkeeping layer that lets
     # d_1 be stated WITHOUT an absolute quadrature normalisation, which is the
@@ -1006,12 +1168,13 @@ _SPINE: tuple[Module, ...] = (
     Module("gauge.lpt_d1_action_consistent",
            "src/casim/engine/gauge/lpt_d1_action_consistent.py",
            "gauge",
-           findings=("F307", "F305", "F280", "F287", "F272", "F277", "F337", "F350"),
+           findings=("F307", "F305", "F280", "F287", "F272", "F277", "F337", "F350", "F382"),
            exactness="bracketed", reach="standalone",
            role="derivation", origin="spine", status="partial",
            tests=("tests/findings/test_F307_action_consistent_d1.py",
                   "tests/findings/test_F337_l6_decision.py",
-                  "tests/findings/test_F350_ws_mask_cutcell.py")),
+                  "tests/findings/test_F350_ws_mask_cutcell.py",
+                  "tests/findings/test_F382_vertex_domain_periodicity.py")),
 
     # F350 -- F337 Sec.4/6's named next step: an anti-aliased (cut-cell)
     # Wigner-Seitz-cell mask, replacing lpt_bcc_vertex.ws_mask's sharp 0/1
@@ -1093,6 +1256,26 @@ _SPINE: tuple[Module, ...] = (
            exactness="exact", reach="standalone",
            role="derivation", origin="spine", status="live",
            tests=("tests/findings/test_F330_belt_trick_reduction.py",)),
+
+    # F379 — completeness row A9, continuing F330. Tests the one route F330
+    # left open: does the model's own EMERGENT CONTINUOUS SO(3) (F129/F130
+    # RG isotropy; F344's exact 48-element leading-order covariance) supply
+    # Anastopoulos's Postulate 1, where the discrete O_h could not? Machine-
+    # verifies (K1-K3) that the model's continuum limit does supply a genuine
+    # continuous SO(3) acting jointly on (momentum, spin) via the SAME rotor
+    # object as F289/F330 -- extending F344 from 48 elements to the full
+    # continuous group -- but argues, grounded in the primary source's own
+    # architecture (Postulate 1 lives at the prequantisation level, strictly
+    # prior to any Hamiltonian), that this is categorically the wrong KIND
+    # of fact to supply Postulate 1, generalising F330's "O_h is finite"
+    # diagnosis to "no dynamical symmetry, of any size, can do this".
+    Module("interactions.qi_so3_kinematic_gap",
+           "src/casim/engine/interactions/qi_so3_kinematic_gap.py",
+           "interactions",
+           findings=("F379", "F330", "F289", "F344", "F129", "F130"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F379_so3_kinematic_gap.py",)),
 
     # F290 — completeness row A10 (cluster decomposition / no-signalling),
     # ABSENT. The CA-specific result is that the causal cone is STRICT where a
@@ -1291,6 +1474,31 @@ _SPINE: tuple[Module, ...] = (
            tests=("tests/findings/test_F333_internal_index_existence.py",),
            results=("test-results/F333_internal_index_existence.json",)),
 
+    Module("gauge.derive_premise_a_irreducibility",
+           "src/casim/engine/gauge/derive_premise_a_irreducibility.py",
+           "gauge",
+           findings=("F381", "F333", "F289", "F330", "F324"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/findings/test_F381_premise_a_irreducibility.py",),
+           results=("test-results/F381_premise_a_irreducibility.json",)),
+
+    # F384 — Stage 1 of docs/roadmaps/photon-fermion-coupling.md: the U(1) EM
+    # current the BCC Weyl walk actually conserves.  Neither weak_wmu's
+    # isospin current nor strong.noether_charge_density's colour current had
+    # a U(1) analogue (roadmap Sec.1.1) — this supplies it, derived (not
+    # guessed) from the walk's own unitary ``bcc_unitary`` against the same
+    # curl symbol charge_coupling's Gauss check already uses.
+    Module("gauge.em_current",
+           "src/casim/engine/gauge/em_current.py",
+           "gauge",
+           findings=("F389", "F384"), exactness="machine", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F384_conserved_em_current.py",
+                  "tests/findings/test_F389_radiative_transverse_em_current.py"),
+           results=("test-results/F384_conserved_em_current.json",
+                    "test-results/F389_radiative_transverse_current.json")),
+
     Module("gauge.reflection_positivity",
            "src/casim/engine/gauge/reflection_positivity.py",
            "gauge",
@@ -1339,7 +1547,9 @@ _SPINE: tuple[Module, ...] = (
            "interactions",
            findings=("F319", "F264", "F164", "F116", "F284", "F59", "F79",
                      "F107", "F251", "F301", "F69", "F26"),
-           exactness="exact", reach="standalone",
+           # quantitative, not exact (2026-09-29): legs U1-U4 are lattice
+           # quadratures gated at 1e-5..1e-9; only U5/U6 are closed-form.
+           exactness="quantitative", reach="standalone",
            role="derivation", origin="spine", status="live",
            tests=("tests/registry/interactions.yaml",),
            results=("test-results/F319_uv_completion.json",)),
@@ -1386,6 +1596,25 @@ _SPINE: tuple[Module, ...] = (
            role="derivation", origin="spine", status="live",
            tests=("tests/registry/interactions.yaml",),
            results=("test-results/F331_cluster_interacting_3d.json",)),
+
+    # F380 -- completeness row A10, QUANT->PARTIAL: F331's mass-dependent
+    # kappa_100 ratio table (1.53 at m=0.05 down to 0.95 at m=0.95) is a
+    # finite-window fit bias of F331's own plain-exponential `_fit_kappa`
+    # against the model's r^{-1}-prefactored (standard 3-D lattice Green's
+    # function) correlator, not an unexplained per-mass tolerance. Named as
+    # K = (kappa_measured - kappa_100)*r_mid, measured mass-independent to
+    # 2.5% across the whole admissible range INCLUDING the dynamically
+    # NJL-selected mass m* (F331's own gap equation) -- answering this row's
+    # "first step" (is m* special?) with "no, m* is unremarkable, which is
+    # what lets the table collapse to one object".
+    Module("interactions.qi_cluster_asymptotic_series",
+           "src/casim/engine/interactions/qi_cluster_asymptotic_series.py",
+           "interactions",
+           findings=("F380", "F331", "F290"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F380_cluster_asymptotic_series.json",)),
 
     # F332 -- rubric K9 / ledger G1: is the F164 zero-point sum DYNAMICALLY
     # driven to respect the F183/F190 capacity ceiling, or is it not?
@@ -1567,6 +1796,25 @@ _SPINE: tuple[Module, ...] = (
            tests=("tests/registry/interactions.yaml",),
            results=("test-results/F345_field_equation_uniqueness.json",)),
 
+    # F383 — does lattice locality FORBID the four-derivative curvature term
+    # in the induced gravitational action, or merely suppress it as an
+    # ordinary EFT tower? Extends F57's own Pi(q) Brillouin-zone polarization
+    # (the F26/BCC-dispersion mechanism that induces the two-derivative
+    # Einstein-Hilbert coefficient) one order further, to Pi4 (the q^4 term).
+    # Pi4 is robustly nonzero (same sign and within a 5x band across grid,
+    # window and direction perturbations; converges under grid refinement),
+    # so locality does not forbid the higher-derivative tower -- it generates
+    # it, closing F345 L7's "at-most-second-order" sub-item negative rather
+    # than promoting it to a derivation.
+    Module("interactions.gravity_four_derivative_locality",
+           "src/casim/engine/interactions/gravity_four_derivative_locality.py",
+           "interactions",
+           findings=("F383", "F345", "F57", "F56", "F319"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F383_four_derivative_locality.json",)),
+
     # F346 -- ledger E6 first attack: does the charged-lepton E_g/T_1u
     # "weight-as-phase" SHAPE mechanism (F175 delta*=2/9, F92 eta^2=1/2, F80's
     # EM/colour selection rule) have any quark-sector face?  Inverts the same
@@ -1654,6 +1902,19 @@ _SPINE: tuple[Module, ...] = (
            role="derivation", origin="spine", status="live",
            tests=("tests/registry/particles.yaml",),
            results=("test-results/F352_higgs_bhl_compositeness.json",)),
+    # F399 -- Notebook v2 prompt B: does the F73 Cooper-pair Higgs candidate have a natural
+    # coupling to fermions? Extracts the scalar-fermion residue coupling g_sigma_qq from F77's
+    # NJL machinery (same formula as g_pi_qq/Goldberger-Treiman) -- finite, computable, NOT a
+    # universal (coupling-independent) ratio unlike the pion's. Proves species-locality as an
+    # exact linear-algebra fact on a 2-flavour toy model: no cross-species coupling exists
+    # without an explicit G_ab vertex, which this model supplies nowhere (NB2-001).
+    Module("particles.derive_composite_scalar_fermion_coupling",
+           "src/casim/engine/particles/derive_composite_scalar_fermion_coupling.py",
+           "particles",
+           findings=("F399", "F73", "F74", "F77"),
+           exactness="quantitative", reach="standalone",
+           role="derive", origin="spine", status="live",
+           tests=(), results=("test-results/F399_composite_scalar_fermion_coupling.json",)),
 
     # F354 (rubric E10, singularity resolution): converts F183 SS L1's curvature-
     # SATURATION estimate into a regular-centre result.  The Kretschmann scalar
@@ -1839,6 +2100,152 @@ _SPINE: tuple[Module, ...] = (
            tests=("tests/registry/forks.yaml#F364-baryogenesis-boltzmann",),
            results=("test-results/F364_baryogenesis_boltzmann.json",
                      "test-results/F364_baryogenesis_boltzmann_test.json")),
+
+    # F385 — Stage 2 of docs/roadmaps/photon-fermion-coupling.md. The three
+    # candidate per-link U(1) covariant BCC Weyl steps adjudicated against
+    # gauge.minimal_coupling.u1_link_weyl_step_3d_bcc (fork a, the primary
+    # construction, registered under gauge/manifest already): (b) Strang-
+    # split, (d) per-site polar renormalisation. Fork (c) is not a separate
+    # construction here -- see this file's own module docstring.
+    Module("forks.gauge.u1_link_unitarity_forks",
+           "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py",
+           "forks",
+           findings=("F385", "F384"),
+           exactness="machine", reach="standalone",
+           role="fork", origin="spine", status="live",
+           tests=("tests/findings/test_F385_u1_link_covariant_step.py",),
+           results=("test-results/F385_u1_link_covariant_step.json",)),
+
+    # F386 -- Stage 3 of docs/roadmaps/photon-fermion-coupling.md: the A the
+    # per-link U(1) step (F385) reads.  Coulomb-gauge solve on the model's own
+    # C(k) symbol (charge_coupling.solve_A_coulomb_3d, the 3-D sibling of
+    # solve_A_coulomb_2d, new this stage), not per-tick accumulate
+    # (core.coupled.WSourcedChannel's pattern) -- see the module docstring
+    # and the finding for why the solve is the physically correct choice.
+    Module("gauge.a_field_convention",
+           "src/casim/engine/gauge/a_field_convention.py",
+           "gauge",
+           findings=("F386", "F385", "F384"),
+           exactness="machine", reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F386_a_field_convention.py",),
+           results=("test-results/F386_a_field_convention.json",)),
+
+    # F387 -- the Ĉ(k) direction anisotropy (vs k̂, found in the F386 review)
+    # and the Ω_pair(k)/|C_odd(k)| sourcing mismatch behind F386 §5's iC.B!=0
+    # defect.  Ships the Stage-4 fix: split the sourcing current into its
+    # Ĉ(k)-transverse/longitudinal parts (same projector solve_A_coulomb_3d
+    # already uses); rotate the transverse sector by Ω_pair (decision 5's
+    # photon law, unchanged) sourced by J_T; solve the longitudinal sector
+    # algebraically from ρ via the model's own Gauss law, never populating
+    # B_L.  Does not build the em_photon/fermion_em Channel pair itself
+    # (Stage 4's own scope) -- supplies the sourcing law one of its channels
+    # should use.
+    # F391 -- resolves F390's two structural gaps: adds
+    # build_ck_transverse_beam_packet (a beam polarized exactly Ĉ(k)-
+    # transverse mode-by-mode, not merely projected-and-discarded), re-tests
+    # F390's axis/m_index grid against it (unchanged -- the beam-
+    # polarization/Ĉ(k)-anisotropy mismatch is ruled out as the mechanism),
+    # sharpens F387's own Ĉ(k)-direction table (y-axis is exactly anti-
+    # parallel to k̂, not merely "anisotropic"), and identifies (without
+    # deriving) the fermion's own fixed internal spin state as the
+    # alternative candidate mechanism.
+    Module("gauge.em_photon_sourcing",
+           "src/casim/engine/gauge/em_photon_sourcing.py",
+           "gauge",
+           findings=("F391", "F390", "F387", "F386", "F384"),
+           reach="standalone",
+           role="kernel", origin="spine", status="live",
+           tests=("tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+                  "tests/findings/test_F391_ck_transverse_beam_mechanism.py"),
+           results=("test-results/F387_curl_anisotropy_omega_pair_mismatch.json",
+                    "test-results/F391_ck_transverse_beam_mechanism.json")),
+    # F403 -- O_h residual symmetries vs PMNS.  Exact (sympy) enumeration of
+    # the 23 non-identity rotations' fixed eigenlines on T_1u: in the adopted
+    # cube-axis (E_g) charged-lepton frame no unitary O residual is viable
+    # (every fixed column has a zero or is trimaximal); in the [111]-
+    # trimaximal frame the face-diagonal C2' give TM1.  gCP: diagonal X ->
+    # J = 0, the y<->z mirror -> mu-tau reflection.  Data legs quantitative.
+    Module("particles.derive_oh_residual_pmns",
+           "src/casim/engine/particles/derive_oh_residual_pmns.py",
+           "particles",
+           findings=("F403", "F254", "F236", "F93", "F76", "F75"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F403_oh_residual_pmns.json",)),
+    # F406 -- the charged-lepton frame fork, decided.  F118's functional and
+    # the 3-generation BCC Dirac sea are spectral (exact tie between the
+    # E_g-diagonal and [111]-circulant readings); the circulant reading splits
+    # into three O_h-inequivalent branches (tau / e / mu on (1,1,1)); TM1 needs
+    # b2, the delta*-as-T1g/T2g reading is b1; exact quadratic crystal-field
+    # phase diagram never selects b1 or b2.  Verdict: picture (a).
+    Module("particles.derive_lepton_frame_fork",
+           "src/casim/engine/particles/derive_lepton_frame_fork.py",
+           "particles",
+           findings=("F406", "F403", "F118", "F95", "F93", "F175"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F406_lepton_frame_fork.json",)),
+    # F404 -- FORK: route 1 of the 2026-09-24 flavour report, Koide
+    # "pseudo-masses" for quarks.  Exact-Koide A_1g+E_g amplitude on the cube
+    # axes plus T_2g/T_1g off-diagonals carrying both the Q deviation and the
+    # CKM.  Exact trace identity fixes the off-diagonal weight; Schur-Horn
+    # fixes the admissible E_g angles; lepton-like (all-positive) amplitudes
+    # cannot hold exact Koide in both sectors with the measured CKM; with a
+    # negative lightest down amplitude every angle pair fits (non-predictive).
+    Module("forks.particles.koide_pseudomass_fork",
+           "src/casim/engine/forks/particles/koide_pseudomass_fork.py",
+           "forks",
+           findings=("F404", "F403", "F76", "F78", "F93", "F175", "F346", "F347"),
+           exactness="quantitative", reach="standalone",
+           role="fork", origin="spine", status="fork_live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F404_koide_pseudomass_fork.json",)),
+    # F407 -- report derivation three: the MINIMAL pseudo-mass quark fit.
+    # A_1g+E_g exact Koide diagonal + three real T_2g + one T_1g per the
+    # report; masses and CKM fitted with errors in mixed and M_Z schemes.
+    # 9 parameters vs 10 observables (Jacobian rank 9, one dof); candidate
+    # E_g pairs all fit, all-positive amplitudes need m_s ~ 1/4 PDG, GST
+    # does not emerge.  Subset of F404's general Hermitian fork.
+    Module("forks.particles.koide_pseudomass_minimal",
+           "src/casim/engine/forks/particles/koide_pseudomass_minimal.py",
+           "forks",
+           findings=("F407", "F404", "F78", "F93", "F175", "F346"),
+           exactness="quantitative", reach="standalone",
+           role="fork", origin="spine", status="fork_live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F407_koide_pseudomass_minimal.json",)),
+    # F405 -- report derivation four: F95's Dirac-sea cubic B with quark
+    # colour and charge factors.  Exact: Q depends on k only, B = k^3 B(1),
+    # colour/charge are generation scalars so any gauge dressing is uniform
+    # and cannot move k (sector-blind and k-blind).  Numeric: the loop's own
+    # k-preference is k^2 ~ 1.9 (wrong even for leptons).  Quantitative: the
+    # power-law loophole's eps_U/eps_D = 3.885 +/- 0.047 vs 4 (coincidence).
+    Module("particles.derive_quark_B_colour_charge",
+           "src/casim/engine/particles/derive_quark_B_colour_charge.py",
+           "particles",
+           findings=("F405", "F95", "F80", "F92", "F346", "F347"),
+           exactness="quantitative", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/particles.yaml",),
+           results=("test-results/F405_quark_B_colour_charge.json",)),
+    # F408 -- rubric K9 / ledger G1: the a0/a1 SIGN SPLIT of the one
+    # all-fermion heat-kernel sum (a0<0 F164, a1>0 F61).  F193 sec.B (a0
+    # diluted) and F196 (a1/L^2) have opposite signs, ratio g* sqrt3 pi/4
+    # (H0-free, exact); the F183 capacity ceiling has no saturation root and
+    # no horizon for negative a0; the a1 capacity energy is a linear tension
+    # c^4/2G = 4 pi sqrt3 hbar c/a^2; the F367 subtraction is sign-blind.
+    Module("interactions.cosmology_lambda_sign_split",
+           "src/casim/engine/interactions/cosmology_lambda_sign_split.py",
+           "interactions",
+           findings=("F408", "F164", "F61", "F193", "F196", "F183", "F190",
+                     "F332", "F367", "F241", "F79", "F86"),
+           exactness="exact", reach="standalone",
+           role="derivation", origin="spine", status="live",
+           tests=("tests/registry/interactions.yaml",),
+           results=("test-results/F408_cc_sign_split.json",)),
 )
 
 

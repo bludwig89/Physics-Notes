@@ -613,6 +613,11 @@ def jellium_table():
 # retardation reduction gives mu*.  No fit input.
 BOHR_A0 = 5.29177210903e-11        # Bohr radius (m)
 _C_RS   = (9.0 * math.pi / 4.0) ** (1.0 / 3.0)   # k_F a0 = _C_RS / r_s = 1.91916/r_s
+# Closed forms of the jellium mu(r_s) coefficients (2026-09-29; previously the
+# typed literals 0.082930 and 6.0299 — the latter a transcription error for
+# pi*_C_RS = 6.02921, 1.1e-4 relative):
+_MU_PREF = 1.0 / (2.0 * math.pi * _C_RS)        # e^2 k_F/(4 pi E_F) * r_s^-1 = 0.0829299
+_X2_RS   = math.pi * _C_RS                       # (2k_F/k_TF)^2 * r_s = pi k_F a0 r_s = 6.02921
 
 
 def wigner_seitz_rs(n_per_m3):
@@ -631,10 +636,11 @@ def mu_coulomb_jellium(rs):
     with the free-electron identities k_F a0 = 1.91916/r_s and
     (k_TF/k_F)^2 = 4/(pi k_F a0), this reduces to the closed form
         mu(r_s) = (e^2 k_F / 4 pi E_F) ln(1+(2k_F/k_TF)^2)
-                = 0.082930 * r_s * ln(1 + 6.0299/r_s).
+                = [1/(2 pi C)] r_s ln(1 + pi C/r_s),   C = (9 pi/4)^{1/3}
+                = 0.0829299 r_s ln(1 + 6.02921/r_s).
     Pure function of r_s; no fit."""
-    x2 = 6.0299 / rs                       # (2 k_F/k_TF)^2
-    return 0.082930 * rs * math.log(1.0 + x2)
+    x2 = _X2_RS / rs                       # (2 k_F/k_TF)^2
+    return _MU_PREF * rs * math.log(1.0 + x2)
 
 
 def mustar_from_dielectric(n_per_m3, omega_c_eV, E_F_eV=None):
@@ -697,11 +703,11 @@ def mustar_from_dielectric_for_spectrum(n_per_m3, omega_log_K, omega_c_factor=6.
 # Fermi screening k_TF^2 = 4 pi e^2 N(0) (this needs only N(0), not a free-
 # electron Fermi surface) while keeping k_F fixed:
 #
-#     mu(r_s, alpha) = alpha * 0.082930 * r_s * ln(1 + (6.0299/r_s)/alpha)
+#     mu(r_s, alpha) = alpha * 0.0829299 * r_s * ln(1 + (6.02921/r_s)/alpha)
 #
 # which reduces EXACTLY to mu_coulomb_jellium(r_s) at alpha=1 (both N(0) and
 # k_TF^2 scale as alpha since both trace to the same real N(0); k_F, and so
-# the prefactor's r_s-only dependence through 6.0299/r_s, does not).
+# the prefactor's r_s-only dependence through 6.02921/r_s, does not).
 DOS_ENHANCEMENT = {
     # element: (alpha = N(0)_real/N(0)_free [both-spin, per atom], source)
     "Nb": (3.0839, "DFT N(Ef)=1.49 eV^-1/atom (both-spin, per atom; De Marzi "
@@ -720,8 +726,8 @@ def mu_coulomb_real_dos(rs, alpha):
     """Generalization of mu_coulomb_jellium(rs) to a real (enhanced) N(0) =
     alpha * N(0)_free -- see the F375 banner above.  alpha=1 reproduces
     mu_coulomb_jellium(rs) exactly (checked in test_F375)."""
-    x2 = 6.0299 / rs   # = (2 k_F/k_TF_free)^2, unchanged (k_F fixed by n)
-    return alpha * 0.082930 * rs * math.log(1.0 + x2 / alpha)
+    x2 = _X2_RS / rs   # = (2 k_F/k_TF_free)^2, unchanged (k_F fixed by n)
+    return alpha * _MU_PREF * rs * math.log(1.0 + x2 / alpha)
 
 
 def mustar_from_real_dos(n_per_m3, omega_log_K, alpha, omega_c_factor=6.0,

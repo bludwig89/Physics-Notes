@@ -1,0 +1,58 @@
+{
+  "A1_njl_dilatation": {
+    "n_points": 4,
+    "worst_independent_fd_residual": 1.0790005277478405e-09
+  },
+  "A2_sigma_term": {
+    "M_c_GeV": 0.31121462294173985,
+    "pull_vs_flag2024": -2.257579949713017,
+    "pull_vs_hoferichter": -3.6783627637527467,
+    "sigma_N_MeV": 46.22573032686539
+  },
+  "B1_cornell_hellmann_feynman": {
+    "rel_resid_alpha": 5.791365752937335e-12,
+    "rel_resid_m": 1.5513675665356242e-09,
+    "rel_resid_sigma": 3.097827547819684e-10
+  },
+  "B2_virial_and_quarter_rule": {
+    "virial_residual_by_basis": {
+      "8": 0.003254630459011283,
+      "14": 1.4886964099083051e-05
+    }
+  },
+  "B3_nr_mass_term_unphysical": {
+    "baseline_H_m_frac": -0.023076286134091635,
+    "half_H_m_frac": 0.1348592626381217,
+    "njl_H_m_frac": 0.04951109484183334,
+    "x_g_baseline": 0.1857133793102661,
+    "x_g_half": 0.20979566144392892
+  },
+  "C1_dglap_closed_form": {
+    "checked_nf": [
+      3,
+      4
+    ]
+  },
+  "C2_model_gluon_share_short": {
+    "chiqcd": {
+      "mean_alpha_required": 1.485585146945898,
+      "pull": -2.9044242708137076,
+      "tau_deficit_factor": 3.04707444756097,
+      "x_g0_required": 0.40214118433437906
+    },
+    "etmc": {
+      "mean_alpha_required": 1.1093455337631066,
+      "pull": -1.974259339744272,
+      "tau_deficit_factor": 2.275371718944999,
+      "x_g0_required": 0.29456412906742785
+    },
+    "start_sensitivity": {
+      "x_g0=0.0": 0.24536814074352697,
+      "x_g0=0.1": 0.3070293687523509,
+      "x_g0=0.2": 0.3686905967611748,
+      "x_g0=0.3": 0.43035182476999867
+    },
+    "x_g_model_hi": 0.24536814074352697
+  },
+  "n_checks": 7
+}

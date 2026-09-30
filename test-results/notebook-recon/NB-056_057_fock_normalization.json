@@ -1,0 +1,14 @@
+{
+  "build": "NB-056/NB-057",
+  "correction_to_initial_script_attempt": "an earlier version of this check compared the raw creation-product norm directly against sqrt(N!/prod n_j!) and got a mismatch -- that was the WRONG comparison. The raw creation-product norm (a0^+)^n|0> is the STANDARD Fock-normalization fact ||.|| = sqrt(prod_j n_j!) (confirmed below, exactly). The N!/prod(n_j!) factor in the notebook's C_n<->psi_N formula is a SEPARATE, standard textbook identity (e.g. Peskin & Schroeder Ch.2, or any QFT text's treatment of the map between symmetrized first-quantized wavefunctions of N LABELED particles and occupation-number Fock states): it counts the N!/prod(n_j!) distinct ways to assign N labeled particles to a given multiset of occupied modes, which is a different quantity than the raw creation-product norm tested here. That standard identity is treated as an external citation, not independently re-derived in this batch (see the write-up).",
+  "pattern_n=(2,0)": {
+    "raw_creation_product_norm": 1.4142135623730951,
+    "expected_sqrt(prod_n_j!)": 1.4142135623730951,
+    "match": true
+  },
+  "pattern_n=(1,1)": {
+    "raw_creation_product_norm": 1.0,
+    "expected_sqrt(prod_n_j!)": 1.0,
+    "match": true
+  }
+}

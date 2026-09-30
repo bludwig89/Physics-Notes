@@ -76,6 +76,7 @@ from casim.engine.gauge.weak_wmu import (
     fermion_isospin_current,
     w_propagation_step_spectral,
     w_massive_propagation_step_spectral,
+    w_massive_propagation_step_chiral,
     w_sourced_propagation_step,
 )
 
@@ -400,10 +401,11 @@ def run_beta_decay_pipeline(L=16, m_W=0.6, g_lat=0.8, n_prop=24,
     Jp_quark = charged_current_plus(f_u, f_d)
     cc_injected = float(np.sum(np.abs(Jp_quark) ** 2))
 
-    # --- 3. propagate W⁻ (Proca) ---
+    # --- 3. propagate W⁻ (Proca, chiral law — F91: W± is chiral, forced;
+    #        was the even Proca step before 2026-09-29) ---
     w_at_B_trace = []
     for _ in range(n_prop):
-        E_W, B_W = w_massive_propagation_step_spectral(E_W, B_W, m_W, dt=1.0)
+        E_W, B_W = w_massive_propagation_step_chiral(E_W, B_W, m_W, dt=1.0)
         _, E_Wm_t = w_charged_components(E_W)
         w_at_B_trace.append(float(np.abs(E_Wm_t[site_B])))
 

@@ -1,0 +1,28 @@
+{
+  "NB-165": {
+    "claim": "V^mu d_nu V_mu=0 and V.(d_mu V)=0, restated from pp.129-131",
+    "status": "Pure restatement of NB-158 (V^mu d_nu V_mu=0) and NB-159 (V.(d_mu V)=0), both independently verified exactly in batch 12 via direct differentiation of the null-everywhere and unimodular-everywhere conditions. No new algebra to check.",
+    "verdict": "SOLID (inherits batch 12's NB-158/159 verification)"
+  },
+  "NB-166": {
+    "claim": "det(sigma^mu V_mu) = V^mu V_mu; the null condition is equivalent to (V0-Vz)/(-Vx-iVy)=(-Vx+iVy)/(V0+Vz), reducing to V0^2-Vz^2=Vx^2+Vy^2",
+    "det_of_sigma_mu_Vmu_equals_V_dot_V": true,
+    "cross_multiplied_proportionality_equals_det=0_condition": true,
+    "cross_multiplied_condition_reduces_to_stated_V0^2-Vz^2=Vx^2+Vy^2": true,
+    "verdict": "SOLID"
+  },
+  "NB-167_general_hermiticity_condition": {
+    "claim": "k1=k0*conj(alpha), k2=k0'*conj(beta) with a SINGLE common real k0 (k0'=k0) makes the tensor product Hermitian (a valid sigma^mu V_mu)",
+    "diag_1_real_with_k1=k0*conj(alpha)": true,
+    "diag_2_real_with_k2=k0*conj(beta)": true,
+    "offdiag_conjugate_symmetric_with_SAME_k0_for_both": true,
+    "verdict": "SOLID"
+  },
+  "NB-167_special_case_always_null": {
+    "claim": "(conj(alpha) conj(beta)) (x) (alpha,beta)^T is ALWAYS a null vector (det=0), for any complex alpha,beta",
+    "det_of_special_case_tensor_product": "0",
+    "always_zero_confirming_null": true,
+    "matrix_is_Hermitian_(valid_sigma^mu_V_mu_form)": true,
+    "verdict": "SOLID"
+  }
+}

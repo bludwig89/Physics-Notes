@@ -3,7 +3,7 @@
   "date": "2026-06-08",
   "n_tests": 6,
   "n_passed": 6,
-  "total_elapsed_s": 0.5647338339913404,
+  "total_elapsed_s": 1.5880675000080373,
   "results": [
     {
       "test": "GD1",
@@ -15,21 +15,21 @@
         "bit_exact_reduction": 0.0,
         "field_changes_at_eps0.25": true
       },
-      "elapsed_s": 0.014388041003257968
+      "elapsed_s": 0.008392332994844764
     },
     {
       "test": "GD2",
       "tier": 1,
       "passed": true,
-      "residual": 4.1143008576497224e-14,
+      "residual": 4.2282704104932047e-14,
       "name": "uniform dielectric exactly unitary + c_eff=c sqrt(eps_c)",
       "detail": {
-        "energy_drift_200_ticks": 4.1143008576497224e-14,
+        "energy_drift_200_ticks": 4.2282704104932047e-14,
         "c_eff(0.49)": 0.40414518843273806,
         "c_eff_expected": 0.40414518843273806,
         "c_eff_residual": 0.0
       },
-      "elapsed_s": 0.2826377500023227
+      "elapsed_s": 0.9572983340040082
     },
     {
       "test": "GD3",
@@ -38,57 +38,57 @@
       "residual": 0.0,
       "name": "condensate VEV from measured MC density (F88->F86 hand-off)",
       "detail": {
-        "v": 0.833383295437157,
-        "m_V": 0.6211672333034244,
-        "sigma_F86": 4.363846347597753,
+        "v": 0.740480489693061,
+        "m_V": 0.5519215703220056,
+        "sigma_F86": 3.4451418533666467,
         "beta": 1.8,
-        "rho": 0.017592592592592594,
+        "rho": 0.01388888888888889,
         "n_sweeps": 160,
         "L_mc": 6,
         "sigma_consistency": 0.0,
         "v_eq_mD_sqrt_beta": 0.0
       },
-      "elapsed_s": 0.11747349999495782
+      "elapsed_s": 0.09271354200609494
     },
     {
       "test": "GD4",
       "tier": 1,
       "passed": true,
-      "residual": 1.2183920947620988e-13,
+      "residual": 1.3628173293284452e-13,
       "name": "gap-massive gluon dispersion omega^2 = m_V^2 + Omega_even^2",
       "detail": {
         "m_V": 0.725519745693687,
-        "dispersion_residual": 1.2183920947620988e-13,
+        "dispersion_residual": 1.3628173293284452e-13,
         "gapless_reduction": 0.0
       },
-      "elapsed_s": 0.10210499999811873
+      "elapsed_s": 0.05315079100546427
     },
     {
       "test": "GD5",
       "tier": 3,
       "passed": true,
-      "residual": 0.02171381255752695,
+      "residual": 0.02171381254881108,
       "name": "dual-Meissner screening lambda = 1/m_V from the measured gap",
       "detail": {
         "m_V": 0.725519745693687,
-        "lambda_fit": 1.4082508692863231,
+        "lambda_fit": 1.4082508692743099,
         "lambda_expected": 1.3783222385544802
       },
-      "elapsed_s": 0.0007206250011222437
+      "elapsed_s": 0.004324124995036982
     },
     {
       "test": "GD6",
       "tier": 3,
       "passed": true,
-      "residual": 0.013690884587926723,
+      "residual": 0.013690884587926626,
       "name": "dynamic flux expulsion from condensed vacuum (dual Meissner)",
       "detail": {
-        "frac_in_condensed_dielectric": 0.013690884587926723,
-        "frac_in_condensed_free_control": 0.5212573092730605,
-        "suppression_factor": 38.07331118200573,
+        "frac_in_condensed_dielectric": 0.013690884587926626,
+        "frac_in_condensed_free_control": 0.52125730927306,
+        "suppression_factor": 38.07331118200597,
         "free_step_bitexact": 8.881784197001252e-16
       },
-      "elapsed_s": 0.04730629199184477
+      "elapsed_s": 0.47210816699953284
     }
   ]
 }

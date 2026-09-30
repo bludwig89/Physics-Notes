@@ -1,0 +1,8 @@
+{
+  "build": "NB-001",
+  "euler_lagrange_matches_KG": true,
+  "canonical_momentum_is_phidot": true,
+  "hamiltonian_matches_notebook": true,
+  "EL_residual": "0",
+  "H_residual": "0"
+}

@@ -1,0 +1,6 @@
+{
+  "build": "NB-031",
+  "q_is_hermitian_by_construction": true,
+  "dagger_of_(2a)_minus_(2b)_residual": "Matrix([[0], [0]])",
+  "hermiticity_of_q_alone_is_sufficient_no_extra_condition_on_Omega_needed": true
+}

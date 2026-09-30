@@ -1,0 +1,32 @@
+{
+  "L": 16,
+  "ticks": 20,
+  "g_lat": 0.6,
+  "q": 1.0,
+  "matter_push_norm": 0.0408308293825658,
+  "field_push_norm": 0.03683792405581139,
+  "cos_beam_direction": 0.9947796589220517,
+  "cos_matter_field": -0.9886232704065014,
+  "conservation_residual": 0.17346910451585795,
+  "matter_push_norm_zero_coupling": 0.0409704781947117,
+  "field_push_norm_zero_coupling": 2.2194951035015924e-17,
+  "residual_at_half_g": 0.5616088090287548,
+  "residual_at_g": 0.17346910451585795,
+  "residual_at_2g": 0.8603109658834044,
+  "dE_field": 0.011335328010555479,
+  "cos_beam_direction_off_axis": -0.0019298796619737265,
+  "cos_matter_field_off_axis": 0.9999492052879492,
+  "checks": {
+    "push_direction_aligned_with_beam": true,
+    "field_momentum_zero_at_zero_coupling": true,
+    "field_gains_real_momentum_when_radiative_current_on": true,
+    "field_and_matter_momentum_nearly_antiparallel": true,
+    "momentum_conservation_not_exact_at_default_coupling": true,
+    "closure_residual_has_interior_minimum": true,
+    "direction_correlation_breaks_down_off_axis": true,
+    "antiparallel_result_inverts_off_axis": true
+  },
+  "n_pass": 8,
+  "n_checks": 8,
+  "ok": true
+}

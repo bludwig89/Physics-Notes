@@ -150,7 +150,7 @@ def alpha_eff_star(L: int = 24) -> dict:
         out[tag] = inv
     aD = out["mD_0.532"].get("alpha_eff_star", float("nan"))
     aV = out["mV_0.727"].get("alpha_eff_star", float("nan"))
-    out["alpha_eff_star_mean"] = 0.5 * (aD + aV)
+    out["alpha_eff_star_mean"] = 0.5 * (aD + aV)   # DISPLAY ONLY (D7); the band is the result
     out["alpha_eff_star_band"] = [aD, aV]
     return out
 

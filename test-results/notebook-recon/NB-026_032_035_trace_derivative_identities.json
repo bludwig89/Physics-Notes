@@ -1,0 +1,8 @@
+{
+  "build": "NB-026/NB-032/NB-035 (trace-derivative machinery)",
+  "identity1_dTr(AB)/dB_equals_A^T": true,
+  "identity2_dTr(ABC)/dB_equals_A^T_C^T": true,
+  "identity3_p27_literal_claim_dTr(A_Btranspose_C)/dB_equals_CA": true,
+  "identity3_actual_value": "Matrix([[A[0, 0]*C[0, 0] + A[1, 0]*C[0, 1], A[0, 1]*C[0, 0] + A[1, 1]*C[0, 1]], [A[0, 0]*C[1, 0] + A[1, 0]*C[1, 1], A[0, 1]*C[1, 0] + A[1, 1]*C[1, 1]]])",
+  "identity3_note": "p.27 literal claim d Tr(A B^+ C)/dB = CA CONFIRMED exactly by direct componentwise differentiation (identity3_holds_CA=True) -- the extra transpose one might naively expect from differentiating through B^T rather than B does not appear; the formula as stated is correct."
+}

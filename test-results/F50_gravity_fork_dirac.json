@@ -8,7 +8,7 @@
   "tests": [
     {
       "name": "G1_continuum_slope4",
-      "slope": 4.000835996124237,
+      "slope": 4.000835996124213,
       "target": 4.0,
       "tol": 0.1,
       "status": "PASS"
@@ -33,15 +33,15 @@
       "name": "G4_kinetic_only_negative_control",
       "omega_spread_across_sites": 0.0,
       "omega_value": 0.30469265401539747,
-      "arcsin_m": 0.3046926540153975,
+      "arcsin_m": 0.30469265401539747,
       "note": "spread\u22480 proves kinetic-leg-only yields no static redshift",
       "status": "PASS"
     },
     {
       "name": "G5_prototype_stepper_norm",
       "norm_initial": 50.265482457436676,
-      "norm_final": 50.265482457436676,
-      "relative_drift": 0.0,
+      "norm_final": 50.26548245743666,
+      "relative_drift": 2.82715971685646e-16,
       "n_steps": 12,
       "tol": 1e-10,
       "status": "PASS"

@@ -2,9 +2,9 @@
   "date": "2026-05-24",
   "phase": "F26 Phase 2",
   "total": 17,
-  "passed": 17,
-  "failed": 0,
-  "elapsed_s": 0.67,
+  "passed": 16,
+  "failed": 1,
+  "elapsed_s": 1.17,
   "results": [
     {
       "name": "T1  c_lat=1/\u221a3 (BCC, d\u03a9/d|k|)",
@@ -21,32 +21,32 @@
     {
       "name": "T3  rotation law machine precision (3D BCC)",
       "ok": true,
-      "detail": "rot_E=2.77e-16  curl_E=2.05e-02",
-      "value": 2.7692544937202405e-16
+      "detail": "rot_E=2.38e-16  curl_E=2.05e-02",
+      "value": 2.37845458619649e-16
     },
     {
       "name": "T4  rotation law machine precision (2D square)",
       "ok": true,
-      "detail": "rot_E=2.25e-15",
-      "value": 2.2476006266475667e-15
+      "detail": "rot_E=1.95e-15",
+      "value": 1.951264515353371e-15
     },
     {
       "name": "T5  spectral propagator energy conservation (3D, 50 ticks)",
       "ok": true,
-      "detail": "drift=7.60e-15",
-      "value": 7.60282377320335e-15
+      "detail": "drift=8.50e-15",
+      "value": 8.497273628874332e-15
     },
     {
       "name": "T6  spectral propagator energy conservation (2D, 50 ticks)",
       "ok": true,
-      "detail": "drift=4.60e-15",
-      "value": 4.603889887833759e-15
+      "detail": "drift=5.61e-15",
+      "value": 5.610990800797393e-15
     },
     {
       "name": "T7  curl_E/k \u2248 c_lat/\u221a2 across k range",
       "ok": true,
       "detail": "worst frac_err=2.38e-03",
-      "value": 0.002377025452296631
+      "value": 0.0023770254522936397
     },
     {
       "name": "T8  dispersion nonlinearity \u03b4v_\u03c6/c \u2248 \u2212k/18 (leading order)",
@@ -63,50 +63,50 @@
     {
       "name": "L3c.1  energy conservation 100 ticks (L=16, 8 modes)",
       "ok": true,
-      "detail": "max_drift=1.11e-14",
-      "value": 1.112269786141244e-14
+      "detail": "max_drift=1.56e-14",
+      "value": 1.5631899697120188e-14
     },
     {
       "name": "L3c.2  per-mode rotation residual \u2264 machine precision",
       "ok": true,
-      "detail": "max_err=6.44e-14",
-      "value": 6.441505257913525e-14
+      "detail": "max_err=9.30e-14",
+      "value": 9.298080347083133e-14
     },
     {
-      "name": "F29  SU(2)\u2013photon bridge (8 subtests)",
-      "ok": true,
-      "detail": "(module loaded; see test_su2_photon_bridge.py for detail)",
+      "name": "F29  SU(2)\u2013photon bridge",
+      "ok": false,
+      "detail": "[Errno 2] No such file or directory: '/Users/ben.ludwig/AI/Physics Notes/tests/runners/test_su2_photon_bridge.py'",
       "value": null
     },
     {
       "name": "F27  complex-mass 1-flavour norm conservation",
       "ok": true,
-      "detail": "drift=2.83e-16",
-      "value": 2.8271598322650566e-16
+      "detail": "drift=1.41e-16",
+      "value": 1.4135799161325283e-16
     },
     {
       "name": "L1  BCC propagator unitarity (12 dirs)",
       "ok": true,
       "detail": "max_residual=6.28e-16",
-      "value": 6.280369834735101e-16
+      "value": 6.280567441032544e-16
     },
     {
       "name": "L2  2D exact-arccos norm drift (200 steps, L=64)",
       "ok": true,
-      "detail": "drift=3.97e-14",
-      "value": 3.9745984281580604e-14
+      "detail": "drift=2.26e-14",
+      "value": 2.2648549702353193e-14
     },
     {
       "name": "L3a.1  composite-photon dispersion \u03c9=|k|/\u221a3",
       "ok": true,
       "detail": "rel_err=2.12e-03",
-      "value": 0.00211795109947464
+      "value": 0.0021179510994671887
     },
     {
       "name": "L3a.2  transversality 2\u00f1\u00b7E=0",
       "ok": true,
-      "detail": "max=4.58e-17",
-      "value": 4.5810364522587704e-17
+      "detail": "max=4.93e-17",
+      "value": 4.931940585248594e-17
     }
   ]
 }

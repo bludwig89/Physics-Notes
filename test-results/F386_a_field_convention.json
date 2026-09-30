@@ -1,0 +1,26 @@
+{
+  "L": 16,
+  "n_ticks": 6,
+  "sigma": 3.0,
+  "solve_longitudinal_fraction": 1.1721107430739192e-16,
+  "solve_curl_residual_masked": 2.345586970382033e-14,
+  "B_beam_longitudinal_fraction": 0.2727612748109539,
+  "accumulate_longitudinal_fraction_charge_only": 1.0,
+  "accumulate_longitudinal_fraction_early_tick": 1.0,
+  "solve_A_norm_for_pure_charge_source": 1.8851672583239147e-33,
+  "ward_global_pure_gradient": 3.596213769174132e-15,
+  "ward_grad_m1": 1.2963551763356134,
+  "ward_grad_m4": 3.5523533777485166,
+  "checks": {
+    "solve_is_purely_transverse": true,
+    "solve_curl_recovers_B": true,
+    "accumulate_inherits_longitudinal_content": true,
+    "accumulate_longitudinal_content_grows_with_ticks": true,
+    "solve_gives_zero_A_for_pure_charge_source": true,
+    "ward_global_exact_for_pure_gradient": true,
+    "ward_local_grows_with_wavelength_matches_F385": true
+  },
+  "n_pass": 7,
+  "n_checks": 7,
+  "ok": true
+}

@@ -11,15 +11,16 @@
 | `core._viz_spinor_color` | core | live | driven (15 ch) |  |  |  | spinor_color.py — Bloch-sphere → RGB coloring for spinor fields |
 | `core._viz_tick_heatmap` | core | live | package-only |  |  |  | tick_heatmap.py — T1.B visualization of the per-cell tick field N(x) |
 | `core.blockspin` | core | live | driven | F130 F133 F134 |  |  | casim.engine.core.blockspin — the block-spin RG as a first-class engine operation |
-| `core.channel` | core | live | driven |  |  |  | casim.engine.core.channel — the Channel abstraction and registry. |
-| `core.channels` | core | live | driven |  |  |  | casim.engine.core.channels — concrete field channels. |
+| `core.channel` | core | live | driven | F389 |  |  | casim.engine.core.channel — the Channel abstraction and registry. |
+| `core.channels` | core | live | driven | F388 |  |  | casim.engine.core.channels — concrete field channels. |
 | `core.clock` | core | live | driven (1 ch) | F268 | exact | 1 | casim.engine.core.clock — the engine's physical clock (roadmap P3.2, blocker B2). |
-| `core.coupled` | core | live | driven |  |  |  | casim.engine.core.coupled — Tier-2 sourced / coupled channels. |
+| `core.coupled` | core | live | driven | F395 F392 F390 F389 F388 F387 F386 F385 F384 |  | 2 | casim.engine.core.coupled — Tier-2 sourced / coupled channels. |
 | `core.entanglement_register` | core | live | driven | F212 F214 |  |  | casim.engine.core.entanglement_register — the live genuine-many-body entanglement channel. |
 | `core.graph` | core | live | driven (1 ch) | F269 | exact | 1 | casim.engine.core.graph — the typed exchange bus (roadmap P3.3, blocker B3). |
 | `core.lpt_generator` | core | partial | standalone | F162 | quantitative |  | ca_lpt_generator.py — an automated lattice-perturbation-theory Feynman-rule |
 | `core.manybody` | core | live | driven (9 ch) |  |  |  | ca_manybody.py |
 | `core.observers` | core | live | driven |  |  | 1 | casim.engine.core.observers — diagnostics that run every N ticks. |
+| `core.photon_fermion_push` | core | live | standalone | F395 F392 F390 F389 F388 F387 F386 F385 F384 |  | 2 | casim.engine.core.photon_fermion_push — Stage 5 of |
 | `core.simulation` | core | live | driven |  |  |  | casim.engine.core.simulation — the Simulation engine and LatticeSpec. |
 | `core.spectral_matter` | core | live | driven |  |  |  | casim.engine.core.spectral_matter — compute-once matter-sector channels. |
 | `core.tier3` | core | live | driven |  |  |  | casim.engine.core.tier3 — non-unitary / heavy channels (migration-map Tier-3). |
@@ -32,6 +33,7 @@
 | `forks.gauge.curl_fork_cubic` | forks | fork_unclaimed | unreferenced |  |  |  | Fork: SIMPLE-CUBIC Weyl QCA geometry (curl-O(k) investigation) |
 | `forks.gauge.curl_fork_harness` | forks | fork_unclaimed | unreferenced |  |  |  | curl_fork_harness.py — cross-geometry diagnostics for the curl-O(k) question |
 | `forks.gauge.lgt_fork_A_mc` | forks | fork_live | driven (2 ch) |  |  |  | lgt_fork_A_mc.py — Fork A: 3+1D SU(3) lattice-gauge Monte-Carlo + multilevel (P1, Option A) |
+| `forks.gauge.u1_link_unitarity_forks` | forks | live | standalone | F385 F384 | machine | 1 | Fork: U(1) per-link unitarity/momentum-transfer adjudication |
 | `forks.gravity.dirac_gravity_fork` | forks | fork_live | test-only |  |  |  | dirac_gravity_fork.py — Dynamical Dirac CA on a curved background (D2) + linearized |
 | `forks.gravity.gr3_fork_A_phase_tick` | forks | fork_unclaimed | unreferenced |  |  |  | Fork A — SEPARATE PHASE-TICK FIELD |
 | `forks.gravity.gr3_fork_B_anisotropic` | forks | fork_unclaimed | unreferenced |  |  |  | Fork B — ANISOTROPIC METRIC (g_00 and g_ii independent) |
@@ -72,13 +74,16 @@
 | `forks.lattice.smearing_fork_harness` | forks | fork_unclaimed | unreferenced |  |  |  | smearing_fork_harness.py — f_k(q) smearing fork for the curl O(k) problem |
 | `forks.particles.complex_mass_fork` | forks | fork_unclaimed | unreferenced |  |  |  | complex_mass_fork.py — Higgs-free complex-mass Dirac CA fork |
 | `forks.particles.derive_weight_as_phase` | forks | fork_live | standalone | F230 F253 F255 F256 |  |  | E1 attack: derive the 'weight-as-phase' principle behind delta* = 2/9 rad. |
+| `forks.particles.koide_pseudomass_fork` | forks | fork_live | standalone | F404 F403 F76 F78 F93 F175 F346 F347 | quantitative | 1 | casim.engine.forks.particles.koide_pseudomass_fork |
+| `forks.particles.koide_pseudomass_minimal` | forks | fork_live | standalone | F407 F404 F78 F93 F175 F346 | quantitative | 1 | casim.engine.forks.particles.koide_pseudomass_minimal |
+| `gauge.a_field_convention` | gauge | live | standalone | F386 F385 F384 | machine | 1 | casim.engine.gauge.a_field_convention — Stage 3 of |
 | `gauge.bcc_action` | gauge | live | driven (29 ch) |  |  | 1 | ca_bcc_gauge.py — the gauge action on the *genuine* BCC lattice (F265) |
 | `gauge.bgfield_loop` | gauge | live | test-only |  |  | 1 | ca_bgfield_loop.py — the background-field one-loop gluon self-energy: the |
 | `gauge.bilinear` | gauge | partial | package-only |  |  | 3 | ca_maxwell.py — Composite-photon EM sector (Paper 1 Eq. 35) |
 | `gauge.bilinear_2d` | gauge | live | driven (15 ch) |  |  |  | ca_maxwell_2d.py — Composite-photon bilinear on the 2D square QCA |
 | `gauge.casimir_ladder` | gauge | live | standalone | F298 F294 F293 F110 F144 F86 F97 | exact | 1 | casimir_ladder.py — the SU(N) Casimir ladder F110 deferred, and what it does to C7 |
 | `gauge.casimir_scaling` | gauge | live | standalone (2 ch) | F299 F298 F294 F293 F144 F110 F94 F86 | quantitative | 1 | casimir_scaling.py — the F294 discriminator, reinstated and then run |
-| `gauge.charge_coupling` | gauge | live | driven (13 ch) |  |  |  | ca_charge_coupling.py — The U(1) charge-coupling path on the paired-photon field |
+| `gauge.charge_coupling` | gauge | live | driven (13 ch) |  |  | 1 | ca_charge_coupling.py — The U(1) charge-coupling path on the paired-photon field |
 | `gauge.charged_current` | gauge | live | driven (19 ch) |  |  |  | ca_charged_current.py |
 | `gauge.chiral_anomaly` | gauge | live | test-only |  |  |  | ca_chiral_anomaly.py — the chiral (ABJ) anomaly and lattice-doubling |
 | `gauge.colour_condensate` | gauge | live | driven (15 ch) |  |  |  | ca_colour_condensate.py — the colour-magnetic condensate arising within the model (F88) |
@@ -87,21 +92,26 @@
 | `gauge.confinement` | gauge | live | driven (15 ch) |  |  |  | ca_confinement.py — Static quark potential, string tension, confinement (FG-7c) |
 | `gauge.cooling` | gauge | live | driven (17 ch) |  |  |  | ca_cooling.py — SU(3) Wilson gradient flow and cooling driver (FG-7b, 2026-06-01) |
 | `gauge.derive_bilinear_so3` | gauge | live | standalone | F302 | exact | 1 | F302 — which spinor bilinear is a spatial 3-vector, and which sectors use it. |
+| `gauge.derive_charge_partition` | gauge | live | standalone | F396 F27 F41 F54 | machine | 1 | p.77 charge-partition hypothesis — Leg A (J = L + S under the Dirac mass step) |
 | `gauge.derive_coupling_normalisation` | gauge | live | standalone (3 ch) | F303 F299 F298 F294 F144 F115 F101 F110 F91 | exact | 1 | derive_coupling_normalisation.py — is F144's bare coupling centre-normalised? |
 | `gauge.derive_gauge_boson_masses` | gauge | live | standalone | F320 F141 F138 F231 F49 F51 F41 F27 F119 F127 | bracketed | 1 | derive_gauge_boson_masses.py — the ABSOLUTE W and Z masses, and rho = 1 |
 | `gauge.derive_internal_index_existence` | gauge | live | standalone | F333 F317 F318 F324 F289 | exact | 1 | derive_internal_index_existence.py — does the colour index have to exist? |
 | `gauge.derive_ncolour` | gauge | live | standalone | F293 F294 F279 F144 F110 F107 F280 F291 | bracketed | 1 | derive_ncolour.py — why three colours? (completeness row B10) |
 | `gauge.derive_ncolour_bracket` | gauge | live | standalone | F324 F317 F318 F298 F293 F279 F27 F75 F144 | exact | 1 | derive_ncolour_bracket.py — the N_c interval, closed from both sides |
 | `gauge.derive_ncolour_ceiling` | gauge | live | standalone | F338 F324 F325 F293 F298 F317 F75 | exact | 1 | derive_ncolour_ceiling.py — B10 after F325: the odd-N_c bracket does not |
+| `gauge.derive_premise_a_irreducibility` | gauge | live | standalone | F381 F333 F289 F330 F324 | exact | 1 | derive_premise_a_irreducibility.py — is F333 premise (a) reducible to F289/F330? |
 | `gauge.derive_su3_structure` | gauge | live | standalone | F317 F91 F27 F68 F279 F293 F298 F289 F43 | exact | 1 | derive_su3_structure.py — deriving the STRUCTURE of the colour gauge field |
 | `gauge.derive_x1_branch` | gauge | live | standalone (3 ch) | F325 F324 F303 F299 F298 F294 F144 F111b F110 F101 F280 | exact | 1 | derive_x1_branch.py — X1 resolved: branch A closed, branch B adopted |
+| `gauge.em_current` | gauge | live | standalone | F389 F384 | machine | 2 | casim.engine.gauge.em_current — the U(1) EM current the BCC walk conserves. |
+| `gauge.em_photon_sourcing` | gauge | live | standalone | F391 F390 F387 F386 F384 |  | 2 | casim.engine.gauge.em_photon_sourcing — the Ĉ(k) direction anisotropy and |
 | `gauge.emission` | gauge | live | test-only |  |  |  | ca_emission.py |
+| `gauge.factorization` | gauge | live | standalone | F397 F24 F69 F91 F168 F169 | quantitative | 1 | F397 — the notebook's FACTORIZATION ROUTE (pp.176-182): a vector is two null vectors, |
 | `gauge.gluon` | gauge | partial | driven (15 ch) |  |  |  | ca_gluon.py — Dynamical SU(3) gauge sector (FG-7, 2026-05-27) |
 | `gauge.gluon_self_energy` | gauge | live | test-only |  |  |  | ca_gluon_self_energy.py — Residual A of the strong-sector scale problem, |
 | `gauge.hypercharge` | gauge | live | driven (6 ch) |  |  |  | ca_hypercharge.py — U(1)_Y hypercharge gauging on the F27 chiral-SU(2) |
 | `gauge.link_hamiltonian` | gauge | live | test-only |  |  |  | ca_link_hamiltonian.py — Real-time Kogut–Susskind link Hamiltonian evolution |
 | `gauge.lpt_bcc_vertex` | gauge | live | standalone | F305 F265 F278 F162 F163 | exact | 1 | lpt_bcc_vertex.py — lattice perturbation theory on the GENUINE BCC gauge |
-| `gauge.lpt_d1_action_consistent` | gauge | partial | standalone | F307 F305 F280 F287 F272 F277 F337 F350 | bracketed | 2 | lpt_d1_action_consistent.py — the F280 subtracted estimator run on ONE code |
+| `gauge.lpt_d1_action_consistent` | gauge | partial | standalone | F307 F305 F280 F287 F272 F277 F337 F350 F382 | bracketed | 3 | lpt_d1_action_consistent.py — the F280 subtracted estimator run on ONE code |
 | `gauge.lpt_d1_subtracted` | gauge | live | standalone | F280 F287 F239 F163 F162 F155 | bracketed | 1 | lpt_d1_subtracted.py — d_1 for the rule action, formulated SUBTRACTED against |
 | `gauge.lpt_selfenergy` | gauge | live | test-only |  |  | 1 | ca_lpt_selfenergy.py — the one-loop lattice gluon self-energy assembled from the |
 | `gauge.lpt_vertex` | gauge | live | test-only |  |  |  | ca_lpt_vertex.py — the cubic expansion of the compact gauge action: the |
@@ -110,9 +120,11 @@
 | `gauge.lpt_wilson_selfenergy` | gauge | live | test-only |  |  |  | ca_lpt_wilson_selfenergy.py — the FULL Wilson-action one-loop background-field |
 | `gauge.lpt_ws_mask_cutcell` | gauge | live | driven (1 ch) | F350 F337 F305 F280 | exact | 1 | lpt_ws_mask_cutcell.py -- an anti-aliased (cut-cell) Wigner-Seitz-cell mask |
 | `gauge.minimal_coupling` | gauge | live | driven (9 ch) |  |  |  | ca_minimal_coupling — U(1) and SU(3) minimal coupling on the 3D BCC walk. |
-| `gauge.photon` | gauge | partial | driven (20 ch) |  |  |  | ca_photon_pair.py — The photon as a bound pair of two spin-½ Weyl quanta |
+| `gauge.photon` | gauge | partial | driven (20 ch) |  |  | 1 | ca_photon_pair.py — The photon as a bound pair of two spin-½ Weyl quanta |
 | `gauge.photon_bound_state` | gauge | live | test-only |  |  |  | ca_photon_bs.py — The interacting two-body bound-state wavefunction of the |
+| `gauge.photon_bound_state_finite_k` | gauge | live | standalone (1 ch) | F401 F169 F397 | quantitative |  | photon_bound_state_finite_k.py — repairing the finite-k grid-threshold |
 | `gauge.photon_packet` | gauge | live | standalone | F314 F20 F69 F105 | exact | 2 | photon_packet.py — real-space propagation of the PAIRED-SPINOR photon (F314). |
+| `gauge.photon_pryce_commutator` | gauge | live | standalone | F398 F69 F169 | quantitative | 1 | F398 -- Pryce's 1938 composite-boson objection, tested against the F69/F169 paired photon. |
 | `gauge.propagator` | gauge | live | test-only |  |  |  | ca_propagator.py — Cached spectral propagator objects |
 | `gauge.reflection_positivity` | gauge | live | standalone | F335 F265 F323 F313 F94 | machine | 1 | reflection_positivity.py -- Osterwalder-Seiler link reflection positivity for |
 | `gauge.rotation` | gauge | live | test-only |  |  |  | ca_rotation.py -- Slow-rotation frame dragging & moment of inertia (Hartle) |
@@ -136,6 +148,7 @@
 | `interactions.cosmology_lambda_dynamics` | interactions | live | standalone | F332 F164 F193 F196 F241 F319 F311 F178 F182 F130 F79 F59 | quantitative | 1 | cosmology_lambda_dynamics.py — is the F164 zero-point sum DYNAMICALLY made to |
 | `interactions.cosmology_lambda_sequestering` | interactions | live | standalone | F367 F332 F164 F193 F196 F241 F319 F178 F182 F79 F59 | quantitative | 1 | cosmology_lambda_sequestering.py -- does a genuinely NON-LOCAL/GLOBAL dynamical |
 | `interactions.cosmology_lambda_sequestering_consistency` | interactions | live | standalone | F368 F367 F332 F164 F241 F319 F178 F182 F79 F59 | quantitative | 1 | cosmology_lambda_sequestering_consistency.py -- runs CL303's own falsifier 4 |
+| `interactions.cosmology_lambda_sign_split` | interactions | live | standalone | F408 F164 F61 F193 F196 F183 F190 F332 F367 F241 F79 F86 | exact | 1 | cosmology_lambda_sign_split.py -- the a0/a1 SIGN SPLIT of the model's one |
 | `interactions.cosmology_lattice_elasticity` | interactions | live | standalone | F283 F284 | exact | 1 | cosmology_lattice_elasticity.py — Can the BCC lattice be elastic? (F283, F284) |
 | `interactions.cosmology_primordial` | interactions | live | standalone | F282 | exact |  | cosmology_primordial.py — Does the lattice admit an inflaton? (F282) |
 | `interactions.cosmology_second_scale` | interactions | live | standalone | F286 | exact | 1 | cosmology_second_scale.py — What could supply the 3.5% tilt? (F286) |
@@ -157,6 +170,7 @@
 | `interactions.gravity_emergent` | interactions | live | test-only |  |  |  | ca_emergent_gravity.py -- Model-native emergent-gravity ("dark matter without |
 | `interactions.gravity_emqg` | interactions | live | driven (29 ch) |  |  |  | ca_emqg.py — EMQG modified Poisson + c(φ) coupling (Paper 6) |
 | `interactions.gravity_field_equation_uniqueness` | interactions | live | standalone | F345 F178 F297 F59 F319 F288 F291 F326 F79 F107 F64 F106 F309 | exact | 1 | gravity_field_equation_uniqueness.py -- why the induced Einstein equation is |
+| `interactions.gravity_four_derivative_locality` | interactions | live | standalone | F383 F345 F57 F56 F319 | quantitative | 1 | gravity_four_derivative_locality.py -- does lattice locality FORBID the |
 | `interactions.horizon_entanglement` | interactions | live | standalone | F355 F190 F300 F183 F278 | quantitative | 1 | horizon_entanglement.py — the boundary entanglement entropy of the BCC vacuum |
 | `interactions.horizon_entropy` | interactions | live | test-only |  |  |  | ca_horizon_entropy.py -- Lattice microstates & the Bekenstein-Hawking area law |
 | `interactions.inspiral` | interactions | live | test-only |  |  |  | ca_inspiral.py -- Compact-binary inspiral & GW phasing (post-Newtonian) |
@@ -174,7 +188,7 @@
 | `interactions.qed_schwinger_pair` | interactions | live | test-only |  |  |  | ca_schwinger_pair.py — Schwinger pair production (F263): the non-perturbative |
 | `interactions.qed_twoloop_ae` | interactions | live | test-only |  |  |  | ca_twoloop_ae.py — the two-loop QED electron anomalous moment a_e (the A2 term) |
 | `interactions.qed_twoloop_vacuum_polarization_nonlog` | interactions | live | standalone | F336 F251 F261 F311 F322 | quantitative | 1 | qed_twoloop_vacuum_polarization_nonlog.py — extending F261's dispersive machinery |
-| `interactions.qed_uv_completion` | interactions | live | standalone | F319 F264 F164 F116 F284 F59 F79 F107 F251 F301 F69 F26 | exact | 1 | qed_uv_completion.py — the UV sector reconciled: a physical cutoff AND a |
+| `interactions.qed_uv_completion` | interactions | live | standalone | F319 F264 F164 F116 F284 F59 F79 F107 F251 F301 F69 F26 | quantitative | 1 | qed_uv_completion.py — the UV sector reconciled: a physical cutoff AND a |
 | `interactions.qed_vacuum_polarization` | interactions | live | test-only |  |  |  | ca_vacuum_polarization.py — the interacting one-loop QED photon self-energy |
 | `interactions.qed_vertex_loop` | interactions | live | test-only |  |  |  | ca_vertex_loop.py — the interacting one-loop QED vertex correction |
 | `interactions.qi_algorithms` | interactions | live | test-only |  |  |  | ca_quantum_algorithms.py — quantum algorithms from the native gate set (F218) |
@@ -183,6 +197,7 @@
 | `interactions.qi_born_gleason` | interactions | live | standalone | F304 F281 F290 F227 F87 F41 | exact | 1 | qi_born_gleason.py — the Born rule as a **theorem** on the lattice (completeness row A6) |
 | `interactions.qi_born_nonabelian` | interactions | live | standalone | F312 | exact | 1 | qi_born_nonabelian.py — Gleason's premises on SU(2)_L and SU(3)_c (F312) |
 | `interactions.qi_cluster` | interactions | live | standalone | F290 F227 F226 F212 F281 | machine | 1 | qi_cluster.py — cluster decomposition and exact no-signalling (row A10) |
+| `interactions.qi_cluster_asymptotic_series` | interactions | live | standalone | F380 F331 F290 | quantitative | 1 | qi_cluster_asymptotic_series.py — F380: naming F331's residual as ONE object |
 | `interactions.qi_cluster_interacting_3d` | interactions | live | standalone | F331 F290 F267 F77 F26 | quantitative | 1 | qi_cluster_interacting_3d.py — F290's residual 1, closed for the interacting |
 | `interactions.qi_decoherence_floor` | interactions | live | test-only |  |  |  | ca_decoherence_floor.py — intrinsic-decoherence / unitarity floor (F227) |
 | `interactions.qi_entanglement` | interactions | live | driven (5 ch) |  |  |  | ca_entanglement.py — genuine many-body (2^n) entanglement on the lattice (F212) |
@@ -190,6 +205,7 @@
 | `interactions.qi_measurement` | interactions | live | standalone | F281 F227 F226 F212 F218 F130 F133 F87 F41 | exact | 1 | qi_measurement.py — the measurement problem on the lattice (completeness row A8) |
 | `interactions.qi_noise` | interactions | live | driven |  |  |  | ca_quantum_noise.py — decoherence channels + stabilizer error correction (F221) |
 | `interactions.qi_qc_si` | interactions | live | test-only |  |  |  | ca_qc_si.py — SI-anchoring of the quantum-computing / super-exchange sector (F224) |
+| `interactions.qi_so3_kinematic_gap` | interactions | live | standalone | F379 F330 F289 F344 F129 F130 | exact | 1 | qi_so3_kinematic_gap.py — the model's emergent CONTINUOUS SO(3) is the wrong |
 | `interactions.qi_spin_statistics` | interactions | live | standalone | F289 F291 F292 F217 F195 F68 F26 | exact | 1 | qi_spin_statistics.py — the spin-statistics connection (completeness row A9) |
 | `interactions.qnm` | interactions | live | test-only |  |  |  | ca_qnm.py -- Quasinormal-mode ringdown spectrum (WKB Regge-Wheeler) |
 | `interactions.raytrace` | interactions | partial | test-only |  |  |  | ca_raytrace.py -- Black-hole shadow by null-geodesic ray tracing + mu-as map |
@@ -218,6 +234,7 @@
 | `lattice.blockspin_binding` | lattice | live | test-only |  |  |  | ca_blockspin_binding.py — Phase-2: a coarse-grained bound state reproduces the |
 | `lattice.blockspin_dynamical` | lattice | live | test-only |  |  |  | ca_blockspin_dynamical.py — coarse-graining the dynamical / relativistic bound |
 | `lattice.cell_internal_index` | lattice | live | standalone | F318 F317 F291 F313 F315 F289 F122 | exact | 1 | cell_internal_index.py — can the model's CELL carry an internal index? |
+| `lattice.coordination_selector` | lattice | live | standalone (1 ch) | F400 | exact |  | coordination_selector.py — why BCC and not diamond-cubic (F400) |
 | `lattice.core` | lattice | live | driven (29 ch) |  |  |  | ca_core.py — Cellular Automaton physics core |
 | `lattice.core_exact` | lattice | live | driven (22 ch) |  |  |  | ca_core_exact.py — Exact-arccos 2D Weyl QCA (Paper 1 Eq. 16) |
 | `lattice.curved` | lattice | live | driven (29 ch) |  |  | 1 | ca_curved.py — Variable-c stepper (Phase C1) |
@@ -228,6 +245,7 @@
 | `lattice.multigrid` | lattice | live | driven (9 ch) |  |  |  | ca_multigrid.py |
 | `lattice.poisson_open` | lattice | live | driven (29 ch) |  |  |  | poisson_open.py — Open-boundary 3D Poisson solver |
 | `lattice.si_scale` | lattice | live | driven (3 ch) |  |  |  | ca_si_scale.py |
+| `lattice.time_generator_axiom_independence` | lattice | live | standalone | F377 | quantitative |  | time_generator_axiom_independence.py — P1 is independent of the five BDPT |
 | `lattice.time_signature` | lattice | live | standalone | F313 | exact |  | time_signature.py — why exactly ONE time, from the commutant of the update |
 | `lattice.time_signature_interacting` | lattice | live | standalone | F315 | machine |  | time_signature_interacting.py — F313 falsifier 5: V does not survive interaction |
 | `lattice.time_single_generator` | lattice | live | standalone | F326 | machine |  | time_single_generator.py — the "+1" closes: no second candidate generator (F326) |
@@ -236,20 +254,26 @@
 | `particles.atom` | particles | live | test-only |  |  |  | ca_atom.py |
 | `particles.baryon` | particles | live | driven (9 ch) |  |  |  | ca_baryon.py — colour-singlet three-quark (baryon / proton) construction (FG-10) |
 | `particles.baryon_dynamics` | particles | live | driven (3 ch) |  |  |  | ca_baryon_dynamics.py |
+| `particles.baryon_mass_decomposition` | particles | live | standalone | F402 F122 F123 F77 F144 F152 | quantitative |  | baryon_mass_decomposition.py — the Ji-type four-term nucleon-mass decomposition, |
 | `particles.derive_M_R_scale_link` | particles | live | standalone | F343 F47 F79 F107 F201 F236 F253 F282 F341 | exact | 1 | derive_M_R_scale_link.py -- F343: does anything fix the absolute Majorana scale M_R? |
 | `particles.derive_colour_condensate` | particles | live | test-only |  |  |  | derive_colour_condensate.py — the colour-magnetic condensate derived, not assumed (F88) |
+| `particles.derive_composite_scalar_fermion_coupling` | particles | live | standalone | F399 F73 F74 F77 | quantitative | 1 | F399 -- does the F73 Cooper-pair Higgs candidate have a natural coupling to fermions? |
 | `particles.derive_delta_cp_t2g` | particles | live | standalone | F353 F92 F236 F254 | exact |  | derive_delta_cp_t2g.py — does F254's T_2g no-go inherit to the Dirac CP phase? |
 | `particles.derive_generation_identification_gap` | particles | live | standalone | F342 F75 F292 F324 F27 F38 | exact | 1 | casim.engine.particles.derive_generation_identification_gap |
 | `particles.derive_generator_norm` | particles | partial | entry-script | F118 |  |  | [PRE-DECISION FRAMING 2026-07-16 — ledger S6-F253-weight-as-phase] |
 | `particles.derive_higgs_bhl_compositeness` | particles | live | standalone | F352 F73 F74 F77 F107 | quantitative | 1 | Ledger E8 / parameter #18 (m_H = 125.25 GeV): a Bardeen-Hill-Lindner (BHL) |
 | `particles.derive_lambda6_sextic` | particles | partial | entry-script |  |  |  | E1 residual: attempt to derive lambda_6 = 0.243 (the E_g sextic clock coupling) |
+| `particles.derive_lepton_frame_fork` | particles | live | standalone | F406 F403 F118 F95 F93 F175 | quantitative | 1 | casim.engine.particles.derive_lepton_frame_fork |
 | `particles.derive_lepton_shape_precision_floor` | particles | live | standalone | F348 F175 F92 F174b F76 F256 | quantitative | 1 | derive_lepton_shape_precision_floor.py -- F348: is the charged-lepton shape residual |
+| `particles.derive_oh_residual_pmns` | particles | live | standalone | F403 F254 F236 F93 F76 F75 | quantitative | 1 | casim.engine.particles.derive_oh_residual_pmns |
+| `particles.derive_quark_B_colour_charge` | particles | live | standalone | F405 F95 F80 F92 F346 F347 | quantitative | 1 | derive_quark_B_colour_charge.py -- F405: F95's Dirac-sea cubic B with quark |
 | `particles.derive_quark_mixed_koide_probe` | particles | live | standalone | F347 F346 F80 F92 F121 F123 F175 | quantitative | 1 | derive_quark_mixed_koide_probe.py -- F347: the literature-favoured MIXED-generation-type |
 | `particles.derive_quark_shape_probe` | particles | live | standalone | F346 F80 F92 F121 F123 F175 | quantitative | 1 | derive_quark_shape_probe.py -- F346: does the charged-lepton E_g/T_1u shape mechanism |
 | `particles.derive_t2g_pmns` | particles | live | test-only |  |  |  | derive_t2g_pmns_selector.py — is there a lattice selector for the T_2g PMNS channel? |
 | `particles.dirac` | particles | live | driven (22 ch) |  |  |  | ca_dirac.py — Dirac CA on a flat lattice (Phase D1) — exact-QCA form |
 | `particles.dirac_bcc` | particles | live | driven (9 ch) |  |  |  | ca_dirac_bcc.py — Dirac CA on the 3D BCC lattice (exact-QCA form) |
 | `particles.discrete_cpt` | particles | live | standalone | F328 F53 F301 F327 F26 | exact | 1 | discrete_cpt.py — F328: an exact discrete CPT theorem for the free BCC Dirac walk |
+| `particles.discrete_cpt_gauged` | particles | live | standalone | F378 F328 F53 F91 | exact | 1 | discrete_cpt_gauged.py — F378: extending F328's discrete CPT theorem to the |
 | `particles.eg_sextic` | particles | live | test-only |  |  |  | ca_eg_sextic_coupling.py — the saturated-condensate induced-coupling solve for |
 | `particles.element` | particles | live | test-only |  |  |  | ca_element.py |
 | `particles.higgs` | particles | live | package-only |  |  |  | ca_higgs.py — Complex scalar Φ (Higgs) field CA |
@@ -262,7 +286,7 @@
 | `particles.positronium` | particles | live | test-only |  |  |  | ca_positronium.py — bound-state QED part 1: positronium reduced-mass spectrum, the 7/12 ortho-para hyperfine splitting, and the para/ortho decay rates (F262) |
 | `particles.second_quant` | particles | live | driven |  |  |  | ca_second_quant.py — field-native second quantization on a lattice chain (F217) |
 
-*254 registered module(s); **52 are channel-driven** (20%), which is P6's kernel-coverage question as a value rather than a survey. Fork status: 25 `fork_live`, 23 `fork_unclaimed` — a recorded negative result, not dead code.*
+*278 registered module(s); **52 are channel-driven** (19%), which is P6's kernel-coverage question as a value rather than a survey. Fork status: 27 `fork_live`, 23 `fork_unclaimed` — a recorded negative result, not dead code.*
 
 ## `casim` — the package layer (CLI, suite, io, analysis, viz, gui)
 

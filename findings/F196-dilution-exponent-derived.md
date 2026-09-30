@@ -1,5 +1,13 @@
 # F196 — The holographic dilution exponent $p=2$ is **derived from the lattice**, closing F193's named obstruction: $p=3-1$ (spatial volume minus the Schwarzschild mass–radius law), reproduced independently by the F190 horizon-area entropy with Gibbons–Hawking equipartition; the residual collapses from "an unknown exponent" to "the $\Omega_\Lambda$ coincidence factor"
 
+> **[SUB-CLAIM SUPERSEDED 2026-09-27 by F319, F408 — ledger S25-F193-partA-excluded-and-secB-sign-reading]**
+>
+> **DEAD:** The reading of p=2 as the exponent in rho_Lambda = rho_vac (a/R_H)^p, i.e. as a dilution law for the zero-point sum.
+>
+> **STILL LIVE:** EVERYTHING F196 COMPUTES. Both routes (F183 Schwarzschild capacity; F190 area count x Gibbons-Hawking T) compute the capacity ceiling rho(L) = 3c^4/8piG L^2 directly from G, never from rho_vac; the L^-2 scaling, the landing at rho_crit and the Omega_Lambda hand-down to F241 all stand. F408 identifies this ceiling as the a1 (positive) object.
+>
+> *See [`docs/theory/supersessions.yaml`](../docs/theory/supersessions.yaml) for the full record.*
+
 **Date:** 2026-06-30 - 18:10
 **Numbering:** **F196** (re-checked; prior max F193).
 **Status:** **Closes the F193 exponent obstruction.** The dilution exponent in the F193 residual $\rho_\Lambda=\rho_\text{vac}(a/R_H)^{p}$ is shown to be $p=2$ **exactly** and from the model's own structure, by two independent model-native routes that converge on the *same* closed form $\rho=3c^4/(8\pi G R_H^2)=\rho_\text{crit}$ — within a factor $1.26$ ($\Delta\log_{10}=0.10$) of the observed $\rho_\Lambda$, the leftover being exactly the coincidence factor $\Omega_\Lambda\approx0.69$. The competing statistical ($\sqrt N$, $p=3/2$) route is excluded by $>30$ orders, so the effect is gravitational/holographic, not a mode-counting fluctuation. 5/5 checks PASS.

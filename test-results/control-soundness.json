@@ -1,62 +1,632 @@
 {
-  "generated": "2026-09-06 - 06:22",
-  "elapsed_s": 220.57,
-  "n_records": 111,
-  "n": 192,
+  "generated": "2026-09-27 - 11:51",
+  "elapsed_s": 1.38,
+  "n_records": 1,
+  "n": 5,
   "counts": {
-    "CONTROL": 154,
-    "NOCTRL": 37,
-    "INVALID": 1
+    "CONTROL": 5
   },
-  "unsound": [
-    "F350-ws-mask-cutcell#control0"
-  ],
-  "no_control": [
-    "F24-sl2c-covariance-full",
-    "F247-q3-omega-degeneracy",
-    "F272-F273-bz-period-lattices",
-    "F278-bcc-lattice-constant",
-    "F279-hypercharge-attribution",
-    "F282-inflaton-candidate-slowroll",
-    "F283-elastic-lattice-excluded",
-    "F285-initial-condition-measure",
-    "F286-second-scale-classification",
-    "F295-tilt-is-an-anomalous-dimension",
-    "F296-holographic-anomalous-dimension",
-    "F301-boost-covariance-defect",
-    "F302-bilinear-so3-covariance",
-    "F314-photon-packet-propagation",
-    "P3.2-engine-clock",
-    "P3.3-exchange-bus",
-    "P3.4-P3.6-total-energy-and-gravity-loop",
-    "backend",
-    "casim-exactness",
-    "checkpoint-ops",
-    "chiral-core-caching",
-    "claims-registry-is-true",
-    "constants-consistency",
-    "device-precision-gate",
-    "engine-reproduces-kernels",
-    "fft-backend-equivalence",
-    "field-dump-vtk",
-    "gravity-element",
-    "gui-render-spinor",
-    "index-integrity",
-    "particle-layer",
-    "registry-entries",
-    "registry-integrity",
-    "results-compare",
-    "scenario-schema-v2",
-    "supersession-ledger",
-    "viz-api"
-  ],
+  "unsound": [],
+  "no_control": [],
   "items": [
+    {
+      "id": "F408-cc-sign-split#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.28720927238464355,
+      "detail": "`--param lichnerowicz_E=0` reddens exactly ['S1-a1-positive', 'S1-eta-is-gstar-over-12', 'S1-sign-split', 'S2-cell-matches-content', 'S2-F196-positive', 'S4-tension-positive'] of 13 leg(s)",
+      "metrics": {
+        "fingerprint": "98d14c658a9fb8b6",
+        "control_index": 0,
+        "reason": "deleting the Lichnerowicz R/4 term makes the statistics-signed per-Weyl a1 NEGATIVE -- proves the positive a1 (and with it G>0, F196's sign, the positive capacity tension, and the canonical cell's content) comes from the R/4 term, not from a hardcoded sign",
+        "params": {
+          "lichnerowicz_E": "0"
+        },
+        "reds": [
+          "S1-a1-positive",
+          "S1-eta-is-gstar-over-12",
+          "S1-sign-split",
+          "S2-cell-matches-content",
+          "S2-F196-positive",
+          "S4-tension-positive"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.25,
+        "baseline_legs": 13,
+        "reds_resolved": [
+          "S1-a1-positive",
+          "S1-eta-is-gstar-over-12",
+          "S1-sign-split",
+          "S2-cell-matches-content",
+          "S2-F196-positive",
+          "S4-tension-positive"
+        ],
+        "legs_total": 13,
+        "reddened": 6,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F408-cc-sign-split#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.04834413528442383,
+      "detail": "`--param fundamental_bosons=97` reddens exactly ['S1-a0-negative', 'S1-eta-is-gstar-over-12', 'S1-sign-split', 'S2-cell-matches-content', 'S2-F193B-negative', 'S2-ratio-closed-form', 'S3-no-saturation-for-a0', 'S3-no-horizon-for-a0'] of 13 leg(s)",
+      "metrics": {
+        "fingerprint": "98d14c658a9fb8b6",
+        "control_index": 1,
+        "reason": "a real-scalar tower larger than the 96 fermionic dof (the bosonic tower F164/F67-F69 say the model does not have) flips a0 positive -- the ceiling then has a saturation root and a real horizon; the content no longer matches the canonical cell, so the cell and ratio legs go red too",
+        "params": {
+          "fundamental_bosons": 97
+        },
+        "reds": [
+          "S1-a0-negative",
+          "S1-eta-is-gstar-over-12",
+          "S1-sign-split",
+          "S2-cell-matches-content",
+          "S2-F193B-negative",
+          "S2-ratio-closed-form",
+          "S3-no-saturation-for-a0",
+          "S3-no-horizon-for-a0"
+        ],
+        "strength": "strong",
+        "baseline_legs": 13,
+        "reds_resolved": [
+          "S1-a0-negative",
+          "S1-eta-is-gstar-over-12",
+          "S1-sign-split",
+          "S2-cell-matches-content",
+          "S2-F193B-negative",
+          "S2-ratio-closed-form",
+          "S3-no-saturation-for-a0",
+          "S3-no-horizon-for-a0"
+        ],
+        "legs_total": 13,
+        "reddened": 8,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F408-cc-sign-split#control2",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.02631545066833496,
+      "detail": "`--param fundamental_vectors=12` reddens exactly ['S1-a1-positive', 'S1-eta-is-gstar-over-12', 'S1-sign-split', 'S2-cell-matches-content', 'S2-F196-positive', 'S2-ratio-closed-form', 'S4-tension-positive'] of 13 leg(s)",
+      "metrics": {
+        "fingerprint": "98d14c658a9fb8b6",
+        "control_index": 2,
+        "reason": "the named falsifier of the a1 sign: if the 12 gauge bosons were fundamental massless vectors (each -4 scalar units of a1 with ghosts) the sum over 48 Weyl + 12 vectors is exactly zero -- no induced 1/G at this order, no positive ceiling, no tension",
+        "params": {
+          "fundamental_vectors": 12
+        },
+        "reds": [
+          "S1-a1-positive",
+          "S1-eta-is-gstar-over-12",
+          "S1-sign-split",
+          "S2-cell-matches-content",
+          "S2-F196-positive",
+          "S2-ratio-closed-form",
+          "S4-tension-positive"
+        ],
+        "strength": "strong",
+        "baseline_legs": 13,
+        "reds_resolved": [
+          "S1-a1-positive",
+          "S1-eta-is-gstar-over-12",
+          "S1-sign-split",
+          "S2-cell-matches-content",
+          "S2-F196-positive",
+          "S2-ratio-closed-form",
+          "S4-tension-positive"
+        ],
+        "legs_total": 13,
+        "reddened": 7,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F408-cc-sign-split#control3",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.030651330947875977,
+      "detail": "`--param zero_point_weight=0.5` reddens exactly ['S2-ratio-closed-form'] of 13 leg(s)",
+      "metrics": {
+        "fingerprint": "98d14c658a9fb8b6",
+        "control_index": 3,
+        "reason": "halving the 1/2-per-mode zero-point weight in the a0 term alone breaks the content-consistent closed form 4 N_b I_cc/(3 sum eta) = 24 sqrt3 pi and nothing else",
+        "params": {
+          "zero_point_weight": 0.5
+        },
+        "reds": [
+          "S2-ratio-closed-form"
+        ],
+        "strength": "strong",
+        "baseline_legs": 13,
+        "reds_resolved": [
+          "S2-ratio-closed-form"
+        ],
+        "legs_total": 13,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F408-cc-sign-split#control4",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.03256869316101074,
+      "detail": "`--param sequester=False` reddens exactly ['S5-sequestering-sign-blind'] of 13 leg(s)",
+      "metrics": {
+        "fingerprint": "98d14c658a9fb8b6",
+        "control_index": 4,
+        "reason": "evaluating the raw trace T(t0) without the Kaloper-Padilla spacetime-average subtraction leaves it linearly dependent on the constant C of either sign",
+        "params": {
+          "sequester": false
+        },
+        "reds": [
+          "S5-sequestering-sign-blind"
+        ],
+        "strength": "strong",
+        "baseline_legs": 13,
+        "reds_resolved": [
+          "S5-sequestering-sign-blind"
+        ],
+        "legs_total": 13,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F406-lepton-frame-fork#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 15.862529754638672,
+      "detail": "`--param sea_generation_blind=False` reddens exactly ['K2_dirac_sea_generation_covariant', 'V_verdict_picture_a'] of 11 leg(s)",
+      "metrics": {
+        "fingerprint": "871eec2db67e8c8b",
+        "control_index": 0,
+        "reason": "Put generation 0 on the opposite BCC helicity branch (still unitary as shift x coin). The kinetic block is no longer generation-blind, so the Dirac sea stops being covariant under generation unitaries and the (a)/(b) tie of the derived sector breaks. K2 is what the exact tie rests on for the one derived term.",
+        "params": {
+          "sea_generation_blind": false
+        },
+        "reds": [
+          "K2_dirac_sea_generation_covariant",
+          "V_verdict_picture_a"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 8.02,
+        "baseline_legs": 11,
+        "reds_resolved": [
+          "K2_dirac_sea_generation_covariant",
+          "V_verdict_picture_a"
+        ],
+        "legs_total": 11,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F406-lepton-frame-fork#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 7.825237989425659,
+      "detail": "`--param s12sq_band=nufit60` reddens exactly ['K4_TM1_only_on_b2_no_viable_residual_on_b1', 'V_verdict_picture_a'] of 11 leg(s)",
+      "metrics": {
+        "fingerprint": "871eec2db67e8c8b",
+        "control_index": 1,
+        "reason": "Drop the JUNO-inclusive sin^2 theta12 band. The axis-C2 column (1/3,1/3,1/3) (TM2, sin^2 theta12 >= 0.341) then survives on every circulant branch, so b1 regains a viable residual. The 'no viable residual on b1' verdict (which it shares with (a), F403) rests on JUNO.",
+        "params": {
+          "s12sq_band": "nufit60"
+        },
+        "reds": [
+          "K4_TM1_only_on_b2_no_viable_residual_on_b1",
+          "V_verdict_picture_a"
+        ],
+        "strength": "strong",
+        "baseline_legs": 11,
+        "reds_resolved": [
+          "K4_TM1_only_on_b2_no_viable_residual_on_b1",
+          "V_verdict_picture_a"
+        ],
+        "legs_total": 11,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F406-lepton-frame-fork#control2",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 7.803753852844238,
+      "detail": "`--param imax_scale=4.0` reddens exactly ['K8_quadratic_phase_diagram_b1_b2_never_ground', 'V_verdict_picture_a'] of 11 leg(s)",
+      "metrics": {
+        "fingerprint": "871eec2db67e8c8b",
+        "control_index": 2,
+        "reason": "Loosen the T1g bound to (lmax - lmin)^2, 4x the operator-norm bound. The claimed minima in the b3 and T1g-block regions no longer match their witnesses, so the exact phase diagram goes red. K8 rests on I <= ((lmax - lmin)/2)^2.",
+        "params": {
+          "imax_scale": 4.0
+        },
+        "reds": [
+          "K8_quadratic_phase_diagram_b1_b2_never_ground",
+          "V_verdict_picture_a"
+        ],
+        "strength": "strong",
+        "baseline_legs": 11,
+        "reds_resolved": [
+          "K8_quadratic_phase_diagram_b1_b2_never_ground",
+          "V_verdict_picture_a"
+        ],
+        "legs_total": 11,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F405-quark-B-colour-charge#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 3.678717851638794,
+      "detail": "`--param generation_charges_up=['2/3', '2/3', '-1/3']` reddens exactly ['U1_uniform_dressing_Q_invariant'] of 11 leg(s)",
+      "metrics": {
+        "fingerprint": "6ee8d9f7df196af0",
+        "control_index": 0,
+        "reason": "Give the three up-type generations different electric charges. The gauge dressing is then no longer a generation scalar, the dressed Koide Q moves, and U1 goes red. The no-go rests on colour and charge being the same on all three generations of a sector.",
+        "params": {
+          "generation_charges_up": [
+            "2/3",
+            "2/3",
+            "-1/3"
+          ]
+        },
+        "reds": [
+          "U1_uniform_dressing_Q_invariant"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 2.16,
+        "baseline_legs": 11,
+        "reds_resolved": [
+          "U1_uniform_dressing_Q_invariant"
+        ],
+        "legs_total": 11,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F405-quark-B-colour-charge#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 1.2338628768920898,
+      "detail": "`--param mass_dependent_dressing=True` reddens exactly ['U2_gauge_running_Q_invariant'] of 11 leg(s)",
+      "metrics": {
+        "fingerprint": "6ee8d9f7df196af0",
+        "control_index": 1,
+        "reason": "Replace mass-independent gauge running (a uniform rescale of every mass) by a mass-dependent power law m -> m^(1+gamma). Intra-sector ratios then run and Q moves, so U2 goes red. The no-go holds only for mass-independent dressing; the power law is the P1 loophole.",
+        "params": {
+          "mass_dependent_dressing": true
+        },
+        "reds": [
+          "U2_gauge_running_Q_invariant"
+        ],
+        "strength": "strong",
+        "baseline_legs": 11,
+        "reds_resolved": [
+          "U2_gauge_running_Q_invariant"
+        ],
+        "legs_total": 11,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F404-koide-pseudomass-fork#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 16.7551589012146,
+      "detail": "`--param down_signs=+++` reddens exactly ['P3_schur_horn_delta_windows', 'P4b_universal_delta_star_fits_with_signed_down', 'P7_signed_route_nonpredictive_but_angles_correlated'] of 8 leg(s)",
+      "metrics": {
+        "fingerprint": "4832189a6a0200cb",
+        "control_index": 0,
+        "reason": "Make every down amplitude positive, as for the charged leptons. The universal E_g angle delta* = 2/9 leaves the down sector's Schur-Horn window, so P3 goes red, and no exact-Koide solution with the measured CKM exists at any tested angle pair, so P4b and P7 go red. This is what the negative lightest down amplitude is doing -- it is the whole of the route's viability.",
+        "params": {
+          "down_signs": "+++"
+        },
+        "reds": [
+          "P3_schur_horn_delta_windows",
+          "P4b_universal_delta_star_fits_with_signed_down",
+          "P7_signed_route_nonpredictive_but_angles_correlated"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 6.85,
+        "baseline_legs": 8,
+        "reds_resolved": [
+          "P3_schur_horn_delta_windows",
+          "P4b_universal_delta_star_fits_with_signed_down",
+          "P7_signed_route_nonpredictive_but_angles_correlated"
+        ],
+        "legs_total": 8,
+        "reddened": 3,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F404-koide-pseudomass-fork#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 5.4252610206604,
+      "detail": "`--param ckm_weight=0.0` reddens exactly ['P4a_lepton_like_amplitudes_fail_jointly'] of 8 leg(s)",
+      "metrics": {
+        "fingerprint": "4832189a6a0200cb",
+        "control_index": 1,
+        "reason": "Drop the CKM from the joint problem. Lepton-like (all-positive) amplitudes then reach exact Koide in both sectors easily, so P4a goes red. The all-positive failure is a CKM incompatibility, not an inability to make each sector Koide on its own.",
+        "params": {
+          "ckm_weight": 0.0
+        },
+        "reds": [
+          "P4a_lepton_like_amplitudes_fail_jointly"
+        ],
+        "strength": "strong",
+        "baseline_legs": 8,
+        "reds_resolved": [
+          "P4a_lepton_like_amplitudes_fail_jointly"
+        ],
+        "legs_total": 8,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F404-koide-pseudomass-fork#control2",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 7.4936301708221436,
+      "detail": "`--param koide_weight=10000.0` reddens exactly ['P4a_lepton_like_amplitudes_fail_jointly'] of 8 leg(s)",
+      "metrics": {
+        "fingerprint": "4832189a6a0200cb",
+        "control_index": 2,
+        "reason": "Stiffen the Koide penalty 100x. The search then buys Koide at the CKM's expense (the old 1.9e-3 'minimum' sat at |V_cb| = 0.124), no solution holds the CKM at chi^2 <= 1, and P4a goes red because it refuses to report a penalty compromise as a Koide violation. Added by the 2026-09-24 review, which found the shipped figure scaled as 1/koide_weight.",
+        "params": {
+          "koide_weight": 10000.0
+        },
+        "reds": [
+          "P4a_lepton_like_amplitudes_fail_jointly"
+        ],
+        "strength": "strong",
+        "baseline_legs": 8,
+        "reds_resolved": [
+          "P4a_lepton_like_amplitudes_fail_jointly"
+        ],
+        "legs_total": 8,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F403-oh-residual-pmns#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 30.677931785583496,
+      "detail": "`--param frame=trimaximal` reddens exactly ['N1_no_viable_unitary_residual', 'S2_no_viable_residual_subgroup'] of 15 leg(s)",
+      "metrics": {
+        "fingerprint": "2d47dc2412cbf325",
+        "control_index": 0,
+        "reason": "Move the charged leptons from the cube-axis (E_g) frame to the [111]-trimaximal frame. The face-diagonal C2' then fix a TM1 column (2/3, 1/6, 1/6) and the axis C2 a TM2 column (1/3, 1/3, 1/3), both inside the NuFIT 6.0 3-sigma box, so N1 goes red. This is what the charged-lepton frame is doing -- the no-go is a statement about the E_g reading, not about O_h in general.",
+        "params": {
+          "frame": "trimaximal"
+        },
+        "reds": [
+          "N1_no_viable_unitary_residual",
+          "S2_no_viable_residual_subgroup"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 15.61,
+        "baseline_legs": 15,
+        "reds_resolved": [
+          "N1_no_viable_unitary_residual",
+          "S2_no_viable_residual_subgroup"
+        ],
+        "legs_total": 15,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F403-oh-residual-pmns#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 14.707802772521973,
+      "detail": "`--param theta13_lo_deg=0.0` reddens exactly ['N1_no_viable_unitary_residual', 'N2_minimum_modulus_positive', 'B2_trimaximal_frame_TM1_viable', 'B4_TM1_delta_correlation', 'S2_no_viable_residual_subgroup', 'S3_trimaximal_subgroup_survivors_single_column', 'S4_bcc_nn_frame_nonorthogonal_face_frame_no_go'] of 15 leg(s)",
+      "metrics": {
+        "fingerprint": "2d47dc2412cbf325",
+        "control_index": 1,
+        "reason": "Let the data allow theta13 = 0. Cube-axis columns with a single zero (e.g. the C2' column (0, 1/2, 1/2) as a TBM-like third column) become viable, so N1 and N2 go red, and extra trimaximal-frame residuals survive so B2's exact survivor count goes red. The no-go rests on the measured theta13 != 0.",
+        "params": {
+          "theta13_lo_deg": 0.0
+        },
+        "reds": [
+          "N1_no_viable_unitary_residual",
+          "N2_minimum_modulus_positive",
+          "B2_trimaximal_frame_TM1_viable",
+          "B4_TM1_delta_correlation",
+          "S2_no_viable_residual_subgroup",
+          "S3_trimaximal_subgroup_survivors_single_column",
+          "S4_bcc_nn_frame_nonorthogonal_face_frame_no_go"
+        ],
+        "strength": "strong",
+        "baseline_legs": 15,
+        "reds_resolved": [
+          "N1_no_viable_unitary_residual",
+          "N2_minimum_modulus_positive",
+          "B2_trimaximal_frame_TM1_viable",
+          "B4_TM1_delta_correlation",
+          "S2_no_viable_residual_subgroup",
+          "S3_trimaximal_subgroup_survivors_single_column",
+          "S4_bcc_nn_frame_nonorthogonal_face_frame_no_go"
+        ],
+        "legs_total": 15,
+        "reddened": 7,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F399-composite-scalar-fermion-coupling#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.01205897331237793,
+      "detail": "`--param channel=PS` reddens exactly ['sigma_coupling_not_universal'] of 4 leg(s)",
+      "metrics": {
+        "fingerprint": "9ad10f6b5987e295",
+        "control_index": 0,
+        "reason": "checks the PSEUDOSCALAR (pion) Goldberger-Treiman ratio instead of the scalar one -- the pion ratio genuinely IS a coupling-independent constant (exact chiral-symmetry theorem, spread 6.2e-12 across the same coupling sweep, vs. the scalar's 0.81), so the leg (which requires spread > 0.5) must go red, while the other three legs (unaffected by which channel this one leg's sweep uses) stay green.",
+        "params": {
+          "channel": "PS"
+        },
+        "reds": [
+          "sigma_coupling_not_universal"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.01,
+        "baseline_legs": 4,
+        "reds_resolved": [
+          "sigma_coupling_not_universal"
+        ],
+        "legs_total": 4,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F399-composite-scalar-fermion-coupling#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.004840850830078125,
+      "detail": "`--param G_ab=0.01` reddens exactly ['species_locality_exact'] of 4 leg(s)",
+      "metrics": {
+        "fingerprint": "9ad10f6b5987e295",
+        "control_index": 1,
+        "reason": "a nonzero cross-species contact coupling in the 2-flavour toy model makes the RPA propagator matrix genuinely mix (off-diagonal residual 0.10, vs. exactly 0.0 at G_ab=0) -- this is precisely the missing ingredient (an explicit Yukawa-like cross-species vertex) a kappa-framework-compatible universal coupling would require and that NB2-001 established this model supplies nowhere; the other three legs (independent of the toy model) stay green.",
+        "params": {
+          "G_ab": 0.01
+        },
+        "reds": [
+          "species_locality_exact"
+        ],
+        "strength": "strong",
+        "baseline_legs": 4,
+        "reds_resolved": [
+          "species_locality_exact"
+        ],
+        "legs_total": 4,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F398-pryce-composite-commutator#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 2.7053730487823486,
+      "detail": "`--param pairing=shared` reddens exactly ['closed_form_matches_fock'] of 4 leg(s)",
+      "metrics": {
+        "fingerprint": "85f4406f806491fc",
+        "control_index": 0,
+        "reason": "every relative-momentum term shares the same fixed '-' constituent mode instead of its own momentum-conserving partner (-p), so different p terms are no longer built from disjoint fermion modes; the Wick-combinatorics identity n2 = 2(1 - sum psi^4) assumes disjoint constituent modes per term and must fail (residual jumps from 8.9e-16 to 1.94), while the other three legs (which do not depend on which specific bijection pairs '+' and '-') stay green.",
+        "params": {
+          "pairing": "shared"
+        },
+        "reds": [
+          "closed_form_matches_fock"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 1.44,
+        "baseline_legs": 4,
+        "reds_resolved": [
+          "closed_form_matches_fock"
+        ],
+        "legs_total": 4,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F398-pryce-composite-commutator#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 1.317784070968628,
+      "detail": "`--param wavefunction=uniform` reddens exactly ['deficit_shrinks_with_L'] of 4 leg(s)",
+      "metrics": {
+        "fingerprint": "85f4406f806491fc",
+        "control_index": 1,
+        "reason": "a generic normalised pair wavefunction with no near-threshold (gapless) singularity gives sum psi^4 ~ 1/N ~ L^-3, not the physical threshold wavefunction's ~L^-2 law -- with the resonance-robust (lower-envelope, half_window=4) estimator the L=10/L=100 deficit ratio becomes ~410, well outside the [20,200] band the physical ~L^-2 law is checked against, while the other three legs (which do not depend on the wavefunction's specific shape) stay green.",
+        "params": {
+          "wavefunction": "uniform"
+        },
+        "reds": [
+          "deficit_shrinks_with_L"
+        ],
+        "strength": "strong",
+        "baseline_legs": 4,
+        "reds_resolved": [
+          "deficit_shrinks_with_L"
+        ],
+        "legs_total": 4,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F397-factorization-route#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.20515203475952148,
+      "detail": "`--param formula=notebook` reddens exactly ['t2_pair_null_and_sums'] of 19 leg(s)",
+      "metrics": {
+        "fingerprint": "e6fd9b1ab0b145bc",
+        "control_index": 0,
+        "reason": "use the notebook's boxed closed form a0 = (V0^2-|V|^2+2 ahat.V)/(2 V0) instead of the null-consistent a0 = V.V/(2(V0-ahat.V)); the two legs are then not null (defect 3.83 measured at the record's seed), so the T2 null-pair leg must go red while every other leg (which uses the corrected formula, or the notebook form deliberately to document its defect) stays green.",
+        "params": {
+          "formula": "notebook"
+        },
+        "reds": [
+          "t2_pair_null_and_sums"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.1,
+        "baseline_legs": 19,
+        "reds_resolved": [
+          "t2_pair_null_and_sums"
+        ],
+        "legs_total": 19,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
     {
       "id": "F142-dielectric-noconfine#control0",
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 6.1091437339782715,
-      "detail": "`--param bag_power=1` reddens exactly ['T2a_spread_exponent', 'T2b_box_tension_falls'] of 5 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param bag_power=1` reddens exactly ['T2a_spread_exponent', 'T2b_box_tension_falls'] of 5 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e0f172facd49cec4",
         "control_index": 0,
@@ -86,7 +656,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.6967365741729736,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d04763b0fcee7857",
         "control_index": 0,
@@ -106,7 +676,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.002968311309814453,
-      "detail": "`--param h=0.001` reddens exactly ['weyl_closed_form', 'dirac_closed_form'] of 8 leg(s)  [journalled]",
+      "detail": "`--param h=0.001` reddens exactly ['weyl_closed_form', 'dirac_closed_form'] of 8 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6f2aac8f3d0cb49d",
         "control_index": 0,
@@ -136,7 +706,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 17.9351544380188,
-      "detail": "`--param tol=0` reddens exactly ['drift_matches_closed_form'] of 3 leg(s)  [journalled]",
+      "detail": "`--param tol=0` reddens exactly ['drift_matches_closed_form'] of 3 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "acb69b2e53117494",
         "control_index": 0,
@@ -164,7 +734,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.3594331741333008,
-      "detail": "`--param tol=0` reddens exactly ['identity_holds'] of 4 leg(s)  [journalled]",
+      "detail": "`--param tol=0` reddens exactly ['identity_holds'] of 4 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e6a4d8adb05364f8",
         "control_index": 0,
@@ -192,7 +762,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d074db5e03d0a622"
       },
@@ -203,7 +773,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0321650505065918,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "1206ae98fd1fa67d",
         "control_index": 0,
@@ -223,7 +793,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.036607980728149414,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "b526603932ae4f31",
         "control_index": 0,
@@ -243,7 +813,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ed481befc17bc43f"
       },
@@ -254,7 +824,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.009499311447143555,
-      "detail": "`--param axis_control=True` reddens exactly ['algebraic_identity', 'eigensolver_identity', 'f24_mean_reproduced'] of 5 leg(s)  [journalled]",
+      "detail": "`--param axis_control=True` reddens exactly ['algebraic_identity', 'eigensolver_identity', 'f24_mean_reproduced'] of 5 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "aa06d3e9bbd61f08",
         "control_index": 0,
@@ -286,7 +856,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d9d960397de8aeaf"
       },
@@ -297,7 +867,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 6.656687021255493,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d5b86012544d5ae7",
         "control_index": 0,
@@ -318,7 +888,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "c2a1f4f971134eff"
       },
@@ -329,7 +899,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f58b27dc1660a00a"
       },
@@ -340,7 +910,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 50.01280117034912,
-      "detail": "`--param lambda_wilson=1.0` reddens exactly ['S5', 'S6'] of 6 leg(s)  [journalled]",
+      "detail": "`--param lambda_wilson=1.0` reddens exactly ['S5', 'S6'] of 6 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9eb9b1e6081cf4ca",
         "control_index": 0,
@@ -370,7 +940,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.9092161655426025,
-      "detail": "`--param coupling=nonminimal` reddens exactly ['M1a', 'M1b', 'M1f'] of 20 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param coupling=nonminimal` reddens exactly ['M1a', 'M1b', 'M1f'] of 20 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "90c62dee3f6eec4e",
         "control_index": 0,
@@ -402,7 +972,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.1204862594604492,
-      "detail": "`--param flip_angle_over_pi=1.0` reddens exactly ['M2c', 'M2e'] of 20 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param flip_angle_over_pi=1.0` reddens exactly ['M2c', 'M2e'] of 20 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "90c62dee3f6eec4e",
         "control_index": 1,
@@ -431,7 +1001,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.36416077613830566,
-      "detail": "`--param block_b=1` reddens exactly ['M3c'] of 20 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param block_b=1` reddens exactly ['M3c'] of 20 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "90c62dee3f6eec4e",
         "control_index": 2,
@@ -458,7 +1028,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "605e51fd380900b3"
       },
@@ -469,9 +1039,9 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
       "metrics": {
-        "fingerprint": "07dab942da0346b3"
+        "fingerprint": "2f6ca4ee23108497"
       },
       "swept": {}
     },
@@ -480,9 +1050,9 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
       "metrics": {
-        "fingerprint": "db3ac6cebfd2f0d5"
+        "fingerprint": "453a700ce70cff66"
       },
       "swept": {}
     },
@@ -491,9 +1061,9 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
       "metrics": {
-        "fingerprint": "1aad06b97bf96872"
+        "fingerprint": "c3fcfc6f6e1984fc"
       },
       "swept": {}
     },
@@ -502,7 +1072,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 15.327760696411133,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9aa05e4046d97aad",
         "control_index": 0,
@@ -522,7 +1092,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.015536785125732422,
-      "detail": "`--param rotation_turns=2.0` reddens exactly ['S1', 'S6'] of 11 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param rotation_turns=2.0` reddens exactly ['S1', 'S6'] of 11 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "a4eac2a73aa7de3c",
         "control_index": 0,
@@ -552,7 +1122,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0064198970794677734,
-      "detail": "`--param exchange_alpha=0.5` reddens exactly ['S3'] of 11 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param exchange_alpha=0.5` reddens exactly ['S3'] of 11 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "a4eac2a73aa7de3c",
         "control_index": 1,
@@ -579,7 +1149,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0061800479888916016,
-      "detail": "`--param jw_string=False` reddens exactly ['S4'] of 11 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param jw_string=False` reddens exactly ['S4'] of 11 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "a4eac2a73aa7de3c",
         "control_index": 2,
@@ -606,7 +1176,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 7.9624810218811035,
-      "detail": "`--param locality=nonlocal` reddens exactly ['C1'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param locality=nonlocal` reddens exactly ['C1'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d66b0c1dc9da6b0d",
         "control_index": 0,
@@ -634,7 +1204,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 4.234983682632446,
-      "detail": "`--param cone_slack=-1` reddens exactly ['C2'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param cone_slack=-1` reddens exactly ['C2'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d66b0c1dc9da6b0d",
         "control_index": 1,
@@ -661,7 +1231,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 3.6607844829559326,
-      "detail": "`--param mass=0.0` reddens exactly ['C3', 'C3b', 'C3d'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param mass=0.0` reddens exactly ['C3', 'C3b', 'C3d'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d66b0c1dc9da6b0d",
         "control_index": 2,
@@ -692,7 +1262,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.091594696044922,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0f3a8a21aea7a0a5",
         "control_index": 0,
@@ -712,7 +1282,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.06856656074523926,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0f3a8a21aea7a0a5",
         "control_index": 1,
@@ -731,7 +1301,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.538233518600464,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "bdc6582b57bd6cfd",
         "control_index": 0,
@@ -751,7 +1321,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.9021105766296387,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "bdc6582b57bd6cfd",
         "control_index": 1,
@@ -770,7 +1340,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0997915267944336,
-      "detail": "`--param alpha_s_MZ=0.05` reddens exactly ['B5b'] of 17 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param alpha_s_MZ=0.05` reddens exactly ['B5b'] of 17 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "56a12c698a03411e",
         "control_index": 0,
@@ -798,7 +1368,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.039076805114746094,
-      "detail": "`--param alpha0_factor=1.25` reddens exactly ['B5b'] of 17 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param alpha0_factor=1.25` reddens exactly ['B5b'] of 17 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "56a12c698a03411e",
         "control_index": 1,
@@ -825,9 +1395,9 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
       "metrics": {
-        "fingerprint": "6d00c6d0eaf50273"
+        "fingerprint": "35d58333838012fb"
       },
       "swept": {}
     },
@@ -836,9 +1406,9 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
       "metrics": {
-        "fingerprint": "bce24d2048638086"
+        "fingerprint": "cbc50bd8112450e0"
       },
       "swept": {}
     },
@@ -847,7 +1417,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 20.542664766311646,
-      "detail": "`--param delta_m_mev=1.51` reddens exactly ['K2-11', 'K2-12'] of 15 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param delta_m_mev=1.51` reddens exactly ['K2-11', 'K2-12'] of 15 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e0a2382d9d6b58cb",
         "control_index": 0,
@@ -877,7 +1447,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0115203857421875,
-      "detail": "`--param tower=symmetric` reddens exactly ['L2', 'L3'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param tower=symmetric` reddens exactly ['L2', 'L3'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0a6b292090ebebe9",
         "control_index": 0,
@@ -907,7 +1477,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.004718780517578125,
-      "detail": "`--param n_max=3` reddens exactly ['L2'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param n_max=3` reddens exactly ['L2'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0a6b292090ebebe9",
         "control_index": 1,
@@ -934,7 +1504,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0053424835205078125,
-      "detail": "`--param numerator=casimir` reddens exactly ['L2', 'L3'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param numerator=casimir` reddens exactly ['L2', 'L3'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0a6b292090ebebe9",
         "control_index": 2,
@@ -963,7 +1533,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.0904760360717773,
-      "detail": "`--param tower=kstring` reddens exactly ['S2', 'S4b'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param tower=kstring` reddens exactly ['S2', 'S4b'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "df0da74b1fa0b7f8",
         "control_index": 0,
@@ -993,7 +1563,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.5522489547729492,
-      "detail": "`--param beta=2.0` reddens exactly ['S4'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param beta=2.0` reddens exactly ['S4'] of 10 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "df0da74b1fa0b7f8",
         "control_index": 1,
@@ -1020,7 +1590,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 14.080983400344849,
-      "detail": "`--param linear_control=True` reddens exactly ['G10-3', 'G10-4', 'G10-5', 'G10-6'] of 15 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param linear_control=True` reddens exactly ['G10-3', 'G10-4', 'G10-5', 'G10-6'] of 15 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "45e239e0c1c8e573",
         "control_index": 0,
@@ -1054,7 +1624,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 8.206624746322632,
-      "detail": "`--param nonunitary_control=True` reddens exactly ['G10-7', 'G10-9', 'G10-10'] of 15 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param nonunitary_control=True` reddens exactly ['G10-7', 'G10-9', 'G10-10'] of 15 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "45e239e0c1c8e573",
         "control_index": 1,
@@ -1085,7 +1655,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "97f3319014671bac"
       },
@@ -1096,7 +1666,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "afdacf8d93e129b2"
       },
@@ -1107,7 +1677,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.878819465637207,
-      "detail": "`--param assume_three_bond_loop=True` reddens exactly ['N3'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param assume_three_bond_loop=True` reddens exactly ['N3'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9b4b6d1fb8e3c07d",
         "control_index": 0,
@@ -1135,7 +1705,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4058108329772949,
-      "detail": "`--param scheme_residual=20.0` reddens exactly ['N4'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param scheme_residual=20.0` reddens exactly ['N4'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9b4b6d1fb8e3c07d",
         "control_index": 1,
@@ -1162,7 +1732,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4044184684753418,
-      "detail": "`--param casimir_on=False` reddens exactly ['N8'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param casimir_on=False` reddens exactly ['N8'] of 9 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9b4b6d1fb8e3c07d",
         "control_index": 2,
@@ -1189,7 +1759,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 8.176002740859985,
-      "detail": "`--param coupling=contextual` reddens exactly ['B2a', 'B2b'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param coupling=contextual` reddens exactly ['B2a', 'B2b'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "abd67ffb0546f2e3",
         "control_index": 0,
@@ -1219,7 +1789,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 4.073277950286865,
-      "detail": "`--param locality=nonlocal` reddens exactly ['B3a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param locality=nonlocal` reddens exactly ['B3a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "abd67ffb0546f2e3",
         "control_index": 1,
@@ -1246,7 +1816,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 4.3251142501831055,
-      "detail": "`--param gleason_dim=2` reddens exactly ['B5a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param gleason_dim=2` reddens exactly ['B5a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "abd67ffb0546f2e3",
         "control_index": 2,
@@ -1273,7 +1843,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 4.0874810218811035,
-      "detail": "`--param zonal=naive` reddens exactly ['B7a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param zonal=naive` reddens exactly ['B7a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "abd67ffb0546f2e3",
         "control_index": 3,
@@ -1300,7 +1870,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4087553024291992,
-      "detail": "`--param nhat_perturb=0.4` reddens exactly ['G6_mode_fork'] of 8 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
+      "detail": "`--param nhat_perturb=0.4` reddens exactly ['G6_mode_fork'] of 8 leg(s)  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "5dbe84bd54244218",
         "control_index": 0,
@@ -1328,7 +1898,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.01576685905456543,
-      "detail": "`--param exact_dt=False` reddens exactly ['analytic_matches_closed_form', 'analytic_falls_like_k2'] of 4 leg(s)  [journalled]",
+      "detail": "`--param exact_dt=False` reddens exactly ['analytic_matches_closed_form', 'analytic_falls_like_k2'] of 4 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badfe0037beb68cd",
         "control_index": 0,
@@ -1357,10 +1927,10 @@
       "id": "F307-action-consistent-d1#control0",
       "kind": "assertion",
       "status": "CONTROL",
-      "seconds": 24.581660270690918,
-      "detail": "`--param wrap_control=True` reddens exactly ['S1_refold_defect_demonstrated'] of 3 leg(s)  [journalled]  [journalled]  [journalled]",
+      "seconds": 22.92435097694397,
+      "detail": "`--param wrap_control=True` reddens exactly ['S1_refold_defect_demonstrated'] of 3 leg(s)  [journalled]",
       "metrics": {
-        "fingerprint": "db4ad990689cf9bb",
+        "fingerprint": "35666502f4bce218",
         "control_index": 0,
         "reason": "re-introduce the 2-pi refold into THIS path. S1's content is that being refold-free is what makes the shared path agree with lpt_selfenergy once that module is unrefolded, so putting the refold back must break the agreement. MEASURED.",
         "params": {
@@ -1370,7 +1940,7 @@
           "S1_refold_defect_demonstrated"
         ],
         "strength": "strong",
-        "baseline_seconds": 24.57,
+        "baseline_seconds": 22.91,
         "baseline_legs": 3,
         "reds_resolved": [
           "S1_refold_defect_demonstrated"
@@ -1386,7 +1956,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 56.61866092681885,
-      "detail": "`--param unrepair_control=True` reddens exactly ['R1_repaired_matches_F307_path'] of 6 leg(s)  [journalled]",
+      "detail": "`--param unrepair_control=True` reddens exactly ['R1_repaired_matches_F307_path'] of 6 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "1cde67f2eecb68e3",
         "control_index": 0,
@@ -1414,7 +1984,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 12.462578058242798,
-      "detail": "`--param branch_odd_control=True` reddens exactly ['GS-3', 'GS-4', 'GS-5'] of 14 leg(s)  [journalled]",
+      "detail": "`--param branch_odd_control=True` reddens exactly ['GS-3', 'GS-4', 'GS-5'] of 14 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f64c8d9582547d50",
         "control_index": 0,
@@ -1446,7 +2016,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 4.683419466018677,
-      "detail": "`--param sm_content_control=True` reddens exactly ['GS-8', 'GS-9'] of 14 leg(s)  [journalled]",
+      "detail": "`--param sm_content_control=True` reddens exactly ['GS-8', 'GS-9'] of 14 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f64c8d9582547d50",
         "control_index": 1,
@@ -1475,7 +2045,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4784739017486572,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "14a1bb0ce9abe12f",
         "control_index": 0,
@@ -1495,7 +2065,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.08154964447021484,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "14a1bb0ce9abe12f",
         "control_index": 1,
@@ -1514,7 +2084,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.24428105354309082,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "2c55bfdd4cd9c4d1",
         "control_index": 0,
@@ -1534,7 +2104,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.12127399444580078,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "2c55bfdd4cd9c4d1",
         "control_index": 1,
@@ -1553,7 +2123,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.24011826515197754,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "35d2a6479f4598b8",
         "control_index": 0,
@@ -1573,7 +2143,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.10922074317932129,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "35d2a6479f4598b8",
         "control_index": 1,
@@ -1592,7 +2162,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.11650729179382324,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "35d2a6479f4598b8",
         "control_index": 2,
@@ -1611,7 +2181,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 11.307674169540405,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ec5f2ce6db706539",
         "control_index": 0,
@@ -1631,7 +2201,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.010781526565551758,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ec5f2ce6db706539",
         "control_index": 1,
@@ -1650,7 +2220,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.6052391529083252,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ec5f2ce6db706539",
         "control_index": 2,
@@ -1669,7 +2239,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0024557113647460938,
-      "detail": "`--param h=0.001` reddens exactly ['closed_form_all_axes'] of 7 leg(s)  [journalled]",
+      "detail": "`--param h=0.001` reddens exactly ['closed_form_all_axes'] of 7 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "82f91dd85843dce1",
         "control_index": 0,
@@ -1697,7 +2267,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "dd25efd6b4576e5b"
       },
@@ -1708,7 +2278,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 5.514444828033447,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f928e7d0fe8a8686",
         "control_index": 0,
@@ -1728,7 +2298,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4892904758453369,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f928e7d0fe8a8686",
         "control_index": 1,
@@ -1747,7 +2317,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.3284590244293213,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f928e7d0fe8a8686",
         "control_index": 2,
@@ -1766,7 +2336,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.5404012203216553,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "544cfc7f5842694e",
         "control_index": 0,
@@ -1786,7 +2356,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.03038644790649414,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "544cfc7f5842694e",
         "control_index": 1,
@@ -1805,7 +2375,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.2887754440307617,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "544cfc7f5842694e",
         "control_index": 2,
@@ -1824,7 +2394,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.38716912269592285,
-      "detail": "`--param use_compensator=False` reddens exactly ['S3c', 'S3d'] of 21 leg(s)  [journalled]",
+      "detail": "`--param use_compensator=False` reddens exactly ['S3c', 'S3d'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badeb4db863d70f7",
         "control_index": 0,
@@ -1854,7 +2424,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.17498040199279785,
-      "detail": "`--param chiral_colour=True` reddens exactly ['S2a'] of 21 leg(s)  [journalled]",
+      "detail": "`--param chiral_colour=True` reddens exactly ['S2a'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badeb4db863d70f7",
         "control_index": 1,
@@ -1881,7 +2451,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.18231582641601562,
-      "detail": "`--param rule_reads_colour=True` reddens exactly ['S4b'] of 21 leg(s)  [journalled]",
+      "detail": "`--param rule_reads_colour=True` reddens exactly ['S4b'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badeb4db863d70f7",
         "control_index": 2,
@@ -1908,7 +2478,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.1853189468383789,
-      "detail": "`--param drop_d_R=True` reddens exactly ['S5d', 'S5e'] of 21 leg(s)  [journalled]",
+      "detail": "`--param drop_d_R=True` reddens exactly ['S5d', 'S5e'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badeb4db863d70f7",
         "control_index": 3,
@@ -1937,7 +2507,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.24145889282226562,
-      "detail": "`--param n_colour=4` reddens exactly ['S6b'] of 21 leg(s)  [journalled]",
+      "detail": "`--param n_colour=4` reddens exactly ['S6b'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badeb4db863d70f7",
         "control_index": 4,
@@ -1964,7 +2534,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.1578235626220703,
-      "detail": "`--param n_colour=2` reddens exactly ['S1c', 'S5d', 'S6b'] of 21 leg(s)  [journalled]",
+      "detail": "`--param n_colour=2` reddens exactly ['S1c', 'S5d', 'S6b'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "badeb4db863d70f7",
         "control_index": 5,
@@ -1995,7 +2565,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.09868168830871582,
-      "detail": "`--param internal_dispersive=True` reddens exactly ['B3', 'C1', 'C2'] of 11 leg(s)  [journalled]",
+      "detail": "`--param internal_dispersive=True` reddens exactly ['B3', 'C1', 'C2'] of 11 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "424ac4a2695cc24b",
         "control_index": 0,
@@ -2027,7 +2597,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.032578468322753906,
-      "detail": "`--param n_constituents=2` reddens exactly ['D2'] of 11 leg(s)  [journalled]",
+      "detail": "`--param n_constituents=2` reddens exactly ['D2'] of 11 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "424ac4a2695cc24b",
         "control_index": 1,
@@ -2054,7 +2624,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.04706597328186035,
-      "detail": "`--param max_clifford_k=1` reddens exactly ['A1'] of 11 leg(s)  [journalled]",
+      "detail": "`--param max_clifford_k=1` reddens exactly ['A1'] of 11 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "424ac4a2695cc24b",
         "control_index": 2,
@@ -2081,7 +2651,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.028306245803833008,
-      "detail": "`--param n_int=1` reddens exactly ['D1'] of 11 leg(s)  [journalled]",
+      "detail": "`--param n_int=1` reddens exactly ['D1'] of 11 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "424ac4a2695cc24b",
         "control_index": 3,
@@ -2108,7 +2678,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 4.1567182540893555,
-      "detail": "`--param zero_point_weight=1e-121` reddens exactly ['U8-reproduces-F164', 'U8-uniform-channel-excluded', 'U8-selectivity-required'] of 21 leg(s)  [journalled]",
+      "detail": "`--param zero_point_weight=1e-121` reddens exactly ['U8-reproduces-F164', 'U8-uniform-channel-excluded', 'U8-selectivity-required'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7f80a56debb15fe8",
         "control_index": 0,
@@ -2140,7 +2710,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.226135015487671,
-      "detail": "`--param linear_control=True` reddens exactly ['U5-closed-form-exact', 'U5-engine-faithful', 'U5-no-dim5'] of 21 leg(s)  [journalled]",
+      "detail": "`--param linear_control=True` reddens exactly ['U5-closed-form-exact', 'U5-engine-faithful', 'U5-no-dim5'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7f80a56debb15fe8",
         "control_index": 1,
@@ -2171,7 +2741,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.370762586593628,
-      "detail": "`--param scheme_b=wilson` reddens exactly ['U4-scheme-constant-nonzero'] of 21 leg(s)  [journalled]",
+      "detail": "`--param scheme_b=wilson` reddens exactly ['U4-scheme-constant-nonzero'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7f80a56debb15fe8",
         "control_index": 2,
@@ -2198,7 +2768,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.0512707233428955,
-      "detail": "`--param break_universality=1.001` reddens exactly ['U3-log-universal-wilson', 'U3-log-universal-symanzik'] of 21 leg(s)  [journalled]",
+      "detail": "`--param break_universality=1.001` reddens exactly ['U3-log-universal-wilson', 'U3-log-universal-symanzik'] of 21 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7f80a56debb15fe8",
         "control_index": 3,
@@ -2227,7 +2797,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0007147789001464844,
-      "detail": "`--param equal_stiffness=False` reddens exactly ['B0a', 'B0b', 'B0c', 'B2a', 'B2b', 'B2c', 'B3b', 'B3c', 'B4b', 'B4c', 'B4d', 'B5a', 'B5b', 'B5c'] of 22 leg(s)  [journalled]",
+      "detail": "`--param equal_stiffness=False` reddens exactly ['B0a', 'B0b', 'B0c', 'B2a', 'B2b', 'B2c', 'B3b', 'B3c', 'B4b', 'B4c', 'B4d', 'B5a', 'B5b', 'B5c'] of 22 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0366ba7ebcc7fd50",
         "control_index": 0,
@@ -2281,7 +2851,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.00030732154846191406,
-      "detail": "`--param rank_two_breaking=True` reddens exactly ['B1a', 'B1b', 'B1c'] of 22 leg(s)  [journalled]",
+      "detail": "`--param rank_two_breaking=True` reddens exactly ['B1a', 'B1b', 'B1c'] of 22 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0366ba7ebcc7fd50",
         "control_index": 1,
@@ -2312,7 +2882,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0002753734588623047,
-      "detail": "`--param eliminate_u=False` reddens exactly ['B2a', 'B2b', 'B2c', 'B3a'] of 22 leg(s)  [journalled]",
+      "detail": "`--param eliminate_u=False` reddens exactly ['B2a', 'B2b', 'B2c', 'B3a'] of 22 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0366ba7ebcc7fd50",
         "control_index": 2,
@@ -2345,7 +2915,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 6.448014497756958,
-      "detail": "`--param reverse_senses=False` reddens exactly ['T1a', 'T1c', 'T1d', 'T3d'] of 20 leg(s)  [journalled]",
+      "detail": "`--param reverse_senses=False` reddens exactly ['T1a', 'T1c', 'T1d', 'T3d'] of 20 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0933acabb8ea4053",
         "control_index": 0,
@@ -2379,7 +2949,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.6375889778137207,
-      "detail": "`--param vertex_one_sense=True` reddens exactly ['T2b', 'T2c'] of 20 leg(s)  [journalled]",
+      "detail": "`--param vertex_one_sense=True` reddens exactly ['T2b', 'T2c'] of 20 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0933acabb8ea4053",
         "control_index": 1,
@@ -2408,7 +2978,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.884211540222168,
-      "detail": "`--param flat_links=True` reddens exactly ['T1b', 'T3b'] of 20 leg(s)  [journalled]",
+      "detail": "`--param flat_links=True` reddens exactly ['T1b', 'T3b'] of 20 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0933acabb8ea4053",
         "control_index": 2,
@@ -2437,7 +3007,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.526034116744995,
-      "detail": "`--param refold_control=True` reddens exactly ['B9-3', 'B9-4'] of 6 leg(s)  [journalled]",
+      "detail": "`--param refold_control=True` reddens exactly ['B9-3', 'B9-4'] of 6 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "10a3d43bd340937f",
         "control_index": 0,
@@ -2467,7 +3037,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.3093774318695068,
-      "detail": "`--param b1_control=0` reddens exactly ['B9-5'] of 6 leg(s)  [journalled]",
+      "detail": "`--param b1_control=0` reddens exactly ['B9-5'] of 6 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "10a3d43bd340937f",
         "control_index": 1,
@@ -2494,7 +3064,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.6037101745605469,
-      "detail": "`--param n_generations=2` reddens exactly ['W2', 'W2b', 'W3b', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param n_generations=2` reddens exactly ['W2', 'W2b', 'W3b', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 0,
@@ -2528,7 +3098,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.29009509086608887,
-      "detail": "`--param include_lepton_doublet=False` reddens exactly ['W1', 'W2', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param include_lepton_doublet=False` reddens exactly ['W1', 'W2', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 1,
@@ -2559,7 +3129,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.37982940673828125,
-      "detail": "`--param vector_like_su2=True` reddens exactly ['W1', 'W2', 'W2b', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param vector_like_su2=True` reddens exactly ['W1', 'W2', 'W2b', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 2,
@@ -2592,7 +3162,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.359773874282837,
-      "detail": "`--param quark_colour_rep=adjoint` reddens exactly ['W1', 'W2', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param quark_colour_rep=adjoint` reddens exactly ['W1', 'W2', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 3,
@@ -2623,7 +3193,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.41460394859313965,
-      "detail": "`--param c7_n_max=3` reddens exactly ['U1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param c7_n_max=3` reddens exactly ['U1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 4,
@@ -2650,7 +3220,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.307349443435669,
-      "detail": "`--param scan_from=2` reddens exactly ['U1', 'U1b', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param scan_from=2` reddens exactly ['U1', 'U1b', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 5,
@@ -2681,7 +3251,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.0102319717407227,
-      "detail": "`--param doubler_multiplicity=2` reddens exactly ['W2', 'W2b', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param doubler_multiplicity=2` reddens exactly ['W2', 'W2b', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 6,
@@ -2712,7 +3282,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4216127395629883,
-      "detail": "`--param empty_tower_passes=True` reddens exactly ['U1', 'B1'] of 15 leg(s)  [journalled]",
+      "detail": "`--param empty_tower_passes=True` reddens exactly ['U1', 'B1'] of 15 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e1b4923a75364567",
         "control_index": 7,
@@ -2741,7 +3311,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.3453500270843506,
-      "detail": "`--param magnetic_scale=2.0` reddens exactly ['X2'] of 7 leg(s)  [journalled]",
+      "detail": "`--param magnetic_scale=2.0` reddens exactly ['X2'] of 7 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "01c57a0be86cd816",
         "control_index": 0,
@@ -2769,7 +3339,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.6157388687133789,
-      "detail": "`--param su3_cut=2` reddens exactly ['X2'] of 7 leg(s)  [journalled]",
+      "detail": "`--param su3_cut=2` reddens exactly ['X2'] of 7 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "01c57a0be86cd816",
         "control_index": 1,
@@ -2796,7 +3366,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.02409958839416504,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "3f5ab61c0a137552",
         "control_index": 0,
@@ -2816,7 +3386,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.048378944396972656,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "3f5ab61c0a137552",
         "control_index": 1,
@@ -2835,7 +3405,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.32365870475769043,
-      "detail": "`--param branch=paired` reddens exactly ['C1-superluminal-excluded', 'C2-subluminal-excluded', 'C3-vacuum-cherenkov-threshold', 'C4-orientation-escape-measured'] of 20 leg(s)  [journalled]",
+      "detail": "`--param branch=paired` reddens exactly ['C1-superluminal-excluded', 'C2-subluminal-excluded', 'C3-vacuum-cherenkov-threshold', 'C4-orientation-escape-measured'] of 20 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "3a850498dbcf9eed",
         "control_index": 0,
@@ -2869,7 +3439,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.051879167556762695,
-      "detail": "`--param ruler=tuned` reddens exactly ['C1-superluminal-excluded', 'C2-subluminal-excluded', 'C3-vacuum-cherenkov-threshold', 'C4-orientation-escape-measured'] of 20 leg(s)  [journalled]",
+      "detail": "`--param ruler=tuned` reddens exactly ['C1-superluminal-excluded', 'C2-subluminal-excluded', 'C3-vacuum-cherenkov-threshold', 'C4-orientation-escape-measured'] of 20 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "3a850498dbcf9eed",
         "control_index": 1,
@@ -2902,7 +3472,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.6570312976837158,
-      "detail": "`--param use_naive_theta=True` reddens exactly ['B1-theta-D-theta-inv-eq-Dinv', 'B2-edge-cases', 'C1-theta-squared-minus-one', 'E1-realspace-cpt-roundtrip'] of 12 leg(s)  [journalled]",
+      "detail": "`--param use_naive_theta=True` reddens exactly ['B1-theta-D-theta-inv-eq-Dinv', 'B2-edge-cases', 'C1-theta-squared-minus-one', 'E1-realspace-cpt-roundtrip'] of 12 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "1a22a29f1ec0cf2f",
         "control_index": 0,
@@ -2936,7 +3506,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.07561254501342773,
-      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]",
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "bdff4058777a4462",
         "control_index": 0,
@@ -2956,7 +3526,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.04673480987548828,
-      "detail": "`--param theta_exchange=6.283185307179586` reddens exactly ['B2'] of 4 leg(s)  [journalled]",
+      "detail": "`--param theta_exchange=6.283185307179586` reddens exactly ['B2'] of 4 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "390e4a7aeb1b4faf",
         "control_index": 0,
@@ -2984,7 +3554,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.026917219161987305,
-      "detail": "`--param wrong_singlet=True` reddens exactly ['B1'] of 4 leg(s)  [journalled]",
+      "detail": "`--param wrong_singlet=True` reddens exactly ['B1'] of 4 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "390e4a7aeb1b4faf",
         "control_index": 1,
@@ -3011,7 +3581,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.7673451900482178,
-      "detail": "`--param use_correct_bz=False` reddens exactly ['C1'] of 5 leg(s)  [journalled]",
+      "detail": "`--param use_correct_bz=False` reddens exactly ['C1'] of 5 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7e6f02ea92e38736",
         "control_index": 0,
@@ -3039,7 +3609,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0771477222442627,
-      "detail": "`--param g_above_gc=2.5` reddens exactly ['C2', 'C3'] of 5 leg(s)  [journalled]",
+      "detail": "`--param g_above_gc=2.5` reddens exactly ['C2', 'C3'] of 5 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7e6f02ea92e38736",
         "control_index": 1,
@@ -3068,7 +3638,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.6445109844207764,
-      "detail": "`--param subtract_source_mean=True` reddens exactly ['K2-homogeneous-source-blind'] of 5 leg(s)  [journalled]",
+      "detail": "`--param subtract_source_mean=True` reddens exactly ['K2-homogeneous-source-blind'] of 5 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7b1ea4ab436ceeae",
         "control_index": 0,
@@ -3096,7 +3666,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.7475848197937012,
-      "detail": "`--param allowed_delta_G_over_G=1e+35` reddens exactly ['K4-blockspin-order-selectivity-excluded'] of 5 leg(s)  [journalled]",
+      "detail": "`--param allowed_delta_G_over_G=1e+35` reddens exactly ['K4-blockspin-order-selectivity-excluded'] of 5 leg(s)  [journalled]  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7b1ea4ab436ceeae",
         "control_index": 1,
@@ -3123,7 +3693,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 6.843041181564331,
-      "detail": "`--param n_probe=4` reddens exactly ['S3'] of 6 leg(s)",
+      "detail": "`--param n_probe=4` reddens exactly ['S3'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6a628e9d24932982",
         "control_index": 0,
@@ -3151,7 +3721,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 3.4081871509552,
-      "detail": "`--param n_probe=1` reddens exactly ['S4'] of 6 leg(s)",
+      "detail": "`--param n_probe=1` reddens exactly ['S4'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6a628e9d24932982",
         "control_index": 1,
@@ -3178,7 +3748,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 3.4844119548797607,
-      "detail": "`--param bosonic_baryon=True` reddens exactly ['S3'] of 6 leg(s)",
+      "detail": "`--param bosonic_baryon=True` reddens exactly ['S3'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6a628e9d24932982",
         "control_index": 2,
@@ -3205,7 +3775,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.4099340438842773,
-      "detail": "`--param partial_generator_check=True` reddens exactly ['S1'] of 6 leg(s)",
+      "detail": "`--param partial_generator_check=True` reddens exactly ['S1'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6a628e9d24932982",
         "control_index": 3,
@@ -3232,7 +3802,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.09572196006774902,
-      "detail": "`--param charge_weight_control=1.0` reddens exactly ['V2'] of 6 leg(s)",
+      "detail": "`--param charge_weight_control=1.0` reddens exactly ['V2'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "403569eb26fbe832",
         "control_index": 0,
@@ -3260,7 +3830,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.01240396499633789,
-      "detail": "`--param dhmz_reference_control=0.001` reddens exactly ['V4'] of 6 leg(s)",
+      "detail": "`--param dhmz_reference_control=0.001` reddens exactly ['V4'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "403569eb26fbe832",
         "control_index": 1,
@@ -3287,7 +3857,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.6683077812194824,
-      "detail": "`--param broken_dagger=True` reddens exactly ['M1'] of 8 leg(s)",
+      "detail": "`--param broken_dagger=True` reddens exactly ['M1'] of 8 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "cd52ef5df03dc1ea",
         "control_index": 0,
@@ -3315,7 +3885,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 30.066327810287476,
-      "detail": "`--param R1_control=1` reddens exactly ['F336-2', 'F336-3'] of 3 leg(s)",
+      "detail": "`--param R1_control=1` reddens exactly ['F336-2', 'F336-3'] of 3 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "805ce73a4423ae96",
         "control_index": 0,
@@ -3344,10 +3914,10 @@
       "id": "F337-l6-decision#control0",
       "kind": "assertion",
       "status": "CONTROL",
-      "seconds": 8.62962794303894,
-      "detail": "`--param swap_control=True` reddens exactly ['L6_leg1_propagator_divergence'] of 1 leg(s)",
+      "seconds": 10.780332088470459,
+      "detail": "`--param swap_control=True` reddens exactly ['L6_leg1_propagator_divergence'] of 1 leg(s)  [journalled]",
       "metrics": {
-        "fingerprint": "82e9d5897b00d5ca",
+        "fingerprint": "6502d219ae6545f6",
         "control_index": 0,
         "reason": "swap which quadratic_form occupies the \"own\" vs \"swapped\" slot. A genuine measurement, not a hardcoded verdict, must flip both conditions (own_dev_nonincreasing, swap_diverges) to False, because the diverging K_true_4d kernel now occupies the slot the check requires to converge. MEASURED.",
         "params": {
@@ -3357,7 +3927,7 @@
           "L6_leg1_propagator_divergence"
         ],
         "strength": "strong",
-        "baseline_seconds": 4.4,
+        "baseline_seconds": 5.4,
         "baseline_legs": 1,
         "reds_resolved": [
           "L6_leg1_propagator_divergence"
@@ -3373,7 +3943,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0003771781921386719,
-      "detail": "`--param su3_pi4_order_override=2` reddens exactly ['G1'] of 4 leg(s)",
+      "detail": "`--param su3_pi4_order_override=2` reddens exactly ['G1'] of 4 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "231c6e722935e629",
         "control_index": 0,
@@ -3401,7 +3971,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.00013518333435058594,
-      "detail": "`--param include_nu_r=False` reddens exactly ['G2'] of 4 leg(s)",
+      "detail": "`--param include_nu_r=False` reddens exactly ['G2'] of 4 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "231c6e722935e629",
         "control_index": 1,
@@ -3428,7 +3998,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.00012803077697753906,
-      "detail": "`--param assumed_anomaly_modulus=8` reddens exactly ['G3'] of 4 leg(s)",
+      "detail": "`--param assumed_anomaly_modulus=8` reddens exactly ['G3'] of 4 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "231c6e722935e629",
         "control_index": 2,
@@ -3455,7 +4025,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.00012683868408203125,
-      "detail": "`--param n_gen=2` reddens exactly ['G0', 'G3'] of 4 leg(s)",
+      "detail": "`--param n_gen=2` reddens exactly ['G0', 'G3'] of 4 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "231c6e722935e629",
         "control_index": 3,
@@ -3484,7 +4054,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.11552286148071289,
-      "detail": "`--param one_sense=True` reddens exactly ['U1_action_identity'] of 3 leg(s)",
+      "detail": "`--param one_sense=True` reddens exactly ['U1_action_identity'] of 3 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "a5b5c40dfdc40c26",
         "control_index": 0,
@@ -3512,7 +4082,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.047785043716430664,
-      "detail": "`--param bad_reverse=True` reddens exactly ['U2_reversal_identity_exact'] of 3 leg(s)",
+      "detail": "`--param bad_reverse=True` reddens exactly ['U2_reversal_identity_exact'] of 3 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "a5b5c40dfdc40c26",
         "control_index": 1,
@@ -3539,7 +4109,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.10885000228881836,
-      "detail": "`--param symmetry_group=C4z_only` reddens exactly ['H1_diagonal_forced_constant'] of 11 leg(s)",
+      "detail": "`--param symmetry_group=C4z_only` reddens exactly ['H1_diagonal_forced_constant'] of 11 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0e5720b658f1eba7",
         "control_index": 0,
@@ -3567,7 +4137,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.09153008460998535,
-      "detail": "`--param charge_locality=block` reddens exactly ['H3_condition_i_no_selecting_power'] of 11 leg(s)",
+      "detail": "`--param charge_locality=block` reddens exactly ['H3_condition_i_no_selecting_power'] of 11 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0e5720b658f1eba7",
         "control_index": 1,
@@ -3594,7 +4164,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.079319715499878,
-      "detail": "`--param expansion_order=leading` reddens exactly ['C3_L_is_D4h_order_16', 'C4_unitary_subgroup_order_8', 'C5_no_C3_for_any_convention', 'C8_shipped_code_agrees'] of 11 leg(s)",
+      "detail": "`--param expansion_order=leading` reddens exactly ['C3_L_is_D4h_order_16', 'C4_unitary_subgroup_order_8', 'C5_no_C3_for_any_convention', 'C8_shipped_code_agrees'] of 11 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "09db6b5be5fe4c0d",
         "control_index": 0,
@@ -3628,7 +4198,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.6239922046661377,
-      "detail": "`--param coefficient_source=cyclic` reddens exactly ['C0_convention_is_unitary', 'C3_L_is_D4h_order_16', 'C4_unitary_subgroup_order_8', 'C8_shipped_code_agrees'] of 11 leg(s)",
+      "detail": "`--param coefficient_source=cyclic` reddens exactly ['C0_convention_is_unitary', 'C3_L_is_D4h_order_16', 'C4_unitary_subgroup_order_8', 'C8_shipped_code_agrees'] of 11 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "09db6b5be5fe4c0d",
         "control_index": 1,
@@ -3660,10 +4230,10 @@
       "id": "F345-field-equation-uniqueness#control0",
       "kind": "assertion",
       "status": "CONTROL",
-      "seconds": 3.640756368637085,
-      "detail": "`--param lovelock_dim=5` reddens exactly ['L3'] of 8 leg(s)",
+      "seconds": 3.855538845062256,
+      "detail": "`--param lovelock_dim=5` reddens exactly ['L3'] of 8 leg(s)  [journalled]  [journalled]",
       "metrics": {
-        "fingerprint": "88ece91203c16b6d",
+        "fingerprint": "35f96091aff4974e",
         "control_index": 0,
         "reason": "run the SAME Lanczos-Lovelock computation in five dimensions. The d=4 vanishing is the whole substance of L3 - it is what makes the leading curvature-squared correction topological and so leaves aG_uv + bg_uv as the only candidate left side. In d=5 the identical code returns 25 non-zero components, so the zero is a statement about the DIMENSION and not about the contraction routine. This is also what makes F291/F326 (derived d=3 plus the closed \"+1\") load-bearing for E1 rather than merely adjacent to it.",
         "params": {
@@ -3673,7 +4243,7 @@
           "L3"
         ],
         "strength": "strong",
-        "baseline_seconds": 2.01,
+        "baseline_seconds": 2.14,
         "baseline_legs": 8,
         "reds_resolved": [
           "L3"
@@ -3688,10 +4258,10 @@
       "id": "F345-field-equation-uniqueness#control1",
       "kind": "assertion",
       "status": "CONTROL",
-      "seconds": 1.1513471603393555,
-      "detail": "`--param gb_ricci_coeff=-3` reddens exactly ['L3'] of 8 leg(s)",
+      "seconds": 1.2276158332824707,
+      "detail": "`--param gb_ricci_coeff=-3` reddens exactly ['L3'] of 8 leg(s)  [journalled]  [journalled]",
       "metrics": {
-        "fingerprint": "88ece91203c16b6d",
+        "fingerprint": "35f96091aff4974e",
         "control_index": 1,
         "reason": "perturb the Ricci-squared coefficient in the Gauss-Bonnet scalar from -4 to -3. Nothing else changes - same curvature tensors, same contractions, same dimension - and the identity breaks. Without this control L3 could be an artifact of a symmetric-looking contraction that happens to cancel; with it, the zero is pinned to the Gauss-Bonnet combination specifically.",
         "params": {
@@ -3715,10 +4285,10 @@
       "id": "F345-field-equation-uniqueness#control2",
       "kind": "assertion",
       "status": "CONTROL",
-      "seconds": 1.1204259395599365,
-      "detail": "`--param model_gamma=0.999999` reddens exactly ['L5'] of 8 leg(s)",
+      "seconds": 1.1699771881103516,
+      "detail": "`--param model_gamma=0.999999` reddens exactly ['L5'] of 8 leg(s)  [journalled]  [journalled]",
       "metrics": {
-        "fingerprint": "88ece91203c16b6d",
+        "fingerprint": "35f96091aff4974e",
         "control_index": 2,
         "reason": "give the model a PPN gamma that is 1 to six digits instead of exactly 1. A finite Brans-Dicke omega then solves (1+w)/(2+w) = gamma and the scalar-tensor family is no longer closed - it is merely constrained, which is what external data alone can ever deliver. The control is the point of L5 - the closure comes from AB == 1 making gamma EXACTLY 1 (F64 D-EM9, F288 S1), not from Cassini.",
         "params": {
@@ -3743,7 +4313,7 @@
       "kind": "assertion",
       "status": "INVALID",
       "seconds": 5.329235076904297,
-      "detail": "declared leg(s) ['pass'] do not exist in the payload; legs present: [] \u2014 a control naming a leg the driver no longer emits has silently stopped testing anything",
+      "detail": "declared leg(s) ['pass'] do not exist in the payload; legs present: [] \u2014 a control naming a leg the driver no longer emits has silently stopped testing anything  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "8370aac547098949",
         "control_index": 0,
@@ -3765,7 +4335,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 6.485603094100952,
-      "detail": "`--param solid_angle_deficit=0.1` reddens exactly ['B1_sum_of_squares_regular_centre'] of 7 leg(s)",
+      "detail": "`--param solid_angle_deficit=0.1` reddens exactly ['B1_sum_of_squares_regular_centre'] of 7 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "703632bf9047b8ce",
         "control_index": 0,
@@ -3793,7 +4363,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 3.121757984161377,
-      "detail": "`--param core_profile=gaussian` reddens exactly ['B6_scales'] of 7 leg(s)",
+      "detail": "`--param core_profile=gaussian` reddens exactly ['B6_scales'] of 7 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "703632bf9047b8ce",
         "control_index": 1,
@@ -3820,7 +4390,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 30.65611505508423,
-      "detail": "`--param flat_control=True` reddens exactly ['E9-5', 'E9-7', 'E9-8', 'E9-11'] of 12 leg(s)",
+      "detail": "`--param flat_control=True` reddens exactly ['E9-5', 'E9-7', 'E9-8', 'E9-11'] of 12 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6d50ba753c05f20f",
         "control_index": 0,
@@ -3854,7 +4424,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 15.907495975494385,
-      "detail": "`--param random_control=True` reddens exactly ['E9-5', 'E9-7', 'E9-8'] of 12 leg(s)",
+      "detail": "`--param random_control=True` reddens exactly ['E9-5', 'E9-7', 'E9-8'] of 12 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6d50ba753c05f20f",
         "control_index": 1,
@@ -3885,7 +4455,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.4198148250579834,
-      "detail": "`--param pairing_law=chiral_double` reddens exactly ['C_grid_bandtop', 'E_planck_ratio', 'F_lambda_model_relation'] of 5 leg(s)",
+      "detail": "`--param pairing_law=chiral_double` reddens exactly ['C_grid_bandtop', 'E_planck_ratio', 'F_lambda_model_relation'] of 5 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "b5a597ab485f998a",
         "control_index": 0,
@@ -3917,7 +4487,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.005485057830810547,
-      "detail": "`--param pairing_law=chiral_double` reddens exactly ['C_two_quantum_threshold', 'D_single_quantum_subthreshold', 'E_geon_virial_cross_check'] of 5 leg(s)",
+      "detail": "`--param pairing_law=chiral_double` reddens exactly ['C_two_quantum_threshold', 'D_single_quantum_subthreshold', 'E_geon_virial_cross_check'] of 5 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "bfbb08c81a9d0324",
         "control_index": 0,
@@ -3949,7 +4519,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 15.620250701904297,
-      "detail": "`--param legacy_a7_bug=True` reddens exactly ['K2-13'] of 15 leg(s)",
+      "detail": "`--param legacy_a7_bug=True` reddens exactly ['K2-13'] of 15 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7dd4835bd75eb99d",
         "control_index": 0,
@@ -3977,7 +4547,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.7407219409942627,
-      "detail": "`--param wrong_c2_sign=True` reddens exactly ['c1_closed_form_matches_sigma_strong_pt2'] of 4 leg(s)",
+      "detail": "`--param wrong_c2_sign=True` reddens exactly ['c1_closed_form_matches_sigma_strong_pt2'] of 4 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d3eb26c3009a31ea",
         "control_index": 0,
@@ -4005,7 +4575,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.294166088104248,
-      "detail": "`--param wrong_power=True` reddens exactly ['c2_power_counting_matches_magnetic_deformation_ratio'] of 4 leg(s)",
+      "detail": "`--param wrong_power=True` reddens exactly ['c2_power_counting_matches_magnetic_deformation_ratio'] of 4 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d3eb26c3009a31ea",
         "control_index": 1,
@@ -4032,7 +4602,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 1.1176209449768066,
-      "detail": "`--param include_vacuum_subtraction=False` reddens exactly ['S3-constant-source-exactly-cancels'] of 3 leg(s)",
+      "detail": "`--param include_vacuum_subtraction=False` reddens exactly ['S3-constant-source-exactly-cancels'] of 3 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "4b6a6a88e186bb02",
         "control_index": 0,
@@ -4060,7 +4630,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.3798820972442627,
-      "detail": "`--param measure_power=2` reddens exactly ['S3-coefficient-is-exact-3n-at-physical-measure'] of 3 leg(s)",
+      "detail": "`--param measure_power=2` reddens exactly ['S3-coefficient-is-exact-3n-at-physical-measure'] of 3 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "4b6a6a88e186bb02",
         "control_index": 1,
@@ -4087,7 +4657,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.20375776290893555,
-      "detail": "`--param substitute_vacuum=False` reddens exactly ['C1-vacuum-reduces-to-ordinary-GR-plus-Lambda_eff'] of 5 leg(s)",
+      "detail": "`--param substitute_vacuum=False` reddens exactly ['C1-vacuum-reduces-to-ordinary-GR-plus-Lambda_eff'] of 5 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f78111828f7b46bc",
         "control_index": 0,
@@ -4115,7 +4685,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.046807050704956055,
-      "detail": "`--param finite_time_only=True` reddens exactly ['C2a-eternal-de-Sitter-V4-diverges'] of 5 leg(s)",
+      "detail": "`--param finite_time_only=True` reddens exactly ['C2a-eternal-de-Sitter-V4-diverges'] of 5 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f78111828f7b46bc",
         "control_index": 1,
@@ -4142,7 +4712,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.04403209686279297,
-      "detail": "`--param wa_sign_flip=True` reddens exactly ['C3-desi-preferred-quadrant-trends-toward-less-negative-w'] of 5 leg(s)",
+      "detail": "`--param wa_sign_flip=True` reddens exactly ['C3-desi-preferred-quadrant-trends-toward-less-negative-w'] of 5 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "f78111828f7b46bc",
         "control_index": 2,
@@ -4169,7 +4739,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.5409300327301025,
-      "detail": "`--param z_drag_multiplier=1.1` reddens exactly ['D1_sound_horizon_vs_planck', 'D2_model_native_vs_eh98_internal_fit'] of 6 leg(s)",
+      "detail": "`--param z_drag_multiplier=1.1` reddens exactly ['D1_sound_horizon_vs_planck', 'D2_model_native_vs_eh98_internal_fit'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7f001e9bf319b6e5",
         "control_index": 0,
@@ -4199,7 +4769,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.2681901454925537,
-      "detail": "`--param b_ion_multiplier=1.2` reddens exactly ['D4_saha_recombination_redshift'] of 6 leg(s)",
+      "detail": "`--param b_ion_multiplier=1.2` reddens exactly ['D4_saha_recombination_redshift'] of 6 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "7f001e9bf319b6e5",
         "control_index": 1,
@@ -4226,7 +4796,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 15.540109872817993,
-      "detail": "`--param delta_m_theory_sigma_mev=0.0056` reddens exactly ['K2-14'] of 15 leg(s)",
+      "detail": "`--param delta_m_theory_sigma_mev=0.0056` reddens exactly ['K2-14'] of 15 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ec3e85b3ddc6272b",
         "control_index": 0,
@@ -4254,7 +4824,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 52.16749286651611,
-      "detail": "`--param v2_control=True` reddens exactly ['C3', 'C4', 'C5', 'C6'] of 7 leg(s)",
+      "detail": "`--param v2_control=True` reddens exactly ['C3', 'C4', 'C5', 'C6'] of 7 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "148cd3ec0cc912cd",
         "control_index": 0,
@@ -4284,11 +4854,809 @@
       "swept": {}
     },
     {
+      "id": "F377-time-generator-axiom-independence#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.6265544891357422,
+      "detail": "verdict flipped PASS -> FAIL under the perturbation (no legs named)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "5ffa765f1b716a26",
+        "control_index": 0,
+        "reason": "compares the sequential 2n-step product against B**(n+1) instead of B**n (the WRONG power). Must go red -- otherwise the regroup check would pass regardless of what power it compares against, and would not be able to detect a genuine mismatch. VERIFIED RED (max residual 0.69, vs 1.6e-15 unbroken).",
+        "params": {
+          "break_regroup": true
+        },
+        "reds": [],
+        "strength": "strong",
+        "baseline_seconds": 0.63,
+        "baseline_legs": 0
+      },
+      "swept": {}
+    },
+    {
+      "id": "F378-discrete-cpt-gauged-theorem#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.24723505973815918,
+      "detail": "`--param use_naive_iso=True` reddens exactly ['B1-kinetic-only-cpt-theorem', 'B2-kinetic-only-edge-cases', 'C1-theta-squared-is-plus-one-not-kramers', 'C1b-theta-squared-not-minus-one'] of 11 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "288eeb9bac9c51a5",
+        "control_index": 0,
+        "reason": "swap the kinetic-sector isospin twist tau_2 for the trivial I2 in the B1/B2/C1 legs (the positive result's own Theta'). With I2 the operator identity fails (B1, B2 turn O(1) red, since I2 does not satisfy the SU(2) pseudoreality identity tau_2 U tau_2^-1 = U* that the proof needs), and Theta^2 reverts to F328's Kramers -1 (since sigma_y (x) I2 is still purely imaginary, same Kramers class as the free-sector theorem) -- so C1 (which asserts +1) turns red for exactly the reason the docstring predicts, and C1b (which asserts NOT -1) turns red too, confirming the flip is real and specific to the tau_2 twist. Every OTHER leg -- X0 (module cross-check, isospin-independent), A1 and D1 (facts about tau_2 alone, independent of which Theta the operator theorem itself uses), B3 (unitarity, isospin-independent), D2 (the mass no-go, present regardless of this switch), D3 (the Lambda-search control, independent), and E1 (the zero-coupling cross-module mismatch, where U=V=I makes the isospin choice irrelevant) -- stays green. VERIFIED RED 2026-09-09.",
+        "params": {
+          "use_naive_iso": true
+        },
+        "reds": [
+          "B1-kinetic-only-cpt-theorem",
+          "B2-kinetic-only-edge-cases",
+          "C1-theta-squared-is-plus-one-not-kramers",
+          "C1b-theta-squared-not-minus-one"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.13,
+        "baseline_legs": 11,
+        "reds_resolved": [
+          "B1-kinetic-only-cpt-theorem",
+          "B2-kinetic-only-edge-cases",
+          "C1-theta-squared-is-plus-one-not-kramers",
+          "C1b-theta-squared-not-minus-one"
+        ],
+        "legs_total": 11,
+        "reddened": 4,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F379-so3-kinematic-gap#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.01384425163269043,
+      "detail": "`--param use_uncorrelated_rotor=True` reddens exactly ['K1'] of 3 leg(s)  [journalled]",
+      "metrics": {
+        "fingerprint": "7dfcfe3b6e28e988",
+        "control_index": 0,
+        "reason": "transporting spin via a rotation UNCORRELATED with the one applied to momentum breaks the \"same rotation\" identity at O(1) (0.59) while leaving K2 (the shipped-code decade-ratio check) and K3 (which reports both residuals directly) unaffected -- confirming K1 is a genuine \"same rotation, not some other unitary\" statement (Postulate 1's own language), not a tautology of SU(2) closure.",
+        "params": {
+          "use_uncorrelated_rotor": true
+        },
+        "reds": [
+          "K1"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.01,
+        "baseline_legs": 3,
+        "reds_resolved": [
+          "K1 idealised H_W continuous SO(3) covariance (same rotor, sweep)"
+        ],
+        "legs_total": 3,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F380-cluster-asymptotic-series-K#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 31.45696997642517,
+      "detail": "`--param reference=axis110` reddens exactly ['C1', 'C2'] of 3 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "0bda92a1b5e0aeb2",
+        "control_index": 0,
+        "reason": "axis110_kappa_exact is the closed form for a DIFFERENT BCC axis (correct for (110), not (100)) -- measuring p_eff against the wrong reference collapses both its stability (relative spread jumps from 2.65% to 33.6%) and its match to theory (mean shifts from 1.489 to 5.10, far from the theoretical 1.5), showing p_eff's meaning is tied to the specific closed form axis100_kappa_exact being measured, not a generic artifact of the OLS-bias rescaling.",
+        "params": {
+          "reference": "axis110"
+        },
+        "reds": [
+          "C1",
+          "C2"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 15.71,
+        "baseline_legs": 3,
+        "reds_resolved": [
+          "C1 p_eff relative spread < 5% across the full admissible mass range (0.05<=m<=0.90)",
+          "C2 p_eff mean matches the theoretical branch-point+transverse power p=3/2 to <5%"
+        ],
+        "legs_total": 3,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F381-premise-a-irreducibility#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.014599084854125977,
+      "detail": "`--param inject_colour_token=True` reddens exactly ['S1'] of 5 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "f9d0a25274166c02",
+        "control_index": 0,
+        "reason": "append a synthetic colour-sector token to an in-memory copy of F289's/F330's own scanned source text (the real files on disk are never touched). S1 must go red, proving the scanner can detect a hit rather than vacuously passing on an unreachable check.",
+        "params": {
+          "inject_colour_token": true
+        },
+        "reds": [
+          "S1"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.01,
+        "baseline_legs": 5,
+        "reds_resolved": [
+          "S1 F289's and F330's own source text contains zero colour/composite-count tokens -- the two derivations never mention the object premise (a) is about"
+        ],
+        "legs_total": 5,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F381-premise-a-irreducibility#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.006142139434814453,
+      "detail": "`--param inject_fake_param=True` reddens exactly ['S2'] of 5 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "f9d0a25274166c02",
+        "control_index": 1,
+        "reason": "append a synthetic colour-count-shaped parameter name to the in-memory list of scanned signatures. S2 must go red for the same reason as the S1 control.",
+        "params": {
+          "inject_fake_param": true
+        },
+        "reds": [
+          "S2"
+        ],
+        "strength": "strong",
+        "baseline_legs": 5,
+        "reds_resolved": [
+          "S2 no public function in F289's or F330's module takes a colour-count-shaped parameter -- no channel exists through which an N could even be supplied"
+        ],
+        "legs_total": 5,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F381-premise-a-irreducibility#control2",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.005979061126708984,
+      "detail": "`--param force_all_fermionic=True` reddens exactly ['S3'] of 5 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "f9d0a25274166c02",
+        "control_index": 2,
+        "reason": "override the composite-parity call so every N reports fermionic. S3 must go red (no boson branch found), showing the bifurcation claim is a real, falsifiable structural fact about F333's own S1/S2 machinery, not assumed.",
+        "params": {
+          "force_all_fermionic": true
+        },
+        "reds": [
+          "S3"
+        ],
+        "strength": "strong",
+        "baseline_legs": 5,
+        "reds_resolved": [
+          "S3 F333's own S1+S2 machinery genuinely bifurcates over N (fermion at odd N, boson at even N), and F289's rotor fact is identical across every branch because it is never given N"
+        ],
+        "legs_total": 5,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F381-premise-a-irreducibility#control3",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.005519866943359375,
+      "detail": "`--param strip_premise_ii=True` reddens exactly ['S4'] of 5 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "f9d0a25274166c02",
+        "control_index": 3,
+        "reason": "filter F324's own premise (ii) out of its returned premises list before the text-match check. S4 must go red, showing the check is reading real content from F324's module, not a hardcoded string.",
+        "params": {
+          "strip_premise_ii": true
+        },
+        "reds": [
+          "S4"
+        ],
+        "strength": "strong",
+        "baseline_legs": 5,
+        "reds_resolved": [
+          "S4 F324's own premise (ii), read from its returned premises list, is literally 'the colour sector exists' -- using F324 to discharge B1's existence residual would be circular"
+        ],
+        "legs_total": 5,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F381-premise-a-irreducibility#control4",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.0055389404296875,
+      "detail": "`--param assume_f324_premise_count=1` reddens exactly ['S5'] of 5 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "f9d0a25274166c02",
+        "control_index": 4,
+        "reason": "override the computed F324 premise count with a wrong, too-small number. S5's \"net increase\" assertion must go red, showing the accounting check is a genuine comparison and not vacuously true.",
+        "params": {
+          "assume_f324_premise_count": 1
+        },
+        "reds": [
+          "S5"
+        ],
+        "strength": "strong",
+        "baseline_legs": 5,
+        "reds_resolved": [
+          "S5 substituting F324's chain for premise (a) (and (b), since a pinned N also settles N!=1) costs F324's six premises against F333's two -- a net increase, not a reduction"
+        ],
+        "legs_total": 5,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F382-vertex-domain-periodicity#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 94.20798993110657,
+      "detail": "`--param swap_control=True` reddens exactly ['cube_domain_does_not_fix_it'] of 3 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "0d0b642c4daaee9c",
+        "control_index": 0,
+        "reason": "assert the WRONG domain (cube) is the one required to stay bounded near 1, and the WS domain the one required to diverge. A genuine measurement, not a hardcoded verdict, must fail this -- it is domain=cube that actually diverges away from 1 (both phys and raw branches), not domain=ws. MEASURED (domain_choice_divergence(swap_control=True) returns pass=False).",
+        "params": {
+          "swap_control": true
+        },
+        "reds": [
+          "cube_domain_does_not_fix_it"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 47.57,
+        "baseline_legs": 3,
+        "reds_resolved": [
+          "cube_domain_does_not_fix_it"
+        ],
+        "legs_total": 3,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F384-conserved-em-current#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.020534038543701172,
+      "detail": "`--param use_naive_for_construction=True` reddens exactly ['construction_closes'] of 4 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "47e39b68bd89508f",
+        "control_index": 0,
+        "reason": "swap the naive continuum current (\u03c8\u2020\u03c3\u03c8) in for the derived current's own continuity check. construction_closes must go red -- the naive current does not close the discrete continuity equation to FFT round-off -- while the other three legs, which never read this current, stay green.",
+        "params": {
+          "use_naive_for_construction": true
+        },
+        "reds": [
+          "construction_closes"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.01,
+        "baseline_legs": 4,
+        "reds_resolved": [
+          "construction_closes"
+        ],
+        "legs_total": 4,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F385-u1-link-covariant-step#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.08073973655700684,
+      "detail": "`--param corrupt_a0=True` reddens exactly ['reduces_to_free_a', 'reduces_to_free_b', 'reduces_to_free_d'] of 10 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "e1939310b71060d9",
+        "control_index": 0,
+        "reason": "force a tiny nonzero A into the \"A==0 must reduce to the free step\" checks. All three reduces_to_free_* legs must go red -- while every other leg, which builds its own A from scratch and never reads the corrupted field, stays green.",
+        "params": {
+          "corrupt_a0": true
+        },
+        "reds": [
+          "reduces_to_free_a",
+          "reduces_to_free_b",
+          "reduces_to_free_d"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.04,
+        "baseline_legs": 10,
+        "reds_resolved": [
+          "reduces_to_free_a",
+          "reduces_to_free_b",
+          "reduces_to_free_d"
+        ],
+        "legs_total": 10,
+        "reddened": 3,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F386-a-field-convention#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.04381203651428223,
+      "detail": "`--param use_accumulate_for_solve_check=True` reddens exactly ['solve_is_purely_transverse', 'solve_curl_recovers_B'] of 7 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "9b82ee8cfc25c4db",
+        "control_index": 0,
+        "reason": "swap accumulate's A (A+=E, generically NOT purely C-transverse and not an exact curl inverse of B) in for the two solve_* legs. Both must go red -- while every other leg, which reads its own independently-built A and never this swapped one, stays green.",
+        "params": {
+          "use_accumulate_for_solve_check": true
+        },
+        "reds": [
+          "solve_is_purely_transverse",
+          "solve_curl_recovers_B"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.02,
+        "baseline_legs": 7,
+        "reds_resolved": [
+          "solve_is_purely_transverse",
+          "solve_curl_recovers_B"
+        ],
+        "legs_total": 7,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F387-curl-anisotropy-omega-pair-mismatch#control0",
+      "kind": "assertion",
+      "status": "SPILL",
+      "seconds": 0.24663400650024414,
+      "detail": "reddened 1 undeclared leg(s) ['split_sourcing_couples_charge_into_EL'] as well \u2014 'and only where declared' is part of the contract, because a perturbation that breaks everything is a broken run and is also the cheapest way to fake a red. Widen `reds:` if they belong, or set `only: false` and say why in `reason:`  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "53a6283a0861f84c",
+        "control_index": 0,
+        "reason": "swap in the roadmap's original, unprojected E += g*J sourcing recipe (no \u0108(k)-transverse/longitudinal split). A purely-longitudinal current then rotates into a nonzero, purely-longitudinal B under photon_step_spectral's unprojected per-component rotation, so i\u0108\u00b7B grows from machine noise to O(1) (measured 2.41 at tick 6) -- the exact \"no magnetic monopoles\" violation this finding's split- sourcing fix exists to prevent.",
+        "params": {
+          "use_split_for_no_monopole_check": false
+        },
+        "reds": [
+          "split_sourcing_preserves_no_monopole"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.13,
+        "baseline_legs": 12,
+        "reds_resolved": [
+          "split_sourcing_preserves_no_monopole"
+        ],
+        "legs_total": 12,
+        "reddened": 1,
+        "spilled": [
+          "split_sourcing_couples_charge_into_EL"
+        ]
+      },
+      "swept": {}
+    },
+    {
+      "id": "F388-fermion-photon-coupled-channels#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 1.3386728763580322,
+      "detail": "`--param q=0.0` reddens exactly ['seeded_photon_gives_sustained_push'] of 7 leg(s)",
+      "metrics": {
+        "fingerprint": "b2b05947fa96d6d5",
+        "control_index": 0,
+        "reason": "zero the fermion's U(1) charge, which makes u1_link_weyl_step_3d_bcc reduce to the free step regardless of A (F385's own A==0-equivalent reduction property). Must, and measured does, turn exactly this one leg red while every other leg (none of which depends on a genuine push) stays green.",
+        "params": {
+          "q": 0.0
+        },
+        "reds": [
+          "seeded_photon_gives_sustained_push"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.81,
+        "baseline_legs": 7,
+        "reds_resolved": [
+          "seeded_photon_gives_sustained_push"
+        ],
+        "legs_total": 7,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F388-fermion-photon-coupled-channels#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.7969799041748047,
+      "detail": "`--param use_naive_sourcing=True` reddens exactly ['no_monopole_fix_holds_with_dynamical_current'] of 7 leg(s)",
+      "metrics": {
+        "fingerprint": "b2b05947fa96d6d5",
+        "control_index": 1,
+        "reason": "revert em_photon to the roadmap's own original, F386/F387-broken E+=g.J sourcing recipe (no transverse/longitudinal split). Must, and measured does, turn exactly this leg red (iC.B residual jumps from ~4e-16 to 4.30) while every other leg stays green -- this control is also this leg's can-fail proof, since it is the first place the no-monopole fix is exercised under a dynamical current at all.",
+        "params": {
+          "use_naive_sourcing": true
+        },
+        "reds": [
+          "no_monopole_fix_holds_with_dynamical_current"
+        ],
+        "strength": "strong",
+        "baseline_legs": 7,
+        "reds_resolved": [
+          "no_monopole_fix_holds_with_dynamical_current"
+        ],
+        "legs_total": 7,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F389-radiative-current-backreaction#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 1.0709030628204346,
+      "detail": "`--param use_radiative_current=False` reddens exactly ['field_momentum_genuinely_nonzero', 'momentum_partially_but_not_exactly_conserved', 'matter_push_scales_linearly_field_push_scales_quadratically'] of 4 leg(s)",
+      "metrics": {
+        "fingerprint": "e11c9a75f8d4143f",
+        "control_index": 0,
+        "reason": "revert em_photon to F388's own current (conserved_current alone, always \u0108(k)-transverse-null), measured with A therefore staying exactly zero forever -- fermion_em's per-link step reduces to the free step (F385's own A==0-equivalent reduction), so BOTH dP_matter and dP_field collapse to machine noise (~1.6e-15, ~1.8e-36) -- three of the four legs go red (recovered fraction and both doubling ratios become ill-defined/noise-dominated), leaving only no_monopole_holds green (F387's fix does not depend on which current sources it).",
+        "params": {
+          "use_radiative_current": false
+        },
+        "reds": [
+          "field_momentum_genuinely_nonzero",
+          "momentum_partially_but_not_exactly_conserved",
+          "matter_push_scales_linearly_field_push_scales_quadratically"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.57,
+        "baseline_legs": 4,
+        "reds_resolved": [
+          "field_momentum_genuinely_nonzero",
+          "momentum_partially_but_not_exactly_conserved",
+          "matter_push_scales_linearly_field_push_scales_quadratically"
+        ],
+        "legs_total": 4,
+        "reddened": 3,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F389-radiative-transverse-current#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.025104284286499023,
+      "detail": "`--param longitudinal_only=True` reddens exactly ['transverse_current_genuinely_nonzero'] of 3 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "cfc47127dc511202",
+        "control_index": 0,
+        "reason": "swap in F384's own current (purely \u0108(k)-longitudinal) for full_current's addition -- the transverse fraction collapses back to F388's own measured ~2e-16 noise floor, while the other two legs (continuity untouched, longitudinal sector unchanged) never read a transverse quantity and stay green.",
+        "params": {
+          "longitudinal_only": true
+        },
+        "reds": [
+          "transverse_current_genuinely_nonzero"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.01,
+        "baseline_legs": 3,
+        "reds_resolved": [
+          "transverse_current_genuinely_nonzero"
+        ],
+        "legs_total": 3,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F390-photon-fermion-push#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 2.8611409664154053,
+      "detail": "`--param use_radiative_current=False` reddens exactly ['field_gains_real_momentum_when_radiative_current_on', 'field_and_matter_momentum_nearly_antiparallel', 'closure_residual_has_interior_minimum', 'antiparallel_result_inverts_off_axis'] of 8 leg(s)",
+      "metrics": {
+        "fingerprint": "2b1f158ad9519630",
+        "control_index": 0,
+        "reason": "revert em_photon to F388's own current (always C(k)-transverse-null). field_push_norm collapses to machine noise on- and off-axis alike, so there is nothing to be non-zero, anti-parallel, non-monotonic, or invertible -- while the matter push (unconditional, F388 Sec.2, on- and off-axis alike) and the zero-coupling baseline are unaffected, leaving the other 4 legs green.",
+        "params": {
+          "use_radiative_current": false
+        },
+        "reds": [
+          "field_gains_real_momentum_when_radiative_current_on",
+          "field_and_matter_momentum_nearly_antiparallel",
+          "closure_residual_has_interior_minimum",
+          "antiparallel_result_inverts_off_axis"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 1.53,
+        "baseline_legs": 8,
+        "reds_resolved": [
+          "field_gains_real_momentum_when_radiative_current_on",
+          "field_and_matter_momentum_nearly_antiparallel",
+          "closure_residual_has_interior_minimum",
+          "antiparallel_result_inverts_off_axis"
+        ],
+        "legs_total": 8,
+        "reddened": 4,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F390-photon-fermion-push#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 1.079375982284546,
+      "detail": "`--param q=0.0` reddens exactly ['push_direction_aligned_with_beam', 'field_momentum_zero_at_zero_coupling', 'field_gains_real_momentum_when_radiative_current_on', 'field_and_matter_momentum_nearly_antiparallel', 'momentum_conservation_not_exact_at_default_coupling', 'closure_residual_has_interior_minimum', 'direction_correlation_breaks_down_off_axis', 'antiparallel_result_inverts_off_axis'] of 8 leg(s)",
+      "metrics": {
+        "fingerprint": "2b1f158ad9519630",
+        "control_index": 1,
+        "reason": "zero the fermion's U(1) charge entirely -- the per-link step reduces to the free step (F385's A==0-equivalent reduction property), killing ALL momentum transfer in either direction, including the g_lat=0 baseline's own matter push. Every leg goes red or ill-defined -- the blunt \"no charge, no physics at all\" floor, contrasting with the surgical control above.",
+        "params": {
+          "q": 0.0
+        },
+        "reds": [
+          "push_direction_aligned_with_beam",
+          "field_momentum_zero_at_zero_coupling",
+          "field_gains_real_momentum_when_radiative_current_on",
+          "field_and_matter_momentum_nearly_antiparallel",
+          "momentum_conservation_not_exact_at_default_coupling",
+          "closure_residual_has_interior_minimum",
+          "direction_correlation_breaks_down_off_axis",
+          "antiparallel_result_inverts_off_axis"
+        ],
+        "strength": "strong",
+        "baseline_legs": 8,
+        "reds_resolved": [
+          "push_direction_aligned_with_beam",
+          "field_momentum_zero_at_zero_coupling",
+          "field_gains_real_momentum_when_radiative_current_on",
+          "field_and_matter_momentum_nearly_antiparallel",
+          "momentum_conservation_not_exact_at_default_coupling",
+          "closure_residual_has_interior_minimum",
+          "direction_correlation_breaks_down_off_axis",
+          "antiparallel_result_inverts_off_axis"
+        ],
+        "legs_total": 8,
+        "reddened": 8,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F391-ck-transverse-beam-mechanism#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 6.058136224746704,
+      "detail": "`--param use_ck_beam=False` reddens exactly ['beam_exactly_ck_transverse', 'beam_near_zero_longitudinal_leak'] of 9 leg(s)  [journalled]  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "ae4b567445ae229a",
+        "control_index": 0,
+        "reason": "swap the original F390 beam recipe (Euclidean-k-hat-transverse, projected-and-discarded) in for every leg -- must turn exactly the two transversality legs red (the original recipe's ~27.5% longitudinal leak is far above the new construction's near-zero residual), while the other seven legs -- which either measure \u0108(k)'s own beam-independent structure or explicitly test both constructions side by side already -- stay green.",
+        "params": {
+          "use_ck_beam": false
+        },
+        "reds": [
+          "beam_exactly_ck_transverse",
+          "beam_near_zero_longitudinal_leak"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 3.04,
+        "baseline_legs": 9,
+        "reds_resolved": [
+          "beam_exactly_ck_transverse",
+          "beam_near_zero_longitudinal_leak"
+        ],
+        "legs_total": 9,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F392-beam-polarization-null-fix#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.05226492881774902,
+      "detail": "`--param null_check_polarization=linear` reddens exactly ['equal_magnitude_holds', 'momentum_nonzero_and_aligned', 'default_config_magnitude_matches_audit', 'momentum_conserved_under_free_propagator'] of 6 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "bc50b8d54d643477",
+        "control_index": 0,
+        "reason": "swap the original (defective) \"linear\" mode into the null-condition checks -- E and B then share one Cartesian component, so |E|!=|B| in general, the field momentum Sigma ExB collapses (this specific symmetric Gaussian beam's global E.B ratio happens to stay small by an odd/even cancellation, which is why null_condition_holds alone does not redden here -- see the finding's own caveats), the audit's 75.126 magnitude is not reproduced, and there is nothing left for the free propagator to conserve (P0=0, so the drift leg fails by definition). linear_mode_bit_identical_to_default is unaffected because it always compares two independent \"linear\" calls, never reading this param.",
+        "params": {
+          "null_check_polarization": "linear"
+        },
+        "reds": [
+          "equal_magnitude_holds",
+          "momentum_nonzero_and_aligned",
+          "default_config_magnitude_matches_audit",
+          "momentum_conserved_under_free_propagator"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.03,
+        "baseline_legs": 6,
+        "reds_resolved": [
+          "equal_magnitude_holds",
+          "momentum_nonzero_and_aligned",
+          "default_config_magnitude_matches_audit",
+          "momentum_conserved_under_free_propagator"
+        ],
+        "legs_total": 6,
+        "reddened": 4,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F393-curl-grad-identity-diagnostic#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.0016450881958007812,
+      "detail": "`--param curl_symbol=true` reddens exactly ['matches_known_defect_spectral_max', 'matches_known_defect_spectral_mean', 'matches_known_defect_forward_diff_max', 'matches_known_defect_forward_diff_mean', 'onaxis_reflection_y_minus_one'] of 7 leg(s)  [journalled]",
+      "metrics": {
+        "fingerprint": "94ec7c37d43e63d2",
+        "control_index": 0,
+        "reason": "substitute a genuine curl generator C=k for bcc_curl_symbol. C x k == 0 trivially (any vector is parallel to itself), so the spectral-gradient legs collapse to exactly 0.0 (not the measured 0.741692/1.000000 defect values) and the y-axis reflection vanishes (Chat.khat=+1 on every axis for a real curl, not -1 on y) -- proving this diagnostic can tell a genuine curl apart from bcc_curl_symbol. The forward-diff legs also redden (0.509 mean, not 0.707173) for a different, disclosed reason -- a spectral curl compared against a mismatched forward-difference gradient is not expected to vanish exactly either, only to differ from bcc_curl_symbol's own number, which it does. The x/z on-axis legs stay green because Chat=+khat there for BOTH symbols (bcc_curl_symbol's reflection is R=diag(1,-1,1), identity on x and z).",
+        "params": {
+          "curl_symbol": "true"
+        },
+        "reds": [
+          "matches_known_defect_spectral_max",
+          "matches_known_defect_spectral_mean",
+          "matches_known_defect_forward_diff_max",
+          "matches_known_defect_forward_diff_mean",
+          "onaxis_reflection_y_minus_one"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.0,
+        "baseline_legs": 7,
+        "reds_resolved": [
+          "matches_known_defect_spectral_max",
+          "matches_known_defect_spectral_mean",
+          "matches_known_defect_forward_diff_max",
+          "matches_known_defect_forward_diff_mean",
+          "onaxis_reflection_y_minus_one"
+        ],
+        "legs_total": 7,
+        "reddened": 5,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F395-stage5-circular-beam-rerun#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 2.6405978202819824,
+      "detail": "`--param beam_polarization=linear` reddens exactly ['offaxis_correlation_changes_with_circular_beam'] of 6 leg(s)  [journalled]  [journalled]",
+      "metrics": {
+        "fingerprint": "1d23a983dee80fb1",
+        "control_index": 0,
+        "reason": "revert to F390's original (defective) beam -- the off-axis correlation collapses back to F390/F391's own near-zero number (measured -0.0019, matching F390's own disclosed value exactly), which is exactly what this leg exists to distinguish from the circular beam's own nonzero, axis- dependent correlation (0.328 at axis=1). Every other leg is a property of the coupled dynamics/ architecture (translation covariance, charge drift, coupling-order scaling) or of the matter-side m_index=4/on-axis mechanism, none of which depend on this specific beam-polarization convention, so they stay green under the swap.",
+        "params": {
+          "beam_polarization": "linear"
+        },
+        "reds": [
+          "offaxis_correlation_changes_with_circular_beam"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 1.33,
+        "baseline_legs": 6,
+        "reds_resolved": [
+          "offaxis_correlation_changes_with_circular_beam"
+        ],
+        "legs_total": 6,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F396-charge-partition-p77#control0",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 1.7309799194335938,
+      "detail": "`--param spin_frame=raw` reddens exactly ['Jz_conserved_at_small_k', 'Jz_defect_grows_with_k'] of 14 leg(s)",
+      "metrics": {
+        "fingerprint": "bb73852c59c13c11",
+        "control_index": 0,
+        "reason": "measure S_z with the naive +sigma_z/2 instead of the lattice's own generator -sigma_z/2 (the BCC Weyl block is the conjugate representation); J_z = L_z + S_z then drifts by ~2x the S_z range instead of ~0.1x.",
+        "params": {
+          "spin_frame": "raw"
+        },
+        "reds": [
+          "Jz_conserved_at_small_k",
+          "Jz_defect_grows_with_k"
+        ],
+        "strength": "strong",
+        "baseline_seconds": 0.86,
+        "baseline_legs": 14,
+        "reds_resolved": [
+          "Jz_conserved_at_small_k",
+          "Jz_defect_grows_with_k"
+        ],
+        "legs_total": 14,
+        "reddened": 2,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F396-charge-partition-p77#control1",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.8869340419769287,
+      "detail": "`--param charge_frame=raw` reddens exactly ['Q_conserved_by_mass_step_unitary_frame'] of 14 leg(s)",
+      "metrics": {
+        "fingerprint": "bb73852c59c13c11",
+        "control_index": 1,
+        "reason": "measure electric charge on the stored eta (U off-diagonal) instead of on eta~ = U^dagger eta; the mass step then appears to violate Q by s^2 |b|^2 |eta_e|^2 - the gauge artifact the finding is about.",
+        "params": {
+          "charge_frame": "raw"
+        },
+        "reds": [
+          "Q_conserved_by_mass_step_unitary_frame"
+        ],
+        "strength": "strong",
+        "baseline_legs": 14,
+        "reds_resolved": [
+          "Q_conserved_by_mass_step_unitary_frame"
+        ],
+        "legs_total": 14,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
+      "id": "F396-charge-partition-p77#control2",
+      "kind": "assertion",
+      "status": "CONTROL",
+      "seconds": 0.8549962043762207,
+      "detail": "`--param mass_mixing=charged` reddens exactly ['Q_conserved_by_mass_step_unitary_frame'] of 14 leg(s)",
+      "metrics": {
+        "fingerprint": "bb73852c59c13c11",
+        "control_index": 2,
+        "reason": "replace the F27 species-diagonal mass coupling by one that mixes nu_L with e_R (a genuinely charge-changing step); Q is then violated even in the unitary frame, so the Q-conservation result is a property of the F27 coupling and not of the measuring frame.",
+        "params": {
+          "mass_mixing": "charged"
+        },
+        "reds": [
+          "Q_conserved_by_mass_step_unitary_frame"
+        ],
+        "strength": "strong",
+        "baseline_legs": 14,
+        "reds_resolved": [
+          "Q_conserved_by_mass_step_unitary_frame"
+        ],
+        "legs_total": 14,
+        "reddened": 1,
+        "spilled": []
+      },
+      "swept": {}
+    },
+    {
       "id": "P3.2-engine-clock",
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ee5c6fa9d2534b57"
       },
@@ -4299,7 +5667,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "c1fb309cc6c9dfe3"
       },
@@ -4310,9 +5678,9 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]",
       "metrics": {
-        "fingerprint": "f4bca497f2adf95a"
+        "fingerprint": "77d7f375bad495b6"
       },
       "swept": {}
     },
@@ -4321,7 +5689,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "2785a1bed9ad3050"
       },
@@ -4332,7 +5700,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "6a59262f2fa3cf36"
       },
@@ -4343,7 +5711,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9d415de5bbd55f6b"
       },
@@ -4354,7 +5722,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d1cdd1733fe537f9"
       },
@@ -4365,7 +5733,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "94e5ddab724014f3"
       },
@@ -4376,7 +5744,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "822957151a1339fc"
       },
@@ -4387,7 +5755,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 2.4241271018981934,
-      "detail": "1 negative-control test(s) passed",
+      "detail": "1 negative-control test(s) passed  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "2cf5309f4c90cea5",
         "control_index": 0,
@@ -4407,7 +5775,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "d2ca39a783acf2e9"
       },
@@ -4418,7 +5786,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "4559f4df9d8cbe3f"
       },
@@ -4429,7 +5797,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "ada2d662e4d0c81a"
       },
@@ -4440,7 +5808,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "4b2e3b050b1f32c1"
       },
@@ -4451,7 +5819,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.12999987602233887,
-      "detail": "`--param include_mixed=False` reddens exactly ['S1a', 'S1b', 'O1a'] of 28 leg(s)",
+      "detail": "`--param include_mixed=False` reddens exactly ['S1a', 'S1b', 'O1a'] of 28 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e2a3727011efb227",
         "control_index": 0,
@@ -4483,7 +5851,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.06043219566345215,
-      "detail": "`--param skip_checkerboard=True` reddens exactly ['O1a'] of 28 leg(s)",
+      "detail": "`--param skip_checkerboard=True` reddens exactly ['O1a'] of 28 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e2a3727011efb227",
         "control_index": 1,
@@ -4510,7 +5878,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.0834193229675293,
-      "detail": "`--param bad_reverse_shift=True` reddens exactly ['G1a', 'S1a', 'S1b', 'W1a'] of 28 leg(s)",
+      "detail": "`--param bad_reverse_shift=True` reddens exactly ['G1a', 'S1a', 'S1b', 'W1a'] of 28 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e2a3727011efb227",
         "control_index": 2,
@@ -4543,7 +5911,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.08134579658508301,
-      "detail": "`--param hypercubic_anisotropy=True` reddens exactly ['X1c', 'X1d'] of 28 leg(s)",
+      "detail": "`--param hypercubic_anisotropy=True` reddens exactly ['X1c', 'X1d'] of 28 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e2a3727011efb227",
         "control_index": 3,
@@ -4572,7 +5940,7 @@
       "kind": "assertion",
       "status": "CONTROL",
       "seconds": 0.07868313789367676,
-      "detail": "`--param unsymmetrised_reps=True` reddens exactly ['K1a'] of 28 leg(s)",
+      "detail": "`--param unsymmetrised_reps=True` reddens exactly ['K1a'] of 28 leg(s)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "e2a3727011efb227",
         "control_index": 4,
@@ -4599,7 +5967,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "0824697c2c578d53"
       },
@@ -4610,7 +5978,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "c263a2a0acc081ae"
       },
@@ -4621,7 +5989,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "b6146f103efa2785"
       },
@@ -4632,7 +6000,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "8486039063f89e7e"
       },
@@ -4643,7 +6011,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "860d25e42dbb9385"
       },
@@ -4654,7 +6022,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "9864af7b34c8c975"
       },
@@ -4665,7 +6033,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "b392be4991e666f4"
       },
@@ -4676,7 +6044,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "fd10704547e978f4"
       },
@@ -4687,7 +6055,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "4189c6809bb8d07a"
       },
@@ -4698,7 +6066,7 @@
       "kind": "assertion",
       "status": "NOCTRL",
       "seconds": 0.0,
-      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)",
+      "detail": "no `control:` declared \u2014 this record asserts, and nothing shows it can fail (D9/H2 debt)  [journalled]  [journalled]",
       "metrics": {
         "fingerprint": "543f068289e79b03"
       },
@@ -4760,5 +6128,5 @@
       "swept": {}
     }
   ],
-  "n_journalled": 194
+  "n_journalled": 241
 }

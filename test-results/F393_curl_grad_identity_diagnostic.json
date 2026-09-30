@@ -1,0 +1,35 @@
+{
+  "checks": {
+    "matches_known_defect_spectral_max": true,
+    "matches_known_defect_spectral_mean": true,
+    "matches_known_defect_forward_diff_max": true,
+    "matches_known_defect_forward_diff_mean": true,
+    "onaxis_reflection_x_plus_one": true,
+    "onaxis_reflection_y_minus_one": true,
+    "onaxis_reflection_z_plus_one": true
+  },
+  "n_pass": 7,
+  "n_checks": 7,
+  "ok": true,
+  "measured": {
+    "spectral_max": 1.0000000000000002,
+    "spectral_mean": 0.7416917489634725,
+    "forward_diff_max": 1.0000000000000002,
+    "forward_diff_mean": 0.7071725769232295
+  },
+  "onaxis_cos": {
+    "x_m1": 1.0,
+    "x_m2": 1.0,
+    "x_m3": 1.0,
+    "x_m4": 1.0,
+    "y_m1": -1.0,
+    "y_m2": -1.0,
+    "y_m3": -1.0,
+    "y_m4": -1.0,
+    "z_m1": 1.0,
+    "z_m2": 1.0,
+    "z_m3": 1.0,
+    "z_m4": 1.0
+  },
+  "curl_symbol": "bcc"
+}

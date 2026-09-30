@@ -1174,7 +1174,10 @@ def w_self_interaction_step(U_links, dt=0.05, g_lat=1.0):
     safe = theta > 1e-14
     sinc = np.where(safe, np.sin(theta / 2.0) / np.where(safe, theta, 1.0), 0.5)
     R_a = np.cos(theta / 2.0) + 1j * delta_W3 * sinc
-    R_b = (delta_W[1] + 1j * delta_W[0]) * sinc  # (δW^2 + i·δW^1) component
+    # Cayley–Klein b = sinθ·(i n_1 − n_2), the convention of
+    # make_su2_link_uniform / extract_EW_BW (W^2 = −2 Re b).  Was
+    # (δW^2 + i·δW^1), which rotated about −W^2 (fixed 2026-09-29).
+    R_b = (-delta_W[1] + 1j * delta_W[0]) * sinc
 
     # Apply R to each link: U_ℓ → R · U_ℓ
     U_links_new = []
@@ -1467,7 +1470,8 @@ def wmu_mass_stueckelberg(U_links, U_st_a, U_st_b, dt=1.0, g_lat=1.0):
     safe = theta > 1e-14
     sinc = np.where(safe, np.sin(theta / 2) / np.where(safe, theta, 1.0), 0.5)
     R_a = np.cos(theta / 2) + 1j * mass_field[2] * dt * sinc
-    R_b = (mass_field[1] + 1j * mass_field[0]) * dt * sinc
+    # b = sinθ·(i n_1 − n_2) (same convention fix as w_self_interaction_step)
+    R_b = (-mass_field[1] + 1j * mass_field[0]) * dt * sinc
 
     U_links_new = []
     for (U_a, U_b) in U_links:
@@ -1967,6 +1971,40 @@ def w_massive_propagation_step_spectral(E_W, B_W, m_W, dt=1.0):
     B_k_new = -sin_e * E_k + cos_e * B_k
     E_new = _fft.ifftn(E_k_new, axes=(-3, -2, -1)).real
     B_new = _fft.ifftn(B_k_new, axes=(-3, -2, -1)).real
+    return E_new, B_new
+
+
+def w_massive_propagation_step_chiral(E_W, B_W, m_W, dt=1.0):
+    """
+    Massive W± propagation on the **chiral** law (F91: the W± coupling is the
+    left projector, so its channel is chiral — forced).  Added 2026-09-29; the
+    even ``w_massive_propagation_step_spectral`` above is the Proca step the
+    even-law sectors (massive gluon, W^3–B mixing) use and is unchanged.
+
+    Each Riemann–Silberstein eigenstate carries its own branch mass shell:
+
+        F⁺(k) = E_k + i·B_k  →  exp(−i·ω⁺_eff(k)·dt)·F⁺(k)
+        F⁻(k) = E_k − i·B_k  →  exp(+i·ω⁻_eff(k)·dt)·F⁻(k)
+        ω^±_eff = sqrt(m_W² + (Ω^±)²),   Ω^± = 2·ω_±(k/2)  (Nyquist-corrected)
+
+    Reality is preserved because Ω⁺(−k) = Ω⁻(k) off-Nyquist (and Ω⁺ = Ω⁻ on
+    the self-conjugate Nyquist bins), and ω ↦ sqrt(m² + ω²) keeps that
+    symmetry.  At m_W = 0, dt = 1 this is ``w_propagation_step_chiral``
+    exactly; the helicity split ω⁺_eff − ω⁻_eff = (Ω⁺² − Ω⁻²)/(ω⁺_eff + ω⁻_eff)
+    is the mass-suppressed branch splitting of F90 §2 / F91 Z3.
+    """
+    # trailing three axes are spatial: works for the (3,L,L,L) W triplet and
+    # for a scalar (L,L,L) field such as the Z's axial sub-field
+    Op, Om = _get_chiral_dispersions(tuple(E_W.shape[-3:]))   # cached
+    m2 = float(m_W) ** 2
+    wp = np.sqrt(m2 + Op ** 2)
+    wm = np.sqrt(m2 + Om ** 2)
+    E_k = _fft.fftn(E_W, axes=(-3, -2, -1))
+    B_k = _fft.fftn(B_W, axes=(-3, -2, -1))
+    Fp_new = np.exp(-1j * wp * dt) * (E_k + 1j * B_k)
+    Fm_new = np.exp(+1j * wm * dt) * (E_k - 1j * B_k)
+    E_new = _fft.ifftn((Fp_new + Fm_new) * 0.5, axes=(-3, -2, -1)).real
+    B_new = _fft.ifftn((Fp_new - Fm_new) * (-0.5j), axes=(-3, -2, -1)).real
     return E_new, B_new
 
 

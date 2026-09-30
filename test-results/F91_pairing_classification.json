@@ -12,7 +12,7 @@
       "kill": 0.0
     },
     "W2_single_branch_rides_Omega_s": {
-      "residual": 2.1229545899004165e-14,
+      "residual": 2.1239954239860026e-14,
       "pass": true
     },
     "W2_even_excluded_by_F67_separation": {
@@ -40,7 +40,7 @@
       "pass": true
     },
     "G1_colour_coupling_branch_blind": {
-      "residual": 1.1102230246251565e-16,
+      "residual": 0.0,
       "pass": true
     },
     "G2_colour_phase_split_zero": {
@@ -48,8 +48,8 @@
       "pass": true
     },
     "G3_even_octet_step_clean": {
-      "S_even": 4.440892098500626e-16,
-      "norm_drift": 6.006913716438692e-15,
+      "S_even": 0.0,
+      "norm_drift": 3.7938402419612795e-15,
       "pass": true
     },
     "G3_chiral_gluon_unforced_contrast": {

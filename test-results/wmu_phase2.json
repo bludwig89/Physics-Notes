@@ -3,26 +3,26 @@
   "results": [
     {
       "test": "W2.1",
-      "residual": 3.7919575736418433e-13,
+      "residual": 3.404935737061225e-13,
       "per_component": [
-        2.770072210416845e-13,
-        3.7919575736418433e-13,
-        2.427788864381694e-13
+        2.4505433970561695e-13,
+        3.1923615585156836e-13,
+        3.404935737061225e-13
       ],
       "target": 1e-10,
       "passed": true,
-      "description": "\u03a9_W(k)=\u03c9_+(k/2)+\u03c9_-(k/2): a=0 2.77e-13, a=1 3.79e-13, a=2 2.43e-13"
+      "description": "\u03a9_W(k)=\u03c9_+(k/2)+\u03c9_-(k/2): a=0 2.45e-13, a=1 3.19e-13, a=2 3.40e-13"
     },
     {
       "test": "W2.2",
-      "residual": 2.661939320581827e-14,
+      "residual": 3.424243991168602e-14,
       "target": 1e-13,
       "passed": true,
-      "description": "Energy conserved / 200 steps (rel drift=2.66e-14)"
+      "description": "Energy conserved / 200 steps (rel drift=3.42e-14)"
     },
     {
       "test": "W2.3",
-      "residual": 2.5639502485114184e-16,
+      "residual": 0.0,
       "slope_mean": 2.5464790894703255,
       "target": "structural (O(k) transversality)",
       "passed": true,
@@ -36,7 +36,7 @@
       "description": "Decoupled abelian: superposition residual 0.00e+00, zero-seepage residual 0.00e+00"
     }
   ],
-  "elapsed": 4.112179756164551,
+  "elapsed": 0.665057897567749,
   "n_pass": 4,
   "n_total": 4
 }

@@ -1,0 +1,75 @@
+==================================================================================================
+T1  DEC exterior-derivative identities -- the two a curl must satisfy
+==================================================================================================
+  curl(grad phi) = d1(d0 phi)      max|.| = 8.882e-16   (must be 0)
+  div(curl* B)   = div(d1_star B)  max|.| = 8.882e-16   (must be 0)
+  casim bcc_curl_symbol, same first test:  |C x grad|/(|C||grad|)  max 1.000000, mean 0.742
+
+==================================================================================================
+T2  The current IS dH/dA.  Continuity as a consequence, not an imposed equation
+==================================================================================================
+  || q drho/dt - div J ||inf / || q drho/dt ||inf = 3.920e-16
+  transverse fraction ||J_T||/||J|| of the DERIVED current = 0.736700
+  casim F388, same quantity for its constructed current:  2.1e-16 to 2.4e-16
+
+==================================================================================================
+T3  Free-field control: is sum_x E x B conserved by the free propagator?
+==================================================================================================
+  |P_field| t=0 0.401989 -> t=400 0.401989   rel drift 1.823e-14   direction [1. 0.]
+
+==================================================================================================
+T4  Constraints over 300 ticks, dt=0.05, q=0.70, seeded beam
+==================================================================================================
+  single action (S)   Gauss drift 4.731e-05   |dH|/|H| 2.418e-02   norm drift 1.220e-08
+  bridged/split (C)   Gauss drift 5.460e-02   |dH|/|H| 8.162e-03   norm drift 1.220e-08
+  (Gauss drift is the physical discriminator: the FULL derived current updates the
+   longitudinal sector of E, which is exactly what keeps div E - q rho static.
+   Sourcing only the transverse part cannot.)
+
+==================================================================================================
+CONFIG A -- seeded beam + matter at rest (F390's setup).  Is momentum EXCHANGED?
+*** NOT ESTABLISHED -- see audit section 7.  This H omits the scalar-potential term,
+*** so the longitudinal sector of E is not closed and no conservation argument applies.
+==================================================================================================
+
+  single action (S)
+     q      ||dP_matter||   ||dP_field||    cos(dPm,dPf)   |dPm+dPf|/|dPm|
+    0.10   2.809268e-04   2.464348e-03   -0.062026      8.767176e+00
+    0.20   1.140086e-03   5.010984e-03   +0.099960      4.604030e+00
+    0.40   4.689906e-03   1.087671e-02   +0.326669      2.809586e+00
+    0.80   2.041587e-02   2.906599e-02   +0.610229      2.182767e+00
+
+  bridged/split (C)
+     q      ||dP_matter||   ||dP_field||    cos(dPm,dPf)   |dPm+dPf|/|dPm|
+    0.10   2.809239e-04   2.488520e-04   +0.999998      1.885833e+00
+    0.20   1.140039e-03   1.011584e-03   +1.000000      1.887324e+00
+    0.40   4.689126e-03   4.169885e-03   +0.999998      1.889266e+00
+    0.80   2.040142e-02   1.823642e-02   +0.999994      1.893877e+00
+
+  (cos = -1 and ratio -> 0 is a genuine exchange: what matter gains, the field loses.
+   F390 measured cos = -0.989 on-axis but +0.99995 for an off-axis beam, and a
+   residual |dPm+dPf|/|dPm| = 0.174 that never closes.)
+
+==================================================================================================
+CONFIG B -- self-sourced, NO seeded beam (F389's setup).  Coupling-order scaling.
+*** DEGENERATE -- a real Gaussian psi at rest with A=0 has J identically 0, so nothing
+*** is sourced and both columns are 1e-16 noise.  Needs a complex initial packet.
+            F389 measured ||dP_matter|| ~ O(g) and ||dP_field|| ~ O(g^2):
+            doubling ratios 1.99-2.00 and 3.99-4.01 -- the ORDER MISMATCH.
+==================================================================================================
+
+  single action (S)
+     q      ||dP_matter||   ratio    ||dP_field||    ratio    |dPm+dPf|/|dPm|
+    0.10   7.456152e-17     --     5.715830e-19     --     9.923673e-01
+    0.20   8.220538e-16   11.025   3.828685e-18    6.698   9.954477e-01
+    0.40   1.226394e-14   14.919   1.094738e-17    2.859   9.991917e-01
+    0.80   1.914570e-13   15.611   3.975694e-17    3.632   9.998016e-01
+     (ratio = this q / previous q, q doubling.  2 => linear, 4 => quadratic.)
+
+  bridged/split (C)
+     q      ||dP_matter||   ratio    ||dP_field||    ratio    |dPm+dPf|/|dPm|
+    0.10   5.146298e-17     --     1.062348e-22     --     9.999987e-01
+    0.20   8.593917e-16   16.699   8.029926e-22    7.559   9.999993e-01
+    0.40   1.200152e-14   13.965   4.427422e-21    5.514   9.999996e-01
+    0.80   1.868773e-13   15.571   2.888482e-21    0.652   1.000000e+00
+     (ratio = this q / previous q, q doubling.  2 => linear, 4 => quadratic.)

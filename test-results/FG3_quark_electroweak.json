@@ -11,19 +11,19 @@
     "F34 (lepton-W vertex)",
     "W1.4 (constant-V exact, varying-V O(a))"
   ],
-  "n_pass": 6,
+  "n_pass": 3,
   "n_total": 6,
-  "elapsed_seconds": 0.5097970962524414,
+  "elapsed_seconds": 1.2113311290740967,
   "results": [
     {
       "name": "QE1_cold_w_regression",
-      "pass": true,
-      "residual": 0.0
+      "pass": false,
+      "residual": 0.36099259345468865
     },
     {
       "name": "QE2_ward_constant_V",
       "pass": true,
-      "residual": 2.7755575615628914e-16
+      "residual": 6.206335383118183e-17
     },
     {
       "name": "QE3_chi_decoupled_at_m0",
@@ -32,21 +32,21 @@
     },
     {
       "name": "QE4_norm_conservation",
-      "pass": true,
-      "residual": 2.13900055248848e-14,
+      "pass": false,
+      "residual": 0.9920840505442101,
       "norm0": 102.97718148290069,
-      "norm1": 102.97718148289849
+      "norm1": 0.8151621637183453
     },
     {
       "name": "QE5_ward_varying_V",
       "pass": true,
-      "residual": 0.577551982555577,
+      "residual": 0.1477014225952852,
       "note": "O(a) regime; constant-V exactness verified in QE2"
     },
     {
       "name": "QE6_color_charge_conservation",
-      "pass": true,
-      "residual": 2.4655778344939514e-14
+      "pass": false,
+      "residual": 1.0451840720860555
     }
   ]
 }

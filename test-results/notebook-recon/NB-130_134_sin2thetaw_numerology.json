@@ -1,0 +1,77 @@
+{
+  "NB-130": {
+    "notebook_values": {
+      "sin_theta_W": 0.481,
+      "cos_theta_W": 0.876,
+      "cot_theta_W": 1.821,
+      "tan_theta_W": 0.549,
+      "Q'_11": 2.37,
+      "Q'_22": -1.27
+    },
+    "derived_values": {
+      "sin_theta_W": 0.482,
+      "cos_theta_W": 0.876,
+      "cot_theta_W": 1.819,
+      "tan_theta_W": 0.55,
+      "Q'_11": 2.37,
+      "Q'_22": -1.27
+    },
+    "all_match_within_rounding": true,
+    "verdict": "SOLID"
+  },
+  "NB-131": {
+    "checks": {
+      "cos_theta_W_equals_sqrt3_over_2": true,
+      "cot_theta_W_equals_sqrt3": true,
+      "tan_theta_W_equals_1_over_sqrt3": true
+    },
+    "verdict": "SOLID"
+  },
+  "NB-132": {
+    "tau_plus_matches_notebook": true,
+    "tau_minus_matches_notebook": true,
+    "identity_gW1tau1+gW2tau2=g(W-tau++W+tau-)_holds": true,
+    "modulus_identity_|W+|^2+|W-|^2=|W1|^2+|W2|^2_holds": true,
+    "coupling_scaling_sqrt2_g_=_sqrt2_e/sinw_consistent": true,
+    "verdict": "SOLID"
+  },
+  "NB-133": {
+    "checks": {
+      "sin_theta_W_from_coupling=3e": "sqrt(2)/3",
+      "sin_theta_W_equals_sqrt2_over_3": true,
+      "sin2_theta_W_equals_2_over_9": true,
+      "sin2_theta_W_decimal": 0.2222222222222222
+    },
+    "verdict": "SOLID"
+  },
+  "NB-134": {
+    "tan_theta_W_matches_notebooks_stated_sqrt(1/7)": false,
+    "tan_theta_W_actually_equals_sqrt(2/7)": true,
+    "tan_theta_W_numeric_(both_should_match_decimal_0.535)": 0.5345224838248488,
+    "cot_theta_W_matches_notebooks_stated_sqrt(7/2)": true,
+    "Qz_11_exact_symbolic": "9*sqrt(14)/14",
+    "Qz_11_matches_notebooks_stated_symbolic_2sqrt7/3": false,
+    "Qz_11_decimal_true_value": 2.4054,
+    "Qz_11_notebook_stated_decimal": 2.37,
+    "Qz_11_decimal_matches_within_0.01": false,
+    "Qz_11_notebook_decimal_actually_equals_NB-130s_experimental_Qp_11": true,
+    "Qz_22_exact_symbolic": "5*sqrt(14)/14",
+    "Qz_22_matches_notebooks_stated_symbolic_1/sqrt3": false,
+    "Qz_22_decimal_true_value": 1.3363,
+    "Qz_22_notebook_stated_decimal": 1.33,
+    "Qz_22_decimal_matches_within_0.01": true,
+    "other_algebra_self_check": {
+      "notebook_used_cot+tan=7/3_and_cot-tan=4/3": true,
+      "these_rounded_fractions_solve_to_cot=11/6": true,
+      "does_11/6+6/11_actually_equal_7/3": false,
+      "11/6+6/11_exact_value": "157/66",
+      "true_cot_theta_W_at_sin2=2/9": "sqrt(14)/2",
+      "true_cot_theta_W_decimal": 1.8708,
+      "true_cot_equals_11/6": false,
+      "author_self_flagged_with_an_X_mark": true,
+      "confirmed_genuine_inconsistency": true
+    },
+    "conclusion": "Two separate, precisely-locatable errors, both confirmed genuine (not transcription artifacts): (1) the printed radical for tan(theta_W), sqrt(1/7)=0.378, does not match its own accompanying decimal '~0.535' -- the correct closed form is sqrt(2/7)=0.5345, matching the decimal exactly; the '1/7' should be '2/7'. (2) The boxed Q_z decimal 2.37 for cot+tan is NOT the correct value at sin^2(theta_W)=2/9 (true value 2.4053) -- it exactly equals NB-130's EXPERIMENTAL Q'_11 value computed three lines earlier on the previous page, strongly suggesting it was carried over rather than recomputed for the new hypothesis. The other Q_z decimal, 1.33, IS correct (true value 1.3363) and its stated symbolic form 1/sqrt(3)=0.577 is, however, wrong (doesn't match 1.3363 at all). The author's own follow-up 'other algebra' self-consistency check (treating cot+tan=7/3 and cot-tan=4/3 as exact and solving for a single cot(theta_W)=11/6) is CONFIRMED to genuinely fail: 11/6+6/11 = 157/66 = 2.379, not 7/3 = 2.333 -- the author's self-flagged 'X' is a correct catch, not an overreaction. Root cause: 7/3 and 4/3 are only rough two-decimal-place roundings of the true cot+tan=2.405 and cot-tan=1.336 (themselves already partly corrupted by the copied-over 2.37), not exact fractions -- there is no single self-consistent rational shortcut here, exactly as the author's own arithmetic discovered.",
+    "verdict": "NEEDS-WORK (self-flagged error confirmed genuine, root cause identified)"
+  }
+}

@@ -340,19 +340,44 @@ def group_velocity_at(k0vec, nhat, h=1e-5):
 # track, in contrast to build_pair_mode's single standing Fourier mode.
 # ----------------------------------------------------------------------
 def build_beam_packet(L, m_index, axis=0, pol_axis=None, sigma=4.0,
-                      center=None):
+                      center=None, polarization="linear"):
     """Build a travelling Gaussian photon beam on an L³ cubic lattice.
 
     Construction: the RS analytic field F = E + iB is taken one-sided in k,
 
-        F_pol(x) = exp(−|x−x0|² / 2σ²) · exp(i k0 (x_axis − x0_axis)),
+        f(x) = exp(−|x−x0|² / 2σ²) · exp(i k0 (x_axis − x0_axis)),
 
-    with carrier k0 = 2π·m_index/L along ``axis`` and polarization along
-    ``pol_axis`` (transverse).  Under the even pair law F_k → e^{−iΩ_pair}F_k,
-    so a one-sided F is a packet travelling in +axis at dΩ_pair/dk|_{k0}.
-    E = Re F, B = Im F — B is the exact quadrature of E within the same
-    Cartesian component, which is what makes the packet one-sided (the
-    backward −k0 content is suppressed by exp(−(k0σ)²); keep k0·σ_axis ≳ 3).
+    with carrier k0 = 2π·m_index/L along ``axis``.  Under the even pair law
+    F_k → e^{−iΩ_pair}F_k, so a one-sided F is a packet travelling in +axis at
+    dΩ_pair/dk|_{k0} (the backward −k0 content is suppressed by
+    exp(−(k0σ)²); keep k0·σ_axis ≳ 3).
+
+    ``polarization`` selects how the scalar envelope ``f`` is mapped onto the
+    RS 3-vector ``F = E + iB``:
+
+    * ``"linear"`` (default) — ``F[pol_axis] = f``, i.e. E and B occupy the
+      *same* Cartesian component (``pol_axis``, transverse to ``axis``,
+      default ``(axis+1)%3``).  **This is a real (non-null) RS field**:
+      ``F·F = f² ≠ 0``, so ``E ∥ B`` pointwise and the Poynting momentum
+      ``Σ E×B`` vanishes identically — a real limitation of this mode for any
+      momentum-carrying use, not a bug (see ``core.observers.Momentum``'s own
+      docstring). Kept as the default, bit-identical to every prior call site,
+      because F386–F390's gate records are built on it.
+    * ``"circular"`` — the genuine null-RS (radiation) field. With
+      ``a1=(axis+1)%3``, ``a2=(axis+2)%3`` and the complex circular
+      polarization vector ``ê = (ê_a1 + i·ê_a2)/√2``, set
+      ``F_vec = ê·f`` (so ``F·F = f²·(ê·ê) = 0`` exactly, since ê is a null
+      complex unit vector), i.e.
+
+          E[a1] = Re(f)/√2,   B[a1] = Im(f)/√2
+          E[a2] = −Im(f)/√2,  B[a2] = Re(f)/√2
+
+      giving ``|E|=|B|`` and ``E⊥B`` pointwise (to FFT round-off), a genuine
+      nonzero, axis-directed Poynting momentum, and (F·F=0 being propagator-
+      invariant under the paired-photon's per-mode rotation, F26/F67-F69)
+      exact conservation of ``Σ E×B`` under ``photon_step_spectral``.
+      ``pol_axis`` is not used in this mode — the polarization plane is fixed
+      by ``axis`` alone.
 
     ``sigma`` may be a scalar or a length-3 sequence (per-axis widths).  A
     finite transverse width σ⊥ gives the beam an angular spectrum, so its
@@ -381,14 +406,143 @@ def build_beam_packet(L, m_index, axis=0, pol_axis=None, sigma=4.0,
     d = [np.remainder(X[a] - center[a] + L / 2.0, L) - L / 2.0 for a in range(3)]
     r2 = sum((d[a] / sig[a]) ** 2 for a in range(3))
     envelope = np.exp(-r2 / 2.0)
-    F = envelope * np.exp(1j * k0 * d[axis])
+    f = envelope * np.exp(1j * k0 * d[axis])
     E = np.zeros((3, L, L, L))
     B = np.zeros((3, L, L, L))
-    E[pol_axis] = F.real
-    B[pol_axis] = F.imag
+    if polarization == "linear":
+        E[pol_axis] = f.real
+        B[pol_axis] = f.imag
+    elif polarization == "circular":
+        a1, a2 = (axis + 1) % 3, (axis + 2) % 3
+        root2 = np.sqrt(2.0)
+        E[a1] = f.real / root2
+        B[a1] = f.imag / root2
+        E[a2] = -f.imag / root2
+        B[a2] = f.real / root2
+    else:
+        raise ValueError("polarization must be 'linear' or 'circular'")
     k0vec = np.zeros(3)
     k0vec[axis] = k0
     return E, B, k0vec
+
+
+def _field_momentum_k(E, B):
+    """``Σ_k E_k × conj(B_k) / N`` — the exact-by-Parseval field momentum
+    ``core.observers.Momentum`` uses (its own docstring derives why this,
+    not a naive real-space ``Σ_x E×B``, is the bit-identical-conserved
+    quantity under ``photon_step_spectral``; the ``/N`` matches that
+    observer's own normalisation convention, so this reproduces the
+    audit's real-space-summed numbers directly)."""
+    n = E[0].size
+    Ek = [_fft.fftn(E[a]) for a in range(3)]
+    Bk = [_fft.fftn(B[a]) for a in range(3)]
+    px = Ek[1] * np.conj(Bk[2]) - Ek[2] * np.conj(Bk[1])
+    py = Ek[2] * np.conj(Bk[0]) - Ek[0] * np.conj(Bk[2])
+    pz = Ek[0] * np.conj(Bk[1]) - Ek[1] * np.conj(Bk[0])
+    return np.array([px.sum(), py.sum(), pz.sum()]).real / n
+
+
+def check_beam_polarization_fix(L=16, sigma=3.0, m_indices=(2, 4), n_ticks=40,
+                                null_check_polarization="circular"):
+    """Gate leg for the F386-audit defect (docs/audits/2026-09-16-photon-
+    fermion-momentum-investigation.md §2): ``build_beam_packet``'s original
+    (``"linear"``) mode has ``E∥B`` pointwise, so ``F=E+iB`` is not a null
+    Riemann–Silberstein field and ``Σ E×B≡0`` identically — F390's entire
+    momentum-conservation test ran against a field with no momentum to give.
+    The ``"circular"`` mode is the fix: a complex circular polarization
+    vector makes ``F·F=0`` exactly, i.e. ``|E|=|B|`` and ``E⊥B`` (the null
+    condition, references/lattice-conservation-laws-research-review.md §8).
+
+    Any beam a momentum test uses from here on should satisfy this — the
+    durable point of this gate leg, not merely a one-off regression check.
+
+    Legs:
+        null_condition_holds          |E·B|/(‖E‖‖B‖) < 1e-12, every
+                                       axis × m_index combo tested
+        equal_magnitude_holds         |‖E‖−‖B‖|/‖E‖ < 1e-12, same combos
+        momentum_nonzero_and_aligned  |Σ E×B| > 0 and cos(P,k̂) > 0.99,
+                                       same combos
+        default_config_magnitude_matches_audit
+                                       |Σ E×B| = 75.126 at L=16,σ=3.0,
+                                       axis=0, m=2 (the audit's own
+                                       reproduced number)
+        momentum_conserved_under_free_propagator
+                                       rel. drift of the k-space field
+                                       momentum under n_ticks of
+                                       photon_step_spectral < 5e-15
+        linear_mode_bit_identical_to_default
+                                       the (unchanged) "linear" mode is
+                                       bit-identical whether requested by
+                                       omitting `polarization` or passing
+                                       it explicitly — the backward-
+                                       compatibility contract F386-F391's
+                                       own gate records depend on
+    """
+    checks = {}
+    worst_null = 0.0
+    worst_mag_diff = 0.0
+    worst_cos = 1.0
+    any_zero_momentum = False
+    for axis in range(3):
+        for m in m_indices:
+            E, B, k0vec = build_beam_packet(L, m, axis=axis, sigma=sigma,
+                                            polarization=null_check_polarization)
+            nE, nB = float(np.linalg.norm(E)), float(np.linalg.norm(B))
+            null_ratio = abs(float((E * B).sum())) / (nE * nB)
+            mag_diff = abs(nE - nB) / nE
+            P = _field_momentum_k(E, B)
+            nP = float(np.linalg.norm(P))
+            khat = k0vec / np.linalg.norm(k0vec)
+            cos_pk = float(P @ khat) / nP if nP > 0 else 0.0
+            worst_null = max(worst_null, null_ratio)
+            worst_mag_diff = max(worst_mag_diff, mag_diff)
+            worst_cos = min(worst_cos, cos_pk)
+            any_zero_momentum = any_zero_momentum or (nP == 0.0)
+    checks["null_condition_holds"] = worst_null < 1e-12
+    checks["equal_magnitude_holds"] = worst_mag_diff < 1e-12
+    checks["momentum_nonzero_and_aligned"] = (not any_zero_momentum) and worst_cos > 0.99
+
+    E0, B0, _ = build_beam_packet(L, 2, axis=0, sigma=sigma,
+                                  polarization=null_check_polarization)
+    default_mag = float(np.linalg.norm(_field_momentum_k(E0, B0)))
+    checks["default_config_magnitude_matches_audit"] = (
+        abs(default_mag - 75.125961) < 1e-2 if L == 16 and sigma == 3.0 else True)
+
+    E, B, _ = build_beam_packet(L, 2, axis=0, sigma=sigma,
+                                polarization=null_check_polarization)
+    P0 = _field_momentum_k(E, B)
+    n0 = float(np.linalg.norm(P0))
+    for _ in range(n_ticks):
+        E, B = photon_step_spectral(E, B)
+    P1 = _field_momentum_k(E, B)
+    if n0 > 0:
+        drift = float(np.linalg.norm(P1 - P0)) / n0
+        checks["momentum_conserved_under_free_propagator"] = drift < 5e-15
+    else:
+        # nothing to conserve (P0 is exactly zero, the original defect) —
+        # a drift ratio is undefined, and there is no baseline to be
+        # "conserved" relative to, so this leg cannot pass.
+        drift = float("nan")
+        checks["momentum_conserved_under_free_propagator"] = False
+
+    E_def, B_def, k_def = build_beam_packet(L, 2, axis=0, sigma=sigma)
+    E_exp, B_exp, k_exp = build_beam_packet(L, 2, axis=0, sigma=sigma, polarization="linear")
+    checks["linear_mode_bit_identical_to_default"] = (
+        np.array_equal(E_def, E_exp) and np.array_equal(B_def, B_exp)
+        and np.array_equal(k_def, k_exp))
+
+    n_pass = sum(1 for v in checks.values() if v)
+    return {
+        "checks": checks,
+        "n_pass": n_pass,
+        "n_checks": len(checks),
+        "ok": n_pass == len(checks),
+        "worst_null_condition_ratio": worst_null,
+        "worst_magnitude_diff_ratio": worst_mag_diff,
+        "worst_cos_P_khat": worst_cos,
+        "default_config_momentum_magnitude": default_mag,
+        "momentum_drift_40_ticks": drift,
+    }
 
 
 if __name__ == '__main__':

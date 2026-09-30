@@ -521,6 +521,202 @@ def check_l6_decision(ns=(6, 8, 10, 12), swap_control: bool = False) -> dict:
     return out
 
 
+# ======================================================================
+#  F382 -- d1 leg 3, next candidate after F350: does the vertex-derived
+#  numerator M share the propagator's own periodicity under the BCC
+#  reciprocal lattice (the group G7/F305 uses to justify the WS-cell as
+#  THE fundamental domain), and if it does not, does integrating over the
+#  full cube instead of the WS quarter fix (rather than worsen) the slow
+#  convergence?
+# ======================================================================
+def _axis_kernel_at_point(action, k4, qv, branch="phys"):
+    """M/den, the exact per-point integrand ``pi_loop`` sums (before the
+    domain mask), evaluated at ONE 4-momentum.  Deliberately duplicated from
+    ``pi_loop`` rather than factored out, matching this module's own house
+    style (``pi_loop`` vs ``pi_loop_chunked``) so the tested production path
+    is never touched by this diagnostic."""
+    from casim.engine.core import lpt_generator as gen
+    N = bv.ACTIONS[action]["N"]
+    k = xp.asarray(k4, dtype=float).reshape(1, 4)
+    kq = k + qv
+    istrip = 1j * gen.F_ABC[0, 1, 2]
+    W = xp.real(_T3grid(action, k, qv, 'W') / istrip) + _Vgf(action, k, qv)
+    Z = xp.real(_T3grid(action, k, qv, 'Z') / istrip) + _Vgf(action, kq, -qv)
+    t = bv.khat(action, k) + bv.khat(action, kq)
+    if action == "bcc" and branch == "phys":
+        P = xp.eye(N) - xp.outer(bv.NHAT_BCC, bv.NHAT_BCC)
+        W = xp.einsum('...aml,lb->...amb', W, P)
+        Z = xp.einsum('...aml,ab->...bml', Z, P)
+        t = t @ P
+    M = xp.real(xp.einsum('...aml,...lna->...mn', W, Z)
+                - 2.0 * xp.einsum('...m,...n->...mn', t, t))
+    den = bv.quadratic_form(action, k) * bv.quadratic_form(action, kq)
+    return M[0] / den[0]
+
+
+#: fixed deterministic test points, spatial (kx,ky,kz) + temporal kt, chosen
+#: generic (irrational-ratio, no accidental symmetry) so the periodicity
+#: measurement below is reproducible without depending on an RNG stream.
+_G382_POINTS = (
+    (0.37, -0.52, 0.61, 0.28), (-0.44, 0.19, -0.33, 0.55),
+    (0.58, 0.41, -0.17, -0.36), (-0.22, -0.63, 0.48, 0.14),
+)
+
+
+def vertex_g_periodicity(branch: str = "phys", control_use_propagator: bool = False,
+                         shell_size: int = 6) -> dict:
+    """Does the axis-space kernel M (numerator of ``pi_loop``'s integrand)
+    share the propagator's own exact invariance (G7, F305) under a shift of
+    the loop momentum by a BCC reciprocal-lattice vector?  G7 establishes
+    this ONLY for the quadratic form (the propagator sector); F305/F280/F337
+    all use the WS cell (one quarter of the cube) as THE fundamental domain
+    for the FULL loop integral, vertex and propagator together, on the
+    strength of that same G7 argument.  This checks whether the argument
+    actually extends to the vertex-derived numerator, which G7 never claimed.
+
+    ``control_use_propagator=True`` runs the identical measurement on
+    ``bv.quadratic_form`` alone instead of the M-kernel -- the propagator
+    sector G7 already proves invariant -- so the check can register the
+    opposite (small-deviation) verdict under a real toggle, not just always
+    report "violated" (D9)."""
+    qv = xp.zeros(4)
+    qv[3] = 0.9
+    G = bv._recip_vectors(rng=1)[:shell_size]
+    rows = []
+    for k4 in _G382_POINTS:
+        k = xp.asarray(k4)
+        if control_use_propagator:
+            base = float(bv.quadratic_form("bcc", k.reshape(1, 4))[0])
+        else:
+            base = _axis_kernel_at_point("bcc", k, qv, branch)
+        for g3 in G:
+            kshift = k.copy()
+            kshift[:3] = kshift[:3] + g3
+            if control_use_propagator:
+                shifted = float(bv.quadratic_form("bcc", kshift.reshape(1, 4))[0])
+                dev = abs(shifted - base) / max(abs(base), 1e-300)
+            else:
+                shifted = _axis_kernel_at_point("bcc", kshift, qv, branch)
+                denom = max(float(xp.max(xp.abs(base))), 1e-300)
+                dev = float(xp.max(xp.abs(shifted - base))) / denom
+            rows.append({"k": k4, "|G|": float(xp.linalg.norm(g3)), "rel_dev": dev})
+    worst = max(r["rel_dev"] for r in rows)
+    return {"rows": rows, "worst_rel_dev": worst,
+            "control_use_propagator": control_use_propagator,
+            "pass": bool(worst < 1e-8 if control_use_propagator else worst > 0.05),
+            "statement": "the propagator's exact invariance under the BCC "
+                         "reciprocal lattice (G7) does not extend to the "
+                         "vertex-derived numerator M -- the same shift that "
+                         "leaves quadratic_form invariant to machine "
+                         "precision changes M by tens of percent."}
+
+
+def domain_choice_divergence(ns=(6, 8, 10, 12, 14, 16, 18, 20), branch: str = "phys",
+                             swap_control: bool = False) -> dict:
+    """Does summing the loop over the FULL cube (rather than G7's WS quarter)
+    fix d1 leg 3's anomalously slow convergence (F337/F350), on the theory
+    that ``vertex_g_periodicity`` above shows the WS restriction may be
+    dropping vertex contributions the propagator sector alone does not need
+    dropped?  Tested directly rather than argued: if the cube captures
+    vertex information the WS cell wrongly discards, ``b0_recovery`` under
+    ``domain='cube'`` should approach 1 at least as well as ``domain='ws'``.
+
+    ``bad_diverges`` is a MONOTONICITY test on ``b0_recovery`` itself (not on
+    ``|1 - b0_recovery|``): the deviation-from-1 metric is non-monotonic near
+    a sign crossing (``b0_recovery`` passing through exactly 1), which the
+    'cube' domain does between n=8 and n=10 (F382 review, 2026-09-10 -- an
+    endpoint-only deviation comparison over a range starting at n=8 missed
+    this and gave a false 'converges' reading at ns=(6,8,10)).
+    ``b0_recovery`` itself is strictly increasing at every consecutive n from
+    6 through 20 for BOTH branches under domain='cube' (verified directly,
+    no crossing-induced ambiguity), which is what a genuine, unbounded
+    divergence looks like; requiring that plus a healthy final margin past 1
+    is robust to which sub-range of n happens to be swept.
+
+    ``swap_control=True`` swaps which domain is asserted to behave well --
+    a real measurement (not a hardcoded verdict) must fail under the swap,
+    because it is ``domain='cube'`` that actually diverges (D9)."""
+    good_domain, bad_domain = ("cube", "ws") if swap_control else ("ws", "cube")
+    rows = []
+    for n in ns:
+        sp = 2 * math.pi / n
+        Qs = [r * sp for r in CELL_RATIOS]
+        good_m, _ = _side_domain(good_domain, Qs, n, branch)
+        bad_m, _ = _side_domain(bad_domain, Qs, n, branch)
+        rows.append({"n": n, f"b0_recovery_{good_domain}": good_m["b0_recovery"],
+                     f"b0_recovery_{bad_domain}": bad_m["b0_recovery"],
+                     "dev_good": abs(good_m["b0_recovery"] - 1.0),
+                     "dev_bad": abs(bad_m["b0_recovery"] - 1.0)})
+    dev_good = [r["dev_good"] for r in rows]
+    bad_seq = [r[f"b0_recovery_{bad_domain}"] for r in rows]
+    good_bounded = max(dev_good) < 1.0            # ws never leaves the [0,2) band, at ANY n tested
+    bad_monotonic = all(bad_seq[i + 1] > bad_seq[i] for i in range(len(bad_seq) - 1))
+    bad_diverges = bad_monotonic and bad_seq[-1] > 1.5
+    return {"rows": rows, "good_domain": good_domain, "bad_domain": bad_domain,
+            "good_bounded": good_bounded, "bad_diverges": bad_diverges,
+            "swap_control": swap_control,
+            "pass": bool(good_bounded and bad_diverges),
+            "statement": "domain='cube' does not fix d1 leg 3's slow "
+                         "convergence -- its own b0_recovery climbs "
+                         "strictly monotonically past 1 without turning "
+                         "over (both phys and raw branches, n=6-20), the "
+                         "same qualitative signature F337 measured for the "
+                         "raw (unprojected) branch under domain='ws'. This "
+                         "corroborates the WS-cell restriction G7 (F305) "
+                         "already licenses for the propagator sector; it "
+                         "does not itself re-decide L6 (F337), whose two "
+                         "litigated legs were the propagator scheme and the "
+                         "branch fork, not the domain choice."}
+
+
+def _side_domain(domain, Qs, n, branch):
+    """``_side_chunked``, but with an explicit forced integration domain
+    (F382) rather than the action's default.  ``action`` is always 'bcc' --
+    the Wilson/'sc' side has no WS cell and is not part of this question."""
+    B = [transverse_B_chunked("bcc", Q, n, branch, domain=domain) for Q in Qs]
+    x = [math.log(1.0 / Q) for Q in Qs]
+    P = B if float(xp.polyfit(xp.asarray(x), xp.asarray(B), 1)[0]) > 0 else [-b for b in B]
+    return (slope_normalised_constant(Qs, P),
+            slope_normalised_constant(Qs, P, slope=SLOPE_ANALYTIC))
+
+
+def check_d1_vertex_domain_f382(ns=(6, 8, 10, 12, 14, 16, 18, 20),
+                                swap_control: bool = False) -> dict:
+    """Registry entry point (D9), gate tier.  F350 Sec.5/7 named two untested
+    candidates for d1 leg 3's anomalous convergence rate after the WS-mask
+    discretisation hypothesis was excluded: the vertex form factors' own
+    behaviour / the phys-branch projection, and the g_s=1/2 monotonicity
+    assumption.  This record attacks the first, in the sharpest form
+    available: does the WS-cell domain (correct for the propagator by G7,
+    but never shown correct for the vertex-derived numerator) actually
+    account for the vertex sector too?  ``vertex_g_periodicity`` measures
+    that the propagator's invariance does NOT extend to the vertex kernel;
+    ``domain_choice_divergence`` then tests the natural remedy (integrate
+    over the full cube instead) directly and finds it makes convergence
+    WORSE, not better -- ruling this candidate out rather than confirming
+    it, and corroborating (not re-deciding -- see ``domain_choice_divergence``'s
+    own docstring) the WS-cell restriction F337's L6 decision (domain='ws',
+    branch='phys') already rests on.
+
+    FALSIFIABILITY (added on review, 2026-09-10): this record's own exclusion
+    of the domain-choice candidate is overturned if a future sweep at n > 20
+    measures ``domain='cube'``'s b0_recovery turning over (ceasing to
+    increase monotonically) and settling below ``domain='ws'``'s own
+    deviation from 1 -- no such turnover has been measured across n=6-20
+    for either branch (strictly monotonic throughout, verified directly)."""
+    pg = vertex_g_periodicity()
+    pg_ctrl = vertex_g_periodicity(control_use_propagator=True)
+    dd = domain_choice_divergence(ns, swap_control=swap_control)
+    out = {"vertex_not_G_periodic": pg,
+           "propagator_is_G_periodic_control": pg_ctrl,
+           "cube_domain_does_not_fix_it": dd}
+    out["checks"] = {k: bool(v["pass"]) for k, v in out.items()
+                     if isinstance(v, dict) and "pass" in v}
+    out["legs"] = dict(out["checks"])
+    out["pass"] = all(out["checks"].values())
+    return out
+
+
 if __name__ == "__main__":  # pragma: no cover
     import json
     print(json.dumps(check_action_consistent_d1(), indent=1, default=str))

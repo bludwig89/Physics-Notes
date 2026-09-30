@@ -1,0 +1,27 @@
+{
+  "L": 16,
+  "ticks": 20,
+  "g_lat": 0.5,
+  "q": 1.0,
+  "channels_registered": true,
+  "photon_pair_accepts_bcc": true,
+  "ordering_err": 0.0,
+  "pfield_norm_self_sourced": 3.9402627668589636e-36,
+  "matter_push_mid": 2.9708472441720057e-05,
+  "matter_push_end": 3.1182535773571756e-05,
+  "norm_drift": 8.577314975388715e-06,
+  "gauss_for_b_residual_self_sourced": 3.767958322676323e-16,
+  "gauss_for_b_residual_seeded": 4.019625008907845e-16,
+  "checks": {
+    "channels_registered": true,
+    "photon_pair_accepts_bcc": true,
+    "ordering_pretick_posttick_exact": true,
+    "self_sourced_field_momentum_trivially_zero": true,
+    "seeded_photon_gives_sustained_push": true,
+    "norm_drift_bounded": true,
+    "no_monopole_fix_holds_with_dynamical_current": true
+  },
+  "n_pass": 7,
+  "n_checks": 7,
+  "ok": true
+}

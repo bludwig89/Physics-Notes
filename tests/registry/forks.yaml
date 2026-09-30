@@ -226,17 +226,21 @@ tests:
     - F164
     - F192
     - F193
+    - F319
+    - F408
     pytest_funcs: false
     has_assert: false
     has_main: true
-    lines: 88
+    lines: 99
     n_test_funcs: 0
     artifacts_written:
     - test-results/F193_ontic_vacuum_test.json
     artifact_rule:
       test-results/F193_ontic_vacuum_test.json: local
     artifacts_read_only: []
-    summary: test_F193_ontic_vacuum.py  --  CA-native ontic vacuum gravitates as zero (candidate (i)),
+    summary: '[PARTIALLY SUPERSEDED 2026-09-27 by F319, F408 — ledger S25-F193-partA-excluded-and-secB-sign-reading]'
+    ledger_status: partially_superseded
+    ledger_record: S25-F193-partA-excluded-and-secB-sign-reading
 - id: F196-dilution-exponent
   path: tests/findings/test_F196_dilution_exponent.py
   kind: result_dump
@@ -262,6 +266,8 @@ tests:
       test-results/F196_dilution_exponent_test.json: local
     artifacts_read_only: []
     summary: test_F196_dilution_exponent.py  --  deriving the p=2 holographic dilution exponent
+    ledger_status: live
+    ledger_record: S25-F193-partA-excluded-and-secB-sign-reading
 - id: F197-first-excitation-dark
   path: tests/findings/test_F197_first_excitation_dark.py
   kind: result_dump
@@ -762,8 +768,10 @@ tests:
     has_main: true
     lines: 133
     n_test_funcs: 1
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F364_baryogenesis_boltzmann_test.json
+    artifact_rule:
+      test-results/F364_baryogenesis_boltzmann_test.json: local
     artifacts_read_only: []
     summary: test_F364_baryogenesis_boltzmann.py
 - id: F56-einstein-coupling-derivation

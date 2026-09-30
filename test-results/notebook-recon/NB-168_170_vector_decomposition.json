@@ -1,0 +1,66 @@
+{
+  "NB-168_identity": {
+    "claim": "V^mu V_mu = 2 a^mu b_mu, given V=a+b with a,b both null",
+    "V.V_equals_a.a+b.b+2a.b_in_general": true,
+    "a.b_symmetric_(a.b=b.a)": true,
+    "reduces_to_2ab_after_subtracting_a.a+b.b": true,
+    "verdict": "SOLID (trivial bilinear identity, confirmed exactly)"
+  },
+  "NB-168_explicit_decomposition": {
+    "claim": "explicit timelike decomposition: V_mu = (1/2(t+|V|), 1/2(V+That))+(1/2(t-|V|),1/2(V-That)), restated as (1/2)(1+t/|V|)(|V|,V)+(1/2)(1-t/|V|)(-|V|,V)",
+    "sum_of_two_pieces_reconstructs_V_mu": true,
+    "first_piece_a_mu_is_null": true,
+    "second_piece_b_mu_is_null": true,
+    "second_displayed_form_matches_first_form_(a_piece)": true,
+    "second_displayed_form_matches_first_form_(b_piece)": true,
+    "verdict": "SOLID"
+  },
+  "NB-169": {
+    "claim": "classification table: +timelike (V0>|V|): 1+V0/|V|>1, 1-V0/|V|<0; -timelike (V0<-|V|): <0,>1; +spacelike (V0<|V|): >1,>1; -spacelike (V0>-|V|): >1,>0 [sic, likely should read differently]",
+    "row_by_row_check": {
+      "+timelike_example_V0=5,|V|=2": {
+        "1+V0/|V|": 3.5,
+        "1-V0/|V|": -1.5,
+        "expected": ">1, <0",
+        "matches": true
+      },
+      "-timelike_example_V0=-5,|V|=2": {
+        "1+V0/|V|": -1.5,
+        "1-V0/|V|": 3.5,
+        "expected": "<0, >1",
+        "matches": true
+      },
+      "+spacelike_example_V0=1,|V|=2_(0<V0<|V|)": {
+        "1+V0/|V|": 1.5,
+        "1-V0/|V|": 0.5,
+        "expected_per_table": ">1, >1",
+        "matches": false
+      },
+      "+spacelike_counterexample_V0=-1,|V|=2_(also_satisfies_V0<|V|)": {
+        "1+V0/|V|": 0.5,
+        "1-V0/|V|": 1.5,
+        "expected_per_table": ">1, >1",
+        "matches": false
+      }
+    },
+    "table_holds_for_all_tested_examples": false,
+    "diagnosis": "The timelike rows (+/-timelike, defined by strict thresholds V0>|V| or V0<-|V|) check out exactly and unambiguously. The spacelike rows are a genuine problem: the table's own STATED defining condition for '+spacelike' is simply 'V0<|V|' -- but this is satisfied by EVERY spacelike vector, including ones with negative V0 (e.g. V0=-1, |V|=2 is spacelike and satisfies V0<|V|), for which 1+V0/|V| = 1-1/2 = 0.5, NOT '>1' as the table's own consequent column claims. So the table's stated threshold condition for '+spacelike' does not actually force its claimed consequence -- the true condition for 1+V0/|V|>1 is the STRICTER V0>0 (combined with |V0|<|V| for spacelike), not merely V0<|V|. The table appears to intend '+spacelike' as 'spacelike with V0>0' and '-spacelike' as 'spacelike with V0<0' (mirroring the +/-timelike future/past split), but the DEFINING CONDITIONS actually printed (V0<|V|, V0>-|V|) don't encode that distinction -- both conditions hold for ALL spacelike vectors regardless of the sign of V0, so as literally stated the two 'spacelike' rows are not actually disjoint or well-defined by their own printed criteria.",
+    "verdict": "NEEDS-WORK (timelike rows confirmed exactly; the spacelike rows' stated defining conditions do not actually distinguish the two claimed cases, confirmed by direct counterexample)"
+  },
+  "NB-170": {
+    "claim": "boxed a_mu = (1/(2V0))(V0^2-|V|^2+2(ahat.V))(1,ahat) solves the b-is-null condition a^mu V_mu = v^2/2, given a_mu=(a0,a0*ahat) null by construction",
+    "independently_derived_a0_from_a.V=v^2/2": "(-V0**2 + Vx**2 + Vy**2 + Vz**2)/(2*(-V0 + Vx*ahx + Vy*ahy + Vz*ahz))",
+    "notebooks_boxed_a0_formula": "(V0**2 - Vx**2 + 2*Vx*ahx - Vy**2 + 2*Vy*ahy - Vz**2 + 2*Vz*ahz)/(2*V0)",
+    "these_two_formulas_are_equal": false,
+    "a_mu_is_null_by_construction_regardless_of_a0_(|ahat|=1)": true,
+    "does_the_INDEPENDENTLY_DERIVED_a0_make_b=V-a_null": true,
+    "does_the_NOTEBOOKS_BOXED_a0_make_b=V-a_null": false,
+    "conclusion": "The notebook's own displayed intermediate line (v^2=2a0V0-2(ahat.V)a0, i.e. a0(V0-ahat.V)=v^2/2) is exactly the correct defining condition -- confirmed independently from first principles (requiring b=V-a null given a null) -- but SOLVING that equation for a0 gives a0=(V0^2-|V|^2)/(2(V0-ahat.V)), which is NOT the boxed final formula. The boxed formula a0=(V0^2-|V|^2+2(ahat.V))/(2V0) fails the null-b check by direct substitution (nonzero residual, confirmed symbolically), while the independently-derived formula passes exactly. This is a genuine, precisely located algebra error in the final solving-for-a0 step, isolated to this one boxed line -- the equation immediately above it is exactly right.",
+    "verdict": "INCORRECT (as transcribed) / SOLID-WITH-CORRECTION -- the defining equation is exactly right; the boxed solution for a0 is not its correct solution",
+    "closing_remark_check": {
+      "claim": "sqrt(V_mu V^mu) = det(sigma^mu V_mu)",
+      "note": "NB-166 already established det(sigma^mu V_mu) = V^mu V_mu EXACTLY (no square root on either side). Taking a square root of only the LEFT side, as literally written here, breaks that already-established identity unless V^mu V_mu happens to equal its own square root (i.e. equals 0 or 1) -- not true in general. This is a genuine error: the correct statement, consistent with NB-166, is V_mu V^mu = det(sigma^mu V_mu), with no square root on either side.",
+      "verdict": "INCORRECT (as transcribed) -- contradicts the already-established, verified identity det(sigma^mu V_mu)=V^mu V_mu from NB-166; the correct statement drops the square root entirely"
+    }
+  }
+}

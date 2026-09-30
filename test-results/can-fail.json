@@ -1,8 +1,263 @@
 {
-  "generated": "2026-09-03 - 16:30",
+  "generated": "2026-09-27 - 11:51",
   "method": "execution trace (sys.settrace): a record can fail when an assert/raise line is actually reached",
-  "n": 27,
+  "n": 42,
   "items": [
+    {
+      "id": "F408-cc-sign-split",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 1,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/interactions/cosmology_lambda_sign_split.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 10.83,
+      "fingerprint": "98d14c658a9fb8b6"
+    },
+    {
+      "id": "F399-composite-scalar-fermion-coupling",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 1,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/particles/derive_composite_scalar_fermion_coupling.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.3,
+      "fingerprint": "9ad10f6b5987e295"
+    },
+    {
+      "id": "F398-pryce-composite-commutator",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 3,
+      "route": "verdict_key",
+      "traced_files": [
+        "src/casim/engine/gauge/photon_pryce_commutator.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 3.2,
+      "fingerprint": "85f4406f806491fc"
+    },
+    {
+      "id": "F395-stage5-circular-beam-rerun",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F395_stage5_circular_beam_rerun.py",
+        "src/casim/engine/core/photon_fermion_push.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 9.66,
+      "fingerprint": "1d23a983dee80fb1"
+    },
+    {
+      "id": "F393-curl-grad-identity-diagnostic",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 3,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F393_curl_grad_identity_diagnostic.py",
+        "src/casim/engine/gauge/charge_coupling.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.02,
+      "fingerprint": "49592113a2c6d7a6"
+    },
+    {
+      "id": "F392-beam-polarization-null-fix",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 4,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F392_beam_polarization_null_fix.py",
+        "src/casim/engine/gauge/photon.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.22,
+      "fingerprint": "bc50b8d54d643477"
+    },
+    {
+      "id": "F390-photon-fermion-push",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F390_photon_fermion_push.py",
+        "src/casim/engine/core/photon_fermion_push.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 3.94,
+      "fingerprint": "48fb99b4be928f5c"
+    },
+    {
+      "id": "F389-radiative-current-backreaction",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F389_radiative_current_backreaction.py",
+        "src/casim/engine/core/coupled.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 1.8,
+      "fingerprint": "ce5b1c8784a5cc1a",
+      "journalled": true
+    },
+    {
+      "id": "F389-radiative-transverse-current",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F389_radiative_transverse_em_current.py",
+        "src/casim/engine/gauge/em_current.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.06,
+      "fingerprint": "cfc47127dc511202",
+      "journalled": true
+    },
+    {
+      "id": "F388-fermion-photon-coupled-channels",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F388_fermion_photon_coupled_channels.py",
+        "src/casim/engine/core/coupled.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 2.17,
+      "fingerprint": "6f45e0ed9f866721"
+    },
+    {
+      "id": "F387-curl-anisotropy-omega-pair-mismatch",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py",
+        "src/casim/engine/gauge/em_photon_sourcing.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.28,
+      "fingerprint": "553199a7cec9cbec"
+    },
+    {
+      "id": "F386-a-field-convention",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F386_a_field_convention.py",
+        "src/casim/engine/gauge/a_field_convention.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.11,
+      "fingerprint": "9b82ee8cfc25c4db"
+    },
+    {
+      "id": "F385-u1-link-covariant-step",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F385_u1_link_covariant_step.py",
+        "src/casim/engine/forks/gauge/u1_link_unitarity_forks.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.18,
+      "fingerprint": "e1939310b71060d9",
+      "journalled": true
+    },
+    {
+      "id": "F384-conserved-em-current",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F384_conserved_em_current.py",
+        "src/casim/engine/gauge/em_current.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.03,
+      "fingerprint": "4f881ec1a599db80"
+    },
+    {
+      "id": "F381-premise-a-irreducibility",
+      "can_fail": true,
+      "verdict": "CAN_FAIL",
+      "guards_executed": 0,
+      "guard_line_hit": null,
+      "guard_lines_total": 2,
+      "route": "verdict_key",
+      "traced_files": [
+        "tests/findings/test_F381_premise_a_irreducibility.py",
+        "src/casim/engine/gauge/derive_premise_a_irreducibility.py"
+      ],
+      "status": "PASS",
+      "detail": "",
+      "seconds": 0.46,
+      "fingerprint": "f9d0a25274166c02"
+    },
     {
       "id": "F357-graviton-band-top",
       "can_fail": true,

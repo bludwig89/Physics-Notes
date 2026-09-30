@@ -1,0 +1,45 @@
+{
+  "generated": "2026-09-29 14:49",
+  "rows": [
+    {
+      "L": 12,
+      "kmag": 0.7320508075688772,
+      "amp_over_vol": 0.00020128932950077186,
+      "continuum": 0.055412052567942294,
+      "ratio": 0.003632591109198947,
+      "secs": 0.7
+    },
+    {
+      "L": 16,
+      "kmag": 0.551798758565886,
+      "amp_over_vol": 0.00012631530277307232,
+      "continuum": 0.0435536369300117,
+      "ratio": 0.002900223992224899,
+      "secs": 2.3
+    },
+    {
+      "L": 20,
+      "kmag": 0.4424634841649486,
+      "amp_over_vol": 8.494798358071873e-05,
+      "continuum": 0.03558893387535397,
+      "ratio": 0.002386921279469595,
+      "secs": 5.6
+    },
+    {
+      "L": 24,
+      "kmag": 0.36918382256502896,
+      "amp_over_vol": 6.058419405658494e-05,
+      "continuum": 0.029996807168559653,
+      "ratio": 0.0020196880860068544,
+      "secs": 11.5
+    }
+  ],
+  "last_step_rel_change": 0.18182668700531937,
+  "interpretation": "ratio (amp/Vol)/continuum should approach a CONSTANT as k->0; a shrinking last_step_rel_change with growing L = the vertex carries the correct continuum tensor + form factors (continuum-magnitude validation).",
+  "structural_checks_in_sandbox": {
+    "propagator": "PASS (machine)",
+    "colour_antisymmetry": "PASS (machine)",
+    "bose_full_symmetry": "PASS (machine)"
+  },
+  "next": "if flattened: fold this vertex with the rule Omega_even propagator + ghost loop -> d1 -> q* (ca_gluon_self_energy)."
+}

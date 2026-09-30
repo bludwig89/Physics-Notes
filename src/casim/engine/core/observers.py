@@ -268,6 +268,229 @@ class DispersionFit(Observer):
 
 
 @register_observer
+class Momentum(Observer):
+    """Matter and field momentum — Stage 0 of the photon-fermion coupling
+    roadmap (``docs/roadmaps/photon-fermion-coupling.md``).
+
+    Built because §1.5 of that roadmap found *no* momentum observable existed
+    anywhere in the engine, so a recoil could not be seen even where the
+    physics to produce one existed.  Two independent constructions, one per
+    kind of channel a state dict can hold:
+
+    ``P_matter`` — spectral, exact.  For every complex spinor-like array the
+    channel's state exposes (``f``/``g``, or an isospin doublet's
+    ``f_nu``/``f_e``/``g_nu``/``g_e``, or a Dirac quartet's
+    ``eta_u``/``eta_d``/``chi_u``/``chi_d``), ``Σ_k k · |ψ̃(k)|² / N``.  This
+    is ``⟨ψ|-i∇|ψ⟩`` — the Noether charge of the lattice's own translation
+    symmetry.  It needs no reference to *which* kinetic operator is applied to
+    the field: any complex field on a periodic lattice has this momentum,
+    exactly, and it is invariant under *any* purely-diagonal-in-k propagator
+    (the free BCC Weyl step among them) because such a step only ever
+    multiplies each mode by a phase-preserving unitary, leaving |ψ̃(k)|²
+    untouched mode-by-mode. A propagator that mixes k-modes (e.g. a
+    position-space gauge rotation applied before the spectral step) has no
+    such guarantee, which is exactly the question Stage 0 puts to the
+    existing fermion↔W loop.
+
+    ``P_field`` — for a channel carrying a real ``(E, B)`` pair:
+
+        P_field = Σ_k [E_k × conj(B_k)] / N
+
+    **First attempt, and why it was wrong.**  The natural first guess —
+    weight the model's own curl-symbol *direction* ``Ĉ(k) =
+    C(k)/|C(k)|`` (``gauge.charge_coupling.bcc_curl_symbol``) by the mode
+    energy density ``(|E_k|²+|B_k|²)/2`` — is *identically zero for every
+    real (E,B) field*, not merely a poor approximation.  A real field has
+    exact Hermitian symmetry, ``E_k(-k) = conj(E_k(k))``, so the energy
+    density is *even*: ``u(-k) = u(k)``.  ``bcc_curl_symbol`` is
+    deliberately constructed to be exactly *odd*, ``Ĉ(-k) = -Ĉ(k)`` (its own
+    docstring: "symmetrise over the grid involution ... the symbol is then
+    exactly odd, as the FFT of a real field requires").  Pairing each mode
+    with its negation, ``Ĉ(k)u(k) + Ĉ(-k)u(-k) = Ĉ(k)u(k) - Ĉ(k)u(k) ≡ 0``
+    term by term — confirmed numerically (an axis-aligned beam packet from
+    ``fields.photon.build_beam_packet`` gave P_field ~1e-16 at every tick,
+    not because the field carries no momentum but because the construction
+    is mathematically incapable of returning a nonzero answer).  An
+    *amplitude-only* quantity like energy density has thrown away exactly
+    the phase relationship between E and B that a cross product needs.
+
+    **What actually works.**  ``E_k × conj(B_k)`` is *not* amplitude-only —
+    it keeps the E/B phase relationship a genuine cross product needs, and by
+    the discrete correlation theorem (Parseval for a product of two real
+    fields) it is exactly ``Σ_x [E(x) × B(x)]`` — this is derived from the
+    lattice's own Fourier representation of the *same* (E, B) pair the
+    curl-symbol formalism already operates on, not pasted in from continuum
+    Maxwell.  It is conserved **exactly** (bit-identical, not merely small)
+    under one tick of the free rotation ``gauge.photon.photon_step_spectral``
+    — verified numerically for a genuine transverse plane-wave mode
+    (``fields.photon.build_pair_mode``, ``E∥e1 ⊥ B∥e2 ⊥ k̂``) held over 40
+    ticks — because that step rotates ``(E_k[a], B_k[a])`` by the *same*
+    angle ``Ω_pair(k)`` independently for each Cartesian component ``a``,
+    the discrete analogue of the continuum Poynting-theorem identity that
+    keeps ``∫E×B`` invariant under source-free Maxwell evolution.  The
+    single-component ``build_beam_packet`` construction (E and B sharing one
+    Cartesian axis, the RS-analytic-signal ``F=E+iB`` embedding) has ``E∥B``
+    pointwise and so carries **zero** field momentum by construction — a
+    real limitation of that helper for this purpose, not of this formula;
+    use ``build_pair_mode`` (or any genuinely transverse two-axis
+    construction) when a nonzero ``P_field`` baseline is wanted.
+
+    ``P_total`` in the summary is ``P_matter + P_field`` for whichever of the
+    two legs a channel provides, one row per channel plus a run-wide sum
+    across every channel present — the quantity Stage 5's momentum-
+    conservation claim (``ΔP_matter + ΔP_field ≈ 0``) will be read off.
+
+    Normalisation: both sums divide by ``N`` (Parseval, matching numpy's
+    unnormalised-forward/``1/N``-inverse FFT convention), so for a
+    unit-normalised matter packet ``P_matter`` is literally the expectation
+    value ``⟨k⟩``.  ``P_field`` carries the same convention for direct
+    comparability, not because field norm is probability-normalised.
+
+    A channel exposing neither shape (i.e. not a spinor and not an (E,B)
+    pair — the many-body register, a scalar dielectric) is silently skipped.
+
+    **Why ``P_field`` is restricted to ``photon_pair``/``charge_photon``/
+    ``em_photon``.** (Stage 4, ``docs/roadmaps/photon-fermion-coupling.md``:
+    ``em_photon``'s ``(E,B)`` is the same audited genuine spatial 3-vector
+    pair as ``photon_pair``'s, sourced but not reshaped, so it belongs on
+    this whitelist for the identical reason.)
+    ``w_sourced``, ``z_even`` and ``gluon_bcc`` *also* carry state dicts keyed
+    ``"E"``/``"B"``, but their leading axis is not a spatial polarisation —
+    it is the isospin triplet (``w_sourced``, shape ``(3,L,L,L)``, the *same*
+    shape as the photon's genuine spatial vector, by coincidence), a bare
+    scalar (``z_even``, ``(L,L,L)``), or the colour octet (``gluon_bcc``,
+    ``(8,L,L,L)``).  A cross product across an isospin or colour index is not
+    a momentum — it has no more meaning than crossing two rows of an
+    unrelated table — so this observer whitelists the channel types whose
+    ``(E,B)`` are audited to be genuine 3-component spatial vectors rather
+    than keying on array shape, which cannot tell an isospin triplet from a
+    polarisation triplet.  W/Z/gluon field momentum is not implemented here;
+    doing so honestly needs those channels to carry a spatial-vector-valued
+    field (shape ``(3,3,L,L,L)``: generator × spatial axis), which they do
+    not.
+    """
+    name = "momentum"
+    label = "Momentum"
+    exactness = "exact"
+
+    #: state keys treated as complex spinor components of one matter field.
+    _MATTER_KEYS = ("f", "g", "f_nu", "f_e", "g_nu", "g_e",
+                    "eta_u", "eta_d", "chi_u", "chi_d", "f_u", "f_d")
+
+    #: channel types whose (E, B) are audited genuine spatial 3-vectors
+    #: (F69 paired-photon law) rather than an isospin/colour-indexed pair
+    #: that merely happens to share the "E"/"B" key names — see class
+    #: docstring.
+    _EM_VECTOR_CHANNELS = ("photon_pair", "charge_photon", "em_photon")
+
+    def observe(self, sim) -> None:
+        from casim.numerics import fft as _fft
+        from casim.engine.lattice.geometry import make_kgrid_3d
+
+        rec: Dict[str, Any] = {"tick": sim.tick, "channels": {}}
+        for cname, ch in sim.channels.items():
+            st = sim.states[cname]
+            entry: Dict[str, Any] = {}
+
+            mkeys = [k for k in self._MATTER_KEYS
+                     if k in st and np.iscomplexobj(np.asarray(st[k]))]
+            if mkeys:
+                shape = np.asarray(st[mkeys[0]]).shape
+                # Spatial axes are the trailing three; any leading axis is an
+                # internal index (e.g. a colour-stacked quark, (3, L, L, L)),
+                # summed over after a transform on the spatial axes only.
+                spatial = shape[-3:]
+                KX, KY, KZ = make_kgrid_3d(*spatial)
+                n = KX.size
+                Pm = np.zeros(3)
+                for key in mkeys:
+                    a = np.asarray(st[key])
+                    if a.shape != shape:
+                        continue
+                    dens = np.abs(_fft.fftn(a, axes=(-3, -2, -1))) ** 2
+                    if dens.ndim > 3:
+                        dens = dens.reshape((-1,) + spatial).sum(axis=0)
+                    Pm[0] += float(np.sum(KX * dens))
+                    Pm[1] += float(np.sum(KY * dens))
+                    Pm[2] += float(np.sum(KZ * dens))
+                entry["P_matter"] = (Pm / n).tolist()
+
+            if (ch.type_name in self._EM_VECTOR_CHANNELS
+                    and "E" in st and "B" in st):
+                E, B = np.asarray(st["E"]), np.asarray(st["B"])
+                if E.shape[:1] == (3,) and B.shape == E.shape:
+                    n = E[0].size
+                    Ek = [_fft.fftn(E[a]) for a in range(3)]
+                    Bk = [_fft.fftn(B[a]) for a in range(3)]
+                    # E_k x conj(B_k), summed over k: Parseval's correlation
+                    # theorem makes this exactly Sum_x [E(x) x B(x)] (see
+                    # class docstring) — the field momentum this model's own
+                    # (E,B) Fourier representation carries, not an amplitude-
+                    # only construction that a real field's Hermitian
+                    # symmetry would force to vanish identically.
+                    px = Ek[1] * np.conj(Bk[2]) - Ek[2] * np.conj(Bk[1])
+                    py = Ek[2] * np.conj(Bk[0]) - Ek[0] * np.conj(Bk[2])
+                    pz = Ek[0] * np.conj(Bk[1]) - Ek[1] * np.conj(Bk[0])
+                    Pf = np.array([px.sum(), py.sum(), pz.sum()]).real
+                    entry["P_field"] = (Pf / n).tolist()
+
+            if entry:
+                # `rel_drift` vs this run's own first record — the scalar the
+                # generic exactness table (casim.analysis._scalarize) reads,
+                # matching the convention every other machine/exact observer
+                # here uses (NormConservation, TotalEnergy).
+                if not hasattr(self, "_P0"):
+                    self._P0: Dict[str, Dict[str, np.ndarray]] = {}
+                p0 = self._P0.get(cname)
+                if p0 is None:
+                    self._P0[cname] = {k: np.array(v) for k, v in entry.items()}
+                    entry["rel_drift"] = 0.0
+                else:
+                    worst = 0.0
+                    for key, val in entry.items():
+                        p0v = p0.get(key)
+                        if p0v is None:
+                            continue
+                        base = float(np.linalg.norm(p0v))
+                        d = float(np.linalg.norm(np.array(val) - p0v))
+                        worst = max(worst, d / base if base > 1e-300 else d)
+                    entry["rel_drift"] = worst
+                rec["channels"][cname] = entry
+        self.records.append(rec)
+
+    def summary(self) -> Dict[str, Any]:
+        if not self.records:
+            return {}
+        r0, rf = self.records[0], self.records[-1]
+        out: Dict[str, Any] = {}
+        total0 = np.zeros(3)
+        totalf = np.zeros(3)
+        for cname in rf["channels"]:
+            c0 = r0["channels"].get(cname, {})
+            cf = rf["channels"][cname]
+            row: Dict[str, Any] = {}
+            for key in ("P_matter", "P_field"):
+                if key in c0 and key in cf:
+                    p0 = np.array(c0[key])
+                    pf = np.array(cf[key])
+                    total0 += p0
+                    totalf += pf
+                    row[key] = {
+                        "P0": p0.tolist(), "Pf": pf.tolist(),
+                        "delta": (pf - p0).tolist(),
+                        "delta_mag": float(np.linalg.norm(pf - p0)),
+                    }
+            if row:
+                out[cname] = row
+        out["P_total"] = {
+            "P0": total0.tolist(), "Pf": totalf.tolist(),
+            "delta": (totalf - total0).tolist(),
+            "delta_mag": float(np.linalg.norm(totalf - total0)),
+        }
+        return out
+
+
+@register_observer
 class BeamTrack(Observer):
     """Track a localized packet's energy centroid along its propagation axis.
 

@@ -2,7 +2,7 @@
 # The machine-readable face of docs/theory/key-decisions.md.
 # ---------------------------------------------------------------------------
 version: 1
-updated: "2026-08-18 - 23:40"
+updated: "2026-09-27 - 17:10"
 
 about: >
   Roadmap P0.3. key-decisions.md is the human narrative; this file is what
@@ -2171,3 +2171,177 @@ supersessions:
                'regardless of clump shape' claim -- that was interpretive
                prose layered on top of the computation, not a checked
                assertion."
+
+  # =========================================================================
+  - id: S24-F169-C3-threshold-search-replaced-by-closed-form
+    date: 2026-09-22
+    kind: superseded
+    by: [F397]
+    superseded: [F169]
+    scope: >
+      F169's C3 ONLY -- the quoted fit exponent 2.10 for Omega_even(k) - T(k),
+      and the stochastic `true_threshold` search that produced it. NOT C1, C2,
+      C4, C5 or C6, and NOT the claim CL149, all of which stand unchanged.
+    reason: >
+      F169's C3 obtained the two-body continuum floor T(k) from
+      `true_threshold`, a LOCAL stochastic descent starting at the symmetric
+      split p = 0 with a decaying step. F397 R6 shows the true minimum is at
+      the COLLINEAR ENDPOINT p = +-k/2, at the far end of a valley that is
+      FLAT at leading order -- so the descent had no gradient to follow and
+      under-converged badly at small |k| (ratios to |eps| of 1.043, 0.986,
+      0.876 at |k| = 0.1, 0.05, 0.025 along (111); in a generic direction such
+      as (321) it returned NO improvement at all over Omega_even at
+      |k| = 0.025). The exponent 2.10 was therefore a fit to search noise.
+      Both quantities have closed forms: T(k) = min(w+(k), w-(k)), exact
+      because w+-(0) = arccos(1) = 0 identically, so the endpoint values ARE
+      the single-branch energies; and the offset
+      Omega_even(k) - T(k) = |eps(k)| + O(k^3) = |kx ky kz| / (3|k|) + O(k^3),
+      direction-dependent and vanishing on the coordinate planes (where it
+      drops to O(k^3)). Verified at 60-digit precision: E0(k, k/2) minus
+      min_b w^b(k) is identically 0, with all neighbours strictly higher, and
+      cross-checked against a deterministic coordinate pattern search from five
+      starts, 2M random BZ points and Nelder-Mead from the zero-energy BZ
+      nodes. Converged exponent 2.007.
+    decision_ref: "F169 section 'C3-correction (2026-09-22)'; F397 R6"
+    findings:
+      - path: findings/F169-photon-interacting-two-body-wavefunction.md
+        status: sub_claim_superseded
+        dead: "C3's quoted fit exponent 2.10, and the use of a stochastic
+                search to obtain T(k) at all."
+        live: "EVERYTHING ELSE. C1 (threshold wavefunction in closed form,
+                normalizable), C2 (g_c finite and positive), C4 (two-method
+                agreement 5.6e-14), C5 (masslessness inherited from gapless
+                constituents; T(0) = 0 exactly), C6 (finite RMS radius) are
+                untouched -- all are statements at k = 0, or at fixed finite k
+                about the secular problem, and none used the search. C3's
+                QUALITATIVE content also stands: Omega_even >= T(k), the
+                symmetric split is not the exact two-body floor at finite k,
+                and F69's even law is the photon's leading dispersion, exact
+                only as k -> 0. Only the number moved."
+        note: "A third error was found in the same file and fixed in the same
+                edit: the module docstring of photon_bound_state.py asserted
+                'for small k the continuum bottom sits AT the symmetric split
+                p = 0, so T(k) = Omega_even(k) exactly', which is false and
+                contradicted F169's own C3. A FOURTH was found 2026-09-22 while
+                re-running the suite, and is DOCUMENTED RATHER THAN REPAIRED
+                (F169 'C2/C4-note'): critical_coupling and
+                threshold_wavefunction take T = E.min() on the L^3 grid, which
+                is exact at k = 0 (floor at p = 0, a grid point, T = 0) but at
+                finite k is a grid artifact lying between the closed-form floor
+                and Omega_even, non-monotonically in L. It does not move any
+                F169 conclusion -- C1/C2/C5/C6 are at k = 0, and C4 is a
+                two-method agreement on the SAME H where T only sets an
+                arbitrary scale -- but the finite-k g_c must not be read as the
+                marginal coupling. Repair is a physics change and needs its own
+                finding."
+    code:
+      - path: src/casim/engine/gauge/photon_bound_state.py
+        status: partially_superseded
+        dead: "`true_threshold`'s stochastic descent as the DEFAULT path. It
+                survives only as method='stochastic', documented as
+                non-convergent and retained so this correction is
+                reproducible."
+        live: "Everything else. `threshold_closed_form` and
+                `threshold_offset_closed_form` added; `true_threshold` now
+                defaults to method='closed'."
+    tests:
+      - path: tests/findings/test_F169_photon_bound_state.py
+        status: live
+        note: "C3 rebuilt on the closed forms with a deterministic
+               pattern-search cross-check and tightened gates (exponent in
+               [1.98, 2.05], ratio to |eps| within 1%, endpoint-vs-pattern
+               residual < 1e-7). 6/6 PASS, exponent 2.007."
+    baselines:
+      - path: test-results/F169_photon_bound_state.json
+        status: live
+        committed: 2026-06-29
+        accepted_by: F397
+        reason: >
+          RE-BLESSED 2026-09-22. The drift is entirely inside C3 and is the
+          intended effect of this record: the committed numbers encode the
+          non-convergent stochastic threshold, the new ones encode the exact
+          closed form. C1/C2/C4/C5/C6 values are unchanged in the same re-run
+          (g_c = 2.25955, secular residual 0.0, two-method diff 5.63e-14,
+          T(0) = 0.0, RMS radius 1.907). Accepted by F397, which derives the
+          closed forms the numbers now encode.
+
+  # =========================================================================
+  - id: S25-F193-partA-excluded-and-secB-sign-reading
+    date: 2026-09-27
+    kind: superseded
+    by: [F319, F408]
+    superseded: [F193, F196]
+    scope: >
+      Two layers of the F164 -> F193 -> F196 cosmological-constant chain, both
+      previously withdrawn only in prose (K9 adjudication 2026-08-18,
+      CL275, CL021, open-derivations G1, F408 section 6) and never entered
+      here, so F193 carried no banner and `make citations` could not see a
+      grading row quoting it. (1) F193 PART A -- "bare CC = 0 in the
+      ontology" -- EXCLUDED by F319 U8 / CL275 on 2026-08-18. (2) F193 SECTION B
+      as the carrier of the residual, and the line-88 sign reasoning it
+      inherited from Part A -- superseded by F408 on 2026-09-27. (3) F196's
+      framing of p=2 as "the dilution exponent of rho_vac" -- its referent is
+      the withdrawn section-B object; F196's own results are untouched.
+    reason: >
+      (1) F193 A2 deletes the 1/2-per-mode c-number, and F59 Part C builds
+      1/16piG from that same 1/2 (eta the Seeley a1 number of the same
+      determinant). The deletion is uniform, the class F319 U8 excludes:
+      deleting it deletes F79's G. (2) With Part A gone, the all-fermion
+      zero-point sum is negative again (F164; a0 < 0), while the stiffness
+      that sets G is positive (F61; a1 > 0, Lichnerowicz R/4 flips the
+      spinor trace). F193 line 88 -- "there is no negative beable tower, so
+      the only sign that matters is the w=-1 sign" -- was Part A's
+      conclusion, and section B was built on it (line 35, "with the bare
+      term gone ..."). F408 S2: with the SAME field content in both moments,
+      rho_vac (a/R_H)^2 is NEGATIVE and 24 sqrt3 pi = 130.6 times F196's
+      ceiling; section B's 0.54 dex agreement came from using g*=2 in rho_vac
+      against a G induced at 48 Weyl fields. F408 S3: a one-sided upper
+      bound cannot cancel a negative term. So "F193 section B + F196" is two
+      objects of opposite sign, not one route; only F196's a1-built ceiling
+      survives, and by F332 K1 it is Friedmann-I (a scale, not a source).
+      (3) follows from (2).
+    decision_ref: "K9 adjudication 2026-08-18 (completeness-2026-08-18 Amendment 4); F319 U8; F408 sections 6-7"
+    findings:
+      - path: findings/F193-ontic-vacuum-gravitates-as-zero.md
+        status: partially_superseded
+        dead: "PART A in full (A1-A4, 'bare CC = 0 in the ontology', removing
+                magnitude and sign) -- excluded, CL275. SECTION B read as 'the
+                observed rho_Lambda is the IR-diluted zero-point energy', its
+                0.54 dex agreement (a g* content mismatch), and the line-88
+                sentence that the vacuum sign is settled by F192's w=-1
+                argument. 'F193 section B + F196 is one route' (K9, G1, CL021)
+                is withdrawn with it."
+        live: "Section B's STRUCTURAL observation that |a0| a^2 and a1 are the
+                same kind of object (hbar c / a^2), which F408 S2 sharpens to
+                the exact ratio 24 sqrt3 pi. The named p=2 obstruction as
+                history (closed by F196). Section E's DE/DM remark stays
+                speculative/open as before."
+        note: "Cite F408 for the sign of the surviving route and F319/CL275
+                for Part A. The live K9/G1 statement is F408 section 7:
+                a0 removal (sign-blind; F367 sequestering, contingent) + the
+                positive a1 horizon term (the scale, not a source) + Omega_Lambda."
+      - path: findings/F196-dilution-exponent-derived.md
+        status: sub_claim_superseded
+        dead: "The reading of p=2 as the exponent in rho_Lambda = rho_vac (a/R_H)^p,
+                i.e. as a dilution law for the zero-point sum."
+        live: "EVERYTHING F196 COMPUTES. Both routes (F183 Schwarzschild
+                capacity; F190 area count x Gibbons-Hawking T) compute the
+                capacity ceiling rho(L) = 3c^4/8piG L^2 directly from G, never
+                from rho_vac; the L^-2 scaling, the landing at rho_crit and the
+                Omega_Lambda hand-down to F241 all stand. F408 identifies this
+                ceiling as the a1 (positive) object."
+    tests:
+      - path: tests/findings/test_F193_ontic_vacuum.py
+        status: partially_superseded
+        dead_checks: [A1, A2]
+        live_checks: [A3, B]
+        note: "A1/A2 compute Part A's zero beable T00 and flat dielectric on the
+               empty lattice; the arithmetic still passes but the conclusion it
+               served (bare CC = 0) is excluded. A3 (template density = F164)
+               is live. B computes the magnitude |rho_vac| (a/R_H)^2 and still
+               passes; it asserts nothing about sign, and its number must not
+               be quoted as the residual (F408 S2)."
+      - path: tests/findings/test_F196_dilution_exponent.py
+        status: live
+        note: "Do not mark. E1-E5 compute the ceiling from G; nothing asserted
+               depends on the withdrawn rho_vac framing."

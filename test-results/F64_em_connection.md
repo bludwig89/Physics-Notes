@@ -2,7 +2,7 @@
 
 _Generated 2026-05-31 - 16:00 by `tests/findings/test_F64_em_connection.py`._
 
-**D-EM1 verdict: VIABLE** (16/16 implemented tests PASS; 0 scaffolded). Module: `ca-simulation/forks/gr_fork_F64_em_connection.py`.
+**D-EM1 verdict: VIABLE** (16/16 implemented tests PASS; 0 scaffolded). Module: `src/casim/engine/forks/gravity/gr_fork_F64_em_connection.py`.
 
 ## D-EM1 — eikonal-index viability (exact, algebraic)
 
@@ -14,15 +14,15 @@ Targets: gravitational redshift slope **Z = 1** (factor-1) and light deflection 
 | clock-only  (B=1, F52 rest leg) | 1 | 2 | False | no (bend=2) |
 | refractive-only  (A=1) | 0 | 2 | False | no (no redshift) |
 
-Dielectric eikonal index `n(u) = (u - 1)**(-2)`; impedance `√(μ/ε) = 1` (u-independent ⇒ proper (E,B) rotation, no scalar contamination, F26-consistent).
+Dielectric eikonal index `n(u) = exp(2*u)`; impedance `√(μ/ε) = 1` (u-independent ⇒ proper (E,B) rotation, no scalar contamination, F26-consistent).
 
 **Numerical guard** — full (non-linearised) dielectric deflection integral `K_bend = α b c²/GM` → 4 as field strength → 0:
 
 | GM/(b c²) | K_bend |
 |---|---|
-| 1e-02 | -4.031685 |
-| 1e-03 | -4.003144 |
-| 1e-04 | -4.000314 |
+| 1e-02 | -4.000000 |
+| 1e-03 | -4.000000 |
+| 1e-04 | -4.000000 |
 
 ## D-EM2 — single-field lattice deflection
 
@@ -54,10 +54,10 @@ The dielectric promoted to a full **dynamic field**: a Dirac wave packet evolved
 | Dynamic test | observable | result | pass |
 |---|---|---|---|
 | D-EM-D1 flat regression | max residual vs 2 free Weyl walks | 0.00e+00 | True |
-| D-EM-D2a free-fall (EP) | g_meas/g_pred (mass-spread) | 0.910 (0.085) | True |
-| D-EM-D2b redshift | f_near/f_far vs arcsin pred | 0.8966 vs 0.8966 | True |
+| D-EM-D2a free-fall (EP) | g_meas/g_pred (mass-spread) | 0.936 (0.048) | True |
+| D-EM-D2b redshift | f_near/f_far vs arcsin pred | 0.9000 vs 0.8966 | True |
 | D-EM-D2c deflection | K_meas / K_eikonal | -3.807 / -3.691 | True |
-| D-EM-D3a backreaction norm | norm drift | 1.01e-15 | True |
+| D-EM-D3a backreaction norm | norm drift | 2.51e-16 | True |
 
 ## D-EM4 — one self-sourced K: factor-1 redshift AND factor-2 bend
 
@@ -65,7 +65,7 @@ The dielectric promoted to a full **dynamic field**: a Dirac wave packet evolved
 
 | coefficient | measured | predicted | target |
 |---|---|---|---|
-| factor-1 redshift  f_near/f_far | 0.8459 | 0.8333 (2·arcsin√A·m) | < 1 (deep slow) |
+| factor-1 redshift  f_near/f_far | 0.8455 | 0.8333 (2·arcsin√A·m) | < 1 (deep slow) |
 | factor-2 bend  n-slope ratio (diel/rest) | 2.0000 | 2 | 2 ⇒ K_bend 4 vs Newton 2 |
 
 Self-sourced lapse sampled at the well bottom A_near=0.741 and the flat rim A_far=1.036; the deep clock runs slower (redshift) and the same field's dielectric index slope is exactly twice the rest-leg-only slope (factor-2).
@@ -160,9 +160,9 @@ So 4πG is **not free**: the 4π is lattice-exact and G is the Sakharov-induced 
 
 | quantity | value |
 |---|---|
-| deep/rim clock ratio (measured) | 0.9312 |
+| deep/rim clock ratio (measured) | 0.9324 |
 | local-lapse prediction 2·arcsin(√A·m) | 0.8599 |
-| relative error | 8.3% |
+| relative error | 8.4% |
 | redshift detected (deep clock slower) | True |
 
 The co-evolving packet confirms gravitational redshift dynamically (deep clock slower); the residual ~10% is the finite packet sampling the well curvature as it spreads — which is exactly why the *precise* coefficient is read by the localized clock of D-EM4. The Hilbert estimator removes the FFT bin-leakage that defeated the naive measurement. F64 counterpart of F62-D3a self-redshift.

@@ -71,6 +71,14 @@ def register(backend: Any, name: str | None = None) -> None:
 def use(name: str) -> None:
     if name not in _REGISTRY:
         raise KeyError(f"unknown backend {name!r}; have {sorted(_REGISTRY)}")
+    # The float32 refusal lives HERE, not only on the CASIM_BACKEND path, so
+    # use()/fft.set_backend() cannot switch to a float32 device silently
+    # (2026-09-29; before, only the env-var route was gated).
+    if name == "mlx":
+        _precision.require_float64("use('mlx')", is_float64=False)
+    elif name == "jax":
+        _precision.require_float64(
+            "use('jax')", is_float64=getattr(_REGISTRY[name], "_float64", False))
     if _ACTIVE:
         _ACTIVE[0] = _REGISTRY[name]
     else:

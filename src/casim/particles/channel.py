@@ -1431,11 +1431,12 @@ class TwoGridAtomChannel(Channel):
         grid and return the electron Coulomb well V(x)=−k·Q/r (live coupling)."""
         from casim.engine.lattice import multigrid as mg
         Q = float(np.sum(rho_fine))                 # total charge (R_b-conserved)
-        rms_c = mg._rms(np.asarray(rho_fine, float)) / max(self.b, 1)
         cc = self.Lc // 2
+        # Point source by design: the proton is sub-cell on the coarse grid.
+        # (Was `min(rms_c, 0.0)`, which always evaluated to 0 — same behaviour.)
         return mg.coarse_point_potential(self.Lc, (cc, cc, cc),
                                          k=self.e_k * Q,
-                                         src_rms_cells=min(rms_c, 0.0)), Q
+                                         src_rms_cells=0.0), Q
 
     def init_state(self, lattice, rng):
         from casim.engine.lattice import multigrid as mg

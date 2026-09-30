@@ -3,7 +3,7 @@
   "title": "Light deflection, dynamical open-BC (GR-1)",
   "tier": "C \u2014 consistency regression",
   "verdict": "PASS",
-  "timestamp": "2026-06-16T16:30:26.106970",
+  "timestamp": "2026-09-29T14:00:18.630634",
   "date": "2026-06-16",
   "model_element": "dynamical photon-pair wavepacket propagation through the F64 dielectric n=exp(2u); companion to FA09 static eikonal",
   "hypothesis": "Delta_phi = 4GM/(bc^2) (gamma=1); K_bend=-4; solar 1.7510\"",
@@ -69,32 +69,32 @@
     "coarse_grid_L_convergence": [
       {
         "L": 64,
-        "K_bend": 3.7625443057889325,
-        "K_bend_aperture_corrected": 3.878341898458511,
+        "K_bend": 3.7625443057889334,
+        "K_bend_aperture_corrected": 3.878341898458512,
         "truncation": 0.9701425001453319
       },
       {
         "L": 96,
-        "K_bend": 3.827530569338917,
-        "K_bend_aperture_corrected": 3.8803265884576295,
+        "K_bend": 3.8275305693389154,
+        "K_bend_aperture_corrected": 3.8803265884576277,
         "truncation": 0.9863939238321437
       },
       {
         "L": 128,
-        "K_bend": 3.8510626868717104,
-        "K_bend_aperture_corrected": 3.8810324983018596,
+        "K_bend": 3.851062686871713,
+        "K_bend_aperture_corrected": 3.8810324983018623,
         "truncation": 0.9922778767136677
       },
       {
         "L": 160,
-        "K_bend": 3.862098884593941,
-        "K_bend_aperture_corrected": 3.8813613426638827,
+        "K_bend": 3.862098884593943,
+        "K_bend_aperture_corrected": 3.881361342663885,
         "truncation": 0.9950371902099892
       },
       {
         "L": 192,
-        "K_bend": 3.8681327689361833,
-        "K_bend_aperture_corrected": 3.881540548372565,
+        "K_bend": 3.868132768936177,
+        "K_bend_aperture_corrected": 3.8815405483725587,
         "truncation": 0.9965457582448796
       }
     ],

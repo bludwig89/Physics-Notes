@@ -1,0 +1,53 @@
+{
+  "NB-161_matrix_vs_componentwise_consistency": {
+    "claim": "sigma^mu d_mu (eta,xi)^T, using the matrix [[d0-dz,-dx+idy],[-dx-idy,d0+dz]], gives row1=(d0-dz)eta+(dx-idy)xi, row2=-(dx+idy)eta+(d0+dz)xi",
+    "row1_matches_direct_matrix_multiplication": false,
+    "row2_matches_direct_matrix_multiplication": true,
+    "conclusion": "Direct matrix multiplication of the sigma^mu d_mu matrix AS LITERALLY GIVEN (with -dx+idy in the (1,2) entry) against (eta,xi) gives row1 = (d0-dz)eta + (-dx+idy)xi -- i.e. MINUS(dx-idy)xi. The notebook's own displayed componentwise equation instead shows row1 = (d0-dz)eta + (dx-idy)xi, the OPPOSITE SIGN on the xi term. This is a genuine, confirmed sign inconsistency between the boxed sigma^mu d_mu matrix and its own very next displayed componentwise expansion."
+  },
+  "NB-161_eta_xi_identification_candidates": {
+    "A_eta=Vx+iVy_xi=V0-Vz": {
+      "row1_real_part": "-Derivative(V0(t, x, y, z), x) + Derivative(Vx(t, x, y, z), t) - Derivative(Vx(t, x, y, z), z) + Derivative(Vz(t, x, y, z), x)",
+      "row1_imag_coeff": "Derivative(V0(t, x, y, z), y) + Derivative(Vy(t, x, y, z), t) - Derivative(Vy(t, x, y, z), z) - Derivative(Vz(t, x, y, z), y)",
+      "row2_real_part": "Derivative(V0(t, x, y, z), t) + Derivative(V0(t, x, y, z), z) - Derivative(Vx(t, x, y, z), x) + Derivative(Vy(t, x, y, z), y) - Derivative(Vz(t, x, y, z), t) - Derivative(Vz(t, x, y, z), z)",
+      "row2_imag_coeff": "-Derivative(Vx(t, x, y, z), y) - Derivative(Vy(t, x, y, z), x)",
+      "reproduces_target_eq1_(dx_component)": true,
+      "reproduces_target_eq2_(dy_component)": false,
+      "reproduces_curl_free_eq4": false
+    },
+    "B_eta=V0-Vz_xi=Vx+iVy": {
+      "row1_real_part": "Derivative(V0(t, x, y, z), t) - Derivative(V0(t, x, y, z), z) - Derivative(Vx(t, x, y, z), x) - Derivative(Vy(t, x, y, z), y) - Derivative(Vz(t, x, y, z), t) + Derivative(Vz(t, x, y, z), z)",
+      "row1_imag_coeff": "Derivative(Vx(t, x, y, z), y) - Derivative(Vy(t, x, y, z), x)",
+      "row2_real_part": "-Derivative(V0(t, x, y, z), x) + Derivative(Vx(t, x, y, z), t) + Derivative(Vx(t, x, y, z), z) + Derivative(Vz(t, x, y, z), x)",
+      "row2_imag_coeff": "-Derivative(V0(t, x, y, z), y) + Derivative(Vy(t, x, y, z), t) + Derivative(Vy(t, x, y, z), z) + Derivative(Vz(t, x, y, z), y)",
+      "reproduces_target_eq1_(dx_component)": false,
+      "reproduces_target_eq2_(dy_component)": false,
+      "reproduces_curl_free_eq4": true
+    }
+  },
+  "NB-162": {
+    "claim": "d0 V_vec = -grad V0 (3b); d0 V0 = div V_vec",
+    "structural_note": "These two boxed equations are NOT a re-derivation of NB-158/159's null+unimodular constraints (which instead forced V_0=const, a DIFFERENT and much stronger conclusion) -- they are a separate, new physical ansatz for how V_mu(x) evolves, structurally IDENTICAL in form to the vacuum Maxwell equations dE/dt=curl(B), dB/dt=-curl(E) reduction pattern already found and verified independently in batch 09 (NB-129, the psi_+=E+iB / Riemann-Silberstein construction) -- here with a single vector V playing a role structurally analogous to one of E or B, and the scalar V_0 playing a role analogous to a charge-density-like or potential-like partner (not literally the same construction, since it is a single real vector V paired with a single real scalar V_0, not a genuine antisymmetric field-strength tensor with two independent 3-vectors E,B).",
+    "self_consistency_with_NB-158/159": "NB-158/159 (null V^mu V_mu=0 everywhere + unimodular |V_spatial|=1 everywhere) forces V_0=const identically, which is a STRICTER condition than NB-162's d0 V0=div(V) (which permits V_0 to vary in space and time, just constrained by the divergence of V). If NB-162's system is imposed IN ADDITION to V_0=const, it would additionally require div(V)=0 identically -- these are two genuinely different physical regimes being explored in sequence on the page, not a single consistent derivation chain; the notebook does not flag this transition explicitly.",
+    "verdict": "NOT-TESTABLE-AS-A-DERIVATION-STEP (this is a physical ansatz introduced fresh, not shown to follow from NB-158/159's already-verified constraints; taken on its own terms it is the standard Maxwell-curl-equation FORM, and matches the same structural pattern independently confirmed correct in NB-129)"
+  },
+  "NB-163": {
+    "claim": "xi'=-eta*, eta'=xi* transforms sigma^mu d_mu(xi,eta)^T=0 into (3a),(3b), 'the same as (1a) and (1b)'",
+    "row1_primed_(literal_substitution_as_stated)": "-conjugate(Derivative(eta(t, x, y, z), t)) + conjugate(Derivative(eta(t, x, y, z), z)) + conjugate(Derivative(xi(t, x, y, z), x)) - I*conjugate(Derivative(xi(t, x, y, z), y))",
+    "row2_primed_(literal_substitution_as_stated)": "conjugate(Derivative(eta(t, x, y, z), x)) + I*conjugate(Derivative(eta(t, x, y, z), y)) + conjugate(Derivative(xi(t, x, y, z), t)) + conjugate(Derivative(xi(t, x, y, z), z))",
+    "notebooks_target_3a": "-conjugate(Derivative(xi(t, x, y, z), t)) + conjugate(Derivative(xi(t, x, y, z), z)) + Derivative(eta(t, x, y, z), x) - I*Derivative(eta(t, x, y, z), y)",
+    "notebooks_target_3b": "-conjugate(Derivative(xi(t, x, y, z), x)) - I*conjugate(Derivative(xi(t, x, y, z), y)) + Derivative(eta(t, x, y, z), t) + Derivative(eta(t, x, y, z), z)",
+    "literal_substitution_matches_3a_or_3b_(up_to_overall_sign)": false,
+    "exhaustive_sign/pairing_sweep_matches_found": [],
+    "assessment": "The literal substitution xi'=-eta*, eta'=xi*, applied directly to the same sigma^mu d_mu operator, does NOT reproduce the notebook's own displayed target equations (3a),(3b) -- confirmed by direct symbolic substitution -- nor, in an exhaustive sweep over all 8 sign/source variants of (xi',eta') built from (+-conj(eta), +-conj(xi)), does ANY natural variant reproduce (3a), (3b), or the original (1a)/(1b) up to an overall sign or conjugation. This specific algebraic claim could not be verified as stated. The surrounding text itself is visibly disordered at exactly this point (an inserted, out-of-place devotional line immediately follows), consistent with this being a genuinely confused or mis-transcribed passage rather than a clean derivation this reconstruction failed to follow.",
+    "broader_conceptual_point_(independent_of_the_specific_algebra)": "The general IDEA -- that a charge-conjugation-type construction (built from the complex conjugate of a Weyl spinor's components, with a relative sign) produces a second, generically-independent solution, and that treating it as independent from the original adds degrees of freedom beyond what a single real null 4-vector V_mu encodes -- is standard and correct on its own terms, regardless of whether this specific page's algebra checks out.",
+    "verdict": "NEEDS-WORK (the specific algebraic claim could not be verified despite an exhaustive sign/pairing search; the broader conceptual point about degrees of freedom is standard and separately correct)"
+  },
+  "NB-164": {
+    "claim": "q=sigma^mu V_mu = [[V0-Vz,-Vx+iVy],[-Vx-iVy,V0+Vz]]; two 2-spinors phi1,phi2 read off from its columns",
+    "q_matches_direct_construction_sigma^mu_V_mu": true,
+    "phi1_is_first_column_of_q": true,
+    "phi2_is_second_column_of_q": true,
+    "verdict": "SOLID (q construction and column decomposition both confirmed exactly)"
+  }
+}

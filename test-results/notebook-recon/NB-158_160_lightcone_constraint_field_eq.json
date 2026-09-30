@@ -1,0 +1,37 @@
+{
+  "NB-158": {
+    "claim": "if V^mu(x)V_mu(x)=0 holds identically at every spacetime point, then V^mu d_nu V_mu = 0 for every nu -- the boxed 'essential equation'",
+    "derivation": "d_nu(V^mu V_mu) = 2 V^mu d_nu V_mu (product rule + symmetry of contraction); if V^mu V_mu=0 identically, its derivative is 0, forcing V^mu d_nu V_mu=0.",
+    "verified_per_nu": {
+      "nu=t": true,
+      "nu=x": true,
+      "nu=y": true,
+      "nu=z": true
+    },
+    "all_four_confirmed": true,
+    "note": "This is a clean, standard, and exactly correct differential consequence of imposing the null condition EVERYWHERE (not just at one point) -- verified directly here rather than by re-tracing the page's own informal finite-difference (Delta x) argument, whose notation ('Delta x^mu d_mu V_mu', reusing the index mu for two different things) is difficult to follow literally but whose FINAL boxed result is confirmed exactly correct by this more direct route.",
+    "verdict": "SOLID (final boxed result confirmed via a clean, independent derivation; the page's own finite-difference derivation path has confusing, index-clashing notation not independently verified line-by-line)"
+  },
+  "NB-159": {
+    "claim": "V.(d_mu V)=0 (unimodular constraint, from |V_spatial|=1 everywhere); combined with NB-158's V^mu d_nu V_mu=0 to force V_0=const",
+    "unimodular_constraint_verified_per_nu": {
+      "nu=t": true,
+      "nu=x": true,
+      "nu=y": true,
+      "nu=z": true
+    },
+    "combination_reduces_to_V0*d_nu(V0)=0_per_nu": {
+      "nu=t": true,
+      "nu=x": true,
+      "nu=y": true,
+      "nu=z": true
+    },
+    "conclusion": "Both steps are exactly correct: the unimodular constraint follows from differentiating |V_spatial|^2=1 by the same logic as NB-158's null constraint; substituting it into V^mu d_nu V_mu=0 leaves V_0 (d_nu V_0) = 0 for every nu, which (for V_0 not identically zero) forces d_nu V_0 = 0 for all four nu, i.e. V_0=const -- exactly the notebook's own conclusion, confirmed by direct substitution rather than assumed.",
+    "verdict": "SOLID"
+  },
+  "NB-160": {
+    "claim": "zeta=(V1+iV2)/(V0-V3), obtained by relabeling the earlier light-cone spinor ratio zeta=(x+iy)/(t-z) with (t,x,y,z)->(V0,V1,V2,V3)",
+    "relabeling_matches_exactly": true,
+    "verdict": "SOLID (a direct, exact relabeling of the previously-established formula -- no new algebra to verify beyond the substitution itself)"
+  }
+}

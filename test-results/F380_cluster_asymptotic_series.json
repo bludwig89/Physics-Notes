@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "name": "C1 p_eff relative spread < 5% across the full admissible mass range (0.05<=m<=0.90)",
+      "ok": true,
+      "value": 0.02649662759286808
+    },
+    {
+      "name": "C2 p_eff mean matches the theoretical branch-point+transverse power p=3/2 to <5%",
+      "ok": true,
+      "value": 0.007076658457573733
+    },
+    {
+      "name": "C3 p_eff at the dynamically-selected NJL mass m* is unremarkable (within 3 sigma of the scan)",
+      "ok": true,
+      "value": 0.616271176861664
+    }
+  ],
+  "passed": true,
+  "n_pass": 3,
+  "n_total": 3,
+  "params": {
+    "reference": "axis100",
+    "g_above_gc": 2.9,
+    "n_mc": 20000,
+    "seed": 0,
+    "L": 256
+  },
+  "summary": {
+    "F380_p_eff_mean": 1.4893850123136394,
+    "F380_p_eff_std": 0.039463680013673744,
+    "F380_p_eff_rel_spread": 0.02649662759286808,
+    "F380_theory_power": 1.5,
+    "F380_theory_deviation": 0.007076658457573733,
+    "F380_ratio_mean": 1.1610527592901105,
+    "F380_ratio_rel_spread": 0.07589494057362231,
+    "F380_m_star": 0.6054958071708678,
+    "F380_p_eff_at_m_star": 1.4650646837883206,
+    "F380_z_at_m_star": 0.616271176861664,
+    "F380_ratio_at_m_star": 1.10960447168769
+  }
+}

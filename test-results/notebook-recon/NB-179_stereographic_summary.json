@@ -1,0 +1,44 @@
+{
+  "NB-179_t_formula": {
+    "claim": "t = 2r^2/(r^2+x0^2+y0^2) (29) -- NOTE: unlike batch 11's NB-153, this already uses 2r^2, not the dimensionally-wrong 2r",
+    "true_nonzero_t_solution": "2*r**2/(r**2 + x0**2 + y0**2)",
+    "matches_eq29_exactly": true,
+    "note": "This restatement's own boxed t formula is exactly correct as written -- the dimensional slip found in batch 11's NB-153 (which had '2r' instead of '2r^2') is NOT repeated here.",
+    "verdict": "SOLID"
+  },
+  "NB-179_forward_projection": {
+    "claim": "(30a-c): xc,yc,zc in terms of x0,y0,r",
+    "xc_matches": true,
+    "yc_matches": true,
+    "zc_matches": true,
+    "verdict": "SOLID"
+  },
+  "NB-179_inverse_quadratic": {
+    "claim": "(31) xc=2r^2 x0/(r^2+x0^2) at y0=0; (32) quadratic xc x0^2-2r^2 x0+xc r^2=0; (33) x0+-=(r/xc)(r+-sqrt(r^2-xc^2))",
+    "eq33_matches_direct_quadratic_solution": true,
+    "verdict": "SOLID"
+  },
+  "NB-179_zeta_tilde_scale_free": {
+    "claim": "(34) zeta_tilde=(x0+iy0)/r -- 'x0/r and y0/r depend only on direction'",
+    "zeta_tilde_is_invariant_under_uniform_rescaling_(x0,y0,r)->lambda(x0,y0,r)": true,
+    "note": "This restatement explicitly defines the scale-free ratio (x0/r, y0/r) as 'depending only on direction' -- this is exactly the resolution this reconstruction independently arrived at for NB-153's apparently-off-by-a-factor-of-r inverse formula in batch 11 (where (x+iy)/(r-z) was found to equal eta/r, not eta, and that WAS the point being made about r-independence). This restatement confirms that reading directly and explicitly.",
+    "verdict": "SOLID"
+  },
+  "NB-179_similar_triangles_36": {
+    "claim": "(36), via similar triangles: xc/(r-zc) = x0/r (stated as zeta*_g = (xc+iyc)/(r-zc))",
+    "xc/(r-zc)_equals_x0/r_exactly": true,
+    "verdict": "SOLID (the core similar-triangles identity is exact; the specific label 'zeta*_g' -- a conjugate -- for the resulting complex combination is a naming choice for the second/antipodal projection, not independently checkable from the algebra alone)"
+  },
+  "NB-179_products_37_38": {
+    "claim": "(37) x0+ * x0- = r^2; (38) x0/r = r/x0+",
+    "eq37_verified": true,
+    "eq38_holds_provided_x0_in_zeta_tilde_is_identified_with_the_minus_root_x0-": true,
+    "verdict": "SOLID (both confirmed; (38) is a specific, self-consistent convention choice -- identifying the 'x0' of eq 34 with the minus root of the quadratic (33) -- not an independent new claim)"
+  },
+  "NB-179_rotated_identities_39_40": {
+    "claim": "(39) xc/(r-zc)=(r+zc)/xc at y0=0; (40) the same relation 'rotated' to (xc+iyc)/(r-zc)=(r+zc)/(xc-iyc) for general y0",
+    "eq39_verified_at_y0=0": true,
+    "eq40_verified_in_full_generality_(y0_nonzero)": true,
+    "verdict": "SOLID (both confirmed exactly; the 'rotation' generalization from (39) to (40) is not just plausible but independently verified to hold in full generality, not merely asserted by analogy)"
+  }
+}

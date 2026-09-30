@@ -1,0 +1,62 @@
+# Resumability ledger for /monograph. Read by `/monograph resume`.
+# Reproduction command for the coverage diff claimed in 00-plan.md:
+#   grep -oE '^\| F[0-9]+[a-z]?' findings-index.md | sed 's/| //' | sort -V
+# diffed against the chapter-assignment file (387 IDs, one chapter/A2/OOS tag each).
+# Both lists matched exactly: 0 missing, 0 duplicated, 0 extra.
+
+phase0:
+  status: done
+  built: "2026-09-16"
+  plan: docs/monograph/00-plan.md
+  approval: granted   # user approved the spine + coverage 2026-09-16; also directed that Ch.1 sources from references/ (physics-notes-complete.md, qca-papers-1-4-overview.md) rather than finding files, and that any references/ file may be cited as source material for any chapter
+
+phase8_final_pass:
+  status: done
+  built: "2026-09-17"
+  dependency_audit: PASS (0 forward references across 26 chapter files)
+  coverage_audit: PASS (387/387 findings accounted for; 378 cited in-text, 9 are superseded/OOS)
+  postulate_audit: PASS (P1-P7 each cited by 12-26 later chapters/appendices)
+  free_parameter_audit: "A3 authoritative count ~21-22, reconciled against A4's provisional floor of ~5"
+  reconstruction_test: "3/3 partial pass (Ch.4, Ch.12, Ch.22); 2 new gaps found and logged (G-16, G-17)"
+  readme: docs/monograph/README.md
+
+chapters:
+  - {n: 1,  slug: postulates-and-ontology,             status: done, findings: [], results: [P1,P2,P3,P4,P5,P6,P7], new_symbols: [x,t,a,tau,psi,Psi,sigma_i,G,L,U_evolve,H,U_gauge,k,c_lat,beable,changeable,superimposable], gaps: 1, built: "2026-09-16 - 20:40"}
+  - {n: 2,  slug: dimensions-and-lattice-selection,     status: done, findings: [F267,F273,F278,F291,F292,F313,F315,F316,F318,F326,F344], results: [R2.1,R2.2,R2.3,R2.4,R2.5,R2.6,R2.7,R2.8,R2.9,R2.10,R2.11,R2.12,R2.13,R2.14,R2.15,R2.16,R2.17], new_symbols: [], gaps: 1, built: "2026-09-16"}
+  - {n: 3,  slug: the-update-rule,                      status: done, findings: [F276], results: [R3.1,R3.2,R3.3,R3.4,R3.5,R3.6,R3.9,R3.10], new_symbols: [], gaps: 1, built: "2026-09-16"}
+  - {n: 4,  slug: structural-theorems,                  status: done, findings: [F53,F289,F290,F328,F330,F331,F335,F377,F378,F379,F380], results: [R4.1a,R4.1b,R4.2,R4.3,R4.4a,R4.4b,R4.4c,R4.4d,R4.5a,R4.5b,R4.6a,R4.6b,R4.7,R4.8,R4.9,R4.10,R4.11,R4.12a,R4.12b,R4.12c,R4.13,R4.14], new_symbols: [Theta,Theta_prime,Sigma,tau_2,Gamma,kappa_100,kappa_110,p_eff], gaps: 0, built: "2026-09-16"}
+  - {n: 5,  slug: quantum-structure,                    status: done, findings: [F281,F304,F312,F329], results: [R5.1,R5.2,R5.3,R5.4,R5.5,R5.6,R5.7,R5.8,R5.9,R5.10,R5.11,R5.12], new_symbols: [H_int,J_a,R_b,D_b,b_k,V], gaps: 1, built: "2026-09-16", note: "agent hit a session rate-limit right after writing the chapter but before appending its own gap to GAPS.md; G-4 appended manually from the chapter's own §5.6 text"}
+  - {n: 6,  slug: free-propagation-light-cone,          status: done, findings: [F20,F26,F26b,F46,F171,F245,F246,F300], results: [R6.1,R6.2,R6.3,R6.4,R6.5,R6.6,R6.7,R6.8,R6.9,R6.10,R6.11,R6.12,R6.13,R6.14,R6.15,R6.16,R6.17], new_symbols: [], gaps: 0, built: "2026-09-16"}
+  - {n: 7,  slug: relativity-on-a-lattice,              status: done, findings: [F15,F22,F24,F28,F30,F301,F319,F327], results: [R7.1,R7.2,R7.3,R7.4,R7.5,R7.6,R7.7,R7.8,R7.9,R7.10,R7.11,R7.12,R7.13,R7.14,R7.15], new_symbols: [], gaps: 1, built: "2026-09-17"}
+  - {n: 8,  slug: the-photon,                           status: done, findings: [F37,F39,F69,F89,F91,F105,F129,F168,F169,F207,F209,F250,F271,F306,F314], results: [R8.1,R8.2,R8.3,R8.4,R8.5,R8.6,R8.7,R8.8,R8.9,R8.10,R8.11,R8.12,R8.13,R8.14,R8.15,R8.16], new_symbols: [], gaps: 1, built: "2026-09-17"}
+  - {n: 9,  slug: electromagnetism,                     status: done, findings: [F68,F87,F127,F339,F349,F384,F385,F386], results: [R9.1,R9.2,R9.3,R9.4,R9.5,R9.6,R9.7,R9.8,R9.9,R9.10,R9.11,R9.12], new_symbols: [], gaps: 0, built: "2026-09-17"}
+  - {n: 10, slug: photon-fermion-live-edge,              status: done, findings: [F387,F388,F389,F390,F391,F392,F393,F394,F395], results: [R10.1,R10.2,R10.3,R10.4,R10.5,R10.6,R10.7,R10.8,R10.9], new_symbols: [], gaps: 0, built: "2026-09-17", note: "open research report, not a settled chapter"}
+  - {n: 18, slug: gravity,                               status: done, findings: [F56,F57,F58,F59,F60,F61,F63,F64,F79,F106,F173,F178,F243,F244,F345,F383], results: [R18.1..R18.17], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-8: F79's g*=48 silently depends on Ch.15 (F75) and Ch.12 (F38), undeclared in 00-plan.md's dependency table"}
+  - {n: 19, slug: strong-field-and-wave-gravity,         status: done, findings: [F111,F174,F176b,F180,F181,F183,F184,F185,F186,F187,F189,F204,F248,F354,F356,F357,F359], results: [R19.1..R19.19], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-9: F181/CL160 claims-layer bookkeeping artifact (no real withdrawal), same pattern as G-6/G-7"}
+  - {n: 11, slug: mass-without-a-higgs,                  status: done, findings: [F27,F40,F85,F167], results: [R11.1,R11.2,R11.3,R11.4,R11.5,R11.6,R11.7,R11.8,R11.9,R11.10,R11.11,R11.12,R11.13,R11.14], new_symbols: [], gaps: 0, built: "2026-09-17"}
+  - {n: 12, slug: hypercharge-and-electroweak,           status: done, findings: [F29,F31,F32,F33,F34,F34b,F35,F36,F38,F41,F42,F44,F45,F48,F49,F51,F54,F138,F141,F143,F147,F153,F231,F279,F320], results: [R12.1..R12.32], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-7: unreconciled W-propagator-law duality between F32 (even, pre-F91) and F91/CLAUDE.md-decision-5 (chiral, forced) — flagged forward to Ch.13 for the identical gluon question"}
+  - {n: 13, slug: colour-and-strong-sector, split: true, note: "SPLIT per 00-plan.md §8 into 13a (structure+confinement, 26 findings) and 13b (dynamical QCD + X1 saga, 23 findings)"}
+  - {n: "13a", slug: colour-structure-and-confinement,    status: done, findings: [F43,F70,F86,F88,F90,F99,F100,F101,F102,F110,F117,F135b,F137,F139,F142,F166,F293,F294,F317,F321,F324,F325,F333,F338,F381,F382], results: [R13a.1..R13a.16], new_symbols: [], gaps: 0, built: "2026-09-17", note: "resolved Ch.12's forward-flagged gluon chiral/even duality (G-7) cleanly: gluon forced vector-like/even to avoid anomaly, unlike the W"}
+  - {n: "13b", slug: dynamical-qcd-and-x1-saga,           status: done, findings: [F72,F111b,F124,F130,F144,F145,F151,F152,F154,F163,F172,F239,F265,F280,F287,F305,F307,F308,F323,F337,F340,F350,F362], results: [R13b.1..R13b.19], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-11: CL022/CL252 stale against F337/F340/F350 (2.1-sigma alpha_s tension); Ch.17 should not cite CL252's bracket as settled without checking"}
+  - {n: 14, slug: hadrons,                               status: done, findings: [F71,F97,F98,F103,F104,F113,F116,F122,F126,F128,F131,F132,F134,F135,F136,F140,F146,F206,F240,F247,F373], results: [R14.1..R14.21], new_symbols: [], gaps: 0, built: "2026-09-17"}
+  - {n: 17, slug: scale-setting-and-si-closure,          status: done, findings: [F83,F107,F112,F119,F123,F232,F233,F235,F351], results: [R17.1..R17.18], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-14: CL205/F233 another claims-layer bookkeeping artifact; synthesis suggests 4 dimensionful inputs today (G,f_pi,m_tau,v), possibly reducing to 2 if d1 unification (Ch.13b's open G-11) confirms"}
+  - {n: 24, slug: atoms-and-matter,                      status: done, findings: [F125,F148,F156,F157,F158,F159,F160,F161,F195,F208,F371], results: [R24.1..R24.14], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-13: unreconciled 0.45% deuteron binding-energy discrepancy between F148/F157 (2.234 MeV) and Ch.14's headline (2.224 MeV)"}
+  - {n: 25, slug: emergent-condensed-matter-and-info,    status: done, findings: [F210,F211,F212,F213,F214,F215,F217,F218,F218b,F220,F221,F222,F224,F225,F226,F227,F242,F374,F375,F376], results: [R25.1..R25.20], new_symbols: [], gaps: 0, built: "2026-09-17", note: "confirmed CL189/CL193/CL200 (F215/F218b/F226) are the same claims-layer bookkeeping artifact pattern found 6x prior; not re-logged"}
+  - {n: 15, slug: generations-and-lepton-spectrum,       status: done, findings: [F73,F74,F75,F76,F77,F78,F80,F81,F82,F84,F92,F93,F95,F96,F101b,F108,F109,F118,F120,F121,F149,F150,F170,F175,F176,F177,F199,F200,F234,F253,F255,F256,F342,F346,F347,F348,F352], results: [R15.1..R15.32], new_symbols: [], gaps: 1, built: "2026-09-17", note: "second-largest (37); agent hit a session rate-limit right after writing the chapter but before appending its own gap to GAPS.md; renumbered G-9->G-10 (collided with concurrently-finished Ch.19) and appended manually"}
+  - {n: 20, slug: cosmology,                             status: done, findings: [F182,F188,F202,F282,F283,F284,F285,F286,F288,F295,F296,F297,F309,F310,F360,F361,F363,F364,F369,F372], results: [R20.1..R20.21], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-12: resolved Ch.19's tick-duration sqrt3 discrepancy (real arithmetic error in F284, corrected); curvature-ceiling 24^(1/4) fork left genuinely open"}
+  - {n: 21, slug: cosmological-constant,                 status: done, findings: [F164,F190,F192,F193,F196,F241,F332,F355,F367,F368], results: [R21.1..R21.8], new_symbols: [], gaps: 0, built: "2026-09-17"}
+  - {n: 16, slug: neutrinos,                             status: done, findings: [F47,F201,F236,F254,F266,F341,F343,F353], results: [R16.1..R16.14], new_symbols: [], gaps: 0, built: "2026-09-17"}
+  - {n: 22, slug: dark-sector,                           status: done, findings: [F191,F194,F197,F198,F199b,F203,F205,F216,F223,F228,F237,F238,F358,F365,F366], results: [R22.1..R22.14], new_symbols: [], gaps: 1, built: "2026-09-17", note: "G-15: CL177 stale against F205/F237/F228; sterile neutrino excluded as 100% DM, geon is the only surviving 100%-DM candidate but its abundance is provably not derivable"}
+  - {n: 23, slug: qed-precision,                         status: done, findings: [F249,F252,F257,F259,F260,F261,F262,F263,F264,F277,F311,F322,F334,F336,F370], results: [R23.1..R23.27], new_symbols: [], gaps: 0, built: "2026-09-17"}
+
+appendices:
+  - {slug: A1-no-go-ledger,      status: done, built: "2026-09-17", note: "87 entries across 12 sectors"}
+  - {slug: A2-supersessions,     status: done, built: "2026-09-17"}
+  - {slug: A3-constants,         status: done, built: "2026-09-17", note: "~21-22 genuinely free parameters, reconciled with A4's provisional floor of ~5"}
+  - {slug: A4-open-residuals,    status: done, built: "2026-09-17"}
+  - {slug: A5-symbols,           status: done, built: "2026-09-17", note: "~7 notation collisions found, flagged not silently resolved"}
+
+gaps_log: docs/monograph/GAPS.md   # not yet created — created on first chapter that logs a gap
+
+superseded_findings_out_of_main_line: [F21,F23,F25,F50,F52,F55,F62,F65,F66,F67,F94,F114,F115,F155,F162,F165,F174b,F179,F230,F251,F258,F270,F272,F298,F299,F302,F303]
+out_of_scope_findings: [F1,F102b,F133,F134b,F268,F269,F274,F275]

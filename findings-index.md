@@ -42,11 +42,11 @@
 | F50 | `F50-gravity-fork-f46-tetrad-dirac` | Gravity fork from F46: which leg of the spherical triangle carries gravitational redshift |  | SUPERSEDED (S3-F64-dielectric-gravity); 4 test rec |
 | F51 | `F51-bipartite-sublattice-hypercharge` | The bipartite sublattice DOF carries hypercharge as a matter of representation theory on the BCC walk |  | 4 test rec |
 | F52 | `F52-gravity-from-rest-leg-backreaction` | Gravity as a self-consistent rest-leg (clock-rate) field |  | SUPERSEDED (S3-F64-dielectric-gravity); 5 test rec |
-| F53 | `F53-fg9-C-CP-per-species` | FG-9: antiparticle / per-species C and CP |  | 5 test rec |
+| F53 | `F53-fg9-C-CP-per-species` | FG-9: antiparticle / per-species C and CP |  | 6 test rec |
 | F54 | `F54-fg8-beta-decay-charged-current` | FG-8: End-to-end β-decay charged-current integration |  | 3 test rec |
 | F55 | `F55-spatial-metric-trace-reversal-einstein-factor2` | Spatial metric from trace reversal: Einstein's factor-2 from mass |  | SUPERSEDED (S3-F64-dielectric-gravity); 3 test rec |
-| F56 | `F56-einstein-coupling-from-lattice-phase-matching` | Deriving the Einstein coupling 16πG/c⁴ from the lattice + F25/F26 phase-matching |  | 2 test rec |
-| F57 | `F57-induced-eh-term-from-leg-field-backreaction` | Reducing the Einstein–Hilbert term from leg-field back-reaction |  | 2 test rec |
+| F56 | `F56-einstein-coupling-from-lattice-phase-matching` | Deriving the Einstein coupling 16πG/c⁴ from the lattice + F25/F26 phase-matching |  | 3 test rec |
+| F57 | `F57-induced-eh-term-from-leg-field-backreaction` | Reducing the Einstein–Hilbert term from leg-field back-reaction |  | 3 test rec |
 | F58 | `F58-clockrate-coupling-from-neighbour-rule` | Does the clock-rate ↔ rest-mass coupling 4πG follow from the neighbour rule? |  | 1 test rec |
 | F59 | `F59-induced-eh-prefactor-and-f10-selection` | The induced-EH prefactor, and the $(a,\tau)$ convention it selects |  | 7 test rec |
 | F60 | `F60-induced-G-channel-reconciliation` | Reconciling the two induced-$G$ channels: F58's $c_\text{lat}^2$ is tree-level, F59's $1/c_\text{lat}$ is loop-induced, gap $=c_\text{lat}^3$ |  | 1 test rec |
@@ -58,15 +58,15 @@
 | F66 | `F66-allsky-birefringence-anisotropy-no-rescue` | The BCC birefringence anisotropy does NOT rescue a Planck-scale cell: linear vacuum birefringence excludes a≈6.2×10⁻³⁵ m |  | SUPERSEDED (S1-F69-sigma-bilinear-photon); 5 test rec |
 | F67 | `F67-even-law-photon-vs-bilinear-mutually-exclusive` | Option 1 tested: the chirality-even photon kills birefringence, but the even photon and the two-branch Weyl bilinear are mutually exclusive |  | SUPERSEDED (S1-F69-sigma-bilinear-photon); 10 test rec |
 | F68 | `F68-minimal-coupling-forces-even-photon` | U(1) minimal coupling forces the chirality-even (non-birefringent) photon; the birefringent bilinear is a different SU(2) channel |  | 14 test rec |
-| F69 | `F69-paired-spinor-photon` | The photon as a bound pair of two spin-½ Weyl quanta (non-birefringent); the composite σ-bilinear retired as the photon |  | 26 test rec |
+| F69 | `F69-paired-spinor-photon` | The photon as a bound pair of two spin-½ Weyl quanta (non-birefringent); the composite σ-bilinear retired as the photon |  | 27 test rec |
 | F70 | `F70-gradient-flow-confinement-string-tension` | Wilson gradient flow / cooling driver + exact 2D confinement (static potential, string tension) |  | 8 test rec |
 | F71 | `F71-colour-singlet-baryon-proton` | Colour-singlet three-quark construction (the proton) | 8/8 PASS | 3 test rec |
 | F72 | `F72-no-universal-even-propagator-channel-selection` | The paired/even-law photon propagator cannot be adopted universally: the propagator law is fixed by the coupling channel (identity → even, σ-vector → chiral) |  | 1 test rec |
-| F73 | `F73-spin0-bound-pair-scalar` | The spin-0 bound-pair scalar: the "Cooper-pair" Higgs candidate, and the exact lattice mass it predicts |  | 14 test rec |
-| F74 | `F74-two-constituent-bound-state-binding` | Dynamical two-constituent bound state: the binding depth, and why the F73 ceiling is robust |  | 13 test rec |
+| F73 | `F73-spin0-bound-pair-scalar` | The spin-0 bound-pair scalar: the "Cooper-pair" Higgs candidate, and the exact lattice mass it predicts |  | 15 test rec |
+| F74 | `F74-two-constituent-bound-state-binding` | Dynamical two-constituent bound state: the binding depth, and why the F73 ceiling is robust |  | 14 test rec |
 | F75 | `F75-three-generations-from-bcc-irrep-selection` | Exactly three generations from BCC point-group selection of the F27 chiral mass step |  | 9 test rec |
 | F76 | `F76-generation-mass-hierarchy-crystal-field` | The generation mass hierarchy: a crystal-field splitting of the F75 $T_{1u}$ triplet, and the Koide relation as its cubic-vector signature |  | 10 test rec |
-| F77 | `F77-njl-gap-rpa-selfconsistent` | Self-consistent NJL gap + RPA: one coupling fixes both $m_c$ and $E_b$, and it confirms the F74 ceiling |  | 15 test rec |
+| F77 | `F77-njl-gap-rpa-selfconsistent` | Self-consistent NJL gap + RPA: one coupling fixes both $m_c$ and $E_b$, and it confirms the F74 ceiling |  | 17 test rec |
 | F78 | `F78-koide-amplitude-from-cooper-pair` | Why $\sqrt m$: the Cooper-pair bilinear, and the equipartition amplitude as the democratic–hierarchical midpoint |  | 10 test rec |
 | F79 | `F79-structural-newton-constant` | Newton's constant from the lattice structure itself: freeing $G$ from the Sakharov premise, verifying the loop channel, and the closed form |  | 23 test rec |
 | F80 | `F80-one-45deg-em-saturation-koide` | One 45°: the charged-lepton Koide point and the F73 bound-pair cap are the same SO(2) equipartition, selected by electromagnetism |  | 10 test rec |
@@ -80,7 +80,7 @@
 | F88 | `F88-colour-condensate-from-model` | The colour-magnetic condensate arising within the model (F86's input, derived) | 8/8 PASS | 6 test rec |
 | F89 | `F89-singlet-bilinear-is-paired-photon` | One entity, two channels: the singlet bilinear of the same Weyl constituents IS the paired photon; the σ-vector channel IS the W/Z/gluon law |  | 4 test rec |
 | F90 | `F90-e2e-nonabelian-bilinear-backreaction` | E2E certification of the non-Abelian W/Z/gluon couplings on the σ-bilinear + the full fermion/radiation back-reaction loop; chiral-Proca birefringence is… | 14/14 PASS | 2 test rec |
-| F91 | `F91-pairing-classification-theorem` | Pairing classification theorem: the branch structure of each coupling forces its channel — γ even (forced), W± chiral (forced), Z mixed (derived), gluon even… |  | 12 test rec |
+| F91 | `F91-pairing-classification-theorem` | Pairing classification theorem: the branch structure of each coupling forces its channel — γ even (forced), W± chiral (forced), Z mixed (derived), gluon even… |  | 13 test rec |
 | F92 | `F92-per-constituent-phase-consistency` | The per-constituent phase identification as a consistency fixed point: the chain's two mass laws are jointly satisfiable only at 45°, and the data pin the pair… |  | 18 test rec |
 | F93 | `F93-orthorhombic-Eg-vacuum` | The orthorhombic vacuum identified: an $E_g$ condensate on the second-neighbour shell — unique non-mixing splitting channel, $D_{2h}$ stabilizer… |  | 13 test rec |
 | F94 | `F94-lattice-gauge-mc-confinement-vs-F86` | Confinement from 3+1D lattice-gauge Monte-Carlo (P1 Option A), tested against Option C (F86) |  | SUPERSEDED (S21-F94-hypercubic-action-not-the-model-lattice); 6 test rec |
@@ -114,15 +114,15 @@
 | F119 | `F119-kg-scale-three-routes` | Tying the kilogram into the mass sector: the overall scale $N$ factorises cleanly out of the derived spectrum, but all three closure routes converge on the… |  | 10 test rec |
 | F120 | `F120-electron-calibrated-spectrum` | Calibrating the single mass scale on the electron: the locked-cell shape predicts the charged-lepton spectrum to 0.1 % from one mass and reads every fermion… |  | 6 test rec |
 | F121 | `F121-tau-anchored-canonical-spectrum` | The τ adopted as the canonical mass-scale anchor: wall-pinned ⇒ exactly δ-stable, so it contributes zero anchor error and gives the standard lepton/kg readout… |  | 8 test rec |
-| F122 | `F122-p2-dynamical-baryon-three-body` | P2: the dynamical baryon — a real-time, non-dispersing, mass-measured three-quark bound state (proton, then neutron) |  | 9 test rec |
-| F123 | `F123-p6-si-scale-matter-sector` | P6: SI absolute-scale closure for the matter sector — the canonical cell + a single f_π anchor put the nucleon at 3m_c within ~1 % of 938 MeV |  | 7 test rec |
+| F122 | `F122-p2-dynamical-baryon-three-body` | P2: the dynamical baryon — a real-time, non-dispersing, mass-measured three-quark bound state (proton, then neutron) |  | 10 test rec |
+| F123 | `F123-p6-si-scale-matter-sector` | P6: SI absolute-scale closure for the matter sector — the canonical cell + a single f_π anchor put the nucleon at 3m_c within ~1 % of 938 MeV |  | 8 test rec |
 | F124 | `F124-sqrt-sigma-over-fpi-two-qcd-calibrations` | Deriving √σ/f_π: the model's two QCD calibrations reconciled to ~12 % from the one locked lattice |  | 8 test rec |
 | F125 | `F125-p5-hydrogen-atom-em-bound-state` | P5: the atom — hydrogen as an electromagnetic bound state, Rydberg series + Dirac fine structure |  | 12 test rec |
 | F126 | `F126-nn-intermediate-range-sigma-attraction` | The NN intermediate-range attraction (scalar-isoscalar σ exchange) | 5/5 PASS | 7 test rec |
 | F127 | `F127-alpha-em-derivation-four-avenue-nogo` | Deriving $\alpha_\text{em}$ from the lattice rule: a four-avenue no-go |  | 4 test rec |
 | F128 | `F128-nn-short-range-omega-repulsion` | The NN short-range repulsion from the isoscalar-vector (ω) meson, derived from existing model elements | 13/13 PASS | 7 test rec |
-| F129 | `F129-blockspin-free-photon` | Block-spin RG for the free paired-photon: c_lat is an exact RG fixed point and the lattice-artifact (LIV) operators are irrelevant ($\lambda_n=b^{-n}$), so a… |  | 4 test rec |
-| F130 | `F130-blockspin-rg-gauge-gravity` | A proven block-spin RG scheme (gauge + gravity sectors) | 30/30 PASS | 17 test rec |
+| F129 | `F129-blockspin-free-photon` | Block-spin RG for the free paired-photon: c_lat is an exact RG fixed point and the lattice-artifact (LIV) operators are irrelevant ($\lambda_n=b^{-n}$), so a… |  | 5 test rec |
+| F130 | `F130-blockspin-rg-gauge-gravity` | A proven block-spin RG scheme (gauge + gravity sectors) | 30/30 PASS | 18 test rec |
 | F131 | `F131-blockspin-bound-state-reproduction` | Phase-2: a coarse-grained bound state reproduces the fine spectrum | 10/10 PASS | 3 test rec |
 | F132 | `F132-blockspin-dynamical-bound-states` | Coarse-graining the dynamical / relativistic bound states | 9/9 PASS | 3 test rec |
 | F133 | `F133-blockspin-casim-engine-kernel` | Phase 4: the block-spin RG as a first-class CASIM engine operation | 11/11 PASS | 2 test rec |
@@ -138,7 +138,7 @@
 | F141 | `F141-ws-cell-7axes-onshell-mass-counting` | The "7 bond axes" of F49 are the Wigner–Seitz facet axes of BCC (exact lemma), and the 2 : 7 assignment is an on-shell mass-counting statement: $m_W^2 : m_Z^2… | 11/11 PASS | 5 test rec |
 | F142 | `F142-dielectric-tension-no-go-and-nonabelian-scope` | The dielectric tube cannot carry $2\pi v^2 n$ exactly (it has no winding); the exact map is the centre route, and the non-Abelian condensate is solvable only… |  | 1 test rec |
 | F143 | `F143-wrap-loop-stiffness-nogo` | The lattice fermion loop of the induced $U(1)_Y$ wrap stiffness on $U(x)$: transverse channel exactly zero (conjugation no-go), longitudinal channel per-mille… |  | 5 test rec |
-| F144 | `F144-route-a-alpha-s-dimensional-transmutation` | Route A: $\alpha_s$ predicted from the rule by dimensional transmutation — $g_s=\tfrac12$ derived (not assumed), then $\alpha_s(M_Z)$ to +8.4% (converged) /… |  | 13 test rec |
+| F144 | `F144-route-a-alpha-s-dimensional-transmutation` | Route A: $\alpha_s$ predicted from the rule by dimensional transmutation — $g_s=\tfrac12$ derived (not assumed), then $\alpha_s(M_Z)$ to +8.4% (converged) /… |  | 14 test rec |
 | F145 | `F145-route-c-induced-njl-coupling` | Route C: the NJL coupling as an induced coupling — exact Fierz $c=\tfrac29$ (all four chiral channels), a bare-coupling no-go, and χSB guaranteed by Route A's… |  | 10 test rec |
 | F146 | `F146-emergent-su3-string-tension-into-bag` | The string tension measured from the model's own 3D SU(3) gauge dynamics, fed into the confining bag (closing the imported-σ gap up to the U4 scale factor) |  | 3 test rec |
 | F147 | `F147-walk-loop-rigidity-channel-equality` | The Peierls-gauged walk loop: the one-tick sea is gauge-rigid (zero induced stiffness in every channel, exact), and in the stroboscopic sea the F51 hypercharge… |  | 4 test rec |
@@ -163,7 +163,7 @@
 | F166 | `F166-triple-gluon-vertex-branch-blind` | The triple-gluon vertex is branch-blind (no chiral component): the gluon "even" classification is upgraded from forced-at-free-field (F91 G1) to… |  | 1 test rec |
 | F167 | `F167-restmass-from-rule-zero-k-rotation` | Rest mass derived from the QCA rule: it is the unique, unitarity-and-symmetry-forced zero-wavenumber rotation rate of the rule's generator — the same generator… |  | 1 test rec |
 | F168 | `F168-paired-photon-binding-gauge-protected` | The paired-photon binding is gauge-protected, not kinematic: zero binding energy is forced by structure |  | 3 test rec |
-| F169 | `F169-photon-interacting-two-body-wavefunction` | The photon's interacting two-body wavefunction: a normalizable threshold bound state whose masslessness is inherited from gapless constituents |  | 2 test rec |
+| F169 | `F169-photon-interacting-two-body-wavefunction` | The photon's interacting two-body wavefunction: a normalizable threshold bound state whose masslessness is inherited from gapless constituents |  | SUPERSEDED (S24-F169-C3-threshold-search-replaced-by-closed-form); 4 test rec |
 | F170 | `F170-lepton-colour-scale-link` | Route A2: why the lepton / $E_g$-condensate scale equals $O(1)\times\Lambda_\text{QCD}$ — the link is *derived at the mechanism level* (the $E_g$ condensate… |  | 2 test rec |
 | F171 | `F171-slowlight-rotation-vs-phase` | Slow light / EIT does not distinguish the rotation-rate picture from phase velocity: they are isomorphic, and the front always stays luminal |  | 1 test rec |
 | F172 | `F172-residual-algebraic-or-computed` | Is the one shared IR residual an *algebraic connection* or a *computed number*? A wide review: the "one number" is one IR fixed-point coupling dressed by exact… |  | 3 test rec |
@@ -189,10 +189,10 @@
 | F190 | `F190-horizon-entropy-lattice-microstates` | Bekenstein-Hawking entropy from horizon lattice cells: S=A/4 is reproduced iff each F107 cell carries exactly 2π√3 nats (scenario S7, speculative) |  | 5 test rec |
 | F191 | `F191-dark-matter-rotation-curves-bullet` | Dark matter under F178: rotation curves cannot separate a dark halo from modified gravity, but the Bullet-Cluster lensing offset favours a dark *source* over a… |  | 2 test rec |
 | F192 | `F192-vacuum-energy-full-tensor` | The cosmological constant under the full-tensor source: vacuum w=−1 gives ρ+3p=−2ρ so it accelerates (sign correct), but the ~10¹²¹ magnitude overshoot (F164)… |  | 4 test rec |
-| F193 | `F193-ontic-vacuum-gravitates-as-zero` | The CA-native ontic vacuum gravitates as **exactly zero**: candidate (i) of F164 turned from a position into a derivation (bare CC = 0, fixing magnitude… |  | 10 test rec |
+| F193 | `F193-ontic-vacuum-gravitates-as-zero` | The CA-native ontic vacuum gravitates as **exactly zero**: candidate (i) of F164 turned from a position into a derivation (bare CC = 0, fixing magnitude… |  | SUPERSEDED (S25-F193-partA-excluded-and-secB-sign-reading); 10 test rec |
 | F194 | `F194-emergent-gravity-bullet-falsification` | The model-native emergent-gravity ("dark matter without dark matter") route, falsified by the Bullet-Cluster lensing/gas offset |  | SUPERSEDED (S23-F194-bullet-cluster-clump-shape-claim); 1 test rec |
 | F195 | `F195-blockspin-element-atom` | Fully stable block-spin atom for a general element (Z, N) |  | 2 test rec |
-| F196 | `F196-dilution-exponent-derived` | The holographic dilution exponent $p=2$ is **derived from the lattice**, closing F193's named obstruction: $p=3-1$ (spatial volume minus the Schwarzschild… |  | 5 test rec |
+| F196 | `F196-dilution-exponent-derived` | The holographic dilution exponent $p=2$ is **derived from the lattice**, closing F193's named obstruction: $p=3-1$ (spatial volume minus the Schwarzschild… |  | SUPERSEDED (S25-F193-partA-excluded-and-secB-sign-reading); 5 test rec |
 | F197 | `F197-first-excitation-dark-source` | The first excitation channel as a unified dark sector: a near-vacuum channel can be both dark energy and dark matter **iff** it has a gapped branch — the F93… |  | 2 test rec |
 | F198 | `F198-angular-mode-relic-misalignment` | The F197 relic obstruction, computed: vacuum-misalignment of the $E_g$ **angular** mode under-produces by ~15 orders at the condensate scale ($\Omega\propto… |  | 2 test rec |
 | F199 | `F199-angular-self-duality-derivation-forced-posit` | The angular self-duality $C/\lvert B\rvert=1/(2\cos\tfrac23)=0.63622$: the first-principles derivation is attempted along the full F176→F177→F179 program and… |  | 4 test rec |
@@ -276,7 +276,7 @@
 | F277 | `F277-qed-gluon-refold-period` | The F272 refold defect was in four places, and in vacuum polarization it flipped a sign |  | 7 test rec |
 | F278 | `F278-bcc-lattice-constant-two-over-root-three` | The BCC lattice constant is $a=2/\sqrt3$: F267's cube/BZ ratio **is** a primitive-cell volume, and F273's "$\sqrt3\cdot$fcc" **is** its reciprocal lattice |  | 3 test rec |
 | F279 | `F279-hypercharge-constraint-attribution` | Hypercharge quantisation is real, but the gravitational anomaly is not what derives it: the closing constraint is the F47 Majorana step |  | 6 test rec |
-| F280 | `F280-d1-subtracted-against-wilson` | $d_1$ formulated **subtracted against the Wilson $\Lambda_{\overline{\rm MS}}/\Lambda_L=28.8086$ anchor**: the master identity uses differences only, the… | 6/6 PASS | 3 test rec |
+| F280 | `F280-d1-subtracted-against-wilson` | $d_1$ formulated **subtracted against the Wilson $\Lambda_{\overline{\rm MS}}/\Lambda_L=28.8086$ anchor**: the master identity uses differences only, the… | 6/6 PASS | 4 test rec |
 | F281 | `F281-measurement-pointer-basis-born-rule-rg-classicality` | The measurement problem on the lattice: the pointer basis is **forced** by minimal coupling, the Born rule follows on two independent legs, and classicality is… | 20/20 PASS | 4 test rec |
 | F282 | `F282-no-slow-roll-inflaton-sub-planckian-cutoff` | The model admits **no** slow-roll inflaton: the F107 cell puts the lattice cutoff at $\Lambda=3^{-1/4}M_\text{Pl}=\sqrt{c_\text{lat}}\,M_\text{Pl}$… |  | 8 test rec |
 | F283 | `F283-elastic-lattice-excluded-and-f282-invariance` | An elastic lattice is excluded four ways, and it **cannot** rescue F282: because F79 ties $G$ to $a^2$, the ratio $M_\text{Pl}/\Lambda_\text{UV}=3^{1/4}$ is… |  | 1 test rec |
@@ -285,10 +285,10 @@
 | F286 | `F286-second-scale-must-be-a-log-not-a-length` | A second scale for the tilt must be a **logarithm, not a length**: Planck's own running bounds the tilt's log-derivative at $\|d\ln F/d\ln x\|<0.32$, which… |  | 3 test rec |
 | F287 | `F287-bgfield-apparatus-sound-post-F277` | The F162 background-field apparatus is **sound** post-F272/F277: $b_0=11$ is now recovered **numerically** as well as symbolically, and the one thing it must… | 3/3 PASS | 4 test rec |
 | F288 | `F288-structure-formation-zero-free-functions` | Structure formation on the lattice: the model's gravity law fixes linear growth with **zero free functions** where the EFT of dark energy has two, giving… |  | 3 test rec |
-| F289 | `F289-spin-statistics-connection` | Spin-statistics: the model **derives the theorem's own two premises** — $R(2\pi)=-\mathbb 1$ from its rotor and $\pi_1=S_n$ from its derived $d=3$ — so Fermi… | 11/11 PASS | 5 test rec |
-| F290 | `F290-cluster-decomposition-strict-cone` | Cluster decomposition on the lattice: no-signalling is **exact**, the causal cone is **strict** where a generic Lieb–Robinson system has only an exponential… | 10/10 PASS | 3 test rec |
-| F291 | `F291-why-three-plus-one-dimensions` | Why 3+1: two independent selectors already fix $d=3$; only the "+1" is by construction | 9/9 PASS | 12 test rec |
-| F292 | `F292-no-higher-multiple-of-three` | Three is the only multiple of three: $d=6$ and $d=9$ excluded, and a reducible $d=3n$ freezes | 8/8 PASS | 6 test rec |
+| F289 | `F289-spin-statistics-connection` | Spin-statistics: the model **derives the theorem's own two premises** — $R(2\pi)=-\mathbb 1$ from its rotor and $\pi_1=S_n$ from its derived $d=3$ — so Fermi… | 11/11 PASS | 7 test rec |
+| F290 | `F290-cluster-decomposition-strict-cone` | Cluster decomposition on the lattice: no-signalling is **exact**, the causal cone is **strict** where a generic Lieb–Robinson system has only an exponential… | 10/10 PASS | 4 test rec |
+| F291 | `F291-why-three-plus-one-dimensions` | Why 3+1: two independent selectors already fix $d=3$; only the "+1" is by construction | 9/9 PASS | 14 test rec |
+| F292 | `F292-no-higher-multiple-of-three` | Three is the only multiple of three: $d=6$ and $d=9$ excluded, and a reducible $d=3n$ freezes | 8/8 PASS | 7 test rec |
 | F293 | `F293-why-three-colours` | Why three colours: anomalies **cannot** select $N_c$ and colour is **not** the spatial 3, but the model's $N_c$-free bare coupling turns $N_c$ into a… | 15/15 PASS | 4 test rec |
 | F294 | `F294-c7-chi-map-ncolour-audit` | Auditing the F110 C7 χ-map for $N_c$: the identity is **measured** $N$-free across $\mathbb Z_2..\mathbb Z_9$ and $U(1)$ (deviation literally `0.0`), but the… |  | 4 test rec |
 | F295 | `F295-tilt-is-an-anomalous-dimension-not-a-second-scale` | Freeing $\alpha$ and $G$ does **not** narrow the loop ($\alpha$ would need evaluating 68 decades above the model's own cutoff; $G$'s coupling is a *power*… |  | 5 test rec |
@@ -301,7 +301,7 @@
 | F302 | `F302-sigma-bilinear-so3-covariance` | ε = iσ₂ is the object that makes a transpose bilinear a 3-vector; and no live gauge sector was ever on the form that lacks it |  | 3 test rec |
 | F303 | `F303-no-centre-normalisation-argument` | There is **no argument** for centre-normalising F144's bare coupling: three candidates closed exactly (scheme constant off by 26×, the three-link plaquette the… |  | SUPERSEDED (S22-F298-mixed-matching-C_F-and-the-X1-branch); 3 test rec |
 | F304 | `F304-born-rule-gleason-premises-forced` | The Born rule is a **theorem** on this lattice: the rule *forces* both Gleason premises, closing the hypothesis F281 left open |  | 3 test rec |
-| F305 | `F305-bcc-rhombic-lpt-vertices` | The lattice Feynman rules of the **genuine** BCC gauge action are derived, not transcribed: the 4-bond rhombus reproduces $\delta_{ij}\sum_l\hat k_l^2-\hat… | 9/9 PASS | 5 test rec |
+| F305 | `F305-bcc-rhombic-lpt-vertices` | The lattice Feynman rules of the **genuine** BCC gauge action are derived, not transcribed: the 4-bond rhombus reproduces $\delta_{ij}\sum_l\hat k_l^2-\hat… | 9/9 PASS | 6 test rec |
 | F306 | `F306-curl-closes-at-k3-representation-artifact` | The composite-photon curl equation closes at $O(k^3)$; the reported $O(k)$ failure was a representation artifact |  | 2 test rec |
 | F307 | `F307-action-consistent-d1-and-a-live-refold` | The $d_1$ estimator now runs **action-consistently on one code path**, each side on its own action and its own Brillouin zone; the number is **not quotable**… | 8/8 PASS | 6 test rec |
 | F308 | `F308-refold-repaired-and-two-defects-not-one` | The `lpt_selfenergy` refold is **repaired**, and the audit found **two** independent folds where F307 reported one: the ghost-sum fold (large, on a branch… |  | 4 test rec |
@@ -309,44 +309,44 @@
 | F310 | `F310-gamma-is-a-blockspin-eigenvalue` | The model needs **no 3D dual**: the $t=0$ state of a rigid 3D automaton **is** a 3D Euclidean measure, so F296's operator is present by construction — and… | 16/16 PASS | 2 test rec |
 | F311 | `F311-gap5-three-numbers-adjudicated` | Completeness gap #5's three un-re-derived numbers are **all three instrument or bookkeeping artifacts, not physics defects**: B9's $\Delta\alpha(M_Z)$ is… | 12/12 PASS | 3 test rec |
 | F312 | `F312-born-rule-nonabelian-premises` | A6's non-Abelian seam closed with **one theorem, not two more cases**: the current algebra is written out and its $\delta_{xy}$ is **exact** (the whole… | 18/18 PASS | 2 test rec |
-| F313 | `F313-one-time-dimension-from-the-update-commutant` | The "+1": the Cayley-graph/update split is computed, not chosen, and the time rank is 1 | 13/13 PASS | 8 test rec |
+| F313 | `F313-one-time-dimension-from-the-update-commutant` | The "+1": the Cayley-graph/update split is computed, not chosen, and the time rank is 1 | 13/13 PASS | 9 test rec |
 | F314 | `F314-paired-photon-real-space-propagation` | The paired-spinor photon propagates in real space at the closed-form pair group velocity | 10/10 PASS | 3 test rec |
 | F315 | `F315-V-does-not-survive-interaction` | F313 falsifier 5 does not fire: the second clock is an artifact of freeness | 11/11 PASS | 3 test rec |
 | F316 | `F316-laurent-pell-descent-proved` | The polynomial→Laurent transfer, proved: F313's last import is gone | 10/10 PASS | 2 test rec |
 | F317 | `F317-su3-structure-derived` | Colour is not put in twice: granted **one** internal index the rule does not read, SU(3)'s unitarity, its tracelessness, its locality, its connection, its… | 21/21 PASS | 5 test rec |
 | F318 | `F318-cell-carries-the-internal-index` | The cell carries the internal index for free, and only in one shape: the bound F291 flagged as conditional on $s=2$ is **not** conditional on $s=2$, the… | 11/11 PASS | 3 test rec |
-| F319 | `F319-uv-sector-reconciled-physical-cutoff-and-counterterms` | The UV sector reconciled: a physical Brillouin-zone cutoff and a counterterm program are the same statement, the leading irrelevant operator is dimension-6… |  | 5 test rec |
+| F319 | `F319-uv-sector-reconciled-physical-cutoff-and-counterterms` | The UV sector reconciled: a physical Brillouin-zone cutoff and a counterterm program are the same statement, the leading irrelevant operator is dimension-6… |  | 6 test rec |
 | F320 | `F320-absolute-gauge-boson-masses-and-rho` | The absolute $W$ and $Z$ masses **are** predicted: eliminating F141's stiffness quantum against $e=g\sin\theta_W$ gives $m_W=\tfrac{3v}{2}\sqrt{2\pi\alpha}$… | 22/22 PASS | 2 test rec |
 | F321 | `F321-strong-cp-theta-zero-and-loop-stable` | Strong CP: $\theta_\text{QCD}=0$ is a theorem of the rule's loop set, and loops cannot move it |  | 2 test rec |
 | F322 | `F322-b9-running-alpha-ew-rederived-post-f277` | B9 re-derived post-F277: the $0.24\%$ never touched the refold, and what F277 actually supplied was its **warrant** — plus the shortfall is two-loop, and… |  | 3 test rec |
 | F323 | `F323-anisotropy-derived-and-d4-casimir` | The lattice anisotropy is derived, not chosen, and F299's d=4 Casimir successor runs | 28/28 PASS | 2 test rec |
-| F324 | `F324-ncolour-bracket-closed` | The $N_c$ interval closes on $\{3\}$: F298's C7 support $\{2,3\}$ paired with the $\mathbb Z_2$ doublet parity of the model's **own derived** $SU(2)_L$ — one… |  | 5 test rec |
+| F324 | `F324-ncolour-bracket-closed` | The $N_c$ interval closes on $\{3\}$: F298's C7 support $\{2,3\}$ paired with the $\mathbb Z_2$ doublet parity of the model's **own derived** $SU(2)_L$ — one… |  | 6 test rec |
 | F325 | `F325-x1-resolved-branch-b-adopted` | X1 resolved without $d_1$: the Casimir branch is **tested and closed** on two independent legs, the centre-value branch is **adopted**, and the fork's $C_F$… | 7/7 PASS | 2 test rec |
-| F326 | `F326-the-plus-one-closes-no-second-generator` | The "+1" closes: no second candidate generator exists to close it against | 2/2 PASS | 2 test rec |
+| F326 | `F326-the-plus-one-closes-no-second-generator` | The "+1" closes: no second candidate generator exists to close it against | 2/2 PASS | 3 test rec |
 | F327 | `F327-chiral-liv-coefficient-excluded-by-crab-electrons` | The chiral $O(\lvert k\rvert^2)$ boost defect is a dimension-5 CPT-odd operator with $\lvert\eta\rvert=1.466$: Crab electrons exclude SINGLE-BRANCH MATTER by… | 20/20 PASS | 2 test rec |
-| F328 | `F328-discrete-cpt-theorem-free-bcc-dirac-walk` | An exact discrete CPT theorem for the free BCC Dirac walk, and why parity alone cannot exist at finite lattice spacing | 12/12 PASS | 1 test rec |
+| F328 | `F328-discrete-cpt-theorem-free-bcc-dirac-walk` | An exact discrete CPT theorem for the free BCC Dirac walk, and why parity alone cannot exist at finite lattice spacing | 12/12 PASS | 2 test rec |
 | F329 | `F329-gleason-regularity-closes-a6r` | A6r closed: the Cooke–Keane–Moran regularity lemma was already Gleason's own theorem, and it transfers to this model's ray spaces without adaptation beyond the… |  | 1 test rec |
-| F330 | `F330-belt-trick-residual-named-not-closed` | The belt-trick residual, precisely named: Anastopoulos's "Postulate 1" replaces "the belt trick, imported"; the model's own rotor confirms its spin-½… | 4/4 PASS | 1 test rec |
-| F331 | `F331-cluster-decomposition-interacting-3d` | Cluster decomposition, extended to the interacting 3-D BCC theory (closes F290's residual 1) | 5/5 PASS | 1 test rec |
+| F330 | `F330-belt-trick-residual-named-not-closed` | The belt-trick residual, precisely named: Anastopoulos's "Postulate 1" replaces "the belt trick, imported"; the model's own rotor confirms its spin-½… | 4/4 PASS | 3 test rec |
+| F331 | `F331-cluster-decomposition-interacting-3d` | Cluster decomposition, extended to the interacting 3-D BCC theory (closes F290's residual 1) | 5/5 PASS | 2 test rec |
 | F332 | `F332-cc-dynamics-two-channels-excluded` | Is the F164 zero-point sum dynamically driven to respect the F183/F190 capacity ceiling, or is it not? Two concrete channels tested and both **closed**: F164… |  | 3 test rec |
-| F333 | `F333-internal-index-existence-narrowed-to-confinement-and-baryon-statistics` | Why the colour index has to exist at all, narrowed: not derived, but reduced from a bare fiat to two named observational facts — baryons are fermions, and… | 6/6 PASS | 1 test rec |
+| F333 | `F333-internal-index-existence-narrowed-to-confinement-and-baryon-statistics` | Why the colour index has to exist at all, narrowed: not derived, but reduced from a bare fiat to two named observational facts — baryons are fermions, and… | 6/6 PASS | 2 test rec |
 | F334 | `F334-hadronic-vmd-rho-omega-delta-alpha-estimate` | A first model-internal handle on the hadronic piece: rho+omega narrow-resonance VMD captures ~10.2% of $\Delta\alpha_\text{had}^{(5)}(M_Z)$ from the model's… |  | 1 test rec |
 | F335 | `F335-reflection-positivity-bcc-lattice` | Link reflection positivity for the BCC₃×ℤ lattice gauge action: the OS-Seiler/Menotti-Pelissetto hypotheses hold, unmodified by the BCC spatial geometry | 8/8 PASS | 2 test rec |
 | F336 | `F336-twoloop-vp-nonlog-scope` | B9's two-loop leading log cross-checked via a second construction (unitarity + dispersion) — an RG-forced consistency check, not a disjoint derivation; the… | 3/3 PASS | 1 test rec |
-| F337 | `F337-l6-decided-native-sweep-outside-bracket` | Ledger row L6 is **decided on both legs** (propagator = the rhombic action's own quadratic form; the redundant link-axis mode is **not** dynamical), and the… | 4/4 PASS | 3 test rec |
+| F337 | `F337-l6-decided-native-sweep-outside-bracket` | Ledger row L6 is **decided on both legs** (propagator = the rhombic action's own quadratic form; the redundant link-axis mode is **not** dynamical), and the… | 4/4 PASS | 4 test rec |
 | F338 | `F338-ncolour-ceiling` | B10 after F325: the odd-$N_c$ bracket does not narrow further — one previously-untested candidate route closed, one mod-16 lead flagged (not derived), and the… | 4/4 PASS | 1 test rec |
 | F339 | `F339-alpha-em-nogo-reopening-conditions` | F127's four-avenue $\alpha_\text{em}$ no-go, characterized: a named reopening condition for each avenue, and the two concrete (unattempted) attack surfaces… |  | 2 test rec |
 | F340 | `F340-strong-cp-l6-bridge-and-nonperturbative-reality` | Strong CP: F321's action-fork residual is closed by L6 (F337), and the reality argument is upgraded from a sampled measurement to an exact theorem covering the… |  | 1 test rec |
 | F341 | `F341-majorana-forced-by-hypercharge-closure` | No protecting symmetry forbids the F47 Majorana term, and removing it reopens the F165/F279 hypercharge closure: Majorana is the structurally required… |  | 2 test rec |
 | F342 | `F342-generation-identification-condition-i-vacuous` | F75's own criterion doesn't select $T_{1u}$: condition (i) is vacuous under the model's site-diagonal gauge coupling |  | 2 test rec |
 | F343 | `F343-majorana-scale-no-link-found` | Does anything in the model fix the absolute Majorana scale $M_R$? No: the F183/F107 lattice cutoff requires an unexplained ~19-decade suppression with no… |  | 1 test rec |
-| F344 | `F344-bcc-walk-point-symmetry-d4h` | The adopted BCC free-Weyl walk's exact point symmetry is $D_{2h}$ under unitary covariance and $D_{4h}$ once time-reversed ($A\to A^\dagger$) covariance is… |  | 1 test rec |
-| F345 | `F345-field-equation-uniqueness-lovelock` | Rubric E1 narrowed: at two-derivative order the left-hand side is forced by Lanczos–Bach in the model's derived $d=3+1$, the full-tensor source is forced by… | 8/8 PASS | 1 test rec |
+| F344 | `F344-bcc-walk-point-symmetry-d4h` | The adopted BCC free-Weyl walk's exact point symmetry is $D_{2h}$ under unitary covariance and $D_{4h}$ once time-reversed ($A\to A^\dagger$) covariance is… |  | 2 test rec |
+| F345 | `F345-field-equation-uniqueness-lovelock` | Rubric E1 narrowed: at two-derivative order the left-hand side is forced by Lanczos–Bach in the model's derived $d=3+1$, the full-tensor source is forced by… | 8/8 PASS | 2 test rec |
 | F346 | `F346-quark-shape-eg-t1u-leaning-nogo` | Ledger E6 first attack: the charged-lepton $E_g/T_{1u}$ "weight-as-phase" shape mechanism (F175/F92) does not transplant to either quark sector — a leaning… |  | 2 test rec |
 | F347 | `F347-quark-mixed-koide-tuples-leaning-nogo` | Ledger E6, second attack: the literature's mixed-generation-type Koide quark tuples (u,d,s; c,b,t) carry no more of the charged-lepton $E_g/T_{1u}$ shape… |  | 1 test rec |
 | F348 | `F348-lepton-shape-precision-floor` | Ledger row E1's shape residual (0.007% on $m_\tau/m_e$) is a measurement-floor effect, not a gap owed a next-order correction — quantified, with a named… | 8/8 PASS | 1 test rec |
 | F349 | `F349-alpha-em-induced-stiffness-convergent-evidence` | F339's α_em reopening-condition characterization corroborated by an independent, previously-uncited evidence line: exact all-orders zero-stiffness theorems… |  | 1 test rec |
-| F350 | `F350-ws-mask-cutcell-does-not-explain-d1-slow-convergence` | F337's named remedy (an anti-aliased Wigner-Seitz-cell mask) is built, VERIFIED IN ISOLATION to be far more accurate than the sharp mask it replaces, and… |  | 1 test rec |
+| F350 | `F350-ws-mask-cutcell-does-not-explain-d1-slow-convergence` | F337's named remedy (an anti-aliased Wigner-Seitz-cell mask) is built, VERIFIED IN ISOLATION to be far more accurate than the sharp mask it replaces, and… |  | 2 test rec |
 | F351 | `F351-electroweak-scale-v-not-second-pin-collapses-to-d1` | Ledger row E7 / parameter #17 ($v$): the "second dimensionful pin" question is checked directly and answered negatively for $G$ (mechanically — $v$ is not… |  | 1 test rec |
 | F352 | `F352-higgs-bhl-compositeness-rg-negative` | A Bardeen–Hill–Lindner compositeness/RG attempt at the F73 Cooper-pair Higgs, anchored at the model's own F79/F107 UV cutoff: a quantified negative result |  | 1 test rec |
 | F353 | `F353-delta-cp-t2g-inheritance` | The Dirac CP phase $\delta_{CP}$ inherits F254's $T_{2g}$ no-go: no lattice selector, confirmed formally (open-derivations D4, parameter #26… | 6/6 PASS | 1 test rec |
@@ -373,5 +373,37 @@
 | F374 | `F374-eliashberg-cutoff-reconciliation-and-tc-residual-floor` | The Eliashberg-solver route to beating Allen–Dynes 6.3% is closed: a real cutoff-scale bug narrows it to 17%, not below the target |  | 2 test rec |
 | F375 | `F375-nb-realistic-dos` | A real (DFT-sourced) N(0) for Nb crosses the G9 target: Allen-Dynes headline 6.3% → 4.9% |  | 1 test rec |
 | F376 | `F376-interacting-sector-eth-onset` | G10 residual: the free sector's GGE breaks down toward genuine (ETH) thermalisation once an integrability-breaking interaction is turned on, but *not* from a… | 7/7 PASS | 1 test rec |
+| F377 | `F377-p1-independent-of-bdpt-axioms-aperiodic-falsification` | P1 is independent of the five BDPT axioms; the only live counterexample is aperiodic, and it does not survive | 2/2 PASS | 1 test rec |
+| F378 | `F378-discrete-cpt-gauged-kinetic-theorem-mass-sector-no-go` | F328's discrete CPT theorem extends to the SU(2)_L-gauged kinetic term via SU(2) pseudoreality; the model's own SU(2)-gauged mass mechanism obstructs it by a… | 11/11 PASS | 1 test rec |
+| F379 | `F379-emergent-so3-wrong-kind-for-postulate-1` | The model's emergent CONTINUOUS SO(3) genuinely extends F344 to the full rotation group (same rotor as F289/F330), but is the wrong KIND of object for… | 3/3 PASS | 1 test rec |
+| F380 | `F380-cluster-asymptotic-series-residual-named` | Cluster decomposition: F331's residual named as one object (completeness row A10, QUANT → PARTIAL) | 3/3 PASS | 1 test rec |
+| F381 | `F381-premise-a-irreducible-from-spin-statistics` | F333's premise (a), "real baryons are fermions," is logically independent of the model's own spin-statistics derivation (F289/F330), and the one route that… | 5/5 PASS | 1 test rec |
+| F382 | `F382-vertex-not-G-periodic-cube-domain-excluded` | The vertex-derived numerator in $d_1$'s loop integral does **not** share the propagator's exact invariance under the BCC reciprocal lattice (a new, disclosed… | 7/7 PASS | 1 test rec |
+| F383 | `F383-locality-generates-not-forbids-four-derivative-term` | Locality generates, not forbids, the four-derivative curvature term: F345's "at-most-second-order" sub-item closes NEGATIVE |  | 1 test rec |
+| F384 | `F384-conserved-bcc-em-current` | The U(1) EM current the BCC Weyl walk actually conserves |  | 7 test rec |
+| F385 | `F385-u1-link-covariant-step` | The per-link U(1) covariant BCC Weyl step, and its unitarity/momentum-transfer fork adjudication |  | 5 test rec |
+| F386 | `F386-a-field-convention` | The vector-potential convention Stage 2's per-link U(1) step reads |  | 6 test rec |
+| F387 | `F387-curl-anisotropy-omega-pair-mismatch` | the Ĉ(k) direction anisotropy and the Ω_pair(k)/\|C_odd(k)\| sourcing mismatch: a Stage-4 design fix |  | 6 test rec |
+| F388 | `F388-fermion-photon-coupled-channels` | The coupled `em_photon`/`fermion_em` channels: wired correctly, but this current cannot radiate |  | 3 test rec |
+| F389 | `F389-radiative-transverse-em-current` | A physically motivated transverse current: the fermion↔photon loop can now radiate, but not exactly conserve momentum | 3/3 PASS | 4 test rec |
+| F390 | `F390-photon-fermion-push-scenario` | The photon-fermion push scenario: direction and anti-alignment confirmed on-axis only, conservation not achieved, magnitude not well-posed |  | 3 test rec |
+| F391 | `F391-ck-transverse-beam-mechanism` | F390's beam-polarization mismatch is ruled out as the direction/anti-alignment breakdown mechanism; the actual candidate is spin-dependence, not derived… |  | 1 test rec |
+| F392 | `F392-beam-polarization-null-fix` | The beam-polarization defect: `build_beam_packet` carried zero field momentum, fixed with a null Riemann–Silberstein construction |  | 2 test rec |
+| F393 | `F393-curl-grad-identity-diagnostic` | The missing `curl(grad φ)=0` gate leg for `bcc_curl_symbol`, gated honestly as a known defect |  | 1 test rec |
+| F394 | `F394-bcc-dec-curl-part-c-decision` | Part C decision: the 3D BCC discrete-exterior-calculus curl complex is deferred, not attempted, this session |  | **no test record** |
+| F395 | `F395-stage5-circular-beam-rerun` | Stage 5 re-run against the fixed beam: the `m_index=4` anomaly persists, the off-axis breakdown changes, and claim 1 is restated as (A)/(B)/(C) | 8/8 PASS | 1 test rec |
+| F396 | `F396-p77-charge-partition-relabel` | The p.77 charge partition: Leg A's premise is false in the model, and the partition is F27's Stueckelberg Ward structure, with the W± sink refuted in unitary… |  | 1 test rec |
+| F397 | `F397-notebook-factorization-route-pp176-182` | The notebook's factorization route (pp.176–182): an exact, boost-covariant algebraic identity that is structurally true, redundant with F168/F169 for binding… |  | 2 test rec |
+| F398 | `F398-pryce-composite-photon-commutator` | Pryce's 1938 exact-Bose-commutation objection, tested against the F69/F169 paired photon: an exact closed-form deficit that vanishes as the BZ grid is refined… |  | 1 test rec |
+| F399 | `F399-composite-scalar-fermion-coupling` | Does the F73 Cooper-pair Higgs candidate have a natural coupling to fermions? A real, computable residue coupling that is not universal, and species locality… |  | 1 test rec |
+| F400 | `F400-bcc-vs-diamond-cubic-coordination-selector` | Why BCC and not diamond-cubic: the model's own generator tetrahedron is diamond's bond tetrahedron, and diamond fails the Bravais premise the F291/F292… |  | 1 test rec |
+| F401 | `F401-photon-bound-state-finite-k-threshold-repair` | Repairing the photon's finite-k grid-threshold artifact: an exact axis identity, a sharply-reduced (not eliminated) commensurability artifact, and a… |  | 1 test rec |
+| F402 | `F402-ji-nucleon-mass-decomposition-model-support` | The Ji-type four-term nucleon-mass decomposition, built in the model's own sectors: the quark-mass term and the trace sector are supported ($\sigma_N=46$ MeV)… |  | 1 test rec |
+| F403 | `F403-oh-residual-symmetry-pmns-no-go` | No $O_h$ residual symmetry fixes PMNS in the cube-axis charged-lepton frame; the [111]-trimaximal frame admits TM1 |  | 1 test rec |
+| F404 | `F404-koide-pseudomass-quark-fork` | Fork: Koide pseudo-masses for quarks — excluded with lepton-like amplitudes, viable but non-predictive with a negative lightest down amplitude |  | 1 test rec |
+| F405 | `F405-quark-B-colour-charge-koide-shift-no-go` | F95's cubic $B$ with quark colour and charge factors cannot move the Koide equipartition point: identity-class dressing is sector-blind and $k$-blind (clean… |  | 1 test rec |
+| F406 | `F406-lepton-frame-fork-energetics` | The charged-lepton frame fork: read spectrally F118 ties (a) and (b), read per axis its own couplings pick (a); the [111] reading splits into three… |  | 1 test rec |
+| F407 | `F407-koide-pseudomass-minimal-quark-fit` | Fork: the minimal pseudo-mass quark fit (report derivation three) — one real degree of freedom, spent on nothing |  | 1 test rec |
+| F408 | `F408-cc-a0-a1-sign-split` | The cosmological-constant sign split: the model's one all-fermion heat-kernel sum has $a_0<0$ and $a_1>0$, so the diluted zero-point term and F196's ceiling… |  | 1 test rec |
 
-*368 finding file(s) over 357 distinct numbers; max F376. 0 number(s) used twice, 19 gap(s) — all declared in `docs/design/finding-numbers.yaml`; `casim index --check` fails on any that is not.*
+*400 finding file(s) over 389 distinct numbers; max F408. 0 number(s) used twice, 19 gap(s) — all declared in `docs/design/finding-numbers.yaml`; `casim index --check` fails on any that is not.*

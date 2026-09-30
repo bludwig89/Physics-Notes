@@ -1,0 +1,107 @@
+{
+  "checks": {
+    "E1_Q_depends_on_k_only": {
+      "pass": true,
+      "sum_y": "3*ybar",
+      "sum_y2": "3*A**2/2 + 3*ybar**2",
+      "Q(k)": "k**2/3 + 1/3"
+    },
+    "E2_B_scales_as_k_cubed": {
+      "pass": true,
+      "cos3d_coeff_of_sum_y4": "3*A**3*ybar",
+      "B(k)/B(1)": "k**3"
+    },
+    "K1_required_k2": {
+      "pass": true,
+      "k2_lepton": 0.9999933902079094,
+      "k2_up_mixed": 1.54636961244077,
+      "k2_down_mixed": 1.1938627304815141,
+      "k2_up_MZ": 1.6627076939561984,
+      "k2_down_MZ": 1.2441951644094211
+    },
+    "U1_uniform_dressing_Q_invariant": {
+      "pass": true,
+      "charges": "['2/3', '2/3', '2/3']",
+      "dQ_symbolic": "0",
+      "dQ_numeric": 2.220446049250313e-16,
+      "B_up_over_B_lepton(N_c k^3)": 5.768876144917502,
+      "B_down_over_B_lepton(N_c k^3)": 3.9133874407626554,
+      "B_up": -0.32824905264580584,
+      "B_down": -0.2226717453793951
+    },
+    "U2_gauge_running_Q_invariant": {
+      "pass": true,
+      "gamma_m_one_loop": 0.0766696794508383,
+      "log_range": 3.819771742363993,
+      "dQ": 0.0,
+      "mode": "mass_independent"
+    },
+    "L1_loop_k_preference_sector_blind_and_wrong": {
+      "pass": true,
+      "k2_pref_delta_star": 1.8958689920437977,
+      "k2_pref_delta_up_mixed": 1.9878837935252758,
+      "k2_pref_delta_down_mixed": 1.9758530369962584,
+      "g_blind": true
+    },
+    "L2_nonperturbative_agrees": {
+      "pass": true,
+      "k2_np_R0.5": 1.9015927045932808,
+      "k2_np_dressed": 1.9015927045932808,
+      "grid_n": 400
+    },
+    "L3_cap_loophole_is_amplitude_not_colour": {
+      "pass": true,
+      "k2_np_R1.0": 1.8825908329861447,
+      "k2_np_R1.02": 1.3743553710558942,
+      "k2_np_R1.03": 0.991878986323434,
+      "k2_np_R1.05": 0.6884423501546636,
+      "k2_np_R1.1": 0.3828367343291499,
+      "k2_np_R1.05_dressed": 0.6884423501546636
+    },
+    "S1_finite_stiffness_needs_huge_weight": {
+      "pass": true,
+      "k2_lepton_minus_1": -6.60979209055057e-06,
+      "sigma_k2_lepton(m_tau)": 1.52424715378352e-05,
+      "lepton_bound_2sigma": 3.709473516622097e-05,
+      "required_gR4_ratio_up": 12631.339234578447,
+      "required_gR4_ratio_down": 4582.5169527222315,
+      "loop_pushes_k2_up(sign right)": true
+    },
+    "P1_power_law_loophole_nonperturbative": {
+      "pass": true,
+      "eps_lepton": -6.676939685035244e-06,
+      "mixed_up": 0.6390670929507904,
+      "mixed_down": 0.16450755660355965,
+      "mixed_ratio": 3.884727888159286,
+      "mixed_kappaCF_from_up": 1.4379009591392786,
+      "mixed_kappaCF_from_down": 1.4805680094320368,
+      "MZ_up": 0.8209428780594268,
+      "MZ_down": 0.20969771406137827,
+      "MZ_ratio": 3.91488711135467,
+      "MZ_kappaCF_from_up": 1.8471214756337104,
+      "MZ_kappaCF_from_down": 1.8872794265524044,
+      "ratio_mc_mean": 3.884877536207,
+      "ratio_mc_sd": 0.047203915209367335,
+      "Qu2_over_Qd2": 4.0,
+      "sigma_from_4": 2.438832950241267,
+      "ratio_mc_correlated_mean": 3.8778202036499096,
+      "ratio_mc_correlated_sd": 0.06724019515581382,
+      "sigma_from_4_correlated": 1.8170648682230401,
+      "note": "coincidence candidate; sigma depends on error model (not asserted)",
+      "perturbative_CF_alpha_alphas_over_pi2": 0.0001163285536359523
+    },
+    "P2_undressed_not_lepton_shaped": {
+      "pass": true,
+      "undressed_delta_mixed_up": 0.18810656192274244,
+      "undressed_delta_mixed_down": 0.1390183307245323,
+      "undressed_delta_MZ_up": 0.17260958548435434,
+      "undressed_delta_MZ_down": 0.1347832699976128,
+      "sigma_undressed_up_from_2_9": 68.9281218987462,
+      "sigma_undressed_down_from_2_9": 154.48561702414588,
+      "sigma_up_vs_down": 49.04402875356645,
+      "error_model": "correlated, mixed scheme"
+    }
+  },
+  "pass": true,
+  "verdict": "FAIL as posed: colour/charge dressing of F95's B is sector-blind and k-blind. Q depends only on k; B multiplies only cos3delta; an identity-class dressing (uniform mass rescale, overall loop factor, mass-independent running) cannot move k. The loop prefers k^2 ~ 1.9, not 1; a finite-stiffness selector bounded by lepton Koide needs a quark loop weight > 4.6e3 x the lepton one. Open: A_1g/E_g-differential stiffness, family charges, and the unitarity-cap amplitude route (L3). The power-law loophole gives eps_U/eps_D = 3.88 vs Q_u^2/Q_d^2 = 4 (1.8-2.4 sigma, error-model dependent) with an O(1) coefficient: coincidence candidate."
+}

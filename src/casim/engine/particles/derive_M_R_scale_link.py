@@ -43,14 +43,15 @@ from casim.engine.particles.majorana import z3_sqrt_texture
 # Shared inputs
 # ---------------------------------------------------------------------------
 
-# Standard (non-reduced) Planck mass, GeV -- CODATA-class, paired with the
-# standard Planck length the way F107/F282 use ell_P (not the reduced M_Pl).
+# Standard (non-reduced) Planck mass E_P, GeV -- CODATA-class.  The lattice
+# cutoff is E_P/(a/ell_P) = 3^{-1/4} x the *reduced* M_Pl (F282).
 # One-off literal with provenance, following the precedent of
 # derive_gap5_adjudication.py's rho_planck / cutoff_ratio (F311) for a
 # one-off cross-check analysis script -- not a Site bound anywhere else.
 M_PL_GEV = 1.220890e19
 
-# F282: Lambda_UV / M_Pl, exact.
+# F282: Lambda_UV / M_Pl^reduced, exact (reference only; lattice_cutoff_gev
+# uses E_P / a_over_ellP, which is the same number).
 CUTOFF_RATIO = 3.0 ** -0.25
 
 # F201's own worked benchmark for the overall Majorana scale (heavy-sterile /
@@ -60,8 +61,15 @@ M_R0_BENCHMARK_GEV = 1.0
 
 
 def lattice_cutoff_gev() -> float:
-    """Lambda = 3^{-1/4} M_Pl (F282/F107), GeV."""
-    return CUTOFF_RATIO * M_PL_GEV
+    """Lambda = E_P / (a/ell_P) = 3^{-1/4} M_Pl^reduced (F282/F107), GeV.
+
+    F282's 3^{-1/4} multiplies the *reduced* Planck mass (the sqrt(8 pi) of
+    a/ell_P = sqrt(8 pi) 3^{1/4} cancels against M_red = M_Pl/sqrt(8 pi)).
+    Before 2026-09-29 this returned 3^{-1/4} x the non-reduced M_Pl, which is
+    sqrt(8 pi) too high (9.28e18 vs 1.85e18 GeV) and disagreed with
+    derive_higgs_bhl_compositeness.py's Lambda_model for the same F107 cutoff.
+    """
+    return M_PL_GEV / a_over_ellP
 
 
 # ---------------------------------------------------------------------------
@@ -325,7 +333,9 @@ def check_M_R_scale_link_null_result() -> dict:
     c4, c5, c6 = out["C4"], out["C5"], out["C6"]
 
     checks = {
-        "C1_hierarchy_is_genuinely_large": 18.5 < c1["log10_ratio"] < 19.5,
+        # window re-centred 2026-09-29 on the corrected cutoff E_P/(a/ell_P)
+        # (log10 = 18.27); it was 18.5..19.5 around the sqrt(8 pi)-high value.
+        "C1_hierarchy_is_genuinely_large": 17.8 < c1["log10_ratio"] < 18.8,
         "C2_closest_hit_is_not_a_match": c2["closest"]["distance_dex"] > 0.05,
         "C3_G_precedent_has_no_hierarchy": c3["log10_G_prefactor"] > -2,
         "C4_texture_factors_out_M_R0": c4["M_R0_fully_factors_out"] is True,

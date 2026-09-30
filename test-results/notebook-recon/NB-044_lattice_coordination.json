@@ -1,0 +1,17 @@
+{
+  "build": "NB-044",
+  "coordination_numbers": {
+    "1D_chain": 2,
+    "2D_square_lattice": 4,
+    "2D_triangular_lattice": 6,
+    "2D_honeycomb_lattice": 3,
+    "3D_simple_cubic": 6,
+    "3D_BCC": 8,
+    "3D_diamond_cubic": 4
+  },
+  "claim_2_connections_gives_1D": true,
+  "claim_3_connections_can_give_2D_lattice_honeycomb": true,
+  "claim_4_connections_can_give_2D_lattice_square": true,
+  "claim_4_connections_can_ALSO_give_3D_lattice_diamond": true,
+  "note": "diamond-cubic coordination number 4 (verified numerically from real fractional-coordinate lattice points, not just cited) is exactly the notebook's claimed 4-connections-can-give-3D case -- a real, standard crystallographic fact (diamond, silicon, germanium structure), not a coincidence."
+}

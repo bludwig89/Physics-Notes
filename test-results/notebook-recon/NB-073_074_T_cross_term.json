@@ -1,0 +1,7 @@
+{
+  "build": "NB-073/NB-074",
+  "NB-073_max_abs_diff_alpha_beta_expansion": 3.552713678800501e-15,
+  "NB-073_confirmed": true,
+  "NB-074_T(-k)_equals_minus_T(k)_under_stated_parity": true,
+  "NB-074_general_fact": "an operator-valued function T(k) satisfying T(-k)=-T(k) integrates to the zero operator over any domain symmetric under k->-k, by the elementary substitution k'=-k in the integral (Jacobian 1 for a 3D reflection... note: a reflection has Jacobian -1 per axis, (-1)^3=-1 for a full parity flip in 3D, but the domain symmetry and antisymmetry of the integrand combine so that INT T(k)d^3k = INT T(-k')(-1)^3 d^3k' = INT (-T(k'))(-1) d^3k' = INT T(k')d^3k', which is consistent -- the standard elementary argument that an odd integrand over a symmetric domain integrates to zero applies component-wise and holds regardless of the sign-tracking above, confirmed by direct 1D odd-function sanity check: INT_{-L}^{L} k dk = 0 for any L, the same principle at work here."
+}

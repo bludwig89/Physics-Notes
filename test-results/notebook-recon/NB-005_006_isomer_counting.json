@@ -1,0 +1,15 @@
+{
+  "build": "NB-005 (tetrahedron)",
+  "num_proper_3edge_colorings_labeled": 6,
+  "num_isomers_under_rotation_group_A4_order12": 2,
+  "orbit_sizes_under_A4": [
+    3,
+    3
+  ],
+  "num_isomers_under_full_symmetry_group_S4_order24": 1,
+  "orbit_sizes_under_S4": [
+    6
+  ],
+  "matches_notebook_claim_of_2_under_rotation_only": true,
+  "matches_notebook_claim_of_2_under_full_symmetry": false
+}

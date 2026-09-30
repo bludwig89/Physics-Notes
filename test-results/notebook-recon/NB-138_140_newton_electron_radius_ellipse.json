@@ -1,0 +1,32 @@
+{
+  "NB-138": {
+    "claim": "Several algebraically-equivalent rearrangements of the linear-interpolation / Newton's-method update formula",
+    "rearranged_solve_for_x_matches_notebook_form": true,
+    "reciprocal_slope_form_self_consistent": true,
+    "verdict": "SOLID (standard, self-consistent algebra; a generic math aside, not a physics claim)"
+  },
+  "NB-139": {
+    "claim": "r0 = e^2/(2 m_e c^2) ~ 1.43e-15 m",
+    "standard_CODATA_classical_electron_radius_r_e": 2.8179403262e-15,
+    "notebooks_convention_(E=e^2/2r0=mc^2)_gives_r0=r_e/2": 1.4089701631e-15,
+    "notebook_stated_value": 1.43e-15,
+    "matches_within_2_percent": true,
+    "note": "The notebook's r0 is a factor of 2 smaller than the commonly-quoted 'classical electron radius' r_e=2.818e-15 m -- this is NOT an error: r_e is conventionally DEFINED via E=e^2/r_e (no factor of 2), while this page instead sets the self-energy E=e^2/(2r0) (the point-charge field-energy convention used consistently since NB-135) equal to m_e c^2, which by definition gives exactly r_e/2. Both conventions appear in the literature (Jackson discusses the ambiguity); the arithmetic checks out exactly once the convention is identified.",
+    "verdict": "SOLID"
+  },
+  "NB-140": {
+    "equation_as_literally_transcribed_(x^2/b^2+y^2/b^2=1)_is_a_circle_of_radius_b": true,
+    "corrected_equation_x^2/b^2+y^2=1_gives_x_intercepts_pm_b": true,
+    "corrected_equation_gives_y_intercepts_pm_1": true,
+    "standard_foci_formula_a=sqrt(b^2-1)_satisfies_a^2+1=b^2": true,
+    "independent_rederivation_via_d+ +d-=const_matches_standard_formula": true,
+    "numeric_example_b=1.2": {
+      "exact_a": "sqrt(11)/5",
+      "a_decimal_true_value": 0.6633,
+      "notebook_stated": 0.67,
+      "notebook_rounds_correctly (nearest 0.01)": false
+    },
+    "conclusion": "The ellipse EQUATION as transcribed at the top of the page literally describes a circle (both denominators equal b^2), which is inconsistent with everything that follows -- the stated x-intercepts (+-b) and y-intercepts (+-1) only make sense for x^2/b^2+y^2=1 (an ellipse with the y^2 denominator equal to 1, not b^2). This is most likely a transcription slip (a duplicated 'b^2') rather than the 2007 author's own conceptual error, since the entire rest of the page's derivation is completely self-consistent with, and only with, the corrected equation. Given that corrected equation, the foci derivation via d+ +d- = const is exactly right and reproduces the standard analytic-geometry result a^2+1=b^2. The numeric example (b=1.2) is correct to the precision given: true value a=0.6633, notebook rounds to 0.67 -- coventional round-half-up rounding of 0.6633 to 2 decimals is actually 0.66, so the printed '0.67' is a very minor (0.01) rounding slip, not a computational error.",
+    "verdict": "SOLID-WITH-CORRECTION (equation-as-transcribed is a circle, evidently a transcription slip; the actual derivation, method, and final formula a^2+1=b^2 are all exactly correct; the b=1.2 numeric example has a trivial 0.01 rounding slip)"
+  }
+}

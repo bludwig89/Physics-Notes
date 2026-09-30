@@ -114,6 +114,57 @@ about: |
 
 claims:
 
+- session: quiet-lucid-schwinger-A10
+  opened: 2026-09-10 - 00:00
+  status: released
+  sector: interactions
+  topic: >
+    Rubric row A10 (cluster decomposition / no-signalling), currently QUANT
+    per docs/status/completeness-2026-09-08.md. Next rung: PARTIAL -- turn
+    F331's quoted kappa_100 ratio (1.17 at m=0.5, 1.53 at m=0.05 down to 0.95
+    at m=0.95) into ONE named residual object instead of a mass-dependent
+    tolerance table. First step: compute kappa_100 at the mass the
+    self-consistent NJL gap equation actually selects (m*=0.6055 at g=2.9)
+    rather than the registry's default m=0.5, and check whether the ratio
+    collapses to 1 there. Does NOT re-attack 3-D free-theory clustering
+    (F290/F331, done) or the decoherence/Tsirelson floors (CN1/CN2, settled
+    nulls).
+  used:
+    380: findings/F380-cluster-asymptotic-series-residual-named.md
+  tests:
+  - F380-cluster-asymptotic-series-K
+  files:
+  - src/casim/engine/interactions/qi_cluster_asymptotic_series.py
+  - src/casim/engine/registry.py
+  - tests/registry/interactions.yaml
+  - tests/findings/test_F380_cluster_asymptotic_series.py
+  - test-results/F380_cluster_asymptotic_series.json
+  - docs/claims/CL286-cluster-decomposition-interacting-3d-njl.md
+  - docs/status/completeness-2026-09-08.md
+  - docs/status/completeness-2026-09-08-prompts.md
+  - docs/status/changelog.md
+  - docs/reviews/F380-review-2026-09-10.md
+  released: 2026-09-10 - 12:30
+  release_note: >
+    RELEASED. F380 landed: row A10 promoted QUANT->PARTIAL. First step taken as specified --
+    evaluated F331's own kappa_100 at the NJL-selected mass m*=0.6055: ratio 1.1096, L-converged,
+    NOT 1 to the numerical floor, so the literal "m* is special" hypothesis is FALSIFIED. What
+    survives is more useful: m* is unremarkable, sitting inside the SAME residual distribution as
+    every other tested mass in F331's table, which is what let the whole mass-dependent ratio
+    table collapse into one named object. Same-session review-finding pass (cold blind
+    re-derivation + adversarial referee) caught a real mechanism error in the first draft (claimed
+    r^-1 "same as continuum Yukawa", p=1) and corrected it to the true leading power p=3/2 (an
+    axial square-root branch point in the dispersion, missed originally, plus the transverse
+    r^-1) -- independently re-derived by both cold agents via different routes, then fixed at the
+    source in the finding, module, test, registry record, claim card (CL286), and the
+    completeness report + its prompts file, not just re-labelled. Final named object: p_eff =
+    (kappa_measured-kappa_100)/(S_{r,ln r}/S_{rr}) = 1.489+/-0.039 (2.65% relative spread),
+    matching the theoretical p=3/2 to <1%. New module qi_cluster_asymptotic_series.py (registered
+    in _SPINE), test record F380-cluster-asymptotic-series-K (tier gate, 3/3 PASS, one declared
+    control verified red at exactly C1/C2), `casim index` clean, module registry green (258
+    modules), control-soundness journalled. One finding written, one number spent, nothing
+    stranded.
+
 # --- worked example -- copy this shape, do not edit this entry ---------------
 - session: EXAMPLE-do-not-edit
   opened: 2026-08-05 - 09:30
@@ -6762,6 +6813,24 @@ claims:
     for Nb/Ta and a two-branch or band-structure-informed alpha^2F(omega) in
     place of the single isotropic Debye band -- not further Eliashberg-solver
     or cutoff-convention work, which D1-D8 now show is exhausted.
+
+  reopened: 2026-09-13 - 12:20
+  reopened_note: >
+    REOPENED to apply the fixes an independent adversarial review (run
+    2026-09-05, delayed reaching this session by a week-long device
+    disconnect) found in F374: the D5 cutoff-factor scan's "plateaus at
+    16%" characterisation does not survive extending the scan (it keeps
+    falling to 10.4% by omega_c_factor=80, then the bisection root-finder
+    breaks down -- not a physical floor), and the "d-band metals Nb/Ta"
+    causal story for the residual is contradicted by the model's own
+    per-element numbers (Ta is one of the better-behaved elements; Al/In
+    dominate, matching F211's already-established weak-coupling
+    lambda-hypersensitivity diagnosis instead). Note: F375-F383 landed on
+    this repo from other sessions during the disconnect, including F375
+    which already independently sourced a real Nb N(0) and crossed the G9
+    target from the free-electron side -- unrelated to and unaffected by
+    this reopening, which only corrects F374's own prose/test rigor.
+
 - session: cowork-h1-ledger-retally
   opened: 2026-09-05 - 20:35
   status: released
@@ -7032,3 +7101,1196 @@ claims:
     regardless of content. That is a bigger defect than "no control" --
     designing a real pass/fail criterion for each is physics work and is left
     for its own session, named explicitly rather than patched around.
+
+- session: cowork-A1-P1-independence-2026-09-08
+  opened: 2026-09-08 - 19:15
+  status: released
+  sector: lattice
+  topic: >
+    Rubric row A1 (spacetime dimensionality) / open-derivations Part C row P1
+    (the posit that dynamics is generated by iterating ONE local, homogeneous,
+    unitary operator per tick). Process note: this claim was opened AFTER the
+    research and write (a process gap -- CLAUDE.md's protocol calls for
+    opening it at session start), once `casim index`'s NEXT FREE NUMBER had
+    already been read at the moment F377 was written, which is the
+    collision-critical step; recorded here in full for the board's own
+    purpose as a collision-history record, not as a live warn-off.
+  used:
+    377: findings/F377-p1-independent-of-bdpt-axioms-aperiodic-falsification.md
+  tests:
+  - F377-time-generator-axiom-independence
+  files:
+  - src/casim/engine/lattice/time_generator_axiom_independence.py
+  - tests/findings/test_F377_time_generator_axiom_independence.py
+  released: 2026-09-08 - 20:10
+  release_note: >
+    RELEASED. F377 argues P1 is INDEPENDENT of the five stated BDPT axioms
+    (not merely un-derived): BDPT's own companion review (D'Ariano &
+    Perinotti arXiv:1608.02004) states "homogeneity" as spatial-only
+    (graph-vertex transitivity, their Eq. 4); temporal constancy of the
+    update enters only through unexamined notation (their Eq. 2). Proves a
+    regrouping lemma (any periodic multi-generator schedule reduces, after
+    regrouping one period into one tick, to ordinary single-generator
+    dynamics -- machine precision, both module and independent test) and
+    runs the one falsification attempt a periodic schedule cannot make: a
+    genuinely aperiodic (Sturmian-word) alternation between this model's own
+    two admissible per-tick maps A+/A-(k), tested via real-space Gaussian
+    wavepacket ballistic-transport exponent against `weyl_step_3d_bcc`. The
+    attempt does not succeed at two independent parameter points (gaps 0.056
+    and 0.093 above a declared 0.03 margin) -- recorded as the result per the
+    session brief's own instruction, not spun as a win. A1 stays PARTIAL: P1
+    is now independent-not-derived rather than merely adopted, which is
+    itself the promotion the brief asked for (moves toward Part B rather than
+    closing outright). Also fixed, during `make gate` verification, two real
+    regressions this session's own files caused: `tools/audit_tests.py
+    --ratchet` (unfalsifiable/no_assert) -- rewrote both check_all()s to
+    raise AssertionError on failure/control-success, matching the
+    F326/F291/F292 idiom, rather than a returned-dict-only contract; and
+    `tools/audit_numerics.py --ratchet`, which turned out to be pre-existing
+    baseline drift already in HEAD (baseline recorded scanned=315 against a
+    tree that already had 320 tracked files at the same commit hash -- none
+    of it this session's own files, which import no numpy/scipy) and was
+    updated to the true count with `--update`. Two PRE-EXISTING, confirmed
+    unrelated failures remain red in `make gate` after this session and were
+    deliberately NOT touched (out of scope, and touching them risks the
+    exact collision this file exists to prevent): `check_control_soundness.py
+    --gate` reports F350-ws-mask-cutcell's control journalled INVALID and
+    F345-field-equation-uniqueness's three control verdicts STALE, both
+    already in the committed test-results/control-soundness.json as of
+    2026-09-06 (this session only added F377's own control0, verified RED);
+    and `pytest tests/casim::test_entry_driven_records_are_hidden_from_file_
+    collection` fails on 12 finding IDs (F305, F307, F337, F343, F345, F346,
+    F347, F348, F350, F352, F366, F369) all last modified Aug 8 - Sep 2,
+    before this session started.
+
+- session: cowork-A9-emergent-so3-kinematic-2026-09-10
+  opened: 2026-09-10 - 00:00
+  status: open
+  sector: interactions
+  topic: >
+    Rubric row A9 (spin-statistics), continuing F330. F330 abandoned a
+    lattice-native belt trick with reason "O_h is finite, cannot carry
+    pi_1(SO(3))". This session tests the one route F330 left open: does the
+    model's OWN emergent CONTINUOUS SO(3) (F129/F130 RG isotropy; F344's
+    exact leading-order SO(3) covariance of H_W = sigma.k/sqrt3 under the
+    SAME rotor as F289/F330) supply Anastopoulos's Postulate 1 (quant-ph/
+    0110169), or does it fail for a deeper, more general reason than mere
+    O_h finiteness? Fetched the primary source (quant-ph/0110169) directly
+    to pin Postulate 1's exact statement (§4, page 11) rather than relying
+    on F330's paraphrase.
+  used:
+    379: findings/F379-emergent-so3-wrong-kind-for-postulate-1.md
+  tests:
+  - F379-so3-kinematic-gap
+  files:
+  - src/casim/engine/interactions/qi_so3_kinematic_gap.py
+  released: 2026-09-10 - 01:00
+  release_note: >
+    RELEASED. F379 written. Fetched Anastopoulos quant-ph/0110169 directly and
+    found Postulate 1 is stated at the PREQUANTISATION level (a transitive
+    symplectic G-action on the classical phase space, no Hamiltonian anywhere
+    in its statement) -- so F129/F130/F344's emergent CONTINUOUS SO(3), being
+    a fact about the model's DYNAMICS, sits one logical layer downstream and
+    cannot supply it, regardless of size or exactness. Machine-confirmed
+    (K1-K3) the emergent continuous SO(3) is real and extends F344 from 48
+    elements to the full group via the SAME rotor as F289/F330 -- positively
+    answers "is it big enough" (yes) while showing that was never the right
+    question. Generalises F330's "O_h is finite" diagnosis. Row A9 stays
+    PARTIAL; completeness report updated. 3/3 PASS, one control verified RED.
+
+- session: cowork-A4r-cpt-gauge-coupled-2026-09-09
+  opened: 2026-09-09 - 00:00
+  status: open
+  sector: gauge
+  topic: >
+    Ledger row A4r / rubric row A4 / claim CL285's named residual: extend
+    F328's exact free-sector discrete CPT theorem (Theta = Sigma .
+    (sigma_y (+) sigma_y) . K, Theta D(k) Theta^-1 = D(k)^-1) to the
+    SU(2)_L charged-current-coupled BCC Dirac walk in
+    casim.engine.gauge.weak_wmu (covariant_dirac_doublet_step /
+    covariant_weyl_step_3d_bcc). First step: build the gauge-coupled
+    one-tick unitary as an explicit momentum-diagonal matrix at a fixed
+    spatially-uniform SU(2) link and numerically test F328's Theta against
+    it on the same k-grid; then attempt the analytic extension (does Theta
+    need composing with an isospin-space map to restore the identity?).
+  used:
+    378: findings/F378-discrete-cpt-gauged-kinetic-theorem-mass-sector-no-go.md
+  tests:
+  - F378-discrete-cpt-gauged-theorem
+  files:
+  - src/casim/engine/particles/discrete_cpt_gauged.py
+  released: 2026-09-09 - 01:15
+  release_note: >
+    RELEASED. F378 written: two results, not one. POSITIVE -- grafting a
+    uniform SU(2) link into JUST the kinetic block of dirac_bcc.py's own
+    branch+/dagger architecture (the one F328 covers) admits an exact
+    (machine-precision) CPT-type theorem via Theta' = Sigma.(sigma_y (x)
+    tau_2 (+) sigma_y (x) tau_2).K, using the SU(2) pseudoreality identity
+    tau_2 U tau_2^-1 = U*; Theta'^2 = +1, NOT F328's Kramers -1 (a second
+    pseudoreal twist flips the involution class). NO-GO -- once the model's
+    OWN SU(2)-gauged (Stueckelberg-type) mass link is also switched on, no
+    fixed isospin operator restores the identity, a general provable
+    obstruction (V -> V^T is a group anti-automorphism; conjugation is
+    always an automorphism; the two coincide only on an abelian group, and
+    SU(2) is not) -- supported by a 500-sample Monte-Carlo search over
+    random Lambda, not just the two analytic candidates tried. Also found
+    (leg E1) that the ACTUAL casim.engine.gauge.weak_wmu.covariant_dirac_doublet_step
+    fails F328's identity already at ZERO gauge coupling, because it pairs
+    branch + with the true branch - rather than with its own dagger --
+    a pre-existing cross-module architecture mismatch between that module
+    and dirac_bcc.py, named but not fixed. Explicitly does NOT claim the
+    model's SU(2)_L gauge theory violates CPT as a physical statement:
+    every test holds the classical link fixed under the antiunitary map,
+    and letting Theta also transform the background is a different,
+    unattempted question (stated as the new residual). New module
+    src/casim/engine/particles/discrete_cpt_gauged.py added to _SPINE;
+    test record F378-discrete-cpt-gauged-theorem (tier battery) 11/11 PASS,
+    one declared control verified RED on exactly four legs. `casim index`
+    run after (code-index 271->272, tests-index 486->487); ledger row A4r
+    and rubric row A4 updated; a new claim card and CL285 cross-reference
+    still to be written (see finding's own coverage lines).
+
+- session: cowork-B1-baryon-fermion-premise-2026-09-10
+  opened: 2026-09-10 - 00:00
+  status: open
+  sector: gauge
+  topic: >
+    Rubric row B1 (origin of the SM gauge group), continuing F333. F333
+    reduced the internal index's existence to two named observational
+    premises: (a) real baryons are fermions, (b) quarks are confined. This
+    session asks whether premise (a) is derivable inside the model from the
+    already-derived spin-statistics work (F289/F330) rather than imported
+    from experiment -- i.e. does deriving "spin-1/2 -> Fermi statistics"
+    (F289) plus F333's own generalised SU(N) constituent-count theorem (S1)
+    and composite-exchange-parity rule (S2) suffice to predict, rather than
+    assume, that the model's own baryons come out fermionic, without
+    independently knowing N? First step: check whether the S1/S2 chain
+    yields a definite (N-independent) prediction or only a conditional one,
+    and whether substituting F324's separately-derived N-parity result
+    would net-reduce or net-increase B1's total premise count (F324 states
+    its own six premises are MORE than F333's two, so this substitution is
+    checked but expected to fail as a reduction).
+  used:
+    381: findings/F381-premise-a-irreducible-from-spin-statistics.md
+  tests:
+  - F381-premise-a-irreducibility
+  files:
+  - src/casim/engine/gauge/derive_premise_a_irreducibility.py
+  released: 2026-09-10 - 14:20
+  release_note: >
+    RELEASED. F381 written: premise (a) ("real baryons are fermions") does NOT
+    reduce to F289/F330 -- that derivation is a single-constituent theorem
+    with no channel for a colour count (source-text + signature scan, zero
+    hits); F333's own S1+S2 combination of it genuinely bifurcates on N
+    (computed N=2..7, both branches realised); and substituting F324's
+    independent N-parity result is closed both as circular (F324's own
+    premise (ii), read live from its code, is "the colour sector exists" --
+    presupposes what would be derived) and as a net premise-count loss (+4).
+    Row B1 stays PARTIAL at two premises -- the falsification outcome the
+    brief named as correct to record. Closed as ledger entry CN27 (Part B)
+    so the route is not re-attempted. No new claim card (D12: closure result,
+    not new physics) -- narrows CL287's own scope note instead. Independently
+    reviewed (cold blind re-derivation + 13-point adversarial attack):
+    CONFIRMED, one disclosed non-breaking caveat (curated vs. derived token
+    vocabulary in S1/S2, independently re-swept and found sufficient) --
+    docs/reviews/F381-review-2026-09-10.md. `make gate` run twice; fixed a
+    stale module-graph.json (caused by the new _SPINE entry); the two
+    remaining failures (F345/F379 control-soundness debt, an entry-point
+    pytest ambiguity list of 12 pre-existing records) both predate this
+    session and do not involve F381. Indexes regenerated clean throughout.
+- session: patient-exact-slavnov
+  opened: 2026-09-10 - 15:45
+  status: open
+  sector: gauge
+  topic: >
+    Rubric row B8 / parameter #16, ledger row d1 (= E3 = Q1 = Q2). L6 is decided
+    (F337) and the sharp-vs-smoothed WS-mask discretisation hypothesis for d1
+    leg 3's anomalously slow convergence (~n^-1.1 to n^-1.35 vs Wilson's
+    ~n^-2.5 to n^-2.8) is tested and excluded (F350) -- F337's own exhaustion
+    condition for the "non-convergence, not falsification" reading now fires,
+    per F350 Sec.5. F350 Sec.5/Sec.7 names two untested candidates for the
+    actual mechanism: (a) the vertex form factors' own behaviour approaching
+    the BZ boundary / the phys-branch projection, (b) a genuine breakdown of
+    the g_s=1/2 monotonicity assumption. This session attacks (a) first: does
+    the axis-space polarization Pi_ab(Q) computed by
+    lpt_d1_action_consistent.pi_loop actually satisfy the transversality/
+    isotropy structure the LL/TT decomposition (transverse_B) assumes -- i.e.
+    are the off-diagonal Pi[tax,i] terms and the spread among the 4 spatial
+    diagonal Pi[i,i] terms (i != tax) genuinely small and shrinking at the
+    Wilson-side rate, or do they carry their own slow (~n^-1.1-1.35) residual
+    that transverse_B's averaging silently absorbs into "B" instead of
+    cancelling? First step: instrument pi_loop_chunked (or a read-only wrapper)
+    to report the full N x N Pi matrix (not just the LL/TT diagonal reduction)
+    at n=8,12,16,20 and characterise the off-diagonal / spread scaling
+    directly, before touching the heavier n=28-40 native sweep.
+  files:
+  - src/casim/engine/gauge/lpt_d1_action_consistent.py
+  - src/casim/engine/gauge/lpt_bcc_vertex.py
+  used:
+    382: findings/F382-vertex-not-G-periodic-cube-domain-excluded.md
+  tests:
+  - F382-vertex-domain-periodicity
+  released: 2026-09-10 - 16:40
+  release_note: >
+    RELEASED. F382 written: the vertex-derived numerator in d1's loop
+    integral does NOT share the propagator's exact invariance under the BCC
+    reciprocal lattice (G7, F305 -- up to ~220% deviation under a shift that
+    leaves the propagator unchanged to 1e-15), a new disclosed fact, but the
+    natural remedy this raises (integrate over the full cube instead of the
+    WS quarter) is tested directly and found to make convergence WORSE, not
+    better -- domain='cube' b0_recovery climbs strictly monotonically past 1
+    without turnover across n=6-20, both branches -- ruling the candidate
+    out and corroborating (not extending) the WS-cell domain choice F337's
+    L6 decision already rests on. Does not close d1 leg 3; S3 stays red. Row
+    d1 / rubric B8 / parameter #16 stay PARTIAL; the remaining untested
+    candidates per F350 Sec.5/7 are narrower now: the phys-branch
+    projection's specific interaction with the vertex's non-invariance, and
+    the g_s=1/2 monotonicity assumption. Independently reviewed (cold
+    subagent blind re-derivation + 13-point adversarial attack):
+    CONFIRMED-NARROWER, two real defects found and fixed -- an endpoint-only
+    convergence criterion non-robust to a sign crossing (ns=(6,8,10)
+    counterexample), and a registry-declared D9 control that did not
+    actually reach the entry point (caught separately by
+    `casim test --control`, not the subagent review) --
+    docs/reviews/F382-review-2026-09-10.md. 7/7 PASS post-fix, control
+    verified genuinely sound. `casim index`, `check_module_registry.py`,
+    `check_test_registry.py` all clean; `make gate` not run in full (native
+    macOS Python 3.14 environment, the repo's .vendor/ Linux/cp310 wheels do
+    not load here -- every touched check verified individually instead).
+    Also fixed, unrelated to the physics: a concurrent session's tooling
+    silently corrupted two lines of the shared src/casim/engine/registry.py
+    (F382 -> F383 string substitution in this session's own Module entry,
+    including a test-file path pointing at a nonexistent file) -- caught by
+    routine post-edit grep, restored, disclosed in the finding's own
+    "Reviewed & corrected" section rather than only here.
+
+- session: cowork-E1-two-derivative-locality-2026-09-10
+  opened: 2026-09-10 - 00:00
+  status: open
+  sector: interactions
+  topic: >
+    Rubric row E1 / ledger row E1g (gravitational field equation, POSIT).
+    F345 narrowed the posit to one premise plus two open sub-items: the
+    "at-most-second-order" (two-derivative) truncation and "metric-only
+    left-hand side". This session attacks the first sub-item: does the
+    lattice's own locality/light-cone structure forbid higher-derivative
+    curvature terms in the induced gravitational action (which would
+    promote at-most-second-order from posit to derivation), or does
+    locality merely suppress them as an ordinary EFT/Wilsonian derivative
+    tower (which would make the truncation provably NOT exact, closing it
+    negative rather than open)? Plan: extend F57's own machinery -- the
+    BZ polarization Pi(q) = int d^3k/(2pi)^3 / (omega(k)+omega(k+q)) over
+    the F26/BCC dispersion, already fork-coded in
+    gr_fork_F57_induced_eh_from_backreaction.py -- to the next order in
+    its small-q expansion (Pi_4, the q^4 coefficient dual to a
+    curvature-squared term) and check numerically whether it is forced to
+    vanish or is generically nonzero. Also re-runs F345's three declared
+    controls, currently journalled STALE, via `make control`.
+  used:
+    383: findings/F383-locality-generates-not-forbids-four-derivative-term.md
+  tests:
+  - F383-four-derivative-locality
+  files:
+  - src/casim/engine/interactions/gravity_four_derivative_locality.py
+  - tests/findings/test_F383_four_derivative_locality.py
+  - src/casim/engine/registry.py
+  - tests/registry/interactions.yaml
+  - docs/status/open-derivations.md
+  - docs/status/completeness-2026-09-08.md
+  - docs/status/changelog.md
+  - docs/design/session-claims.yaml
+  - docs/reviews/F383-review-2026-09-10.md
+  released: 2026-09-10 - 16:30
+  release_note: >
+    RELEASED. F383 landed: extended F57's own Brillouin-zone matter-density
+    polarization Pi(q) one order further, to Pi4 (the q^4 coefficient) --
+    robustly nonzero (sign never flips across grid/window/direction/fit-order
+    perturbations), so locality GENERATES the four-derivative curvature term
+    rather than forbidding it, closing F345 L7's at-most-second-order
+    sub-item negative (ledger CN28) rather than promoting it to a
+    derivation. Also re-ran F345's three previously-stale declared controls
+    (all verified RED as declared, via `make control` = `check_control_
+    soundness.py --run`, not `casim test --control` which verifies but does
+    not journal without an explicit `--journal PATH`).
+
+    COLLISION: this finding was briefly numbered F382, taking the number
+    28 seconds before a concurrent session independently wrote a DIFFERENT
+    F382 finding (`F382-vertex-not-G-periodic-cube-domain-excluded.md`,
+    gauge sector, unrelated topic). Caught by `casim index` reporting an
+    undeclared duplicate; this session renumbered ITSELF to F383 (finding,
+    module docstring, test file, results JSON, registry.py, test registry,
+    ledger, completeness doc, changelog -- every cross-reference), per the
+    standing F375-to-F376 precedent, rather than touch the other session's
+    files. No gap or stray reference left behind (`casim index` clean at 0
+    duplicates after the fix).
+
+    REVIEWED (cold blind re-derivation + adversarial referee, both
+    subagents): CONFIRMED-NARROWER. The qualitative conclusion (Pi4 nonzero,
+    sign robust) survived; the referee found the SPECIFIC Pi4 magnitudes M2
+    reports are a fit-order artifact (a bare quartic fit is ill-conditioned
+    at these q-scales -- a q^6-augmented fit shifts every variant by
+    ~2.6-3x, sign-preserving), independently flagged first by the blind
+    subagent's own reimplementation (which needed the same q^6 correction
+    to stabilize its estimate). Fixed: added leg M2b as a PERMANENT
+    regression check (reruns M2's own four variants at order=6, asserts
+    sign survives within an 8x band -- reproduces the referee's exact
+    numbers), narrowed M2's claim to sign/order-of-magnitude, disclosed the
+    artifact in the finding's caveats and the module docstring. 7/7 legs
+    PASS post-fix. See docs/reviews/F383-review-2026-09-10.md.
+
+    `make gate` could not complete cleanly in one background call on this
+    device (pytest tests/casim alone took ~8 min, overlapping with this
+    session's own live edits and producing transient snapshot-artifact
+    failures, not regressions -- consistent with F381's own precedent
+    entry above it in the changelog). Every check this session's files
+    touch -- module registry (D11), test registry (D9), index/manifest/
+    exactness generation (C8), module graph, numerics (D8) and constants
+    (D7) ratchets, control soundness (D9/H2), claim cards (D12) -- was
+    re-run individually after all edits settled and is clean. Three
+    remaining control-soundness problems (F350's broken control, F307/F337
+    stale verdicts, F379/F382-vertex-domain-periodicity unverified) are
+    pre-existing or concurrent-session debt in files this session never
+    touched.
+
+- session: photon-fermion-coupling-2026-09-13
+  opened: 2026-09-13 - 00:00
+  status: released
+  sector: gauge
+  topic: >
+    photon-fermion coupling: EM current, per-link U(1) step, coupled channels.
+    Executing docs/roadmaps/photon-fermion-coupling.md stages 0-5: momentum
+    observer + baseline null result (Stage 0); derived conserved BCC U(1) EM
+    current (Stage 1); per-link U(1) covariant Weyl step + norm-conservation
+    fork adjudication (Stage 2); the A-field convention the fermion reads
+    (Stage 3); coupled em_photon/fermion_em channels (Stage 4); the
+    photon_fermion_push scenario and its momentum-transfer claims (Stage 5).
+  used:
+    384: findings/F384-conserved-bcc-em-current.md
+    385: findings/F385-u1-link-covariant-step.md
+  files:
+  - src/casim/engine/core/observers.py
+  - src/casim/engine/gauge/em_current.py
+  - src/casim/engine/gauge/minimal_coupling.py
+  - src/casim/engine/forks/gauge/u1_link_unitarity_forks.py
+  - tests/findings/test_F384_conserved_em_current.py
+  - tests/findings/test_F385_u1_link_covariant_step.py
+  - docs/reviews/F384-review-2026-09-14.md
+  - docs/reviews/F385-review-2026-09-14.md
+  released: 2026-09-14 - 15:29
+  release_note: >
+    RELEASED — stopping after Stage 2, handing Stages 3-5 to a fresh session
+    (prompt given to the user in-chat). Landed: the `momentum` observer
+    (`core.observers.Momentum`, Stage 0 — no finding of its own, an engine
+    capability addition) and its baseline null result; F384 (the conserved
+    U(1) EM current, Stage 1); F385 (the per-link U(1) covariant step + its
+    fork adjudication, Stage 2). Both findings independently reviewed
+    (cold blind re-derivation + adversarial referee) and CONFIRMED-NARROWER,
+    with concrete fixes applied in-pass (see the review docs and the
+    findings' own `**Checked:**` lines). Stage 3 (the A-field convention)
+    is unstarted. `make gate` was red from pre-existing, unrelated debt for
+    this entire session (stale test registry/indexes, 65 control-soundness
+    problems, 44 unrelated pytest failures) — disclosed to the user at
+    Stage 0 and left untouched throughout, per their explicit direction;
+    every check this session's own edits touch was verified individually
+    and is green. Environment note carried into every stage: `.vendor/`'s
+    Linux/cp310 wheels do not import on this native macOS/arm64 session —
+    used a local `.venv-local` (`pip install -e .`) instead, matching the
+    2026-09-10 sessions' precedent.
+
+- session: photon-fermion-coupling-stage3-2026-09-14
+  opened: 2026-09-14 - 00:00
+  status: released
+  sector: gauge
+  topic: >
+    photon-fermion coupling Stage 3 (docs/roadmaps/photon-fermion-coupling.md):
+    the A-field convention the fermion reads (accumulate A<-A+E per-tick,
+    mirroring core.coupled.WSourcedChannel, vs a Coulomb-gauge solve of A from
+    B on the 3-D C(k) symbol, a 3-D sibling of charge_coupling.solve_A_coulomb_2d).
+    Continues Stages 0-2 (momentum observer, F384 conserved BCC U(1) EM current,
+    F385 per-link U(1) covariant step) landed by session
+    photon-fermion-coupling-2026-09-13, released 2026-09-14 - 15:29. Does not
+    redo Stages 0-2; reads their modules and reviews only.
+  used:
+    386: findings/F386-a-field-convention.md
+  files:
+  - src/casim/engine/gauge/charge_coupling.py
+  - src/casim/engine/gauge/a_field_convention.py
+  - src/casim/engine/registry.py
+  - tests/registry/gauge.yaml
+  - tests/findings/test_F386_a_field_convention.py
+  - docs/reviews/F386-review-2026-09-14.md
+  released: 2026-09-14 - 17:20
+  release_note: >
+    RELEASED. Stage 3 landed: F386 (the A-field convention decision — Coulomb-
+    gauge SOLVE, not per-tick ACCUMULATE) and its attack-and-fix review
+    (CONFIRMED-NARROWER, docs/reviews/F386-review-2026-09-14.md). See
+    docs/status/changelog.md's two 2026-09-14 entries (16:20 build, 17:05
+    review) for the full account. Stopping after Stage 3 per the execution
+    contract; Stages 4-5 (the coupled em_photon/fermion_em channels, the
+    photon_fermion_push scenario) are unstarted and handed to a fresh
+    session. The review surfaced two genuine, previously-undisclosed
+    structural facts (bcc_curl_symbol's direction anisotropy vs k-hat;
+    Omega_pair(k) vs |C_odd(k)| disagreeing away from small k) that reach
+    beyond F386 into F87/F384/F385 and bear directly on Stage 4's em_photon
+    design — flagged as caveats in F386 and as a spawned background-task
+    suggestion (task_ea66c841), not resolved here. `make gate` remained red
+    throughout from the pre-existing, unrelated debt disclosed at Stage 0;
+    the user confirmed "proceed on red gate, disclosed" when asked at this
+    session's start. Every check this session's own files touch (module
+    registry D11, numerics D8 ratchet, constants D7 audit, test registry D9,
+    finding-records/claims checks, control-soundness can-fail + --run, the
+    specific test_registry_entries.py pytest item, casim index) was verified
+    individually post-fix and is green.
+
+- session: cbn-curl-anisotropy-omega-pair-mismatch-2026-09-15
+  opened: 2026-09-15 - 00:00
+  status: open
+  sector: gauge
+  topic: >
+    Investigate the two structural findings the F386 review surfaced
+    (docs/reviews/F386-review-2026-09-14.md, findings/F386-a-field-convention.md
+    §5-6), flagged there but not resolved: (1) charge_coupling.bcc_curl_symbol's
+    direction Ĉ(k) does not converge to k̂ off the cubic axes as k→0 (traced to
+    the _bcc_uvec sign correction) — determine whether F87 already discloses
+    this or it needs its own finding number; (2) photon.pair_dispersion
+    (Ω_pair(k)) and charge_coupling.bcc_curl_symbol's magnitude |C_odd(k)| are
+    different functions of k, agreeing only at small k — determine what Stage
+    4's em_photon channel (docs/roadmaps/photon-fermion-coupling.md) should do
+    about the resulting iC·B≠0 defect when sourcing E with a C(k)-longitudinal
+    current under the Ω_pair rotation. Does not implement Stage 4 itself
+    (coupled em_photon/fermion_em channels) — investigative + design-
+    recommendation scope, feeding into whichever session executes Stage 4
+    next.
+  used:
+    387: findings/F387-curl-anisotropy-omega-pair-mismatch.md
+  files:
+  - src/casim/engine/gauge/charge_coupling.py
+  - src/casim/engine/gauge/photon.py
+  - src/casim/engine/lattice/bcc.py
+  - src/casim/engine/gauge/em_photon_sourcing.py
+  - src/casim/engine/registry.py
+  - tests/registry/gauge.yaml
+  - tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py
+  - findings/F87-charge-coupling-paired-photon.md
+  - findings/F386-a-field-convention.md
+  - docs/roadmaps/photon-fermion-coupling.md
+  status: released
+  released: 2026-09-15 - 09:45
+  release_note: >
+    RELEASED. F387 landed: (1) confirmed the Ĉ(k) direction anisotropy is NEW, not covered by
+    F87 (F87's MX1 checks only |C|/|k|, never direction) -- exact and L-stable 16->256,
+    Ĉ(k)->(k_x,-k_y,k_z)/|k| off-axis, traced to the same sign correction _bcc_uvec already
+    carries for the fermion walk's spin axis (bcc_spin_axis's own docstring), no code fix
+    needed since every existing bcc_curl_symbol consumer already measures against Ĉ(k) itself.
+    (2) Resolved Stage 4's Omega_pair(k)/|C_odd(k)| sourcing question with a concrete,
+    machine-precision-verified fix (new module casim.engine.gauge.em_photon_sourcing): split
+    the sourcing current into its Ĉ(k)-transverse/longitudinal parts; rotate only the
+    transverse sector via Omega_pair (decision 5's photon law, unchanged); solve the
+    longitudinal sector algebraically each tick from the model's own Gauss law; B_L never
+    populated. Naive (roadmap-sketch) recipe reaches ||iC.B||=2.41 by tick 6; the fix holds
+    2.8e-16. Does not build the Stage-4 em_photon/fermion_em Channel pair itself -- supplies
+    the sourcing law one of its channels should use. Reviewed (cold blind re-derivation +
+    adversarial referee): CONFIRMED-NARROWER (docs/reviews/F387-review-2026-09-15.md). The
+    review's one substantive finding: an elimination experiment (substitute |C_odd(k)| exactly
+    for Omega_pair(k), removing the value-mismatch by construction) showed the iC.B defect is
+    NOT reduced -- it persists at essentially the same size -- proving the true, sufficient
+    mechanism is structural (no Ĉ(k)-projection in ANY scalar per-mode rotation law), not the
+    Omega_pair/|C_odd| value mismatch itself. Corrected in-pass in the finding's §2 and the
+    module docstring; the fix/data/module/test needed no changes. A concurrent Stage-4 session
+    (photon-fermion-coupling-stage4-2026-09-15) landed F388 (fermion-photon coupled channels)
+    during this session and its code-index row already cites F387, confirming the coordination
+    this claim's topic asked for worked as intended. make gate was not run in full (long-running,
+    and unrelated pre-existing debt was disclosed by prior sessions in this same claim chain);
+    every check this session's own files touch (module registry D11, test registry D9, numerics
+    D8 ratchet, constants D7 audit, casim index, can-fail, the declared control via --run, the
+    specific test_registry_entries.py pytest item for F387) was verified individually post-write
+    and is clean.
+
+- session: photon-fermion-coupling-stage4-2026-09-15
+  opened: 2026-09-15 - 00:00
+  status: released
+  sector: gauge
+  topic: >
+    photon-fermion coupling Stage 4 (docs/roadmaps/photon-fermion-coupling.md):
+    the coupled em_photon/fermion_em channels in core.coupled, mirroring the
+    fermion<->W pair (WSourcedChannel/FermionDoubletChannel) exactly --
+    em_photon: (E,B) rotating at Omega_pair, E += g.J from the partner
+    fermion's F384 current, publishes A via F386's Coulomb-gauge solve
+    (charge_coupling.solve_A_coulomb_3d), NOT per-tick accumulate; fermion_em:
+    BCC Weyl advanced by F385's per-link covariant step
+    (minimal_coupling.u1_link_weyl_step_3d_bcc) using the partner's A. Also:
+    fix the topology tags (photon channels tagged "cubic", BCC channels
+    tagged "bcc" -- decide one honest name or add "bcc" to the photon
+    channel). Continues Stages 0-3 (momentum observer; F384 conserved BCC
+    U(1) EM current; F385 per-link U(1) covariant step + fork adjudication;
+    F386 A-field convention decision) landed by sessions
+    photon-fermion-coupling-2026-09-13 and
+    photon-fermion-coupling-stage3-2026-09-14, both released. Does NOT touch
+    bcc_curl_symbol's direction/anisotropy (a concurrent session is examining
+    that per F386's own review caveats and the spawned background-task
+    task_ea66c841) -- this session works around the disclosed
+    Omega_pair(k)-vs-|C(k)| mismatch (F386 Sec.5) rather than resolving it,
+    per that finding's own note that Stage 4 needs to account for it in the
+    em_photon sourcing recipe.
+  used:
+    388: findings/F388-fermion-photon-coupled-channels.md
+  files:
+  - src/casim/engine/core/coupled.py
+  - src/casim/engine/core/channels.py
+  - src/casim/engine/core/observers.py
+  - src/casim/engine/registry.py
+  - tests/registry/core.yaml
+  - tests/findings/test_F388_fermion_photon_coupled_channels.py
+  - scenarios/fermion_photon_backreaction.yaml
+  - docs/reviews/F388-review-2026-09-15.md
+  released: 2026-09-15 - 13:10
+  release_note: >
+    RELEASED. Stage 4 landed: F388 (the coupled em_photon/fermion_em channels, the
+    PhotonPairChannel topology fix, the Momentum observer whitelist update) and its
+    attack-and-fix review (CONFIRMED-NARROWER, docs/reviews/F388-review-2026-09-15.md).
+    Deviated from this claim's own topic line (which still said "E += g.J") because the
+    concurrent session's F387 (em_photon_sourcing.py, landed mid-session) shipped a
+    concrete, verified fix for exactly the Omega_pair(k)-vs-|C(k)| mismatch this claim's
+    topic named as a workaround target -- EmPhotonChannel implements F387's split-sourcing
+    fix directly instead of the roadmap's original (superseded) sketch. See
+    docs/status/changelog.md's two 2026-09-15 entries (11:15 build, 12:30 review) for the
+    full account. The review's most consequential finding, disclosed prominently in F388's
+    own new Sec.2 rather than buried: F384's conserved current is purely C(k)-longitudinal
+    BY CONSTRUCTION, so this loop's fermion->photon direction cannot radiate and TOTAL
+    MOMENTUM IS NOT CONSERVED by it (dP_field stays at machine zero while dP_matter grows)
+    -- a direct, disclosed caveat for Stage 5's own first planned claim. Stages 5 (the
+    scenario + physics claims) is unstarted and handed to a fresh session, which should
+    read F388 Sec.2 before attempting the momentum-conservation claim. Two background-task
+    suggestions spawned: dismissed one (curl anisotropy, resolved by the concurrent
+    session's F387) and opened a new one (deriving a genuine transverse fermion current,
+    task_60fb427f) for whoever wants to close the gap Sec.2 identifies before Stage 5.
+    `make gate` remained red throughout from the pre-existing, unrelated debt disclosed at
+    Stage 0; the user confirmed "proceed on red gate, disclosed" when asked at Stage 3's
+    start (standing direction carried through). Every check this session's own files touch
+    (module registry D11, numerics D8 ratchet, constants D7 audit, test registry D9,
+    finding-records/claims checks, control-soundness can-fail + --run for both controls,
+    the specific test_registry_entries.py pytest item, casim index, and the pre-existing
+    fermion-W-loop test suite it shares a module with) was verified individually post-fix
+    and is green.
+
+- session: photon-fermion-transverse-current-2026-09-15
+  opened: 2026-09-15 - 14:00
+  status: released
+  sector: gauge
+  topic: >
+    F388's review (docs/reviews/F388-review-2026-09-15.md, findings/
+    F388-fermion-photon-coupled-channels.md Sec.2) surfaced that F384's
+    conserved U(1) current (gauge.em_current.conserved_current) is purely
+    C(k)-longitudinal BY CONSTRUCTION (F384's own caveats already call the
+    transverse part "free, unconstrained gauge freedom"), so the em_photon/
+    fermion_em loop cannot radiate and total momentum is not conserved
+    (dP_field ~1e-20 machine zero, dP_matter grows to ~2e-5 over 20 ticks).
+    This session derives a physically motivated transverse current fixing
+    that declared-open freedom -- the natural candidate is the continuum
+    Weyl Noether current's (bcc_naive_current, q.psi^dag.sigma.psi) OWN
+    C(k)-transverse projection, which the discrete continuity equation
+    leaves completely unconstrained (adding it cannot perturb F384's
+    continuity closure at all, verified). Also lower-priority, from the same
+    review: Channel.consumes() does not recognize the fermion=/photon=/
+    w_field= config keys EmPhotonChannel/FermionEmChannel/WSourcedChannel/
+    FermionDoubletChannel use, so the typed exchange bus cannot catch a
+    wrong registration order -- will fix if time allows after the current
+    derivation. No open claim existed on this topic before this session
+    (checked); F388's own release_note names both items as open work for a
+    future session (spawned background task_60fb427f for the first).
+  used:
+    389: findings/F389-radiative-transverse-em-current.md
+  tests:
+  - F389-radiative-transverse-current
+  - F389-radiative-current-backreaction
+  files:
+  - src/casim/engine/gauge/em_current.py
+  - src/casim/engine/core/coupled.py
+  - src/casim/engine/core/channel.py
+  - src/casim/engine/registry.py
+  - tests/registry/gauge.yaml
+  - tests/registry/core.yaml
+  - tests/findings/test_F389_radiative_transverse_em_current.py
+  - tests/findings/test_F389_radiative_current_backreaction.py
+  - docs/reviews/F389-review-2026-09-15.md
+  released: 2026-09-15 - 17:45
+  release_note: >
+    RELEASED. Landed F389 (findings/F389-radiative-transverse-em-current.md): a physically motivated
+    Ĉ(k)-transverse current fixing F384's declared-open gauge freedom -- new gauge.em_current.
+    noether_transverse_current (the continuum Weyl Noether bilinear's own transverse projection, which
+    discrete continuity leaves completely unconstrained) and full_current (F384's exact longitudinal
+    solution plus this addition, verified to leave continuity bit-identical, not merely small). Wired
+    into core.coupled.EmPhotonChannel behind a new use_radiative_current config flag (default False --
+    F388's own gate record is bit-identical unless passed explicitly). Consequence, measured on F388's
+    own self-sourced-only scenario: field momentum, machine-zero under F388's current on every config
+    tested, is now genuinely nonzero and recovers a real fraction (~11% at g_lat=0.3) of the matter's
+    momentum loss -- the loop can now radiate and recoil. Exact conservation is NOT achieved, and the
+    reason is structural and precisely quantified: dP_matter scales linearly in g_lat (Lorentz-force-like
+    leading order) while dP_field scales quadratically (E cross B needs both factors sourced), because
+    the fermion's per-link recoil (F385) and this current's field-sourcing (F389) are two independently-
+    derived constructions, not two halves of one covariant lattice action. Two new gate-tier records
+    (F389-radiative-transverse-current in gauge.yaml 3/3 PASS, F389-radiative-current-backreaction in
+    core.yaml 4/4 PASS), one declared control each, both verified can-fail. F384/F387/F388's own gate
+    records re-verified unchanged. Reviewed (cold blind re-derivation + adversarial referee):
+    CONFIRMED-NARROWER (docs/reviews/F389-review-2026-09-15.md) -- the blind agent independently
+    reconstructed the same construction from the same given inputs (same route, not a different one);
+    the referee independently swept 6 further configurations for the continuity-safety claim and 6
+    coupling-strength points for the O(g)/O(g^2) scaling claim, both holding throughout. Two prose
+    overclaims found and fixed in review: the "derives, rather than guesses" framing understated that the
+    specific transverse current is a disclosed, non-unique constitutive choice; and one sentence on the
+    Coulomb sector being "unchanged" was scoped explicitly to the single-tick level (a closed run's own
+    rho/E_L trajectory necessarily diverges once real backreaction occurs -- that is the fix's mechanism,
+    not a contradiction). No gate-tier check needed to change. Also, lower priority: partially addressed
+    the exchange-bus consumes() blind spot (core.channel.Channel.consumes() now recognizes fermion=/
+    photon=/w_field=) but investigation found this does NOT close the gap the F388 review demonstrated --
+    core.graph.build_graph's pre-existing _config_channel_refs fallback (from F269) already supplied the
+    same edge regardless of consumes(), and the real reason graph.order_violations stays empty for either
+    registration order is structural: a genuine mutual-dependency 2-cycle's internal order is resolved as
+    exactly the declared/registration order by construction, so no order can ever be flagged wrong by this
+    mechanism for a true cycle. Documented precisely in F389's caveats rather than claimed fixed; dismissed
+    background task task_60fb427f (superseded by this finding) since its target is now landed.
+
+- session: photon-fermion-coupling-stage5-2026-09-15
+  opened: 2026-09-15 - 18:00
+  status: released
+  sector: gauge
+  topic: >
+    photon-fermion coupling Stage 5 (docs/roadmaps/photon-fermion-coupling.md): the
+    scenario and physics claims. scenarios/photon_fermion_push.yaml -- a beam packet
+    plus a localized Weyl packet at rest, one lattice, momentum observer on both.
+    Claims in increasing strength: (1) momentum conservation ΔP_matter+ΔP_field~=0
+    to the exactness class reached; (2) direction -- the fermion's momentum centroid
+    moves along the beam's k; (3) magnitude -- recoil vs absorbed field energy,
+    Δp=ΔE/c with c=1/sqrt(3); (4) stretch -- scattering cross-section -> Thomson
+    limit sigma_T=(8pi/3)r_e^2 (G8: F260/F259/F263). Builds on Stages 0-4 (momentum
+    observer; F384 current; F385 per-link step; F386 A-convention; F387
+    split-sourcing fix; F388 coupled channels) and F389 (the radiative transverse
+    current, use_radiative_current=True on EmPhotonChannel -- the current that lets
+    the loop actually radiate). F389 Sec.4 already establishes exact momentum
+    conservation is NOT achievable with this construction (dP_matter is O(g),
+    dP_field is O(g^2) -- a structural order-mismatch, not a tuning defect) --
+    claim (1) will be scoped/falsified accordingly, not assumed to hold, per F389's
+    own honest disclosure. Reads F388 Sec.2 and F389 in full before building
+    anything.
+  used:
+    390: findings/F390-photon-fermion-push-scenario.md
+  files:
+  - scenarios/photon_fermion_push.yaml
+  - src/casim/engine/core/photon_fermion_push.py
+  - src/casim/engine/core/coupled.py
+  - src/casim/engine/registry.py
+  - tests/registry/core.yaml
+  - tests/findings/test_F390_photon_fermion_push.py
+  - docs/claims/CL307-photon-fermion-push-partial-recoil-not-conservation.md
+  - docs/reviews/F390-review-2026-09-15.md
+  released: 2026-09-15 - 21:30
+  release_note: >
+    RELEASED. Stage 5 landed: F390 (the photon-fermion push scenario and the
+    roadmap's four physics claims) and its attack-and-fix review
+    (CONFIRMED-NARROWER, docs/reviews/F390-review-2026-09-15.md). See
+    docs/status/changelog.md's two 2026-09-15 entries (20:00 build, 21:10
+    review) for the full account. The review caught a real overclaim before
+    it settled: the finding's first version said "Direction — CONFIRMED"
+    and called the field/matter anti-alignment result "robust across every
+    perturbation swept," but the disclosed sweep never varied the beam's
+    propagation axis or went past m_index=3 -- doing either (ordinary
+    configurations, not edge cases) reverses the direction correlation's
+    sign or inverts the anti-alignment result to near-exactly parallel.
+    Fixed in the same pass: two new gate legs monitor this explicitly now
+    (8/8 PASS), the finding and claim card CL307 are both narrowed to the
+    on-axis, small-m_index domain the results actually hold in. This
+    completes the roadmap's Stages 0-5 (claims 1-3 tested and honestly
+    characterized; claim 4, the Thomson-limit stretch goal, explicitly
+    deferred -- see the spawned background-task suggestion,
+    task_1b7b81d3). `make gate` remained red throughout from the
+    pre-existing, unrelated debt disclosed at Stage 0; every check this
+    session's own files touch (module registry D11, numerics D8 ratchet,
+    constants D7 audit, test registry D9, finding-records/claims checks,
+    control-soundness for both controls, the specific
+    test_registry_entries.py pytest item, casim index, and the full
+    pre-existing fermion-photon suite: F388 7/7, F389 4/4, E2E bilinear
+    14/14, kernel-reproduction suite 44/44) was verified individually
+    post-fix and is green.
+
+- session: photon-fermion-ck-transverse-beam-2026-09-15
+  opened: 2026-09-15 - 22:00
+  sector: gauge
+  topic: >
+    F390's two structural gaps (docs/reviews/F390-review-2026-09-15.md;
+    findings/F390-photon-fermion-push-scenario.md §3, §6). (1) The
+    direction/anti-alignment claims hold only for an on-axis beam at
+    m_index<=3 (L=16) -- off-axis beams decorrelate and m_index=4 reverses
+    the sign. Likely mechanism (measured, not derived): F387's Ĉ(k) axis
+    anisotropy (Ĉ(k)->(k_x,-k_y,k_z)/|k| as k->0 off-axis, an exact reflection
+    diag(1,-1,1) applied to k̂ to leading order) combined with
+    gauge.photon.build_beam_packet polarizing transverse to Euclidean k̂, not
+    Ĉ(k) (F386 §6). Either derive the mechanism explicitly, or build a
+    genuinely Ĉ(k)-transverse beam-construction helper (polarized against
+    Ĉ(k) rather than k̂, not merely projected-and-discarded like
+    em_photon_sourcing.split_transverse_longitudinal already does) and
+    re-test whether the claims generalize once that mismatch is removed.
+    (2) Reconsider Stage 5's Thomson cross-section stretch goal (roadmap
+    docs/roadmaps/photon-fermion-coupling.md, sigma_T=(8pi/3)r_e^2, reaching
+    G8's F260/F259/F263 machine-exact tree-QED sector from the lattice side)
+    only if (1)'s resolution makes the physics well-posed enough; F390 §6
+    deferred it citing no genuine far-field on a periodic/spectral lattice,
+    ~27% norm loss on Ĉ(k)-transverse projection, and no closing
+    energy/momentum budget. A precisely characterized negative result for
+    either part is an acceptable outcome per this project's standards. Reads
+    F384-F390 and both F387/F390 reviews, docs/theory/key-decisions.md
+    §Engineering decisions, and CLAUDE.md before building anything.
+  files:
+  - src/casim/engine/gauge/em_photon_sourcing.py
+  - src/casim/engine/registry.py
+  - tests/registry/gauge.yaml
+  - tests/findings/test_F391_ck_transverse_beam_mechanism.py
+  - findings/F391-ck-transverse-beam-mechanism.md
+  - docs/claims/CL307-photon-fermion-push-partial-recoil-not-conservation.md
+  status: released
+  released: 2026-09-16 - 00:40
+  release_note: >
+    RELEASED. Landed F391 (findings/F391-ck-transverse-beam-mechanism.md): built the genuinely
+    Ĉ(k)-transverse beam-construction helper (gauge.em_photon_sourcing.build_ck_transverse_beam_packet --
+    polarization projected onto each Fourier mode's own Ĉ(k)-transverse plane, zero longitudinal leak to
+    machine precision vs. the original recipe's 27.5%) and re-ran F390's own axis/m_index grid against it.
+    RESULT: the fix changes nothing -- on-axis correlation, the m_index=4 sign flip, and off-axis
+    decorrelation persist to 3-4 significant figures, ruling out the named "likely mechanism" (the
+    beam-polarization/Ĉ(k)-anisotropy mismatch) as the actual cause. Sharpened F387's own Ĉ(k)-direction
+    table along the way (Ĉ(k) is exactly anti-parallel to k̂ on the lattice's y-axis, 180°, L-stable
+    64->128 -- new, F387 never tested y/z axes in isolation). A six-point (axis,pol_axis) diagnostic sweep
+    found the recoil is confined to the x-y plane in every combination tested and tracks the beam's own
+    direction in exactly one of six (F390's own hand-picked default); varying the fermion's fixed internal
+    spin state (FermionEmChannel seeds a definite g=0 chirality eigenstate, never varied before) changes
+    the recoil vector substantially (cos=0.517 between two spin choices) -- identified as the actual
+    candidate mechanism, NOT derived. Stretch goal (Thomson cross-section): the norm-loss obstacle F390 §6
+    cited is removed, but a sharper, fourth obstacle is disclosed -- the recoil this cross-section would
+    normalize against depends on an uncontrolled spin-state choice -- so it stays explicitly deferred, on
+    top of F390's still-unresolved far-field/energy-budget gaps. New gate record
+    (F391-ck-transverse-beam-mechanism, gauge.yaml, 9/9 PASS), one declared control verified can-fail.
+    docs/claims/CL307 updated in place (Evidence/Falsifier/Status sections rewritten to point at F391;
+    confidence stays low; status stays narrowed, not further changed). F384/F386/F387/F388/F389/F390's own
+    gate records re-verified unchanged (bit-for-bit re-run). Module registry (D11), numerics ratchet (D8,
+    0 new violations), constants audit (D7, 0 rogue literals in src), test registry (D9), and casim index
+    all verified individually post-write and are consistent (next free number F392, no new gaps/dupes).
+
+- session: photon-fermion-momentum-rerun-2026-09-16
+  opened: 2026-09-16 - 00:00
+  sector: gauge
+  topic: >
+    Implements docs/audits/2026-09-16-photon-fermion-momentum-investigation.md §8's program.
+    Part A: fix gauge.photon.build_beam_packet's zero-momentum defect (E and B share one
+    Cartesian component, so E×B≡0 identically) with a complex-circular-polarization option,
+    add a null-condition gate leg. Part B: add the missing curl(grad φ)=0 gate leg for
+    charge_coupling.bcc_curl_symbol (currently only the vacuous div(curl A)=0 identity is
+    tested), as a known-failing/monitored diagnostic -- do not change bcc_curl_symbol itself.
+    Part C (decision point, may be deferred): whether to build a 3D BCC discrete-exterior-
+    calculus curl (extending charge_coupling.discrete_curl_z/discrete_div from 2D) alongside
+    bcc_curl_symbol, not in place of it. Part D: re-run Stages 0-5 of
+    docs/roadmaps/photon-fermion-coupling.md against the fixed beam and write new findings
+    (F384-F391 are NOT edited -- corrections land as new findings + docs/theory/supersessions.yaml);
+    restate the roadmap's Stage 5 claim 1 per the audit §6.2 (crystal momentum, not continuum
+    momentum, is what a lattice conserves) and update docs/claims/CL307 accordingly. Reads
+    CLAUDE.md, the audit, references/lattice-conservation-laws-research-review.md,
+    tools/verify_photon_momentum_diagnosis.py / verify_single_action_prototype.py,
+    docs/roadmaps/photon-fermion-coupling.md, and F384-F391 (all eight, including F391 which
+    the standalone prompt's own reading list omitted) before writing anything. NOTE: make gate
+    was already red at session start for reasons unrelated to this sector (46 pytest failures
+    in the F310-F369/F381 era, stale docs-index.md/manifest.json/module-graph.json, 3 unarmed
+    controls, F387's control missing `reason:` -- all pre-existing, from an uncommitted prior
+    session's work, not introduced here); proceeding per explicit user instruction rather than
+    fixing that unrelated backlog first.
+  used:
+    392: findings/F392-beam-polarization-null-fix.md
+    393: findings/F393-curl-grad-identity-diagnostic.md
+    394: findings/F394-bcc-dec-curl-part-c-decision.md
+    395: findings/F395-stage5-circular-beam-rerun.md
+  files:
+  - src/casim/engine/gauge/photon.py
+  - src/casim/engine/gauge/charge_coupling.py
+  - src/casim/engine/registry.py
+  - tests/registry/gauge.yaml
+  - tests/registry/core.yaml
+  - scenarios/photon_fermion_push.yaml
+  - docs/claims/CL307-photon-fermion-push-partial-recoil-not-conservation.md
+  - docs/roadmaps/photon-fermion-coupling.md
+  - src/casim/engine/core/coupled.py
+  - src/casim/engine/core/photon_fermion_push.py
+  status: released
+  released: 2026-09-16 - 04:45
+  release_note: >
+    RELEASED. Part A (F392): build_beam_packet's E||B zero-momentum defect fixed with a
+    polarization="circular" option (null Riemann-Silberstein field); default "linear" stays
+    bit-identical to git HEAD. New gate leg reproduces the audit's own acceptance numbers
+    exactly (|Sigma ExB|=75.126, cos(P,khat)=+1.000000, drift 3.6e-15/40 ticks using the same
+    k-space formula core.observers.Momentum uses). Part B (F393): added the previously-missing
+    curl(grad phi)=0 gate leg for bcc_curl_symbol (only the vacuous div(curl A)=0 identity was
+    ever tested) -- gated honestly as a KNOWN, monitored defect (mean |CxG|/(|C||G|)=0.74,
+    not a target); bcc_curl_symbol itself unchanged. Part C (F394): the 3D BCC discrete-
+    exterior-calculus curl complex explicitly DEFERRED, per the rerun-prompt's own pre-
+    authorization -- reasoning and next-steps recorded, no module written. Part D (F395):
+    re-ran Stage 5 against the fixed beam. Stages 0-4 re-verified bit-identical, not assumed.
+    The m_index=4 direction anomaly persists under a THIRD independent beam-construction fix,
+    reinforcing F391's matter-side (fermion spin-state) candidate. The off-axis result
+    genuinely changes in kind (unlike under F391's Ĉ(k)-transversality fix) but the specific
+    point values are NOT converged in run length -- found by this session's own mandatory
+    review pass, corrected in both F395 and docs/claims/CL307 rather than left as settled
+    numbers. Claim 1 (momentum conservation) withdrawn as unachievable per the audit's crystal-
+    momentum argument and restated as (A) exact charge conservation -- not delivered by
+    casim's actual bridged architecture; (B) exact crystal-momentum translation covariance
+    Phi.T=T.Phi -- delivered, 1.5e-15; (C) matched-order approach -- still mismatched, for a
+    sharper disclosed reason than F389's original diagnosis. All four findings' mandatory
+    cold-subagent attack-and-fix reviews complete: F392 CONFIRMED, F393 CONFIRMED (one real
+    CLI-reproducibility bug found and fixed -- parse_param's bool coercion vs. the function's
+    string-only dispatch; the registry's own quoted-string control was never affected), F394
+    CONFIRMED, F395 CONFIRMED-NARROWER (the off-axis snapshot-vs-converged issue above). make
+    gate was already red at session start for reasons entirely unrelated to this sector (the
+    F310-F369/F381-era pytest backlog, from an uncommitted prior session) and remains so at
+    release; every check this session's own work touches (test registry D9, module registry
+    D11, numerics D8, constants D7, module graph, scenario smoke, finding coverage, all four
+    new controls armed and journaled) is green. NEXT FREE NUMBER F396, no new gaps/dupes.
+- session: p77-charge-partition-2026-09-21
+  opened: 2026-09-21 - 00:00
+  sector: gauge
+  topic: >
+    p.77 charge-partition hypothesis (W± = non-intrinsic half of charge; mass = residue) as an
+    alternative bookkeeping to F27 beta-gauging. Leg A: free Dirac mass step J_z=L_z+S_z conservation
+    on BCC lattice. Leg B: per-tick DeltaQ of the F27 mass step vs F54 charged current, U=I
+    discriminator, Q=T3+Y/2, mass half; confronts F143 and F320; folds audit sec 4.2 duality.
+  used:
+    396: findings/F396-p77-charge-partition-relabel.md
+  status: released
+  released: 2026-09-21 - 13:40
+  release_note: >
+    RELEASED. F396 + CL308: p.77 partition closed as relabel of F27 Stueckelberg Ward identity (disposition b); Leg A premise false (mass step conserves Sigma_z); strong W-sink form not supported. Review CONFIRMED-NARROWER. Gate red only on items outside this sector (factorization module unregistered, F350/F387 controls, F392 pytest, no_assert).
+- session: factorization-route-2026-09-21
+  opened: 2026-09-21 - 12:00
+  sector: gauge
+  topic: >
+    Ludwig notebook pp.176-182 factorization route (T1 null vector = spinor outer product; T2 non-null
+    vector = two null vectors with free direction a-hat): does Omega_even match the T1/T2 decomposition
+    (F169 O(k^2) offset, g_c), does a-hat map to W/Z (F91), DOF arithmetic, local-U(1) claim.
+  used: {397: findings/F397-notebook-factorization-route-pp176-182.md}
+  tests: [F397-factorization-route]
+  status: released
+  release_note: >
+    Released. F397 (notebook pp.176-182 factorization route) + CL309 + record F397-factorization-route
+    (19 legs, control sound). Outcome (b) with partial (a): redundant with F168/F169 for binding, g_c
+    not reached; F169 offset derived as |kx ky kz|/(3|k|); W/Z and U(1) readings closed negative/no
+    correspondence. Attack pass CONFIRMED-NARROWER. make gate: F397-owned checks green; remaining reds
+    (F350/F387 controls, F392 pytest entry, uncommitted-session coverage ceilings) belong to other sessions.
+    NEXT FREE NUMBER F398.
+- session: notebook-v2-2026-09-23
+  opened: 2026-09-23 - 00:00
+  sector: notebook-v2
+  topic: >
+    Notebook v2 continuation pass per docs/theory/notebook-v2-prompt (the notebook is fully mined
+    per the 2026-09-22 follow-up; this session continues each line of thinking one real step
+    further, per the governing prompt). Phase 0-1: thread map at docs/theory/notebook-v2/
+    01-thread-map.md. Phase 3: continues ranked threads one at a time (seed leads include F73 vs
+    A.1 pairing-cluster adjudication, sin2thetaW=2/9 lineage vs delta*=2/9, Pryce 1938 composite-
+    photon commutator, torsion magnitude vs a claim card, nucleon mass field-energy decomposition).
+    Sector may narrow to whichever cluster's thread is picked up first (gauge/particles/gravity).
+  used: {}
+  status: released
+  released: 2026-09-23 - 16:05
+  release_note: >
+    RELEASED. No finding/claim numbers spent (used: {} unchanged) — this was a descriptive/
+    comparative continuation pass, matching how the prior A.1/B.3 correlation passes were scoped.
+    Five docs/theory/notebook-v2/NB2-*.md entries written (001 F73-vs-A.1 + handoff A#2 closure,
+    002 sin2thetaW=2/9 lineage, 003 Riemann-Silberstein eigenbasis, 004 nucleon mass decomposition,
+    005 torsion tabletop test), plus 01-thread-map.md and index.md. Closed five rows total across
+    the correlation queue (NB-128/129, NB-133/134, NB-037) and the crosscheck handoff (A#2; A#1's
+    A.1 pass corrected by addendum). Five new open questions + paste-ready prompts left for the
+    next session in index.md §5. make gate red at session start and release, entirely pre-existing
+    (8/19 checks: stale test registry/module graph, D7 constants ratchet, two control-soundness
+    problems on F350/F387, five pytest failures on F392/F169/supersession banners) — none in files
+    this session touched. make coverage also pre-existing red (unjoined/weak_only/untested/
+    bad_declaration/claim_unset/unclaimed ceilings, unrelated to this session's own files).
+    docs-index.md was stale pre-session; regenerated as a side effect of `casim index`.
+- session: pryce-composite-photon-2026-09-23
+  opened: 2026-09-23 - 17:00
+  sector: gauge
+  topic: >
+    Notebook v2 thread T02 / prompt A: Pryce's 1938 exact-Bose-commutation objection to a
+    fermion-pair composite photon, tested against F69/F169's own paired-photon construction.
+    Builds a^dagger = sum_p psi_k(p) b^dagger_{+,k/2+p} b^dagger_{-,k/2-p} on an exact
+    (brute-force, small-grid) fermionic Fock space using F169's own threshold wavefunction, plus
+    a closed-form identity for the two-composite-photon norm deficit and its L-scaling.
+  used:
+    398: findings/F398-pryce-composite-photon-commutator.md
+  status: released
+  released: 2026-09-23 - 18:20
+  release_note: >
+    RELEASED. F398 + CL310: exact identity ||(a^dagger)^2|0>||^2 = 2(1-sum psi^4) for the F69/F169
+    composite photon (verified against an independent brute-force Fock construction, 8.9e-16, two
+    grid sizes), and the deficit falls ~L^-2 with BZ grid resolution -- Pryce's 1938 objection is
+    real but vanishes toward the continuum limit for this construction. Closes correlation-queue
+    row NB-007's Pryce half. Mandatory attack-and-fix review (cold blind-derivation + adversarial-
+    referee subagents): CONFIRMED-NARROWER. Both results independently re-derived from scratch and
+    matched exactly (a third and fourth independent implementation of the identity; the -2 exponent
+    derived blind by pure power-counting). Review's central finding: the original single-point
+    (L=10,100) numerical demonstration was fragile -- a systematic neighbour scan found it passed
+    its declared band in only 12/30 nearby anchor pairs, with no auditable trail backing the
+    "verified clean" claim. Fixed in this same session (not deferred -- /finding's own step-7
+    attack-and-fix discipline): a resonance-robust lower-envelope estimator (deficit_robust_min /
+    bulk_robust_min, principled since a grid resonance can only add spurious weight, never remove
+    the generic contribution) replaces the raw single-point check, now stable across 30/30 nearby
+    anchor pairs, with a committed audit-trail script (tests/runners/pryce-commutator/
+    run_F398_robustness_scan.py) and the full per-L scan stored in the gate's own results JSON.
+    Also fixed: attribution to the standard composite-boson/coboson literature (Combescot et al.)
+    for the identity formula itself, narrowing the novelty claim to the grid-resolution-scaling
+    application. Flagged, not fixed (out of scope): a general casim test --param list/tuple-parsing
+    gap the review's perturbation-sweep attack surfaced -- background task task_dfcf1b1d.
+    make registry-gen, make can-fail, make control, casim index, make registry, make numerics,
+    module-registry coverage all re-verified clean. NEXT FREE NUMBER F399.
+- session: f73-coupling-to-fermions-2026-09-23
+  opened: 2026-09-23 - 18:35
+  sector: particles
+  topic: >
+    Notebook v2 prompt B: does the F73 Cooper-pair Higgs candidate have a natural construction
+    for coupling to (and decaying to) arbitrary SM fermion pairs, using the F74/F77 contact/NJL
+    binding machinery? Derives the scalar-fermion residue coupling g_sigma_qq via the same
+    standard NJL formula F77 already uses for g_pi_qq (Goldberger-Treiman), and asks whether the
+    model's Lagrangian structure gives ANY cross-species coupling term (the kappa-framework
+    universality question NB2-001 flagged as the actual remaining gap).
+  used:
+    399: findings/F399-composite-scalar-fermion-coupling.md
+  status: released
+  released: 2026-09-23 - 19:30
+  release_note: >
+    RELEASED. F399 + CL311: extracted g_sigma_qq = 1/sqrt(2 Nc Nf K(4M^2)) from F77's NJL
+    machinery (same residue formula as g_pi_qq/Goldberger-Treiman); K(4M^2) has an exact closed
+    form (4E_p^2-4M^2=4p^2 identically, not just as p->0); the scalar GT-type ratio is NOT
+    universal (81% spread vs the pion's exact constancy) -- a real, computable, but non-universal
+    coupling within one species. Proved species locality as an exact linear-algebra fact on a
+    2-flavour toy NJL model: the RPA propagator matrix stays exactly block-diagonal whenever the
+    cross-species contact G_ab=0, which this model supplies nowhere (NB2-001) -- closing
+    Notebook v2 prompt B. Mandatory attack-and-fix review (cold blind-derivation + adversarial-
+    referee subagents): CONFIRMED-NARROWER. Both results independently re-derived from scratch;
+    subagent A's blind derivation found a genuinely BETTER closed form for K(4M^2) than this
+    session's own quadrature-only original (4E_p^2-4M^2=4p^2 holds for ALL p, not just p->0) --
+    fixed in this same session, now machine precision (GT residual exactly 0.0) instead of
+    ~7e-6 quadrature error. Also fixed: the "independent reimplementation" framing overstated a
+    re-typed (not algorithmically different) gap-equation cross-check -- softened to state
+    precisely what's independent (the new closed-form-vs-quadrature leg) vs. what only catches
+    transcription error; and the species-locality leg's docstring/finding text now states it
+    verifies the linear-algebra consequence of an asserted (correct, standard) Wick-theorem fact,
+    not a from-scratch re-derivation of that fact. Neither fix changed any physics conclusion.
+    make registry-gen, make can-fail, make control, casim index, make registry, make numerics,
+    module-registry coverage all re-verified clean. NEXT FREE NUMBER F400.
+- session: bcc-vs-diamond-cubic-dimension-selector-2026-09-23
+  opened: 2026-09-23 - 20:10
+  sector: lattice
+  topic: >
+    Notebook v2 Prompt D: run the F291/F292/F313/F326/F377 dimension/coordination-number
+    selector machinery against a diamond-cubic (coordination-4) generator set instead of BCC's
+    (coordination-8), per docs/theory/notebook-v2/01-thread-map.md row T01/T10 and
+    index.md Prompt D. Question: does the model's own S1/S2/S3 selector exclude diamond-cubic,
+    or was a lower-coordination lattice ever a live alternative to BCC?
+  used:
+    400: findings/F400-bcc-vs-diamond-cubic-coordination-selector.md
+  status: released
+  released: 2026-09-23 - 21:20
+  release_note: >
+    RELEASED. F400 + CL312: F291/F292's S1/S2/S3 selectors take only a dimension d (confirmed by
+    inspecting their live function signatures) -- they cannot be rerun against a coordination-4
+    diamond-cubic generator set at all, having no lattice-type input anywhere. The real question
+    sits one level down: BCC's own quantum-walk generator tetrahedron (Paper 2 Eq. 20) is checked
+    to be vertex-for-vertex identical to diamond-cubic's own coordination-4 bond tetrahedron
+    (exact integer Gram-matrix match) -- the local bond geometry was never the discriminator.
+    What actually excludes diamond-cubic: it is not a Bravais lattice (checked exactly in
+    rational arithmetic -- (1/4,1/4,1/4), the vector connecting its two sublattices, is not an
+    FCC lattice vector, with a declared control confirming a genuine FCC vector does pass), so
+    it fails BDPT's own single-orbit (s=2, G=Z^3) premise before dimension-counting is reached --
+    it was never a competing candidate for F291/F292's selectors to choose between. Closes
+    notebook-v2 T01; T10's literature-comparison half (causal sets, Wolfram, Elze 2025) stays
+    open, narrowed to "none of the three shares the Bravais-coordination-number parameter this
+    result turns on." Mandatory attack-and-fix review (cold blind-derivation + adversarial-
+    referee subagents): CONFIRMED-NARROWER. Both central claims independently re-derived from
+    scratch and confirmed exact under multiple alternative conventions (origin shifts, an
+    alternative FCC primitive basis); one real defect found and fixed in-session (the finding's
+    own prose mis-transcribed the Gram-matrix formula as 3*delta_jk-1 with a fabricated "4-vs-3
+    convention" explanation for a discrepancy that never existed in the actual computed data --
+    corrected to the true 4*delta_jk-1, matching Paper 2 exactly); plus an honesty addition
+    naming that the underlying crystallography is standard, not newly discovered. No attack
+    produced a FAIL. A real-time numbering collision on the Notebook v2 ledger's ad-hoc ID (a
+    concurrent same-window pass working on Prompt C) was caught and resolved cooperatively via
+    docs/theory/notebook-v2/index.md's own numbering notes -- no F/CL number collision resulted.
+    casim index, module-registry check, claims check, and the lattice gate-tier suite (14/14
+    PASS including the new record and its control) all re-verified clean. NEXT FREE NUMBER F401.
+- session: photon-bound-state-finite-k-threshold-2026-09-23
+  opened: 2026-09-23 - 21:30
+  sector: gauge
+  topic: >
+    Notebook v2 Prompt E: repair the finite-k grid-threshold artifact in
+    photon_bound_state.py's critical_coupling/threshold_wavefunction (F169's own C2/C4-note,
+    docs/theory/notebook-followup-2026-09-22.md Part VI.3) by substituting the closed-form
+    T(k)=min(w+(k),w-(k)) and re-deriving g_c(k) at finite k -- a genuine physics change flagged
+    as needing its own finding and review pass.
+  used:
+    401: findings/F401-photon-bound-state-finite-k-threshold-repair.md
+  status: released
+  released: 2026-09-23 - 22:35
+  release_note: >
+    RELEASED. F401 + CL313: added threshold="closed" to critical_coupling/threshold_wavefunction
+    (default stays "grid", so F169's own artifact-diagnostic test is unaffected). Proved
+    symbolically that omega+(q,0,0) = omega-(q,0,0) = |q|/sqrt(3) exactly along any coordinate
+    axis -- sharper than F169/CL149's leading-order "vanishes on the coordinate planes"
+    statement -- so Omega_even(k) = T(k) exactly (all orders) on-axis, a genuine double-degenerate
+    floor. Mandatory attack-and-fix review (cold blind-derivation + adversarial-referee
+    subagents): CONFIRMED-NARROWER. Both core results independently re-derived by a different
+    route (direct engine dispersion calls for the axis identity; global numerical optimization
+    for the continuum floor, matching the closed form to ~1e-9). Two real overclaims found and
+    fixed in-session: (1) a denser 48-point L-scan broke the original "monotonic at every step"
+    claim (a real dip at L=92) -- narrowed to a quantified ~4x reduction in worst-case backslide
+    vs. the grid version (0.19 vs 0.76), not elimination; (2) (2,1,0) is a genuine counterexample
+    to "g_c(k) decreases with |k| along a generic direction" -- narrowed to the specific
+    (111)/(3,1,1) directions actually checked (confirmed monotonically decreasing there to
+    |k|=1.0). No attack overturned the axis identity, the k=0 control, or the direction-scoped
+    decreasing trend. Honest scope maintained throughout: this is the Koster-Slater floor
+    coupling, not the physical photon's own finite-k coupling (which per F168/F250 rides
+    Omega_even, above T(k) generically) -- that harder question stays open. casim index,
+    module-registry check, claims check, and casim test --id F401-photon-bound-state-finite-k
+    (5/5 PASS, control verified RED) all re-verified clean after the fix. NEXT FREE NUMBER F402.
+- session: ji-nucleon-mass-decomposition-2026-09-24
+  opened: 2026-09-24 - 09:00
+  sector: particles
+  topic: >
+    Notebook v2 NB2-004 open question 2: build the fuller (Ji-type) four-term nucleon-mass
+    decomposition (quark energy, quark mass, gluon field energy, trace anomaly) in the model's own
+    sectors -- NJL constituent nucleon (F77/F123), Cornell three-body string (F122) and the F144
+    alpha_s running -- and test which terms the model supports.
+  used:
+    402: findings/F402-ji-nucleon-mass-decomposition-model-support.md
+  status: released
+  released: 2026-09-24 - 10:50
+  release_note: >
+    RELEASED. F402 + CL314: built the Ji four-term nucleon-mass decomposition in the model's own
+    sectors via H_a=(M-H_m)/4, H_E=3(x_q M-H_m)/4, H_g=3 x_g M/4. SUPPORTED: NJL sigma_N=46.2 MeV
+    (exact Feynman-Hellmann; -2.3/-3.7 sigma vs FLAG/Hoferichter, reference-dependent) and, structurally,
+    the trace sector. NOT SUPPORTED: the H_E/H_g split (model gluon momentum fraction 0.18-0.25 vs
+    lattice 0.43-0.49, 2.0-2.9 sigma low; a statement about the non-derived x_g=0 start at Lam_NJL);
+    NR Cornell mass term negative at the F122 baseline; NJL anomaly-analogue is an Euler identity.
+    NOT BUILT: operator-level <N|F^2|N>. Attack-and-fix review CONFIRMED-NARROWER (one FAIL fixed:
+    second lattice target). Also fixed F401's direct numpy import (D8 ratchet). Noticed, not fixed:
+    F399 module has 3 unregistered NJL literals (D7 gate). NEXT FREE NUMBER F403.
+- session: quark-neutrino-hierarchy-research-2026-09-24
+  opened: 2026-09-24 - 10:20
+  sector: particles
+  topic: >
+    Deep literature research (no findings yet): which quark and neutrino mass-hierarchy and
+    CKM/PMNS mechanisms could fit the model's O_h / T1u / E_g crystal-field generation structure
+    (F75/F76/F84/F175/F236/F347). Output is a research report, not a finding.
+  used: {}
+  status: released
+  released: 2026-09-24 - 10:55
+  release_note: >
+    RELEASED, no numbers spent. Report at reports/Quark neutrino hierarchy lattice fit.md (notes in
+    research_notes/). Candidate follow-ups: O_h residual-symmetry no-go for PMNS with cube-axis-diagonal
+    charged leptons; E_g-vs-[111]-circulant reading of delta*; pseudo-mass quark Koide; F236 refit to NuFIT 6.x.
+- session: oh-residual-pmns-and-pseudomass-fork-2026-09-24
+  opened: 2026-09-24 - 11:00
+  sector: particles
+  topic: >
+    (1) Exact sympy enumeration of O_h residual symmetries (unitary + generalised CP) for PMNS in the
+    cube-axis (E_g) vs [111]-trimaximal charged-lepton frame; (2) Koide pseudo-mass (Gerard/Zenczykowski)
+    quark route as a forks/particles test fork -- viability and what breaks.
+  used:
+    403: findings/F403-oh-residual-symmetry-pmns-no-go.md
+    404: findings/F404-koide-pseudomass-quark-fork.md
+  status: released
+  released: 2026-09-24 - 15:40
+  release_note: >
+    RELEASED. F403 (O_h residual symmetry vs PMNS) extended to an explicit sympy enumeration of all
+    98 O_h subgroups (legs S1-S4, record 15/15, controls re-verified): admissible iff elementary
+    abelian 2; cube-axis and face-diagonal frames no-go; trimaximal frame opens TM1/TM2 single-column
+    only; the BCC [111] directions give no orthonormal frame. F404 reviewed CONFIRMED-NARROWER and fixed
+    (P4a penalty artifact 1.9e-3 -> 2.1e-2 at CKM held; signed route fits only in a delta band; new
+    koide_weight control). Report "Quark neutrino hierarchy lattice fit.md" derivation one annotated.
+    Gate still red on checks NOT from this session: F399 NJL literals (D7), F402 import-time/legacy
+    test, F169 supersession banners, F350/F387 unsound controls, F400-F402 unverified controls.
+- session: f95-B-quark-colour-charge-2026-09-24
+  opened: 2026-09-24 - 14:50
+  sector: particles
+  topic: >
+    Report derivation four (reports/Quark neutrino hierarchy lattice fit.md): compute F95's cubic
+    coefficient B (Dirac-sea loop) with quark colour and charge factors; test whether the Koide
+    equipartition point shifts to k^2 ~ 1.55 (up) / 1.19 (down), or is sector-blind (fail).
+  used:
+    405: findings/F405-quark-B-colour-charge-koide-shift-no-go.md
+  status: released
+  released: 2026-09-24 - 16:10
+  release_note: >
+    RELEASED. F405 (gate record F405-quark-B-colour-charge, 11/11 PASS, both controls journalled RED):
+    report derivation four is a clean fail. B_q = N_c k^3 B_lepton, but B only sets the E_g angle and
+    Koide Q=(1+k^2)/3 is angle-blind; identity-class (generation-scalar) colour/charge dressing cannot
+    move k; the loop prefers k^2~1.9; a finite-stiffness selector is excluded by lepton Koide (needs
+    >4.6e3 x weight). Open: A1g/Eg-differential stiffness, family charges, unitarity-cap amplitude
+    route (L3). eps_U/eps_D=3.88 vs 4 is a coincidence candidate for derivation seven. Attack pass
+    CONFIRMED-NARROWER, fixes applied. m_tau updated to PDG 2024 in the new module only. Gate red on
+    checks not from this session: F399 constant literals, F169 supersession banners, F392 entry,
+    F402 import-time work, two NOT-SOUND controls (other records).
+- session: lepton-frame-fork-energetics-2026-09-24
+  opened: 2026-09-24 - 15:10
+  sector: particles
+  topic: >
+    Flavour report next-derivation #2: decide the picture (a) E_g-diagonal vs (b) [111]-trimaximal
+    circulant charged-lepton condensate energetically -- extend the F118 Landau functional with
+    T2g[111]/T1g[111] order parameters and find the ground state at the F118 couplings.
+  used:
+    406: findings/F406-lepton-frame-fork-energetics.md
+  status: released
+  released: 2026-09-24 - 15:50
+  release_note: >
+    RELEASED. F406 + CL317: the (a)/(b) lepton-frame fork. Read spectrally, F118 and the
+    generation-covariant 3-gen BCC Dirac sea tie exactly. Read per axis (F118's own E_g-channel
+    reading), F118 picks (a): E(b)-E(a)=+0.27, alpha=beta=-kappa_E=2.16. The [111] reading is three
+    O_h x T-inequivalent circulants (tau/e/mu on (1,1,1)): TM1 needs the e-branch, the delta*-as-
+    T1g/T2g reading is the tau-branch. The exact quadratic crystal-field phase diagram never selects
+    either and gives (a) iff alpha,beta>0. Verdict: (a) conditional on a stiff off-diagonal crystal
+    field; decision 7 stands; TM1 not a model prediction. Review CONFIRMED-NARROWER (scope fixed
+    in place). Gate: F406 record + 3 controls clean; remaining gate reds are other sessions'
+    (F399 literals, F402 import-time, F169/F392 supersession, legacy-script ratchet, CL316->F407 path).
+    NEXT FREE NUMBER after F407 per casim index.
+- session: pseudomass-minimal-quark-fit-2026-09-24
+  opened: 2026-09-24 - 16:10
+  sector: particles
+  topic: >
+    Report derivation three (reports/Quark neutrino hierarchy lattice fit.md): the pseudo-mass quark
+    fit per sector in the report's MINIMAL ansatz (A1g+E_g at k=1, three T2g + one T1g phase), masses
+    and CKM both fitted with errors in mixed and M_Z schemes; parameter count vs 10 observables; GST
+    emergence; m_s pull. Extends F404 (general-Hermitian fork) without editing it.
+  used:
+    407: findings/F407-koide-pseudomass-minimal-quark-fit.md
+  status: open
+- session: cc-sign-split-a0-a1-2026-09-27
+  opened: 2026-09-27 - 11:22
+  sector: interactions
+  topic: >
+    K9/G1 cosmological constant: test the a0/a1 sign split of the all-fermion heat-kernel sum
+    (a0<0 per F164, a1>0 per F61), show F193 section B (a0 diluted) and F196 (a1/L^2) differ in
+    sign, show the F183 capacity ceiling cannot act on a negative a0, withdraw F193 section B's
+    Part-A-inherited sign reasoning, restate G1 as a0 removal (sequestering) + positive a1 horizon
+    term + Omega_Lambda.
+  used:
+    408: findings/F408-cc-a0-a1-sign-split.md
+  status: released
+  released: 2026-09-27 - 17:10
+  release_note: >
+    F408 built, attacked (CONFIRMED-NARROWER) and green: 13/13 legs, 5/5 controls CONTROL.
+    CL021/CL303 amended, G1 restated, paper summary updated. Closed out by a follow-up
+    session: supersession S25 entered (F193 partial, F196 sub-claim), banners stamped,
+    G3/G1 rows and CL021/CL303/CL310 front matter brought in line; make citations green.
+- session: model-map-defect-sweep-2026-09-29
+  opened: 2026-09-29 - 10:00
+  sector: cross-sector (defect sweep)
+  topic: >
+    Fix the 20 priority defects surfaced by the equation-level model map
+    (docs/theory/model-map/99-flags.md): Metropolis stale staples, Dirac variable-mass
+    sign, Momentum observer on colour-stacked spinors, EM source sign (Ampère −g·J, user
+    decision), F91 propagator laws in code (chiral massive W / beta-decay W, Z axial
+    split, user decision), fork rest-leg rate and F64 D-EM1 (user decision), import-time
+    JSON writes, bracket midpoints, literals, SI tick convention, benchmark side effects.
+    Bug fixes, not new derivations; result drift is re-run and recorded.
+  used: {}
+  status: open

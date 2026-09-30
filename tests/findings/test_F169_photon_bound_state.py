@@ -50,6 +50,36 @@ RESULT = os.path.join(
 ROOT3 = np.sqrt(3.0)
 
 
+def _pattern_min(k, step0=0.35, tol=1e-14):
+    """Deterministic coordinate pattern search for min_p E0(p; k).
+
+    Cross-check only: confirms the closed-form collinear-endpoint threshold is
+    the true floor, without relying on a stochastic search.  Starts from the
+    symmetric split and both collinear endpoints.
+    """
+    from casim.engine.lattice.bcc import bcc_dispersion as _wd
+
+    def E0(p):
+        return float(_wd(*(k / 2 + p), sign="+") + _wd(*(k / 2 - p), sign="-"))
+
+    best, bp = np.inf, None
+    for s0 in (np.zeros(3), k / 2, -k / 2):
+        p = np.array(s0, float); e = E0(p); st = step0
+        while st > tol:
+            moved = False
+            for ax in range(3):
+                for sg in (1, -1):
+                    q = p.copy(); q[ax] += sg * st
+                    ec = E0(q)
+                    if ec < e - 1e-17:
+                        e, p, moved = ec, q, True
+            if not moved:
+                st *= 0.5
+        if e < best:
+            best, bp = e, p
+    return best
+
+
 def main():
     L = 12
     out = {}
@@ -70,24 +100,40 @@ def main():
                  "g_c": g_c, "pass": np.isfinite(g_c) and g_c > 0}
 
     # --- C3: massless + luminal; Omega_even is the leading small-k threshold --
+    # Corrected 2026-09-22: T(k) is the CLOSED FORM min(w+(k), w-(k)) (collinear
+    # endpoint), not a stochastic search; and the offset has the closed form
+    # |eps(k)| = |kx ky kz| / (3|k|)  (F397 R6).  The original stochastic search
+    # under-converged at small |k| and contaminated the quoted exponent 2.10.
     rows = []
-    ks = np.array([0.05, 0.1, 0.2, 0.4])
-    gaps = []
+    ks = np.array([0.0125, 0.025, 0.05, 0.1, 0.2, 0.4])
+    gaps, ratios = [], []
     for kk in ks:
         k = np.array([1, 1, 1.0]) / ROOT3 * kk
-        T = bs.true_threshold(k)
+        T = bs.true_threshold(k)                       # closed form
         Oe = bs.omega_even(k)
+        eps = bs.threshold_offset_closed_form(k)
         gaps.append(Oe - T)
+        ratios.append((Oe - T) / eps)
         rows.append({"|k|": float(kk), "T_true(k)": T, "Omega_even": Oe,
-                     "Omega_even_minus_T": Oe - T, "slope": Oe / kk})
-    gaps = np.array(gaps)
-    gap_exponent = float(np.polyfit(np.log(ks), np.log(gaps), 1)[0])
-    out["C3"] = {"rows": rows, "slope_small_k": rows[0]["slope"],
+                     "Omega_even_minus_T": Oe - T, "eps_closed_form": eps,
+                     "ratio_to_eps": (Oe - T) / eps, "slope": Oe / kk})
+    gaps = np.array(gaps); ratios = np.array(ratios)
+    # exponent on the small-k half, where the O(k^3) correction is negligible
+    gap_exponent = float(np.polyfit(np.log(ks[:4]), np.log(gaps[:4]), 1)[0])
+    # the closed-form endpoint must reproduce a deterministic pattern search
+    k_chk = np.array([1, 1, 1.0]) / ROOT3 * 0.2
+    pat = _pattern_min(k_chk)
+    endpoint_residual = abs(bs.true_threshold(k_chk) - pat)
+    out["C3"] = {"rows": rows, "slope_small_k": rows[-1]["slope"],
                  "Omega_even_minus_T_exponent": gap_exponent,
+                 "ratio_to_eps_smallest_k": float(ratios[0]),
+                 "endpoint_vs_pattern_search": float(endpoint_residual),
                  "all_gaps_nonneg": bool(np.all(gaps >= -1e-12)),
-                 "pass": (abs(rows[0]["slope"] - 1.0 / ROOT3) < 1e-4
+                 "pass": (abs(rows[0]["slope"] - 1.0 / ROOT3) < 1e-3
                           and np.all(gaps >= -1e-12)
-                          and 1.7 < gap_exponent < 2.3)}
+                          and 1.98 < gap_exponent < 2.05
+                          and abs(ratios[0] - 1.0) < 0.01
+                          and endpoint_residual < 1e-7)}
 
     # --- C4: two-method agreement at finite k (clean gap) -------------------
     k = np.array([1, 1, 1.0]) / ROOT3 * 0.4
@@ -95,10 +141,28 @@ def main():
     g = 1.5 * g_loc
     Eb_sec = bs.bound_state_secular(k, L, g)
     Eb_dense, _ = bs.bound_state_dense(k, L, g)
+    # Diagnostic added 2026-09-22.  critical_coupling takes T = E.min() on the
+    # L^3 relative grid.  At finite k the true floor is at the collinear
+    # endpoint p = +-k/2, generally not a grid point, so the grid T is an
+    # artifact: it lies somewhere between the closed-form floor and
+    # Omega_even(k), non-monotonically in L.  `offset_fraction_missed` is 0
+    # when the grid finds the floor and 1 when it misses the whole offset.
+    # This does NOT affect C4's conclusion -- C4 compares two diagonalisations
+    # of the SAME H, and T only sets the arbitrary scale g = 1.5*g_loc -- nor
+    # C1/C2/C5/C6, which are all at k = 0, where the floor IS p = 0 and T = 0
+    # exactly.  Measured here so it is visible rather than silent.
+    # See F169 "C2/C4-note".
+    T_closed = bs.threshold_closed_form(k)
+    offset = bs.omega_even(k) - T_closed
     out["C4"] = {"Eb_secular": Eb_sec, "Eb_dense": Eb_dense,
                  "diff": abs(Eb_sec - Eb_dense),
                  "below_threshold": Eb_sec < T,
-                 "pass": abs(Eb_sec - Eb_dense) < 1e-9 and Eb_sec < T}
+                 "T_grid": T, "T_closed_form": T_closed,
+                 "T_grid_minus_T_closed": T - T_closed,
+                 "offset_fraction_missed": (T - T_closed) / offset,
+                 "grid_never_below_closed_form": bool(T >= T_closed - 1e-14),
+                 "pass": (abs(Eb_sec - Eb_dense) < 1e-9 and Eb_sec < T
+                          and T >= T_closed - 1e-14)}
 
     # --- C5: masslessness inherited from gapless constituents ---------------
     _, T_at_0 = bs.critical_coupling([0, 0, 0], L)

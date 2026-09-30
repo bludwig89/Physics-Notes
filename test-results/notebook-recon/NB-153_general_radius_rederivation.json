@@ -1,0 +1,41 @@
+{
+  "NB-153_intersection_and_t": {
+    "claim": "sphere/line intersection gives 2r/t = r^2+alpha^2+beta^2, i.e. t = 2r/(r^2+alpha^2+beta^2)",
+    "true_nonzero_t_solution": "2*r**2/(alpha**2 + beta**2 + r**2)",
+    "matches_notebooks_stated_t=2r/(r^2+alpha^2+beta^2)": false,
+    "matches_corrected_t=2r^2/(r^2+alpha^2+beta^2)": true,
+    "dimensional_check": "t is a dimensionless line parameter (0 at the pole, 1 at the plane point). If alpha,beta,r all carry units of length, t=2r/(r^2+alpha^2+beta^2) has units of 1/length -- dimensionally WRONG for a dimensionless parameter. t=2r^2/(r^2+alpha^2+beta^2) is correctly dimensionless. This is confirmed by direct algebraic solution, not just a dimensional-analysis guess.",
+    "verdict": "INCORRECT (as transcribed) / SOLID-WITH-CORRECTION -- missing a factor of r; should be t=2r^2/(r^2+alpha^2+beta^2), not 2r/(...)"
+  },
+  "NB-153_xyz_formulas": {
+    "claim": "x = r^2(eta+eta*)/(r^2+eta eta*), y = -i r^2(eta-eta*)/(r^2+eta eta*), z = r(eta eta*-r^2)/(r^2+eta eta*)",
+    "using_the_CORRECTED_t=2r^2/(r^2+alpha^2+beta^2)": {
+      "x_matches": true,
+      "y_matches": true,
+      "z_matches": true
+    },
+    "verdict": "SOLID",
+    "note": "All three formulas are exactly correct PROVIDED the corrected t=2r^2/(...) is used -- i.e. these formulas are actually self-consistent with the CORRECT t, not with the notebook's own literally-stated (dimensionally-wrong) 2r/(...) -- so whoever derived x,y,z here evidently used the right t even though the boxed line above it has the typo."
+  },
+  "NB-153_inverse_and_r_independence": {
+    "claim": "eta=(x+iy)/(r-z) inverts the projection and 'is independent of r'",
+    "inverse_equals_eta_itself": false,
+    "inverse_actually_equals_eta_over_r": true,
+    "invariant_under_overall_rescaling_(alpha,beta,r)->(lam*alpha,lam*beta,lam*r)": true,
+    "interpretation": "(x+iy)/(r-z) evaluates EXACTLY to eta/r, not eta itself -- confirmed by direct symbolic substitution using the corrected t. Read as a literal claim that this formula recovers the plane coordinate eta=alpha+i*beta, it is off by a factor of r. But this is very likely not an error at all: the very next sentence on the page IS the claim 'this formula is independent of r' -- and eta/r (not eta) is exactly the quantity that has that property (confirmed here: eta itself scales linearly with an overall rescaling of the whole configuration, while eta/r does not, since both eta and r scale together and cancel). This matches the chapter's own central thesis ('a spinor is a direction without a magnitude') exactly: eta/r is precisely the scale-free, magnitude-stripped direction coordinate the whole section is building toward, and the page's own phrasing is best read as quietly building that normalization into what it calls 'eta' at this point, not as a dropped factor of r.",
+    "verdict": "SOLID (once 'eta' at this specific step is read as the scale-normalized eta/r, exactly matching the section's own 'independent of r' claim and its broader direction-without-magnitude thesis)"
+  },
+  "NB-153_inverse_projection_subsection": {
+    "claim_30a_c": "xc,yc,zc (30a-c) are the SAME forward stereographic formula as x_true,y_true,z_true, just with (alpha,beta)->(x0,y0)",
+    "30a_matches": true,
+    "30b_matches": true,
+    "30c_matches": true,
+    "claim_32": "setting y0=0, xc*x0^2 - 2r^2*x0 + xc*r^2 = 0",
+    "eq32_rederived_directly_from_30a_at_y0=0": true,
+    "claim_33": "x0^+- = (r/xc)(r +- sqrt(r^2-xc^2))",
+    "eq33_matches_direct_quadratic_solution": true,
+    "claim_37": "x0+ * x0- = r^2",
+    "eq37_verified": true,
+    "verdict": "SOLID (30a-c, 32, 33, 37 all confirmed exactly, once (30a-c) are recognized as the same forward-projection formula from earlier in the build, just relabeled for the inverse-projection subsection)"
+  }
+}

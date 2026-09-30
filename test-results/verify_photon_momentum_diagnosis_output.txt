@@ -1,0 +1,84 @@
+==============================================================================================
+DEFECT 1 -- build_beam_packet carries EXACTLY ZERO field momentum
+==============================================================================================
+
+1a.  The beam helper F390 uses.  E and B occupy the SAME Cartesian component,
+     so E || B pointwise and E x B vanishes identically.
+      axis pol  m   max|ExB| pointwise   |sum ExB|     field energy
+       0    1   2   0.000e+00            0.000e+00     12.2577
+       0    1   4   0.000e+00            0.000e+00     12.2577
+       1    2   2   0.000e+00            0.000e+00     12.2577
+       1    2   4   0.000e+00            0.000e+00     12.2577
+       2    0   2   0.000e+00            0.000e+00     12.2577
+       2    0   4   0.000e+00            0.000e+00     12.2577
+
+1b.  After the Chat-transverse projection F388/F390 apply before injection,
+     the field momentum is still only machine noise:
+      axis  m   |sum ExB| after projection   cos(P, khat)
+       0    2   1.3566e-15                  +0.006966
+       0    4   1.1390e-16                  -0.019891
+       1    2   7.2478e-17                  -0.018989
+       1    4   4.9296e-16                  -0.005138
+       2    2   1.7764e-15                  +0.004970
+       2    4   8.8819e-16                  +0.004158
+
+1c.  PROPOSED FIX -- a genuine null Riemann-Silberstein beam: complex circular
+     polarization e = (e1 + i e2)/sqrt(2), so F.F = 0, i.e. E _|_ B and |E| = |B|.
+      axis  m   |sum ExB|   cos(P,khat)   E.B/(|E||B|)   |E_L|/|E| (Chat-leak)
+       0    2   75.1260    +1.000000      +1.77e-17       0.2741
+       0    4   75.1260    +1.000000      +2.63e-33       0.1395
+       1    2   75.1260    +1.000000      -2.72e-18       0.2741
+       1    4   75.1260    +1.000000      -2.05e-34       0.1395
+       2    2   75.1260    +1.000000      +9.86e-19       0.2741
+       2    4   75.1260    +1.000000      +2.05e-35       0.1395
+
+1d.  Is the fixed beam's momentum conserved by casim's OWN free propagator?
+       build_pair_mode k=(1,1,1)    |P0|=0.000488  |P40|=0.000488  rel drift 9.735e-15
+       RS-null beam axis=0 m=2      |P0|=75.125961  |P40|=75.125961  rel drift 4.351e-15
+       RS-null beam axis=1 m=2      |P0|=75.125961  |P40|=75.125961  rel drift 4.162e-15
+
+==============================================================================================
+DEFECT 2 -- bcc_curl_symbol is not the symbol of a curl
+==============================================================================================
+
+2a.  Direction.  A curl's symbol points along k.  This one does not.
+       cos(C, k)       min -1.000000000   max 1.000000000
+       modes with cos(C,k) < 0.99 :  3864 of 4088
+     The k->0 limit is C ~ R.k with R = diag(1,-1,1), inherited from
+     bcc_spin_axis's y-sign flip (the Bisio walk's chirality convention).
+     That reflection reproduces all three angles F387 measured:
+       angle(R.k, k) on cubic axis (1,0,0)   = 0.000000 deg
+       angle(R.k, k) on face diag (1,1,0)    = 90.000000 deg
+       angle(R.k, k) on body diag (1,1,1)    = 70.528779 deg
+
+2b.  THE DEFINING IDENTITY OF A CURL:  curl(grad phi) = 0, i.e. C x G = 0.
+       |C x G| / (|C||G|)  with spectral   G = k           :  max 1.000000   mean 0.741692
+       |C x G| / (|C||G|)  with fwd-diff   G_j = e^{ik_j}-1 :  max 1.000000   mean 0.707173
+       control, a TRUE curl symbol C = k                         :  max 0.000e+00
+
+     The identity the codebase cites as its sanity check, C.(C x x) == 0, is
+     VACUOUS -- it holds for every vector field whatsoever, so it carries no
+     information about whether C is a curl.  The no-monopole gate i.Chat.B = 0
+     tests exactly that vacuous identity.  The one that fails was never tested.
+
+2c.  On the coordinate axes the reflection is exact at EVERY grid mode,
+     which is the direct mechanism of F390's axis-dependent sign inversion:
+       axis   m    Chat . khat      Chat
+        0     1    +1.000000000    [1. 0. 0.]
+        0     2    +1.000000000    [1. 0. 0.]
+        0     3    +1.000000000    [1. 0. 0.]
+        0     4    +1.000000000    [1. 0. 0.]
+        1     1    -1.000000000    [ 0. -1.  0.]
+        1     2    -1.000000000    [ 0. -1.  0.]
+        1     3    -1.000000000    [ 0. -1.  0.]
+        1     4    -1.000000000    [ 0. -1.  0.]
+        2     1    +1.000000000    [0. 0. 1.]
+        2     2    +1.000000000    [0. 0. 1.]
+        2     3    +1.000000000    [0. 0. 1.]
+        2     4    +1.000000000    [0. 0. 1.]
+
+     Chat = +khat on x and z, but Chat = -khat on y, at every m.  A y-propagating
+     beam therefore has its rotation generator exactly reversed.  Note also that
+     build_beam_packet's default pol_axis = (axis+1)%3 puts each of F390's three
+     beams in a DIFFERENT relation to the reflected (y) axis: axis=0 has the
+     polarization on y, axis=1 has the propagation on y, axis=2 has neither.

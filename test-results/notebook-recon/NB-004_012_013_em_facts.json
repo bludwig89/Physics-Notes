@@ -1,0 +1,17 @@
+{
+  "NB-004": {
+    "photon_field_strength_F_munu_is_antisymmetric": true,
+    "graviton_perturbation_h_munu_symmetric_by_metric_definition": true,
+    "note": "Standard QFT representation-theory fact, not a notebook derivation: photon = antisymmetric rank-2 (2-form) field strength from a spin-1 vector potential; graviton = symmetric rank-2 tensor perturbation of the metric (spin-2). Both verified structurally above."
+  },
+  "NB-012": {
+    "L_EM_from_F_munu_F^munu_over_16pi_matches_E2_minus_B2_over_8pi": true,
+    "energy_density_formula": "xi = (1/8pi)(E^2+B^2) -- standard Jackson Ch.6 result (T^00 of the EM stress tensor); matches the notebook's p.10 formula exactly in Gaussian units."
+  },
+  "NB-013": {
+    "self_energy_integral_INT_E2_dV": "4*pi*q**2/r0",
+    "matches_notebook_form_4pi_q2_over_r0": true,
+    "limit_as_r0_to_0": "oo",
+    "diverges": true
+  }
+}

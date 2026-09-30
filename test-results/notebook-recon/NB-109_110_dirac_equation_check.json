@@ -1,0 +1,17 @@
+{
+  "psi_z_2plus_(particle,_gamma.k-m)": {
+    "residual_norm_with_k3=+sqrt(k0^2-m^2)": 0.0,
+    "residual_norm_with_k3=-sqrt(k0^2-m^2)": 0.0,
+    "solves_dirac_eq_for_either_sign_of_k3": true
+  },
+  "psi_z_1minus_(antiparticle,_gamma.k+m)": {
+    "residual_norm_with_k3=+sqrt(k0^2-m^2)": 0.0,
+    "residual_norm_with_k3=-sqrt(k0^2-m^2)": 0.0,
+    "solves_dirac_eq_for_either_sign_of_k3": true
+  },
+  "psi_z_2minus_(antiparticle,_gamma.k+m)": {
+    "residual_norm_with_k3=+sqrt(k0^2-m^2)": 0.0,
+    "residual_norm_with_k3=-sqrt(k0^2-m^2)": 0.0,
+    "solves_dirac_eq_for_either_sign_of_k3": true
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "name": "photon_fermion_push",
+  "title": "Photon-Fermion Push",
+  "description": "Stage 5 of the photon-fermion-coupling roadmap: a genuine transverse beam packet pushes a localized Weyl packet at rest, with F389's radiative current letting the fermion's own recoil source real field momentum back. Momentum conservation is not exact (a structural F389 prediction), but field and matter momentum changes are measured to be nearly anti-parallel.",
+  "seed": 0,
+  "ticks": 20,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "bcc",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "em_photon": {
+      "name": "em_photon",
+      "type": "em_photon",
+      "label": "EM Photon",
+      "propagator": "even",
+      "topologies": [
+        "bcc"
+      ]
+    },
+    "fermion_em": {
+      "name": "fermion_em",
+      "type": "fermion_em",
+      "label": "Fermion EM",
+      "propagator": "per-link",
+      "topologies": [
+        "bcc"
+      ]
+    }
+  },
+  "observers": {
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "fermion_em": {
+              "energy": 1.0000000000000002,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "fermion_em": {
+              "energy": 0.9963500771471148,
+              "rel_drift": 0.0036499228528854557
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "fermion_em": {
+              "energy": 0.9921796183393126,
+              "rel_drift": 0.007820381660687657
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "fermion_em": {
+              "energy": 0.9898890689486315,
+              "rel_drift": 0.01011093105136873
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "fermion_em": {
+              "energy": 0.9890671177330946,
+              "rel_drift": 0.010932882266905584
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "fermion_em": 0.010932882266905584
+        }
+      }
+    },
+    "energy_trace": {
+      "type": "energy_trace",
+      "label": "Energy Trace",
+      "exactness": "quantitative",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "energy": {
+            "em_photon": 1.563311918307087,
+            "fermion_em": 1.0000000000000002
+          }
+        },
+        {
+          "tick": 5,
+          "energy": {
+            "em_photon": 1.5640479558886613,
+            "fermion_em": 0.9963500771471148
+          }
+        },
+        {
+          "tick": 10,
+          "energy": {
+            "em_photon": 1.5692572353174654,
+            "fermion_em": 0.9921796183393126
+          }
+        },
+        {
+          "tick": 15,
+          "energy": {
+            "em_photon": 1.5731482663489937,
+            "fermion_em": 0.9898890689486315
+          }
+        },
+        {
+          "tick": 20,
+          "energy": {
+            "em_photon": 1.5746472463176424,
+            "fermion_em": 0.9890671177330946
+          }
+        }
+      ],
+      "summary": {}
+    },
+    "momentum": {
+      "type": "momentum",
+      "label": "Momentum",
+      "exactness": "exact",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "em_photon": {
+              "P_field": [
+                5.565489879943658e-19,
+                -3.4505870821681293e-19,
+                -1.6556565153402897e-17
+              ],
+              "rel_drift": 0.0
+            },
+            "fermion_em": {
+              "P_matter": [
+                -9.368897324613101e-10,
+                -9.368896642538418e-10,
+                -9.368896864409414e-10
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "em_photon": {
+              "P_field": [
+                -0.04833179937029275,
+                -0.00042118723199917427,
+                -0.000965836575992058
+              ],
+              "rel_drift": 2917604900351173.5
+            },
+            "fermion_em": {
+              "P_matter": [
+                0.04717806049170847,
+                -0.000865788644276836,
+                0.00401165728154845
+              ],
+              "rel_drift": 29182871.79331977
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "em_photon": {
+              "P_field": [
+                -0.03571924311330121,
+                -0.0017273689592855017,
+                -0.0009565771493413572
+              ],
+              "rel_drift": 2159012408513477.0
+            },
+            "fermion_em": {
+              "P_matter": [
+                0.03473136177219148,
+                -0.0037164687313681046,
+                0.004791788488261306
+              ],
+              "rel_drift": 21726692.91588626
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "em_photon": {
+              "P_field": [
+                -0.030728282126656348,
+                -0.0020155581011307515,
+                0.00034325695126941486
+              ],
+              "rel_drift": 1858608213793276.5
+            },
+            "fermion_em": {
+              "P_matter": [
+                0.027060633284965413,
+                -0.004289233013698525,
+                0.0018373370293564258
+              ],
+              "rel_drift": 16921986.416407093
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "em_photon": {
+              "P_field": [
+                -0.03679343769291454,
+                -0.0017308620984344322,
+                0.0005288741585160512
+              ],
+              "rel_drift": 2223235571473045.0
+            },
+            "fermion_em": {
+              "P_matter": [
+                0.04061767758980356,
+                -0.0037528234117886142,
+                0.0018102870629297992
+              ],
+              "rel_drift": 25161649.740127925
+            }
+          }
+        }
+      ],
+      "summary": {
+        "em_photon": {
+          "P_field": {
+            "P0": [
+              5.565489879943658e-19,
+              -3.4505870821681293e-19,
+              -1.6556565153402897e-17
+            ],
+            "Pf": [
+              -0.03679343769291454,
+              -0.0017308620984344322,
+              0.0005288741585160512
+            ],
+            "delta": [
+              -0.03679343769291454,
+              -0.0017308620984344317,
+              0.0005288741585160678
+            ],
+            "delta_mag": 0.03683792405581139
+          }
+        },
+        "fermion_em": {
+          "P_matter": {
+            "P0": [
+              -9.368897324613101e-10,
+              -9.368896642538418e-10,
+              -9.368896864409414e-10
+            ],
+            "Pf": [
+              0.04061767758980356,
+              -0.0037528234117886142,
+              0.0018102870629297992
+            ],
+            "delta": [
+              0.04061767852669329,
+              -0.00375282247489895,
+              0.0018102879998194857
+            ],
+            "delta_mag": 0.0408308293825658
+          }
+        },
+        "P_total": {
+          "P0": [
+            -9.36889731904761e-10,
+            -9.368896645989007e-10,
+            -9.368897029975065e-10
+          ],
+          "Pf": [
+            0.0038242398968890146,
+            -0.005483685510223046,
+            0.0023391612214458506
+          ],
+          "delta": [
+            0.0038242408337787466,
+            -0.005483684573333382,
+            0.0023391621583355535
+          ],
+          "delta_mag": 0.00708288740963347
+        }
+      }
+    }
+  },
+  "clock": {
+    "dt": 1.0,
+    "mode": "auto",
+    "resolved_mode": "strict",
+    "tick": 20,
+    "time": 20.0,
+    "synchronous": true,
+    "channels": {
+      "em_photon": {
+        "name": "em_photon",
+        "type": "em_photon",
+        "dt_native": 1.0,
+        "dt_max": null,
+        "subcyclable": true,
+        "n_sub": 1,
+        "dt_effective": 1.0,
+        "desynchronised": false
+      },
+      "fermion_em": {
+        "name": "fermion_em",
+        "type": "fermion_em",
+        "dt_native": 1.0,
+        "dt_max": null,
+        "subcyclable": true,
+        "n_sub": 1,
+        "dt_effective": 1.0,
+        "desynchronised": false
+      }
+    },
+    "desynchronised": []
+  },
+  "bus": {
+    "order": [
+      "em_photon",
+      "fermion_em"
+    ],
+    "provides": {
+      "em_photon": [
+        "em_photon"
+      ],
+      "fermion_em": [
+        "fermion_em"
+      ]
+    },
+    "consumes": {
+      "em_photon": [
+        "fermion_em"
+      ],
+      "fermion_em": [
+        "em_photon"
+      ]
+    },
+    "edges": {
+      "em_photon": [
+        "fermion_em"
+      ],
+      "fermion_em": [
+        "em_photon"
+      ]
+    },
+    "cycles": [
+      [
+        "em_photon",
+        "fermion_em"
+      ]
+    ],
+    "cycle_scheme": "gauss_seidel",
+    "acyclic": false,
+    "order_mode": "auto",
+    "applied_order": [
+      "em_photon",
+      "fermion_em"
+    ],
+    "order_violations": [],
+    "unresolved": []
+  }
+}

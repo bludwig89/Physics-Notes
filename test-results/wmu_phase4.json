@@ -3,14 +3,14 @@
   "results": [
     {
       "test": "W4.1",
-      "residual": 1.909796814253127e-17,
+      "residual": 1.7940188216825996e-17,
       "target": 1e-14,
       "passed": true,
-      "description": "SU(2)_L Ward identity: full step (const V): 1.91e-17"
+      "description": "SU(2)_L Ward identity: full step (const V): 1.79e-17"
     },
     {
       "test": "W4.2",
-      "residual": 1.7133859789715347e-17,
+      "residual": 1.0280315873829207e-17,
       "target": 1e-13,
       "Q_before": [
         -0.0023482228901763524,
@@ -19,11 +19,11 @@
       ],
       "Q_after": [
         -0.0023482228901763463,
-        -0.012453409370187733,
-        -0.001282723763264122
+        -0.01245340937018774,
+        -0.0012827237632641233
       ],
       "passed": true,
-      "description": "Isospin charges conserved (g=0, identity links): 1.71e-17"
+      "description": "Isospin charges conserved (g=0, identity links): 1.03e-17"
     },
     {
       "test": "W4.3",
@@ -43,13 +43,13 @@
     },
     {
       "test": "W4.5",
-      "residual": 1.4277468096679513e-13,
+      "residual": 7.582823258189819e-14,
       "target": 1e-12,
       "passed": true,
-      "description": "Norm conserved over 100 full steps: drift = 1.43e-13"
+      "description": "Norm conserved over 100 full steps: drift = 7.58e-14"
     }
   ],
-  "elapsed": 0.9748830795288086,
+  "elapsed": 0.5534369945526123,
   "n_pass": 5,
   "n_total": 5
 }

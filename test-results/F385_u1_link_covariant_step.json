@@ -1,0 +1,32 @@
+{
+  "err_reduces_to_free_a": 0.0,
+  "err_reduces_to_free_b": 0.0,
+  "err_reduces_to_free_d": 0.0,
+  "uniform_shift_err": 3.481491900302241e-15,
+  "uniform_drift": 2.237695252557977e-16,
+  "ward_global": 3.765850227419567e-15,
+  "ward_m1": 1.296475827438449,
+  "ward_m4": 3.54832793150882,
+  "norm_drift_slope_fork_a": 0.9960576122730532,
+  "fork_d_drift": 2.237695252557977e-16,
+  "momentum_transfer_mag": {
+    "a": 6.261202807539077,
+    "b": 3.2241230689290874,
+    "d": 9.79159126075573
+  },
+  "checks": {
+    "reduces_to_free_a": true,
+    "reduces_to_free_b": true,
+    "reduces_to_free_d": true,
+    "uniform_A_exact_unitary": true,
+    "ward_global_exact": true,
+    "ward_local_shrinks_with_wavelength": true,
+    "norm_drift_is_O_qA": true,
+    "fork_d_exactly_conserves_norm": true,
+    "momentum_transfer_nonzero_all_forks": true,
+    "fork_d_preserves_momentum_signal": true
+  },
+  "n_pass": 10,
+  "n_checks": 10,
+  "ok": true
+}

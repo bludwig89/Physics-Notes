@@ -1,0 +1,9 @@
+{
+  "build": "NB-039/NB-040/NB-041",
+  "NB-039_clifford_relations_hold": true,
+  "NB-040_matches_+(d0sq_minus_gradsq)": false,
+  "NB-040_matches_-(d0sq_minus_gradsq)": true,
+  "NB-040_note": "the notebook's own intermediate expansion (lines 760-762) shows the cross terms cancel leaving -d0^2+grad^2, i.e. the NEGATIVE of (d0^2-grad^2); setting either to zero gives the identical KG equation, so the notebook's claim (as an EQUATION, not as an operator identity up to overall sign) is still exactly right -- confirmed by which of the two matches is True below.",
+  "NB-041_rotated_hermitian_basis_ALSO_reproduces_flat_metric_for_all_theta": true,
+  "NB-041_conclusion": "A continuous family of distinct Hermitian bases q'^mu (parametrized by an arbitrary rotation angle theta) all reproduce the SAME flat Minkowski metric -- confirming the notebook's 'no' answer: the metric g^{mu nu}=eta does NOT uniquely force q^mu=sigma^mu, exactly as claimed."
+}

@@ -67,8 +67,9 @@ QUANTITATIVE (honest scope):
 
   Q2  sudakov_observable():  the finite, mu-INDEPENDENT O(alpha) inclusive
       correction to the cross section,
-          sigma/sigma_0 = 1 - (alpha/2pi) f_IR(q^2) ln(-q^2/DeltaE^2),
-      i.e. the Sudakov double log 1 - (alpha/2pi) ln(-q^2/m^2) ln(-q^2/DeltaE^2)
+          sigma/sigma_0 = 1 - (alpha/pi) f_IR(q^2) ln(-q^2/DeltaE^2),
+      i.e. the Sudakov double log 1 - (alpha/pi) ln(-q^2/m^2) ln(-q^2/DeltaE^2)
+      [header said alpha/2pi until 2026-09-29; the code and Peskin 6.5 use alpha/pi]
       at high energy. Its ln(DeltaE) dependence is the PHYSICAL (measurable)
       part (detector energy resolution); mu has dropped out.
 

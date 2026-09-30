@@ -1,0 +1,47 @@
+{
+  "NB-145": {
+    "claim": "line (18a-c) intersects the radius-1/2 sphere per (19), giving t=(alpha^2+beta^2+1)^-1 (21)",
+    "18a_literal_(with_the_stated_1/2_factor_on_x)_solutions_for_t": [
+      "0",
+      "4/(alpha**2 + 4*beta**2 + 4)"
+    ],
+    "18a_without_the_1/2_factor_solutions_for_s": [
+      "0",
+      "1/(alpha**2 + beta**2 + 1)"
+    ],
+    "matches_boxed_eq21_t=(alpha^2+beta^2+1)^-1": true,
+    "conclusion": "(18a)'s explicitly stated factor of 1/2 on x is itself the error: solving the actual radius-1/2 sphere equation with the line AS STATED IN WORDS (from (0,0,1) through (alpha,beta,0), i.e. x=alpha*t with NO 1/2) reproduces the boxed t=(alpha^2+beta^2+1)^-1 of eq (21) exactly; keeping the literal 1/2 factor instead gives a different, non-matching t. Eq (19)-(21) are self-consistent with each other and with the correct line parametrization; only (18a)'s explicit '1/2' is the odd one out.",
+    "verdict": "SOLID-WITH-CORRECTION"
+  },
+  "NB-146": {
+    "claim": "x,y,z in terms of zeta,zeta* (24a-c), using t=(1+|zeta|^2)^-1",
+    "comparison_ratios": {
+      "24a_vs_true_radius_half_x_A": "2",
+      "24a_vs_unit_sphere_x_B": "1",
+      "24b_corrected_vs_true_radius_half_y_A": "2",
+      "24b_corrected_vs_unit_sphere_y_B": "1",
+      "24c_vs_true_radius_half_z_A": "1",
+      "24c_vs_unit_sphere_z_B": "(alpha**2 + beta**2)/(alpha**2 + beta**2 - 1)"
+    },
+    "conclusion": "A precise, three-way split found: (24a) and (24b) (once its own separate, obviously-needed missing factor of i is restored -- (zeta-zetabar)=2i*beta is purely imaginary, so as literally transcribed (24b) cannot equal the real coordinate y at all) BOTH turn out to be EXACTLY TWICE the true radius-1/2-sphere x,y -- and exactly equal to the standard TEXTBOOK stereographic projection formula for a UNIT sphere (radius 1) centered at the ORIGIN instead (independently re-derived and confirmed here). (24c), in sharp contrast, exactly matches the TRUE radius-1/2 sphere z-coordinate (not the unit-sphere z, which differs from it). In other words: (24a)/(24b) use one sphere convention (the standard unit sphere, likely copied from memory/a reference rather than freshly derived) while (24c) uses a DIFFERENT, correct-for-this-page convention (the actual radius-1/2 sphere set up two paragraphs earlier) -- (24a-c) is an internally MIXED, inconsistent set, not merely a single typo.",
+    "verdict": "INCORRECT (as transcribed) / SOLID-WITH-CORRECTION"
+  },
+  "NB-147": {
+    "claim": "zeta=(x+iy)/(1-z) inverts (24a-c)",
+    "note": "Checked directly against the TRUE radius-1/2 sphere coordinates (x_A,y_A,z_A): (x_A+iy_A)/(1-z_A) reduces exactly to zeta=alpha+i*beta, confirming this inverse formula is correct for the sphere actually described on the page -- independent of the (24a-c) mixed-convention issue found above, since the inverse map only needs the RATIO (x+iy)/(1-z), which turns out to be convention-independent under the specific x,y,z used (the same overall scale factor that makes (24a,b) 2x too big would cancel out of a homogeneous ratio like this one, though not out of (24a-c) themselves since they equal zeta directly, not a ratio).",
+    "verified_against_true_radius_half_sphere": true,
+    "verdict": "SOLID"
+  },
+  "NB-148": {
+    "claim": "zeta=xi/eta (26); homogeneous/projective formulas (27a-c); scale ambiguity matches (14)",
+    "comparison_ratios": {
+      "27a_vs_unit_sphere_x_B": "1",
+      "27b_corrected_vs_unit_sphere_y_B": "1",
+      "27c_vs_true_radius_half_z_A": "(alpha**2 + beta**2 - 1)/(alpha**2 + beta**2)",
+      "27c_vs_unit_sphere_z_B": "1"
+    },
+    "scaling_invariance_under_(xi,eta)->(lambda xi,lambda eta)": true,
+    "conclusion": "Unlike (24a-c), the projective triple (27a-c) is INTERNALLY CONSISTENT: at eta=1, all three of x,y (once (27b)'s own identical missing-i issue is corrected the same way as (24b)'s) and z exactly match the STANDARD UNIT SPHERE convention (confirmed independently re-derived above) -- none of the three matches the actual radius-1/2 sphere from earlier in the page. So (27a-c) is a self-consistent, correctly-executed formula for a DIFFERENT sphere than the one geometrically set up on pp.112-113; (24a-c) is internally inconsistent between its own three components. The scale-invariance under (xi,eta)->(lambda xi,lambda eta) is confirmed exactly regardless, correctly reproducing the spinor ambiguity of eq (14).",
+    "verdict": "SOLID-WITH-CORRECTION"
+  }
+}

@@ -246,10 +246,14 @@ RESULTS["summary"]={
 }
 # C6: five '..' — this fork moved from the legacy forks/ dir (2 levels below
 # the repo root) to src/casim/engine/forks/<sector>/ (5 levels). Same dir.
-outdir=os.path.join(os.path.dirname(__file__),"..","..","..","..","..","test-results")
-outdir=os.path.abspath(outdir)
-os.makedirs(outdir,exist_ok=True)
-with open(os.path.join(outdir,"F216_massive_spin2.json"),"w") as f:
-    json.dump(RESULTS,f,indent=2)
-print(f"\n{RESULTS['summary']['n_pass']}/{RESULTS['summary']['n_total']} checks PASS")
-print(f"wrote {os.path.join(outdir,'F216_massive_spin2.json')}")
+# The write is guarded (2026-09-29): importing this module — the test
+# wrapper does, and so does anything that walks the package — must not
+# overwrite the committed baseline (CLAUDE.md, result artifacts §5).
+if __name__ == "__main__":
+    outdir=os.path.join(os.path.dirname(__file__),"..","..","..","..","..","test-results")
+    outdir=os.path.abspath(outdir)
+    os.makedirs(outdir,exist_ok=True)
+    with open(os.path.join(outdir,"F216_massive_spin2.json"),"w") as f:
+        json.dump(RESULTS,f,indent=2)
+    print(f"\n{RESULTS['summary']['n_pass']}/{RESULTS['summary']['n_total']} checks PASS")
+    print(f"wrote {os.path.join(outdir,'F216_massive_spin2.json')}")

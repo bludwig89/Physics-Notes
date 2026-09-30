@@ -241,10 +241,11 @@ def dirac_omega_continuum(k, phi, c_0, m, mode="exact_isotropic"):
 #
 # One coordinate tick of the gravity Dirac CA:
 #
-#     Mix_rest(√A·m, dt/2) ∘ Kinetic(c_eff, dt) ∘ Mix_rest(√A·m, dt/2)
+#     Mix_rest(√A·arcsin m, dt/2) ∘ Kinetic(c_eff, dt) ∘ Mix_rest(√A·arcsin m, dt/2)
 #
 # • Mix_rest is the per-cell exact-unitary η↔χ rotation by angle
-#   θ(x) = √A(x)·m·dt  (the redshifted rest leg).  This is the existing
+#   θ(x) = √A(x)·arcsin(m)·dt  (the redshifted rest leg, = rest_leg() above;
+#   √A·m before 2026-09-29, which matched it only to O(m³)).  This is the existing
 #   ca_dirac._mix_eta_chi with a site-dependent angle.
 # • Kinetic is the existing ca_curved variable-c machinery applied
 #   independently to each chirality (the renormalised kinetic leg).
@@ -270,7 +271,7 @@ def gravity_dirac_step_2d(eta_u, eta_d, chi_u, chi_d,
                           r_kin_scalar=None):
     """One Strang tick of the F46 gravity Dirac CA on a 2D lattice.
 
-        Mix_rest(√A·m, dt/2) ∘ Kinetic(dt) ∘ Mix_rest(√A·m, dt/2)
+        Mix_rest(√A·arcsin m, dt/2) ∘ Kinetic(dt) ∘ Mix_rest(√A·arcsin m, dt/2)
 
     Parameters
     ----------
@@ -300,7 +301,7 @@ def gravity_dirac_step_2d(eta_u, eta_d, chi_u, chi_d,
         sys.path.insert(0, sim_root)
     from casim.engine.particles.dirac import _mix_eta_chi, _weyl_half_step_2c
 
-    theta_half = np.sqrt(np.abs(A_field)) * m * dt * 0.5   # redshifted rest leg
+    theta_half = np.sqrt(np.abs(A_field)) * np.arcsin(m) * dt * 0.5   # √A·arcsin m
 
     # rest half-step
     eta_u, eta_d, chi_u, chi_d = _mix_eta_chi(eta_u, eta_d, chi_u, chi_d,

@@ -8,7 +8,7 @@
   "T1A_higgs": {
     "max_diff": 0.0,
     "vac_ticks": 0,
-    "pkt_ticks": 75270,
+    "pkt_ticks": 75273,
     "eps": 1e-13
   },
   "T1A_F1_unified": {

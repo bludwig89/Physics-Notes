@@ -1235,10 +1235,136 @@ tests:
     has_main: true
     lines: 78
     n_test_funcs: 0
+    artifacts_written:
+    - test-results/F344_bcc_walk_point_symmetry.json
+    artifact_rule:
+      test-results/F344_bcc_walk_point_symmetry.json: local
+    artifacts_read_only: []
+    summary: F344 -- what is the EXACT point-group covariance of the adopted BCC
+- id: F377-time-generator-axiom-independence
+  path: tests/findings/test_F377_time_generator_axiom_independence.py
+  kind: assertion
+  tier: battery
+  sector: lattice
+  findings:
+  - F291
+  - F313
+  - F326
+  - F377
+  module: tests.findings.test_F377_time_generator_axiom_independence
+  entry: check_all
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 0.03
+  note: 'P1 (dynamics = one map iterated) is independent of the five stated BDPT axioms: their own "homogeneity"
+    axiom is spatial-only (graph-vertex transitivity, D''Ariano & Perinotti arXiv:1608.02004 Eq. 4), and
+    temporal constancy of the update (psi(t+1)=A psi(t), A without a t-index) enters only through unexamined
+    notation (same source, Eq. 2) -- a citation, not re-derived numerically here. REGROUP (machine): a
+    period-2 A-/A+ schedule regroups EXACTLY into iterating the single fixed operator B=A- @ A+ (sequential
+    product equals B**n to machine precision) -- this is why a periodic multi-generator scheme (Margolus
+    partitioning, brick-wall updates, or alternating this model''s own two admissible per-tick maps) is
+    not a counterexample to P1: redefine the tick to be one period and it IS single-generator dynamics.
+    The only logically possible counterexample is therefore an APERIODIC sequence. FALSIFICATION ATTEMPT
+    (quantitative): a genuinely aperiodic schedule -- a Sturmian word over an irrational rotation number,
+    alternating A+(k)/A-(k), the only two BDPT-legal per-tick maps this model''s own uniqueness theorem
+    allows -- is propagated on a real-space Gaussian wavepacket via the engine''s own weyl_step_3d_bcc,
+    and its ballistic-transport exponent (Var[x](t) ~ t^p fit) is compared against the period-2 regrouped
+    schedule polarized in ITS OWN eigenbasis (the fairest reference, since the regrouping lemma says it
+    is really a single generator). Tried from three initial polarizations, the aperiodic exponent stays
+    below the periodic-regrouped reference by the declared margin at TWO independent parameter points
+    (this test''s own k0/sigma/n_ticks/irrational, different from the module''s) -- the falsification
+    attempt does not succeed: building a genuinely aperiodic multi-generator dynamics purely from this
+    model''s own admissible per-tick maps does not reproduce the ballistic transport the single-generator
+    model needs for F26/F27''s speed-of-light result. Scope, stated plainly: one numerical experiment
+    at two parameter points (n_ticks<=60, one wavepacket width each), not an asymptotic theorem -- see
+    the finding for the honest limits of this claim.
+
+    '
+  control:
+  - params:
+      break_regroup: true
+    reason: 'compares the sequential 2n-step product against B**(n+1) instead of B**n (the WRONG power).
+      Must go red -- otherwise the regroup check would pass regardless of what power it compares against,
+      and would not be able to detect a genuine mismatch. VERIFIED RED (max residual 0.69, vs 1.6e-15
+      unbroken).
+
+      '
+  evidence:
+    mentions:
+    - F377
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 189
+    n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
-    summary: F344 -- what is the EXACT point-group covariance of the adopted BCC
+    summary: F377 -- P1 is independent of the five BDPT axioms; the only live
+- id: F400-coordination-selector
+  path: tests/findings/test_F400_coordination_selector.py
+  kind: assertion
+  tier: gate
+  sector: lattice
+  findings:
+  - F291
+  - F292
+  - F400
+  module: tests.findings.test_F400_coordination_selector
+  entry: check_all
+  params: {}
+  expect:
+    exactness: exact
+    tol: 0
+  results:
+  - test-results/F400_coordination_selector.json
+  note: 'notebook-v2 T01/T10: does the F291/F292 dimension selector, run on a coordination-4 diamond-cubic
+    generator set instead of BCC''s coordination-8, exclude diamond-cubic or not? `dimensionality.py`''s
+    S1/S2/S3 take only (s, d) -- confirmed here by signature inspection (C1), not assumed -- so they cannot
+    be rerun against a different lattice type at all: there is no coordination-number input to change.
+    What this record checks instead: (A1/A2) BCC''s 8-vector coordination shell splits into two regular
+    tetrahedra by sign parity (exact Gram matrix 3*delta_jk-1), and the model''s own walk generator tetrahedron
+    (Paper 2 Eq. 20) is vertex-for-vertex IDENTICAL to diamond-cubic''s standard nearest-neighbour bond
+    set -- not isomorphic, the same four integer vectors. (B1) The genuine diamond A->B vector, (1/4,1/4,1/4),
+    is not an integer combination of the FCC primitive lattice vectors -- diamond''s two sublattices are
+    not related by any pure translation, so diamond-cubic is not a Bravais lattice and fails BDPT''s own
+    single-orbit (G = Z^3) premise before dimension-counting is reached. Verdict: "why BCC not diamond"
+    is not a question S1/S2/S3 answer (they are blind to coordination number by construction); diamond-cubic
+    was never a competing (s=2, G=Z^3) candidate for them to choose between.
+
+    '
+  control:
+  - params:
+      shift:
+      - 1
+      - 2
+      - 1
+      - 2
+    reason: 'encodes the genuine FCC primitive lattice vector (1/2,1/2,0) in place of the true diamond
+      A->B shift (1/4,1/4,1/4). check_B1''s claim ("this shift is not a lattice symmetry") must go RED,
+      because a real lattice vector DOES return the diamond basis to itself -- proving the orbit-invariance
+      test is sensitive to its input rather than a hard-coded False. VERIFIED RED (orbit_invariant flips
+      from False to True under the control value).
+
+      '
+  evidence:
+    mentions:
+    - F291
+    - F292
+    - F313
+    - F326
+    - F377
+    - F400
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 191
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F400 — BCC and diamond-cubic share a generator tetrahedron; only diamond's
 - id: F49-bcc-weinberg-2over9
   path: tests/findings/test_F49_bcc_weinberg_2over9.py
   kind: result_dump

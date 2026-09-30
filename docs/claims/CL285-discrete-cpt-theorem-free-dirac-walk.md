@@ -70,12 +70,14 @@ construction, exact at finite $\mathbf k$, not a continuum-limit statement.
 
 ## What it explicitly does NOT claim
 
-**Not** a theorem about the gauge-coupled sector. The SU(2)$_L$ charged current couples to the left
-($\eta$) block only (F53's own "$C$, $P$ maximally violated by the coupling"), is a nonlinear
-multiplicative gate rather than a closed-form momentum-diagonal unitary, and whether $\Theta$ — possibly
-composed with F53's charge-conjugation label map — still intertwines the full gauged evolution with its
-inverse is open (ledger row `A4r`), not attempted and not assumed to transfer from the continuum
-Lüders–Pauli argument.
+**Not** a theorem about the gauge-coupled sector — **narrowed, not superseded, by [[CL306]]
+(2026-09-09)**: at a spatially-uniform SU(2) link the gauge-coupled walk IS momentum-diagonal, and
+CL306 finds F328's method extends exactly to the SU(2)-gauged *kinetic* term (via the isospin
+pseudoreality identity $\tau_2U\tau_2^{-1}=U^{*}$, with a flipped, non-Kramers involution), while
+the model's own SU(2)-gauged *mass* mechanism has a general, provable obstruction to the same
+fixed-background ansatz. Ledger row `A4r` is updated accordingly; see CL306 for the precise scope
+(it does not claim the physical gauge theory violates CPT — every test holds the background link
+fixed under the map, and a background-transforming $\Theta$ is untested).
 
 **Not** a reuse of F321's $\theta_\text{QCD}$ reality result. F321 is a statement about the strong-CP
 angle (row B11), a different object; three prior completeness reports flagged borrowing it for row A4 as
@@ -117,6 +119,11 @@ out here by the spectral mismatch argument, which holds for any fixed $\Pi$, not
 Rubric row A4 stays `PARTIAL` overall — the gauge-coupled extension is the named residual, tracked as
 ledger row `A4r`, not silently assumed. This is the same "row narrowed, not closed" shape as ledger row
 `A6r`.
+
+**2026-09-09:** [[CL306]] answers the gauge-coupled residual in part — the kinetic half extends
+exactly (via SU(2) pseudoreality), the mass half does not (a general obstruction) for the tested
+fixed-background ansatz. This card's own content is unchanged by that; see the "What it explicitly
+does NOT claim" section above for the pointer.
 
 ## Sources
 

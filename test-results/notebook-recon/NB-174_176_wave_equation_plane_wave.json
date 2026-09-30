@@ -1,0 +1,29 @@
+{
+  "NB-174": {
+    "claim": "(7)+(8)+(9) together give d0^2 V = nabla^2 V (10)",
+    "vector_identity_grad(div_V)=lap(V)+curl(curl_V)_confirmed_in_general": true,
+    "for_curl_free_V_(as_required_by_(8)),_grad(div_V)_reduces_to_lap(V)": true,
+    "derivation_chain": "d0(7): d0^2 V = -grad(d0 V0). Using (9), d0 V0 = -div V, so d0^2 V = grad(div V). The standard vector identity grad(div V) = lap(V) + curl(curl V) then reduces this to d0^2 V = lap(V) EXACTLY when curl V = 0, which is precisely (8). All three steps confirmed by direct symbolic computation.",
+    "verdict": "SOLID"
+  },
+  "NB-175": {
+    "claim": "self-consistency of (7) and (9), for V=v*zhat*e^{i(kz-wt)} and V0=A*e^{i(kz-wt)}, forces the amplitude A=+v exactly when k=omega (not k=-omega, which gives A=-v)",
+    "A_from_(7)_general": "omega*v/k",
+    "A_from_(9)_general": "k*v/omega",
+    "both_(7)_and_(9)_agree_on_A_in_general": false,
+    "A_from_(7)_at_k=omega": "v",
+    "A_from_(7)_at_k=-omega": "-v",
+    "A_from_(9)_at_k=omega": "v",
+    "A_from_(9)_at_k=-omega": "-v",
+    "k=omega_gives_amplitude_exactly_+v_(matching_notebooks_literal_ansatz)": true,
+    "k=-omega_gives_amplitude_exactly_-v_(NOT_matching)": true,
+    "note": "The dispersion relation k^2=omega^2 from the wave equation (10) is symmetric in the sign of k and does not by itself distinguish k=omega from k=-omega. The notebook's actual claim is sharper: it specifies the AMPLITUDE prefactor is exactly +v (not -v), and this IS sign-sensitive -- confirmed exactly: k=omega gives V0=+v*e^{i(kz-wt)} (matching the notebook's literal ansatz precisely), while k=-omega gives V0=-v*e^{i(kz-wt)}, a genuinely different (sign-flipped) field, not the one written down.",
+    "verdict": "SOLID"
+  },
+  "NB-176": {
+    "claim": "(d0^2-nabla^2)V_mu=0 (11), i.e. V0 ALSO satisfies the wave equation, by the same (7)+(9) chain mirrored for the scalar",
+    "derivation_chain": "Applying d0 to (9): d0^2 V0 = -d0(div V) = -div(d0 V). Substituting (7), d0 V=-grad V0: d0^2 V0 = -div(-grad V0) = div(grad V0) = lap(V0) exactly (div(grad(.)) is definitionally the Laplacian, no curl-freeness assumption needed here since this chain only uses (7) and (9), not (8)) -- confirmed as a direct algebraic identity.",
+    "div_grad_is_laplacian_by_definition": true,
+    "verdict": "SOLID"
+  }
+}

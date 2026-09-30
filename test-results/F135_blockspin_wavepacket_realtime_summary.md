@@ -5,17 +5,17 @@ Massive 2D exact-QCA Dirac packet (ca_dirac). Coarse rule Omega_coarse(q)=b*omeg
 
 ## RT1. Faithfulness: R_b o evolve_fine^{bN} == evolve_coarse^N o R_b (tracked every coarse tick)
 
-- b=2: L 48->24, 12 fine vs 6 coarse ticks; max rel residual over trajectory = 1.42e-15
-- b=3: L 48->16, 18 fine vs 6 coarse ticks; max rel residual over trajectory = 2.52e-15
+- b=2: L 48->24, 12 fine vs 6 coarse ticks; max rel residual over trajectory = 1.70e-15
+- b=3: L 48->16, 18 fine vs 6 coarse ticks; max rel residual over trajectory = 2.89e-15
 - gate (< 1e-9 at every tick): PASS
 
 ## RT2. Group velocity invariant (packet moves)
 
-- v_fine = 0.532961 cells/tick;  v_coarse = 0.531727 (physical); moves: PASS; agree<5e-3: PASS
+- v_fine = 0.442411 cells/tick;  v_coarse = 0.441670 (physical); moves: PASS; agree<5e-3: PASS
 
 ## RT3. Dispersive spreading invariant (packet spreads)
 
-- d(rms)_fine = 0.0672 cells;  d(rms)_coarse = 0.0679 (in fine cells); spreads: PASS; agree: PASS
+- d(rms)_fine = -0.0020 cells;  d(rms)_coarse = -0.0097 (in fine cells); spreads: FAIL; agree: FAIL
 
 ## RT4. Mass is the RELEVANT operator (rest-gap eigenvalue = b)
 
@@ -27,7 +27,7 @@ Massive 2D exact-QCA Dirac packet (ca_dirac). Coarse rule Omega_coarse(q)=b*omeg
 
 ## RT5. Norm conserved (unitarity survives R_b)
 
-- fine norm drift = 7.77e-16; coarse norm drift = 2.22e-16: PASS
+- fine norm drift = 9.99e-16; coarse norm drift = 1.33e-15: PASS
 
-## Summary: 5/5 PASS
+## Summary: 4/5 PASS
 

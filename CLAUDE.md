@@ -52,7 +52,7 @@ See `INDEX.md` for the full annotated map. In brief:
 
 ## Sandbox Python dependencies (scipy / numpy / pyfftw / pytest)
 
-Do **not** `pip install` these in the sandbox — proxy downloads are slow/flaky and
+(Only applies to Cowork shells, not Claude Code) Do **not** `pip install` these in the sandbox — proxy downloads are slow/flaky and
 fail. They are already vendored in `.vendor/` (CPython 3.10, Linux aarch64). At the
 start of any bash session that needs them, activate via `PYTHONPATH` — no download:
 
@@ -340,7 +340,7 @@ Decision 4 and 5 above name modules by their pre-C9 flat names. Current homes:
 |---|---|
 | `ca_photon_pair.py` | `casim.engine.gauge.photon` |
 | `ca_maxwell.py` (σ-bilinear construction) | `casim.engine.gauge.bilinear` |
-| `ca_wmu._f26_rotation_step` | `casim.engine.gauge.wmu._f26_rotation_step` |
+| `ca_wmu._f26_rotation_step` | `casim.engine.gauge.weak_wmu._f26_rotation_step` |
 | `ca_gluon.gluon_rotation_step_spectral_bcc` | `casim.engine.gauge.gluon.gluon_rotation_step_spectral_bcc` |
 | `ca_gravity.py` | `casim.engine.interactions.gravity` |
 | `ca_stellar.py` | `casim.engine.interactions.stellar` |

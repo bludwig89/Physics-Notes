@@ -4,19 +4,46 @@ F242 derived mu*, and locating the true floor of the Allen-Dynes Tc residual.
 ============================================================================
 F242 derived mu* from the F64 dielectric assuming the solver's Coulomb cutoff
 is omega_c = 6*omega_log (correct for spectrum='einstein', where the solver's
-own phonon scale omega_E==omega_log).  Its own C5 check then fed that same
+own phonon scale omega_E==omega_log). Its own C5 check then fed that same
 mu* into the spectrum='debye' Eliashberg solve, whose actual cutoff scale is
-omega_max=sqrt(e)*omega_log (F218b AF2) -- sqrt(e)=1.6487x larger.  This
+omega_max=sqrt(e)*omega_log (F218b AF2) -- sqrt(e)=1.6487x larger. This
 finding (1) fixes that mismatch, (2) rules out finite-N truncation as an
-alternative explanation, (3) scans the cutoff factor and the mu*-uniform (no
-window) limit to bound how much of the Eliashberg residual is cutoff
-convention vs genuine physics, (4) tests the model's OWN closed-form
-strong-coupling shape factor r=sqrt(e/2) (exact, from the F218b Debye alpha^2F)
-in the Allen-Dynes f2 correction, and (5) concludes the Allen-Dynes 6.3%
-headline (F242) remains the tightest Tc estimator the model's current
-(single-band jellium + isotropic Debye acoustic phonon) construction can
-produce; the Eliashberg-solver route, even fully reconciled, plateaus at
-~16-17% and does not go below it.
+alternative explanation, (3) scans the cutoff factor over the numerically
+SAFE range and separately documents where the bisection root-finder breaks
+down at extreme cutoffs, (4) tests the mu*-uniform (no window) limit, (5)
+tests the model's OWN closed-form strong-coupling shape factor r=sqrt(e/2)
+in the Allen-Dynes f2 correction, and (6) checks which elements actually
+drive the residual (an adversarial review of this finding's first draft
+found the original per-element causal story -- "d-band metals Nb/Ta" -- did
+not match the model's own numbers; Ta is in fact one of the BETTER-behaved
+elements and Al/In, both simple free-electron-like metals, dominate).
+Conclusion: the Allen-Dynes 6.3% headline (F242) remains the tightest Tc
+estimator available from a numerically RELIABLE Eliashberg solve; the
+solver's mean error keeps falling as the cutoff grows (32%->10.4% by
+omega_c_factor=80) but the bisection root-finder becomes unreliable beyond
+about omega_c_factor~90-100 (demonstrated below), so whether the trend would
+ever cross 6.3% at a still-larger, reliably-solved cutoff is INCONCLUSIVE,
+not cleanly ruled out at a "16% floor" as an earlier draft of this finding
+claimed.
+
+**Reviewed & corrected** (see finding body): an independent cold-subagent
+attack pass (2026-09-05) found two real defects in this test's first
+version, both fixed here: (a) the D5 cutoff-factor scan only sampled
+{1,2,4,6,10,15} and characterised the result as "plateauing ~16%"; extending
+the same scan (with the ACTUAL solver, not a reimplementation) to {20,30,50,
+80} shows the mean error keeps falling to 10.4% -- not a plateau -- and a
+follow-up scan at {100,110,...} shows the bisection root-finder jumping to a
+spurious high-T root once E_F/omega_c drops below about 2.3-2.8 (Tc jumps
+20-90x while mu* itself varies smoothly), which is a solver-robustness limit
+being hit, not a physical floor; the "plateaus at 16%" language is retracted
+and replaced with the honest trend + breakdown-point description above.
+(b) the original per-element diagnosis blamed "d-band metals Nb/Ta" for the
+residual; the actual per-element breakdown (D10 below) shows Ta among the
+best-behaved elements and Al/In (both simple sp-metals) dominating instead,
+consistent with F211's own already-established weak-coupling
+lambda-hypersensitivity diagnosis for exactly those two elements -- the
+Nb/Ta-DOS causal story in the finding's Conclusion/Open-next sections is
+corrected accordingly.
 """
 import json, math, os, sys
 import numpy as np
@@ -56,11 +83,15 @@ def mustar_spectrum_consistent(el, wlog, ocf, spectrum):
     return sc.mustar_from_dielectric_for_spectrum(n, wlog, omega_c_factor=ocf,
                                                   spectrum=spectrum, E_F_eV=E_F)[0]
 
-def mean_err(tc_fn):
-    errs = []
+def per_element_err(tc_fn):
+    errs = {}
     for el, (lam, mustar_tab, wlog, thetaD, tc_exp) in sc.REAL_SUPERCONDUCTORS.items():
-        errs.append(abs(tc_fn(el, lam, wlog) - tc_exp) / tc_exp)
-    return sum(errs) / len(errs), errs
+        errs[el] = abs(tc_fn(el, lam, wlog) - tc_exp) / tc_exp
+    return errs
+
+def mean_err(tc_fn):
+    errs = per_element_err(tc_fn)
+    return sum(errs.values()) / len(errs), errs
 
 
 def run():
@@ -86,10 +117,19 @@ def run():
                     err_fixed < err_baseline))
     notes["cutoff_fixed_mean_err"] = err_fixed
 
-    # ---- D3: sqrt(e) is exactly the ratio of the two cutoff conventions ----
+    # ---- D3: sqrt(e) is exactly the ratio of the two cutoff conventions.
+    # NOTE (post-review disclosure): this is TRUE BY CONSTRUCTION, not an
+    # independent empirical check -- eliashberg_matsubara_cutoff_eV defines
+    # the debye-branch scale as omega_max_from_omega_log(wlog) ==
+    # sqrt(e)*wlog by definition (F218b AF2's identity, reused verbatim), so
+    # this assertion documents the intended relationship rather than
+    # discovering it numerically. Kept as a regression guard against a
+    # future edit silently breaking that intended relationship, not as
+    # evidence of anything new.
     ratio = sc.eliashberg_matsubara_cutoff_eV(291.0, 6.0, "debye") / \
             sc.eliashberg_matsubara_cutoff_eV(291.0, 6.0, "einstein")
-    checks.append(("D3 debye/einstein cutoff ratio == sqrt(e) exactly",
+    checks.append(("D3 debye/einstein cutoff ratio == sqrt(e) BY CONSTRUCTION "
+                    "(regression guard, not an independent discovery)",
                     abs(ratio - math.sqrt(math.e)) < 1e-12))
 
     # ---- D4: finite-N truncation is NOT the source of the residual (rho(Tc)
@@ -109,22 +149,45 @@ def run():
                     rel_shift < 0.01))
     notes["N_convergence_rel_shift"] = rel_shift
 
-    # ---- D5: increasing the Coulomb cutoff factor (self-consistently
-    # re-deriving mu* each time) does NOT converge below ~16% -- rules out
-    # "cutoff too small" as the whole story ----
+    # ---- D5 (CORRECTED post-review): the cutoff-factor scan, extended to
+    # the numerically SAFE range (self-consistent mu* re-derived each time).
+    # The original draft sampled only {1,2,4,6,10,15} and called the result
+    # a "16% plateau" -- extending it shows the error keeps falling to
+    # ~10.4% by ocf=80, i.e. NOT a plateau.  Still: every value in the safe
+    # range stays clearly above the 6.3% Allen-Dynes target. ----
     ocf_scan = {}
-    for ocf in (1.0, 2.0, 4.0, 6.0, 10.0, 15.0):
+    for ocf in (1.0, 2.0, 4.0, 6.0, 10.0, 15.0, 20.0, 30.0, 50.0, 80.0):
         def tc_ocf(el, lam, wlog, _ocf=ocf):
             ms = mustar_spectrum_consistent(el, wlog, _ocf, "debye")
             return sc.eliashberg_tc(lam, wlog, ms, omega_c_factor=_ocf, spectrum="debye")
         e, _ = mean_err(tc_ocf)
         ocf_scan[ocf] = e
-    checks.append(("D5 ocf-scan plateaus above 6.3% AD floor for every factor tested",
+    checks.append(("D5 ocf-scan (safe range 1-80) stays above 6.3% AD floor throughout",
                     all(e > 0.063 for e in ocf_scan.values())))
-    checks.append(("D5b ocf-scan is monotone non-increasing (bigger cutoff, no worse)",
+    checks.append(("D5b ocf-scan (safe range) is monotone non-increasing, NOT a plateau "
+                    "(32%@1 -> 10.4%@80, still falling -- corrected from the original "
+                    "'plateaus at 16%' claim)",
                     all(ocf_scan[a] >= ocf_scan[b] - 1e-9
-                        for a, b in zip(sorted(ocf_scan), sorted(ocf_scan)[1:]))))
+                        for a, b in zip(sorted(ocf_scan), sorted(ocf_scan)[1:]))
+                    and ocf_scan[80.0] < 0.14))
     notes["ocf_scan_mean_err"] = ocf_scan
+
+    # ---- D5c (NEW post-review): beyond the safe range, the bisection
+    # root-finder in eliashberg_tc breaks down -- Al's Tc jumps ~20-90x
+    # while the underlying mu* varies smoothly, i.e. a spurious high-T root
+    # is picked up, not real physics.  This is why the scan above is capped
+    # at ocf=80 and is reported as INCONCLUSIVE beyond it, not as a floor. ----
+    def al_tc_at(ocf):
+        ms = mustar_spectrum_consistent("Al", wlog, ocf, "debye")
+        return sc.eliashberg_tc(lam, wlog, ms, omega_c_factor=ocf, spectrum="debye")
+    tc_al_80 = al_tc_at(80.0)
+    tc_al_110 = al_tc_at(110.0)
+    checks.append(("D5c beyond the safe range the root-finder breaks down "
+                    "(Al Tc jumps >5x from ocf=80 to ocf=110, evidencing a "
+                    "spurious root rather than smooth physics)",
+                    tc_al_110 > 5.0 * tc_al_80))
+    notes["al_tc_ocf80"] = tc_al_80
+    notes["al_tc_ocf110_spurious"] = tc_al_110
 
     # ---- D6: the model's own exact strong-coupling shape factor
     # r=sqrt(e/2) (F218b Debye alpha^2F second moment) fed into Allen-Dynes'
@@ -189,11 +252,36 @@ def run():
                     err_nocutoff > err_fixed))
     notes["no_cutoff_mean_err"] = err_nocutoff
 
-    # ---- D8: the reconciled Eliashberg floor (~16-17%) still exceeds the
-    # Allen-Dynes headline (6.3%) by a wide margin -- the attack does not
-    # cross the target threshold ----
-    checks.append(("D8 reconciled Eliashberg floor still exceeds the 6.3% AD target",
+    # ---- D8: the reconciled Eliashberg floor (ocf=6 default) still exceeds
+    # the Allen-Dynes headline (6.3%) by a wide margin ----
+    checks.append(("D8 reconciled Eliashberg floor (ocf=6) still exceeds the 6.3% AD target",
                     err_fixed > 0.063))
+
+    # ---- D9 (NEW post-review): even the widest numerically-safe cutoff
+    # tested (ocf=80, mean 10.4%) still exceeds 6.3% -- the qualitative
+    # no-go survives the corrected (non-plateau) trend, even though the
+    # specific "16% floor" language does not. ----
+    checks.append(("D9 even the widest safe-range cutoff (ocf=80) stays above 6.3%",
+                    ocf_scan[80.0] > 0.063))
+
+    # ---- D10 (NEW post-review): per-element breakdown at the headline
+    # (ocf=6, fixed mu*) configuration -- which elements actually drive the
+    # residual?  An independent review found the original finding's causal
+    # story ("d-band metals Nb/Ta") does not match the model's own numbers. ----
+    errs_fixed_named = errs_fixed  # from D2, keyed by element
+    ta_err = errs_fixed_named["Ta"]
+    nb_err = errs_fixed_named["Nb"]
+    al_err = errs_fixed_named["Al"]
+    in_err = errs_fixed_named["In"]
+    checks.append(("D10 Ta is NOT a top-2 worst element (contradicts a blanket "
+                    "'d-band Nb/Ta' causal story; Ta err below both Al and In)",
+                    ta_err < al_err and ta_err < in_err))
+    checks.append(("D10b Al and In (simple sp-metals) are the two worst-behaved "
+                    "elements, consistent with F211's weak-coupling "
+                    "lambda-hypersensitivity diagnosis, not a d-band/N(0) story",
+                    sorted(errs_fixed_named, key=errs_fixed_named.get, reverse=True)[:2]
+                    == sorted(["Al", "In"], key=errs_fixed_named.get, reverse=True)))
+    notes["per_element_err_fixed_ocf6"] = errs_fixed_named
 
     result = dict(checks={k: bool(v) for k, v in checks}, notes=notes)
     os.makedirs(RESULTS, exist_ok=True)
@@ -204,7 +292,12 @@ def run():
     for k, v in checks:
         print(f"  [{'PASS' if v else 'FAIL'}] {k}")
     print(f"  baseline (mismatched cutoff) mean err: {err_baseline:.1%}")
-    print(f"  fixed (spectrum-consistent cutoff) mean err: {err_fixed:.1%}")
+    print(f"  fixed (spectrum-consistent cutoff, ocf=6) mean err: {err_fixed:.1%}")
+    print(f"  per-element (fixed, ocf=6): " +
+          " ".join(f"{k}={v:.1%}" for k, v in errs_fixed_named.items()))
+    print(f"  ocf-scan (safe range): " +
+          " ".join(f"{k:.0f}:{v:.1%}" for k, v in ocf_scan.items()))
+    print(f"  Al Tc at ocf=80: {tc_al_80:.2f} K   at ocf=110 (spurious root): {tc_al_110:.2f} K")
     print(f"  no-cutoff-window mean err: {err_nocutoff:.1%}")
     print(f"  Allen-Dynes (einstein-consistent mu*, no r) mean err: {err_no_r:.1%}")
     print(f"  Allen-Dynes with model r=sqrt(e/2): {err_with_r:.1%}")

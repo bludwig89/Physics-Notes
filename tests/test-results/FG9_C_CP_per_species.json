@@ -273,7 +273,7 @@
           "part": "a_spectral",
           "species": "e",
           "m": 0.2,
-          "max_eigenphase_dev": 2.220446049250313e-16,
+          "max_eigenphase_dev": 2.7755575615628914e-16,
           "ok": true
         },
         {
@@ -287,7 +287,7 @@
           "part": "a_spectral",
           "species": "d",
           "m": 0.18,
-          "max_eigenphase_dev": 3.3306690738754696e-16,
+          "max_eigenphase_dev": 3.885780586188048e-16,
           "ok": true
         },
         {
@@ -319,8 +319,8 @@
         {
           "species": "e",
           "m": 0.2,
-          "omega_pos": 0.009247740964135448,
-          "omega_neg": 0.009247740964135448,
+          "omega_pos": 0.009247740964135446,
+          "omega_neg": 0.009247740964135446,
           "alg_delta": 0.0,
           "rel": 0.0,
           "ok": true
@@ -337,8 +337,8 @@
         {
           "species": "d",
           "m": 0.18,
-          "omega_pos": -0.007495848290298741,
-          "omega_neg": -0.007495848290298741,
+          "omega_pos": -0.007495848290298732,
+          "omega_neg": -0.007495848290298732,
           "alg_delta": 0.0,
           "rel": 0.0,
           "ok": true

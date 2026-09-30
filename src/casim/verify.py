@@ -203,7 +203,9 @@ def fidelity_backreaction(L=8, ticks=20, g_lat=0.5, eps=0.05) -> Check:
 
 
 def fidelity_beta_decay(L=16, ticks=10, g_lat=0.8, m_W=0.6) -> Check:
-    """Engine β-decay W trajectory == emit_w_minus + Proca loop, bit-for-bit."""
+    """Engine β-decay W trajectory == emit_w_minus + chiral Proca loop, bit-for-bit.
+    (The W± propagate on the chiral law, F91; the reference followed the channel
+    from the even Proca step to the chiral one on 2026-09-29.)"""
     from casim.engine.gauge import charged_current as cc
     profA = cc.gaussian_blob((L, L, L), (L // 4, L // 2, L // 2), 1.5)
     f_u = profA.astype(complex) * (0.9 + 0.0j)
@@ -211,7 +213,7 @@ def fidelity_beta_decay(L=16, ticks=10, g_lat=0.8, m_W=0.6) -> Check:
     E_W = np.zeros((3, L, L, L)); B_W = np.zeros((3, L, L, L))
     E_W, B_W, _ = cc.emit_w_minus(E_W, B_W, f_u, f_d, g_lat=g_lat, dt=1.0)
     for _ in range(ticks - 1):
-        E_W, B_W = cc.w_massive_propagation_step_spectral(E_W, B_W, m_W, dt=1.0)
+        E_W, B_W = cc.w_massive_propagation_step_chiral(E_W, B_W, m_W, dt=1.0)
     sim = Simulation(LatticeSpec(L=L, topology="bcc"),
                      [build_channel({"type": "beta_decay", "g_lat": g_lat,
                                      "m_W": m_W, "sigma": 1.5})], [], seed=0)

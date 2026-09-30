@@ -235,7 +235,7 @@ def _dot_k(Ax, Ay, Az, Bx, By, Bz):
     return Ax * Bx + Ay * By + Az * Bz
 
 
-def maxwell_curl_step(E, B, J=None, dt=1.0):
+def maxwell_curl_step(E, B, J=None, dt=1.0, rate=None):
     """One tick of the sourced paired-photon Maxwell curl, integrated
     **exactly** per Fourier mode (2026-06-06):
 
@@ -260,6 +260,13 @@ def maxwell_curl_step(E, B, J=None, dt=1.0):
     it agrees with the Euler step to O(dt²).  The Euler step is retained for
     reference as ``maxwell_curl_step_euler``.
 
+    ``rate`` (2026-09-29): optional per-mode angular rate ω(k) replacing
+    |C(k)| in θ = dt·ω, keeping the curl structure Ĝ (so the Gauss law stays
+    exact).  ``ChargePhotonChannel`` passes the paired-photon Ω_pair(k), which
+    puts charge_photon on the even law its label claims; modes with C = 0 are
+    left fixed (Ĝ is undefined there).  ``rate=None`` is the historical
+    |C|-rate step, bit-for-bit.
+
     E, B, J are (3,Lx,Ly,Lz) real arrays.  Returns (E_new, B_new) real."""
     shape = E.shape[1:]
     KX, KY, KZ = make_kgrid_3d(*shape)
@@ -267,7 +274,10 @@ def maxwell_curl_step(E, B, J=None, dt=1.0):
     Cmag = np.sqrt(Cx ** 2 + Cy ** 2 + Cz ** 2)
     safe = np.where(Cmag > 0.0, Cmag, 1.0)        # C=0 modes: all terms vanish
     chx, chy, chz = Cx / safe, Cy / safe, Cz / safe   # ĉ unit symbol (real)
-    theta = dt * Cmag
+    if rate is None:
+        theta = dt * Cmag
+    else:
+        theta = np.where(Cmag > 0.0, dt * np.asarray(rate), 0.0)
     cosm1 = np.cos(theta) - 1.0                   # cos θ − 1   (→ 0 as C → 0)
     sino = np.sin(theta) / safe                   # sin θ / |C| (→ dt as C → 0)
     Ek = [_fft.fftn(E[a]) for a in range(3)]
@@ -310,6 +320,66 @@ def maxwell_curl_step_euler(E, B, J=None, dt=1.0):
     if J is not None:
         E_new = E_new - dt * J
     return E_new, B_new
+
+
+def solve_A_coulomb_3d(B):
+    """Solve for the Coulomb-gauge (``C·A≡0``) vector potential ``A`` with
+
+        i C(k)×A(k) = B_T(k)        (mode-by-mode, C(k)≠0)
+
+    — the 3-D, spectral-BCC-symbol sibling of :func:`solve_A_coulomb_2d`
+    (Stage 3 of ``docs/roadmaps/photon-fermion-coupling.md``; see
+    ``findings/F386-a-field-convention.md``).  Uses the *same* ``C(k)`` this
+    module's ``maxwell_curl_step``/``gauss_residual`` and
+    ``gauge.em_current.conserved_current`` (F384) already use — not a new
+    curl operator.
+
+    This is algebraically the *same* identity :func:`magnetostatic_B` already
+    solves (``i C×X = Y`` inverted for ``X`` given ``Y``, using
+    ``C×(C×X)=C(C·X)−X|C|²`` and ``C·X=0``), applied to the pair ``(A,B)``
+    instead of ``(B,J)``:
+
+        A = i (C×B_T) / |C|²
+
+    Manifestly **purely C-transverse by construction** — ``C·A≡0`` exactly,
+    since ``C·(C×anything)≡0`` — so this returns a vector potential carrying
+    *only* the curl-carrying (magnetic-type, transverse) content of the
+    field and *zero* longitudinal/gradient content, regardless of whether the
+    given ``B`` itself has any spurious C-longitudinal residue (it should not,
+    for a field obeying this model's own ``i C·B=0`` invariant, but none is
+    assumed here — see ``lon_frac``).
+
+    Returns ``(A, lon_frac)``: ``A`` is real ``(3,Lx,Ly,Lz)``; ``lon_frac`` is
+    the fraction of ``B``'s own norm that is C-longitudinal (cannot be
+    produced by *any* A via this relation — the same diagnostic
+    :func:`magnetostatic_B` returns for ``J``).  Inherits the same disclosed
+    Nyquist-corner gap as every other consumer of ``bcc_curl_symbol``
+    (F384 §3): the 7 non-origin Brillouin-zone-corner modes where
+    ``C(k)≡0`` exactly have no solution for ``A`` regardless of ``B``'s
+    content there — ``A`` is returned as exactly 0 on those modes.
+    """
+    shape = B.shape[1:]
+    KX, KY, KZ = make_kgrid_3d(*shape)
+    Cx, Cy, Cz = bcc_curl_symbol(KX, KY, KZ)
+    C2 = Cx ** 2 + Cy ** 2 + Cz ** 2
+    Bk = [_fft.fftn(B[a]) for a in range(3)]
+    CdotB = _dot_k(Cx, Cy, Cz, *Bk)
+    nz = C2 > 1e-14
+    BT = []
+    for a, C in enumerate((Cx, Cy, Cz)):
+        proj = np.zeros_like(Bk[a])
+        proj[nz] = C[nz] * CdotB[nz] / C2[nz]
+        BT.append(Bk[a] - proj)
+    cxBT = _cross_k(Cx, Cy, Cz, *BT)
+    Ak = []
+    for a in range(3):
+        v = np.zeros_like(Bk[a])
+        v[nz] = 1j * cxBT[a][nz] / C2[nz]
+        Ak.append(v)
+    A = np.array([_fft.ifftn(Ak[a]).real for a in range(3)])
+    Bnorm = np.sqrt(sum(np.sum(np.abs(b) ** 2) for b in Bk)) + 1e-30
+    lon = np.sqrt(np.sum(np.abs(CdotB) ** 2 / np.maximum(C2, 1e-30)))
+    return A, float(lon / Bnorm)
 
 
 def gauss_residual(E, rho):
@@ -403,6 +473,123 @@ def sourced_flux_tube_2d(L, c1, c2, radius, current):
     Bz -= Bz.mean()                                   # exact zero mean (periodic)
     Ax, Ay = solve_A_coulomb_2d(Bz)
     return Bz, Ax, Ay
+
+
+# ======================================================================
+#  Part B (docs/roadmaps/photon-fermion-coupling-rerun-prompt.md) — the
+#  missing curl(grad phi)=0 gate leg, and the on-axis reflection facts.
+# ======================================================================
+def check_curl_grad_identity_diagnostic(L=16, curl_symbol="bcc"):
+    """**Known-failing diagnostic, gated honestly** (docs/audits/2026-09-16-
+    photon-fermion-momentum-investigation.md §3.2/§3.3).  Discrete exterior
+    calculus gives two identities from ``d∘d=0``: ``div(curl A)=0`` (``C·(C×x)
+    ≡0``, **vacuous** — true for *any* vector field ``C``, which is exactly
+    what this codebase's existing no-monopole gate (``iĈ·B≈0``) tests) and
+    ``curl(grad φ)=0`` (``C×G=0``, which requires ``C∥G`` — **the one that
+    actually constrains ``C``, and it was never tested before this leg**).
+
+    ``bcc_curl_symbol`` fails the second identity maximally: on average the
+    "curl of a gradient" is `74%` of its maximum possible magnitude, against
+    either gradient symbol.  **This function does not fix that** — Part C of
+    the rerun prompt is the decision of whether/how to build a genuine
+    discrete-exterior-calculus curl; this function's only job is to make the
+    defect visible and monitored rather than silently assumed away.
+
+    The asserted numbers below are therefore the **measured, defective**
+    values of ``bcc_curl_symbol`` — not a target — and a regression in this
+    check means the symbol's own defect *changed shape*, not that anyone
+    broke a working curl.  ``curl_symbol="true"`` (the declared control)
+    substitutes a genuine curl generator ``C=k`` (for which ``C×k≡0``
+    trivially, since any vector is parallel to itself) and must turn the
+    "matches the known defect" legs red, proving this diagnostic can
+    discriminate a real curl from a non-curl at all.
+
+    Also gates the on-axis reflection facts (§3.4 of the same audit, the
+    mechanism behind F390's axis-dependent sign inversion): ``Ĉ(k)·k̂ = +1``
+    on the x- and z-axes, ``−1`` on the y-axis, exactly, at every grid mode
+    ``m∈{1,2,3,4}`` — not a small-``k`` asymptote.
+    """
+    # `casim.tests.registry.parse_param` coerces a bare CLI token `true`/
+    # `false` to a Python bool before it reaches here (found in review,
+    # docs/reviews/F393-review-2026-09-16.md) — a manually-typed
+    # `--param curl_symbol=true` would otherwise raise below instead of
+    # running the control. The registry's own YAML control avoids this by
+    # quoting the string (`curl_symbol: 'true'`), which is what the gate
+    # tier actually runs; this accepts the bool alias too, for anyone
+    # reproducing it by hand from the CLI.
+    if curl_symbol is True:
+        curl_symbol = "true"
+    elif curl_symbol is False:
+        curl_symbol = "bcc"
+    KX, KY, KZ = make_kgrid_3d(L, L, L)
+    if curl_symbol == "bcc":
+        Cx, Cy, Cz = bcc_curl_symbol(KX, KY, KZ)
+    elif curl_symbol == "true":
+        Cx, Cy, Cz = KX.astype(complex), KY.astype(complex), KZ.astype(complex)
+    else:
+        raise ValueError("curl_symbol must be 'bcc' or 'true'")
+    C = np.stack([Cx, Cy, Cz])
+    K = np.stack([KX, KY, KZ])
+    nC = np.linalg.norm(C, axis=0)
+    nK = np.linalg.norm(K, axis=0)
+    valid_k = nK > 1e-12
+
+    def _cross_mag(A, Bv):
+        X = np.stack([A[1] * Bv[2] - A[2] * Bv[1],
+                      A[2] * Bv[0] - A[0] * Bv[2],
+                      A[0] * Bv[1] - A[1] * Bv[0]])
+        return np.linalg.norm(X, axis=0)
+
+    measured = {}
+    for name, G in (("spectral", K.astype(complex)),
+                    ("forward_diff", np.stack([np.exp(1j * KX) - 1.0,
+                                              np.exp(1j * KY) - 1.0,
+                                              np.exp(1j * KZ) - 1.0]))):
+        nG = np.linalg.norm(G, axis=0)
+        # excludes the disclosed Nyquist-corner modes where bcc_curl_symbol
+        # is forced to exactly zero (F384 §3's nyquist_gap: 7 non-origin
+        # modes with |C(k)|<1e-14) -- the curl(grad)=0 identity is vacuous
+        # there (0/0), not a measurement, since a zero curl trivially
+        # satisfies C x G = 0 regardless of whether it is a genuine curl.
+        mm = valid_k & (nG > 1e-12) & (nC > 1e-12)
+        ratio = _cross_mag(C.astype(complex), G)[mm] / (nC[mm] * nG[mm])
+        measured[f"{name}_max"] = float(ratio.max())
+        measured[f"{name}_mean"] = float(ratio.mean())
+
+    onaxis = {}
+    for axis, axis_name in enumerate(("x", "y", "z")):
+        for m in (1, 2, 3, 4):
+            idx = [0, 0, 0]
+            idx[axis] = m
+            idx = tuple(idx)
+            c = np.array([Cx[idx], Cy[idx], Cz[idx]]).real
+            k = np.array([KX[idx], KY[idx], KZ[idx]])
+            cos_ck = float(c @ k) / (np.linalg.norm(c) * np.linalg.norm(k))
+            onaxis[f"{axis_name}_m{m}"] = cos_ck
+
+    known_defect = {"spectral_max": 1.000000, "spectral_mean": 0.741692,
+                    "forward_diff_max": 1.000000, "forward_diff_mean": 0.707173}
+    checks = {}
+    for key, expected in known_defect.items():
+        checks[f"matches_known_defect_{key}"] = abs(measured[key] - expected) < 1e-4
+
+    checks["onaxis_reflection_x_plus_one"] = all(
+        abs(onaxis[f"x_m{m}"] - 1.0) < 1e-9 for m in (1, 2, 3, 4))
+    checks["onaxis_reflection_y_minus_one"] = all(
+        abs(onaxis[f"y_m{m}"] + 1.0) < 1e-9 for m in (1, 2, 3, 4))
+    checks["onaxis_reflection_z_plus_one"] = all(
+        abs(onaxis[f"z_m{m}"] - 1.0) < 1e-9 for m in (1, 2, 3, 4))
+
+    n_pass = sum(1 for v in checks.values() if v)
+    return {
+        "checks": checks,
+        "n_pass": n_pass,
+        "n_checks": len(checks),
+        "ok": n_pass == len(checks),
+        "measured": measured,
+        "onaxis_cos": onaxis,
+        "curl_symbol": curl_symbol,
+    }
 
 
 # ======================================================================

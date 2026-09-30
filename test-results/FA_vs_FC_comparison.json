@@ -4,7 +4,7 @@
   "n_tests": 4,
   "n_passed": 4,
   "sigma_A_source": "production_json",
-  "total_elapsed_s": 0.016661166000005778,
+  "total_elapsed_s": 0.006595415994524956,
   "results": [
     {
       "test": "CMP1",
@@ -14,45 +14,46 @@
       "tier": 3,
       "detail": {
         "V_A": {
-          "1": 0.43503560760409915,
-          "2": 0.6663023699773438,
-          "3": 0.7810070617163175
+          "1": 0.46269703324014644,
+          "2": 0.7082918993928738,
+          "3": 0.8358374657651455,
+          "4": 0.9197534023193141
         },
         "V_A_rising": true,
-        "sigma_A_slope": 0.0564236564218382,
+        "sigma_A_slope": 0.05756420225226125,
         "sigma_C(v=0.1)": 0.06283185307179587,
         "sigma_A_source": "production_json"
       },
-      "elapsed_s": 0.004500709000012648
+      "elapsed_s": 0.0013835830031894147
     },
     {
       "test": "CMP2",
       "name": "sigma_A fixes dual-SC condensate v*=sqrt(sigma_A/2pi)",
       "passed": true,
-      "residual": 1.2297845166272494e-16,
+      "residual": 1.2054182343219484e-16,
       "tier": 1,
       "detail": {
-        "sigma_A": 0.0564236564218382,
-        "v_star": 0.094763409746876,
-        "sigma_C(v*)": 0.05642365642183819,
+        "sigma_A": 0.05756420225226125,
+        "v_star": 0.09571639009902637,
+        "sigma_C(v*)": 0.057564202252261255,
         "v_star_sensible": true
       },
-      "elapsed_s": 8.624999964013114e-06
+      "elapsed_s": 5.20898902323097e-06
     },
     {
       "test": "CMP3",
       "name": "shared large-R slope + Coulomb gap = -e/R (C omits it)",
       "passed": true,
-      "residual": 0.01702144012768716,
+      "residual": 0.016896146758093977,
       "tier": 1,
       "detail": {
-        "sigma": 0.0564236564218382,
+        "sigma": 0.05756420225226125,
         "coulomb_e_recovered": 0.2617993877991494,
         "gap_is_exactly_1overR": 2.502447041094485e-15,
-        "largeR_rel_gap(R>=10)": 0.01702144012768716,
+        "largeR_rel_gap(R>=10)": 0.016896146758093977,
         "smallR_Coulomb_gap_R1": 0.26179938779914935
       },
-      "elapsed_s": 0.00011354199995139425
+      "elapsed_s": 7.38749949960038e-05
     },
     {
       "test": "CMP4",
@@ -61,16 +62,16 @@
       "residual": 0.0,
       "tier": 2,
       "detail": {
-        "sigma_A": 0.0564236564218382,
+        "sigma_A": 0.05756420225226125,
         "F70_sigma(beta=2,4,8)": [
           2.050832430468924,
-          1.274326782379362,
+          1.2743267823793623,
           0.6240801967540588
         ],
         "F70_positive": true,
         "F70_decreasing": true
       },
-      "elapsed_s": 0.012000624999984666
+      "elapsed_s": 0.005111667007440701
     }
   ]
 }

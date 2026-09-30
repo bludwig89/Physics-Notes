@@ -1154,8 +1154,10 @@ tests:
     has_main: true
     lines: 68
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F342_generation_identification_gap.json
+    artifact_rule:
+      test-results/F342_generation_identification_gap.json: local
     artifacts_read_only: []
     summary: 'F342 -- rubric row C1 (exactly three generations): does F75''s own defining'
 - id: F343-majorana-scale-no-link-found
@@ -1225,7 +1227,7 @@ tests:
     pytest_funcs: true
     has_assert: true
     has_main: false
-    lines: 170
+    lines: 175
     n_test_funcs: 8
     artifacts_written: []
     artifact_rule: {}
@@ -1470,8 +1472,10 @@ tests:
     has_main: true
     lines: 165
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F353_delta_cp_t2g_inheritance.json
+    artifact_rule:
+      test-results/F353_delta_cp_t2g_inheritance.json: local
     artifacts_read_only: []
     summary: test_F353_delta_cp_t2g_inheritance.py
 - id: F373-quark-size-from-confinement-radius
@@ -1508,10 +1512,448 @@ tests:
     has_main: false
     lines: 401
     n_test_funcs: 0
+    artifacts_written:
+    - test-results/F373_quark_size_from_confinement_radius.json
+    artifact_rule:
+      test-results/F373_quark_size_from_confinement_radius.json: local
+    artifacts_read_only: []
+    summary: test_F373_quark_size_from_confinement_radius.py
+- id: F378-discrete-cpt-gauged-theorem
+  sector: particles
+  kind: assertion
+  tier: battery
+  module: casim.engine.particles.discrete_cpt_gauged
+  entry: check_gauged_cpt_theorem
+  params:
+    seed: 2026
+    n_trials: 300
+  expect:
+    exactness: exact
+    tol: 1.0e-10
+  findings:
+  - F378
+  - F328
+  - F53
+  - F91
+  results:
+  - test-results/F378_discrete_cpt_gauged_theorem.json
+  control:
+  - params:
+      use_naive_iso: true
+    reds:
+    - B1-kinetic-only-cpt-theorem
+    - B2-kinetic-only-edge-cases
+    - C1-theta-squared-is-plus-one-not-kramers
+    - C1b-theta-squared-not-minus-one
+    reason: swap the kinetic-sector isospin twist tau_2 for the trivial I2 in the B1/B2/C1 legs (the positive
+      result's own Theta'). With I2 the operator identity fails (B1, B2 turn O(1) red, since I2 does not
+      satisfy the SU(2) pseudoreality identity tau_2 U tau_2^-1 = U* that the proof needs), and Theta^2
+      reverts to F328's Kramers -1 (since sigma_y (x) I2 is still purely imaginary, same Kramers class
+      as the free-sector theorem) -- so C1 (which asserts +1) turns red for exactly the reason the docstring
+      predicts, and C1b (which asserts NOT -1) turns red too, confirming the flip is real and specific
+      to the tau_2 twist. Every OTHER leg -- X0 (module cross-check, isospin-independent), A1 and D1 (facts
+      about tau_2 alone, independent of which Theta the operator theorem itself uses), B3 (unitarity,
+      isospin-independent), D2 (the mass no-go, present regardless of this switch), D3 (the Lambda-search
+      control, independent), and E1 (the zero-coupling cross-module mismatch, where U=V=I makes the isospin
+      choice irrelevant) -- stays green. VERIFIED RED 2026-09-09.
+  summary: 'F378 (ledger row A4r, rubric row A4). Extends F328''s Theta to the SU(2)_L-coupled BCC Dirac
+    doublet. X0 cross-checks the closed-form momentum-diagonal 8x8 unitary against the real casim.engine.gauge.weak_wmu.covariant_dirac_doublet_step
+    at a uniform link (machine precision). E1 shows that module''s OWN architecture (branch +, paired
+    with the true branch -, not with its own dagger the way dirac_bcc.py does) already fails F328''s identity
+    at ZERO gauge coupling (U=V=I) -- a pre-existing cross-module discretisation mismatch, not a gauge-coupling
+    effect. To isolate the actual gauge-coupling question, A/B/C graft a uniform SU(2) link directly into
+    dirac_bcc.py''s OWN branch+/dagger architecture: A1 verifies the SU(2) pseudoreality identity tau_2
+    U tau_2^-1 = U* for every U (generalising F328 identity I); B1/B2/B3 prove Theta'' = Sigma.(sigma_y
+    (x) tau_2 (+) sigma_y (x) tau_2).K exactly intertwines the SU(2)-kinetic-coupled walk (scalar mass)
+    with its inverse, machine precision, random (k, m, U) and at edge cases, with D_grafted exactly unitary;
+    C1/C1b show Theta''^2 = +1, NOT F328''s Kramers -1 -- a second pseudoreal twist flips the antiunitary
+    involution class. D is the companion no-go: D1 confirms tau_2 V^T tau_2^-1 = V^-1 (a true but DIFFERENT
+    identity from the one the mass sector needs); D2 shows that once the model''s own SU(2)-gauged (Stueckelberg-type)
+    mass link is switched on, Theta'' breaks at O(1) regardless of the link choice; D3 is a 500-sample
+    Monte-Carlo search over random unitary 2x2 Lambda confirming no fixed isospin operator solves the
+    mass sector''s required identity for two fixed non-commuting SU(2) elements simultaneously, consistent
+    with the general fact that V -> V^T is a group anti-automorphism while conjugation is always an automorphism,
+    and the two coincide only on an abelian group (SU(2) is not). Does NOT claim the physical SU(2)_L
+    gauge theory violates CPT: every test holds the classical link fixed under the antiunitary map, and
+    letting Theta also transform the background field is a different, unattempted question (module docstring
+    Scope section; CL285''s falsifier text and ledger row A4r''s own caution both flag that a genuine
+    CPT-violation claim needs its own card and a named experimental confrontation).'
+- id: F399-composite-scalar-fermion-coupling
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.particles.derive_composite_scalar_fermion_coupling
+  entry: check_composite_scalar_fermion_coupling
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-08
+  findings:
+  - F399
+  - F73
+  - F74
+  - F77
+  control:
+  - params:
+      channel: PS
+    reds:
+    - sigma_coupling_not_universal
+    reason: checks the PSEUDOSCALAR (pion) Goldberger-Treiman ratio instead of the scalar one -- the pion
+      ratio genuinely IS a coupling-independent constant (exact chiral-symmetry theorem, spread 6.2e-12
+      across the same coupling sweep, vs. the scalar's 0.81), so the leg (which requires spread > 0.5)
+      must go red, while the other three legs (unaffected by which channel this one leg's sweep uses)
+      stay green.
+  - params:
+      G_ab: 0.01
+    reds:
+    - species_locality_exact
+    reason: a nonzero cross-species contact coupling in the 2-flavour toy model makes the RPA propagator
+      matrix genuinely mix (off-diagonal residual 0.10, vs. exactly 0.0 at G_ab=0) -- this is precisely
+      the missing ingredient (an explicit Yukawa-like cross-species vertex) a kappa-framework-compatible
+      universal coupling would require and that NB2-001 established this model supplies nowhere; the other
+      three legs (independent of the toy model) stay green.
+  notes: 'F399 -- Notebook v2 prompt B: does the F73 Cooper-pair Higgs candidate have a natural coupling
+    to fermions? Extracts the scalar-fermion residue coupling g_sigma_qq = 1/sqrt(2 Nc Nf K(4M^2)) from
+    F77''s own NJL machinery, by the same residue-at-the-pole formula F77 already uses for g_pi_qq (Goldberger-Treiman)
+    -- independently reimplemented and cross-checked against F77''s own published fit (M, f_pi, GT residual
+    5.8e-13). K(4M^2) is finite (no singularity at the sigma''s own marginal-binding threshold), so the
+    coupling exists and is computable: g_sigma_qq = 2.105 at the canonical fit. Unlike the pion''s exact
+    GT ratio (coupling-independent, spread 6e-12), the analogous scalar ratio g_sigma_qq*f_pi/M is NOT
+    universal -- it varies by 81% across a coupling sweep, a genuine dynamical NJL output with no protecting
+    symmetry. The harder, negative result: species locality is proven as an EXACT linear-algebra fact
+    (not approximated) on a 2-flavour toy NJL model -- the RPA propagator matrix D=[(2G)^-1-Pi]^-1 is
+    exactly block-diagonal whenever the cross-species contact G_ab=0 (Pi is block-diagonal by construction,
+    since no one-loop diagram connects two different fermion species without an explicit G_ab vertex),
+    so a sigma built from one species'' own condensate has identically zero coupling to any other species.
+    This model supplies no G_ab term anywhere (NB2-001''s "no Yukawa mechanism" finding) -- closing Notebook
+    v2 prompt B: not "not yet built", the necessary structural consequence of the model''s own already-established
+    mass mechanism.'
+- id: F402-baryon-mass-decomposition
+  path: tests/findings/test_F402_baryon_mass_decomposition.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  findings:
+  - F122
+  - F123
+  - F77
+  - F144
+  - F402
+  module: tests.findings.test_F402_baryon_mass_decomposition
+  entry: check_all
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-06
+  results:
+  - test-results/F402_baryon_mass_decomposition.json
+  note: 'NB2-004 open question 2: the Ji-type four-term nucleon-mass decomposition (H_E + H_m + H_g +
+    H_a) built in the model''s own sectors. The decomposition follows from (a) the mass term m dM/dm and
+    (b) the momentum fractions via H_a = (M - H_m)/4, H_E = 3(x_q M - H_m)/4, H_g = 3 x_g M/4. (A1, machine)
+    NJL dilatation identity M = m0 dM/dm0 - 2G dM/dG + Lam dM/dLam by the test''s own finite differences
+    at four points; the contact (-5.1 GeV) and regulator (+6.0 GeV) pieces cancel at 5-6x M so only M
+    - H_m is regulator-independent. (A2) sigma_N = 3 m0 dM_c/dm0 = 46.2 MeV vs independent FD, -3.7 sigma
+    / -2.3 sigma vs Hoferichter 59.1(3.5) / FLAG 2024 60.9(6.5). (B1, machine) Cornell three-body Hellmann-Feynman
+    for m, sigma, alpha_s. (B2) virial residual shrinks with basis; H_a - (M-H_m)/4 = -virial/4 exactly.
+    (B3) the NR mass term 3m - <T> is NEGATIVE at the F122 baseline (unphysical); half-rule positive but
+    2.7x NJL. (C1, machine) LO second-moment evolution closed form == RK4. (C2) model-native gluon momentum
+    fraction at 2 GeV (0.18-0.25, F144 alpha_s + F152 frozen IR) is 1.98 sigma (ETMC 0.427(92)) to 2.9
+    sigma (chiQCD-derived 0.49(9)) below lattice: the H_E/H_g SPLIT is not supported; needs 2.3-3.0x more
+    evolution (mean alpha_s 1.1-1.5) or a gluon share of 0.29-0.40 already at Lam_NJL -- the deficit is
+    a statement about the x_g=0 start (narrowed on review, attack 4). Operator-level <N|F^2|N> NOT built.
+
+    '
+  control:
+  - params:
+      m0_MeV: 11
+    reason: 'doubling the NJL current mass takes sigma_N out of the documented -4.5..-1.5 sigma undershoot
+      band (sigma_N ~ 2x larger, pull turns positive). A2 must go RED -- otherwise the band cannot tell
+      the model''s own m0 from any other. VERIFIED RED.
+
+      '
+  - params:
+      cornell_m: 5.0
+    reason: 'heavy quarks (m = 5 sqrt(sigma)) make the NR mass term 3m - <T> positive, so B3''s claim
+      that it is NEGATIVE at the F122 baseline fails. B3 must go RED. VERIFIED RED.
+
+      '
+  evidence:
+    mentions:
+    - F122
+    - F402
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 226
+    n_test_funcs: 0
     artifacts_written: []
     artifact_rule: {}
     artifacts_read_only: []
-    summary: test_F373_quark_size_from_confinement_radius.py
+    summary: F402 — the Ji-type four-term nucleon-mass decomposition, built in the model's
+- id: F403-oh-residual-pmns
+  path: tests/findings/test_F403_oh_residual_pmns.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.particles.derive_oh_residual_pmns
+  entry: check_oh_residual_pmns
+  params:
+    frame: cube_axes
+    theta13_lo_deg: 8.19
+    s12sq_band: nufit60
+  expect:
+    exactness: quantitative
+  findings:
+  - F403
+  results:
+  - test-results/F403_oh_residual_pmns.json
+  control:
+  - params:
+      frame: trimaximal
+    reds:
+    - N1_no_viable_unitary_residual
+    - S2_no_viable_residual_subgroup
+    reason: Move the charged leptons from the cube-axis (E_g) frame to the [111]-trimaximal frame. The
+      face-diagonal C2' then fix a TM1 column (2/3, 1/6, 1/6) and the axis C2 a TM2 column (1/3, 1/3,
+      1/3), both inside the NuFIT 6.0 3-sigma box, so N1 goes red. This is what the charged-lepton frame
+      is doing -- the no-go is a statement about the E_g reading, not about O_h in general.
+  - params:
+      theta13_lo_deg: 0.0
+    reds:
+    - N1_no_viable_unitary_residual
+    - N2_minimum_modulus_positive
+    - B2_trimaximal_frame_TM1_viable
+    - B4_TM1_delta_correlation
+    - S2_no_viable_residual_subgroup
+    - S3_trimaximal_subgroup_survivors_single_column
+    - S4_bcc_nn_frame_nonorthogonal_face_frame_no_go
+    reason: Let the data allow theta13 = 0. Cube-axis columns with a single zero (e.g. the C2' column
+      (0, 1/2, 1/2) as a TBM-like third column) become viable, so N1 and N2 go red, and extra trimaximal-frame
+      residuals survive so B2's exact survivor count goes red. The no-go rests on the measured theta13
+      != 0.
+  evidence:
+    mentions:
+    - F403
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 45
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F403 -- can any residual symmetry drawn from O_h fix PMNS, given the model's
+- id: F404-koide-pseudomass-fork
+  path: tests/findings/test_F404_koide_pseudomass_fork.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.forks.particles.koide_pseudomass_fork
+  entry: check_koide_pseudomass_fork
+  params:
+    scheme: mixed
+    down_signs: -++
+    n_starts: 24
+    ckm_weight: 1.0
+    koide_weight: 100.0
+  expect:
+    exactness: quantitative
+  findings:
+  - F404
+  results:
+  - test-results/F404_koide_pseudomass_fork.json
+  control:
+  - params:
+      down_signs: +++
+    reds:
+    - P3_schur_horn_delta_windows
+    - P4b_universal_delta_star_fits_with_signed_down
+    - P7_signed_route_nonpredictive_but_angles_correlated
+    reason: Make every down amplitude positive, as for the charged leptons. The universal E_g angle delta*
+      = 2/9 leaves the down sector's Schur-Horn window, so P3 goes red, and no exact-Koide solution with
+      the measured CKM exists at any tested angle pair, so P4b and P7 go red. This is what the negative
+      lightest down amplitude is doing -- it is the whole of the route's viability.
+  - params:
+      ckm_weight: 0.0
+    reds:
+    - P4a_lepton_like_amplitudes_fail_jointly
+    reason: Drop the CKM from the joint problem. Lepton-like (all-positive) amplitudes then reach exact
+      Koide in both sectors easily, so P4a goes red. The all-positive failure is a CKM incompatibility,
+      not an inability to make each sector Koide on its own.
+  - params:
+      koide_weight: 10000.0
+    reds:
+    - P4a_lepton_like_amplitudes_fail_jointly
+    reason: Stiffen the Koide penalty 100x. The search then buys Koide at the CKM's expense (the old 1.9e-3
+      'minimum' sat at |V_cb| = 0.124), no solution holds the CKM at chi^2 <= 1, and P4a goes red because
+      it refuses to report a penalty compromise as a Koide violation. Added by the 2026-09-24 review,
+      which found the shipped figure scaled as 1/koide_weight.
+  evidence:
+    mentions:
+    - F404
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 45
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F404 -- FORK: Koide pseudo-masses for quarks (route 1 of the 2026-09-24'
+- id: F405-quark-B-colour-charge
+  path: tests/findings/test_F405_quark_B_colour_charge.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.particles.derive_quark_B_colour_charge
+  entry: check_quark_B_colour_charge
+  params:
+    mass_dependent_dressing: false
+  expect:
+    exactness: quantitative
+  findings:
+  - F405
+  results:
+  - test-results/F405_quark_B_colour_charge.json
+  control:
+  - params:
+      generation_charges_up:
+      - 2/3
+      - 2/3
+      - -1/3
+    reds:
+    - U1_uniform_dressing_Q_invariant
+    reason: Give the three up-type generations different electric charges. The gauge dressing is then
+      no longer a generation scalar, the dressed Koide Q moves, and U1 goes red. The no-go rests on colour
+      and charge being the same on all three generations of a sector.
+  - params:
+      mass_dependent_dressing: true
+    reds:
+    - U2_gauge_running_Q_invariant
+    reason: Replace mass-independent gauge running (a uniform rescale of every mass) by a mass-dependent
+      power law m -> m^(1+gamma). Intra-sector ratios then run and Q moves, so U2 goes red. The no-go
+      holds only for mass-independent dressing; the power law is the P1 loophole.
+  evidence:
+    mentions:
+    - F95
+    - F405
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 45
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F405 -- can quark colour and charge factors on F95's Dirac-sea cubic B
+- id: F406-lepton-frame-fork
+  path: tests/findings/test_F406_lepton_frame_fork.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.particles.derive_lepton_frame_fork
+  entry: check_lepton_frame_fork
+  params:
+    sea_L: 6
+    sea_generation_blind: true
+    s12sq_band: juno
+    n_samples: 120000
+    n_couplings: 3000
+    imax_scale: 1.0
+  expect:
+    exactness: quantitative
+  findings:
+  - F406
+  results:
+  - test-results/F406_lepton_frame_fork.json
+  control:
+  - params:
+      sea_generation_blind: false
+    reds:
+    - K2_dirac_sea_generation_covariant
+    - V_verdict_picture_a
+    reason: Put generation 0 on the opposite BCC helicity branch (still unitary as shift x coin). The
+      kinetic block is no longer generation-blind, so the Dirac sea stops being covariant under generation
+      unitaries and the (a)/(b) tie of the derived sector breaks. K2 is what the exact tie rests on for
+      the one derived term.
+  - params:
+      s12sq_band: nufit60
+    reds:
+    - K4_TM1_only_on_b2_no_viable_residual_on_b1
+    - V_verdict_picture_a
+    reason: Drop the JUNO-inclusive sin^2 theta12 band. The axis-C2 column (1/3,1/3,1/3) (TM2, sin^2 theta12
+      >= 0.341) then survives on every circulant branch, so b1 regains a viable residual. The 'no viable
+      residual on b1' verdict (which it shares with (a), F403) rests on JUNO.
+  - params:
+      imax_scale: 4.0
+    reds:
+    - K8_quadratic_phase_diagram_b1_b2_never_ground
+    - V_verdict_picture_a
+    reason: Loosen the T1g bound to (lmax - lmin)^2, 4x the operator-norm bound. The claimed minima in
+      the b3 and T1g-block regions no longer match their witnesses, so the exact phase diagram goes red.
+      K8 rests on I <= ((lmax - lmin)/2)^2.
+  evidence:
+    mentions:
+    - F118
+    - F406
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 46
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F406 -- the charged-lepton frame fork: picture (a) E_g-diagonal vs picture (b)'
+- id: F407-koide-pseudomass-minimal
+  path: tests/findings/test_F407_koide_pseudomass_minimal.py
+  kind: assertion
+  tier: gate
+  sector: particles
+  module: casim.engine.forks.particles.koide_pseudomass_minimal
+  entry: check_koide_pseudomass_minimal
+  params:
+    scheme: mixed
+    n_starts: 30
+    t1g: true
+    force_positive: false
+  expect:
+    exactness: quantitative
+  findings:
+  - F407
+  results:
+  - test-results/F407_koide_pseudomass_minimal.json
+  control:
+  - params:
+      t1g: false
+    reds:
+    - M2_universal_delta_star_fits
+    - M2_zenczykowski_third_twothirds_fits
+    - M2_coincidence_third_half_fits
+    reason: Remove the single T_1g amplitude. Both amplitude matrices are then real symmetric, the CKM
+      is real and J = 0 identically (F404 P6), which costs chi^2 ~ 576 at every E_g angle pair, so all
+      three M2 fits go red. The one phase in the minimal ansatz is load-bearing, not decorative.
+  - params:
+      force_positive: true
+    reds:
+    - M2_universal_delta_star_fits
+    - M2_zenczykowski_third_twothirds_fits
+    - M2_coincidence_third_half_fits
+    reason: Force every amplitude positive, as for the charged leptons. At the PDG m_s no candidate pair
+      fits (F404 P4a seen from the minimal ansatz), so all three M2 legs go red. M4 is unaffected because
+      it already forces positivity and frees m_s.
+  evidence:
+    mentions:
+    - F407
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 46
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F407 -- FORK: the minimal pseudo-mass quark fit (derivation three of the'
 - id: F46-pythagorean-mass
   path: tests/findings/test_F46_pythagorean_mass.py
   kind: result_dump
@@ -1918,10 +2360,12 @@ tests:
     - F71
     - F74
     - F97
+    - F120
+    - F121
     pytest_funcs: false
     has_assert: false
     has_main: false
-    lines: 235
+    lines: 291
     n_test_funcs: 0
     artifacts_written:
     - test-results/P2_baryon_bound_state.json

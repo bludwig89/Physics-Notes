@@ -110,11 +110,14 @@ def _maps():
     A_refr = sp.Integer(1)
     B_refr = (1 + u) ** 2          # n = sqrt(B/A) = 1+u  (a Gordon medium)
 
-    # dielectric: eps = mu = K, impedance-preserving.  Fix K by the redshift:
-    #   sqrt(A) = K^{-1/2} = 1 - u   =>   K = (1-u)^{-2}
-    K = (1 - u) ** (-2)
-    A_diel = 1 / K                 # = (1-u)^2
-    B_diel = K                     # = (1-u)^{-2}
+    # dielectric: eps = mu = K, A = 1/K, B = K.  The canonical K = e^{2u}
+    # (decision 4, D-EM9): sqrt(A) = e^{-u} = 1 - u + O(u^2), factor-1 redshift.
+    # Until 2026-09-29 this used K = (1-u)^{-2}, the form D-EM9 EXCLUDES
+    # (beta = 1/2, Mercury +16.7%); both agree at O(u), so Z and K_bend are
+    # unchanged, but the gate no longer certifies an excluded map.
+    K = sp.exp(2 * u)
+    A_diel = 1 / K                 # = e^{-2u}
+    B_diel = K                     # = e^{2u}
 
     return {
         "clock_only": dict(A=A_clock, B=B_clock, eps=1 / sp.sqrt(A_clock * B_clock),
@@ -142,7 +145,13 @@ def coefficients():
 
         Z       = -d/du sqrt(A)|_0          (GR: 1)
         K_bend  = 2 * d/du n|_0             (GR: 4 ; Newton: 2)
-        impedance_is_constant : sqrt(mu/eps) independent of u  (proper EB rotation)
+        impedance_is_constant : sqrt(mu/eps) independent of u — REPORTED ONLY: it
+                     is True for all three placements (a static isotropic
+                     metric's Plebanski medium always has eps = mu), so it
+                     cannot discriminate (2026-09-29).
+        reciprocal_lock : A*B == 1 identically — the single-scalar (E,B)-rotation
+                     criterion (one K, A = 1/K, B = K); true only for the
+                     dielectric.  This is the discriminating structural check.
         redshift_ok : the map actually produces a non-zero redshift slope
     """
     out = {}
@@ -158,11 +167,13 @@ def coefficients():
         # impedance sqrt(mu/eps): constant in u?
         imped = sp.simplify(sp.sqrt(m["mu"] / m["eps"]))
         impedance_constant = sp.simplify(sp.diff(imped, u)) == 0
+        reciprocal_lock = sp.simplify(A * B - 1) == 0
         out[name] = dict(
             A=A, B=B, n=sp.simplify(n),
             Z=Z, K_bend=K_bend,
             redshift_ok=bool(Z != 0),
             impedance=imped, impedance_constant=bool(impedance_constant),
+            reciprocal_lock=bool(reciprocal_lock),
         )
     return out
 
@@ -175,7 +186,7 @@ def deflection_coeff_numeric(eps_GM_over_bc2: float, n_func=None) -> float:
     """
     Exact-quadrature deflection coefficient K_bend = alpha b c^2 / GM for a
     straight-line ray of impact parameter b past a 1/r index profile, for the
-    DIELECTRIC map n(r) = K(r) = (1 - GM/(r c^2))^{-2}.
+    DIELECTRIC map n(r) = K(r) = exp(2 GM/(r c^2)) (canonical; was (1-u)^{-2}).
 
     Confirms the series result K_bend -> 4 as GM/(b c^2) -> 0 (and reports the
     leading relativistic correction at finite field strength).  Uses mpmath
@@ -189,7 +200,7 @@ def deflection_coeff_numeric(eps_GM_over_bc2: float, n_func=None) -> float:
     if n_func is None:
         def n_func(r):
             uu = GMc2 / r
-            return (1 - uu) ** (-2)         # dielectric index forced by factor-1 redshift
+            return mp.exp(2 * uu)           # canonical dielectric index K = e^{2u}
 
     def integrand(x):
         # alpha = INT  d/dy [ ln n ]  dx   along y=b, x in (-inf, inf)
@@ -227,11 +238,14 @@ def test_dem1_eikonal_viability() -> dict:
     # exact algebraic checks on the dielectric
     diel_Z_ok = sp.simplify(diel["Z"] - 1) == 0
     diel_K_ok = sp.simplify(diel["K_bend"] - 4) == 0
-    diel_imped_ok = diel["impedance_constant"]
+    diel_lock_ok = diel["reciprocal_lock"]
 
-    # the contrast maps must each FAIL (anchors the result to Finding 19)
+    # the contrast maps must each FAIL (anchors the result to Finding 19),
+    # including the structural single-scalar test they are meant to fail
     clock_fails_bend = sp.simplify(clock["K_bend"] - 4) != 0      # gives 2, not 4
     refr_fails_redshift = not refr["redshift_ok"]                 # Z = 0
+    contrasts_fail_lock = (not clock["reciprocal_lock"]
+                           and not refr["reciprocal_lock"])
 
     # numerical guard: full dielectric deflection -> 4 as field -> 0.
     # The integral is SIGNED (negative = bends toward the mass, the correct
@@ -241,7 +255,7 @@ def test_dem1_eikonal_viability() -> dict:
     guard_ok = (abs(abs(guard["1e-04"]) - 4.0) < 1e-3
                 and guard["1e-04"] < 0)            # attractive
 
-    viable = bool(diel_Z_ok and diel_K_ok and diel_imped_ok
+    viable = bool(diel_Z_ok and diel_K_ok and diel_lock_ok and contrasts_fail_lock
                   and clock_fails_bend and refr_fails_redshift and guard_ok)
 
     return {
@@ -252,7 +266,12 @@ def test_dem1_eikonal_viability() -> dict:
         "dielectric_K_bend": str(diel["K_bend"]),
         "dielectric_n_of_u": str(diel["n"]),
         "dielectric_impedance": str(diel["impedance"]),
-        "dielectric_impedance_constant": diel_imped_ok,
+        "dielectric_impedance_constant": diel["impedance_constant"],
+        "impedance_constant_all_three (non-discriminating)": bool(
+            diel["impedance_constant"] and clock["impedance_constant"]
+            and refr["impedance_constant"]),
+        "dielectric_reciprocal_lock": diel_lock_ok,
+        "contrasts_fail_reciprocal_lock": contrasts_fail_lock,
         # contrast maps (expected to fail)
         "clock_only_Z": str(clock["Z"]),
         "clock_only_K_bend": str(clock["K_bend"]),
@@ -1094,7 +1113,9 @@ def dem5_derive_dielectric() -> dict:
         light-speed renormalisation n=√(εμ)=K has the UNIQUE solution ε=μ=K.
     (D) The reciprocal lock AB=1 is then fixed by the one piece the EM sector is
         blind to — the conformal factor — supplied by the measured factor-1
-        gravitational redshift √A=1−u ⇒ A=(1−u)², with B=K=(1−u)⁻² ⇒ AB=1.
+        gravitational redshift √A=e^{−u}=1−u+O(u²) ⇒ A=e^{−2u}, with B=K=e^{2u}
+        ⇒ AB=1 (canonical K, decision 4 / D-EM9; the linear-order fix √A=1−u,
+        K=(1−u)⁻² used here until 2026-09-29 is the form D-EM9 excludes).
 
     So the dielectric placement is forced by: (proper rotation ⇒ ε=μ) + (index ⇒
     =K) + (factor-1 redshift ⇒ conformal factor).  This is the EM-sector twin of
@@ -1128,8 +1149,8 @@ def dem5_derive_dielectric() -> dict:
                     and sp.simplify(sols[0][mu] - K) == 0)
 
     # (D) reciprocal lock from factor-1 redshift fixing the conformal factor
-    A_red = (1 - uu) ** 2                       # √A = 1−u (measured factor-1)
-    K_idx = (1 - uu) ** (-2)                     # n = K forced by EM sector
+    A_red = sp.exp(-2 * uu)                     # √A = e^{−u} = 1−u+O(u²) (factor-1)
+    K_idx = sp.exp(2 * uu)                       # n = K = e^{2u} (canonical)
     AB = sp.simplify(A_red * K_idx)              # B = K
     reciprocal_lock_ok = (AB - 1 == 0)
 
@@ -1409,15 +1430,14 @@ def test_dem7_absolute_deflection_3d() -> dict:
     D-EM7 — the ABSOLUTE light-bending coefficient on a genuine ray trajectory in
     the true-1/r (3-D) dielectric, not a 2-D ratio or a linearised line-integral.
 
-    Integrate the photon ray through n(r)=(1−u)⁻² for a span of field strengths
-    and read K_bend = α·b·c²/GM.  Einstein ⇒ K_bend → 4 (Newton would be 2).  The
-    dielectric approaches 4 *from above* at finite field (the exact, non-linear
-    index), confirming the D-EM1 mpmath guard on a propagating ray.  The
-    exponential (Puthoff) completion is integrated alongside for the strong-field
-    comparison of D-EM9.
+    Integrate the photon ray through the canonical n(r)=K=e^{2u} for a span of
+    field strengths and read K_bend = α·b·c²/GM.  Einstein ⇒ K_bend → 4 (Newton
+    would be 2), approached *from above* at finite field, confirming the D-EM1
+    mpmath guard on a propagating ray.  The linear-order form (1−u)⁻² — excluded
+    by D-EM9 (β=1/2) — is integrated alongside as the contrast.
 
-    PASS iff K_bend(dielectric) → 4 within 0.1% at GM/bc²=10⁻⁴ and the finite-field
-    approach is from above (K_bend>4).
+    PASS iff K_bend(e^{2u}) → 4 within 0.1% at GM/bc²=10⁻⁴ and the finite-field
+    approach is from above (K_bend>4).  (Gated on (1−u)⁻² until 2026-09-29.)
     """
     import numpy as np
     out = {}
@@ -1428,14 +1448,15 @@ def test_dem7_absolute_deflection_3d() -> dict:
             alpha = _ray_deflection(b, GMc2, form)
             ser[f"{eps:.0e}"] = alpha * b / GMc2
         out[form] = ser
-    Kd = out["dielectric"]["1e-04"]
-    ok = (abs(Kd - 4.0) < 4e-3 and out["dielectric"]["1e-02"] > 4.0)
+    Kd = out["exp"]["1e-04"]
+    ok = (abs(Kd - 4.0) < 4e-3 and out["exp"]["1e-02"] > 4.0)
     return {
         "pass": bool(ok),
         "K_bend_dielectric_by_field": out["dielectric"],
         "K_bend_exp_by_field": out["exp"],
         "K_bend_weak_limit": Kd,
-        "approaches_from_above": bool(out["dielectric"]["1e-02"] > 4.0),
+        "approaches_from_above": bool(out["exp"]["1e-02"] > 4.0),
+        "gated_form": "exp e^{2u} (canonical); dielectric (1-u)^-2 is the contrast",
         "newtonian_would_be": 2,
         "note": "absolute Einstein factor-2 (K_bend→4) on a genuine 3-D ray through "
                 "the true-1/r dielectric; finite-field approach from above. Removes "
@@ -1450,7 +1471,7 @@ def test_dem7_absolute_deflection_3d() -> dict:
 #  F52/F62 (and D-EM2/D-EM4) solve ∇²Φ=4πGρ instantaneously each refresh —
 #  action-at-a-distance gravity.  Here Φ is promoted to a genuine field
 #  obeying □Φ = c_g⁻²∂_t²Φ − ∇²Φ = −4πGρ, so (i) its static limit IS the
-#  Poisson well that sources the dielectric K=(1−u)⁻²; (ii) disturbances
+#  Poisson well that sources the dielectric K (canonical e^{2u}); (ii) disturbances
 #  propagate at the finite speed c_g (causal gravity / retardation); (iii)
 #  the free field carries conserved energy — a kinetic term, i.e. the seed
 #  of a Lagrangian element and of gravitational waves in the dielectric.

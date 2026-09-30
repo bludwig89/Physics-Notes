@@ -1,0 +1,19 @@
+{
+  "build": "NB-105/NB-107/NB-108/NB-109/NB-110",
+  "U_DW_is_unitary": true,
+  "U_DW_implements_s1->-s3": true,
+  "U_DW_implements_s3->-s1": true,
+  "U_DW_matches_notebook_explicit_matrix": false,
+  "U_DW_applied_to_u1(0)": "Matrix([[-1/2 - I/2, 0, 1/2 + I/2, 0]])",
+  "U_DW_applied_to_u2(0)": "Matrix([[0, -1/2 - I/2, 0, 1/2 + I/2]])",
+  "U_DW_applied_to_v1(0)": "Matrix([[1/2 + I/2, 0, 1/2 + I/2, 0]])",
+  "U_DW_applied_to_v2(0)": "Matrix([[0, 1/2 + I/2, 0, 1/2 + I/2]])",
+  "gamma_i_weyl_matches_-i_sigma2_x_sigma_i": [
+    true,
+    true,
+    true
+  ],
+  "psi_z_2plus_u2(k)_diff_from_notebook_boxed": "Matrix([[sqrt(2)*(1 + I)*(k_0 - k_3 + m)/(4*sqrt(m*(E + m))), -sqrt(2)*(1 + I)*(k_0 + k_3 + m)/(4*sqrt(m*(E + m))), -sqrt(2)*(1 + I)*(k_0 + k_3 + m)/(4*sqrt(m*(E + m))), sqrt(2)*(1 + I)*(k_0 - k_3 + m)/(4*sqrt(m*(E + m)))]])",
+  "psi_z_1minus_v1(k)_diff_from_notebook_boxed": "Matrix([[sqrt(2)*(-k_0 + k_3)/(2*sqrt(m*(E + m))), 0, sqrt(2)*(-k_0*(1 + I) - k_3*(1 + I) + I*m)/(2*sqrt(m*(E + m))), 0]])",
+  "psi_z_2minus_v2(k)_diff_from_notebook_boxed": "Matrix([[0, sqrt(2)*(-k_0 - k_3)/(2*sqrt(m*(E + m))), 0, sqrt(2)*(-k_0*(1 + I) + k_3*(1 + I) + I*m)/(2*sqrt(m*(E + m)))]])"
+}

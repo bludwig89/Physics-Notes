@@ -1,0 +1,41 @@
+{
+  "L": 16,
+  "g_lat": 0.6,
+  "ticks": 20,
+  "monopole_residual": 7.621819726541964e-14,
+  "longitudinal_leak_fraction": 0.031083503914238638,
+  "angle_y_axis_deg": 180.0,
+  "angle_z_axis_deg": 0.0,
+  "angle_y_axis_deg_hiL": 180.0,
+  "cos_beam_onaxis_new": 0.9926479835813589,
+  "cos_beam_onaxis_old": 0.994779658922052,
+  "cos_beam_m4_new": -0.9874423196398566,
+  "cos_beam_m4_old": -0.9884174423022196,
+  "cos_beam_offaxis_new": -0.002021715963319579,
+  "cos_beam_offaxis_old": -0.001929879661968676,
+  "dPm_f_only": [
+    -0.03304729669056851,
+    -6.68123838067137e-05,
+    -1.116895750294108e-07
+  ],
+  "dPm_equal_spin": [
+    -0.03125575491689653,
+    -0.05189613086463689,
+    -0.0036695144741056927
+  ],
+  "spin_state_push_cos": 0.5167121619759558,
+  "checks": {
+    "beam_exactly_ck_transverse": true,
+    "beam_near_zero_longitudinal_leak": true,
+    "curl_y_axis_antiparallel_180deg": true,
+    "curl_z_axis_parallel_0deg": true,
+    "curl_y_axis_antiparallel_stable_with_L": true,
+    "onaxis_correlation_holds_with_both_beams": true,
+    "m4_sign_flip_persists_with_both_beams": true,
+    "offaxis_decorrelation_persists_with_both_beams": true,
+    "push_direction_sensitive_to_fermion_spin_state": true
+  },
+  "n_pass": 9,
+  "n_checks": 9,
+  "ok": true
+}

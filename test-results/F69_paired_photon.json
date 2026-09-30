@@ -4,12 +4,12 @@
     "pair_eq_even_law_rate_resid": 0.0
   },
   "PP2": {
-    "dOmega_would_be": -0.01320702879488972,
+    "dOmega_would_be": -0.013207028794889997,
     "N": 6,
-    "S_paired_photon": -8.881784197001252e-16,
-    "S_paired_resid_from_zero": 8.881784197001252e-16,
-    "S_retired_chiral": 0.07924217276933732,
-    "S_retired_pred_-dOmega_N": 0.0792421727693382
+    "S_paired_photon": 0.0,
+    "S_paired_resid_from_zero": 0.0,
+    "S_retired_chiral": 0.07924217276933998,
+    "S_retired_pred_-dOmega_N": 0.07924217276933998
   },
   "PP3": {
     "group_vel_max_err_vs_inv_sqrt3": 7.715684477660467e-06,
@@ -27,8 +27,8 @@
     "note": "pairing forces both branches \u2192 split cancels; unpaired would not"
   },
   "PP5": {
-    "max_imag_40steps": 6.370771965524824e-16,
-    "norm_drift_rel_40steps": 5.452783455105869e-15,
+    "max_imag_40steps": 8.195630970627097e-16,
+    "norm_drift_rel_40steps": 6.779136187428917e-15,
     "E_dot_khat_over_normE": 1.7796192843178418e-17
   }
 }

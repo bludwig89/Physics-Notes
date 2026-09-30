@@ -1,0 +1,65 @@
+{
+  "build": "NB-099",
+  "page": 77,
+  "claim_quote": "'Greiner Rel QM, p.216,217 -- Shows J commutes w/ H w/ spherical potential: J=L+S=L+(1/2)hbar Sigma; [L, alpha.p]=i hbar (alpha x p) (L=r x p); Sigma=diag(sigma,sigma), [S,alpha.p]=(1/2)hbar[Sigma,alpha.p]=-i hbar (alpha x p) = -(i/hbar)(r x grad).' Plus the surrounding narrative: 'a mass term in the free Dirac equation apparently violates spin conservation too... with free Dirac we understand angular momentum conservation holds... When the mass term flips spin it creates angular momentum in the field, so that S_{-1/2} -> S_{1/2} is compensated with J_N -> J_{N+1}. Perhaps charge should be understood in a better way too... intrinsic qualities... would become W+- bosons in a more advanced theory.'",
+  "part1_explicit_4x4_dirac_matrices": {
+    "commutator_Sigma_i_alpha_j_matches_2i_eps_ijk_alpha_k": true,
+    "mismatches": [],
+    "commutator_Sigma_i_beta_is_zero": true
+  },
+  "part2_differential_operator_identities_on_generic_spinor": {
+    "L_commutator_matches_i_hbar_alpha_cross_p_all_i": true,
+    "L_commutator_detail": [
+      {
+        "i": 0,
+        "matches_+i_hbar_alpha_cross_p": true
+      },
+      {
+        "i": 1,
+        "matches_+i_hbar_alpha_cross_p": true
+      },
+      {
+        "i": 2,
+        "matches_+i_hbar_alpha_cross_p": true
+      }
+    ],
+    "S_commutator_matches_minus_i_hbar_alpha_cross_p_all_i": true,
+    "S_commutator_detail": [
+      {
+        "i": 0,
+        "matches_-i_hbar_alpha_cross_p": true
+      },
+      {
+        "i": 1,
+        "matches_-i_hbar_alpha_cross_p": true
+      },
+      {
+        "i": 2,
+        "matches_-i_hbar_alpha_cross_p": true
+      }
+    ],
+    "J_equals_L_plus_S_commutes_with_H_free_Dirac_all_i": true,
+    "J_H_detail": [
+      {
+        "i": 0,
+        "commutator_J_i_H_is_zero": true
+      },
+      {
+        "i": 1,
+        "commutator_J_i_H_is_zero": true
+      },
+      {
+        "i": 2,
+        "commutator_J_i_H_is_zero": true
+      }
+    ]
+  },
+  "part3_notebooks_extra_rxgrad_identity_check": {
+    "claim": "-i*hbar*(alpha x p)_0  =?  -(i/hbar)*(r x grad)_0, applied to a generic spinor",
+    "identical_as_written": false,
+    "verdict": "INCORRECT as a literal operator identity -- LHS is alpha-matrix-valued (genuinely mixes the 4 spinor components via alpha_j, off-diagonal in the Dirac-rep block structure) while '(r x grad)' with no alpha factor is a scalar differential operator (proportional to the 4x4 identity), so it cannot mix spinor components the way alpha x p does. Confirmed directly: applying both to a generic 4-spinor gives different results component-by-component. Most likely explanation: a transcription artifact where the intended equality was simply the restatement '[S, alpha.p] = -i hbar (alpha x p)' (already verified correct in Part 2), possibly conflated with the *unrelated* fact that L_i = -i*hbar*(r x grad)_i (i.e. r x grad literally IS L/(-i hbar), not alpha x p) when copying between adjacent Greiner lines."
+  },
+  "physical_narrative_assessment": "The core, checkable mathematical content (Greiner's J=L+S conserved for the free/central Dirac Hamiltonian, via [L,alpha.p]=+i hbar alpha x p and [S,alpha.p]=-i hbar alpha x p canceling in the sum) is verified exactly and independently, both via explicit 4x4 Dirac matrices and via genuine differential-operator action on a generic 4-spinor field. The notebook's own further narrative -- reframing the Dirac mass term's 'spin flip' as an angular-momentum-conserving S<->orbital-field exchange, and speculating that a similar reframing of charge conservation could motivate W+- bosons as an 'intrinsic quality' field -- is explicitly hedged by the author ('Perhaps...'), not a firm derivation, and is not independently checkable with algebra; it is a physically reasonable research motivation (the mass term does couple the upper/lower -- i.e. large/small, opposite-parity -- Dirac components, which in a helicity/chirality-eigenstate basis for a moving particle does change the spin-along-momentum projection, precisely the qualitative picture cited) but is not treated here as a separate testable sub-claim.",
+  "verdict": "SOLID",
+  "verdict_detail": "SOLID for the citable Greiner identities and the J=L+S conservation conclusion (independently reproduced exactly). The notebook's own one extra identity '-i hbar(alpha x p) = -(i/hbar)(r x grad)' is flagged separately as a likely transcription slip (see part3) since it equates a spinor-mixing operator to a scalar orbital operator -- this does not affect the SOLID verdict on the main, cited claim, since the correct identity ([S,alpha.p]=-i hbar alpha x p) is what is actually used in the J=L+S argument, and that one is exactly verified."
+}

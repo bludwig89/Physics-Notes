@@ -43,8 +43,8 @@
       "coeff_parallel": "7",
       "coeff_perp": "4",
       "ratio_par_perp": "7/4",
-      "n_par_minus_1": "(7/2)(2 alpha^2/45)(B^2/m^4)",
-      "n_perp_minus_1": "(4/2)(2 alpha^2/45)(B^2/m^4)",
+      "n_par_minus_1": "7 (2 alpha^2/45)(B^2/m^4)",
+      "n_perp_minus_1": "4 (2 alpha^2/45)(B^2/m^4)",
       "gate_pass": true,
       "statement": "field-induced vacuum birefringence ratio (n_par-1):(n_perp-1) = 7:4 (Adler 1971), derived exactly from L_EH; the nonlinear, non-zero counterpart of F249-B1's zero LINEAR birefringence for the free paired photon."
     },
@@ -142,9 +142,9 @@
     },
     "E_over_Ecrit_2.0": {
       "E_over_Ecrit": 2.0,
-      "R_sum": 0.21981609193914514,
+      "R_sum": 0.2198160919391451,
       "n1_term": 0.20787957635076193,
-      "n1_fraction_of_sum": 0.945697717200396,
+      "n1_fraction_of_sum": 0.9456977172003962,
       "converged": true,
       "statement": "instanton sum converges geometrically; the n=1 term exp(-pi E_crit/E) dominates. The rate is non-perturbative in E (essential singularity at E=0): no power series in the coupling reproduces exp(-pi E_crit/E)."
     }

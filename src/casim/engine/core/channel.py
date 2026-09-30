@@ -165,7 +165,18 @@ class Channel:
         coup = cfg.get("couplings")
         if isinstance(coup, dict):
             out.extend(str(v) for v in coup.values() if isinstance(v, str))
-        for key in ("source", "partner", "channel", "matter", "gauge"):
+        # ``fermion=``/``photon=``/``w_field=`` are the partner-naming keys
+        # the fermion<->W and fermion<->photon coupled-channel pairs use
+        # (core.coupled.FermionDoubletChannel/WSourcedChannel/FermionEmChannel/
+        # EmPhotonChannel). Missing these was the F388-review-demonstrated
+        # blind spot: with none of these keys recognized, this method
+        # returned zero dependency edges for any of the four, so the typed
+        # exchange bus could not detect a wrong registration order at all --
+        # a live-demonstrated silent-divergence risk (F389 caveats), not a
+        # cosmetic gap, the same class of defect the ``couplings`` key above
+        # was added to close.
+        for key in ("source", "partner", "channel", "matter", "gauge",
+                   "fermion", "photon", "w_field"):
             v = cfg.get(key)
             if isinstance(v, str):
                 out.append(v)

@@ -98,7 +98,10 @@ Z9   Photon-neutrino coupling is identically zero (Q_ν = 0).
 Z10  Vector / axial decomposition:
         g_V^f = T_3^f − 2Q^f sin²θ_W
         g_A^f = T_3^f
-     Both bit-for-bit for all 7 species.
+     Bit-for-bit on the four left-handed rows (the flavour couplings).  The
+     right-handed rows set g_L := 0, so their (g_V, g_A) = (−Q s², +Q s²)
+     are bookkeeping, not flavour couplings; `z_vector_axial_currents`
+     uses the L partner's values for an R density (corrected 2026-09-29).
 
 Z11  F45 bare-angle prediction:  at sin²θ_W = 1/4 (F45),
         g_V^e   = 0   (electron Z vector coupling vanishes)
@@ -459,6 +462,74 @@ def z_sourced_propagation_step(E_Z, B_Z, J_Z,
     # Step 2: real-space source kick
     E_new = E_new + g_Z * np.asarray(J_Z) * dt
     return E_new, B_new
+
+
+# ════════════════════════════════════════════════════════════════════
+#  Vector / axial split of the sourced Z  (F91 "Z mixed", 2026-09-29)
+# ════════════════════════════════════════════════════════════════════
+#
+# F91: the Z coupling (g_L, g_R) = (T3 − Q s², −Q s²) is neither the identity
+# (even) nor a projector (chiral).  Its vector part propagates on the even law
+# exactly; its axial part is the branch split, suppressed by the mass (F90 §2).
+# `z_sourced_propagation_step` above keeps the whole Z on the even law — the
+# O(k³/m_Z) approximation F91 Z3 quantifies.  The pair below carries the Z as
+# two sub-fields, Z = Z_V + Z_A, each on its own law, so the axial split is
+# modelled rather than neglected.
+
+_R_PARTNER = {'e_R': 'e_L', 'u_R': 'u_L', 'd_R': 'd_L'}
+
+
+def z_vector_axial_currents(densities: dict,
+                            theta_W: float = THETA_W_F45):
+    """Split the neutral current into vector and axial parts per flavour.
+
+    With flavour couplings g_V = g_L + g_R, g_A = g_L − g_R (g_L, g_R from the
+    left-handed member of the flavour), a chirality-pure density contributes
+
+        ρ_L :  J_V += g_V ρ_L / 2,   J_A += +g_A ρ_L / 2   (sum g_L ρ_L)
+        ρ_R :  J_V += g_V ρ_R / 2,   J_A += −g_A ρ_R / 2   (sum g_R ρ_R)
+
+    so J_V + J_A equals ``fermion_neutral_current_per_species`` exactly.
+    Returns (J_V, J_A), each (Lx, Ly, Lz) real.
+    """
+    coup = z_couplings(theta_W)
+    shape = next(iter(densities.values())).shape
+    J_V = np.zeros(shape, dtype=float)
+    J_A = np.zeros(shape, dtype=float)
+    for sp, rho in densities.items():
+        rho = np.asarray(rho, dtype=float)
+        left = _R_PARTNER.get(sp, sp)
+        gV, gA = coup[left]['gV'], coup[left]['gA']
+        chir = +1.0 if sp.endswith('_L') else -1.0
+        J_V = J_V + 0.5 * gV * rho
+        J_A = J_A + 0.5 * chir * gA * rho
+    return J_V, J_A
+
+
+def z_sourced_propagation_step_va(E_V, B_V, E_A, B_A, densities: dict,
+                                  g_Z: float, dt: float = 1.0,
+                                  m_Z: float = 0.0,
+                                  theta_W: float = THETA_W_F45):
+    """One tick of the sourced Z with its vector/axial channels separated.
+
+      vector  (E_V, B_V):  even Proca step (ω = √(m_Z² + Ω_even²)), kick g_Z J_V dt
+      axial   (E_A, B_A):  chiral Proca step (ω^± = √(m_Z² + (Ω^±)²)), kick g_Z J_A dt
+
+    The physical Z field is E_Z = E_V + E_A, B_Z = B_V + B_A.  When the axial
+    sub-field is zero this is ``z_sourced_propagation_step`` bit-for-bit on
+    the vector part; the difference from the all-even step is the F90 §2
+    birefringence of the axial sub-field, which vanishes like Ω_even/m_Z.
+    """
+    from casim.engine.gauge.weak_wmu import w_massive_propagation_step_chiral
+    J_V, J_A = z_vector_axial_currents(densities, theta_W)
+    if m_Z == 0.0:
+        E_V, B_V = z_propagation_step_spectral(E_V, B_V)
+    else:
+        E_V, B_V = z_massive_propagation_step_spectral(E_V, B_V, m_Z, dt)
+    E_A, B_A = w_massive_propagation_step_chiral(E_A, B_A, m_Z, dt)
+    E_V = E_V + g_Z * J_V * dt
+    E_A = E_A + g_Z * J_A * dt
+    return E_V, B_V, E_A, B_A
 
 
 # ════════════════════════════════════════════════════════════════════

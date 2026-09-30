@@ -12,10 +12,75 @@
 | `d1-kns-vertex-status.md` | d₁ via the full KNS lattice self-energy — status and honest blocker |
 | `dark-sector-overview.md` | Dark Sector — Overview & Falsifiable Points |
 | `key-decisions.md` | Key Decisions |
+| `notebook-correlation-pass-2026-09-23-celestial-holography.md` | Correlation pass — handoff item B.3 (celestial holography vs. the model's null-vector/spinor machinery) |
+| `notebook-correlation-pass-2026-09-23.md` | Correlation pass — handoff item A.1 (paired-spinor photon vs. Higgs-avoidance route) |
+| `notebook-followup-2026-09-22.md` | Follow-up to the notebook research — the last two unmined threads, their physics, their errors, and what survived |
+| `notebook-reconstruction-01-scalar-qft-opening.md` | Notebook Reconstruction — Batch 01: Scalar QFT Opening, Photon/Graviton Speculation, |
+| `notebook-reconstruction-02-weyl-and-sachs-lagrangian.md` | Notebook Reconstruction — Batch 02: Weyl Representation, Riemannian Background, |
+| `notebook-reconstruction-02b-nb028-theta-curved.md` | Notebook Reconstruction — NB-028: the Curved-Spacetime Energy–Momentum Tensor $\Theta^{\mu\nu}$ |
+| `notebook-reconstruction-03-sigma-clifford-ca-lattice.md` | Notebook Reconstruction — Batch 03: σ-Matrix Clifford Algebra, Sachs Restatement, |
+| `notebook-reconstruction-04-quantum-hierarchy-scalar.md` | Notebook Reconstruction — Batch 04: "Quantum Hierarchy Equations of a Free Scalar Field" |
+| `notebook-reconstruction-05-harmonic-oscillator-modes.md` | Notebook Reconstruction — Batch 05: Harmonic-Oscillator Structure, 45° Rotation Trick, |
+| `notebook-reconstruction-06-dirac-matrices-ws-opening.md` | Notebook Reconstruction — Batch 06: Complex Mass, Gauged Dirac Matrices, Weinberg–Salam |
+| `notebook-reconstruction-07-weak-contact-terms-helical-mass.md` | Notebook Reconstruction — Batch 07: Weak Contact Terms, Helical-Motion Mass Model, |
+| `notebook-reconstruction-08-dirac-weyl-plane-waves.md` | Notebook Reconstruction — Batch 08: Dirac–Weyl Transform, Massless-Limit Plane-Wave |
+| `notebook-reconstruction-09-lepton-table-rotation-spin1.md` | Notebook Reconstruction — Batch 09: EM/Weak Lepton-Doublet Table, |
+| `notebook-reconstruction-10-weinberg-angle-self-energy.md` | Notebook Reconstruction — Batch 10: sin²θ_W Numerology, EM/Yukawa |
+| `notebook-reconstruction-11-what-is-a-spinor.md` | Notebook Reconstruction — Batch 11: "What is a Spinor?" — Direction Without |
+| `notebook-reconstruction-12-spinor-functions-maxwell-attempt.md` | Notebook Reconstruction — Batch 12: "Spinor Functions" — Weyl Component |
+| `notebook-reconstruction-13-null-vector-decomposition.md` | Notebook Reconstruction — Batch 13: "Spinors as Null Vectors; Vector |
+| `notebook-reconstruction-14-maxwell-from-spinor.md` | Notebook Reconstruction — Batch 14: "Maxwell Equations from Spinor" — The |
+| `notebook-reconstruction-15-contaminated-defer-pass.md` | Notebook Reconstruction — Batch 15 (Contaminated-Session Defer Pass) |
+| `notebook-reconstruction-correlation-queue.md` | Notebook Reconstruction — Correlation Queue |
+| `notebook-reconstruction-index.md` | Notebook Reconstruction — Ledger |
+| `notebook-sm-crosscheck-handoff.md` | Notebook × SM Cross-Check — Handoff |
+| `notebook-sm-crosscheck-ledger.md` | Notebook × SM Cross-Check — Ledger |
+| `notebook-sm-crosscheck-pp001-002-quantum-scalars-i.md` | Notebook × SM Cross-Check — pp. 1–2: Quantum Scalars I |
+| `notebook-sm-crosscheck-pp003-011-photon-graviton-cooper-mass.md` | Notebook × SM Cross-Check — pp. 3–11: Photon/Graviton Spin Structure, Superconductivity |
+| `notebook-sm-crosscheck-pp012-029-weyl-sachs-lagrangian.md` | Notebook × SM Cross-Check — pp. 12–29: Weyl Representation, Riemannian Background, |
+| `notebook-sm-crosscheck-pp031-039-sigma-ca-lattice.md` | Notebook × SM Cross-Check — pp. 31–39: σ-Matrix Clifford Algebra, Sachs Restatement, |
+| `notebook-sm-crosscheck-pp041-049-quantum-hierarchy-scalar.md` | Notebook × SM Cross-Check — pp. 41–49: "Quantum Hierarchy Equations of a Free Scalar Field" |
+| `notebook-sm-crosscheck-pp051-056-harmonic-oscillator-modes.md` | Notebook × SM Cross-Check — pp. 51–56: Harmonic-Oscillator Structure, 45° Rotation Trick, |
+| `notebook-sm-crosscheck-pp057-076-ws-without-higgs.md` | Notebook × SM Cross-Check — pp. 57–76: Dirac Matrix Gauging, Weinberg–Salam Without Higgs, |
+| `notebook-sm-crosscheck-pp077-176-182-final-pages.md` | Notebook × SM Cross-Check — p. 77 and pp. 176–182: Angular Momentum Conservation With a Mass |
+| `notebook-sm-crosscheck-pp078-091-dirac-weyl-plane-waves.md` | Notebook × SM Cross-Check — pp. 78–91: Dirac–Weyl Transform, Massless-Limit Plane-Wave |
+| `notebook-sm-crosscheck-pp092-101-lepton-table-rotation-spin1.md` | Notebook × SM Cross-Check — pp. 92–101: Lepton-Doublet EM/Weak Table, Monopole/Confinement |
+| `notebook-sm-crosscheck-pp103-109-weinberg-angle-self-energy.md` | Notebook × SM Cross-Check — pp. 103–109: sin²θ_W Numerology, EM/Yukawa Self-Energy, |
+| `notebook-sm-crosscheck-pp110-124-what-is-a-spinor.md` | Notebook × SM Cross-Check — pp. 110–124: "What is a Spinor?" — Direction Without Magnitude, |
+| `notebook-sm-crosscheck-pp127-140-spinor-functions.md` | Notebook × SM Cross-Check — pp. 127–140: "Spinor Functions" — Weyl Component Equations, |
+| `notebook-sm-crosscheck-pp141-160-null-vector-decomposition.md` | Notebook × SM Cross-Check — pp. 141–160: "Spinors as Null Vectors; Vector Decomposition" |
+| `notebook-sm-crosscheck-pp161-175-maxwell-from-spinor.md` | Notebook × SM Cross-Check — pp. 161–175: "Maxwell Equations from Spinor" (Full Derivation) |
+| `notebook-sm-crosscheck-protocol.md` | Notebook × Standard Model Cross-Check — Protocol |
+| `notebook-sm-crosscheck-synthesis.md` | Notebook × Standard Model Cross-Check — Synthesis |
 | `page34-eom-derivation.md` | Page 34 Equations of Motion — Derivation and Reconciliation with the Project |
 | `physics-F64-dielectric-gravity-simple.md` | F64 — Gravity as the Vacuum Acting Like Glass, Explained Simply |
+| `physics-notes-complete.md` | Physics Notes — Pages 1–15 |
 | `primordial-sector.md` | The primordial sector on a rigid lattice |
 | `qcd-calibration-derivation-routes.md` | QCD calibration block — algebraic derivation routes (review) |
+
+## docs/theory/model-map/ — equation-level map of the casim engine, code-cited (start at 00-overview.md; follow-ups in 99-flags.md)
+
+| File | Title |
+|------|-------|
+| `00-overview.md` | CASIM Model Map — Overview |
+| `01-constants.md` | 01 — Constants (`src/casim/constants/`, decision D7) |
+| `02-numerics.md` | 02 — Numerics façade (`src/casim/numerics/`, decision D8) |
+| `03-lattice.md` | 03 — Lattice sector (`src/casim/engine/lattice/`) |
+| `04-core.md` | 04 — Engine core (`src/casim/engine/core/`) |
+| `05a-gauge-actions-bilinear-colour.md` | Gauge sector (a): actions, the σ-bilinear construction, charge coupling and colour |
+| `05b-gauge-derivations-gluon-em.md` | Gauge sector II — derivations, gluon, confinement, EM current, hypercharge |
+| `05c-gauge-photon-lpt-weak.md` | 05c — Gauge sector III: the photon, lattice perturbation theory (`lpt_*`), weak/Z, strong, links |
+| `06a-particles-derivations-baryons.md` | Particles I — derivation scripts, atom and baryons |
+| `06b-particles-fermions-bound-states.md` | Particles II — fermion walks, discrete symmetries and bound states |
+| `07a-interactions-cosmology.md` | Interactions I — cosmology, black holes, dark matter |
+| `07b-interactions-gravity-relativity.md` | Interactions — gravity, relativity and horizons |
+| `07c-interactions-qed.md` | 07c — Interactions III: the QED sector (`qed_*`) |
+| `07d-interactions-quantum-information.md` | Interactions — quantum information (`qi_*`) |
+| `07e-interactions-running-thermo-astro.md` | Interactions — running couplings, thermodynamics, astrophysics and odds |
+| `08a-forks-gravity-core.md` | Forks — gravity core (GR-3 trichotomy, tetrad Dirac, induced-G chain, dielectric K) |
+| `08b-forks-dark-sector-gauge-particles.md` | Forks — dark sector, cosmological constant, gauge, lattice, electroweak and particle forks |
+| `09-shims.md` | 09 — Top-level compatibility packages (`casim.fields`, `casim.gravity`, `casim.lattice`, `casim.particles`) |
+| `99-flags.md` | Model Map — Flags and Follow-ups |
 
 ## docs/roadmaps/ — active roadmaps & next steps
 
@@ -24,6 +89,8 @@
 | `control-soundness-rollout.md` | Control soundness — the rollout, 50 → 0 |
 | `finding-coverage-rollout.md` | Finding coverage — the rollout: joining 317 findings to their tests and their claims |
 | `next-steps-pt2.md` | Continuing Next Research Steps |
+| `photon-fermion-coupling-rerun-prompt.md` | Prompt — fix the beam polarization and the curl symbol, then re-run photon↔fermion Stages 0–5 |
+| `photon-fermion-coupling.md` | Roadmap — the photon↔fermion coupling gap |
 
 ## docs/roadmaps/completed/ — spent one-off prompts — the finding that closed each is in docs/audits/consolidation-plan-2026-08-04.md §3.1
 
@@ -66,6 +133,8 @@
 | `completeness-2026-08-18.md` | Completeness overview — 2026-08-18 - 10:21 |
 | `completeness-2026-08-20-prompts.md` | Research prompts — completeness 2026-08-20 - 15:50 |
 | `completeness-2026-08-20.md` | Completeness overview — 2026-08-20 - 15:50 |
+| `completeness-2026-09-08-prompts.md` | Research prompts — completeness 2026-09-08 - 15:18 |
+| `completeness-2026-09-08.md` | Completeness overview — 2026-09-08 - 15:18 |
 | `exactness-inventory.md` | Exactness Inventory |
 | `findings-supersession-triage-2026-08-04.md` | Findings supersession triage — header pass over all 282 active findings |
 | `open-derivations.md` | Open-Derivations Ledger |
@@ -100,6 +169,7 @@
 | `2026-05-24-mass-and-kinetic-without-wmu-higgs-verdict.md` | Verdict — Can Stueckelberg + AKT + Chen–Lin help with mass coupling and kinetic steps without $W_\mu$ or the Higgs? |
 | `2026-06-12-emergent-bound-states-vs-manufactured.md` | Audit — are the model's bound states emergent, or manufactured by their tests? |
 | `2026-07-29-kernel-coverage-addendum.md` | Kernel coverage audit — addendum to roadmap §P6 |
+| `2026-09-16-photon-fermion-momentum-investigation.md` | Audit — why photon↔fermion momentum conservation is not operating, and whether a different derivation path exists |
 | `completed-items.md` | 1. `docs/theory/ca-unified-v2.md` line 48: $c = c_0(1 + \phi/c_0^2)^{-1}$ has the wrong sign for gravitational lensing; the working `ca_emqg.py` code uses the… |
 | `consolidation-plan-2026-08-04.md` | Consolidation and deprecation plan — the claims layer, and what moves |
 | `model-observations.md` | Model review — nonsensical or self-inconsistent constructs flagged |
@@ -128,6 +198,7 @@
 | `dead-code-proposal.md` | Dead-code proposal |
 | `finding-claim-test-guide.md` | Finding, Claim & Test Guide |
 | `finding-number-decisions.md` | Finding-number collisions — decision sheet |
+| `monograph-command.md` | /monograph — Build the complete derivation monograph |
 | `qstar-gluon-d1-computation-plan.md` | Computing the gluonic $d_1$ — the one number that pins $q_\ast$ (a validatable plan) |
 | `session-claims-command-patches.md` | Slash-command patches for the claim board |
 | `session-prompt-modulated-casimir-beable-template.md` | Session prompt — Does a *modulated* Casimir cavity probe the beable-vs-template split? |
@@ -166,6 +237,7 @@
 | `fredkin-correlation.md` | Edward Fredkin — Correlation with Pages 35–39 |
 | `hattori-hidaka-yang-2019-axial-kinetic-summary.md` | Summary: "Axial Kinetic Theory and Spin Transport for Fermions with Arbitrary Mass" |
 | `holographic-cosmology-summary.md` | Holographic cosmology — research summary |
+| `lattice-conservation-laws-research-review.md` | Research review — exact conservation laws on a lattice, and how coupled matter↔gauge systems are built to have them |
 | `mohr-2010-maxwell-photon-wf-summary.md` | Summary: "Solutions of the Maxwell Equations and Photon Wave Functions" |
 | `ostoma-trushyk-1999-summary.md` | Cellular Automata Theory and Physics — Ostoma & Trushyk (1999) |
 | `physics-notes-complete.md` | Physics Notes — Pages 1–15 |

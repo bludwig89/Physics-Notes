@@ -1,0 +1,88 @@
+{
+  "S1_heat_kernel_signs": {
+    "a0_total_dof_signed": -96,
+    "c_total": "8",
+    "c_vector": "-2/3",
+    "c_weyl": "1/6",
+    "eta_total": "4",
+    "eta_weyl": "1/12",
+    "fundamental_bosons": 0,
+    "fundamental_vectors": 0,
+    "g_star_weyl": 48,
+    "lichnerowicz_E": "1/4",
+    "sign_a0": -1,
+    "sign_a1": 1,
+    "sign_product": -1
+  },
+  "S2_route_halves": {
+    "F193B_as_written_g2_J_per_m3": 2.0864899496238163e-09,
+    "F193B_as_written_note": "g*=2 in rho_vac against a G calibrated at 48 Weyl fields: content mismatch; sqrt3 pi/2 ~ e is an artifact of it",
+    "F193B_as_written_over_F196": 2.7206990463513288,
+    "G_structural_over_CODATA_minus_1": -2.9609869112157128e-08,
+    "I_cc_closed_form_3sqrt3pi_over_4": 4.08104856952699,
+    "I_cc_grid": 4.081048569526993,
+    "I_cc_residual": 2.6645352591003757e-15,
+    "R_H_m": 1.3724968349418282e+26,
+    "cell_content_residual": 1.1102230246251565e-16,
+    "eta_total": "4",
+    "n_branches": 96,
+    "ratio_closed_form_4Nb_Icc_over_3eta": 130.59355422486368,
+    "ratio_content_independent": true,
+    "ratio_model_24sqrt3pi": 130.59355422486368,
+    "ratio_model_dex": 2.115921741765571,
+    "ratio_numeric": 130.5935542248638,
+    "ratio_residual": 8.705394259035429e-16,
+    "ratio_symbolic": "4*I_cc*N_b/(3*eta)",
+    "ratio_symbolic_ok": true,
+    "rho_F196_signed_J_per_m3": 7.668947994898456e-10,
+    "rho_a0_term_signed_J_per_m3": -1.0015151758194319e-07
+  },
+  "S3_ceiling_domain": {
+    "H_squared": "-8*pi*G*X/3",
+    "has_saturation_root": false,
+    "note": "elementary: a one-sided upper bound cannot raise or cancel a negative term; a negative a0 satisfies rho <= 3c^4/8piGL^2 for every L. Flat slicing (F182) assumed for the H^2 < 0 statement.",
+    "real_hubble_horizon": false,
+    "saturation_positive_roots": [],
+    "sign_a0": -1
+  },
+  "S4_capacity_tension": {
+    "E_of_L": "4*sqrt(3)*pi*L*c*hbar/a**2",
+    "d2E_dL2": "0",
+    "linear_in_L": true,
+    "sigma_H": "4*sqrt(3)*pi*c*hbar/a**2",
+    "sigma_H_N": 6.051278000868582e+43,
+    "sigma_H_c4_over_2G_CODATA_N": 6.051277821691031e+43,
+    "sigma_matches_4pi_sqrt3_hbar_c_over_a2": true,
+    "sigma_positive": true
+  },
+  "S5_sequestering_sign_blind": {
+    "C_of_either_sign_drops_out": true,
+    "d_residual_dC": "0",
+    "residual": "2*rho_m0",
+    "sequester": true
+  },
+  "all_pass": true,
+  "checks": {
+    "S1-a0-negative": true,
+    "S1-a1-positive": true,
+    "S1-eta-is-gstar-over-12": true,
+    "S1-sign-split": true,
+    "S2-F193B-negative": true,
+    "S2-F196-positive": true,
+    "S2-cell-matches-content": true,
+    "S2-ratio-closed-form": true,
+    "S3-no-horizon-for-a0": true,
+    "S3-no-saturation-for-a0": true,
+    "S4-linear-tension": true,
+    "S4-tension-positive": true,
+    "S5-sequestering-sign-blind": true
+  },
+  "finding": "F408",
+  "params": {
+    "fundamental_bosons": 0,
+    "fundamental_vectors": 0,
+    "lichnerowicz_E": "1/4",
+    "sequester": true,
+    "zero_point_weight": 1.0
+  }
+}

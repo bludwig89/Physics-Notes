@@ -1,0 +1,30 @@
+{
+  "build": "NB-006 (octahedron, attempted readings)",
+  "caveat": "original diagrams not available in the transcription; readings below are candidate reconstructions, not a recovery of the author's actual rule.",
+  "attempts": {
+    "choose_1_of_6_vertices_as_type_A": {
+      "num_labeled_subsets": 6,
+      "num_isomers_under_rotation_group": 1,
+      "orbit_sizes": [
+        6
+      ]
+    },
+    "choose_2_of_6_vertices_as_type_A": {
+      "num_labeled_subsets": 15,
+      "num_isomers_under_rotation_group": 2,
+      "orbit_sizes": [
+        3,
+        12
+      ]
+    },
+    "choose_3_of_6_vertices_as_type_A": {
+      "num_labeled_subsets": 20,
+      "num_isomers_under_rotation_group": 2,
+      "orbit_sizes": [
+        8,
+        12
+      ]
+    }
+  },
+  "any_attempt_matches_claimed_3": false
+}

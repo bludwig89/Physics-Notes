@@ -246,13 +246,19 @@ def earliest_resolvable_epoch() -> dict:
     a_over_ell_red = 3.0 ** 0.25
     H_max_over_MPl = c_lat / a_over_ell_red
     a_SI = a_over_ellP * ell_P_m
-    t_min_s = a_SI / (c_lat * c_SI)
+    # Canonical tick (si_scale): tau = c_lat a / c, so that c_lat a/tau = c.
+    # t_min = (1/c_lat) ticks = a/c seconds.  Before 2026-09-29 this was
+    # a/(c_lat c) = sqrt(3) a/c, i.e. a tick of a/c — sqrt(3) longer than the
+    # si_scale / cosmology_lambda_dynamics tick (t_min/t_P moves 11.43 -> 6.60).
+    tau_s = c_lat * a_SI / c_SI
+    t_min_s = (1.0 / c_lat) * tau_s
     return {
         "H_max_over_MPl": H_max_over_MPl,
         "H_max_closed_form": 3.0 ** -0.75,
         "t_min_ticks": 1.0 / c_lat,
         "t_min_ticks_closed_form": math.sqrt(3.0),
         "a_metres": a_SI,
+        "tick_seconds": tau_s,
         "t_min_seconds": t_min_s,
         "t_min_over_planck_time": t_min_s / T_PLANCK_S,
         "singularity_in_substrate": False,

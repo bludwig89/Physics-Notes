@@ -1,0 +1,20 @@
+{
+  "NB-143": {
+    "claim": "eta = alpha/beta is invariant under Psi -> a Psi",
+    "verified": true,
+    "spinor_as_direction_without_magnitude_thesis": "A standard, apt physical picture (matches the Bloch-sphere correspondence between a spin-1/2 state and a point on S^2 via sigma.n eigenstates) -- with one nuance the page's own later material implicitly needs but doesn't state here: the map from spinor (up to overall complex scale) to direction is exactly onto S^2 (the Riemann sphere / CP^1 correspondence, confirmed in NB-145-148 below), but the OVERALL PHASE that this 'direction-only' picture discards is not entirely physically inert in general (e.g. Berry-phase / spin-rotation-by-4pi effects depend on tracking that phase) -- the page's own footnote 'this is only a trivial phase-invariance' is the correct statement for THIS specific purpose (extracting a direction), just worth flagging as a simplification rather than the complete physical story of a spinor's phase.",
+    "verdict": "SOLID"
+  },
+  "NB-144": {
+    "claim": "The sphere and the plane are topologically distinct, so no single complex number can represent every direction without a singular/added point; two complex numbers (a projective ratio) are needed instead.",
+    "general_topological_fact": "A continuous bijection from a compact space (S^2) onto a non-compact Hausdorff space (the plane C) cannot exist, because the continuous image of a compact set is compact, and C is not compact. This is a standard, textbook point-set-topology fact (not something requiring numerical/symbolic verification), and it is exactly the reason the page correctly identifies: a single finite complex number can cover AT MOST 'the plane minus nothing', which is topologically a disk, not a sphere -- one point must always be handled specially.",
+    "concrete_check_single_chart_singularity_at_north_pole": {
+      "map": "zeta = (x+iy)/(1-z), restricted to the unit sphere x^2+y^2+z^2=1",
+      "path_A_(along_x_meridian)_|zeta|_limit_as_theta->0": "oo",
+      "path_B_(along_y_meridian)_|zeta|_limit_as_theta->0": "oo",
+      "path_C_(general_meridian_phi0)_leading_behavior": "oo",
+      "interpretation": "Both |zeta| limits diverge (confirmed: both blow up as theta->0 along any meridian), confirming the map has a genuine, non-removable singularity exactly at the north pole (0,0,1) and nowhere else -- the concrete instance of the general topological fact that motivates introducing the projective pair (xi, eta) in place of the single ratio zeta."
+    },
+    "verdict": "SOLID"
+  }
+}

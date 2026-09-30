@@ -1,0 +1,22 @@
+{
+  "L": 16,
+  "width": 2.0,
+  "k0": 0.6,
+  "sign": "+",
+  "q": 1.0,
+  "construction_residual": 3.1031676915590914e-17,
+  "naive_residual_full": 0.15626165268486603,
+  "exact_residual_full": 0.00012829921879625034,
+  "nyquist_gap": 0.00012829921879625034,
+  "naive_residual_lower_k0": 0.024223493773945046,
+  "charge_drift": 0.0,
+  "checks": {
+    "construction_closes": true,
+    "naive_current_much_worse": true,
+    "naive_shrinks_with_lower_k0": true,
+    "global_charge_conserved": true
+  },
+  "n_pass": 4,
+  "n_checks": 4,
+  "ok": true
+}

@@ -1,0 +1,55 @@
+{
+  "build": "NB-047 (analytic continuation)",
+  "trace_G": "2",
+  "det_G": "4*c**2*sin(theta_x)**2 + 4*c**2*sin(theta_y)**2 + 4*c**2*sin(theta_z)**2 + 1",
+  "discriminant": "16*c**2*(cos(theta_x)**2 + cos(theta_y)**2 + cos(theta_z)**2 - 3)",
+  "eigenvalue_evaluations_at_test_points": [
+    {
+      "c": "1/10",
+      "theta": [
+        "pi/7",
+        "pi/5",
+        "pi/3"
+      ],
+      "|lambda1|": 1.0253535312638888,
+      "|lambda2|": 1.0253535312638888,
+      "max_|lambda|_exceeds_1": true
+    },
+    {
+      "c": "1/100",
+      "theta": [
+        "pi/7",
+        "pi/5",
+        "pi/3"
+      ],
+      "|lambda1|": 1.0002567163687297,
+      "|lambda2|": 1.0002567163687297,
+      "max_|lambda|_exceeds_1": true
+    },
+    {
+      "c": "43/100",
+      "theta": [
+        "pi/7",
+        "pi/5",
+        "pi/3"
+      ],
+      "|lambda1|": 1.3962302771222177,
+      "|lambda2|": 1.3962302771222177,
+      "max_|lambda|_exceeds_1": true
+    },
+    {
+      "c": "1/2",
+      "theta": [
+        "pi/4",
+        "pi/4",
+        "pi/4"
+      ],
+      "|lambda1|": 1.5811388300841898,
+      "|lambda2|": 1.5811388300841898,
+      "max_|lambda|_exceeds_1": true
+    }
+  ],
+  "any_test_point_exceeds_unit_modulus": true,
+  "|lambda1|^2_series_in_c_to_O(c^2)": "4*c**2*(sin(theta_x)**2 + sin(theta_y)**2 + sin(theta_z)**2) + 1",
+  "conclusion": "trace(G) = 2 exactly, independent of c and theta -- a strong structural fact. Since G is not unitary for c != 0 (it is a truncated-exponential / explicit- Euler approximation to the true unitary rotation), its eigenvalues drift off the unit circle for ANY c > 0 whenever theta is nonzero: numerically confirmed at c as small as 0.01 (|lambda| > 1 still holds), and the O(c^2) series term is positive at generic theta, confirming the amplification grows quadratically in c with NO zero-crossing back to stability -- i.e. no positive c stabilizes the p.38 explicit-Euler scheme. This closes the notebook's own dangling question: the apparent '~0.43' stabilization the author observed empirically was not a true stable point, only a point of locally slower growth in a 10-step, single-run, non-systematic observation -- consistent with (but independently re-derived from, not copied from) the general textbook fact that explicit Euler applied to a skew-Hermitian generator is unconditionally unstable."
+}

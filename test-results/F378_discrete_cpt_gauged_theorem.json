@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "id": "X0-closed-form-matches-real-module",
+      "desc": "D_covariant_doublet(k) reproduces the real covariant_dirac_doublet_step output exactly, at a uniform link, grid-compatible k",
+      "pass": true,
+      "value": "1.2493863373375965e-15"
+    },
+    {
+      "id": "E1-actual-module-fails-at-zero-coupling",
+      "desc": "covariant_dirac_doublet_step's OWN architecture (branch -, not branch+dagger) fails F328's identity even at U=V=I -- a pre-existing cross-module branch-pairing mismatch, NOT a gauge-coupling effect (expected large, not small)",
+      "pass": true,
+      "value": "1.958131339824441"
+    },
+    {
+      "id": "A1-kinetic-pseudoreality-identity",
+      "desc": "tau_2 U tau_2^-1 = U* for every U in SU(2) (generalises F328 identity I)",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "B1-kinetic-only-cpt-theorem",
+      "desc": "Theta' = Sigma.(sigma_y (x) tau_2 (+) sigma_y (x) tau_2).K exactly intertwines D_grafted (SU(2) kinetic coupling, scalar mass) with its inverse, random (k, m, U)",
+      "pass": true,
+      "value": "6.713178136967714e-16"
+    },
+    {
+      "id": "B2-kinetic-only-edge-cases",
+      "desc": "k=0, axis-aligned k, |m| in {0,1} -- no small-k expansion used anywhere",
+      "pass": true,
+      "value": "3.1401849173675503e-16"
+    },
+    {
+      "id": "B3-unitarity-sanity",
+      "desc": "D_grafted (kinetic-only) exactly unitary",
+      "pass": true,
+      "value": "6.661338147750939e-16"
+    },
+    {
+      "id": "C1-theta-squared-is-plus-one-not-kramers",
+      "desc": "Theta'^2 = +1 (residual to +I), NOT F328's Kramers -1 (residual to -I reported separately) -- tensoring a second pseudoreal twist onto the spin twist flips the antiunitary involution class",
+      "pass": true,
+      "value": "0.0"
+    },
+    {
+      "id": "C1b-theta-squared-not-minus-one",
+      "desc": "confirms Theta'^2 != -1 (residual to -I is O(1), the flip is real)",
+      "pass": true,
+      "value": "2.0"
+    },
+    {
+      "id": "D1-tau2-transpose-gives-inverse-not-self",
+      "desc": "tau_2 V^T tau_2^-1 = V^-1 exactly for every V (a true, different identity from the one the mass sector needs)",
+      "pass": true,
+      "value": "4.710277376051326e-16"
+    },
+    {
+      "id": "D2-gauged-mass-breaks-identity",
+      "desc": "grafting an independent SU(2) mass link V (matching covariant_dirac_doublet_step's own Stueckelberg mass architecture) breaks Theta' at O(1), random (k, m, U, V) -- the localised residual",
+      "pass": true,
+      "value": "2.848410897652262"
+    },
+    {
+      "id": "D3-no-lambda-search-control",
+      "desc": "Monte-Carlo over 500 random unitary 2x2 Lambda: none satisfies Lambda V^T Lambda^-1 = V simultaneously for two fixed non-commuting V1, V2 -- the best found residual stays O(1), consistent with the algebraic anti-automorphism obstruction being generic",
+      "pass": true,
+      "value": "0.2806310554528637"
+    }
+  ],
+  "n_pass": 11,
+  "n_total": 11,
+  "pass": true,
+  "n_trials": 300,
+  "seed": 2026
+}

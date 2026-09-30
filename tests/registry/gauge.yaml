@@ -410,7 +410,7 @@ tests:
     pytest_funcs: false
     has_assert: true
     has_main: true
-    lines: 143
+    lines: 207
     n_test_funcs: 0
     artifacts_written:
     - test-results/F169_photon_bound_state.json
@@ -418,6 +418,8 @@ tests:
       test-results/F169_photon_bound_state.json: file
     artifacts_read_only: []
     summary: F169 — The interacting two-body bound-state wavefunction of the paired photon.
+    ledger_status: live
+    ledger_record: S24-F169-C3-threshold-search-replaced-by-closed-form
   results:
   - test-results/F169_photon_bound_state.json
   notes: 'promoted legacy_script -> result_dump by tools/gen_test_registry.py --promote (C7.5): the run
@@ -1965,8 +1967,10 @@ tests:
     has_main: true
     lines: 125
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F325_x1_branch.json
+    artifact_rule:
+      test-results/F325_x1_branch.json: file
     artifacts_read_only: []
     summary: 'F325 — X1 resolved: branch A tested and closed, branch B adopted.'
 - id: F333-internal-index-existence
@@ -2047,8 +2051,10 @@ tests:
     has_main: true
     lines: 74
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F333_internal_index_existence.json
+    artifact_rule:
+      test-results/F333_internal_index_existence.json: local
     artifacts_read_only: []
     summary: F333 — does the colour index have to exist at all? (completeness row B1).
 - id: F335-reflection-positivity-bcc
@@ -2178,8 +2184,10 @@ tests:
     has_main: true
     lines: 71
     n_test_funcs: 4
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F337_l6_decision.json
+    artifact_rule:
+      test-results/F337_l6_decision.json: local
     artifacts_read_only: []
     summary: 'F337 — ledger row L6 decided: the rhombic action''s own quadratic form is the'
 - id: F338-ncolour-ceiling
@@ -2253,8 +2261,10 @@ tests:
     has_main: true
     lines: 96
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F338_ncolour_ceiling.json
+    artifact_rule:
+      test-results/F338_ncolour_ceiling.json: local
     artifacts_read_only: []
     summary: 'F338 -- B10 after F325: the odd-N_c bracket does not narrow further.'
 - id: F339-alpha-em-reopening-conditions
@@ -2279,8 +2289,10 @@ tests:
     has_main: true
     lines: 252
     n_test_funcs: 4
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F339_alpha_em_reopening_conditions.json
+    artifact_rule:
+      test-results/F339_alpha_em_reopening_conditions.json: file
     artifacts_read_only: []
     summary: F339 — F127's four-avenue alpha_em no-go, characterized
   notes: 'D#14 ledger prompt (completeness-2026-08-20-prompts.md): re-examines F127''s four-avenue alpha_em
@@ -2338,8 +2350,10 @@ tests:
     has_main: true
     lines: 95
     n_test_funcs: 0
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F340_strong_cp_nonperturbative.json
+    artifact_rule:
+      test-results/F340_strong_cp_nonperturbative.json: local
     artifacts_read_only: []
     summary: 'F340 — strong CP: the L6 bridge, and reality extended to the full'
 - id: F349-alpha-em-convergent-stiffness-evidence
@@ -2375,11 +2389,13 @@ tests:
     - test-results/F147_induced_stiffness_loop.json
     - test-results/F149_condensate_channel_splitting.json
     - test-results/F153_diamagnetic_chargeblind_multiplicity.json
+    - test-results/F349_alpha_em_convergent_stiffness_evidence.json
     artifact_rule:
       test-results/F143_wrap_loop_stiffness_test.json: file
       test-results/F147_induced_stiffness_loop.json: file
       test-results/F149_condensate_channel_splitting.json: file
       test-results/F153_diamagnetic_chargeblind_multiplicity.json: file
+      test-results/F349_alpha_em_convergent_stiffness_evidence.json: file
     artifacts_read_only: []
     summary: F349 — Independent convergent-evidence check on F339's alpha_em reopening-condition
   notes: Citation-completeness + independent cross-verification pass on F339 (2026-08-31). Documents a
@@ -2488,8 +2504,10 @@ tests:
     has_main: true
     lines: 228
     n_test_funcs: 5
-    artifacts_written: []
-    artifact_rule: {}
+    artifacts_written:
+    - test-results/F351_v_second_pin_scope.json
+    artifact_rule:
+      test-results/F351_v_second_pin_scope.json: file
     artifacts_read_only: []
     summary: 'F351 -- Ledger row E7 / parameter #17 (v): is v a second dimensionful pin'
 - id: F37-delta-omega
@@ -2517,6 +2535,886 @@ tests:
       test-results/F37_delta_omega.json: local
     artifacts_read_only: []
     summary: 'test_F37_delta_omega.py  —  F37 chirality split: measure ΔΩ vs F30 analytical value'
+- id: F381-premise-a-irreducibility
+  path: tests/findings/test_F381_premise_a_irreducibility.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.derive_premise_a_irreducibility
+  entry: check_premise_a_irreducibility
+  params:
+    inject_colour_token: false
+    inject_fake_param: false
+    force_all_fermionic: false
+    strip_premise_ii: false
+    assume_f324_premise_count: 0
+  expect:
+    exactness: exact
+  findings:
+  - F381
+  - F333
+  - F289
+  - F330
+  - F324
+  results:
+  - test-results/F381_premise_a_irreducibility.json
+  control:
+  - params:
+      inject_colour_token: true
+    reds:
+    - S1
+    reason: append a synthetic colour-sector token to an in-memory copy of F289's/F330's own scanned source
+      text (the real files on disk are never touched). S1 must go red, proving the scanner can detect
+      a hit rather than vacuously passing on an unreachable check.
+  - params:
+      inject_fake_param: true
+    reds:
+    - S2
+    reason: append a synthetic colour-count-shaped parameter name to the in-memory list of scanned signatures.
+      S2 must go red for the same reason as the S1 control.
+  - params:
+      force_all_fermionic: true
+    reds:
+    - S3
+    reason: override the composite-parity call so every N reports fermionic. S3 must go red (no boson
+      branch found), showing the bifurcation claim is a real, falsifiable structural fact about F333's
+      own S1/S2 machinery, not assumed.
+  - params:
+      strip_premise_ii: true
+    reds:
+    - S4
+    reason: filter F324's own premise (ii) out of its returned premises list before the text-match check.
+      S4 must go red, showing the check is reading real content from F324's module, not a hardcoded string.
+  - params:
+      assume_f324_premise_count: 1
+    reds:
+    - S5
+    reason: override the computed F324 premise count with a wrong, too-small number. S5's "net increase"
+      assertion must go red, showing the accounting check is a genuine comparison and not vacuously true.
+  notes: 'Completeness row B1. Answers the session brief''s FIRST STEP directly: is F333''s premise (a)
+    (real baryons are fermions) derivable inside the model from the already-derived spin-statistics work
+    (F289/F330), so the premise count could drop from two to one? Computed answer: no. S1/S2 show F289''s
+    and F330''s own derivation (a single-constituent theorem: R(2pi)=-1 on ONE spin-1/2 object) never
+    references a colour/composite count and has no parameter through which one could be supplied. S3 shows
+    F333''s own S1+S2 combination of that theorem into a composite-of-N-constituents claim genuinely bifurcates
+    on N (fermion at odd N, boson at even N) -- exactly the information premise (a) supplies and F289/F330
+    do not. S4/S5 close the one apparent escape: could F324''s separately-derived N-parity result be combined
+    with F289+S1/S2 to derive premise (a) as a corollary instead of importing it? No -- F324''s own premise
+    (ii), read directly off its own returned premises list, is literally "the colour sector exists", so
+    using it to discharge B1''s existence residual is circular; and even setting circularity aside, the
+    substitution costs F324''s six premises against F333''s two, a net increase of four, not a reduction
+    (matching F324 SS6''s own statement that its premise count "went up" relative to what it replaced).
+    Verdict: premise (a) is logically INDEPENDENT of F289/F330''s spin-statistics derivation. Row B1 stays
+    PARTIAL at two premises; this closes the reduction attempt with a stated reason, in the spirit of
+    CN15-CN17 (open-derivations.md Part B) -- a later session should not re-attempt "derive (a) from spin-statistics"
+    or "substitute F324''s chain for (a)" without reading S1-S5 first. 5/5 PASS, five controls each verified
+    red and red only where declared.'
+  evidence:
+    mentions:
+    - F289
+    - F317
+    - F324
+    - F330
+    - F333
+    - F381
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F381 — is F333's premise (a) (real baryons are fermions) reducible to
+- id: F382-vertex-domain-periodicity
+  path: tests/findings/test_F382_vertex_domain_periodicity.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.lpt_d1_action_consistent
+  entry: check_d1_vertex_domain_f382
+  params:
+    ns:
+    - 6
+    - 8
+    - 10
+    - 12
+    - 14
+    - 16
+    - 18
+    - 20
+  expect:
+    exactness: bracketed
+  findings:
+  - F382
+  - F337
+  - F350
+  - F305
+  - F280
+  results:
+  - test-results/F382_vertex_domain_periodicity.json
+  control:
+  - params:
+      swap_control: true
+    reds:
+    - cube_domain_does_not_fix_it
+    reason: assert the WRONG domain (cube) is the one required to stay bounded near 1, and the WS domain
+      the one required to diverge. A genuine measurement, not a hardcoded verdict, must fail this -- it
+      is domain=cube that actually diverges away from 1 (both phys and raw branches), not domain=ws. MEASURED
+      (domain_choice_divergence(swap_control=True) returns pass=False).
+  notes: 'F350 Sec.5/7 named two untested candidates for d1 leg 3''s anomalous slow convergence after
+    the WS-mask discretisation hypothesis was excluded: (a) the vertex form factors'' own behaviour /
+    the phys-branch projection, (b) the g_s=1/2 monotonicity assumption. This record attacks (a). G7 (F305)
+    proves the propagator''s own quadratic form is EXACTLY invariant under the BCC reciprocal lattice
+    -- the argument F305/F280/F337 use to justify the Wigner-Seitz quarter-cube as THE fundamental domain
+    for the FULL loop integral (vertex and propagator together). vertex_g_periodicity measures that this
+    invariance does NOT extend to the vertex-derived numerator M: an identical reciprocal-lattice shift
+    that leaves quadratic_form unchanged to 1e-15 changes M by up to ~220% at the four fixed deterministic
+    test points used (worst_rel_dev, first-shell G vectors). The propagator_is_G_periodic_control leg
+    re-runs the identical methodology on quadratic_form alone and confirms near-machine-precision invariance
+    (worst_rel_dev < 1e-10), showing the measurement can discriminate rather than always reporting "violated".
+    domain_choice_divergence then tests the natural remedy this raises directly: if the WS restriction
+    is dropping genuine vertex contributions, integrating over the FULL cube instead should improve b0_recovery''s
+    approach to 1. MEASURED: it does the opposite -- domain=cube''s own b0_recovery climbs strictly monotonically
+    past 1 at every consecutive n from 6 through 20 with no turnover, for BOTH the phys and raw branches
+    (0.42->4.36 at n=6->20 for phys; 0.48->4.91 for raw), the same qualitative signature F337 measured
+    for the raw/unprojected branch under domain=ws. This rules the candidate out (expanding the domain
+    is not the fix) and corroborates the WS-cell domain choice F337''s L6 decision already rests on --
+    domain choice was never itself one of L6''s two litigated legs (propagator scheme; branch fork), so
+    this is independent support for the decided combination, not an extension of L6 -- even though the
+    vertex''s non-periodicity under the BCC reciprocal lattice is itself a new, real, disclosed fact.
+    Does not move d1''s own quotability -- S3 stays red. REVIEWED 2026-09-10 (cold subagent blind re-derivation
+    + adversarial attack, CONFIRMED-NARROWER): the pass criterion originally compared |1-b0_recovery|
+    only at the first/last swept n, which is non-monotonic through the sign crossing domain=cube makes
+    between n=8 and n=10 -- a genuine counterexample (ns=(6,8,10)) flipped it to a false "converges" reading.
+    Fixed to test monotonicity of b0_recovery itself plus a final margin >1.5; range extended from n=8-16
+    to n=6-20; see findings/F382-*.md and docs/reviews/F382-review-2026-09-10.md.'
+  evidence:
+    mentions:
+    - F280
+    - F305
+    - F337
+    - F350
+    - F382
+    pytest_funcs: true
+    has_assert: true
+    has_main: true
+    lines: 102
+    n_test_funcs: 7
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F382 -- d1 leg 3, next candidate after F350's excluded WS-mask hypothesis.
+- id: F384-conserved-em-current
+  path: tests/findings/test_F384_conserved_em_current.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.em_current
+  entry: check_conserved_current
+  params:
+    L: 16
+    width: 2.0
+    k0: 0.6
+    width_lo: 4.0
+    k0_lo: 0.15
+    sign: +
+    q: 1.0
+    use_naive_for_construction: false
+  expect:
+    exactness: machine
+  findings:
+  - F384
+  results:
+  - test-results/F384_conserved_em_current.json
+  control:
+  - params:
+      use_naive_for_construction: true
+    reds:
+    - construction_closes
+    reason: swap the naive continuum current (ψ†σψ) in for the derived current's own continuity check.
+      construction_closes must go red -- the naive current does not close the discrete continuity equation
+      to FFT round-off -- while the other three legs, which never read this current, stay green.
+  notes: 'Stage 1 of docs/roadmaps/photon-fermion-coupling.md. Sec.1.1 found the BCC Weyl field had no
+    U(1) EM current (SU(2) and SU(3) both have one). The naive continuum current J^i=q*psi^dag*sigma^i*psi
+    does not close the discrete continuity equation rho(t+1)-rho(t)+i*C(k)*J=0 built on the same curl
+    symbol charge_coupling.bcc_curl_symbol already uses for Gauss/Ampere. naive_current_much_worse compares
+    the naive current''s FULL residual against the derived current''s own MASKED (away-from-the-Nyquist-gap)
+    residual on the same packet: 0.156 vs 3.1e-17, a ~5e15x gap -- redesigned 2026-09-14 after the F384
+    review (docs/reviews/F384-review-2026-09-14.md) found the original version (comparing against the
+    derived current''s FULL residual, which is dominated by the disclosed Nyquist-corner gap below) was
+    fragile to packet width (failed at width=1.0). The derived current is the minimal (purely longitudinal-in-C-hat(k))
+    solution of that linear constraint -- closes by construction wherever C(k) != 0. A genuine, disclosed
+    structural leftover exists at the 8 k in {0,pi}^3 zone-corner points where bcc_curl_symbol''s own
+    odd-in-k symmetrisation forces C(k)=0 exactly (k=0 exempt, global charge conservation forces drho~(0)=0
+    there too): no longitudinal current can source or drain those 7 modes, the discrete analogue of a
+    continuum charge distribution''s DC component not being recoverable from E=-grad(phi). Measured to
+    shrink sharply with better packet/box separation (1.5e-3 -> 1.5e-8 doubling L at fixed physical packet
+    content, docs/status/changelog.md Stage-1 entry) -- not a defect in the derivation, a quantified finite-lattice
+    fact. naive_shrinks_with_lower_k0 confirms the naive current''s failure is genuine O(k*a) discretisation
+    error (shrinks at longer wavelength), not a permanent disagreement. 4/4 PASS, one control verified
+    red and red only where declared.'
+  evidence:
+    mentions:
+    - F384
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 62
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F384 — the U(1) EM current the BCC Weyl walk actually conserves
+- id: F385-u1-link-covariant-step
+  path: tests/findings/test_F385_u1_link_covariant_step.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.forks.gauge.u1_link_unitarity_forks
+  entry: check_u1_link_forks
+  params:
+    L: 16
+    seed: 0
+    amp_A: 0.2
+    amp_beta: 0.3
+    sigma: 3.0
+    q: 1.0
+    sign: +
+    corrupt_a0: false
+  expect:
+    exactness: machine
+  findings:
+  - F385
+  - F384
+  results:
+  - test-results/F385_u1_link_covariant_step.json
+  control:
+  - params:
+      corrupt_a0: true
+    reds:
+    - reduces_to_free_a
+    - reduces_to_free_b
+    - reduces_to_free_d
+    reason: force a tiny nonzero A into the "A==0 must reduce to the free step" checks. All three reduces_to_free_*
+      legs must go red -- while every other leg, which builds its own A from scratch and never reads the
+      corrupted field, stays green.
+  notes: 'Stage 2 of docs/roadmaps/photon-fermion-coupling.md: the per-link U(1) covariant BCC Weyl step
+    (gauge.minimal_coupling.u1_link_weyl_step_3d_bcc, "fork a") and its unitarity/momentum-transfer fork
+    adjudication. Fork (a) attaches a Peierls phase e^{iqA(x).d/sqrt(3)} to each of the 8 BCC fractional
+    shifts individually (not one common site phase, unlike #1''s u1_wrap_weyl_step_3d_bcc) -- the missing
+    directional handle Sec.1.2 diagnosed. A==0 reduces exactly to weyl_step_3d_bcc for all three forks
+    tested (a, b-Strang-split, d-per-site-renormalised). Exact special case: spatially UNIFORM A collapses
+    the whole per-link sum to U_BCC(k+qA) -- a rigid momentum-argument shift, exactly unitary for ANY
+    A0 because U_BCC is unitary for every argument (verified bit-for-bit against bcc_unitary(k+qA) directly,
+    err 3.5e-15). Global U(1) Ward exact (constant beta, 3.8e-15); local Ward grows with the gauge function''s
+    wavenumber (1.30 at m=1 vs 3.55 at m=4), the same O(a) status weak_wmu.covariant_weyl_step_3d_bcc''s
+    own docstring already records for the SU(2) case (W1.4), not a new failure. Fork (a)''s norm drift
+    scales LINEARLY with |qA| (log-log slope 0.996 over a 16x amplitude sweep) -- the "accept the drift,
+    bound it" fork (a) of the roadmap''s adjudication, O(|qA|.a) as predicted; the shift is a genuine
+    accumulating (secular) force against a static field, not a one-tick artifact of local phase mixing
+    -- verified against a 10-tick run and contrasted with u1_wrap_weyl_step_3d_bcc''s own static-field
+    case, which oscillates with no secular trend, matching its docstring''s "static alpha is force-free"
+    claim. Fork (b) Strang-split reduces the drift COEFFICIENT by ~31% at the same amplitude (corrected
+    2026-09-14 post-review from an initial "~35%": measured ratio 0.686) but measured NOT to change the
+    power (also slope ~=1.0, not the hoped-for O(a^2)) -- disclosed, not smoothed over. Fork (d) (per-site
+    polar renormalisation of fork a''s output onto the FREE step''s own local density, not the pre-step
+    density -- an earlier version renormalised against the pre-step density and failed W1.2 outright plus
+    injected a 30-50x spurious momentum kick, see the finding''s caveats) is EXACTLY norm-conserving for
+    any A tested (2.2e-16) AND carries a momentum kick of the same order as fork a AT THE GATE''S TESTED
+    CONFIGURATION (9.8 vs 6.3, sigma=3) -- narrowed post-review: swept in bump width sigma, the ratio
+    mag_d/mag_a grows unboundedly (1.17x at sigma=1 to 199.7x at sigma=50), so this holds for localised
+    fields specifically, not generally. Fork (c) (a link-dependent per-mode unitary) is not a separate
+    construction: it IS fork (a) in the one case (uniform A) where a per-mode unitary is even well-defined;
+    for non-uniform A no single k exists to build one at (translation invariance is broken by A(x)), which
+    is itself part of the finding. The curl-free part of A already has an EXACT mechanism independent
+    of this fork set: u1_wrap_weyl_step_3d_bcc driven by a time-varying uniform-gradient angle gives exact
+    "Bloch acceleration" (tests/casim/test_particle_layer.py::test_P2_4_bloch_acceleration_exact_force_law,
+    pre-existing) -- fork (a)''s new territory is the curl-carrying part of A specifically. 10/10 PASS,
+    one control verified red (exactly the 3 declared legs) and red only there. Reviewed 2026-09-14: CONFIRMED-NARROWER
+    (docs/reviews/F385-review-2026-09-14.md) -- fixed the ~35%->~31% arithmetic error and the fork-d generalisation
+    overclaim in this pass.'
+  evidence:
+    mentions:
+    - F385
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F385 — the per-link U(1) covariant BCC Weyl step, and its unitarity/
+- id: F386-a-field-convention
+  path: tests/findings/test_F386_a_field_convention.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.a_field_convention
+  entry: check_a_field_convention
+  params:
+    L: 16
+    seed: 0
+    n_ticks: 6
+    sigma: 3.0
+    q: 1.0
+    sign: +
+    use_accumulate_for_solve_check: false
+  expect:
+    exactness: machine
+  findings:
+  - F386
+  - F385
+  - F384
+  results:
+  - test-results/F386_a_field_convention.json
+  control:
+  - params:
+      use_accumulate_for_solve_check: true
+    reds:
+    - solve_is_purely_transverse
+    - solve_curl_recovers_B
+    reason: swap accumulate's A (A+=E, generically NOT purely C-transverse and not an exact curl inverse
+      of B) in for the two solve_* legs. Both must go red -- while every other leg, which reads its own
+      independently-built A and never this swapped one, stays green.
+  notes: 'Stage 3 of docs/roadmaps/photon-fermion-coupling.md: the vector potential A that Stage 2''s
+    per-link U(1) step (F385) reads. DECISION: Coulomb-gauge SOLVE (charge_coupling.solve_A_coulomb_3d,
+    new this stage, the 3-D sibling of solve_A_coulomb_2d, reusing bcc_curl_symbol/C(k) -- not a new curl
+    operator), not per-tick ACCUMULATE (A+=E, core.coupled.WSourcedChannel''s own pattern). Reasoning:
+    F385 Sec.5b already found the curl-free (uniform/gradient) part of A has an exact existing route (the
+    uniform-shift special case Sec.3, and the pre-existing Bloch-acceleration mechanism) -- Stage 2''s
+    per-link machinery is genuinely needed only for the curl-carrying (transverse) part. solve_A_coulomb_3d
+    returns A that is purely C-transverse BY CONSTRUCTION (C.A=0 identically, verified 1.17e-16), handing
+    Stage 2 exactly the content it exists for. accumulate carries no such guarantee: F384''s own conserved
+    current is DEFINED as purely C-longitudinal, so an em_photon channel sourcing E+=g.J with that current
+    (exactly the roadmap''s own Stage-4 sketch) accumulates a growing longitudinal A from real charge
+    -- measured: a pure-charge-source run (no photon seeded) leaves accumulate''s A at LON_FRAC=1.000000
+    (entirely longitudinal, growing tick over tick) while solve correctly returns A=0 exactly (norm 1.9e-33)
+    -- NOT because B stays zero (a factual error in this record''s and the finding''s first version, fixed
+    post-review: B is NOT zero, it grows nonzero and purely C-longitudinal under photon_step_spectral''s
+    scalar rotation, with iC.B=0.399!=0, because Omega_pair(k) and \|C_odd(k)\| agree only at small k
+    -- F386 Sec.5) but because solve reads only B''s own C-TRANSVERSE projection, which genuinely is zero
+    -- the decisive contrast, on firmer ground than first written. solve''s curl inversion recovers the
+    C-transverse part of a genuine photon beam''s B to FFT round-off (2.3e-14, masked over the disclosed
+    F384-style Nyquist-corner gap; a naive Cartesian-transverse beam polarization carries substantial
+    C-longitudinal content that GROWS with L at fixed physical packet params (0.11 at L=8 to 0.40 at L=32,
+    not just "~27% for this construction" as first disclosed) -- traced in review to bcc_curl_symbol''s
+    own exact, L-stable direction anisotropy (Chat(k) != khat off-axis, up to 90 degrees, forced by the
+    same sign correction _bcc_uvec already needs for Weyl-walk unitarity) -- a property of the test-field
+    helpers and the C(k) yardstick, not of solve, so the check compares against B''s own C-transverse
+    projection, mirroring F384''s masked-residual fix). Inertness of a purely-longitudinal candidate A
+    (built as grad(chi)) reused directly through F385''s own gauge_covariance_residual: exact for constant
+    chi (3.6e-15) and shows the SAME already-disclosed O(a) local-Ward growth with wavenumber F385 measured
+    for a general A (1.30 vs 3.55 there; 1.30 vs 3.55-class growth reproduced here) -- not a new, distinct
+    physical push, confirming the longitudinal part is inert up to the already-quantified finite-lattice
+    defect. 7/7 PASS, one control verified red (exactly the 2 declared legs) and red only there. Reviewed
+    2026-09-14: CONFIRMED-NARROWER (docs/reviews/F386-review-2026-09-14.md) -- decision (solve) unchanged
+    and on firmer ground; fixed the B==0 factual error above and the beam-helper-leakage/Chat(k)-anisotropy
+    disclosures in this pass.'
+  evidence:
+    mentions:
+    - F384
+    - F385
+    - F386
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F386 -- the A-field convention Stage 2's per-link U(1) step reads
+- id: F387-curl-anisotropy-omega-pair-mismatch
+  path: tests/findings/test_F387_curl_anisotropy_omega_pair_mismatch.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.em_photon_sourcing
+  entry: check_em_photon_sourcing
+  params:
+    L: 16
+    L_stability: 64
+    n_ticks: 6
+    g_lat: 0.5
+    use_split_for_no_monopole_check: true
+  expect:
+    exactness: machine
+  findings:
+  - F387
+  - F386
+  - F384
+  results:
+  - test-results/F387_curl_anisotropy_omega_pair_mismatch.json
+  control:
+  - params:
+      use_split_for_no_monopole_check: false
+    reds:
+    - split_sourcing_preserves_no_monopole
+    reason: swap in the roadmap's original, unprojected E += g*J sourcing recipe (no Ĉ(k)-transverse/longitudinal
+      split). A purely-longitudinal current then rotates into a nonzero, purely-longitudinal B under photon_step_spectral's
+      unprojected per-component rotation, so iĈ·B grows from machine noise to O(1) (measured 2.41 at tick
+      6) -- the exact "no magnetic monopoles" violation this finding's split- sourcing fix exists to prevent.
+  evidence:
+    mentions:
+    - F387
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 79
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F387 -- the Ĉ(k) direction anisotropy and the Ω_pair(k)/|C_odd(k)|
+- id: F389-radiative-transverse-current
+  path: tests/findings/test_F389_radiative_transverse_em_current.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.em_current
+  entry: check_full_current
+  params:
+    L: 16
+    width: 1.5
+    k0:
+    - 0.6
+    - 0.0
+    - 0.0
+    sign: +
+    q: 1.0
+    longitudinal_only: false
+  expect:
+    exactness: machine
+  findings:
+  - F389
+  results:
+  - test-results/F389_radiative_transverse_current.json
+  control:
+  - params:
+      longitudinal_only: true
+    reds:
+    - transverse_current_genuinely_nonzero
+    reason: swap in F384's own current (purely Ĉ(k)-longitudinal) for full_current's addition -- the transverse
+      fraction collapses back to F388's own measured ~2e-16 noise floor, while the other two legs (continuity
+      untouched, longitudinal sector unchanged) never read a transverse quantity and stay green.
+  notes: 'F384''s conserved_current is the MINIMAL solution of discrete continuity -- purely Ĉ(k)-longitudinal
+    by construction, with its own caveats calling the transverse part "free, unconstrained gauge freedom."
+    F388''s review (docs/reviews/F388-review-2026-09-15.md, findings/F388-fermion-photon-coupled-channels.md
+    Sec.2) found the consequence: em_photon sources its radiative sector only through J''s transverse
+    part, which is always ~2e-16 (noise) under F384''s current alone, so the fermion->photon direction
+    of that loop cannot radiate and total momentum is not conserved. This record verifies the fix: noether_transverse_current
+    (bcc_naive_current''s own Ĉ(k)-transverse projection -- the continuum Weyl Noether current already
+    trusted for the SU(2)/SU(3) sectors, restricted to exactly the projection continuity never constrains)
+    can be added to conserved_current''s exact longitudinal solution WITHOUT perturbing continuity at
+    all -- measured bit-identical (continuity_diff=0.0), not merely small, because continuity is provably
+    blind to any Ĉ(k)-transverse addition. transverse_current_genuinely_nonzero measures the fraction
+    is a real ~0.69 on the tested (evolved, non-degenerate) packet, not noise. See findings/F389-radiative-transverse-em-current.md.'
+  evidence:
+    mentions:
+    - F384
+    - F388
+    - F389
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 61
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F389 -- fixing F384's declared-open transverse gauge freedom with the
+- id: F391-ck-transverse-beam-mechanism
+  path: tests/findings/test_F391_ck_transverse_beam_mechanism.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.em_photon_sourcing
+  entry: check_ck_transverse_beam_mechanism
+  params:
+    L: 16
+    g_lat: 0.6
+    q: 1.0
+    width: 1.5
+    sigma: 3.0
+    amp: 0.15
+    ticks: 20
+    use_ck_beam: true
+  expect:
+    exactness: quantitative
+  findings:
+  - F391
+  - F390
+  - F387
+  - F386
+  results:
+  - test-results/F391_ck_transverse_beam_mechanism.json
+  control:
+  - params:
+      use_ck_beam: false
+    reds:
+    - beam_exactly_ck_transverse
+    - beam_near_zero_longitudinal_leak
+    reason: swap the original F390 beam recipe (Euclidean-k-hat-transverse, projected-and-discarded) in
+      for every leg -- must turn exactly the two transversality legs red (the original recipe's ~27.5%
+      longitudinal leak is far above the new construction's near-zero residual), while the other seven
+      legs -- which either measure Ĉ(k)'s own beam-independent structure or explicitly test both constructions
+      side by side already -- stay green.
+  notes: 'F386 review (docs/reviews/F386-review-2026-09-14.md) left two structural facts open: (1) bcc_curl_symbol''s
+    direction Chat(k) -> (k_x,-k_y,k_z)/|k| off-axis, not khat, exact and L-stable 16->128 -- NEW, not
+    covered by F87 (F87''s MX1 checks only |C|/|k|, never direction; the underlying sign convention was
+    previously documented only in lattice.bcc.bcc_spin_axis, for the fermion spin axis, with no cross-reference
+    to the photon curl generator). (2) photon.pair_dispersion (Omega_pair(k)) and bcc_curl_symbol''s magnitude
+    |C_odd(k)| agree only at small k (measured 1.000134 at L=64''s smallest mode, diverging to 1.954 at
+    the L=16 BZ-edge body-diagonal mode) -- the mechanism behind F386 Sec.5''s iC.B!=0 defect when Omega_pair-rotating
+    a field sourced by F384''s purely-C-longitudinal current. THE FIX: photon_step_spectral applies the
+    SAME rotation identically to every Cartesian component, so it commutes EXACTLY with the Chat(k)-transverse/
+    longitudinal projector (measured 2e-16 relative residual) -- the two sectors never mix under free
+    rotation, so split the SOURCING current into J_T/J_L; rotate only (E_T,B_T) via Omega_pair sourced
+    by J_T (decision 5''s photon law, unchanged); solve E_L algebraically each tick from the model''s
+    own Gauss law i Chat.E_L=rho (continuity-updated from F384''s own current, same Chat(k) machinery
+    solve_A_coulomb_3d already uses); B_L is never populated. Result: naive recipe reaches ||iChat.B||=2.41
+    by tick 6 (a real monopole-invariant violation); the split fix holds it at 2.8e-16 while still correctly
+    growing E_L=0.298 to carry the charge''s own Coulomb field, and reduces exactly to plain photon_step_spectral
+    when uncharged (J=0). Does NOT build the Stage-4 em_photon/fermion_em Channel pair itself -- supplies
+    the sourcing law one of its channels should use; a concurrent session (photon-fermion-coupling-stage4-2026-09-15)
+    is building that pair and was, at claim time, working around the mismatch rather than resolving it
+    -- this record is that resolution. 12/12 PASS, control verified red on exactly the 2 declared legs.'
+  evidence:
+    mentions:
+    - F387
+    - F390
+    - F391
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 83
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F391 -- resolving F390''s two structural gaps: does a genuinely Ĉ(k)-'
+- id: F392-beam-polarization-null-fix
+  path: tests/findings/test_F392_beam_polarization_null_fix.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.photon
+  entry: check_beam_polarization_fix
+  params:
+    L: 16
+    sigma: 3.0
+    n_ticks: 40
+    null_check_polarization: circular
+  expect:
+    exactness: machine
+  findings:
+  - F392
+  results:
+  - test-results/F392_beam_polarization_null_fix.json
+  control:
+  - params:
+      null_check_polarization: linear
+    reds:
+    - equal_magnitude_holds
+    - momentum_nonzero_and_aligned
+    - default_config_magnitude_matches_audit
+    - momentum_conserved_under_free_propagator
+    reason: swap the original (defective) "linear" mode into the null-condition checks -- E and B then
+      share one Cartesian component, so |E|!=|B| in general, the field momentum Sigma ExB collapses (this
+      specific symmetric Gaussian beam's global E.B ratio happens to stay small by an odd/even cancellation,
+      which is why null_condition_holds alone does not redden here -- see the finding's own caveats),
+      the audit's 75.126 magnitude is not reproduced, and there is nothing left for the free propagator
+      to conserve (P0=0, so the drift leg fails by definition). linear_mode_bit_identical_to_default is
+      unaffected because it always compares two independent "linear" calls, never reading this param.
+  notes: 'Part A of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md, implementing docs/audits/2026-09-16-photon-fermion-momentum-investigation.md
+    Sec.2/Sec.8 step 1. gauge.photon.build_beam_packet gained a polarization= parameter ("linear" default,
+    bit-identical to git HEAD across axis in {0,1,2} and m_index in {1,2,3,4}, verified directly; "circular",
+    the fix -- complex circular polarization e_hat=(e1+i*e2)/sqrt(2) makes F=E+iB a genuine null RS field,
+    F.F=0). Reproduces the audit''s own numbers exactly: |Sigma ExB|=75.126 at L=16,sigma=3.0 for m in
+    {2,4} on all three axes, cos(P,khat)=+1.000000, E.B/(|E||B|) <= 1e-16, and (using the SAME k-space
+    Parseval formula core.observers.Momentum uses, not a real-space np.cross sum which carries ~4x more
+    floating-point rounding at this scale) relative drift under 40 ticks of photon_step_spectral = 3.6e-15,
+    under the acceptance bar of 5e-15. 6/6 PASS, one declared control verified red on exactly 4 of 6 legs.'
+  evidence:
+    mentions:
+    - F390
+    - F392
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 75
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F392 -- the beam-polarization fix (Part A of docs/roadmaps/photon-fermion-
+- id: F393-curl-grad-identity-diagnostic
+  path: tests/findings/test_F393_curl_grad_identity_diagnostic.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.charge_coupling
+  entry: check_curl_grad_identity_diagnostic
+  params:
+    L: 16
+    curl_symbol: bcc
+  expect:
+    exactness: quantitative
+  findings:
+  - F393
+  results:
+  - test-results/F393_curl_grad_identity_diagnostic.json
+  control:
+  - params:
+      curl_symbol: 'true'
+    reds:
+    - matches_known_defect_spectral_max
+    - matches_known_defect_spectral_mean
+    - matches_known_defect_forward_diff_max
+    - matches_known_defect_forward_diff_mean
+    - onaxis_reflection_y_minus_one
+    reason: substitute a genuine curl generator C=k for bcc_curl_symbol. C x k == 0 trivially (any vector
+      is parallel to itself), so the spectral-gradient legs collapse to exactly 0.0 (not the measured
+      0.741692/1.000000 defect values) and the y-axis reflection vanishes (Chat.khat=+1 on every axis
+      for a real curl, not -1 on y) -- proving this diagnostic can tell a genuine curl apart from bcc_curl_symbol.
+      The forward-diff legs also redden (0.509 mean, not 0.707173) for a different, disclosed reason --
+      a spectral curl compared against a mismatched forward-difference gradient is not expected to vanish
+      exactly either, only to differ from bcc_curl_symbol's own number, which it does. The x/z on-axis
+      legs stay green because Chat=+khat there for BOTH symbols (bcc_curl_symbol's reflection is R=diag(1,-1,1),
+      identity on x and z).
+  notes: 'Part B of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md, implementing docs/audits/2026-09-16-photon-fermion-momentum-investigation.md
+    Sec.3.2-3.4/Sec.8 step 3. Known-failing diagnostic, gated honestly per that document''s own instruction:
+    the asserted values are bcc_curl_symbol''s MEASURED defect (mean |CxG|/(|C||G|)=0.741692 against the
+    spectral gradient, 0.707173 against forward-difference), not a target -- a change to these numbers
+    means the defect changed shape, not that a fix landed. bcc_curl_symbol is NOT changed by this finding
+    (Part C, a separate decision, may do that later). Also gates the on-axis reflection facts (Chat(k).khat=+1
+    on x/z, -1 on y, exact at m=1,2,3,4, not a small-k asymptote) that F387/F391 already measured -- this
+    finding adds them to the gate tier for the first time. 7/7 PASS, one declared control (a genuine curl
+    C=k) verified red on 5 of 7 legs, proving the diagnostic discriminates.'
+  evidence:
+    mentions:
+    - F393
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 70
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F393 -- Part B of docs/roadmaps/photon-fermion-coupling-rerun-prompt.md:'
+- id: F396-charge-partition-p77
+  path: tests/findings/test_F396_charge_partition_p77.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.derive_charge_partition
+  entry: check_charge_partition
+  params:
+    spin_frame: primed
+    charge_frame: unitary
+    mass_mixing: diagonal
+  expect:
+    exactness: machine
+  findings:
+  - F396
+  results:
+  - test-results/F396_charge_partition_p77.json
+  control:
+  - params:
+      spin_frame: raw
+    reds:
+    - Jz_conserved_at_small_k
+    - Jz_defect_grows_with_k
+    reason: measure S_z with the naive +sigma_z/2 instead of the lattice's own generator -sigma_z/2 (the
+      BCC Weyl block is the conjugate representation); J_z = L_z + S_z then drifts by ~2x the S_z range
+      instead of ~0.1x.
+  - params:
+      charge_frame: raw
+    reds:
+    - Q_conserved_by_mass_step_unitary_frame
+    reason: measure electric charge on the stored eta (U off-diagonal) instead of on eta~ = U^dagger eta;
+      the mass step then appears to violate Q by s^2 |b|^2 |eta_e|^2 - the gauge artifact the finding
+      is about.
+  - params:
+      mass_mixing: charged
+    reds:
+    - Q_conserved_by_mass_step_unitary_frame
+    reason: replace the F27 species-diagonal mass coupling by one that mixes nu_L with e_R (a genuinely
+      charge-changing step); Q is then violated even in the unitary frame, so the Q-conservation result
+      is a property of the F27 coupling and not of the measuring frame.
+  notes: 'p.77 charge-partition hypothesis. Leg A: mass step conserves S_z exactly ([Sigma,beta]=0, 2.8e-17);
+    kinetic step exchanges spin with orbit; J_z conserved to ~10% of the S_z swing at small k, growing
+    with k; lattice group of the Weyl block is D2 (1e-16), C4z/C3 broken. Leg B: Q=T3+Y/2 exact; Q conserved
+    by the mass step in the unitary-gauge frame (2e-16) with dT3=-dY/2 != 0; raw-frame dQ = s^2|b|^2|eta_e|^2
+    closed form (1.5e-16) while the F54 left-handed current eta_nu^* eta_e is 0; F27 Ward identity restated
+    2.8e-17; Q'' = t3 cot - t0 tan identity 4e-16.'
+  evidence:
+    mentions:
+    - F27
+    - F41
+    - F396
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 35
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: 'F396 -- the p.77 charge-partition hypothesis: Leg A (J = L + S) and Leg B (per-tick'
+- id: F397-factorization-route
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.factorization
+  entry: check_factorization_route
+  params:
+    seed: 397
+    n: 40
+  expect:
+    exactness: quantitative
+    tol: 1.0e-12
+  findings:
+  - F397
+  control:
+  - params:
+      formula: notebook
+    reds:
+    - t2_pair_null_and_sums
+    reason: use the notebook's boxed closed form a0 = (V0^2-|V|^2+2 ahat.V)/(2 V0) instead of the null-consistent
+      a0 = V.V/(2(V0-ahat.V)); the two legs are then not null (defect 3.83 measured at the record's seed),
+      so the T2 null-pair leg must go red while every other leg (which uses the corrected formula, or
+      the notebook form deliberately to document its defect) stays green.
+  notes: F397 - notebook pp.176-182 factorization route. T1 sigma.V = psi psi^dag exact (2.9e-15); T2
+    null pair exact (2.3e-15) with the CORRECTED closed form (the notebook boxed form is defective, 6.06);
+    leg space U(2)/U(1)^2 = S^2 (2.9e-15); SL(2,C) covariance 8.7e-14; chirality carries no extra data
+    in T2; lattice leg defect exponent 3.03, pair defect exponent 4.00, opposite-sign cancellation; F169
+    offset Omega_even - T = |eps(k)| = |k_x k_y k_z|/(3|k|) leading order (ratio 1.054, 1.026, 1.013 ->
+    1), cubic on coordinate planes (3.00); local U(1) is the Hopf/Berry redundancy, connection is a degree-0
+    composite area form, and a gradient shift breaks nullness.
+- id: F398-pryce-composite-commutator
+  kind: assertion
+  tier: gate
+  sector: gauge
+  module: casim.engine.gauge.photon_pryce_commutator
+  entry: check_pryce_composite_commutator
+  params:
+    fock_L: 4
+    small_L:
+    - 3
+    - 4
+    scaling_L:
+    - 10
+    - 100
+  expect:
+    exactness: quantitative
+    tol: 1.0e-10
+  findings:
+  - F398
+  - F69
+  - F169
+  control:
+  - params:
+      pairing: shared
+    reds:
+    - closed_form_matches_fock
+    reason: every relative-momentum term shares the same fixed '-' constituent mode instead of its own
+      momentum-conserving partner (-p), so different p terms are no longer built from disjoint fermion
+      modes; the Wick-combinatorics identity n2 = 2(1 - sum psi^4) assumes disjoint constituent modes
+      per term and must fail (residual jumps from 8.9e-16 to 1.94), while the other three legs (which
+      do not depend on which specific bijection pairs '+' and '-') stay green.
+  - params:
+      wavefunction: uniform
+    reds:
+    - deficit_shrinks_with_L
+    reason: a generic normalised pair wavefunction with no near-threshold (gapless) singularity gives
+      sum psi^4 ~ 1/N ~ L^-3, not the physical threshold wavefunction's ~L^-2 law -- with the resonance-robust
+      (lower-envelope, half_window=4) estimator the L=10/L=100 deficit ratio becomes ~410, well outside
+      the [20,200] band the physical ~L^-2 law is checked against, while the other three legs (which do
+      not depend on the wavefunction's specific shape) stay green.
+  notes: F398 - Pryce (1938)'s exact-Bose-commutation objection, tested against the F69/F169 paired photon.
+    Builds a_k^dagger = sum_p psi_k(p) b^dagger_{+,k/2+p} b^dagger_{-,k/2-p} on an exact, brute-force
+    fermionic Fock space (canonical Jordan-Wigner sign bookkeeping, no mean-field or bosonisation approximation)
+    using F169's own threshold wavefunction. Closed-form identity ||(a^dagger)^2|0>||^2 = 2(1 - sum_p
+    psi(p)^4), verified against the brute-force construction to 8.9e-16 at two independent small grids
+    (L=3,4) -- standard composite-boson/coboson machinery (Combescot et al.), not new math, applied here
+    to this model's own wavefunction for the first time. The two-composite-photon Pauli-blocking deficit
+    falls as ~L^-2 with BZ grid resolution (ratio 84.9 at L=10/L=100, vs. the derived (100/10)^2 = 100
+    prediction from sum psi^2 ~ L^3 bulk-normalised / sum psi^4 ~ L^4 innermost-shell-dominated near the
+    gapless p=0 singularity), measured with a resonance-robust (lower-envelope over a half_window=4 grid
+    neighbourhood) estimator after the attack-and-fix review (docs/reviews/F398-review-2026-09-23.md)
+    found the original raw single-point estimator passed its declared band only 12/30 times across nearby
+    anchor choices; the robust estimator passes 30/30 (audit trail script -- tests/runners/pryce-commutator/run_F398_robustness_scan.py).
+    Real, disclosed non-monotonic commensurability noise in L (same artifact class as F169's own C2/C4-note)
+    is why the robust estimator exists rather than a wider tolerance band.
+- id: F401-photon-bound-state-finite-k
+  path: tests/findings/test_F401_photon_bound_state_finite_k.py
+  kind: assertion
+  tier: gate
+  sector: gauge
+  findings:
+  - F169
+  - F397
+  - F401
+  module: tests.findings.test_F401_photon_bound_state_finite_k
+  entry: check_all
+  params: {}
+  expect:
+    exactness: quantitative
+    tol: 1.0e-08
+  results:
+  - test-results/F401_photon_bound_state_finite_k.json
+  note: 'notebook-followup-2026-09-22 Part VI.3 / F169''s own C2/C4-note: critical_coupling/threshold_wavefunction
+    took the finite-k continuum floor T as E.min() over the L^3 grid, an artifact (non-monotonic in L,
+    always >= the closed form) documented but explicitly not repaired there. Adds threshold="closed" (default
+    stays "grid", so F169''s own artifact-diagnostic test is unaffected) and characterizes what the fix
+    reveals. (A1, exact) omega+(q,0,0) = omega-(q,0,0) = |q|/sqrt(3): the chiral branches collapse onto
+    the SAME isotropic cone along any coordinate axis (re-derived symbolically, independently of the module,
+    and cross-checked against the engine''s own bcc dispersion at several q), so Omega_even(k) = T(k)
+    EXACTLY to all orders along an axis -- sharper than F169/CL149''s own "vanishes on the coordinate
+    planes... O(k^3)" statement, which (A2) is confirmed to be only leading-order off-axis (a genuine
+    2-D in-plane point has a real nonzero offset). (B1, quantitative) at the SAME L values F169''s own
+    docstring quotes for the artifact (12,24,32,48,96,144,192), threshold="closed" converges monotonically
+    along (111) while threshold="grid" does not. NARROWED ON REVIEW (attack 4, 2026-09-23): a denser L-scan
+    at the same (111), |k|=0.2 point shows threshold="closed" is NOT monotonic at every L either -- (B2)
+    quantifies the real, partial improvement instead: the closed form''s worst-case single-step backslide
+    over a 48-point dense scan is ~4x smaller than the grid form''s (0.19 vs 0.76), settling into a stable
+    range far sooner. (B3, quantitative) g_c(k) at L=192 decreases monotonically with |k| along (111)
+    (checked to |k|=1.0, well past the originally-checked 0.4) and along (3,1,1), but NOT along (2,1,0)
+    (found on review, attack 12) -- the decreasing trend is a real (111)/(311)-class result, not a universal
+    law of all directions. DECLARED CONTROL confirms grid and closed thresholds agree exactly at k=0 (T=0
+    either way), so the fix changes nothing F169 already certified. Honest scope: this re-derives the
+    Koster-Slater threshold coupling at the true two-body floor T(k), NOT necessarily "the photon''s own
+    coupling at finite k" -- per F169''s own C3-note the symmetric configuration usually identified with
+    the photon sits at Omega_even(k), above T(k) at generic k (i.e. in the continuum, not at its edge);
+    the all-k gauge-pole question F169 already left open is untouched.
+
+    '
+  control:
+  - params:
+      perturb_k0_threshold: break
+    reason: 'B2 compares g_c(k=0, closed) against a deliberately wrong reference (gc0_grid + 0.5) instead
+      of the true k=0 grid value. Must go RED -- otherwise the k=0 agreement control (checking the fix
+      changes nothing F169 already certified) could not actually catch a broken closed-form threshold
+      at k=0. VERIFIED RED.
+
+      '
+  evidence:
+    mentions:
+    - F169
+    - F401
+    pytest_funcs: false
+    has_assert: true
+    has_main: true
+    lines: 225
+    n_test_funcs: 0
+    artifacts_written: []
+    artifact_rule: {}
+    artifacts_read_only: []
+    summary: F401 — repairing the finite-k grid-threshold artifact in
 - id: F67-option1-even-law-photon
   path: tests/findings/test_F67_option1_even_law_photon.py
   kind: result_dump

@@ -1,0 +1,31 @@
+{
+  "NB-123": {
+    "claim": "R_z(x)R_z = diag(e^{i theta}, 1, 1, e^{-i theta})",
+    "Rz_matches_standard_exp_i_sigmaz_phi_over_2": true,
+    "RzRz_matches_notebook_boxed_result": true,
+    "verdict": "SOLID"
+  },
+  "NB-124": {
+    "claim": "R_x(phi)=exp(i sigma_x phi/2) equals [[i sin(phi/2), cos(phi/2)],[cos(phi/2), i sin(phi/2)]]",
+    "correct_Rx_via_sympy_matrix_exp": "Matrix([[cos(phi/2), I*sin(phi/2)], [I*sin(phi/2), cos(phi/2)]])",
+    "notebook_Rx_matrix": "Matrix([[I*sin(phi/2), cos(phi/2)], [cos(phi/2), I*sin(phi/2)]])",
+    "Rx_matches_notebook_stated_matrix": false,
+    "RxRx_built_from_notebook_input_matches_notebook_stated_tensor_product": true,
+    "double_angle_cross_term_check": {
+      "correct_reduction_of_i_sin(phi/2)cos(phi/2)": "i/2 sin(phi)",
+      "notebook_final_matrix_uses": "2 i sin(phi)",
+      "difference_from_correct (should be 0 if notebook right)": "-3*sin(phi)/2",
+      "ratio_notebook_to_correct": "4 (notebook is exactly 4x too large)"
+    },
+    "RxRx_corrected_matches_RxRx_from_notebook_own_Rx": true,
+    "verdict": "INCORRECT (as transcribed) / SOLID-WITH-CORRECTION"
+  },
+  "NB-125": {
+    "claim": "R_y(phi)=exp(i sigma_y phi/2) equals [[sin(phi/2), cos(phi/2)],[-cos(phi/2), -sin(phi/2)]]; R_y(x)R_y computed but left incomplete",
+    "correct_Ry_via_sympy_matrix_exp": "Matrix([[cos(phi/2), sin(phi/2)], [-sin(phi/2), cos(phi/2)]])",
+    "notebook_Ry_matrix": "Matrix([[sin(phi/2), cos(phi/2)], [-cos(phi/2), -sin(phi/2)]])",
+    "Ry_matches_notebook_stated_matrix": false,
+    "RyRy_stated_matches_tensor_product_of_notebook_own_Ry": false,
+    "verdict": "INCORRECT (as transcribed) / SOLID-WITH-CORRECTION, continuation supplied below"
+  }
+}

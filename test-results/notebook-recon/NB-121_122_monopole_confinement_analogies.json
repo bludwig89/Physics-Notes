@@ -1,0 +1,22 @@
+{
+  "NB-121": {
+    "kind": "mechanism/speculation",
+    "premises_checked": {
+      "SM_has_no_observed_right_handed_charged_current": true,
+      "Maxwell_equations_as_formulated_have_no_magnetic_source_term": true,
+      "both_are_literally_the_same_kind_of_absence": false
+    },
+    "assessment": "Both named facts (no right-handed weak current observed; no magnetic monopole observed) are individually correct. The analogy between them -- both are the 'missing' member of an otherwise-populated multiplet -- is an apt verbal observation but not a structural equivalence: the absence of a right-handed W-coupling is a dynamical/representation choice (nothing prevents writing a right-handed current on paper; the SM simply doesn't gauge it), whereas the absence of a magnetic monopole in ordinary Maxwell theory is a topological fact about the trivial U(1) bundle (a monopole requires a nontrivial fiber bundle / Dirac string, a qualitatively different kind of 'missing'). The notebook does not claim more than an analogy, and is explicit that it is speculative.",
+    "verdict": "NOT-TESTABLE"
+  },
+  "NB-122": {
+    "kind": "mechanism/speculation",
+    "premises_checked": {
+      "orbital_angular_momentum_quantum_number_is_always_a_nonnegative_integer": true,
+      "spin_can_be_half_integer_with_no_such_restriction": true,
+      "quark_charge_confinement_mechanism_is_actually_analogous": false
+    },
+    "assessment": "The stated facts about orbital vs. spin angular momentum quantization are standard and correct. The proposed parallel to quark-charge confinement is explicitly speculative in the notebook's own words ('perhaps... under a Heisenberg-like arrangement') and is not actually structurally analogous: confinement is a strong-coupling dynamical statement (the linearly-rising QCD flux-tube potential), not a representation-theoretic selection rule forbidding certain quantum numbers from appearing in isolation. The analogy is evocative but not a mechanism with the same mathematical content as the L vs. S quantization example it's compared to.",
+    "verdict": "NOT-TESTABLE"
+  }
+}

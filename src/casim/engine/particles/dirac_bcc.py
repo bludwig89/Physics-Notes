@@ -196,7 +196,12 @@ def dirac_step_3d_bcc_splitstep(eta_u, eta_d, chi_u, chi_d,
 #  Position-dependent (scalar) mass — 3D BCC variable-mass step
 # ══════════════════════════════════════════════════════════════════
 def _mix_eta_chi_3d(eu, ed, xu, xd, theta):
-    """Per-cell Lorentz-scalar mass rotation exp(−i·β·θ), β=[[0,I],[I,0]].
+    """Per-cell Lorentz-scalar mass rotation exp(+i·β·θ), β=[[0,I],[I,0]].
+
+    Same sense as the ``+im`` off-diagonal of D_k (at k=0, D_0 = exp(+iβ·arcsin m)),
+    so the Strang composition carries m_0 + δm.  (Before 2026-09-29 this was
+    exp(−iβθ), which made the effective mass m_0 − δm; harmless at m_0 = 0
+    but wrong for the quark channel, which calls this with m_0 = m.)
 
     Dimension-agnostic pointwise rotation (identical to the audited 2D
     ``ca_dirac._mix_eta_chi``); ``theta`` is a scalar or an (Lx,Ly,Lz) array.
@@ -204,10 +209,10 @@ def _mix_eta_chi_3d(eu, ed, xu, xd, theta):
     may be arbitrarily large — the basis of MIT-bag / scalar confinement."""
     cos_t = np.cos(theta)
     sin_t = np.sin(theta)
-    return (cos_t * eu - 1j * sin_t * xu,
-            cos_t * ed - 1j * sin_t * xd,
-            cos_t * xu - 1j * sin_t * eu,
-            cos_t * xd - 1j * sin_t * ed)
+    return (cos_t * eu + 1j * sin_t * xu,
+            cos_t * ed + 1j * sin_t * xd,
+            cos_t * xu + 1j * sin_t * eu,
+            cos_t * xd + 1j * sin_t * ed)
 
 
 def dirac_step_3d_bcc_varm_splitstep(eta_u, eta_d, chi_u, chi_d,

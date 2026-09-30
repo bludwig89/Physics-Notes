@@ -1,0 +1,35 @@
+{
+  "NB-154": {
+    "claim": "sigma^mu d_mu Psi=0 componentwise gives (1a) (d0-dz)eta=(dx-i dy)xi, (1b) (d0+dz)xi=(dx+i dy)eta",
+    "componentwise_d0eta_matches": true,
+    "componentwise_d0xi_matches": true,
+    "rearrangement_to_1a_consistent": true,
+    "rearrangement_to_1b_consistent": true,
+    "verdict": "SOLID"
+  },
+  "NB-155": {
+    "claim": "substituting eta=phi*xi into (1a),(1b) to get an equation for phi=eta/xi",
+    "correct_product_rule_expansion_of_(d0-dz)(phi*xi)": "phi(t, x, y, z)*Derivative(xi(t, x, y, z), t) - phi(t, x, y, z)*Derivative(xi(t, x, y, z), z) + xi(t, x, y, z)*Derivative(phi(t, x, y, z), t) - xi(t, x, y, z)*Derivative(phi(t, x, y, z), z)",
+    "notebooks_displayed_expansion": "phi(t, x, y, z)*Derivative(xi(t, x, y, z), t) - phi(t, x, y, z)*Derivative(xi(t, x, y, z), z) + xi(t, x, y, z)*Derivative(phi(t, x, y, z), t) + xi(t, x, y, z)*Derivative(phi(t, x, y, z), z)",
+    "notebooks_expansion_matches_correct_product_rule": false,
+    "conclusion": "The notebook's own displayed substitution step uses '(d0+dz)phi . xi' where the correct product rule for (d0-dz)(phi*xi) requires 'phi*(d0-dz)xi + xi*(d0-dz)phi' -- i.e. the SAME operator (d0-dz) should apply to phi as to the whole expression, not the opposite-sign operator (d0+dz). This is a genuine algebra slip, confirmed by direct symbolic product-rule expansion -- consistent with the author's own assessment immediately afterward that this approach 'seems an intractable mess.'",
+    "verdict": "INCORRECT (as transcribed) / DEAD-END-AUTHOR-CALLED-IT -- the author's own assessment (abandoned as intractable) is correct, and independently confirmed here to also contain a product-rule slip"
+  },
+  "NB-156": {
+    "claim": "(d0^2-nabla^2)xi = 0 (2b), derived by applying (d0-dz) to (1b) and using (1a)",
+    "step_(d0-dz)(d0+dz)xi_equals_d0^2xi-dz^2xi": true,
+    "step_RHS_rearranges_to_(dx+idy)(d0-dz)eta": true,
+    "step_substituting_(1a)_gives_(dx^2+dy^2)xi": true,
+    "full_chain_confirmed": true,
+    "verdict": "SOLID",
+    "note": "By the identical argument (swap eta<->xi, (1a)<->(1b)), (d0^2-nabla^2)eta=0 (2a) follows the same way -- confirmed by symmetry of the derivation, not independently re-run."
+  },
+  "NB-157": {
+    "claim": "(d0^2-nabla^2)(phi xi)=0 expands via product rule; applying (2b) leaves xi(d0^2 phi - nabla^2 phi) = 2(grad phi . grad xi) - 2(d0 phi)(d0 xi); author asks whether this SPLITS into (3a) d0^2phi-nabla^2phi=0 and (3b) (grad phi).(grad xi)-(d0phi)(d0xi)=0",
+    "product_rule_expansion_matches_notebook": true,
+    "after_applying_(2b)_matches_notebook_intermediate": true,
+    "rearranged_combined_relation_confirmed": true,
+    "the_split_(3a)+(3b)_logical_status": "The single combined relation is xi*A = 2*B, where A=(d0^2-nabla^2)phi and B=(grad phi).(grad xi)-(d0 phi)(d0 xi). Setting BOTH A=0 and B=0 separately (the proposed (3a),(3b) split) is SUFFICIENT to satisfy the combined relation, but it is NOT the only way to satisfy it -- any xi,A,B with xi*A=2*B (e.g. A and B both nonzero but proportional with the right factor xi/2) would also work. The author's own phrasing ('Could we split these...?') correctly flags this as a proposed ADDITIONAL ansatz, not a forced logical consequence of the algebra above it -- confirmed here to be an accurate self-assessment of the derivation's actual logical strength.",
+    "verdict": "SOLID (the algebra up to the combined relation is exactly correct); the proposed (3a)/(3b) split is honestly flagged by the author as a nontrivial ansatz, correctly so -- not itself forced by the preceding math"
+  }
+}

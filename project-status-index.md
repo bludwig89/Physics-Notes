@@ -7,6 +7,7 @@
 |------|---------|
 | — | Source |
 | — | Progress |
+| 2026-09-09 - 01:20 | F378: F328's discrete CPT theorem extends to the SU(2)_L-gauged kinetic term via SU(2) pseudoreality; the gauged mass mechanism obstructs it |
 | 2026-06-09 - 19:10 | F125 / P5: the atom — hydrogen as an electromagnetic bound state, Rydberg series + Dirac fine structure (20/20 PASS) |
 | 2026-06-09 - 18:20 | F124: √σ/f_π derived from first principles — the two QCD calibrations reconciled to ~12 % from the one locked lattice (6/6 PASS) |
 | 2026-06-09 - 17:40 | F123 / P6: SI absolute-scale closure for the matter sector — one f_π anchor puts the nucleon at 3m_c within ~1 % of 938 MeV (10/10 PASS) |
@@ -61,3 +62,5 @@
 | 2026-05-22 - 13:42 | Real-space propagation demo + curl-residual geometry forks |
 | 2026-05-23 - 16:35 | F28: F26 dispersion test against current LIV experiments |
 | 2026-05-24 - 00:00 | F37 chiral split propagation implemented |
+| 2026-09-21 - 12:45 | F396: p.77 charge partition is F27's Stueckelberg Ward identity relabelled (CL308) |
+| 2026-09-24 - 15:40 | F405: F95's B with quark colour/charge factors cannot move Koide k (report derivation four: clean fail) |

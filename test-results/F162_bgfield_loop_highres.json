@@ -15,22 +15,31 @@
   },
   "lattice_b0_consistency_vs_n": [
     {
-      "n": 16,
-      "wilson_shift_mean": -0.0787144289103364,
-      "wilson_shift_spread": 0.00018009737014362814,
-      "rule_shift_mean": -0.007407496275156619,
-      "rule_shift_spread": 0.019205353046657214,
+      "n": 24,
+      "wilson_shift_mean": -0.07867389689899851,
+      "wilson_shift_spread": 6.972068030824952e-05,
+      "rule_shift_mean": -0.012599344963613687,
+      "rule_shift_spread": 2.120189291232588e-05,
       "b0_propagator_independent": true,
-      "seconds": 1.2
+      "seconds": 5.1
     },
     {
-      "n": 24,
-      "wilson_shift_mean": -0.07867389689899573,
-      "wilson_shift_spread": 6.972068029714729e-05,
-      "rule_shift_mean": -0.0001727975938650983,
-      "rule_shift_spread": 0.021450346659180997,
+      "n": 32,
+      "wilson_shift_mean": -0.07868744828869977,
+      "wilson_shift_spread": 0.00011687064439247496,
+      "rule_shift_mean": -0.012600530357236212,
+      "rule_shift_spread": 1.301092925265479e-05,
       "b0_propagator_independent": true,
-      "seconds": 5.9
+      "seconds": 15.9
+    },
+    {
+      "n": 48,
+      "wilson_shift_mean": -0.07871175773585483,
+      "wilson_shift_spread": 0.0001458443299628409,
+      "rule_shift_mean": -0.012598420766752508,
+      "rule_shift_spread": 1.5278351771397247e-05,
+      "b0_propagator_independent": true,
+      "seconds": 101.1
     }
   ],
   "verdict": "b0 = 11/3 C_A = 11 recovered EXACTLY (loop assembly validated); lattice b0 = continuum b0 (Wilson subtracted shift q-flat). Finite d1 to the digit OPEN (vertex form factors, Wilson-28.81 gate); F155 q* bracket stands."

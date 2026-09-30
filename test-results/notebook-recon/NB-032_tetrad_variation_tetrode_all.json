@@ -1,0 +1,59 @@
+{
+  "build": "NB-032 tetrad variation",
+  "stamp": "2026-09-22 - 17:10",
+  "V0_scalar_calibration_T_minus_(dphi dphi - gL)": true,
+  "V1_dsqrtg_de^mu_a_equals_-sqrtg_e_mu^a": true,
+  "V1_scaling_weight_of_dsqrtg/dq~": "s^-5",
+  "V1_scaling_weight_of_sqrtg*q_lam": "s^-5",
+  "V1_scaling_weight_of_NB032_(-g)^(-1/2)*q_lam": "s^+3",
+  "V2_eta_postulate_[order0,order1]_derived_eta_+1/4 q~C": [
+    true,
+    true
+  ],
+  "V2_eta_postulate_[order0,order1]_p15_3.88_2nd_+1/4 Cq~": [
+    true,
+    false
+  ],
+  "V2_eta_postulate_[order0,order1]_p15_3.88_1st_-1/4 qC~": [
+    true,
+    false
+  ],
+  "V2_chi_postulate_[order0,order1]_derived_chi_-1/4 Cq~": [
+    true,
+    true
+  ],
+  "V2_chi_postulate_[order0,order1]_p17_3.77_-1/4 q~C": [
+    true,
+    false
+  ],
+  "V2_chi_postulate_[order0,order1]_p17_3.79b_+1/4 qC~": [
+    true,
+    true
+  ],
+  "V2_derived_Omega_order1_trace": "[0, 0, 0, 0]",
+  "V2_(3.88_2nd)_equals_dagger_of_derived": true,
+  "V3_eta": {
+    "V3a_Omega_fixed_T_minus_canonical_Theta_offshell": true,
+    "V3b_Omega_part_symmetric_part_offshell": true,
+    "V3b_T_full_minus_Tetrode_offshell_is_zero": false,
+    "V3b_T_full_minus_Tetrode_onshell": true,
+    "V3b_T_full_antisym_onshell": true,
+    "V3b_canonical_antisym_onshell_is_zero": false,
+    "V3b_T_full_antisym_offshell_example_01": "-I*(-eta1(t, x, y, z)*Derivative(etab1(t, x, y, z), x) + I*eta1(t, x, y, z)*Derivative(etab1(t, x, y, z), y) - eta1(t, x, y, z)*Derivative(etab2(t, x, y, z), t) + eta1(t, x, y, z)*Derivative(etab2(t, x, y, z), z) - eta2(t, x, y, z)*Derivative(etab1(t, x, y, z), t) - eta2(t, x, y, z)*Derivative(etab1(t, x, y, z), z) - eta2(t, x, y, z)*Derivative(etab2(t, x, y, z), x) - I*eta2(t, x, y, z)*Derivative(etab2(t, x, y, z), y) + etab1(t, x, y, z)*Derivative(eta1(t, x, y, z), x) + I*etab1(t, x, y, z)*Derivative(eta1(t, x, y, z), y) + etab1(t, x, y, z)*Derivative(eta2(t, x, y, z), t) - etab1(t, x, y, z)*Derivative(eta2(t, x, y, z), z) + etab2(t, x, y, z)*Derivative(eta1(t, x, y, z), t) + etab2(t, x, y, z)*Derivative(eta1(t, x, y, z), z) + etab2(t, x, y, z)*Derivative(eta2(t, x, y, z), x) - I*etab2(t, x, y, z)*Derivative(eta2(t, x, y, z), y))/2"
+  },
+  "V3_chi": {
+    "V3a_Omega_fixed_T_minus_canonical_Theta_offshell": true,
+    "V3b_Omega_part_symmetric_part_offshell": true,
+    "V3b_T_full_minus_Tetrode_offshell_is_zero": false,
+    "V3b_T_full_minus_Tetrode_onshell": true,
+    "V3b_T_full_antisym_onshell": true,
+    "V3b_canonical_antisym_onshell_is_zero": false,
+    "V3b_T_full_antisym_offshell_example_01": "I*(chi1(t, x, y, z)*Derivative(chib1(t, x, y, z), x) - I*chi1(t, x, y, z)*Derivative(chib1(t, x, y, z), y) - chi1(t, x, y, z)*Derivative(chib2(t, x, y, z), t) - chi1(t, x, y, z)*Derivative(chib2(t, x, y, z), z) - chi2(t, x, y, z)*Derivative(chib1(t, x, y, z), t) + chi2(t, x, y, z)*Derivative(chib1(t, x, y, z), z) + chi2(t, x, y, z)*Derivative(chib2(t, x, y, z), x) + I*chi2(t, x, y, z)*Derivative(chib2(t, x, y, z), y) - chib1(t, x, y, z)*Derivative(chi1(t, x, y, z), x) - I*chib1(t, x, y, z)*Derivative(chi1(t, x, y, z), y) + chib1(t, x, y, z)*Derivative(chi2(t, x, y, z), t) + chib1(t, x, y, z)*Derivative(chi2(t, x, y, z), z) + chib2(t, x, y, z)*Derivative(chi1(t, x, y, z), t) - chib2(t, x, y, z)*Derivative(chi1(t, x, y, z), z) - chib2(t, x, y, z)*Derivative(chi2(t, x, y, z), x) + I*chib2(t, x, y, z)*Derivative(chi2(t, x, y, z), y))/2"
+  },
+  "V4_eta_T_full": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, 0, 0], [0, 0, 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])",
+  "V4_eta_T_full_equals_02b_Tetrode": true,
+  "V4_eta_T_Omega_fixed_(canonical)": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, Derivative(a(t), t)/(2*a(t)**7), 0], [0, -Derivative(a(t), t)/(2*a(t)**7), 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])",
+  "V4_chi_T_full": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, 0, 0], [0, 0, 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])",
+  "V4_chi_T_full_equals_02b_Tetrode": true,
+  "V4_chi_T_Omega_fixed_(canonical)": "Matrix([[k/a(t)**6, 0, 0, k/a(t)**6], [0, 0, -Derivative(a(t), t)/(2*a(t)**7), 0], [0, Derivative(a(t), t)/(2*a(t)**7), 0, 0], [k/a(t)**6, 0, 0, k/a(t)**6]])"
+}

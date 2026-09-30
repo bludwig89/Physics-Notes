@@ -2,7 +2,7 @@
   "suite": "P0_dynamical_fermions",
   "n_pass": 16,
   "n_total": 16,
-  "seconds": 7.934396028518677,
+  "seconds": 13.147396802902222,
   "masses": {
     "e": 0.05,
     "u": 0.1,
@@ -11,13 +11,13 @@
   "checks": [
     {
       "name": "A1-disp-e",
-      "residual": 3.3306690738754696e-16,
+      "residual": 2.7755575615628914e-16,
       "target": 1e-12,
       "passed": true
     },
     {
       "name": "A1-disp-u",
-      "residual": 2.220446049250313e-16,
+      "residual": 3.3306690738754696e-16,
       "target": 1e-12,
       "passed": true
     },
@@ -29,25 +29,25 @@
     },
     {
       "name": "A2-groupvel-weyl",
-      "residual": 0.00011103907583217091,
+      "residual": 0.0001110390758327478,
       "target": 0.02,
       "passed": true
     },
     {
       "name": "B-norm-e",
-      "residual": 2.5557334026871104e-13,
+      "residual": 2.1316282072803006e-14,
       "target": 1e-10,
       "passed": true
     },
     {
       "name": "B-norm-u",
-      "residual": 2.657873920952625e-13,
+      "residual": 3.086420008457935e-14,
       "target": 1e-10,
       "passed": true
     },
     {
       "name": "B-norm-d",
-      "residual": 2.402522625288839e-13,
+      "residual": 5.773159728050814e-15,
       "target": 1e-10,
       "passed": true
     },
@@ -89,33 +89,33 @@
     },
     {
       "name": "E1-colour-charge-conserved",
-      "residual": 1.2079226507921703e-13,
+      "residual": 2.1316282072803006e-14,
       "target": 1e-10,
       "passed": true
     },
     {
       "name": "E2-su3-density-casimir-invariant",
-      "residual": 1.3322676295501875e-15,
+      "residual": 1.8892368552493456e-15,
       "target": 1e-12,
       "passed": true
     },
     {
       "name": "E3-quark-norm-conserved",
-      "residual": 1.021405182655144e-14,
+      "residual": 1.1102230246251565e-15,
       "target": 1e-10,
       "passed": true
     }
   ],
   "results": {
     "A2": {
-      "v_meas": 0.57741437763058,
+      "v_meas": 0.5774143776305803,
       "v_ana": 0.5773502691902577,
       "c_lat": 0.5773502691896258,
-      "rel": 0.00011103907583217091
+      "rel": 0.0001110390758327478
     },
-    "B_e": 2.5557334026871104e-13,
-    "B_u": 2.657873920952625e-13,
-    "B_d": 2.402522625288839e-13,
+    "B_e": 2.1316282072803006e-14,
+    "B_u": 3.086420008457935e-14,
+    "B_d": 5.773159728050814e-15,
     "C_e": {
       "w_meas": 0.10016339460831049,
       "w_ana": 0.10004171361154003,

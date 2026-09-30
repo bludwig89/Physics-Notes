@@ -1,0 +1,8 @@
+{
+  "build": "NB-086",
+  "psibar_psi_minus_(psibarL_psiR+psibarR_psiL)": "0",
+  "identity_confirmed": true,
+  "same_chirality_LL_bilinear": "0",
+  "same_chirality_RR_bilinear": "0",
+  "same_chirality_bilinears_vanish": true
+}

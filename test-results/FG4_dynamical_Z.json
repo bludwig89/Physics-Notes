@@ -11,20 +11,20 @@
     },
     {
       "test": "Z2",
-      "residual": 2.6645352591003757e-15,
+      "residual": 3.552713678800501e-15,
       "target": 1e-14,
       "sub_residuals": [
         8.881784197001252e-16,
-        1.7763568394002505e-15,
-        8.881784197001252e-16,
-        2.6645352591003757e-15,
+        1.3322676295501878e-15,
+        1.3322676295501878e-15,
+        3.552713678800501e-15,
         1.7763568394002505e-15,
         1.7763568394002505e-15,
         1.7763568394002505e-15,
         2.6645352591003757e-15
       ],
       "passed": true,
-      "description": "source-basis identity (W3,B)\u2194(A,Z) and J^Z decomposition: max|\u0394| = 2.66e-15"
+      "description": "source-basis identity (W3,B)\u2194(A,Z) and J^Z decomposition: max|\u0394| = 3.55e-15"
     },
     {
       "test": "Z3",
@@ -35,41 +35,41 @@
     },
     {
       "test": "Z4",
-      "residual": 1.0431825530177401e-13,
+      "residual": 9.800664230698814e-14,
       "target": 1e-12,
       "n_steps": 40,
       "passed": true,
-      "description": "free massless Z dispersion = \u03a9_even(k) over 40 ticks: max rel err = 1.04e-13"
+      "description": "free massless Z dispersion = \u03a9_even(k) over 40 ticks: max rel err = 9.80e-14"
     },
     {
       "test": "Z5",
-      "residual": 1.4804845114145166e-13,
+      "residual": 1.7366347167262237e-13,
       "target": 1e-12,
       "rels_by_mZ": {
-        "mZ=0.0": 1.0247173675759076e-13,
-        "mZ=0.1": 1.1136125640464606e-13,
-        "mZ=0.3": 1.4804845114145166e-13,
-        "mZ=0.5": 1.0580331209386758e-13
+        "mZ=0.0": 4.7830474157084414e-14,
+        "mZ=0.1": 4.8656437547492574e-14,
+        "mZ=0.3": 1.3844140196526518e-13,
+        "mZ=0.5": 1.7366347167262237e-13
       },
       "passed": true,
-      "description": "massive Z (Proca) \u03c9\u00b2=m\u00b2+\u03a9_even\u00b2 over 30 ticks at 4 masses: max rel = 1.48e-13"
+      "description": "massive Z (Proca) \u03c9\u00b2=m\u00b2+\u03a9_even\u00b2 over 30 ticks at 4 masses: max rel = 1.74e-13"
     },
     {
       "test": "Z6",
-      "residual": 6.994405055138486e-15,
+      "residual": 7.105427357601002e-15,
       "target": 1e-12,
       "n_steps": 25,
       "passed": true,
-      "description": "[mix, z_propagate] = 0 over 25 ticks at \u03b8_W=\u03c0/6: max|\u0394| = 6.99e-15"
+      "description": "[mix, z_propagate] = 0 over 25 ticks at \u03b8_W=\u03c0/6: max|\u0394| = 7.11e-15"
     },
     {
       "test": "Z7",
-      "residual": 8.881784197001252e-16,
+      "residual": 4.440892098500626e-16,
       "target": 1e-14,
       "sub_residuals": [
-        8.881784197001252e-16,
+        4.440892098500626e-16,
         0.0,
-        2.220446049250313e-16,
+        4.440892098500626e-16,
         0.0,
         4.440892098500626e-16,
         0.0,
@@ -77,7 +77,7 @@
         0.0
       ],
       "passed": true,
-      "description": "source kick additive in E, B unchanged, 2 masses \u00d7 2 dt: max|\u0394| = 8.88e-16"
+      "description": "source kick additive in E, B unchanged, 2 masses \u00d7 2 dt: max|\u0394| = 4.44e-16"
     },
     {
       "test": "Z8",
@@ -127,7 +127,7 @@
       "description": "massive step at m_Z=0 reduces bit-for-bit to massless step: max|\u0394| = 0.00e+00"
     }
   ],
-  "elapsed": 0.18929004669189453,
+  "elapsed": 0.26757192611694336,
   "n_pass": 12,
   "n_total": 12,
   "overall": "PASS"

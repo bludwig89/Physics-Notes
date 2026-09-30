@@ -1,0 +1,29 @@
+{
+  "finding": "F399",
+  "module": "particles.derive_composite_scalar_fermion_coupling",
+  "checks": {
+    "reproduces_f77_fit": true,
+    "sigma_coupling_finite": true,
+    "sigma_coupling_not_universal": true,
+    "species_locality_exact": true
+  },
+  "all_pass": true,
+  "measured": {
+    "M": 0.31121462294175306,
+    "f_pi": 0.09258345580787367,
+    "g_pi_qq": 3.361449626460002,
+    "goldberger_treiman_residual": 0.0,
+    "g_sigma_qq": 2.1051970617553177,
+    "g_sigma_qq_over_g_pi_qq": 0.6262765460425285,
+    "K_sigma_pole_closed_vs_quadrature_residual": 7.050194847686611e-06,
+    "gt_ratio_sweep": [
+      0.745723921194456,
+      0.6369725467152427,
+      0.4567395297610856,
+      0.280541316374711,
+      0.14188531256812717
+    ],
+    "gt_ratio_spread": 0.8097347979117208,
+    "propagator_matrix_off_diagonal_residual": 0.0
+  }
+}

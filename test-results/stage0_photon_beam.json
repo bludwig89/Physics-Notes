@@ -1,0 +1,334 @@
+{
+  "name": "stage0_photon_beam",
+  "title": "Stage 0 baseline \u2014 free photon beam",
+  "description": "Photon-fermion coupling roadmap Stage 0: free paired-photon beam packet, momentum observer only. Expected P_field drift ~= 0 (free rotation, no source).",
+  "seed": 0,
+  "ticks": 40,
+  "lattice": {
+    "L": 16,
+    "dims": 3,
+    "topology": "cubic",
+    "c_lat": 0.5773502691896258,
+    "block": 1,
+    "physical_L": 16,
+    "cell_factor": 1
+  },
+  "channels": {
+    "photon_pair": {
+      "name": "photon_pair",
+      "type": "photon_pair",
+      "label": "Photon Pair",
+      "propagator": "even",
+      "topologies": [
+        "cubic"
+      ]
+    }
+  },
+  "observers": {
+    "momentum": {
+      "type": "momentum",
+      "label": "Momentum",
+      "exactness": "exact",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 35,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "photon_pair": {
+              "P_field": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rel_drift": 0.0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "photon_pair": {
+          "P_field": {
+            "P0": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Pf": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "delta": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "delta_mag": 0.0
+          }
+        },
+        "P_total": {
+          "P0": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Pf": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "delta_mag": 0.0
+        }
+      }
+    },
+    "norm_conservation": {
+      "type": "norm_conservation",
+      "label": "Norm Conservation",
+      "exactness": "machine-precision",
+      "every": 5,
+      "records": [
+        {
+          "tick": 0,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046843,
+              "rel_drift": 0.0
+            }
+          }
+        },
+        {
+          "tick": 5,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046857,
+              "rel_drift": 6.380216878221668e-16
+            }
+          }
+        },
+        {
+          "tick": 10,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046875,
+              "rel_drift": 1.4355487975998754e-15
+            }
+          }
+        },
+        {
+          "tick": 15,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.27330980504689,
+              "rel_drift": 2.073570485422042e-15
+            }
+          }
+        },
+        {
+          "tick": 20,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.2733098050469,
+              "rel_drift": 2.5520867512886672e-15
+            }
+          }
+        },
+        {
+          "tick": 25,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046914,
+              "rel_drift": 3.1901084391108342e-15
+            }
+          }
+        },
+        {
+          "tick": 30,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046928,
+              "rel_drift": 3.828130126933001e-15
+            }
+          }
+        },
+        {
+          "tick": 35,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046942,
+              "rel_drift": 4.4661518147551674e-15
+            }
+          }
+        },
+        {
+          "tick": 40,
+          "channels": {
+            "photon_pair": {
+              "energy": 22.273309805046953,
+              "rel_drift": 4.944668080621793e-15
+            }
+          }
+        }
+      ],
+      "summary": {
+        "max_rel_drift": {
+          "photon_pair": 4.944668080621793e-15
+        }
+      }
+    }
+  },
+  "clock": {
+    "dt": 1.0,
+    "mode": "auto",
+    "resolved_mode": "strict",
+    "tick": 40,
+    "time": 40.0,
+    "synchronous": true,
+    "channels": {
+      "photon_pair": {
+        "name": "photon_pair",
+        "type": "photon_pair",
+        "dt_native": 1.0,
+        "dt_max": null,
+        "subcyclable": true,
+        "n_sub": 1,
+        "dt_effective": 1.0,
+        "desynchronised": false
+      }
+    },
+    "desynchronised": []
+  },
+  "bus": {
+    "order": [
+      "photon_pair"
+    ],
+    "provides": {
+      "photon_pair": [
+        "photon_pair"
+      ]
+    },
+    "consumes": {
+      "photon_pair": []
+    },
+    "edges": {
+      "photon_pair": []
+    },
+    "cycles": [],
+    "cycle_scheme": "gauss_seidel",
+    "acyclic": true,
+    "order_mode": "auto",
+    "applied_order": [
+      "photon_pair"
+    ],
+    "order_violations": [],
+    "unresolved": []
+  }
+}

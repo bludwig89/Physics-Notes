@@ -1,0 +1,84 @@
+{
+  "checks": {
+    "K1_f118_spectral_reading_exact_tie": {
+      "pass": true,
+      "identity": "Tr(F diag(l) F^+)^k = sum l^k, k=1..6 (sympy; an identity, true for any unitary)",
+      "consequence": "every F118 term (ybar, e^2, S3, sum y^4, clock, sum g) is a function of Tr Y^k: E(a)=E(b)"
+    },
+    "K1b_f118_per_axis_reading_favours_a": {
+      "pass": true,
+      "W": "0.4377829973381615",
+      "kappa_E": "-2.1558065318129382",
+      "dE_all_per_axis": "0.26767799900259703",
+      "dE_sea_spectral_landau_per_axis": "0.11001509915346297",
+      "alpha_eq_beta_from_kE": "2.1558065318129382",
+      "reading": "diagonal-entry extension: E(b) - E(a) > 0 and alpha = beta = -kappa_E > 0 (stiff quadrant)"
+    },
+    "K2_dirac_sea_generation_covariant": {
+      "pass": true,
+      "sea_a": "-17.61541349711423",
+      "max_dev_over_orbit": "0.0",
+      "per_axis_F95_sum_x4": "-17.61541349711424",
+      "L": "6",
+      "generation_blind": "True"
+    },
+    "K3_three_inequivalent_circulant_branches": {
+      "pass": true,
+      "b_of_Fourier_rotation": "sqrt2/2 exp(i 2/9) (sympy, 40 digits)",
+      "lepton_on_111": "{'b1': 'tau', 'b2': 'e', 'b3': 'mu'}",
+      "T1g_weight_I_(invariant_so_branches_inequivalent)": "{'b1': 0.07286274798082604, 'b2': 0.8093037760088372, 'b3': 1.3678334760103368}"
+    },
+    "K4_TM1_only_on_b2_no_viable_residual_on_b1": {
+      "pass": true,
+      "band": "juno",
+      "viable_columns": "{'b1': [], 'b2': [('2/3', '1/6', '1/6')], 'b3': []}",
+      "all_columns": "{'b1': [('0', '0', '1'), ('0', '1', '0'), ('1', '0', '0'), ('1/2', '1/2', '0'), ('1/3 - sqrt(3)/6', 'sqrt(3)/6 + 1/3', '1/3'), ('1/3', '1/3', '1/3'), ('1/6', '1/6', '2/3'), ('1/9', '4/9', '4/9'), ('4/9', '1/9', '4/9'), ('4/9', '4/9', '1/9'), ('sqrt(3)/6 + 1/3', '1/3 - sqrt(3)/6', '1/3')], 'b2': [('0', '0', '1'), ('0', '1', '0'), ('0', '1/2', '1/2'), ('1', '0', '0'), ('1/3', '1/3 - sqrt(3)/6', 'sqrt(3)/6 + 1/3'), ('1/3', '1/3', '1/3'), ('1/3', 'sqrt(3)/6 + 1/3', '1/3 - sqrt(3)/6'), ('1/9', '4/9', '4/9'), ('2/3', '1/6', '1/6'), ('4/9', '1/9', '4/9'), ('4/9', '4/9', '1/9')], 'b3': [('0', '0', '1'), ('0', '1', '0'), ('1', '0', '0'), ('1/2', '0', '1/2'), ('1/3 - sqrt(3)/6', '1/3', 'sqrt(3)/6 + 1/3'), ('1/3', '1/3', '1/3'), ('1/6', '2/3', '1/6'), ('1/9', '4/9', '4/9'), ('4/9', '1/9', '4/9'), ('4/9', '4/9', '1/9'), ('sqrt(3)/6 + 1/3', '1/3', '1/3 - sqrt(3)/6')]}"
+    },
+    "K5_axial_polar_angle_per_branch": {
+      "pass": true,
+      "arctan_T1g_over_T2g": "{'b1': '2/9', 'b2': '-2/9 + pi/3', 'b3': '2/9 + pi/3'}",
+      "reading": "tan(delta*) = T1g/T2g holds on b1 only; the TM1 vacuum b2 has pi/3 - 2/9"
+    },
+    "K6_michel_both_orbits_critical": {
+      "pass": true,
+      "stabiliser_a_signed_perms": "8",
+      "stabiliser_b1_incl_antiunitary": "12",
+      "max_orbit_gradient_random_invariant": "{'a': 0.0, 'b1': 4.4408920985006255e-11, 'b2': 4.4408920985006255e-11, 'b3': 4.4408920985006255e-11}",
+      "generic_point_gradient": "6.440771973026393"
+    },
+    "K7_crystal_field_kernel_dimensions": {
+      "pass": true,
+      "n_invariants": "{1: 1, 2: 4, 3: 9}",
+      "kernel_dim": "{1: 0, 2: 2, 3: 6}",
+      "basis_rank_on_orbit_incl_const": "7"
+    },
+    "K8_quadratic_phase_diagram_b1_b2_never_ground": {
+      "pass": true,
+      "D": "1.5000000000000004",
+      "Imax": "1.367833476010337",
+      "T1g_fractions": "{'b1': 0.04857516532055068, 'b2': 0.5395358506725584, 'b3': 0.9118889840068913}",
+      "winners_by_direction": "[(0.262, 'a'), (0.524, 'a'), (1.047, 'a'), (1.309, 'a'), (1.833, 'real_constant_diagonal'), (2.094, 'real_constant_diagonal'), (2.356, 'real_constant_diagonal'), (2.618, 'real_constant_diagonal'), (2.88, 'real_constant_diagonal'), (3.403, 'real_constant_diagonal'), (3.665, 'real_constant_diagonal'), (4.189, 'b3_circulant'), (4.451, 'b3_circulant'), (4.974, 'T1g_block'), (5.236, 'T1g_block'), (5.498, 'T1g_block'), (5.76, 'T1g_block'), (6.021, 'T1g_block')]",
+      "rule": "a: alpha,beta>0 | real texture: alpha<min(0,beta) | b3: beta<alpha<0 | T1g block: beta<0<alpha"
+    },
+    "K9_cubic_crystal_field_b2_rarest_vacuum": {
+      "pass": true,
+      "fractions_gaussian_prior": "{'a': 0.11633333333333333, 'b1': 0.028333333333333332, 'b2': 0.021, 'b3': 0.18033333333333335, 'other': 0.654}",
+      "note": "indicative: isotropic Gaussian prior on the 6 kernel couplings; b1/b2 reachable only beyond quadratic order"
+    },
+    "V_verdict_picture_a": {
+      "pass": true,
+      "verdict": "a",
+      "why": "summary of K1, K1b, K2-K5, K8 (not an independent leg): spectral reading ties; F118's per-axis reading puts the crystal field in the stiff quadrant, where (a) is the ground state; (b)'s delta*-reading (b1) and its TM1 (b2) are different vacua, neither a quadratic-order ground state"
+    }
+  },
+  "pass": true,
+  "params": {
+    "sea_L": 6,
+    "sea_generation_blind": true,
+    "s12sq_band": "juno",
+    "n_samples": 120000,
+    "n_couplings": 3000,
+    "seed": 20260924,
+    "imax_scale": 1.0
+  }
+}

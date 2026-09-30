@@ -1,5 +1,9 @@
 # Continuing Next Research Steps
 
+build out the NB-034 (p.25) — Combining the Variations: the Boxed Free EOM equations of motion and fully test against the structure of the current casim model.
+
+can NB-088 (p.69) — Proposed $B_\mu$ Neutral-Current Field be explored more thoroughly and tested for structural stability?
+
 
 
 ## Project Status 

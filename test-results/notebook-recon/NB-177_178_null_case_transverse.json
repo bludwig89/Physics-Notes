@@ -1,0 +1,27 @@
+{
+  "NB-177": {
+    "claim": "grad(V0) = (1/V0) V_vec (eq 12), combined with (7) d0 V=-grad V0, to derive V0 d0 V = -V_vec",
+    "grad_V0_component_via_chain_rule": "(Vx(t, x, y, z)*Derivative(Vx(t, x, y, z), x) + Vy(t, x, y, z)*Derivative(Vy(t, x, y, z), x) + Vz(t, x, y, z)*Derivative(Vz(t, x, y, z), x))/sqrt(Vx(t, x, y, z)**2 + Vy(t, x, y, z)**2 + Vz(t, x, y, z)**2)",
+    "notebooks_shortcut_grad_V0=(1/V0)V_vec": "Vx(t, x, y, z)/sqrt(Vx(t, x, y, z)**2 + Vy(t, x, y, z)**2 + Vz(t, x, y, z)**2)",
+    "shortcut_matches_correct_chain_rule_result_in_general": false,
+    "diagnosis": "The correct chain-rule gradient of V0=sqrt(Vx^2+Vy^2+Vz^2) has x-component (Vx*dx(Vx)+Vy*dx(Vy)+Vz*dx(Vz))/V0 -- a combination involving derivatives of ALL THREE components with respect to x, not simply Vx/V0. The notebook's displayed shortcut 'grad(V0) = (1/V0) V_vec' is only correct in the special case where Vx,Vy,Vz are each functions of a SINGLE independent spatial coordinate matching their own index (i.e. Vx=Vx(x) only, Vy=Vy(y) only, Vz=Vz(z) only, so that dx(Vy)=dx(Vz)=0) -- not a general vector field. Confirmed by direct symbolic comparison for a generic field: the two expressions genuinely differ. This is consistent with the ledger's own prior assessment that this page is 'tangled, seemingly-inconsistent' -- the root cause is now precisely located: an over-generalized chain-rule shortcut, applied to a genuinely vector (not per-component-separable) field.",
+    "verdict": "NEEDS-WORK (root cause of the page's own tangled state precisely identified: an invalid generalization of the chain rule from a separable-coordinate special case to a general vector field)"
+  },
+  "NB-178": {
+    "claim": "a pure transverse plane wave V=v*xhat*e^{i(kz-wt)} has nonzero curl (dz(Vx) != 0, forbidden by (8)), while a pure longitudinal wave V=v*zhat*e^{i(kz-wt)} has zero curl (allowed)",
+    "longitudinal_wave_curl_components": [
+      "0",
+      "0",
+      "0"
+    ],
+    "longitudinal_is_curl_free": true,
+    "transverse_wave_curl_components": [
+      "0",
+      "I*k*v*exp(I*(k*z - omega*t))",
+      "0"
+    ],
+    "transverse_curl_is_zero": false,
+    "conclusion": "Confirmed exactly: a longitudinal plane wave (polarization along the propagation direction z) is curl-free (curl=0 identically, trivially, since the only nonzero component Vz depends only on z, and dz(Vz) doesn't enter any curl component), satisfying (8). A transverse plane wave (polarization along x, propagating along z) has curl_y = dz(Vx) - dx(Vz) = dz(Vx) = ikv*e^{i(kz-wt)} != 0 -- NONZERO, confirmed by direct differentiation -- so it violates (8) and is indeed excluded by this construction, exactly as claimed. This is a genuinely correct and striking consequence of THIS SPECIFIC model (a single real vector field V constrained by curl(V)=0, NOT the genuine two-independent-transverse-polarization electromagnetic field). It does not contradict real transverse EM light: the true Maxwell field has TWO vector fields (E,B), each individually transverse and divergence-free in vacuum, with curl linking them to each other's TIME derivative (curl E = -d0 B, not curl E = 0) -- a structurally different, richer system than this page's single-real-vector-with-curl(V)=0 model. The page's own conclusion is an accurate, self-contained consequence of ITS OWN (simpler, single-vector) construction, not a claim about real electromagnetism, and the notebook does not claim otherwise -- it simply notes 'this drives us to a pure longitudinal wave' as a property of this specific reduced model.",
+    "verdict": "SOLID (the mathematical claim is exactly correct for this page's own single-real-vector-field construction; it is not, and is not claimed by the notebook to be, a statement about real two-field electromagnetism)"
+  }
+}

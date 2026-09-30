@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-13 11:34",
+  "generated": "2026-09-29 15:32",
   "residual_B_solved": {
     "F88_mD=0.532": {
       "Mg": 0.532,
@@ -7,30 +7,23 @@
         {
           "L": 32,
           "alpha_eff_star": 0.37643585205078134,
-          "M0_check": 1.5000589735131917,
+          "M0_check": 1.5000589735131915,
           "ok": true,
-          "secs": 2.7
+          "secs": 1.5
         },
         {
           "L": 48,
           "alpha_eff_star": 0.37643585205078134,
-          "M0_check": 1.5000589523058863,
+          "M0_check": 1.5000589523058858,
           "ok": true,
-          "secs": 7.4
+          "secs": 3.8
         },
         {
           "L": 64,
           "alpha_eff_star": 0.37643585205078134,
           "M0_check": 1.5000589523027617,
           "ok": true,
-          "secs": 20.9
-        },
-        {
-          "L": 96,
-          "alpha_eff_star": 0.37643585205078134,
-          "M0_check": 1.5000589523027612,
-          "ok": true,
-          "secs": 74.9
+          "secs": 9.1
         }
       ],
       "converged_spread": 0.0
@@ -43,28 +36,21 @@
           "alpha_eff_star": 0.4111282348632813,
           "M0_check": 1.499904890995487,
           "ok": true,
-          "secs": 3.9
+          "secs": 2.3
         },
         {
           "L": 48,
           "alpha_eff_star": 0.4111282348632813,
           "M0_check": 1.4999048909333923,
           "ok": true,
-          "secs": 11.3
+          "secs": 5.7
         },
         {
           "L": 64,
           "alpha_eff_star": 0.4111282348632813,
           "M0_check": 1.4999048909333923,
           "ok": true,
-          "secs": 30.1
-        },
-        {
-          "L": 96,
-          "alpha_eff_star": 0.4111282348632813,
-          "M0_check": 1.4999048909333923,
-          "ok": true,
-          "secs": 114.9
+          "secs": 13.9
         }
       ],
       "converged_spread": 0.0
@@ -77,6 +63,15 @@
       1.0
     ],
     "rows": [
+      {
+        "n": 48,
+        "d3_flat": 2.3087,
+        "d3_prop": 1.5216,
+        "d3_prop2": 0.1998,
+        "d4_flat": 2.7179,
+        "d4_prop": 2.2999,
+        "d4_prop2": 0.7448
+      },
       {
         "n": 64,
         "d3_flat": 2.3087,
@@ -94,15 +89,6 @@
         "d4_flat": 2.7179,
         "d4_prop": 2.2986,
         "d4_prop2": 0.5426
-      },
-      {
-        "n": 128,
-        "d3_flat": 2.3087,
-        "d3_prop": 1.4802,
-        "d3_prop2": 0.0758,
-        "d4_flat": 2.7179,
-        "d4_prop": 2.2983,
-        "d4_prop2": 0.4749
       }
     ],
     "verdict": "converged flat/prop moments are UV (>band) => q* is the UV-finite subtraction, not a moment (F154-A). The full one-loop self-energy (ca_gluon_self_energy.py) is required."

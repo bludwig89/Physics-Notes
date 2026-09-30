@@ -1,0 +1,37 @@
+{
+  "NB-126": {
+    "Sx_Sy_Sz_satisfy_su2_algebra": true,
+    "Sx_Sy_Sz_casimir_equals_2_identity": true,
+    "sigma_x_tensor_sigma_x_matches_notebook": true,
+    "sigma_y_tensor_sigma_y_matches_notebook": true,
+    "sigma_z_tensor_sigma_z_matches_notebook": true,
+    "verdict": "SOLID"
+  },
+  "NB-127": {
+    "literal_reading_transform_the_PRODUCT_sigma_i_tensor_sigma_i": {
+      "U_is_unitary": true,
+      "does_szsz_block_diagonalize_to_diag(1,0,-1)": false,
+      "finding": "FALSE -- the raw tensor PRODUCT sigma_z(x)sigma_z block-diagonalizes to a DIFFERENT matrix (eigenvalues +-1 on both triplet and singlet, unrelated to the S_z=1,0,-1 pattern), confirmed by direct computation. The literal phrase 'turn sigma_z(x)sigma_z... into S_x' does not hold for the product operator."
+    },
+    "standard_construction_transform_the_SUM_total_spin_S=(sigma1+sigma2)/2": {
+      "triplet_Sz_matches_notebook_new_Sz_exactly": true,
+      "triplet_Sx_matches_notebook_new_Sx_up_to_missing_1_over_sqrt2_factor": true,
+      "triplet_Sy_matches_notebook_new_Sy_up_to_missing_1_over_sqrt2_factor": true,
+      "finding": "The physically correct Clebsch-Gordan addition of two spin-1/2's, S_total = (sigma_1+sigma_2)/2 (SUM, not tensor product), exactly reproduces the notebook's stated new-basis S_z=diag(1,0,-1), and reproduces S_x, S_y up to a missing overall 1/sqrt(2) normalization factor."
+    },
+    "internal_self_consistency_of_notebooks_own_stated_triple": {
+      "as_stated_satisfies_own_su2_algebra_[Sx,Sy]=i*Sz": false,
+      "as_stated_casimir_diagonal_entries": [
+        3,
+        4,
+        3
+      ],
+      "as_stated_casimir_is_scalar_multiple_of_identity": false,
+      "after_dividing_Sx_Sy_by_sqrt2_satisfies_algebra": true,
+      "after_correction_casimir_equals_2_identity": true
+    },
+    "A_matrix_orthogonality": true,
+    "conclusion": "NB-127 contains a genuine, self-detectable error: the new-basis S_x, S_y matrices exactly as written do NOT satisfy their own su(2) commutation algebra (comm gives 2i*Sz, not i*Sz) and their Casimir is not a scalar multiple of the identity (diag entries 3,4,3, not 2,2,2) -- an internal inconsistency detectable without reference to any external derivation. Dividing S_x and S_y each by sqrt(2) fixes BOTH defects exactly and simultaneously matches the physically correct Clebsch-Gordan total-spin construction. Separately, the page's own PROSE ('turn sigma_z(x)sigma_z... into S_x') is imprecise: block-diagonalizing the literal tensor PRODUCT operators does not give the spin-1 generators at all; only the SUM (total spin) does. The stated S_z=diag(1,0,-1), taken alone, is exactly correct with no correction needed.",
+    "verdict": "SOLID-WITH-CORRECTION"
+  }
+}

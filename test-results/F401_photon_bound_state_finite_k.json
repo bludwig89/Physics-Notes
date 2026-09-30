@@ -1,0 +1,76 @@
+{
+  "A1_axis_identity_exact": {
+    "checked_q": [
+      0.1,
+      0.37,
+      1.0,
+      2.5
+    ],
+    "identity_exact": true
+  },
+  "A2_in_plane_offset_nonzero": {
+    "min_offset": 1.7844076418888077e-05,
+    "n_rows": 3
+  },
+  "B1_closed_form_converges_monotonically": {
+    "closed_monotonic": true,
+    "closed_sequence": [
+      1.434294148360729,
+      1.9615083427601112,
+      2.0232046134480433,
+      2.095882367197837,
+      2.1181781716320587,
+      2.1274062777070055,
+      2.132384799647388
+    ],
+    "grid_monotonic": false,
+    "grid_sequence": [
+      2.080853518487404,
+      2.0591544762930334,
+      1.993865477150862,
+      2.082856222210132,
+      2.117396981781392,
+      2.12613892437095,
+      2.1257930489443626
+    ]
+  },
+  "B2_dense_scan_quantified_improvement": {
+    "closed_max_backslide": 0.1946319396341767,
+    "closed_n_violations": 20,
+    "grid_max_backslide": 0.7607686135452194,
+    "grid_n_violations": 25,
+    "n_steps": 47
+  },
+  "B3_gc_k_sweep_decreasing": {
+    "111_and_311_monotonically_decreasing": true,
+    "210_is_a_counterexample": true,
+    "gc_k0": 2.2595484878546777,
+    "gc_sweep_111": [
+      2.2544819465349497,
+      2.2182567904780788,
+      2.132384799647388,
+      1.9738430436969616,
+      1.8412804819473882,
+      1.7352501434662226,
+      1.6548524998554135
+    ],
+    "gc_sweep_210": [
+      1.359628438877999,
+      2.0473378760838803,
+      2.0324842967988506,
+      1.8324033038784175,
+      1.6337026142272928,
+      1.1429348170683709
+    ],
+    "gc_sweep_311": [
+      2.2529793866281067,
+      2.215570971674014,
+      2.124871112451113,
+      1.9503634110677834,
+      1.794585822658255,
+      1.6606463034900338
+    ]
+  },
+  "n_checks": 5,
+  "verdict": "threshold='closed' sharply reduces (does not eliminate) the grid-commensurability artifact -- monotonic at F169's own 7 quoted L values, and its worst-case backslide over a dense L-scan is roughly 4x smaller than the grid form's; g_c(k) decreases monotonically with |k| along (111) (confirmed to |k|=1.0) and along (3,1,1), but NOT along (2,1,0) -- the decreasing trend is a real (111)/(311)-class result, not a universal law of all directions; the coordinate-axis case is an EXACT double degeneracy (Omega_even == T to all orders), not merely O(k^3)-small."
+}

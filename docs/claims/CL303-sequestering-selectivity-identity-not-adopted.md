@@ -7,16 +7,16 @@ kind: derivation
 status: contingent
 domain: [GR, cosmology]
 exactness: quantitative
-findings: [F367, F368, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59]
-tests: [F367-cc-sequestering, F368-cc-sequestering-consistency]
+findings: [F367, F368, F408, F332, F164, F193, F196, F241, F319, F178, F182, F79, F59]
+tests: [F367-cc-sequestering, F368-cc-sequestering-consistency, F408-cc-sign-split]
 modules: [src/casim/engine/interactions/cosmology_lambda_sequestering.py, src/casim/engine/interactions/cosmology_lambda_sequestering_consistency.py]
 constants: []
-supersessions: []
+supersessions: [S25-F193-partA-excluded-and-secB-sign-reading]
 reviews: []
 rolls_up_to: null
 falsifier: stated
 first_issued: '2026-09-04'
-last_verified: '2026-09-05'
+last_verified: '2026-09-27'
 provenance: authored
 review_state: authored
 confidence: medium
@@ -86,6 +86,7 @@ of the field-content cost already stated below.
 | `findings/F319-uv-sector-reconciled-physical-cutoff-and-counterterms.md` §U8/§7 | The required selectivity bound and the dim-0/dim-2 operator-ledger separability this claim's applicability rests on (S1) | quantitative / structural |
 | `findings/F241-omega-lambda-o1-residual-anthropic.md` §3 | The already-excluded circular FEH route this mechanism is distinguished from (S6) | structural |
 | `findings/F368-cc-sequestering-consistency.md` | Falsifier 4 (below) checked directly against Padilla's base action: PPN/F178-vacuum/induced-$G$ legs not in tension (one algebraic sympy identity); two NEW costs surfaced -- spatial closure and non-eternal $w$, both base-mechanism features (cited), neither excluded by current data, the latter directionally aligned with DESI DR2 | structural (cited) / exact (one identity) |
+| `findings/F408-cc-a0-a1-sign-split.md` S3, S5 | The identity holds for $C$ of **either sign** (the mechanism's defining property, re-checked with $C$ real) — needed because F164's $a_0$ is **negative**; and the one-sided F183/F190 capacity ceiling **cannot** cancel a negative $a_0$, leaving this the only non-local $a_0$-remover the tree has built | exact (sympy) |
 
 ## Falsifier
 
@@ -123,10 +124,20 @@ F164's residual) is complete; the contingency is the point of the claim, not a g
 `rolls_up_to` any headline card: this is a standalone supporting result on rubric K9/ledger G1,
 first issued alongside F367 with no prior history to narrow.
 
+**Annotated 2026-09-27 - 11:38 (F408) — role sharpened, status unchanged.** F408 shows the model's
+$a_0$ is negative and $a_1$ positive, that the capacity ceiling cannot act on a negative $a_0$, and
+that this card's identity is sign-blind. With F332's two local channels already closed, this is now
+the **only non-local** $a_0$-remover the tree has built (a finite bare-$\Lambda$ counterterm is also
+sign-blind, but is a fit, not a mechanism), and G1 is restated as *$a_0$ removal (this mechanism) + the
+positive $a_1$ horizon term + $\Omega_\Lambda$*. That makes the adoption decision (and its F367/F368
+costs) the price of closing K9's $a_0$ half; it does not make the decision. `status: contingent`,
+`falsifier: stated`, `exactness: quantitative` unchanged.
+
 ## Sources
 
 - `findings/F367-cc-sequestering.md`
 - `findings/F368-cc-sequestering-consistency.md` (ran falsifier 4; not met; two new costs named)
+- `findings/F408-cc-a0-a1-sign-split.md` (sign-blindness; the only non-local $a_0$-remover built)
 - `findings/F332-cc-dynamics-two-channels-excluded.md` (named this channel type, did not build it)
 - `docs/status/open-derivations.md` row G1
 - Kaloper, N. & Padilla, A., *Phys. Rev. Lett.* **112**, 091304 (2014); *Phys. Rev. D* **90**,

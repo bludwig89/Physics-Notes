@@ -1,0 +1,24 @@
+{
+  "cos_beam_direction_default": 0.9938873723835995,
+  "cos_matter_field_default": -0.9948056715022617,
+  "cos_beam_direction_m4": -0.949079146549136,
+  "cos_beam_direction_offaxis": 0.32841699513952066,
+  "cos_matter_field_offaxis": 0.2481001219897303,
+  "cos_beam_direction_offaxis_z": -0.10082377855782221,
+  "cos_matter_field_offaxis_z": -0.8188510474420015,
+  "charge_drift_relative": 0.00539332350262045,
+  "translation_covariance_residual": 1.5003268106723304e-15,
+  "doubling_ratio_matter": 0.9936411447936526,
+  "doubling_ratio_field": 2.035655409684973,
+  "checks": {
+    "default_direction_still_confirmed": true,
+    "m4_anomaly_persists": true,
+    "offaxis_correlation_changes_with_circular_beam": true,
+    "target_A_charge_not_exact_but_bounded": true,
+    "target_B_translation_covariance_exact": true,
+    "target_C_order_still_mismatched": true
+  },
+  "n_pass": 6,
+  "n_checks": 6,
+  "ok": true
+}

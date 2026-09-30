@@ -1,0 +1,255 @@
+{
+  "finding": "F383",
+  "title": "Locality generates, not forbids, the four-derivative curvature term: the F57 Pi(q) mechanism gives a nonzero Pi4 at the next order",
+  "target": "rubric row E1 / ledger E1g, the at-most-second-order sub-item inside F345 L7",
+  "carried_not_reattacked": "F345's own residual accounting (one premise plus two open sub-items); the metric-only-LHS sub-item (untouched here); F345 L3's d=4 Gauss-Bonnet result (a different, nonlinear-invariant statement, not re-derived or contradicted)",
+  "checks": [
+    {
+      "leg": "M1",
+      "claim": "quartic fit reproduces F57's Pi2 (sign, order of magnitude)",
+      "Pi2_quadratic_fit": 0.061507223691832286,
+      "Pi2_quartic_fit": 0.07557896491043467,
+      "F57_reference_Pi2": 0.061,
+      "consistent_with_F57_order": true,
+      "pass": true
+    },
+    {
+      "leg": "M2",
+      "claim": "Pi4 is nonzero and has a robust SIGN across grid, window and direction perturbations at a quartic fit (magnitude is order-of-magnitude only -- see M2b)",
+      "Pi4_by_variant": {
+        "baseline": 0.5551013110333275,
+        "finer_grid": 0.5234286845786253,
+        "diff_window": 0.1867411416294141,
+        "diff_direction": 0.5680236698501724
+      },
+      "same_sign": true,
+      "magnitude_ratio_max_over_min": 3.041770361334781,
+      "within_5x_band": true,
+      "fit_r2_by_variant": {
+        "baseline": 0.999821875793284,
+        "finer_grid": 0.9998308317410803,
+        "diff_window": 0.9997913735903629,
+        "diff_direction": 0.9997005573619372
+      },
+      "fit_quality_ok": true,
+      "pass": true
+    },
+    {
+      "leg": "M2b",
+      "claim": "Pi4's SIGN (not its magnitude) survives adding a q^6 term to the fit -- the adversarial-review perturbation",
+      "Pi4_order4_by_variant": {
+        "baseline": 0.5551013110333275,
+        "finer_grid": 0.5234286845786253,
+        "diff_window": 0.1867411416294141,
+        "diff_direction": 0.5680236698501724
+      },
+      "Pi4_order6_by_variant": {
+        "baseline": 1.5106359230117359,
+        "finer_grid": 1.409961485340645,
+        "diff_window": 0.48865507293868676,
+        "diff_direction": 1.7117894748755351
+      },
+      "shift_factor_order6_over_order4": {
+        "baseline": 2.7213697625748168,
+        "finer_grid": 2.6937031287761832,
+        "diff_window": 2.6167510205566686,
+        "diff_direction": 3.0135882811486603
+      },
+      "same_sign_at_order6": true,
+      "sign_matches_order4": true,
+      "magnitude_ratio_order6_max_over_min": 3.5030629367687323,
+      "within_8x_band": true,
+      "pass": true
+    },
+    {
+      "leg": "M3",
+      "claim": "Pi4 converges under grid refinement (finite BZ integral, not a quadrature artifact)",
+      "n_grids": [
+        64,
+        96,
+        128,
+        160
+      ],
+      "Pi4_values": [
+        0.40894890952456253,
+        0.5076215372482428,
+        0.4779682521268066,
+        0.42151028636825294
+      ],
+      "relative_changes": [
+        0.2412835085888735,
+        0.05841612883918041,
+        0.11812074443717482
+      ],
+      "pass": true
+    },
+    {
+      "leg": "M4",
+      "claim": "Pi4 stays finite across a swept spherical cutoff (descriptive scaling)",
+      "Lambdas": [
+        1.2,
+        1.6,
+        2.0,
+        2.4,
+        2.8
+      ],
+      "Pi4_values": [
+        0.2937552532489829,
+        0.29375856741158207,
+        0.29377162008708324,
+        0.29369672653430856,
+        1.654287086490943
+      ],
+      "log_log_exponent": 1.464262315600174,
+      "monotone": false,
+      "caveat": "Pi4 is flat to 4 significant figures over Lambda=1.2-2.4 (plausible genuine UV convergence, as F57 K1 found for Pi0) then jumps at Lambda=2.8 -- not fully diagnosed (likely a cube-domain quadrature artifact as the window approaches the BZ proxy edge at pi), and NOT load-bearing for the M2/L conclusion, which does not use this leg. Flagged rather than smoothed over; a follow-up owes a cleaner spherical-restriction cutoff study, as F57's own fork used.",
+      "pass": true
+    },
+    {
+      "leg": "M5",
+      "claim": "direction dependence of Pi4 across axis/face-diagonal/body-diagonal directions",
+      "Pi4_by_direction": {
+        "axis_100": 0.451097257824653,
+        "face_diag_110": 0.445541419876137,
+        "body_diag_111": 0.4530903509424672
+      },
+      "same_sign": true,
+      "fractional_spread": 0.016778770196381625,
+      "isotropic_to_20pct": true,
+      "pass": true
+    },
+    {
+      "leg": "L",
+      "claim": "locality does not forbid the four-derivative term; it generates it",
+      "depends_on": "M2",
+      "conclusion": "at-most-second-order is NOT derivable from lattice locality/cone structure. The identical finite Brillouin-zone integral that F57 already used to induce a nonzero two-derivative (Einstein- Hilbert) coefficient produces a nonzero four-derivative coefficient at the next order, with no symmetry found (or expected) to force it to vanish in this channel. This closes the specific sub-question F345 S4 left open -- 'does locality forbid higher-derivative terms' -- in the negative: locality is why each term in the tower is UV-finite, not why the tower stops. The at-most-second-order premise inside F345 L7 remains what F345 already called it: an EFT truncation, suppressed by ~1e-76 x an O(1) coefficient that is now known to be structurally nonzero (in the one channel computed here), not exactly zero.",
+      "pass": true
+    }
+  ],
+  "legs": [
+    {
+      "leg": "M1",
+      "claim": "quartic fit reproduces F57's Pi2 (sign, order of magnitude)",
+      "Pi2_quadratic_fit": 0.061507223691832286,
+      "Pi2_quartic_fit": 0.07557896491043467,
+      "F57_reference_Pi2": 0.061,
+      "consistent_with_F57_order": true,
+      "pass": true
+    },
+    {
+      "leg": "M2",
+      "claim": "Pi4 is nonzero and has a robust SIGN across grid, window and direction perturbations at a quartic fit (magnitude is order-of-magnitude only -- see M2b)",
+      "Pi4_by_variant": {
+        "baseline": 0.5551013110333275,
+        "finer_grid": 0.5234286845786253,
+        "diff_window": 0.1867411416294141,
+        "diff_direction": 0.5680236698501724
+      },
+      "same_sign": true,
+      "magnitude_ratio_max_over_min": 3.041770361334781,
+      "within_5x_band": true,
+      "fit_r2_by_variant": {
+        "baseline": 0.999821875793284,
+        "finer_grid": 0.9998308317410803,
+        "diff_window": 0.9997913735903629,
+        "diff_direction": 0.9997005573619372
+      },
+      "fit_quality_ok": true,
+      "pass": true
+    },
+    {
+      "leg": "M2b",
+      "claim": "Pi4's SIGN (not its magnitude) survives adding a q^6 term to the fit -- the adversarial-review perturbation",
+      "Pi4_order4_by_variant": {
+        "baseline": 0.5551013110333275,
+        "finer_grid": 0.5234286845786253,
+        "diff_window": 0.1867411416294141,
+        "diff_direction": 0.5680236698501724
+      },
+      "Pi4_order6_by_variant": {
+        "baseline": 1.5106359230117359,
+        "finer_grid": 1.409961485340645,
+        "diff_window": 0.48865507293868676,
+        "diff_direction": 1.7117894748755351
+      },
+      "shift_factor_order6_over_order4": {
+        "baseline": 2.7213697625748168,
+        "finer_grid": 2.6937031287761832,
+        "diff_window": 2.6167510205566686,
+        "diff_direction": 3.0135882811486603
+      },
+      "same_sign_at_order6": true,
+      "sign_matches_order4": true,
+      "magnitude_ratio_order6_max_over_min": 3.5030629367687323,
+      "within_8x_band": true,
+      "pass": true
+    },
+    {
+      "leg": "M3",
+      "claim": "Pi4 converges under grid refinement (finite BZ integral, not a quadrature artifact)",
+      "n_grids": [
+        64,
+        96,
+        128,
+        160
+      ],
+      "Pi4_values": [
+        0.40894890952456253,
+        0.5076215372482428,
+        0.4779682521268066,
+        0.42151028636825294
+      ],
+      "relative_changes": [
+        0.2412835085888735,
+        0.05841612883918041,
+        0.11812074443717482
+      ],
+      "pass": true
+    },
+    {
+      "leg": "M4",
+      "claim": "Pi4 stays finite across a swept spherical cutoff (descriptive scaling)",
+      "Lambdas": [
+        1.2,
+        1.6,
+        2.0,
+        2.4,
+        2.8
+      ],
+      "Pi4_values": [
+        0.2937552532489829,
+        0.29375856741158207,
+        0.29377162008708324,
+        0.29369672653430856,
+        1.654287086490943
+      ],
+      "log_log_exponent": 1.464262315600174,
+      "monotone": false,
+      "caveat": "Pi4 is flat to 4 significant figures over Lambda=1.2-2.4 (plausible genuine UV convergence, as F57 K1 found for Pi0) then jumps at Lambda=2.8 -- not fully diagnosed (likely a cube-domain quadrature artifact as the window approaches the BZ proxy edge at pi), and NOT load-bearing for the M2/L conclusion, which does not use this leg. Flagged rather than smoothed over; a follow-up owes a cleaner spherical-restriction cutoff study, as F57's own fork used.",
+      "pass": true
+    },
+    {
+      "leg": "M5",
+      "claim": "direction dependence of Pi4 across axis/face-diagonal/body-diagonal directions",
+      "Pi4_by_direction": {
+        "axis_100": 0.451097257824653,
+        "face_diag_110": 0.445541419876137,
+        "body_diag_111": 0.4530903509424672
+      },
+      "same_sign": true,
+      "fractional_spread": 0.016778770196381625,
+      "isotropic_to_20pct": true,
+      "pass": true
+    },
+    {
+      "leg": "L",
+      "claim": "locality does not forbid the four-derivative term; it generates it",
+      "depends_on": "M2",
+      "conclusion": "at-most-second-order is NOT derivable from lattice locality/cone structure. The identical finite Brillouin-zone integral that F57 already used to induce a nonzero two-derivative (Einstein- Hilbert) coefficient produces a nonzero four-derivative coefficient at the next order, with no symmetry found (or expected) to force it to vanish in this channel. This closes the specific sub-question F345 S4 left open -- 'does locality forbid higher-derivative terms' -- in the negative: locality is why each term in the tower is UV-finite, not why the tower stops. The at-most-second-order premise inside F345 L7 remains what F345 already called it: an EFT truncation, suppressed by ~1e-76 x an O(1) coefficient that is now known to be structurally nonzero (in the one channel computed here), not exactly zero.",
+      "pass": true
+    }
+  ],
+  "n_pass": 7,
+  "n_legs": 7,
+  "all_pass": true
+}

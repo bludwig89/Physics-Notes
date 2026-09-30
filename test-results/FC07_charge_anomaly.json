@@ -2,7 +2,7 @@
   "test": "FC07",
   "title": "Charge quantization, anomaly cancellation, \u03b2-decay",
   "tier": "C (consistency regression)",
-  "date": "2026-06-16 - 16:30",
+  "date": "2026-09-29 - 14:00",
   "overall_verdict": "PASS",
   "provenance": [
     "F38",

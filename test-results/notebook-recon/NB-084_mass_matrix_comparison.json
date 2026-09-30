@@ -1,0 +1,16 @@
+{
+  "build": "NB-084",
+  "reading_A_(p65,_independent_masses)": {
+    "m_Z^2": "m_W**2*cos(theta)**2 + m_{W0}**2*sin(theta)**2",
+    "matches_notebook": true,
+    "m_A^2": "m_W**2*sin(theta)**2 + m_{W0}**2*cos(theta)**2",
+    "Z-A_cross_term_coefficient": "(-m_W**2 + m_{W0}**2)*sin(2*theta)/2",
+    "cross_term_is_genuinely_nonzero_(confirms_the_flagged_'anomalous_term'_is_real)": true
+  },
+  "reading_B_(p66,_pure_Z-mass,_photon_massless_a_priori)": {
+    "W3^2_coefficient_in_(1/2)m_Z^2_Z^2_expanded_in_W_basis": "m_Z**2*cos(theta)**2",
+    "solving_m_W^2:=this_coefficient_for_m_Z^2": "m_W_sq/cos(theta)**2",
+    "matches_standard_SM_relation_m_Z^2=m_W^2/cos^2(theta)": true
+  },
+  "conclusion": "Both expansions are algebraically correct on their own terms -- they are not competing derivations of the same physics, they encode different physical assumptions. (A) treats W3,W0 as independently massive with no built-in reason for the photon to stay massless, and DOES produce a genuine leftover Z-A mixing mass term (confirmed nonzero here, not a notebook slip -- this is a real feature of assumption (A), correctly flagged by the author as unresolved). (B) assumes the photon is massless FROM THE START (as required by unbroken electromagnetism) and asks what W3-coefficient a pure Z-mass term implies -- this reproduces the standard m_Z^2=m_W^2/cos^2(theta) relation exactly, because it is structurally the same constraint the Higgs mechanism enforces automatically (exactly one massless, one massive eigenvalue in the W3-B mass matrix, by construction of the Higgs coupling, not by postulate)."
+}

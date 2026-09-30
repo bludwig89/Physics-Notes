@@ -424,7 +424,8 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, m=0.5, dt=0.5,
 #
 # where  m_0 = mean(m_field)   and   δm(x) = m_field(x) − m_0.
 #
-# The per-cell Mix step is the exact unitary rotation  exp(−i·β·δm·dt)
+# The per-cell Mix step is the exact unitary rotation  exp(+i·β·δm·dt)
+# (same sense as D_k's +im; was exp(−i…) before 2026-09-29, i.e. m_0 − δm)
 # on the (η, χ) chirality sub-block.  In the exact-QCA convention the
 # off-diagonal block of D_k carries `im` with *no* `c²` factor (the
 # kinetic block carries n = √(1−m²)), so the per-cell Strang generator
@@ -439,15 +440,18 @@ def measure_zitterbewegung_freq_2d(L=64, n_steps=400, m=0.5, dt=0.5,
 
 def _mix_eta_chi(eu, ed, xu, xd, theta):
     """
-    Per-cell rotation exp(−i·β·θ) with β = [[0,I],[I,0]].
+    Per-cell rotation exp(+i·β·θ) with β = [[0,I],[I,0]].
     θ can be a scalar or per-cell array.  Real-mass version.
+
+    Same sense as the ``+im`` off-diagonal of D_k, so the Strang split carries
+    m_0 + δm.  (Before 2026-09-29 this was exp(−iβθ), i.e. m_0 − δm.)
     """
     cos_t = np.cos(theta)
     sin_t = np.sin(theta)
-    eu_n = cos_t * eu - 1j * sin_t * xu
-    ed_n = cos_t * ed - 1j * sin_t * xd
-    xu_n = cos_t * xu - 1j * sin_t * eu
-    xd_n = cos_t * xd - 1j * sin_t * ed
+    eu_n = cos_t * eu + 1j * sin_t * xu
+    ed_n = cos_t * ed + 1j * sin_t * xd
+    xu_n = cos_t * xu + 1j * sin_t * eu
+    xd_n = cos_t * xd + 1j * sin_t * ed
     return eu_n, ed_n, xu_n, xd_n
 
 
@@ -455,7 +459,9 @@ def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
     """
     Per-cell exact-unitary rotation for a *complex* mass.
 
-    Implements   U = exp(−i·factor·[[0, M·I],[M*·I, 0]])
+    Implements   U = exp(+i·factor·[[0, M·I],[M*·I, 0]])   (same sense as
+                 D_k's +im and the F27 ``mass_step_1flavor_u1``; sign fixed
+                 2026-09-29 — it was exp(−i…), giving m_0 − δm)
                 with M = m_R + i·m_I (real, real ndarrays),
                      factor = dt    (scalar; no c² under the exact-QCA
                                      convention — Finding 9).
@@ -463,7 +469,7 @@ def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
     Derivation.  The 2×2 block [[0, M],[M*, 0]] has eigenvalues ±|M|
     with eigenvectors (1, ±M*/|M|)/√2, so
 
-        U = cos(|M|·factor)·I  −  i·(sin(|M|·factor)/|M|)·[[0, M·I],[M*·I, 0]]
+        U = cos(|M|·factor)·I  +  i·(sin(|M|·factor)/|M|)·[[0, M·I],[M*·I, 0]]
 
     The combination sin(θ)/|M| (with θ = |M|·factor) is well-defined at
     |M|=0 via L'Hôpital (sin(θ)/θ → 1, so sin(θ)/|M| → factor).  When
@@ -477,8 +483,8 @@ def _mix_eta_chi_complex(eu, ed, xu, xd, m_R, m_I, factor):
     abs_safe = np.where(abs_M == 0.0, 1.0, abs_M)
     sinc_M   = np.sin(theta) / abs_safe
     sinc_M   = np.where(abs_M == 0.0, factor, sinc_M)
-    coeff_eta = -1j * sinc_M * (m_R + 1j * m_I)    # acts on χ to update η
-    coeff_chi = -1j * sinc_M * (m_R - 1j * m_I)    # acts on η to update χ
+    coeff_eta = 1j * sinc_M * (m_R + 1j * m_I)     # acts on χ to update η
+    coeff_chi = 1j * sinc_M * (m_R - 1j * m_I)     # acts on η to update χ
     eu_n = cos_t * eu + coeff_eta * xu
     ed_n = cos_t * ed + coeff_eta * xd
     xu_n = cos_t * xu + coeff_chi * eu
@@ -494,7 +500,7 @@ def dirac_step_2d_varm_splitstep(eta_u, eta_d, chi_u, chi_d,
 
         Mix(δm, dt/2)  →  Kinetic(m_0, dt)  →  Mix(δm, dt/2)
 
-    where Mix is the per-cell exp(−i·β·δm·dt) rotation and the kinetic
+    where Mix is the per-cell exp(+i·β·δm·dt) rotation and the kinetic
     step is the exact-QCA propagator at the baseline mass m_0 (default
     mean(m_field)).  Each half is exactly unitary; the composition has
     O(dt²) Strang error.

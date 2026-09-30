@@ -2,8 +2,8 @@
   "T1_unitary_completion_forces_n2_plus_m2": {
     "passed": true,
     "constraint": "n^2 + m^2 = 1",
-    "unitary_residual": 4.441429870324033e-16,
-    "broken_residual_for_wrong_n": 0.0884677500000004,
+    "unitary_residual": 4.440892098500626e-16,
+    "broken_residual_for_wrong_n": 0.08846774999999996,
     "note": "given the chirality coupling i.m.I, n=sqrt(1-m^2) is the unique unitary completion \u2014 the kinetic rescale is FORCED by the rule"
   },
   "T2_unique_mass_term_group_theory": {
@@ -27,7 +27,7 @@
   },
   "T4_chiral_phase_pure_gauge": {
     "passed": true,
-    "max_eigenphase_dev_over_theta": 2.220446049250313e-16,
+    "max_eigenphase_dev_over_theta": 5.551115123125783e-17,
     "note": "rest eigenphase independent of chiral phase theta => only the magnitude m is physical (F27 T3/T4 at k=0)"
   },
   "T5_one_generator_slope_and_intercept": {
@@ -40,7 +40,7 @@
   },
   "T6_magnitude_free_scope": {
     "passed": true,
-    "max_unitarity_residual_over_m": 2.2324442447954334e-16,
+    "max_unitarity_residual_over_m": 4.440892098500626e-16,
     "derived": "mass exists, is unique, is the zero-k rotation rate (T1-T5)",
     "open": "the VALUE of m (overall scale) \u2014 F119 no-go; shape via F120/F121",
     "note": "structural half of G1 closed; magnitude half remains open, now sharply separated"

@@ -1,0 +1,8 @@
+{
+  "build": "NB-065/NB-066",
+  "xy_in_terms_of_xp_yp": "(x' - y')*(x' + y')/2",
+  "H_pullback_expanded": "-omega**2*x'**2*psi(x', y')/2 + omega**2*y'**2*psi(x', y')/2 - Derivative(psi(x', y'), (x', 2))/2 + Derivative(psi(x', y'), (y', 2))/2",
+  "matches_this_reconstructions_hand_derivation": true,
+  "matches_notebooks_own_stated_form_(line_1339)": false,
+  "conclusion": "The pullback gives EXACTLY [-(1/2)d^2/dx'^2 - (omega^2/2)x'^2]psi + [(1/2)d^2/dy'^2 + (omega^2/2)y'^2]psi -- i.e. a NEGATIVE harmonic-oscillator Hamiltonian in x' plus a POSITIVE one in y', matching this reconstruction's own hand-derivation exactly. This confirms the notebook's QUALITATIVE claim ('one is a positive harmonic oscillator; the other negative') exactly. The notebook's literal transcription at line 1339 has the opposite sign assignment (+omega^2/2 x'^2, -omega^2/2 y'^2) -- since the physics claim (one positive-signed HO, one negative-signed HO) holds either way, this is most likely just a x'<->y' labeling difference (or a transcription slip), not a physics error; the central point of the passage is confirmed."
+}

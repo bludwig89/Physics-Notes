@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "name": "K1 idealised H_W continuous SO(3) covariance (same rotor, sweep)",
+      "ok": true,
+      "value": 2.4650170333167535e-16
+    },
+    {
+      "name": "K2 shipped walk: covariance defect shrinks linearly in |k| for a GENERIC continuous rotation (decade ratio ~10, BOTH branches)",
+      "ok": true,
+      "value": {
+        "branch_plus": [
+          9.844300596410475,
+          9.984441921920425,
+          9.998444347405336
+        ],
+        "branch_minus": [
+          10.15534040458863,
+          10.015554533177628,
+          10.001555617173592
+        ]
+      }
+    },
+    {
+      "name": "K3 control: correct rotor exact, uncorrelated rotor fails at O(1)",
+      "ok": true,
+      "value": [
+        4.3885418357208765e-17,
+        0.5901367730965098
+      ]
+    }
+  ],
+  "passed": true,
+  "n_pass": 3,
+  "n_total": 3,
+  "params": {
+    "use_uncorrelated_rotor": false,
+    "n_axes": 8
+  },
+  "summary": {
+    "F379_idealized_worst_residual": 2.4650170333167535e-16,
+    "F379_idealized_n_checked": 280,
+    "F379_shipped_decade_relative_defects_plus": [
+      0.02870283286250617,
+      0.0029156802539097677,
+      0.0002920223560526216,
+      2.920677916544121e-05
+    ],
+    "F379_shipped_decade_ratios_plus": [
+      9.844300596410475,
+      9.984441921920425,
+      9.998444347405336
+    ],
+    "F379_shipped_decade_relative_defects_minus": [
+      0.02971226228132091,
+      0.002925777088466242,
+      0.0002921233246520982,
+      2.920778885141583e-05
+    ],
+    "F379_shipped_decade_ratios_minus": [
+      10.15534040458863,
+      10.015554533177628,
+      10.001555617173592
+    ],
+    "F379_control_correct_rotor": 4.3885418357208765e-17,
+    "F379_control_uncorrelated_rotor": 0.5901367730965098
+  }
+}

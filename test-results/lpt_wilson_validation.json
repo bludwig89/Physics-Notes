@@ -1,0 +1,41 @@
+{
+  "generated": "2026-09-29 14:58",
+  "Z0_published": 0.154933390231,
+  "rows": [
+    {
+      "n": 64,
+      "Z0": 0.1549162331643265,
+      "Z0_rel_dev": 0.00011073834147634631,
+      "sum_rule": 0.25,
+      "sum_rule_dev": 0.0,
+      "secs": 0.8
+    },
+    {
+      "n": 96,
+      "Z0": 0.15492576757292534,
+      "Z0_rel_dev": 4.919958224169907e-05,
+      "sum_rule": 0.25,
+      "sum_rule_dev": 0.0,
+      "secs": 4.1
+    },
+    {
+      "n": 128,
+      "Z0": 0.15492910301802199,
+      "Z0_rel_dev": 2.767133005754374e-05,
+      "sum_rule": 0.25,
+      "sum_rule_dev": 0.0,
+      "secs": 29.3
+    }
+  ],
+  "Z0_final": 0.15492910301802199,
+  "Z0_final_rel_dev": 2.767133005754374e-05,
+  "sum_rule_final": 0.25,
+  "lambda_ratio_context": {
+    "target_Lambda_MSbar_over_Lambda_L_SU3": 28.8086,
+    "ln_target": 3.360673953677587,
+    "tadpole_leg": "Z0 = 0.154933 (validated below) \u2014 the dominant, tadpole-improvement piece (Lepage-Mackenzie); the rest is the vertex+ghost finite constant (next increment)",
+    "rule_contrast": "the rule has Z0-leg = 0 exactly (F155-A0), so its Lambda-ratio is O(1) (target 1.78), not ~29",
+    "status": "INTEGRATION CORE + tadpole leg validated here; full 28.809 needs the vertex set (docs/design/qstar-gluon-d1-computation-plan.md)"
+  },
+  "verdict": "BZ-integration core validated at production resolution on the canonical Wilson integrals (tadpole Z0 + exact sum rule). This is the reusable machinery for the rule's q* d1 integral. The vertex+ghost finite part (the 28.809 completion / the rule's d1) is the next module, per the design doc."
+}
